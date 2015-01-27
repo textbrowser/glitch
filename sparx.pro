@@ -8,11 +8,12 @@ TEMPLATE	= app
 
 QMAKE_CLEAN	+= SparX
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -Os -Wall -Wcast-align -Wcast-qual -Werror -Wextra \
-			  -Woverloaded-virtual \
-			  -Wpointer-arith -Wstrict-overflow=5 \
-			  -Wstack-protector -fPIE -fstack-protector-all \
-			  -fwrapv -mtune=generic -pie
+QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
+                          -mtune=generic -pie -O3 \
+                          -Wall -Wcast-align -Wcast-qual \
+                          -Werror -Wextra \
+                          -Woverloaded-virtual -Wpointer-arith \
+                          -Wstack-protector -Wstrict-overflow=5
 QMAKE_EXTRA_TARGETS = purge
 QMAKE_STRIP	= echo
 
