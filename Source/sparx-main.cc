@@ -30,6 +30,7 @@
 
 #include "sparx-common.h"
 #include "sparx-misc.h"
+#include "sparx-ui.h"
 
 int main(int argc, char *argv[])
 {
@@ -52,5 +53,7 @@ int main(int argc, char *argv[])
   QSettings::setPath(QSettings::IniFormat, QSettings::UserScope,
                      sparx_misc::homePath());
   QSettings::setDefaultFormat(QSettings::IniFormat);
+
+  sparx_ui ui;
   return qapplication.exec();
 }

@@ -30,9 +30,23 @@
 sparx_ui::sparx_ui(void):QMainWindow(0)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_Quit,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotQuit(void)));
   show();
 }
 
 sparx_ui::~sparx_ui()
 {
+}
+
+void sparx_ui::slotQuit(void)
+{
+  close();
+}
+
+void sparx_ui::closeEvent(QCloseEvent *event)
+{
+  QMainWindow::closeEvent(event);
 }

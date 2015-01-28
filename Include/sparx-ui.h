@@ -34,12 +34,20 @@
 
 class sparx_ui: public QMainWindow
 {
+  Q_OBJECT
+
  public:
   sparx_ui(void);
   ~sparx_ui();
 
  private:
   Ui_main m_ui;
+
+ private slots:
+  void slotQuit(void);
+
+ protected:
+  void closeEvent(QCloseEvent *event);
 };
 
 #endif
