@@ -22,13 +22,16 @@ INCLUDEPATH	+= Include
 LIBS		+=
 RESOURCES	=
 
-FORMS           =
+FORMS           = UI/main.ui
 
 UI_HEADERS_DIR  = Include
 
-HEADERS		=
+HEADERS		= Include/sparx-misc.h \
+                  Include/sparx-ui.h
 
-SOURCES		=
+SOURCES		= Source/sparx-main.cc \
+                  Source/sparx-misc.cc \
+                  Source/sparx-ui.cc
 
 TRANSLATIONS    =
 
