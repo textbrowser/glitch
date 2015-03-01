@@ -14,6 +14,7 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Werror -Wextra \
                           -Woverloaded-virtual -Wpointer-arith \
                           -Wstack-protector -Wstrict-overflow=5
+QMAKE_DISTCLEAN += -r temp
 QMAKE_EXTRA_TARGETS = purge
 QMAKE_STRIP	= echo
 
@@ -21,6 +22,11 @@ ICON		=
 INCLUDEPATH	+= Include
 LIBS		+=
 RESOURCES	=
+
+MOC_DIR = temp/moc
+OBJECTS_DIR = temp/obj
+RCC_DIR = temp/rcc
+UI_DIR = temp/ui
 
 FORMS           = UI/main.ui
 
