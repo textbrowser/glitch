@@ -42,6 +42,8 @@ class sparx_ui: public QMainWindow
 
  private:
   Ui_main m_ui;
+  void restoreSettings(void);
+  void saveSettings(void);
 
  private slots:
   void slotQuit(void);

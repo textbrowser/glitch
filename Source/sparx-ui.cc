@@ -25,6 +25,8 @@
 ** SPARX, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSettings>
+
 #include "sparx-ui.h"
 
 sparx_ui::sparx_ui(void):QMainWindow(0)
@@ -34,11 +36,20 @@ sparx_ui::sparx_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotQuit(void)));
+  restoreSettings();
   show();
 }
 
 sparx_ui::~sparx_ui()
 {
+}
+
+void sparx_ui::restoreSettings(void)
+{
+  QSettings settings;
+
+  m_ui.splitter->restoreState
+    (settings.value("main_window/splitter").toByteArray());
 }
 
 void sparx_ui::slotQuit(void)
@@ -48,5 +59,13 @@ void sparx_ui::slotQuit(void)
 
 void sparx_ui::closeEvent(QCloseEvent *event)
 {
+  saveSettings();
   QMainWindow::closeEvent(event);
+}
+
+void sparx_ui::saveSettings(void)
+{
+  QSettings settings;
+
+  settings.setValue("main_window/splitter", m_ui.splitter->saveState());
 }
