@@ -11,9 +11,9 @@
 **    notice, this list of conditions and the following disclaimer in the
 **    documentation and/or other materials provided with the distribution.
 ** 3. The name of the author may not be used to endorse or promote products
-**    derived from SparX without specific prior written permission.
+**    derived from GlowBot without specific prior written permission.
 **
-** SPARX IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+** GLOWBOT IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 ** IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 ** OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 ** IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -22,38 +22,12 @@
 ** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 ** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-** SPARX, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QSettings>
+#ifndef GLOWBOT_COMMON
+#define GLOWBOT_COMMON
 
-#include "sparx-common.h"
-#include "sparx-misc.h"
-#include "sparx-ui.h"
+#define GLOWBOT_VERSION_STR "1.00"
 
-int main(int argc, char *argv[])
-{
-  QApplication qapplication(argc, argv);
-
-#ifdef Q_OS_MAC
-#if QT_VERSION >= 0x050000
-  /*
-  ** Eliminate pool errors on OS X.
-  */
-
-  CocoaInitializer ci;
 #endif
-#endif
-
-  QCoreApplication::setApplicationName("SparX");
-  QCoreApplication::setOrganizationName("SparX");
-  QCoreApplication::setOrganizationDomain("sparx.sf.net");
-  QCoreApplication::setApplicationVersion(SPARX_VERSION_STR);
-  QSettings::setPath(QSettings::IniFormat, QSettings::UserScope,
-                     sparx_misc::homePath());
-  QSettings::setDefaultFormat(QSettings::IniFormat);
-
-  sparx_ui ui;
-  return qapplication.exec();
-}

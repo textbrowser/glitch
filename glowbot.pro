@@ -6,7 +6,7 @@ LANGUAGE	= C++
 QT		+= gui sql
 TEMPLATE	= app
 
-QMAKE_CLEAN	+= SparX
+QMAKE_CLEAN	+= GlowBot
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -mtune=generic -pie -O3 \
@@ -28,18 +28,18 @@ OBJECTS_DIR = temp/obj
 RCC_DIR = temp/rcc
 UI_DIR = temp/ui
 
-FORMS           = UI/main.ui
+FORMS           = UI/glowbot-mainwindow.ui
 
 UI_HEADERS_DIR  = Include
 
-HEADERS		= Include/sparx-misc.h \
-                  Include/sparx-ui.h
+HEADERS		= Include/glowbot-misc.h \
+                  Include/glowbot-ui.h
 
-SOURCES		= Source/sparx-main.cc \
-                  Source/sparx-misc.cc \
-                  Source/sparx-ui.cc
+SOURCES		= Source/glowbot-main.cc \
+                  Source/glowbot-misc.cc \
+                  Source/glowbot-ui.cc
 
 TRANSLATIONS    =
 
-PROJECTNAME	= SparX
-TARGET		= SparX
+PROJECTNAME	= GlowBot
+TARGET		= GlowBot

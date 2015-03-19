@@ -11,9 +11,9 @@
 **    notice, this list of conditions and the following disclaimer in the
 **    documentation and/or other materials provided with the distribution.
 ** 3. The name of the author may not be used to endorse or promote products
-**    derived from SparX without specific prior written permission.
+**    derived from GlowBot without specific prior written permission.
 **
-** SPARX IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+** GLOWBOT IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 ** IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 ** OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 ** IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -22,22 +22,22 @@
 ** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 ** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-** SPARX, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <QDir>
 
-#include "sparx-misc.h"
+#include "glowbot-misc.h"
 
-QString sparx_misc::homePath(void)
+QString glowbot_misc::homePath(void)
 {
-  QByteArray homepath(qgetenv("SPARX_HOME"));
+  QByteArray homepath(qgetenv("GLOWBOT_HOME"));
 
   if(homepath.isEmpty())
 #ifdef Q_OS_WIN32
-    return QDir::currentPath() + QDir::separator() + ".sparx";
+    return QDir::currentPath() + QDir::separator() + ".glowbot";
 #else
-    return QDir::homePath() + QDir::separator() + ".sparx";
+    return QDir::homePath() + QDir::separator() + ".glowbot";
 #endif
   else
     return homepath.constData();

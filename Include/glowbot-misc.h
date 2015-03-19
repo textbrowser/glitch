@@ -11,9 +11,9 @@
 **    notice, this list of conditions and the following disclaimer in the
 **    documentation and/or other materials provided with the distribution.
 ** 3. The name of the author may not be used to endorse or promote products
-**    derived from SparX without specific prior written permission.
+**    derived from GlowBot without specific prior written permission.
 **
-** SPARX IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+** GLOWBOT IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 ** IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 ** OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 ** IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -22,21 +22,21 @@
 ** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 ** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-** SPARX, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SPARX_MISC
-#define SPARX_MISC
+#ifndef GLOWBOT_MISC
+#define GLOWBOT_MISC
 
 #include <QString>
 
-class sparx_misc
+class glowbot_misc
 {
  public:
   static QString homePath(void);
 
  private:
-  sparx_misc(void);
+  glowbot_misc(void);
 };
 
 #endif

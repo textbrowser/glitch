@@ -11,9 +11,9 @@
 **    notice, this list of conditions and the following disclaimer in the
 **    documentation and/or other materials provided with the distribution.
 ** 3. The name of the author may not be used to endorse or promote products
-**    derived from SparX without specific prior written permission.
+**    derived from GlowBot without specific prior written permission.
 **
-** SPARX IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+** GLOWBOT IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 ** IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 ** OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
 ** IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -22,50 +22,34 @@
 ** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 ** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-** SPARX, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QSettings>
+#ifndef GLOWBOT_UI
+#define GLOWBOT_UI
 
-#include "sparx-ui.h"
+#include <QMainWindow>
 
-sparx_ui::sparx_ui(void):QMainWindow(0)
+#include "ui_glowbot-mainwindow.h"
+
+class glowbot_ui: public QMainWindow
 {
-  m_ui.setupUi(this);
-  connect(m_ui.action_Quit,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotQuit(void)));
-  restoreSettings();
-  show();
-}
+  Q_OBJECT
 
-sparx_ui::~sparx_ui()
-{
-}
+ public:
+  glowbot_ui(void);
+  ~glowbot_ui();
 
-void sparx_ui::restoreSettings(void)
-{
-  QSettings settings;
+ private:
+  Ui_glowbot_mainwindow m_ui;
+  void restoreSettings(void);
+  void saveSettings(void);
 
-  m_ui.splitter->restoreState
-    (settings.value("main_window/splitter").toByteArray());
-}
+ private slots:
+  void slotQuit(void);
 
-void sparx_ui::slotQuit(void)
-{
-  close();
-}
+ protected:
+  void closeEvent(QCloseEvent *event);
+};
 
-void sparx_ui::closeEvent(QCloseEvent *event)
-{
-  saveSettings();
-  QMainWindow::closeEvent(event);
-}
-
-void sparx_ui::saveSettings(void)
-{
-  QSettings settings;
-
-  settings.setValue("main_window/splitter", m_ui.splitter->saveState());
-}
+#endif
