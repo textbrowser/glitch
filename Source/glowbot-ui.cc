@@ -46,10 +46,6 @@ glowbot_ui::~glowbot_ui()
 
 void glowbot_ui::restoreSettings(void)
 {
-  QSettings settings;
-
-  m_ui.splitter->restoreState
-    (settings.value("main_window/splitter").toByteArray());
 }
 
 void glowbot_ui::slotQuit(void)
@@ -65,7 +61,4 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
 
 void glowbot_ui::saveSettings(void)
 {
-  QSettings settings;
-
-  settings.setValue("main_window/splitter", m_ui.splitter->saveState());
 }

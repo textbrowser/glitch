@@ -16,43 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <widget class="QWidget" name="layoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Widgets</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QListWidget" name="widgets"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGraphicsView" name="arena"/>
-     </widget>
+     <widget class="QTabWidget" name="tabWidget"/>
     </item>
    </layout>
   </widget>
@@ -69,7 +33,13 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="action_New_Diagram"/>
+    <widget class="QMenu" name="menu_New_Diagram">
+     <property name="title">
+      <string>&amp;New Diagram</string>
+     </property>
+     <addaction name="action_Arduino"/>
+    </widget>
+    <addaction name="menu_New_Diagram"/>
     <addaction name="action_Open_Diagram"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
@@ -88,14 +58,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <action name="action_New_Diagram">
-   <property name="text">
-    <string>&amp;New Diagram</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+N</string>
-   </property>
-  </action>
   <action name="action_Open_Diagram">
    <property name="text">
     <string>&amp;Open Diagram</string>
@@ -112,11 +74,12 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
+  <action name="action_Arduino">
+   <property name="text">
+    <string>&amp;Arduino</string>
+   </property>
+  </action>
  </widget>
- <tabstops>
-  <tabstop>widgets</tabstop>
-  <tabstop>arena</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
