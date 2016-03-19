@@ -36,8 +36,6 @@ UI_DIR = temp/ui
 
 FORMS           = UI/glowbot-mainwindow.ui
 
-UI_HEADERS_DIR  = Include
-
 HEADERS		= Source/glowbot-misc.h \
                   Source/glowbot-ui.h
 
