@@ -42,14 +42,13 @@ class glowbot_ui: public QMainWindow
 
  private:
   Ui_glowbot_mainwindow m_ui;
+  void closeEvent(QCloseEvent *event);
   void restoreSettings(void);
   void saveSettings(void);
 
  private slots:
+  void slotNewArduinoDiagram(void);
   void slotQuit(void);
-
- protected:
-  void closeEvent(QCloseEvent *event);
 };
 
 #endif

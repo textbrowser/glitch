@@ -43,7 +43,7 @@ HEADERS		= Source/glowbot-misc.h \
 
 SOURCES		= Source/glowbot-main.cc \
                   Source/glowbot-misc.cc \
-                  Source/glowbot-ui.cc
+                  Source/glowbot-ui-a.cc
 
 TRANSLATIONS    =
 

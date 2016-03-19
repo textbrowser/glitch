@@ -37,7 +37,7 @@
      <property name="title">
       <string>&amp;New Diagram</string>
      </property>
-     <addaction name="action_Arduino"/>
+     <addaction name="action_New_Arduino"/>
     </widget>
     <addaction name="menu_New_Diagram"/>
     <addaction name="action_Open_Diagram"/>
@@ -74,7 +74,7 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="action_Arduino">
+  <action name="action_New_Arduino">
    <property name="text">
     <string>&amp;Arduino</string>
    </property>

@@ -32,6 +32,10 @@
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_New_Arduino,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotNewArduinoDiagram(void)));
   connect(m_ui.action_Quit,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -44,21 +48,25 @@ glowbot_ui::~glowbot_ui()
 {
 }
 
-void glowbot_ui::restoreSettings(void)
-{
-}
-
-void glowbot_ui::slotQuit(void)
-{
-  close();
-}
-
 void glowbot_ui::closeEvent(QCloseEvent *event)
 {
   saveSettings();
   QMainWindow::closeEvent(event);
 }
 
+void glowbot_ui::restoreSettings(void)
+{
+}
+
 void glowbot_ui::saveSettings(void)
 {
+}
+
+void glowbot_ui::slotNewArduinoDiagram(void)
+{
+}
+
+void glowbot_ui::slotQuit(void)
+{
+  close();
 }
