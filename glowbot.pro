@@ -19,7 +19,7 @@ QMAKE_EXTRA_TARGETS = purge
 QMAKE_STRIP	= echo
 
 ICON		=
-INCLUDEPATH	+= Include
+INCLUDEPATH	+= Source
 LIBS		+=
 RESOURCES	=
 
@@ -32,8 +32,8 @@ FORMS           = UI/glowbot-mainwindow.ui
 
 UI_HEADERS_DIR  = Include
 
-HEADERS		= Include/glowbot-misc.h \
-                  Include/glowbot-ui.h
+HEADERS		= Source/glowbot-misc.h \
+                  Source/glowbot-ui.h
 
 SOURCES		= Source/glowbot-main.cc \
                   Source/glowbot-misc.cc \
