@@ -4,6 +4,12 @@ CONFIG		+= qt release thread warn_on
 DEFINES		+=
 LANGUAGE	= C++
 QT		+= gui sql
+
+greaterThan(QT_VERSION, 4)
+{
+QT += widgets
+}
+
 TEMPLATE	= app
 
 QMAKE_CLEAN	+= GlowBot
