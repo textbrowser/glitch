@@ -34,6 +34,8 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  setModal(false);
+  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
 }
 
 glowbot_canvas_settings::~glowbot_canvas_settings()
