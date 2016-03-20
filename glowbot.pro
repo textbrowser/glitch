@@ -38,12 +38,14 @@ FORMS           = UI\\glowbot-mainwindow.ui
 
 HEADERS		= Source\\glowbot-misc.h \
 		  Source\\glowbot-scene.h \
-                  Source\\glowbot-ui.h
+                  Source\\glowbot-ui.h \
+                  Source\\glowbot-view.h
 
 SOURCES		= Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-scene.cc \
-                  Source\\glowbot-ui-a.cc
+                  Source\\glowbot-ui-a.cc \
+                  Source\\glowbot-view.cc
 
 TRANSLATIONS    =
 
