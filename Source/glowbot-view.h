@@ -30,6 +30,8 @@
 
 #include <QGraphicsView>
 
+class glowbot_scene;
+
 class glowbot_view: public QGraphicsView
 {
   Q_OBJECT
@@ -37,6 +39,9 @@ class glowbot_view: public QGraphicsView
  public:
   glowbot_view(QWidget *parent);
   ~glowbot_view();
+
+ private:
+  glowbot_scene *m_scene;
 };
 
 #endif

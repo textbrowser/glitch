@@ -28,6 +28,7 @@
 #include <QSettings>
 
 #include "glowbot-ui.h"
+#include "glowbot-view.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
@@ -64,6 +65,9 @@ void glowbot_ui::saveSettings(void)
 
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
+  glowbot_view *page = new glowbot_view(this);
+
+  m_ui.tab->addTab(page, tr("Arduino Diagram"));
 }
 
 void glowbot_ui::slotQuit(void)

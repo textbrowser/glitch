@@ -25,10 +25,15 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glowbot-scene.h"
 #include "glowbot-view.h"
 
 glowbot_view::glowbot_view(QWidget *parent):QGraphicsView(parent)
 {
+  m_scene = new glowbot_scene(this);
+  setDragMode(QGraphicsView::RubberBandDrag);
+  setRubberBandSelectionMode(Qt::IntersectsItemShape);
+  setScene(m_scene);
 }
 
 glowbot_view::~glowbot_view()
