@@ -44,6 +44,10 @@ class glowbot_view: public QGraphicsView
  private:
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_scene *m_scene;
+
+ private slots:
+  void slotCustomContextMenuRequested(const QPoint &point);
+  void slotShowCanvasSettings(void);
 };
 
 #endif

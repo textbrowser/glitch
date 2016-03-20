@@ -25,6 +25,7 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMenu>
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 
@@ -33,11 +34,31 @@ glowbot_view::glowbot_view(QWidget *parent):QGraphicsView(parent)
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_scene = new glowbot_scene(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  setContextMenuPolicy(Qt::CustomContextMenu);
   setDragMode(QGraphicsView::RubberBandDrag);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
+  connect(this,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 }
 
 glowbot_view::~glowbot_view()
 {
+}
+
+void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
+{
+  QMenu menu(this);
+
+  menu.addAction("Show Canvas &Settings...",
+		 this,
+		 SLOT(slotShowCanvasSettings(void)));
+  menu.exec(mapToGlobal(point));
+}
+
+void glowbot_view::slotShowCanvasSettings(void)
+{
+  m_canvasSettings->show();
 }
