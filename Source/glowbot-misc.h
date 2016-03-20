@@ -25,8 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef GLOWBOT_MISC
-#define GLOWBOT_MISC
+#ifndef _glowbot_misc_h_
+#define _glowbot_misc_h_
 
 #include <QString>
 

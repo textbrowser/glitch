@@ -25,30 +25,12 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_ui_h_
-#define _glowbot_ui_h_
+#include "glowbot-scene.h"
 
-#include <QMainWindow>
-
-#include "ui_glowbot-mainwindow.h"
-
-class glowbot_ui: public QMainWindow
+glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_ui(void);
-  ~glowbot_ui();
-
- private:
-  Ui_glowbot_mainwindow m_ui;
-  void closeEvent(QCloseEvent *event);
-  void restoreSettings(void);
-  void saveSettings(void);
-
- private slots:
-  void slotNewArduinoDiagram(void);
-  void slotQuit(void);
-};
-
-#endif
+glowbot_scene::~glowbot_scene()
+{
+}

@@ -25,8 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef GLOWBOT_COMMON
-#define GLOWBOT_COMMON
+#ifndef _glowbot_common_h_
+#define _glowbot_common_h_
 
 #define GLOWBOT_VERSION_STR "1.00"
 

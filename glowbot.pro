@@ -34,14 +34,16 @@ OBJECTS_DIR = temp/obj
 RCC_DIR = temp/rcc
 UI_DIR = temp/ui
 
-FORMS           = UI/glowbot-mainwindow.ui
+FORMS           = UI\\glowbot-mainwindow.ui
 
-HEADERS		= Source/glowbot-misc.h \
-                  Source/glowbot-ui.h
+HEADERS		= Source\\glowbot-misc.h \
+		  Source\\glowbot-scene.h \
+                  Source\\glowbot-ui.h
 
-SOURCES		= Source/glowbot-main.cc \
-                  Source/glowbot-misc.cc \
-                  Source/glowbot-ui-a.cc
+SOURCES		= Source\\glowbot-main.cc \
+                  Source\\glowbot-misc.cc \
+		  Source\\glowbot-scene.cc \
+                  Source\\glowbot-ui-a.cc
 
 TRANSLATIONS    =
 
