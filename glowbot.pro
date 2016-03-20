@@ -37,12 +37,14 @@ UI_DIR = temp/ui
 FORMS           = UI\\glowbot-canvas-settings.ui \
 		  UI\\glowbot-mainwindow.ui
 
-HEADERS		= Source\\glowbot-misc.h \
+HEADERS		= Source\\glowbot-canvas-settings.h \
+                  Source\\glowbot-misc.h \
 		  Source\\glowbot-scene.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-view.h
 
-SOURCES		= Source\\glowbot-main.cc \
+SOURCES		= Source\\glowbot-canvas-settings.cc \
+                  Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-scene.cc \
                   Source\\glowbot-ui-a.cc \

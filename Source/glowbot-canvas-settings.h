@@ -25,18 +25,23 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glowbot-scene.h"
-#include "glowbot-view.h"
+#ifndef _glowbot_canvas_settings_h_
+#define _glowbot_canvas_settings_h_
 
-glowbot_view::glowbot_view(QWidget *parent):QGraphicsView(parent)
-{
-  m_canvasSettings = new glowbot_canvas_settings(this);
-  m_scene = new glowbot_scene(this);
-  setDragMode(QGraphicsView::RubberBandDrag);
-  setRubberBandSelectionMode(Qt::IntersectsItemShape);
-  setScene(m_scene);
-}
+#include <QDialog>
 
-glowbot_view::~glowbot_view()
+#include "ui_glowbot-canvas-settings.h"
+
+class glowbot_canvas_settings: public QDialog
 {
-}
+  Q_OBJECT
+
+ public:
+  glowbot_canvas_settings(QWidget *parent);
+  ~glowbot_canvas_settings();
+
+ private:
+  Ui_glowbot_canvas_settings m_ui;
+};
+
+#endif

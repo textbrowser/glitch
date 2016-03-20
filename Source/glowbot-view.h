@@ -29,6 +29,7 @@
 #define _glowbot_view_h_
 
 #include <QGraphicsView>
+#include "glowbot-canvas-settings.h"
 
 class glowbot_scene;
 
@@ -41,6 +42,7 @@ class glowbot_view: public QGraphicsView
   ~glowbot_view();
 
  private:
+  glowbot_canvas_settings *m_canvasSettings;
   glowbot_scene *m_scene;
 };
 
