@@ -32,6 +32,7 @@ glowbot_view::glowbot_view(QWidget *parent):QGraphicsView(parent)
 {
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_scene = new glowbot_scene(this);
+  setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
