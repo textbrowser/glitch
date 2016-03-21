@@ -26,6 +26,7 @@
 */
 
 #include "glowbot-common.h"
+#include "glowbot-misc.h"
 
 quint64 glowbot_common::s_dbId = 0;
 
@@ -39,7 +40,7 @@ QSqlDatabase glowbot_common::sqliteDatabase(void)
   return db;
 }
 
-void glowbot_common::discardDatabase(const QSqlDatabase &db)
+void glowbot_common::discardDatabase(const QString &connectionName)
 {
-  QSqlDatabase::removeDatabase(db.connectionName());
+  QSqlDatabase::removeDatabase(connectionName);
 }

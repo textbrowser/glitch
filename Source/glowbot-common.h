@@ -35,8 +35,8 @@
 class glowbot_common
 {
  public:
-  QSqlDatabase sqliteDatabase(void);
-  void discardDatabase(const QSqlDatabase &db);
+  static QSqlDatabase sqliteDatabase(void);
+  static void discardDatabase(const QString &connectioName);
 
  private:
   glowbot_common(void);

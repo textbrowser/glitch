@@ -29,6 +29,7 @@
 #define _glowbot_misc_h_
 
 #include <QString>
+#include <QtDebug>
 
 class glowbot_misc
 {

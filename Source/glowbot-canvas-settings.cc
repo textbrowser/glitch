@@ -25,9 +25,14 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDir>
 #include <QSettings>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
 #include "glowbot-canvas-settings.h"
+#include "glowbot-common.h"
+#include "glowbot-misc.h"
 #include "glowbot-view.h"
 
 glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
@@ -46,6 +51,30 @@ glowbot_canvas_settings::~glowbot_canvas_settings()
 {
 }
 
+void glowbot_canvas_settings::accept(void)
+{
+  save();
+  QDialog::accept();
+}
+
 void glowbot_canvas_settings::save(void) const
 {
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName
+      (glowbot_misc::homePath() + QDir::separator() + "canvas-settings.db");
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
 }
