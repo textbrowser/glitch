@@ -96,7 +96,6 @@ void glowbot_canvas_settings::save(void) const
 	query.bindValue
 	  (3, m_ui.update_mode->currentText().toLower().replace(' ', '_'));
 	query.exec();
-	qDebug()<<query.lastError();
       }
 
     db.close();
