@@ -71,6 +71,17 @@ void glowbot_canvas_settings::save(void) const
     if(db.open())
       {
 	QSqlQuery query(db);
+
+	query.exec
+	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
+	   "background_color TEXT NOT NULL, "
+	   "name TEXT NOT NULL PRIMARY KEY, "
+	   "type TEXT NOT NULL CHECK "
+	   "(type IN ('arduino')), "
+	   "update_mode TEXT NOT NULL CHECK "
+	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
+	   "'smart'))"
+	   ")");
       }
 
     db.close();
