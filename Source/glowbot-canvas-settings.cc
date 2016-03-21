@@ -34,6 +34,10 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.background_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").
+     arg(QColor(211, 211, 211).name()));
+  m_ui.background_color->setText(QColor(211, 211, 211).name());
   setModal(false);
   setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
 }
