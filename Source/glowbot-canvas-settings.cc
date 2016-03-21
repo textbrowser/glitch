@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QSettings>
 #include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
 
 #include "glowbot-canvas-settings.h"
@@ -76,16 +77,35 @@ void glowbot_canvas_settings::save(void) const
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
-	   "type TEXT NOT NULL CHECK "
-	   "(type IN ('arduino')), "
+	   "project_type TEXT NOT NULL CHECK "
+	   "(project_type IN ('Arduino')), "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart'))"
 	   ")");
+	query.prepare
+	  ("INSERT OR REPLACE INTO canvas_settings "
+	   "(background_color, "
+	   "name, "
+	   "project_type, "
+	   "update_mode) "
+	   "VALUES (?, ?, ?, ?)");
+	query.bindValue(0, m_ui.background_color->text());
+	query.bindValue(1, m_ui.name->text());
+	query.bindValue(2, m_ui.project_type->currentText());
+	query.bindValue
+	  (3, m_ui.update_mode->currentText().toLower().replace(' ', '_'));
+	query.exec();
+	qDebug()<<query.lastError();
       }
 
     db.close();
   }
 
   glowbot_common::discardDatabase(connectionName);
+}
+
+void glowbot_canvas_settings::setName(const QString &name)
+{
+  m_ui.name->setText(name);
 }

@@ -29,10 +29,15 @@
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 
-glowbot_view::glowbot_view(QWidget *parent):QGraphicsView(parent)
+glowbot_view::glowbot_view
+(const QString &name,
+ const glowbot_common::ProjectType type,
+ QWidget *parent):QGraphicsView(parent)
 {
   m_canvasSettings = new glowbot_canvas_settings(this);
+  m_name = name;
   m_scene = new glowbot_scene(this);
+  m_type = type;
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setContextMenuPolicy(Qt::CustomContextMenu);
   setDragMode(QGraphicsView::RubberBandDrag);
@@ -60,5 +65,6 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 
 void glowbot_view::slotShowCanvasSettings(void)
 {
+  m_canvasSettings->setName(m_name);
   m_canvasSettings->show();
 }

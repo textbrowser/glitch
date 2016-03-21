@@ -71,7 +71,8 @@ void glowbot_ui::saveSettings(void)
 
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
-  glowbot_view *page = new glowbot_view(this);
+  glowbot_view *page = new glowbot_view
+    (tr("Arduino Diagram"), glowbot_common::ArduinoProject, this);
 
   m_ui.tab->addTab(page, tr("Arduino Diagram"));
 }

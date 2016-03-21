@@ -35,6 +35,11 @@
 class glowbot_common
 {
  public:
+  enum ProjectType
+  {
+    ArduinoProject = 0
+  };
+
   static QSqlDatabase sqliteDatabase(void);
   static void discardDatabase(const QString &connectioName);
 

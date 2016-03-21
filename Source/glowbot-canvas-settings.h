@@ -39,6 +39,7 @@ class glowbot_canvas_settings: public QDialog
  public:
   glowbot_canvas_settings(QWidget *parent);
   ~glowbot_canvas_settings();
+  void setName(const QString &name);
 
  private:
   Ui_glowbot_canvas_settings m_ui;

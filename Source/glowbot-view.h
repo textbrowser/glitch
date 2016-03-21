@@ -30,6 +30,7 @@
 
 #include <QGraphicsView>
 #include "glowbot-canvas-settings.h"
+#include "glowbot-common.h"
 
 class glowbot_scene;
 
@@ -38,11 +39,15 @@ class glowbot_view: public QGraphicsView
   Q_OBJECT
 
  public:
-  glowbot_view(QWidget *parent);
+  glowbot_view(const QString &name,
+	       const glowbot_common::ProjectType type,
+	       QWidget *parent);
   ~glowbot_view();
 
  private:
+  QString m_name;
   glowbot_canvas_settings *m_canvasSettings;
+  glowbot_common::ProjectType m_type;
   glowbot_scene *m_scene;
 
  private slots:
