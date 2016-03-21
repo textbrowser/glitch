@@ -45,3 +45,7 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
 glowbot_canvas_settings::~glowbot_canvas_settings()
 {
 }
+
+void glowbot_canvas_settings::save(void) const
+{
+}

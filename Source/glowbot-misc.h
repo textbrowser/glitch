@@ -37,6 +37,7 @@ class glowbot_misc
 
  private:
   glowbot_misc(void);
+  ~glowbot_misc();
 };
 
 #endif

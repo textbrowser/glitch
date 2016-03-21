@@ -25,23 +25,21 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_common_h_
-#define _glowbot_common_h_
+#include "glowbot-common.h"
 
-#include <QSqlDatabase>
+quint64 glowbot_common::s_dbId = 0;
 
-#define GLOWBOT_VERSION_STR "1.00"
-
-class glowbot_common
+QSqlDatabase glowbot_common::sqliteDatabase(void)
 {
- public:
-  QSqlDatabase sqliteDatabase(void);
-  void discardDatabase(const QSqlDatabase &db);
+  QSqlDatabase db;
 
- private:
-  glowbot_common(void);
-  ~glowbot_common(void);
-  static quint64 s_dbId;
-};
+  s_dbId += 1;
+  db = QSqlDatabase::addDatabase
+    ("QSQLITE", QString("glowbot_database_%1_%2").arg(qrand()).arg(s_dbId));
+  return db;
+}
 
-#endif
+void glowbot_common::discardDatabase(const QSqlDatabase &db)
+{
+  QSqlDatabase::removeDatabase(db.connectionName());
+}

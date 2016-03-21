@@ -44,6 +44,7 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
                   Source\\glowbot-view.h
 
 SOURCES		= Source\\glowbot-canvas-settings.cc \
+		  Source\\glowbot-common.cc \
                   Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-scene.cc \

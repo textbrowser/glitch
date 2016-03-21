@@ -42,6 +42,7 @@ class glowbot_canvas_settings: public QDialog
 
  private:
   Ui_glowbot_canvas_settings m_ui;
+  void save(void) const;
 };
 
 #endif
