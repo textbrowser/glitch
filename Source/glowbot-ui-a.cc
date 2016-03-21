@@ -57,10 +57,16 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
 
 void glowbot_ui::restoreSettings(void)
 {
+  QSettings settings;
+
+  restoreGeometry(settings.value("main_window/geometry").toByteArray());
 }
 
 void glowbot_ui::saveSettings(void)
 {
+  QSettings settings;
+
+  settings.setValue("main_window/geometry", saveGeometry());
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
