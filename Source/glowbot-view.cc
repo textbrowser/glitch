@@ -31,13 +31,13 @@
 
 glowbot_view::glowbot_view
 (const QString &name,
- const glowbot_common::ProjectType type,
+ const glowbot_common::ProjectType projectType,
  QWidget *parent):QGraphicsView(parent)
 {
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_name = name;
+  m_projectType = projectType;
   m_scene = new glowbot_scene(this);
-  m_type = type;
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setContextMenuPolicy(Qt::CustomContextMenu);
   setDragMode(QGraphicsView::RubberBandDrag);

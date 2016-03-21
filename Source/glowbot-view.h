@@ -40,14 +40,14 @@ class glowbot_view: public QGraphicsView
 
  public:
   glowbot_view(const QString &name,
-	       const glowbot_common::ProjectType type,
+	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
   ~glowbot_view();
 
  private:
   QString m_name;
   glowbot_canvas_settings *m_canvasSettings;
-  glowbot_common::ProjectType m_type;
+  glowbot_common::ProjectType m_projectType;
   glowbot_scene *m_scene;
 
  private slots:
