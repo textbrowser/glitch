@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QMessageBox>
 
 #include "glowbot-misc.h"
 
@@ -41,4 +42,10 @@ QString glowbot_misc::homePath(void)
 #endif
   else
     return homepath.constData();
+}
+
+void glowbot_misc::showErrorDialog(const QString &text,
+				   QWidget *parent)
+{
+  QMessageBox::critical(parent, QObject::tr("GlowBot: Error"), text);
 }

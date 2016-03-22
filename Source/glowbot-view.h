@@ -29,6 +29,7 @@
 #define _glowbot_view_h_
 
 #include <QGraphicsView>
+
 #include "glowbot-canvas-settings.h"
 #include "glowbot-common.h"
 

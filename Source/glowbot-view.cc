@@ -26,6 +26,7 @@
 */
 
 #include <QMenu>
+
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 

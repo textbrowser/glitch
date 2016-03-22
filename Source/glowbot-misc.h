@@ -35,6 +35,7 @@ class glowbot_misc
 {
  public:
   static QString homePath(void);
+  static void showErrorDialog(const QString &text, QWidget *parent);
 
  private:
   glowbot_misc(void);

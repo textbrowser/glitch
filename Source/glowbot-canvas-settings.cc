@@ -110,6 +110,8 @@ void glowbot_canvas_settings::accept(void)
 
   if(save(error))
     QDialog::accept();
+  else
+    glowbot_misc::showErrorDialog(error, this);
 }
 
 void glowbot_canvas_settings::setName(const QString &name)
