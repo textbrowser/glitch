@@ -86,7 +86,14 @@ bool glowbot_canvas_settings::save(QString &error) const
 	   "update_mode) "
 	   "VALUES (?, ?, ?, ?)");
 	query.bindValue(0, m_ui.background_color->text());
-	query.bindValue(1, m_ui.name->text());
+
+	QString name(m_ui.name->text().trimmed());
+
+	if(name.isEmpty())
+	  query.bindValue(1, QVariant::String);
+	else
+	  query.bindValue(1, name);
+
 	query.bindValue(2, m_ui.project_type->currentText());
 	query.bindValue
 	  (3, m_ui.update_mode->currentText().toLower().replace(' ', '_'));
