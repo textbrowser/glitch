@@ -41,6 +41,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotQuit(void)));
+  connect(m_ui.tab,
+	  SIGNAL(tabCloseRequested(int)),
+	  this,
+	  SLOT(slotCloseDiagram(int)));
   restoreSettings();
   show();
 }
@@ -67,6 +71,14 @@ void glowbot_ui::saveSettings(void)
   QSettings settings;
 
   settings.setValue("main_window/geometry", saveGeometry());
+}
+
+void glowbot_ui::slotCloseDiagram(int index)
+{
+  glowbot_view *page = qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
+
+  if(page)
+    page->deleteLater();
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
