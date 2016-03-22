@@ -52,15 +52,10 @@ glowbot_canvas_settings::~glowbot_canvas_settings()
 {
 }
 
-void glowbot_canvas_settings::accept(void)
-{
-  save();
-  QDialog::accept();
-}
-
-void glowbot_canvas_settings::save(void) const
+bool glowbot_canvas_settings::save(QString &error) const
 {
   QString connectionName("");
+  bool ok = false;
 
   {
     QSqlDatabase db(glowbot_common::sqliteDatabase());
@@ -95,13 +90,26 @@ void glowbot_canvas_settings::save(void) const
 	query.bindValue(2, m_ui.project_type->currentText());
 	query.bindValue
 	  (3, m_ui.update_mode->currentText().toLower().replace(' ', '_'));
-	query.exec();
+
+	if(!(ok = query.exec()))
+	  error = query.lastError().text();
       }
+    else
+      db.lastError().text();
 
     db.close();
   }
 
   glowbot_common::discardDatabase(connectionName);
+  return ok;
+}
+
+void glowbot_canvas_settings::accept(void)
+{
+  QString error("");
+
+  if(save(error))
+    QDialog::accept();
 }
 
 void glowbot_canvas_settings::setName(const QString &name)
