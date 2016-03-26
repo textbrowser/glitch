@@ -54,6 +54,11 @@ glowbot_view::~glowbot_view()
 {
 }
 
+QString glowbot_view::name(void) const
+{
+  return m_name;
+}
+
 bool glowbot_view::save(void)
 {
   return true;
