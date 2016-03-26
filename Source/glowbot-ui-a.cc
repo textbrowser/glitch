@@ -27,6 +27,7 @@
 
 #include <QSettings>
 
+#include "glowbot-misc.h"
 #include "glowbot-ui.h"
 #include "glowbot-view.h"
 
