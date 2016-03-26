@@ -44,6 +44,7 @@ class glowbot_view: public QGraphicsView
 	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
   ~glowbot_view();
+  bool save(void);
 
  private:
   QString m_name;

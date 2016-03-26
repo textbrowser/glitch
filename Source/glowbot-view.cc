@@ -54,6 +54,11 @@ glowbot_view::~glowbot_view()
 {
 }
 
+bool glowbot_view::save(void)
+{
+  return true;
+}
+
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 {
   QMenu menu(this);

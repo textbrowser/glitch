@@ -42,6 +42,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotQuit(void)));
+  connect(m_ui.action_Save_Current_Diagram,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSaveCurrentDiagram(void)));
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -52,6 +56,11 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 
 glowbot_ui::~glowbot_ui()
 {
+}
+
+glowbot_view *glowbot_ui::page(const int index)
+{
+  return qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
 }
 
 void glowbot_ui::closeEvent(QCloseEvent *event)
@@ -76,7 +85,7 @@ void glowbot_ui::saveSettings(void)
 
 void glowbot_ui::slotCloseDiagram(int index)
 {
-  glowbot_view *page = qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
+  glowbot_view *page = this->page(index);
 
   if(page)
     page->deleteLater();
@@ -93,4 +102,12 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 void glowbot_ui::slotQuit(void)
 {
   close();
+}
+
+void glowbot_ui::slotSaveCurrentDiagram(void)
+{
+  glowbot_view *page = this->page(m_ui.tab->currentIndex());
+
+  if(page)
+    page->save();
 }
