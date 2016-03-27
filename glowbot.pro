@@ -34,6 +34,7 @@ RCC_DIR = temp/rcc
 UI_DIR = temp/ui
 
 FORMS           = UI\\glowbot-canvas-settings.ui \
+		  UI\\glowbot-open-diagram.ui \
 		  UI\\glowbot-mainwindow.ui
 
 HEADERS		= Source\\glowbot-canvas-settings.h \
