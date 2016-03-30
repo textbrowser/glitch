@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QInputDialog>
 #include <QMessageBox>
@@ -42,6 +43,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotNewArduinoDiagram(void)));
+  connect(m_ui.action_Open_Diagram,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotOpenDiagram(void)));
   connect(m_ui.action_Quit,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -128,6 +133,21 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 
   m_ui.tab->addTab(page, tr("Arduino Diagram"));
   m_ui.tab->setCurrentWidget(page);
+}
+
+void glowbot_ui::slotOpenDiagram(void)
+{
+  QFileDialog dialog(this);
+
+  dialog.setAcceptMode(QFileDialog::AcceptOpen);
+  dialog.setDirectory(glowbot_misc::homePath());
+  dialog.setFileMode(QFileDialog::ExistingFile);
+  dialog.setLabelText(QFileDialog::Accept, tr("&Select"));
+  dialog.setWindowTitle(tr("GlowBot: Open Diagram"));
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+    }
 }
 
 void glowbot_ui::slotQuit(void)
