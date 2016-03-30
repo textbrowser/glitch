@@ -25,6 +25,10 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDir>
+#include <QFileInfo>
+#include <QInputDialog>
+#include <QMessageBox>
 #include <QSettings>
 
 #include "glowbot-misc.h"
@@ -93,10 +97,37 @@ void glowbot_ui::slotCloseDiagram(int index)
 
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
+  QString name("");
+  bool ok = true;
+
+  name = QInputDialog::getText
+    (this, tr("GlowBot: Arduino Project Name"), tr("Project Name"),
+     QLineEdit::Normal, tr("Arduino Diagram"), &ok);
+
+  if(name.isEmpty() || !ok)
+    return;
+
+  QFileInfo fileInfo(glowbot_misc::homePath() + QDir::separator() +
+		     QString("%1.db").arg(name));
+
+  if(fileInfo.exists())
+    {
+      QMessageBox mb(this);
+
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText(tr("The project file %1 already exists. Overwrite?").
+		 arg(fileInfo.fileName()));
+
+      if(mb.exec() != QMessageBox::Yes)
+	return;
+    }
+
   glowbot_view *page = new glowbot_view
     (tr("Arduino Diagram"), glowbot_common::ArduinoProject, this);
 
   m_ui.tab->addTab(page, tr("Arduino Diagram"));
+  m_ui.tab->setCurrentWidget(page);
 }
 
 void glowbot_ui::slotQuit(void)
