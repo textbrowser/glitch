@@ -25,8 +25,12 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDir>
 #include <QMenu>
+#include <QSqlError>
+#include <QSqlQuery>
 
+#include "glowbot-misc.h"
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 
@@ -59,9 +63,34 @@ QString glowbot_view::name(void) const
   return m_name;
 }
 
-bool glowbot_view::save(void)
+bool glowbot_view::save(QString &error)
 {
-  return true;
+  QString connectionName("");
+  bool ok = false;
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName
+      (glowbot_misc::homePath() + QDir::separator() +
+       QString("%1.db").arg(m_name));
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	if(!(ok = query.exec()))
+	  error = query.lastError().text();
+      }
+    else
+      error = db.lastError().text();
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  return ok;
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)

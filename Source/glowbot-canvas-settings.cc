@@ -103,7 +103,7 @@ bool glowbot_canvas_settings::save(QString &error) const
 	  error = query.lastError().text();
       }
     else
-      db.lastError().text();
+      error = db.lastError().text();
 
     db.close();
   }

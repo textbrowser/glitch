@@ -140,7 +140,11 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
   glowbot_view *page = this->page(m_ui.tab->currentIndex());
 
   if(page)
-    if(!page->save())
-      glowbot_misc::showErrorDialog
-	(tr("Unable to save %.1").arg(page->name()), this);
+    {
+      QString error("");
+
+      if(!page->save(error))
+	glowbot_misc::showErrorDialog
+	  (tr("Unable to save %1 (%2).").arg(page->name()).arg(error), this);
+    }
 }

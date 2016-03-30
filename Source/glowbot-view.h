@@ -45,7 +45,7 @@ class glowbot_view: public QGraphicsView
 	       QWidget *parent);
   ~glowbot_view();
   QString name(void) const;
-  bool save(void);
+  bool save(QString &error);
 
  private:
   QString m_name;
