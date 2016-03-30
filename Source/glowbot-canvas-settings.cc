@@ -62,7 +62,8 @@ bool glowbot_canvas_settings::save(QString &error) const
 
     connectionName = db.connectionName();
     db.setDatabaseName
-      (glowbot_misc::homePath() + QDir::separator() + "canvas-settings.db");
+      (glowbot_misc::homePath() + QDir::separator() +
+       QString("%1.db").arg(m_ui.name->text()));
 
     if(db.open())
       {
