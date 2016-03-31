@@ -34,7 +34,7 @@
 
 #include "glowbot-misc.h"
 #include "glowbot-ui.h"
-#include "glowbot-view.h"
+#include "glowbot-view-arduino.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
@@ -128,7 +128,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	return;
     }
 
-  glowbot_view *page = new glowbot_view
+  glowbot_view_arduino *page = new glowbot_view_arduino
     (tr("Arduino Diagram"), glowbot_common::ArduinoProject, this);
 
   m_ui.tab->addTab(page, tr("Arduino Diagram"));
