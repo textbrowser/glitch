@@ -41,7 +41,8 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
                   Source\\glowbot-misc.h \
 		  Source\\glowbot-scene.h \
                   Source\\glowbot-ui.h \
-                  Source\\glowbot-view.h
+                  Source\\glowbot-view.h \
+		  Source\\glowbot-view-arduino.h
 
 SOURCES		= Source\\glowbot-canvas-settings.cc \
 		  Source\\glowbot-common.cc \
@@ -49,7 +50,8 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-scene.cc \
                   Source\\glowbot-ui-a.cc \
-                  Source\\glowbot-view.cc
+                  Source\\glowbot-view.cc \
+		  Source\\glowbot-view-arduino.cc
 
 TRANSLATIONS    =
 

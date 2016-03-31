@@ -25,37 +25,15 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_view_h_
-#define _glowbot_view_h_
+#include "glowbot-view-arduino.h"
 
-#include <QGraphicsView>
-
-#include "glowbot-canvas-settings.h"
-#include "glowbot-common.h"
-
-class glowbot_scene;
-
-class glowbot_view: public QGraphicsView
+glowbot_view_arduino::glowbot_view_arduino
+(const QString &name,
+ const glowbot_common::ProjectType projectType,
+ QWidget *parent):glowbot_view(name, projectType, parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_view(const QString &name,
-	       const glowbot_common::ProjectType projectType,
-	       QWidget *parent);
-  virtual ~glowbot_view();
-  QString name(void) const;
-  bool save(QString &error);
-
- protected:
-  QString m_name;
-  glowbot_canvas_settings *m_canvasSettings;
-  glowbot_common::ProjectType m_projectType;
-  glowbot_scene *m_scene;
-
- protected slots:
-  void slotCustomContextMenuRequested(const QPoint &point);
-  void slotShowCanvasSettings(void);
-};
-
-#endif
+glowbot_view_arduino::~glowbot_view_arduino()
+{
+}
