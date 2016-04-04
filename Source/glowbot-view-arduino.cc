@@ -32,8 +32,13 @@ glowbot_view_arduino::glowbot_view_arduino
  const glowbot_common::ProjectType projectType,
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
+  drawStartObject();
 }
 
 glowbot_view_arduino::~glowbot_view_arduino()
+{
+}
+
+void glowbot_view_arduino::drawStartObject(void)
 {
 }

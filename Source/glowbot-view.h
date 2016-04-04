@@ -52,6 +52,7 @@ class glowbot_view: public QGraphicsView
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
   glowbot_scene *m_scene;
+  virtual void drawStartObject(void) = 0;
 
  protected slots:
   void slotCustomContextMenuRequested(const QPoint &point);
