@@ -25,18 +25,13 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_object_h_
-#define _glowbot_object_h_
+#include "glowbot-object-start.h"
 
-#include <QGraphicsWidget>
-
-class glowbot_object: public QGraphicsWidget
+glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
+  glowbot_object(parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_object(QGraphicsItem *parent);
-  virtual ~glowbot_object();
-};
-
-#endif
+glowbot_object_start::~glowbot_object_start()
+{
+}

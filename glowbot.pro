@@ -40,6 +40,7 @@ FORMS           = UI\\glowbot-canvas-settings.ui \
 HEADERS		= Source\\glowbot-canvas-settings.h \
                   Source\\glowbot-misc.h \
 		  Source\\glowbot-object.h \
+		  Source\\glowbot-object-start.h \
 		  Source\\glowbot-scene.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-view.h \
@@ -50,6 +51,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
                   Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-object.cc \
+		  Source\\glowbot-object-start.cc \
 		  Source\\glowbot-scene.cc \
                   Source\\glowbot-ui-a.cc \
                   Source\\glowbot-view.cc \
