@@ -25,6 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glowbot-object-start.h"
+#include "glowbot-scene.h"
 #include "glowbot-view-arduino.h"
 
 glowbot_view_arduino::glowbot_view_arduino
@@ -32,13 +34,10 @@ glowbot_view_arduino::glowbot_view_arduino
  const glowbot_common::ProjectType projectType,
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
-  drawStartObject();
+  m_startObject = new glowbot_object_start(0);
+  m_scene->addItem(m_startObject);
 }
 
 glowbot_view_arduino::~glowbot_view_arduino()
-{
-}
-
-void glowbot_view_arduino::drawStartObject(void)
 {
 }

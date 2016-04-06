@@ -39,9 +39,6 @@ class glowbot_view_arduino: public glowbot_view
 		       const glowbot_common::ProjectType projectType,
 		       QWidget *parent);
   ~glowbot_view_arduino();
-
- private:
-  void drawStartObject(void);
 };
 
 #endif

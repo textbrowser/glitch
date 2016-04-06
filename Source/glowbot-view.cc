@@ -27,12 +27,16 @@
 
 #include <QDir>
 #include <QMenu>
+#include <QResizeEvent>
+#include <QScrollBar>
 #include <QSqlError>
 #include <QSqlQuery>
 
 #include "glowbot-misc.h"
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
+
+static const int s_scene_rect_fuzzy = 4;
 
 glowbot_view::glowbot_view
 (const QString &name,
@@ -91,6 +95,26 @@ bool glowbot_view::save(QString &error)
 
   glowbot_common::discardDatabase(connectionName);
   return ok;
+}
+
+void glowbot_view::resizeEvent(QResizeEvent *event)
+{
+  if(event)
+    {
+      QRectF b(m_scene->itemsBoundingRect());
+
+      m_scene->setSceneRect
+      (0,
+       0,
+       qMax(static_cast<int> (b.width()),
+	    event->size().width() - s_scene_rect_fuzzy),
+       qMax(static_cast<int> (b.height()),
+	    event->size().height() - (horizontalScrollBar() ?
+				      horizontalScrollBar()->height() : 0) -
+	    s_scene_rect_fuzzy));
+    }
+
+  QGraphicsView::resizeEvent(event);
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)

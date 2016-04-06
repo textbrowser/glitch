@@ -25,11 +25,26 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glowbot-object-start.h"
+#include <QGraphicsPolygonItem>
+#include <QPolygonF>
 
+#include "glowbot-object-start.h"
+#include <QtDebug>
 glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
   glowbot_object(parent)
 {
+  QPolygonF polygon;
+
+  polygon << QPointF(40.0, 20.0)
+	  << QPointF(90.0, 20.0)
+	  << QPointF(110.0, 40.0)
+	  << QPointF(110.0, 90.0)
+	  << QPointF(90.0, 110.0)
+	  << QPointF(40.0, 110.0)
+	  << QPointF(20.0, 90.0)
+	  << QPointF(20.0, 40.0)
+	  << QPointF(40.0, 20.0);
+  new QGraphicsPolygonItem(polygon, this);
 }
 
 glowbot_object_start::~glowbot_object_start()

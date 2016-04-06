@@ -33,6 +33,7 @@
 #include "glowbot-canvas-settings.h"
 #include "glowbot-common.h"
 
+class glowbot_object_start;
 class glowbot_scene;
 
 class glowbot_view: public QGraphicsView
@@ -51,8 +52,9 @@ class glowbot_view: public QGraphicsView
   QString m_name;
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
+  glowbot_object_start *m_startObject;
   glowbot_scene *m_scene;
-  virtual void drawStartObject(void) = 0;
+  void resizeEvent(QResizeEvent *event);
 
  protected slots:
   void slotCustomContextMenuRequested(const QPoint &point);
