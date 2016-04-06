@@ -157,29 +157,29 @@
          <item>
           <widget class="QComboBox" name="update_mode">
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="sizeAdjustPolicy">
             <enum>QComboBox::AdjustToContents</enum>
            </property>
            <item>
             <property name="text">
-             <string notr="true">Bounding Rectangle</string>
+             <string>Bounding Rectangle</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string notr="true">Full</string>
+             <string>Full</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string notr="true">Minimal</string>
+             <string>Minimal</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string notr="true">Smart</string>
+             <string>Smart</string>
             </property>
            </item>
           </widget>

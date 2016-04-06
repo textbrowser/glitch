@@ -124,5 +124,43 @@ void glowbot_canvas_settings::accept(void)
 
 void glowbot_canvas_settings::setName(const QString &name)
 {
-  m_ui.name->setText(name);
+  m_ui.name->setText(name.trimmed());
+}
+
+void glowbot_canvas_settings::setViewportUpdateMode
+(const QGraphicsView::ViewportUpdateMode mode)
+{
+  switch(mode)
+    {
+    case QGraphicsView::BoundingRectViewportUpdate:
+      {
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(tr("Bounding Rectangle")));
+	break;
+      }
+    case QGraphicsView::FullViewportUpdate:
+      {
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(tr("Full")));
+	break;
+      }
+    case QGraphicsView::MinimalViewportUpdate:
+      {
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(tr("Minimal")));
+	break;
+      }
+    case QGraphicsView::SmartViewportUpdate:
+      {
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(tr("Smart")));
+	break;
+      }
+    default:
+      m_ui.update_mode->setCurrentIndex
+	(m_ui.update_mode->findText(tr("Full")));
+    }
+
+  if(m_ui.update_mode->currentIndex() < 0)
+    m_ui.update_mode->setCurrentIndex(1); // Full.
 }

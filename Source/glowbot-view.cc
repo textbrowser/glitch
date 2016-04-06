@@ -52,6 +52,7 @@ glowbot_view::glowbot_view
   setDragMode(QGraphicsView::RubberBandDrag);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
+  setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -130,5 +131,6 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 void glowbot_view::slotShowCanvasSettings(void)
 {
   m_canvasSettings->setName(m_name);
+  m_canvasSettings->setViewportUpdateMode(viewportUpdateMode());
   m_canvasSettings->show();
 }

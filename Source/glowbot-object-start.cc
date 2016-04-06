@@ -25,14 +25,27 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QGraphicsPolygonItem>
+#include <QPainter>
 #include <QPolygonF>
 
 #include "glowbot-object-start.h"
-#include <QtDebug>
+
 glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
   glowbot_object(parent)
 {
+}
+
+glowbot_object_start::~glowbot_object_start()
+{
+}
+
+void glowbot_object_start::paint(QPainter *painter,
+				 const QStyleOptionGraphicsItem *option,
+				 QWidget *widget)
+{
+  Q_UNUSED(option);
+  Q_UNUSED(widget);
+
   QPolygonF polygon;
 
   polygon << QPointF(40.0, 20.0)
@@ -44,9 +57,9 @@ glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
 	  << QPointF(20.0, 90.0)
 	  << QPointF(20.0, 40.0)
 	  << QPointF(40.0, 20.0);
-  new QGraphicsPolygonItem(polygon, this);
-}
-
-glowbot_object_start::~glowbot_object_start()
-{
+  painter->setBrush(Qt::darkGreen);
+  painter->setPen(Qt::NoPen);
+  painter->save();
+  painter->drawConvexPolygon(polygon);
+  painter->restore();
 }

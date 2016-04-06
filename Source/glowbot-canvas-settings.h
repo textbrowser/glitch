@@ -29,6 +29,7 @@
 #define _glowbot_canvas_settings_h_
 
 #include <QDialog>
+#include <QGraphicsView>
 
 #include "ui_glowbot-canvas-settings.h"
 
@@ -40,6 +41,7 @@ class glowbot_canvas_settings: public QDialog
   glowbot_canvas_settings(QWidget *parent);
   ~glowbot_canvas_settings();
   void setName(const QString &name);
+  void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:
   Ui_glowbot_canvas_settings m_ui;
