@@ -33,6 +33,9 @@
 glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
   glowbot_object(parent)
 {
+  m_sideLength = 30.0;
+  m_start_x = 50.0;
+  m_start_y = 10.0;
 }
 
 glowbot_object_start::~glowbot_object_start()
@@ -51,15 +54,16 @@ void glowbot_object_start::paint(QPainter *painter,
 
   pen.setBrush(Qt::darkYellow);
   pen.setWidthF(2.25);
-  polygon << QPointF(40.0, 20.0)
-	  << QPointF(90.0, 20.0)
-	  << QPointF(110.0, 40.0)
-	  << QPointF(110.0, 90.0)
-	  << QPointF(90.0, 110.0)
-	  << QPointF(40.0, 110.0)
-	  << QPointF(20.0, 90.0)
-	  << QPointF(20.0, 40.0)
-	  << QPointF(40.0, 20.0);
+  polygon << QPointF(m_start_x, m_start_y)
+	  << QPointF(m_start_x + m_sideLength, m_start_y)
+	  << QPointF(m_start_x + 2 * m_sideLength, m_start_y + m_sideLength)
+	  << QPointF(m_start_x + 2 * m_sideLength,
+		     m_start_y + 2 * m_sideLength)
+	  << QPointF(m_start_x + m_sideLength, m_start_y + 3 * m_sideLength)
+	  << QPointF(m_start_x, m_start_y + 3 * m_sideLength)
+	  << QPointF(m_start_x - m_sideLength, m_start_y + 2 * m_sideLength)
+	  << QPointF(m_start_x - m_sideLength, m_start_y + m_sideLength)
+	  << QPointF(m_start_x, m_start_y);
   painter->setBrush(Qt::darkGreen);
   painter->setPen(pen);
   painter->save();
