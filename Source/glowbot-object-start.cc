@@ -46,8 +46,11 @@ void glowbot_object_start::paint(QPainter *painter,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
+  QPen pen;
   QPolygonF polygon;
 
+  pen.setBrush(Qt::darkYellow);
+  pen.setWidthF(2.25);
   polygon << QPointF(40.0, 20.0)
 	  << QPointF(90.0, 20.0)
 	  << QPointF(110.0, 40.0)
@@ -58,7 +61,7 @@ void glowbot_object_start::paint(QPainter *painter,
 	  << QPointF(20.0, 40.0)
 	  << QPointF(40.0, 20.0);
   painter->setBrush(Qt::darkGreen);
-  painter->setPen(Qt::NoPen);
+  painter->setPen(pen);
   painter->save();
   painter->drawConvexPolygon(polygon);
   painter->restore();
