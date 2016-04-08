@@ -50,7 +50,7 @@ glowbot_view_arduino::glowbot_view_arduino
   proxy->setWidget(m_startObject);
   proxy->resize(m_startObject->size());
   m_scene->addItem(proxy);
-  proxy->setPos(50.0, 10.0);
+  proxy->setPos(10.0, 10.0);
 }
 
 glowbot_view_arduino::~glowbot_view_arduino()
