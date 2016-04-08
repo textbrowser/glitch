@@ -49,24 +49,38 @@ void glowbot_object_start::paint(QPainter *painter,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
-  QPen pen;
-  QPolygonF polygon;
+  QList<Qt::GlobalColor> colors;
+  double x = 0.0;
+  double y = 0.0;
 
-  pen.setBrush(Qt::darkYellow);
-  pen.setWidthF(2.25);
-  polygon << QPointF(m_start_x, m_start_y)
-	  << QPointF(m_start_x + m_sideLength, m_start_y)
-	  << QPointF(m_start_x + 2 * m_sideLength, m_start_y + m_sideLength)
-	  << QPointF(m_start_x + 2 * m_sideLength,
-		     m_start_y + 2 * m_sideLength)
-	  << QPointF(m_start_x + m_sideLength, m_start_y + 3 * m_sideLength)
-	  << QPointF(m_start_x, m_start_y + 3 * m_sideLength)
-	  << QPointF(m_start_x - m_sideLength, m_start_y + 2 * m_sideLength)
-	  << QPointF(m_start_x - m_sideLength, m_start_y + m_sideLength)
-	  << QPointF(m_start_x, m_start_y);
-  painter->setBrush(Qt::darkGreen);
-  painter->setPen(pen);
-  painter->save();
-  painter->drawConvexPolygon(polygon);
-  painter->restore();
+  colors << Qt::darkBlue
+	 << Qt::darkGreen
+	 << Qt::darkRed
+	 << Qt::darkYellow;
+
+  for(int i = 0; i < 4; i++)
+    {
+      if(i % 2 == 0)
+	x = m_start_x;
+      else
+	x += m_sideLength + 5;
+
+      if(i < 2)
+	y = m_start_y;
+      else if(i == 2)
+	y += m_sideLength + 5;
+
+      painter->setBrush(colors.at(i));
+      painter->save();
+
+      QPolygonF polygon;
+
+      polygon << QPointF(x, y)
+	      << QPointF(x + m_sideLength, y)
+	      << QPointF(x + m_sideLength, y + m_sideLength)
+	      << QPointF(x, y + m_sideLength)
+	      << QPointF(x, y);
+      painter->drawConvexPolygon(polygon);
+      painter->restore();
+    }
 }
