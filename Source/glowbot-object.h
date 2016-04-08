@@ -28,22 +28,15 @@
 #ifndef _glowbot_object_h_
 #define _glowbot_object_h_
 
-#include <QGraphicsWidget>
+#include <QWidget>
 
-class glowbot_object: public QGraphicsWidget
+class glowbot_object: public QWidget
 {
   Q_OBJECT
 
  public:
-  glowbot_object(const double x, const double y, QGraphicsItem *parent);
+  glowbot_object(QWidget *parent);
   virtual ~glowbot_object();
-
- protected:
-  double m_x;
-  double m_y;
-  void paint(QPainter *painter,
-	     const QStyleOptionGraphicsItem *opt,
-	     QWidget *widget);
 };
 
 #endif

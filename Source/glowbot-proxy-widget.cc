@@ -25,32 +25,33 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glowbot-object-setup-arduino.h"
-#include "glowbot-object-start.h"
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
+
 #include "glowbot-proxy-widget.h"
-#include "glowbot-scene.h"
-#include "glowbot-view-arduino.h"
 
-glowbot_view_arduino::glowbot_view_arduino
-(const QString &name,
- const glowbot_common::ProjectType projectType,
- QWidget *parent):glowbot_view(name, projectType, parent)
+glowbot_proxy_widget::glowbot_proxy_widget
+(QGraphicsItem *parent, Qt::WindowFlags wFlags):
+  QGraphicsProxyWidget(parent, wFlags)
 {
-  m_setupObject = new glowbot_object_setup_arduino(0);
-  m_startObject = new glowbot_object_start(0);
-
-  glowbot_proxy_widget *proxy = 0;
-
-  proxy = new glowbot_proxy_widget();
-  proxy->setWidget(m_setupObject);
-  m_scene->addItem(proxy);
-  proxy->setPos(150.0, 10.0);
-  proxy = new glowbot_proxy_widget();
-  proxy->setWidget(m_startObject);
-  m_scene->addItem(proxy);
-  proxy->setPos(50.0, 10.0);
 }
 
-glowbot_view_arduino::~glowbot_view_arduino()
+glowbot_proxy_widget::~glowbot_proxy_widget()
 {
+}
+
+void glowbot_proxy_widget::paint
+(QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
+{
+  if(opt && (opt->state & QStyle::State_Selected))
+    {
+      QPen pen;
+
+      pen.setBrush(QColor(70, 130, 180));
+      pen.setWidth(3);
+      painter->setPen(pen);
+      painter->drawRect(boundingRect());
+    }
+
+  QGraphicsProxyWidget::paint(painter, opt, widget);
 }

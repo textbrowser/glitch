@@ -25,32 +25,23 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glowbot-object-setup-arduino.h"
-#include "glowbot-object-start.h"
-#include "glowbot-proxy-widget.h"
-#include "glowbot-scene.h"
-#include "glowbot-view-arduino.h"
+#ifndef _glowbot_proxy_widget_h_
+#define _glowbot_proxy_widget_h_
 
-glowbot_view_arduino::glowbot_view_arduino
-(const QString &name,
- const glowbot_common::ProjectType projectType,
- QWidget *parent):glowbot_view(name, projectType, parent)
+#include <QGraphicsProxyWidget>
+
+class glowbot_proxy_widget: public QGraphicsProxyWidget
 {
-  m_setupObject = new glowbot_object_setup_arduino(0);
-  m_startObject = new glowbot_object_start(0);
+  Q_OBJECT
 
-  glowbot_proxy_widget *proxy = 0;
+ public:
+  glowbot_proxy_widget(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
+  ~glowbot_proxy_widget();
 
-  proxy = new glowbot_proxy_widget();
-  proxy->setWidget(m_setupObject);
-  m_scene->addItem(proxy);
-  proxy->setPos(150.0, 10.0);
-  proxy = new glowbot_proxy_widget();
-  proxy->setWidget(m_startObject);
-  m_scene->addItem(proxy);
-  proxy->setPos(50.0, 10.0);
-}
+ private:
+  void paint(QPainter *painter,
+	     const QStyleOptionGraphicsItem *opt,
+	     QWidget *widget);
+};
 
-glowbot_view_arduino::~glowbot_view_arduino()
-{
-}
+#endif

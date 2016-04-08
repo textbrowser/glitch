@@ -30,29 +30,10 @@
 
 #include "glowbot-object.h"
 
-glowbot_object::glowbot_object
-(const double x, const double y, QGraphicsItem *parent):QGraphicsWidget(parent)
+glowbot_object::glowbot_object(QWidget *parent):QWidget(parent)
 {
-  m_x = x;
-  m_y = y;
 }
 
 glowbot_object::~glowbot_object()
 {
-}
-
-void glowbot_object::paint
-(QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
-{
-  if(opt && (opt->state & QStyle::State_Selected))
-    {
-      QPen pen;
-
-      pen.setBrush(QColor(70, 130, 180));
-      pen.setWidth(3);
-      painter->setPen(pen);
-      painter->drawRect(boundingRect());
-    }
-
-  QGraphicsWidget::paint(painter, opt, widget);
 }

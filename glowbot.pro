@@ -34,6 +34,7 @@ RCC_DIR = temp/rcc
 UI_DIR = temp/ui
 
 FORMS           = UI\\glowbot-canvas-settings.ui \
+                  UI\\glowbot-object-setup-arduino.ui \
 		  UI\\glowbot-open-diagram.ui \
 		  UI\\glowbot-mainwindow.ui \
 		  UI\\glowbot-tools-arduino.ui
@@ -43,6 +44,7 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
 		  Source\\glowbot-object.h \
 		  Source\\glowbot-object-setup-arduino.h \
 		  Source\\glowbot-object-start.h \
+                  Source\\glowbot-proxy-widget.h \
 		  Source\\glowbot-scene.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-view.h \
@@ -55,6 +57,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
 		  Source\\glowbot-object.cc \
 		  Source\\glowbot-object-setup-arduino.cc \
 		  Source\\glowbot-object-start.cc \
+                  Source\\glowbot-proxy-widget.cc \
 		  Source\\glowbot-scene.cc \
                   Source\\glowbot-ui-a.cc \
                   Source\\glowbot-view.cc \

@@ -35,14 +35,12 @@ class glowbot_object_start: public glowbot_object
   Q_OBJECT
 
  public:
-  glowbot_object_start(const double x, const double y, QGraphicsItem *parent);
+  glowbot_object_start(QWidget *parent);
   ~glowbot_object_start();
 
  private:
   double m_sideLength;
-  void paint(QPainter *painter,
-	     const QStyleOptionGraphicsItem *option,
-	     QWidget *widget = 0);
+  void paintEvent(QPaintEvent *event);
 };
 
 #endif

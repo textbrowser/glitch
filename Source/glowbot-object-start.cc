@@ -30,25 +30,22 @@
 
 #include "glowbot-object-start.h"
 
-glowbot_object_start::glowbot_object_start
-(double x, double y, QGraphicsItem *parent):glowbot_object(x, y, parent)
+glowbot_object_start::glowbot_object_start(QWidget *parent):
+  glowbot_object(parent)
 {
   m_sideLength = 30.0;
-  setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
 glowbot_object_start::~glowbot_object_start()
 {
 }
 
-void glowbot_object_start::paint(QPainter *painter,
-				 const QStyleOptionGraphicsItem *option,
-				 QWidget *widget)
+void glowbot_object_start::paintEvent(QPaintEvent *event)
 {
-  Q_UNUSED(option);
-  Q_UNUSED(widget);
+  Q_UNUSED(event);
 
   QList<QColor> colors;
+  QPainter painter(this);
   double x = 0.0;
   double y = 0.0;
 
@@ -60,19 +57,19 @@ void glowbot_object_start::paint(QPainter *painter,
   for(int i = 0; i < 4; i++)
     {
       if(i % 2 == 0)
-	x = m_x;
+	x = pos().x();
       else
 	x += m_sideLength + 5;
 
       if(i < 2)
-	y = m_y;
+	y = pos().y();
       else if(i == 2)
 	y += m_sideLength + 5;
 
-      painter->setBrush(colors.at(i));
-      painter->setRenderHints(QPainter::Antialiasing |
+      painter.setBrush(colors.at(i));
+      painter.setRenderHints(QPainter::Antialiasing |
 			      QPainter::TextAntialiasing);
-      painter->save();
+      painter.save();
 
       QPolygonF polygon;
 
@@ -81,7 +78,7 @@ void glowbot_object_start::paint(QPainter *painter,
 	      << QPointF(x + m_sideLength, y + m_sideLength)
 	      << QPointF(x, y + m_sideLength)
 	      << QPointF(x, y);
-      painter->drawConvexPolygon(polygon);
-      painter->restore();
+      painter.drawConvexPolygon(polygon);
+      painter.restore();
     }
 }
