@@ -28,7 +28,8 @@
 #include "glowbot-object-setup-arduino.h"
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
-(QGraphicsItem *parent):glowbot_object(parent)
+(const double x, const double y, QGraphicsItem *parent):
+  glowbot_object(x, y, parent)
 {
   setFlag(QGraphicsItem::ItemIsSelectable, true);
 }

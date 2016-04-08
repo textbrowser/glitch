@@ -30,8 +30,11 @@
 
 #include "glowbot-object.h"
 
-glowbot_object::glowbot_object(QGraphicsItem *parent):QGraphicsWidget(parent)
+glowbot_object::glowbot_object
+(const double x, const double y, QGraphicsItem *parent):QGraphicsWidget(parent)
 {
+  m_x = x;
+  m_y = y;
 }
 
 glowbot_object::~glowbot_object()

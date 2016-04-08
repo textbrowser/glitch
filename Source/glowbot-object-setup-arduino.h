@@ -35,7 +35,9 @@ class glowbot_object_setup_arduino: public glowbot_object
   Q_OBJECT
 
  public:
-  glowbot_object_setup_arduino(QGraphicsItem *parent);
+  glowbot_object_setup_arduino(const double x,
+			       const double y,
+			       QGraphicsItem *parent);
   ~glowbot_object_setup_arduino();
 };
 

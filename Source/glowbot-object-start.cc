@@ -30,13 +30,10 @@
 
 #include "glowbot-object-start.h"
 
-glowbot_object_start::glowbot_object_start(double x, double y,
-					   QGraphicsItem *parent):
-  glowbot_object(parent)
+glowbot_object_start::glowbot_object_start
+(double x, double y, QGraphicsItem *parent):glowbot_object(x, y, parent)
 {
   m_sideLength = 30.0;
-  m_start_x = x;
-  m_start_y = y;
   setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
@@ -63,12 +60,12 @@ void glowbot_object_start::paint(QPainter *painter,
   for(int i = 0; i < 4; i++)
     {
       if(i % 2 == 0)
-	x = m_start_x;
+	x = m_x;
       else
 	x += m_sideLength + 5;
 
       if(i < 2)
-	y = m_start_y;
+	y = m_y;
       else if(i == 2)
 	y += m_sideLength + 5;
 

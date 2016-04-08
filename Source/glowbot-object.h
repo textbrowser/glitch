@@ -35,10 +35,12 @@ class glowbot_object: public QGraphicsWidget
   Q_OBJECT
 
  public:
-  glowbot_object(QGraphicsItem *parent);
+  glowbot_object(const double x, const double y, QGraphicsItem *parent);
   virtual ~glowbot_object();
 
  protected:
+  double m_x;
+  double m_y;
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
