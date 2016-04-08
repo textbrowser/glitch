@@ -30,6 +30,8 @@
 
 #include "glowbot-view.h"
 
+class glowbot_object_setup_arduino;
+
 class glowbot_view_arduino: public glowbot_view
 {
   Q_OBJECT
@@ -39,6 +41,9 @@ class glowbot_view_arduino: public glowbot_view
 		       const glowbot_common::ProjectType projectType,
 		       QWidget *parent);
   ~glowbot_view_arduino();
+
+ private:
+  glowbot_object_setup_arduino *m_setupObject;
 };
 
 #endif

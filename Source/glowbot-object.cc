@@ -25,6 +25,9 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
+
 #include "glowbot-object.h"
 
 glowbot_object::glowbot_object(QGraphicsItem *parent):QGraphicsWidget(parent)
@@ -33,4 +36,20 @@ glowbot_object::glowbot_object(QGraphicsItem *parent):QGraphicsWidget(parent)
 
 glowbot_object::~glowbot_object()
 {
+}
+
+void glowbot_object::paint
+(QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
+{
+  if(opt && (opt->state & QStyle::State_Selected))
+    {
+      QPen pen;
+
+      pen.setBrush(QColor(70, 130, 180));
+      pen.setWidth(3);
+      painter->setPen(pen);
+      painter->drawRect(boundingRect());
+    }
+
+  QGraphicsWidget::paint(painter, opt, widget);
 }

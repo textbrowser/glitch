@@ -36,6 +36,7 @@ glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
   m_sideLength = 30.0;
   m_start_x = 50.0;
   m_start_y = 10.0;
+  setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
 glowbot_object_start::~glowbot_object_start()

@@ -30,6 +30,7 @@
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
 (QGraphicsItem *parent):glowbot_object(parent)
 {
+  setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
