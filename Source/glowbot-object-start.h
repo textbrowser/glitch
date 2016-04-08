@@ -35,7 +35,7 @@ class glowbot_object_start: public glowbot_object
   Q_OBJECT
 
  public:
-  glowbot_object_start(QGraphicsItem *parent);
+  glowbot_object_start(const double x, const double y, QGraphicsItem *parent);
   ~glowbot_object_start();
 
  private:

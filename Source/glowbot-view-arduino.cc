@@ -36,7 +36,7 @@ glowbot_view_arduino::glowbot_view_arduino
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
   m_setupObject = new glowbot_object_setup_arduino(0);
-  m_startObject = new glowbot_object_start(0);
+  m_startObject = new glowbot_object_start(50.0, 10.0, 0);
   m_scene->addItem(m_setupObject);
   m_scene->addItem(m_startObject);
 }

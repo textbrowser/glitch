@@ -30,12 +30,13 @@
 
 #include "glowbot-object-start.h"
 
-glowbot_object_start::glowbot_object_start(QGraphicsItem *parent):
+glowbot_object_start::glowbot_object_start(double x, double y,
+					   QGraphicsItem *parent):
   glowbot_object(parent)
 {
   m_sideLength = 30.0;
-  m_start_x = 50.0;
-  m_start_y = 10.0;
+  m_start_x = x;
+  m_start_y = y;
   setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
@@ -50,14 +51,14 @@ void glowbot_object_start::paint(QPainter *painter,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
-  QList<Qt::GlobalColor> colors;
+  QList<QColor> colors;
   double x = 0.0;
   double y = 0.0;
 
-  colors << Qt::darkBlue
-	 << Qt::darkGreen
-	 << Qt::darkRed
-	 << Qt::darkYellow;
+  colors << QColor(173, 216, 230)
+	 << QColor(60, 179, 113)
+	 << QColor(255, 69, 0)
+	 << QColor(255, 215, 0);
 
   for(int i = 0; i < 4; i++)
     {
@@ -72,6 +73,8 @@ void glowbot_object_start::paint(QPainter *painter,
 	y += m_sideLength + 5;
 
       painter->setBrush(colors.at(i));
+      painter->setRenderHints(QPainter::Antialiasing |
+			      QPainter::TextAntialiasing);
       painter->save();
 
       QPolygonF polygon;
