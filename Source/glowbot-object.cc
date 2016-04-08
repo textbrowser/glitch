@@ -25,9 +25,6 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QPainter>
-#include <QStyleOptionGraphicsItem>
-
 #include "glowbot-object.h"
 
 glowbot_object::glowbot_object(QWidget *parent):QWidget(parent)

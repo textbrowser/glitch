@@ -31,6 +31,8 @@ glowbot_object_setup_arduino::glowbot_object_setup_arduino
 (QWidget *parent):glowbot_object(parent)
 {
   m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
 }
 
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()

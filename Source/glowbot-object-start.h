@@ -29,6 +29,7 @@
 #define _glowbot_object_start_h_
 
 #include "glowbot-object.h"
+#include "ui_glowbot-object-start.h"
 
 class glowbot_object_start: public glowbot_object
 {
@@ -39,8 +40,7 @@ class glowbot_object_start: public glowbot_object
   ~glowbot_object_start();
 
  private:
-  double m_sideLength;
-  void paintEvent(QPaintEvent *event);
+  Ui_glowbot_object_start m_ui;
 };
 
 #endif

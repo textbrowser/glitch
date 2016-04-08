@@ -50,6 +50,11 @@ glowbot_view::glowbot_view
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setContextMenuPolicy(Qt::CustomContextMenu);
   setDragMode(QGraphicsView::RubberBandDrag);
+  setInteractive(true);
+  setRenderHints(QPainter::Antialiasing |
+		 QPainter::HighQualityAntialiasing | // OpenGL?
+		 QPainter::SmoothPixmapTransform |
+		 QPainter::TextAntialiasing);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
   setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
