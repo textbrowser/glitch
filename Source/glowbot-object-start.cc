@@ -34,6 +34,12 @@ glowbot_object_start::glowbot_object_start(QWidget *parent):
   glowbot_object(parent)
 {
   m_ui.setupUi(this);
+
+  foreach(QLabel *label, findChildren<QLabel *> ())
+    {
+      label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+      label->setAutoFillBackground(true);
+    }
 }
 
 glowbot_object_start::~glowbot_object_start()

@@ -40,10 +40,16 @@ glowbot_proxy_widget::~glowbot_proxy_widget()
 {
 }
 
+void glowbot_proxy_widget::mousePressEvent
+(QGraphicsSceneMouseEvent *event)
+{
+  QGraphicsProxyWidget::mousePressEvent(event);
+}
+
 void glowbot_proxy_widget::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {
-  if(opt && (opt->state & QStyle::State_Selected))
+  if(opt && (opt->state & QStyle::State_Selected) && painter)
     {
       QPen pen;
 
