@@ -47,6 +47,7 @@ glowbot_view_arduino::glowbot_view_arduino
   m_scene->addItem(proxy);
   proxy->setPos(150.0, 10.0);
   proxy = new glowbot_proxy_widget();
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(m_startObject);
   proxy->resize(m_startObject->size());
   m_scene->addItem(proxy);
