@@ -25,6 +25,9 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
+
 #include "glowbot-scene.h"
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
@@ -33,4 +36,53 @@ glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 
 glowbot_scene::~glowbot_scene()
 {
+}
+
+void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+  m_lastScenePos = QPointF();
+
+  if(event)
+    {
+      QGraphicsItem *item = itemAt(event->scenePos());
+
+      if(item)
+	{
+	  QGraphicsItem *parent = item->parentItem();
+
+	  if(!parent)
+	    parent = item;
+
+	  if(event->button() == Qt::RightButton)
+	    {
+	      if(!parent->isSelected())
+		clearSelection();
+
+	      event->setButton(Qt::LeftButton);
+	      parent->setSelected(true);
+	      goto done_label;
+	    }
+
+	  if(event->modifiers() & Qt::ControlModifier)
+	    {
+	      m_lastScenePos = event->scenePos();
+	      parent->setSelected(!parent->isSelected());
+	    }
+	  else
+	    {
+	      if(!parent->isSelected())
+		clearSelection();
+
+	      m_lastScenePos = event->scenePos();
+	      parent->setSelected(true);
+	    }
+	}
+      else
+	clearSelection();
+    }
+  else
+    clearSelection();
+
+ done_label:
+  QGraphicsScene::mousePressEvent(event);
 }

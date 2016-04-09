@@ -43,7 +43,7 @@ glowbot_proxy_widget::~glowbot_proxy_widget()
 void glowbot_proxy_widget::mousePressEvent
 (QGraphicsSceneMouseEvent *event)
 {
-  QGraphicsProxyWidget::mousePressEvent(event);
+  Q_UNUSED(event);
 }
 
 void glowbot_proxy_widget::paint

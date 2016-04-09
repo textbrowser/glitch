@@ -37,6 +37,10 @@ class glowbot_scene: public QGraphicsScene
  public:
   glowbot_scene(QObject *parent);
   ~glowbot_scene();
+
+ private:
+  QPointF m_lastScenePos;
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };
 
 #endif
