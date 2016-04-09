@@ -48,7 +48,6 @@ glowbot_view::glowbot_view
   m_projectType = projectType;
   m_scene = new glowbot_scene(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
-  setContextMenuPolicy(Qt::CustomContextMenu);
   setDragMode(QGraphicsView::RubberBandDrag);
   setInteractive(true);
   setRenderHints(QPainter::Antialiasing |
@@ -101,6 +100,17 @@ bool glowbot_view::save(QString &error)
 
   glowbot_common::discardDatabase(connectionName);
   return ok;
+}
+
+void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
+{
+  if(event && items(event->pos()).isEmpty())
+    {
+      event->ignore();
+      emit customContextMenuRequested(event->pos());
+    }
+  else
+    QGraphicsView::contextMenuEvent(event);
 }
 
 void glowbot_view::resizeEvent(QResizeEvent *event)

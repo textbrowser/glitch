@@ -54,6 +54,7 @@ class glowbot_view: public QGraphicsView
   glowbot_common::ProjectType m_projectType;
   glowbot_object_start *m_startObject;
   glowbot_scene *m_scene;
+  void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
 
  protected slots:
