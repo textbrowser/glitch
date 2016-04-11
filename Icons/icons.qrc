@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+	<file>Logo/glowbot-logo.png</file>
+    </qresource>
+</RCC>
