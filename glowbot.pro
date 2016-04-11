@@ -26,7 +26,7 @@ QMAKE_STRIP	= echo
 ICON		=
 INCLUDEPATH	+= Source
 LIBS		+=
-RESOURCES	=
+RESOURCES	= Icons/icons.qrc
 
 MOC_DIR = temp/moc
 OBJECTS_DIR = temp/obj
