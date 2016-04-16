@@ -35,6 +35,7 @@ UI_DIR = temp/ui
 
 FORMS           = UI\\glowbot-canvas-settings.ui \
 		  UI\\glowbot-mainwindow.ui \
+		  UI\\glowbot-object-loop-arduino.ui \
                   UI\\glowbot-object-setup-arduino.ui \
 		  UI\\glowbot-object-start.ui \
 		  UI\\glowbot-tools-arduino.ui
@@ -42,6 +43,7 @@ FORMS           = UI\\glowbot-canvas-settings.ui \
 HEADERS		= Source\\glowbot-canvas-settings.h \
                   Source\\glowbot-misc.h \
 		  Source\\glowbot-object.h \
+		  Source\\glowbot-object-loop-arduino.h \
 		  Source\\glowbot-object-setup-arduino.h \
 		  Source\\glowbot-object-start.h \
                   Source\\glowbot-proxy-widget.h \
@@ -55,6 +57,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
                   Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
 		  Source\\glowbot-object.cc \
+		  Source\\glowbot-object-loop-arduino.cc \
 		  Source\\glowbot-object-setup-arduino.cc \
 		  Source\\glowbot-object-start.cc \
                   Source\\glowbot-proxy-widget.cc \
