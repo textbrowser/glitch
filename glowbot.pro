@@ -37,7 +37,6 @@ FORMS           = UI\\glowbot-canvas-settings.ui \
 		  UI\\glowbot-mainwindow.ui \
                   UI\\glowbot-object-setup-arduino.ui \
 		  UI\\glowbot-object-start.ui \
-		  UI\\glowbot-open-diagram.ui \
 		  UI\\glowbot-tools-arduino.ui
 
 HEADERS		= Source\\glowbot-canvas-settings.h \
