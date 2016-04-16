@@ -30,6 +30,7 @@
 
 #include "glowbot-view.h"
 
+class glowbot_object_loop_arduino;
 class glowbot_object_setup_arduino;
 
 class glowbot_view_arduino: public glowbot_view
@@ -43,6 +44,7 @@ class glowbot_view_arduino: public glowbot_view
   ~glowbot_view_arduino();
 
  private:
+  glowbot_object_loop_arduino *m_loopObject;
   glowbot_object_setup_arduino *m_setupObject;
 };
 

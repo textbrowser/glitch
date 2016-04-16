@@ -25,6 +25,7 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-setup-arduino.h"
 #include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
@@ -36,6 +37,7 @@ glowbot_view_arduino::glowbot_view_arduino
  const glowbot_common::ProjectType projectType,
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
+  m_loopObject = new glowbot_object_loop_arduino(0);
   m_setupObject = new glowbot_object_setup_arduino(0);
   m_startObject = new glowbot_object_start(0);
 
@@ -43,9 +45,15 @@ glowbot_view_arduino::glowbot_view_arduino
 
   proxy = new glowbot_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
+  proxy->setWidget(m_loopObject);
+  proxy->resize(m_loopObject->size());
+  m_scene->addItem(proxy);
+  proxy->setPos(130.0, 10.0);
+  proxy = new glowbot_proxy_widget();
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(m_setupObject);
   m_scene->addItem(proxy);
-  proxy->setPos(150.0, 10.0);
+  proxy->setPos(240.0, 10.0);
   proxy = new glowbot_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(m_startObject);
