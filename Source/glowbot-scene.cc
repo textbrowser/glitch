@@ -44,7 +44,7 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
   if(event)
     {
-      QGraphicsItem *item = itemAt(event->scenePos());
+      QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
 
       if(item)
 	{
