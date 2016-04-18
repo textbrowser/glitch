@@ -25,6 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMenu>
+
 #include "glowbot-object-loop-arduino.h"
 
 glowbot_object_loop_arduino::glowbot_object_loop_arduino
@@ -33,8 +35,23 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(this,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotContextMenuRequested(const QPoint &)));
 }
 
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
 {
+}
+
+void glowbot_object_loop_arduino::slotContextMenuRequested(const QPoint &point)
+{
+  QMenu menu(parentWidget());
+
+  menu.addAction(tr("&Edit"),
+		 this,
+		 SLOT(slotEdit(void)));
+  menu.exec(mapToGlobal(point));
 }
