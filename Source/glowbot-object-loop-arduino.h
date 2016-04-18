@@ -44,6 +44,7 @@ class glowbot_object_loop_arduino: public glowbot_object
 
  private slots:
   void slotContextMenuRequested(const QPoint &point);
+  void slotEdit(void);
 };
 
 #endif

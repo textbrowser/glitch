@@ -55,3 +55,7 @@ void glowbot_object_loop_arduino::slotContextMenuRequested(const QPoint &point)
 		 SLOT(slotEdit(void)));
   menu.exec(mapToGlobal(point));
 }
+
+void glowbot_object_loop_arduino::slotEdit(void)
+{
+}
