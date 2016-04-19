@@ -37,11 +37,6 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-
-  QMainWindow *window = new QMainWindow(this);
-
-  m_view = new glowbot_object_view(this);
-  window->setCentralWidget(m_view);
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),

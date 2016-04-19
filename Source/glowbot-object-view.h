@@ -40,7 +40,7 @@ class glowbot_object_view: public QGraphicsView
   glowbot_object_view(QWidget *parent);
   virtual ~glowbot_object_view();
 
- protected:
+ private:
   glowbot_scene *m_scene;
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
