@@ -46,6 +46,7 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
 		  Source\\glowbot-object-loop-arduino.h \
 		  Source\\glowbot-object-setup-arduino.h \
 		  Source\\glowbot-object-start.h \
+		  Source\\glowbot-object-view.h \
                   Source\\glowbot-proxy-widget.h \
 		  Source\\glowbot-scene.h \
                   Source\\glowbot-ui.h \
@@ -60,6 +61,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
 		  Source\\glowbot-object-loop-arduino.cc \
 		  Source\\glowbot-object-setup-arduino.cc \
 		  Source\\glowbot-object-start.cc \
+		  Source\\glowbot-object-view.cc \
                   Source\\glowbot-proxy-widget.cc \
 		  Source\\glowbot-scene.cc \
                   Source\\glowbot-ui-a.cc \

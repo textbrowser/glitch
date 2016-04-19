@@ -25,29 +25,28 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_object_loop_arduino_h_
-#define _glowbot_object_loop_arduino_h_
+#ifndef _glowbot_object_view_h_
+#define _glowbot_object_view_h_
 
-#include "glowbot-object.h"
-#include "ui_glowbot-object-loop-arduino.h"
+#include <QGraphicsView>
 
-class glowbot_object_view;
+class glowbot_scene;
 
-class glowbot_object_loop_arduino: public glowbot_object
+class glowbot_object_view: public QGraphicsView
 {
   Q_OBJECT
 
  public:
-  glowbot_object_loop_arduino(QWidget *parent);
-  ~glowbot_object_loop_arduino();
+  glowbot_object_view(QWidget *parent);
+  virtual ~glowbot_object_view();
 
- private:
-  Ui_glowbot_object_loop_arduino m_ui;
-  glowbot_object_view *m_view;
+ protected:
+  glowbot_scene *m_scene;
+  void contextMenuEvent(QContextMenuEvent *event);
+  void resizeEvent(QResizeEvent *event);
 
- private slots:
-  void slotContextMenuRequested(const QPoint &point);
-  void slotEdit(void);
+ protected slots:
+  void slotCustomContextMenuRequested(const QPoint &point);
 };
 
 #endif
