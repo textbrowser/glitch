@@ -34,6 +34,7 @@
 
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
+#include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
@@ -49,7 +50,7 @@ glowbot_view::glowbot_view
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(this);
-  m_startObject = 0;
+  m_startObject = new glowbot_object_start(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
   setInteractive(true);

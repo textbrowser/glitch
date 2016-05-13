@@ -39,7 +39,6 @@ glowbot_view_arduino::glowbot_view_arduino
 {
   m_loopObject = new glowbot_object_loop_arduino(this);
   m_setupObject = new glowbot_object_setup_arduino(this);
-  m_startObject = new glowbot_object_start(this);
 
   glowbot_proxy_widget *proxy = 0;
 
