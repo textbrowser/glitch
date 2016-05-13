@@ -49,6 +49,7 @@ glowbot_view::glowbot_view
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(this);
+  m_startObject = 0;
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
   setInteractive(true);
