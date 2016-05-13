@@ -25,9 +25,6 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QContextMenuEvent>
-#include <QMenu>
-
 #include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-view.h"
 

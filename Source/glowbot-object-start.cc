@@ -25,9 +25,6 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QPainter>
-#include <QPolygonF>
-
 #include "glowbot-object-start.h"
 
 glowbot_object_start::glowbot_object_start(QWidget *parent):
