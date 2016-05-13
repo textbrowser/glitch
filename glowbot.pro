@@ -1,6 +1,6 @@
 purge.commands = rm -f *~ && rm -f */*~
 
-CONFIG		+= qt release thread warn_on
+CONFIG		+= qt release warn_on
 DEFINES		+=
 LANGUAGE	= C++
 QT		+= gui sql
