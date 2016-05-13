@@ -107,6 +107,8 @@ void glowbot_ui::slotCloseDiagram(int index)
 
   if(page)
     page->deleteLater();
+
+  m_ui.tab->removeTab(index);
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
