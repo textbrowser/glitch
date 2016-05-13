@@ -28,6 +28,7 @@
 #ifndef _glowbot_object_h_
 #define _glowbot_object_h_
 
+#include <QMenu>
 #include <QWidget>
 
 class glowbot_object: public QWidget
@@ -37,6 +38,10 @@ class glowbot_object: public QWidget
  public:
   glowbot_object(QWidget *parent);
   virtual ~glowbot_object();
+  virtual void addActions(QMenu &menu) const = 0;
+
+ protected:
+  QWidget *m_parent;
 };
 
 #endif

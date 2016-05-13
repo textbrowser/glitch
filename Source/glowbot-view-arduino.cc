@@ -37,9 +37,9 @@ glowbot_view_arduino::glowbot_view_arduino
  const glowbot_common::ProjectType projectType,
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
-  m_loopObject = new glowbot_object_loop_arduino(0);
-  m_setupObject = new glowbot_object_setup_arduino(0);
-  m_startObject = new glowbot_object_start(0);
+  m_loopObject = new glowbot_object_loop_arduino(this);
+  m_setupObject = new glowbot_object_setup_arduino(this);
+  m_startObject = new glowbot_object_start(this);
 
   glowbot_proxy_widget *proxy = 0;
 

@@ -45,3 +45,8 @@ glowbot_object_start::glowbot_object_start(QWidget *parent):
 glowbot_object_start::~glowbot_object_start()
 {
 }
+
+void glowbot_object_start::addActions(QMenu &menu) const
+{
+  Q_UNUSED(menu);
+}

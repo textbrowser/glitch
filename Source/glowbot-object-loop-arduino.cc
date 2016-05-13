@@ -25,7 +25,7 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMainWindow>
+#include <QContextMenuEvent>
 #include <QMenu>
 
 #include "glowbot-object-loop-arduino.h"
@@ -34,30 +34,32 @@
 glowbot_object_loop_arduino::glowbot_object_loop_arduino
 (QWidget *parent):glowbot_object(parent)
 {
+  m_editView = new glowbot_object_view(0);
+  m_editWindow = new QMainWindow(0);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  m_editWindow->setWindowTitle(tr("GlowBot: loop()"));
+  m_editWindow->resize(600, 600);
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this,
-	  SIGNAL(customContextMenuRequested(const QPoint &)),
-	  this,
-	  SLOT(slotContextMenuRequested(const QPoint &)));
 }
 
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
 {
+  if(m_editWindow)
+    m_editWindow->deleteLater();
 }
 
-void glowbot_object_loop_arduino::slotContextMenuRequested(const QPoint &point)
+void glowbot_object_loop_arduino::addActions(QMenu &menu) const
 {
-  QMenu menu(parentWidget());
-
-  menu.addAction(tr("&Edit"),
+  menu.addAction(tr("&Edit..."),
 		 this,
 		 SLOT(slotEdit(void)));
-  menu.exec(mapToGlobal(point));
 }
 
 void glowbot_object_loop_arduino::slotEdit(void)
 {
+  m_editWindow->raise();
+  m_editWindow->show();
 }

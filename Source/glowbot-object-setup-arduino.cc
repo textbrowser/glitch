@@ -38,3 +38,8 @@ glowbot_object_setup_arduino::glowbot_object_setup_arduino
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
 {
 }
+
+void glowbot_object_setup_arduino::addActions(QMenu &menu) const
+{
+  Q_UNUSED(menu);
+}

@@ -27,8 +27,9 @@
 
 #include "glowbot-object.h"
 
-glowbot_object::glowbot_object(QWidget *parent):QWidget(parent)
+glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
 {
+  m_parent = parent;
 }
 
 glowbot_object::~glowbot_object()

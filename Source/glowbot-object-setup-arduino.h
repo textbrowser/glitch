@@ -38,6 +38,7 @@ class glowbot_object_setup_arduino: public glowbot_object
  public:
   glowbot_object_setup_arduino(QWidget *parent);
   ~glowbot_object_setup_arduino();
+  void addActions(QMenu &menu) const;
 
  private:
   Ui_glowbot_object_setup_arduino m_ui;

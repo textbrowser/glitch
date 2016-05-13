@@ -28,7 +28,10 @@
 #ifndef _glowbot_object_loop_arduino_h_
 #define _glowbot_object_loop_arduino_h_
 
+#include <QMainWindow>
+
 #include "glowbot-object.h"
+#include "glowbot-object-view.h"
 #include "ui_glowbot-object-loop-arduino.h"
 
 class glowbot_object_view;
@@ -40,12 +43,14 @@ class glowbot_object_loop_arduino: public glowbot_object
  public:
   glowbot_object_loop_arduino(QWidget *parent);
   ~glowbot_object_loop_arduino();
+  void addActions(QMenu &menu) const;
 
  private:
+  QMainWindow *m_editWindow;
   Ui_glowbot_object_loop_arduino m_ui;
+  glowbot_object_view *m_editView;
 
  private slots:
-  void slotContextMenuRequested(const QPoint &point);
   void slotEdit(void);
 };
 

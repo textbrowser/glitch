@@ -25,9 +25,12 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QGraphicsSceneContextMenuEvent>
+#include <QMenu>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
+#include "glowbot-object.h"
 #include "glowbot-proxy-widget.h"
 
 glowbot_proxy_widget::glowbot_proxy_widget
@@ -38,6 +41,27 @@ glowbot_proxy_widget::glowbot_proxy_widget
 
 glowbot_proxy_widget::~glowbot_proxy_widget()
 {
+}
+
+void glowbot_proxy_widget::contextMenuEvent
+(QGraphicsSceneContextMenuEvent *event)
+{
+  if(event)
+    {
+      glowbot_object *object = qobject_cast<glowbot_object *> (widget());
+
+      if(object)
+	{
+	  QMenu menu;
+
+	  object->addActions(menu);
+	  menu.exec(event->screenPos());
+	}
+      else
+	QGraphicsProxyWidget::contextMenuEvent(event);
+    }
+  else
+    QGraphicsProxyWidget::contextMenuEvent(event);
 }
 
 void glowbot_proxy_widget::mousePressEvent

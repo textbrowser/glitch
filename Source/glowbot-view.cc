@@ -33,6 +33,8 @@
 #include <QSqlQuery>
 
 #include "glowbot-misc.h"
+#include "glowbot-object.h"
+#include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 
