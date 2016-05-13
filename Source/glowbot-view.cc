@@ -44,27 +44,30 @@ static const int s_scene_rect_fuzzy = 4;
 glowbot_view::glowbot_view
 (const QString &name,
  const glowbot_common::ProjectType projectType,
- QWidget *parent):QGraphicsView(parent)
+ QWidget *parent):QWidget(parent)
 {
+  m_ui.setupUi(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(this);
   m_startObject = new glowbot_object_start(this);
-  setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
-  setDragMode(QGraphicsView::RubberBandDrag);
-  setInteractive(true);
-  setRenderHints(QPainter::Antialiasing |
-		 QPainter::HighQualityAntialiasing | // OpenGL?
-		 QPainter::SmoothPixmapTransform |
-		 QPainter::TextAntialiasing);
-  setRubberBandSelectionMode(Qt::IntersectsItemShape);
-  setScene(m_scene);
-  setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  m_view = new QGraphicsView(this);
+  m_view->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_view->setDragMode(QGraphicsView::RubberBandDrag);
+  m_view->setInteractive(true);
+  m_view->setRenderHints(QPainter::Antialiasing |
+			 QPainter::HighQualityAntialiasing | // OpenGL?
+			 QPainter::SmoothPixmapTransform |
+			 QPainter::TextAntialiasing);
+  m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);
+  m_view->setScene(m_scene);
+  m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+  layout()->addWidget(m_view);
 }
 
 glowbot_view::~glowbot_view()
@@ -108,13 +111,13 @@ bool glowbot_view::save(QString &error)
 
 void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 {
-  if(event && items(event->pos()).isEmpty())
+  if(event && m_view->items(event->pos()).isEmpty())
     {
       event->ignore();
       emit customContextMenuRequested(event->pos());
     }
   else
-    QGraphicsView::contextMenuEvent(event);
+    QWidget::contextMenuEvent(event);
 }
 
 void glowbot_view::resizeEvent(QResizeEvent *event)
@@ -129,12 +132,13 @@ void glowbot_view::resizeEvent(QResizeEvent *event)
        qMax(static_cast<int> (b.width()),
 	    event->size().width() - s_scene_rect_fuzzy),
        qMax(static_cast<int> (b.height()),
-	    event->size().height() - (horizontalScrollBar() ?
-				      horizontalScrollBar()->height() : 0) -
+	    event->size().height() - (m_view->horizontalScrollBar() ?
+				      m_view->horizontalScrollBar()->
+				      height() : 0) -
 	    s_scene_rect_fuzzy));
     }
 
-  QGraphicsView::resizeEvent(event);
+  QWidget::resizeEvent(event);
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
@@ -150,6 +154,6 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 void glowbot_view::slotShowCanvasSettings(void)
 {
   m_canvasSettings->setName(m_name);
-  m_canvasSettings->setViewportUpdateMode(viewportUpdateMode());
+  m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
   m_canvasSettings->show();
 }

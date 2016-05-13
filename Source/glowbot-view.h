@@ -29,14 +29,16 @@
 #define _glowbot_view_h_
 
 #include <QGraphicsView>
+#include <QWidget>
 
 #include "glowbot-canvas-settings.h"
 #include "glowbot-common.h"
+#include "ui_glowbot-view.h"
 
 class glowbot_object_start;
 class glowbot_scene;
 
-class glowbot_view: public QGraphicsView
+class glowbot_view: public QWidget
 {
   Q_OBJECT
 
@@ -49,7 +51,9 @@ class glowbot_view: public QGraphicsView
   bool save(QString &error);
 
  protected:
+  QGraphicsView *m_view;
   QString m_name;
+  Ui_glowbot_view m_ui;
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
   glowbot_object_start *m_startObject;
