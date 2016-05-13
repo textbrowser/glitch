@@ -41,7 +41,6 @@ FORMS           = UI\\glowbot-canvas-settings.ui \
 		  UI\\glowbot-tools-arduino.ui
 
 HEADERS		= Source\\glowbot-canvas-settings.h \
-                  Source\\glowbot-misc.h \
 		  Source\\glowbot-object.h \
 		  Source\\glowbot-object-loop-arduino.h \
 		  Source\\glowbot-object-setup-arduino.h \
