@@ -40,6 +40,7 @@ class glowbot_proxy_widget: public QGraphicsProxyWidget
 
  private:
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);

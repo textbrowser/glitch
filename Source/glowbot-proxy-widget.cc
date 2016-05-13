@@ -55,17 +55,18 @@ void glowbot_proxy_widget::contextMenuEvent
 	  QMenu menu;
 
 	  object->addActions(menu);
-
-	  if(menu.actions().isEmpty())
-	    QGraphicsProxyWidget::contextMenuEvent(event);
-	  else
-	    menu.exec(event->screenPos());
+	  menu.exec(event->screenPos());
 	}
       else
 	QGraphicsProxyWidget::contextMenuEvent(event);
     }
   else
     QGraphicsProxyWidget::contextMenuEvent(event);
+}
+
+void glowbot_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+  Q_UNUSED(event);
 }
 
 void glowbot_proxy_widget::paint
