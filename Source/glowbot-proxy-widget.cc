@@ -55,7 +55,11 @@ void glowbot_proxy_widget::contextMenuEvent
 	  QMenu menu;
 
 	  object->addActions(menu);
-	  menu.exec(event->screenPos());
+
+	  if(menu.actions().isEmpty())
+	    QGraphicsProxyWidget::contextMenuEvent(event);
+	  else
+	    menu.exec(event->screenPos());
 	}
       else
 	QGraphicsProxyWidget::contextMenuEvent(event);
