@@ -68,12 +68,6 @@ void glowbot_proxy_widget::contextMenuEvent
     QGraphicsProxyWidget::contextMenuEvent(event);
 }
 
-void glowbot_proxy_widget::mousePressEvent
-(QGraphicsSceneMouseEvent *event)
-{
-  Q_UNUSED(event);
-}
-
 void glowbot_proxy_widget::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {
