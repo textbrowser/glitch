@@ -56,8 +56,6 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	  if(!parent)
 	    goto done_label;
 
-	  event->accept();
-
 	  if(event->button() == Qt::RightButton)
 	    {
 	      if(!parent->isSelected())
@@ -89,5 +87,5 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     clearSelection();
 
  done_label:
-  return;
+  QGraphicsScene::mousePressEvent(event);
 }
