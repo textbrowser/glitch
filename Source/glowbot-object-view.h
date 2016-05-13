@@ -38,7 +38,7 @@ class glowbot_object_view: public QGraphicsView
 
  public:
   glowbot_object_view(QWidget *parent);
-  virtual ~glowbot_object_view();
+  ~glowbot_object_view();
 
  private:
   glowbot_scene *m_scene;
