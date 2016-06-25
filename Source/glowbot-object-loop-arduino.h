@@ -49,6 +49,7 @@ class glowbot_object_loop_arduino: public glowbot_object
   QMainWindow *m_editWindow;
   Ui_glowbot_object_loop_arduino m_ui;
   glowbot_object_view *m_editView;
+  void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotEdit(void);

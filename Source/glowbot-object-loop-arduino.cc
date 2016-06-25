@@ -55,6 +55,12 @@ void glowbot_object_loop_arduino::addActions(QMenu &menu) const
 		 SLOT(slotEdit(void)));
 }
 
+void glowbot_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  slotEdit();
+  QWidget::mouseDoubleClickEvent(event);
+}
+
 void glowbot_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->raise();
