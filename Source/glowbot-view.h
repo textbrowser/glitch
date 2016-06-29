@@ -62,6 +62,7 @@ class glowbot_view: public QWidget
   void resizeEvent(QResizeEvent *event);
 
  protected slots:
+  void slotCanvasSettingsChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotShowCanvasSettings(void);
 };

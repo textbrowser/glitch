@@ -57,6 +57,11 @@ glowbot_canvas_settings::~glowbot_canvas_settings()
 {
 }
 
+QColor glowbot_canvas_settings::backgroundColor(void) const
+{
+  return QColor(m_ui.background_color->text());
+}
+
 bool glowbot_canvas_settings::save(QString &error) const
 {
   QString connectionName("");

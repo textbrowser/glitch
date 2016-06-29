@@ -63,6 +63,10 @@ glowbot_view::glowbot_view
   m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);
   m_view->setScene(m_scene);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  connect(m_canvasSettings,
+	  SIGNAL(accepted(void)),
+	  this,
+	  SLOT(slotCanvasSettingsChanged(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -139,6 +143,12 @@ void glowbot_view::resizeEvent(QResizeEvent *event)
     }
 
   QWidget::resizeEvent(event);
+}
+
+void glowbot_view::slotCanvasSettingsChanged(void)
+{
+  m_view->setBackgroundBrush
+    (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
