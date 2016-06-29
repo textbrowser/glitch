@@ -25,6 +25,7 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QColorDialog>
 #include <QDir>
 #include <QSettings>
 #include <QSqlDatabase>
@@ -44,6 +45,10 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
     (QString("QPushButton {background-color: %1}").
      arg(QColor(211, 211, 211).name()));
   m_ui.background_color->setText(QColor(211, 211, 211).name());
+  connect(m_ui.background_color,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotSelectBackgroundColor(void)));
   setModal(false);
   setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
 }
@@ -163,4 +168,8 @@ void glowbot_canvas_settings::setViewportUpdateMode
 
   if(m_ui.update_mode->currentIndex() < 0)
     m_ui.update_mode->setCurrentIndex(1); // Full.
+}
+
+void glowbot_canvas_settings::slotSelectBackgroundColor(void)
+{
 }

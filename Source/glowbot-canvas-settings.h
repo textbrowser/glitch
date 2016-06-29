@@ -49,6 +49,7 @@ class glowbot_canvas_settings: public QDialog
 
  private slots:
   void accept(void);
+  void slotSelectBackgroundColor(void);
 };
 
 #endif
