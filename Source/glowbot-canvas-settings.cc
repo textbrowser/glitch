@@ -172,4 +172,17 @@ void glowbot_canvas_settings::setViewportUpdateMode
 
 void glowbot_canvas_settings::slotSelectBackgroundColor(void)
 {
+  QColorDialog dialog(this);
+
+  dialog.setCurrentColor(QColor(m_ui.background_color->text()));
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QColor color(dialog.selectedColor());
+
+      m_ui.background_color->setText(color.name());
+      m_ui.background_color->setStyleSheet
+	(QString("QPushButton {background-color: %1;}").
+	 arg(color.name()));
+    }
 }
