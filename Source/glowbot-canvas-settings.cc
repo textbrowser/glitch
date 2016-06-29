@@ -62,6 +62,24 @@ QColor glowbot_canvas_settings::backgroundColor(void) const
   return QColor(m_ui.background_color->text());
 }
 
+QGraphicsView::ViewportUpdateMode glowbot_canvas_settings::
+viewportUpdateMode(void) const
+{
+  switch(m_ui.update_mode->currentIndex())
+    {
+    case 0:
+      return QGraphicsView::BoundingRectViewportUpdate;
+    case 1:
+      return QGraphicsView::FullViewportUpdate;
+    case 2:
+      return QGraphicsView::MinimalViewportUpdate;
+    case 3:
+      return QGraphicsView::SmartViewportUpdate;
+    default:
+      return QGraphicsView::FullViewportUpdate;
+    }
+}
+
 bool glowbot_canvas_settings::save(QString &error) const
 {
   QString connectionName("");

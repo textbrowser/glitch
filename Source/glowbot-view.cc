@@ -149,6 +149,7 @@ void glowbot_view::slotCanvasSettingsChanged(void)
 {
   m_view->setBackgroundBrush
     (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
+  m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
