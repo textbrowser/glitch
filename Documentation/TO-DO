@@ -4,5 +4,6 @@ Completed Items
 
 Remaining Items
 
-1.     Implement Arduino's loop().
-2.     Implement Arduino's setup().
+1.     Define databases.
+2.     Implement Arduino's loop().
+3.     Implement Arduino's setup().
