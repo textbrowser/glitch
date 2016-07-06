@@ -118,10 +118,12 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 
   name = QInputDialog::getText
     (this, tr("GlowBot: Arduino Project Name"), tr("Project Name"),
-     QLineEdit::Normal, tr("Arduino Diagram"), &ok);
+     QLineEdit::Normal, "Arduino-Diagram", &ok).trimmed();
 
   if(name.isEmpty() || !ok)
     return;
+
+  name.replace(" ", "-");
 
   QFileInfo fileInfo(glowbot_misc::homePath() + QDir::separator() +
 		     QString("%1.db").arg(name));
@@ -133,16 +135,16 @@ void glowbot_ui::slotNewArduinoDiagram(void)
       mb.setIcon(QMessageBox::Question);
       mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
       mb.setText(tr("The project file %1 already exists. Overwrite?").
-		 arg(fileInfo.fileName()));
+		 arg(fileInfo.absoluteFilePath()));
 
       if(mb.exec() != QMessageBox::Yes)
 	return;
     }
 
   glowbot_view_arduino *page = new glowbot_view_arduino
-    (tr("Arduino Diagram"), glowbot_common::ArduinoProject, this);
+    (name, glowbot_common::ArduinoProject, this);
 
-  m_ui.tab->addTab(page, tr("Arduino Diagram"));
+  m_ui.tab->addTab(page, QString("%1 (Arduino Diagram)").arg(name));
   m_ui.tab->setCurrentWidget(page);
 }
 
