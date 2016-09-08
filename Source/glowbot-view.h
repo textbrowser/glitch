@@ -47,10 +47,12 @@ class glowbot_view: public QWidget
 	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
   virtual ~glowbot_view();
+  QAction *menuAction(void) const;
   QString name(void) const;
   bool save(QString &error);
 
  protected:
+  QAction *m_menuAction;
   QGraphicsView *m_view;
   QString m_name;
   Ui_glowbot_view m_ui;

@@ -69,7 +69,7 @@
    </widget>
    <widget class="QMenu" name="menu_Tabs">
     <property name="title">
-     <string>&amp;Tabs</string>
+     <string>T&amp;abs</string>
     </property>
    </widget>
    <addaction name="menu_File"/>

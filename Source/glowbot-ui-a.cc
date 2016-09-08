@@ -59,7 +59,7 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
 	  SLOT(slotCloseDiagram(int)));
-  connect(m_ui.tab,
+  connect(m_ui.tab->tabBar(),
 	  SIGNAL(tabMoved(int, int)),
 	  this,
 	  SLOT(slotTabMoved(int, int)),
@@ -133,6 +133,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   glowbot_view_arduino *page = new glowbot_view_arduino
     (name, glowbot_common::ArduinoProject, this);
 
+  m_ui.menu_Tabs->addAction(page->menuAction());
   m_ui.tab->addTab(page, QString("%1 (Arduino Diagram)").arg(name));
   m_ui.tab->setCurrentWidget(page);
 }
@@ -180,5 +181,9 @@ void glowbot_ui::slotTabMoved(int from, int to)
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
+      glowbot_view *page = qobject_cast<glowbot_view *> (m_ui.tab->widget(i));
+
+      if(page)
+	m_ui.menu_Tabs->addAction(page->menuAction());
     }
 }

@@ -48,6 +48,7 @@ glowbot_view::glowbot_view
 {
   m_ui.setupUi(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
+  m_menuAction = new QAction(name, this);
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(this);
@@ -76,6 +77,11 @@ glowbot_view::glowbot_view
 
 glowbot_view::~glowbot_view()
 {
+}
+
+QAction *glowbot_view::menuAction(void) const
+{
+  return m_menuAction;
 }
 
 QString glowbot_view::name(void) const
