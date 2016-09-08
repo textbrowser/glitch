@@ -133,6 +133,10 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   glowbot_view_arduino *page = new glowbot_view_arduino
     (name, glowbot_common::ArduinoProject, this);
 
+  connect(page->menuAction(),
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSelectPage(void)));
   m_ui.menu_Tabs->addAction(page->menuAction());
   m_ui.tab->addTab(page, QString("%1 (Arduino Diagram)").arg(name));
   m_ui.tab->setCurrentWidget(page);
@@ -170,6 +174,16 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
 	glowbot_misc::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(page->name()).arg(error), this);
     }
+}
+
+void glowbot_ui::slotSelectPage(void)
+{
+  QAction *action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  m_ui.tab->setCurrentWidget(action->parentWidget());
 }
 
 void glowbot_ui::slotTabMoved(int from, int to)
