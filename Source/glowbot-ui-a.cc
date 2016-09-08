@@ -138,7 +138,9 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	  this,
 	  SLOT(slotSelectPage(void)));
   m_ui.menu_Tabs->addAction(page->menuAction());
-  m_ui.tab->addTab(page, QString("%1 (Arduino Diagram)").arg(name));
+  m_ui.tab->addTab(page,
+		   page->menuAction()->icon(),
+		   QString("%1").arg(name));
   m_ui.tab->setCurrentWidget(page);
 }
 

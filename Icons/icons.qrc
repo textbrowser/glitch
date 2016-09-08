@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+	<file>Logo/glowbot-arduino-logo.png</file>
 	<file>Logo/glowbot-logo.png</file>
     </qresource>
 </RCC>

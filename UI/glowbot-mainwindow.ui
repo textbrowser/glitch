@@ -94,6 +94,10 @@
    </property>
   </action>
   <action name="action_New_Arduino">
+   <property name="icon">
+    <iconset resource="../Icons/icons.qrc">
+     <normaloff>:/Logo/glowbot-arduino-logo.png</normaloff>:/Logo/glowbot-arduino-logo.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Arduino...</string>
    </property>
