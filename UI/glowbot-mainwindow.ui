@@ -57,7 +57,7 @@
     <addaction name="action_Open_Diagram"/>
     <addaction name="separator"/>
     <addaction name="action_Save_Current_Diagram"/>
-    <addaction name="actionSave_Current_Diagram_As"/>
+    <addaction name="action_Save_Current_Diagram_As"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
@@ -65,15 +65,15 @@
     <property name="title">
      <string>&amp;Tools</string>
     </property>
-    <addaction name="action_Struactures"/>
+    <addaction name="action_Structures"/>
    </widget>
-   <widget class="QMenu" name="menuTabs">
+   <widget class="QMenu" name="menu_Tabs">
     <property name="title">
      <string>&amp;Tabs</string>
     </property>
    </widget>
    <addaction name="menu_File"/>
-   <addaction name="menuTabs"/>
+   <addaction name="menu_Tabs"/>
    <addaction name="menu_Tools"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -106,12 +106,12 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionSave_Current_Diagram_As">
+  <action name="action_Save_Current_Diagram_As">
    <property name="text">
     <string>Save Current Diagram &amp;As...</string>
    </property>
   </action>
-  <action name="action_Struactures">
+  <action name="action_Structures">
    <property name="text">
     <string>&amp;Structures...</string>
    </property>
