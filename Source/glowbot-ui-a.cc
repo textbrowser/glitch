@@ -59,6 +59,11 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
 	  SLOT(slotCloseDiagram(int)));
+  connect(m_ui.tab,
+	  SIGNAL(tabMoved(int, int)),
+	  this,
+	  SLOT(slotTabMoved(int, int)),
+	  Qt::QueuedConnection);
   m_ui.tab->setStyleSheet
     ("QTabBar::tear {"
      "image: none;"
@@ -163,5 +168,17 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
       if(!page->save(error))
 	glowbot_misc::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(page->name()).arg(error), this);
+    }
+}
+
+void glowbot_ui::slotTabMoved(int from, int to)
+{
+  Q_UNUSED(from);
+  Q_UNUSED(to);
+
+  m_ui.menu_Tabs->clear();
+
+  for(int i = 0; i < m_ui.tab->count(); i++)
+    {
     }
 }
