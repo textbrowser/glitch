@@ -125,22 +125,6 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 
   name.replace(" ", "-");
 
-  QFileInfo fileInfo(glowbot_misc::homePath() + QDir::separator() +
-		     QString("%1.db").arg(name));
-
-  if(fileInfo.exists())
-    {
-      QMessageBox mb(this);
-
-      mb.setIcon(QMessageBox::Question);
-      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-      mb.setText(tr("The project file %1 already exists. Overwrite?").
-		 arg(fileInfo.absoluteFilePath()));
-
-      if(mb.exec() != QMessageBox::Yes)
-	return;
-    }
-
   glowbot_view_arduino *page = new glowbot_view_arduino
     (name, glowbot_common::ArduinoProject, this);
 
