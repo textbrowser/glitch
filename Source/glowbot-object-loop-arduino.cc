@@ -63,6 +63,6 @@ void glowbot_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 
 void glowbot_object_loop_arduino::slotEdit(void)
 {
+  m_editWindow->showNormal();
   m_editWindow->raise();
-  m_editWindow->show();
 }
