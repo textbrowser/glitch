@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>glowbot_tools_arduino</class>
- <widget class="QDialog" name="glowbot_tools_arduino">
+ <class>glowbot_structures</class>
+ <widget class="QDialog" name="glowbot_structures">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,14 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GlowBot: Arduino Tools</string>
+   <string>GlowBot: Structures</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTreeWidget" name="treeWidget">
      <column>
       <property name="text">
-       <string>Items</string>
+       <string>Structures</string>
       </property>
      </column>
     </widget>
@@ -43,7 +43,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>glowbot_tools_arduino</receiver>
+   <receiver>glowbot_structures</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -59,7 +59,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>glowbot_tools_arduino</receiver>
+   <receiver>glowbot_structures</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
