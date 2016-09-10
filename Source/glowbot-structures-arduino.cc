@@ -151,6 +151,18 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Time"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("delay()")
+       << tr("millis()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Variables"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
