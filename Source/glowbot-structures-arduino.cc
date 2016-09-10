@@ -42,6 +42,18 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QTreeWidgetItem *child = 0;
   QTreeWidgetItem *item = 0;
 
+  item = new QTreeWidgetItem(QStringList() << tr("Analog I/O"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("analogRead()")
+       << tr("analogWrite()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Arithmetic"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
@@ -81,6 +93,19 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
        << tr("LOW")
        << tr("OUTPUT")
        << tr("TRUE");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
+  item = new QTreeWidgetItem(QStringList() << tr("Digital I/O"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("digitalRead()")
+       << tr("digitalWrite()")
+       << tr("pinMode()");
 
   while(!list.isEmpty())
     {
