@@ -140,6 +140,18 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Mathematics"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("max()")
+       << tr("min()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
