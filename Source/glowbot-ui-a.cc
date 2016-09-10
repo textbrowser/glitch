@@ -33,11 +33,13 @@
 #include <QSettings>
 
 #include "glowbot-misc.h"
+#include "glowbot-structures-arduino.h"
 #include "glowbot-ui.h"
 #include "glowbot-view-arduino.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
+  m_arduinoStructures = 0;
   m_ui.setupUi(this);
   connect(m_ui.action_New_Arduino,
 	  SIGNAL(triggered(void)),
@@ -55,6 +57,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSaveCurrentDiagram(void)));
+  connect(m_ui.action_Structures,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotShowStructures(void)));
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -186,6 +192,15 @@ void glowbot_ui::slotSelectPage(void)
     return;
 
   m_ui.tab->setCurrentWidget(action->parentWidget());
+}
+
+void glowbot_ui::slotShowStructures(void)
+{
+  if(qobject_cast<glowbot_view_arduino *> (m_ui.tab->currentWidget()))
+    {
+      if(!m_arduinoStructures)
+	m_arduinoStructures = new glowbot_structures_arduino(this);
+    }
 }
 
 void glowbot_ui::slotTabMoved(int from, int to)

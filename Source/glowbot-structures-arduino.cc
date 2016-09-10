@@ -30,6 +30,7 @@
 glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
+  m_ui.setupUi(this);
 }
 
 glowbot_structures_arduino::~glowbot_structures_arduino()

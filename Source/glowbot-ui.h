@@ -32,6 +32,7 @@
 
 #include "ui_glowbot-mainwindow.h"
 
+class glowbot_structures_arduino;
 class glowbot_view;
 
 class glowbot_ui: public QMainWindow
@@ -44,6 +45,7 @@ class glowbot_ui: public QMainWindow
 
  private:
   Ui_glowbot_mainwindow m_ui;
+  glowbot_structures_arduino *m_arduinoStructures;
   glowbot_view *page(const int index);
   void closeEvent(QCloseEvent *event);
   void restoreSettings(void);
@@ -56,6 +58,7 @@ class glowbot_ui: public QMainWindow
   void slotQuit(void);
   void slotSaveCurrentDiagram(void);
   void slotSelectPage(void);
+  void slotShowStructures(void);
   void slotTabMoved(int from, int to);
 };
 
