@@ -45,10 +45,26 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Arithmetic"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("addition")
-       << tr("division")
-       << tr("multiplication")
-       << tr("subtraction");
+  list << tr("addition (+)")
+       << tr("division (/)")
+       << tr("multiplication (*)")
+       << tr("subtraction (-)");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
+  item = new QTreeWidgetItem(QStringList() << tr("Comparison Operators"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("equal to (==)")
+       << tr("greater than (>)")
+       << tr("greater than or equal to (>=)")
+       << tr("less than (<)")
+       << tr("less than or equal to (<=)")
+       << tr("not equal to (!=)");
 
   while(!list.isEmpty())
     {
