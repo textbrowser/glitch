@@ -164,10 +164,23 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Serial"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("Serial.begin()")
+       << tr("Serial.println()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("block comment") << tr("function");
+  list << tr("block comment")
+       << tr("function");
 
   while(!list.isEmpty())
     {
