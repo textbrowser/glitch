@@ -49,8 +49,7 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotSelectBackgroundColor(void)));
-  setModal(false);
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
+  setWindowModality(Qt::NonModal);
 }
 
 glowbot_canvas_settings::~glowbot_canvas_settings()

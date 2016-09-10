@@ -200,6 +200,8 @@ void glowbot_ui::slotShowStructures(void)
     {
       if(!m_arduinoStructures)
 	m_arduinoStructures = new glowbot_structures_arduino(this);
+
+      m_arduinoStructures->show();
     }
 }
 
