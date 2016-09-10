@@ -42,6 +42,20 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QTreeWidgetItem *child = 0;
   QTreeWidgetItem *item = 0;
 
+  item = new QTreeWidgetItem(QStringList() << tr("Arithmetic"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("addition")
+       << tr("division")
+       << tr("multiplication")
+       << tr("subtraction");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
