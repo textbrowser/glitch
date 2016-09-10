@@ -72,6 +72,19 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Logical Operators"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("and (&&)")
+       << tr("not (!)")
+       << tr("or (||)");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
