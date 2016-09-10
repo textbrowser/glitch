@@ -45,7 +45,21 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("Block Comment") << tr("Function");
+  list << tr("block comment") << tr("function");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
+  item = new QTreeWidgetItem(QStringList() << tr("Variables"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("byte")
+       << tr("float")
+       << tr("int")
+       << tr("long");
 
   while(!list.isEmpty())
     {
