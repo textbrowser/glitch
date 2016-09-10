@@ -81,6 +81,8 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 
 glowbot_ui::~glowbot_ui()
 {
+  if(m_arduinoStructures)
+    m_arduinoStructures->deleteLater();
 }
 
 glowbot_view *glowbot_ui::page(const int index)
@@ -96,6 +98,7 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
     slotCloseDiagram(i);
 
   QMainWindow::closeEvent(event);
+  QApplication::exit();
 }
 
 void glowbot_ui::restoreSettings(void)
@@ -199,7 +202,7 @@ void glowbot_ui::slotShowStructures(void)
   if(qobject_cast<glowbot_view_arduino *> (m_ui.tab->currentWidget()))
     {
       if(!m_arduinoStructures)
-	m_arduinoStructures = new glowbot_structures_arduino(this);
+	m_arduinoStructures = new glowbot_structures_arduino(0);
 
       m_arduinoStructures->show();
     }
