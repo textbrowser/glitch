@@ -15,7 +15,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTreeWidget" name="treeWidget">
+    <widget class="QTreeWidget" name="tree">
+     <property name="tabKeyNavigation">
+      <bool>true</bool>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <property name="animated">
+      <bool>true</bool>
+     </property>
      <column>
       <property name="text">
        <string>Structures</string>
@@ -36,7 +48,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>treeWidget</tabstop>
+  <tabstop>tree</tabstop>
  </tabstops>
  <resources/>
  <connections>

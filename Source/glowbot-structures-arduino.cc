@@ -33,6 +33,28 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.setupUi(this);
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("GlowBot: Arduino Structures"));
+
+  /*
+  ** Let's create the tree.
+  */
+
+  QStringList list;
+  QTreeWidgetItem *child = 0;
+  QTreeWidgetItem *item = 0;
+
+  item = new QTreeWidgetItem(QStringList() << tr("Structures"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("Block Comment") << tr("Function");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
+  m_ui.tree->sortItems(0, Qt::AscendingOrder);
+  m_ui.tree->expandAll();
 }
 
 glowbot_structures_arduino::~glowbot_structures_arduino()
