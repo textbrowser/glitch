@@ -20,7 +20,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QTabWidget" name="tab">
+     <widget class="glowbot_tab" name="tab">
       <property name="elideMode">
        <enum>Qt::ElideRight</enum>
       </property>
@@ -121,6 +121,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glowbot_tab</class>
+   <extends>QTabWidget</extends>
+   <header>glowbot-tab.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>

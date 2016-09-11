@@ -19,6 +19,11 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Werror -Wextra \
                           -Woverloaded-virtual -Wpointer-arith \
                           -Wstack-protector -Wstrict-overflow=5
+
+lessThan(QT_MAJOR_VERSION, 5) {
+QMAKE_CXXFLAGS_RELEASE -= -Werror
+}
+
 QMAKE_DISTCLEAN += -r temp
 QMAKE_EXTRA_TARGETS = purge
 QMAKE_STRIP	= echo
@@ -52,6 +57,7 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
                   Source\\glowbot-proxy-widget.h \
                   Source\\glowbot-scene.h \
                   Source\\glowbot-structures-arduino.h \
+                  Source\\glowbot-tab.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-view.h \
 		  Source\\glowbot-view-arduino.h
@@ -69,6 +75,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
                   Source\\glowbot-proxy-widget.cc \
                   Source\\glowbot-scene.cc \
                   Source\\glowbot-structures-arduino.cc \
+                  Source\\glowbot-tab.cc \
                   Source\\glowbot-ui-a.cc \
                   Source\\glowbot-view.cc \
 		  Source\\glowbot-view-arduino.cc
