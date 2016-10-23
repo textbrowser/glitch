@@ -75,6 +75,7 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
      "image: none;"
      "}"
      );
+  prepareActionWidgets();
   restoreSettings();
   show();
 }
@@ -101,6 +102,18 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
   QApplication::exit();
 }
 
+void glowbot_ui::prepareActionWidgets(void)
+{
+  if(m_ui.tab->count() == 0)
+    {
+      m_ui.action_Structures->setEnabled(false);
+    }
+  else
+    {
+      m_ui.action_Structures->setEnabled(true);
+    }
+}
+
 void glowbot_ui::restoreSettings(void)
 {
   QSettings settings;
@@ -123,6 +136,7 @@ void glowbot_ui::slotCloseDiagram(int index)
     page->deleteLater();
 
   m_ui.tab->removeTab(index);
+  prepareActionWidgets();
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
@@ -151,6 +165,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 		   page->menuAction()->icon(),
 		   QString("%1").arg(name));
   m_ui.tab->setCurrentWidget(page);
+  prepareActionWidgets();
 }
 
 void glowbot_ui::slotOpenDiagram(void)
@@ -165,6 +180,7 @@ void glowbot_ui::slotOpenDiagram(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      prepareActionWidgets();
     }
 }
 
