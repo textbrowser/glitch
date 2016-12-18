@@ -25,25 +25,21 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_scene_h_
-#define _glowbot_scene_h_
+#ifndef _glowbot_structures_treewidget_h_
+#define _glowbot_structures_treewidget_h_
 
-#include <QGraphicsScene>
+#include <QTreeWidget>
 
-class glowbot_scene: public QGraphicsScene
+class glowbot_structures_treewidget: public QTreeWidget
 {
   Q_OBJECT
 
  public:
-  glowbot_scene(QObject *parent);
-  ~glowbot_scene();
+  glowbot_structures_treewidget(QWidget *parent);
+  ~glowbot_structures_treewidget();
 
  private:
-  QPointF m_lastScenePos;
-  void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-  void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-  void dropEvent(QGraphicsSceneDragDropEvent *event);
-  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void startDrag(Qt::DropActions supportedActions);
 };
 
 #endif

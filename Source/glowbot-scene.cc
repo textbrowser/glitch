@@ -27,6 +27,7 @@
 
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QMimeData>
 
 #include "glowbot-scene.h"
 
@@ -36,6 +37,43 @@ glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 
 glowbot_scene::~glowbot_scene()
 {
+}
+
+void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+  if(event && event->mimeData())
+    {
+      QString text(event->mimeData()->text().toLower().trimmed());
+
+      if(text.startsWith("glowbot-"))
+	{
+	  event->accept();
+	  return;
+	}
+    }
+
+  QGraphicsScene::dragEnterEvent(event);
+}
+
+void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+  if(event && event->mimeData())
+    {
+      QString text(event->mimeData()->text().toLower().trimmed());
+
+      if(text.contains("glowbot-"))
+	{
+	  event->accept();
+	  return;
+	}
+    }
+
+  QGraphicsScene::dragMoveEvent(event);
+}
+
+void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+  QGraphicsScene::dropEvent(event);
 }
 
 void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)

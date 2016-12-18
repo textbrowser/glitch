@@ -25,25 +25,35 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_scene_h_
-#define _glowbot_scene_h_
+#include <QDrag>
+#include <QMimeData>
 
-#include <QGraphicsScene>
+#include "glowbot-structures-treewidget.h"
 
-class glowbot_scene: public QGraphicsScene
+glowbot_structures_treewidget::
+glowbot_structures_treewidget(QWidget *parent):QTreeWidget(parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_scene(QObject *parent);
-  ~glowbot_scene();
+glowbot_structures_treewidget::
+~glowbot_structures_treewidget()
+{
+}
 
- private:
-  QPointF m_lastScenePos;
-  void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
-  void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
-  void dropEvent(QGraphicsSceneDragDropEvent *event);
-  void mousePressEvent(QGraphicsSceneMouseEvent *event);
-};
+void glowbot_structures_treewidget::startDrag
+(Qt::DropActions supportedActions)
+{
+  Q_UNUSED(supportedActions);
 
-#endif
+  QTreeWidgetItem *item = selectedItems().value(0);
+
+  if(!item)
+    return;
+
+  QDrag *drag = new QDrag(this);
+  QMimeData *mimeData = new QMimeData();
+
+  mimeData->setText("glowbot-" + item->text(0));
+  drag->setMimeData(mimeData);
+  drag->exec(Qt::CopyAction);
+}

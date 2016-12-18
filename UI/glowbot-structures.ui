@@ -20,7 +20,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTreeWidget" name="tree">
+     <widget class="glowbot_structures_treewidget" name="tree">
       <property name="tabKeyNavigation">
        <bool>true</bool>
       </property>
@@ -59,6 +59,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glowbot_structures_treewidget</class>
+   <extends>QTreeWidget</extends>
+   <header>glowbot-structures-treewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
