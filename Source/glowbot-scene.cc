@@ -27,8 +27,10 @@
 
 #include <QGraphicsItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsView>
 #include <QMimeData>
 
+#include "glowbot-object-analog-read-arduino.h"
 #include "glowbot-scene.h"
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
@@ -73,6 +75,15 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
+  if(event && event->mimeData())
+    {
+      QString text(event->mimeData()->text().toLower().trimmed());
+      glowbot_object *object = 0;
+
+      if(text == "glowbot-arduino-analogread()")
+	object = new glowbot_object_analog_read_arduino(views().value(0));
+    }
+
   QGraphicsScene::dropEvent(event);
 }
 
