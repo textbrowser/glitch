@@ -40,6 +40,12 @@ glowbot_structures_treewidget::
 {
 }
 
+void glowbot_structures_treewidget::setProjectType
+(const glowbot_common::ProjectType projectType)
+{
+  m_projectType = projectType;
+}
+
 void glowbot_structures_treewidget::startDrag
 (Qt::DropActions supportedActions)
 {
