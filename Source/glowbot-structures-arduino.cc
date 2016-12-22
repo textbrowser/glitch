@@ -31,6 +31,7 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  m_ui.tree->setProjectType(glowbot_common::ArduinoProject);
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("GlowBot: Arduino Structures"));
 
