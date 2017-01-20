@@ -30,6 +30,8 @@
 
 #include <QTreeWidget>
 
+#include "glowbot-common.h"
+
 class glowbot_structures_treewidget: public QTreeWidget
 {
   Q_OBJECT
@@ -37,8 +39,10 @@ class glowbot_structures_treewidget: public QTreeWidget
  public:
   glowbot_structures_treewidget(QWidget *parent);
   ~glowbot_structures_treewidget();
+  void setProjectType(const glowbot_common::ProjectType projectType);
 
  private:
+  glowbot_common::ProjectType m_projectType;
   void startDrag(Qt::DropActions supportedActions);
 };
 
