@@ -61,6 +61,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowStructures(void)));
+  connect(m_ui.menu_Tabs,
+	  SIGNAL(aboutToShow(void)),
+	  this,
+	  SLOT(slotAboutToShowTabsMenu(void)));
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -70,6 +74,7 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+  m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setStyleSheet
     ("QTabBar::tear {"
      "image: none;"
@@ -128,6 +133,14 @@ void glowbot_ui::saveSettings(void)
   settings.setValue("main_window/geometry", saveGeometry());
 }
 
+void glowbot_ui::slotAboutToShowTabsMenu(void)
+{
+  slotTabMoved(0, 0);
+
+  if(m_ui.menu_Tabs->actions().isEmpty())
+    m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
+}
+
 void glowbot_ui::slotCloseDiagram(int index)
 {
   glowbot_view *page = this->page(index);
@@ -160,7 +173,6 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectPage(void)));
-  m_ui.menu_Tabs->addAction(page->menuAction());
   m_ui.tab->addTab(page,
 		   page->menuAction()->icon(),
 		   QString("%1").arg(name));
