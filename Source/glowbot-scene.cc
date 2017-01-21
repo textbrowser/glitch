@@ -31,6 +31,7 @@
 #include <QMimeData>
 
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
@@ -82,6 +83,15 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(text == "glowbot-arduino-analogread()")
 	object = new glowbot_object_analog_read_arduino(views().value(0));
+
+      if(object)
+	{
+	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
+
+	  proxy->setWidget(object);
+	  addItem(proxy);
+	  proxy->setPos(event->scenePos());
+	}
     }
 
   QGraphicsScene::dropEvent(event);

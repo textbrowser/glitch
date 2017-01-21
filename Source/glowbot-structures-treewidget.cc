@@ -59,7 +59,11 @@ void glowbot_structures_treewidget::startDrag
   QDrag *drag = new QDrag(this);
   QMimeData *mimeData = new QMimeData();
 
-  mimeData->setText("glowbot-" + item->text(0));
+  if(m_projectType == glowbot_common::ArduinoProject)
+    mimeData->setText("glowbot-arduino-" + item->text(0));
+  else
+    mimeData->setText("glowbot-" + item->text(0));
+
   drag->setMimeData(mimeData);
   drag->exec(Qt::CopyAction);
 }

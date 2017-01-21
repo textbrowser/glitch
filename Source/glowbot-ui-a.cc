@@ -232,7 +232,9 @@ void glowbot_ui::slotShowStructures(void)
       if(!m_arduinoStructures)
 	m_arduinoStructures = new glowbot_structures_arduino(0);
 
-      m_arduinoStructures->show();
+      m_arduinoStructures->showNormal();
+      m_arduinoStructures->activateWindow();
+      m_arduinoStructures->raise();
     }
 }
 
