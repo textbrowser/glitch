@@ -28,7 +28,7 @@
 #include "glowbot-structures-arduino.h"
 
 glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
-  QMainWindow(parent)
+  QDialog(parent)
 {
   m_ui.setupUi(this);
   m_ui.tree->setProjectType(glowbot_common::ArduinoProject);

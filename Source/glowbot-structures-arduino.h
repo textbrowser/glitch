@@ -28,11 +28,11 @@
 #ifndef _glowbot_structures_arduino_h_
 #define _glowbot_structures_arduino_h_
 
-#include <QMainWindow>
+#include <QDialog>
 
 #include "ui_glowbot-structures.h"
 
-class glowbot_structures_arduino: public QMainWindow
+class glowbot_structures_arduino: public QDialog
 {
  public:
   glowbot_structures_arduino(QWidget *parent);
