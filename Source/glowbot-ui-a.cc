@@ -66,6 +66,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  this,
 	  SLOT(slotAboutToShowTabsMenu(void)));
   connect(m_ui.tab,
+	  SIGNAL(currentChanged(int)),
+	  this,
+	  SLOT(slotPageSelected(int)));
+  connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
 	  SLOT(slotCloseDiagram(int)));
@@ -222,6 +226,12 @@ void glowbot_ui::slotPageChanged(void)
     return;
 
   setWindowTitle(page);
+}
+
+void glowbot_ui::slotPageSelected(int index)
+{
+  setWindowTitle
+    (qobject_cast<glowbot_view *> (m_ui.tab->widget(index)));
 }
 
 void glowbot_ui::slotQuit(void)
