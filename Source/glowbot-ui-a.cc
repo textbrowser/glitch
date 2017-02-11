@@ -133,6 +133,19 @@ void glowbot_ui::saveSettings(void)
   settings.setValue("main_window/geometry", saveGeometry());
 }
 
+void glowbot_ui::setWindowTitle(glowbot_view *page)
+{
+  if(page)
+    {
+      if(page->hasChanged())
+	QMainWindow::setWindowTitle(tr("GlowBot: %1 (*)").arg(page->name()));
+      else
+	QMainWindow::setWindowTitle(tr("GlowBot: %1").arg(page->name()));
+    }
+  else
+    QMainWindow::setWindowTitle(tr("GlowBot"));
+}
+
 void glowbot_ui::slotAboutToShowTabsMenu(void)
 {
   slotTabMoved(0, 0);
@@ -169,6 +182,10 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   glowbot_view_arduino *page = new glowbot_view_arduino
     (name, glowbot_common::ArduinoProject, this);
 
+  connect(page,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotPageChanged(void)));
   connect(page->menuAction(),
 	  SIGNAL(triggered(void)),
 	  this,
@@ -178,6 +195,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 		   QString("%1").arg(name));
   m_ui.tab->setCurrentWidget(page);
   prepareActionWidgets();
+  setWindowTitle(page);
 }
 
 void glowbot_ui::slotOpenDiagram(void)
@@ -196,6 +214,16 @@ void glowbot_ui::slotOpenDiagram(void)
     }
 }
 
+void glowbot_ui::slotPageChanged(void)
+{
+  glowbot_view *page = qobject_cast<glowbot_view *> (sender());
+
+  if(!page)
+    return;
+
+  setWindowTitle(page);
+}
+
 void glowbot_ui::slotQuit(void)
 {
   close();
@@ -212,6 +240,8 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
       if(!page->save(error))
 	glowbot_misc::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(page->name()).arg(error), this);
+
+      setWindowTitle(page);
     }
 }
 
@@ -223,6 +253,7 @@ void glowbot_ui::slotSelectPage(void)
     return;
 
   m_ui.tab->setCurrentWidget(action->parentWidget());
+  setWindowTitle(qobject_cast<glowbot_view *> (m_ui.tab->currentWidget()));
 }
 
 void glowbot_ui::slotShowStructures(void)

@@ -70,6 +70,10 @@ glowbot_view::glowbot_view
 	  SIGNAL(accepted(void)),
 	  this,
 	  SLOT(slotCanvasSettingsChanged(void)));
+  connect(m_scene,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -89,6 +93,11 @@ QAction *glowbot_view::menuAction(void) const
 QString glowbot_view::name(void) const
 {
   return m_name;
+}
+
+bool glowbot_view::hasChanged(void) const
+{
+  return m_scene->hasChanged();
 }
 
 bool glowbot_view::save(QString &error)

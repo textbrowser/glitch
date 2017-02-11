@@ -49,6 +49,7 @@ class glowbot_view: public QWidget
   virtual ~glowbot_view();
   QAction *menuAction(void) const;
   QString name(void) const;
+  bool hasChanged(void) const;
   bool save(QString &error);
 
  protected:
@@ -67,6 +68,9 @@ class glowbot_view: public QWidget
   void slotCanvasSettingsChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotShowCanvasSettings(void);
+
+ signals:
+  void changed(void);
 };
 
 #endif

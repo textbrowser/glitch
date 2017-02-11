@@ -37,13 +37,21 @@ class glowbot_scene: public QGraphicsScene
  public:
   glowbot_scene(QObject *parent);
   ~glowbot_scene();
+  bool hasChanged(void) const;
 
  private:
   QPointF m_lastScenePos;
+  bool m_changed;
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
   void dropEvent(QGraphicsSceneDragDropEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+ private slots:
+  void slotChanged(void);
+
+ signals:
+  void changed(void);
 };
 
 #endif

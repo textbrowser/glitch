@@ -36,10 +36,20 @@
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 {
+  m_changed = false;
+  connect(this,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
 }
 
 glowbot_scene::~glowbot_scene()
 {
+}
+
+bool glowbot_scene::hasChanged(void) const
+{
+  return m_changed;
 }
 
 void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -88,6 +98,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
+	  emit changed();
 	  proxy->setWidget(object);
 	  addItem(proxy);
 	  proxy->setPos(event->scenePos());
@@ -147,4 +158,9 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
  done_label:
   QGraphicsScene::mousePressEvent(event);
+}
+
+void glowbot_scene::slotChanged(void)
+{
+  m_changed = true;
 }

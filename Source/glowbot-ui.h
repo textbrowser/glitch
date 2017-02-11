@@ -51,12 +51,14 @@ class glowbot_ui: public QMainWindow
   void prepareActionWidgets(void);
   void restoreSettings(void);
   void saveSettings(void);
+  void setWindowTitle(glowbot_view *page);
 
  private slots:
   void slotAboutToShowTabsMenu(void);
   void slotCloseDiagram(int index);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
+  void slotPageChanged(void);
   void slotQuit(void);
   void slotSaveCurrentDiagram(void);
   void slotSelectPage(void);
