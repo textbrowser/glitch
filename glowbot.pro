@@ -44,6 +44,7 @@ FORMS           = UI\\glowbot-canvas-settings.ui \
 		  UI\\glowbot-object-loop-arduino.ui \
                   UI\\glowbot-object-setup-arduino.ui \
 		  UI\\glowbot-object-start.ui \
+		  UI\\glowbot-separated-diagram-window.ui \
                   UI\\glowbot-structures.ui \
 		  UI\\glowbot-view.ui
 

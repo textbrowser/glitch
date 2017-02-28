@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>glowbot_separated_diagram_window</class>
+ <widget class="QMainWindow" name="glowbot_separated_diagram_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GlowBot</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../Icons/icons.qrc">
+    <normaloff>:/Logo/glowbot-logo.png</normaloff>:/Logo/glowbot-logo.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+ </widget>
+ <resources>
+  <include location="../Icons/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
