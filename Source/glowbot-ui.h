@@ -47,7 +47,9 @@ class glowbot_ui: public QMainWindow
   Ui_glowbot_mainwindow m_ui;
   glowbot_structures_arduino *m_arduinoStructures;
   glowbot_view *page(const int index);
+  void newArduinoDiagram(const QString &name);
   void closeEvent(QCloseEvent *event);
+  void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void restoreSettings(void);
   void saveSettings(void);

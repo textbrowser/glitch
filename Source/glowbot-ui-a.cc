@@ -84,6 +84,7 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
      "image: none;"
      "}"
      );
+  parseCommandLineArguments();
   prepareActionWidgets();
   restoreSettings();
   show();
@@ -109,6 +110,46 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
 
   QMainWindow::closeEvent(event);
   QApplication::exit();
+}
+
+void glowbot_ui::newArduinoDiagram(const QString &n)
+{
+  QString name(n);
+
+  name.replace(" ", "-");
+
+  if(name.isEmpty())
+    name = "Arduino-Diagram";
+
+  glowbot_view_arduino *page = new glowbot_view_arduino
+    (name, glowbot_common::ArduinoProject, this);
+
+  connect(page,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotPageChanged(void)));
+  connect(page->menuAction(),
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSelectPage(void)));
+  m_ui.tab->addTab(page,
+		   page->menuAction()->icon(),
+		   QString("%1").arg(name));
+  m_ui.tab->setCurrentWidget(page);
+  prepareActionWidgets();
+  setWindowTitle(page);
+}
+
+void glowbot_ui::parseCommandLineArguments(void)
+{
+  QStringList list(QApplication::arguments());
+
+  for(int i = 1; i < list.size(); i++)
+    if(list.at(i) == "--new-arduino-diagram")
+      {
+	i += 1;
+	newArduinoDiagram(list.value(i));
+      }
 }
 
 void glowbot_ui::prepareActionWidgets(void)
@@ -178,28 +219,12 @@ void glowbot_ui::slotNewArduinoDiagram(void)
     (this, tr("GlowBot: Arduino Project Name"), tr("Project Name"),
      QLineEdit::Normal, "Arduino-Diagram", &ok).trimmed();
 
-  if(name.isEmpty() || !ok)
+  if(!ok)
     return;
+  else if(name.isEmpty())
+    name = "Arduino-Diagram";
 
-  name.replace(" ", "-");
-
-  glowbot_view_arduino *page = new glowbot_view_arduino
-    (name, glowbot_common::ArduinoProject, this);
-
-  connect(page,
-	  SIGNAL(changed(void)),
-	  this,
-	  SLOT(slotPageChanged(void)));
-  connect(page->menuAction(),
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotSelectPage(void)));
-  m_ui.tab->addTab(page,
-		   page->menuAction()->icon(),
-		   QString("%1").arg(name));
-  m_ui.tab->setCurrentWidget(page);
-  prepareActionWidgets();
-  setWindowTitle(page);
+  newArduinoDiagram(name);
 }
 
 void glowbot_ui::slotOpenDiagram(void)
