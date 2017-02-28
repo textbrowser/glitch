@@ -28,12 +28,22 @@
 #include <QApplication>
 #include <QSettings>
 
+#include <iostream>
+
 #include "glowbot-common.h"
 #include "glowbot-misc.h"
 #include "glowbot-ui.h"
 
 int main(int argc, char *argv[])
 {
+  for(int i = 0; i < argc; i++)
+    if(argv && argv[i] && strcmp(argv[i], "--version") == 0)
+      {
+	std::cout << "GlowBot version " << GLOWBOT_VERSION_STR << "."
+		  << std::endl;
+	return EXIT_SUCCESS;
+      }
+
   QApplication qapplication(argc, argv);
 
 #ifdef Q_OS_MAC

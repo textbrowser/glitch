@@ -150,6 +150,9 @@ void glowbot_ui::parseCommandLineArguments(void)
 	i += 1;
 	newArduinoDiagram(list.value(i));
       }
+    else if(list.at(i) == "--version")
+      {
+      }
 }
 
 void glowbot_ui::prepareActionWidgets(void)
