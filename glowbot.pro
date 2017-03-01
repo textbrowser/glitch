@@ -57,6 +57,7 @@ HEADERS		= Source\\glowbot-canvas-settings.h \
 		  Source\\glowbot-object-view.h \
                   Source\\glowbot-proxy-widget.h \
                   Source\\glowbot-scene.h \
+                  Source\\glowbot-separated-diagram-window.h \
                   Source\\glowbot-structures-arduino.h \
                   Source\\glowbot-structures-treewidget.h \
                   Source\\glowbot-tab.h \
@@ -76,6 +77,7 @@ SOURCES		= Source\\glowbot-canvas-settings.cc \
 		  Source\\glowbot-object-view.cc \
                   Source\\glowbot-proxy-widget.cc \
                   Source\\glowbot-scene.cc \
+                  Source\\glowbot-separated-diagram-window.cc \
                   Source\\glowbot-structures-arduino.cc \
                   Source\\glowbot-structures-treewidget.cc \
                   Source\\glowbot-tab.cc \
