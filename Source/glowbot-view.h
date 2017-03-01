@@ -67,6 +67,7 @@ class glowbot_view: public QWidget
  protected slots:
   void slotCanvasSettingsChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
+  void slotSeparate(void);
   void slotShowCanvasSettings(void);
 
  signals:

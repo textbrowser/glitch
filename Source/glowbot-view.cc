@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QMainWindow>
 #include <QMenu>
 #include <QResizeEvent>
 #include <QScrollBar>
@@ -171,13 +172,28 @@ void glowbot_view::slotCanvasSettingsChanged(void)
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 {
+  QAction *action = 0;
   QMenu menu(this);
 
-  menu.addAction("Show Canvas &Settings...",
+  action = menu.addAction(tr("Se&parate..."),
+			  this,
+			  SLOT(slotSeparate(void)));
+
+  if(qobject_cast<QMainWindow *> (parentWidget()))
+    action->setEnabled(false);
+  else
+    action->setEnabled(true);
+
+  menu.addAction(tr("Show Canvas &Settings..."),
 		 this,
 		 SLOT(slotShowCanvasSettings(void)));
   menu.exec(mapToGlobal(point));
 }
+
+void glowbot_view::slotSeparate(void)
+{
+}
+
 
 void glowbot_view::slotShowCanvasSettings(void)
 {
