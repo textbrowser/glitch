@@ -38,6 +38,7 @@
 #include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
+#include "glowbot-separated-diagram-window.h"
 #include "glowbot-view.h"
 
 static const int s_scene_rect_fuzzy = 4;
@@ -184,6 +185,16 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
   else
     action->setEnabled(true);
 
+  action = menu.addAction(tr("&Unite"),
+			  this,
+			  SLOT(slotUnite(void)));
+
+  if(qobject_cast<glowbot_separated_diagram_window *> (parentWidget()))
+    action->setEnabled(true);
+  else
+    action->setEnabled(false);
+
+  menu.addSeparator();
   menu.addAction(tr("Show Canvas &Settings..."),
 		 this,
 		 SLOT(slotShowCanvasSettings(void)));
@@ -192,12 +203,16 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 
 void glowbot_view::slotSeparate(void)
 {
+  emit separate(this);
 }
-
 
 void glowbot_view::slotShowCanvasSettings(void)
 {
   m_canvasSettings->setName(m_name);
   m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
   m_canvasSettings->show();
+}
+
+void glowbot_view::slotUnite(void)
+{
 }

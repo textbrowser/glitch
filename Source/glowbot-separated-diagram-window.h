@@ -40,7 +40,7 @@ class glowbot_separated_diagram_window: public QMainWindow
   Q_OBJECT
 
  public:
-  glowbot_separated_diagram_window(void);
+  glowbot_separated_diagram_window(QWidget *parent);
   ~glowbot_separated_diagram_window();
 
  private:

@@ -65,6 +65,7 @@ class glowbot_ui: public QMainWindow
   void slotQuit(void);
   void slotSaveCurrentDiagram(void);
   void slotSelectPage(void);
+  void slotSeparate(glowbot_view *view);
   void slotShowStructures(void);
   void slotTabMoved(int from, int to);
 };

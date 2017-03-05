@@ -33,6 +33,7 @@
 #include <QSettings>
 
 #include "glowbot-misc.h"
+#include "glowbot-separated-diagram-window.h"
 #include "glowbot-structures-arduino.h"
 #include "glowbot-ui.h"
 #include "glowbot-view-arduino.h"
@@ -128,6 +129,10 @@ void glowbot_ui::newArduinoDiagram(const QString &n)
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotPageChanged(void)));
+  connect(page,
+	  SIGNAL(separate(glowbot_view *)),
+	  this,
+	  SLOT(slotSeparate(glowbot_view *)));
   connect(page->menuAction(),
 	  SIGNAL(triggered(void)),
 	  this,
@@ -292,6 +297,22 @@ void glowbot_ui::slotSelectPage(void)
 
   m_ui.tab->setCurrentWidget(action->parentWidget());
   setWindowTitle(qobject_cast<glowbot_view *> (m_ui.tab->currentWidget()));
+}
+
+void glowbot_ui::slotSeparate(glowbot_view *view)
+{
+  if(!view)
+    return;
+
+  m_ui.tab->removeTab(m_ui.tab->indexOf(view));
+
+  glowbot_separated_diagram_window *window =
+    new glowbot_separated_diagram_window(this);
+
+  window->setCentralWidget(view);
+  view->show();
+  window->resize(view->size());
+  window->show();
 }
 
 void glowbot_ui::slotShowStructures(void)

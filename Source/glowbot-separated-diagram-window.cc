@@ -27,7 +27,8 @@
 
 #include "glowbot-separated-diagram-window.h"
 
-glowbot_separated_diagram_window::glowbot_separated_diagram_window(void)
+glowbot_separated_diagram_window::
+glowbot_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
 }
