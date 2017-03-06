@@ -317,8 +317,12 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
 
 void glowbot_ui::slotShowStructures(void)
 {
-  if(qobject_cast<glowbot_view_arduino *> (m_ui.tab->currentWidget()))
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  if(!findChildren<glowbot_view_arduino *> ().isEmpty())
     {
+      QApplication::restoreOverrideCursor();
+
       if(!m_arduinoStructures)
 	m_arduinoStructures = new glowbot_structures_arduino(0);
 
@@ -326,6 +330,8 @@ void glowbot_ui::slotShowStructures(void)
       m_arduinoStructures->activateWindow();
       m_arduinoStructures->raise();
     }
+  else
+    QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::slotTabMoved(int from, int to)
