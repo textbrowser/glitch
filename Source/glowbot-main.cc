@@ -65,5 +65,7 @@ int main(int argc, char *argv[])
   QSettings::setDefaultFormat(QSettings::IniFormat);
 
   glowbot_ui ui;
+
+  ui.show();
   return qapplication.exec();
 }

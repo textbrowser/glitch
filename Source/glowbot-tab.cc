@@ -27,8 +27,31 @@
 
 #include "glowbot-tab.h"
 
+glowbot_tab_tabbar::glowbot_tab_tabbar(QWidget *parent):QTabBar(parent)
+{
+  setDocumentMode(true);
+  setElideMode(Qt::ElideRight);
+  setExpanding(true);
+  setUsesScrollButtons(true);
+}
+
+glowbot_tab_tabbar::~glowbot_tab_tabbar()
+{
+}
+
 glowbot_tab::glowbot_tab(QWidget *parent):QTabWidget(parent)
 {
+  m_tabBar = new glowbot_tab_tabbar(this);
+  m_tabBar->setContextMenuPolicy(Qt::CustomContextMenu);
+  m_tabBar->setStyleSheet
+    ("QTabBar::tear {"
+     "image: none;"
+     "}"
+     );
+  setStyleSheet("QTabWidget::tab-bar {"
+		"alignment: left;"
+		"}");
+  setTabBar(m_tabBar);
 }
 
 glowbot_tab::~glowbot_tab()
@@ -37,5 +60,5 @@ glowbot_tab::~glowbot_tab()
 
 QTabBar *glowbot_tab::tabBar(void) const
 {
-  return QTabWidget::tabBar();
+  return m_tabBar;
 }

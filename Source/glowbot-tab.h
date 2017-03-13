@@ -28,7 +28,17 @@
 #ifndef _glowbot_tab_h_
 #define _glowbot_tab_h_
 
+#include <QTabBar>
 #include <QTabWidget>
+
+class glowbot_tab_tabbar: public QTabBar
+{
+  Q_OBJECT
+
+ public:
+  glowbot_tab_tabbar(QWidget *parent);
+  ~glowbot_tab_tabbar();
+};
 
 class glowbot_tab: public QTabWidget
 {
@@ -38,6 +48,9 @@ class glowbot_tab: public QTabWidget
   glowbot_tab(QWidget *parent);
   ~glowbot_tab();
   QTabBar *tabBar(void) const;
+
+ private:
+  glowbot_tab_tabbar *m_tabBar;
 };
 
 #endif

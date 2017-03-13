@@ -80,15 +80,9 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
-  m_ui.tab->setStyleSheet
-    ("QTabBar::tear {"
-     "image: none;"
-     "}"
-     );
-  parseCommandLineArguments();
+  m_ui.tab->setMovable(true);
+  m_ui.tab->setTabsClosable(true);
   prepareActionWidgets();
-  restoreSettings();
-  show();
 }
 
 glowbot_ui::~glowbot_ui()
@@ -197,6 +191,20 @@ void glowbot_ui::setWindowTitle(glowbot_view *page)
     }
   else
     QMainWindow::setWindowTitle(tr("GlowBot"));
+}
+
+void glowbot_ui::show(void)
+{
+  restoreSettings();
+  QMainWindow::show();
+
+  /*
+  ** Some desktop managers are strange.
+  */
+
+  repaint();
+  QApplication::flush();
+  parseCommandLineArguments();
 }
 
 void glowbot_ui::slotAboutToShowTabsMenu(void)
