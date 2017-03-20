@@ -108,6 +108,33 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
   QGraphicsScene::dropEvent(event);
 }
 
+void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+  if(event && !m_lastScenePos.isNull())
+    {
+      QList<QGraphicsItem *> list(selectedItems());
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  glowbot_proxy_widget *proxy =
+	    qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+	  if(!proxy)
+	    continue;
+
+	  QPoint point
+	    (proxy->mapToParent(event->scenePos() - m_lastScenePos).toPoint());
+
+	  proxy->setPos(point);
+	}
+
+      m_lastScenePos = event->scenePos();
+      return;
+    }
+  else
+    QGraphicsScene::mouseMoveEvent(event);
+}
+
 void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
@@ -158,6 +185,12 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
  done_label:
   QGraphicsScene::mousePressEvent(event);
+}
+
+void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+  m_lastScenePos = QPointF();
+  QGraphicsScene::mouseReleaseEvent(event);
 }
 
 void glowbot_scene::slotChanged(void)
