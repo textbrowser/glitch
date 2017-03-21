@@ -2,11 +2,11 @@ Completed Items
 
 1.     Display main() function. Fixed position? Yes.
 2.     View separation.
+3.     Define databases.
 
 Remaining Items
 
-1.     Define databases.
-2.     Icons.
-3.     Implement Arduino's loop().
-4.     Implement Arduino's setup().
-5.     Depict changed pages. Window titles, etc.
+1.     Icons.
+2.     Implement Arduino's loop().
+3.     Implement Arduino's setup().
+4.     Depict changed pages. Window titles, etc.
