@@ -98,10 +98,12 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
-	  emit changed();
+	  proxy->setFlags
+	    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	  proxy->setWidget(object);
 	  addItem(proxy);
 	  proxy->setPos(event->scenePos());
+	  emit changed();
 	}
     }
 
@@ -120,6 +122,8 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	    qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
 
 	  if(!proxy)
+	    continue;
+	  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
 	    continue;
 
 	  QPoint point

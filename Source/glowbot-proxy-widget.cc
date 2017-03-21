@@ -37,7 +37,6 @@ glowbot_proxy_widget::glowbot_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):
   QGraphicsProxyWidget(parent, wFlags)
 {
-  setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 }
 
 glowbot_proxy_widget::~glowbot_proxy_widget()

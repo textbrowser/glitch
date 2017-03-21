@@ -119,6 +119,21 @@ bool glowbot_view::save(QString &error)
       {
 	QSqlQuery query(db);
 
+	query.exec("CREATE TABLE IF NOT EXIST diagram ("
+		   "name TEXT NOT NULL PRIMARY KEY, "
+		   "type TEXT NOT NULL)");
+	query.exec("CREATE TABLE IF NOT EXISTS objects ("
+		   "parent_oid INTEGER NOT NULL DEFAULT -1, "
+		   "position TEXT NOT NULL, "
+		   "type TEXT NOT NULL, "
+		   "PRIMARY KEY (parent_oid, position))");
+	query.exec("CREATE TABLE IF NOT EXISTS wires ("
+		   "object_input_oid INTEGER NOT NULL, "
+		   "object_output_oid INTEGER NOT NULL, "
+		   "parent_oid INTEGER NOT NULL, "
+		   "PRIMARY KEY (object_input_oid, "
+		   "object_output_oid, parent_oid))");
+
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
       }
