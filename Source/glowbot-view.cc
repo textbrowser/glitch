@@ -107,7 +107,7 @@ bool glowbot_view::save(QString &error)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
-  bool ok = false;
+  bool ok = true;
 
   {
     QSqlDatabase db(glowbot_common::sqliteDatabase());
@@ -117,7 +117,7 @@ bool glowbot_view::save(QString &error)
       (glowbot_misc::homePath() + QDir::separator() +
        QString("%1.db").arg(m_name));
 
-    if(db.open())
+    if((ok = db.open()))
       {
 	QSqlQuery query(db);
 
@@ -153,6 +153,12 @@ bool glowbot_view::save(QString &error)
 	      (glowbot_common::projectTypeToString(m_projectType));
 	    ok = query.exec();
 
+	    if(!ok)
+	      {
+		error = query.lastError().text();
+		goto done_label;
+	      }
+
 	    QList<QGraphicsItem *> list(m_scene->items());
 
 	    for(int i = 0; i < list.size(); i++)
@@ -170,9 +176,8 @@ bool glowbot_view::save(QString &error)
 		  continue;
 	      }
 	  }
-
-	if(!ok)
-	  error = query.lastError().text();
+	else
+	  query.lastError().text();
       }
     else
       error = db.lastError().text();
@@ -180,6 +185,7 @@ bool glowbot_view::save(QString &error)
     db.close();
   }
 
+ done_label:
   glowbot_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
   return ok;
