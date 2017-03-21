@@ -104,6 +104,8 @@ bool glowbot_view::hasChanged(void) const
 
 bool glowbot_view::save(QString &error)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   QString connectionName("");
   bool ok = false;
 
@@ -119,20 +121,28 @@ bool glowbot_view::save(QString &error)
       {
 	QSqlQuery query(db);
 
-	query.exec("CREATE TABLE IF NOT EXIST diagram ("
-		   "name TEXT NOT NULL PRIMARY KEY, "
-		   "type TEXT NOT NULL)");
-	query.exec("CREATE TABLE IF NOT EXISTS objects ("
-		   "parent_oid INTEGER NOT NULL DEFAULT -1, "
-		   "position TEXT NOT NULL, "
-		   "type TEXT NOT NULL, "
-		   "PRIMARY KEY (parent_oid, position))");
-	query.exec("CREATE TABLE IF NOT EXISTS wires ("
-		   "object_input_oid INTEGER NOT NULL, "
-		   "object_output_oid INTEGER NOT NULL, "
-		   "parent_oid INTEGER NOT NULL, "
-		   "PRIMARY KEY (object_input_oid, "
-		   "object_output_oid, parent_oid))");
+	ok = query.exec("CREATE TABLE IF NOT EXISTS diagram ("
+			"name TEXT NOT NULL PRIMARY KEY, "
+			"type TEXT NOT NULL)");
+
+	if(ok)
+	  ok = query.exec("CREATE TABLE IF NOT EXISTS objects ("
+			  "parent_oid INTEGER NOT NULL DEFAULT -1, "
+			  "position TEXT NOT NULL, "
+			  "type TEXT NOT NULL, "
+			  "PRIMARY KEY (parent_oid, position))");
+	else
+	  error = query.lastError().text();
+
+	if(ok)
+	  ok = query.exec("CREATE TABLE IF NOT EXISTS wires ("
+			  "object_input_oid INTEGER NOT NULL, "
+			  "object_output_oid INTEGER NOT NULL, "
+			  "parent_oid INTEGER NOT NULL, "
+			  "PRIMARY KEY (object_input_oid, "
+			  "object_output_oid, parent_oid))");
+	else
+	  error = query.lastError().text();
 
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
@@ -144,6 +154,7 @@ bool glowbot_view::save(QString &error)
   }
 
   glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
   return ok;
 }
 
