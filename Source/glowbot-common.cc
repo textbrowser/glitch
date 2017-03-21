@@ -40,6 +40,17 @@ QSqlDatabase glowbot_common::sqliteDatabase(void)
   return db;
 }
 
+QString glowbot_common::projectTypeToString(const ProjectType projectType)
+{
+  switch(projectType)
+    {
+    case ArduinoProject:
+      return "ArduinoProject";
+    default:
+      return "";
+    }
+}
+
 void glowbot_common::discardDatabase(const QString &connectionName)
 {
   QSqlDatabase::removeDatabase(connectionName);

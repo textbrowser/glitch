@@ -39,6 +39,11 @@ glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
 {
 }
 
+bool glowbot_object_setup_arduino::isMandatory(void) const
+{
+  return true;
+}
+
 void glowbot_object_setup_arduino::addActions(QMenu &menu) const
 {
   Q_UNUSED(menu);

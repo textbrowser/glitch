@@ -38,6 +38,7 @@ class glowbot_object: public QWidget
  public:
   glowbot_object(QWidget *parent);
   virtual ~glowbot_object();
+  virtual bool isMandatory(void) const = 0;
   virtual void addActions(QMenu &menu) const = 0;
 
  protected:

@@ -38,6 +38,7 @@ class glowbot_object_analog_read_arduino: public glowbot_object
  public:
   glowbot_object_analog_read_arduino(QWidget *parent);
   ~glowbot_object_analog_read_arduino();
+  bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
 
  private:

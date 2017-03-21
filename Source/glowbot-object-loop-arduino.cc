@@ -48,6 +48,11 @@ glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
     m_editWindow->deleteLater();
 }
 
+bool glowbot_object_loop_arduino::isMandatory(void) const
+{
+  return true;
+}
+
 void glowbot_object_loop_arduino::addActions(QMenu &menu) const
 {
   menu.addAction(tr("&Edit..."),

@@ -43,6 +43,7 @@ class glowbot_object_loop_arduino: public glowbot_object
  public:
   glowbot_object_loop_arduino(QWidget *parent);
   ~glowbot_object_loop_arduino();
+  bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
 
  private:

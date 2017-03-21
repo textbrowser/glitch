@@ -38,6 +38,7 @@ class glowbot_object_start: public glowbot_object
  public:
   glowbot_object_start(QWidget *parent);
   ~glowbot_object_start();
+  bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
 
  private:

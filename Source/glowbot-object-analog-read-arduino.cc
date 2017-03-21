@@ -39,6 +39,11 @@ glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()
 {
 }
 
+bool glowbot_object_analog_read_arduino::isMandatory(void) const
+{
+  return true;
+}
+
 void glowbot_object_analog_read_arduino::addActions(QMenu &menu) const
 {
   Q_UNUSED(menu);

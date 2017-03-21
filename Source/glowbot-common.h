@@ -41,6 +41,7 @@ class glowbot_common
   };
 
   static QSqlDatabase sqliteDatabase(void);
+  static QString projectTypeToString(const ProjectType projectType);
   static void discardDatabase(const QString &connectioName);
 
  private:

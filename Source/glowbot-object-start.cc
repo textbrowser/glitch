@@ -43,6 +43,11 @@ glowbot_object_start::~glowbot_object_start()
 {
 }
 
+bool glowbot_object_start::isMandatory(void) const
+{
+  return true;
+}
+
 void glowbot_object_start::addActions(QMenu &menu) const
 {
   Q_UNUSED(menu);

@@ -144,7 +144,34 @@ bool glowbot_view::save(QString &error)
 	else
 	  error = query.lastError().text();
 
-	if(!(ok = query.exec()))
+	if(ok)
+	  {
+	    query.prepare("INSERT OR REPLACE INTO diagram (name, type) "
+			  "VALUES (?, ?)");
+	    query.addBindValue(m_name);
+	    query.addBindValue
+	      (glowbot_common::projectTypeToString(m_projectType));
+	    ok = query.exec();
+
+	    QList<QGraphicsItem *> list(m_scene->items());
+
+	    for(int i = 0; i < list.size(); i++)
+	      {
+		glowbot_proxy_widget *proxy =
+		  qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+		if(!proxy)
+		  continue;
+
+		glowbot_object *widget = qobject_cast<glowbot_object *>
+		  (proxy->widget());
+
+		if(!widget || widget->isMandatory())
+		  continue;
+	      }
+	  }
+
+	if(!ok)
 	  error = query.lastError().text();
       }
     else
