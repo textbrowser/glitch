@@ -39,9 +39,14 @@ glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()
 {
 }
 
+bool glowbot_object_analog_read_arduino::hasView(void) const
+{
+  return false;
+}
+
 bool glowbot_object_analog_read_arduino::isMandatory(void) const
 {
-  return true;
+  return false;
 }
 
 void glowbot_object_analog_read_arduino::addActions(QMenu &menu) const

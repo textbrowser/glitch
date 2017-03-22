@@ -39,6 +39,11 @@ glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
 {
 }
 
+bool glowbot_object_setup_arduino::hasView(void) const
+{
+  return true;
+}
+
 bool glowbot_object_setup_arduino::isMandatory(void) const
 {
   return true;

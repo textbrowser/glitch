@@ -37,12 +37,18 @@ class glowbot_object: public QWidget
 
  public:
   glowbot_object(QWidget *parent);
+  quint64 id(void) const;
   virtual ~glowbot_object();
+  virtual bool hasView(void) const = 0;
   virtual bool isMandatory(void) const = 0;
   virtual void addActions(QMenu &menu) const = 0;
 
+ private:
+  static quint64 s_id;
+
  protected:
   QWidget *m_parent;
+  quint64 m_id;
 };
 
 #endif

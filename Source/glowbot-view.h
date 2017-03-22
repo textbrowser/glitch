@@ -35,6 +35,7 @@
 #include "glowbot-common.h"
 #include "ui_glowbot-view.h"
 
+class glowbot_object;
 class glowbot_object_start;
 class glowbot_scene;
 

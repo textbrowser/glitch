@@ -127,6 +127,7 @@ bool glowbot_view::save(QString &error)
 
 	if(ok)
 	  ok = query.exec("CREATE TABLE IF NOT EXISTS objects ("
+			  "myoid INTEGER NOT NULL, "
 			  "parent_oid INTEGER NOT NULL DEFAULT -1, "
 			  "position TEXT NOT NULL, "
 			  "type TEXT NOT NULL, "
@@ -172,7 +173,7 @@ bool glowbot_view::save(QString &error)
 		glowbot_object *widget = qobject_cast<glowbot_object *>
 		  (proxy->widget());
 
-		if(!widget || widget->isMandatory())
+		if(!widget)
 		  continue;
 	      }
 	  }

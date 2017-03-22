@@ -43,6 +43,11 @@ glowbot_object_start::~glowbot_object_start()
 {
 }
 
+bool glowbot_object_start::hasView(void) const
+{
+  return false;
+}
+
 bool glowbot_object_start::isMandatory(void) const
 {
   return true;

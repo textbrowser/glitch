@@ -27,11 +27,20 @@
 
 #include "glowbot-object.h"
 
+quint64 glowbot_object::s_id = 0;
+
 glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
 {
+  m_id = s_id;
   m_parent = parent;
+  s_id += 1;
 }
 
 glowbot_object::~glowbot_object()
 {
+}
+
+quint64 glowbot_object::id(void) const
+{
+  return m_id;
 }
