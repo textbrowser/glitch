@@ -127,7 +127,7 @@ bool glowbot_view::save(QString &error)
 
 	if(ok)
 	  ok = query.exec("CREATE TABLE IF NOT EXISTS objects ("
-			  "myoid INTEGER NOT NULL, "
+			  "myoid INTEGER NOT NULL UNIQUE, "
 			  "parent_oid INTEGER NOT NULL DEFAULT -1, "
 			  "position TEXT NOT NULL, "
 			  "type TEXT NOT NULL, "
