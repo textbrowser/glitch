@@ -71,6 +71,12 @@ void glowbot_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)
   QWidget::mouseDoubleClickEvent(event);
 }
 
+void glowbot_object_loop_arduino::save(const QSqlDatabase &db, QString &error)
+{
+  Q_UNUSED(db);
+  Q_UNUSED(error);
+}
+
 void glowbot_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->showNormal();

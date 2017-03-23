@@ -41,6 +41,7 @@ class glowbot_object_start: public glowbot_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
+  void save(const QSqlDatabase &db, QString &error);
 
  private:
   Ui_glowbot_object_start m_ui;

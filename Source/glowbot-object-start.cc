@@ -57,3 +57,9 @@ void glowbot_object_start::addActions(QMenu &menu) const
 {
   Q_UNUSED(menu);
 }
+
+void glowbot_object_start::save(const QSqlDatabase &db, QString &error)
+{
+  Q_UNUSED(db);
+  Q_UNUSED(error);
+}

@@ -96,6 +96,8 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(object)
 	{
+	  event->accept();
+
 	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
 	  proxy->setFlags
@@ -104,6 +106,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  addItem(proxy);
 	  proxy->setPos(event->scenePos());
 	  emit changed();
+	  return;
 	}
     }
 

@@ -29,6 +29,7 @@
 #define _glowbot_object_h_
 
 #include <QMenu>
+#include <QSqlDatabase>
 #include <QWidget>
 
 class glowbot_object: public QWidget
@@ -42,6 +43,7 @@ class glowbot_object: public QWidget
   virtual bool hasView(void) const = 0;
   virtual bool isMandatory(void) const = 0;
   virtual void addActions(QMenu &menu) const = 0;
+  virtual void save(const QSqlDatabase &db, QString &error) = 0;
 
  private:
   static quint64 s_id;

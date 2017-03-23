@@ -25,6 +25,9 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSqlError>
+#include <QSqlQuery>
+
 #include "glowbot-object-analog-read-arduino.h"
 
 glowbot_object_analog_read_arduino::glowbot_object_analog_read_arduino
@@ -52,4 +55,28 @@ bool glowbot_object_analog_read_arduino::isMandatory(void) const
 void glowbot_object_analog_read_arduino::addActions(QMenu &menu) const
 {
   Q_UNUSED(menu);
+}
+
+void glowbot_object_analog_read_arduino::save(const QSqlDatabase &db,
+					      QString &error)
+{
+  QSqlQuery query(db);
+  glowbot_object *parent = qobject_cast<glowbot_object *> (m_parent);
+
+  query.prepare("INSERT OR REPLACE INTO objects "
+		"(myoid, parent_oid, position, type) "
+		"VALUES(?, ?, ?, ?)");
+  query.addBindValue(m_id);
+
+  if(parent)
+    query.addBindValue(parent->id());
+  else
+    query.addBindValue(-1);
+
+  query.addBindValue(QString("(%1,%2)").arg(pos().x()).arg(pos().y()));
+  query.addBindValue("arduino-analogread");
+  query.exec();
+
+  if(query.lastError().isValid())
+    error = query.lastError().text();
 }

@@ -46,6 +46,7 @@ class glowbot_object_loop_arduino: public glowbot_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
+  void save(const QSqlDatabase &db, QString &error);
 
  private:
   QMainWindow *m_editWindow;

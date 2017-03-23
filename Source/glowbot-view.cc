@@ -160,6 +160,9 @@ bool glowbot_view::save(QString &error)
 		goto done_label;
 	      }
 
+	    query.exec("DELETE FROM objects");
+	    query.exec("DELETE FROM wires");
+
 	    QList<QGraphicsItem *> list(m_scene->items());
 
 	    for(int i = 0; i < list.size(); i++)
@@ -175,6 +178,8 @@ bool glowbot_view::save(QString &error)
 
 		if(!widget)
 		  continue;
+
+		widget->save(db, error);
 	      }
 	  }
 	else
