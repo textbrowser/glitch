@@ -130,8 +130,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
 	    continue;
 
-	  QPointF point
-	    (proxy->mapToParent(event->scenePos() - m_lastScenePos));
+	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
 	  proxy->setPos(point);
 
