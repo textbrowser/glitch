@@ -45,6 +45,7 @@ class glowbot_separated_diagram_window: public QMainWindow
 
  private:
   Ui_glowbot_separated_diagram_window m_ui;
+  void closeEvent(QCloseEvent *event);
 
  private slots:
 };

@@ -36,3 +36,9 @@ glowbot_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 glowbot_separated_diagram_window::~glowbot_separated_diagram_window()
 {
 }
+
+void glowbot_separated_diagram_window::closeEvent(QCloseEvent *event)
+{
+  Q_UNUSED(event);
+  deleteLater();
+}
