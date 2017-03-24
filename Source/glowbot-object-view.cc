@@ -27,14 +27,19 @@
 
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QSqlError>
 
+#include "glowbot-object.h"
 #include "glowbot-object-view.h"
+#include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
 static const int s_scene_rect_fuzzy = 4;
 
-glowbot_object_view::glowbot_object_view(QWidget *parent):QGraphicsView(parent)
+glowbot_object_view::glowbot_object_view
+(const quint64 id, QWidget *parent):QGraphicsView(parent)
 {
+  m_id = id;
   m_scene = new glowbot_scene(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
@@ -58,6 +63,11 @@ glowbot_object_view::glowbot_object_view(QWidget *parent):QGraphicsView(parent)
 
 glowbot_object_view::~glowbot_object_view()
 {
+}
+
+quint64 glowbot_object_view::id(void) const
+{
+  return m_id;
 }
 
 void glowbot_object_view::contextMenuEvent(QContextMenuEvent *event)
@@ -89,6 +99,35 @@ void glowbot_object_view::resizeEvent(QResizeEvent *event)
     }
 
   QGraphicsView::resizeEvent(event);
+}
+
+void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
+{
+  /*
+  ** Save the children!
+  */
+
+  QList<QGraphicsItem *> list(m_scene->items());
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      glowbot_proxy_widget *proxy =
+	qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+      if(!proxy)
+	continue;
+
+      glowbot_object *widget = qobject_cast<glowbot_object *>
+	(proxy->widget());
+
+      if(!widget)
+	continue;
+
+      widget->save(db, error);
+
+      if(!error.isEmpty())
+	break;
+    }
 }
 
 void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)

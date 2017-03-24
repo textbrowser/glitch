@@ -29,6 +29,7 @@
 #define _glowbot_object_view_h_
 
 #include <QGraphicsView>
+#include <QSqlDatabase>
 
 class glowbot_scene;
 
@@ -37,11 +38,14 @@ class glowbot_object_view: public QGraphicsView
   Q_OBJECT
 
  public:
-  glowbot_object_view(QWidget *parent);
+  glowbot_object_view(const quint64 id, QWidget *parent);
   ~glowbot_object_view();
+  quint64 id(void) const;
+  void save(const QSqlDatabase &db, QString &error);
 
  private:
   glowbot_scene *m_scene;
+  quint64 m_id;
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
 

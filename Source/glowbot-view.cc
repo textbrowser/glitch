@@ -181,6 +181,9 @@ bool glowbot_view::save(QString &error)
 		  continue;
 
 		widget->save(db, error);
+
+		if(!error.isEmpty())
+		  break;
 	      }
 	  }
 	else

@@ -29,6 +29,7 @@
 #include <QSqlQuery>
 
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-object-view.h"
 
 glowbot_object_analog_read_arduino::glowbot_object_analog_read_arduino
 (QWidget *parent):glowbot_object(parent)
@@ -61,15 +62,14 @@ void glowbot_object_analog_read_arduino::save(const QSqlDatabase &db,
 					      QString &error)
 {
   QSqlQuery query(db);
-  glowbot_object *parent = qobject_cast<glowbot_object *> (m_parent);
 
   query.prepare("INSERT OR REPLACE INTO objects "
 		"(myoid, parent_oid, position, type) "
 		"VALUES(?, ?, ?, ?)");
   query.addBindValue(m_id);
 
-  if(parent)
-    query.addBindValue(parent->id());
+  if(qobject_cast<glowbot_object_view *> (m_parent))
+    query.addBindValue(qobject_cast<glowbot_object_view *> (m_parent)->id());
   else
     query.addBindValue(-1);
 
