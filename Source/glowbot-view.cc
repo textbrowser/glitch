@@ -48,6 +48,7 @@ glowbot_view::glowbot_view
  const glowbot_common::ProjectType projectType,
  QWidget *parent):QWidget(parent)
 {
+  m_changed = false;
   m_ui.setupUi(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_menuAction = new QAction(QIcon(":/Logo/glowbot-arduino-logo.png"),
@@ -75,7 +76,7 @@ glowbot_view::glowbot_view
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
-	  SIGNAL(changed(void)));
+	  SLOT(slotChanged(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -99,7 +100,7 @@ QString glowbot_view::name(void) const
 
 bool glowbot_view::hasChanged(void) const
 {
-  return m_scene->hasChanged();
+  return m_changed;
 }
 
 bool glowbot_view::save(QString &error)
@@ -193,6 +194,7 @@ bool glowbot_view::save(QString &error)
 
  done_label:
   glowbot_common::discardDatabase(connectionName);
+  m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
 }
@@ -234,6 +236,12 @@ void glowbot_view::slotCanvasSettingsChanged(void)
   m_view->setBackgroundBrush
     (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
+}
+
+void glowbot_view::slotChanged(void)
+{
+  m_changed = true;
+  emit changed();
 }
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)

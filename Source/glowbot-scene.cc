@@ -36,20 +36,10 @@
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 {
-  m_changed = false;
-  connect(this,
-	  SIGNAL(changed(void)),
-	  this,
-	  SLOT(slotChanged(void)));
 }
 
 glowbot_scene::~glowbot_scene()
 {
-}
-
-bool glowbot_scene::hasChanged(void) const
-{
-  return m_changed;
 }
 
 void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -201,9 +191,4 @@ void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
   QGraphicsScene::mouseReleaseEvent(event);
-}
-
-void glowbot_scene::slotChanged(void)
-{
-  m_changed = true;
 }

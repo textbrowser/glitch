@@ -58,6 +58,7 @@ class glowbot_view: public QWidget
   QGraphicsView *m_view;
   QString m_name;
   Ui_glowbot_view m_ui;
+  bool m_changed;
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
   glowbot_object_start *m_startObject;
@@ -67,6 +68,7 @@ class glowbot_view: public QWidget
 
  protected slots:
   void slotCanvasSettingsChanged(void);
+  void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
