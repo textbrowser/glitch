@@ -1,3 +1,4 @@
+doxygen.commands = doxygen glowbot.doxygen
 purge.commands = rm -f *~ && rm -f */*~
 
 CONFIG		+= qt release warn_on
@@ -24,8 +25,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
 QMAKE_CXXFLAGS_RELEASE -= -Werror
 }
 
-QMAKE_DISTCLEAN += -r temp
-QMAKE_EXTRA_TARGETS = purge
+QMAKE_DISTCLEAN += -r html -r latex -r temp
+QMAKE_EXTRA_TARGETS = doxygen purge
 QMAKE_STRIP	= echo
 
 ICON		=
