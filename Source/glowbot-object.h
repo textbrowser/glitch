@@ -52,6 +52,9 @@ class glowbot_object: public QWidget
  protected:
   QWidget *m_parent;
   quint64 m_id;
+
+ signals:
+  void changed(void);
 };
 
 #endif

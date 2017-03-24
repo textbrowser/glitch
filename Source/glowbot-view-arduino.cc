@@ -60,6 +60,14 @@ glowbot_view_arduino::glowbot_view_arduino
   proxy->resize(m_startObject->size());
   m_scene->addItem(proxy);
   proxy->setPos(10.0, 10.0);
+  connect(m_loopObject,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
+  connect(m_setupObject,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
 }
 
 glowbot_view_arduino::~glowbot_view_arduino()

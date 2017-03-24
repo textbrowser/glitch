@@ -47,6 +47,9 @@ class glowbot_object_view: public QGraphicsView
 
  protected slots:
   void slotCustomContextMenuRequested(const QPoint &point);
+
+ signals:
+  void changed(void);
 };
 
 #endif

@@ -46,6 +46,10 @@ glowbot_object_view::glowbot_object_view(QWidget *parent):QGraphicsView(parent)
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
   setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  connect(m_scene,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
