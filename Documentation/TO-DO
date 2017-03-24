@@ -10,3 +10,4 @@ Remaining Items
 2.     Implement Arduino's loop().
 3.     Implement Arduino's setup().
 4.     Depict changed pages. Window titles, etc.
+5.     Confirmation prompt on closing of edited diagrams.
