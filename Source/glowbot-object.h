@@ -38,6 +38,7 @@ class glowbot_object: public QWidget
 
  public:
   glowbot_object(QWidget *parent);
+  glowbot_object(const quint64 id, QWidget *parent);
   quint64 id(void) const;
   virtual ~glowbot_object();
   virtual bool hasView(void) const = 0;

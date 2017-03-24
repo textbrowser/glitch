@@ -36,6 +36,12 @@ glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
   s_id += 1;
 }
 
+glowbot_object::glowbot_object(const quint64 id, QWidget *parent):QWidget(0)
+{
+  m_id = id;
+  m_parent = parent;
+}
+
 glowbot_object::~glowbot_object()
 {
 }
