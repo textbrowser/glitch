@@ -25,18 +25,32 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMainWindow>
+
 #include "glowbot-object-setup-arduino.h"
+#include "glowbot-object-view.h"
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
 (QWidget *parent):glowbot_object(parent)
 {
+  m_editView = new glowbot_object_view(m_id, 0);
+  m_editWindow = new QMainWindow(0);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  m_editWindow->setWindowTitle(tr("GlowBot: setup()"));
+  m_editWindow->resize(600, 600);
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
 }
 
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
 {
+  m_editWindow->deleteLater();
 }
 
 bool glowbot_object_setup_arduino::hasView(void) const
@@ -51,11 +65,25 @@ bool glowbot_object_setup_arduino::isMandatory(void) const
 
 void glowbot_object_setup_arduino::addActions(QMenu &menu) const
 {
-  Q_UNUSED(menu);
+  menu.addAction(tr("&Edit..."),
+		 this,
+		 SLOT(slotEdit(void)));
+}
+
+void glowbot_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  slotEdit();
+  QWidget::mouseDoubleClickEvent(event);
 }
 
 void glowbot_object_setup_arduino::save(const QSqlDatabase &db, QString &error)
 {
   Q_UNUSED(db);
   Q_UNUSED(error);
+}
+
+void glowbot_object_setup_arduino::slotEdit(void)
+{
+  m_editWindow->showNormal();
+  m_editWindow->raise();
 }

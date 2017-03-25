@@ -54,10 +54,6 @@ glowbot_view_arduino::glowbot_view_arduino
   proxy->resize(m_setupObject->size());
   m_scene->addItem(proxy);
   proxy->setPos(m_loopObject->width() + 20.0, 10.0);
-  proxy = new glowbot_proxy_widget();
-  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
-  m_scene->addItem(proxy);
-  proxy->setPos(10.0, 10.0);
   connect(m_loopObject,
 	  SIGNAL(changed(void)),
 	  this,

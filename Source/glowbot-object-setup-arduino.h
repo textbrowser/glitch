@@ -31,6 +31,9 @@
 #include "glowbot-object.h"
 #include "ui_glowbot-object-setup-arduino.h"
 
+class QMainWindow;
+class glowbot_object_view;
+
 class glowbot_object_setup_arduino: public glowbot_object
 {
   Q_OBJECT
@@ -44,7 +47,13 @@ class glowbot_object_setup_arduino: public glowbot_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  QMainWindow *m_editWindow;
   Ui_glowbot_object_setup_arduino m_ui;
+  glowbot_object_view *m_editView;
+  void mouseDoubleClickEvent(QMouseEvent *event);
+
+ private slots:
+  void slotEdit(void);
 };
 
 #endif
