@@ -36,10 +36,48 @@
 
 glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
 {
+  m_mainScene = false;
 }
 
 glowbot_scene::~glowbot_scene()
 {
+}
+
+bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
+			      const QString &text)
+{
+  if(!event)
+    return false;
+  else
+    {
+      if(m_mainScene)
+	{
+	  if(text.startsWith("glowbot-arduino-function()"))
+	    {
+	      event->accept();
+	      return true;
+	    }
+	  else
+	    {
+	      event->ignore();
+	      return false;
+	    }
+	}
+      else
+	{
+	  if(text.startsWith("glowbot-arduino-analogread()") ||
+	     text.startsWith("glowbot-arduino-function()"))
+	    {
+	      event->accept();
+	      return true;
+	    }
+	  else
+	    {
+	      event->ignore();
+	      return false;
+	    }
+	}
+    }
 }
 
 void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -48,7 +86,7 @@ void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
     {
       QString text(event->mimeData()->text().toLower().trimmed());
 
-      if(text.startsWith("glowbot-"))
+      if(allowDrag(event, text))
 	{
 	  event->accept();
 	  return;
@@ -64,7 +102,7 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
     {
       QString text(event->mimeData()->text().toLower().trimmed());
 
-      if(text.contains("glowbot-"))
+      if(allowDrag(event, text))
 	{
 	  event->accept();
 	  return;
@@ -81,8 +119,11 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
       QString text(event->mimeData()->text().toLower().trimmed());
       glowbot_object *object = 0;
 
-      if(text == "glowbot-arduino-analogread()")
-	object = new glowbot_object_analog_read_arduino(views().value(0));
+      if(allowDrag(event, text))
+	{
+	  if(text == "glowbot-arduino-analogread()")
+	    object = new glowbot_object_analog_read_arduino(views().value(0));
+	}
 
       if(object)
 	{
@@ -191,4 +232,9 @@ void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
   QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void glowbot_scene::setMainScene(const bool state)
+{
+  m_mainScene = state;
 }

@@ -37,9 +37,12 @@ class glowbot_scene: public QGraphicsScene
  public:
   glowbot_scene(QObject *parent);
   ~glowbot_scene();
+  void setMainScene(const bool state);
 
  private:
   QPointF m_lastScenePos;
+  bool m_mainScene;
+  bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
   void dropEvent(QGraphicsSceneDragDropEvent *event);
