@@ -44,8 +44,7 @@ QString glowbot_misc::homePath(void)
     return homepath.constData();
 }
 
-void glowbot_misc::showErrorDialog(const QString &text,
-				   QWidget *parent)
+void glowbot_misc::showErrorDialog(const QString &text, QWidget *parent)
 {
   QMessageBox::critical(parent, QObject::tr("GlowBot: Error"), text);
 }

@@ -250,7 +250,7 @@ void glowbot_ui::slotOpenDiagram(void)
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
   dialog.setDirectory(glowbot_misc::homePath());
   dialog.setFileMode(QFileDialog::ExistingFile);
-  dialog.setLabelText(QFileDialog::Accept, tr("&Select"));
+  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setWindowTitle(tr("GlowBot: Open Diagram"));
 
   if(dialog.exec() == QDialog::Accepted)
