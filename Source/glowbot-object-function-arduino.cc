@@ -69,6 +69,9 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   menu.addAction(tr("&Edit..."),
 		 this,
 		 SLOT(slotEdit(void)));
+  menu.addAction(tr("Set Function &Name..."),
+		 this,
+		 SLOT(slotSetFunctionName(void)));
 }
 
 void glowbot_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
@@ -87,4 +90,8 @@ void glowbot_object_function_arduino::slotEdit(void)
 {
   m_editWindow->showNormal();
   m_editWindow->raise();
+}
+
+void glowbot_object_function_arduino::slotSetFunctionName(void)
+{
 }
