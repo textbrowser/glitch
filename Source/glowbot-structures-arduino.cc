@@ -181,7 +181,7 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("block comment")
-       << tr("function");
+       << tr("function()");
 
   while(!list.isEmpty())
     {
