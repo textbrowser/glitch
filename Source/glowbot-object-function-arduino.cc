@@ -32,22 +32,25 @@
 #include "glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
 
+QMap<QString, char> glowbot_object_function_arduino::s_functionNames;
 quint64 glowbot_object_function_arduino::s_id = 0;
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
 {
+  QString name(nextUniqueFunctionName());
+
   m_editView = new glowbot_object_view(m_id, 0);
   m_editWindow = new QMainWindow(0);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: function_%1()").arg(s_id));
+  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
   m_editWindow->resize(600, 600);
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_ui.label->setText(QString("function_%1()").arg(s_id));
-  s_id += 1;
+  m_ui.label->setText(name);
+  s_functionNames[name] = 0;
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
@@ -57,6 +60,25 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 glowbot_object_function_arduino::~glowbot_object_function_arduino()
 {
   m_editWindow->deleteLater();
+  s_functionNames.remove(m_ui.label->text());
+}
+
+QString glowbot_object_function_arduino::nextUniqueFunctionName(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString name("function_0()");
+  quint64 i = 0;
+
+  while(s_functionNames.contains(name))
+    {
+      i += 1;
+      name = QString("function_%1()").arg(i);
+    }
+
+  s_id = i;
+  QApplication::restoreOverrideCursor();
+  return name;
 }
 
 bool glowbot_object_function_arduino::hasView(void) const
@@ -109,13 +131,15 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       QString text(dialog.textValue().remove("(").remove(")").trimmed());
 
       if(text.isEmpty())
-	{
-	  text = QString("function_%1()").arg(s_id);
-	  s_id += 1;
-	}
+	return;
       else
 	text.append("()");
 
+      if(s_functionNames.contains(text))
+	return;
+
+      s_functionNames.remove(m_ui.label->text());
       m_ui.label->setText(text);
+      s_functionNames[text] = 0;
     }
 }
