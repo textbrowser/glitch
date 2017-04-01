@@ -38,8 +38,9 @@ class glowbot_object: public QWidget
 
  public:
   glowbot_object(QWidget *parent);
-  glowbot_object(const quint64 id, QWidget *parent);
   quint64 id(void) const;
+  static glowbot_object *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   virtual ~glowbot_object();
   virtual bool hasView(void) const = 0;
   virtual bool isMandatory(void) const = 0;

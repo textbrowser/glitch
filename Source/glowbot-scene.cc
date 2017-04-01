@@ -31,6 +31,7 @@
 #include <QMimeData>
 
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-object-function-arduino.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
@@ -123,6 +124,8 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  if(text == "glowbot-arduino-analogread()")
 	    object = new glowbot_object_analog_read_arduino(views().value(0));
+	  else if(text == "glowbot-arduino-function()")
+	    object = new glowbot_object_function_arduino(views().value(0));
 	}
 
       if(object)

@@ -36,14 +36,17 @@ glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
   s_id += 1;
 }
 
-glowbot_object::glowbot_object(const quint64 id, QWidget *parent):QWidget(0)
-{
-  m_id = id;
-  m_parent = parent;
-}
-
 glowbot_object::~glowbot_object()
 {
+}
+
+glowbot_object *glowbot_object::createFromValues
+(const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
+{
+  Q_UNUSED(error);
+  Q_UNUSED(parent);
+  Q_UNUSED(values);
+  return 0;
 }
 
 quint64 glowbot_object::id(void) const

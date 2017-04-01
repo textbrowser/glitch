@@ -52,6 +52,7 @@ class glowbot_object_function_arduino: public glowbot_object
   QMainWindow *m_editWindow;
   Ui_glowbot_object_function_arduino m_ui;
   glowbot_object_view *m_editView;
+  static quint64 s_id;
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:

@@ -25,11 +25,14 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QInputDialog>
 #include <QSqlError>
 #include <QSqlQuery>
 
 #include "glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
+
+quint64 glowbot_object_function_arduino::s_id = 0;
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
@@ -38,11 +41,13 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
   m_editWindow = new QMainWindow(0);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: function()"));
+  m_editWindow->setWindowTitle(tr("GlowBot: function_%1()").arg(s_id));
   m_editWindow->resize(600, 600);
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  m_ui.label->setText(QString("function_%1()").arg(s_id));
+  s_id += 1;
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
@@ -94,4 +99,23 @@ void glowbot_object_function_arduino::slotEdit(void)
 
 void glowbot_object_function_arduino::slotSetFunctionName(void)
 {
+  QInputDialog dialog(m_parent);
+
+  dialog.setTextValue(m_ui.label->text());
+  dialog.setWindowTitle(tr("GlowBot: Set Function Name"));
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QString text(dialog.textValue().remove("(").remove(")").trimmed());
+
+      if(text.isEmpty())
+	{
+	  text = QString("function_%1()").arg(s_id);
+	  s_id += 1;
+	}
+      else
+	text.append("()");
+
+      m_ui.label->setText(text);
+    }
 }
