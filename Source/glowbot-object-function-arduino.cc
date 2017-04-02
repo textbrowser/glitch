@@ -97,6 +97,10 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   menu.addAction(tr("Set Function &Name..."),
 		 this,
 		 SLOT(slotSetFunctionName(void)));
+  menu.addSeparator();
+  menu.addAction(tr("&Delete"),
+		 this,
+		 SLOT(deleteLater(void)));
 }
 
 void glowbot_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
@@ -137,6 +141,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 	return;
 
       s_functionNames.remove(m_ui.label->text());
+      m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(text));
       m_ui.label->setText(text);
       s_functionNames[text] = 0;
     }

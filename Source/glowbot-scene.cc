@@ -134,6 +134,10 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
+	  connect(object,
+		  SIGNAL(destroyed(void)),
+		  proxy,
+		  SLOT(deleteLater(void)));
 	  proxy->setFlags
 	    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	  proxy->setWidget(object);
