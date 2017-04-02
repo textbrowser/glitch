@@ -41,7 +41,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLabel {background-color: lightblue; border-radius: 0px;}</string>
+      <string notr="true">QLabel {background-color: lightblue; border-radius: 3px;}</string>
      </property>
      <property name="text">
       <string>setup()</string>

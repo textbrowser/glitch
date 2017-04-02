@@ -72,6 +72,12 @@ void glowbot_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glowbot_proxy_widget::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {
+  if(painter)
+    painter->setRenderHints(QPainter::Antialiasing |
+			    QPainter::HighQualityAntialiasing | // OpenGL?
+			    QPainter::SmoothPixmapTransform |
+			    QPainter::TextAntialiasing, true);
+
   if(opt && (opt->state & QStyle::State_Selected) && painter)
     {
       QPen pen;
@@ -79,7 +85,7 @@ void glowbot_proxy_widget::paint
       pen.setBrush(QColor(70, 130, 180));
       pen.setWidth(1.5);
       painter->setPen(pen);
-      painter->drawRect(boundingRect());
+      painter->drawRoundedRect(boundingRect(), 3.0, 3.0);
     }
 
   QGraphicsProxyWidget::paint(painter, opt, widget);
