@@ -43,6 +43,20 @@ glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()
 {
 }
 
+glowbot_object_analog_read_arduino *glowbot_object_analog_read_arduino::
+createFromValues(const QMap<QString, QVariant> &values,
+		 QString &error,
+		 QWidget *parent)
+{
+  Q_UNUSED(error);
+
+  glowbot_object_analog_read_arduino *object = new
+    glowbot_object_analog_read_arduino(parent);
+
+  object->m_id = values.value("myoid").toULongLong();
+  return object;
+}
+
 bool glowbot_object_analog_read_arduino::hasView(void) const
 {
   return false;

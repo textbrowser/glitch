@@ -26,6 +26,7 @@
 */
 
 #include "glowbot-object.h"
+#include "glowbot-object-analog-read-arduino.h"
 
 quint64 glowbot_object::s_id = 0;
 
@@ -43,10 +44,21 @@ glowbot_object::~glowbot_object()
 glowbot_object *glowbot_object::createFromValues
 (const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {
-  Q_UNUSED(error);
-  Q_UNUSED(parent);
-  Q_UNUSED(values);
-  return 0;
+  QString type(values.value("type").toString().toLower().trimmed());
+  glowbot_object *object = 0;
+
+  if(type == "glowbot-arduino-analogread()")
+    object = glowbot_object_analog_read_arduino::createFromValues
+      (values, error, parent);
+  else
+    {
+      if(type.isEmpty())
+	error = tr("Empty object type.");
+      else
+	error = tr("The type %1 is not supported.").arg(type);
+    }
+
+  return object;
 }
 
 quint64 glowbot_object::id(void) const

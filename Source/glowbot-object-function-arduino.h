@@ -54,7 +54,6 @@ class glowbot_object_function_arduino: public glowbot_object
   glowbot_object_view *m_editView;
   static QMap<QString, char> s_functionNames;
   static QString nextUniqueFunctionName(void);
-  static quint64 s_id;
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:

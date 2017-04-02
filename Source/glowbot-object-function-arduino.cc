@@ -33,7 +33,6 @@
 #include "glowbot-object-view.h"
 
 QMap<QString, char> glowbot_object_function_arduino::s_functionNames;
-quint64 glowbot_object_function_arduino::s_id = 0;
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
@@ -76,7 +75,6 @@ QString glowbot_object_function_arduino::nextUniqueFunctionName(void)
       name = QString("function_%1()").arg(i);
     }
 
-  s_id = i;
   QApplication::restoreOverrideCursor();
   return name;
 }
