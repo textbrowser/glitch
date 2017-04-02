@@ -3,6 +3,7 @@ Completed Items
 1.     Display main() function. Fixed position? Yes.
 2.     View separation.
 3.     Define databases.
+4.     Allow setting of function names.
 
 Remaining Items
 
@@ -11,4 +12,4 @@ Remaining Items
 3.     Implement Arduino's setup().
 4.     Depict changed pages. Window titles, etc.
 5.     Confirmation prompt on closing of edited diagrams.
-6.     Allow setting of function names.
+6.     Alignment panel.
