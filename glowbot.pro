@@ -39,7 +39,8 @@ OBJECTS_DIR = temp/obj
 RCC_DIR = temp/rcc
 UI_DIR = temp/ui
 
-FORMS           = UI\\glowbot-canvas-settings.ui \
+FORMS           = UI\\glowbot-alignment.ui \
+                  UI\\glowbot-canvas-settings.ui \
                   UI\\glowbot-mainwindow.ui \
                   UI\\glowbot-object-analog-read-arduino.ui \
                   UI\\glowbot-object-function-arduino.ui \
