@@ -12,4 +12,5 @@ Remaining Items
 3.     Implement Arduino's setup().
 4.     Depict changed pages. Window titles, etc.
 5.     Confirmation prompt on closing of edited diagrams.
-6.     Alignment panel.
+6.     Alignment panel. The panel must allow interaction with separated
+       windows.
