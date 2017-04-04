@@ -22,7 +22,16 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <item>
@@ -46,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -71,6 +80,8 @@
     <property name="title">
      <string>&amp;Tools</string>
     </property>
+    <addaction name="action_Alignment"/>
+    <addaction name="separator"/>
     <addaction name="action_Structures"/>
    </widget>
    <widget class="QMenu" name="menu_Tabs">
@@ -124,6 +135,11 @@
   <action name="action_Structures">
    <property name="text">
     <string>&amp;Structures...</string>
+   </property>
+  </action>
+  <action name="action_Alignment">
+   <property name="text">
+    <string>&amp;Alignment...</string>
    </property>
   </action>
  </widget>
