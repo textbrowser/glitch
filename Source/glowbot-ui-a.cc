@@ -32,6 +32,7 @@
 #include <QMessageBox>
 #include <QSettings>
 
+#include "glowbot-alignment.h"
 #include "glowbot-misc.h"
 #include "glowbot-separated-diagram-window.h"
 #include "glowbot-structures-arduino.h"
@@ -40,8 +41,13 @@
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
+  m_alignment = 0;
   m_arduinoStructures = 0;
   m_ui.setupUi(this);
+  connect(m_ui.action_Alignment,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotShowAlignment(void)));
   connect(m_ui.action_New_Arduino,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -321,6 +327,14 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
   view->show();
   window->resize(view->size());
   window->show();
+}
+
+void glowbot_ui::slotShowAlignment(void)
+{
+  if(!m_alignment)
+    m_alignment = new glowbot_alignment(this);
+
+  m_alignment->show();
 }
 
 void glowbot_ui::slotShowStructures(void)
