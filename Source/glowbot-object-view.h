@@ -31,6 +31,7 @@
 #include <QGraphicsView>
 #include <QSqlDatabase>
 
+class glowbot_alignment;
 class glowbot_scene;
 
 class glowbot_object_view: public QGraphicsView
@@ -44,6 +45,7 @@ class glowbot_object_view: public QGraphicsView
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  glowbot_alignment *m_alignment;
   glowbot_scene *m_scene;
   quint64 m_id;
   void contextMenuEvent(QContextMenuEvent *event);

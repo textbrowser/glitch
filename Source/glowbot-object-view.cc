@@ -29,6 +29,7 @@
 #include <QScrollBar>
 #include <QSqlError>
 
+#include "glowbot-alignment.h"
 #include "glowbot-object.h"
 #include "glowbot-object-view.h"
 #include "glowbot-proxy-widget.h"
@@ -39,6 +40,7 @@ static const int s_scene_rect_fuzzy = 4;
 glowbot_object_view::glowbot_object_view
 (const quint64 id, QWidget *parent):QGraphicsView(parent)
 {
+  m_alignment = new glowbot_alignment(this);
   m_id = id;
   m_scene = new glowbot_scene(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
@@ -132,5 +134,10 @@ void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
 
 void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
 {
-  Q_UNUSED(point);
+  QMenu menu(this);
+
+  menu.addAction(tr("&Alignment..."),
+		 m_alignment,
+		 SLOT(show(void)));
+  menu.exec(mapToGlobal(point));
 }
