@@ -163,10 +163,12 @@ void glowbot_ui::prepareActionWidgets(void)
 {
   if(m_ui.tab->count() == 0)
     {
+      m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
     }
   else
     {
+      m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 }
