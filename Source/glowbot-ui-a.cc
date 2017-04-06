@@ -164,7 +164,11 @@ void glowbot_ui::prepareActionWidgets(void)
   if(m_ui.tab->count() == 0)
     {
       m_ui.action_Alignment->setEnabled(false);
-      m_ui.action_Structures->setEnabled(false);
+
+      if(findChildren<glowbot_separated_diagram_window *> ().size() > 0)
+	m_ui.action_Structures->setEnabled(true);
+      else
+	m_ui.action_Structures->setEnabled(false);
     }
   else
     {
@@ -268,11 +272,13 @@ void glowbot_ui::slotOpenDiagram(void)
 
 void glowbot_ui::slotPageChanged(void)
 {
+  prepareActionWidgets();
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
 
 void glowbot_ui::slotPageSelected(int index)
 {
+  prepareActionWidgets();
   setWindowTitle(qobject_cast<glowbot_view *> (m_ui.tab->widget(index)));
 }
 
@@ -323,6 +329,7 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
   view->show();
   window->resize(view->size());
   window->show();
+  prepareActionWidgets();
 }
 
 void glowbot_ui::slotShowAlignment(void)
