@@ -33,6 +33,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+#include "glowbot-alignment.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
 #include "glowbot-object-start.h"
@@ -48,6 +49,7 @@ glowbot_view::glowbot_view
  const glowbot_common::ProjectType projectType,
  QWidget *parent):QWidget(parent)
 {
+  m_alignment = new glowbot_alignment(this);
   m_changed = false;
   m_ui.setupUi(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
@@ -234,6 +236,11 @@ void glowbot_view::resizeEvent(QResizeEvent *event)
     }
 
   QWidget::resizeEvent(event);
+}
+
+void glowbot_view::showAlignment(void)
+{
+  m_alignment->show();
 }
 
 void glowbot_view::slotCanvasSettingsChanged(void)

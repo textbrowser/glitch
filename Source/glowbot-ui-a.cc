@@ -41,7 +41,6 @@
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
-  m_alignment = 0;
   m_arduinoStructures = 0;
   m_ui.setupUi(this);
   connect(m_ui.action_Alignment,
@@ -331,10 +330,10 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
 
 void glowbot_ui::slotShowAlignment(void)
 {
-  if(!m_alignment)
-    m_alignment = new glowbot_alignment(this);
+  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->currentWidget());
 
-  m_alignment->show();
+  if(view)
+    view->showAlignment();
 }
 
 void glowbot_ui::slotShowStructures(void)

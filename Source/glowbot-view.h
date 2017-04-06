@@ -35,6 +35,7 @@
 #include "glowbot-common.h"
 #include "ui_glowbot-view.h"
 
+class glowbot_alignment;
 class glowbot_object;
 class glowbot_object_start;
 class glowbot_scene;
@@ -52,6 +53,7 @@ class glowbot_view: public QWidget
   QString name(void) const;
   bool hasChanged(void) const;
   bool save(QString &error);
+  void showAlignment(void);
 
  protected:
   QAction *m_menuAction;
@@ -59,6 +61,7 @@ class glowbot_view: public QWidget
   QString m_name;
   Ui_glowbot_view m_ui;
   bool m_changed;
+  glowbot_alignment *m_alignment;
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
   glowbot_object_start *m_startObject;
