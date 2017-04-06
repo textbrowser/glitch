@@ -268,18 +268,12 @@ void glowbot_ui::slotOpenDiagram(void)
 
 void glowbot_ui::slotPageChanged(void)
 {
-  glowbot_view *page = qobject_cast<glowbot_view *> (sender());
-
-  if(!page)
-    return;
-
-  setWindowTitle(page);
+  setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
 
 void glowbot_ui::slotPageSelected(int index)
 {
-  setWindowTitle
-    (qobject_cast<glowbot_view *> (m_ui.tab->widget(index)));
+  setWindowTitle(qobject_cast<glowbot_view *> (m_ui.tab->widget(index)));
 }
 
 void glowbot_ui::slotQuit(void)
@@ -319,6 +313,7 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
   if(!view)
     return;
 
+  QMainWindow::setWindowTitle(tr("GlowBot"));
   m_ui.tab->removeTab(m_ui.tab->indexOf(view));
 
   glowbot_separated_diagram_window *window =
