@@ -66,8 +66,7 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	}
       else
 	{
-	  if(text.startsWith("glowbot-arduino-analogread()") ||
-	     text.startsWith("glowbot-arduino-function()"))
+	  if(text.startsWith("glowbot-arduino-analogread()"))
 	    {
 	      event->accept();
 	      return true;
