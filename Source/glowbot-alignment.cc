@@ -31,7 +31,6 @@ glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
   setWindowModality(Qt::NonModal);
-  setWindowTitle(tr("GlowBot: Arduino Alignment"));
 }
 
 glowbot_alignment::~glowbot_alignment()
