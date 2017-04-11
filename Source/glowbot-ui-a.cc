@@ -121,27 +121,29 @@ void glowbot_ui::newArduinoDiagram(const QString &n)
   if(name.isEmpty())
     name = "Arduino-Diagram";
 
-  glowbot_view_arduino *page = new glowbot_view_arduino
+  glowbot_view_arduino *view = new glowbot_view_arduino
     (name, glowbot_common::ArduinoProject, this);
 
-  connect(page,
+  connect(view,
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotPageChanged(void)));
-  connect(page,
+  connect(view,
 	  SIGNAL(separate(glowbot_view *)),
 	  this,
 	  SLOT(slotSeparate(glowbot_view *)));
-  connect(page->menuAction(),
+  connect(view,
+	  SIGNAL(unite(glowbot_view *)),
+	  this,
+	  SLOT(slotUnite(glowbot_view *)));
+  connect(view->menuAction(),
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectPage(void)));
-  m_ui.tab->addTab(page,
-		   page->menuAction()->icon(),
-		   QString("%1").arg(name));
-  m_ui.tab->setCurrentWidget(page);
+  m_ui.tab->addTab(view, view->menuAction()->icon(), name);
+  m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
-  setWindowTitle(page);
+  setWindowTitle(view);
 }
 
 void glowbot_ui::parseCommandLineArguments(void)
@@ -191,14 +193,14 @@ void glowbot_ui::saveSettings(void)
   settings.setValue("main_window/geometry", saveGeometry());
 }
 
-void glowbot_ui::setWindowTitle(glowbot_view *page)
+void glowbot_ui::setWindowTitle(glowbot_view *view)
 {
-  if(page)
+  if(view)
     {
-      if(page->hasChanged())
-	QMainWindow::setWindowTitle(tr("GlowBot: %1 (*)").arg(page->name()));
+      if(view->hasChanged())
+	QMainWindow::setWindowTitle(tr("GlowBot: %1 (*)").arg(view->name()));
       else
-	QMainWindow::setWindowTitle(tr("GlowBot: %1").arg(page->name()));
+	QMainWindow::setWindowTitle(tr("GlowBot: %1").arg(view->name()));
     }
   else
     QMainWindow::setWindowTitle(tr("GlowBot"));
@@ -228,10 +230,10 @@ void glowbot_ui::slotAboutToShowTabsMenu(void)
 
 void glowbot_ui::slotCloseDiagram(int index)
 {
-  glowbot_view *page = this->page(index);
+  glowbot_view *view = this->page(index);
 
-  if(page)
-    page->deleteLater();
+  if(view)
+    view->deleteLater();
 
   m_ui.tab->removeTab(index);
   prepareActionWidgets();
@@ -289,17 +291,17 @@ void glowbot_ui::slotQuit(void)
 
 void glowbot_ui::slotSaveCurrentDiagram(void)
 {
-  glowbot_view *page = this->page(m_ui.tab->currentIndex());
+  glowbot_view *view = this->page(m_ui.tab->currentIndex());
 
-  if(page)
+  if(view)
     {
       QString error("");
 
-      if(!page->save(error))
+      if(!view->save(error))
 	glowbot_misc::showErrorDialog
-	  (tr("Unable to save %1 (%2).").arg(page->name()).arg(error), this);
+	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
 
-      setWindowTitle(page);
+      setWindowTitle(view);
     }
 }
 
@@ -328,6 +330,7 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
   window->setCentralWidget(view);
   view->show();
   window->resize(view->size());
+  window->setWindowTitle(tr("GlowBot: %1").arg(view->name()));
   window->show();
   prepareActionWidgets();
 }
@@ -368,9 +371,26 @@ void glowbot_ui::slotTabMoved(int from, int to)
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
-      glowbot_view *page = qobject_cast<glowbot_view *> (m_ui.tab->widget(i));
+      glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->widget(i));
 
-      if(page)
-	m_ui.menu_Tabs->addAction(page->menuAction());
+      if(view)
+	m_ui.menu_Tabs->addAction(view->menuAction());
     }
+}
+
+void glowbot_ui::slotUnite(glowbot_view *view)
+{
+  if(!view)
+    return;
+
+  QMainWindow *window = qobject_cast<QMainWindow *> (view->parentWidget());
+
+  if(!window)
+    return;
+
+  m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
+  m_ui.tab->setCurrentWidget(view);
+  prepareActionWidgets();
+  setWindowTitle(view);
+  window->deleteLater();
 }

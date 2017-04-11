@@ -300,4 +300,5 @@ void glowbot_view::slotShowCanvasSettings(void)
 
 void glowbot_view::slotUnite(void)
 {
+  emit unite(this);
 }

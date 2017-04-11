@@ -80,6 +80,7 @@ class glowbot_view: public QWidget
  signals:
   void changed(void);
   void separate(glowbot_view *view);
+  void unite(glowbot_view *view);
 };
 
 #endif

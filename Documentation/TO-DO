@@ -4,6 +4,7 @@ Completed Items
 2.     View separation.
 3.     Define databases.
 4.     Allow setting of function names.
+5.     Unite separated windows.
 
 Remaining Items
 
@@ -15,4 +16,3 @@ Remaining Items
 6.     Alignment panel. The panel must allow interaction with separated
        windows.
 7.     A function panel. The panel should include a list of defined functions.
-8.     Unite separated windows.
