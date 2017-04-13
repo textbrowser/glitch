@@ -170,7 +170,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
 
-	    if( ALIGN_CENTER_HORIZONTAL)
+	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
 	      widget->move
 		(widget->pos().x(), rect.center().y() - widget->height() / 2);
 	    else
