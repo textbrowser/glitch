@@ -34,6 +34,8 @@
 
 class glowbot_structures_arduino: public QDialog
 {
+  Q_OBJECT
+
  public:
   glowbot_structures_arduino(QWidget *parent);
   ~glowbot_structures_arduino();
