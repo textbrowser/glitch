@@ -34,12 +34,34 @@
 
 class glowbot_alignment: public QDialog
 {
+  Q_OBJECT
+
  public:
   glowbot_alignment(QWidget *parent);
   ~glowbot_alignment();
 
  private:
+  enum AlignmentType
+  {
+    ALIGN_BOTTOM = 0,
+    ALIGN_CENTER_HORIZONTAL,
+    ALIGN_CENTER_VERTICAL,
+    ALIGN_LEFT,
+    ALIGN_RIGHT,
+    ALIGN_TOP
+  };
+
+  enum StackType
+  {
+    HORIZONTAL_STACK = 0,
+    VERTICAL_STACK
+  };
+
   Ui_glowbot_alignment m_ui;
+  void align(const AlignmentType alignmentType);
+
+ private slots:
+  void slotLeftAlign(void);
 };
 
 #endif

@@ -206,6 +206,11 @@ bool glowbot_view::save(QString &error)
   return ok;
 }
 
+glowbot_scene *glowbot_view::scene(void) const
+{
+  return m_scene;
+}
+
 void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event && m_view->items(event->pos()).isEmpty())

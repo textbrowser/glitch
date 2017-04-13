@@ -43,6 +43,11 @@ glowbot_proxy_widget::~glowbot_proxy_widget()
 {
 }
 
+bool glowbot_proxy_widget::isMovable(void) const
+{
+  return flags() & QGraphicsItem::ItemIsMovable;
+}
+
 void glowbot_proxy_widget::contextMenuEvent
 (QGraphicsSceneContextMenuEvent *event)
 {
@@ -82,7 +87,7 @@ void glowbot_proxy_widget::paint
     {
       QPen pen;
 
-      pen.setBrush(QColor(70, 130, 180));
+      pen.setBrush(QColor(255, 105, 180)); // Hot Pink
       pen.setWidth(1.5);
       painter->setPen(pen);
       painter->drawRoundedRect(boundingRect(), 3.0, 3.0);
