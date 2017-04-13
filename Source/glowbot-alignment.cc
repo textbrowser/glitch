@@ -63,20 +63,38 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
   int x = 0;
   int y = 0;
 
-  if(alignmentType == ALIGN_BOTTOM)
-    y = 0;
-  else if(alignmentType == ALIGN_CENTER_HORIZONTAL ||
-	  alignmentType == ALIGN_CENTER_VERTICAL)
+  switch(alignmentType)
     {
-      maxP.first = maxP.second = 0;
-      minP.first = minP.second = std::numeric_limits<int>::max();
+    case ALIGN_BOTTOM:
+      {
+	y = 0;
+	break;
+      }
+    case ALIGN_CENTER_HORIZONTAL:
+    case ALIGN_CENTER_VERTICAL:
+      {
+	maxP.first = maxP.second = 0;
+	minP.first = minP.second = std::numeric_limits<int>::max();
+	break;
+      }
+    case ALIGN_LEFT:
+      {
+	x = std::numeric_limits<int>::max();
+	break;
+      }
+    case ALIGN_RIGHT:
+      {
+	x = 0;
+	break;
+      }
+    case ALIGN_TOP:
+      {
+	y = std::numeric_limits<int>::max();
+	break;
+      }
+    default:
+      break;
     }
-  else if(alignmentType == ALIGN_LEFT)
-    x = std::numeric_limits<int>::max();
-  else if(alignmentType == ALIGN_RIGHT)
-    x = 0;
-  else if(alignmentType == ALIGN_TOP)
-    y = std::numeric_limits<int>::max();
 
  start_label:
 
@@ -94,63 +112,83 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
       if(!widget)
 	continue;
 
-      if(alignmentType == ALIGN_BOTTOM)
+      switch(alignmentType)
 	{
-	  x = widget->pos().x();
-	  y = qMax(y, widget->height() + widget->pos().y());
-	}
-      else if(alignmentType == ALIGN_CENTER_HORIZONTAL ||
-	      alignmentType == ALIGN_CENTER_VERTICAL)
-	{
-	  maxP.first = qMax(maxP.first, widget->pos().x() + widget->width());
-	  maxP.second = qMax(maxP.second, widget->height() + widget->pos().y());
-	  minP.first = qMin(minP.first, widget->pos().x());
-	  minP.second = qMin(minP.second, widget->pos().y());
-	}
-      else if(alignmentType == ALIGN_LEFT)
-	{
-	  x = qMin(x, widget->pos().x());
-	  y = widget->pos().y();
-	}
-      else if(alignmentType == ALIGN_RIGHT)
-	{
-	  x = qMax(x, widget->pos().x() + widget->width());
-	  y = widget->pos().y();
-	}
-      else if(alignmentType == ALIGN_TOP)
-	{
-	  x = widget->pos().x();
-	  y = qMin(y, widget->pos().y());
+	case ALIGN_BOTTOM:
+	  {
+	    x = widget->pos().x();
+	    y = qMax(y, widget->height() + widget->pos().y());
+	    break;
+	  }
+	case ALIGN_CENTER_HORIZONTAL:
+	case ALIGN_CENTER_VERTICAL:
+	  {
+	    maxP.first = qMax(maxP.first, widget->pos().x() + widget->width());
+	    maxP.second = qMax
+	      (maxP.second, widget->height() + widget->pos().y());
+	    minP.first = qMin(minP.first, widget->pos().x());
+	    minP.second = qMin(minP.second, widget->pos().y());
+	    break;
+	  }
+	case ALIGN_LEFT:
+	  {
+	    x = qMin(x, widget->pos().x());
+	    y = widget->pos().y();
+	    break;
+	  }
+	case ALIGN_RIGHT:
+	  {
+	    x = qMax(x, widget->pos().x() + widget->width());
+	    y = widget->pos().y();
+	    break;
+	  }
+	case ALIGN_TOP:
+	  {
+	    x = widget->pos().x();
+	    y = qMin(y, widget->pos().y());
+	    break;
+	  }
+	default:
+	  break;
 	}
 
       if(firstIteration || !movable)
 	continue;
 
-      if(alignmentType == ALIGN_BOTTOM)
+      switch(alignmentType)
 	{
-	  if(y != widget->height() + widget->pos().y())
-	    widget->move(x, y - widget->height());
-	}
-      else if(alignmentType == ALIGN_CENTER_HORIZONTAL ||
-	      alignmentType == ALIGN_CENTER_VERTICAL)
-	{
-	  QRect rect(QPoint(minP.first, minP.second),
-		     QPoint(maxP.first, maxP.second));
+	case ALIGN_BOTTOM:
+	  {
+	    if(y != widget->height() + widget->pos().y())
+	      widget->move(x, y - widget->height());
 
-	  if(alignmentType == ALIGN_CENTER_HORIZONTAL)
-	    widget->move
-	      (widget->pos().x(), rect.center().y() - widget->height() / 2);
-	  else
-	    widget->move
-	      (rect.center().x() - widget->width() / 2, widget->pos().y());
+	    break;
+	  }
+	case ALIGN_CENTER_HORIZONTAL:
+	case ALIGN_CENTER_VERTICAL:
+	  {
+	    QRect rect(QPoint(minP.first, minP.second),
+		       QPoint(maxP.first, maxP.second));
+
+	    if( ALIGN_CENTER_HORIZONTAL)
+	      widget->move
+		(widget->pos().x(), rect.center().y() - widget->height() / 2);
+	    else
+	      widget->move
+		(rect.center().x() - widget->width() / 2, widget->pos().y());
+
+	    break;
+	  }
+	case ALIGN_RIGHT:
+	  {
+	    if(x != widget->pos().x() + widget->width())
+	      widget->move(x - widget->width(), y);
+
+	    break;
+	  }
+	default:
+	  widget->move(x, y);
 	}
-      else if(alignmentType == ALIGN_RIGHT)
-	{
-	  if(x != widget->pos().x() + widget->width())
-	    widget->move(x - widget->width(), y);
-	}
-      else
-	widget->move(x, y);
     }
 
   if(firstIteration)
