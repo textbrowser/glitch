@@ -56,10 +56,8 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
   QPair<int, int> maxP;
   QPair<int, int> minP;
-  bool firstIteration = true;
   int x = 0;
   int y = 0;
 
@@ -93,8 +91,11 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	break;
       }
     default:
-      break;
+      return;
     }
+
+  QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
+  bool firstIteration = true;
 
  start_label:
 
