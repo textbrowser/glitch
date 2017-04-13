@@ -91,7 +91,10 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	break;
       }
     default:
-      return;
+      {
+	QApplication::restoreOverrideCursor();
+	return;
+      }
     }
 
   QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
