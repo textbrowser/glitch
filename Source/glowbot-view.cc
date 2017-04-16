@@ -135,6 +135,7 @@ bool glowbot_view::save(QString &error)
 			  "parent_oid INTEGER NOT NULL DEFAULT -1, "
 			  "position TEXT NOT NULL, "
 			  "properties TEXT, "
+			  "stylesheet TEXT, "
 			  "type TEXT NOT NULL, "
 			  "PRIMARY KEY (parent_oid, position))");
 	else

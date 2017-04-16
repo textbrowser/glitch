@@ -87,10 +87,9 @@ void glowbot_proxy_widget::paint
     {
       QPen pen;
 
-      pen.setBrush(QColor(255, 105, 180)); // Hot Pink
-      pen.setWidth(1.5);
+      pen.setWidth(2.5);
       painter->setPen(pen);
-      painter->drawRoundedRect(boundingRect(), 3.0, 3.0);
+      painter->drawRect(boundingRect());
     }
 
   QGraphicsProxyWidget::paint(painter, opt, widget);
