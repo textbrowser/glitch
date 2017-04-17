@@ -241,3 +241,12 @@ void glowbot_alignment::slotAlign(void)
   else if(m_ui.vertical_center_align == toolButton)
     align(ALIGN_CENTER_VERTICAL);
 }
+
+void glowbot_alignment::slotStack(void)
+{
+}
+
+void glowbot_alignment::stack(const StackType stackType)
+{
+  Q_UNUSED(stackType);
+}
