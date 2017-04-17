@@ -40,6 +40,10 @@ glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAlign(void)));
+  connect(m_ui.horizontal_center_align,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotAlign(void)));
   connect(m_ui.left_align,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -49,6 +53,10 @@ glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 	  this,
 	  SLOT(slotAlign(void)));
   connect(m_ui.top_align,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotAlign(void)));
+  connect(m_ui.vertical_center_align,
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAlign(void)));
@@ -222,10 +230,14 @@ void glowbot_alignment::slotAlign(void)
 
   if(m_ui.bottom_align == toolButton)
     align(ALIGN_BOTTOM);
+  else if(m_ui.horizontal_center_align == toolButton)
+    align(ALIGN_CENTER_HORIZONTAL);
   else if(m_ui.left_align == toolButton)
     align(ALIGN_LEFT);
   else if(m_ui.right_align == toolButton)
     align(ALIGN_RIGHT);
   else if(m_ui.top_align == toolButton)
     align(ALIGN_TOP);
+  else if(m_ui.vertical_center_align == toolButton)
+    align(ALIGN_CENTER_VERTICAL);
 }
