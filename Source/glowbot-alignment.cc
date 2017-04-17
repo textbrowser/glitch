@@ -36,7 +36,15 @@
 glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.bottom_align,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotAlign(void)));
   connect(m_ui.left_align,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotAlign(void)));
+  connect(m_ui.top_align,
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAlign(void)));
@@ -208,6 +216,10 @@ void glowbot_alignment::slotAlign(void)
 {
   QToolButton *toolButton = qobject_cast<QToolButton *> (sender());
 
-  if(m_ui.left_align == toolButton)
+  if(m_ui.bottom_align == toolButton)
+    align(ALIGN_BOTTOM);
+  else if(m_ui.left_align == toolButton)
     align(ALIGN_LEFT);
+  else if(m_ui.top_align == toolButton)
+    align(ALIGN_TOP);
 }
