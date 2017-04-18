@@ -260,6 +260,12 @@ void glowbot_alignment::slotAlign(void)
 
 void glowbot_alignment::slotStack(void)
 {
+  QToolButton *toolButton = qobject_cast<QToolButton *> (sender());
+
+  if(m_ui.horizontal_stack == toolButton)
+    stack(HORIZONTAL_STACK);
+  else if(m_ui.vertical_stack == toolButton)
+    stack(VERTICAL_STACK);
 }
 
 void glowbot_alignment::stack(const StackType stackType)
