@@ -33,6 +33,22 @@
 #include "glowbot-scene.h"
 #include "glowbot-view.h"
 
+static bool x_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
+{
+  if(!w1 || !w2)
+    return false;
+  else
+    return w1->pos().x() < w2->pos().x();
+}
+
+static bool y_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
+{
+  if(!w1 || !w2)
+    return false;
+  else
+    return w1->pos().y() < w2->pos().y();
+}
+
 glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
@@ -248,5 +264,67 @@ void glowbot_alignment::slotStack(void)
 
 void glowbot_alignment::stack(const StackType stackType)
 {
-  Q_UNUSED(stackType);
+  glowbot_view *view = qobject_cast<glowbot_view *> (parentWidget());
+
+  if(!view)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<QGraphicsItem *> list1(view->scene()->selectedItems());
+  QList<glowbot_object *> list2;
+
+  for(int i = 0; i < list1.size(); i++)
+    {
+      glowbot_proxy_widget *proxy = qgraphicsitem_cast
+	<glowbot_proxy_widget *> (list1.at(i));
+
+      if(!proxy)
+	continue;
+
+      glowbot_object *widget = qobject_cast<glowbot_object *> (proxy->widget());
+
+      if(!widget)
+	continue;
+
+      list2 << widget;
+    }
+
+  if(list2.isEmpty())
+    return;
+
+  if(stackType == HORIZONTAL_STACK)
+    qSort(list2.begin(), list2.end(), x_coordinate_less_than);
+  else
+    qSort(list2.begin(), list2.end(), y_coordinate_less_than);
+
+  int coordinate = 0;
+
+  if(stackType == HORIZONTAL_STACK)
+    coordinate = list2.at(0)->pos().x();
+  else
+    coordinate = list2.at(0)->pos().y();
+
+  for(int i = 0; i < list2.size(); i++)
+    {
+      glowbot_object *widget = list2.at(i);
+
+      if(!widget)
+	continue;
+
+      QPoint pos(widget->pos());
+
+      if(stackType == HORIZONTAL_STACK)
+        {
+          widget->move(coordinate, widget->pos().y());
+          coordinate += widget->width();
+        }
+      else
+        {
+          widget->move(widget->pos().x(), coordinate);
+          coordinate += widget->height();
+        }
+    }
+
+  QApplication::restoreOverrideCursor();
 }
