@@ -60,6 +60,10 @@ glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAlign(void)));
+  connect(m_ui.horizontal_stack,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotStack(void)));
   connect(m_ui.left_align,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -76,6 +80,10 @@ glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAlign(void)));
+  connect(m_ui.vertical_stack,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotStack(void)));
   setWindowModality(Qt::NonModal);
 }
 
