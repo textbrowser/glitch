@@ -5,6 +5,8 @@ Completed Items
 3.     Define databases.
 4.     Allow setting of function names.
 5.     Unite separated windows.
+6.     Alignment panel. The panel must allow interaction with separated
+       windows.
 
 Remaining Items
 
@@ -13,7 +15,6 @@ Remaining Items
 3.     Implement Arduino's setup().
 4.     Depict changed pages. Window titles, etc.
 5.     Confirmation prompt on closing of edited diagrams.
-6.     Alignment panel. The panel must allow interaction with separated
-       windows.
-7.     A function panel. The panel should include a list of defined functions.
-8.     Style sheets.
+6.     A function panel. The panel should include a list of defined functions.
+7.     Style sheets.
+8.     Detect scene boundaries and prevent placement outside of.
