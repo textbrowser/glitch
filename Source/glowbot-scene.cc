@@ -169,6 +169,9 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
+	  if(point.x() < 0 || point.y() < 0)
+	    continue;
+
 	  proxy->setPos(point);
 
 	  if(proxy->widget())
