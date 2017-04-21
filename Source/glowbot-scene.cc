@@ -156,7 +156,6 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
   if(event && !m_lastScenePos.isNull())
     {
       QList<QGraphicsItem *> list(selectedItems());
-      bool resize = false;
 
       for(int i = 0; i < list.size(); i++)
 	{
@@ -177,18 +176,10 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  if(proxy->widget())
 	    proxy->widget()->move(point.toPoint());
-
-	  if(proxy->pos().x() + proxy->size().width() > sceneRect().width())
-	    resize = true;
-
-	  if(proxy->pos().y() + proxy->size().height() > sceneRect().height())
-	    resize = true;
 	}
 
       m_lastScenePos = event->scenePos();
-
-      if(resize)
-	emit sceneResized();
+      emit sceneResized();
     }
 
   QGraphicsScene::mouseMoveEvent(event);
