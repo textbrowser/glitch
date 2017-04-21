@@ -7,6 +7,7 @@ Completed Items
 5.     Unite separated windows.
 6.     Alignment panel. The panel must allow interaction with separated
        windows.
+7.     Detect scene boundaries and prevent placement outside of.
 
 Remaining Items
 
@@ -17,5 +18,4 @@ Remaining Items
 5.     Confirmation prompt on closing of edited diagrams.
 6.     A function panel. The panel should include a list of defined functions.
 7.     Style sheets.
-8.     Detect scene boundaries and prevent placement outside of.
-9.     Inspect coordinates upon opening of diagrams. Adjust.
+8.     Inspect coordinates upon opening of diagrams. Adjust.
