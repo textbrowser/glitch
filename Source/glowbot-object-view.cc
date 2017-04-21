@@ -89,6 +89,7 @@ void glowbot_object_view::resizeEvent(QResizeEvent *event)
     {
       QRectF b(m_scene->itemsBoundingRect());
 
+      b.setTopLeft(QPointF(0, 0));
       m_scene->setSceneRect
       (0,
        0,

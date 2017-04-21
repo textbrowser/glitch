@@ -144,6 +144,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  object->move(event->scenePos().toPoint());
 	  proxy->setPos(event->scenePos());
 	  emit changed();
+	  emit sceneResized();
 	  return;
 	}
     }
