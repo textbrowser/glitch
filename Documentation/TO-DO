@@ -19,3 +19,4 @@ Remaining Items
 6.     A function panel. The panel should include a list of defined functions.
 7.     Style sheets.
 8.     Inspect coordinates upon opening of diagrams. Adjust.
+9.     Detect scene boundaries of object scenes.
