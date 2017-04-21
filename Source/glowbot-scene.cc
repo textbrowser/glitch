@@ -156,6 +156,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
   if(event && !m_lastScenePos.isNull())
     {
       QList<QGraphicsItem *> list(selectedItems());
+      bool moved = false;
 
       for(int i = 0; i < list.size(); i++)
 	{
@@ -172,6 +173,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(point.x() < 0 || point.y() < 0)
 	    continue;
 
+	  moved = true;
 	  proxy->setPos(point);
 
 	  if(proxy->widget())
@@ -179,7 +181,12 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	}
 
       m_lastScenePos = event->scenePos();
-      emit sceneResized();
+
+      if(moved)
+	{
+	  emit sceneResized();
+	  views().value(0)->viewport()->setCursor(Qt::ClosedHandCursor);
+	}
     }
 
   QGraphicsScene::mouseMoveEvent(event);
@@ -240,6 +247,14 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
+
+  QCursor *cursor = QApplication::overrideCursor();
+
+  if(cursor)
+    views().value(0)->viewport()->setCursor(cursor->shape());
+  else
+    views().value(0)->viewport()->setCursor(Qt::ArrowCursor);
+
   QGraphicsScene::mouseReleaseEvent(event);
 }
 
