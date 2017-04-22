@@ -28,6 +28,11 @@
 #ifndef _glowbot_mainwindow_h_
 #define _glowbot_mainwindow_h_
 
+/*
+** This class represents a simple main window. It's not GlowBot's
+** main window, but it could be.
+*/
+
 #include <QMainWindow>
 
 class glowbot_mainwindow: public QMainWindow
