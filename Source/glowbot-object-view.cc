@@ -45,6 +45,7 @@ glowbot_object_view::glowbot_object_view
   m_scene = new glowbot_scene(this);
   setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
   setRenderHints(QPainter::Antialiasing |
 		 QPainter::HighQualityAntialiasing | // OpenGL?
@@ -52,11 +53,16 @@ glowbot_object_view::glowbot_object_view
 		 QPainter::TextAntialiasing);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
+  setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
 	  SIGNAL(changed(void)));
+  connect(m_scene,
+	  SIGNAL(sceneResized(void)),
+	  this,
+	  SLOT(slotSceneResized(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -86,20 +92,7 @@ void glowbot_object_view::contextMenuEvent(QContextMenuEvent *event)
 void glowbot_object_view::resizeEvent(QResizeEvent *event)
 {
   if(event)
-    {
-      QRectF b(m_scene->itemsBoundingRect());
-
-      b.setTopLeft(QPointF(0, 0));
-      m_scene->setSceneRect
-      (0,
-       0,
-       qMax(static_cast<int> (b.width()),
-	    event->size().width() - s_scene_rect_fuzzy),
-       qMax(static_cast<int> (b.height()),
-	    event->size().height() - (horizontalScrollBar() ?
-				      horizontalScrollBar()->height() : 0) -
-	    s_scene_rect_fuzzy));
-    }
+    setSceneRect(event->size());
 
   QGraphicsView::resizeEvent(event);
 }
@@ -133,6 +126,37 @@ void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
     }
 }
 
+void glowbot_object_view::setSceneRect(const QSize &size)
+{
+  QRectF b(m_scene->itemsBoundingRect());
+  int horizontal_offset = s_scene_rect_fuzzy;
+  int vertical_offset = s_scene_rect_fuzzy;
+
+  b.setTopLeft(QPointF(0, 0));
+
+  if(horizontalScrollBar() && horizontalScrollBar()->isVisible())
+    vertical_offset += horizontalScrollBar()->height();
+
+  if(verticalScrollBar() && verticalScrollBar()->isVisible())
+    horizontal_offset += verticalScrollBar()->width();
+
+  m_scene->setSceneRect
+    (0,
+     0,
+     qMax(static_cast<int> (b.width()), size.width() - horizontal_offset),
+     qMax(static_cast<int> (b.height()), size.height() - vertical_offset));
+
+  if(b.height() < m_scene->sceneRect().height())
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  else
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+  if(b.width() < m_scene->sceneRect().width())
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  else
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+}
+
 void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
 {
   QMenu menu(this);
@@ -141,4 +165,9 @@ void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
 		 m_alignment,
 		 SLOT(show(void)));
   menu.exec(mapToGlobal(point));
+}
+
+void glowbot_object_view::slotSceneResized(void)
+{
+  setSceneRect(size());
 }
