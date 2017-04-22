@@ -165,5 +165,8 @@ void glowbot_object_view::slotParentWindowResized(const QSize &size)
 
 void glowbot_object_view::slotSceneResized(void)
 {
-  setSceneRect(size());
+  if(parentWidget())
+    setSceneRect(parentWidget()->size());
+  else
+    setSceneRect(size()); // Slight incorrectness.
 }
