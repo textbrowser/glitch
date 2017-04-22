@@ -25,7 +25,6 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QResizeEvent>
 #include <QScrollBar>
 #include <QSqlError>
 
@@ -87,14 +86,6 @@ void glowbot_object_view::contextMenuEvent(QContextMenuEvent *event)
     }
   else
     QGraphicsView::contextMenuEvent(event);
-}
-
-void glowbot_object_view::resizeEvent(QResizeEvent *event)
-{
-  if(event)
-    setSceneRect(event->size());
-
-  QGraphicsView::resizeEvent(event);
 }
 
 void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
@@ -165,6 +156,11 @@ void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
 		 m_alignment,
 		 SLOT(show(void)));
   menu.exec(mapToGlobal(point));
+}
+
+void glowbot_object_view::slotParentWindowResized(const QSize &size)
+{
+  setSceneRect(size);
 }
 
 void glowbot_object_view::slotSceneResized(void)

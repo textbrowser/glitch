@@ -53,6 +53,7 @@ FORMS           = UI\\glowbot-alignment.ui \
 
 HEADERS		= Source\\glowbot-alignment.h \
                   Source\\glowbot-canvas-settings.h \
+                  Source\\glowbot-mainwindow.h \
                   Source\\glowbot-object.h \
                   Source\\glowbot-object-analog-read-arduino.h \
                   Source\\glowbot-object-function-arduino.h \

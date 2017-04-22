@@ -28,12 +28,11 @@
 #ifndef _glowbot_object_loop_arduino_h_
 #define _glowbot_object_loop_arduino_h_
 
-#include <QMainWindow>
-
 #include "glowbot-object.h"
 #include "glowbot-object-view.h"
 #include "ui_glowbot-object-loop-arduino.h"
 
+class glowbot_mainwindow;
 class glowbot_object_view;
 
 class glowbot_object_loop_arduino: public glowbot_object
@@ -49,8 +48,8 @@ class glowbot_object_loop_arduino: public glowbot_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  QMainWindow *m_editWindow;
   Ui_glowbot_object_loop_arduino m_ui;
+  glowbot_mainwindow *m_editWindow;
   glowbot_object_view *m_editView;
   void mouseDoubleClickEvent(QMouseEvent *event);
 

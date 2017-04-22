@@ -49,11 +49,11 @@ class glowbot_object_view: public QGraphicsView
   glowbot_scene *m_scene;
   quint64 m_id;
   void contextMenuEvent(QContextMenuEvent *event);
-  void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);
 
  protected slots:
   void slotCustomContextMenuRequested(const QPoint &point);
+  void slotParentWindowResized(const QSize &size);
   void slotSceneResized(void);
 
  signals:
