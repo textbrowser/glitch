@@ -25,7 +25,10 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QResizeEvent>
+
 #include "glowbot-object-edit-window.h"
+#include "glowbot-object-view.h"
 
 glowbot_object_edit_window::glowbot_object_edit_window(QWidget *parent):
   QMainWindow(parent)
@@ -38,5 +41,14 @@ glowbot_object_edit_window::~glowbot_object_edit_window()
 
 void glowbot_object_edit_window::resizeEvent(QResizeEvent *event)
 {
+  if(event)
+    {
+      glowbot_object_view *view = qobject_cast<glowbot_object_view *>
+	(centralWidget());
+
+      if(view)
+	view->setSceneRect(event->size());
+    }
+
   QMainWindow::resizeEvent(event);
 }

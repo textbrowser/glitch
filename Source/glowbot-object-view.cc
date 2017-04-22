@@ -158,11 +158,6 @@ void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
   menu.exec(mapToGlobal(point));
 }
 
-void glowbot_object_view::slotParentWindowResized(const QSize &size)
-{
-  setSceneRect(size);
-}
-
 void glowbot_object_view::slotSceneResized(void)
 {
   if(parentWidget())
