@@ -31,7 +31,7 @@
 #include "glowbot-object.h"
 #include "ui_glowbot-object-setup-arduino.h"
 
-class glowbot_mainwindow;
+class glowbot_object_edit_window;
 class glowbot_object_view;
 
 class glowbot_object_setup_arduino: public glowbot_object
@@ -48,7 +48,7 @@ class glowbot_object_setup_arduino: public glowbot_object
 
  private:
   Ui_glowbot_object_setup_arduino m_ui;
-  glowbot_mainwindow *m_editWindow;
+  glowbot_object_edit_window *m_editWindow;
   glowbot_object_view *m_editView;
   void mouseDoubleClickEvent(QMouseEvent *event);
 

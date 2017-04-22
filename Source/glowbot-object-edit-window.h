@@ -25,8 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_mainwindow_h_
-#define _glowbot_mainwindow_h_
+#ifndef _glowbot_object_edit_window_h_
+#define _glowbot_object_edit_window_h_
 
 /*
 ** This class represents a simple main window. It's not GlowBot's
@@ -35,27 +35,16 @@
 
 #include <QMainWindow>
 
-class glowbot_mainwindow: public QMainWindow
+class glowbot_object_edit_window: public QMainWindow
 {
   Q_OBJECT
 
  public:
-  glowbot_mainwindow(QWidget *parent):QMainWindow(parent)
-  {
-  }
+  glowbot_object_edit_window(QWidget *parent);
+  ~glowbot_object_edit_window();
 
-  ~glowbot_mainwindow()
-  {
-  }
-
-  void resizeEvent(QResizeEvent *event)
-  {
-    QMainWindow::resizeEvent(event);
-    emit resized(size());
-  }
-
- signals:
-  void resized(const QSize &size);
+ private:
+  void resizeEvent(QResizeEvent *event);
 };
 
 #endif

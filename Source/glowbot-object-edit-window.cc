@@ -25,36 +25,18 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_object_loop_arduino_h_
-#define _glowbot_object_loop_arduino_h_
+#include "glowbot-object-edit-window.h"
 
-#include "glowbot-object.h"
-#include "glowbot-object-view.h"
-#include "ui_glowbot-object-loop-arduino.h"
-
-class glowbot_object_edit_window;
-class glowbot_object_view;
-
-class glowbot_object_loop_arduino: public glowbot_object
+glowbot_object_edit_window::glowbot_object_edit_window(QWidget *parent):
+  QMainWindow(parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_object_loop_arduino(QWidget *parent);
-  ~glowbot_object_loop_arduino();
-  bool hasView(void) const;
-  bool isMandatory(void) const;
-  void addActions(QMenu &menu) const;
-  void save(const QSqlDatabase &db, QString &error);
+glowbot_object_edit_window::~glowbot_object_edit_window()
+{
+}
 
- private:
-  Ui_glowbot_object_loop_arduino m_ui;
-  glowbot_object_edit_window *m_editWindow;
-  glowbot_object_view *m_editView;
-  void mouseDoubleClickEvent(QMouseEvent *event);
-
- private slots:
-  void slotEdit(void);
-};
-
-#endif
+void glowbot_object_edit_window::resizeEvent(QResizeEvent *event)
+{
+  QMainWindow::resizeEvent(event);
+}

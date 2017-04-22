@@ -28,7 +28,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-#include "glowbot-mainwindow.h"
+#include "glowbot-object-edit-window.h"
 #include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-view.h"
 
@@ -36,7 +36,7 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
 (QWidget *parent):glowbot_object(parent)
 {
   m_editView = new glowbot_object_view(m_id, 0);
-  m_editWindow = new glowbot_mainwindow(0);
+  m_editWindow = new glowbot_object_edit_window(0);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setContentsMargins(9, 9, 9, 9);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
@@ -49,10 +49,6 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
 	  SIGNAL(changed(void)),
 	  this,
 	  SIGNAL(changed(void)));
-  connect(m_editWindow,
-	  SIGNAL(resized(const QSize &)),
-	  m_editView,
-	  SLOT(slotParentWindowResized(const QSize &)));
 }
 
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
