@@ -33,6 +33,7 @@
 glowbot_object_edit_window::glowbot_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
+  setContentsMargins(9, 9, 9, 9);
 }
 
 glowbot_object_edit_window::~glowbot_object_edit_window()

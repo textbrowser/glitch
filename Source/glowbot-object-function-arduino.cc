@@ -29,6 +29,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+#include "glowbot-object-edit-window.h"
 #include "glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
 
@@ -40,7 +41,7 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
   QString name(nextUniqueFunctionName());
 
   m_editView = new glowbot_object_view(m_id, 0);
-  m_editWindow = new QMainWindow(0);
+  m_editWindow = new glowbot_object_edit_window(0);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
