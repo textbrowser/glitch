@@ -22,16 +22,7 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>0</number>
     </property>
     <item>
@@ -55,7 +46,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -70,6 +61,8 @@
     </widget>
     <addaction name="menu_New_Diagram"/>
     <addaction name="action_Open_Diagram"/>
+    <addaction name="separator"/>
+    <addaction name="action_Close_Diagram"/>
     <addaction name="separator"/>
     <addaction name="action_Save_Current_Diagram"/>
     <addaction name="action_Save_Current_Diagram_As"/>
@@ -140,6 +133,14 @@
   <action name="action_Alignment">
    <property name="text">
     <string>&amp;Alignment...</string>
+   </property>
+  </action>
+  <action name="action_Close_Diagram">
+   <property name="text">
+    <string>&amp;Close Diagram</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
  </widget>

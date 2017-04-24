@@ -58,6 +58,7 @@ class glowbot_ui: public QMainWindow
  private slots:
   void slotAboutToShowTabsMenu(void);
   void slotCloseDiagram(int index);
+  void slotCloseDiagram(void);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
   void slotPageChanged(void);

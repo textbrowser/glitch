@@ -47,6 +47,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowAlignment(void)));
+  connect(m_ui.action_Close_Diagram,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotCloseDiagram(void)));
   connect(m_ui.action_New_Arduino,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -166,6 +170,7 @@ void glowbot_ui::prepareActionWidgets(void)
   if(m_ui.tab->count() == 0)
     {
       m_ui.action_Alignment->setEnabled(false);
+      m_ui.action_Close_Diagram->setEnabled(false);
 
       if(findChildren<glowbot_separated_diagram_window *> ().size() > 0)
 	m_ui.action_Structures->setEnabled(true);
@@ -175,6 +180,7 @@ void glowbot_ui::prepareActionWidgets(void)
   else
     {
       m_ui.action_Alignment->setEnabled(true);
+      m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 }
@@ -237,6 +243,11 @@ void glowbot_ui::slotCloseDiagram(int index)
 
   m_ui.tab->removeTab(index);
   prepareActionWidgets();
+}
+
+void glowbot_ui::slotCloseDiagram(void)
+{
+  slotCloseDiagram(m_ui.tab->currentIndex());
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
