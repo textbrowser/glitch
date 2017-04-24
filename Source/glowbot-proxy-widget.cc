@@ -87,7 +87,7 @@ void glowbot_proxy_widget::paint
     {
       QPen pen;
 
-      pen.setWidth(2.5);
+      pen.setWidthF(2.5);
       painter->setPen(pen);
       painter->drawRect(boundingRect());
     }
