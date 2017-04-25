@@ -77,6 +77,7 @@ class glowbot_view: public QWidget
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotSceneResized(void);
   void slotSeparate(void);
+  void slotShowAlignmentTool(void);
   void slotShowCanvasSettings(void);
   void slotUnite(void);
 

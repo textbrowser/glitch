@@ -293,6 +293,10 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
   QAction *action = 0;
   QMenu menu(this);
 
+  menu.addAction(tr("&Alignment Tool..."),
+		 this,
+		 SLOT(slotShowAlignmentTool(void)));
+  menu.addSeparator();
   action = menu.addAction(tr("Se&parate..."),
 			  this,
 			  SLOT(slotSeparate(void)));
@@ -326,6 +330,11 @@ void glowbot_view::slotSceneResized(void)
 void glowbot_view::slotSeparate(void)
 {
   emit separate(this);
+}
+
+void glowbot_view::slotShowAlignmentTool(void)
+{
+  showAlignment();
 }
 
 void glowbot_view::slotShowCanvasSettings(void)
