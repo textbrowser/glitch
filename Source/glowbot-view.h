@@ -79,6 +79,7 @@ class glowbot_view: public QWidget
   void slotSeparate(void);
   void slotShowAlignmentTool(void);
   void slotShowCanvasSettings(void);
+  void slotShowUserFunctions(void);
   void slotUnite(void);
 
  signals:

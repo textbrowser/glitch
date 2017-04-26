@@ -319,6 +319,10 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
   menu.addAction(tr("Show Canvas &Settings..."),
 		 this,
 		 SLOT(slotShowCanvasSettings(void)));
+  menu.addSeparator();
+  menu.addAction(tr("&User Functions..."),
+		 this,
+		 SLOT(slotShowUserFunctions(void)));
   menu.exec(mapToGlobal(point));
 }
 
@@ -342,6 +346,10 @@ void glowbot_view::slotShowCanvasSettings(void)
   m_canvasSettings->setName(m_name);
   m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
   m_canvasSettings->show();
+}
+
+void glowbot_view::slotShowUserFunctions(void)
+{
 }
 
 void glowbot_view::slotUnite(void)
