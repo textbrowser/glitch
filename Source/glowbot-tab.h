@@ -38,6 +38,9 @@ class glowbot_tab_tabbar: public QTabBar
  public:
   glowbot_tab_tabbar(QWidget *parent);
   ~glowbot_tab_tabbar();
+
+ private:
+  QSize tabSizeHint(int index) const;
 };
 
 class glowbot_tab: public QTabWidget
