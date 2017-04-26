@@ -39,6 +39,7 @@ class glowbot_alignment;
 class glowbot_object;
 class glowbot_object_start;
 class glowbot_scene;
+class glowbot_user_functions;
 
 class glowbot_view: public QWidget
 {
@@ -67,6 +68,7 @@ class glowbot_view: public QWidget
   glowbot_common::ProjectType m_projectType;
   glowbot_object_start *m_startObject;
   glowbot_scene *m_scene;
+  glowbot_user_functions *m_userFunctions;
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);

@@ -40,6 +40,7 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
+#include "glowbot-user-functions.h"
 #include "glowbot-view.h"
 
 static const int s_scene_rect_fuzzy = 4;
@@ -61,6 +62,7 @@ glowbot_view::glowbot_view
   m_scene = new glowbot_scene(this);
   m_scene->setMainScene(true);
   m_startObject = 0;
+  m_userFunctions = new glowbot_user_functions(this);
   m_view = new QGraphicsView(this);
   m_view->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
@@ -350,6 +352,7 @@ void glowbot_view::slotShowCanvasSettings(void)
 
 void glowbot_view::slotShowUserFunctions(void)
 {
+  m_userFunctions->show();
 }
 
 void glowbot_view::slotUnite(void)
