@@ -39,6 +39,7 @@ class glowbot_user_functions: public QDialog
  public:
   glowbot_user_functions(QWidget *parent);
   ~glowbot_user_functions();
+  void addFunction(const QString &name);
 
  private:
   Ui_glowbot_user_functions m_ui;

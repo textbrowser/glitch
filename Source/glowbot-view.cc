@@ -85,6 +85,10 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotChanged(void)));
   connect(m_scene,
+	  SIGNAL(functionAdded(const QString &)),
+	  this,
+	  SLOT(slotFunctionAdded(const QString &)));
+  connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
 	  SLOT(slotSceneResized(void)));
@@ -326,6 +330,11 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 		 this,
 		 SLOT(slotShowUserFunctions(void)));
   menu.exec(mapToGlobal(point));
+}
+
+void glowbot_view::slotFunctionAdded(const QString &name)
+{
+  m_userFunctions->addFunction(name);
 }
 
 void glowbot_view::slotSceneResized(void)

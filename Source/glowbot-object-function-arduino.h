@@ -42,6 +42,7 @@ class glowbot_object_function_arduino: public glowbot_object
  public:
   glowbot_object_function_arduino(QWidget *parent);
   ~glowbot_object_function_arduino();
+  QString name(void) const;
   bool hasView(void) const;
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;

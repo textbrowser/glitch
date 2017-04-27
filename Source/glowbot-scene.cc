@@ -144,6 +144,12 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  object->move(event->scenePos().toPoint());
 	  proxy->setPos(event->scenePos());
 	  emit changed();
+
+	  if(qobject_cast<glowbot_object_function_arduino *> (object))
+	    emit functionAdded
+	      (qobject_cast<glowbot_object_function_arduino *> (object)->
+	       name());
+
 	  emit sceneResized();
 	  return;
 	}

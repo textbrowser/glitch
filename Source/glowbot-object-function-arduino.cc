@@ -63,6 +63,11 @@ glowbot_object_function_arduino::~glowbot_object_function_arduino()
   s_functionNames.remove(m_ui.label->text());
 }
 
+QString glowbot_object_function_arduino::name(void) const
+{
+  return m_ui.label->text();
+}
+
 QString glowbot_object_function_arduino::nextUniqueFunctionName(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

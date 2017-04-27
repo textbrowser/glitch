@@ -35,3 +35,31 @@ glowbot_user_functions::glowbot_user_functions(QWidget *parent):QDialog(parent)
 glowbot_user_functions::~glowbot_user_functions()
 {
 }
+
+void glowbot_user_functions::addFunction(const QString &name)
+{
+  if(name.trimmed().isEmpty())
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  bool found = false;
+
+  for(int i = 0; i < m_ui.functions->rowCount(); i++)
+    if(m_ui.functions->item(i, 0) && m_ui.functions->item(i, 0)->text() == name)
+      {
+	found = true;
+	break;
+      }
+
+  if(!found)
+    {
+      QTableWidgetItem *item = new QTableWidgetItem(name);
+
+      item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+      m_ui.functions->setRowCount(m_ui.functions->rowCount() + 1);
+      m_ui.functions->setItem(m_ui.functions->rowCount() - 1, 0, item);
+    }
+
+  QApplication::restoreOverrideCursor();
+}
