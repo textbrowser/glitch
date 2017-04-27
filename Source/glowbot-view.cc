@@ -36,6 +36,7 @@
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
+#include "glowbot-object-function-arduino.h"
 #include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
@@ -84,6 +85,10 @@ glowbot_view::glowbot_view
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotChanged(void)));
+  connect(m_scene,
+	  SIGNAL(destroyed(QObject *)),
+	  this,
+	  SLOT(slotSceneObjectDestroyed(QObject *)));
   connect(m_scene,
 	  SIGNAL(functionAdded(const QString &)),
 	  this,
@@ -335,6 +340,16 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 void glowbot_view::slotFunctionAdded(const QString &name)
 {
   m_userFunctions->addFunction(name);
+}
+
+void glowbot_view::slotSceneObjectDestroyed(QObject *object)
+{
+  if(!object)
+    return;
+
+  if(object->objectName() == "glowbot_object_function_arduino")
+    m_userFunctions->deleteFunction
+      (object->property("function_name").toString());
 }
 
 void glowbot_view::slotSceneResized(void)
