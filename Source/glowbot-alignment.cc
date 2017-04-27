@@ -330,13 +330,17 @@ void glowbot_alignment::stack(const StackType stackType)
 
       if(stackType == HORIZONTAL_STACK)
         {
-          widget->move(coordinate, widget->pos().y());
-          coordinate += widget->width();
+	  if(widget->property("movable").toBool())
+	    widget->move(coordinate, widget->pos().y());
+
+	  coordinate += widget->width();
         }
       else
         {
-          widget->move(widget->pos().x(), coordinate);
-          coordinate += widget->height();
+	  if(widget->property("movable").toBool())
+	    widget->move(widget->pos().x(), coordinate);
+
+	  coordinate += widget->height();
         }
     }
 

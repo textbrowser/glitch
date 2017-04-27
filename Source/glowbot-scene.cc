@@ -141,6 +141,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		  SIGNAL(destroyed(void)),
 		  proxy,
 		  SLOT(deleteLater(void)));
+	  object->setProperty("movable", true);
 	  proxy->setFlags
 	    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	  proxy->setWidget(object);
