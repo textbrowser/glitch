@@ -30,6 +30,8 @@
 glowbot_user_functions::glowbot_user_functions(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.functions->horizontalHeader()->setSortIndicator(0, Qt::AscendingOrder);
+  m_ui.functions->horizontalHeader()->setSortIndicatorShown(true);
 }
 
 glowbot_user_functions::~glowbot_user_functions()
