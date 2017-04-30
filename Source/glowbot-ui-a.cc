@@ -107,11 +107,11 @@ glowbot_view *glowbot_ui::page(const int index)
 
 void glowbot_ui::closeEvent(QCloseEvent *event)
 {
+  /*
+  ** Detect modified diagrams.
+  */
+
   saveSettings();
-
-  for(int i = m_ui.tab->count() - 1; i >= 0; i--)
-    slotCloseDiagram(i);
-
   QMainWindow::closeEvent(event);
   QApplication::exit();
 }
