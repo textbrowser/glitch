@@ -53,6 +53,7 @@ class glowbot_scene: public QGraphicsScene
  signals:
   void changed(void);
   void functionAdded(const QString &name);
+  void functionNameChanged(const QString &before, const QString &after);
   void sceneResized(void);
 };
 

@@ -147,10 +147,13 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       if(s_functionNames.contains(text))
 	return;
 
+      QString name(m_ui.label->text());
+
       s_functionNames.remove(m_ui.label->text());
       setProperty("function_name", text);
       m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(text));
       m_ui.label->setText(text);
       s_functionNames[text] = 0;
+      emit nameChanged(name, m_ui.label->text());
     }
 }

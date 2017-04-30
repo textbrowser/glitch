@@ -77,3 +77,20 @@ void glowbot_user_functions::deleteFunction(const QString &name)
 
   QApplication::restoreOverrideCursor();
 }
+
+void glowbot_user_functions::renameFunction(const QString &before,
+					    const QString &after)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  for(int i = 0; i < m_ui.functions->rowCount(); i++)
+    if(m_ui.functions->item(i, 0) &&
+       m_ui.functions->item(i, 0)->text() == before)
+      {
+	m_ui.functions->item(i, 0)->setText(after);
+	break;
+      }
+
+  m_ui.functions->sortByColumn(0);
+  QApplication::restoreOverrideCursor();
+}

@@ -41,6 +41,7 @@ class glowbot_user_functions: public QDialog
   ~glowbot_user_functions();
   void addFunction(const QString &name);
   void deleteFunction(const QString &name);
+  void renameFunction(const QString &before, const QString &after);
 
  private:
   Ui_glowbot_user_functions m_ui;

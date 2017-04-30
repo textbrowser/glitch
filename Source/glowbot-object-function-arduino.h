@@ -59,6 +59,9 @@ class glowbot_object_function_arduino: public glowbot_object
  private slots:
   void slotEdit(void);
   void slotSetFunctionName(void);
+
+ signals:
+  void nameChanged(const QString &before, const QString &after);
 };
 
 #endif
