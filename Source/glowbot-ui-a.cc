@@ -51,6 +51,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotCloseDiagram(void)));
+  connect(m_ui.action_Delete,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotDelete(void)));
   connect(m_ui.action_New_Arduino,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -67,6 +71,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSaveCurrentDiagram(void)));
+  connect(m_ui.action_Select_All,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSelectAll(void)));
   connect(m_ui.action_Structures,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -250,6 +258,10 @@ void glowbot_ui::slotCloseDiagram(void)
   slotCloseDiagram(m_ui.tab->currentIndex());
 }
 
+void glowbot_ui::slotDelete(void)
+{
+}
+
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
   QString name("");
@@ -314,6 +326,16 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
 
       setWindowTitle(view);
     }
+}
+
+void glowbot_ui::slotSelectAll(void)
+{
+  glowbot_view *view = this->page(m_ui.tab->currentIndex());
+
+  if(!view)
+    return;
+
+  view->selectAll();
 }
 
 void glowbot_ui::slotSelectPage(void)

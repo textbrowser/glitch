@@ -55,6 +55,7 @@ class glowbot_view: public QWidget
   bool hasChanged(void) const;
   bool save(QString &error);
   glowbot_scene *scene(void) const;
+  void selectAll(void);
   void showAlignment(void);
 
  protected:

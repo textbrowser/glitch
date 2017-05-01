@@ -82,7 +82,15 @@
      <string>T&amp;abs</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="action_Delete"/>
+    <addaction name="action_Select_All"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
    <addaction name="menu_Tabs"/>
    <addaction name="menu_Tools"/>
   </widget>
@@ -141,6 +149,19 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="action_Select_All">
+   <property name="text">
+    <string>&amp;Select All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="action_Delete">
+   <property name="text">
+    <string>&amp;Delete</string>
    </property>
   </action>
  </widget>

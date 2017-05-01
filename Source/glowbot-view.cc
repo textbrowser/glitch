@@ -252,6 +252,24 @@ void glowbot_view::resizeEvent(QResizeEvent *event)
   QWidget::resizeEvent(event);
 }
 
+void glowbot_view::selectAll(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<QGraphicsItem *> list(m_scene->items());
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      glowbot_proxy_widget *proxy =
+	qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+      if(proxy)
+	proxy->setSelected(true);
+    }
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glowbot_view::setSceneRect(const QSize &size)
 {
   QRectF b(m_scene->itemsBoundingRect());
