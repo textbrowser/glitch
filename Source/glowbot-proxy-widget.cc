@@ -43,6 +43,16 @@ glowbot_proxy_widget::~glowbot_proxy_widget()
 {
 }
 
+bool glowbot_proxy_widget::isMandatory(void) const
+{
+  glowbot_object *object = qobject_cast<glowbot_object *> (widget());
+
+  if(object)
+    return object->isMandatory();
+  else
+    return false;
+}
+
 bool glowbot_proxy_widget::isMovable(void) const
 {
   return flags() & QGraphicsItem::ItemIsMovable;

@@ -93,7 +93,7 @@ bool glowbot_object_function_arduino::hasView(void) const
 
 bool glowbot_object_function_arduino::isMandatory(void) const
 {
-  return true;
+  return false;
 }
 
 void glowbot_object_function_arduino::addActions(QMenu &menu) const

@@ -93,7 +93,7 @@ void glowbot_scene::deleteItems(void)
 
       if(!proxy)
 	continue;
-      else if(!proxy->isMovable() || !proxy->isSelected())
+      else if(proxy->isMandatory() || !proxy->isSelected())
 	continue;
 
       removeItem(proxy);

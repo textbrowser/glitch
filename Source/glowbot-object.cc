@@ -73,7 +73,7 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
 
   menu.addAction(tr("&Delete"),
 		 this,
-		 SLOT(deleteLater(void)));
+		 SLOT(deleteLater(void)))->setEnabled(!isMandatory());
   menu.addAction(tr("&Set Style Sheet..."),
 		 this,
 		 SLOT(slotSetStyleSheet(void)));

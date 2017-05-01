@@ -70,6 +70,7 @@ void glowbot_object_loop_arduino::addActions(QMenu &menu) const
   menu.addAction(tr("&Edit..."),
 		 this,
 		 SLOT(slotEdit(void)));
+  addDefaultActions(menu);
 }
 
 void glowbot_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)

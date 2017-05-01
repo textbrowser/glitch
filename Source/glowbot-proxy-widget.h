@@ -37,6 +37,7 @@ class glowbot_proxy_widget: public QGraphicsProxyWidget
  public:
   glowbot_proxy_widget(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
   ~glowbot_proxy_widget();
+  bool isMandatory(void) const;
   bool isMovable(void) const;
 
  private:
