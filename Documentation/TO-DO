@@ -10,6 +10,8 @@ Completed Items
 7.     Detect scene boundaries and prevent placement outside of.
 8.     Detect scene boundaries of object scenes.
 9.     Exiting does not require closing of pages.
+10.    Group delete.
+11.    Select all.
 
 Remaining Items
 
@@ -21,5 +23,3 @@ Remaining Items
 6.     A function panel. The panel should include a list of defined functions.
 7.     Style sheets.
 8.     Inspect coordinates upon opening of diagrams. Adjust.
-9.     Group delete.
-10.    Select all.
