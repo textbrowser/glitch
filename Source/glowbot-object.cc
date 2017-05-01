@@ -65,3 +65,20 @@ quint64 glowbot_object::id(void) const
 {
   return m_id;
 }
+
+void glowbot_object::addDefaultActions(QMenu &menu) const
+{
+  if(!menu.actions().isEmpty())
+    menu.addSeparator();
+
+  menu.addAction(tr("&Delete"),
+		 this,
+		 SLOT(deleteLater(void)));
+  menu.addAction(tr("&Set Style Sheet..."),
+		 this,
+		 SLOT(slotSetStyleSheet(void)));
+}
+
+void glowbot_object::slotSetStyleSheet(void)
+{
+}

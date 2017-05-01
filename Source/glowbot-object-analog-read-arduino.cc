@@ -69,7 +69,7 @@ bool glowbot_object_analog_read_arduino::isMandatory(void) const
 
 void glowbot_object_analog_read_arduino::addActions(QMenu &menu) const
 {
-  Q_UNUSED(menu);
+  addDefaultActions(menu);
 }
 
 void glowbot_object_analog_read_arduino::save(const QSqlDatabase &db,

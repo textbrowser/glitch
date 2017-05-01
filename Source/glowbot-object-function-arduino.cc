@@ -104,10 +104,7 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   menu.addAction(tr("Set Function &Name..."),
 		 this,
 		 SLOT(slotSetFunctionName(void)));
-  menu.addSeparator();
-  menu.addAction(tr("&Delete"),
-		 this,
-		 SLOT(deleteLater(void)));
+  addDefaultActions(menu);
 }
 
 void glowbot_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)

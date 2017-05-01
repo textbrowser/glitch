@@ -53,6 +53,10 @@ class glowbot_object: public QWidget
  protected:
   QWidget *m_parent;
   quint64 m_id;
+  void addDefaultActions(QMenu &menu) const;
+
+ protected slots:
+  void slotSetStyleSheet(void);
 
  signals:
   void changed(void);
