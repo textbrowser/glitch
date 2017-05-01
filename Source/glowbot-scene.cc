@@ -80,6 +80,29 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     }
 }
 
+void glowbot_scene::deleteItems(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<QGraphicsItem *> list(items());
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      glowbot_proxy_widget *proxy =
+	qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+      if(!proxy)
+	continue;
+      else if(!proxy->isMovable() || !proxy->isSelected())
+	continue;
+
+      removeItem(proxy);
+      delete proxy;
+    }
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())

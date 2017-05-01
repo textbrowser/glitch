@@ -244,7 +244,7 @@ void glowbot_ui::slotAboutToShowTabsMenu(void)
 
 void glowbot_ui::slotCloseDiagram(int index)
 {
-  glowbot_view *view = this->page(index);
+  glowbot_view *view = page(index);
 
   if(view)
     view->deleteLater();
@@ -260,6 +260,12 @@ void glowbot_ui::slotCloseDiagram(void)
 
 void glowbot_ui::slotDelete(void)
 {
+  glowbot_view *view = page(m_ui.tab->currentIndex());
+
+  if(!view)
+    return;
+
+  view->deleteItems();
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
@@ -314,7 +320,7 @@ void glowbot_ui::slotQuit(void)
 
 void glowbot_ui::slotSaveCurrentDiagram(void)
 {
-  glowbot_view *view = this->page(m_ui.tab->currentIndex());
+  glowbot_view *view = page(m_ui.tab->currentIndex());
 
   if(view)
     {
@@ -330,7 +336,7 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
 
 void glowbot_ui::slotSelectAll(void)
 {
-  glowbot_view *view = this->page(m_ui.tab->currentIndex());
+  glowbot_view *view = page(m_ui.tab->currentIndex());
 
   if(!view)
     return;

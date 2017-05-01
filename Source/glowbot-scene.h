@@ -37,6 +37,7 @@ class glowbot_scene: public QGraphicsScene
  public:
   glowbot_scene(QObject *parent);
   ~glowbot_scene();
+  void deleteItems(void);
   void setMainScene(const bool state);
 
  private:

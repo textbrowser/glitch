@@ -244,6 +244,11 @@ void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
     QWidget::contextMenuEvent(event);
 }
 
+void glowbot_view::deleteItems(void)
+{
+  m_scene->deleteItems();
+}
+
 void glowbot_view::resizeEvent(QResizeEvent *event)
 {
   if(event)
