@@ -32,6 +32,10 @@ glowbot_style_sheet::glowbot_style_sheet(QWidget *parent):QDialog(parent)
   m_ui.setupUi(this);
   m_ui.buttonBox->setEnabled(false);
   m_widget = 0;
+  connect(m_ui.preview,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotPreview(void)));
 }
 
 glowbot_style_sheet::~glowbot_style_sheet()
@@ -50,4 +54,12 @@ void glowbot_style_sheet::setWidget(QWidget *widget)
 
   if(m_widget)
     m_ui.style_sheet->setText(m_widget->styleSheet());
+}
+
+void glowbot_style_sheet::slotPreview(void)
+{
+  if(!m_widget)
+    return;
+
+  m_widget->setStyleSheet(m_ui.style_sheet->toPlainText());
 }

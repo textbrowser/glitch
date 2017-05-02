@@ -45,6 +45,9 @@ class glowbot_style_sheet: public QDialog
  private:
   Ui_glowbot_style_sheet m_ui;
   QWidget *m_widget;
+
+ private slots:
+  void slotPreview(void);
 };
 
 #endif
