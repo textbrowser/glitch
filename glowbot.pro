@@ -49,6 +49,7 @@ FORMS           = UI\\glowbot-alignment.ui \
 		  UI\\glowbot-object-start.ui \
 		  UI\\glowbot-separated-diagram-window.ui \
                   UI\\glowbot-structures.ui \
+                  UI\\glowbot-style-sheet.ui \
                   UI\\glowbot-user-functions.ui \
 		  UI\\glowbot-view.ui
 
