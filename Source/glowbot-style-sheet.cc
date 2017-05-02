@@ -30,6 +30,7 @@
 glowbot_style_sheet::glowbot_style_sheet(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.buttonBox->setEnabled(false);
   m_widget = 0;
 }
 
@@ -44,6 +45,7 @@ QString glowbot_style_sheet::styleSheet(void) const
 
 void glowbot_style_sheet::setWidget(QWidget *widget)
 {
+  m_ui.buttonBox->setEnabled(widget != 0);
   m_widget = widget;
 
   if(m_widget)

@@ -22,5 +22,5 @@ Remaining Items
 5.     Confirmation prompt on closing of edited diagrams.
 6.     A function panel. The panel should include a list of defined functions.
        Drag and drop support. Warn of recursive uses.
-7.     Style sheets.
+7.     Style sheets. Validate user input.
 8.     Inspect coordinates upon opening of diagrams. Adjust.
