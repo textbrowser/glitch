@@ -30,8 +30,22 @@
 glowbot_style_sheet::glowbot_style_sheet(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_widget = 0;
 }
 
 glowbot_style_sheet::~glowbot_style_sheet()
 {
+}
+
+QString glowbot_style_sheet::styleSheet(void) const
+{
+  return m_ui.style_sheet->toPlainText();
+}
+
+void glowbot_style_sheet::setWidget(QWidget *widget)
+{
+  m_widget = widget;
+
+  if(m_widget)
+    m_ui.style_sheet->setText(m_widget->styleSheet());
 }

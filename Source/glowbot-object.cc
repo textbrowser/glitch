@@ -27,6 +27,7 @@
 
 #include "glowbot-object.h"
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-style-sheet.h"
 
 quint64 glowbot_object::s_id = 0;
 
@@ -81,4 +82,10 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
 
 void glowbot_object::slotSetStyleSheet(void)
 {
+  glowbot_style_sheet *styleSheet = new glowbot_style_sheet(m_parent);
+
+  styleSheet->setWidget(this);
+
+  if(styleSheet->exec() == QDialog::Accepted)
+    setStyleSheet(styleSheet->styleSheet());
 }

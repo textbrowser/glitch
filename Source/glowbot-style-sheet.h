@@ -39,9 +39,12 @@ class glowbot_style_sheet: public QDialog
  public:
   glowbot_style_sheet(QWidget *parent);
   ~glowbot_style_sheet();
+  QString styleSheet(void) const;
+  void setWidget(QWidget *widget);
 
  private:
   Ui_glowbot_style_sheet m_ui;
+  QWidget *m_widget;
 };
 
 #endif
