@@ -68,6 +68,7 @@ HEADERS		= Source\\glowbot-alignment.h \
                   Source\\glowbot-separated-diagram-window.h \
                   Source\\glowbot-structures-arduino.h \
                   Source\\glowbot-structures-treewidget.h \
+                  Source\\glowbot-style-sheet.h \
                   Source\\glowbot-tab.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-user-functions.h \
@@ -92,6 +93,7 @@ SOURCES		= Source\\glowbot-alignment.cc \
                   Source\\glowbot-separated-diagram-window.cc \
                   Source\\glowbot-structures-arduino.cc \
                   Source\\glowbot-structures-treewidget.cc \
+                  Source\\glowbot-style-sheet.cc \
                   Source\\glowbot-tab.cc \
                   Source\\glowbot-ui-a.cc \
                   Source\\glowbot-user-functions.cc \
