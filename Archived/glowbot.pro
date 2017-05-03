@@ -46,6 +46,7 @@ FORMS           = UI\\glowbot-alignment.ui \
                   UI\\glowbot-object-function-arduino.ui \
 		  UI\\glowbot-object-loop-arduino.ui \
                   UI\\glowbot-object-setup-arduino.ui \
+		  UI\\glowbot-object-start.ui \
 		  UI\\glowbot-separated-diagram-window.ui \
                   UI\\glowbot-structures.ui \
                   UI\\glowbot-style-sheet.ui \
@@ -60,6 +61,7 @@ HEADERS		= Source\\glowbot-alignment.h \
                   Source\\glowbot-object-function-arduino.h \
 		  Source\\glowbot-object-loop-arduino.h \
 		  Source\\glowbot-object-setup-arduino.h \
+		  Source\\glowbot-object-start.h \
 		  Source\\glowbot-object-view.h \
                   Source\\glowbot-proxy-widget.h \
                   Source\\glowbot-scene.h \
@@ -84,6 +86,7 @@ SOURCES		= Source\\glowbot-alignment.cc \
                   Source\\glowbot-object-function-arduino.cc \
 		  Source\\glowbot-object-loop-arduino.cc \
 		  Source\\glowbot-object-setup-arduino.cc \
+		  Source\\glowbot-object-start.cc \
 		  Source\\glowbot-object-view.cc \
                   Source\\glowbot-proxy-widget.cc \
                   Source\\glowbot-scene.cc \

@@ -34,6 +34,7 @@ glowbot_object_analog_read_arduino::glowbot_object_analog_read_arduino
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  m_type = "arduino-analogread";
 }
 
 glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()

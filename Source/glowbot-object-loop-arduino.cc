@@ -44,6 +44,7 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  m_type = "arduino-loop";
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,

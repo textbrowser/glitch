@@ -27,7 +27,6 @@
 
 #include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-setup-arduino.h"
-#include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-view-arduino.h"

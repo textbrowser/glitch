@@ -37,7 +37,6 @@
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
 #include "glowbot-object-function-arduino.h"
-#include "glowbot-object-start.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
