@@ -45,12 +45,13 @@ class glowbot_object: public QWidget
   virtual bool hasView(void) const = 0;
   virtual bool isMandatory(void) const = 0;
   virtual void addActions(QMenu &menu) const = 0;
-  virtual void save(const QSqlDatabase &db, QString &error) = 0;
+  virtual void save(const QSqlDatabase &db, QString &error);
 
  private:
   static quint64 s_id;
 
  protected:
+  QString m_type;
   QWidget *m_parent;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;

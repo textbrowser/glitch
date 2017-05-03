@@ -43,7 +43,6 @@ class glowbot_object_analog_read_arduino: public glowbot_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
-  void save(const QSqlDatabase &db, QString &error);
 
  private:
   Ui_glowbot_object_analog_read_arduino m_ui;

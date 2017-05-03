@@ -78,8 +78,7 @@ void glowbot_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 
 void glowbot_object_setup_arduino::save(const QSqlDatabase &db, QString &error)
 {
-  Q_UNUSED(db);
-  Q_UNUSED(error);
+  m_editView->save(db, error);
 }
 
 void glowbot_object_setup_arduino::slotEdit(void)

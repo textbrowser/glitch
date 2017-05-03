@@ -25,8 +25,12 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSqlError>
+#include <QSqlQuery>
+
 #include "glowbot-object.h"
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-object-view.h"
 #include "glowbot-style-sheet.h"
 
 quint64 glowbot_object::s_id = 0;
@@ -78,6 +82,29 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
   menu.addAction(tr("&Set Style Sheet..."),
 		 this,
 		 SLOT(slotSetStyleSheet(void)));
+}
+
+void glowbot_object::save(const QSqlDatabase &db, QString &error)
+{
+  QSqlQuery query(db);
+
+  query.prepare("INSERT OR REPLACE INTO objects "
+		"(myoid, parent_oid, position, stylesheet, type) "
+		"VALUES(?, ?, ?, ?)");
+  query.addBindValue(m_id);
+
+  if(qobject_cast<glowbot_object_view *> (m_parent))
+    query.addBindValue(qobject_cast<glowbot_object_view *> (m_parent)->id());
+  else
+    query.addBindValue(-1);
+
+  query.addBindValue(QString("(%1,%2)").arg(pos().x()).arg(pos().y()));
+  query.addBindValue(styleSheet());
+  query.addBindValue(m_type);
+  query.exec();
+
+  if(query.lastError().isValid())
+    error = query.lastError().text();
 }
 
 void glowbot_object::slotSetStyleSheet(void)
