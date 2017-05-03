@@ -50,6 +50,7 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
+  m_type = "arduino-function";
   s_functionNames[name] = 0;
   setProperty("function_name", m_ui.label->text());
   connect(m_editView,
