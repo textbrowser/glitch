@@ -90,7 +90,7 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
 
   query.prepare("INSERT OR REPLACE INTO objects "
 		"(myoid, parent_oid, position, stylesheet, type) "
-		"VALUES(?, ?, ?, ?)");
+		"VALUES(?, ?, ?, ?, ?)");
   query.addBindValue(m_id);
 
   if(qobject_cast<glowbot_object_view *> (m_parent))
