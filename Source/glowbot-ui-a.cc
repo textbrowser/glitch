@@ -149,6 +149,18 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 	  }
 
 	newArduinoDiagram(name);
+
+	if(query.exec("SELECT myoid, parent_oid, position, properties, "
+		      "stylesheet, type FROM objects ORDER BY parent_oid"))
+	  {
+	  }
+	else
+	  {
+	    db.close();
+	    error = tr("Unable to process the objects table.");
+	    ok = false;
+	    goto done_label;
+	  }
       }
     else
       error = tr("Unable to open %1.").arg(fileName);
