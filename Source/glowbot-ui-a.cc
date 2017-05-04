@@ -109,7 +109,7 @@ glowbot_ui::~glowbot_ui()
     m_arduinoStructures->deleteLater();
 }
 
-bool glowbot_ui::openDiagram(const QString &fileName)
+bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -126,20 +126,32 @@ bool glowbot_ui::openDiagram(const QString &fileName)
       {
 	QSqlQuery query(db);
 	QString name("");
+	QString type("");
 
-	if(query.exec("SELECT name FROM diagram"))
+	if(query.exec("SELECT name, type FROM diagram"))
 	  if(query.next())
-	    name = query.value(0).toString().trimmed();
+	    {
+	      name = query.value(0).toString().trimmed();
+	      type = query.value(1).toString().trimmed();
+	    }
 
-	if(name.isEmpty())
+	if(name.isEmpty() || type != "ArduinoProject")
 	  {
 	    db.close();
+
+	    if(name.isEmpty())
+	      error = tr("Empty diagram name.");
+	    else
+	      error = tr("Expecting a diagram type of ArduinoProject.");
+
 	    ok = false;
 	    goto done_label;
 	  }
 
 	newArduinoDiagram(name);
       }
+    else
+      error = tr("Unable to open %1.").arg(fileName);
 
     db.close();
   }
@@ -339,7 +351,9 @@ void glowbot_ui::slotOpenDiagram(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      if(openDiagram(dialog.selectedFiles().value(0)))
+      QString error("");
+
+      if(openDiagram(dialog.selectedFiles().value(0), error))
 	prepareActionWidgets();
     }
 }
