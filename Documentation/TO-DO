@@ -25,3 +25,4 @@ Remaining Items
        Drag and drop support. Warn of recursive uses.
 7.     Inspect coordinates upon opening of diagrams. Adjust.
 8.     Save loop() and setup() style sheets.
+9.     Save canvas settings.

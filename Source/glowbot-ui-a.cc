@@ -31,6 +31,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSettings>
+#include <QSqlQuery>
 
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
@@ -106,6 +107,47 @@ glowbot_ui::~glowbot_ui()
 {
   if(m_arduinoStructures)
     m_arduinoStructures->deleteLater();
+}
+
+bool glowbot_ui::openDiagram(const QString &fileName)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString connectionName("");
+  bool ok = true;
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(fileName);
+
+    if((ok = db.open()))
+      {
+	QSqlQuery query(db);
+	QString name("");
+
+	if(query.exec("SELECT name FROM diagram"))
+	  if(query.next())
+	    name = query.value(0).toString().trimmed();
+
+	if(name.isEmpty())
+	  {
+	    db.close();
+	    ok = false;
+	    goto done_label;
+	  }
+
+	newArduinoDiagram(name);
+      }
+
+    db.close();
+  }
+
+ done_label:
+  glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
+  return ok;
 }
 
 glowbot_view *glowbot_ui::page(const int index)
@@ -297,7 +339,8 @@ void glowbot_ui::slotOpenDiagram(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      prepareActionWidgets();
+      if(openDiagram(dialog.selectedFiles().value(0)))
+	prepareActionWidgets();
     }
 }
 

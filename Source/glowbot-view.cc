@@ -183,6 +183,7 @@ bool glowbot_view::save(QString &error)
 	    if(!ok)
 	      {
 		error = query.lastError().text();
+		db.close();
 		goto done_label;
 	      }
 
