@@ -241,8 +241,7 @@ quint64 glowbot_view::nextId(void) const
       {
 	QSqlQuery query(db);
 
-	if(query.exec("INSERT INTO sequence (value) "
-		      "SELECT MAX(IFNULL(value, 0)) + 1 FROM sequence"))
+	if(query.exec("INSERT INTO sequence VALUES (NULL)"))
 	  {
 	    QVariant variant(query.lastInsertId());
 
