@@ -105,6 +105,7 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_view);
+  prepareDatabaseTables();
 }
 
 glowbot_view::~glowbot_view()
@@ -147,6 +148,7 @@ bool glowbot_view::open(const QSqlDatabase &db, QString &error)
 
 bool glowbot_view::save(QString &error)
 {
+  prepareDatabaseTables();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
@@ -164,78 +166,45 @@ bool glowbot_view::save(QString &error)
       {
 	QSqlQuery query(db);
 
-	ok = query.exec("CREATE TABLE IF NOT EXISTS diagram ("
-			"name TEXT NOT NULL PRIMARY KEY, "
-			"settings_ini TEXT NOT NULL, "
-			"type TEXT NOT NULL)");
+	query.prepare("INSERT OR REPLACE INTO diagram "
+		      "(name, settings_ini, type) "
+		      "VALUES (?, ?, ?)");
+	query.addBindValue(m_name);
+	query.addBindValue(m_canvasSettings->settings());
+	query.addBindValue(glowbot_common::projectTypeToString(m_projectType));
+	ok = query.exec();
 
-	if(ok)
-	  ok = query.exec("CREATE TABLE IF NOT EXISTS objects ("
-			  "myoid INTEGER NOT NULL UNIQUE, "
-			  "parent_oid INTEGER NOT NULL DEFAULT -1, "
-			  "position TEXT NOT NULL, "
-			  "properties TEXT, "
-			  "stylesheet TEXT, "
-			  "type TEXT NOT NULL, "
-			  "PRIMARY KEY (parent_oid, position))");
-	else
-	  error = query.lastError().text();
-
-	if(ok)
-	  ok = query.exec("CREATE TABLE IF NOT EXISTS wires ("
-			  "object_input_oid INTEGER NOT NULL, "
-			  "object_output_oid INTEGER NOT NULL, "
-			  "parent_oid INTEGER NOT NULL, "
-			  "PRIMARY KEY (object_input_oid, "
-			  "object_output_oid, parent_oid))");
-	else
-	  error = query.lastError().text();
-
-	if(ok)
+	if(!ok)
 	  {
-	    query.prepare("INSERT OR REPLACE INTO diagram "
-			  "(name, settings_ini, type) "
-			  "VALUES (?, ?, ?)");
-	    query.addBindValue(m_name);
-	    query.addBindValue(m_canvasSettings->settings());
-	    query.addBindValue
-	      (glowbot_common::projectTypeToString(m_projectType));
-	    ok = query.exec();
-
-	    if(!ok)
-	      {
-		error = query.lastError().text();
-		db.close();
-		goto done_label;
-	      }
-
-	    query.exec("DELETE FROM objects");
-	    query.exec("DELETE FROM wires");
-
-	    QList<QGraphicsItem *> list(m_scene->items());
-
-	    for(int i = 0; i < list.size(); i++)
-	      {
-		glowbot_proxy_widget *proxy =
-		  qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
-
-		if(!proxy)
-		  continue;
-
-		glowbot_object *widget = qobject_cast<glowbot_object *>
-		  (proxy->widget());
-
-		if(!widget)
-		  continue;
-
-		widget->save(db, error);
-
-		if(!error.isEmpty())
-		  break;
-	      }
+	    error = query.lastError().text();
+	    db.close();
+	    goto done_label;
 	  }
-	else
-	  query.lastError().text();
+
+	query.exec("DELETE FROM objects");
+	query.exec("DELETE FROM wires");
+
+	QList<QGraphicsItem *> list(m_scene->items());
+
+	for(int i = 0; i < list.size(); i++)
+	  {
+	    glowbot_proxy_widget *proxy =
+	      qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+	    if(!proxy)
+	      continue;
+
+	    glowbot_object *widget = qobject_cast<glowbot_object *>
+	      (proxy->widget());
+
+	    if(!widget)
+	      continue;
+
+	    widget->save(db, error);
+
+	    if(!error.isEmpty())
+	      break;
+	  }
       }
     else
       error = db.lastError().text();
@@ -269,6 +238,51 @@ void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 void glowbot_view::deleteItems(void)
 {
   m_scene->deleteItems();
+}
+
+void glowbot_view::prepareDatabaseTables(void) const
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(glowbot_misc::homePath() +
+		       QDir::separator() +
+		       QString("%1.db").arg(m_name));
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.exec("CREATE TABLE IF NOT EXISTS diagram ("
+		   "name TEXT NOT NULL PRIMARY KEY, "
+		   "settings_ini TEXT NOT NULL, "
+		   "type TEXT NOT NULL)");
+	query.exec("CREATE TABLE IF NOT EXISTS objects ("
+		   "myoid INTEGER NOT NULL UNIQUE, "
+		   "parent_oid INTEGER NOT NULL DEFAULT -1, "
+		   "position TEXT NOT NULL, "
+		   "properties TEXT, "
+		   "stylesheet TEXT, "
+		   "type TEXT NOT NULL, "
+		   "PRIMARY KEY (parent_oid, position))");
+	query.exec("CREATE TABLE IF NOT EXISTS wires ("
+		   "object_input_oid INTEGER NOT NULL, "
+		   "object_output_oid INTEGER NOT NULL, "
+		   "parent_oid INTEGER NOT NULL, "
+		   "PRIMARY KEY (object_input_oid, "
+		   "object_output_oid, parent_oid))");
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_view::resizeEvent(QResizeEvent *event)

@@ -60,6 +60,9 @@ class glowbot_view: public QWidget
   void selectAll(void);
   void showAlignment(void);
 
+ private:
+  void prepareDatabaseTables(void) const;
+
  protected:
   QAction *m_menuAction;
   QGraphicsView *m_view;
