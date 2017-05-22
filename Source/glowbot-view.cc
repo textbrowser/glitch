@@ -126,6 +126,25 @@ bool glowbot_view::hasChanged(void) const
   return m_changed;
 }
 
+bool glowbot_view::open(const QSqlDatabase &db, QString &error)
+{
+  if(!db.isOpen())
+    return false;
+
+  QSqlQuery query(db);
+  
+  if(query.exec("SELECT myoid, parent_oid, position, properties, "
+		"stylesheet, type FROM objects ORDER BY parent_oid"))
+    {
+    }
+  else
+    {
+      error = tr("An error occurred while accessing the objects table.");
+    }
+
+  return true;
+}
+
 bool glowbot_view::save(QString &error)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

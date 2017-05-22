@@ -126,13 +126,15 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
       {
 	QSqlQuery query(db);
 	QString name("");
+	QString settings("");
 	QString type("");
 
-	if(query.exec("SELECT name, type FROM diagram"))
+	if(query.exec("SELECT name, settings, type FROM diagram"))
 	  if(query.next())
 	    {
 	      name = query.value(0).toString().trimmed();
-	      type = query.value(1).toString().trimmed();
+	      settings = query.value(1).toString().trimmed();
+	      type = query.value(2).toString().trimmed();
 	    }
 
 	if(name.isEmpty() || type != "ArduinoProject")
@@ -148,19 +150,9 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 	    goto done_label;
 	  }
 
-	newArduinoDiagram(name);
+	glowbot_view *view = newArduinoDiagram(name);
 
-	if(query.exec("SELECT myoid, parent_oid, position, properties, "
-		      "stylesheet, type FROM objects ORDER BY parent_oid"))
-	  {
-	  }
-	else
-	  {
-	    db.close();
-	    error = tr("Unable to process the objects table.");
-	    ok = false;
-	    goto done_label;
-	  }
+	ok = view->open(db, error);
       }
     else
       error = tr("Unable to open %1.").arg(fileName);
@@ -174,23 +166,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
   return ok;
 }
 
-glowbot_view *glowbot_ui::page(const int index)
-{
-  return qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
-}
-
-void glowbot_ui::closeEvent(QCloseEvent *event)
-{
-  /*
-  ** Detect modified diagrams.
-  */
-
-  saveSettings();
-  QMainWindow::closeEvent(event);
-  QApplication::exit();
-}
-
-void glowbot_ui::newArduinoDiagram(const QString &n)
+glowbot_view *glowbot_ui::newArduinoDiagram(const QString &n)
 {
   QString name(n);
 
@@ -222,6 +198,23 @@ void glowbot_ui::newArduinoDiagram(const QString &n)
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
   setWindowTitle(view);
+  return view;
+}
+
+glowbot_view *glowbot_ui::page(const int index)
+{
+  return qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
+}
+
+void glowbot_ui::closeEvent(QCloseEvent *event)
+{
+  /*
+  ** Detect modified diagrams.
+  */
+
+  saveSettings();
+  QMainWindow::closeEvent(event);
+  QApplication::exit();
 }
 
 void glowbot_ui::parseCommandLineArguments(void)
