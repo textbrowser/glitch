@@ -79,6 +79,11 @@ viewportUpdateMode(void) const
     }
 }
 
+QString glowbot_canvas_settings::settings(void) const
+{
+  return "";
+}
+
 bool glowbot_canvas_settings::save(QString &error) const
 {
   QString connectionName("");

@@ -147,6 +147,7 @@ bool glowbot_view::save(QString &error)
 
 	ok = query.exec("CREATE TABLE IF NOT EXISTS diagram ("
 			"name TEXT NOT NULL PRIMARY KEY, "
+			"settings_ini TEXT NOT NULL, "
 			"type TEXT NOT NULL)");
 
 	if(ok)
@@ -173,9 +174,11 @@ bool glowbot_view::save(QString &error)
 
 	if(ok)
 	  {
-	    query.prepare("INSERT OR REPLACE INTO diagram (name, type) "
-			  "VALUES (?, ?)");
+	    query.prepare("INSERT OR REPLACE INTO diagram "
+			  "(name, settings_ini, type) "
+			  "VALUES (?, ?, ?)");
 	    query.addBindValue(m_name);
+	    query.addBindValue(m_canvasSettings->settings());
 	    query.addBindValue
 	      (glowbot_common::projectTypeToString(m_projectType));
 	    ok = query.exec();

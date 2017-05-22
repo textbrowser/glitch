@@ -42,6 +42,7 @@ class glowbot_canvas_settings: public QDialog
   ~glowbot_canvas_settings();
   QColor backgroundColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
+  QString settings(void) const;
   void setName(const QString &name);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
