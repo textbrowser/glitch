@@ -352,9 +352,9 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 
       mb.setIcon(QMessageBox::Question);
       mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-      mb.setText(tr("The file %1 already exists. Continue?").arg(fileName));
+      mb.setText(tr("The file %1 already exists. Overwrite?").arg(fileName));
       mb.setWindowModality(Qt::WindowModal);
-      mb.setWindowTitle(tr("GlowBot: Question"));
+      mb.setWindowTitle(tr("GlowBot: Confirmation"));
 
       if(mb.exec() != QMessageBox::Yes)
 	return;

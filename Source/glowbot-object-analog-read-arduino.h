@@ -37,6 +37,7 @@ class glowbot_object_analog_read_arduino: public glowbot_object
 
  public:
   glowbot_object_analog_read_arduino(QWidget *parent);
+  glowbot_object_analog_read_arduino(const quint64 id, QWidget *parent);
   ~glowbot_object_analog_read_arduino();
   static glowbot_object_analog_read_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);

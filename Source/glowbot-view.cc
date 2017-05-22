@@ -224,6 +224,44 @@ glowbot_scene *glowbot_view::scene(void) const
   return m_scene;
 }
 
+quint64 glowbot_view::nextId(void) const
+{
+  QString connectionName("");
+  quint64 id = 0;
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(glowbot_misc::homePath() +
+		       QDir::separator() +
+		       QString("%1.db").arg(m_name));
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	if(query.exec("INSERT INTO sequence (value) "
+		      "SELECT MAX(IFNULL(value, 0)) + 1 FROM sequence"))
+	  {
+	    QVariant variant(query.lastInsertId());
+
+	    if(variant.isValid())
+	      {
+		id = variant.toULongLong();
+		query.exec(QString("DELETE FROM sequence WHERE value < %1").
+			   arg(id));
+	      }
+	  }
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  return id;
+}
+
 void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event && m_view->items(event->pos()).isEmpty())

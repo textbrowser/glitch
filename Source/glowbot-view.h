@@ -56,6 +56,7 @@ class glowbot_view: public QWidget
   bool open(const QSqlDatabase &db, QString &error);
   bool save(QString &error);
   glowbot_scene *scene(void) const;
+  quint64 nextId(void) const;
   void deleteItems(void);
   void selectAll(void);
   void showAlignment(void);

@@ -27,19 +27,47 @@
 
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QtDebug>
 
 #include "glowbot-object.h"
 #include "glowbot-object-analog-read-arduino.h"
 #include "glowbot-object-view.h"
 #include "glowbot-style-sheet.h"
-
-quint64 glowbot_object::s_id = 0;
+#include "glowbot-view.h"
 
 glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
 {
-  m_id = s_id;
+  glowbot_view *view = 0;
+
+  do
+    {
+      if(!parent)
+	break;
+
+      view = qobject_cast<glowbot_view *> (parent);
+
+      if(view)
+	break;
+
+      parent = parent->parentWidget();
+    }
+  while(true);
+
+  if(view)
+    m_id = view->nextId();
+  else
+    {
+      m_id = 1;
+      qDebug() << "glowbot_object::glowbot_object(): view is zero!";
+    }
+
   m_parent = parent;
-  s_id += 1;
+}
+
+glowbot_object::glowbot_object(const quint64 id, QWidget *parent):QWidget(0)
+{
+  m_id = id;
+  m_parent = parent;
 }
 
 glowbot_object::~glowbot_object()
