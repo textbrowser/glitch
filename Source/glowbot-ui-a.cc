@@ -341,6 +341,25 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   else if(name.isEmpty())
     name = "Arduino-Diagram";
 
+  QString fileName(QString("%1%2%3.db").
+		   arg(glowbot_misc::homePath()).
+		   arg(QDir::separator()).
+		   arg(name));
+
+  if(QFile::exists(fileName))
+    {
+      QMessageBox mb(this);
+
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText(tr("The file %1 already exists. Continue?").arg(fileName));
+      mb.setWindowModality(Qt::WindowModal);
+      mb.setWindowTitle(tr("GlowBot: Question"));
+
+      if(mb.exec() != QMessageBox::Yes)
+	return;
+    }
+
   newArduinoDiagram(name);
 }
 
