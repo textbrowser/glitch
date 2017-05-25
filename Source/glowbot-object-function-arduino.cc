@@ -155,7 +155,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
   if(lineEdit)
     lineEdit->setValidator
       /*
-      ** A letter followed by a word.
+      ** A mandatory letter followed by an optional word.
       */
 
       (new QRegExpValidator(QRegExp("[A-Za-z][\\w]*"), this));
