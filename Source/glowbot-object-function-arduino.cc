@@ -28,6 +28,7 @@
 #include <QInputDialog>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QtDebug>
 
 #include "glowbot-object-edit-window.h"
 #include "glowbot-object-function-arduino.h"
@@ -122,7 +123,17 @@ void glowbot_object_function_arduino::save
   if(!error.isEmpty())
     return;
 
-  m_editView->save(db, error);
+  QSqlQuery query(db);
+
+  query.prepare("UPDATE objects SET properties = ? WHERE myoid = ?");
+  query.addBindValue(QString("name = \"%1\"").arg(m_ui.label->text()));
+  query.addBindValue(m_id);
+  query.exec();
+
+  if(query.lastError().isValid())
+    error = query.lastError().text();
+  else
+    m_editView->save(db, error);
 }
 
 void glowbot_object_function_arduino::slotEdit(void)
@@ -135,8 +146,23 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 {
   QInputDialog dialog(m_parent);
 
+  dialog.setTextEchoMode(QLineEdit::Normal); // A line edit!
   dialog.setTextValue(m_ui.label->text());
   dialog.setWindowTitle(tr("GlowBot: Set Function Name"));
+
+  QLineEdit *lineEdit = dialog.findChild<QLineEdit *> ();
+
+  if(lineEdit)
+    lineEdit->setValidator
+      /*
+      ** A letter followed by a word.
+      */
+
+      (new QRegExpValidator(QRegExp("[A-Za-z][\\w]*"), this));
+  else
+    qDebug() << "glowbot_object_function_arduino::slotSetFunctionName(): "
+	     << "QInputDialog does not have a textfield! Cannot set "
+	     << "an input validator.";
 
   if(dialog.exec() == QDialog::Accepted)
     {
