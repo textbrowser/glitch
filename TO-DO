@@ -29,3 +29,4 @@ Remaining Items
 8.     Save loop() and setup() style sheets.
 9.     Save canvas settings.
 10.    glowbot_canvas_settings::settings().
+11.    Recreating functions and unique names.
