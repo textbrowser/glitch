@@ -47,7 +47,7 @@ class glowbot_ui: public QMainWindow
   Ui_glowbot_mainwindow m_ui;
   glowbot_structures_arduino *m_arduinoStructures;
   bool openDiagram(const QString &fileName, QString &error);
-  glowbot_view *newArduinoDiagram(const QString &name);
+  glowbot_view *newArduinoDiagram(const QString &name, const bool fromFile);
   glowbot_view *page(const int index);
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);

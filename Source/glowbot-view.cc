@@ -133,11 +133,14 @@ bool glowbot_view::open(const QSqlDatabase &db, QString &error)
     return false;
 
   QSqlQuery query(db);
-  
+
+  query.setForwardOnly(true);
+
   if(query.exec("SELECT myoid, parent_oid, position, properties, "
 		"stylesheet, type FROM objects ORDER BY parent_oid"))
-    {
-    }
+    while(query.next())
+      {
+      }
   else
     {
       error = tr("An error occurred while accessing the objects table.");
@@ -248,8 +251,8 @@ quint64 glowbot_view::nextId(void) const
 	    if(variant.isValid())
 	      {
 		id = variant.toULongLong();
-		query.exec(QString("DELETE FROM sequence WHERE value < %1").
-			   arg(id));
+		query.exec
+		  (QString("DELETE FROM sequence WHERE value < %1").arg(id));
 	      }
 	  }
       }

@@ -51,6 +51,25 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
 	  SIGNAL(changed(void)));
 }
 
+glowbot_object_loop_arduino::glowbot_object_loop_arduino
+(const quint64 id, QWidget *parent):glowbot_object(id, parent)
+{
+  m_editView = new glowbot_object_view(m_id, 0);
+  m_editWindow = new glowbot_object_edit_window(0);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  m_editWindow->setWindowTitle(tr("GlowBot: loop()"));
+  m_editWindow->resize(600, 600);
+  m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  m_type = "arduino-loop";
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
+}
+
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
 {
   m_editWindow->deleteLater();

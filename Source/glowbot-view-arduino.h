@@ -40,6 +40,7 @@ class glowbot_view_arduino: public glowbot_view
 
  public:
   glowbot_view_arduino(const QString &name,
+		       const bool fromFile,
 		       const glowbot_common::ProjectType projectType,
 		       QWidget *parent);
   ~glowbot_view_arduino();

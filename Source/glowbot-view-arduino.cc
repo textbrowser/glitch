@@ -33,11 +33,20 @@
 
 glowbot_view_arduino::glowbot_view_arduino
 (const QString &name,
+ const bool fromFile,
  const glowbot_common::ProjectType projectType,
  QWidget *parent):glowbot_view(name, projectType, parent)
 {
-  m_loopObject = new glowbot_object_loop_arduino(this);
-  m_setupObject = new glowbot_object_setup_arduino(this);
+  if(fromFile)
+    {
+      m_loopObject = new glowbot_object_loop_arduino(1, this);
+      m_setupObject = new glowbot_object_setup_arduino(1, this);
+    }
+  else
+    {
+      m_loopObject = new glowbot_object_loop_arduino(this);
+      m_setupObject = new glowbot_object_setup_arduino(this);
+    }
 
   glowbot_proxy_widget *proxy = 0;
 

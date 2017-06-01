@@ -40,6 +40,7 @@ class glowbot_object_setup_arduino: public glowbot_object
 
  public:
   glowbot_object_setup_arduino(QWidget *parent);
+  glowbot_object_setup_arduino(const quint64 id, QWidget *parent);
   ~glowbot_object_setup_arduino();
   bool hasView(void) const;
   bool isMandatory(void) const;

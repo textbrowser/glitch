@@ -37,19 +37,20 @@
 
 glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
 {
+  QWidget *p = parent;
   glowbot_view *view = 0;
 
   do
     {
-      if(!parent)
+      if(!p)
 	break;
 
-      view = qobject_cast<glowbot_view *> (parent);
+      view = qobject_cast<glowbot_view *> (p);
 
       if(view)
 	break;
 
-      parent = parent->parentWidget();
+      p = p->parentWidget();
     }
   while(true);
 

@@ -129,7 +129,9 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 	QString settings("");
 	QString type("");
 
-	if(query.exec("SELECT name, settings, type FROM diagram"))
+	query.setForwardOnly(true);
+
+	if(query.exec("SELECT name, settings_ini, type FROM diagram"))
 	  if(query.next())
 	    {
 	      name = query.value(0).toString().trimmed();
@@ -150,7 +152,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 	    goto done_label;
 	  }
 
-	glowbot_view *view = newArduinoDiagram(name);
+	glowbot_view *view = newArduinoDiagram(name, true);
 
 	ok = view->open(db, error);
       }
@@ -166,7 +168,8 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
   return ok;
 }
 
-glowbot_view *glowbot_ui::newArduinoDiagram(const QString &n)
+glowbot_view *glowbot_ui::newArduinoDiagram
+(const QString &n, const bool fromFile)
 {
   QString name(n);
 
@@ -176,7 +179,7 @@ glowbot_view *glowbot_ui::newArduinoDiagram(const QString &n)
     name = "Arduino-Diagram";
 
   glowbot_view_arduino *view = new glowbot_view_arduino
-    (name, glowbot_common::ArduinoProject, this);
+    (name, fromFile, glowbot_common::ArduinoProject, this);
 
   connect(view,
 	  SIGNAL(changed(void)),
@@ -225,7 +228,7 @@ void glowbot_ui::parseCommandLineArguments(void)
     if(list.at(i) == "--new-arduino-diagram")
       {
 	i += 1;
-	newArduinoDiagram(list.value(i));
+	newArduinoDiagram(list.value(i), false);
       }
     else if(list.at(i) == "--version")
       {
@@ -360,7 +363,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	return;
     }
 
-  newArduinoDiagram(name);
+  newArduinoDiagram(name, false);
 }
 
 void glowbot_ui::slotOpenDiagram(void)
@@ -375,10 +378,24 @@ void glowbot_ui::slotOpenDiagram(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      dialog.close();
+
       QString error("");
 
       if(openDiagram(dialog.selectedFiles().value(0), error))
 	prepareActionWidgets();
+      else
+	{
+	  QMessageBox mb(this);
+
+	  mb.setIcon(QMessageBox::Critical);
+	  mb.setText
+	    (tr("An error occurred while processing the file %1. (%2)").
+	     arg(dialog.selectedFiles().value(0)).arg(error));
+	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowTitle(tr("GlowBot: Error"));
+	  mb.exec();
+	}
     }
 }
 
