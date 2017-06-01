@@ -50,8 +50,10 @@ class glowbot_object_loop_arduino: public glowbot_object
 
  private:
   Ui_glowbot_object_loop_arduino m_ui;
+  bool m_initialized;
   glowbot_object_edit_window *m_editWindow;
   glowbot_object_view *m_editView;
+  void initialize(void);
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:

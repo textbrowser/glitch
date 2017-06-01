@@ -30,41 +30,16 @@
 #include "glowbot-object-view.h"
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
-(QWidget *parent):glowbot_object(parent)
+(QWidget *parent):glowbot_object(parent), m_initialized(false)
 {
-  m_editView = new glowbot_object_view(m_id, 0);
-  m_editWindow = new glowbot_object_edit_window(0);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: setup()"));
-  m_editWindow->resize(600, 600);
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-setup";
-  connect(m_editView,
-	  SIGNAL(changed(void)),
-	  this,
-	  SIGNAL(changed(void)));
+  initialize();
 }
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
-(const quint64 id, QWidget *parent):glowbot_object(id, parent)
+(const quint64 id, QWidget *parent):glowbot_object(id, parent),
+				    m_initialized(false)
 {
-  m_editView = new glowbot_object_view(m_id, 0);
-  m_editWindow = new glowbot_object_edit_window(0);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: setup()"));
-  m_editWindow->resize(600, 600);
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-setup";
-  connect(m_editView,
-	  SIGNAL(changed(void)),
-	  this,
-	  SIGNAL(changed(void)));
+  initialize();
 }
 
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
@@ -88,6 +63,29 @@ void glowbot_object_setup_arduino::addActions(QMenu &menu) const
 		 this,
 		 SLOT(slotEdit(void)));
   addDefaultActions(menu);
+}
+
+void glowbot_object_setup_arduino::initialize(void)
+{
+  if(m_initialized)
+    return;
+  else
+    m_initialized = true;
+
+  m_editView = new glowbot_object_view(m_id, 0);
+  m_editWindow = new glowbot_object_edit_window(0);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  m_editWindow->setWindowTitle(tr("GlowBot: setup()"));
+  m_editWindow->resize(600, 600);
+  m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  m_type = "arduino-setup";
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
 }
 
 void glowbot_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)
