@@ -30,3 +30,4 @@ Remaining Items
 9.     Save canvas settings.
 10.    glowbot_canvas_settings::settings().
 11.    Recreating functions and unique names.
+12.    Separate database objects when opening an existing diagram.
