@@ -32,3 +32,4 @@ Remaining Items
 9.     Save canvas settings.
 10.    glowbot_canvas_settings::settings().
 11.    Recreating functions and unique names.
+12.    The glowbot_view parent must be passed to every child.
