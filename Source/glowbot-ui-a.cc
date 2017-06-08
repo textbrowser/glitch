@@ -114,6 +114,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
+  QString name("");
   bool ok = true;
 
   {
@@ -125,7 +126,6 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
     if((ok = db.open()))
       {
 	QSqlQuery query(db);
-	QString name("");
 	QString settings("");
 	QString type("");
 
@@ -141,20 +141,13 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 
 	if(name.isEmpty() || type != "ArduinoProject")
 	  {
-	    db.close();
-
 	    if(name.isEmpty())
 	      error = tr("Empty diagram name.");
 	    else
 	      error = tr("Expecting a diagram type of ArduinoProject.");
 
 	    ok = false;
-	    goto done_label;
 	  }
-
-	glowbot_view *view = newArduinoDiagram(name, true);
-
-	ok = view->open(db, error);
       }
     else
       error = tr("Unable to open %1.").arg(fileName);
@@ -162,8 +155,15 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
     db.close();
   }
 
- done_label:
   glowbot_common::discardDatabase(connectionName);
+
+  if(ok)
+    {
+      glowbot_view *view = newArduinoDiagram(name, true);
+
+      ok = view->open(fileName, error);
+    }
+
   QApplication::restoreOverrideCursor();
   return ok;
 }

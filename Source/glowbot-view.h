@@ -53,7 +53,7 @@ class glowbot_view: public QWidget
   QAction *menuAction(void) const;
   QString name(void) const;
   bool hasChanged(void) const;
-  bool open(const QSqlDatabase &db, QString &error);
+  bool open(const QString &fileName, QString &error);
   bool save(QString &error);
   glowbot_scene *scene(void) const;
   quint64 nextId(void) const;

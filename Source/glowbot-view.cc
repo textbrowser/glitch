@@ -127,26 +127,40 @@ bool glowbot_view::hasChanged(void) const
   return m_changed;
 }
 
-bool glowbot_view::open(const QSqlDatabase &db, QString &error)
+bool glowbot_view::open(const QString &fileName, QString &error)
 {
-  if(!db.isOpen())
-    return false;
+  QString connectionName("");
+  bool ok = true;
 
-  QSqlQuery query(db);
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
 
-  query.setForwardOnly(true);
+    connectionName = db.connectionName();
+    db.setDatabaseName(fileName);
 
-  if(query.exec("SELECT myoid, parent_oid, position, properties, "
-		"stylesheet, type FROM objects ORDER BY parent_oid"))
-    while(query.next())
+    if((ok = db.open()))
       {
-      }
-  else
-    {
-      error = tr("An error occurred while accessing the objects table.");
-    }
+	QSqlQuery query(db);
 
-  return true;
+	query.setForwardOnly(true);
+
+	if(query.exec("SELECT myoid, parent_oid, position, properties, "
+		      "stylesheet, type FROM objects ORDER BY parent_oid"))
+	  while(query.next())
+	    {
+	    }
+	else
+	  {
+	    error = tr("An error occurred while accessing the objects table.");
+	    ok = false;
+	  }
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  return ok;
 }
 
 bool glowbot_view::save(QString &error)
