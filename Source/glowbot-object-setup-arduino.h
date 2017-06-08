@@ -52,7 +52,7 @@ class glowbot_object_setup_arduino: public glowbot_object
   bool m_initialized;
   glowbot_object_edit_window *m_editWindow;
   glowbot_object_view *m_editView;
-  void initialize(void);
+  void initialize(QWidget *widget);
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:

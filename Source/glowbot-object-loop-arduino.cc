@@ -35,14 +35,14 @@
 glowbot_object_loop_arduino::glowbot_object_loop_arduino
 (QWidget *parent):glowbot_object(parent), m_initialized(false)
 {
-  initialize();
+  initialize(parent);
 }
 
 glowbot_object_loop_arduino::glowbot_object_loop_arduino
 (const quint64 id, QWidget *parent):glowbot_object(id, parent),
 				    m_initialized(false)
 {
-  initialize();
+  initialize(parent);
 }
 
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
@@ -68,7 +68,7 @@ void glowbot_object_loop_arduino::addActions(QMenu &menu) const
   addDefaultActions(menu);
 }
 
-void glowbot_object_loop_arduino::initialize(void)
+void glowbot_object_loop_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)
     return;
@@ -76,7 +76,7 @@ void glowbot_object_loop_arduino::initialize(void)
     m_initialized = true;
 
   m_editView = new glowbot_object_view(m_id, this);
-  m_editWindow = new glowbot_object_edit_window(0);
+  m_editWindow = new glowbot_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->setWindowTitle(tr("GlowBot: loop()"));
