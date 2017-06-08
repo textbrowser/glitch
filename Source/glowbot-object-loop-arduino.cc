@@ -75,7 +75,7 @@ void glowbot_object_loop_arduino::initialize(void)
   else
     m_initialized = true;
 
-  m_editView = new glowbot_object_view(m_id, 0);
+  m_editView = new glowbot_object_view(m_id, this);
   m_editWindow = new glowbot_object_edit_window(0);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
