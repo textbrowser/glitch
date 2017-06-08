@@ -16,6 +16,7 @@ Completed Items
 13.    Warn on diagram overwrite during initialization.
 14.    Object numbers should be sequenced.
 12.    Separate database objects when opening an existing diagram.
+13.    Add --open-arduino-diagram option.
 
 Remaining Items
 
@@ -31,4 +32,3 @@ Remaining Items
 9.     Save canvas settings.
 10.    glowbot_canvas_settings::settings().
 11.    Recreating functions and unique names.
-12.    Add --open-arduino-diagram option.

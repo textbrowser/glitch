@@ -230,6 +230,15 @@ void glowbot_ui::parseCommandLineArguments(void)
 	i += 1;
 	newArduinoDiagram(list.value(i), false);
       }
+    else if(list.at(i) == "--open-arduino-diagram")
+      {
+	i += 1;
+
+	QString error("");
+
+	if(openDiagram(list.value(i), error))
+	  prepareActionWidgets();
+      }
     else if(list.at(i) == "--version")
       {
       }
