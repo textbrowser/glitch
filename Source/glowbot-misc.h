@@ -34,6 +34,7 @@
 class glowbot_misc
 {
  public:
+  static QPointF dbPointToPointF(const QString &text);
   static QString homePath(void);
   static void showErrorDialog(const QString &text, QWidget *parent);
 

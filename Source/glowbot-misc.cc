@@ -30,6 +30,14 @@
 
 #include "glowbot-misc.h"
 
+QPointF glowbot_misc::dbPointToPointF(const QString &text)
+{
+  QStringList list(QString(text).remove("(").remove(")").split(","));
+
+  return QPointF(qAbs(list.value(0).toDouble()),
+		 qAbs(list.value(1).toDouble()));
+}
+
 QString glowbot_misc::homePath(void)
 {
   QByteArray homepath(qgetenv("GLOWBOT_HOME"));
