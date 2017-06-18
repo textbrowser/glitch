@@ -35,7 +35,8 @@
 #include "glowbot-style-sheet.h"
 #include "glowbot-view.h"
 
-glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
+glowbot_object::glowbot_object(QWidget *parent):QWidget(0),
+						m_initialized(false)
 {
   QWidget *p = parent;
   glowbot_view *view = 0;
@@ -68,6 +69,7 @@ glowbot_object::glowbot_object(QWidget *parent):QWidget(0)
 glowbot_object::glowbot_object(const quint64 id, QWidget *parent):QWidget(0)
 {
   m_id = id;
+  m_initialized = false;
   m_parent = parent;
 }
 

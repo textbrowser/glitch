@@ -30,14 +30,13 @@
 #include "glowbot-object-view.h"
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
-(QWidget *parent):glowbot_object(parent), m_initialized(false)
+(QWidget *parent):glowbot_object(parent)
 {
   initialize(parent->parentWidget());
 }
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
-(const quint64 id, QWidget *parent):glowbot_object(id, parent),
-				    m_initialized(false)
+(const quint64 id, QWidget *parent):glowbot_object(id, parent)
 {
   initialize(parent);
 }

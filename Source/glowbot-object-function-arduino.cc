@@ -39,25 +39,13 @@ QMap<QString, char> glowbot_object_function_arduino::s_functionNames;
 glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
 {
-  QString name(nextUniqueFunctionName());
+  initialize(parent);
+}
 
-  m_editView = new glowbot_object_view(m_id, this);
-  m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
-  m_editWindow->resize(600, 600);
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
-  m_ui.label->setText(name);
-  m_type = "arduino-function";
-  s_functionNames[name] = 0;
-  setProperty("function_name", m_ui.label->text());
-  connect(m_editView,
-	  SIGNAL(changed(void)),
-	  this,
-	  SIGNAL(changed(void)));
+glowbot_object_function_arduino::glowbot_object_function_arduino
+(const quint64 id, QWidget *parent):glowbot_object(id, parent)
+{
+  initialize(parent);
 }
 
 glowbot_object_function_arduino::~glowbot_object_function_arduino()
@@ -107,6 +95,32 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
 		 this,
 		 SLOT(slotSetFunctionName(void)));
   addDefaultActions(menu);
+}
+
+void glowbot_object_function_arduino::initialize(QWidget *parent)
+{
+  if(m_initialized)
+    return;
+
+  QString name(nextUniqueFunctionName());
+
+  m_editView = new glowbot_object_view(m_id, this);
+  m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
+  m_editWindow->resize(600, 600);
+  m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  m_ui.label->setText(name);
+  m_type = "arduino-function";
+  s_functionNames[name] = 0;
+  setProperty("function_name", m_ui.label->text());
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
 }
 
 void glowbot_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)

@@ -148,6 +148,14 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 		      "stylesheet, type FROM objects ORDER BY parent_oid"))
 	  while(query.next())
 	    {
+	      QString type(query.value(5).toString().toLower().trimmed());
+
+	      if(query.value(1).toLongLong() == -1)
+		{
+		  if(type == "arduino-function")
+		    {
+		    }
+		}
 	    }
 	else
 	  {

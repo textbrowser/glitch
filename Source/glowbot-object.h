@@ -54,6 +54,7 @@ class glowbot_object: public QWidget
  protected:
   QString m_type;
   QWidget *m_parent;
+  bool m_initialized;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;
 
