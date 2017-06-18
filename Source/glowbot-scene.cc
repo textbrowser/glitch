@@ -80,6 +80,47 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     }
 }
 
+void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
+{
+  if(!object)
+    return;
+
+  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
+
+  connect(object,
+	  SIGNAL(destroyed(QObject *)),
+	  this,
+	  SIGNAL(destroyed(QObject *)),
+	  Qt::UniqueConnection);
+  connect(object,
+	  SIGNAL(destroyed(void)),
+	  proxy,
+	  SLOT(deleteLater(void)),
+	  Qt::UniqueConnection);
+  object->setProperty("movable", true);
+  proxy->setFlags
+    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+  proxy->setWidget(object);
+  addItem(proxy);
+  object->move(point.toPoint());
+  proxy->setPos(point);
+  emit changed();
+
+  if(qobject_cast<glowbot_object_function_arduino *> (object))
+    {
+      connect(object,
+	      SIGNAL(nameChanged(const QString &, const QString &)),
+	      this,
+	      SIGNAL(functionNameChanged(const QString &,
+					 const QString &)),
+	      Qt::UniqueConnection);
+      emit functionAdded
+	(qobject_cast<glowbot_object_function_arduino *> (object)->name());
+    }
+
+  emit sceneResized();
+}
+
 void glowbot_scene::deleteItems(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -153,39 +194,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
       if(object)
 	{
 	  event->accept();
-
-	  glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
-
-	  connect(object,
-		  SIGNAL(destroyed(QObject *)),
-		  this,
-		  SIGNAL(destroyed(QObject *)));
-	  connect(object,
-		  SIGNAL(destroyed(void)),
-		  proxy,
-		  SLOT(deleteLater(void)));
-	  object->setProperty("movable", true);
-	  proxy->setFlags
-	    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-	  proxy->setWidget(object);
-	  addItem(proxy);
-	  object->move(event->scenePos().toPoint());
-	  proxy->setPos(event->scenePos());
-	  emit changed();
-
-	  if(qobject_cast<glowbot_object_function_arduino *> (object))
-	    {
-	      connect(object,
-		      SIGNAL(nameChanged(const QString &, const QString &)),
-		      this,
-		      SIGNAL(functionNameChanged(const QString &,
-						 const QString &)));
-	      emit functionAdded
-		(qobject_cast<glowbot_object_function_arduino *> (object)->
-		 name());
-	    }
-
-	  emit sceneResized();
+	  addObject(event->scenePos(), object);
 	  return;
 	}
     }

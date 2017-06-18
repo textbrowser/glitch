@@ -30,6 +30,8 @@
 
 #include <QGraphicsScene>
 
+class glowbot_object;
+
 class glowbot_scene: public QGraphicsScene
 {
   Q_OBJECT
@@ -37,6 +39,7 @@ class glowbot_scene: public QGraphicsScene
  public:
   glowbot_scene(QObject *parent);
   ~glowbot_scene();
+  void addObject(const QPointF &point, glowbot_object *object);
   void deleteItems(void);
   void setMainScene(const bool state);
 

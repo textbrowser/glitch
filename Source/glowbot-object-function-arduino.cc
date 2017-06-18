@@ -101,6 +101,8 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)
     return;
+  else
+    m_initialized = true;
 
   QString name(nextUniqueFunctionName());
 
