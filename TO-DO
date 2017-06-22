@@ -18,6 +18,10 @@ Completed Items
 12.    Separate database objects when opening an existing diagram.
 13.    Add --open-arduino-diagram option.
 
+Ignored Items
+
+1.     The glowbot_view parent must be passed to every child.
+
 Remaining Items
 
 1.     Icons.
@@ -32,4 +36,3 @@ Remaining Items
 9.     Save canvas settings.
 10.    glowbot_canvas_settings::settings().
 11.    Recreating functions and unique names.
-12.    The glowbot_view parent must be passed to every child.
