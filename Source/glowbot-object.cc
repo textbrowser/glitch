@@ -138,6 +138,11 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
     error = query.lastError().text();
 }
 
+void glowbot_object::setProperties(const QString &properties)
+{
+  Q_UNUSED(properties);
+}
+
 void glowbot_object::slotSetStyleSheet(void)
 {
   glowbot_style_sheet *styleSheet = new glowbot_style_sheet(m_parent);

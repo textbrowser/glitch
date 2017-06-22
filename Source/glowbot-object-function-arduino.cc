@@ -152,6 +152,16 @@ void glowbot_object_function_arduino::save
     m_editView->save(db, error);
 }
 
+void glowbot_object_function_arduino::setProperties(const QString &properties)
+{
+  QStringList list(properties.split("&"));
+
+  for(int i = 0; i < list.size(); i++)
+    if(list.at(i).startsWith("name = "))
+      {
+      }
+}
+
 void glowbot_object_function_arduino::slotEdit(void)
 {
   m_editWindow->showNormal();

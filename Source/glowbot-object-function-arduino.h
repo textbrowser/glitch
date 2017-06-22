@@ -48,6 +48,7 @@ class glowbot_object_function_arduino: public glowbot_object
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
   void save(const QSqlDatabase &db, QString &error);
+  void setProperties(const QString &properties);
 
  private:
   Ui_glowbot_object_function_arduino m_ui;

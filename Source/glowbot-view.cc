@@ -160,13 +160,13 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 		  if(type == "arduino-function")
 		    {
 		      object = new glowbot_object_function_arduino(id, this);
+		      object->setProperties
+			(query.value(3).toString().trimmed());
 		    }
 
 		  if(object)
-		    {
-		      m_scene->addObject
-			(glowbot_misc::dbPointToPointF(point), object);
-		    }
+		    m_scene->addObject
+		      (glowbot_misc::dbPointToPointF(point), object);
 		}
 	    }
 	else
