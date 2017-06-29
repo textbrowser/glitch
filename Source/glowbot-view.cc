@@ -506,6 +506,9 @@ void glowbot_view::slotSceneObjectDestroyed(QObject *object)
   if(object->objectName() == "glowbot_object_function_arduino")
     m_userFunctions->deleteFunction
       (object->property("function_name").toString());
+
+  m_changed = true;
+  emit changed();
 }
 
 void glowbot_view::slotSceneResized(void)
