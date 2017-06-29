@@ -129,6 +129,11 @@ bool glowbot_view::hasChanged(void) const
 
 bool glowbot_view::open(const QString &fileName, QString &error)
 {
+  disconnect(m_scene,
+	     SIGNAL(changed(void)),
+	     this,
+	     SLOT(slotChanged(void)));
+
   QString connectionName("");
   bool ok = true;
 
@@ -180,6 +185,10 @@ bool glowbot_view::open(const QString &fileName, QString &error)
   }
 
   glowbot_common::discardDatabase(connectionName);
+  connect(m_scene,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
   return ok;
 }
 
@@ -427,9 +436,11 @@ void glowbot_view::showAlignment(void)
 
 void glowbot_view::slotCanvasSettingsChanged(void)
 {
+  m_changed = true;
   m_view->setBackgroundBrush
     (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
+  emit changed();
 }
 
 void glowbot_view::slotChanged(void)

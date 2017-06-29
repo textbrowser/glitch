@@ -126,6 +126,7 @@ void glowbot_scene::deleteItems(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list(items());
+  bool state = false;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -139,9 +140,13 @@ void glowbot_scene::deleteItems(void)
 
       removeItem(proxy);
       delete proxy;
+      state = true;
     }
 
   QApplication::restoreOverrideCursor();
+
+  if(state)
+    emit changed();
 }
 
 void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
@@ -235,6 +240,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       if(moved)
 	{
+	  emit changed();
 	  emit sceneResized();
 	  views().value(0)->viewport()->setCursor(Qt::ClosedHandCursor);
 	}

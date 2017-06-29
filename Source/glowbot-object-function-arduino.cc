@@ -159,6 +159,14 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
   for(int i = 0; i < list.size(); i++)
     if(list.at(i).startsWith("name = "))
       {
+	QString str(list.at(i).mid(7));
+
+	str.remove("\"");
+	s_functionNames.remove(str);
+	setProperty("function_name", str);
+	m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
+	m_ui.label->setText(str);
+	s_functionNames[str] = 0;
       }
 }
 
