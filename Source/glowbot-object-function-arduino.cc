@@ -190,11 +190,13 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
     {
       lineEdit->selectAll();
       lineEdit->setValidator
+
 	/*
-	** A mandatory letter followed by an optional word.
+	** A mandatory letter followed by an optional word. Allow
+	** trailing parentheses.
 	*/
 
-	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*"), this));
+	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*\\(\\)"), this));
     }
   else
     qDebug() << "glowbot_object_function_arduino::slotSetFunctionName(): "
@@ -220,6 +222,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(text));
       m_ui.label->setText(text);
       s_functionNames[text] = 0;
+      emit changed();
       emit nameChanged(name, m_ui.label->text());
     }
 }

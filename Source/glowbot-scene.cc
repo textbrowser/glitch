@@ -88,6 +88,11 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
   glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
   connect(object,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)),
+	  Qt::UniqueConnection);
+  connect(object,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SIGNAL(destroyed(QObject *)),
