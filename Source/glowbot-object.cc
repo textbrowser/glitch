@@ -150,5 +150,8 @@ void glowbot_object::slotSetStyleSheet(void)
   styleSheet->setWidget(this);
 
   if(styleSheet->exec() == QDialog::Accepted)
-    setStyleSheet(styleSheet->styleSheet());
+    {
+      setStyleSheet(styleSheet->styleSheet());
+      emit changed();
+    }
 }
