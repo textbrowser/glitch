@@ -187,12 +187,15 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
   QLineEdit *lineEdit = dialog.findChild<QLineEdit *> ();
 
   if(lineEdit)
-    lineEdit->setValidator
-      /*
-      ** A mandatory letter followed by an optional word.
-      */
+    {
+      lineEdit->selectAll();
+      lineEdit->setValidator
+	/*
+	** A mandatory letter followed by an optional word.
+	*/
 
-      (new QRegExpValidator(QRegExp("[A-Za-z][\\w]*"), this));
+	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*"), this));
+    }
   else
     qDebug() << "glowbot_object_function_arduino::slotSetFunctionName(): "
 	     << "QInputDialog does not have a textfield! Cannot set "
