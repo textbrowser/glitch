@@ -47,7 +47,6 @@ class glowbot_object: public QWidget
   virtual bool isMandatory(void) const = 0;
   virtual void addActions(QMenu &menu) const = 0;
   virtual void save(const QSqlDatabase &db, QString &error);
-  virtual void setProperties(const QString &properties);
   void move(const QPoint &point);
   void move(int x, int y);
 

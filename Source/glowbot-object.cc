@@ -31,6 +31,7 @@
 
 #include "glowbot-object.h"
 #include "glowbot-object-analog-read-arduino.h"
+#include "glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
 #include "glowbot-style-sheet.h"
 #include "glowbot-view.h"
@@ -83,8 +84,11 @@ glowbot_object *glowbot_object::createFromValues
   QString type(values.value("type").toString().toLower().trimmed());
   glowbot_object *object = 0;
 
-  if(type == "glowbot-arduino-analogread()")
+  if(type == "arduino-analogread")
     object = glowbot_object_analog_read_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-function")
+    object = glowbot_object_function_arduino::createFromValues
       (values, error, parent);
   else
     {
@@ -147,11 +151,6 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
 
   if(query.lastError().isValid())
     error = query.lastError().text();
-}
-
-void glowbot_object::setProperties(const QString &properties)
-{
-  Q_UNUSED(properties);
 }
 
 void glowbot_object::slotSetStyleSheet(void)

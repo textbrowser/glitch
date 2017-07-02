@@ -43,12 +43,13 @@ class glowbot_object_function_arduino: public glowbot_object
   glowbot_object_function_arduino(QWidget *parent);
   glowbot_object_function_arduino(const quint64 id, QWidget *parent);
   ~glowbot_object_function_arduino();
+  static glowbot_object_function_arduino *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   QString name(void) const;
   bool hasView(void) const;
   bool isMandatory(void) const;
   void addActions(QMenu &menu) const;
   void save(const QSqlDatabase &db, QString &error);
-  void setProperties(const QString &properties);
 
  private:
   Ui_glowbot_object_function_arduino m_ui;
@@ -58,6 +59,7 @@ class glowbot_object_function_arduino: public glowbot_object
   static QString nextUniqueFunctionName(void);
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
+  void setProperties(const QString &properties);
 
  private slots:
   void slotEdit(void);

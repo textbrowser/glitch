@@ -97,6 +97,21 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   addDefaultActions(menu);
 }
 
+glowbot_object_function_arduino *glowbot_object_function_arduino::
+createFromValues(const QMap<QString, QVariant> &values,
+		 QString &error,
+		 QWidget *parent)
+{
+  Q_UNUSED(error);
+
+  glowbot_object_function_arduino *object = new glowbot_object_function_arduino
+    (values.value("myoid").toULongLong(), parent);
+
+  object->setProperties(values.value("properties").toString());
+  object->setStyleSheet(values.value("stylesheet").toString());
+  return object;
+}
+
 void glowbot_object_function_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)

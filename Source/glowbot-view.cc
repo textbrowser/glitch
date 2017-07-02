@@ -153,21 +153,22 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 		      "stylesheet, type FROM objects ORDER BY parent_oid"))
 	  while(query.next())
 	    {
+	      QMap<QString, QVariant> values;
 	      QString point(query.value(2).toString().trimmed());
 	      QString properties(query.value(3).toString().trimmed());
 	      QString type(query.value(5).toString().toLower().trimmed());
 	      quint64 id = query.value(0).toULongLong();
 
+	      values["myoid"] = id;
+	      values["properties"] = properties;
+	      values["stylesheet"] = query.value(4).toString().trimmed();
+	      values["type"] = type;
+
 	      if(query.value(1).toLongLong() == -1)
 		{
-		  glowbot_object *object = 0;
-
-		  if(type == "arduino-function")
-		    {
-		      object = new glowbot_object_function_arduino(id, this);
-		      object->setProperties
-			(query.value(3).toString().trimmed());
-		    }
+		  QString error("");
+		  glowbot_object *object = glowbot_object::createFromValues
+		    (values, error, this);
 
 		  if(object)
 		    m_scene->addObject

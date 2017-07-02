@@ -58,8 +58,8 @@ createFromValues(const QMap<QString, QVariant> &values,
   Q_UNUSED(error);
 
   glowbot_object_analog_read_arduino *object = new
-    glowbot_object_analog_read_arduino(values.value("myoid").toULongLong(),
-				       parent);
+    glowbot_object_analog_read_arduino
+    (values.value("myoid").toULongLong(), parent);
 
   return object;
 }
