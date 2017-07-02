@@ -115,6 +115,17 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
 		 SLOT(slotSetStyleSheet(void)));
 }
 
+void glowbot_object::move(const QPoint &point)
+{
+  move(point.x(), point.y());
+}
+
+void glowbot_object::move(int x, int y)
+{
+  QWidget::move(x, y);
+  emit changed();
+}
+
 void glowbot_object::save(const QSqlDatabase &db, QString &error)
 {
   QSqlQuery query(db);
