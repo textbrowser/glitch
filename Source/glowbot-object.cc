@@ -155,6 +155,7 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
 
 void glowbot_object::slotSetStyleSheet(void)
 {
+  QString string(styleSheet());
   glowbot_style_sheet *styleSheet = new glowbot_style_sheet(m_parent);
 
   styleSheet->setWidget(this);
@@ -164,4 +165,6 @@ void glowbot_object::slotSetStyleSheet(void)
       setStyleSheet(styleSheet->styleSheet());
       emit changed();
     }
+  else
+    setStyleSheet(string);
 }
