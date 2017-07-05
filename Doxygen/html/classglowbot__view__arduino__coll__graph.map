@@ -1,0 +1,7 @@
+<map id="glowbot_view_arduino" name="glowbot_view_arduino">
+<area shape="rect" id="node2" href="$classglowbot__view.html" title="glowbot_view" alt="" coords="507,107,608,133"/>
+<area shape="rect" id="node4" href="$classglowbot__scene.html" title="glowbot_scene" alt="" coords="206,56,315,83"/>
+<area shape="rect" id="node6" href="$classglowbot__alignment.html" title="glowbot_alignment" alt="" coords="195,107,326,133"/>
+<area shape="rect" id="node8" href="$classglowbot__canvas__settings.html" title="glowbot_canvas_settings" alt="" coords="176,157,345,184"/>
+<area shape="rect" id="node9" href="$classglowbot__user__functions.html" title="glowbot_user_functions" alt="" coords="181,208,340,235"/>
+</map>
