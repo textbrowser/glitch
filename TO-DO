@@ -17,6 +17,7 @@ Completed Items
 14.    Object numbers should be sequenced.
 12.    Separate database objects when opening an existing diagram.
 13.    Add --open-arduino-diagram option.
+14.    Save loop() and setup() style sheets.
 
 Ignored Items
 
@@ -32,7 +33,6 @@ Remaining Items
 6.     A function panel. The panel should include a list of defined functions.
        Drag and drop support. Warn of recursive uses.
 7.     Inspect coordinates upon opening of diagrams. Adjust.
-8.     Save loop() and setup() style sheets.
-9.     Save canvas settings.
-10.    glowbot_canvas_settings::settings().
-11.    Recreating functions and unique names.
+8.     Save canvas settings.
+9.     glowbot_canvas_settings::settings().
+10.    Recreating functions and unique names.
