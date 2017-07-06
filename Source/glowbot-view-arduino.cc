@@ -25,6 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSqlQuery>
+
 #include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-setup-arduino.h"
 #include "glowbot-proxy-widget.h"
@@ -78,5 +80,47 @@ glowbot_view_arduino::~glowbot_view_arduino()
 
 bool glowbot_view_arduino::open(const QString &fileName, QString &error)
 {
-  return glowbot_view::open(fileName, error);
+  bool ok = glowbot_view::open(fileName, error);
+
+  if(!ok)
+    return ok;
+
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(fileName);
+
+    if((ok = db.open()))
+      {
+	QSqlQuery query(db);
+
+	query.setForwardOnly(true);
+
+	if(query.exec("SELECT stylesheet, type FROM objects WHERE "
+		      "type IN ('arduino-loop', 'arduino-setup')"))
+	  while(query.next())
+	    {
+	      QString styleSheet(query.value(0).toString().trimmed());
+	      QString type(query.value(1).toString().toLower().trimmed());
+
+	      if(type == "arduino-loop")
+		m_loopObject->setStyleSheet(styleSheet);
+	      else
+		m_setupObject->setStyleSheet(styleSheet);
+	    }
+	else
+	  {
+	    error = tr("An error occurred while accessing the objects table.");
+	    ok = false;
+	  }
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  return ok;
 }
