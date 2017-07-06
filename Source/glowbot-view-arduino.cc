@@ -39,8 +39,8 @@ glowbot_view_arduino::glowbot_view_arduino
 {
   if(fromFile)
     {
-      m_loopObject = new glowbot_object_loop_arduino(1, this);
-      m_setupObject = new glowbot_object_setup_arduino(1, this);
+      m_loopObject = new glowbot_object_loop_arduino(LOOP_OBJECT_ID, this);
+      m_setupObject = new glowbot_object_setup_arduino(SETUP_OBJECT_ID, this);
     }
   else
     {

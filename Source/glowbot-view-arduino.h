@@ -45,6 +45,8 @@ class glowbot_view_arduino: public glowbot_view
 		       QWidget *parent);
   ~glowbot_view_arduino();
   bool open(const QString &fileName, QString &error);
+  static const quint64 LOOP_OBJECT_ID = 1;
+  static const quint64 SETUP_OBJECT_ID = 2;
 
  private:
   glowbot_alignment *m_alignment;
