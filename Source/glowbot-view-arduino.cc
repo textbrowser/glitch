@@ -75,3 +75,8 @@ glowbot_view_arduino::glowbot_view_arduino
 glowbot_view_arduino::~glowbot_view_arduino()
 {
 }
+
+bool glowbot_view_arduino::open(const QString &fileName, QString &error)
+{
+  glowbot_view::open(fileName, error);
+}
