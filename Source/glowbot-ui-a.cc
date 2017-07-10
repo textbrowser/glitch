@@ -345,8 +345,13 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   bool ok = true;
 
   name = QInputDialog::getText
-    (this, tr("GlowBot: Arduino Project Name"), tr("Project Name"),
-     QLineEdit::Normal, "Arduino-Diagram", &ok).trimmed();
+    (this,
+     tr("GlowBot: Arduino Project Name"),
+     tr("Please specify a project name. A database file will be created in "
+	"the %1 directory.").arg(glowbot_misc::homePath()),
+     QLineEdit::Normal,
+     "Arduino-Diagram",
+     &ok).trimmed();
 
   if(!ok)
     return;
