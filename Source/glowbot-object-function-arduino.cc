@@ -40,6 +40,17 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
 {
   initialize(parent);
+
+  /*
+  ** Do not initialize the function's name in initialize().
+  */
+
+  QString name(nextUniqueFunctionName());
+
+  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
+  m_ui.label->setText(name);
+  s_functionNames[name] = 0;
+  setProperty("function_name", m_ui.label->text());
 }
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
@@ -119,21 +130,15 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
   else
     m_initialized = true;
 
-  QString name(nextUniqueFunctionName());
-
   m_editView = new glowbot_object_view(m_id, this);
   m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
-  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
   m_editWindow->resize(600, 600);
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_ui.label->setText(name);
   m_type = "arduino-function";
-  s_functionNames[name] = 0;
-  setProperty("function_name", m_ui.label->text());
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
