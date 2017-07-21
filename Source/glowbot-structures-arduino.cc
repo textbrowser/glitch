@@ -47,6 +47,7 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("analogRead()")
+       << tr("analogReference()")
        << tr("analogWrite()");
 
   while(!list.isEmpty())
@@ -59,7 +60,9 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("addition (+)")
+       << tr("assignment (=)")
        << tr("division (/)")
+       << tr("modulo (%)")
        << tr("multiplication (*)")
        << tr("subtraction (-)");
 
@@ -144,8 +147,13 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Mathematics"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("max()")
-       << tr("min()");
+  list << tr("abs()")
+       << tr("constrain()")
+       << tr("map()")
+       << tr("max()")
+       << tr("min()")
+       << tr("pow()")
+       << tr("sqrt()");
 
   while(!list.isEmpty())
     {
@@ -193,6 +201,8 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("delay()")
+       << tr("delayMicroseconds()")
+       << tr("micros()")
        << tr("millis()");
 
   while(!list.isEmpty())
