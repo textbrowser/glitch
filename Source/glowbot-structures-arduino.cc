@@ -72,6 +72,22 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Bitwise Operators"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("and (&)")
+       << tr("left shift (<<)")
+       << tr("not (~)")
+       << tr("or (|)")
+       << tr("right shift (>>)")
+       << tr("xor (^)");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Comparison Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
