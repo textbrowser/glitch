@@ -130,12 +130,14 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Constants"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("FALSE")
-       << tr("HIGH")
+  list << tr("HIGH")
        << tr("INPUT")
+       << tr("INPUT_PULLUP")
+       << tr("LED_BUILTIN")
        << tr("LOW")
        << tr("OUTPUT")
-       << tr("TRUE");
+       << tr("false")
+       << tr("true");
 
   while(!list.isEmpty())
     {
