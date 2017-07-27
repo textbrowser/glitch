@@ -120,9 +120,15 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Flow Control"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("do while loop")
+  list << tr("break")
+       << tr("continue")
+       << tr("do while loop")
        << tr("for loop")
+       << tr("goto")
        << tr("if statement")
+       << tr("if-else statement")
+       << tr("return")
+       << tr("switch case")
        << tr("while loop");
 
   while(!list.isEmpty())
