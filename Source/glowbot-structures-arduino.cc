@@ -108,6 +108,25 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Compound Operators"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("addition (+=)")
+       << tr("bitwise and (&=)")
+       << tr("bitwise or (|=)")
+       << tr("decrement (--)")
+       << tr("division (/=)")
+       << tr("increment (++)")
+       << tr("modulo (%=)")
+       << tr("multiplication (*=)")
+       << tr("subtraction (-=)");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Constants"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
