@@ -262,10 +262,18 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("array")
+       << tr("boolean")
        << tr("byte")
+       << tr("char")
+       << tr("double")
        << tr("float")
        << tr("int")
-       << tr("long");
+       << tr("long")
+       << tr("short")
+       << tr("unsigned char")
+       << tr("unsigned int")
+       << tr("unsigned long")
+       << tr("word");
 
   while(!list.isEmpty())
     {
