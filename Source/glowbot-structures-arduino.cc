@@ -289,6 +289,19 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Trigonometry"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << "cos()"
+       << "sin()"
+       << "tan()";
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Utilities"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
