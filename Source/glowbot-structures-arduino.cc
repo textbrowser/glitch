@@ -145,6 +145,22 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Conversions"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("byte()")
+       << tr("char()")
+       << tr("float()")
+       << tr("int()")
+       << tr("long()")
+       << tr("word()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Digital I/O"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
