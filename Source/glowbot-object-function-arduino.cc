@@ -216,7 +216,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 	** trailing parentheses.
 	*/
 
-	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*\\(\\)"), this));
+	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*\\(\\)"), &dialog));
     }
   else
     qDebug() << "glowbot_object_function_arduino::slotSetFunctionName(): "
