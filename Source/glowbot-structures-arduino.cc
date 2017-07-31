@@ -60,7 +60,7 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
-  item = new QTreeWidgetItem(QStringList() << tr("Arithmetic"));
+  item = new QTreeWidgetItem(QStringList() << tr("Arithmetic Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
   list << tr("addition (+)")
