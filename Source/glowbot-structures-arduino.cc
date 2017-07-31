@@ -47,6 +47,21 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QTreeWidgetItem *child = 0;
   QTreeWidgetItem *item = 0;
 
+  item = new QTreeWidgetItem(QStringList() << tr("Advanced I/O"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << tr("noTone()")
+       << tr("pulseIn()")
+       << tr("shiftIn()")
+       << tr("shiftOut()")
+       << tr("tone()");
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Analog I/O"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
