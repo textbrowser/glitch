@@ -50,11 +50,11 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Advanced I/O"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("noTone()")
-       << tr("pulseIn()")
-       << tr("shiftIn()")
-       << tr("shiftOut()")
-       << tr("tone()");
+  list << "noTone()"
+       << "pulseIn()"
+       << "shiftIn()"
+       << "shiftOut()"
+       << "tone()";
 
   while(!list.isEmpty())
     {
@@ -65,9 +65,9 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Analog I/O"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("analogRead()")
-       << tr("analogReference()")
-       << tr("analogWrite()");
+  list << "analogRead()"
+       << "analogReference()"
+       << "analogWrite()";
 
   while(!list.isEmpty())
     {
@@ -78,12 +78,12 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Arithmetic Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("addition (+)")
-       << tr("assignment (=)")
-       << tr("division (/)")
-       << tr("modulo (%)")
-       << tr("multiplication (*)")
-       << tr("subtraction (-)");
+  list << "addition (+)"
+       << "assignment (=)"
+       << "division (/)"
+       << "modulo (%)"
+       << "multiplication (*)"
+       << "subtraction (-)";
 
   while(!list.isEmpty())
     {
@@ -94,12 +94,12 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Bitwise Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("and (&)")
-       << tr("left shift (<<)")
-       << tr("not (~)")
-       << tr("or (|)")
-       << tr("right shift (>>)")
-       << tr("xor (^)");
+  list << "and (&)"
+       << "left shift (<<)"
+       << "not (~)"
+       << "or (|)"
+       << "right shift (>>)"
+       << "xor (^)";
 
   while(!list.isEmpty())
     {
@@ -110,12 +110,12 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Comparison Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("equal to (==)")
-       << tr("greater than (>)")
-       << tr("greater than or equal to (>=)")
-       << tr("less than (<)")
-       << tr("less than or equal to (<=)")
-       << tr("not equal to (!=)");
+  list << "equal to (==)"
+       << "greater than (>)"
+       << "greater than or equal to (>=)"
+       << "less than (<)"
+       << "less than or equal to (<=)"
+       << "not equal to (!=)";
 
   while(!list.isEmpty())
     {
@@ -126,15 +126,15 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Compound Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("addition (+=)")
-       << tr("bitwise and (&=)")
-       << tr("bitwise or (|=)")
-       << tr("decrement (--)")
-       << tr("division (/=)")
-       << tr("increment (++)")
-       << tr("modulo (%=)")
-       << tr("multiplication (*=)")
-       << tr("subtraction (-=)");
+  list << "addition (+=)"
+       << "bitwise and (&=)"
+       << "bitwise or (|=)"
+       << "decrement (--)"
+       << "division (/=)"
+       << "increment (++)"
+       << "modulo (%=)"
+       << "multiplication (*=)"
+       << "subtraction (-=)";
 
   while(!list.isEmpty())
     {
@@ -145,14 +145,14 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Constants"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("HIGH")
-       << tr("INPUT")
-       << tr("INPUT_PULLUP")
-       << tr("LED_BUILTIN")
-       << tr("LOW")
-       << tr("OUTPUT")
-       << tr("false")
-       << tr("true");
+  list << "HIGH"
+       << "INPUT"
+       << "INPUT_PULLUP"
+       << "LED_BUILTIN"
+       << "LOW"
+       << "OUTPUT"
+       << "false"
+       << "true";
 
   while(!list.isEmpty())
     {
@@ -163,12 +163,12 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Conversions"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("byte()")
-       << tr("char()")
-       << tr("float()")
-       << tr("int()")
-       << tr("long()")
-       << tr("word()");
+  list << "byte()"
+       << "char()"
+       << "float()"
+       << "int()"
+       << "long()"
+       << "word()";
 
   while(!list.isEmpty())
     {
@@ -179,9 +179,9 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Digital I/O"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("digitalRead()")
-       << tr("digitalWrite()")
-       << tr("pinMode()");
+  list << "digitalRead()"
+       << "digitalWrite()"
+       << "pinMode()";
 
   while(!list.isEmpty())
     {
@@ -192,16 +192,16 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Flow Control"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("break")
-       << tr("continue")
-       << tr("do while loop")
-       << tr("for loop")
-       << tr("goto")
-       << tr("if statement")
-       << tr("if-else statement")
-       << tr("return")
-       << tr("switch case")
-       << tr("while loop");
+  list << "break"
+       << "continue"
+       << "do while loop"
+       << "for loop"
+       << "goto"
+       << "if statement"
+       << "if-else statement"
+       << "return"
+       << "switch case"
+       << "while loop";
 
   while(!list.isEmpty())
     {
@@ -212,9 +212,9 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Logical Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("and (&&)")
-       << tr("not (!)")
-       << tr("or (||)");
+  list << "and (&&)"
+       << "not (!)"
+       << "or (||)";
 
   while(!list.isEmpty())
     {
@@ -225,13 +225,13 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Mathematics"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("abs()")
-       << tr("constrain()")
-       << tr("map()")
-       << tr("max()")
-       << tr("min()")
-       << tr("pow()")
-       << tr("sqrt()");
+  list << "abs()"
+       << "constrain()"
+       << "map()"
+       << "max()"
+       << "min()"
+       << "pow()"
+       << "sqrt()";
 
   while(!list.isEmpty())
     {
@@ -242,8 +242,8 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Random"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("random()")
-       << tr("randomSeed()");
+  list << "random()"
+       << "randomSeed()";
 
   while(!list.isEmpty())
     {
@@ -254,8 +254,8 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Serial"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("Serial.begin()")
-       << tr("Serial.println()");
+  list << "Serial.begin()"
+       << "Serial.println()";
 
   while(!list.isEmpty())
     {
@@ -266,8 +266,8 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Structures"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("block comment")
-       << tr("function()");
+  list << "block comment"
+       << "function()";
 
   while(!list.isEmpty())
     {
@@ -278,10 +278,10 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Time"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("delay()")
-       << tr("delayMicroseconds()")
-       << tr("micros()")
-       << tr("millis()");
+  list << "delay()"
+       << "delayMicroseconds()"
+       << "micros()"
+       << "millis()";
 
   while(!list.isEmpty())
     {
@@ -292,8 +292,8 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Utilities"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("PROGMEM")
-       << tr("sizeof()");
+  list << "PROGMEM"
+       << "sizeof()";
 
   while(!list.isEmpty())
     {
@@ -304,23 +304,23 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   item = new QTreeWidgetItem(QStringList() << tr("Variables"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
-  list << tr("array")
-       << tr("boolean")
-       << tr("byte")
-       << tr("char")
-       << tr("double")
-       << tr("float")
-       << tr("int")
-       << tr("long")
-       << tr("short")
-       << tr("unsigned char")
-       << tr("unsigned int")
-       << tr("unsigned long")
-       << tr("word");
+  list << "array"
+       << "boolean"
+       << "byte"
+       << "char"
+       << "double"
+       << "float"
+       << "int"
+       << "long"
+       << "short"
+       << "unsigned char"
+       << "unsigned int"
+       << "unsigned long"
+       << "word";
 
   while(!list.isEmpty())
     {
-      if(list.first() == tr("array"))
+      if(list.first() == "array")
 	{
 	  child = new QTreeWidgetItem(QStringList() << list.takeFirst());
 
