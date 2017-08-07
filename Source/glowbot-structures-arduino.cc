@@ -91,6 +91,23 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("Bits and Bytes"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << "bit()"
+       << "bitClear()"
+       << "bitRead()"
+       << "bitSet()"
+       << "bitWrite()"
+       << "highByte()"
+       << "lowByte()";
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Bitwise Operators"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
