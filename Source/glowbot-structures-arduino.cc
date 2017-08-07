@@ -206,6 +206,18 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
       item->addChild(child);
     }
 
+  item = new QTreeWidgetItem(QStringList() << tr("External Interrupts"));
+  m_ui.tree->addTopLevelItem(item);
+  list.clear();
+  list << "attachInterrupt()"
+       << "detachInterrupt()";
+
+  while(!list.isEmpty())
+    {
+      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
+      item->addChild(child);
+    }
+
   item = new QTreeWidgetItem(QStringList() << tr("Flow Control"));
   m_ui.tree->addTopLevelItem(item);
   list.clear();
