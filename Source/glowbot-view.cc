@@ -379,6 +379,13 @@ void glowbot_view::resizeEvent(QResizeEvent *event)
   QWidget::resizeEvent(event);
 }
 
+void glowbot_view::save(void)
+{
+  QString error("");
+
+  save(error);
+}
+
 void glowbot_view::selectAll(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

@@ -201,6 +201,10 @@ glowbot_view *glowbot_ui::newArduinoDiagram
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
   setWindowTitle(view);
+
+  if(!fromFile)
+    view->save();
+
   return view;
 }
 
@@ -250,6 +254,8 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
+      m_ui.action_Save_Current_Diagram->setEnabled(false);
+      m_ui.action_Save_Current_Diagram_As->setEnabled(false);
 
       if(findChildren<glowbot_separated_diagram_window *> ().size() > 0)
 	m_ui.action_Structures->setEnabled(true);
@@ -260,6 +266,7 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
+      m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 }
@@ -415,6 +422,7 @@ void glowbot_ui::slotOpenDiagram(void)
 
 void glowbot_ui::slotPageChanged(void)
 {
+  m_ui.action_Save_Current_Diagram->setEnabled(true);
   prepareActionWidgets();
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }

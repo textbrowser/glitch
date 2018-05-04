@@ -58,6 +58,7 @@ class glowbot_view: public QWidget
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
   void deleteItems(void);
+  void save(void);
   void selectAll(void);
   void showAlignment(void);
 
