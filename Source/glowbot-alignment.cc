@@ -334,17 +334,16 @@ void glowbot_alignment::stack(const StackType stackType)
       if(stackType == HORIZONTAL_STACK)
         {
 	  if(widget->property("movable").toBool())
-	    widget->move(coordinate, widget->pos().y());
-
-	  coordinate += widget->width();
+	    {
+	      widget->move(coordinate, widget->pos().y());
+	      coordinate += widget->width();
+	    }
         }
-      else
-        {
-	  if(widget->property("movable").toBool())
-	    widget->move(widget->pos().x(), coordinate);
-
+      else if(widget->property("movable").toBool())
+	{
+	  widget->move(widget->pos().x(), coordinate);
 	  coordinate += widget->height();
-        }
+	}
     }
 
   QApplication::restoreOverrideCursor();
