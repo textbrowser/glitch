@@ -406,35 +406,18 @@ void glowbot_view::selectAll(void)
 
 void glowbot_view::setSceneRect(const QSize &size)
 {
+  Q_UNUSED(size);
+
   QRectF b(m_scene->itemsBoundingRect());
-  int horizontal_offset = s_scene_rect_fuzzy;
-  int vertical_offset = s_scene_rect_fuzzy;
 
   b.setTopLeft(QPointF(0, 0));
-
-  if(m_view->horizontalScrollBar() &&
-     m_view->horizontalScrollBar()->isVisible())
-    vertical_offset += m_view->horizontalScrollBar()->height();
-
-  if(m_view->verticalScrollBar() &&
-     m_view->verticalScrollBar()->isVisible())
-    horizontal_offset += m_view->verticalScrollBar()->width();
-
   m_scene->setSceneRect
     (0,
      0,
-     qMax(static_cast<int> (b.width()), size.width() - horizontal_offset),
-     qMax(static_cast<int> (b.height()), size.height() - vertical_offset));
-
-  if(b.height() < m_scene->sceneRect().height())
-    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  else
-    m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-
-  if(b.width() < m_scene->sceneRect().width())
-    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  else
-    m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+     qMax(static_cast<int> (b.width()),
+	  m_view->width() - 2 * m_view->frameWidth()),
+     qMax(static_cast<int> (b.height()),
+	  m_view->height() - 2 * m_view->frameWidth()));
 }
 
 void glowbot_view::showAlignment(void)

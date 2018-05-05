@@ -119,33 +119,16 @@ void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
 
 void glowbot_object_view::setSceneRect(const QSize &size)
 {
+  Q_UNUSED(size);
+
   QRectF b(m_scene->itemsBoundingRect());
-  int horizontal_offset = s_scene_rect_fuzzy;
-  int vertical_offset = s_scene_rect_fuzzy;
 
   b.setTopLeft(QPointF(0, 0));
-
-  if(horizontalScrollBar() && horizontalScrollBar()->isVisible())
-    vertical_offset += horizontalScrollBar()->height();
-
-  if(verticalScrollBar() && verticalScrollBar()->isVisible())
-    horizontal_offset += verticalScrollBar()->width();
-
   m_scene->setSceneRect
     (0,
      0,
-     qMax(static_cast<int> (b.width()), size.width() - horizontal_offset),
-     qMax(static_cast<int> (b.height()), size.height() - vertical_offset));
-
-  if(b.height() < m_scene->sceneRect().height())
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  else
-    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-
-  if(b.width() < m_scene->sceneRect().width())
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-  else
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+     qMax(static_cast<int> (b.width()), width() - 2 * frameWidth()),
+     qMax(static_cast<int> (b.height()), height() - 2 * frameWidth()));
 }
 
 void glowbot_object_view::slotCustomContextMenuRequested(const QPoint &point)
