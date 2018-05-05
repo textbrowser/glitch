@@ -254,8 +254,10 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
+      m_ui.action_Delete->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
+      m_ui.action_Select_All->setEnabled(false);
 
       if(findChildren<glowbot_separated_diagram_window *> ().size() > 0)
 	m_ui.action_Structures->setEnabled(true);
@@ -266,7 +268,9 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
+      m_ui.action_Delete->setEnabled(true);
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
+      m_ui.action_Select_All->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 }

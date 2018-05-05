@@ -305,7 +305,10 @@ void glowbot_alignment::stack(const StackType stackType)
     }
 
   if(list2.isEmpty())
-    return;
+    {
+      QApplication::restoreOverrideCursor();
+      return;
+    }
 
   if(stackType == HORIZONTAL_STACK)
     qSort(list2.begin(), list2.end(), x_coordinate_less_than);
