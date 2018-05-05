@@ -43,8 +43,6 @@
 #include "glowbot-user-functions.h"
 #include "glowbot-view.h"
 
-static const int s_scene_rect_fuzzy = 4;
-
 glowbot_view::glowbot_view
 (const QString &name,
  const glowbot_common::ProjectType projectType,

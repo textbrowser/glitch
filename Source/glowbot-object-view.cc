@@ -34,8 +34,6 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
-static const int s_scene_rect_fuzzy = 4;
-
 glowbot_object_view::glowbot_object_view
 (const quint64 id, QWidget *parent):QGraphicsView(parent)
 {
