@@ -371,10 +371,8 @@ void glowbot_view::prepareDatabaseTables(void) const
 
 void glowbot_view::resizeEvent(QResizeEvent *event)
 {
-  if(event)
-    setSceneRect(event->size());
-
   QWidget::resizeEvent(event);
+  setSceneRect(m_view->size());
 }
 
 void glowbot_view::save(void)
