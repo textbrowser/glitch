@@ -43,7 +43,8 @@ glowbot_object_setup_arduino::glowbot_object_setup_arduino
 
 glowbot_object_setup_arduino::~glowbot_object_setup_arduino()
 {
-  m_editWindow->deleteLater();
+  if(m_editWindow)
+    m_editWindow->deleteLater();
 }
 
 bool glowbot_object_setup_arduino::hasView(void) const

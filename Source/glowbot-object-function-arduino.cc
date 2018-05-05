@@ -61,7 +61,9 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 
 glowbot_object_function_arduino::~glowbot_object_function_arduino()
 {
-  m_editWindow->deleteLater();
+  if(m_editWindow)
+    m_editWindow->deleteLater();
+
   s_functionNames.remove(m_ui.label->text());
 }
 
@@ -131,7 +133,12 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
     m_initialized = true;
 
   m_editView = new glowbot_object_view(m_id, this);
-  m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
+
+  if(parent)
+    m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
+  else
+    m_editWindow = new glowbot_object_edit_window(0);
+
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->resize(600, 600);

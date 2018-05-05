@@ -28,6 +28,8 @@
 #ifndef _glowbot_object_setup_arduino_h_
 #define _glowbot_object_setup_arduino_h_
 
+#include <QPointer>
+
 #include "glowbot-object.h"
 #include "ui_glowbot-object-setup-arduino.h"
 
@@ -48,8 +50,8 @@ class glowbot_object_setup_arduino: public glowbot_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  QPointer<glowbot_object_edit_window> m_editWindow;
   Ui_glowbot_object_setup_arduino m_ui;
-  glowbot_object_edit_window *m_editWindow;
   glowbot_object_view *m_editView;
   void initialize(QWidget *widget);
   void mouseDoubleClickEvent(QMouseEvent *event);

@@ -46,7 +46,8 @@ glowbot_object_loop_arduino::glowbot_object_loop_arduino
 
 glowbot_object_loop_arduino::~glowbot_object_loop_arduino()
 {
-  m_editWindow->deleteLater();
+  if(m_editWindow)
+    m_editWindow->deleteLater();
 }
 
 bool glowbot_object_loop_arduino::hasView(void) const
