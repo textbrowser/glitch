@@ -189,6 +189,10 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotChanged(void)));
+
+  if(ok)
+    m_fileName = fileName;
+
   return ok;
 }
 
