@@ -202,6 +202,7 @@ void glowbot_canvas_settings::slotSelectBackgroundColor(void)
   QColorDialog dialog(this);
 
   dialog.setCurrentColor(QColor(m_ui.background_color->text()));
+  dialog.setWindowIcon(windowIcon());
 
   if(dialog.exec() == QDialog::Accepted)
     {

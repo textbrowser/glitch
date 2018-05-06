@@ -365,6 +365,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	"A database file having the provided name will be created in "
 	"the %1 directory.").arg(glowbot_misc::homePath()));
   dialog.setTextValue("Arduino-Diagram");
+  dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("GlowBot: Arduino Project Name"));
 
   if((label = dialog.findChild<QLabel *> ()))
@@ -408,6 +409,7 @@ void glowbot_ui::slotOpenDiagram(void)
   dialog.setDirectory(glowbot_misc::homePath());
   dialog.setFileMode(QFileDialog::ExistingFile);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("GlowBot: Open Diagram"));
 
   if(dialog.exec() == QDialog::Accepted)
