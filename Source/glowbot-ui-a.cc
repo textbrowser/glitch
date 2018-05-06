@@ -72,6 +72,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSaveCurrentDiagram(void)));
+  connect(m_ui.action_Save_Current_Diagram_As,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSaveCurrentDiagramAs(void)));
   connect(m_ui.action_Select_All,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -456,6 +460,35 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
 	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
 
       setWindowTitle(view);
+    }
+}
+
+void glowbot_ui::slotSaveCurrentDiagramAs(void)
+{
+  glowbot_view *view = page(m_ui.tab->currentIndex());
+
+  if(view)
+    {
+      QFileDialog dialog(this, tr("GlowBot: Save Current Diagram As"));
+
+      dialog.setAcceptMode(QFileDialog::AcceptSave);
+      dialog.setConfirmOverwrite(true);
+      dialog.setDirectory(glowbot_misc::homePath());
+      dialog.setFileMode(QFileDialog::AnyFile);
+      dialog.setNameFilter("GlowBot Files (*.db)");
+      dialog.setWindowIcon(windowIcon());
+
+      if(dialog.exec() == QDialog::Accepted)
+	{
+	  QString error("");
+
+	  if(!view->saveAs(dialog.selectedFiles().value(0), error))
+	    glowbot_misc::showErrorDialog
+	      (tr("Unable to save %1 (%2).").arg(view->name()).arg(error),
+	       this);
+
+	  setWindowTitle(view);
+	}
     }
 }
 

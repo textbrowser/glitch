@@ -54,6 +54,7 @@ class glowbot_view: public QWidget
   QString name(void) const;
   bool hasChanged(void) const;
   bool save(QString &error);
+  bool saveAs(const QString &fileName, QString &error);
   glowbot_scene *scene(void) const;
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
@@ -63,11 +64,12 @@ class glowbot_view: public QWidget
   void showAlignment(void);
 
  private:
-  void prepareDatabaseTables(void) const;
+  void prepareDatabaseTables(const QString &fileName) const;
 
  protected:
   QAction *m_menuAction;
   QGraphicsView *m_view;
+  QString m_fileName;
   QString m_name;
   Ui_glowbot_view m_ui;
   bool m_changed;
@@ -77,6 +79,7 @@ class glowbot_view: public QWidget
   glowbot_object_start *m_startObject;
   glowbot_scene *m_scene;
   glowbot_user_functions *m_userFunctions;
+  bool saveImplementation(const QString &fileName, QString &error);
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);

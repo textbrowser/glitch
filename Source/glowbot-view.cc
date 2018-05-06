@@ -48,10 +48,11 @@ glowbot_view::glowbot_view
  const glowbot_common::ProjectType projectType,
  QWidget *parent):QWidget(parent)
 {
-  m_alignment = new glowbot_alignment(this);
-  m_changed = false;
   m_ui.setupUi(this);
+  m_alignment = new glowbot_alignment(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
+  m_changed = false;
+  m_fileName = glowbot_misc::homePath() + QDir::separator() + name + ".db";
   m_menuAction = new QAction(QIcon(":/Logo/glowbot-arduino-logo.png"),
 			     name,
 			     this);
@@ -103,7 +104,7 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_view);
-  prepareDatabaseTables();
+  prepareDatabaseTables(m_fileName);
 }
 
 glowbot_view::~glowbot_view()
@@ -193,7 +194,23 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 
 bool glowbot_view::save(QString &error)
 {
-  prepareDatabaseTables();
+  return saveImplementation(m_fileName, error);
+}
+
+bool glowbot_view::saveAs(const QString &fileName, QString &error)
+{
+  if(saveImplementation(fileName, error))
+    {
+      m_fileName = fileName;
+      return true;
+    }
+  else
+    return false;
+}
+
+bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
+{
+  prepareDatabaseTables(fileName);
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
@@ -203,9 +220,7 @@ bool glowbot_view::save(QString &error)
     QSqlDatabase db(glowbot_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName
-      (glowbot_misc::homePath() + QDir::separator() +
-       QString("%1.db").arg(m_name));
+    db.setDatabaseName(fileName);
 
     if((ok = db.open()))
       {
@@ -278,9 +293,7 @@ quint64 glowbot_view::nextId(void) const
     QSqlDatabase db(glowbot_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(glowbot_misc::homePath() +
-		       QDir::separator() +
-		       QString("%1.db").arg(m_name));
+    db.setDatabaseName(m_fileName);
 
     if(db.open())
       {
@@ -322,7 +335,7 @@ void glowbot_view::deleteItems(void)
   m_scene->deleteItems();
 }
 
-void glowbot_view::prepareDatabaseTables(void) const
+void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -332,9 +345,7 @@ void glowbot_view::prepareDatabaseTables(void) const
     QSqlDatabase db(glowbot_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(glowbot_misc::homePath() +
-		       QDir::separator() +
-		       QString("%1.db").arg(m_name));
+    db.setDatabaseName(fileName);
 
     if(db.open())
       {

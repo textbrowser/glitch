@@ -18,6 +18,7 @@ Completed Items
 12.    Separate database objects when opening an existing diagram.
 13.    Add --open-arduino-diagram option.
 14.    Save loop() and setup() style sheets.
+15.    Save As.
 
 Ignored Items
 
@@ -39,4 +40,3 @@ Remaining Items
 11.    String data type.
 12.    setWindowIcon(windowIcon()) on child dialogs.
 13.    Apply canvas settings.
-14.    Save As.
