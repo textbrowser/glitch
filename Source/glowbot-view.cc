@@ -128,6 +128,7 @@ bool glowbot_view::hasChanged(void) const
 
 bool glowbot_view::open(const QString &fileName, QString &error)
 {
+  m_fileName = fileName;
   disconnect(m_scene,
 	     SIGNAL(changed(void)),
 	     this,
@@ -189,10 +190,6 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotChanged(void)));
-
-  if(ok)
-    m_fileName = fileName;
-
   return ok;
 }
 
@@ -281,6 +278,11 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
   m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
+}
+
+glowbot_common::ProjectType glowbot_view::projectType(void) const
+{
+  return m_projectType;
 }
 
 glowbot_scene *glowbot_view::scene(void) const

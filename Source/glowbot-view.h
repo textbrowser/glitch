@@ -55,6 +55,7 @@ class glowbot_view: public QWidget
   bool hasChanged(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
+  glowbot_common::ProjectType projectType(void) const;
   glowbot_scene *scene(void) const;
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);

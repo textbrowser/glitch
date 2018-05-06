@@ -447,7 +447,25 @@ void glowbot_ui::slotPageChanged(void)
 void glowbot_ui::slotPageSelected(int index)
 {
   prepareActionWidgets();
-  setWindowTitle(qobject_cast<glowbot_view *> (m_ui.tab->widget(index)));
+
+  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
+
+  if(view)
+    switch(view->projectType())
+      {
+      case glowbot_common::ArduinoProject:
+	{
+	  m_ui.action_Structures->setText(tr("Arduino &Structures..."));
+	  break;
+	}
+      default:
+	{
+	  m_ui.action_Structures->setText(tr("&Structures..."));
+	  break;
+	}
+      }
+
+  setWindowTitle(view);
 }
 
 void glowbot_ui::slotQuit(void)
