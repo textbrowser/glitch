@@ -356,22 +356,26 @@ void glowbot_ui::slotDelete(void)
 
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
+  QInputDialog dialog(this);
+  QLabel *label = 0;
   QString name("");
-  bool ok = true;
 
-  name = QInputDialog::getText
-    (this,
-     tr("GlowBot: Arduino Project Name"),
-     tr("Please specify a project name. "
+  dialog.setLabelText
+    (tr("Please specify a project name. "
 	"A database file having the provided name will be created in "
-	"the %1 directory.").arg(glowbot_misc::homePath()),
-     QLineEdit::Normal,
-     "Arduino-Diagram",
-     &ok).trimmed();
+	"the %1 directory.").arg(glowbot_misc::homePath()));
+  dialog.setTextValue("Arduino-Diagram");
+  dialog.setWindowTitle(tr("GlowBot: Arduino Project Name"));
 
-  if(!ok)
+  if((label = dialog.findChild<QLabel *> ()))
+    label->setWordWrap(true);
+
+  if(dialog.exec() != QDialog::Accepted)
     return;
-  else if(name.isEmpty())
+  else
+    name = dialog.textValue().trimmed();
+
+  if(name.isEmpty())
     name = "Arduino-Diagram";
 
   QString fileName(QString("%1%2%3.db").
