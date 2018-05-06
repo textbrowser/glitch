@@ -267,6 +267,8 @@ void glowbot_ui::prepareActionWidgets(void)
 	m_ui.action_Structures->setEnabled(true);
       else
 	m_ui.action_Structures->setEnabled(false);
+
+      m_ui.action_Structures->setText(tr("&Structures..."));
     }
   else
     {
