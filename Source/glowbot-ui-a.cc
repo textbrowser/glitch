@@ -391,6 +391,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
       mb.setIcon(QMessageBox::Question);
       mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
       mb.setText(tr("The file %1 already exists. Overwrite?").arg(fileName));
+      mb.setWindowIcon(windowIcon());
       mb.setWindowModality(Qt::WindowModal);
       mb.setWindowTitle(tr("GlowBot: Confirmation"));
 
@@ -428,6 +429,7 @@ void glowbot_ui::slotOpenDiagram(void)
 	  mb.setText
 	    (tr("An error occurred while processing the file %1. (%2)").
 	     arg(dialog.selectedFiles().value(0)).arg(error));
+	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("GlowBot: Error"));
 	  mb.exec();

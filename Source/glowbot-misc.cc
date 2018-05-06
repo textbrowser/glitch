@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QIcon>
 #include <QMessageBox>
 
 #include "glowbot-misc.h"
@@ -54,5 +55,11 @@ QString glowbot_misc::homePath(void)
 
 void glowbot_misc::showErrorDialog(const QString &text, QWidget *parent)
 {
-  QMessageBox::critical(parent, QObject::tr("GlowBot: Error"), text);
+  QMessageBox mb(parent);
+
+  mb.setIcon(QMessageBox::Critical);
+  mb.setText(text);
+  mb.setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+  mb.setWindowTitle(QObject::tr("GlowBot: Error"));
+  mb.exec();
 }
