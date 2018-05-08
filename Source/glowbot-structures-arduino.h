@@ -42,6 +42,9 @@ class glowbot_structures_arduino: public QDialog
 
  private:
   Ui_glowbot_structures m_ui;
+
+ private slots:
+  void slotCategorySelected(void);
 };
 
 #endif

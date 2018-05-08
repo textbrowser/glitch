@@ -36,361 +36,389 @@ glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
 
   m_ui.setupUi(this);
   m_ui.tree->setProjectType(glowbot_common::ArduinoProject);
+  connect(m_ui.categories,
+	  SIGNAL(itemSelectionChanged(void)),
+	  this,
+	  SLOT(slotCategorySelected(void)));
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("GlowBot: Arduino Structures"));
 
   /*
-  ** Let's create the tree.
+  ** Create the list.
   */
 
-  QStringList list;
-  QTreeWidgetItem *child = 0;
-  QTreeWidgetItem *item = 0;
-
-  item = new QTreeWidgetItem(QStringList() << tr("Advanced I/O"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "noTone()"
-       << "pulseIn()"
-       << "shiftIn()"
-       << "shiftOut()"
-       << "tone()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Analog I/O"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "analogRead()"
-       << "analogReference()"
-       << "analogWrite()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Arithmetic Operators"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "addition (+)"
-       << "assignment (=)"
-       << "division (/)"
-       << "modulo (%)"
-       << "multiplication (*)"
-       << "subtraction (-)";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Bits and Bytes"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "bit()"
-       << "bitClear()"
-       << "bitRead()"
-       << "bitSet()"
-       << "bitWrite()"
-       << "highByte()"
-       << "lowByte()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Bitwise Operators"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "and (&)"
-       << "left shift (<<)"
-       << "not (~)"
-       << "or (|)"
-       << "right shift (>>)"
-       << "xor (^)";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Comparison Operators"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "equal to (==)"
-       << "greater than (>)"
-       << "greater than or equal to (>=)"
-       << "less than (<)"
-       << "less than or equal to (<=)"
-       << "not equal to (!=)";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Compound Operators"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "addition (+=)"
-       << "bitwise and (&=)"
-       << "bitwise or (|=)"
-       << "decrement (--)"
-       << "division (/=)"
-       << "increment (++)"
-       << "modulo (%=)"
-       << "multiplication (*=)"
-       << "subtraction (-=)";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Constants"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "HIGH"
-       << "INPUT"
-       << "INPUT_PULLUP"
-       << "LED_BUILTIN"
-       << "LOW"
-       << "OUTPUT"
-       << "false"
-       << "true";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Conversions"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "byte()"
-       << "char()"
-       << "float()"
-       << "int()"
-       << "long()"
-       << "word()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Digital I/O"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "digitalRead()"
-       << "digitalWrite()"
-       << "pinMode()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("External Interrupts"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "attachInterrupt()"
-       << "detachInterrupt()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Flow Control"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "break"
-       << "continue"
-       << "do while loop"
-       << "for loop"
-       << "goto"
-       << "if statement"
-       << "if-else statement"
-       << "return"
-       << "switch case"
-       << "while loop";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Interrupts"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "interrupts()"
-       << "noInterrupts()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Logical Operators"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "and (&&)"
-       << "not (!)"
-       << "or (||)";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Mathematics"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "abs()"
-       << "constrain()"
-       << "map()"
-       << "max()"
-       << "min()"
-       << "pow()"
-       << "sqrt()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Random"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "random()"
-       << "randomSeed()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Serial"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "Serial.begin()"
-       << "Serial.println()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Structures"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "block comment"
-       << "function()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Time"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "delay()"
-       << "delayMicroseconds()"
-       << "micros()"
-       << "millis()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Trigonometry"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "cos()"
-       << "sin()"
-       << "tan()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Utilities"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "PROGMEM"
-       << "sizeof()";
-
-  while(!list.isEmpty())
-    {
-      child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-      item->addChild(child);
-    }
-
-  item = new QTreeWidgetItem(QStringList() << tr("Variables"));
-  m_ui.tree->addTopLevelItem(item);
-  list.clear();
-  list << "array"
-       << "boolean"
-       << "byte"
-       << "char"
-       << "double"
-       << "float"
-       << "int"
-       << "long"
-       << "short"
-       << "unsigned char"
-       << "unsigned int"
-       << "unsigned long"
-       << "word";
-
-  while(!list.isEmpty())
-    {
-      if(list.first() == "array")
-	{
-	  child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-
-	  for(int i = 0; i < list.size(); i++)
-	    child->addChild(new QTreeWidgetItem(QStringList() << list.at(i)));
-	}
-      else
-	child = new QTreeWidgetItem(QStringList() << list.takeFirst());
-
-      item->addChild(child);
-    }
-
-  m_ui.tree->sortItems(0, Qt::AscendingOrder);
-  m_ui.tree->expandAll();
+  m_ui.categories->addItem(tr("Advanced I/O"));
+  m_ui.categories->addItem(tr("Analog I/O"));
+  m_ui.categories->addItem(tr("Arithmetic Operators"));
+  m_ui.categories->addItem(tr("Bits and Bytes"));
+  m_ui.categories->addItem(tr("Bitwise Operators"));
+  m_ui.categories->addItem(tr("Comparison Operators"));
+  m_ui.categories->addItem(tr("Compound Operators"));
+  m_ui.categories->addItem(tr("Constants"));
+  m_ui.categories->addItem(tr("Conversions"));
+  m_ui.categories->addItem(tr("Digital I/O"));
+  m_ui.categories->addItem(tr("External Interrupts"));
+  m_ui.categories->addItem(tr("Flow Control"));
+  m_ui.categories->addItem(tr("Interrupts"));
+  m_ui.categories->addItem(tr("Logical Operators"));
+  m_ui.categories->addItem(tr("Mathematics"));
+  m_ui.categories->addItem(tr("Random"));
+  m_ui.categories->addItem(tr("Serial"));
+  m_ui.categories->addItem(tr("Structures"));
+  m_ui.categories->addItem(tr("Time"));
+  m_ui.categories->addItem(tr("Trigonometry"));
+  m_ui.categories->addItem(tr("Utilities"));
+  m_ui.categories->addItem(tr("Variables"));
+  m_ui.categories->setCurrentRow(0);
 }
 
 glowbot_structures_arduino::~glowbot_structures_arduino()
 {
+}
+
+void glowbot_structures_arduino::slotCategorySelected(void)
+{
+  /*
+  ** Let's create the tree.
+  */
+
+  QList<QListWidgetItem *> items(m_ui.categories->selectedItems());
+
+  if(items.isEmpty())
+    return;
+
+  m_ui.tree->clear();
+
+  QStringList list;
+
+  switch(m_ui.categories->row(items.at(0)))
+    {
+    case 0:
+      {
+	list << "noTone()"
+	     << "pulseIn()"
+	     << "shiftIn()"
+	     << "shiftOut()"
+	     << "tone()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 1:
+      {
+	list << "analogRead()"
+	     << "analogReference()"
+	     << "analogWrite()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 2:
+      {
+	list << "addition (+)"
+	     << "assignment (=)"
+	     << "division (/)"
+	     << "modulo (%)"
+	     << "multiplication (*)"
+	     << "subtraction (-)";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 3:
+      {
+	list << "bit()"
+	     << "bitClear()"
+	     << "bitRead()"
+	     << "bitSet()"
+	     << "bitWrite()"
+	     << "highByte()"
+	     << "lowByte()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 4:
+      {
+	list << "and (&)"
+	     << "left shift (<<)"
+	     << "not (~)"
+	     << "or (|)"
+	     << "right shift (>>)"
+	     << "xor (^)";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 5:
+      {
+	list << "equal to (==)"
+	     << "greater than (>)"
+	     << "greater than or equal to (>=)"
+	     << "less than (<)"
+	     << "less than or equal to (<=)"
+	     << "not equal to (!=)";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 6:
+      {
+	list << "addition (+=)"
+	     << "bitwise and (&=)"
+	     << "bitwise or (|=)"
+	     << "decrement (--)"
+	     << "division (/=)"
+	     << "increment (++)"
+	     << "modulo (%=)"
+	     << "multiplication (*=)"
+	     << "subtraction (-=)";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 7:
+      {
+	list << "HIGH"
+	     << "INPUT"
+	     << "INPUT_PULLUP"
+	     << "LED_BUILTIN"
+	     << "LOW"
+	     << "OUTPUT"
+	     << "false"
+	     << "true";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 8:
+      {
+	list << "byte()"
+	     << "char()"
+	     << "float()"
+	     << "int()"
+	     << "long()"
+	     << "word()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 9:
+      {
+	list << "digitalRead()"
+	     << "digitalWrite()"
+	     << "pinMode()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 10:
+      {
+	list << "attachInterrupt()"
+	     << "detachInterrupt()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 11:
+      {
+	list << "break"
+	     << "continue"
+	     << "do while loop"
+	     << "for loop"
+	     << "goto"
+	     << "if statement"
+	     << "if-else statement"
+	     << "return"
+	     << "switch case"
+	     << "while loop";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 12:
+      {
+	list << "interrupts()"
+	     << "noInterrupts()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 13:
+      {
+	list << "and (&&)"
+	     << "not (!)"
+	     << "or (||)";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 14:
+      {
+	list << "abs()"
+	     << "constrain()"
+	     << "map()"
+	     << "max()"
+	     << "min()"
+	     << "pow()"
+	     << "sqrt()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 15:
+      {
+	list << "random()"
+	     << "randomSeed()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 16:
+      {
+	list << "Serial.begin()"
+	     << "Serial.println()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 17:
+      {
+	list << "block comment"
+	     << "function()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 18:
+      {
+	list << "delay()"
+	     << "delayMicroseconds()"
+	     << "micros()"
+	     << "millis()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 19:
+      {
+	list << "cos()"
+	     << "sin()"
+	     << "tan()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 20:
+      {
+	list << "PROGMEM"
+	     << "sizeof()";
+
+	while(!list.isEmpty())
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    case 21:
+      {
+	list << "array"
+	     << "boolean"
+	     << "byte"
+	     << "char"
+	     << "double"
+	     << "float"
+	     << "int"
+	     << "long"
+	     << "short"
+	     << "unsigned char"
+	     << "unsigned int"
+	     << "unsigned long"
+	     << "word";
+
+	while(!list.isEmpty())
+	  if(list.first() == "array")
+	    {
+	      QTreeWidgetItem *item = new QTreeWidgetItem
+		(QStringList() << list.takeFirst());
+
+	      m_ui.tree->addTopLevelItem(item);
+
+	      for(int i = 0; i < list.size(); i++)
+		item->addChild
+		  (new QTreeWidgetItem(QStringList() << list.at(i)));
+	    }
+	  else
+	    m_ui.tree->addTopLevelItem
+	      (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
+  m_ui.tree->expandAll();
 }
