@@ -360,7 +360,28 @@ void glowbot_ui::slotCloseDiagram(int index)
   glowbot_view *view = page(index);
 
   if(view)
-    view->deleteLater();
+    {
+      if(view->hasChanged())
+	{
+	  m_ui.tab->setCurrentIndex(index);
+
+	  QMessageBox mb(this);
+
+	  mb.setIcon(QMessageBox::Question);
+	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+	  mb.setText
+	    (tr("The current widget has been modified. Are you sure that "
+		"you wish to close it?"));
+	  mb.setWindowIcon(windowIcon());
+	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowTitle(tr("GlowBot: Confirmation"));
+
+	  if(mb.exec() != QMessageBox::Yes)
+	    return;
+	}
+
+      view->deleteLater();
+    }
 
   m_ui.tab->removeTab(index);
   prepareActionWidgets();
