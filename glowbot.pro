@@ -41,6 +41,7 @@ UI_DIR = temp/ui
 
 FORMS           = UI\\glowbot-alignment.ui \
                   UI\\glowbot-canvas-settings.ui \
+		  UI\\glowbot-errors-dialog.ui \
                   UI\\glowbot-mainwindow.ui \
                   UI\\glowbot-object-analog-read-arduino.ui \
                   UI\\glowbot-object-function-arduino.ui \
