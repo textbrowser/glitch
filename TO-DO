@@ -15,14 +15,14 @@ Completed Items
 12.    Style sheets. User input is not validated.
 13.    Warn on diagram overwrite during initialization.
 14.    Object numbers should be sequenced.
-12.    Separate database objects when opening an existing diagram.
-13.    Add --open-arduino-diagram option.
-14.    Save loop() and setup() style sheets.
-15.    Save As.
-16.    Confirmation prompt on closing of edited diagrams.
-17.    Allow opening of multiple files.
-18.    Error dialog.
-19.    setWindowIcon(windowIcon()) on child dialogs.
+15.    Separate database objects when opening an existing diagram.
+16.    Add --open-arduino-diagram option.
+17.    Save loop() and setup() style sheets.
+18.    Save As.
+19.    Confirmation prompt on closing of edited diagrams.
+20.    Allow opening of multiple files.
+21.    Error dialog.
+22.    setWindowIcon(windowIcon()) on child dialogs.
 
 Ignored Items
 
