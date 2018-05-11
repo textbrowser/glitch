@@ -40,6 +40,7 @@
 #include "glowbot-structures-arduino.h"
 #include "glowbot-ui.h"
 #include "glowbot-view-arduino.h"
+#include "ui_glowbot-errors-dialog.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
@@ -465,8 +466,9 @@ void glowbot_ui::slotOpenDiagram(void)
     {
       dialog.close();
 
+      QString errors("");
       QStringList list(dialog.selectedFiles());
-      bool ok = false;
+      bool ok = true;
 
       while(!list.isEmpty())
 	{
@@ -476,22 +478,25 @@ void glowbot_ui::slotOpenDiagram(void)
 	  if(openDiagram(fileName, error))
 	    ok = true;
 	  else
-	    {
-	      QMessageBox mb(this);
-
-	      mb.setIcon(QMessageBox::Critical);
-	      mb.setText
-		(tr("An error occurred while processing the file %1. (%2)").
-		 arg(fileName).arg(error));
-	      mb.setWindowIcon(windowIcon());
-	      mb.setWindowModality(Qt::WindowModal);
-	      mb.setWindowTitle(tr("GlowBot: Error"));
-	      mb.exec();
-	    }
+	    errors.append
+	      (tr("An error occurred while processing "
+		  "the file %1. (%2)\n\n").
+	       arg(fileName).arg(error));
 	}
 
       if(ok)
 	prepareActionWidgets();
+
+      if(!errors.isEmpty())
+	{
+	  QDialog dialog(this);
+	  Ui_glowbot_errors_dialog ui;
+
+	  ui.setupUi(&dialog);
+	  ui.label->setText(tr("The following errors occurred."));
+	  ui.text->setPlainText(errors.trimmed());
+	  dialog.exec();
+	}
     }
 }
 
