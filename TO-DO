@@ -22,6 +22,7 @@ Completed Items
 16.    Confirmation prompt on closing of edited diagrams.
 17.    Allow opening of multiple files.
 18.    Error dialog.
+19.    setWindowIcon(windowIcon()) on child dialogs.
 
 Ignored Items
 
