@@ -456,7 +456,7 @@ void glowbot_ui::slotOpenDiagram(void)
 
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
   dialog.setDirectory(glowbot_misc::homePath());
-  dialog.setFileMode(QFileDialog::ExistingFile);
+  dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("GlowBot: Open Diagram"));
@@ -465,23 +465,33 @@ void glowbot_ui::slotOpenDiagram(void)
     {
       dialog.close();
 
-      QString error("");
+      QStringList list(dialog.selectedFiles());
+      bool ok = false;
 
-      if(openDiagram(dialog.selectedFiles().value(0), error))
-	prepareActionWidgets();
-      else
+      while(!list.isEmpty())
 	{
-	  QMessageBox mb(this);
+	  QString error("");
+	  QString fileName(list.takeFirst());
 
-	  mb.setIcon(QMessageBox::Critical);
-	  mb.setText
-	    (tr("An error occurred while processing the file %1. (%2)").
-	     arg(dialog.selectedFiles().value(0)).arg(error));
-	  mb.setWindowIcon(windowIcon());
-	  mb.setWindowModality(Qt::WindowModal);
-	  mb.setWindowTitle(tr("GlowBot: Error"));
-	  mb.exec();
+	  if(openDiagram(fileName, error))
+	    ok = true;
+	  else
+	    {
+	      QMessageBox mb(this);
+
+	      mb.setIcon(QMessageBox::Critical);
+	      mb.setText
+		(tr("An error occurred while processing the file %1. (%2)").
+		 arg(fileName).arg(error));
+	      mb.setWindowIcon(windowIcon());
+	      mb.setWindowModality(Qt::WindowModal);
+	      mb.setWindowTitle(tr("GlowBot: Error"));
+	      mb.exec();
+	    }
 	}
+
+      if(ok)
+	prepareActionWidgets();
     }
 }
 
