@@ -25,6 +25,7 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QCloseEvent>
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -222,6 +223,30 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
   /*
   ** Detect modified diagrams.
   */
+
+  if(event)
+    foreach(glowbot_view *view, findChildren<glowbot_view *> ())
+      if(view->hasChanged())
+	{
+	  QMessageBox mb(this);
+
+	  mb.setIcon(QMessageBox::Question);
+	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+	  mb.setText
+	    (tr("At least one display has not been saved. Are you sure that "
+		"you wish to exit GlowBot?"));
+	  mb.setWindowIcon(windowIcon());
+	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowTitle(tr("GlowBot: Confirmation"));
+
+	  if(mb.exec() == QMessageBox::Yes)
+	    break;
+	  else
+	    {
+	      event->ignore();
+	      return;
+	    }
+	}
 
   saveSettings();
   QMainWindow::closeEvent(event);
