@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
 
   QApplication qapplication(argc, argv);
 
+  qapplication.setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+
 #ifdef Q_OS_MAC
 #if QT_VERSION >= 0x050000
   /*
@@ -60,7 +62,8 @@ int main(int argc, char *argv[])
   QCoreApplication::setOrganizationName("GlowBot");
   QCoreApplication::setOrganizationDomain("glowbot.sf.net");
   QCoreApplication::setApplicationVersion(GLOWBOT_VERSION_STR);
-  QSettings::setPath(QSettings::IniFormat, QSettings::UserScope,
+  QSettings::setPath(QSettings::IniFormat,
+		     QSettings::UserScope,
                      glowbot_misc::homePath());
   QSettings::setDefaultFormat(QSettings::IniFormat);
 
