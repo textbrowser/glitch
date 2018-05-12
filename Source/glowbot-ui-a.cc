@@ -121,6 +121,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 
   QString connectionName("");
   QString name("");
+  QString type("");
   bool ok = true;
 
   {
@@ -133,7 +134,6 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
       {
 	QSqlQuery query(db);
 	QString settings("");
-	QString type("");
 
 	query.setForwardOnly(true);
 
@@ -165,9 +165,14 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 
   if(ok)
     {
-      glowbot_view *view = newArduinoDiagram(name, true);
+      if(type == "ArduinoProject")
+	{
+	  glowbot_view *view = newArduinoDiagram(name, true);
 
-      ok = view->open(fileName, error);
+	  ok = view->open(fileName, error);
+	}
+      else
+	ok = false;
     }
 
   QApplication::restoreOverrideCursor();
