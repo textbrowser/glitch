@@ -326,6 +326,19 @@ void glowbot_ui::saveSettings(void)
   settings.setValue("main_window/geometry", saveGeometry());
 }
 
+void glowbot_ui::setTabText(glowbot_view *view)
+{
+  if(!view)
+    return;
+
+  int index = m_ui.tab->indexOf(view);
+
+  if(view->hasChanged())
+    m_ui.tab->setTabText(index, QString("%1 (*)").arg(view->name()));
+  else
+    m_ui.tab->setTabText(index, view->name());
+}
+
 void glowbot_ui::setWindowTitle(glowbot_view *view)
 {
   if(view)
@@ -414,6 +427,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
   QLabel *label = 0;
   QString name("");
 
+ restart_label:
   dialog.setLabelText
     (tr("Please specify a project name. "
 	"A database file having the provided name will be created in "
@@ -450,7 +464,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
       mb.setWindowTitle(tr("GlowBot: Confirmation"));
 
       if(mb.exec() != QMessageBox::Yes)
-	return;
+	goto restart_label;
     }
 
   newArduinoDiagram(name, false);
@@ -509,6 +523,7 @@ void glowbot_ui::slotPageChanged(void)
 {
   m_ui.action_Save_Current_Diagram->setEnabled(true);
   prepareActionWidgets();
+  setTabText(qobject_cast<glowbot_view *> (sender()));
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
 
@@ -553,6 +568,7 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
 	glowbot_misc::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
 
+      setTabText(view);
       setWindowTitle(view);
     }
 }
@@ -621,7 +637,12 @@ void glowbot_ui::slotSeparate(glowbot_view *view)
   window->setCentralWidget(view);
   view->show();
   window->resize(view->size());
-  window->setWindowTitle(tr("GlowBot: %1").arg(view->name()));
+
+  if(view->hasChanged())
+    window->setWindowTitle(tr("GlowBot: %1 (*)").arg(view->name()));
+  else
+    window->setWindowTitle(tr("GlowBot: %1").arg(view->name()));
+
   window->show();
   prepareActionWidgets();
 }
@@ -682,6 +703,7 @@ void glowbot_ui::slotUnite(glowbot_view *view)
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
+  setTabText(view);
   setWindowTitle(view);
   window->deleteLater();
 }

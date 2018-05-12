@@ -54,6 +54,7 @@ class glowbot_ui: public QMainWindow
   void prepareActionWidgets(void);
   void restoreSettings(void);
   void saveSettings(void);
+  void setTabText(glowbot_view *page);
   void setWindowTitle(glowbot_view *page);
 
  private slots:
