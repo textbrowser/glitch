@@ -32,7 +32,6 @@
 
 #include "ui_glowbot-separated-diagram-window.h"
 
-class glowbot_structures_arduino;
 class glowbot_view;
 
 class glowbot_separated_diagram_window: public QMainWindow
