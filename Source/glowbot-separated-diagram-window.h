@@ -41,12 +41,14 @@ class glowbot_separated_diagram_window: public QMainWindow
  public:
   glowbot_separated_diagram_window(QWidget *parent);
   ~glowbot_separated_diagram_window();
+  void setCentralWidget(QWidget *widget);
 
  private:
   Ui_glowbot_separated_diagram_window m_ui;
   void closeEvent(QCloseEvent *event);
 
  private slots:
+  void slotPageChanged(void);
 };
 
 #endif

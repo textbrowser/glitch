@@ -25,7 +25,11 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QCloseEvent>
+#include <QMessageBox>
+
 #include "glowbot-separated-diagram-window.h"
+#include "glowbot-view.h"
 
 glowbot_separated_diagram_window::
 glowbot_separated_diagram_window(QWidget *parent):QMainWindow(parent)
@@ -39,6 +43,56 @@ glowbot_separated_diagram_window::~glowbot_separated_diagram_window()
 
 void glowbot_separated_diagram_window::closeEvent(QCloseEvent *event)
 {
-  Q_UNUSED(event);
+  if(event)
+    {
+      glowbot_view *view = qobject_cast<glowbot_view *> (centralWidget());
+
+      if(view && view->hasChanged())
+	{
+	  QMessageBox mb(this);
+
+	  mb.setIcon(QMessageBox::Question);
+	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+	  mb.setText
+	    (tr("The display has not been saved. Are you sure that "
+		"you wish to close it?"));
+	  mb.setWindowIcon(windowIcon());
+	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowTitle(tr("GlowBot: Confirmation"));
+
+	  if(mb.exec() != QMessageBox::Yes)
+	    {
+	      event->ignore();
+	      return;
+	    }
+	}
+    }
+
   deleteLater();
+}
+
+void glowbot_separated_diagram_window::setCentralWidget(QWidget *widget)
+{
+  if(qobject_cast<glowbot_view *> (widget))
+    connect(qobject_cast<glowbot_view *> (widget),
+	    SIGNAL(changed(void)),
+	    this,
+	    SLOT(slotPageChanged(void)));
+
+  QMainWindow::setCentralWidget(widget);
+}
+
+void glowbot_separated_diagram_window::slotPageChanged(void)
+{
+  glowbot_view *view = qobject_cast<glowbot_view *> (sender());
+
+  if(view)
+    {
+      if(view->hasChanged())
+	QMainWindow::setWindowTitle(tr("GlowBot: %1 (*)").arg(view->name()));
+      else
+	QMainWindow::setWindowTitle(tr("GlowBot: %1").arg(view->name()));
+    }
+  else
+    QMainWindow::setWindowTitle(tr("GlowBot"));
 }

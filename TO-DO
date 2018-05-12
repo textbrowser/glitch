@@ -24,6 +24,7 @@ Completed Items
 21.    Error dialog.
 22.    setWindowIcon(windowIcon()) on child dialogs.
 23.    Depict changed pages. Window titles, etc.
+24.    Confirm closing of changed separated windows.
 
 Ignored Items
 
@@ -34,7 +35,7 @@ Remaining Items
 1.     Icons.
 2.     Implement Arduino's loop().
 3.     Implement Arduino's setup().
-4.     Confirm closing of changed separated windows.
+4.     Save, Save As on separated windows.
 5.     Apply canvas settings.
 6.     A function panel. The panel should include a list of defined functions.
        Drag and drop support. Warn of recursive uses.
@@ -43,4 +44,3 @@ Remaining Items
 9.     glowbot_canvas_settings::settings().
 10.    Recreating functions and unique names.
 11.    String data type.
-12.    Save, Save As on separated windows.

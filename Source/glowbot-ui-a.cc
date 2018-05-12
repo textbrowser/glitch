@@ -679,6 +679,7 @@ void glowbot_ui::slotTabMoved(int from, int to)
   Q_UNUSED(from);
   Q_UNUSED(to);
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.menu_Tabs->clear();
 
   for(int i = 0; i < m_ui.tab->count(); i++)
@@ -688,6 +689,8 @@ void glowbot_ui::slotTabMoved(int from, int to)
       if(view)
 	m_ui.menu_Tabs->addAction(view->menuAction());
     }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::slotUnite(glowbot_view *view)
