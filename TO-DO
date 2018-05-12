@@ -42,4 +42,3 @@ Remaining Items
 9.     glowbot_canvas_settings::settings().
 10.    Recreating functions and unique names.
 11.    String data type.
-12.    setWindowIcon(windowIcon()) on child dialogs.
