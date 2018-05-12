@@ -32,6 +32,7 @@
 
 #include "glowbot-object-edit-window.h"
 #include "glowbot-object-function-arduino.h"
+#include "glowbot-misc.h"
 #include "glowbot-object-view.h"
 
 QMap<QString, char> glowbot_object_function_arduino::s_functionNames;
@@ -241,7 +242,12 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 	text.append("()");
 
       if(s_functionNames.contains(text))
-	return;
+	{
+	  glowbot_misc::showErrorDialog
+	    (tr("The function %1 is already defined. "
+		"Please select another name.").arg(text), m_parent);
+	  return;
+	}
 
       QString name(m_ui.label->text());
 
