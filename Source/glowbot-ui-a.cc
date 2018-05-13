@@ -197,9 +197,17 @@ glowbot_view *glowbot_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotPageChanged(void)));
   connect(view,
+	  SIGNAL(saved(void)),
+	  this,
+	  SLOT(slotPageSaved(void)));
+  connect(view,
 	  SIGNAL(separate(glowbot_view *)),
 	  this,
 	  SLOT(slotSeparate(glowbot_view *)));
+  connect(view,
+	  SIGNAL(showStructures(void)),
+	  this,
+	  SLOT(slotShowStructures(void)));
   connect(view,
 	  SIGNAL(unite(glowbot_view *)),
 	  this,
@@ -293,12 +301,7 @@ void glowbot_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
-
-      if(findChildren<glowbot_separated_diagram_window *> ().size() > 0)
-	m_ui.action_Structures->setEnabled(true);
-      else
-	m_ui.action_Structures->setEnabled(false);
-
+      m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
     }
   else
@@ -527,6 +530,12 @@ void glowbot_ui::slotPageChanged(void)
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
 
+void glowbot_ui::slotPageSaved(void)
+{
+  setTabText(qobject_cast<glowbot_view *> (sender()));
+  setWindowTitle(qobject_cast<glowbot_view *> (sender()));
+}
+
 void glowbot_ui::slotPageSelected(int index)
 {
   prepareActionWidgets();
@@ -703,6 +712,7 @@ void glowbot_ui::slotUnite(glowbot_view *view)
   if(!window)
     return;
 
+  m_ui.action_Save_Current_Diagram->setEnabled(view->hasChanged());
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();

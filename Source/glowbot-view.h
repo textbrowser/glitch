@@ -91,6 +91,7 @@ class glowbot_view: public QWidget
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name);
   void slotFunctionNameChanged(const QString &before, const QString &after);
+  void slotSave(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
   void slotSeparate(void);
@@ -101,7 +102,9 @@ class glowbot_view: public QWidget
 
  signals:
   void changed(void);
+  void saved(void);
   void separate(glowbot_view *view);
+  void showStructures(void);
   void unite(glowbot_view *view);
 };
 

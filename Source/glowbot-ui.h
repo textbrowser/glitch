@@ -65,6 +65,7 @@ class glowbot_ui: public QMainWindow
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
   void slotPageChanged(void);
+  void slotPageSaved(void);
   void slotPageSelected(int index);
   void slotQuit(void);
   void slotSaveCurrentDiagram(void);

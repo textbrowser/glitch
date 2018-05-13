@@ -49,6 +49,7 @@ class glowbot_separated_diagram_window: public QMainWindow
 
  private slots:
   void slotPageChanged(void);
+  void slotPageSaved(void);
 };
 
 #endif

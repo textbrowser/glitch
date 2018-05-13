@@ -25,6 +25,7 @@ Completed Items
 22.    setWindowIcon(windowIcon()) on child dialogs.
 23.    Depict changed pages. Window titles, etc.
 24.    Confirm closing of changed separated windows.
+25.    Structures context menu on view object.
 
 Ignored Items
 

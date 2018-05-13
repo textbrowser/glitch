@@ -458,9 +458,24 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
   QAction *action = 0;
   QMenu menu(this);
 
+  action = menu.addAction(tr("Save"),
+			  this,
+			  SLOT(slotSave(void)));
+  action->setEnabled(hasChanged());
+  menu.addSeparator();
   menu.addAction(tr("&Alignment Tool..."),
 		 this,
 		 SLOT(slotShowAlignmentTool(void)));
+
+  if(m_projectType == glowbot_common::ArduinoProject)
+    menu.addAction(tr("Arduino &Structures..."),
+		   this,
+		   SIGNAL(showStructures(void)));
+  else
+    menu.addAction(tr("&Structures..."),
+		   this,
+		   SIGNAL(showStructures(void)));
+
   menu.addSeparator();
   action = menu.addAction(tr("Se&parate..."),
 			  this,
@@ -500,6 +515,17 @@ void glowbot_view::slotFunctionNameChanged(const QString &before,
 					   const QString &after)
 {
   m_userFunctions->renameFunction(before, after);
+}
+
+void glowbot_view::slotSave(void)
+{
+  QString error("");
+
+  if(!save(error))
+    glowbot_misc::showErrorDialog
+      (tr("Unable to save %1 (%2).").arg(m_name).arg(error), this);
+  else
+    emit saved();
 }
 
 void glowbot_view::slotSceneObjectDestroyed(QObject *object)

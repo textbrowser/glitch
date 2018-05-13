@@ -74,11 +74,18 @@ void glowbot_separated_diagram_window::closeEvent(QCloseEvent *event)
 void glowbot_separated_diagram_window::setCentralWidget(QWidget *widget)
 {
   if(qobject_cast<glowbot_view *> (widget))
-    connect(qobject_cast<glowbot_view *> (widget),
-	    SIGNAL(changed(void)),
-	    this,
-	    SLOT(slotPageChanged(void)),
-	    Qt::UniqueConnection);
+    {
+      connect(qobject_cast<glowbot_view *> (widget),
+	      SIGNAL(changed(void)),
+	      this,
+	      SLOT(slotPageChanged(void)),
+	      Qt::UniqueConnection);
+      connect(qobject_cast<glowbot_view *> (widget),
+	      SIGNAL(saved(void)),
+	      this,
+	      SLOT(slotPageSaved(void)),
+	      Qt::UniqueConnection);
+    }
 
   QMainWindow::setCentralWidget(widget);
 }
@@ -96,4 +103,9 @@ void glowbot_separated_diagram_window::slotPageChanged(void)
     }
   else
     QMainWindow::setWindowTitle(tr("GlowBot"));
+}
+
+void glowbot_separated_diagram_window::slotPageSaved(void)
+{
+  slotPageChanged();
 }
