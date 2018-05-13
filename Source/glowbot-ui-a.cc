@@ -292,14 +292,14 @@ void glowbot_ui::parseCommandLineArguments(void)
 
 	QString error("");
 
-	if(openDiagram(list.value(i), error))
+	if(i >= list.size())
+	  errors.append(tr("Incorrect usage of --open-arduino-diagram."));
+	else if(openDiagram(list.value(i), error))
 	  prepareActionWidgets();
-	else if(i < list.size())
+	else
 	  errors.append
 	    (tr("An error occurred while processing "
 		"the file %1. (%2)\n\n").arg(list.value(i)).arg(error));
-	else
-	  errors.append(tr("Incorrect usage of --open-arduino-diagram."));
       }
     else if(list.at(i) == "--version")
       {
