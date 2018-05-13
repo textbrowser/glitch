@@ -117,6 +117,14 @@ glowbot_ui::~glowbot_ui()
 
 bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 {
+  QFileInfo fileInfo(fileName);
+
+  if(!fileInfo.isReadable() && !fileInfo.isWritable())
+    {
+      error = tr("The file must be both readable and writable.");
+      return false;
+    }
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
@@ -269,6 +277,7 @@ void glowbot_ui::closeEvent(QCloseEvent *event)
 
 void glowbot_ui::parseCommandLineArguments(void)
 {
+  QString errors("");
   QStringList list(QApplication::arguments());
 
   for(int i = 1; i < list.size(); i++)
@@ -285,10 +294,27 @@ void glowbot_ui::parseCommandLineArguments(void)
 
 	if(openDiagram(list.value(i), error))
 	  prepareActionWidgets();
+	else if(i < list.size())
+	  errors.append
+	    (tr("An error occurred while processing "
+		"the file %1. (%2)\n\n").arg(list.value(i)).arg(error));
+	else
+	  errors.append(tr("Incorrect usage of --open-arduino-diagram."));
       }
     else if(list.at(i) == "--version")
       {
       }
+
+  if(!errors.isEmpty())
+    {
+      QDialog dialog(this);
+      Ui_glowbot_errors_dialog ui;
+
+      ui.setupUi(&dialog);
+      ui.label->setText(tr("The following errors occurred."));
+      ui.text->setPlainText(errors.trimmed());
+      dialog.exec();
+    }
 }
 
 void glowbot_ui::prepareActionWidgets(void)

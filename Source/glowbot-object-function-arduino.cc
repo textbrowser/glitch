@@ -190,7 +190,10 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 	QString str(list.at(i).mid(7));
 
 	str.remove("\"");
-	s_functionNames.remove(str);
+
+	if(s_functionNames.contains(str))
+	  str = nextUniqueFunctionName();
+
 	setProperty("function_name", str);
 	m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
 	m_ui.label->setText(str);

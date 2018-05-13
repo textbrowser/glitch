@@ -128,6 +128,14 @@ bool glowbot_view::hasChanged(void) const
 
 bool glowbot_view::open(const QString &fileName, QString &error)
 {
+  QFileInfo fileInfo(fileName);
+
+  if(!fileInfo.isReadable() && !fileInfo.isWritable())
+    {
+      error = tr("The file must be both readable and writable.");
+      return false;
+    }
+
   m_fileName = fileName;
   disconnect(m_scene,
 	     SIGNAL(changed(void)),
