@@ -26,6 +26,7 @@
 */
 
 #include <QDir>
+#include <QFileDialog>
 #include <QMainWindow>
 #include <QMenu>
 #include <QResizeEvent>
@@ -466,21 +467,24 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
   QAction *action = 0;
   QMenu menu(this);
 
-  action = menu.addAction(tr("Save"),
+  action = menu.addAction(tr("&Save"),
 			  this,
 			  SLOT(slotSave(void)));
   action->setEnabled(hasChanged());
+  menu.addAction(tr("Save &As..."),
+		 this,
+		 SLOT(slotSaveAs(void)));
   menu.addSeparator();
-  menu.addAction(tr("&Alignment Tool..."),
+  menu.addAction(tr("Alignment Tool..."),
 		 this,
 		 SLOT(slotShowAlignmentTool(void)));
 
   if(m_projectType == glowbot_common::ArduinoProject)
-    menu.addAction(tr("Arduino &Structures..."),
+    menu.addAction(tr("Arduino Structures..."),
 		   this,
 		   SIGNAL(showStructures(void)));
   else
-    menu.addAction(tr("&Structures..."),
+    menu.addAction(tr("Structures..."),
 		   this,
 		   SIGNAL(showStructures(void)));
 
@@ -534,6 +538,29 @@ void glowbot_view::slotSave(void)
       (tr("Unable to save %1 (%2).").arg(m_name).arg(error), this);
   else
     emit saved();
+}
+
+void glowbot_view::slotSaveAs(void)
+{
+  QFileDialog dialog(this, tr("GlowBot: Save Current Diagram As"));
+
+  dialog.setAcceptMode(QFileDialog::AcceptSave);
+  dialog.setConfirmOverwrite(true);
+  dialog.setDirectory(glowbot_misc::homePath());
+  dialog.setFileMode(QFileDialog::AnyFile);
+  dialog.setNameFilter("GlowBot Files (*.db)");
+  dialog.setWindowIcon(windowIcon());
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QString error("");
+
+      if(!saveAs(dialog.selectedFiles().value(0), error))
+	glowbot_misc::showErrorDialog
+	  (tr("Unable to save %1 (%2).").arg(m_name).arg(error), this);
+      else
+	emit saved();
+    }
 }
 
 void glowbot_view::slotSceneObjectDestroyed(QObject *object)

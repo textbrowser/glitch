@@ -558,6 +558,7 @@ void glowbot_ui::slotPageChanged(void)
 
 void glowbot_ui::slotPageSaved(void)
 {
+  m_ui.action_Save_Current_Diagram->setEnabled(false);
   setTabText(qobject_cast<glowbot_view *> (sender()));
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
@@ -602,9 +603,12 @@ void glowbot_ui::slotSaveCurrentDiagram(void)
       if(!view->save(error))
 	glowbot_misc::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
-
-      setTabText(view);
-      setWindowTitle(view);
+      else
+	{
+	  m_ui.action_Save_Current_Diagram->setEnabled(false);
+	  setTabText(view);
+	  setWindowTitle(view);
+	}
     }
 }
 
@@ -631,8 +635,12 @@ void glowbot_ui::slotSaveCurrentDiagramAs(void)
 	    glowbot_misc::showErrorDialog
 	      (tr("Unable to save %1 (%2).").arg(view->name()).arg(error),
 	       this);
-
-	  setWindowTitle(view);
+	  else
+	    {
+	      m_ui.action_Save_Current_Diagram->setEnabled(false);
+	      setTabText(view);
+	      setWindowTitle(view);
+	    }
 	}
     }
 }

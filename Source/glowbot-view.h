@@ -92,6 +92,7 @@ class glowbot_view: public QWidget
   void slotFunctionAdded(const QString &name);
   void slotFunctionNameChanged(const QString &before, const QString &after);
   void slotSave(void);
+  void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
   void slotSeparate(void);
