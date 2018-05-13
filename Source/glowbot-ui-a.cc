@@ -341,7 +341,7 @@ void glowbot_ui::setTabText(glowbot_view *view)
 
 void glowbot_ui::setWindowTitle(glowbot_view *view)
 {
-  if(view)
+  if(m_ui.tab->currentWidget() == view && view)
     {
       if(view->hasChanged())
 	QMainWindow::setWindowTitle(tr("GlowBot: %1 (*)").arg(view->name()));

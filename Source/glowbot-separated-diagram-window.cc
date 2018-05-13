@@ -77,7 +77,8 @@ void glowbot_separated_diagram_window::setCentralWidget(QWidget *widget)
     connect(qobject_cast<glowbot_view *> (widget),
 	    SIGNAL(changed(void)),
 	    this,
-	    SLOT(slotPageChanged(void)));
+	    SLOT(slotPageChanged(void)),
+	    Qt::UniqueConnection);
 
   QMainWindow::setCentralWidget(widget);
 }
