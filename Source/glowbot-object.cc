@@ -29,10 +29,10 @@
 #include <QSqlQuery>
 #include <QtDebug>
 
-#include "glowbot-object.h"
-#include "glowbot-object-analog-read-arduino.h"
-#include "glowbot-object-function-arduino.h"
+#include "Arduino/glowbot-object-analog-read-arduino.h"
+#include "Arduino/glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
+#include "glowbot-object.h"
 #include "glowbot-style-sheet.h"
 #include "glowbot-view.h"
 

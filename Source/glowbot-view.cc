@@ -34,10 +34,10 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+#include "Arduino/glowbot-object-function-arduino.h"
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
-#include "glowbot-object-function-arduino.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"

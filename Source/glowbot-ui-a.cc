@@ -34,12 +34,12 @@
 #include <QSettings>
 #include <QSqlQuery>
 
+#include "Arduino/glowbot-structures-arduino.h"
+#include "Arduino/glowbot-view-arduino.h"
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
 #include "glowbot-separated-diagram-window.h"
-#include "glowbot-structures-arduino.h"
 #include "glowbot-ui.h"
-#include "glowbot-view-arduino.h"
 #include "ui_glowbot-errors-dialog.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(0)

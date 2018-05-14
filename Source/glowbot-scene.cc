@@ -30,8 +30,8 @@
 #include <QGraphicsView>
 #include <QMimeData>
 
-#include "glowbot-object-analog-read-arduino.h"
-#include "glowbot-object-function-arduino.h"
+#include "Arduino/glowbot-object-analog-read-arduino.h"
+#include "Arduino/glowbot-object-function-arduino.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
