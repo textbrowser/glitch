@@ -103,6 +103,8 @@ QString glowbot_canvas_settings::settings(void) const
 
 bool glowbot_canvas_settings::save(QString &error) const
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   QString connectionName("");
   bool ok = false;
 
@@ -163,6 +165,7 @@ bool glowbot_canvas_settings::save(QString &error) const
   }
 
   glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
   return ok;
 }
 
@@ -246,9 +249,9 @@ void glowbot_canvas_settings::slotSelectBackgroundColor(void)
     {
       QColor color(dialog.selectedColor());
 
-      m_ui.background_color->setText(color.name());
       m_ui.background_color->setStyleSheet
 	(QString("QPushButton {background-color: %1;}").
 	 arg(color.name()));
+      m_ui.background_color->setText(color.name());
     }
 }
