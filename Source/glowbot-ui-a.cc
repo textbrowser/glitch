@@ -192,6 +192,7 @@ glowbot_view *glowbot_ui::newArduinoDiagram
 {
   QString name(n);
 
+  name.remove("(*)");
   name.replace(" ", "-");
 
   if(name.isEmpty())

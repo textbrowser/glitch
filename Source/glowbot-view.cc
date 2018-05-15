@@ -52,6 +52,8 @@ glowbot_view::glowbot_view
   m_ui.setupUi(this);
   m_alignment = new glowbot_alignment(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
+  m_canvasSettings->setFileName
+    (glowbot_misc::homePath() + QDir::separator() + name + ".db");
   m_changed = false;
   m_fileName = glowbot_misc::homePath() + QDir::separator() + name + ".db";
   m_menuAction = new QAction(QIcon(":/Logo/glowbot-arduino-logo.png"),
@@ -137,6 +139,7 @@ bool glowbot_view::open(const QString &fileName, QString &error)
       return false;
     }
 
+  m_canvasSettings->setFileName(fileName);
   m_fileName = fileName;
   disconnect(m_scene,
 	     SIGNAL(changed(void)),
@@ -211,6 +214,7 @@ bool glowbot_view::saveAs(const QString &fileName, QString &error)
 {
   if(saveImplementation(fileName, error))
     {
+      m_canvasSettings->setFileName(fileName);
       m_fileName = fileName;
       return true;
     }
@@ -449,7 +453,11 @@ void glowbot_view::showAlignment(void)
 
 void glowbot_view::slotCanvasSettingsChanged(void)
 {
-  m_changed = true;
+  /*
+  ** Canvas settings are applied immediately.
+  */
+
+  m_name = m_canvasSettings->name();
   m_view->setBackgroundBrush
     (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());

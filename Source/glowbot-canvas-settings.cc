@@ -49,6 +49,10 @@ glowbot_canvas_settings::glowbot_canvas_settings(QWidget *parent):
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotSelectBackgroundColor(void)));
+  connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(accept(void)));
   setWindowModality(Qt::NonModal);
 }
 
@@ -79,6 +83,11 @@ viewportUpdateMode(void) const
     }
 }
 
+QString glowbot_canvas_settings::name(void) const
+{
+  return m_ui.name->text();
+}
+
 QString glowbot_canvas_settings::settings(void) const
 {
   return "";
@@ -93,9 +102,7 @@ bool glowbot_canvas_settings::save(QString &error) const
     QSqlDatabase db(glowbot_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName
-      (glowbot_misc::homePath() + QDir::separator() +
-       QString("%1.db").arg(m_ui.name->text()));
+    db.setDatabaseName(m_fileName);
 
     if(db.open())
       {
@@ -111,6 +118,13 @@ bool glowbot_canvas_settings::save(QString &error) const
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart'))"
 	   ")");
+
+	if(!(ok = query.exec("DELETE FROM canvas_settings")))
+	  {
+	    error = query.lastError().text();
+	    goto done_label;
+	  }
+
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
@@ -118,18 +132,18 @@ bool glowbot_canvas_settings::save(QString &error) const
 	   "project_type, "
 	   "update_mode) "
 	   "VALUES (?, ?, ?, ?)");
-	query.bindValue(0, m_ui.background_color->text());
+	query.addBindValue(m_ui.background_color->text());
 
 	QString name(m_ui.name->text().trimmed());
 
 	if(name.isEmpty())
-	  query.bindValue(1, QVariant::String);
+	  query.addBindValue(QVariant::String);
 	else
-	  query.bindValue(1, name);
+	  query.addBindValue(name);
 
-	query.bindValue(2, m_ui.project_type->currentText());
-	query.bindValue
-	  (3, m_ui.update_mode->currentText().toLower().replace(' ', '_'));
+	query.addBindValue(m_ui.project_type->currentText());
+	query.addBindValue
+	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
 
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
@@ -137,6 +151,7 @@ bool glowbot_canvas_settings::save(QString &error) const
     else
       error = db.lastError().text();
 
+  done_label:
     db.close();
   }
 
@@ -149,14 +164,23 @@ void glowbot_canvas_settings::accept(void)
   QString error("");
 
   if(save(error))
-    QDialog::accept();
+    {
+      setResult(QDialog::Accepted);
+      emit accepted();
+    }
   else
-    glowbot_misc::showErrorDialog(error, this);
+    glowbot_misc::showErrorDialog
+      (QString("An error (%1) occurred.").arg(error), this);
+}
+
+void glowbot_canvas_settings::setFileName(const QString &fileName)
+{
+  m_fileName = fileName;
 }
 
 void glowbot_canvas_settings::setName(const QString &name)
 {
-  m_ui.name->setText(name.trimmed());
+  m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
 }
 
 void glowbot_canvas_settings::setViewportUpdateMode
