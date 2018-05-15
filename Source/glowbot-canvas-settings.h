@@ -51,6 +51,7 @@ class glowbot_canvas_settings: public QDialog
  private:
   QString m_fileName;
   Ui_glowbot_canvas_settings m_ui;
+  QString defaultName(void) const;
   bool save(QString &error) const;
 
  private slots:

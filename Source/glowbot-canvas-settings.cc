@@ -83,6 +83,14 @@ viewportUpdateMode(void) const
     }
 }
 
+QString glowbot_canvas_settings::defaultName(void) const
+{
+  if(m_ui.project_type->currentText() == tr("Arduino"))
+    return "Arduino-Diagram";
+  else
+    return "Diagram";
+}
+
 QString glowbot_canvas_settings::name(void) const
 {
   return m_ui.name->text();
@@ -137,10 +145,9 @@ bool glowbot_canvas_settings::save(QString &error) const
 	QString name(m_ui.name->text().trimmed());
 
 	if(name.isEmpty())
-	  query.addBindValue(QVariant::String);
-	else
-	  query.addBindValue(name);
+	  name = defaultName();
 
+	query.addBindValue(name);
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue
 	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
@@ -162,6 +169,10 @@ bool glowbot_canvas_settings::save(QString &error) const
 void glowbot_canvas_settings::accept(void)
 {
   QString error("");
+  QString name(m_ui.name->text().trimmed());
+
+  if(name.isEmpty())
+    m_ui.name->setText(defaultName());
 
   if(save(error))
     {
@@ -180,7 +191,10 @@ void glowbot_canvas_settings::setFileName(const QString &fileName)
 
 void glowbot_canvas_settings::setName(const QString &name)
 {
-  m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
+  if(name.trimmed().isEmpty())
+    m_ui.name->setText(defaultName());
+  else
+    m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
 }
 
 void glowbot_canvas_settings::setViewportUpdateMode
