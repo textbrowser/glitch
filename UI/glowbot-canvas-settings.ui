@@ -37,6 +37,16 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>If the Apply button is pressed, the below settings will be saved to the respective database file.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_2">
@@ -75,7 +85,10 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Canvas Name</string>
+            <string>Canvas &amp;Name</string>
+           </property>
+           <property name="buddy">
+            <cstring>name</cstring>
            </property>
           </widget>
          </item>
@@ -105,7 +118,7 @@
             <string>Project Type</string>
            </property>
            <property name="buddy">
-            <cstring>update_mode</cstring>
+            <cstring>project_type</cstring>
            </property>
           </widget>
          </item>
@@ -147,7 +160,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>&amp;Update Mode</string>
+            <string>View &amp;Update Mode</string>
            </property>
            <property name="buddy">
             <cstring>update_mode</cstring>
@@ -203,12 +216,6 @@
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>359</height>
-          </size>
          </property>
         </spacer>
        </item>
