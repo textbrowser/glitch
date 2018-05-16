@@ -187,9 +187,75 @@ void glowbot_canvas_settings::accept(void)
       (QString("An error (%1) occurred.").arg(error), this);
 }
 
+void glowbot_canvas_settings::prepare(void)
+{
+  QFileInfo fileInfo(m_fileName);
+
+  if(!fileInfo.isReadable())
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_fileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	if(query.exec("SELECT background_color, "
+		      "name, "
+		      "project_type, "
+		      "update_mode "
+		      "FROM canvas_settings") && query.next())
+	  {
+	    QColor color(query.value(0).toString().trimmed());
+	    QString name(query.value(1).toString().trimmed());
+	    QString projectType(query.value(2).toString().trimmed());
+	    QString updateMode(query.value(3).toString().trimmed());
+
+	    if(!color.isValid())
+	      color = QColor(211, 211, 211);
+
+	    m_ui.background_color->setStyleSheet
+	      (QString("QPushButton {background-color: %1}").arg(color.name()));
+	    m_ui.background_color->setText(color.name());
+	    m_ui.project_type->setCurrentIndex
+	      (m_ui.project_type->findText(projectType));
+
+	    if(m_ui.project_type->currentIndex() < 0)
+	      m_ui.project_type->setCurrentIndex(0);
+
+	    if(name.isEmpty())
+	      name = defaultName();
+
+	    m_ui.name->setText(name);
+	    m_ui.update_mode->setCurrentIndex
+	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
+
+	    if(m_ui.update_mode->currentIndex() < 0)
+	      m_ui.update_mode->setCurrentIndex(1); // Full
+
+	    emit accepted();
+	  }
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
+}
+
 void glowbot_canvas_settings::setFileName(const QString &fileName)
 {
   m_fileName = fileName;
+  prepare();
 }
 
 void glowbot_canvas_settings::setName(const QString &name)
