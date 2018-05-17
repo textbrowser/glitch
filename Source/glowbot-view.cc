@@ -241,10 +241,9 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
 	QSqlQuery query(db);
 
 	query.prepare("INSERT OR REPLACE INTO diagram "
-		      "(name, settings_ini, type) "
-		      "VALUES (?, ?, ?)");
+		      "(name, type) "
+		      "VALUES (?, ?)");
 	query.addBindValue(m_name);
-	query.addBindValue(m_canvasSettings->settings());
 	query.addBindValue(glowbot_common::projectTypeToString(m_projectType));
 	ok = query.exec();
 
@@ -372,7 +371,6 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 
 	query.exec("CREATE TABLE IF NOT EXISTS diagram ("
 		   "name TEXT NOT NULL PRIMARY KEY, "
-		   "settings_ini TEXT NOT NULL, "
 		   "type TEXT NOT NULL)");
 	query.exec("CREATE TABLE IF NOT EXISTS objects ("
 		   "myoid INTEGER NOT NULL UNIQUE, "

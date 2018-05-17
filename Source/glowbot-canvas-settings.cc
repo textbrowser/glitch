@@ -96,11 +96,6 @@ QString glowbot_canvas_settings::name(void) const
   return m_ui.name->text();
 }
 
-QString glowbot_canvas_settings::settings(void) const
-{
-  return "";
-}
-
 bool glowbot_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

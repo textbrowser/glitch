@@ -29,6 +29,9 @@ Completed Items
 26.    Recreating functions and unique names.
 27.    Save, Save As on separated windows.
 28.    The name of the display in settings should be separate from the file name.
+29.    glowbot_canvas_settings::settings(). Not needed.
+30.    Save canvas settings.
+31.    Apply canvas settings.
 
 Ignored Items
 
@@ -40,10 +43,7 @@ Remaining Items
 2.     Implement Arduino's loop().
 3.     Implement Arduino's setup().
 4.     Context menu on main tab widget.
-5.     Apply canvas settings.
-6.     A function panel. The panel should include a list of defined functions.
+5.     A function panel. The panel should include a list of defined functions.
        Drag and drop support. Warn of recursive uses.
-7.     Inspect coordinates upon opening of diagrams. Adjust.
-8.     Save canvas settings.
-9.     glowbot_canvas_settings::settings().
-10.    String data type.
+6.     Inspect coordinates upon opening of diagrams. Adjust.
+7.     String data type.
