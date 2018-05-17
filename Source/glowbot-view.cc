@@ -240,6 +240,14 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
       {
 	QSqlQuery query(db);
 
+	ok = query.exec("DELETE FROM diagram");
+
+	if(!ok)
+	  {
+	    error = query.lastError().text();
+	    goto done_label;
+	  }
+
 	query.prepare("INSERT OR REPLACE INTO diagram "
 		      "(name, type) "
 		      "VALUES (?, ?)");
@@ -250,7 +258,6 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
 	if(!ok)
 	  {
 	    error = query.lastError().text();
-	    db.close();
 	    goto done_label;
 	  }
 
@@ -282,10 +289,10 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
     else
       error = db.lastError().text();
 
+  done_label:
     db.close();
   }
 
- done_label:
   glowbot_common::discardDatabase(connectionName);
   m_changed = !ok;
   QApplication::restoreOverrideCursor();
