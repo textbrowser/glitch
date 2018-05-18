@@ -58,6 +58,7 @@ void glowbot_user_functions::addFunction(const QString &name)
     {
       QTableWidgetItem *item = new QTableWidgetItem(name);
 
+      item->setData(Qt::UserRole, "glowbot-user-function");
       item->setFlags
 	(Qt::ItemIsDragEnabled | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.functions->setRowCount(m_ui.functions->rowCount() + 1);
