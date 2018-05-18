@@ -57,8 +57,10 @@ int main(int argc, char *argv[])
   CocoaInitializer ci;
 #endif
 #endif
-
   QCoreApplication::setApplicationName("GlowBot");
+#if QT_VERSION >= 0x050700
+  QApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
+#endif
   QCoreApplication::setOrganizationName("GlowBot");
   QCoreApplication::setOrganizationDomain("glowbot.sf.net");
   QCoreApplication::setApplicationVersion(GLOWBOT_VERSION_STR);
