@@ -141,16 +141,14 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
     if((ok = db.open()))
       {
 	QSqlQuery query(db);
-	QString settings("");
 
 	query.setForwardOnly(true);
 
-	if(query.exec("SELECT name, settings_ini, type FROM diagram"))
+	if(query.exec("SELECT name, type FROM diagram"))
 	  if(query.next())
 	    {
 	      name = query.value(0).toString().trimmed();
-	      settings = query.value(1).toString().trimmed();
-	      type = query.value(2).toString().trimmed();
+	      type = query.value(1).toString().trimmed();
 	    }
 
 	if(name.isEmpty() || type != "ArduinoProject")

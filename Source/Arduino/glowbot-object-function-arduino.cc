@@ -244,6 +244,9 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       else
 	text.append("()");
 
+      if(m_ui.label->text() == text)
+	return;
+
       if(s_functionNames.contains(text))
 	{
 	  glowbot_misc::showErrorDialog
