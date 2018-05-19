@@ -30,15 +30,19 @@
 #include <QGraphicsView>
 #include <QMimeData>
 #include <QTableWidget>
+#include <QtDebug>
 
 #include "Arduino/glowbot-object-analog-read-arduino.h"
 #include "Arduino/glowbot-object-function-arduino.h"
+#include "Arduino/glowbot-structures-arduino.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 
-glowbot_scene::glowbot_scene(QObject *parent):QGraphicsScene(parent)
+glowbot_scene::glowbot_scene(const glowbot_common::ProjectType projectType,
+			     QObject *parent):QGraphicsScene(parent)
 {
   m_mainScene = false;
+  m_projectType = projectType;
 }
 
 glowbot_scene::~glowbot_scene()
@@ -67,32 +71,42 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	}
       else
 	{
-	  if(text.startsWith("glowbot-arduino-analogread()"))
+	  switch(m_projectType)
 	    {
-	      event->accept();
-	      return true;
-	    }
-	  else
-	    {
-	      QTableWidget *tableWidget = qobject_cast<QTableWidget *>
-		(event->source());
+	    case glowbot_common::ArduinoProject:
+	      {
+		/*
+		** glowbot-
+		*/
 
-	      if(tableWidget)
+		if(glowbot_structures_arduino::containsStructure(text.mid(8)))
+		  return true;
+
+		break;
+	      }
+	    default:
+	      {
+		break;
+	      }
+	    }
+
+	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
+	    (event->source());
+
+	  if(tableWidget)
+	    {
+	      QTableWidgetItem *item = tableWidget->currentItem();
+
+	      if(item &&
+		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
 		{
-		  QTableWidgetItem *item = tableWidget->currentItem();
-
-		  if(item &&
-		     item->data(Qt::UserRole).toString() ==
-		     "glowbot-user-function")
-		    {
-		      event->accept();
-		      return true;
-		    }
+		  event->accept();
+		  return true;
 		}
-
-	      event->ignore();
-	      return false;
 	    }
+
+	  event->ignore();
+	  return false;
 	}
     }
 }

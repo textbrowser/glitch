@@ -31,6 +31,8 @@
 #include <QGraphicsView>
 #include <QSqlDatabase>
 
+#include "glowbot-common.h"
+
 class glowbot_alignment;
 class glowbot_scene;
 
@@ -39,7 +41,9 @@ class glowbot_object_view: public QGraphicsView
   Q_OBJECT
 
  public:
-  glowbot_object_view(const quint64 id, QWidget *parent);
+  glowbot_object_view(const glowbot_common::ProjectType projectType,
+		      const quint64 id,
+		      QWidget *parent);
   ~glowbot_object_view();
   quint64 id(void) const;
   void save(const QSqlDatabase &db, QString &error);
@@ -47,6 +51,7 @@ class glowbot_object_view: public QGraphicsView
 
  private:
   glowbot_alignment *m_alignment;
+  glowbot_common::ProjectType m_projectType;
   glowbot_scene *m_scene;
   quint64 m_id;
   void contextMenuEvent(QContextMenuEvent *event);

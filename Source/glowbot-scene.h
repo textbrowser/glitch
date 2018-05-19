@@ -30,6 +30,8 @@
 
 #include <QGraphicsScene>
 
+#include "glowbot-common.h"
+
 class glowbot_object;
 
 class glowbot_scene: public QGraphicsScene
@@ -37,7 +39,7 @@ class glowbot_scene: public QGraphicsScene
   Q_OBJECT
 
  public:
-  glowbot_scene(QObject *parent);
+  glowbot_scene(const glowbot_common::ProjectType projectType, QObject *parent);
   ~glowbot_scene();
   void addObject(const QPointF &point, glowbot_object *object);
   void deleteItems(void);
@@ -46,6 +48,7 @@ class glowbot_scene: public QGraphicsScene
  private:
   QPointF m_lastScenePos;
   bool m_mainScene;
+  glowbot_common::ProjectType m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);

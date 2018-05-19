@@ -27,6 +27,8 @@
 
 #include "glowbot-structures-arduino.h"
 
+QMap<QString, char> glowbot_structures_arduino::s_structureNamesMap;
+
 glowbot_structures_arduino::glowbot_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
@@ -78,119 +80,125 @@ glowbot_structures_arduino::~glowbot_structures_arduino()
 
 QStringList glowbot_structures_arduino::structureNames(void)
 {
-  QStringList list;
+  if(!s_structureNamesMap.isEmpty())
+    return s_structureNamesMap.keys();
 
-  list << "arduino-HIGH"
-       << "arduino-INPUT"
-       << "arduino-INPUT_PULLUP"
-       << "arduino-LED_BUILTIN"
-       << "arduino-LOW"
-       << "arduino-OUTPUT"
-       << "arduino-PROGMEM"
-       << "arduino-Serial.begin()"
-       << "arduino-Serial.println()"
-       << "arduino-abs()"
-       << "arduino-addition (+)"
-       << "arduino-addition (+=)"
-       << "arduino-analogRead()"
-       << "arduino-analogReference()"
-       << "arduino-analogWrite()"
-       << "arduino-and (&&)"
-       << "arduino-and (&)"
-       << "arduino-array boolean"
-       << "arduino-array byte"
-       << "arduino-array char"
-       << "arduino-array double"
-       << "arduino-array float"
-       << "arduino-array int"
-       << "arduino-array long"
-       << "arduino-array short"
-       << "arduino-array unsigned char"
-       << "arduino-array unsigned int"
-       << "arduino-array unsigned long"
-       << "arduino-array word"
-       << "arduino-assignment (=)"
-       << "arduino-attachInterrupt()"
-       << "arduino-bit()"
-       << "arduino-bitClear()"
-       << "arduino-bitRead()"
-       << "arduino-bitSet()"
-       << "arduino-bitWrite()"
-       << "arduino-bitwise and (&=)"
-       << "arduino-bitwise or (|=)"
-       << "arduino-block comment"
-       << "arduino-break"
-       << "arduino-byte()"
-       << "arduino-char()"
-       << "arduino-constrain()"
-       << "arduino-continue"
-       << "arduino-cos()"
-       << "arduino-decrement (--)"
-       << "arduino-delay()"
-       << "arduino-delayMicroseconds()"
-       << "arduino-detachInterrupt()"
-       << "arduino-digitalRead()"
-       << "arduino-digitalWrite()"
-       << "arduino-division (/)"
-       << "arduino-division (/=)"
-       << "arduino-do while loop"
-       << "arduino-equal to (==)"
-       << "arduino-false"
-       << "arduino-float()"
-       << "arduino-for loop"
-       << "arduino-function()"
-       << "arduino-goto"
-       << "arduino-greater than (>)"
-       << "arduino-greater than or equal to (>=)"
-       << "arduino-highByte()"
-       << "arduino-if statement"
-       << "arduino-if-else statement"
-       << "arduino-increment (++)"
-       << "arduino-int()"
-       << "arduino-interrupts()"
-       << "arduino-left shift (<<)"
-       << "arduino-less than (<)"
-       << "arduino-less than or equal to (<=)"
-       << "arduino-long()"
-       << "arduino-lowByte()"
-       << "arduino-map()"
-       << "arduino-max()"
-       << "arduino-micros()"
-       << "arduino-millis()"
-       << "arduino-min()"
-       << "arduino-modulo (%)"
-       << "arduino-modulo (%=)"
-       << "arduino-multiplication (*)"
-       << "arduino-multiplication (*=)"
-       << "arduino-noInterrupts()"
-       << "arduino-noTone()"
-       << "arduino-not (!)"
-       << "arduino-not (~)"
-       << "arduino-not equal to (!=)"
-       << "arduino-or (|)"
-       << "arduino-or (||)"
-       << "arduino-pinMode()"
-       << "arduino-pow()"
-       << "arduino-pulseIn()"
-       << "arduino-random()"
-       << "arduino-randomSeed()"
-       << "arduino-return"
-       << "arduino-right shift (>>)"
-       << "arduino-shiftIn()"
-       << "arduino-shiftOut()"
-       << "arduino-sin()"
-       << "arduino-sizeof()"
-       << "arduino-sqrt()"
-       << "arduino-subtraction (-)"
-       << "arduino-subtraction (-=)"
-       << "arduino-switch case"
-       << "arduino-tan()"
-       << "arduino-tone()"
-       << "arduino-true"
-       << "arduino-while loop"
-       << "arduino-word()"
-       << "arduino-xor (^)";
-  return list;
+  s_structureNamesMap["arduino-HIGH"] = 0;
+  s_structureNamesMap["arduino-INPUT"] = 0;
+  s_structureNamesMap["arduino-INPUT_PULLUP"] = 0;
+  s_structureNamesMap["arduino-LED_BUILTIN"] = 0;
+  s_structureNamesMap["arduino-LOW"] = 0;
+  s_structureNamesMap["arduino-OUTPUT"] = 0;
+  s_structureNamesMap["arduino-PROGMEM"] = 0;
+  s_structureNamesMap["arduino-Serial.begin()"] = 0;
+  s_structureNamesMap["arduino-Serial.println()"] = 0;
+  s_structureNamesMap["arduino-abs()"] = 0;
+  s_structureNamesMap["arduino-addition (+)"] = 0;
+  s_structureNamesMap["arduino-addition (+=)"] = 0;
+  s_structureNamesMap["arduino-analogRead()"] = 0;
+  s_structureNamesMap["arduino-analogReference()"] = 0;
+  s_structureNamesMap["arduino-analogWrite()"] = 0;
+  s_structureNamesMap["arduino-and (&&)"] = 0;
+  s_structureNamesMap["arduino-and (&)"] = 0;
+  s_structureNamesMap["arduino-array boolean"] = 0;
+  s_structureNamesMap["arduino-array byte"] = 0;
+  s_structureNamesMap["arduino-array char"] = 0;
+  s_structureNamesMap["arduino-array double"] = 0;
+  s_structureNamesMap["arduino-array float"] = 0;
+  s_structureNamesMap["arduino-array int"] = 0;
+  s_structureNamesMap["arduino-array long"] = 0;
+  s_structureNamesMap["arduino-array short"] = 0;
+  s_structureNamesMap["arduino-array unsigned char"] = 0;
+  s_structureNamesMap["arduino-array unsigned int"] = 0;
+  s_structureNamesMap["arduino-array unsigned long"] = 0;
+  s_structureNamesMap["arduino-array word"] = 0;
+  s_structureNamesMap["arduino-assignment (=)"] = 0;
+  s_structureNamesMap["arduino-attachInterrupt()"] = 0;
+  s_structureNamesMap["arduino-bit()"] = 0;
+  s_structureNamesMap["arduino-bitClear()"] = 0;
+  s_structureNamesMap["arduino-bitRead()"] = 0;
+  s_structureNamesMap["arduino-bitSet()"] = 0;
+  s_structureNamesMap["arduino-bitWrite()"] = 0;
+  s_structureNamesMap["arduino-bitwise and (&=)"] = 0;
+  s_structureNamesMap["arduino-bitwise or (|=)"] = 0;
+  s_structureNamesMap["arduino-block comment"] = 0;
+  s_structureNamesMap["arduino-break"] = 0;
+  s_structureNamesMap["arduino-byte()"] = 0;
+  s_structureNamesMap["arduino-char()"] = 0;
+  s_structureNamesMap["arduino-constrain()"] = 0;
+  s_structureNamesMap["arduino-continue"] = 0;
+  s_structureNamesMap["arduino-cos()"] = 0;
+  s_structureNamesMap["arduino-decrement (--)"] = 0;
+  s_structureNamesMap["arduino-delay()"] = 0;
+  s_structureNamesMap["arduino-delayMicroseconds()"] = 0;
+  s_structureNamesMap["arduino-detachInterrupt()"] = 0;
+  s_structureNamesMap["arduino-digitalRead()"] = 0;
+  s_structureNamesMap["arduino-digitalWrite()"] = 0;
+  s_structureNamesMap["arduino-division (/)"] = 0;
+  s_structureNamesMap["arduino-division (/=)"] = 0;
+  s_structureNamesMap["arduino-do while loop"] = 0;
+  s_structureNamesMap["arduino-equal to (==)"] = 0;
+  s_structureNamesMap["arduino-false"] = 0;
+  s_structureNamesMap["arduino-float()"] = 0;
+  s_structureNamesMap["arduino-for loop"] = 0;
+  s_structureNamesMap["arduino-function()"] = 0;
+  s_structureNamesMap["arduino-goto"] = 0;
+  s_structureNamesMap["arduino-greater than (>)"] = 0;
+  s_structureNamesMap["arduino-greater than or equal to (>=)"] = 0;
+  s_structureNamesMap["arduino-highByte()"] = 0;
+  s_structureNamesMap["arduino-if statement"] = 0;
+  s_structureNamesMap["arduino-if-else statement"] = 0;
+  s_structureNamesMap["arduino-increment (++)"] = 0;
+  s_structureNamesMap["arduino-int()"] = 0;
+  s_structureNamesMap["arduino-interrupts()"] = 0;
+  s_structureNamesMap["arduino-left shift (<<)"] = 0;
+  s_structureNamesMap["arduino-less than (<)"] = 0;
+  s_structureNamesMap["arduino-less than or equal to (<=)"] = 0;
+  s_structureNamesMap["arduino-long()"] = 0;
+  s_structureNamesMap["arduino-lowByte()"] = 0;
+  s_structureNamesMap["arduino-map()"] = 0;
+  s_structureNamesMap["arduino-max()"] = 0;
+  s_structureNamesMap["arduino-micros()"] = 0;
+  s_structureNamesMap["arduino-millis()"] = 0;
+  s_structureNamesMap["arduino-min()"] = 0;
+  s_structureNamesMap["arduino-modulo (%)"] = 0;
+  s_structureNamesMap["arduino-modulo (%=)"] = 0;
+  s_structureNamesMap["arduino-multiplication (*)"] = 0;
+  s_structureNamesMap["arduino-multiplication (*=)"] = 0;
+  s_structureNamesMap["arduino-noInterrupts()"] = 0;
+  s_structureNamesMap["arduino-noTone()"] = 0;
+  s_structureNamesMap["arduino-not (!)"] = 0;
+  s_structureNamesMap["arduino-not (~)"] = 0;
+  s_structureNamesMap["arduino-not equal to (!=)"] = 0;
+  s_structureNamesMap["arduino-or (|)"] = 0;
+  s_structureNamesMap["arduino-or (||)"] = 0;
+  s_structureNamesMap["arduino-pinMode()"] = 0;
+  s_structureNamesMap["arduino-pow()"] = 0;
+  s_structureNamesMap["arduino-pulseIn()"] = 0;
+  s_structureNamesMap["arduino-random()"] = 0;
+  s_structureNamesMap["arduino-randomSeed()"] = 0;
+  s_structureNamesMap["arduino-return"] = 0;
+  s_structureNamesMap["arduino-right shift (>>)"] = 0;
+  s_structureNamesMap["arduino-shiftIn()"] = 0;
+  s_structureNamesMap["arduino-shiftOut()"] = 0;
+  s_structureNamesMap["arduino-sin()"] = 0;
+  s_structureNamesMap["arduino-sizeof()"] = 0;
+  s_structureNamesMap["arduino-sqrt()"] = 0;
+  s_structureNamesMap["arduino-subtraction (-)"] = 0;
+  s_structureNamesMap["arduino-subtraction (-=)"] = 0;
+  s_structureNamesMap["arduino-switch case"] = 0;
+  s_structureNamesMap["arduino-tan()"] = 0;
+  s_structureNamesMap["arduino-tone()"] = 0;
+  s_structureNamesMap["arduino-true"] = 0;
+  s_structureNamesMap["arduino-while loop"] = 0;
+  s_structureNamesMap["arduino-word()"] = 0;
+  s_structureNamesMap["arduino-xor (^)"] = 0;
+  return s_structureNamesMap.keys();
+}
+
+bool glowbot_structures_arduino::containsStructure(const QString &structureName)
+{
+  return s_structureNamesMap.contains(structureName);
 }
 
 void glowbot_structures_arduino::slotCategorySelected(void)

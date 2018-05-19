@@ -40,9 +40,11 @@ class glowbot_structures_arduino: public QDialog
   glowbot_structures_arduino(QWidget *parent);
   ~glowbot_structures_arduino();
   static QStringList structureNames(void);
+  static bool containsStructure(const QString &structureName);
 
  private:
   Ui_glowbot_structures m_ui;
+  static QMap<QString, char> s_structureNamesMap;
 
  private slots:
   void slotCategorySelected(void);

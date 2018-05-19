@@ -61,7 +61,7 @@ glowbot_view::glowbot_view
 			     this);
   m_name = name;
   m_projectType = projectType;
-  m_scene = new glowbot_scene(this);
+  m_scene = new glowbot_scene(m_projectType, this);
   m_scene->setMainScene(true);
   m_startObject = 0;
   m_userFunctions = new glowbot_user_functions(this);
