@@ -76,7 +76,7 @@ glowbot_structures_arduino::~glowbot_structures_arduino()
 {
 }
 
-QStringList glowbot_structures_arduino::structureNames(void) const
+QStringList glowbot_structures_arduino::structureNames(void)
 {
   QStringList list;
 

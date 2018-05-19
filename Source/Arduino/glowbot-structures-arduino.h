@@ -39,7 +39,7 @@ class glowbot_structures_arduino: public QDialog
  public:
   glowbot_structures_arduino(QWidget *parent);
   ~glowbot_structures_arduino();
-  QStringList structureNames(void) const;
+  static QStringList structureNames(void);
 
  private:
   Ui_glowbot_structures m_ui;
