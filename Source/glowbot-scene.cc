@@ -74,6 +74,22 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    }
 	  else
 	    {
+	      QTableWidget *tableWidget = qobject_cast<QTableWidget *>
+		(event->source());
+
+	      if(tableWidget)
+		{
+		  QTableWidgetItem *item = tableWidget->currentItem();
+
+		  if(item &&
+		     item->data(Qt::UserRole).toString() ==
+		     "glowbot-user-function")
+		    {
+		      event->accept();
+		      return true;
+		    }
+		}
+
 	      event->ignore();
 	      return false;
 	    }
@@ -166,23 +182,6 @@ void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  return;
 	}
-      else if(!m_mainScene)
-	{
-	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
-	    (event->source());
-
-	  if(tableWidget)
-	    {
-	      QTableWidgetItem *item = tableWidget->currentItem();
-
-	      if(item &&
-		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
-		{
-		  event->accept();
-		  return;
-		}
-	    }
-	}
     }
 
   QGraphicsScene::dragEnterEvent(event);
@@ -198,23 +197,6 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  event->accept();
 	  return;
-	}
-      else if(!m_mainScene)
-	{
-	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
-	    (event->source());
-
-	  if(tableWidget)
-	    {
-	      QTableWidgetItem *item = tableWidget->currentItem();
-
-	      if(item &&
-		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
-		{
-		  event->accept();
-		  return;
-		}
-	    }
 	}
     }
 
@@ -234,21 +216,6 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glowbot_object_analog_read_arduino(views().value(0));
 	  else if(text == "glowbot-arduino-function()")
 	    object = new glowbot_object_function_arduino(views().value(0));
-	}
-      else if(!m_mainScene)
-	{
-	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
-	    (event->source());
-
-	  if(tableWidget)
-	    {
-	      QTableWidgetItem *item = tableWidget->currentItem();
-
-	      if(item &&
-		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
-		{
-		}
-	    }
 	}
 
       if(object)
