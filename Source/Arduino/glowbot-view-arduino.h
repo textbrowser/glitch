@@ -44,11 +44,16 @@ class glowbot_view_arduino: public glowbot_view
 		       const glowbot_common::ProjectType projectType,
 		       QWidget *parent);
   ~glowbot_view_arduino();
+  QString nextUniqueFunctionName(void) const;
+  bool containsFunctionName(const QString &name) const;
   bool open(const QString &fileName, QString &error);
+  void consumeFunctionName(const QString &name);
+  void removeFunctionName(const QString &name);
   static const quint64 LOOP_OBJECT_ID = 1;
   static const quint64 SETUP_OBJECT_ID = 2;
 
  private:
+  QMap<QString, char> m_functionNames;
   glowbot_alignment *m_alignment;
   glowbot_object_loop_arduino *m_loopObject;
   glowbot_object_setup_arduino *m_setupObject;

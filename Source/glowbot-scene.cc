@@ -246,8 +246,8 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	      if(item &&
 		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
-		object = new glowbot_object_function_arduino
-		  (views().value(0));
+		{
+		}
 	    }
 	}
 

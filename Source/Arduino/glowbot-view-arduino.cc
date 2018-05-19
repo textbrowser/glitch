@@ -78,6 +78,28 @@ glowbot_view_arduino::~glowbot_view_arduino()
 {
 }
 
+QString glowbot_view_arduino::nextUniqueFunctionName(void) const
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString name("function_0()");
+  quint64 i = 0;
+
+  while(m_functionNames.contains(name))
+    {
+      i += 1;
+      name = QString("function_%1()").arg(i);
+    }
+
+  QApplication::restoreOverrideCursor();
+  return name;
+}
+
+bool glowbot_view_arduino::containsFunctionName(const QString &name) const
+{
+  return m_functionNames.contains(name);
+}
+
 bool glowbot_view_arduino::open(const QString &fileName, QString &error)
 {
   bool ok = glowbot_view::open(fileName, error);
@@ -123,4 +145,14 @@ bool glowbot_view_arduino::open(const QString &fileName, QString &error)
 
   glowbot_common::discardDatabase(connectionName);
   return ok;
+}
+
+void glowbot_view_arduino::consumeFunctionName(const QString &name)
+{
+  m_functionNames[name] = 0;
+}
+
+void glowbot_view_arduino::removeFunctionName(const QString &name)
+{
+  m_functionNames.remove(name);
 }

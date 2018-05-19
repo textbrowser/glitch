@@ -34,23 +34,23 @@
 #include "glowbot-object-function-arduino.h"
 #include "glowbot-misc.h"
 #include "glowbot-object-view.h"
-
-QMap<QString, char> glowbot_object_function_arduino::s_functionNames;
+#include "glowbot-view-arduino.h"
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
 {
   initialize(parent);
+  m_view = qobject_cast<glowbot_view_arduino *> (parent->parent());
 
   /*
   ** Do not initialize the function's name in initialize().
   */
 
-  QString name(nextUniqueFunctionName());
+  QString name(m_view->nextUniqueFunctionName());
 
   m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
   m_ui.label->setText(name);
-  s_functionNames[name] = 0;
+  m_view->consumeFunctionName(name);
   setProperty("function_name", m_ui.label->text());
 }
 
@@ -58,36 +58,18 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 (const quint64 id, QWidget *parent):glowbot_object(id, parent)
 {
   initialize(parent);
+  m_view = qobject_cast<glowbot_view_arduino *> (parent);
 }
 
 glowbot_object_function_arduino::~glowbot_object_function_arduino()
 {
   if(m_editWindow)
     m_editWindow->deleteLater();
-
-  s_functionNames.remove(m_ui.label->text());
 }
 
 QString glowbot_object_function_arduino::name(void) const
 {
   return m_ui.label->text();
-}
-
-QString glowbot_object_function_arduino::nextUniqueFunctionName(void)
-{
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QString name("function_0()");
-  quint64 i = 0;
-
-  while(s_functionNames.contains(name))
-    {
-      i += 1;
-      name = QString("function_%1()").arg(i);
-    }
-
-  QApplication::restoreOverrideCursor();
-  return name;
 }
 
 bool glowbot_object_function_arduino::hasView(void) const
@@ -143,10 +125,10 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->resize(600, 600);
+  m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-function";
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
@@ -191,13 +173,13 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 
 	str.remove("\"");
 
-	if(s_functionNames.contains(str))
-	  str = nextUniqueFunctionName();
+	if(m_view->containsFunctionName(str))
+	  str = m_view->nextUniqueFunctionName();
 
 	setProperty("function_name", str);
 	m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
 	m_ui.label->setText(str);
-	s_functionNames[str] = 0;
+	m_view->consumeFunctionName(str);
       }
 }
 
@@ -247,7 +229,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       if(m_ui.label->text() == text)
 	return;
 
-      if(s_functionNames.contains(text))
+      if(m_view->containsFunctionName(text))
 	{
 	  glowbot_misc::showErrorDialog
 	    (tr("The function %1 is already defined. "
@@ -257,11 +239,11 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 
       QString name(m_ui.label->text());
 
-      s_functionNames.remove(m_ui.label->text());
+      m_view->removeFunctionName(m_ui.label->text());
       setProperty("function_name", text);
       m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(text));
       m_ui.label->setText(text);
-      s_functionNames[text] = 0;
+      m_view->consumeFunctionName(text);
       emit changed();
       emit nameChanged(name, m_ui.label->text());
     }

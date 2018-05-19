@@ -36,6 +36,7 @@
 
 class glowbot_object_edit_window;
 class glowbot_object_view;
+class glowbot_view_arduino;
 
 class glowbot_object_function_arduino: public glowbot_object
 {
@@ -57,8 +58,7 @@ class glowbot_object_function_arduino: public glowbot_object
   QPointer<glowbot_object_edit_window> m_editWindow;
   Ui_glowbot_object_function_arduino m_ui;
   glowbot_object_view *m_editView;
-  static QMap<QString, char> s_functionNames;
-  static QString nextUniqueFunctionName(void);
+  glowbot_view_arduino *m_view;
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void setProperties(const QString &properties);
