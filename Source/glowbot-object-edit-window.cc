@@ -31,7 +31,7 @@
 #include "glowbot-object-view.h"
 
 glowbot_object_edit_window::glowbot_object_edit_window(QWidget *parent):
-  QMainWindow(parent)
+  QMainWindow(parent, Qt::WindowFlags() | Qt::WindowStaysOnTopHint)
 {
   setContentsMargins(9, 9, 9, 9);
 }
