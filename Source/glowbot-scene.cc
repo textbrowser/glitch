@@ -166,7 +166,7 @@ void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  return;
 	}
-      else
+      else if(!m_mainScene)
 	{
 	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
 	    (event->source());
@@ -199,7 +199,7 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  return;
 	}
-      else
+      else if(!m_mainScene)
 	{
 	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
 	    (event->source());
@@ -235,7 +235,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  else if(text == "glowbot-arduino-function()")
 	    object = new glowbot_object_function_arduino(views().value(0));
 	}
-      else
+      else if(!m_mainScene)
 	{
 	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
 	    (event->source());

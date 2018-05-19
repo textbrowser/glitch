@@ -28,6 +28,7 @@
 #include <QInputDialog>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QUuid>
 #include <QtDebug>
 
 #include "glowbot-object-edit-window.h"
@@ -40,17 +41,32 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 (QWidget *parent):glowbot_object(parent)
 {
   initialize(parent);
-  m_view = qobject_cast<glowbot_view_arduino *> (parent->parent());
+
+  if(parent)
+    m_view = qobject_cast<glowbot_view_arduino *> (parent->parent());
+  else
+    m_view = 0;
 
   /*
   ** Do not initialize the function's name in initialize().
   */
 
-  QString name(m_view->nextUniqueFunctionName());
+  QString name("");
+
+  if(m_view)
+    name = m_view->nextUniqueFunctionName();
+  else
+    name = "function_" +
+      QUuid::createUuid().toString().remove("{").remove("}").remove("-") +
+      "()";
 
   m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name));
   m_ui.label->setText(name);
-  m_view->consumeFunctionName(name);
+
+  if(m_view)
+    m_view->consumeFunctionName(name);
+
+  setObjectName(name);
   setProperty("function_name", m_ui.label->text());
 }
 
@@ -173,13 +189,15 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 
 	str.remove("\"");
 
-	if(m_view->containsFunctionName(str))
+	if(m_view && m_view->containsFunctionName(str))
 	  str = m_view->nextUniqueFunctionName();
 
 	setProperty("function_name", str);
 	m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
 	m_ui.label->setText(str);
-	m_view->consumeFunctionName(str);
+
+	if(m_view)
+	  m_view->consumeFunctionName(str);
       }
 }
 
@@ -229,7 +247,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
       if(m_ui.label->text() == text)
 	return;
 
-      if(m_view->containsFunctionName(text))
+      if(m_view && m_view->containsFunctionName(text))
 	{
 	  glowbot_misc::showErrorDialog
 	    (tr("The function %1 is already defined. "
@@ -239,12 +257,18 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 
       QString name(m_ui.label->text());
 
-      m_view->removeFunctionName(m_ui.label->text());
+      if(m_view)
+	m_view->removeFunctionName(m_ui.label->text());
+
+      setObjectName(text);
       setProperty("function_name", text);
       m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(text));
       m_ui.label->setText(text);
-      m_view->consumeFunctionName(text);
+
+      if(m_view)
+	m_view->consumeFunctionName(text);
+
       emit changed();
-      emit nameChanged(name, m_ui.label->text());
+      emit nameChanged(name, text);
     }
 }
