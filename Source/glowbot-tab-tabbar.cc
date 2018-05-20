@@ -25,10 +25,12 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMenu>
 #include <QTabWidget>
 
 #include "glowbot-tab.h"
 #include "glowbot-tab-tabbar.h"
+#include "glowbot-view.h"
 
 glowbot_tab_tabbar::glowbot_tab_tabbar(QWidget *parent):QTabBar(parent)
 {
@@ -96,5 +98,21 @@ QSize glowbot_tab_tabbar::tabSizeHint(int index) const
 
 void glowbot_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
 {
-  Q_UNUSED(point);
+  glowbot_tab *tab = qobject_cast<glowbot_tab *> (parentWidget());
+
+  if(!tab)
+    return;
+
+  glowbot_view *view = qobject_cast<glowbot_view *> (tab->widget(tabAt(point)));
+
+  if(!view)
+    return;
+
+  QMenu *menu = view->defaultContextMenu();
+
+  if(!menu)
+    return;
+
+  menu->exec(mapToGlobal(point));
+  menu->deleteLater();
 }

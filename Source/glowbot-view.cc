@@ -539,6 +539,9 @@ void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 {
   QMenu *menu = defaultContextMenu();
 
+  if(!menu)
+    return;
+
   menu->exec(mapToGlobal(point));
   menu->deleteLater();
 }
