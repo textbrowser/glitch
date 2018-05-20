@@ -51,6 +51,7 @@ class glowbot_view: public QWidget
 	       QWidget *parent);
   virtual ~glowbot_view();
   QAction *menuAction(void) const;
+  QMenu *defaultContextMenu(void);
   QString name(void) const;
   bool hasChanged(void) const;
   bool save(QString &error);

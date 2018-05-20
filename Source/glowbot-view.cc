@@ -119,6 +119,66 @@ QAction *glowbot_view::menuAction(void) const
   return m_menuAction;
 }
 
+QMenu *glowbot_view::defaultContextMenu(void)
+{
+  /*
+  ** The returned object must be destroyed!
+  */
+
+  QAction *action = 0;
+  QMenu *menu = new QMenu(this);
+
+  action = menu->addAction(tr("&Save"),
+			   this,
+			   SLOT(slotSave(void)));
+  action->setEnabled(hasChanged());
+  menu->addAction(tr("Save &As..."),
+		  this,
+		  SLOT(slotSaveAs(void)));
+  menu->addSeparator();
+  menu->addAction(tr("Alignment Tool..."),
+		  this,
+		  SLOT(slotShowAlignmentTool(void)));
+
+  if(m_projectType == glowbot_common::ArduinoProject)
+    menu->addAction(tr("Arduino Structures..."),
+		    this,
+		    SIGNAL(showStructures(void)));
+  else
+    menu->addAction(tr("Structures..."),
+		    this,
+		    SIGNAL(showStructures(void)));
+
+  menu->addSeparator();
+  action = menu->addAction(tr("Se&parate..."),
+			   this,
+			   SLOT(slotSeparate(void)));
+
+  if(qobject_cast<QMainWindow *> (parentWidget()))
+    action->setEnabled(false);
+  else
+    action->setEnabled(true);
+
+  action = menu->addAction(tr("&Unite"),
+			   this,
+			   SLOT(slotUnite(void)));
+
+  if(qobject_cast<glowbot_separated_diagram_window *> (parentWidget()))
+    action->setEnabled(true);
+  else
+    action->setEnabled(false);
+
+  menu->addSeparator();
+  menu->addAction(tr("Show Canvas &Settings..."),
+		  this,
+		  SLOT(slotShowCanvasSettings(void)));
+  menu->addSeparator();
+  menu->addAction(tr("&User Functions..."),
+		  this,
+		  SLOT(slotShowUserFunctions(void)));
+  return menu;
+}
+
 QString glowbot_view::name(void) const
 {
   return m_name;
@@ -477,58 +537,10 @@ void glowbot_view::slotChanged(void)
 
 void glowbot_view::slotCustomContextMenuRequested(const QPoint &point)
 {
-  QAction *action = 0;
-  QMenu menu(this);
+  QMenu *menu = defaultContextMenu();
 
-  action = menu.addAction(tr("&Save"),
-			  this,
-			  SLOT(slotSave(void)));
-  action->setEnabled(hasChanged());
-  menu.addAction(tr("Save &As..."),
-		 this,
-		 SLOT(slotSaveAs(void)));
-  menu.addSeparator();
-  menu.addAction(tr("Alignment Tool..."),
-		 this,
-		 SLOT(slotShowAlignmentTool(void)));
-
-  if(m_projectType == glowbot_common::ArduinoProject)
-    menu.addAction(tr("Arduino Structures..."),
-		   this,
-		   SIGNAL(showStructures(void)));
-  else
-    menu.addAction(tr("Structures..."),
-		   this,
-		   SIGNAL(showStructures(void)));
-
-  menu.addSeparator();
-  action = menu.addAction(tr("Se&parate..."),
-			  this,
-			  SLOT(slotSeparate(void)));
-
-  if(qobject_cast<QMainWindow *> (parentWidget()))
-    action->setEnabled(false);
-  else
-    action->setEnabled(true);
-
-  action = menu.addAction(tr("&Unite"),
-			  this,
-			  SLOT(slotUnite(void)));
-
-  if(qobject_cast<glowbot_separated_diagram_window *> (parentWidget()))
-    action->setEnabled(true);
-  else
-    action->setEnabled(false);
-
-  menu.addSeparator();
-  menu.addAction(tr("Show Canvas &Settings..."),
-		 this,
-		 SLOT(slotShowCanvasSettings(void)));
-  menu.addSeparator();
-  menu.addAction(tr("&User Functions..."),
-		 this,
-		 SLOT(slotShowUserFunctions(void)));
-  menu.exec(mapToGlobal(point));
+  menu->exec(mapToGlobal(point));
+  menu->deleteLater();
 }
 
 void glowbot_view::slotFunctionAdded(const QString &name)
