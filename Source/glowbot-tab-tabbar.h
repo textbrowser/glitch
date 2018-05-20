@@ -25,24 +25,24 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_tab_h_
-#define _glowbot_tab_h_
+#ifndef _glowbot_tab_tabbar_h_
+#define _glowbot_tab_tabbar_h_
 
-#include <QTabWidget>
+#include <QTabBar>
 
-class glowbot_tab_tabbar;
-
-class glowbot_tab: public QTabWidget
+class glowbot_tab_tabbar: public QTabBar
 {
   Q_OBJECT
 
  public:
-  glowbot_tab(QWidget *parent);
-  ~glowbot_tab();
-  QTabBar *tabBar(void) const;
+  glowbot_tab_tabbar(QWidget *parent);
+  ~glowbot_tab_tabbar();
 
  private:
-  glowbot_tab_tabbar *m_tabBar;
+  QSize tabSizeHint(int index) const;
+
+ private slots:
+  void slotCustomContextMenuRequested(const QPoint &point);
 };
 
 #endif

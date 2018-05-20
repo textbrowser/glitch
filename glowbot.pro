@@ -62,6 +62,7 @@ HEADERS	       += Source\\glowbot-alignment.h \
                   Source\\glowbot-structures-treewidget.h \
                   Source\\glowbot-style-sheet.h \
                   Source\\glowbot-tab.h \
+                  Source\\glowbot-tab-tabbar.h \
                   Source\\glowbot-ui.h \
                   Source\\glowbot-user-functions.h \
                   Source\\glowbot-view.h
@@ -80,6 +81,7 @@ SOURCES	       += Source\\glowbot-alignment.cc \
                   Source\\glowbot-structures-treewidget.cc \
                   Source\\glowbot-style-sheet.cc \
                   Source\\glowbot-tab.cc \
+                  Source\\glowbot-tab-tabbar.cc \
                   Source\\glowbot-ui-a.cc \
                   Source\\glowbot-user-functions.cc \
                   Source\\glowbot-view.cc

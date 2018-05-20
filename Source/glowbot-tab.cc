@@ -26,65 +26,7 @@
 */
 
 #include "glowbot-tab.h"
-
-glowbot_tab_tabbar::glowbot_tab_tabbar(QWidget *parent):QTabBar(parent)
-{
-  setDocumentMode(true);
-  setElideMode(Qt::ElideRight);
-  setExpanding(true);
-  setUsesScrollButtons(true);
-}
-
-glowbot_tab_tabbar::~glowbot_tab_tabbar()
-{
-}
-
-QSize glowbot_tab_tabbar::tabSizeHint(int index) const
-{
-  QSize size(QTabBar::tabSizeHint(index));
-  QTabWidget::TabPosition tabPosition =
-    qobject_cast<glowbot_tab *> (parentWidget()) ?
-    qobject_cast<glowbot_tab *> (parentWidget())->tabPosition() :
-    QTabWidget::North;
-
-  if(tabPosition == QTabWidget::East || tabPosition == QTabWidget::West)
-    {
-      int preferredTabHeight = 175;
-
-      if(parentWidget() &&
-	 count() * rect().height() < parentWidget()->size().height())
-	preferredTabHeight = 175;
-      else
-	preferredTabHeight = qBound
-	  (125,
-	   qMax(size.height(), rect().height() / qMax(1, count())),
-	   175);
-
-      size.setHeight(preferredTabHeight);
-    }
-  else
-    {
-#ifdef Q_OS_MAC
-      int preferred = 200;
-#else
-      int preferred = 200;
-#endif
-      int preferredTabWidth = preferred;
-
-      if(parentWidget() &&
-	 count() * rect().width() < parentWidget()->size().width())
-	preferredTabWidth = preferred;
-      else
-	preferredTabWidth = qBound
-	  (125,
-	   qMax(size.width(), rect().width() / qMax(1, count())),
-	   preferred);
-
-      size.setWidth(preferredTabWidth);
-    }
-
-  return size;
-}
+#include "glowbot-tab-tabbar.h"
 
 glowbot_tab::glowbot_tab(QWidget *parent):QTabWidget(parent)
 {
