@@ -303,6 +303,8 @@ void glowbot_ui::parseCommandLineArguments(void)
     else if(list.at(i) == "--version")
       {
       }
+    else
+      qDebug() << "The option " << list.at(i) << " is not supported.";
 
   if(!errors.isEmpty())
     {
