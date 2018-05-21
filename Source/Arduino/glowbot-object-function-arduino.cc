@@ -236,6 +236,8 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 	     << "QInputDialog does not have a textfield! Cannot set "
 	     << "an input validator.";
 
+ restart_label:
+
   if(dialog.exec() == QDialog::Accepted)
     {
       QString text(dialog.textValue().remove("(").remove(")").trimmed());
@@ -253,7 +255,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 	  glowbot_misc::showErrorDialog
 	    (tr("The function %1 is already defined. "
 		"Please select another name.").arg(text), m_parent);
-	  return;
+	  goto restart_label;
 	}
 
       QString name(m_ui.label->text());
