@@ -1,7 +1,7 @@
 include(Source/glowbot-arduino.pro)
 
 doxygen.commands = doxygen glowbot.doxygen
-purge.commands = find . -name '*~' -exec rm {} \;
+purge.commands = find . -name '*~' -exec rm {} \\;
 
 CONFIG		+= qt release warn_on
 DEFINES		+=
