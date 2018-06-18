@@ -105,6 +105,7 @@ class glowbot_view: public QWidget
  signals:
   void changed(void);
   void saved(void);
+  void selectionChanged(void);
   void separate(glowbot_view *view);
   void showStructures(void);
   void unite(glowbot_view *view);

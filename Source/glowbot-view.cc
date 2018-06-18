@@ -102,6 +102,10 @@ glowbot_view::glowbot_view
 	  SIGNAL(sceneResized(void)),
 	  this,
 	  SLOT(slotSceneResized(void)));
+  connect(m_scene,
+	  SIGNAL(selectionChanged(void)),
+	  this,
+	  SIGNAL(selectionChanged(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,

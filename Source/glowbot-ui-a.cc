@@ -38,6 +38,7 @@
 #include "Arduino/glowbot-view-arduino.h"
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
+#include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
 #include "glowbot-ui.h"
 #include "ui_glowbot-errors-dialog.h"
@@ -208,6 +209,10 @@ glowbot_view *glowbot_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotPageSaved(void)));
   connect(view,
+	  SIGNAL(selectionChanged(void)),
+	  this,
+	  SLOT(slotSceneSelectionChanged(void)));
+  connect(view,
 	  SIGNAL(separate(glowbot_view *)),
 	  this,
 	  SLOT(slotSeparate(glowbot_view *)));
@@ -324,7 +329,9 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
+      m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
@@ -644,6 +651,19 @@ void glowbot_ui::slotSaveCurrentDiagramAs(void)
 	    }
 	}
     }
+}
+
+void glowbot_ui::slotSceneSelectionChanged(void)
+{
+  glowbot_view *view = qobject_cast<glowbot_view *> (sender());
+
+  if(!view)
+    return;
+
+  if(!view->scene()->selectedItems().isEmpty())
+    m_ui.action_Copy->setEnabled(true);
+  else
+    m_ui.action_Copy->setEnabled(false);
 }
 
 void glowbot_ui::slotSelectAll(void)
