@@ -49,5 +49,6 @@ Remaining Items
        Drag and drop support. Warn of recursive uses.
 5.     Translate diagrams to Arduino via Embedded LISP.
 6.     Redo, undo.
-7.     Wiring is not required. Translating diagrams to Arduino source
+7.     Some wiring is not required. Translating diagrams to Arduino source
        is based on a top-down interpretation.
+8.     Copy & paste.
