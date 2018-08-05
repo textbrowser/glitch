@@ -52,3 +52,4 @@ Remaining Items
 7.     Some wiring is not required. Translating diagrams to Arduino source
        is based on a top-down interpretation.
 8.     Copy & paste.
+9.     All of Arduino's objects.
