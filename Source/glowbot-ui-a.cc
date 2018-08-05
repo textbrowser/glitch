@@ -38,6 +38,7 @@
 #include "Arduino/glowbot-view-arduino.h"
 #include "glowbot-alignment.h"
 #include "glowbot-misc.h"
+#include "glowbot-object.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
 #include "glowbot-ui.h"
@@ -446,6 +447,21 @@ void glowbot_ui::slotCloseDiagram(int index)
 void glowbot_ui::slotCloseDiagram(void)
 {
   slotCloseDiagram(m_ui.tab->currentIndex());
+}
+
+void glowbot_ui::slotCopy(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  for(int i = m_copiedObjects.size() - 1; i >= 0; i--)
+    {
+      if(m_copiedObjects.at(i))
+	m_copiedObjects.at(i)->deleteLater();
+
+      m_copiedObjects.remove(i);
+    }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::slotDelete(void)

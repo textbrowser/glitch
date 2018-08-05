@@ -29,9 +29,11 @@
 #define _glowbot_ui_h_
 
 #include <QMainWindow>
+#include <QPointer>
 
 #include "ui_glowbot-mainwindow.h"
 
+class glowbot_object;
 class glowbot_structures_arduino;
 class glowbot_view;
 
@@ -44,6 +46,7 @@ class glowbot_ui: public QMainWindow
   ~glowbot_ui();
 
  private:
+  QVector<QPointer<glowbot_object> > m_copiedObjects;
   Ui_glowbot_mainwindow m_ui;
   glowbot_structures_arduino *m_arduinoStructures;
   bool openDiagram(const QString &fileName, QString &error);
@@ -61,6 +64,7 @@ class glowbot_ui: public QMainWindow
   void slotAboutToShowTabsMenu(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
+  void slotCopy(void);
   void slotDelete(void);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
