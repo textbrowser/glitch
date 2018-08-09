@@ -44,7 +44,11 @@ class glowbot_object_edit_window: public QMainWindow
   ~glowbot_object_edit_window();
 
  private:
+  void closeEvent(QCloseEvent *event);
   void resizeEvent(QResizeEvent *event);
+
+ signals:
+  void closed(void);
 };
 
 #endif

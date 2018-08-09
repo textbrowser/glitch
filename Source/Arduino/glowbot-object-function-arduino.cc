@@ -98,17 +98,6 @@ bool glowbot_object_function_arduino::isMandatory(void) const
   return false;
 }
 
-void glowbot_object_function_arduino::addActions(QMenu &menu) const
-{
-  menu.addAction(tr("&Edit..."),
-		 this,
-		 SLOT(slotEdit(void)));
-  menu.addAction(tr("Set Function &Name..."),
-		 this,
-		 SLOT(slotSetFunctionName(void)));
-  addDefaultActions(menu);
-}
-
 glowbot_object_function_arduino *glowbot_object_function_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
@@ -122,6 +111,17 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties(values.value("properties").toString());
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
+}
+
+void glowbot_object_function_arduino::addActions(QMenu &menu) const
+{
+  menu.addAction(tr("&Edit..."),
+		 this,
+		 SLOT(slotEdit(void)));
+  menu.addAction(tr("Set Function &Name..."),
+		 this,
+		 SLOT(slotSetFunctionName(void)));
+  addDefaultActions(menu);
 }
 
 void glowbot_object_function_arduino::initialize(QWidget *parent)
@@ -139,6 +139,10 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
   else
     m_editWindow = new glowbot_object_edit_window(0);
 
+  connect(m_editWindow,
+	  SIGNAL(closed(void)),
+	  m_editView,
+	  SLOT(slotParentWindowClosed(void)));
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->resize(600, 600);

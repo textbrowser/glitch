@@ -35,6 +35,8 @@ Completed Items
 31.    Apply canvas settings.
 32.    Context menu on main tab widget.
 33.    Inspect coordinates upon opening of diagrams. Adjust.
+34.    Close a function's Objects Alignment dialog if its editing
+       window is closed.
 
 Ignored Items
 

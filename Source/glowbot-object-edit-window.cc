@@ -40,6 +40,12 @@ glowbot_object_edit_window::~glowbot_object_edit_window()
 {
 }
 
+void glowbot_object_edit_window::closeEvent(QCloseEvent *event)
+{
+  emit closed();
+  QMainWindow::closeEvent(event);
+}
+
 void glowbot_object_edit_window::resizeEvent(QResizeEvent *event)
 {
   if(event)
