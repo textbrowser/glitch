@@ -358,6 +358,7 @@ void glowbot_ui::prepareRecentFiles(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
+  QStringList list;
 
   {
     QSqlDatabase db(glowbot_common::sqliteDatabase());
@@ -371,12 +372,36 @@ void glowbot_ui::prepareRecentFiles(void)
 
 	query.exec("CREATE TABLE IF NOT EXISTS recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
+
+	if(query.exec("SELECT file_name FROM recent_files ORDER BY 1"))
+	  while(query.next())
+	    list << query.value(0).toString();
       }
 
     db.close();
   }
 
   glowbot_common::discardDatabase(connectionName);
+
+  m_ui.menu_Recent_Files->clear();
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      QAction *action = m_ui.menu_Recent_Files->addAction(list.at(i));
+
+      action->setProperty("file_name", list.at(i));
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotOpenRecentDiagram(void)));
+    }
+
+  if(!list.isEmpty())
+    m_ui.menu_Recent_Files->addSeparator();
+
+  m_ui.menu_Recent_Files->addAction
+    (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
+
   QApplication::restoreOverrideCursor();
 }
 
@@ -599,6 +624,30 @@ void glowbot_ui::slotOpenDiagram(void)
 	  ui.text->setPlainText(errors.trimmed());
 	  dialog.exec();
 	}
+    }
+}
+
+void glowbot_ui::slotOpenRecentDiagram(void)
+{
+  QAction *action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  QString error("");
+
+  if(openDiagram(action->property("file_name").toString(), error))
+    prepareActionWidgets();
+
+  if(!error.isEmpty())
+    {
+      QDialog dialog(this);
+      Ui_glowbot_errors_dialog ui;
+
+      ui.setupUi(&dialog);
+      ui.label->setText(tr("The following errors occurred."));
+      ui.text->setPlainText(error.trimmed());
+      dialog.exec();
     }
 }
 
