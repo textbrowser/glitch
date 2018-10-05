@@ -47,6 +47,8 @@
 glowbot_ui::glowbot_ui(void):QMainWindow(0)
 {
   m_arduinoStructures = 0;
+  m_recentFilesFileName = glowbot_misc::homePath() + QDir::separator() +
+    "GlowBot" + QDir::separator() + "recent_files.db";
   m_ui.setupUi(this);
   connect(m_ui.action_Alignment,
 	  SIGNAL(triggered(void)),
@@ -109,6 +111,7 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   prepareActionWidgets();
+  prepareRecentFiles();
 }
 
 glowbot_ui::~glowbot_ui()
@@ -348,6 +351,33 @@ void glowbot_ui::prepareActionWidgets(void)
       m_ui.action_Select_All->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
+}
+
+void glowbot_ui::prepareRecentFiles(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_recentFilesFileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.exec("CREATE TABLE IF NOT EXISTS recent_files ("
+		   "file_name TEXT NOT NULL PRIMARY KEY)");
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::restoreSettings(void)

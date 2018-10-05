@@ -46,6 +46,7 @@ class glowbot_ui: public QMainWindow
   ~glowbot_ui();
 
  private:
+  QString m_recentFilesFileName;
   QVector<QPointer<glowbot_object> > m_copiedObjects;
   Ui_glowbot_mainwindow m_ui;
   glowbot_structures_arduino *m_arduinoStructures;
@@ -55,6 +56,7 @@ class glowbot_ui: public QMainWindow
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
+  void prepareRecentFiles(void);
   void restoreSettings(void);
   void saveSettings(void);
   void setTabText(glowbot_view *page);
