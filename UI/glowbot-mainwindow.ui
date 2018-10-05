@@ -46,7 +46,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -59,8 +59,14 @@
      </property>
      <addaction name="action_New_Arduino"/>
     </widget>
+    <widget class="QMenu" name="menu_Recent_Files">
+     <property name="title">
+      <string>&amp;Recent Files</string>
+     </property>
+    </widget>
     <addaction name="menu_New_Diagram"/>
     <addaction name="action_Open_Diagram"/>
+    <addaction name="menu_Recent_Files"/>
     <addaction name="separator"/>
     <addaction name="action_Close_Diagram"/>
     <addaction name="separator"/>
