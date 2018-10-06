@@ -180,7 +180,8 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 	{
 	  glowbot_view *view = newArduinoDiagram(name, true);
 
-	  ok = view->open(fileName, error);
+	  if((ok = view->open(fileName, error)))
+	    saveRecentFile(fileName);
 	}
       else
 	ok = false;
@@ -292,7 +293,17 @@ void glowbot_ui::parseCommandLineArguments(void)
     if(list.at(i) == "--new-arduino-diagram")
       {
 	i += 1;
-	newArduinoDiagram(list.value(i), false);
+
+	glowbot_view *view = newArduinoDiagram(list.value(i), false);
+
+	if(view)
+	  {
+	    saveRecentFile(QString("%1%2%3.db").
+			   arg(glowbot_misc::homePath()).
+			   arg(QDir::separator()).
+			   arg(view->name()));
+	    prepareRecentFiles();
+	  }
       }
     else if(list.at(i) == "--open-arduino-diagram")
       {
@@ -303,7 +314,10 @@ void glowbot_ui::parseCommandLineArguments(void)
 	if(i >= list.size())
 	  errors.append(tr("Incorrect usage of --open-arduino-diagram."));
 	else if(openDiagram(list.value(i), error))
-	  prepareActionWidgets();
+	  {
+	    prepareActionWidgets();
+	    prepareRecentFiles();
+	  }
 	else
 	  errors.append
 	    (tr("An error occurred while processing "
@@ -401,7 +415,6 @@ void glowbot_ui::prepareRecentFiles(void)
 
   m_ui.menu_Recent_Files->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
-
   QApplication::restoreOverrideCursor();
 }
 
@@ -410,6 +423,31 @@ void glowbot_ui::restoreSettings(void)
   QSettings settings;
 
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
+}
+
+void glowbot_ui::saveRecentFile(const QString &fileName)
+{
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    db.setDatabaseName(m_recentFilesFileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.prepare
+	  ("INSERT OR REPLACE INTO recent_files (file_name) VALUES (?)");
+	query.addBindValue(fileName);
+	query.exec();
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
 }
 
 void glowbot_ui::saveSettings(void)
@@ -465,6 +503,34 @@ void glowbot_ui::slotAboutToShowTabsMenu(void)
 
   if(m_ui.menu_Tabs->actions().isEmpty())
     m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
+}
+
+void glowbot_ui::slotClearRecentFiles(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString connectionName("");
+
+  {
+    QSqlDatabase db(glowbot_common::sqliteDatabase());
+
+    db.setDatabaseName(m_recentFilesFileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.exec("DELETE FROM recent_files");
+      }
+
+    db.close();
+  }
+
+  glowbot_common::discardDatabase(connectionName);
+  m_ui.menu_Recent_Files->clear();
+  m_ui.menu_Recent_Files->addAction
+    (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::slotCloseDiagram(int index)
@@ -576,6 +642,8 @@ void glowbot_ui::slotNewArduinoDiagram(void)
     }
 
   newArduinoDiagram(name, false);
+  saveRecentFile(fileName);
+  prepareRecentFiles();
 }
 
 void glowbot_ui::slotOpenDiagram(void)
@@ -612,7 +680,10 @@ void glowbot_ui::slotOpenDiagram(void)
 	}
 
       if(ok)
-	prepareActionWidgets();
+	{
+	  prepareActionWidgets();
+	  prepareRecentFiles();
+	}
 
       if(!errors.isEmpty())
 	{

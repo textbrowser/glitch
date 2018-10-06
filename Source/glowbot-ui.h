@@ -58,12 +58,14 @@ class glowbot_ui: public QMainWindow
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
   void restoreSettings(void);
+  void saveRecentFile(const QString &fileName);
   void saveSettings(void);
   void setTabText(glowbot_view *page);
   void setWindowTitle(glowbot_view *page);
 
  private slots:
   void slotAboutToShowTabsMenu(void);
+  void slotClearRecentFiles(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
   void slotCopy(void);
