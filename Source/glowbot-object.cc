@@ -78,6 +78,11 @@ glowbot_object::~glowbot_object()
 {
 }
 
+QString glowbot_object::type(void) const
+{
+  return m_type;
+}
+
 glowbot_object *glowbot_object::createFromValues
 (const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {

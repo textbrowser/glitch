@@ -123,6 +123,11 @@ QAction *glowbot_view::menuAction(void) const
   return m_menuAction;
 }
 
+QList<glowbot_object *> glowbot_view::objects(void) const
+{
+  return m_scene->objects();
+}
+
 QMenu *glowbot_view::defaultContextMenu(void)
 {
   /*

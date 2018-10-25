@@ -39,6 +39,7 @@ class glowbot_object: public QWidget
  public:
   glowbot_object(QWidget *parent);
   glowbot_object(const quint64 id, QWidget *parent);
+  QString type(void) const;
   quint64 id(void) const;
   static glowbot_object *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);

@@ -49,6 +49,25 @@ glowbot_scene::~glowbot_scene()
 {
 }
 
+QList<glowbot_object *> glowbot_scene::objects(void) const
+{
+  QList<QGraphicsItem *> list(items());
+  QList<glowbot_object *> widgets;
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      glowbot_proxy_widget *proxy =
+	qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+      if(!proxy || !(proxy->flags() & Qt::ItemIsSelectable))
+	continue;
+
+      widgets << qobject_cast<glowbot_object *> (proxy->widget());
+    }
+
+  return widgets;
+}
+
 bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 			      const QString &text)
 {

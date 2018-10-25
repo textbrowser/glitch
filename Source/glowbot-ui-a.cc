@@ -58,6 +58,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotCloseDiagram(void)));
+  connect(m_ui.action_Copy,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotCopy(void)));
   connect(m_ui.action_Delete,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -580,6 +584,19 @@ void glowbot_ui::slotCopy(void)
 	m_copiedObjects.at(i)->deleteLater();
 
       m_copiedObjects.remove(i);
+    }
+
+  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->currentWidget());
+
+  if(view)
+    {
+      QList<glowbot_object *> list(view->objects());
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  if(!list.at(i))
+	    continue;
+	}
     }
 
   QApplication::restoreOverrideCursor();
