@@ -60,6 +60,14 @@ bool glowbot_object_loop_arduino::isMandatory(void) const
   return true;
 }
 
+glowbot_object_loop_arduino *glowbot_object_loop_arduino::clone(void) const
+{
+  glowbot_object_loop_arduino *object = new glowbot_object_loop_arduino(0);
+
+  object->initialize(0);
+  return object;
+}
+
 void glowbot_object_loop_arduino::addActions(QMenu &menu) const
 {
   menu.addAction(tr("&Edit..."),

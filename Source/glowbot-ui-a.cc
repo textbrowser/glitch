@@ -596,6 +596,11 @@ void glowbot_ui::slotCopy(void)
 	{
 	  if(!list.at(i))
 	    continue;
+
+	  glowbot_object *clone = list.at(i)->clone();
+
+	  if(clone)
+	    m_copiedObjects.append(clone);
 	}
     }
 

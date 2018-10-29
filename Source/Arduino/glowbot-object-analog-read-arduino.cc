@@ -51,6 +51,21 @@ glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()
 }
 
 glowbot_object_analog_read_arduino *glowbot_object_analog_read_arduino::
+clone(void) const
+{
+  glowbot_object_analog_read_arduino *object = new
+    glowbot_object_analog_read_arduino(0);
+
+  object->m_type = m_type;
+  object->m_ui.setupUi(object);
+  object->m_ui.label->setAttribute
+    (Qt::WA_TransparentForMouseEvents,
+     m_ui.label->testAttribute(Qt::WA_TransparentForMouseEvents));
+  object->m_ui.label->setAutoFillBackground(m_ui.label->autoFillBackground());
+  return object;
+}
+
+glowbot_object_analog_read_arduino *glowbot_object_analog_read_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)

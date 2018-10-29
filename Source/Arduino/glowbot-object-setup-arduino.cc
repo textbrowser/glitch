@@ -32,7 +32,7 @@
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
 (QWidget *parent):glowbot_object(parent)
 {
-  initialize(parent->parentWidget());
+  initialize(parent);
 }
 
 glowbot_object_setup_arduino::glowbot_object_setup_arduino
@@ -55,6 +55,14 @@ bool glowbot_object_setup_arduino::hasView(void) const
 bool glowbot_object_setup_arduino::isMandatory(void) const
 {
   return true;
+}
+
+glowbot_object_setup_arduino *glowbot_object_setup_arduino::clone(void) const
+{
+  glowbot_object_setup_arduino *object = new glowbot_object_setup_arduino(0);
+
+  object->initialize(0);
+  return object;
 }
 
 void glowbot_object_setup_arduino::addActions(QMenu &menu) const
