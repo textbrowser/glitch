@@ -57,3 +57,5 @@ Remaining Items
 8.     Copy & paste.
 9.     All of Arduino's objects.
 10.    Prepare parents after cloning objects.
+11.    Warn of faulty home directory.
+12.    Warn of missing SQLite driver.
