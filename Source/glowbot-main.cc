@@ -26,6 +26,7 @@
 */
 
 #include <QApplication>
+#include <QDir>
 #include <QSettings>
 
 #include <iostream>
@@ -47,6 +48,10 @@ int main(int argc, char *argv[])
   QApplication qapplication(argc, argv);
 
   qapplication.setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
+
+  QDir dir;
+
+  dir.mkdir(glowbot_misc::homePath());
 
 #ifdef Q_OS_MAC
 #if QT_VERSION >= 0x050000
