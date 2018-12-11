@@ -180,7 +180,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
-	  glowbot_view *view = newArduinoDiagram(name, true);
+	  glowbot_view_arduino *view = newArduinoDiagram(name, true);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
@@ -193,7 +193,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
   return ok;
 }
 
-glowbot_view *glowbot_ui::newArduinoDiagram
+glowbot_view_arduino *glowbot_ui::newArduinoDiagram
 (const QString &n, const bool fromFile)
 {
   QString name(n);
@@ -211,6 +211,10 @@ glowbot_view *glowbot_ui::newArduinoDiagram
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotPageChanged(void)));
+  connect(view,
+	  SIGNAL(destroyed(void)),
+	  this,
+	  SLOT(slotArduinoViewDestroyed(void)));
   connect(view,
 	  SIGNAL(saved(void)),
 	  this,
@@ -507,6 +511,17 @@ void glowbot_ui::slotAboutToShowTabsMenu(void)
     m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
 }
 
+void glowbot_ui::slotArduinoViewDestroyed(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  if(m_arduinoStructures)
+    if(findChildren<glowbot_view_arduino *> ().isEmpty())
+      m_arduinoStructures->deleteLater();
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glowbot_ui::slotClearRecentFiles(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -550,7 +565,7 @@ void glowbot_ui::slotCloseDiagram(int index)
 	  mb.setIcon(QMessageBox::Question);
 	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
 	  mb.setText
-	    (tr("The current widget has been modified. Are you sure that "
+	    (tr("The current view has been modified. Are you sure that "
 		"you wish to close it?"));
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
@@ -564,10 +579,6 @@ void glowbot_ui::slotCloseDiagram(int index)
     }
 
   m_ui.tab->removeTab(index);
-
-  if(m_ui.tab->count() == 0)
-    m_arduinoStructures->deleteLater();
-
   prepareActionWidgets();
 }
 

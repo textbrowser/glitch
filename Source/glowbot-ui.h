@@ -36,6 +36,7 @@
 class glowbot_object;
 class glowbot_structures_arduino;
 class glowbot_view;
+class glowbot_view_arduino;
 
 class glowbot_ui: public QMainWindow
 {
@@ -51,8 +52,9 @@ class glowbot_ui: public QMainWindow
   QVector<QPointer<glowbot_object> > m_copiedObjects;
   Ui_glowbot_mainwindow m_ui;
   bool openDiagram(const QString &fileName, QString &error);
-  glowbot_view *newArduinoDiagram(const QString &name, const bool fromFile);
   glowbot_view *page(const int index);
+  glowbot_view_arduino *newArduinoDiagram(const QString &name,
+					  const bool fromFile);
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
@@ -65,6 +67,7 @@ class glowbot_ui: public QMainWindow
 
  private slots:
   void slotAboutToShowTabsMenu(void);
+  void slotArduinoViewDestroyed(void);
   void slotClearRecentFiles(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
