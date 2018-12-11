@@ -120,8 +120,6 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 
 glowbot_ui::~glowbot_ui()
 {
-  if(m_arduinoStructures)
-    m_arduinoStructures->deleteLater();
 }
 
 bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
@@ -566,6 +564,10 @@ void glowbot_ui::slotCloseDiagram(int index)
     }
 
   m_ui.tab->removeTab(index);
+
+  if(m_ui.tab->count() == 0)
+    m_arduinoStructures->deleteLater();
+
   prepareActionWidgets();
 }
 
