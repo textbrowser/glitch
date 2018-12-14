@@ -102,13 +102,11 @@ glowbot_object_function_arduino *glowbot_object_function_arduino::
 clone(void) const
 {
   glowbot_object_function_arduino *object =
-    new glowbot_object_function_arduino(0);
+    new glowbot_object_function_arduino(m_view);
 
   object->initialize(0);
   object->m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name()));
-  object->m_ui.setupUi(object);
   object->m_ui.label->setText(name());
-  object->m_view = 0;
   object->setObjectName(name());
   object->setProperty("function_name", name());
   return object;
