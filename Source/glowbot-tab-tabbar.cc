@@ -79,7 +79,7 @@ QSize glowbot_tab_tabbar::tabSizeHint(int index) const
 #else
       int preferred = 200;
 #endif
-      int preferredTabWidth = preferred;
+      int preferredTabWidth = 0;
 
       if(parentWidget() &&
 	 count() * rect().width() < parentWidget()->size().width())

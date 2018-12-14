@@ -91,13 +91,16 @@ void glowbot_proxy_widget::paint
     painter->setRenderHints(QPainter::Antialiasing |
 			    QPainter::HighQualityAntialiasing | // OpenGL?
 			    QPainter::SmoothPixmapTransform |
-			    QPainter::TextAntialiasing, true);
+			    QPainter::TextAntialiasing,
+			    true);
 
   if(opt && (opt->state & QStyle::State_Selected) && painter)
     {
       QPen pen;
 
-      pen.setWidthF(2.5);
+      pen.setJoinStyle(Qt::MiterJoin);
+      pen.setStyle(Qt::DashLine);
+      pen.setWidthF(5.5);
       painter->setPen(pen);
       painter->drawRect(boundingRect());
     }
