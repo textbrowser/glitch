@@ -36,6 +36,7 @@
 
 #include "Arduino/glowbot-object-function-arduino.h"
 #include "glowbot-alignment.h"
+#include "glowbot-graphicsview.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
 #include "glowbot-proxy-widget.h"
@@ -65,7 +66,7 @@ glowbot_view::glowbot_view
   m_scene->setMainScene(true);
   m_startObject = 0;
   m_userFunctions = new glowbot_user_functions(this);
-  m_view = new QGraphicsView(this);
+  m_view = new glowbot_graphicsview(this);
   m_view->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -106,6 +107,14 @@ glowbot_view::glowbot_view
 	  SIGNAL(selectionChanged(void)),
 	  this,
 	  SIGNAL(selectionChanged(void)));
+  connect(m_view,
+	  SIGNAL(mouseEnterEvent(void)),
+	  this,
+	  SIGNAL(mouseEnterEvent(void)));
+  connect(m_view,
+	  SIGNAL(mouseLeaveEvent(void)),
+	  this,
+	  SIGNAL(mouseLeaveEvent(void)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -371,6 +380,11 @@ bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
 glowbot_common::ProjectType glowbot_view::projectType(void) const
 {
   return m_projectType;
+}
+
+glowbot_graphicsview *glowbot_view::view(void) const
+{
+  return m_view;
 }
 
 glowbot_scene *glowbot_view::scene(void) const

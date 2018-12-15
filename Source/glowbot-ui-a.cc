@@ -111,6 +111,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+  m_ui.action_Copy->setEnabled(false);
+  m_ui.action_Delete->setEnabled(false);
+  m_ui.action_Paste->setEnabled(false);
+  m_ui.action_Select_All->setEnabled(false);
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
@@ -216,13 +220,21 @@ glowbot_view_arduino *glowbot_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotArduinoViewDestroyed(void)));
   connect(view,
+	  SIGNAL(mouseEnterEvent(void)),
+	  this,
+	  SLOT(slotMouseEnterView(void)));
+  connect(view,
+	  SIGNAL(mouseLeaveEvent(void)),
+	  this,
+	  SLOT(slotMouseLeaveView(void)));
+  connect(view,
 	  SIGNAL(saved(void)),
 	  this,
 	  SLOT(slotPageSaved(void)));
   connect(view,
 	  SIGNAL(selectionChanged(void)),
 	  this,
-	  SLOT(slotSceneSelectionChanged(void)));
+	  SLOT(slotMouseEnterView(void)));
   connect(view,
 	  SIGNAL(separate(glowbot_view *)),
 	  this,
@@ -353,12 +365,8 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
-      m_ui.action_Copy->setEnabled(false);
-      m_ui.action_Delete->setEnabled(false);
-      m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
-      m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
     }
@@ -366,10 +374,7 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
-      m_ui.action_Delete->setEnabled(true);
-      m_ui.action_Paste->setEnabled(m_copiedObjects.size() > 0);
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
-      m_ui.action_Select_All->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 }
@@ -516,6 +521,11 @@ void glowbot_ui::slotArduinoViewDestroyed(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  m_ui.action_Copy->setEnabled(false);
+  m_ui.action_Delete->setEnabled(false);
+  m_ui.action_Paste->setEnabled(false);
+  m_ui.action_Select_All->setEnabled(false);
+
   if(m_arduinoStructures)
     if(findChildren<glowbot_view_arduino *> ().isEmpty())
       m_arduinoStructures->deleteLater();
@@ -630,6 +640,32 @@ void glowbot_ui::slotDelete(void)
     return;
 
   view->deleteItems();
+}
+
+void glowbot_ui::slotMouseEnterView(void)
+{
+  glowbot_view *view = qobject_cast<glowbot_view *> (sender());
+
+  if(!view)
+    return;
+
+  m_ui.action_Copy->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Delete->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
+  m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
+}
+
+void glowbot_ui::slotMouseLeaveView(void)
+{
+  glowbot_view *view = qobject_cast<glowbot_view *> (sender());
+
+  if(!view)
+    return;
+
+  m_ui.action_Copy->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Delete->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
+  m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
 
 void glowbot_ui::slotNewArduinoDiagram(void)
@@ -854,19 +890,6 @@ void glowbot_ui::slotSaveCurrentDiagramAs(void)
 	    }
 	}
     }
-}
-
-void glowbot_ui::slotSceneSelectionChanged(void)
-{
-  glowbot_view *view = qobject_cast<glowbot_view *> (sender());
-
-  if(!view)
-    return;
-
-  if(!view->scene()->selectedItems().isEmpty())
-    m_ui.action_Copy->setEnabled(true);
-  else
-    m_ui.action_Copy->setEnabled(false);
 }
 
 void glowbot_ui::slotSelectAll(void)

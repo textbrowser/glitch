@@ -28,7 +28,6 @@
 #ifndef _glowbot_view_h_
 #define _glowbot_view_h_
 
-#include <QGraphicsView>
 #include <QWidget>
 
 #include "glowbot-canvas-settings.h"
@@ -36,6 +35,7 @@
 #include "ui_glowbot-view.h"
 
 class glowbot_alignment;
+class glowbot_graphicsview;
 class glowbot_object;
 class glowbot_object_start;
 class glowbot_scene;
@@ -58,6 +58,7 @@ class glowbot_view: public QWidget
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
   glowbot_common::ProjectType projectType(void) const;
+  glowbot_graphicsview *view(void) const;
   glowbot_scene *scene(void) const;
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
@@ -71,7 +72,6 @@ class glowbot_view: public QWidget
 
  protected:
   QAction *m_menuAction;
-  QGraphicsView *m_view;
   QString m_fileName;
   QString m_name;
   Ui_glowbot_view m_ui;
@@ -79,6 +79,7 @@ class glowbot_view: public QWidget
   glowbot_alignment *m_alignment;
   glowbot_canvas_settings *m_canvasSettings;
   glowbot_common::ProjectType m_projectType;
+  glowbot_graphicsview *m_view;
   glowbot_object_start *m_startObject;
   glowbot_scene *m_scene;
   glowbot_user_functions *m_userFunctions;
@@ -105,6 +106,8 @@ class glowbot_view: public QWidget
 
  signals:
   void changed(void);
+  void mouseEnterEvent(void);
+  void mouseLeaveEvent(void);
   void saved(void);
   void selectionChanged(void);
   void separate(glowbot_view *view);

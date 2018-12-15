@@ -54,6 +54,7 @@ FORMS          += UI\\glowbot-alignment.ui \
 
 HEADERS	       += Source\\glowbot-alignment.h \
                   Source\\glowbot-canvas-settings.h \
+                  Source\\glowbot-graphicsview.h \
                   Source\\glowbot-object.h \
                   Source\\glowbot-object-edit-window.h \
 		  Source\\glowbot-object-view.h \
@@ -70,7 +71,8 @@ HEADERS	       += Source\\glowbot-alignment.h \
 
 SOURCES	       += Source\\glowbot-alignment.cc \
                   Source\\glowbot-canvas-settings.cc \
-		  Source\\glowbot-common.cc \
+                  Source\\glowbot-common.cc \
+                  Source\\glowbot-graphicsview.cc \
                   Source\\glowbot-main.cc \
                   Source\\glowbot-misc.cc \
                   Source\\glowbot-object.cc \

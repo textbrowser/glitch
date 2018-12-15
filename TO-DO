@@ -59,4 +59,4 @@ Remaining Items
 10.    Prepare parents after cloning objects.
 11.    Warn of faulty home directory.
 12.    Warn of missing SQLite driver.
-13.    Prepare Delete and Select All states.
+13.    Prepare Copy, Delete, Paste, and Select All states.

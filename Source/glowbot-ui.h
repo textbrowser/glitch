@@ -73,6 +73,8 @@ class glowbot_ui: public QMainWindow
   void slotCloseDiagram(void);
   void slotCopy(void);
   void slotDelete(void);
+  void slotMouseEnterView(void);
+  void slotMouseLeaveView(void);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
   void slotOpenRecentDiagram(void);
@@ -82,7 +84,6 @@ class glowbot_ui: public QMainWindow
   void slotQuit(void);
   void slotSaveCurrentDiagram(void);
   void slotSaveCurrentDiagramAs(void);
-  void slotSceneSelectionChanged(void);
   void slotSelectAll(void);
   void slotSelectPage(void);
   void slotSeparate(glowbot_view *view);
