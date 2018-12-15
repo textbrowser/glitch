@@ -793,7 +793,9 @@ void glowbot_ui::slotOpenRecentDiagram(void)
 
 void glowbot_ui::slotPageChanged(void)
 {
-  m_ui.action_Save_Current_Diagram->setEnabled(true);
+  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->currentWidget());
+
+  m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
   setTabText(qobject_cast<glowbot_view *> (sender()));
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
