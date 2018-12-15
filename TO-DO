@@ -38,6 +38,7 @@ Completed Items
 34.    Close a function's Objects Alignment dialog if its editing
        window is closed.
 35.    List of recent files.
+36.    Prepare Copy, Delete, Paste, and Select All states.
 
 Ignored Items
 
@@ -59,4 +60,3 @@ Remaining Items
 10.    Prepare parents after cloning objects.
 11.    Warn of faulty home directory.
 12.    Warn of missing SQLite driver.
-13.    Prepare Copy, Delete, Paste, and Select All states.
