@@ -48,6 +48,7 @@ class glowbot_ui: public QMainWindow
 
  private:
   QPointer<glowbot_structures_arduino> m_arduinoStructures;
+  QPointer<glowbot_view> m_currentView;
   QString m_recentFilesFileName;
   QVector<QPointer<glowbot_object> > m_copiedObjects;
   Ui_glowbot_mainwindow m_ui;

@@ -602,6 +602,9 @@ void glowbot_ui::slotCopy(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  if(!m_currentView)
+    return;
+
   for(int i = m_copiedObjects.size() - 1; i >= 0; i--)
     {
       if(m_copiedObjects.at(i))
@@ -610,22 +613,17 @@ void glowbot_ui::slotCopy(void)
       m_copiedObjects.remove(i);
     }
 
-  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->currentWidget());
+  QList<glowbot_object *> list(m_currentView->objects());
 
-  if(view)
+  for(int i = 0; i < list.size(); i++)
     {
-      QList<glowbot_object *> list(view->objects());
+      if(!list.at(i))
+	continue;
 
-      for(int i = 0; i < list.size(); i++)
-	{
-	  if(!list.at(i))
-	    continue;
+      glowbot_object *clone = list.at(i)->clone();
 
-	  glowbot_object *clone = list.at(i)->clone();
-
-	  if(clone)
-	    m_copiedObjects.append(clone);
-	}
+      if(clone)
+	m_copiedObjects.append(clone);
     }
 
   m_ui.action_Paste->setEnabled(m_copiedObjects.size() > 0);
@@ -634,12 +632,8 @@ void glowbot_ui::slotCopy(void)
 
 void glowbot_ui::slotDelete(void)
 {
-  glowbot_view *view = page(m_ui.tab->currentIndex());
-
-  if(!view)
-    return;
-
-  view->deleteItems();
+  if(m_currentView)
+    m_currentView->deleteItems();
 }
 
 void glowbot_ui::slotMouseEnterView(void)
@@ -648,6 +642,8 @@ void glowbot_ui::slotMouseEnterView(void)
 
   if(!view)
     return;
+  else
+    m_currentView = view;
 
   m_ui.action_Copy->setEnabled(view->scene()->selectedItems().size() > 0);
   m_ui.action_Delete->setEnabled(view->scene()->selectedItems().size() > 0);
@@ -894,12 +890,8 @@ void glowbot_ui::slotSaveCurrentDiagramAs(void)
 
 void glowbot_ui::slotSelectAll(void)
 {
-  glowbot_view *view = page(m_ui.tab->currentIndex());
-
-  if(!view)
-    return;
-
-  view->selectAll();
+  if(m_currentView)
+    m_currentView->selectAll();
 }
 
 void glowbot_ui::slotSelectPage(void)
