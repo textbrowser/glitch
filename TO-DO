@@ -39,6 +39,7 @@ Completed Items
        window is closed.
 35.    List of recent files.
 36.    Prepare Copy, Delete, Paste, and Select All states.
+37.    Warn of missing SQLite driver.
 
 Ignored Items
 
@@ -59,4 +60,3 @@ Remaining Items
 9.     All of Arduino's objects.
 10.    Prepare parents after cloning objects.
 11.    Warn of faulty home directory.
-12.    Warn of missing SQLite driver.

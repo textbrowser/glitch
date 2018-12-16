@@ -506,6 +506,24 @@ void glowbot_ui::show(void)
 
   repaint();
   QApplication::flush();
+
+  if(!QSqlDatabase::isDriverAvailable("QSQLITE"))
+    {
+      QFileInfo fileInfo("qt.conf");
+      QString str("");
+
+      if(fileInfo.isReadable() && fileInfo.size() > 0)
+	str = tr("The SQLite database driver is not available. "
+		 "The file qt.conf is present in GlowBot's "
+		 "current working directory. Perhaps a conflict "
+		 "exists. Please resolve!");
+      else
+	str = tr
+	  ("The SQLite database driver is not available. Please resolve!");
+
+      QMessageBox::critical(this, tr("GlowBot: Error"), str);
+    }
+
   parseCommandLineArguments();
 }
 
