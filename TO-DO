@@ -1,62 +1,60 @@
 Completed Items
 
-1.     Display main() function. Fixed position? Yes.
-2.     View separation.
-3.     Define databases.
-4.     Allow setting of function names.
-5.     Unite separated windows.
-6.     Alignment panel. The panel must allow interaction with separated
-       windows. Per diagram.
-7.     Detect scene boundaries and prevent placement outside of.
-8.     Detect scene boundaries of object scenes.
-9.     Exiting does not require closing of pages.
-10.    Group delete.
-11.    Select all.
-12.    Style sheets. User input is not validated.
-13.    Warn on diagram overwrite during initialization.
-14.    Object numbers should be sequenced.
-15.    Separate database objects when opening an existing diagram.
-16.    Add --open-arduino-diagram option.
-17.    Save loop() and setup() style sheets.
-18.    Save As.
-19.    Confirmation prompt on closing of edited diagrams.
-20.    Allow opening of multiple files.
-21.    Error dialog.
-22.    setWindowIcon(windowIcon()) on child dialogs.
-23.    Depict changed pages. Window titles, etc.
-24.    Confirm closing of changed separated windows.
-25.    Structures context menu on view object.
-26.    Recreating functions and unique names.
-27.    Save, Save As on separated windows.
-28.    The name of the display in settings should be separate
-       from the file name.
-29.    glowbot_canvas_settings::settings(). Not needed.
-30.    Save canvas settings.
-31.    Apply canvas settings.
-32.    Context menu on main tab widget.
-33.    Inspect coordinates upon opening of diagrams. Adjust.
-34.    Close a function's Objects Alignment dialog if its editing
-       window is closed.
-35.    List of recent files.
-36.    Prepare Copy, Delete, Paste, and Select All states.
-37.    Warn of missing SQLite driver.
+- Add --open-arduino-diagram option.
+- Alignment panel. The panel must allow interaction with separated windows.
+  Per diagram.
+- Allow opening of multiple files.
+- Allow setting of function names.
+- Apply canvas settings.
+- Close a function's Objects Alignment dialog if its editing window is closed.
+- Confirm closing of changed separated windows.
+- Confirmation prompt on closing of edited diagrams.
+- Context menu on main tab widget.
+- Define databases.
+- Depict changed pages. Window titles, etc.
+- Detect scene boundaries and prevent placement outside of.
+- Detect scene boundaries of object scenes.
+- Display main() function. Fixed position? Yes.
+- Error dialog.
+- Exiting does not require closing of pages.
+- Group delete.
+- Inspect coordinates upon opening of diagrams. Adjust.
+- List of recent files.
+- Object numbers should be sequenced.
+- Prepare Copy, Delete, Paste, and Select All states.
+- Recreating functions and unique names.
+- Save As.
+- Save canvas settings.
+- Save loop() and setup() style sheets.
+- Save, Save As on separated windows.
+- Select all.
+- Separate database objects when opening an existing diagram.
+- Structures context menu on view object.
+- Style sheets. User input is not validated.
+- The name of the display in settings should be separate from the file name.
+- Unite separated windows.
+- View separation.
+- Warn of missing SQLite driver.
+- Warn on diagram overwrite during initialization.
+- glowbot_canvas_settings::settings(). Not needed.
+- setWindowIcon(windowIcon()) on child dialogs.
 
 Ignored Items
 
-1.     The glowbot_view parent must be passed to every child.
+- The glowbot_view parent must be passed to every child.
 
 Remaining Items
 
-1.     Icons.
-2.     Implement Arduino's loop().
-3.     Implement Arduino's setup().
-4.     A function panel. The panel should include a list of defined functions.
-       Drag and drop support. Warn of recursive uses.
-5.     Translate diagrams to Arduino via Embedded LISP.
-6.     Redo, undo.
-7.     Some wiring is not required. Translating diagrams to Arduino source
-       is based on a top-down interpretation.
-8.     Copy & paste.
-9.     All of Arduino's objects.
-10.    Prepare parents after cloning objects.
-11.    Warn of faulty home directory.
+- A function panel. The panel should include a list of defined functions.
+  Drag and drop support. Warn of recursive uses.
+- All of Arduino's objects.
+- Copy & paste.
+- Icons.
+- Implement Arduino's loop().
+- Implement Arduino's setup().
+- Prepare parents after cloning objects.
+- Redo, undo.
+- Some wiring is not required. Translating diagrams to Arduino source is
+  based on a top-down interpretation.
+- Translate diagrams to Arduino via Embedded LISP.
+- Warn of faulty home directory.
