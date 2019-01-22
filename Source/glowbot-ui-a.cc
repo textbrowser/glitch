@@ -74,6 +74,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotOpenDiagram(void)));
+  connect(m_ui.action_Paste,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotPaste(void)));
   connect(m_ui.action_Quit,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -848,6 +852,10 @@ void glowbot_ui::slotPageSelected(int index)
       }
 
   setWindowTitle(view);
+}
+
+void glowbot_ui::slotPaste(void)
+{
 }
 
 void glowbot_ui::slotQuit(void)
