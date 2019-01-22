@@ -622,10 +622,10 @@ void glowbot_ui::slotCloseDiagram(void)
 
 void glowbot_ui::slotCopy(void)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
   if(!m_currentView)
     return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   for(int i = m_copiedObjects.size() - 1; i >= 0; i--)
     {
