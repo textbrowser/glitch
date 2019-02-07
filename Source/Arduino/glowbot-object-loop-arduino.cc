@@ -60,11 +60,13 @@ bool glowbot_object_loop_arduino::isMandatory(void) const
   return true;
 }
 
-glowbot_object_loop_arduino *glowbot_object_loop_arduino::clone(void) const
+glowbot_object_loop_arduino *glowbot_object_loop_arduino::
+clone(QWidget *parent) const
 {
-  glowbot_object_loop_arduino *object = new glowbot_object_loop_arduino(0);
+  glowbot_object_loop_arduino *object =
+    new glowbot_object_loop_arduino(parent);
 
-  object->initialize(0);
+  object->initialize(parent);
   return object;
 }
 

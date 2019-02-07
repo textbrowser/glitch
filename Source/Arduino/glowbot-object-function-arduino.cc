@@ -99,12 +99,12 @@ bool glowbot_object_function_arduino::isMandatory(void) const
 }
 
 glowbot_object_function_arduino *glowbot_object_function_arduino::
-clone(void) const
+clone(QWidget *parent) const
 {
   glowbot_object_function_arduino *object =
-    new glowbot_object_function_arduino(m_view);
+    new glowbot_object_function_arduino(parent);
 
-  object->initialize(0);
+  object->initialize(parent);
   object->m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(name()));
   object->m_ui.label->setText(name());
   object->setObjectName(name());

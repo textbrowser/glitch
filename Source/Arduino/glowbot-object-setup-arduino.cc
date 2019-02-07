@@ -57,11 +57,13 @@ bool glowbot_object_setup_arduino::isMandatory(void) const
   return true;
 }
 
-glowbot_object_setup_arduino *glowbot_object_setup_arduino::clone(void) const
+glowbot_object_setup_arduino *glowbot_object_setup_arduino::clone
+(QWidget *parent) const
 {
-  glowbot_object_setup_arduino *object = new glowbot_object_setup_arduino(0);
+  glowbot_object_setup_arduino *object =
+    new glowbot_object_setup_arduino(parent);
 
-  object->initialize(0);
+  object->initialize(parent);
   return object;
 }
 

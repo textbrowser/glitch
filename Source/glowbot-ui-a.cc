@@ -37,6 +37,7 @@
 #include "Arduino/glowbot-structures-arduino.h"
 #include "Arduino/glowbot-view-arduino.h"
 #include "glowbot-alignment.h"
+#include "glowbot-graphicsview.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
 #include "glowbot-scene.h"
@@ -642,7 +643,7 @@ void glowbot_ui::slotCopy(void)
       if(!list.at(i))
 	continue;
 
-      glowbot_object *clone = list.at(i)->clone();
+      glowbot_object *clone = list.at(i)->clone(m_currentView);
 
       if(clone)
 	m_copiedObjects.append(clone);
@@ -856,6 +857,28 @@ void glowbot_ui::slotPageSelected(int index)
 
 void glowbot_ui::slotPaste(void)
 {
+  if(!m_currentView)
+    return;
+
+  QPoint point
+    (m_currentView->view()->
+     mapToScene(m_currentView->view()->
+		mapFromGlobal(QCursor::pos())).toPoint());
+
+  for(int i = 0; i < m_copiedObjects.size(); i++)
+    {
+      glowbot_object *object = m_copiedObjects.at(i);
+
+      if(!object)
+	continue;
+      else
+	object = object->clone(m_currentView);
+
+      if(!object)
+	continue;
+
+      m_currentView->scene()->addObject(point, object);
+    }
 }
 
 void glowbot_ui::slotQuit(void)

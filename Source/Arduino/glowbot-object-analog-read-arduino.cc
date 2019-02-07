@@ -51,10 +51,10 @@ glowbot_object_analog_read_arduino::~glowbot_object_analog_read_arduino()
 }
 
 glowbot_object_analog_read_arduino *glowbot_object_analog_read_arduino::
-clone(void) const
+clone(QWidget *parent) const
 {
   glowbot_object_analog_read_arduino *object = new
-    glowbot_object_analog_read_arduino(0);
+    glowbot_object_analog_read_arduino(parent);
 
   object->m_type = m_type;
   object->m_ui.setupUi(object);

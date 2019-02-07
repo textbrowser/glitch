@@ -43,7 +43,7 @@ class glowbot_object_analog_read_arduino: public glowbot_object
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   bool hasView(void) const;
   bool isMandatory(void) const;
-  glowbot_object_analog_read_arduino *clone(void) const;
+  glowbot_object_analog_read_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu) const;
 
  private:

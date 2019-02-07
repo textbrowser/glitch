@@ -47,7 +47,7 @@ class glowbot_object_loop_arduino: public glowbot_object
   ~glowbot_object_loop_arduino();
   bool hasView(void) const;
   bool isMandatory(void) const;
-  glowbot_object_loop_arduino *clone(void) const;
+  glowbot_object_loop_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu) const;
   void save(const QSqlDatabase &db, QString &error);
 
