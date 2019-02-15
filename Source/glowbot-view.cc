@@ -137,6 +137,11 @@ QList<glowbot_object *> glowbot_view::objects(void) const
   return m_scene->objects();
 }
 
+QList<glowbot_object *> glowbot_view::selectedObjects(void) const
+{
+  return m_scene->selectedObjects();
+}
+
 QMenu *glowbot_view::defaultContextMenu(void)
 {
   /*

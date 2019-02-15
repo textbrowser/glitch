@@ -52,6 +52,7 @@ class glowbot_view: public QWidget
   virtual ~glowbot_view();
   QAction *menuAction(void) const;
   QList<glowbot_object *> objects(void) const;
+  QList<glowbot_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
   QString name(void) const;
   bool hasChanged(void) const;

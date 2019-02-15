@@ -636,14 +636,14 @@ void glowbot_ui::slotCopy(void)
       m_copiedObjects.remove(i);
     }
 
-  QList<glowbot_object *> list(m_currentView->objects());
+  QList<glowbot_object *> list(m_currentView->selectedObjects());
 
   for(int i = 0; i < list.size(); i++)
     {
       if(!list.at(i))
 	continue;
 
-      glowbot_object *clone = list.at(i)->clone(m_currentView);
+      glowbot_object *clone = list.at(i)->clone(0);
 
       if(clone)
 	m_copiedObjects.append(clone);
@@ -860,6 +860,8 @@ void glowbot_ui::slotPaste(void)
   if(!m_currentView)
     return;
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   QPoint point
     (m_currentView->view()->
      mapToScene(m_currentView->view()->
@@ -879,6 +881,8 @@ void glowbot_ui::slotPaste(void)
 
       m_currentView->scene()->addObject(point, object);
     }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glowbot_ui::slotQuit(void)

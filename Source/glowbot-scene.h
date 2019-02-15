@@ -42,6 +42,7 @@ class glowbot_scene: public QGraphicsScene
   glowbot_scene(const glowbot_common::ProjectType projectType, QObject *parent);
   ~glowbot_scene();
   QList<glowbot_object *> objects(void) const;
+  QList<glowbot_object *> selectedObjects(void) const;
   void addObject(const QPointF &point, glowbot_object *object);
   void deleteItems(void);
   void setMainScene(const bool state);

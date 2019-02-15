@@ -26,6 +26,7 @@
 */
 
 #include <QSqlQuery>
+#include <QtDebug>
 
 #include "glowbot-object-loop-arduino.h"
 #include "glowbot-object-setup-arduino.h"

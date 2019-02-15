@@ -59,10 +59,7 @@ glowbot_object::glowbot_object(QWidget *parent):QWidget(0),
   if(view)
     m_id = view->nextId();
   else
-    {
-      m_id = 1;
-      qDebug() << "glowbot_object::glowbot_object(): view is zero!";
-    }
+    m_id = 1;
 
   m_parent = parent;
 }

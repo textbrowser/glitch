@@ -60,11 +60,7 @@ bool glowbot_object_setup_arduino::isMandatory(void) const
 glowbot_object_setup_arduino *glowbot_object_setup_arduino::clone
 (QWidget *parent) const
 {
-  glowbot_object_setup_arduino *object =
-    new glowbot_object_setup_arduino(parent);
-
-  object->initialize(parent);
-  return object;
+  return new glowbot_object_setup_arduino(parent);
 }
 
 void glowbot_object_setup_arduino::addActions(QMenu &menu) const

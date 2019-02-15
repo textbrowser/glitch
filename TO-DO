@@ -6,6 +6,7 @@ Completed Items
 - Allow opening of multiple files.
 - Allow setting of function names.
 - Apply canvas settings.
+- Assign new names to functions pasted on main canvases.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
@@ -48,7 +49,6 @@ Remaining Items
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
-- Assign new names to functions pasted on main canvases.
 - Copy & paste.
 - Icons.
 - Implement Arduino's loop().
