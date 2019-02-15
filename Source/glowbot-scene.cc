@@ -187,8 +187,7 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
       connect(object,
 	      SIGNAL(nameChanged(const QString &, const QString &)),
 	      this,
-	      SIGNAL(functionNameChanged(const QString &,
-					 const QString &)),
+	      SIGNAL(functionNameChanged(const QString &, const QString &)),
 	      Qt::UniqueConnection);
       emit functionAdded
 	(qobject_cast<glowbot_object_function_arduino *> (object)->name());
