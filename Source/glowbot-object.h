@@ -29,8 +29,11 @@
 #define _glowbot_object_h_
 
 #include <QMenu>
+#include <QPointer>
 #include <QSqlDatabase>
 #include <QWidget>
+
+#include "glowbot-proxy-widget.h"
 
 class glowbot_object: public QWidget
 {
@@ -40,6 +43,7 @@ class glowbot_object: public QWidget
   glowbot_object(QWidget *parent);
   glowbot_object(const quint64 id, QWidget *parent);
   virtual glowbot_object *clone(QWidget *parent) const = 0;
+  QPointF scenePos(void) const;
   QString type(void) const;
   quint64 id(void) const;
   static glowbot_object *createFromValues
@@ -51,11 +55,13 @@ class glowbot_object: public QWidget
   virtual void save(const QSqlDatabase &db, QString &error);
   void move(const QPoint &point);
   void move(int x, int y);
+  void setProxy(const QPointer<glowbot_proxy_widget> &proxy);
 
  private:
   static quint64 s_id;
 
  protected:
+  QPointer<glowbot_proxy_widget> m_proxy;
   QString m_type;
   QWidget *m_parent;
   bool m_initialized;

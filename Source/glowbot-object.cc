@@ -75,6 +75,14 @@ glowbot_object::~glowbot_object()
 {
 }
 
+QPointF glowbot_object::scenePos(void) const
+{
+  if(m_proxy)
+    return m_proxy->scenePos();
+  else
+    return QPointF(0.0, 0.0);
+}
+
 QString glowbot_object::type(void) const
 {
   return m_type;
@@ -153,6 +161,11 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
 
   if(query.lastError().isValid())
     error = query.lastError().text();
+}
+
+void glowbot_object::setProxy(const QPointer<glowbot_proxy_widget> &proxy)
+{
+  m_proxy = proxy;
 }
 
 void glowbot_object::slotSetStyleSheet(void)

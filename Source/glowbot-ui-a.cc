@@ -628,12 +628,17 @@ void glowbot_ui::slotCopy(void)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  for(int i = m_copiedObjects.size() - 1; i >= 0; i--)
-    {
-      if(m_copiedObjects.at(i))
-	m_copiedObjects.at(i)->deleteLater();
+  QMutableMapIterator<QPair<int, int>, QPointer<glowbot_object> >
+    it(m_copiedObjects);
 
-      m_copiedObjects.remove(i);
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value())
+	it.value()->deleteLater();
+
+      it.remove();
     }
 
   QList<glowbot_object *> list(m_currentView->selectedObjects());
@@ -643,10 +648,17 @@ void glowbot_ui::slotCopy(void)
       if(!list.at(i))
 	continue;
 
+      QPoint point(list.at(i)->scenePos().toPoint());
       glowbot_object *clone = list.at(i)->clone(0);
 
-      if(clone)
-	m_copiedObjects.append(clone);
+      if(!clone)
+	continue;
+
+      QPair<int, int> pair;
+
+      pair.first = point.x();
+      pair.second = point.y();
+      m_copiedObjects.insert(pair, clone);
     }
 
   m_ui.action_Paste->setEnabled(m_copiedObjects.size() > 0);
@@ -862,24 +874,48 @@ void glowbot_ui::slotPaste(void)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  QMapIterator<QPair<int, int>, QPointer<glowbot_object> > it(m_copiedObjects);
+  QPoint first;
   QPoint point
-    (m_currentView->view()->
-     mapToScene(m_currentView->view()->
-		mapFromGlobal(QCursor::pos())).toPoint());
+    (m_currentView->view()->mapToScene(m_currentView->view()->
+				       mapFromGlobal(QCursor::pos())).
+     toPoint());
+  bool f = false;
 
-  for(int i = 0; i < m_copiedObjects.size(); i++)
+  while(it.hasNext())
     {
-      glowbot_object *object = m_copiedObjects.at(i);
+      it.next();
+
+      glowbot_object *object = it.value();
 
       if(!object)
 	continue;
+      else if(!(object = object->clone(m_currentView)))
+	continue;
+
+      int x = it.key().first;
+      int y = it.key().second;
+
+      if(!f)
+	{
+	  first = QPoint(x, y);
+	  m_currentView->scene()->addObject(point, object);
+	}
       else
-	object = object->clone(m_currentView);
+	{
+	  QPoint p(point);
 
-      if(!object)
-	continue;
+	  p.setX(p.x() + x - first.x());
 
-      m_currentView->scene()->addObject(point, object);
+	  if(y > first.y())
+	    p.setY(p.y() + y - first.y());
+	  else
+	    p.setY(p.y() - (first.y() - y));
+
+	  m_currentView->scene()->addObject(p, object);
+	}
+
+      f = true;
     }
 
   QApplication::restoreOverrideCursor();

@@ -47,10 +47,10 @@ class glowbot_ui: public QMainWindow
   ~glowbot_ui();
 
  private:
+  QMultiMap<QPair<int, int>, QPointer<glowbot_object> > m_copiedObjects;
   QPointer<glowbot_structures_arduino> m_arduinoStructures;
   QPointer<glowbot_view> m_currentView;
   QString m_recentFilesFileName;
-  QVector<QPointer<glowbot_object> > m_copiedObjects;
   Ui_glowbot_mainwindow m_ui;
   bool openDiagram(const QString &fileName, QString &error);
   glowbot_view *page(const int index);

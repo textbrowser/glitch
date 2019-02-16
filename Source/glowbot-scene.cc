@@ -179,6 +179,7 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
   proxy->setWidget(object);
   addItem(proxy);
   object->move(point.toPoint());
+  object->setProxy(proxy);
   proxy->setPos(point);
   emit changed();
 
