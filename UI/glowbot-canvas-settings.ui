@@ -57,7 +57,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>&amp;Background Color</string>
+            <string>Canvas &amp;Background Color</string>
            </property>
            <property name="buddy">
             <cstring>background_color</cstring>

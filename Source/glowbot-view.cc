@@ -552,7 +552,7 @@ void glowbot_view::slotCanvasSettingsChanged(void)
 
   m_name = m_canvasSettings->name();
   m_scene->setBackgroundBrush
-    (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
+    (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
   emit changed();
 }

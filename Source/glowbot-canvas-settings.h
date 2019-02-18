@@ -40,7 +40,7 @@ class glowbot_canvas_settings: public QDialog
  public:
   glowbot_canvas_settings(QWidget *parent);
   ~glowbot_canvas_settings();
-  QColor backgroundColor(void) const;
+  QColor canvasBackgroundColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QString name(void) const;
   void setFileName(const QString &fileName);

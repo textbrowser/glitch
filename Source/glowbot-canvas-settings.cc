@@ -60,7 +60,7 @@ glowbot_canvas_settings::~glowbot_canvas_settings()
 {
 }
 
-QColor glowbot_canvas_settings::backgroundColor(void) const
+QColor glowbot_canvas_settings::canvasBackgroundColor(void) const
 {
   return QColor(m_ui.background_color->text());
 }
