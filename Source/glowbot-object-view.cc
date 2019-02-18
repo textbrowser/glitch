@@ -43,7 +43,7 @@ glowbot_object_view::glowbot_object_view
   m_id = id;
   m_projectType = projectType;
   m_scene = new glowbot_scene(m_projectType, this);
-  setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   setDragMode(QGraphicsView::RubberBandDrag);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);

@@ -257,6 +257,47 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
   QGraphicsScene::dragMoveEvent(event);
 }
 
+void glowbot_scene::drawBackground(QPainter *painter, const QRectF &rect)
+{
+  if(!painter)
+    {
+      QGraphicsScene::drawBackground(painter, rect);
+      return;
+    }
+
+  /*
+  ** Here be magical points!
+  */
+
+  painter->save();
+  painter->fillRect(rect, backgroundBrush());
+  painter->setBrushOrigin(0, 0);
+  painter->restore();
+
+  QPen pen;
+
+  pen.setBrush(QColor(0xff - backgroundBrush().color().red(),
+		      0xff - backgroundBrush().color().green(),
+		      0xff - backgroundBrush().color().blue()));
+  pen.setWidthF(1.00);
+  painter->setPen(pen);
+
+  QVector<QPointF> points;
+  int gridSize = 20;
+  qreal left = static_cast<int> (rect.left()) -
+    (static_cast<int> (rect.left()) % gridSize);
+  qreal top = static_cast<int> (rect.top()) -
+    (static_cast<int> (rect.top()) % gridSize);
+
+  for(qreal x = left; x < rect.right(); x += gridSize)
+    for(qreal y = top; y < rect.bottom(); y += gridSize)
+      points.append(QPointF(x, y));
+
+  painter->save();
+  painter->drawPoints(points.data(), points.size());
+  painter->restore();
+}
+
 void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())

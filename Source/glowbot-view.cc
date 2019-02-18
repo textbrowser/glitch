@@ -63,11 +63,11 @@ glowbot_view::glowbot_view
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(m_projectType, this);
+  m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
   m_startObject = 0;
   m_userFunctions = new glowbot_user_functions(this);
   m_view = new glowbot_graphicsview(this);
-  m_view->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
@@ -551,7 +551,7 @@ void glowbot_view::slotCanvasSettingsChanged(void)
   */
 
   m_name = m_canvasSettings->name();
-  m_view->setBackgroundBrush
+  m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->backgroundColor(), Qt::SolidPattern));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
   emit changed();
