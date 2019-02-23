@@ -50,7 +50,7 @@ Remaining Items
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
-- Functions are defined on the main view. Allow multiples instances of
+- Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.
 - Icons.
