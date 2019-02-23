@@ -83,6 +83,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotQuit(void)));
+  connect(m_ui.action_Redo,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotRedo(void)));
   connect(m_ui.action_Save_Current_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -99,6 +103,10 @@ glowbot_ui::glowbot_ui(void):QMainWindow(0)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowStructures(void)));
+  connect(m_ui.action_Undo,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotUndo(void)));
   connect(m_ui.menu_Tabs,
 	  SIGNAL(aboutToShow(void)),
 	  this,
@@ -370,10 +378,12 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
+      m_ui.action_Redo->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
+      m_ui.action_Undo->setEnabled(false);
     }
   else
     {
@@ -926,6 +936,10 @@ void glowbot_ui::slotQuit(void)
   close();
 }
 
+void glowbot_ui::slotRedo(void)
+{
+}
+
 void glowbot_ui::slotSaveCurrentDiagram(void)
 {
   glowbot_view *view = page(m_ui.tab->currentIndex());
@@ -1064,6 +1078,10 @@ void glowbot_ui::slotTabMoved(int from, int to)
     }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glowbot_ui::slotUndo(void)
+{
 }
 
 void glowbot_ui::slotUnite(glowbot_view *view)

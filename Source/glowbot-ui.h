@@ -84,6 +84,7 @@ class glowbot_ui: public QMainWindow
   void slotPageSelected(int index);
   void slotPaste(void);
   void slotQuit(void);
+  void slotRedo(void);
   void slotSaveCurrentDiagram(void);
   void slotSaveCurrentDiagramAs(void);
   void slotSelectAll(void);
@@ -92,6 +93,7 @@ class glowbot_ui: public QMainWindow
   void slotShowAlignment(void);
   void slotShowStructures(void);
   void slotTabMoved(int from, int to);
+  void slotUndo(void);
   void slotUnite(glowbot_view *view);
 
  public slots:

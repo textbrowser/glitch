@@ -98,8 +98,8 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
-    <addaction name="actionUndo"/>
-    <addaction name="actionRedo"/>
+    <addaction name="action_Undo"/>
+    <addaction name="action_Redo"/>
     <addaction name="separator"/>
     <addaction name="action_Copy"/>
     <addaction name="action_Paste"/>
@@ -198,7 +198,7 @@
     <string>Ctrl+V</string>
    </property>
   </action>
-  <action name="actionUndo">
+  <action name="action_Undo">
    <property name="text">
     <string>Undo</string>
    </property>
@@ -206,7 +206,7 @@
     <string>Ctrl+Z</string>
    </property>
   </action>
-  <action name="actionRedo">
+  <action name="action_Redo">
    <property name="text">
     <string>Redo</string>
    </property>
