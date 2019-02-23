@@ -28,6 +28,7 @@
 #ifndef _glowbot_view_h_
 #define _glowbot_view_h_
 
+#include <QUndoStack>
 #include <QWidget>
 
 #include "glowbot-canvas-settings.h"
@@ -55,6 +56,8 @@ class glowbot_view: public QWidget
   QList<glowbot_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
   QString name(void) const;
+  bool canRedo(void) const;
+  bool canUndo(void) const;
   bool hasChanged(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
@@ -75,6 +78,7 @@ class glowbot_view: public QWidget
   QAction *m_menuAction;
   QString m_fileName;
   QString m_name;
+  QUndoStack *m_undoStack;
   Ui_glowbot_view m_ui;
   bool m_changed;
   glowbot_alignment *m_alignment;

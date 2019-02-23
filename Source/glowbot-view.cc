@@ -66,6 +66,7 @@ glowbot_view::glowbot_view
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
   m_startObject = 0;
+  m_undoStack = new QUndoStack(this);
   m_userFunctions = new glowbot_user_functions(this);
   m_view = new glowbot_graphicsview(this);
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
@@ -205,6 +206,16 @@ QMenu *glowbot_view::defaultContextMenu(void)
 QString glowbot_view::name(void) const
 {
   return m_name;
+}
+
+bool glowbot_view::canRedo(void) const
+{
+  return m_undoStack->canRedo();
+}
+
+bool glowbot_view::canUndo(void) const
+{
+  return m_undoStack->canRedo();
 }
 
 bool glowbot_view::hasChanged(void) const

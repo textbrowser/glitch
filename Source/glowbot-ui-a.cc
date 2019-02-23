@@ -389,8 +389,12 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
+      m_ui.action_Redo->setEnabled
+	(m_currentView && m_currentView->canRedo());
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
+      m_ui.action_Undo->setEnabled
+	(m_currentView && m_currentView->canUndo());
     }
 }
 
