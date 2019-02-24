@@ -949,6 +949,7 @@ void glowbot_ui::slotRedo(void)
     {
       m_currentView->redo();
       m_ui.action_Redo->setEnabled(m_currentView->canRedo());
+      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
     }
 }
 
@@ -1097,6 +1098,7 @@ void glowbot_ui::slotUndo(void)
   if(m_currentView)
     {
       m_currentView->undo();
+      m_ui.action_Redo->setEnabled(m_currentView->canRedo());
       m_ui.action_Undo->setEnabled(m_currentView->canUndo());
     }
 }

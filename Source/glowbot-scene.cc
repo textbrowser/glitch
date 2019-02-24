@@ -214,9 +214,8 @@ void glowbot_scene::deleteItems(void)
       else if(proxy->isMandatory() || !proxy->isSelected())
 	continue;
 
-      emit itemRemoved(proxy);
-      removeItem(proxy);
       state = true;
+      emit itemRemoved(proxy);
     }
 
   QApplication::restoreOverrideCursor();

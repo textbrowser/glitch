@@ -25,6 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QtDebug>
+
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-undo-command.h"
@@ -54,7 +56,7 @@ void glowbot_undo_command::redo(void)
     {
     case ITEM_DELETED:
       {
-	m_view->scene()->addItem(m_proxy);
+	m_view->scene()->removeItem(m_proxy);
 	break;
       }
     default:
