@@ -503,6 +503,10 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
   QApplication::restoreOverrideCursor();
 }
 
+void glowbot_view::redo(void)
+{
+}
+
 void glowbot_view::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
@@ -673,4 +677,8 @@ void glowbot_view::slotShowUserFunctions(void)
 void glowbot_view::slotUnite(void)
 {
   emit unite(this);
+}
+
+void glowbot_view::undo(void)
+{
 }

@@ -942,6 +942,8 @@ void glowbot_ui::slotQuit(void)
 
 void glowbot_ui::slotRedo(void)
 {
+  if(m_currentView)
+    m_currentView->redo();
 }
 
 void glowbot_ui::slotSaveCurrentDiagram(void)
@@ -1086,6 +1088,8 @@ void glowbot_ui::slotTabMoved(int from, int to)
 
 void glowbot_ui::slotUndo(void)
 {
+  if(m_currentView)
+    m_currentView->undo();
 }
 
 void glowbot_ui::slotUnite(glowbot_view *view)
