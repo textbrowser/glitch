@@ -29,6 +29,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QtDebug>
 
 #include "glowbot-object.h"
 #include "glowbot-proxy-widget.h"
@@ -41,6 +42,7 @@ glowbot_proxy_widget::glowbot_proxy_widget
 
 glowbot_proxy_widget::~glowbot_proxy_widget()
 {
+  qDebug() << "Destroyed!";
 }
 
 bool glowbot_proxy_widget::isMandatory(void) const

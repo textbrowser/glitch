@@ -33,6 +33,7 @@
 #include "glowbot-common.h"
 
 class glowbot_object;
+class glowbot_proxy_widget;
 
 class glowbot_scene: public QGraphicsScene
 {
@@ -64,6 +65,7 @@ class glowbot_scene: public QGraphicsScene
   void changed(void);
   void functionAdded(const QString &name);
   void functionNameChanged(const QString &before, const QString &after);
+  void itemRemoved(glowbot_proxy_widget *proxy);
   void sceneResized(void);
 };
 

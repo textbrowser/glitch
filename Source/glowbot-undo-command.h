@@ -30,12 +30,31 @@
 
 #include <QUndoCommand>
 
+class glowbot_proxy_widget;
+class glowbot_view;
+
 class glowbot_undo_command: public QUndoCommand
 {
  public:
-  glowbot_undo_command(QUndoCommand *parent);
+  enum Types
+  {
+    ITEM_ADDED = 0,
+    ITEM_DELETED,
+    ITEM_RENAMED
+  };
+
+  glowbot_undo_command(const Types type,
+		       glowbot_proxy_widget *proxy,
+		       glowbot_view *view,
+		       QUndoCommand *parent = 0);
+  ~glowbot_undo_command();
   void redo(void);
   void undo(void);
+
+ private:
+  Types m_type;
+  glowbot_proxy_widget *m_proxy;
+  glowbot_view *m_view;
 };
 
 #endif

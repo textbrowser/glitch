@@ -682,7 +682,10 @@ void glowbot_ui::slotCopy(void)
 void glowbot_ui::slotDelete(void)
 {
   if(m_currentView)
-    m_currentView->deleteItems();
+    {
+      m_currentView->deleteItems();
+      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
+    }
 }
 
 void glowbot_ui::slotMouseEnterView(void)
@@ -943,7 +946,10 @@ void glowbot_ui::slotQuit(void)
 void glowbot_ui::slotRedo(void)
 {
   if(m_currentView)
-    m_currentView->redo();
+    {
+      m_currentView->redo();
+      m_ui.action_Redo->setEnabled(m_currentView->canRedo());
+    }
 }
 
 void glowbot_ui::slotSaveCurrentDiagram(void)
@@ -1089,7 +1095,10 @@ void glowbot_ui::slotTabMoved(int from, int to)
 void glowbot_ui::slotUndo(void)
 {
   if(m_currentView)
-    m_currentView->undo();
+    {
+      m_currentView->undo();
+      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
+    }
 }
 
 void glowbot_ui::slotUnite(glowbot_view *view)

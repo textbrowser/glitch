@@ -214,8 +214,8 @@ void glowbot_scene::deleteItems(void)
       else if(proxy->isMandatory() || !proxy->isSelected())
 	continue;
 
+      emit itemRemoved(proxy);
       removeItem(proxy);
-      delete proxy;
       state = true;
     }
 

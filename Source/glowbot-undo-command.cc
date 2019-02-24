@@ -25,17 +25,61 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glowbot-proxy-widget.h"
+#include "glowbot-scene.h"
 #include "glowbot-undo-command.h"
+#include "glowbot-view.h"
 
-glowbot_undo_command::glowbot_undo_command(QUndoCommand *parent):
-  QUndoCommand(parent)
+glowbot_undo_command::glowbot_undo_command
+(const Types type,
+ glowbot_proxy_widget *proxy,
+ glowbot_view *view,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_proxy = proxy;
+  m_type = type;
+  m_view = view;
+}
+
+glowbot_undo_command::~glowbot_undo_command()
 {
 }
 
 void glowbot_undo_command::redo(void)
 {
+  if(!m_proxy)
+    return;
+
+  switch(m_type)
+    {
+    case ITEM_DELETED:
+      {
+	m_view->scene()->addItem(m_proxy);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
 }
 
 void glowbot_undo_command::undo(void)
 {
+  if(!m_proxy)
+    return;
+
+  switch(m_type)
+    {
+    case ITEM_DELETED:
+      {
+	m_view->scene()->addItem(m_proxy);
+	m_view->scene()->update();
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
 }

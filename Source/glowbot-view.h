@@ -39,6 +39,7 @@ class glowbot_alignment;
 class glowbot_graphicsview;
 class glowbot_object;
 class glowbot_object_start;
+class glowbot_proxy_widget;
 class glowbot_scene;
 class glowbot_undo_command;
 class glowbot_user_functions;
@@ -103,6 +104,7 @@ class glowbot_view: public QWidget
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name);
   void slotFunctionNameChanged(const QString &before, const QString &after);
+  void slotItemRemoved(glowbot_proxy_widget *proxy);
   void slotSave(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);

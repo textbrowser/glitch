@@ -102,6 +102,10 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotFunctionNameChanged(const QString &, const QString &)));
   connect(m_scene,
+	  SIGNAL(itemRemoved(glowbot_proxy_widget *)),
+	  this,
+	  SLOT(slotItemRemoved(glowbot_proxy_widget *)));
+  connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
 	  SLOT(slotSceneResized(void)));
@@ -605,6 +609,17 @@ void glowbot_view::slotFunctionNameChanged(const QString &before,
 					   const QString &after)
 {
   m_userFunctions->renameFunction(before, after);
+}
+
+void glowbot_view::slotItemRemoved(glowbot_proxy_widget *proxy)
+{
+  if(proxy)
+    {
+      glowbot_undo_command *undoCommand = new glowbot_undo_command
+	(glowbot_undo_command::ITEM_DELETED, proxy, this);
+
+      m_undoStack->push(undoCommand);
+    }
 }
 
 void glowbot_view::slotSave(void)
