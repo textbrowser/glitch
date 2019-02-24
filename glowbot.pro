@@ -66,7 +66,6 @@ HEADERS	       += Source\glowbot-alignment.h \
                   Source\glowbot-tab.h \
                   Source\glowbot-tab-tabbar.h \
                   Source\glowbot-ui.h \
-                  Source\glowbot-undo-command.h \
                   Source\glowbot-user-functions.h \
                   Source\glowbot-view.h
 

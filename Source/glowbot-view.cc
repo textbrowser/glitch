@@ -42,6 +42,7 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
+#include "glowbot-undo-command.h"
 #include "glowbot-user-functions.h"
 #include "glowbot-view.h"
 
@@ -501,6 +502,11 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 
   glowbot_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
+}
+
+void glowbot_view::push(glowbot_undo_command *undoCommand)
+{
+  m_undoStack->push(undoCommand);
 }
 
 void glowbot_view::redo(void)

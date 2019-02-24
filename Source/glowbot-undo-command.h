@@ -25,8 +25,8 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_view_h_
-#define _glowbot_view_h_
+#ifndef _glowbot_undo_command_h_
+#define _glowbot_undo_command_h_
 
 #include <QUndoCommand>
 
