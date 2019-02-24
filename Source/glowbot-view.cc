@@ -215,7 +215,7 @@ bool glowbot_view::canRedo(void) const
 
 bool glowbot_view::canUndo(void) const
 {
-  return m_undoStack->canRedo();
+  return m_undoStack->canUndo();
 }
 
 bool glowbot_view::hasChanged(void) const
@@ -505,6 +505,7 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 
 void glowbot_view::redo(void)
 {
+  m_undoStack->redo();
 }
 
 void glowbot_view::resizeEvent(QResizeEvent *event)
@@ -681,4 +682,5 @@ void glowbot_view::slotUnite(void)
 
 void glowbot_view::undo(void)
 {
+  m_undoStack->undo();
 }
