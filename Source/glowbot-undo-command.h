@@ -28,6 +28,7 @@
 #ifndef _glowbot_undo_command_h_
 #define _glowbot_undo_command_h_
 
+#include <QPointer>
 #include <QUndoCommand>
 
 class glowbot_proxy_widget;
@@ -52,8 +53,8 @@ class glowbot_undo_command: public QUndoCommand
   void undo(void);
 
  private:
+  QPointer<glowbot_proxy_widget> m_proxy;
   Types m_type;
-  glowbot_proxy_widget *m_proxy;
   glowbot_view *m_view;
 };
 

@@ -45,6 +45,8 @@ glowbot_undo_command::glowbot_undo_command
 
 glowbot_undo_command::~glowbot_undo_command()
 {
+  if(m_proxy)
+    m_proxy->deleteLater();
 }
 
 void glowbot_undo_command::redo(void)

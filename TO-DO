@@ -61,4 +61,5 @@ Remaining Items
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
+- Undo macros for group actions.
 - Warn of faulty home directory.
