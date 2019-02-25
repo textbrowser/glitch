@@ -57,7 +57,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Prepare parents after cloning objects.
-- Redo, undo.
+- Redo, undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
