@@ -32,7 +32,7 @@
 #include <QUndoCommand>
 
 class glowbot_proxy_widget;
-class glowbot_view;
+class glowbot_scene;
 
 class glowbot_undo_command: public QUndoCommand
 {
@@ -46,7 +46,7 @@ class glowbot_undo_command: public QUndoCommand
 
   glowbot_undo_command(const Types type,
 		       glowbot_proxy_widget *proxy,
-		       glowbot_view *view,
+		       glowbot_scene *scene,
 		       QUndoCommand *parent = 0);
   ~glowbot_undo_command();
   void redo(void);
@@ -55,7 +55,7 @@ class glowbot_undo_command: public QUndoCommand
  private:
   QPointer<glowbot_proxy_widget> m_proxy;
   Types m_type;
-  glowbot_view *m_view;
+  glowbot_scene *m_scene;
 };
 
 #endif

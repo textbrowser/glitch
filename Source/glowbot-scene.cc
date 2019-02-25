@@ -30,6 +30,7 @@
 #include <QGraphicsView>
 #include <QMimeData>
 #include <QTableWidget>
+#include <QUndoStack>
 #include <QtDebug>
 
 #include "Arduino/glowbot-object-analog-read-arduino.h"
@@ -37,6 +38,7 @@
 #include "Arduino/glowbot-structures-arduino.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
+#include "glowbot-undo-command.h"
 
 glowbot_scene::glowbot_scene(const glowbot_common::ProjectType projectType,
 			     QObject *parent):QGraphicsScene(parent)
@@ -197,12 +199,15 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
   emit sceneResized();
 }
 
-void glowbot_scene::deleteItems(void)
+void glowbot_scene::deleteItems(QUndoStack *undoStack)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list(items());
   bool state = false;
+
+  if(undoStack)
+    undoStack->beginMacro("delete");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -215,8 +220,16 @@ void glowbot_scene::deleteItems(void)
 	continue;
 
       state = true;
-      emit itemRemoved(proxy);
+
+      if(undoStack)
+	undoStack->push
+	  (new glowbot_undo_command(glowbot_undo_command::ITEM_DELETED,
+				    proxy,
+				    this));
     }
+
+  if(undoStack)
+    undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 

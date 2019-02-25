@@ -42,7 +42,6 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
-#include "glowbot-undo-command.h"
 #include "glowbot-user-functions.h"
 #include "glowbot-view.h"
 
@@ -102,10 +101,6 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotFunctionNameChanged(const QString &, const QString &)));
   connect(m_scene,
-	  SIGNAL(itemRemoved(glowbot_proxy_widget *)),
-	  this,
-	  SLOT(slotItemRemoved(glowbot_proxy_widget *)));
-  connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
 	  SLOT(slotSceneResized(void)));
@@ -131,6 +126,7 @@ glowbot_view::glowbot_view
 
 glowbot_view::~glowbot_view()
 {
+  m_undoStack->undo();
 }
 
 QAction *glowbot_view::menuAction(void) const
@@ -461,7 +457,7 @@ void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 
 void glowbot_view::deleteItems(void)
 {
-  m_scene->deleteItems();
+  m_scene->deleteItems(m_undoStack);
 }
 
 void glowbot_view::prepareDatabaseTables(const QString &fileName) const
@@ -506,11 +502,6 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 
   glowbot_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
-}
-
-void glowbot_view::push(glowbot_undo_command *undoCommand)
-{
-  m_undoStack->push(undoCommand);
 }
 
 void glowbot_view::redo(void)
@@ -609,17 +600,6 @@ void glowbot_view::slotFunctionNameChanged(const QString &before,
 					   const QString &after)
 {
   m_userFunctions->renameFunction(before, after);
-}
-
-void glowbot_view::slotItemRemoved(glowbot_proxy_widget *proxy)
-{
-  if(proxy)
-    {
-      glowbot_undo_command *undoCommand = new glowbot_undo_command
-	(glowbot_undo_command::ITEM_DELETED, proxy, this);
-
-      m_undoStack->push(undoCommand);
-    }
 }
 
 void glowbot_view::slotSave(void)

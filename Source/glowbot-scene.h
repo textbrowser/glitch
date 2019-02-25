@@ -32,6 +32,7 @@
 
 #include "glowbot-common.h"
 
+class QUndoStack;
 class glowbot_object;
 class glowbot_proxy_widget;
 
@@ -45,7 +46,7 @@ class glowbot_scene: public QGraphicsScene
   QList<glowbot_object *> objects(void) const;
   QList<glowbot_object *> selectedObjects(void) const;
   void addObject(const QPointF &point, glowbot_object *object);
-  void deleteItems(void);
+  void deleteItems(QUndoStack *undoStack);
   void setMainScene(const bool state);
 
  private:
@@ -65,7 +66,6 @@ class glowbot_scene: public QGraphicsScene
   void changed(void);
   void functionAdded(const QString &name);
   void functionNameChanged(const QString &before, const QString &after);
-  void itemRemoved(glowbot_proxy_widget *proxy);
   void sceneResized(void);
 };
 

@@ -41,7 +41,6 @@ class glowbot_object;
 class glowbot_object_start;
 class glowbot_proxy_widget;
 class glowbot_scene;
-class glowbot_undo_command;
 class glowbot_user_functions;
 
 class glowbot_view: public QWidget
@@ -69,7 +68,6 @@ class glowbot_view: public QWidget
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
   void deleteItems(void);
-  void push(glowbot_undo_command *undoCommand);
   void redo(void);
   void save(void);
   void selectAll(void);
@@ -104,7 +102,6 @@ class glowbot_view: public QWidget
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name);
   void slotFunctionNameChanged(const QString &before, const QString &after);
-  void slotItemRemoved(glowbot_proxy_widget *proxy);
   void slotSave(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);

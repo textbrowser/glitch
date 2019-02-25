@@ -623,7 +623,9 @@ void glowbot_ui::slotCloseDiagram(int index)
 	    return;
 	}
 
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
       view->deleteLater();
+      QApplication::restoreOverrideCursor();
     }
 
   m_ui.tab->removeTab(index);

@@ -30,23 +30,20 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-undo-command.h"
-#include "glowbot-view.h"
 
 glowbot_undo_command::glowbot_undo_command
 (const Types type,
  glowbot_proxy_widget *proxy,
- glowbot_view *view,
+ glowbot_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
   m_proxy = proxy;
+  m_scene = scene;
   m_type = type;
-  m_view = view;
 }
 
 glowbot_undo_command::~glowbot_undo_command()
 {
-  if(m_proxy)
-    m_proxy->deleteLater();
 }
 
 void glowbot_undo_command::redo(void)
@@ -58,7 +55,7 @@ void glowbot_undo_command::redo(void)
     {
     case ITEM_DELETED:
       {
-	m_view->scene()->removeItem(m_proxy);
+	m_scene->removeItem(m_proxy);
 	break;
       }
     default:
@@ -77,8 +74,8 @@ void glowbot_undo_command::undo(void)
     {
     case ITEM_DELETED:
       {
-	m_view->scene()->addItem(m_proxy);
-	m_view->scene()->update();
+	m_scene->addItem(m_proxy);
+	m_scene->update();
 	break;
       }
     default:
