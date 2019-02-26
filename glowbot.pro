@@ -17,7 +17,7 @@ TEMPLATE	= app
 QMAKE_CLEAN	+= GlowBot
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
-                          -mtune=generic -pie -O3 \
+                          -mtune=generic -pedantic -pie -O3 \
                           -Wall -Wcast-align -Wcast-qual \
                           -Werror -Wextra \
                           -Wno-class-memaccess \
