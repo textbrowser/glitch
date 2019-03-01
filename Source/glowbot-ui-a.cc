@@ -45,9 +45,9 @@
 #include "glowbot-ui.h"
 #include "ui_glowbot-errors-dialog.h"
 
-glowbot_ui::glowbot_ui(void):QMainWindow(0)
+glowbot_ui::glowbot_ui(void):QMainWindow(nullptr)
 {
-  m_arduinoStructures = 0;
+  m_arduinoStructures = nullptr;
   m_recentFilesFileName = glowbot_misc::homePath() + QDir::separator() +
     "GlowBot" + QDir::separator() + "recent_files.db";
   m_ui.setupUi(this);
@@ -665,7 +665,7 @@ void glowbot_ui::slotCopy(void)
 	continue;
 
       QPoint point(list.at(i)->scenePos().toPoint());
-      glowbot_object *clone = list.at(i)->clone(0);
+      glowbot_object *clone = list.at(i)->clone(nullptr);
 
       if(!clone)
 	continue;
@@ -721,7 +721,7 @@ void glowbot_ui::slotMouseLeaveView(void)
 void glowbot_ui::slotNewArduinoDiagram(void)
 {
   QInputDialog dialog(this);
-  QLabel *label = 0;
+  QLabel *label = nullptr;
   QString name("");
 
  restart_label:
@@ -1066,7 +1066,7 @@ void glowbot_ui::slotShowStructures(void)
       QApplication::restoreOverrideCursor();
 
       if(!m_arduinoStructures)
-	m_arduinoStructures = new glowbot_structures_arduino(0);
+	m_arduinoStructures = new glowbot_structures_arduino(nullptr);
 
       m_arduinoStructures->showNormal();
       m_arduinoStructures->activateWindow();

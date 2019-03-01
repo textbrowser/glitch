@@ -45,6 +45,7 @@ glowbot_scene::glowbot_scene(const glowbot_common::ProjectType projectType,
 {
   m_mainScene = false;
   m_projectType = projectType;
+  m_undoStack = nullptr;
 }
 
 glowbot_scene::~glowbot_scene()
@@ -166,6 +167,11 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
 	  SIGNAL(changed(void)),
 	  Qt::UniqueConnection);
   connect(object,
+	  SIGNAL(deletedViaContextMenu(void)),
+	  this,
+	  SLOT(slotObjectDeletedViaContextMenu(void)),
+	  Qt::UniqueConnection);
+  connect(object,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SIGNAL(destroyed(QObject *)),
@@ -199,15 +205,15 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
   emit sceneResized();
 }
 
-void glowbot_scene::deleteItems(QUndoStack *undoStack)
+void glowbot_scene::deleteItems(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list(items());
   bool state = false;
 
-  if(undoStack)
-    undoStack->beginMacro("delete");
+  if(m_undoStack)
+    m_undoStack->beginMacro("delete_items");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -221,15 +227,15 @@ void glowbot_scene::deleteItems(QUndoStack *undoStack)
 
       state = true;
 
-      if(undoStack)
-	undoStack->push
+      if(m_undoStack)
+	m_undoStack->push
 	  (new glowbot_undo_command(glowbot_undo_command::ITEM_DELETED,
 				    proxy,
 				    this));
     }
 
-  if(undoStack)
-    undoStack->endMacro();
+  if(m_undoStack)
+    m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 
@@ -315,7 +321,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
   if(event && event->mimeData())
     {
       QString text(event->mimeData()->text().toLower().trimmed());
-      glowbot_object *object = 0;
+      glowbot_object *object = nullptr;
 
       if(allowDrag(event, text))
 	{
@@ -327,8 +333,8 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(object)
 	{
-	  event->accept();
 	  addObject(event->scenePos(), object);
+	  event->accept();
 	  return;
 	}
     }
@@ -447,4 +453,25 @@ void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void glowbot_scene::setMainScene(const bool state)
 {
   m_mainScene = state;
+}
+
+void glowbot_scene::setUndoStack(QUndoStack *undoStack)
+{
+  m_undoStack = undoStack;
+}
+
+void glowbot_scene::slotObjectDeletedViaContextMenu(void)
+{
+  glowbot_object *object = qobject_cast<glowbot_object *> (sender());
+
+  if(!object || !object->proxy())
+    return;
+
+  if(m_undoStack)
+    m_undoStack->push
+      (new glowbot_undo_command(glowbot_undo_command::ITEM_DELETED,
+				object->proxy(),
+				this));
+
+  emit changed();
 }

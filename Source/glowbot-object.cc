@@ -36,11 +36,11 @@
 #include "glowbot-style-sheet.h"
 #include "glowbot-view.h"
 
-glowbot_object::glowbot_object(QWidget *parent):QWidget(0),
-						m_initialized(false)
+glowbot_object::glowbot_object(QWidget *parent):
+  QWidget(nullptr), m_initialized(false)
 {
   QWidget *p = parent;
-  glowbot_view *view = 0;
+  glowbot_view *view = nullptr;
 
   do
     {
@@ -64,7 +64,8 @@ glowbot_object::glowbot_object(QWidget *parent):QWidget(0),
   m_parent = parent;
 }
 
-glowbot_object::glowbot_object(const quint64 id, QWidget *parent):QWidget(0)
+glowbot_object::glowbot_object(const quint64 id, QWidget *parent):
+  QWidget(nullptr)
 {
   m_id = id;
   m_initialized = false;
@@ -83,6 +84,11 @@ QPointF glowbot_object::scenePos(void) const
     return QPointF(0.0, 0.0);
 }
 
+QPointer<glowbot_proxy_widget> glowbot_object::proxy(void) const
+{
+  return m_proxy;
+}
+
 QString glowbot_object::type(void) const
 {
   return m_type;
@@ -92,7 +98,7 @@ glowbot_object *glowbot_object::createFromValues
 (const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {
   QString type(values.value("type").toString().toLower().trimmed());
-  glowbot_object *object = 0;
+  glowbot_object *object = nullptr;
 
   if(type == "arduino-analogread")
     object = glowbot_object_analog_read_arduino::createFromValues
@@ -123,7 +129,8 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
 
   menu.addAction(tr("&Delete"),
 		 this,
-		 SLOT(deleteLater(void)))->setEnabled(!isMandatory());
+		 SIGNAL(deletedViaContextMenu(void)))->
+    setEnabled(!isMandatory());
   menu.addAction(tr("&Set Style Sheet..."),
 		 this,
 		 SLOT(slotSetStyleSheet(void)));

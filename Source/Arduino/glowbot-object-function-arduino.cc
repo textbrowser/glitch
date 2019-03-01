@@ -50,7 +50,7 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 	m_view = qobject_cast<glowbot_view_arduino *> (parent);
     }
   else
-    m_view = 0;
+    m_view = nullptr;
 
   /*
   ** Do not initialize the function's name in initialize().
@@ -148,7 +148,7 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
   if(parent)
     m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
   else
-    m_editWindow = new glowbot_object_edit_window(0);
+    m_editWindow = new glowbot_object_edit_window(nullptr);
 
   connect(m_editWindow,
 	  SIGNAL(closed(void)),

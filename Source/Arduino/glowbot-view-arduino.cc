@@ -51,7 +51,7 @@ glowbot_view_arduino::glowbot_view_arduino
       m_setupObject = new glowbot_object_setup_arduino(this);
     }
 
-  glowbot_proxy_widget *proxy = 0;
+  glowbot_proxy_widget *proxy = nullptr;
 
   proxy = new glowbot_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);

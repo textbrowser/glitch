@@ -65,8 +65,8 @@ glowbot_view::glowbot_view
   m_scene = new glowbot_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
-  m_startObject = 0;
-  m_undoStack = new QUndoStack(this);
+  m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
+  m_startObject = nullptr;
   m_userFunctions = new glowbot_user_functions(this);
   m_view = new glowbot_graphicsview(this);
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
@@ -150,7 +150,7 @@ QMenu *glowbot_view::defaultContextMenu(void)
   ** The returned object must be destroyed!
   */
 
-  QAction *action = 0;
+  QAction *action = nullptr;
   QMenu *menu = new QMenu(this);
 
   action = menu->addAction(tr("&Save"),
@@ -457,7 +457,7 @@ void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 
 void glowbot_view::deleteItems(void)
 {
-  m_scene->deleteItems(m_undoStack);
+  m_scene->deleteItems();
 }
 
 void glowbot_view::prepareDatabaseTables(const QString &fileName) const

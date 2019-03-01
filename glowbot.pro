@@ -17,12 +17,14 @@ TEMPLATE	= app
 QMAKE_CLEAN	+= GlowBot
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
-                          -mtune=generic -pedantic -pie -O3 \
+                          -mtune=generic -pedantic -pie -std=c++11 \
+			  -O3 \
                           -Wall -Wcast-align -Wcast-qual \
                           -Werror -Wextra \
                           -Wno-class-memaccess \
                           -Woverloaded-virtual -Wpointer-arith \
-                          -Wstack-protector -Wstrict-overflow=5
+                          -Wstack-protector -Wstrict-overflow=5 \
+			  -Wzero-as-null-pointer-constant
 
 lessThan(QT_MAJOR_VERSION, 5) {
 QMAKE_CXXFLAGS_RELEASE -= -Werror

@@ -34,7 +34,7 @@ glowbot_style_sheet::glowbot_style_sheet(QWidget *parent):QDialog(parent)
   m_ui.preview->setEnabled(false);
   m_ui.style_sheet->setReadOnly(true);
   m_ui.style_sheet->setText(tr("GlowBot error. m_widget is zero."));
-  m_widget = 0;
+  m_widget = nullptr;
   connect(m_ui.preview,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -52,8 +52,8 @@ QString glowbot_style_sheet::styleSheet(void) const
 
 void glowbot_style_sheet::setWidget(QWidget *widget)
 {
-  m_ui.buttonBox->setEnabled(widget != 0);
-  m_ui.preview->setEnabled(widget != 0);
+  m_ui.buttonBox->setEnabled(widget != nullptr);
+  m_ui.preview->setEnabled(widget != nullptr);
   m_widget = widget;
 
   if(m_widget)

@@ -46,11 +46,13 @@ class glowbot_scene: public QGraphicsScene
   QList<glowbot_object *> objects(void) const;
   QList<glowbot_object *> selectedObjects(void) const;
   void addObject(const QPointF &point, glowbot_object *object);
-  void deleteItems(QUndoStack *undoStack);
+  void deleteItems(void);
   void setMainScene(const bool state);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   QPointF m_lastScenePos;
+  QUndoStack *m_undoStack;
   bool m_mainScene;
   glowbot_common::ProjectType m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
@@ -61,6 +63,9 @@ class glowbot_scene: public QGraphicsScene
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+
+ private slots:
+  void slotObjectDeletedViaContextMenu(void);
 
  signals:
   void changed(void);

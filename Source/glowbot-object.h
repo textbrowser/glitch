@@ -44,6 +44,7 @@ class glowbot_object: public QWidget
   glowbot_object(const quint64 id, QWidget *parent);
   virtual glowbot_object *clone(QWidget *parent) const = 0;
   QPointF scenePos(void) const;
+  QPointer<glowbot_proxy_widget> proxy(void) const;
   QString type(void) const;
   quint64 id(void) const;
   static glowbot_object *createFromValues
@@ -73,6 +74,7 @@ class glowbot_object: public QWidget
 
  signals:
   void changed(void);
+  void deletedViaContextMenu(void);
 };
 
 #endif

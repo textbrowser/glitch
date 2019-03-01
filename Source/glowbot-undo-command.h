@@ -47,7 +47,7 @@ class glowbot_undo_command: public QUndoCommand
   glowbot_undo_command(const Types type,
 		       glowbot_proxy_widget *proxy,
 		       glowbot_scene *scene,
-		       QUndoCommand *parent = 0);
+		       QUndoCommand *parent = nullptr);
   ~glowbot_undo_command();
   void redo(void);
   void undo(void);

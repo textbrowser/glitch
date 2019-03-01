@@ -35,7 +35,8 @@ class glowbot_proxy_widget: public QGraphicsProxyWidget
   Q_OBJECT
 
  public:
-  glowbot_proxy_widget(QGraphicsItem *parent = 0, Qt::WindowFlags wFlags = 0);
+  glowbot_proxy_widget
+    (QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = nullptr);
   ~glowbot_proxy_widget();
   bool isMandatory(void) const;
   bool isMovable(void) const;
