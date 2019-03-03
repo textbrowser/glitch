@@ -41,9 +41,15 @@ class glowbot_undo_command: public QUndoCommand
   {
     ITEM_ADDED = 0,
     ITEM_DELETED,
+    ITEM_MOVED,
     ITEM_RENAMED
   };
 
+  glowbot_undo_command(const QPointF &previousPosition,
+		       const Types type,
+		       glowbot_proxy_widget *proxy,
+		       glowbot_scene *scene,
+		       QUndoCommand *parent = nullptr);
   glowbot_undo_command(const Types type,
 		       glowbot_proxy_widget *proxy,
 		       glowbot_scene *scene,
@@ -53,6 +59,8 @@ class glowbot_undo_command: public QUndoCommand
   void undo(void);
 
  private:
+  QPointF m_currentPosition;
+  QPointF m_previousPosition;
   QPointer<glowbot_proxy_widget> m_proxy;
   Types m_type;
   glowbot_scene *m_scene;

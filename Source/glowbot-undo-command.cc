@@ -42,6 +42,20 @@ glowbot_undo_command::glowbot_undo_command
   m_type = type;
 }
 
+glowbot_undo_command::glowbot_undo_command
+(const QPointF &previousPosition,
+ const Types type,
+ glowbot_proxy_widget *proxy,
+ glowbot_scene *scene,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_currentPosition = proxy->scenePos();
+  m_previousPosition = previousPosition;
+  m_proxy = proxy;
+  m_scene = scene;
+  m_type = type;
+}
+
 glowbot_undo_command::~glowbot_undo_command()
 {
 }
@@ -56,6 +70,12 @@ void glowbot_undo_command::redo(void)
     case ITEM_DELETED:
       {
 	m_scene->removeItem(m_proxy);
+	break;
+      }
+    case ITEM_MOVED:
+      {
+	m_proxy->setPos(m_currentPosition);
+	m_scene->update();
 	break;
       }
     default:
@@ -75,6 +95,12 @@ void glowbot_undo_command::undo(void)
     case ITEM_DELETED:
       {
 	m_scene->addItem(m_proxy);
+	m_scene->update();
+	break;
+      }
+    case ITEM_MOVED:
+      {
+	m_proxy->setPos(m_previousPosition);
 	m_scene->update();
 	break;
       }
