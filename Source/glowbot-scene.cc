@@ -346,6 +346,9 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
+      if(m_undoStack)
+	m_undoStack->beginMacro("move_items");
+
       QList<QGraphicsItem *> list(selectedItems());
       bool moved = false;
 
@@ -364,14 +367,26 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(point.x() < 0 || point.y() < 0)
 	    continue;
 
+	  QPointF previousPosition(proxy->scenePos());
+
 	  moved = true;
 	  proxy->setPos(point);
+
+	  if(m_undoStack)
+	    m_undoStack->push
+	      (new glowbot_undo_command(previousPosition,
+					glowbot_undo_command::ITEM_MOVED,
+					proxy,
+					this));
 
 	  if(proxy->widget())
 	    proxy->widget()->move(point.toPoint());
 	}
 
       m_lastScenePos = event->scenePos();
+
+      if(m_undoStack)
+	m_undoStack->endMacro();
 
       if(moved)
 	{
