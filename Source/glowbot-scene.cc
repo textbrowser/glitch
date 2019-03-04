@@ -346,9 +346,6 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
-      if(m_undoStack)
-	m_undoStack->beginMacro("move_items");
-
       QList<QGraphicsItem *> list(selectedItems());
       bool moved = false;
 
@@ -357,7 +354,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  glowbot_proxy_widget *proxy =
 	    qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
 
-	  if(!proxy)
+	  if(!proxy || !proxy->widget())
 	    continue;
 	  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
 	    continue;
@@ -367,26 +364,12 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(point.x() < 0 || point.y() < 0)
 	    continue;
 
-	  QPointF previousPosition(proxy->scenePos());
-
 	  moved = true;
 	  proxy->setPos(point);
-
-	  if(m_undoStack)
-	    m_undoStack->push
-	      (new glowbot_undo_command(previousPosition,
-					glowbot_undo_command::ITEM_MOVED,
-					proxy,
-					this));
-
-	  if(proxy->widget())
-	    proxy->widget()->move(point.toPoint());
+	  proxy->widget()->move(point.toPoint());
 	}
 
       m_lastScenePos = event->scenePos();
-
-      if(m_undoStack)
-	m_undoStack->endMacro();
 
       if(moved)
 	{
@@ -439,6 +422,32 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	      m_lastScenePos = event->scenePos();
 	      parent->setSelected(true);
+	    }
+
+	  if(!m_lastScenePos.isNull() && m_undoStack)
+	    {
+	      m_undoStack->beginMacro("move_items");
+
+	      QList<QGraphicsItem *> list(selectedItems());
+
+	      for(int i = 0; i < list.size(); i++)
+		{
+		  glowbot_proxy_widget *proxy =
+		    qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+		  if(!proxy)
+		    continue;
+		  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
+		    continue;
+
+		  m_undoStack->push
+		    (new glowbot_undo_command(proxy->pos(),
+					      glowbot_undo_command::ITEM_MOVED,
+					      proxy,
+					      this));
+		}
+
+	      m_undoStack->endMacro();
 	    }
 	}
       else
