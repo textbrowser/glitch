@@ -57,6 +57,8 @@ class glowbot_view: public QWidget
   QList<glowbot_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
   QString name(void) const;
+  QString redoText(void) const;
+  QString undoText(void) const;
   bool canRedo(void) const;
   bool canUndo(void) const;
   bool hasChanged(void) const;

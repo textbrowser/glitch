@@ -213,7 +213,7 @@ void glowbot_scene::deleteItems(void)
   bool state = false;
 
   if(m_undoStack)
-    m_undoStack->beginMacro("delete_items");
+    m_undoStack->beginMacro("items_deleted");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -228,10 +228,12 @@ void glowbot_scene::deleteItems(void)
       state = true;
 
       if(m_undoStack)
-	m_undoStack->push
-	  (new glowbot_undo_command(glowbot_undo_command::ITEM_DELETED,
-				    proxy,
-				    this));
+	{
+	  glowbot_undo_command *undoCommand = new glowbot_undo_command
+	    (glowbot_undo_command::ITEM_DELETED, proxy, this);
+
+	  m_undoStack->push(undoCommand);
+	}
     }
 
   if(m_undoStack)
@@ -385,6 +387,7 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
+  m_movedPoints.clear();
 
   if(event)
     {
@@ -424,10 +427,8 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	      parent->setSelected(true);
 	    }
 
-	  if(!m_lastScenePos.isNull() && m_undoStack)
+	  if(!m_lastScenePos.isNull())
 	    {
-	      m_undoStack->beginMacro("move_items");
-
 	      QList<QGraphicsItem *> list(selectedItems());
 
 	      for(int i = 0; i < list.size(); i++)
@@ -439,15 +440,10 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    continue;
 		  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
 		    continue;
-
-		  m_undoStack->push
-		    (new glowbot_undo_command(proxy->pos(),
-					      glowbot_undo_command::ITEM_MOVED,
-					      proxy,
-					      this));
+		  else
+		    m_movedPoints << QPair<QPointF, glowbot_proxy_widget *>
+		      (proxy->pos(), proxy);
 		}
-
-	      m_undoStack->endMacro();
 	    }
 	}
       else
@@ -463,6 +459,44 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
+
+  if(!m_movedPoints.isEmpty() && m_undoStack)
+    {
+      bool began = false;
+
+      while(!m_movedPoints.isEmpty())
+	{
+	  if(m_movedPoints.first().first == m_movedPoints.first().second->pos())
+	    {
+	      m_movedPoints.removeFirst();
+	      continue;
+	    }
+	  else
+	    {
+	      if(!began)
+		m_undoStack->beginMacro("items_moved");
+
+	      began = true;
+	    }
+
+	  glowbot_undo_command *undoCommand = new glowbot_undo_command
+	    (m_movedPoints.first().first,
+	     glowbot_undo_command::ITEM_MOVED,
+	     m_movedPoints.first().second,
+	     this);
+
+	  m_movedPoints.removeFirst();
+	  m_undoStack->push(undoCommand);
+	}
+
+      if(began)
+	{
+	  m_undoStack->endMacro();
+	  emit changed();
+	}
+    }
+
+  m_movedPoints.clear();
 
   QCursor *cursor = QApplication::overrideCursor();
 
@@ -492,10 +526,13 @@ void glowbot_scene::slotObjectDeletedViaContextMenu(void)
     return;
 
   if(m_undoStack)
-    m_undoStack->push
-      (new glowbot_undo_command(glowbot_undo_command::ITEM_DELETED,
-				object->proxy(),
-				this));
+    {
+      glowbot_undo_command *undoCommand = new glowbot_undo_command
+	(glowbot_undo_command::ITEM_DELETED, object->proxy(), this);
+
+      undoCommand->setText("item_deleted");
+      m_undoStack->push(undoCommand);
+    }
 
   emit changed();
 }

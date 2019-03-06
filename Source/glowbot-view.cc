@@ -209,6 +209,16 @@ QString glowbot_view::name(void) const
   return m_name;
 }
 
+QString glowbot_view::redoText(void) const
+{
+  return m_undoStack->redoText();
+}
+
+QString glowbot_view::undoText(void) const
+{
+  return m_undoStack->undoText();
+}
+
 bool glowbot_view::canRedo(void) const
 {
   return m_undoStack->canRedo();

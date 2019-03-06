@@ -51,6 +51,7 @@ class glowbot_scene: public QGraphicsScene
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  QList<QPair<QPointF, glowbot_proxy_widget *> > m_movedPoints;
   QPointF m_lastScenePos;
   QUndoStack *m_undoStack;
   bool m_mainScene;
