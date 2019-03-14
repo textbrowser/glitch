@@ -60,6 +60,7 @@ class glowbot_ui: public QMainWindow
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
+  void prepareRedoUndoActions(void);
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);
   void saveSettings(void);
