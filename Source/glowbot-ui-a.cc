@@ -464,6 +464,10 @@ void glowbot_ui::prepareRecentFiles(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glowbot_ui::prepareRedoUndoActions(void)
+{
+}
+
 void glowbot_ui::restoreSettings(void)
 {
   QSettings settings;
