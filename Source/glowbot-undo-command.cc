@@ -62,7 +62,7 @@ glowbot_undo_command::~glowbot_undo_command()
 
 void glowbot_undo_command::redo(void)
 {
-  if(!m_proxy)
+  if(!m_proxy || !m_scene)
     return;
 
   switch(m_type)
@@ -87,7 +87,7 @@ void glowbot_undo_command::redo(void)
 
 void glowbot_undo_command::undo(void)
 {
-  if(!m_proxy)
+  if(!m_proxy || !m_scene)
     return;
 
   switch(m_type)

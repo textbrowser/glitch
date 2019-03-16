@@ -126,7 +126,8 @@ glowbot_view::glowbot_view
 
 glowbot_view::~glowbot_view()
 {
-  m_undoStack->undo();
+  while(m_undoStack->canUndo())
+    m_undoStack->undo();
 }
 
 QAction *glowbot_view::menuAction(void) const
