@@ -391,25 +391,9 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
-      m_ui.action_Redo->setEnabled
-	(m_currentView && m_currentView->canRedo());
-
-      if(m_ui.action_Redo->isEnabled())
-	m_ui.action_Redo->setText
-	  (tr("Redo (%1)").arg(m_currentView->redoText()));
-      else
-	m_ui.action_Redo->setText(tr("Redo"));
-
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
-      m_ui.action_Undo->setEnabled
-	(m_currentView && m_currentView->canUndo());
-
-      if(m_ui.action_Undo->isEnabled())
-	m_ui.action_Undo->setText
-	  (tr("Undo (%1)").arg(m_currentView->undoText()));
-      else
-	m_ui.action_Undo->setText(tr("Undo"));
+      prepareRedoUndoActions();
     }
 }
 
@@ -466,6 +450,28 @@ void glowbot_ui::prepareRecentFiles(void)
 
 void glowbot_ui::prepareRedoUndoActions(void)
 {
+  if(!m_currentView)
+    {
+      m_ui.action_Redo->setEnabled(false);
+      m_ui.action_Redo->setText(tr("Redo"));
+      m_ui.action_Undo->setEnabled(false);
+      m_ui.action_Undo->setText(tr("Undo"));
+      return;
+    }
+
+  m_ui.action_Redo->setEnabled(m_currentView->canRedo());
+
+  if(m_ui.action_Redo->isEnabled())
+    m_ui.action_Redo->setText(tr("Redo (%1)").arg(m_currentView->redoText()));
+  else
+    m_ui.action_Redo->setText(tr("Redo"));
+
+  m_ui.action_Undo->setEnabled(m_currentView->canUndo());
+
+  if(m_ui.action_Undo->isEnabled())
+    m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
+  else
+    m_ui.action_Undo->setText(tr("Undo"));
 }
 
 void glowbot_ui::restoreSettings(void)
@@ -975,21 +981,7 @@ void glowbot_ui::slotRedo(void)
   if(m_currentView)
     {
       m_currentView->redo();
-      m_ui.action_Redo->setEnabled(m_currentView->canRedo());
-
-      if(m_ui.action_Redo->isEnabled())
-	m_ui.action_Redo->setText
-	  (tr("Redo (%1)").arg(m_currentView->redoText()));
-      else
-	m_ui.action_Redo->setText(tr("Redo"));
-
-      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
-
-      if(m_ui.action_Undo->isEnabled())
-	m_ui.action_Undo->setText
-	  (tr("Undo (%1)").arg(m_currentView->undoText()));
-      else
-	m_ui.action_Undo->setText(tr("Undo"));
+      prepareRedoUndoActions();
     }
 }
 
@@ -1138,21 +1130,7 @@ void glowbot_ui::slotUndo(void)
   if(m_currentView)
     {
       m_currentView->undo();
-      m_ui.action_Redo->setEnabled(m_currentView->canRedo());
-
-      if(m_ui.action_Redo->isEnabled())
-	m_ui.action_Redo->setText
-	  (tr("Redo (%1)").arg(m_currentView->redoText()));
-      else
-	m_ui.action_Redo->setText(tr("Redo"));
-
-      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
-
-      if(m_ui.action_Undo->isEnabled())
-	m_ui.action_Undo->setText
-	  (tr("Undo (%1)").arg(m_currentView->undoText()));
-      else
-	m_ui.action_Undo->setText(tr("Undo"));
+      prepareRedoUndoActions();
     }
 }
 
