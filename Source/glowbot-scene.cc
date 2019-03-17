@@ -154,10 +154,11 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     }
 }
 
-void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
+glowbot_proxy_widget *glowbot_scene::addObject
+(const QPointF &point, glowbot_object *object)
 {
   if(!object)
-    return;
+    return nullptr;
 
   glowbot_proxy_widget *proxy = new glowbot_proxy_widget();
 
@@ -185,7 +186,6 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
   proxy->setFlags
     (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
   proxy->setWidget(object);
-  addItem(proxy);
   object->move(point.toPoint());
   object->setProxy(proxy);
   proxy->setPos(point);
@@ -203,6 +203,7 @@ void glowbot_scene::addObject(const QPointF &point, glowbot_object *object)
     }
 
   emit sceneResized();
+  return proxy;
 }
 
 void glowbot_scene::deleteItems(void)
@@ -213,7 +214,7 @@ void glowbot_scene::deleteItems(void)
   bool state = false;
 
   if(m_undoStack)
-    m_undoStack->beginMacro("items_deleted");
+    m_undoStack->beginMacro(tr("items deleted"));
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -335,8 +336,23 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(object)
 	{
-	  addObject(event->scenePos(), object);
 	  event->accept();
+
+	  glowbot_proxy_widget *proxy = addObject(event->scenePos(), object);
+
+	  if(proxy)
+	    {
+	      glowbot_undo_command *undoCommand = new glowbot_undo_command
+		(glowbot_undo_command::ITEM_ADDED, proxy, this);
+
+	      undoCommand->setText
+		(tr("item added (%1, %2)").arg(proxy->x()).arg(proxy->y()));
+	      m_undoStack->push(undoCommand);
+	    }
+	  else
+	    object->deleteLater();
+
+	  emit changed();
 	  return;
 	}
     }
@@ -474,7 +490,7 @@ void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	  else
 	    {
 	      if(!began)
-		m_undoStack->beginMacro("items_moved");
+		m_undoStack->beginMacro(tr("items moved"));
 
 	      began = true;
 	    }
@@ -530,7 +546,8 @@ void glowbot_scene::slotObjectDeletedViaContextMenu(void)
       glowbot_undo_command *undoCommand = new glowbot_undo_command
 	(glowbot_undo_command::ITEM_DELETED, object->proxy(), this);
 
-      undoCommand->setText("item_deleted");
+      undoCommand->setText
+	(tr("item deleted (%1, %2)").arg(object->x()).arg(object->y()));
       m_undoStack->push(undoCommand);
     }
 

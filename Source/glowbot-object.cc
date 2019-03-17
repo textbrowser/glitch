@@ -74,6 +74,7 @@ glowbot_object::glowbot_object(const quint64 id, QWidget *parent):
 
 glowbot_object::~glowbot_object()
 {
+  qDebug() << "Done!";
 }
 
 QPointF glowbot_object::scenePos(void) const

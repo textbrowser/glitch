@@ -67,9 +67,17 @@ void glowbot_undo_command::redo(void)
 
   switch(m_type)
     {
+    case ITEM_ADDED:
+      {
+	m_proxy->setParent(m_scene);
+	m_scene->addItem(m_proxy);
+	m_scene->update();
+	break;
+      }
     case ITEM_DELETED:
       {
 	m_scene->removeItem(m_proxy);
+	m_scene->update();
 	break;
       }
     case ITEM_MOVED:
@@ -92,6 +100,12 @@ void glowbot_undo_command::undo(void)
 
   switch(m_type)
     {
+    case ITEM_ADDED:
+      {
+	m_scene->removeItem(m_proxy);
+	m_scene->update();
+	break;
+      }
     case ITEM_DELETED:
       {
 	m_scene->addItem(m_proxy);

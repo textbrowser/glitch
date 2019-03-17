@@ -289,8 +289,15 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 		    (values, error, this);
 
 		  if(object)
-		    m_scene->addObject
-		      (glowbot_misc::dbPointToPointF(point), object);
+		    {
+		      glowbot_proxy_widget *proxy = m_scene->addObject
+			(glowbot_misc::dbPointToPointF(point), object);
+
+		      if(proxy)
+			m_scene->addItem(proxy);
+		      else
+			object->deleteLater();
+		    }
 		}
 	    }
 	else
