@@ -81,6 +81,10 @@ glowbot_view::glowbot_view
   m_view->setScene(m_scene);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  connect(m_alignment,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
   connect(m_canvasSettings,
 	  SIGNAL(accepted(void)),
 	  this,

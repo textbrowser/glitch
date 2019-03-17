@@ -64,6 +64,9 @@ class glowbot_alignment: public QDialog
  private slots:
   void slotAlign(void);
   void slotStack(void);
+
+ signals:
+  void changed(void);
 };
 
 #endif

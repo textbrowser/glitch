@@ -25,12 +25,15 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QtDebug>
+
 #include <limits>
 
 #include "glowbot-alignment.h"
 #include "glowbot-object.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
+#include "glowbot-undo-command.h"
 #include "glowbot-view.h"
 
 static bool x_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
@@ -98,6 +101,11 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
   if(!view)
     return;
 
+  QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
+
+  if(list.isEmpty())
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QPair<int, int> maxP;
@@ -141,7 +149,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
       }
     }
 
-  QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
+  bool began = false;
   bool firstIteration = true;
 
  start_label:
@@ -203,12 +211,17 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
       if(firstIteration || !movable)
 	continue;
 
+      QPointF point;
+
       switch(alignmentType)
 	{
 	case ALIGN_BOTTOM:
 	  {
 	    if(y != widget->height() + widget->pos().y())
-	      widget->move(x, y - widget->height());
+	      {
+		point = widget->proxy()->pos();
+		widget->move(x, y - widget->height());
+	      }
 
 	    break;
 	  }
@@ -217,6 +230,8 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	  {
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
+
+	    point = widget->proxy()->pos();
 
 	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
 	      widget->move
@@ -230,12 +245,33 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	case ALIGN_RIGHT:
 	  {
 	    if(x != widget->pos().x() + widget->width())
-	      widget->move(x - widget->width(), y);
+	      {
+		point = widget->proxy()->pos();
+		widget->move(x - widget->width(), y);
+	      }
 
 	    break;
 	  }
 	default:
-	  widget->move(x, y);
+	  {
+	    point = widget->proxy()->pos();
+	    widget->move(x, y);
+	    break;
+	  }
+	}
+
+      if(!point.isNull())
+	{
+	  if(!began)
+	    {
+	      began = true;
+	      view->beginMacro(tr("items aligned"));
+	    }
+
+	  glowbot_undo_command *undoCommand = new glowbot_undo_command
+	    (point, glowbot_undo_command::ITEM_MOVED, proxy, view->scene());
+
+	  view->push(undoCommand);
 	}
     }
 
@@ -243,6 +279,12 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
     {
       firstIteration = false;
       goto start_label;
+    }
+
+  if(began)
+    {
+      view->endMacro();
+      emit changed();
     }
 
   QApplication::restoreOverrideCursor();
@@ -286,6 +328,13 @@ void glowbot_alignment::stack(const StackType stackType)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list1(view->scene()->selectedItems());
+
+  if(list1.isEmpty())
+    {
+      QApplication::restoreOverrideCursor();
+      return;
+    }
+
   QList<glowbot_object *> list2;
 
   for(int i = 0; i < list1.size(); i++)
@@ -322,6 +371,8 @@ void glowbot_alignment::stack(const StackType stackType)
   else
     coordinate = list2.at(0)->pos().y();
 
+  bool began = false;
+
   for(int i = 0; i < list2.size(); i++)
     {
       glowbot_object *widget = list2.at(i);
@@ -329,12 +380,13 @@ void glowbot_alignment::stack(const StackType stackType)
       if(!widget)
 	continue;
 
-      QPoint pos(widget->pos());
+      QPointF point;
 
       if(stackType == HORIZONTAL_STACK)
         {
 	  if(widget->property("movable").toBool())
 	    {
+	      point = widget->proxy()->pos();
 	      widget->move(coordinate, widget->pos().y());
 	      coordinate += widget->width();
 	    }
@@ -342,10 +394,36 @@ void glowbot_alignment::stack(const StackType stackType)
       else
 	{
 	  if(widget->property("movable").toBool())
-	    widget->move(widget->pos().x(), coordinate);
+	    {
+	      point = widget->proxy()->pos();
+	      widget->move(widget->pos().x(), coordinate);
+	    }
 
 	  coordinate += widget->height();
 	}
+
+      if(!point.isNull())
+	{
+	  if(!began)
+	    {
+	      began = true;
+	      view->beginMacro(tr("items stacked"));
+	    }
+
+	  glowbot_undo_command *undoCommand = new glowbot_undo_command
+	    (point,
+	     glowbot_undo_command::ITEM_MOVED,
+	     widget->proxy(),
+	     view->scene());
+
+	  view->push(undoCommand);
+	}
+    }
+
+  if(began)
+    {
+      view->endMacro();
+      emit changed();
     }
 
   QApplication::restoreOverrideCursor();

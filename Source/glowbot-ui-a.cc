@@ -390,7 +390,6 @@ void glowbot_ui::prepareActionWidgets(void)
       m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
-      prepareRedoUndoActions();
     }
 
   prepareRedoUndoActions();
