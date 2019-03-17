@@ -379,14 +379,10 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
-      m_ui.action_Redo->setEnabled(false);
-      m_ui.action_Redo->setText(tr("Redo"));
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
-      m_ui.action_Undo->setEnabled(false);
-      m_ui.action_Undo->setText(tr("Undo"));
     }
   else
     {
@@ -396,6 +392,8 @@ void glowbot_ui::prepareActionWidgets(void)
       m_ui.action_Structures->setEnabled(true);
       prepareRedoUndoActions();
     }
+
+  prepareRedoUndoActions();
 }
 
 void glowbot_ui::prepareRecentFiles(void)
@@ -883,7 +881,6 @@ void glowbot_ui::slotPageChanged(void)
 
   m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
-  prepareRedoUndoActions();
   setTabText(qobject_cast<glowbot_view *> (sender()));
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
@@ -897,12 +894,10 @@ void glowbot_ui::slotPageSaved(void)
 
 void glowbot_ui::slotPageSelected(int index)
 {
-  prepareActionWidgets();
+  m_currentView = qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
 
-  glowbot_view *view = qobject_cast<glowbot_view *> (m_ui.tab->widget(index));
-
-  if(view)
-    switch(view->projectType())
+  if(m_currentView)
+    switch(m_currentView->projectType())
       {
       case glowbot_common::ArduinoProject:
 	{
@@ -916,7 +911,8 @@ void glowbot_ui::slotPageSelected(int index)
 	}
       }
 
-  setWindowTitle(view);
+  prepareActionWidgets();
+  setWindowTitle(m_currentView);
 }
 
 void glowbot_ui::slotPaste(void)
