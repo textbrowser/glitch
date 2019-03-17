@@ -59,6 +59,7 @@ Remaining Items
 - Movement via arrows.
 - Prepare parents after cloning objects.
 - Redo, undo. See also macros.
+- Redo/undo function names?
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
