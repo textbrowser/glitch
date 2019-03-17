@@ -94,6 +94,12 @@ Signals</h2></td></tr>
 <tr class="memitem:a6034cba857c89a090fd3eca43ad47e74"><td class="memItemLeft" align="right" valign="top"><a id="a6034cba857c89a090fd3eca43ad47e74"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> (void)</td></tr>
 <tr class="separator:a6034cba857c89a090fd3eca43ad47e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3807851880b9c0cbb0c03b87db67e7a7"><td class="memItemLeft" align="right" valign="top"><a id="a3807851880b9c0cbb0c03b87db67e7a7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseEnterEvent</b> (void)</td></tr>
+<tr class="separator:a3807851880b9c0cbb0c03b87db67e7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2d9b41ea64c839e2d26dc618f3cdbe"><td class="memItemLeft" align="right" valign="top"><a id="a2f2d9b41ea64c839e2d26dc618f3cdbe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>mouseLeaveEvent</b> (void)</td></tr>
+<tr class="separator:a2f2d9b41ea64c839e2d26dc618f3cdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ee15c0711a02c5a405da02f38c5cdb1"><td class="memItemLeft" align="right" valign="top"><a id="a9ee15c0711a02c5a405da02f38c5cdb1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>saved</b> (void)</td></tr>
 <tr class="separator:a9ee15c0711a02c5a405da02f38c5cdb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,12 +127,27 @@ QAction *&#160;</td><td class="memItemRight" valign="bottom"><b>menuAction</b> (
 <tr class="memitem:ad4f3458d41c3f92eb7b1d272a32a27b4"><td class="memItemLeft" align="right" valign="top"><a id="ad4f3458d41c3f92eb7b1d272a32a27b4"></a>
 QList&lt; <a class="el" href="classglowbot__object.html">glowbot_object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objects</b> (void) const</td></tr>
 <tr class="separator:ad4f3458d41c3f92eb7b1d272a32a27b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a767b740720167b7dbbb413ac17989abb"><td class="memItemLeft" align="right" valign="top"><a id="a767b740720167b7dbbb413ac17989abb"></a>
+QList&lt; <a class="el" href="classglowbot__object.html">glowbot_object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>selectedObjects</b> (void) const</td></tr>
+<tr class="separator:a767b740720167b7dbbb413ac17989abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d5c2ed67c6f7e2fe4f4d5e6e600c812"><td class="memItemLeft" align="right" valign="top"><a id="a6d5c2ed67c6f7e2fe4f4d5e6e600c812"></a>
 QMenu *&#160;</td><td class="memItemRight" valign="bottom"><b>defaultContextMenu</b> (void)</td></tr>
 <tr class="separator:a6d5c2ed67c6f7e2fe4f4d5e6e600c812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abae9a097c8732b5de97319a8138d6b72"><td class="memItemLeft" align="right" valign="top"><a id="abae9a097c8732b5de97319a8138d6b72"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:abae9a097c8732b5de97319a8138d6b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaffddbe57fc381c420ee4a0f2c00e83f"><td class="memItemLeft" align="right" valign="top"><a id="aaffddbe57fc381c420ee4a0f2c00e83f"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>redoText</b> (void) const</td></tr>
+<tr class="separator:aaffddbe57fc381c420ee4a0f2c00e83f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3295c9f11a4dafab0c5fac2fe9db32c8"><td class="memItemLeft" align="right" valign="top"><a id="a3295c9f11a4dafab0c5fac2fe9db32c8"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>undoText</b> (void) const</td></tr>
+<tr class="separator:a3295c9f11a4dafab0c5fac2fe9db32c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab832a63c8219e9cc0879e79bb528705a"><td class="memItemLeft" align="right" valign="top"><a id="ab832a63c8219e9cc0879e79bb528705a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>canRedo</b> (void) const</td></tr>
+<tr class="separator:ab832a63c8219e9cc0879e79bb528705a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0a9f18a8accc499c68ce163ca20574e"><td class="memItemLeft" align="right" valign="top"><a id="af0a9f18a8accc499c68ce163ca20574e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>canUndo</b> (void) const</td></tr>
+<tr class="separator:af0a9f18a8accc499c68ce163ca20574e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ea7f0d610dcf02f72a2e8232ac423b"><td class="memItemLeft" align="right" valign="top"><a id="af8ea7f0d610dcf02f72a2e8232ac423b"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasChanged</b> (void) const</td></tr>
 <tr class="separator:af8ea7f0d610dcf02f72a2e8232ac423b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +160,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>saveAs</b> (const QSt
 <tr class="memitem:aaff2d2c521ee1c89bb5f1dfc3a02d7d1"><td class="memItemLeft" align="right" valign="top"><a id="aaff2d2c521ee1c89bb5f1dfc3a02d7d1"></a>
 glowbot_common::ProjectType&#160;</td><td class="memItemRight" valign="bottom"><b>projectType</b> (void) const</td></tr>
 <tr class="separator:aaff2d2c521ee1c89bb5f1dfc3a02d7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7202118e8773a0144d07d9f8e883d5a9"><td class="memItemLeft" align="right" valign="top"><a id="a7202118e8773a0144d07d9f8e883d5a9"></a>
+<a class="el" href="classglowbot__graphicsview.html">glowbot_graphicsview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>view</b> (void) const</td></tr>
+<tr class="separator:a7202118e8773a0144d07d9f8e883d5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9dead5017fbd33a3aa2de5ce29a9e69"><td class="memItemLeft" align="right" valign="top"><a id="aa9dead5017fbd33a3aa2de5ce29a9e69"></a>
 <a class="el" href="classglowbot__scene.html">glowbot_scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>scene</b> (void) const</td></tr>
 <tr class="separator:aa9dead5017fbd33a3aa2de5ce29a9e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,9 +172,21 @@ quint64&#160;</td><td class="memItemRight" valign="bottom"><b>nextId</b> (void) 
 <tr class="memitem:a7fe2af7077fb12287ed9f12403249831"><td class="memItemLeft" align="right" valign="top"><a id="a7fe2af7077fb12287ed9f12403249831"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>open</b> (const QString &amp;fileName, QString &amp;error)</td></tr>
 <tr class="separator:a7fe2af7077fb12287ed9f12403249831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbe1a9a74b1c130c7173375f7a37085b"><td class="memItemLeft" align="right" valign="top"><a id="acbe1a9a74b1c130c7173375f7a37085b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>beginMacro</b> (const QString &amp;text)</td></tr>
+<tr class="separator:acbe1a9a74b1c130c7173375f7a37085b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b62079960114fd87bfd1568ffb238c0"><td class="memItemLeft" align="right" valign="top"><a id="a3b62079960114fd87bfd1568ffb238c0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteItems</b> (void)</td></tr>
 <tr class="separator:a3b62079960114fd87bfd1568ffb238c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35970f71d7cec50ee787eb89db3bc313"><td class="memItemLeft" align="right" valign="top"><a id="a35970f71d7cec50ee787eb89db3bc313"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>endMacro</b> (void)</td></tr>
+<tr class="separator:a35970f71d7cec50ee787eb89db3bc313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9367f061b7b18bf1a4e9b89cf5416e1b"><td class="memItemLeft" align="right" valign="top"><a id="a9367f061b7b18bf1a4e9b89cf5416e1b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>push</b> (<a class="el" href="classglowbot__undo__command.html">glowbot_undo_command</a> *undoCommand)</td></tr>
+<tr class="separator:a9367f061b7b18bf1a4e9b89cf5416e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab28223ef37cda2ad47adb3d68462f468"><td class="memItemLeft" align="right" valign="top"><a id="ab28223ef37cda2ad47adb3d68462f468"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>redo</b> (void)</td></tr>
+<tr class="separator:ab28223ef37cda2ad47adb3d68462f468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d16f5ddaa5630c3ccbc8787203dd44e"><td class="memItemLeft" align="right" valign="top"><a id="a5d16f5ddaa5630c3ccbc8787203dd44e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (void)</td></tr>
 <tr class="separator:a5d16f5ddaa5630c3ccbc8787203dd44e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +196,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>selectAll</b> (void)<
 <tr class="memitem:a6025717d680bdd3e64f7f84b8a39e392"><td class="memItemLeft" align="right" valign="top"><a id="a6025717d680bdd3e64f7f84b8a39e392"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>showAlignment</b> (void)</td></tr>
 <tr class="separator:a6025717d680bdd3e64f7f84b8a39e392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba2f2a9853b423b0e5f9f8e96839ae8"><td class="memItemLeft" align="right" valign="top"><a id="afba2f2a9853b423b0e5f9f8e96839ae8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>undo</b> (void)</td></tr>
+<tr class="separator:afba2f2a9853b423b0e5f9f8e96839ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-slots"></a>
 Protected Slots</h2></td></tr>
@@ -226,15 +265,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aea72c6d5413f40ed044bb4acaa45e76c"><td class="memItemLeft" align="right" valign="top"><a id="aea72c6d5413f40ed044bb4acaa45e76c"></a>
 QAction *&#160;</td><td class="memItemRight" valign="bottom"><b>m_menuAction</b></td></tr>
 <tr class="separator:aea72c6d5413f40ed044bb4acaa45e76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8c68b790b6d32ba775f890f676c9f64"><td class="memItemLeft" align="right" valign="top"><a id="af8c68b790b6d32ba775f890f676c9f64"></a>
-QGraphicsView *&#160;</td><td class="memItemRight" valign="bottom"><b>m_view</b></td></tr>
-<tr class="separator:af8c68b790b6d32ba775f890f676c9f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900bfe7423fc21f249f39fab1bf7483b"><td class="memItemLeft" align="right" valign="top"><a id="a900bfe7423fc21f249f39fab1bf7483b"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_fileName</b></td></tr>
 <tr class="separator:a900bfe7423fc21f249f39fab1bf7483b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63b0e3c2f191f7f7358e99b1dbd962de"><td class="memItemLeft" align="right" valign="top"><a id="a63b0e3c2f191f7f7358e99b1dbd962de"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
 <tr class="separator:a63b0e3c2f191f7f7358e99b1dbd962de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8960744a20d6ad3b0d82d3293241aea1"><td class="memItemLeft" align="right" valign="top"><a id="a8960744a20d6ad3b0d82d3293241aea1"></a>
+QUndoStack *&#160;</td><td class="memItemRight" valign="bottom"><b>m_undoStack</b></td></tr>
+<tr class="separator:a8960744a20d6ad3b0d82d3293241aea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedf006a013fe51fc4d977c4f161cdd72"><td class="memItemLeft" align="right" valign="top"><a id="aedf006a013fe51fc4d977c4f161cdd72"></a>
 Ui_glowbot_view&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b></td></tr>
 <tr class="separator:aedf006a013fe51fc4d977c4f161cdd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,6 +289,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_changed</b></td></t
 <tr class="memitem:a87a72c2d355ac885e6cdbf1489627641"><td class="memItemLeft" align="right" valign="top"><a id="a87a72c2d355ac885e6cdbf1489627641"></a>
 glowbot_common::ProjectType&#160;</td><td class="memItemRight" valign="bottom"><b>m_projectType</b></td></tr>
 <tr class="separator:a87a72c2d355ac885e6cdbf1489627641"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab98a0abc861381fdc7c9201b237227b6"><td class="memItemLeft" align="right" valign="top"><a id="ab98a0abc861381fdc7c9201b237227b6"></a>
+<a class="el" href="classglowbot__graphicsview.html">glowbot_graphicsview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_view</b></td></tr>
+<tr class="separator:ab98a0abc861381fdc7c9201b237227b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9990f21a62687aacb10fbc2f3b6ad7b"><td class="memItemLeft" align="right" valign="top"><a id="ae9990f21a62687aacb10fbc2f3b6ad7b"></a>
 glowbot_object_start *&#160;</td><td class="memItemRight" valign="bottom"><b>m_startObject</b></td></tr>
 <tr class="separator:ae9990f21a62687aacb10fbc2f3b6ad7b"><td class="memSeparator" colspan="2">&#160;</td></tr>

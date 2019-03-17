@@ -22,4 +22,8 @@ digraph "glowbot_view_arduino"
   Node11 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_userFunctions" ,fontname="Helvetica"];
   Node11 [label="glowbot_user_functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglowbot__user__functions.html"];
   Node9 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_view" ,fontname="Helvetica"];
+  Node12 [label="glowbot_graphicsview",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglowbot__graphicsview.html"];
+  Node13 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="QGraphicsView",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
 }

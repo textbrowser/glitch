@@ -85,8 +85,6 @@ Inheritance diagram for glowbot_object:</div>
 Collaboration diagram for glowbot_object:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglowbot__object__coll__graph.png" border="0" usemap="#glowbot__object_coll__map" alt="Collaboration graph"/></div>
-<map name="glowbot__object_coll__map" id="glowbot__object_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
@@ -94,6 +92,9 @@ Signals</h2></td></tr>
 <tr class="memitem:aab3ab09b80ba07ce0dc37e5c4ad89344"><td class="memItemLeft" align="right" valign="top"><a id="aab3ab09b80ba07ce0dc37e5c4ad89344"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> (void)</td></tr>
 <tr class="separator:aab3ab09b80ba07ce0dc37e5c4ad89344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32614992f1d21a5211eab36d737f7ada"><td class="memItemLeft" align="right" valign="top"><a id="a32614992f1d21a5211eab36d737f7ada"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deletedViaContextMenu</b> (void)</td></tr>
+<tr class="separator:a32614992f1d21a5211eab36d737f7ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -103,9 +104,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6520c29b02992063d8bb2a1f8d32a9f9"><td class="memItemLeft" align="right" valign="top"><a id="a6520c29b02992063d8bb2a1f8d32a9f9"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glowbot_object</b> (const quint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a6520c29b02992063d8bb2a1f8d32a9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a184b1ab85c09fc4f28cfb413319f8422"><td class="memItemLeft" align="right" valign="top"><a id="a184b1ab85c09fc4f28cfb413319f8422"></a>
-virtual <a class="el" href="classglowbot__object.html">glowbot_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (void) const =0</td></tr>
-<tr class="separator:a184b1ab85c09fc4f28cfb413319f8422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45f204a6947b2ed3efe0a0ee7a369c66"><td class="memItemLeft" align="right" valign="top"><a id="a45f204a6947b2ed3efe0a0ee7a369c66"></a>
+virtual <a class="el" href="classglowbot__object.html">glowbot_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (QWidget *parent) const =0</td></tr>
+<tr class="separator:a45f204a6947b2ed3efe0a0ee7a369c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeefb7b5f8f4d40d6b712130100a8298d"><td class="memItemLeft" align="right" valign="top"><a id="aeefb7b5f8f4d40d6b712130100a8298d"></a>
+QPointF&#160;</td><td class="memItemRight" valign="bottom"><b>scenePos</b> (void) const</td></tr>
+<tr class="separator:aeefb7b5f8f4d40d6b712130100a8298d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad35867b9fabaf1ac129b36600451ccc9"><td class="memItemLeft" align="right" valign="top"><a id="ad35867b9fabaf1ac129b36600451ccc9"></a>
+QPointer&lt; <a class="el" href="classglowbot__proxy__widget.html">glowbot_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>proxy</b> (void) const</td></tr>
+<tr class="separator:ad35867b9fabaf1ac129b36600451ccc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a447daf2fb4902b20fae304945a35517a"><td class="memItemLeft" align="right" valign="top"><a id="a447daf2fb4902b20fae304945a35517a"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> (void) const</td></tr>
 <tr class="separator:a447daf2fb4902b20fae304945a35517a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,6 +137,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (const QPoin
 <tr class="memitem:a9c226c058ceab40101a210cd8d9fe68c"><td class="memItemLeft" align="right" valign="top"><a id="a9c226c058ceab40101a210cd8d9fe68c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (int x, int y)</td></tr>
 <tr class="separator:a9c226c058ceab40101a210cd8d9fe68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadff3d9980aba43eb5a5fc60c2030c16"><td class="memItemLeft" align="right" valign="top"><a id="aadff3d9980aba43eb5a5fc60c2030c16"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProxy</b> (const QPointer&lt; <a class="el" href="classglowbot__proxy__widget.html">glowbot_proxy_widget</a> &gt; &amp;proxy)</td></tr>
+<tr class="separator:aadff3d9980aba43eb5a5fc60c2030c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -151,6 +161,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a8acf5efcddb4cddae71df5cea262a491"><td class="memItemLeft" align="right" valign="top"><a id="a8acf5efcddb4cddae71df5cea262a491"></a>
+QPointer&lt; <a class="el" href="classglowbot__proxy__widget.html">glowbot_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_proxy</b></td></tr>
+<tr class="separator:a8acf5efcddb4cddae71df5cea262a491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c956428293fef12e744a8b683980a4c"><td class="memItemLeft" align="right" valign="top"><a id="a1c956428293fef12e744a8b683980a4c"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:a1c956428293fef12e744a8b683980a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
