@@ -42,6 +42,7 @@
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
+#include "glowbot-undo-command.h"
 #include "glowbot-user-functions.h"
 #include "glowbot-view.h"
 
@@ -462,6 +463,11 @@ quint64 glowbot_view::nextId(void) const
   return id;
 }
 
+void glowbot_view::beginMacro(const QString &text)
+{
+  m_undoStack->beginMacro(text);
+}
+
 void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event && m_view->items(event->pos()).isEmpty())
@@ -476,6 +482,11 @@ void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
 void glowbot_view::deleteItems(void)
 {
   m_scene->deleteItems();
+}
+
+void glowbot_view::endMacro(void)
+{
+  m_undoStack->endMacro();
 }
 
 void glowbot_view::prepareDatabaseTables(const QString &fileName) const
@@ -520,6 +531,12 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 
   glowbot_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
+}
+
+void glowbot_view::push(glowbot_undo_command *undoCommand)
+{
+  if(undoCommand)
+    m_undoStack->push(undoCommand);
 }
 
 void glowbot_view::redo(void)

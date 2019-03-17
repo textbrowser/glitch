@@ -41,6 +41,7 @@ class glowbot_object;
 class glowbot_object_start;
 class glowbot_proxy_widget;
 class glowbot_scene;
+class glowbot_undo_command;
 class glowbot_user_functions;
 
 class glowbot_view: public QWidget
@@ -69,7 +70,10 @@ class glowbot_view: public QWidget
   glowbot_scene *scene(void) const;
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
+  void beginMacro(const QString &text);
   void deleteItems(void);
+  void endMacro(void);
+  void push(glowbot_undo_command *undoCommand);
   void redo(void);
   void save(void);
   void selectAll(void);

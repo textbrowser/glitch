@@ -43,6 +43,7 @@
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
 #include "glowbot-ui.h"
+#include "glowbot-undo-command.h"
 #include "ui_glowbot-errors-dialog.h"
 
 glowbot_ui::glowbot_ui(void):QMainWindow(nullptr)
@@ -882,6 +883,7 @@ void glowbot_ui::slotPageChanged(void)
 
   m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
+  prepareRedoUndoActions();
   setTabText(qobject_cast<glowbot_view *> (sender()));
   setWindowTitle(qobject_cast<glowbot_view *> (sender()));
 }
@@ -919,7 +921,7 @@ void glowbot_ui::slotPageSelected(int index)
 
 void glowbot_ui::slotPaste(void)
 {
-  if(!m_currentView)
+  if(m_copiedObjects.isEmpty() || !m_currentView)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -931,6 +933,8 @@ void glowbot_ui::slotPaste(void)
 				       mapFromGlobal(QCursor::pos())).
      toPoint());
   bool f = false;
+
+  m_currentView->beginMacro(tr("items pasted"));
 
   while(it.hasNext())
     {
@@ -954,7 +958,14 @@ void glowbot_ui::slotPaste(void)
 	    m_currentView->scene()->addObject(point, object);
 
 	  if(proxy)
-	    m_currentView->scene()->addItem(proxy);
+	    {
+	      glowbot_undo_command *undoCommand = new glowbot_undo_command
+		(glowbot_undo_command::ITEM_ADDED,
+		 proxy,
+		 m_currentView->scene());
+
+	      m_currentView->push(undoCommand);
+	    }
 	  else
 	    object->deleteLater();
 	}
@@ -973,7 +984,14 @@ void glowbot_ui::slotPaste(void)
 	    m_currentView->scene()->addObject(p, object);
 
 	  if(proxy)
-	    m_currentView->scene()->addItem(proxy);
+	    {
+	      glowbot_undo_command *undoCommand = new glowbot_undo_command
+		(glowbot_undo_command::ITEM_ADDED,
+		 proxy,
+		 m_currentView->scene());
+
+	      m_currentView->push(undoCommand);
+	    }
 	  else
 	    object->deleteLater();
 	}
@@ -981,6 +999,8 @@ void glowbot_ui::slotPaste(void)
       f = true;
     }
 
+  m_currentView->endMacro();
+  prepareRedoUndoActions();
   QApplication::restoreOverrideCursor();
 }
 
