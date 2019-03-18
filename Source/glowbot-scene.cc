@@ -458,7 +458,7 @@ void glowbot_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    continue;
 		  else
 		    m_movedPoints << QPair<QPointF, glowbot_proxy_widget *>
-		      (proxy->pos(), proxy);
+		      (proxy->scenePos(), proxy);
 		}
 	    }
 	}

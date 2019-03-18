@@ -32,25 +32,27 @@
 #include "glowbot-undo-command.h"
 
 glowbot_undo_command::glowbot_undo_command
-(const Types type,
- glowbot_proxy_widget *proxy,
- glowbot_scene *scene,
- QUndoCommand *parent):QUndoCommand(parent)
-{
-  m_proxy = proxy;
-  m_scene = scene;
-  m_type = type;
-}
-
-glowbot_undo_command::glowbot_undo_command
 (const QPointF &previousPosition,
  const Types type,
  glowbot_proxy_widget *proxy,
  glowbot_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  m_currentPosition = proxy->scenePos();
+  if(proxy)
+    m_currentPosition = proxy->scenePos();
+
   m_previousPosition = previousPosition;
+  m_proxy = proxy;
+  m_scene = scene;
+  m_type = type;
+}
+
+glowbot_undo_command::glowbot_undo_command
+(const Types type,
+ glowbot_proxy_widget *proxy,
+ glowbot_scene *scene,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;

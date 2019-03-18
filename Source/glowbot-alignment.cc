@@ -219,7 +219,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	  {
 	    if(y != widget->height() + widget->pos().y())
 	      {
-		point = widget->proxy()->pos();
+		point = widget->proxy()->scenePos();
 		widget->move(x, y - widget->height());
 	      }
 
@@ -231,7 +231,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
 
-	    point = widget->proxy()->pos();
+	    point = widget->proxy()->scenePos();
 
 	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
 	      widget->move
@@ -246,7 +246,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	  {
 	    if(x != widget->pos().x() + widget->width())
 	      {
-		point = widget->proxy()->pos();
+		point = widget->proxy()->scenePos();
 		widget->move(x - widget->width(), y);
 	      }
 
@@ -254,7 +254,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	  }
 	default:
 	  {
-	    point = widget->proxy()->pos();
+	    point = widget->proxy()->scenePos();
 	    widget->move(x, y);
 	    break;
 	  }
@@ -386,7 +386,7 @@ void glowbot_alignment::stack(const StackType stackType)
         {
 	  if(widget->property("movable").toBool())
 	    {
-	      point = widget->proxy()->pos();
+	      point = widget->proxy()->scenePos();
 	      widget->move(coordinate, widget->pos().y());
 	      coordinate += widget->width();
 	    }
@@ -395,7 +395,7 @@ void glowbot_alignment::stack(const StackType stackType)
 	{
 	  if(widget->property("movable").toBool())
 	    {
-	      point = widget->proxy()->pos();
+	      point = widget->proxy()->scenePos();
 	      widget->move(widget->pos().x(), coordinate);
 	    }
 
