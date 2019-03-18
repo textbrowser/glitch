@@ -469,7 +469,10 @@ quint64 glowbot_view::nextId(void) const
 
 void glowbot_view::beginMacro(const QString &text)
 {
-  m_undoStack->beginMacro(text);
+  if(text.trimmed().isEmpty())
+    m_undoStack->beginMacro(tr("unknown"));
+  else
+    m_undoStack->beginMacro(text);
 }
 
 void glowbot_view::contextMenuEvent(QContextMenuEvent *event)
