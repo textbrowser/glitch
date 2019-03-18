@@ -56,7 +56,7 @@ Remaining Items
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
-- Movement via arrows.
+- Movement via arrows. Increase distance if Shift is depressed.
 - Prepare parents after cloning objects.
 - Redo, undo. See also macros.
 - Redo/undo function names?
