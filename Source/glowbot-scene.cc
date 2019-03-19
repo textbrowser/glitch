@@ -482,17 +482,21 @@ void glowbot_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
       while(!m_movedPoints.isEmpty())
 	{
-	  if(m_movedPoints.first().first == m_movedPoints.first().second->pos())
+	  if(!m_movedPoints.first().second)
 	    {
 	      m_movedPoints.removeFirst();
 	      continue;
 	    }
-	  else
+	  else if(m_movedPoints.first().first ==
+		  m_movedPoints.first().second->pos())
 	    {
-	      if(!began)
-		m_undoStack->beginMacro(tr("items moved"));
-
+	      m_movedPoints.removeFirst();
+	      continue;
+	    }
+	  else if(!began)
+	    {
 	      began = true;
+	      m_undoStack->beginMacro(tr("items moved"));
 	    }
 
 	  glowbot_undo_command *undoCommand = new glowbot_undo_command
