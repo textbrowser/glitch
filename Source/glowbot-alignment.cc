@@ -261,18 +261,19 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	}
 
       if(!point.isNull())
-	{
-	  if(!began)
-	    {
-	      began = true;
-	      view->beginMacro(tr("items aligned"));
-	    }
+	if(point != proxy->scenePos())
+	  {
+	    if(!began)
+	      {
+		began = true;
+		view->beginMacro(tr("items aligned"));
+	      }
 
-	  glowbot_undo_command *undoCommand = new glowbot_undo_command
-	    (point, glowbot_undo_command::ITEM_MOVED, proxy, view->scene());
+	    glowbot_undo_command *undoCommand = new glowbot_undo_command
+	      (point, glowbot_undo_command::ITEM_MOVED, proxy, view->scene());
 
-	  view->push(undoCommand);
-	}
+	    view->push(undoCommand);
+	  }
     }
 
   if(firstIteration)

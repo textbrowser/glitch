@@ -17,6 +17,7 @@ Completed Items
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
 - Display main() function. Fixed position? Yes.
+- Do not align, stack, etc. unless coordinates would change.
 - Error dialog.
 - Exiting does not require closing of pages.
 - Group delete.
@@ -50,7 +51,6 @@ Remaining Items
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
-- Do not align, stack, etc. unless coordinates would change.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.

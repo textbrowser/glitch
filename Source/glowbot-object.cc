@@ -144,8 +144,15 @@ void glowbot_object::move(const QPoint &point)
 
 void glowbot_object::move(int x, int y)
 {
+  bool isChanged = false;
+
+  if(pos().x() != x || pos().y() != y)
+    isChanged = true;
+
   QWidget::move(x, y);
-  emit changed();
+
+  if(isChanged)
+    emit changed();
 }
 
 void glowbot_object::save(const QSqlDatabase &db, QString &error)
