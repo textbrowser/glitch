@@ -62,8 +62,8 @@ class glowbot_undo_command: public QUndoCommand
   QPointF m_currentPosition;
   QPointF m_previousPosition;
   QPointer<glowbot_proxy_widget> m_proxy;
+  QPointer<glowbot_scene> m_scene;
   Types m_type;
-  glowbot_scene *m_scene;
 };
 
 #endif
