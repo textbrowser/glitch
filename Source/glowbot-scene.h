@@ -29,6 +29,7 @@
 #define _glowbot_scene_h_
 
 #include <QGraphicsScene>
+#include <QPointer>
 
 #include "glowbot-common.h"
 
@@ -45,6 +46,7 @@ class glowbot_scene: public QGraphicsScene
   ~glowbot_scene();
   QList<glowbot_object *> objects(void) const;
   QList<glowbot_object *> selectedObjects(void) const;
+  QPointer<QUndoStack> undoStack(void) const;
   glowbot_proxy_widget *addObject(const QPointF &point, glowbot_object *object);
   void deleteItems(void);
   void setMainScene(const bool state);
@@ -53,7 +55,7 @@ class glowbot_scene: public QGraphicsScene
  private:
   QList<QPair<QPointF, glowbot_proxy_widget *> > m_movedPoints;
   QPointF m_lastScenePos;
-  QUndoStack *m_undoStack;
+  QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;
   glowbot_common::ProjectType m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
@@ -67,6 +69,8 @@ class glowbot_scene: public QGraphicsScene
 
  private slots:
   void slotObjectDeletedViaContextMenu(void);
+  void slotRedo(void);
+  void slotUndo(void);
 
  signals:
   void changed(void);

@@ -27,12 +27,14 @@
 
 #include <QScrollBar>
 #include <QSqlError>
+#include <QShortcut>
 
 #include "glowbot-alignment.h"
 #include "glowbot-object.h"
 #include "glowbot-object-view.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
+#include "glowbot-view.h"
 
 glowbot_object_view::glowbot_object_view
 (const glowbot_common::ProjectType projectType,
@@ -44,6 +46,12 @@ glowbot_object_view::glowbot_object_view
   m_projectType = projectType;
   m_scene = new glowbot_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  new QShortcut(tr("Ctrl+Shift+Z"),
+		this,
+		SLOT(slotRedo(void)));
+  new QShortcut(tr("Ctrl+Z"),
+		this,
+		SLOT(slotUndo(void)));
   setDragMode(QGraphicsView::RubberBandDrag);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
@@ -147,10 +155,18 @@ void glowbot_object_view::slotParentWindowClosed(void)
   m_alignment->close();
 }
 
+void glowbot_object_view::slotRedo(void)
+{
+}
+
 void glowbot_object_view::slotSceneResized(void)
 {
   if(parentWidget())
     setSceneRect(parentWidget()->size());
   else
     setSceneRect(size()); // Slight incorrectness.
+}
+
+void glowbot_object_view::slotUndo(void)
+{
 }

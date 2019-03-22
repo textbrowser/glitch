@@ -92,6 +92,11 @@ QList<glowbot_object *> glowbot_scene::selectedObjects(void) const
   return widgets;
 }
 
+QPointer<QUndoStack> glowbot_scene::undoStack(void) const
+{
+  return m_undoStack;
+}
+
 bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 			      const QString &text)
 {
@@ -575,4 +580,26 @@ void glowbot_scene::slotObjectDeletedViaContextMenu(void)
     }
 
   emit changed();
+}
+
+void glowbot_scene::slotRedo(void)
+{
+  if(m_undoStack && m_undoStack->canRedo())
+    {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+      m_undoStack->redo();
+      emit changed();
+      QApplication::restoreOverrideCursor();
+    }
+}
+
+void glowbot_scene::slotUndo(void)
+{
+  if(m_undoStack && m_undoStack->canUndo())
+    {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+      m_undoStack->undo();
+      emit changed();
+      QApplication::restoreOverrideCursor();
+    }
 }
