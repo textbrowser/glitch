@@ -28,6 +28,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Recreating functions and unique names.
+- Redo/undo shortcuts on edit windows.
 - Save As.
 - Save canvas settings.
 - Save loop() and setup() style sheets.
@@ -63,7 +64,6 @@ Remaining Items
 - Movement via arrows. Increase distance if Shift is depressed.
 - Redo, undo. See also macros.
 - Redo/undo function names?
-- Redo/undo shortcuts on edit windows.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
