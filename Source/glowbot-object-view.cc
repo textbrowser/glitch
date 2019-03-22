@@ -81,6 +81,11 @@ glowbot_object_view::~glowbot_object_view()
 {
 }
 
+glowbot_scene *glowbot_object_view::scene(void) const
+{
+  return m_scene;
+}
+
 quint64 glowbot_object_view::id(void) const
 {
   return m_id;
@@ -124,6 +129,11 @@ void glowbot_object_view::save(const QSqlDatabase &db, QString &error)
       if(!error.isEmpty())
 	break;
     }
+}
+
+void glowbot_object_view::setUndoStack(QUndoStack *undoStack)
+{
+  m_scene->setUndoStack(undoStack);
 }
 
 void glowbot_object_view::setSceneRect(const QSize &size)

@@ -35,6 +35,9 @@
 
 #include "glowbot-proxy-widget.h"
 
+class glowbot_object_view;
+class QUndoStack;
+
 class glowbot_object: public QWidget
 {
   Q_OBJECT
@@ -57,6 +60,7 @@ class glowbot_object: public QWidget
   void move(const QPoint &point);
   void move(int x, int y);
   void setProxy(const QPointer<glowbot_proxy_widget> &proxy);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   static quint64 s_id;
@@ -66,6 +70,7 @@ class glowbot_object: public QWidget
   QString m_type;
   QWidget *m_parent;
   bool m_initialized;
+  glowbot_object_view *m_editView;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;
 

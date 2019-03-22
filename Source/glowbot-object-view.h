@@ -33,6 +33,7 @@
 
 #include "glowbot-common.h"
 
+class QUndoStack;
 class glowbot_alignment;
 class glowbot_scene;
 
@@ -45,9 +46,11 @@ class glowbot_object_view: public QGraphicsView
 		      const quint64 id,
 		      QWidget *parent);
   ~glowbot_object_view();
+  glowbot_scene* scene(void) const;
   quint64 id(void) const;
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   glowbot_alignment *m_alignment;

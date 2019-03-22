@@ -31,11 +31,9 @@
 #include <QPointer>
 
 #include "glowbot-object.h"
-#include "glowbot-object-view.h"
 #include "ui_glowbot-object-function-arduino.h"
 
 class glowbot_object_edit_window;
-class glowbot_object_view;
 class glowbot_view_arduino;
 
 class glowbot_object_function_arduino: public glowbot_object
@@ -58,7 +56,6 @@ class glowbot_object_function_arduino: public glowbot_object
  private:
   QPointer<glowbot_object_edit_window> m_editWindow;
   Ui_glowbot_object_function_arduino m_ui;
-  glowbot_object_view *m_editView;
   glowbot_view_arduino *m_view;
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);

@@ -27,12 +27,14 @@
 
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QUndoStack>
 #include <QtDebug>
 
 #include "Arduino/glowbot-object-analog-read-arduino.h"
 #include "Arduino/glowbot-object-function-arduino.h"
 #include "glowbot-object-view.h"
 #include "glowbot-object.h"
+#include "glowbot-scene.h"
 #include "glowbot-style-sheet.h"
 #include "glowbot-view.h"
 
@@ -56,6 +58,8 @@ glowbot_object::glowbot_object(QWidget *parent):
     }
   while(true);
 
+  m_editView = nullptr;
+
   if(view)
     m_id = view->nextId();
   else
@@ -67,6 +71,7 @@ glowbot_object::glowbot_object(QWidget *parent):
 glowbot_object::glowbot_object(const quint64 id, QWidget *parent):
   QWidget(nullptr)
 {
+  m_editView = nullptr;
   m_id = id;
   m_initialized = false;
   m_parent = parent;
@@ -181,6 +186,12 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
 void glowbot_object::setProxy(const QPointer<glowbot_proxy_widget> &proxy)
 {
   m_proxy = proxy;
+}
+
+void glowbot_object::setUndoStack(QUndoStack *undoStack)
+{
+  if(m_editView)
+    m_editView->scene()->setUndoStack(undoStack);
 }
 
 void glowbot_object::slotSetStyleSheet(void)

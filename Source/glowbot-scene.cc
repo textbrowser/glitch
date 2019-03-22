@@ -356,6 +356,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
       if(object)
 	{
 	  event->accept();
+	  object->setUndoStack(m_undoStack);
 
 	  glowbot_proxy_widget *proxy = addObject(event->scenePos(), object);
 

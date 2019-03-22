@@ -304,7 +304,10 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 			(glowbot_misc::dbPointToPointF(point), object);
 
 		      if(proxy)
-			m_scene->addItem(proxy);
+			{
+			  m_scene->addItem(proxy);
+			  object->setUndoStack(m_scene->undoStack());
+			}
 		      else
 			object->deleteLater();
 		    }
