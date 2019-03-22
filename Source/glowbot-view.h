@@ -60,6 +60,7 @@ class glowbot_view: public QWidget
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;
+  QUndoStack *undoStack(void) const;
   bool canRedo(void) const;
   bool canUndo(void) const;
   bool hasChanged(void) const;

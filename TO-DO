@@ -60,6 +60,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Movement via arrows. Increase distance if Shift is depressed.
+- Pass undo stack from top-level view to child views.
 - Redo, undo. See also macros.
 - Redo/undo function names?
 - Redo/undo shortcuts on edit windows.
