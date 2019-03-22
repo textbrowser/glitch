@@ -24,6 +24,7 @@ Completed Items
 - Inspect coordinates upon opening of diagrams. Adjust.
 - List of recent files.
 - Object numbers should be sequenced.
+- Pass undo stack from top-level view to child views.
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Recreating functions and unique names.
@@ -60,7 +61,6 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Movement via arrows. Increase distance if Shift is depressed.
-- Pass undo stack from top-level view to child views.
 - Redo, undo. See also macros.
 - Redo/undo function names?
 - Redo/undo shortcuts on edit windows.
