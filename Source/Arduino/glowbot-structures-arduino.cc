@@ -198,7 +198,7 @@ QStringList glowbot_structures_arduino::structureNames(void)
 
 bool glowbot_structures_arduino::containsStructure(const QString &structureName)
 {
-  return s_structureNamesMap.contains(structureName);
+  return structureNames().contains(structureName);
 }
 
 void glowbot_structures_arduino::slotCategorySelected(void)

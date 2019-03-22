@@ -25,6 +25,7 @@ Completed Items
 - List of recent files.
 - Object numbers should be sequenced.
 - Prepare Copy, Delete, Paste, and Select All states.
+- Prepare parents after cloning objects.
 - Recreating functions and unique names.
 - Save As.
 - Save canvas settings.
@@ -51,6 +52,7 @@ Remaining Items
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
+- Close edit windows via Control + W.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.
@@ -58,9 +60,9 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Movement via arrows. Increase distance if Shift is depressed.
-- Prepare parents after cloning objects.
 - Redo, undo. See also macros.
 - Redo/undo function names?
+- Redo/undo shortcuts on edit windows.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.

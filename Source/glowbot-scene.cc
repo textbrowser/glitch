@@ -123,7 +123,10 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 		*/
 
 		if(glowbot_structures_arduino::containsStructure(text.mid(8)))
-		  return true;
+		  {
+		    event->accept();
+		    return true;
+		  }
 
 		break;
 	      }
@@ -140,11 +143,15 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    {
 	      QTableWidgetItem *item = tableWidget->currentItem();
 
-	      if(item &&
-		 item->data(Qt::UserRole).toString() == "glowbot-user-function")
+	      if(item)
 		{
-		  event->accept();
-		  return true;
+		  QString text(item->data(Qt::UserRole).toString());
+
+		  if(text == "glowbot-user-function")
+		    {
+		      event->accept();
+		      return true;
+		    }
 		}
 	    }
 
@@ -235,6 +242,11 @@ void glowbot_scene::deleteItems(void)
 
 	  m_undoStack->push(undoCommand);
 	}
+      else
+	{
+	  removeItem(proxy);
+	  proxy->deleteLater();
+	}
     }
 
   if(m_undoStack)
@@ -250,7 +262,7 @@ void glowbot_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().toLower().trimmed());
+      QString text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -266,7 +278,7 @@ void glowbot_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().toLower().trimmed());
+      QString text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -323,11 +335,13 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().toLower().trimmed());
+      QString text(event->mimeData()->text().trimmed());
       glowbot_object *object = nullptr;
 
       if(allowDrag(event, text))
 	{
+	  text = text.toLower();
+
 	  if(text == "glowbot-arduino-analogread()")
 	    object = new glowbot_object_analog_read_arduino(views().value(0));
 	  else if(text == "glowbot-arduino-function()")
@@ -342,12 +356,17 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(proxy)
 	    {
-	      glowbot_undo_command *undoCommand = new glowbot_undo_command
-		(glowbot_undo_command::ITEM_ADDED, proxy, this);
+	      if(m_undoStack)
+		{
+		  glowbot_undo_command *undoCommand = new glowbot_undo_command
+		    (glowbot_undo_command::ITEM_ADDED, proxy, this);
 
-	      undoCommand->setText
-		(tr("item added (%1, %2)").arg(proxy->x()).arg(proxy->y()));
-	      m_undoStack->push(undoCommand);
+		  undoCommand->setText
+		    (tr("item added (%1, %2)").arg(proxy->x()).arg(proxy->y()));
+		  m_undoStack->push(undoCommand);
+		}
+	      else
+		addItem(proxy);
 	    }
 	  else
 	    object->deleteLater();
