@@ -8,6 +8,7 @@ Completed Items
 - Apply canvas settings.
 - Assign new names to functions pasted on main canvases.
 - Close a function's Objects Alignment dialog if its editing window is closed.
+- Close edit windows via Control + W.
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
 - Context menu on main tab widget.
@@ -54,7 +55,6 @@ Remaining Items
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
-- Close edit windows via Control + W.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.

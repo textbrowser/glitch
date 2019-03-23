@@ -26,6 +26,7 @@
 */
 
 #include <QResizeEvent>
+#include <QShortcut>
 
 #include "glowbot-object-edit-window.h"
 #include "glowbot-object-view.h"
@@ -33,6 +34,9 @@
 glowbot_object_edit_window::glowbot_object_edit_window(QWidget *parent):
   QMainWindow(parent, Qt::WindowFlags() | Qt::WindowStaysOnTopHint)
 {
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   setContentsMargins(9, 9, 9, 9);
 }
 
