@@ -174,7 +174,8 @@ void glowbot_object::save(const QSqlDatabase &db, QString &error)
   else
     query.addBindValue(-1);
 
-  query.addBindValue(QString("(%1,%2)").arg(pos().x()).arg(pos().y()));
+  query.addBindValue
+    (QString("(%1,%2)").arg(scenePos().x()).arg(scenePos().y()));
   query.addBindValue(styleSheet());
   query.addBindValue(m_type);
   query.exec();
