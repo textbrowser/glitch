@@ -556,7 +556,12 @@ void glowbot_view::push(glowbot_undo_command *undoCommand)
 
 void glowbot_view::redo(void)
 {
-  m_undoStack->redo();
+  if(m_undoStack->canRedo())
+    {
+      m_changed = true;
+      m_undoStack->redo();
+      emit changed();
+    }
 }
 
 void glowbot_view::resizeEvent(QResizeEvent *event)
@@ -733,5 +738,10 @@ void glowbot_view::slotUnite(void)
 
 void glowbot_view::undo(void)
 {
-  m_undoStack->undo();
+  if(m_undoStack->canUndo())
+    {
+      m_changed = true;
+      m_undoStack->undo();
+      emit changed();
+    }
 }
