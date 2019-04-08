@@ -40,6 +40,7 @@ class glowbot_proxy_widget: public QGraphicsProxyWidget
   ~glowbot_proxy_widget();
   bool isMandatory(void) const;
   bool isMovable(void) const;
+  void setPos(const QPointF &point);
 
  private:
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
