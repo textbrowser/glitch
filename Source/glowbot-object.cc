@@ -154,10 +154,7 @@ void glowbot_object::move(int x, int y)
   if(pos().x() != x || pos().y() != y)
     isChanged = true;
 
-  if(m_proxy)
-    m_proxy->setPos(x, y);
-  else
-    QWidget::move(x, y);
+  QWidget::move(x, y);
 
   if(isChanged)
     emit changed();

@@ -195,11 +195,10 @@ glowbot_proxy_widget *glowbot_scene::addObject
 	  SLOT(deleteLater(void)),
 	  Qt::UniqueConnection);
   object->setProperty("movable", true);
+  object->setProxy(proxy);
   proxy->setFlags
     (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
   proxy->setWidget(object);
-  object->move(point.toPoint());
-  object->setProxy(proxy);
   proxy->setPos(point);
   emit changed();
 
@@ -409,7 +408,6 @@ void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  moved = true;
 	  proxy->setPos(point);
-	  proxy->widget()->move(point.toPoint());
 	}
 
       m_lastScenePos = event->scenePos();

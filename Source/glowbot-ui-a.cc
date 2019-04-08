@@ -379,8 +379,12 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
+      m_ui.action_Copy->setEnabled(false);
+      m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
+      m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
     }
@@ -388,9 +392,16 @@ void glowbot_ui::prepareActionWidgets(void)
     {
       m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
+      m_ui.action_Copy->setEnabled
+	(m_currentView && m_currentView->scene()->selectedItems().size() > 0);
+      m_ui.action_Delete->setEnabled
+	(m_currentView && m_currentView->scene()->selectedItems().size() > 0);
+      m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
 	(m_currentView && m_currentView->hasChanged());
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
+      m_ui.action_Select_All->setEnabled
+	(m_currentView && m_currentView->scene()->items().size() > 2);
       m_ui.action_Structures->setEnabled(true);
     }
 
@@ -582,11 +593,6 @@ void glowbot_ui::slotAboutToShowTabsMenu(void)
 void glowbot_ui::slotArduinoViewDestroyed(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  m_ui.action_Copy->setEnabled(false);
-  m_ui.action_Delete->setEnabled(false);
-  m_ui.action_Paste->setEnabled(false);
-  m_ui.action_Select_All->setEnabled(false);
 
   if(m_arduinoStructures)
     if(findChildren<glowbot_view_arduino *> ().isEmpty())
