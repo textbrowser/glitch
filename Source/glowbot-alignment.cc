@@ -213,6 +213,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	continue;
 
       QPoint point;
+      QPoint previousPosition(widget->pos());
 
       switch(alignmentType)
 	{
@@ -262,7 +263,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	}
 
       if(!point.isNull())
-	if(point != proxy->scenePos())
+	if(point != previousPosition)
 	  {
 	    if(!began)
 	      {
@@ -271,7 +272,10 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	      }
 
 	    glowbot_undo_command *undoCommand = new glowbot_undo_command
-	      (point, glowbot_undo_command::ITEM_MOVED, proxy, view->scene());
+	      (proxy->scenePos(),
+	       glowbot_undo_command::ITEM_MOVED,
+	       proxy,
+	       view->scene());
 
 	    view->push(undoCommand);
 	  }
@@ -382,7 +386,7 @@ void glowbot_alignment::stack(const StackType stackType)
 	continue;
 
       QPoint point;
-      QPointF previousPosition(widget->proxy()->scenePos());
+      QPoint previousPosition(widget->pos());
 
       if(stackType == HORIZONTAL_STACK)
         {
@@ -404,21 +408,22 @@ void glowbot_alignment::stack(const StackType stackType)
 	}
 
       if(!point.isNull())
-	{
-	  if(!began)
-	    {
-	      began = true;
-	      view->beginMacro(tr("items stacked"));
-	    }
+	if(point != previousPosition)
+	  {
+	    if(!began)
+	      {
+		began = true;
+		view->beginMacro(tr("items stacked"));
+	      }
 
-	  glowbot_undo_command *undoCommand = new glowbot_undo_command
-	    (previousPosition,
-	     glowbot_undo_command::ITEM_MOVED,
-	     widget->proxy(),
-	     view->scene());
+	    glowbot_undo_command *undoCommand = new glowbot_undo_command
+	      (QPointF(previousPosition),
+	       glowbot_undo_command::ITEM_MOVED,
+	       widget->proxy(),
+	       view->scene());
 
-	  view->push(undoCommand);
-	}
+	    view->push(undoCommand);
+	  }
     }
 
   if(began)
