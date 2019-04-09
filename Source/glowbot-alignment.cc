@@ -392,8 +392,9 @@ void glowbot_alignment::stack(const StackType stackType)
 	    {
 	      point = widget->pos();
 	      widget->move(coordinate, widget->pos().y());
-	      coordinate += widget->width();
 	    }
+
+	  coordinate += widget->width();
         }
       else
 	{
@@ -401,8 +402,9 @@ void glowbot_alignment::stack(const StackType stackType)
 	    {
 	      point = widget->pos();
 	      widget->move(widget->pos().x(), coordinate);
-	      coordinate += widget->height();
 	    }
+
+	  coordinate += widget->height();
 	}
 
       if(!point.isNull())
