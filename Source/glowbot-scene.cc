@@ -166,8 +166,7 @@ bool glowbot_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     }
 }
 
-glowbot_proxy_widget *glowbot_scene::addObject
-(const QPointF &point, glowbot_object *object)
+glowbot_proxy_widget *glowbot_scene::addObject(glowbot_object *object)
 {
   if(!object)
     return nullptr;
@@ -196,10 +195,9 @@ glowbot_proxy_widget *glowbot_scene::addObject
 	  Qt::UniqueConnection);
   object->setProperty("movable", true);
   object->setProxy(proxy);
-  proxy->setFlags
-    (QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+  proxy->setFlag(QGraphicsItem::ItemIsMovable, true);
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
-  proxy->setPos(point);
   emit changed();
 
   if(qobject_cast<glowbot_object_function_arduino *> (object))
@@ -357,7 +355,7 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  object->setUndoStack(m_undoStack);
 
-	  glowbot_proxy_widget *proxy = addObject(event->scenePos(), object);
+	  glowbot_proxy_widget *proxy = addObject(object);
 
 	  if(proxy)
 	    {
@@ -367,16 +365,19 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		    (glowbot_undo_command::ITEM_ADDED, proxy, this);
 
 		  undoCommand->setText
-		    (tr("item added (%1, %2)").arg(proxy->x()).arg(proxy->y()));
+		    (tr("item added (%1, %2)").
+		     arg(event->scenePos().x()).arg(event->scenePos().y()));
 		  m_undoStack->push(undoCommand);
 		}
 	      else
 		addItem(proxy);
+
+	      proxy->setPos(event->scenePos());
+	      emit changed();
 	    }
 	  else
 	    object->deleteLater();
 
-	  emit changed();
 	  return;
 	}
     }

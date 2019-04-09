@@ -300,13 +300,13 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 
 		  if(object)
 		    {
-		      glowbot_proxy_widget *proxy = m_scene->addObject
-			(glowbot_misc::dbPointToPointF(point), object);
+		      glowbot_proxy_widget *proxy = m_scene->addObject(object);
 
 		      if(proxy)
 			{
 			  m_scene->addItem(proxy);
 			  object->setUndoStack(m_scene->undoStack());
+			  proxy->setPos(glowbot_misc::dbPointToPointF(point));
 			}
 		      else
 			object->deleteLater();

@@ -958,7 +958,7 @@ void glowbot_ui::slotPaste(void)
 	  first = QPoint(x, y);
 
 	  glowbot_proxy_widget *proxy =
-	    m_currentView->scene()->addObject(point, object);
+	    m_currentView->scene()->addObject(object);
 
 	  if(proxy)
 	    {
@@ -968,6 +968,7 @@ void glowbot_ui::slotPaste(void)
 		 m_currentView->scene());
 
 	      m_currentView->push(undoCommand);
+	      proxy->setPos(point);
 	    }
 	  else
 	    object->deleteLater();
@@ -984,7 +985,7 @@ void glowbot_ui::slotPaste(void)
 	    p.setY(p.y() - (first.y() - y));
 
 	  glowbot_proxy_widget *proxy =
-	    m_currentView->scene()->addObject(p, object);
+	    m_currentView->scene()->addObject(object);
 
 	  if(proxy)
 	    {
@@ -994,6 +995,7 @@ void glowbot_ui::slotPaste(void)
 		 m_currentView->scene());
 
 	      m_currentView->push(undoCommand);
+	      proxy->setPos(p);
 	    }
 	  else
 	    object->deleteLater();

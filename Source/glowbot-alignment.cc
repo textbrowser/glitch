@@ -41,7 +41,7 @@ static bool x_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
   if(!w1 || !w2)
     return false;
   else
-    return w1->scenePos().x() < w2->scenePos().x();
+    return w1->pos().x() < w2->pos().x();
 }
 
 static bool y_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
@@ -49,7 +49,7 @@ static bool y_coordinate_less_than(glowbot_object *w1, glowbot_object *w2)
   if(!w1 || !w2)
     return false;
   else
-    return w1->scenePos().y() < w2->scenePos().y();
+    return w1->pos().y() < w2->pos().y();
 }
 
 glowbot_alignment::glowbot_alignment(QWidget *parent):QDialog(parent)
@@ -108,10 +108,10 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QPair<qreal, qreal> maxP;
-  QPair<qreal, qreal> minP;
-  qreal x = 0;
-  qreal y = 0;
+  QPair<int, int> maxP;
+  QPair<int, int> minP;
+  int x = 0;
+  int y = 0;
 
   switch(alignmentType)
     {
@@ -172,39 +172,37 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	{
 	case ALIGN_BOTTOM:
 	  {
-	    x = widget->scenePos().x();
-	    y = qMax
-	      (y,
-	       static_cast<qreal> (widget->height()) + widget->scenePos().y());
+	    x = widget->pos().x();
+	    y = qMax(y, widget->height() + widget->pos().y());
 	    break;
 	  }
 	case ALIGN_CENTER_HORIZONTAL:
 	case ALIGN_CENTER_VERTICAL:
 	  {
 	    maxP.first = qMax
-	      (maxP.first, widget->scenePos().x() + widget->width());
+	      (maxP.first, widget->pos().x() + widget->width());
 	    maxP.second = qMax
-	      (maxP.second, widget->height() + widget->scenePos().y());
-	    minP.first = qMin(minP.first, widget->scenePos().x());
-	    minP.second = qMin(minP.second, widget->scenePos().y());
+	      (maxP.second, widget->height() + widget->pos().y());
+	    minP.first = qMin(minP.first, widget->pos().x());
+	    minP.second = qMin(minP.second, widget->pos().y());
 	    break;
 	  }
 	case ALIGN_LEFT:
 	  {
-	    x = qMin(x, widget->scenePos().x());
-	    y = widget->scenePos().y();
+	    x = qMin(x, widget->pos().x());
+	    y = widget->pos().y();
 	    break;
 	  }
 	case ALIGN_RIGHT:
 	  {
-	    x = qMax(x, widget->scenePos().x() + widget->width());
-	    y = widget->scenePos().y();
+	    x = qMax(x, widget->pos().x() + widget->width());
+	    y = widget->pos().y();
 	    break;
 	  }
 	case ALIGN_TOP:
 	  {
-	    x = widget->scenePos().x();
-	    y = qMin(y, widget->scenePos().y());
+	    x = widget->pos().x();
+	    y = qMin(y, widget->pos().y());
 	    break;
 	  }
 	default:
@@ -214,15 +212,15 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
       if(firstIteration || !movable)
 	continue;
 
-      QPointF point;
+      QPoint point;
 
       switch(alignmentType)
 	{
 	case ALIGN_BOTTOM:
 	  {
-	    if(y != widget->height() + widget->scenePos().y())
+	    if(y != widget->height() + widget->pos().y())
 	      {
-		point = widget->scenePos();
+		point = widget->pos();
 		widget->move(x, y - widget->height());
 	      }
 
@@ -234,24 +232,22 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
 
-	    point = widget->scenePos();
+	    point = widget->pos();
 
 	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
 	      widget->move
-		(widget->scenePos().x(),
-		 rect.center().y() - widget->height() / 2);
+		(widget->pos().x(), rect.center().y() - widget->height() / 2);
 	    else
 	      widget->move
-		(rect.center().x() - widget->width() / 2,
-		 widget->scenePos().y());
+		(rect.center().x() - widget->width() / 2, widget->pos().y());
 
 	    break;
 	  }
 	case ALIGN_RIGHT:
 	  {
-	    if(x != widget->scenePos().x() + widget->width())
+	    if(x != widget->pos().x() + widget->width())
 	      {
-		point = widget->scenePos();
+		point = widget->pos();
 		widget->move(x - widget->width(), y);
 	      }
 
@@ -259,7 +255,7 @@ void glowbot_alignment::align(const AlignmentType alignmentType)
 	  }
 	default:
 	  {
-	    point = widget->scenePos();
+	    point = widget->pos();
 	    widget->move(x, y);
 	    break;
 	  }
@@ -370,14 +366,13 @@ void glowbot_alignment::stack(const StackType stackType)
   else
     qSort(list2.begin(), list2.end(), y_coordinate_less_than);
 
+  bool began = false;
   int coordinate = 0;
 
   if(stackType == HORIZONTAL_STACK)
-    coordinate = list2.at(0)->scenePos().x();
+    coordinate = list2.at(0)->pos().x();
   else
-    coordinate = list2.at(0)->scenePos().y();
-
-  bool began = false;
+    coordinate = list2.at(0)->pos().y();
 
   for(int i = 0; i < list2.size(); i++)
     {
@@ -386,14 +381,15 @@ void glowbot_alignment::stack(const StackType stackType)
       if(!widget)
 	continue;
 
-      QPointF point;
+      QPoint point;
+      QPointF previousPosition(widget->proxy()->scenePos());
 
       if(stackType == HORIZONTAL_STACK)
         {
 	  if(widget->property("movable").toBool())
 	    {
-	      point = widget->scenePos();
-	      widget->move(coordinate, widget->scenePos().y());
+	      point = widget->pos();
+	      widget->move(coordinate, widget->pos().y());
 	      coordinate += widget->width();
 	    }
         }
@@ -401,8 +397,8 @@ void glowbot_alignment::stack(const StackType stackType)
 	{
 	  if(widget->property("movable").toBool())
 	    {
-	      point = widget->scenePos();
-	      widget->move(widget->scenePos().x(), coordinate);
+	      point = widget->pos();
+	      widget->move(widget->pos().x(), coordinate);
 	      coordinate += widget->height();
 	    }
 	}
@@ -416,7 +412,7 @@ void glowbot_alignment::stack(const StackType stackType)
 	    }
 
 	  glowbot_undo_command *undoCommand = new glowbot_undo_command
-	    (point,
+	    (previousPosition,
 	     glowbot_undo_command::ITEM_MOVED,
 	     widget->proxy(),
 	     view->scene());

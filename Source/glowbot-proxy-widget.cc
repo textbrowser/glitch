@@ -109,9 +109,3 @@ void glowbot_proxy_widget::paint
 
   QGraphicsProxyWidget::paint(painter, opt, widget);
 }
-
-void glowbot_proxy_widget::setPos(const QPointF &point)
-{
-  QGraphicsProxyWidget::setPos(point);
-  widget()->move(point.toPoint());
-}
