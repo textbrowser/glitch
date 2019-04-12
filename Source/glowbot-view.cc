@@ -622,10 +622,21 @@ void glowbot_view::slotCanvasSettingsChanged(void)
   ** Canvas settings are applied immediately.
   */
 
+  QHash<Settings, QVariant> hash(m_settings);
+
   m_name = m_canvasSettings->name();
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
+  m_settings[CANVAS_BACKGROUND_COLOR] =
+    m_canvasSettings->canvasBackgroundColor();
+  m_settings[CANVAS_NAME] = m_canvasSettings->name();
+  m_settings[VIEW_UPDATE_MODE] = m_canvasSettings->viewportUpdateMode();
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
+
+  if(hash != m_settings)
+    {
+    }
+
   emit changed();
 }
 

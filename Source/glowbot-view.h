@@ -48,6 +48,13 @@ class glowbot_view: public QWidget
   Q_OBJECT
 
  public:
+  enum Settings
+  {
+    CANVAS_BACKGROUND_COLOR,
+    CANVAS_NAME,
+    VIEW_UPDATE_MODE
+  };
+
   glowbot_view(const QString &name,
 	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
@@ -85,6 +92,7 @@ class glowbot_view: public QWidget
 
  protected:
   QAction *m_menuAction;
+  QHash<Settings, QVariant> m_settings;
   QString m_fileName;
   QString m_name;
   QUndoStack *m_undoStack;
