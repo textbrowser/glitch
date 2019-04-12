@@ -31,6 +31,8 @@
 #include <QPointer>
 #include <QUndoCommand>
 
+#include "glowbot-canvas-settings.h"
+
 class glowbot_proxy_widget;
 class glowbot_scene;
 
@@ -39,12 +41,18 @@ class glowbot_undo_command: public QUndoCommand
  public:
   enum Types
   {
-    ITEM_ADDED = 0,
+    CANVAS_SETTINGS_CHANGED = 0,
+    ITEM_ADDED,
     ITEM_DELETED,
     ITEM_MOVED,
     ITEM_RENAMED
   };
 
+  glowbot_undo_command(const QHash<glowbot_canvas_settings::Settings,
+		                   QVariant> &previousCanvasSettings,
+		       const Types type,
+		       glowbot_canvas_settings *canvasSettings,
+		       QUndoCommand *parent = nullptr);
   glowbot_undo_command(const QPointF &previousPosition,
 		       const Types type,
 		       glowbot_proxy_widget *proxy,
@@ -59,8 +67,11 @@ class glowbot_undo_command: public QUndoCommand
   void undo(void);
 
  private:
+  QHash<glowbot_canvas_settings::Settings, QVariant> m_currentCanvasSettings;
+  QHash<glowbot_canvas_settings::Settings, QVariant> m_previousCanvasSettings;
   QPointF m_currentPosition;
   QPointF m_previousPosition;
+  QPointer<glowbot_canvas_settings> m_canvasSettings;
   QPointer<glowbot_proxy_widget> m_proxy;
   QPointer<glowbot_scene> m_scene;
   Types m_type;

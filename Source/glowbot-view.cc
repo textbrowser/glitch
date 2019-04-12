@@ -56,6 +56,7 @@ glowbot_view::glowbot_view
   m_canvasSettings = new glowbot_canvas_settings(this);
   m_canvasSettings->setFileName
     (glowbot_misc::homePath() + QDir::separator() + name + ".db");
+  m_canvasSettings->prepare();
   m_changed = false;
   m_fileName = glowbot_misc::homePath() + QDir::separator() + name + ".db";
   m_menuAction = new QAction(QIcon(":/Logo/glowbot-arduino-logo.png"),
@@ -86,9 +87,9 @@ glowbot_view::glowbot_view
 	  this,
 	  SLOT(slotChanged(void)));
   connect(m_canvasSettings,
-	  SIGNAL(accepted(void)),
+	  SIGNAL(accepted(const bool)),
 	  this,
-	  SLOT(slotCanvasSettingsChanged(void)));
+	  SLOT(slotCanvasSettingsChanged(const bool)));
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
@@ -256,6 +257,7 @@ bool glowbot_view::open(const QString &fileName, QString &error)
     }
 
   m_canvasSettings->setFileName(fileName);
+  m_canvasSettings->prepare();
   m_fileName = fileName;
   disconnect(m_scene,
 	     SIGNAL(changed(void)),
@@ -338,18 +340,17 @@ bool glowbot_view::save(QString &error)
 
 bool glowbot_view::saveAs(const QString &fileName, QString &error)
 {
-  if(saveImplementation(fileName, error))
-    {
-      m_canvasSettings->setFileName(fileName);
-      m_fileName = fileName;
-      return true;
-    }
-  else
-    return false;
+  return saveImplementation(fileName, error);
 }
 
 bool glowbot_view::saveImplementation(const QString &fileName, QString &error)
 {
+  m_canvasSettings->setFileName(fileName);
+  m_fileName = fileName;
+
+  if(!m_canvasSettings->save(error))
+    return false;
+
   prepareDatabaseTables(fileName);
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -616,28 +617,40 @@ void glowbot_view::showAlignment(void)
   m_alignment->show();
 }
 
-void glowbot_view::slotCanvasSettingsChanged(void)
+void glowbot_view::slotCanvasSettingsChanged(const bool undo)
 {
   /*
   ** Canvas settings are applied immediately.
   */
 
-  QHash<Settings, QVariant> hash(m_settings);
+  QHash<glowbot_canvas_settings::Settings, QVariant> hash(m_settings);
 
   m_name = m_canvasSettings->name();
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
-  m_settings[CANVAS_BACKGROUND_COLOR] =
+  m_settings[glowbot_canvas_settings::CANVAS_BACKGROUND_COLOR] =
     m_canvasSettings->canvasBackgroundColor();
-  m_settings[CANVAS_NAME] = m_canvasSettings->name();
-  m_settings[VIEW_UPDATE_MODE] = m_canvasSettings->viewportUpdateMode();
+  m_settings[glowbot_canvas_settings::CANVAS_NAME] = m_canvasSettings->name();
+  m_settings[glowbot_canvas_settings::VIEW_UPDATE_MODE] =
+    m_canvasSettings->viewportUpdateMode();
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
-  if(hash != m_settings)
+  if(hash != m_settings && !hash.isEmpty())
     {
-    }
+      if(undo)
+	{
+	  glowbot_undo_command *undoCommand = new glowbot_undo_command
+	    (hash,
+	     glowbot_undo_command::CANVAS_SETTINGS_CHANGED,
+	     m_canvasSettings);
 
-  emit changed();
+	  undoCommand->setText(tr("canvas settings changed"));
+	  m_undoStack->push(undoCommand);
+	}
+
+      m_changed = true;
+      emit changed();
+    }
 }
 
 void glowbot_view::slotChanged(void)

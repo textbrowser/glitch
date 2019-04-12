@@ -38,25 +38,38 @@ class glowbot_canvas_settings: public QDialog
   Q_OBJECT
 
  public:
+  enum Settings
+  {
+    CANVAS_BACKGROUND_COLOR,
+    CANVAS_NAME,
+    VIEW_UPDATE_MODE
+  };
+
   glowbot_canvas_settings(QWidget *parent);
   ~glowbot_canvas_settings();
   QColor canvasBackgroundColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
+  QHash<glowbot_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
+  bool save(QString &error) const;
+  void prepare(void);
   void setFileName(const QString &fileName);
   void setName(const QString &name);
+  void setSettings(const QHash<glowbot_canvas_settings::Settings,
+		               QVariant> &hash);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:
   QString m_fileName;
   Ui_glowbot_canvas_settings m_ui;
   QString defaultName(void) const;
-  bool save(QString &error) const;
-  void prepare(void);
 
  private slots:
   void accept(void);
   void slotSelectBackgroundColor(void);
+
+ signals:
+  void accepted(const bool undo);
 };
 
 #endif

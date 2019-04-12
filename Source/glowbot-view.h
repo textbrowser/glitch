@@ -48,13 +48,6 @@ class glowbot_view: public QWidget
   Q_OBJECT
 
  public:
-  enum Settings
-  {
-    CANVAS_BACKGROUND_COLOR,
-    CANVAS_NAME,
-    VIEW_UPDATE_MODE
-  };
-
   glowbot_view(const QString &name,
 	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
@@ -92,7 +85,7 @@ class glowbot_view: public QWidget
 
  protected:
   QAction *m_menuAction;
-  QHash<Settings, QVariant> m_settings;
+  QHash<glowbot_canvas_settings::Settings, QVariant> m_settings;
   QString m_fileName;
   QString m_name;
   QUndoStack *m_undoStack;
@@ -111,7 +104,7 @@ class glowbot_view: public QWidget
   void setSceneRect(const QSize &size);
 
  protected slots:
-  void slotCanvasSettingsChanged(void);
+  void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name);

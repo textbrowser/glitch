@@ -83,6 +83,17 @@ viewportUpdateMode(void) const
     }
 }
 
+QHash<glowbot_canvas_settings::Settings, QVariant> glowbot_canvas_settings::
+settings(void) const
+{
+  QHash<Settings, QVariant> hash;
+
+  hash[CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
+  hash[CANVAS_NAME] = name();
+  hash[VIEW_UPDATE_MODE] = viewportUpdateMode();
+  return hash;
+}
+
 QString glowbot_canvas_settings::defaultName(void) const
 {
   if(m_ui.project_type->currentText() == tr("Arduino"))
@@ -172,14 +183,8 @@ void glowbot_canvas_settings::accept(void)
   if(name.isEmpty())
     m_ui.name->setText(defaultName());
 
-  if(save(error))
-    {
-      setResult(QDialog::Accepted);
-      emit accepted();
-    }
-  else
-    glowbot_misc::showErrorDialog
-      (QString("An error (%1) occurred.").arg(error), this);
+  setResult(QDialog::Accepted);
+  emit accepted(true);
 }
 
 void glowbot_canvas_settings::prepare(void)
@@ -236,7 +241,8 @@ void glowbot_canvas_settings::prepare(void)
 	    if(m_ui.update_mode->currentIndex() < 0)
 	      m_ui.update_mode->setCurrentIndex(1); // Full
 
-	    emit accepted();
+	    setResult(QDialog::Accepted);
+	    emit accepted(false);
 	  }
       }
 
@@ -250,7 +256,6 @@ void glowbot_canvas_settings::prepare(void)
 void glowbot_canvas_settings::setFileName(const QString &fileName)
 {
   m_fileName = fileName;
-  prepare();
 }
 
 void glowbot_canvas_settings::setName(const QString &name)
@@ -259,6 +264,21 @@ void glowbot_canvas_settings::setName(const QString &name)
     m_ui.name->setText(defaultName());
   else
     m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
+}
+
+void glowbot_canvas_settings::setSettings
+(const QHash<glowbot_canvas_settings::Settings, QVariant> &hash)
+{
+  QColor color(hash.value(CANVAS_BACKGROUND_COLOR).toString());
+
+  m_ui.background_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").arg(color.name()));
+  m_ui.background_color->setText(color.name());
+  setName(hash.value(CANVAS_NAME).toString());
+  setResult(QDialog::Accepted);
+  setViewportUpdateMode
+    (QGraphicsView::ViewportUpdateMode(hash.value(VIEW_UPDATE_MODE).toInt()));
+  emit accepted(false);
 }
 
 void glowbot_canvas_settings::setViewportUpdateMode

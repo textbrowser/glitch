@@ -32,6 +32,21 @@
 #include "glowbot-undo-command.h"
 
 glowbot_undo_command::glowbot_undo_command
+(const QHash<glowbot_canvas_settings::Settings,
+             QVariant> &previousCanvasSettings,
+ const Types type,
+ glowbot_canvas_settings *canvasSettings,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  if(canvasSettings)
+    m_currentCanvasSettings = canvasSettings->settings();
+
+  m_canvasSettings = canvasSettings;
+  m_previousCanvasSettings = previousCanvasSettings;
+  m_type = type;
+}
+
+glowbot_undo_command::glowbot_undo_command
 (const QPointF &previousPosition,
  const Types type,
  glowbot_proxy_widget *proxy,
@@ -64,28 +79,44 @@ glowbot_undo_command::~glowbot_undo_command()
 
 void glowbot_undo_command::redo(void)
 {
-  if(!m_proxy || !m_scene)
-    return;
-
   switch(m_type)
     {
+    case CANVAS_SETTINGS_CHANGED:
+      {
+	if(m_canvasSettings)
+	  m_canvasSettings->setSettings(m_currentCanvasSettings);
+
+	break;
+      }
     case ITEM_ADDED:
       {
-	m_proxy->setParent(m_scene);
-	m_scene->addItem(m_proxy);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_proxy->setParent(m_scene);
+	    m_scene->addItem(m_proxy);
+	    m_scene->update();
+	  }
+
 	break;
       }
     case ITEM_DELETED:
       {
-	m_scene->removeItem(m_proxy);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_scene->removeItem(m_proxy);
+	    m_scene->update();
+	  }
+
 	break;
       }
     case ITEM_MOVED:
       {
-	m_proxy->setPos(m_currentPosition);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_proxy->setPos(m_currentPosition);
+	    m_scene->update();
+	  }
+
 	break;
       }
     default:
@@ -97,27 +128,43 @@ void glowbot_undo_command::redo(void)
 
 void glowbot_undo_command::undo(void)
 {
-  if(!m_proxy || !m_scene)
-    return;
-
   switch(m_type)
     {
+    case CANVAS_SETTINGS_CHANGED:
+      {
+	if(m_canvasSettings)
+	  m_canvasSettings->setSettings(m_previousCanvasSettings);
+
+	break;
+      }
     case ITEM_ADDED:
       {
-	m_scene->removeItem(m_proxy);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_scene->removeItem(m_proxy);
+	    m_scene->update();
+	  }
+
 	break;
       }
     case ITEM_DELETED:
       {
-	m_scene->addItem(m_proxy);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_scene->addItem(m_proxy);
+	    m_scene->update();
+	  }
+
 	break;
       }
     case ITEM_MOVED:
       {
-	m_proxy->setPos(m_previousPosition);
-	m_scene->update();
+	if(m_proxy && m_scene)
+	  {
+	    m_proxy->setPos(m_previousPosition);
+	    m_scene->update();
+	  }
+
 	break;
       }
     default:
