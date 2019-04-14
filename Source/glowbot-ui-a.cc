@@ -724,17 +724,16 @@ void glowbot_ui::slotCopy(void)
 
 void glowbot_ui::slotDelete(void)
 {
-  if(m_currentView)
-    {
-      m_currentView->deleteItems();
-      m_ui.action_Undo->setEnabled(m_currentView->canUndo());
+  if(!m_currentView)
+    return;
 
-      if(m_ui.action_Undo->isEnabled())
-	m_ui.action_Undo->setText
-	  (tr("Undo (%1)").arg(m_currentView->undoText()));
-      else
-	m_ui.action_Undo->setText(tr("Undo"));
-    }
+  m_currentView->deleteItems();
+  m_ui.action_Undo->setEnabled(m_currentView->canUndo());
+
+  if(m_ui.action_Undo->isEnabled())
+    m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
+  else
+    m_ui.action_Undo->setText(tr("Undo"));
 }
 
 void glowbot_ui::slotMouseEnterView(void)

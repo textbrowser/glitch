@@ -131,6 +131,9 @@ glowbot_view::glowbot_view
 
 glowbot_view::~glowbot_view()
 {
+  m_scene->blockSignals(true);
+  m_view->blockSignals(true);
+
   while(m_undoStack->canUndo())
     m_undoStack->undo();
 }
