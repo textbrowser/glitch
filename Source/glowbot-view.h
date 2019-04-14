@@ -48,7 +48,8 @@ class glowbot_view: public QWidget
   Q_OBJECT
 
  public:
-  glowbot_view(const QString &name,
+  glowbot_view(const QString &fileName,
+	       const QString &name,
 	       const glowbot_common::ProjectType projectType,
 	       QWidget *parent);
   virtual ~glowbot_view();

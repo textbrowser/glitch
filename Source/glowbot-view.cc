@@ -47,21 +47,20 @@
 #include "glowbot-view.h"
 
 glowbot_view::glowbot_view
-(const QString &name,
+(const QString &fileName,
+ const QString &name,
  const glowbot_common::ProjectType projectType,
  QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
   m_alignment = new glowbot_alignment(this);
   m_canvasSettings = new glowbot_canvas_settings(this);
-  m_canvasSettings->setFileName
-    (glowbot_misc::homePath() + QDir::separator() + name + ".db");
+  m_canvasSettings->setFileName(fileName);
   m_canvasSettings->prepare();
   m_changed = false;
-  m_fileName = glowbot_misc::homePath() + QDir::separator() + name + ".db";
-  m_menuAction = new QAction(QIcon(":/Logo/glowbot-arduino-logo.png"),
-			     name,
-			     this);
+  m_fileName = fileName;
+  m_menuAction = new QAction
+    (QIcon(":/Logo/glowbot-arduino-logo.png"), name, this);
   m_name = name;
   m_projectType = projectType;
   m_scene = new glowbot_scene(m_projectType, this);

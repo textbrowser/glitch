@@ -198,7 +198,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
-	  glowbot_view_arduino *view = newArduinoDiagram(name, true);
+	  glowbot_view_arduino *view = newArduinoDiagram(fileName, name, true);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
@@ -212,7 +212,7 @@ bool glowbot_ui::openDiagram(const QString &fileName, QString &error)
 }
 
 glowbot_view_arduino *glowbot_ui::newArduinoDiagram
-(const QString &n, const bool fromFile)
+(const QString &fileName, const QString &n, const bool fromFile)
 {
   QString name(n);
 
@@ -222,8 +222,18 @@ glowbot_view_arduino *glowbot_ui::newArduinoDiagram
   if(name.isEmpty())
     name = "Arduino-Diagram";
 
-  glowbot_view_arduino *view = new glowbot_view_arduino
-    (name, fromFile, glowbot_common::ArduinoProject, this);
+  glowbot_view_arduino *view = nullptr;
+
+  if(fileName.isEmpty())
+    view = new glowbot_view_arduino
+      (glowbot_misc::homePath() + QDir::separator() + name + ".db",
+       name,
+       fromFile,
+       glowbot_common::ArduinoProject,
+       this);
+  else
+    view = new glowbot_view_arduino
+      (fileName, name, fromFile, glowbot_common::ArduinoProject, this);
 
   connect(view,
 	  SIGNAL(changed(void)),
@@ -326,7 +336,7 @@ void glowbot_ui::parseCommandLineArguments(void)
       {
 	i += 1;
 
-	glowbot_view *view = newArduinoDiagram(list.value(i), false);
+	glowbot_view *view = newArduinoDiagram("", list.value(i), false);
 
 	if(view)
 	  {
@@ -801,7 +811,7 @@ void glowbot_ui::slotNewArduinoDiagram(void)
 	goto restart_label;
     }
 
-  newArduinoDiagram(name, false);
+  newArduinoDiagram("", name, false);
   saveRecentFile(fileName);
   prepareRecentFiles();
 }

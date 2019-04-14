@@ -35,10 +35,11 @@
 #include "glowbot-view-arduino.h"
 
 glowbot_view_arduino::glowbot_view_arduino
-(const QString &name,
+(const QString &fileName,
+ const QString &name,
  const bool fromFile,
  const glowbot_common::ProjectType projectType,
- QWidget *parent):glowbot_view(name, projectType, parent)
+ QWidget *parent):glowbot_view(fileName, name, projectType, parent)
 {
   if(fromFile)
     {
