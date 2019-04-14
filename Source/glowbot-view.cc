@@ -131,6 +131,10 @@ glowbot_view::glowbot_view
 
 glowbot_view::~glowbot_view()
 {
+  /*
+  ** Do not emit signals.
+  */
+
   m_scene->blockSignals(true);
   m_view->blockSignals(true);
 
