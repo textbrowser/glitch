@@ -227,6 +227,7 @@ void glowbot_object_function_arduino::slotSetFunctionName(void)
 {
   QInputDialog dialog(m_parent);
 
+  dialog.setLabelText(tr("Set Function Name"));
   dialog.setTextEchoMode(QLineEdit::Normal); // A line edit!
   dialog.setTextValue(m_ui.label->text());
   dialog.setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
