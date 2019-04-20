@@ -69,6 +69,7 @@ glowbot_view::glowbot_view
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_startObject = nullptr;
   m_userFunctions = new glowbot_user_functions(this);
+  m_userFunctions->setProjectType(m_projectType);
   m_view = new glowbot_graphicsview(this);
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

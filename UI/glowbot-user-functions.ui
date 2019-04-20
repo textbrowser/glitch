@@ -19,7 +19,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTableWidget" name="functions">
+    <widget class="glowbot_user_functions_tablewidget" name="functions">
      <property name="dragEnabled">
       <bool>true</bool>
      </property>
@@ -50,6 +50,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glowbot_user_functions_tablewidget</class>
+   <extends>QTableWidget</extends>
+   <header>glowbot-user-functions-tablewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>

@@ -25,27 +25,45 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_user_functions_h_
-#define _glowbot_user_functions_h_
+#include <QDrag>
+#include <QMimeData>
 
-#include <QDialog>
+#include "glowbot-user-functions-tablewidget.h"
 
-#include "ui_glowbot-user-functions.h"
-
-class glowbot_user_functions: public QDialog
+glowbot_user_functions_tablewidget::
+glowbot_user_functions_tablewidget(QWidget *parent):QTableWidget(parent)
 {
-  Q_OBJECT
+}
 
- public:
-  glowbot_user_functions(QWidget *parent);
-  ~glowbot_user_functions();
-  void addFunction(const QString &name);
-  void deleteFunction(const QString &name);
-  void renameFunction(const QString &before, const QString &after);
-  void setProjectType(const glowbot_common::ProjectType projectType);
+glowbot_user_functions_tablewidget::
+~glowbot_user_functions_tablewidget()
+{
+}
 
- private:
-  Ui_glowbot_user_functions m_ui;
-};
+void glowbot_user_functions_tablewidget::setProjectType
+(const glowbot_common::ProjectType projectType)
+{
+  m_projectType = projectType;
+}
 
-#endif
+void glowbot_user_functions_tablewidget::startDrag
+(Qt::DropActions supportedActions)
+{
+  Q_UNUSED(supportedActions);
+
+  QTableWidgetItem *item = selectedItems().value(0);
+
+  if(!item)
+    return;
+
+  QDrag *drag = new QDrag(this);
+  QMimeData *mimeData = new QMimeData();
+
+  if(m_projectType == glowbot_common::ArduinoProject)
+    mimeData->setText("glowbot-arduino-" + item->text());
+  else
+    mimeData->setText("glowbot-" + item->text());
+
+  drag->setMimeData(mimeData);
+  drag->exec(Qt::CopyAction);
+}

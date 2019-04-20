@@ -69,6 +69,7 @@ HEADERS	       += Source\glowbot-alignment.h \
                   Source\glowbot-tab-tabbar.h \
                   Source\glowbot-ui.h \
                   Source\glowbot-user-functions.h \
+                  Source\glowbot-user-functions-tablewidget.h \
                   Source\glowbot-view.h
 
 SOURCES	       += Source\glowbot-alignment.cc \
@@ -90,6 +91,7 @@ SOURCES	       += Source\glowbot-alignment.cc \
                   Source\glowbot-ui-a.cc \
                   Source\glowbot-undo-command.cc \
                   Source\glowbot-user-functions.cc \
+                  Source\glowbot-user-functions-tablewidget.cc \
                   Source\glowbot-view.cc \
 
 TRANSLATIONS    =

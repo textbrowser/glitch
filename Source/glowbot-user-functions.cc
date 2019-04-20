@@ -98,3 +98,9 @@ void glowbot_user_functions::renameFunction(const QString &before,
   m_ui.functions->sortByColumn(0);
   QApplication::restoreOverrideCursor();
 }
+
+void glowbot_user_functions::setProjectType
+(const glowbot_common::ProjectType projectType)
+{
+  m_ui.functions->setProjectType(projectType);
+}

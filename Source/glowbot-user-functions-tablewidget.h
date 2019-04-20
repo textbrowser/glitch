@@ -25,27 +25,25 @@
 ** GLOWBOT, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glowbot_user_functions_h_
-#define _glowbot_user_functions_h_
+#ifndef _glowbot_user_functions_tablewidget_h_
+#define _glowbot_user_functions_tablewidget_h_
 
-#include <QDialog>
+#include <QTableWidget>
 
-#include "ui_glowbot-user-functions.h"
+#include "glowbot-common.h"
 
-class glowbot_user_functions: public QDialog
+class glowbot_user_functions_tablewidget: public QTableWidget
 {
   Q_OBJECT
 
  public:
-  glowbot_user_functions(QWidget *parent);
-  ~glowbot_user_functions();
-  void addFunction(const QString &name);
-  void deleteFunction(const QString &name);
-  void renameFunction(const QString &before, const QString &after);
+  glowbot_user_functions_tablewidget(QWidget *parent);
+  ~glowbot_user_functions_tablewidget();
   void setProjectType(const glowbot_common::ProjectType projectType);
 
  private:
-  Ui_glowbot_user_functions m_ui;
+  glowbot_common::ProjectType m_projectType;
+  void startDrag(Qt::DropActions supportedActions);
 };
 
 #endif
