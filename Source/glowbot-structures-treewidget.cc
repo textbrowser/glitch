@@ -33,6 +33,7 @@
 glowbot_structures_treewidget::
 glowbot_structures_treewidget(QWidget *parent):QTreeWidget(parent)
 {
+  m_projectType = glowbot_common::XYZProject;
 }
 
 glowbot_structures_treewidget::

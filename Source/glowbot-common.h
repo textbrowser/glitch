@@ -37,7 +37,8 @@ class glowbot_common
  public:
   enum ProjectType
   {
-    ArduinoProject = 0
+    ArduinoProject = 0,
+    XYZProject
   };
 
   static QSqlDatabase sqliteDatabase(void);

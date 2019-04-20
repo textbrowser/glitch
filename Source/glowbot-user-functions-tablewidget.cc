@@ -33,6 +33,7 @@
 glowbot_user_functions_tablewidget::
 glowbot_user_functions_tablewidget(QWidget *parent):QTableWidget(parent)
 {
+  m_projectType = glowbot_common::XYZProject;
 }
 
 glowbot_user_functions_tablewidget::
