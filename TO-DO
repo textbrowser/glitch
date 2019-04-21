@@ -1,5 +1,7 @@
 Completed Items
 
+- A function panel. The panel should include a list of defined functions.
+  Drag and drop support.
 - Add --open-arduino-diagram option.
 - Alignment panel. The panel must allow interaction with separated windows.
   Per diagram.
@@ -52,8 +54,6 @@ Ignored Items
 
 Remaining Items
 
-- A function panel. The panel should include a list of defined functions.
-  Drag and drop support. Warn of recursive uses.
 - All of Arduino's objects.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
@@ -69,3 +69,4 @@ Remaining Items
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Warn of faulty home directory.
+- Warn of recursive functions.
