@@ -52,6 +52,7 @@ class glowbot_object_function_arduino: public glowbot_object
   bool isMandatory(void) const;
   glowbot_object_function_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu) const;
+  void addChild(const QPointF &point, glowbot_object *object);
   void closeEditWindow(void);
   void save(const QSqlDatabase &db, QString &error);
 

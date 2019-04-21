@@ -35,6 +35,7 @@
 
 class QUndoStack;
 class glowbot_alignment;
+class glowbot_object;
 class glowbot_scene;
 
 class glowbot_object_view: public QGraphicsView
@@ -48,6 +49,7 @@ class glowbot_object_view: public QGraphicsView
   ~glowbot_object_view();
   glowbot_scene* scene(void) const;
   quint64 id(void) const;
+  void artificialDrop(const QPointF &point, glowbot_object *object);
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
   void setUndoStack(QUndoStack *undoStack);

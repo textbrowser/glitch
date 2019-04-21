@@ -128,6 +128,12 @@ quint64 glowbot_object::id(void) const
   return m_id;
 }
 
+void glowbot_object::addChild(const QPointF &point, glowbot_object *object)
+{
+  Q_UNUSED(object);
+  Q_UNUSED(point);
+}
+
 void glowbot_object::addDefaultActions(QMenu &menu) const
 {
   if(!menu.actions().isEmpty())

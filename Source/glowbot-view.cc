@@ -288,40 +288,56 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 
 	if(query.exec("SELECT myoid, parent_oid, position, properties, "
 		      "stylesheet, type FROM objects ORDER BY parent_oid"))
-	  while(query.next())
-	    {
-	      QMap<QString, QVariant> values;
-	      QString point(query.value(2).toString().trimmed());
-	      QString properties(query.value(3).toString().trimmed());
-	      QString type(query.value(5).toString().toLower().trimmed());
-	      quint64 id = query.value(0).toULongLong();
+	  {
+	    QHash<quint64, glowbot_object *> parents;
 
-	      values["myoid"] = id;
-	      values["properties"] = properties;
-	      values["stylesheet"] = query.value(4).toString().trimmed();
-	      values["type"] = type;
+	    while(query.next())
+	      {
+		QMap<QString, QVariant> values;
+		QString point(query.value(2).toString().trimmed());
+		QString properties(query.value(3).toString().trimmed());
+		QString type(query.value(5).toString().toLower().trimmed());
+		quint64 id = query.value(0).toULongLong();
 
-	      if(query.value(1).toLongLong() == -1)
-		{
-		  QString error("");
-		  glowbot_object *object = glowbot_object::createFromValues
-		    (values, error, this);
+		values["myoid"] = id;
+		values["properties"] = properties;
+		values["stylesheet"] = query.value(4).toString().trimmed();
+		values["type"] = type;
 
-		  if(object)
-		    {
-		      glowbot_proxy_widget *proxy = m_scene->addObject(object);
+		if(query.value(1).toLongLong() == -1)
+		  {
+		    QString error("");
+		    glowbot_object *object = glowbot_object::createFromValues
+		      (values, error, this);
 
-		      if(proxy)
-			{
-			  m_scene->addItem(proxy);
-			  object->setUndoStack(m_scene->undoStack());
-			  proxy->setPos(glowbot_misc::dbPointToPointF(point));
-			}
-		      else
-			object->deleteLater();
-		    }
-		}
-	    }
+		    if(object)
+		      {
+			glowbot_proxy_widget *proxy = m_scene->addObject
+			  (object);
+
+			if(proxy)
+			  {
+			    m_scene->addItem(proxy);
+			    object->setUndoStack(m_scene->undoStack());
+			    parents[id] = object;
+			    proxy->setPos(glowbot_misc::dbPointToPointF(point));
+			  }
+			else
+			  object->deleteLater();
+		      }
+		  }
+		else
+		  {
+		    glowbot_object *object = parents.value
+		      (query.value(1).toULongLong());
+
+		    if(object)
+		      object->addChild
+			(glowbot_misc::dbPointToPointF(point),
+			 glowbot_object::createFromValues(values, error, this));
+		  }
+	      }
+	  }
 	else
 	  {
 	    error = tr("An error occurred while accessing the objects table.");

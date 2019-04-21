@@ -162,6 +162,16 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   addDefaultActions(menu);
 }
 
+void glowbot_object_function_arduino::addChild
+(const QPointF &point, glowbot_object *object)
+{
+  if(!object)
+    return;
+
+  if(m_editView)
+    m_editView->artificialDrop(point, object);
+}
+
 void glowbot_object_function_arduino::closeEditWindow(void)
 {
   if(m_editWindow)

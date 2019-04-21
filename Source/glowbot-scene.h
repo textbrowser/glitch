@@ -48,6 +48,7 @@ class glowbot_scene: public QGraphicsScene
   QList<glowbot_object *> selectedObjects(void) const;
   QPointer<QUndoStack> undoStack(void) const;
   glowbot_proxy_widget *addObject(glowbot_object *object);
+  void artificialDrop(const QPointF &point, glowbot_object *object);
   void deleteItems(void);
   void setMainScene(const bool state);
   void setUndoStack(QUndoStack *undoStack);

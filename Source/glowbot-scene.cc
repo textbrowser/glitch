@@ -215,6 +215,22 @@ glowbot_proxy_widget *glowbot_scene::addObject(glowbot_object *object)
   return proxy;
 }
 
+void glowbot_scene::artificialDrop(const QPointF &point, glowbot_object *object)
+{
+  if(!object)
+    return;
+
+  glowbot_proxy_widget *proxy = addObject(object);
+
+  if(proxy)
+    {
+      addItem(proxy);
+      proxy->setPos(point);
+    }
+  else
+    object->deleteLater();
+}
+
 void glowbot_scene::deleteItems(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

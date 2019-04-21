@@ -91,6 +91,12 @@ quint64 glowbot_object_view::id(void) const
   return m_id;
 }
 
+void glowbot_object_view::artificialDrop
+(const QPointF &point, glowbot_object *object)
+{
+  m_scene->artificialDrop(point, object);
+}
+
 void glowbot_object_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event && items(event->pos()).isEmpty())
