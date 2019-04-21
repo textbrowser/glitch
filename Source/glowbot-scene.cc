@@ -344,10 +344,16 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  text = text.toLower();
 
-	  if(text == "glowbot-arduino-analogread()")
+	  if(text.startsWith("glowbot-arduino-analogread()"))
 	    object = new glowbot_object_analog_read_arduino(views().value(0));
-	  else if(text == "glowbot-arduino-function()")
-	    object = new glowbot_object_function_arduino(views().value(0));
+	  else if(text.startsWith("glowbot-arduino-function"))
+	    {
+	      if(text == "glowbot-arduino-function()")
+		object = new glowbot_object_function_arduino(views().value(0));
+	      else
+		object = new glowbot_object_function_arduino
+		  (text.mid(25), views().value(0));
+	    }
 	}
 
       if(object)

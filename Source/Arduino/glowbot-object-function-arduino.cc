@@ -76,6 +76,22 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 }
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
+(const QString &name, QWidget *parent):glowbot_object(parent)
+{
+  m_editView = nullptr;
+  m_editWindow = nullptr;
+  m_initialized = true;
+  m_type = "arduino-function";
+  m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  m_ui.label->setText(name);
+  m_view = nullptr;
+  setObjectName(name);
+  setProperty("function_name", m_ui.label->text());
+}
+
+glowbot_object_function_arduino::glowbot_object_function_arduino
 (const quint64 id, QWidget *parent):glowbot_object(id, parent)
 {
   initialize(parent);
@@ -190,7 +206,7 @@ void glowbot_object_function_arduino::save
 
   if(query.lastError().isValid())
     error = query.lastError().text();
-  else
+  else if(m_editView)
     m_editView->save(db, error);
 }
 
@@ -209,7 +225,10 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 	  str = m_view->nextUniqueFunctionName();
 
 	setProperty("function_name", str);
-	m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
+
+	if(m_editWindow)
+	  m_editWindow->setWindowTitle(tr("GlowBot: %1").arg(str));
+
 	m_ui.label->setText(str);
 
 	if(m_view)
@@ -219,12 +238,18 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 
 void glowbot_object_function_arduino::slotEdit(void)
 {
-  m_editWindow->showNormal();
-  m_editWindow->raise();
+  if(m_editWindow)
+    {
+      m_editWindow->showNormal();
+      m_editWindow->raise();
+    }
 }
 
 void glowbot_object_function_arduino::slotSetFunctionName(void)
 {
+  if(!m_editWindow)
+    return;
+
   QInputDialog dialog(m_parent);
 
   dialog.setLabelText(tr("Set Function Name"));

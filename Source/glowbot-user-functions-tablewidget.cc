@@ -61,9 +61,9 @@ void glowbot_user_functions_tablewidget::startDrag
   QMimeData *mimeData = new QMimeData();
 
   if(m_projectType == glowbot_common::ArduinoProject)
-    mimeData->setText("glowbot-arduino-" + item->text());
+    mimeData->setText("glowbot-arduino-function-" + item->text());
   else
-    mimeData->setText("glowbot-" + item->text());
+    mimeData->setText("glowbot-function-" + item->text());
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::CopyAction);
