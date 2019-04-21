@@ -69,5 +69,6 @@ Remaining Items
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
+- Undo of style sheets.
 - Warn of faulty home directory.
 - Warn of recursive functions.
