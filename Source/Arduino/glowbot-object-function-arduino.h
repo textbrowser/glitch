@@ -57,6 +57,7 @@ class glowbot_object_function_arduino: public glowbot_object
  private:
   QPointer<glowbot_object_edit_window> m_editWindow;
   Ui_glowbot_object_function_arduino m_ui;
+  bool m_isFunctionReference;
   glowbot_view_arduino *m_view;
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);

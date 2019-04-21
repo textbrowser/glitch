@@ -81,6 +81,7 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
   m_editView = nullptr;
   m_editWindow = nullptr;
   m_initialized = true;
+  m_isFunctionReference = true;
   m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
@@ -142,6 +143,16 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glowbot_object_function_arduino::addActions(QMenu &menu) const
 {
+  if(m_isFunctionReference)
+    {
+      /*
+      ** This is a function reference.
+      */
+
+      addDefaultActions(menu);
+      return;
+    }
+
   menu.addAction(tr("&Edit..."),
 		 this,
 		 SLOT(slotEdit(void)));
@@ -173,6 +184,7 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->resize(600, 600);
+  m_isFunctionReference = false;
   m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
