@@ -177,16 +177,7 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
 
   m_editView = new glowbot_object_view
     (glowbot_common::ArduinoProject, m_id, this);
-
-  if(parent)
-    m_editWindow = new glowbot_object_edit_window(parent->parentWidget());
-  else
-    m_editWindow = new glowbot_object_edit_window(nullptr);
-
-  connect(m_editWindow,
-	  SIGNAL(closed(void)),
-	  m_editView,
-	  SLOT(slotParentWindowClosed(void)));
+  m_editWindow = new glowbot_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glowbot-logo.png"));
   m_editWindow->resize(600, 600);
@@ -199,6 +190,10 @@ void glowbot_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(changed(void)),
 	  this,
 	  SIGNAL(changed(void)));
+  connect(m_editWindow,
+	  SIGNAL(closed(void)),
+	  m_editView,
+	  SLOT(slotParentWindowClosed(void)));
 }
 
 void glowbot_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
