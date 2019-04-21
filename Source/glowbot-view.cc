@@ -538,7 +538,7 @@ void glowbot_view::prepareDatabaseTables(const QString &fileName) const
 		   "properties TEXT, "
 		   "stylesheet TEXT, "
 		   "type TEXT NOT NULL, "
-		   "PRIMARY KEY (parent_oid, position))");
+		   "PRIMARY KEY (myoid, parent_oid))");
 	query.exec("CREATE TABLE IF NOT EXISTS sequence ("
 		   "value INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)");
 	query.exec("CREATE TABLE IF NOT EXISTS wires ("

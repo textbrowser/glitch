@@ -142,6 +142,10 @@ void glowbot_object::addDefaultActions(QMenu &menu) const
 		 SLOT(slotSetStyleSheet(void)));
 }
 
+void glowbot_object::closeEditWindow(void)
+{
+}
+
 void glowbot_object::move(const QPoint &point)
 {
   move(point.x(), point.y());

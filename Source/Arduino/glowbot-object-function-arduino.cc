@@ -162,6 +162,12 @@ void glowbot_object_function_arduino::addActions(QMenu &menu) const
   addDefaultActions(menu);
 }
 
+void glowbot_object_function_arduino::closeEditWindow(void)
+{
+  if(m_editWindow)
+    m_editWindow->close();
+}
+
 void glowbot_object_function_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)

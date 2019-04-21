@@ -239,6 +239,8 @@ void glowbot_scene::deleteItems(void)
 
       if(m_undoStack)
 	{
+	  qobject_cast<glowbot_object *> (proxy->widget())->closeEditWindow();
+
 	  glowbot_undo_command *undoCommand = new glowbot_undo_command
 	    (glowbot_undo_command::ITEM_DELETED, proxy, this);
 
@@ -577,6 +579,8 @@ void glowbot_scene::slotObjectDeletedViaContextMenu(void)
 
   if(m_undoStack)
     {
+      object->closeEditWindow();
+
       glowbot_undo_command *undoCommand = new glowbot_undo_command
 	(glowbot_undo_command::ITEM_DELETED, object->proxy(), this);
 
@@ -584,6 +588,8 @@ void glowbot_scene::slotObjectDeletedViaContextMenu(void)
 	(tr("item deleted (%1, %2)").arg(object->x()).arg(object->y()));
       m_undoStack->push(undoCommand);
     }
+  else
+    object->deleteLater();
 
   emit changed();
 }
