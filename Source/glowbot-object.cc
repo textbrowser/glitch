@@ -123,6 +123,11 @@ glowbot_object *glowbot_object::createFromValues
   return object;
 }
 
+glowbot_object_view *glowbot_object::editView(void) const
+{
+  return nullptr;
+}
+
 quint64 glowbot_object::id(void) const
 {
   return m_id;

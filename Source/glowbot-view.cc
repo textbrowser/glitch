@@ -39,6 +39,7 @@
 #include "glowbot-graphicsview.h"
 #include "glowbot-misc.h"
 #include "glowbot-object.h"
+#include "glowbot-object-view.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-separated-diagram-window.h"
@@ -334,8 +335,10 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 
 		    if(object)
 		      object->addChild
-			(glowbot_misc::dbPointToPointF(point),
-			 glowbot_object::createFromValues(values, error, this));
+			(glowbot_misc::
+			 dbPointToPointF(point),
+			 glowbot_object::
+			 createFromValues(values, error, object->editView()));
 		  }
 	      }
 	  }

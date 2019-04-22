@@ -158,6 +158,11 @@ createFromValues
   return object;
 }
 
+glowbot_object_view *glowbot_object_function_arduino::editView(void) const
+{
+  return m_editView;
+}
+
 void glowbot_object_function_arduino::addActions(QMenu &menu) const
 {
   if(m_isFunctionReference)

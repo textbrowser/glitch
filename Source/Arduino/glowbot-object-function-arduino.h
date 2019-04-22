@@ -52,6 +52,7 @@ class glowbot_object_function_arduino: public glowbot_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   glowbot_object_function_arduino *clone(QWidget *parent) const;
+  glowbot_object_view *editView(void) const;
   void addActions(QMenu &menu) const;
   void addChild(const QPointF &point, glowbot_object *object);
   void closeEditWindow(void);
