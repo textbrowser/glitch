@@ -98,11 +98,19 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 {
   if(parentId == -1)
     {
+      /*
+      ** parent is a glowbot_view.
+      */
+
       initialize(parent);
       m_view = qobject_cast<glowbot_view_arduino *> (parent);
     }
   else
     {
+      /*
+      ** parent is a glowbot_object_view.
+      */
+
       m_editView = nullptr;
       m_editWindow = nullptr;
       m_initialized = true;
