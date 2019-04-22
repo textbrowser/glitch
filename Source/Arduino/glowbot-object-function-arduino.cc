@@ -93,10 +93,26 @@ glowbot_object_function_arduino::glowbot_object_function_arduino
 }
 
 glowbot_object_function_arduino::glowbot_object_function_arduino
-(const quint64 id, QWidget *parent):glowbot_object(id, parent)
+(const qint64 parentId, const quint64 id, QWidget *parent):
+  glowbot_object(id, parent)
 {
-  initialize(parent);
-  m_view = qobject_cast<glowbot_view_arduino *> (parent);
+  if(parentId == -1)
+    {
+      initialize(parent);
+      m_view = qobject_cast<glowbot_view_arduino *> (parent);
+    }
+  else
+    {
+      m_editView = nullptr;
+      m_editWindow = nullptr;
+      m_initialized = true;
+      m_isFunctionReference = true;
+      m_type = "arduino-function";
+      m_ui.setupUi(this);
+      m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+      m_ui.label->setAutoFillBackground(true);
+      m_view = nullptr;
+    }
 }
 
 glowbot_object_function_arduino::~glowbot_object_function_arduino()
@@ -127,14 +143,15 @@ clone(QWidget *parent) const
 }
 
 glowbot_object_function_arduino *glowbot_object_function_arduino::
-createFromValues(const QMap<QString, QVariant> &values,
-		 QString &error,
-		 QWidget *parent)
+createFromValues
+(const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {
   Q_UNUSED(error);
 
   glowbot_object_function_arduino *object = new glowbot_object_function_arduino
-    (values.value("myoid").toULongLong(), parent);
+    (values.value("parentId").toLongLong(),
+     values.value("myoid").toULongLong(),
+     parent);
 
   object->setProperties(values.value("properties").toString());
   object->setStyleSheet(values.value("stylesheet").toString());
@@ -247,6 +264,7 @@ void glowbot_object_function_arduino::setProperties(const QString &properties)
 	if(m_view && m_view->containsFunctionName(str))
 	  str = m_view->nextUniqueFunctionName();
 
+	setObjectName(str);
 	setProperty("function_name", str);
 
 	if(m_editWindow)

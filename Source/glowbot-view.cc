@@ -300,6 +300,7 @@ bool glowbot_view::open(const QString &fileName, QString &error)
 		quint64 id = query.value(0).toULongLong();
 
 		values["myoid"] = id;
+		values["parentId"] = query.value(1).toLongLong();
 		values["properties"] = properties;
 		values["stylesheet"] = query.value(4).toString().trimmed();
 		values["type"] = type;

@@ -43,7 +43,8 @@ class glowbot_object_function_arduino: public glowbot_object
  public:
   glowbot_object_function_arduino(QWidget *parent);
   glowbot_object_function_arduino(const QString &name, QWidget *parent);
-  glowbot_object_function_arduino(const quint64 id, QWidget *parent);
+  glowbot_object_function_arduino
+    (const qint64 parentId, const quint64 id, QWidget *parent);
   ~glowbot_object_function_arduino();
   static glowbot_object_function_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
