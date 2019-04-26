@@ -409,6 +409,138 @@ void glowbot_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
   QGraphicsScene::dropEvent(event);
 }
 
+void glowbot_scene::keyPressEvent(QKeyEvent *event)
+{
+  if(!event)
+    {
+      QGraphicsScene::keyPressEvent(event);
+      return;
+    }
+
+  switch(event->key())
+    {
+    case Qt::Key_Down:
+    case Qt::Key_Left:
+    case Qt::Key_Right:
+    case Qt::Key_Up:
+      {
+	QGraphicsView *view = views().value(0);
+	QGraphicsView::ViewportUpdateMode updateMode =
+	  QGraphicsView::MinimalViewportUpdate;
+	QList<QGraphicsItem*> list(selectedItems());
+	QPoint point;
+	bool began = false;
+	bool moved = false;
+	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
+
+	if(view)
+	  {
+	    updateMode = view->viewportUpdateMode();
+	    view->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
+	  }
+
+	for(int i = 0; i < list.size(); i++)
+	  {
+	    glowbot_proxy_widget *proxy =
+	      qgraphicsitem_cast<glowbot_proxy_widget *> (list.at(i));
+
+	    if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsMovable))
+	      continue;
+
+	    glowbot_object *widget =
+	      qobject_cast<glowbot_object *> (proxy->widget());
+
+	    if(!widget)
+	      continue;
+
+	    point = widget->pos();
+
+	    switch(event->key())
+	      {
+	      case Qt::Key_Down:
+		{
+		  point.setY(point.y() + pixels);
+		  break;
+		}
+	      case Qt::Key_Left:
+		{
+		  point.setX(point.x() - pixels);
+		  break;
+		}
+	      case Qt::Key_Right:
+		{
+		  point.setX(point.x() + pixels);
+		  break;
+		}
+	      case Qt::Key_Up:
+		{
+		  point.setY(point.y() - pixels);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
+
+	    if(point.x() < 0 || point.y() < 0)
+	      continue;
+
+	    QPointF previousPosition(proxy->scenePos());
+
+	    widget->move(point);
+
+	    if(previousPosition != proxy->pos())
+	      moved = true;
+
+	    if(moved)
+	      {
+		if(!began)
+		  {
+		    began = true;
+
+		    if(m_undoStack)
+		      m_undoStack->beginMacro("widgets moved");
+		  }
+
+		if(m_undoStack)
+		  {
+		    glowbot_undo_command *undoCommand = new glowbot_undo_command
+		      (previousPosition,
+		       glowbot_undo_command::ITEM_MOVED,
+		       proxy,
+		       this);
+
+		    m_undoStack->push(undoCommand);
+		  }
+	      }
+	  }
+
+	if(began)
+	  {
+	    if(m_undoStack)
+	      m_undoStack->endMacro();
+
+	    emit changed();
+	  }
+
+	if(moved)
+	  emit sceneResized();
+
+	if(view)
+	  view->setViewportUpdateMode(updateMode);
+
+	return;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
+  QGraphicsScene::keyPressEvent(event);
+}
+
 void glowbot_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())

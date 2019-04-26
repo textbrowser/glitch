@@ -26,6 +26,7 @@ Completed Items
 - Group delete.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - List of recent files.
+- Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
 - Pass undo stack from top-level view to child views.
 - Prepare Copy, Delete, Paste, and Select All states.
@@ -61,7 +62,6 @@ Remaining Items
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
-- Movement via arrows. Increase distance if Shift is depressed.
 - Redo, undo. See also macros.
 - Redo/undo function names?
 - Remove functions from User Functions on redo/undo.

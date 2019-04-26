@@ -64,6 +64,7 @@ class glowbot_scene: public QGraphicsScene
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
   void drawBackground(QPainter *painter, const QRectF &rect);
   void dropEvent(QGraphicsSceneDragDropEvent *event);
+  void keyPressEvent(QKeyEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
