@@ -62,6 +62,7 @@ Remaining Items
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
+- Object-view settings.
 - Redo, undo. See also macros.
 - Redo/undo function names?
 - Remove functions from User Functions on redo/undo.
