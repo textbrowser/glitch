@@ -42,10 +42,12 @@ class glowbot_undo_command: public QUndoCommand
   enum Types
   {
     CANVAS_SETTINGS_CHANGED = 0,
+    FUNCTION_RENAMED,
     ITEM_ADDED,
     ITEM_DELETED,
     ITEM_MOVED,
-    ITEM_RENAMED
+    ITEM_RENAMED,
+    STYLESHEET_CHANGED
   };
 
   glowbot_undo_command(const QHash<glowbot_canvas_settings::Settings,
@@ -57,6 +59,10 @@ class glowbot_undo_command: public QUndoCommand
 		       const Types type,
 		       glowbot_proxy_widget *proxy,
 		       glowbot_scene *scene,
+		       QUndoCommand *parent = nullptr);
+  glowbot_undo_command(const QString &previousString,
+		       const Types type,
+		       glowbot_proxy_widget *proxy,
 		       QUndoCommand *parent = nullptr);
   glowbot_undo_command(const Types type,
 		       glowbot_proxy_widget *proxy,
@@ -74,6 +80,8 @@ class glowbot_undo_command: public QUndoCommand
   QPointer<glowbot_canvas_settings> m_canvasSettings;
   QPointer<glowbot_proxy_widget> m_proxy;
   QPointer<glowbot_scene> m_scene;
+  QString m_currentString;
+  QString m_previousString;
   Types m_type;
 };
 

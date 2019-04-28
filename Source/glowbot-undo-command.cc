@@ -63,11 +63,26 @@ glowbot_undo_command::glowbot_undo_command
 }
 
 glowbot_undo_command::glowbot_undo_command
+(const QString &previousString,
+ const Types type,
+ glowbot_proxy_widget *proxy,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_previousString = previousString;
+  m_proxy = proxy;
+  m_type = type;
+}
+
+glowbot_undo_command::glowbot_undo_command
 (const Types type,
  glowbot_proxy_widget *proxy,
  glowbot_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
+  if(proxy)
+    {
+    }
+
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
