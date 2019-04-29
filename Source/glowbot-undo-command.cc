@@ -80,8 +80,13 @@ glowbot_undo_command::glowbot_undo_command
  QUndoCommand *parent):QUndoCommand(parent)
 {
   if(proxy)
-    {
-    }
+    switch(type)
+      {
+      default:
+	{
+	  break;
+	}
+      }
 
   m_proxy = proxy;
   m_scene = scene;
