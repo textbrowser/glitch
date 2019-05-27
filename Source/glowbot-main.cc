@@ -38,7 +38,16 @@
 int main(int argc, char *argv[])
 {
   for(int i = 0; i < argc; i++)
-    if(argv && argv[i] && strcmp(argv[i], "--version") == 0)
+    if(argv && argv[i] && strcmp(argv[i], "--help") == 0)
+      {
+	std::cout << "GlowBot [options]" << std::endl;
+	std::cout << "--help" << std::endl;
+	std::cout << "--new-arduino-diagram name" << std::endl;
+	std::cout << "--open-arduino-diagram name" << std::endl;
+	std::cout << "--version" << std::endl;
+	return EXIT_SUCCESS;
+      }
+    else if(argv && argv[i] && strcmp(argv[i], "--version") == 0)
       {
 	std::cout << "GlowBot version " << GLOWBOT_VERSION_STR << "."
 		  << std::endl;
