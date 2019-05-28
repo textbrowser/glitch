@@ -11,6 +11,7 @@ Completed Items
 - Assign new names to functions pasted on main canvases.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close edit windows via Control + W.
+- Command-line help.
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
 - Context menu on main tab widget.
