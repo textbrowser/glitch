@@ -27,6 +27,7 @@
 
 #include <QtDebug>
 
+#include "glowbot-object.h"
 #include "glowbot-proxy-widget.h"
 #include "glowbot-scene.h"
 #include "glowbot-undo-command.h"
@@ -63,13 +64,13 @@ glowbot_undo_command::glowbot_undo_command
 }
 
 glowbot_undo_command::glowbot_undo_command
-(const QString &previousString,
+(const QString &previousFunctionName,
  const Types type,
- glowbot_proxy_widget *proxy,
+ glowbot_object *object,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  m_previousString = previousString;
-  m_proxy = proxy;
+  m_object = object;
+  m_previousFunctionName = previousFunctionName;
   m_type = type;
 }
 

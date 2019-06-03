@@ -33,6 +33,7 @@
 
 #include "glowbot-canvas-settings.h"
 
+class glowbot_object;
 class glowbot_proxy_widget;
 class glowbot_scene;
 
@@ -60,9 +61,9 @@ class glowbot_undo_command: public QUndoCommand
 		       glowbot_proxy_widget *proxy,
 		       glowbot_scene *scene,
 		       QUndoCommand *parent = nullptr);
-  glowbot_undo_command(const QString &previousString,
+  glowbot_undo_command(const QString &previousFunctionName,
 		       const Types type,
-		       glowbot_proxy_widget *proxy,
+		       glowbot_object *object,
 		       QUndoCommand *parent = nullptr);
   glowbot_undo_command(const Types type,
 		       glowbot_proxy_widget *proxy,
@@ -78,10 +79,12 @@ class glowbot_undo_command: public QUndoCommand
   QPointF m_currentPosition;
   QPointF m_previousPosition;
   QPointer<glowbot_canvas_settings> m_canvasSettings;
+  QPointer<glowbot_object> m_object;
   QPointer<glowbot_proxy_widget> m_proxy;
   QPointer<glowbot_scene> m_scene;
+  QString m_currentFunctionName;
   QString m_currentString;
-  QString m_previousString;
+  QString m_previousFunctionName;
   Types m_type;
 };
 
