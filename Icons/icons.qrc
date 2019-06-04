@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-	<file>Logo/glowbot-arduino-logo.png</file>
-	<file>Logo/glowbot-logo.png</file>
+	<file>Logo/glitch-arduino-logo.png</file>
+	<file>Logo/glitch-logo.png</file>
 	<file>bottom-align.png</file>
 	<file>horizontal-center-align.png</file>
 	<file>horizontal-stack.png</file>

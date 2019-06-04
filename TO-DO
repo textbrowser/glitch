@@ -47,12 +47,12 @@ Completed Items
 - View separation.
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
-- glowbot_canvas_settings::settings(). Not needed.
+- glitch_canvas_settings::settings(). Not needed.
 - setWindowIcon(windowIcon()) on child dialogs.
 
 Ignored Items
 
-- The glowbot_view parent must be passed to every child.
+- The glitch_view parent must be passed to every child.
 
 Remaining Items
 
