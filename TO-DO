@@ -56,6 +56,7 @@ Ignored Items
 
 Remaining Items
 
+- Add newly-created projects to Recent Files menu.
 - All of Arduino's objects.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
