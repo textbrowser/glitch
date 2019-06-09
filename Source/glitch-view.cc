@@ -104,9 +104,13 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotFunctionAdded(const QString &)));
   connect(m_scene,
-	  SIGNAL(functionNameChanged(const QString &, const QString &)),
+	  SIGNAL(functionNameChanged(const QString &,
+				     const QString &,
+				     glitch_object *)),
 	  this,
-	  SLOT(slotFunctionNameChanged(const QString &, const QString &)));
+	  SLOT(slotFunctionNameChanged(const QString &,
+				       const QString &,
+				       glitch_object *)));
   connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
@@ -703,8 +707,10 @@ void glitch_view::slotFunctionAdded(const QString &name)
 }
 
 void glitch_view::slotFunctionNameChanged(const QString &before,
-					  const QString &after)
+					  const QString &after,
+					  glitch_object *object)
 {
+  Q_UNUSED(object);
   m_userFunctions->renameFunction(before, after);
 }
 

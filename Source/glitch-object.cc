@@ -95,6 +95,11 @@ QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
   return m_proxy;
 }
 
+QString glitch_object::name(void) const
+{
+  return objectName();
+}
+
 QString glitch_object::type(void) const
 {
   return m_type;

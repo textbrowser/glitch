@@ -46,13 +46,13 @@ class glitch_object_function_arduino: public glitch_object
   glitch_object_function_arduino
     (const qint64 parentId, const quint64 id, QWidget *parent);
   ~glitch_object_function_arduino();
-  static glitch_object_function_arduino *createFromValues
-    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   QString name(void) const;
   bool hasView(void) const;
   bool isMandatory(void) const;
   glitch_object_function_arduino *clone(QWidget *parent) const;
   glitch_object_view *editView(void) const;
+  static glitch_object_function_arduino *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu) const;
   void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);
@@ -72,7 +72,9 @@ class glitch_object_function_arduino: public glitch_object
   void slotSetFunctionName(void);
 
  signals:
-  void nameChanged(const QString &before, const QString &after);
+  void nameChanged(const QString &before,
+		   const QString &after,
+		   glitch_object *object);
 };
 
 #endif

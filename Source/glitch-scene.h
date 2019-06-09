@@ -77,7 +77,9 @@ class glitch_scene: public QGraphicsScene
  signals:
   void changed(void);
   void functionAdded(const QString &name);
-  void functionNameChanged(const QString &before, const QString &after);
+  void functionNameChanged(const QString &before,
+			   const QString &after,
+			   glitch_object *object);
   void sceneResized(void);
 };
 

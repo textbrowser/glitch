@@ -45,21 +45,22 @@ class glitch_object: public QWidget
  public:
   glitch_object(QWidget *parent);
   glitch_object(const quint64 id, QWidget *parent);
-  virtual glitch_object *clone(QWidget *parent) const = 0;
   QPointF scenePos(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
   quint64 id(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  virtual ~glitch_object();
+  virtual QString name(void) const;
   virtual bool hasView(void) const = 0;
   virtual bool isMandatory(void) const = 0;
+  virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual glitch_object_view *editView(void) const;
   virtual void addActions(QMenu &menu) const = 0;
   virtual void addChild(const QPointF &point, glitch_object *object);
   virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
+  virtual ~glitch_object();
   void move(const QPoint &point);
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);

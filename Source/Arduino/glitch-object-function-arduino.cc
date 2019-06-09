@@ -367,6 +367,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_view->consumeFunctionName(text);
 
       emit changed();
-      emit nameChanged(name, text);
+      emit nameChanged(name, text, this);
     }
 }
