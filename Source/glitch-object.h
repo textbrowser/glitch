@@ -60,6 +60,7 @@ class glitch_object: public QWidget
   virtual void addChild(const QPointF &point, glitch_object *object);
   virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
+  virtual void setName(const QString &name);
   virtual ~glitch_object();
   void move(const QPoint &point);
   void move(int x, int y);

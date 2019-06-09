@@ -263,6 +263,11 @@ void glitch_object_function_arduino::save
     m_editView->save(db, error);
 }
 
+void glitch_object_function_arduino::setName(const QString &name)
+{
+  glitch_object::setName(name);
+}
+
 void glitch_object_function_arduino::setProperties(const QString &properties)
 {
   QStringList list(properties.split("&"));

@@ -203,6 +203,11 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
     error = query.lastError().text();
 }
 
+void glitch_object::setName(const QString &name)
+{
+  setObjectName(name);
+}
+
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 {
   m_proxy = proxy;

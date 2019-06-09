@@ -57,6 +57,7 @@ class glitch_object_function_arduino: public glitch_object
   void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);
   void save(const QSqlDatabase &db, QString &error);
+  void setName(const QString &name);
 
  private:
   QPointer<glitch_object_edit_window> m_editWindow;

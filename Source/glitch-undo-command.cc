@@ -69,6 +69,9 @@ glitch_undo_command::glitch_undo_command
  glitch_object *object,
  QUndoCommand *parent):QUndoCommand(parent)
 {
+  if(object)
+    m_currentFunctionName = object->name();
+
   m_object = object;
   m_previousFunctionName = previousFunctionName;
   m_type = type;
