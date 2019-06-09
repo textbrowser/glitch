@@ -219,6 +219,18 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   return proxy;
 }
 
+void glitch_scene::addItem(QGraphicsItem *item)
+{
+  QGraphicsScene::addItem(item);
+
+  glitch_proxy_widget *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+
+  if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
+    emit functionAdded
+      (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
+       name());
+}
+
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
 {
   if(!object)
@@ -712,6 +724,18 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   QGraphicsScene::mouseReleaseEvent(event);
 }
 
+void glitch_scene::removeItem(QGraphicsItem *item)
+{
+  QGraphicsScene::removeItem(item);
+
+  glitch_proxy_widget *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+
+  if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
+    emit functionDeleted
+      (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
+       name());
+}
+
 void glitch_scene::setMainScene(const bool state)
 {
   m_mainScene = state;
@@ -726,11 +750,15 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 {
   glitch_object *object = qobject_cast<glitch_object *> (sender());
 
-  if(!object || !object->proxy())
+  if(!object)
     return;
 
-  if(m_undoStack)
+  if(m_undoStack && object->proxy())
     {
+      if(qobject_cast<glitch_object_function_arduino *> (object))
+	emit functionDeleted
+	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
+
       object->closeEditWindow();
 
       glitch_undo_command *undoCommand = new glitch_undo_command

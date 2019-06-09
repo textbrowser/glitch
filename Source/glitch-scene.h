@@ -48,8 +48,10 @@ class glitch_scene: public QGraphicsScene
   QList<glitch_object *> selectedObjects(void) const;
   QPointer<QUndoStack> undoStack(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);
+  void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object);
   void deleteItems(void);
+  void removeItem(QGraphicsItem *item);
   void setMainScene(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
@@ -77,6 +79,7 @@ class glitch_scene: public QGraphicsScene
  signals:
   void changed(void);
   void functionAdded(const QString &name);
+  void functionDeleted(const QString &name);
   void functionNameChanged(const QString &before,
 			   const QString &after,
 			   glitch_object *object);

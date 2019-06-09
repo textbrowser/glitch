@@ -104,6 +104,10 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotFunctionAdded(const QString &)));
   connect(m_scene,
+	  SIGNAL(functionDeleted(const QString &)),
+	  this,
+	  SLOT(slotFunctionDeleted(const QString &)));
+  connect(m_scene,
 	  SIGNAL(functionNameChanged(const QString &,
 				     const QString &,
 				     glitch_object *)),
@@ -706,6 +710,11 @@ void glitch_view::slotFunctionAdded(const QString &name)
   m_userFunctions->addFunction(name);
 }
 
+void glitch_view::slotFunctionDeleted(const QString &name)
+{
+  m_userFunctions->deleteFunction(name);
+}
+
 void glitch_view::slotFunctionNameChanged(const QString &before,
 					  const QString &after,
 					  glitch_object *object)
@@ -753,9 +762,9 @@ void glitch_view::slotSceneObjectDestroyed(QObject *object)
   if(!object)
     return;
 
-  if(object->objectName() == "glitch_object_function_arduino")
+  if(qobject_cast<glitch_object_function_arduino *> (object))
     m_userFunctions->deleteFunction
-      (object->property("function_name").toString());
+      (qobject_cast<glitch_object_function_arduino *> (object)->name());
 
   m_changed = true;
   emit changed();

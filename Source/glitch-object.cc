@@ -205,7 +205,7 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
 void glitch_object::setName(const QString &name)
 {
-  setObjectName(name);
+  Q_UNUSED(name);
 }
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
