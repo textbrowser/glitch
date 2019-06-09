@@ -703,7 +703,7 @@ void glitch_view::slotFunctionAdded(const QString &name)
 }
 
 void glitch_view::slotFunctionNameChanged(const QString &before,
-					   const QString &after)
+					  const QString &after)
 {
   m_userFunctions->renameFunction(before, after);
 }

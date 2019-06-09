@@ -41,7 +41,7 @@
 #include "glitch-undo-command.h"
 
 glitch_scene::glitch_scene(const glitch_common::ProjectType projectType,
-			     QObject *parent):QGraphicsScene(parent)
+			   QObject *parent):QGraphicsScene(parent)
 {
   m_mainScene = false;
   m_projectType = projectType;
@@ -98,7 +98,7 @@ QPointer<QUndoStack> glitch_scene::undoStack(void) const
 }
 
 bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
-			      const QString &text)
+			     const QString &text)
 {
   if(!event)
     return false;

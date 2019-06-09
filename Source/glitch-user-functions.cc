@@ -83,7 +83,7 @@ void glitch_user_functions::deleteFunction(const QString &name)
 }
 
 void glitch_user_functions::renameFunction(const QString &before,
-					    const QString &after)
+					   const QString &after)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
