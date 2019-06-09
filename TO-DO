@@ -35,6 +35,7 @@ Completed Items
 - Prepare parents after cloning objects.
 - Recreating functions and unique names.
 - Redo/undo shortcuts on edit windows.
+- Remove functions from User Functions on redo/undo.
 - Save As.
 - Save canvas settings.
 - Save loop() and setup() style sheets.
@@ -67,7 +68,6 @@ Remaining Items
 - Object-view settings.
 - Redo, undo. See also macros.
 - Redo/undo function names?
-- Remove functions from User Functions on redo/undo.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
