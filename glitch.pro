@@ -53,10 +53,22 @@ QMAKE_STRIP	= echo
 
 ICON		=
 INCLUDEPATH	+= Source
+
+macx {
+LIBS            += -framework AppKit -framework Cocoa
+} else {
 LIBS		+=
+}
+
 RESOURCES	= Icons/icons.qrc
 
 MOC_DIR = temp/moc
+
+macx {
+OBJECTIVE_HEADERS += Source/CocoaInitializer.h
+OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
+}
+
 OBJECTS_DIR = temp/obj
 RCC_DIR = temp/rcc
 UI_DIR = temp/ui
