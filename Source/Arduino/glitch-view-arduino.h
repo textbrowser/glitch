@@ -40,10 +40,10 @@ class glitch_view_arduino: public glitch_view
 
  public:
   glitch_view_arduino(const QString &fileName,
-		       const QString &name,
-		       const bool fromFile,
-		       const glitch_common::ProjectType projectType,
-		       QWidget *parent);
+		      const QString &name,
+		      const bool fromFile,
+		      const glitch_common::ProjectType projectType,
+		      QWidget *parent);
   ~glitch_view_arduino();
   QString nextUniqueFunctionName(void) const;
   bool containsFunctionName(const QString &name) const;

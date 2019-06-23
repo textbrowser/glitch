@@ -54,8 +54,9 @@ class glitch_ui: public QMainWindow
   Ui_glitch_mainwindow m_ui;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
-  glitch_view_arduino *newArduinoDiagram
-    (const QString &fileName, const QString &name, const bool fromFile);
+  glitch_view_arduino *newArduinoDiagram(const QString &fileName,
+					 const QString &name,
+					 const bool fromFile);
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);

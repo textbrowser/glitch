@@ -49,9 +49,9 @@ class glitch_view: public QWidget
 
  public:
   glitch_view(const QString &fileName,
-	       const QString &name,
-	       const glitch_common::ProjectType projectType,
-	       QWidget *parent);
+	      const QString &name,
+	      const glitch_common::ProjectType projectType,
+	      QWidget *parent);
   virtual ~glitch_view();
   QAction *menuAction(void) const;
   QList<glitch_object *> objects(void) const;

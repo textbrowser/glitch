@@ -43,8 +43,9 @@ class glitch_object_function_arduino: public glitch_object
  public:
   glitch_object_function_arduino(QWidget *parent);
   glitch_object_function_arduino(const QString &name, QWidget *parent);
-  glitch_object_function_arduino
-    (const qint64 parentId, const quint64 id, QWidget *parent);
+  glitch_object_function_arduino(const qint64 parentId,
+				 const quint64 id,
+				 QWidget *parent);
   ~glitch_object_function_arduino();
   QString name(void) const;
   bool hasView(void) const;

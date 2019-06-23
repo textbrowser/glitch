@@ -35,8 +35,8 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   Q_OBJECT
 
  public:
-  glitch_proxy_widget
-    (QGraphicsItem *parent = nullptr, Qt::WindowFlags wFlags = nullptr);
+  glitch_proxy_widget(QGraphicsItem *parent = nullptr,
+		      Qt::WindowFlags wFlags = nullptr);
   ~glitch_proxy_widget();
   bool isMandatory(void) const;
   bool isMovable(void) const;
