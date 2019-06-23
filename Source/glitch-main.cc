@@ -31,6 +31,12 @@
 
 #include <iostream>
 
+#ifdef Q_OS_MAC
+#if QT_VERSION >= 0x050000
+#include "CocoaInitializer.h"
+#endif
+#endif
+
 #include "glitch-common.h"
 #include "glitch-misc.h"
 #include "glitch-ui.h"

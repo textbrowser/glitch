@@ -16,6 +16,17 @@ TEMPLATE	= app
 
 QMAKE_CLEAN	+= Glitch
 QMAKE_CXXFLAGS_RELEASE -= -O2
+
+macx {
+QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
+                          -mtune=generic -pedantic -std=c++11 \
+			  -O3 \
+                          -Wall -Wcast-align -Wcast-qual \
+                          -Werror -Wextra \
+                          -Wno-zero-as-null-pointer-constant \
+                          -Woverloaded-virtual -Wpointer-arith \
+                          -Wstack-protector -Wstrict-overflow=5
+} else {
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -mtune=generic -pedantic -pie -std=c++11 \
 			  -O3 \
@@ -24,12 +35,16 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Wno-class-memaccess \
                           -Woverloaded-virtual -Wpointer-arith \
                           -Wstack-protector -Wstrict-overflow=5
+}
 
 lessThan(QT_MAJOR_VERSION, 5) {
 QMAKE_CXXFLAGS_RELEASE -= -Werror
 }
 else {
+macx {
+} else {
 QMAKE_CXXFLAGS_RELEASE += -Wzero-as-null-pointer-constant
+}
 }
 
 QMAKE_DISTCLEAN += -r html -r latex -r temp
