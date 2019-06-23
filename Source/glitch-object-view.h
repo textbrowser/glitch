@@ -44,8 +44,8 @@ class glitch_object_view: public QGraphicsView
 
  public:
   glitch_object_view(const glitch_common::ProjectType projectType,
-		      const quint64 id,
-		      QWidget *parent);
+		     const quint64 id,
+		     QWidget *parent);
   ~glitch_object_view();
   glitch_scene* scene(void) const;
   quint64 id(void) const;

@@ -84,10 +84,10 @@ int main(int argc, char *argv[])
   QCoreApplication::setOrganizationName("Glitch");
   QCoreApplication::setOrganizationDomain("glitch.sf.net");
   QCoreApplication::setApplicationVersion(GLITCH_VERSION_STR);
+  QSettings::setDefaultFormat(QSettings::IniFormat);
   QSettings::setPath(QSettings::IniFormat,
 		     QSettings::UserScope,
                      glitch_misc::homePath());
-  QSettings::setDefaultFormat(QSettings::IniFormat);
 
   glitch_ui ui;
 

@@ -35,8 +35,8 @@
 
 #include "glitch-proxy-widget.h"
 
-class glitch_object_view;
 class QUndoStack;
+class glitch_object_view;
 
 class glitch_object: public QWidget
 {

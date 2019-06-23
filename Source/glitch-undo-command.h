@@ -52,23 +52,23 @@ class glitch_undo_command: public QUndoCommand
   };
 
   glitch_undo_command(const QHash<glitch_canvas_settings::Settings,
-		                   QVariant> &previousCanvasSettings,
-		       const Types type,
-		       glitch_canvas_settings *canvasSettings,
-		       QUndoCommand *parent = nullptr);
+		      QVariant> &previousCanvasSettings,
+		      const Types type,
+		      glitch_canvas_settings *canvasSettings,
+		      QUndoCommand *parent = nullptr);
   glitch_undo_command(const QPointF &previousPosition,
-		       const Types type,
-		       glitch_proxy_widget *proxy,
-		       glitch_scene *scene,
-		       QUndoCommand *parent = nullptr);
+		      const Types type,
+		      glitch_proxy_widget *proxy,
+		      glitch_scene *scene,
+		      QUndoCommand *parent = nullptr);
   glitch_undo_command(const QString &previousFunctionName,
-		       const Types type,
-		       glitch_object *object,
-		       QUndoCommand *parent = nullptr);
+		      const Types type,
+		      glitch_object *object,
+		      QUndoCommand *parent = nullptr);
   glitch_undo_command(const Types type,
-		       glitch_proxy_widget *proxy,
-		       glitch_scene *scene,
-		       QUndoCommand *parent = nullptr);
+		      glitch_proxy_widget *proxy,
+		      glitch_scene *scene,
+		      QUndoCommand *parent = nullptr);
   ~glitch_undo_command();
   void redo(void);
   void undo(void);
