@@ -50,7 +50,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
   m_arduinoStructures = nullptr;
   m_recentFilesFileName = glitch_misc::homePath() + QDir::separator() +
-    "Glitch" + QDir::separator() + "recent_files.db";
+    "recent_files.db";
   m_ui.setupUi(this);
   connect(m_ui.action_Alignment,
 	  SIGNAL(triggered(void)),
