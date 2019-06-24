@@ -112,6 +112,10 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case FUNCTION_RENAMED:
+      {
+	break;
+      }
     case ITEM_ADDED:
       {
 	if(m_proxy && m_scene)
@@ -159,6 +163,10 @@ void glitch_undo_command::undo(void)
 	if(m_canvasSettings)
 	  m_canvasSettings->setSettings(m_previousCanvasSettings);
 
+	break;
+      }
+    case FUNCTION_RENAMED:
+      {
 	break;
       }
     case ITEM_ADDED:
