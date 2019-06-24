@@ -74,8 +74,8 @@ class glitch_object_function_arduino: public glitch_object
   void slotSetFunctionName(void);
 
  signals:
-  void nameChanged(const QString &before,
-		   const QString &after,
+  void nameChanged(const QString &after,
+		   const QString &before,
 		   glitch_object *object);
 };
 

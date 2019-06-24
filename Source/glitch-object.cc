@@ -97,7 +97,7 @@ QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
 
 QString glitch_object::name(void) const
 {
-  return objectName();
+  return m_name;
 }
 
 QString glitch_object::type(void) const
@@ -205,7 +205,8 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
 void glitch_object::setName(const QString &name)
 {
-  Q_UNUSED(name);
+  if(!name.trimmed().isEmpty())
+    m_name = name.trimmed();
 }
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)

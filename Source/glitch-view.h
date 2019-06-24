@@ -110,8 +110,8 @@ class glitch_view: public QWidget
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name);
   void slotFunctionDeleted(const QString &name);
-  void slotFunctionNameChanged(const QString &before,
-			       const QString &after,
+  void slotFunctionNameChanged(const QString &after,
+			       const QString &before,
 			       glitch_object *object);
   void slotSave(void);
   void slotSaveAs(void);

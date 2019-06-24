@@ -80,8 +80,8 @@ class glitch_scene: public QGraphicsScene
   void changed(void);
   void functionAdded(const QString &name);
   void functionDeleted(const QString &name);
-  void functionNameChanged(const QString &before,
-			   const QString &after,
+  void functionNameChanged(const QString &after,
+			   const QString &before,
 			   glitch_object *object);
   void sceneResized(void);
 };

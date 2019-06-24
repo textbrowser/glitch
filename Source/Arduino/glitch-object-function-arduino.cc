@@ -264,6 +264,8 @@ void glitch_object_function_arduino::save
 void glitch_object_function_arduino::setName(const QString &name)
 {
   glitch_object::setName(name);
+  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(m_name));
+  m_ui.label->setText(m_name);
 }
 
 void glitch_object_function_arduino::setProperties(const QString &properties)
@@ -368,6 +370,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_view->consumeFunctionName(text);
 
       emit changed();
-      emit nameChanged(name, text, this);
+      emit nameChanged(text, name, this);
     }
 }

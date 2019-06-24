@@ -83,15 +83,6 @@ glitch_undo_command::glitch_undo_command
  glitch_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  if(proxy)
-    switch(type)
-      {
-      default:
-	{
-	  break;
-	}
-      }
-
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
@@ -114,6 +105,9 @@ void glitch_undo_command::redo(void)
       }
     case FUNCTION_RENAMED:
       {
+	if(m_object)
+	  m_object->setName(m_currentFunctionName);
+
 	break;
       }
     case ITEM_ADDED:
@@ -167,6 +161,9 @@ void glitch_undo_command::undo(void)
       }
     case FUNCTION_RENAMED:
       {
+	if(m_object)
+	  m_object->setName(m_previousFunctionName);
+
 	break;
       }
     case ITEM_ADDED:

@@ -72,6 +72,7 @@ class glitch_object: public QWidget
 
  protected:
   QPointer<glitch_proxy_widget> m_proxy;
+  QString m_name;
   QString m_type;
   QWidget *m_parent;
   bool m_initialized;

@@ -715,8 +715,8 @@ void glitch_view::slotFunctionDeleted(const QString &name)
   m_userFunctions->deleteFunction(name);
 }
 
-void glitch_view::slotFunctionNameChanged(const QString &before,
-					  const QString &after,
+void glitch_view::slotFunctionNameChanged(const QString &after,
+					  const QString &before,
 					  glitch_object *object)
 {
   Q_UNUSED(after);
@@ -728,6 +728,7 @@ void glitch_view::slotFunctionNameChanged(const QString &before,
 
   undoCommand->setText(tr("function renamed"));
   m_undoStack->push(undoCommand);
+  emit changed();
 }
 
 void glitch_view::slotSave(void)
