@@ -725,7 +725,8 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
   glitch_undo_command *undoCommand = new glitch_undo_command
     (before,
      glitch_undo_command::FUNCTION_RENAMED,
-     object);
+     object,
+     m_userFunctions);
 
   undoCommand->setText(tr("function renamed"));
   m_undoStack->push(undoCommand);

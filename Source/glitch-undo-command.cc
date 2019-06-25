@@ -31,6 +31,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
+#include "glitch-user-functions.h"
 
 glitch_undo_command::glitch_undo_command
 (const QHash<glitch_canvas_settings::Settings,
@@ -67,6 +68,7 @@ glitch_undo_command::glitch_undo_command
 (const QString &previousFunctionName,
  const Types type,
  glitch_object *object,
+ glitch_user_functions *userFunctions,
  QUndoCommand *parent):QUndoCommand(parent)
 {
   if(object)
@@ -75,6 +77,7 @@ glitch_undo_command::glitch_undo_command
   m_object = object;
   m_previousFunctionName = previousFunctionName;
   m_type = type;
+  m_userFunctions = userFunctions;
 }
 
 glitch_undo_command::glitch_undo_command
@@ -105,8 +108,12 @@ void glitch_undo_command::redo(void)
       }
     case FUNCTION_RENAMED:
       {
-	if(m_object)
-	  m_object->setName(m_currentFunctionName);
+	if(m_object && m_userFunctions)
+	  {
+	    m_object->setName(m_currentFunctionName);
+	    m_userFunctions->addFunction(m_currentFunctionName);
+	    m_userFunctions->deleteFunction(m_previousFunctionName);
+	  }
 
 	break;
       }
@@ -161,8 +168,12 @@ void glitch_undo_command::undo(void)
       }
     case FUNCTION_RENAMED:
       {
-	if(m_object)
-	  m_object->setName(m_previousFunctionName);
+	if(m_object && m_userFunctions)
+	  {
+	    m_object->setName(m_previousFunctionName);
+	    m_userFunctions->addFunction(m_previousFunctionName);
+	    m_userFunctions->deleteFunction(m_currentFunctionName);
+	  }
 
 	break;
       }

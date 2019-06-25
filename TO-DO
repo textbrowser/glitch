@@ -62,6 +62,7 @@ Remaining Items
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.
+- Function names and deleted functions; uniqueness errors.
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
