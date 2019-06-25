@@ -719,7 +719,8 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
 					  const QString &before,
 					  glitch_object *object)
 {
-  Q_UNUSED(after);
+  m_userFunctions->addFunction(after);
+  m_userFunctions->deleteFunction(before);
 
   glitch_undo_command *undoCommand = new glitch_undo_command
     (before,
