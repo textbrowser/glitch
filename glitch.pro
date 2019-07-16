@@ -15,12 +15,10 @@ QT += widgets
 TEMPLATE	= app
 
 QMAKE_CLEAN	+= Glitch
-QMAKE_CXXFLAGS_RELEASE -= -O2
 
 macx {
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -mtune=generic -pedantic -std=c++11 \
-			  -O3 \
                           -Wall -Wcast-align -Wcast-qual \
                           -Wextra \
                           -Woverloaded-virtual -Wpointer-arith \
@@ -28,7 +26,6 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
 } else {
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -mtune=generic -pedantic -pie -std=c++11 \
-			  -O3 \
                           -Wall -Wcast-align -Wcast-qual \
                           -Wextra \
                           -Wno-class-memaccess \
