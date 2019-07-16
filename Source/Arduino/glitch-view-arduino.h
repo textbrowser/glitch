@@ -58,6 +58,10 @@ class glitch_view_arduino: public glitch_view
   glitch_alignment *m_alignment;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
+
+ private slots:
+  void slotFunctionAdded(const QString &name);
+  void slotFunctionDeleted(const QString &name);
 };
 
 #endif

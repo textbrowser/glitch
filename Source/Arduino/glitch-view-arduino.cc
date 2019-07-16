@@ -74,6 +74,14 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotChanged(void)));
+  connect(m_scene,
+	  SIGNAL(functionAdded(const QString &)),
+	  this,
+	  SLOT(slotFunctionAdded(const QString &)));
+  connect(m_scene,
+	  SIGNAL(functionDeleted(const QString &)),
+	  this,
+	  SLOT(slotFunctionDeleted(const QString &)));
   connect(m_setupObject,
 	  SIGNAL(changed(void)),
 	  this,
@@ -155,10 +163,21 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
 void glitch_view_arduino::consumeFunctionName(const QString &name)
 {
-  m_functionNames[name] = 0;
+  if(!name.trimmed().isEmpty())
+    m_functionNames[name] = '0';
 }
 
 void glitch_view_arduino::removeFunctionName(const QString &name)
 {
   m_functionNames.remove(name);
+}
+
+void glitch_view_arduino::slotFunctionAdded(const QString &name)
+{
+  consumeFunctionName(name);
+}
+
+void glitch_view_arduino::slotFunctionDeleted(const QString &name)
+{
+  removeFunctionName(name);
 }

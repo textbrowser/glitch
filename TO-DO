@@ -59,7 +59,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Deleted functions should be assigned unique names.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All instances should be duplicates of a single
   definition.

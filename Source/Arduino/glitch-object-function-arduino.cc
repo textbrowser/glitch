@@ -353,7 +353,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       if(m_view && m_view->containsFunctionName(text))
 	{
 	  glitch_misc::showErrorDialog
-	    (tr("The function %1 is already defined. It may be deleted. "
+	    (tr("The function %1 is already defined. "
 		"Please select another name.").arg(text), m_parent);
 	  goto restart_label;
 	}
