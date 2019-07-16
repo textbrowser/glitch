@@ -271,7 +271,10 @@ void glitch_scene::deleteItems(void)
 
       if(m_undoStack)
 	{
-	  qobject_cast<glitch_object *> (proxy->widget())->closeEditWindow();
+	  if(qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
+	    emit functionDeleted
+	      (qobject_cast
+	       <glitch_object_function_arduino *> (proxy->widget())->name());
 
 	  glitch_undo_command *undoCommand = new glitch_undo_command
 	    (glitch_undo_command::ITEM_DELETED, proxy, this);
@@ -758,8 +761,6 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
       if(qobject_cast<glitch_object_function_arduino *> (object))
 	emit functionDeleted
 	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
-
-      object->closeEditWindow();
 
       glitch_undo_command *undoCommand = new glitch_undo_command
 	(glitch_undo_command::ITEM_DELETED, object->proxy(), this);

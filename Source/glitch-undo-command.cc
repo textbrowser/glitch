@@ -132,6 +132,12 @@ void glitch_undo_command::redo(void)
       {
 	if(m_proxy && m_scene)
 	  {
+	    glitch_object *object =
+	      qobject_cast<glitch_object *> (m_proxy->widget());
+
+	    if(object)
+	      object->closeEditWindow();
+
 	    m_scene->removeItem(m_proxy);
 	    m_scene->update();
 	  }
