@@ -60,7 +60,7 @@ Remaining Items
 
 - All of Arduino's objects.
 - Functions are defined on the main view. Allow multiple instances of
-  a defined function. All instances should be duplicates of a single
+  a defined function. All duplicate instances should be duplicates of a single
   definition.
 - Function names and deleted functions; uniqueness errors.
 - Icons.
@@ -74,5 +74,5 @@ Remaining Items
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Undo of style sheets.
-- Warn of faulty home directory.
+- Warn of faulty home directory: read and write permissions.
 - Warn of recursive functions.
