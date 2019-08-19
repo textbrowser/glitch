@@ -589,6 +589,15 @@ void glitch_ui::show(void)
       QMessageBox::critical(this, tr("Glitch: Error"), str);
     }
 
+  QFileInfo fileInfo(glitch_misc::homePath());
+
+  if(!fileInfo.isReadable() || !fileInfo.isWritable())
+    QMessageBox::critical
+      (this,
+       tr("Glitch: Error"),
+       tr("Glitch's home directory %1 must be readable and writable.").
+       arg(glitch_misc::homePath()));
+
   parseCommandLineArguments();
 }
 
