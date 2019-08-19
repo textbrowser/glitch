@@ -47,6 +47,7 @@ Completed Items
 - The name of the display in settings should be separate from the file name.
 - Unite separated windows.
 - View separation.
+- Warn of faulty home directory: read and write permissions.
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
 - glitch_canvas_settings::settings(). Not needed.
@@ -74,5 +75,4 @@ Remaining Items
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Undo of style sheets.
-- Warn of faulty home directory: read and write permissions.
 - Warn of recursive functions.
