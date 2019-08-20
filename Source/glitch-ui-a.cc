@@ -50,7 +50,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
   m_arduinoStructures = nullptr;
   m_recentFilesFileName = glitch_misc::homePath() + QDir::separator() +
-    "recent_files.db";
+    "glitch_recent_files.db";
   m_ui.setupUi(this);
   connect(m_ui.action_Alignment,
 	  SIGNAL(triggered(void)),
@@ -435,10 +435,10 @@ void glitch_ui::prepareRecentFiles(void)
       {
 	QSqlQuery query(db);
 
-	query.exec("CREATE TABLE IF NOT EXISTS recent_files ("
+	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
 
-	if(query.exec("SELECT file_name FROM recent_files ORDER BY 1"))
+	if(query.exec("SELECT file_name FROM glitch_recent_files ORDER BY 1"))
 	  while(query.next())
 	    list << query.value(0).toString();
       }
@@ -516,7 +516,7 @@ void glitch_ui::saveRecentFile(const QString &fileName)
 	QSqlQuery query(db);
 
 	query.prepare
-	  ("INSERT OR REPLACE INTO recent_files (file_name) VALUES (?)");
+	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name) VALUES (?)");
 	query.addBindValue(fileName);
 	query.exec();
       }
@@ -635,7 +635,7 @@ void glitch_ui::slotClearRecentFiles(void)
       {
 	QSqlQuery query(db);
 
-	query.exec("DELETE FROM recent_files");
+	query.exec("DELETE FROM glitch_recent_files");
       }
 
     db.close();
