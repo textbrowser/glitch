@@ -60,6 +60,7 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
+- Context menus should be available as tools.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
