@@ -79,6 +79,7 @@ class glitch_view: public QWidget
   void save(void);
   void selectAll(void);
   void showAlignment(void);
+  void showCanvasSettings(void);
   void undo(void);
 
  private:

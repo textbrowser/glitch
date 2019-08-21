@@ -652,6 +652,13 @@ void glitch_view::showAlignment(void)
   m_alignment->show();
 }
 
+void glitch_view::showCanvasSettings(void)
+{
+  m_canvasSettings->setName(m_name);
+  m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
+  m_canvasSettings->show();
+}
+
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   /*
@@ -797,9 +804,7 @@ void glitch_view::slotShowAlignmentTool(void)
 
 void glitch_view::slotShowCanvasSettings(void)
 {
-  m_canvasSettings->setName(m_name);
-  m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
-  m_canvasSettings->show();
+  showCanvasSettings();
 }
 
 void glitch_view::slotShowUserFunctions(void)

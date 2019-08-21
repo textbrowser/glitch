@@ -93,6 +93,7 @@ class glitch_ui: public QMainWindow
   void slotSelectPage(void);
   void slotSeparate(glitch_view *view);
   void slotShowAlignment(void);
+  void slotShowCanvasSettings(void);
   void slotShowStructures(void);
   void slotTabMoved(int from, int to);
   void slotUndo(void);

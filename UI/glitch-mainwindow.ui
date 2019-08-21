@@ -115,6 +115,8 @@
     <addaction name="separator"/>
     <addaction name="action_Delete"/>
     <addaction name="action_Select_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Canvas_Settings"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -224,6 +226,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="action_Canvas_Settings">
+   <property name="text">
+    <string>Canvas Settings</string>
    </property>
   </action>
  </widget>

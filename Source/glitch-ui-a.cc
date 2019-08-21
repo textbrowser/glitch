@@ -56,6 +56,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowAlignment(void)));
+  connect(m_ui.action_Canvas_Settings,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotShowCanvasSettings(void)));
   connect(m_ui.action_Close_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -395,6 +399,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
+      m_ui.action_Show_Canvas_Settings->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
     }
@@ -412,6 +417,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 2);
+      m_ui.action_Show_Canvas_Settings->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 
@@ -1141,6 +1147,14 @@ void glitch_ui::slotShowAlignment(void)
 
   if(view)
     view->showAlignment();
+}
+
+void glitch_ui::slotShowCanvasSettings(void)
+{
+  glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+
+  if(view)
+    view->showCanvasSettings();
 }
 
 void glitch_ui::slotShowStructures(void)
