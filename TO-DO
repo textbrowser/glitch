@@ -25,6 +25,7 @@ Completed Items
 - Do not align, stack, etc. unless coordinates would change.
 - Error dialog.
 - Exiting does not require closing of pages.
+- Function names and deleted functions; uniqueness errors.
 - Group delete.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - List of recent files.
@@ -34,6 +35,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Recreating functions and unique names.
+- Redo/undo function names.
 - Redo/undo shortcuts on edit windows.
 - Remove functions from User Functions on redo/undo.
 - Save As.
@@ -64,13 +66,11 @@ Remaining Items
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
-- Function names and deleted functions; uniqueness errors.
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo, undo. See also macros.
-- Redo/undo function names?
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
