@@ -62,7 +62,7 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Context menus should be available as tools.
+- Context menus should be available as tools. See Tools Bar.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
@@ -73,7 +73,7 @@ Remaining Items
 - Redo, undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
-- Tools bar?
+- Tools Bar?
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Undo of style sheets.
