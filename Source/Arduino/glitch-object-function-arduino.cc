@@ -343,6 +343,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	     << "an input validator.";
 
  restart_label:
+  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {

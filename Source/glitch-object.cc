@@ -226,6 +226,7 @@ void glitch_object::slotSetStyleSheet(void)
   glitch_style_sheet *styleSheet = new glitch_style_sheet(m_parent);
 
   styleSheet->setWidget(this);
+  QApplication::processEvents();
 
   if(styleSheet->exec() == QDialog::Accepted)
     {

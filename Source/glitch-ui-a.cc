@@ -138,6 +138,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setTabsClosable(true);
   prepareActionWidgets();
   prepareRecentFiles();
+  prepareToolBar();
 }
 
 glitch_ui::~glitch_ui()
@@ -218,6 +219,8 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 glitch_view_arduino *glitch_ui::newArduinoDiagram
 (const QString &fileName, const QString &n, const bool fromFile)
 {
+  QApplication::processEvents();
+
   QString name(n);
 
   name.remove("(*)");
@@ -315,6 +318,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
+	  QApplication::processEvents();
 
 	  if(mb.exec() == QMessageBox::Yes)
 	    break;
@@ -383,6 +387,7 @@ void glitch_ui::parseCommandLineArguments(void)
       ui.setupUi(&dialog);
       ui.label->setText(tr("The following errors occurred."));
       ui.text->setPlainText(errors.trimmed());
+      QApplication::processEvents();
       dialog.exec();
     }
 }
@@ -392,6 +397,7 @@ void glitch_ui::prepareActionWidgets(void)
   if(m_ui.tab->count() == 0)
     {
       m_ui.action_Alignment->setEnabled(false);
+      m_ui.action_Canvas_Settings->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
@@ -399,13 +405,13 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
-      m_ui.action_Show_Canvas_Settings->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
     }
   else
     {
       m_ui.action_Alignment->setEnabled(true);
+      m_ui.action_Canvas_Settings->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Copy->setEnabled
 	(m_currentView && m_currentView->scene()->selectedItems().size() > 0);
@@ -417,7 +423,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 2);
-      m_ui.action_Show_Canvas_Settings->setEnabled(true);
       m_ui.action_Structures->setEnabled(true);
     }
 
@@ -499,6 +504,13 @@ void glitch_ui::prepareRedoUndoActions(void)
     m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
   else
     m_ui.action_Undo->setText(tr("Undo"));
+}
+
+void glitch_ui::prepareToolBar(void)
+{
+  m_ui.toolBar->clear();
+  m_ui.toolBar->addAction(m_ui.action_Alignment);
+  m_ui.toolBar->addAction(m_ui.action_Structures);
 }
 
 void glitch_ui::restoreSettings(void)
@@ -674,6 +686,7 @@ void glitch_ui::slotCloseDiagram(int index)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
+	  QApplication::processEvents();
 
 	  if(mb.exec() != QMessageBox::Yes)
 	    return;
@@ -797,6 +810,8 @@ void glitch_ui::slotNewArduinoDiagram(void)
   if((label = dialog.findChild<QLabel *> ()))
     label->setWordWrap(true);
 
+  QApplication::processEvents();
+
   if(dialog.exec() != QDialog::Accepted)
     return;
   else
@@ -820,6 +835,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
       mb.setWindowIcon(windowIcon());
       mb.setWindowModality(Qt::WindowModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
+      QApplication::processEvents();
 
       if(mb.exec() != QMessageBox::Yes)
 	goto restart_label;
@@ -840,6 +856,7 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Open Diagram"));
+  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
@@ -877,6 +894,7 @@ void glitch_ui::slotOpenDiagram(void)
 	  ui.setupUi(&dialog);
 	  ui.label->setText(tr("The following errors occurred."));
 	  ui.text->setPlainText(errors.trimmed());
+	  QApplication::processEvents();
 	  dialog.exec();
 	}
     }
@@ -902,6 +920,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
       ui.setupUi(&dialog);
       ui.label->setText(tr("The following errors occurred."));
       ui.text->setPlainText(error.trimmed());
+      QApplication::processEvents();
       dialog.exec();
     }
 }
@@ -1081,6 +1100,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
       dialog.setFileMode(QFileDialog::AnyFile);
       dialog.setNameFilter("Glitch Files (*.db)");
       dialog.setWindowIcon(windowIcon());
+      QApplication::processEvents();
 
       if(dialog.exec() == QDialog::Accepted)
 	{

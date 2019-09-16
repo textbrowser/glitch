@@ -47,6 +47,7 @@ Completed Items
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
 - The name of the display in settings should be separate from the file name.
+- Tools Bar?
 - Unite separated windows.
 - View separation.
 - Warn of faulty home directory: read and write permissions.
@@ -73,7 +74,6 @@ Remaining Items
 - Redo, undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
-- Tools Bar?
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Undo of style sheets.

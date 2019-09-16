@@ -325,6 +325,7 @@ void glitch_canvas_settings::slotSelectBackgroundColor(void)
 
   dialog.setCurrentColor(QColor(m_ui.background_color->text()));
   dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {

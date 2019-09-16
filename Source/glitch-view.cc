@@ -761,6 +761,7 @@ void glitch_view::slotSaveAs(void)
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setNameFilter("Glitch Files (*.db)");
   dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
