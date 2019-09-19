@@ -59,13 +59,15 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
-	  QApplication::processEvents();
 
 	  if(mb.exec() != QMessageBox::Yes)
 	    {
+	      QApplication::processEvents();
 	      event->ignore();
 	      return;
 	    }
+
+	  QApplication::processEvents();
 	}
     }
 

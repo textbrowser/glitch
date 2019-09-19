@@ -72,6 +72,7 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo, undo. See also macros.
+- Retain Tools Bar position.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.

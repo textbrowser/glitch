@@ -318,12 +318,15 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
-	  QApplication::processEvents();
 
 	  if(mb.exec() == QMessageBox::Yes)
-	    break;
+	    {
+	      QApplication::processEvents();
+	      break;
+	    }
 	  else
 	    {
+	      QApplication::processEvents();
 	      event->ignore();
 	      return;
 	    }
@@ -605,16 +608,20 @@ void glitch_ui::show(void)
 	  ("The SQLite database driver is not available. Please resolve!");
 
       QMessageBox::critical(this, tr("Glitch: Error"), str);
+      QApplication::processEvents();
     }
 
   QFileInfo fileInfo(glitch_misc::homePath());
 
   if(!fileInfo.isReadable() || !fileInfo.isWritable())
-    QMessageBox::critical
-      (this,
-       tr("Glitch: Error"),
-       tr("Glitch's home directory %1 must be readable and writable.").
-       arg(glitch_misc::homePath()));
+    {
+      QMessageBox::critical
+	(this,
+	 tr("Glitch: Error"),
+	 tr("Glitch's home directory %1 must be readable and writable.").
+	 arg(glitch_misc::homePath()));
+      QApplication::processEvents();
+    }
 
   parseCommandLineArguments();
 }
@@ -686,10 +693,14 @@ void glitch_ui::slotCloseDiagram(int index)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::WindowModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
-	  QApplication::processEvents();
 
 	  if(mb.exec() != QMessageBox::Yes)
-	    return;
+	    {
+	      QApplication::processEvents();
+	      return;
+	    }
+
+	  QApplication::processEvents();
 	}
 
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -835,10 +846,14 @@ void glitch_ui::slotNewArduinoDiagram(void)
       mb.setWindowIcon(windowIcon());
       mb.setWindowModality(Qt::WindowModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
-      QApplication::processEvents();
 
       if(mb.exec() != QMessageBox::Yes)
-	goto restart_label;
+	{
+	  QApplication::processEvents();
+	  goto restart_label;
+	}
+
+      QApplication::processEvents();
     }
 
   newArduinoDiagram("", name, false);

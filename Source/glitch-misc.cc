@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QApplication>
 #include <QDir>
 #include <QIcon>
 #include <QMessageBox>
@@ -62,4 +63,5 @@ void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
   mb.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   mb.setWindowTitle(QObject::tr("Glitch: Error"));
   mb.exec();
+  QApplication::processEvents();
 }
