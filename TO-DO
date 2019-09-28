@@ -38,6 +38,7 @@ Completed Items
 - Redo/undo function names.
 - Redo/undo shortcuts on edit windows.
 - Remove functions from User Functions on redo/undo.
+- Retain Tools Bar position.
 - Save As.
 - Save canvas settings.
 - Save loop() and setup() style sheets.
@@ -72,7 +73,6 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo, undo. See also macros.
-- Retain Tools Bar position.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.

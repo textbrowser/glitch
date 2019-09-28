@@ -521,6 +521,7 @@ void glitch_ui::restoreSettings(void)
   QSettings settings;
 
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
+  restoreState(settings.value("main_window/state").toByteArray());
 }
 
 void glitch_ui::saveRecentFile(const QString &fileName)
@@ -553,6 +554,7 @@ void glitch_ui::saveSettings(void)
   QSettings settings;
 
   settings.setValue("main_window/geometry", saveGeometry());
+  settings.setValue("main_window/state", saveState());
 }
 
 void glitch_ui::setTabText(glitch_view *view)
