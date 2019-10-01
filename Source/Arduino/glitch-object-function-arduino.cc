@@ -78,6 +78,10 @@ glitch_object_function_arduino::glitch_object_function_arduino
 glitch_object_function_arduino::glitch_object_function_arduino
 (const QString &name, QWidget *parent):glitch_object(parent)
 {
+  /*
+  ** Drag-and-drop event.
+  */
+
   m_editView = nullptr;
   m_editWindow = nullptr;
   m_initialized = true;

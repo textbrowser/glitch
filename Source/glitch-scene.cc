@@ -106,7 +106,10 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     {
       if(m_mainScene)
 	{
-	  if(text.startsWith("glitch-arduino-function()"))
+	  QString t(text.toLower());
+
+	  if(t.startsWith("glitch-arduino-analogread()") ||
+	     t.startsWith("glitch-arduino-function()"))
 	    {
 	      event->accept();
 	      return true;
@@ -150,7 +153,7 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 
 	      if(item)
 		{
-		  QString text(item->data(Qt::UserRole).toString());
+		  QString text(item->data(Qt::UserRole).toString().toLower());
 
 		  if(text == "glitch-user-function")
 		    {
