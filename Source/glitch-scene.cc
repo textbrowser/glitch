@@ -126,11 +126,8 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    {
 	    case glitch_common::ArduinoProject:
 	      {
-		/*
-		** glitch-
-		*/
-
-		if(glitch_structures_arduino::containsStructure(text.mid(7)))
+		if(glitch_structures_arduino::
+		   containsStructure(text.mid(QString("glitch-").length())))
 		  {
 		    event->accept();
 		    return true;
