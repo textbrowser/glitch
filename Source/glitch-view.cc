@@ -141,15 +141,7 @@ glitch_view::glitch_view
 
 glitch_view::~glitch_view()
 {
-  /*
-  ** Do not emit signals.
-  */
-
-  m_scene->blockSignals(true);
-  m_view->blockSignals(true);
-
-  while(m_undoStack->canUndo())
-    m_undoStack->undo();
+  m_scene->purgeRedoUndoProxies();
 }
 
 QAction *glitch_view::menuAction(void) const

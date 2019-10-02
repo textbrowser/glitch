@@ -46,12 +46,12 @@ glitch_object_function_arduino::glitch_object_function_arduino
   if(parent)
     {
       if(!qobject_cast<glitch_view_arduino *> (parent))
-	m_view = qobject_cast<glitch_view_arduino *> (parent->parent());
+	m_parentView = qobject_cast<glitch_view_arduino *> (parent->parent());
       else
-	m_view = qobject_cast<glitch_view_arduino *> (parent);
+	m_parentView = qobject_cast<glitch_view_arduino *> (parent);
     }
   else
-    m_view = nullptr;
+    m_parentView = nullptr;
 
   /*
   ** Do not initialize the function's name in initialize().
@@ -59,19 +59,19 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
   QString name("");
 
-  if(m_view)
-    name = m_view->nextUniqueFunctionName();
+  if(m_parentView)
+    name = m_parentView->nextUniqueFunctionName();
   else
     name = "function_" +
       QUuid::createUuid().toString().remove("{").remove("}").remove("-") +
       "()";
 
   m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name));
+
+  if(m_parentView)
+    m_parentView->consumeFunctionName(name);
+
   m_ui.label->setText(name);
-
-  if(m_view)
-    m_view->consumeFunctionName(name);
-
   setObjectName(name);
 }
 
@@ -86,12 +86,12 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_editWindow = nullptr;
   m_initialized = true;
   m_isFunctionReference = true;
+  m_parentView = nullptr;
   m_type = "arduino-function";
-  m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
-  m_view = nullptr;
+  m_ui.setupUi(this);
   setObjectName(name);
 }
 
@@ -106,7 +106,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       */
 
       initialize(parent);
-      m_view = qobject_cast<glitch_view_arduino *> (parent);
+      m_parentView = qobject_cast<glitch_view_arduino *> (parent);
     }
   else
     {
@@ -118,11 +118,11 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_editWindow = nullptr;
       m_initialized = true;
       m_isFunctionReference = true;
+      m_parentView = nullptr;
       m_type = "arduino-function";
-      m_ui.setupUi(this);
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
-      m_view = nullptr;
+      m_ui.setupUi(this);
     }
 }
 
@@ -268,10 +268,10 @@ void glitch_object_function_arduino::save
 
 void glitch_object_function_arduino::setName(const QString &name)
 {
-  if(m_view)
+  if(m_parentView)
     {
-      m_view->consumeFunctionName(name);
-      m_view->removeFunctionName(m_name);
+      m_parentView->consumeFunctionName(name);
+      m_parentView->removeFunctionName(m_name);
     }
 
   glitch_object::setName(name);
@@ -293,8 +293,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	str.remove("\"");
 
-	if(m_view && m_view->containsFunctionName(str))
-	  str = m_view->nextUniqueFunctionName();
+	if(m_parentView && m_parentView->containsFunctionName(str))
+	  str = m_parentView->nextUniqueFunctionName();
 
 	setObjectName(str);
 
@@ -303,8 +303,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	m_ui.label->setText(str);
 
-	if(m_view)
-	  m_view->consumeFunctionName(str);
+	if(m_parentView)
+	  m_parentView->consumeFunctionName(str);
       }
 }
 
@@ -364,7 +364,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       if(m_ui.label->text() == text)
 	return;
 
-      if(m_view && m_view->containsFunctionName(text))
+      if(m_parentView && m_parentView->containsFunctionName(text))
 	{
 	  glitch_misc::showErrorDialog
 	    (tr("The function %1 is already defined. "
@@ -374,15 +374,15 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
       QString name(m_ui.label->text());
 
-      if(m_view)
-	m_view->removeFunctionName(m_ui.label->text());
+      if(m_parentView)
+	m_parentView->removeFunctionName(m_ui.label->text());
 
       m_editWindow->setWindowTitle(tr("Glitch: %1").arg(text));
       m_ui.label->setText(text);
       setObjectName(text);
 
-      if(m_view)
-	m_view->consumeFunctionName(text);
+      if(m_parentView)
+	m_parentView->consumeFunctionName(text);
 
       emit changed();
       emit nameChanged(text, name, this);

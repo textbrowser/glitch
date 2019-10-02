@@ -232,6 +232,9 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   glitch_proxy_widget *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
+  if(m_redoUndoProxies.contains(proxy) && proxy)
+    m_redoUndoProxies[proxy] = 0;
+
   if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
     emit functionAdded
       (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
@@ -732,6 +735,30 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     views().value(0)->viewport()->setCursor(Qt::ArrowCursor);
 
   QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void glitch_scene::purgeRedoUndoProxies(void)
+{
+  /*
+  ** Delete proxies which are not on the scene. This method should only
+  ** be used with care!
+  */
+
+  QList<QGraphicsItem *> list(items());
+  QMutableHashIterator<glitch_proxy_widget *, char> it(m_redoUndoProxies);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(!list.contains(it.key()))
+	{
+	  if(it.key())
+	    it.key()->deleteLater();
+
+	  it.remove();
+	}
+    }
 }
 
 void glitch_scene::removeItem(QGraphicsItem *item)
