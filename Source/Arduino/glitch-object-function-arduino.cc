@@ -150,7 +150,7 @@ bool glitch_object_function_arduino::isMandatory(void) const
 glitch_object_function_arduino *glitch_object_function_arduino::
 clone(QWidget *parent) const
 {
-  return new glitch_object_function_arduino(parent);
+  return new glitch_object_function_arduino(m_ui.label->text(), parent);
 }
 
 glitch_object_function_arduino *glitch_object_function_arduino::

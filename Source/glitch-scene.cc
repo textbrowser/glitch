@@ -106,7 +106,7 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     {
       if(m_mainScene)
 	{
-	  QString t(text.toLower());
+	  QString t(text.toLower().trimmed());
 
 	  if(t.startsWith("glitch-arduino-analogread()") ||
 	     t.startsWith("glitch-arduino-function()"))
@@ -126,12 +126,19 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    {
 	    case glitch_common::ArduinoProject:
 	      {
+		QString t(text.toLower().trimmed());
+
 		if(glitch_structures_arduino::
-		   containsStructure(text.mid(QString("glitch-").length())))
-		  {
-		    event->accept();
-		    return true;
-		  }
+		   containsStructure(t.mid(QString("glitch-").length())))
+		  /*
+		  ** Functions cannot be defined in other functions.
+		  */
+
+		  if(!t.startsWith("glitch-arduino-function()"))
+		    {
+		      event->accept();
+		      return true;
+		    }
 
 		break;
 	      }
