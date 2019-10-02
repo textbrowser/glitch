@@ -62,9 +62,9 @@ class glitch_object_function_arduino: public glitch_object
 
  private:
   QPointer<glitch_object_edit_window> m_editWindow;
+  QPointer<glitch_view_arduino> m_view;
   Ui_glitch_object_function_arduino m_ui;
   bool m_isFunctionReference;
-  glitch_view_arduino *m_view;
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void setProperties(const QString &properties);

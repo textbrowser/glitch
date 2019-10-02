@@ -275,7 +275,10 @@ void glitch_object_function_arduino::setName(const QString &name)
     }
 
   glitch_object::setName(name);
-  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(m_name));
+
+  if(m_editWindow)
+    m_editWindow->setWindowTitle(tr("Glitch: %1").arg(m_name));
+
   m_ui.label->setText(m_name);
 }
 
