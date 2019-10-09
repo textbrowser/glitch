@@ -79,7 +79,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 (const QString &name, QWidget *parent):glitch_object(parent)
 {
   /*
-  ** Drag-and-drop event.
+  ** Clone.
   */
 
   m_editView = nullptr;
