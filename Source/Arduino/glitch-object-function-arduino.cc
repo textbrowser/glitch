@@ -88,10 +88,10 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_isFunctionReference = true;
   m_parentView = nullptr;
   m_type = "arduino-function";
+  m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
-  m_ui.setupUi(this);
   setObjectName(name);
 }
 
@@ -120,9 +120,9 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_isFunctionReference = true;
       m_parentView = nullptr;
       m_type = "arduino-function";
+      m_ui.setupUi(this);
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
-      m_ui.setupUi(this);
     }
 }
 
