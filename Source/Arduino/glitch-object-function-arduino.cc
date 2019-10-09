@@ -296,15 +296,14 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	if(m_parentView && m_parentView->containsFunctionName(str))
 	  str = m_parentView->nextUniqueFunctionName();
 
-	setObjectName(str);
-
 	if(m_editWindow)
 	  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(str));
 
-	m_ui.label->setText(str);
-
 	if(m_parentView)
 	  m_parentView->consumeFunctionName(str);
+
+	m_ui.label->setText(str);
+	setObjectName(str);
       }
 }
 
@@ -378,12 +377,12 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_parentView->removeFunctionName(m_ui.label->text());
 
       m_editWindow->setWindowTitle(tr("Glitch: %1").arg(text));
-      m_ui.label->setText(text);
-      setObjectName(text);
 
       if(m_parentView)
 	m_parentView->consumeFunctionName(text);
 
+      m_ui.label->setText(text);
+      setObjectName(text);
       emit changed();
       emit nameChanged(text, name, this);
     }
