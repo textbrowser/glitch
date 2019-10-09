@@ -39,8 +39,11 @@
 #include "glitch-view.h"
 
 glitch_object::glitch_object(QWidget *parent):
-  QWidget(nullptr), m_initialized(false)
+  QWidget(nullptr)
 {
+  m_initialized = false;
+  m_positionLocked = false;
+
   QWidget *p = parent;
   glitch_view *view = nullptr;
 
@@ -75,6 +78,7 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):
   m_id = id;
   m_initialized = false;
   m_parent = parent;
+  m_positionLocked = false;
 }
 
 glitch_object::~glitch_object()
@@ -149,10 +153,18 @@ void glitch_object::addDefaultActions(QMenu &menu) const
   if(!menu.actions().isEmpty())
     menu.addSeparator();
 
+  QAction *action = nullptr;
+
   menu.addAction(tr("&Delete"),
 		 this,
 		 SIGNAL(deletedViaContextMenu(void)))->
     setEnabled(!isMandatory());
+  action = menu.addAction(tr("&Lock Position"),
+			  this,
+			  SLOT(slotLockPosition(void)));
+  action->setCheckable(true);
+  action->setChecked(m_positionLocked);
+  action->setEnabled(!isMandatory());
   menu.addAction(tr("&Set Style Sheet..."),
 		 this,
 		 SLOT(slotSetStyleSheet(void)));
@@ -218,6 +230,11 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
+}
+
+void glitch_object::slotLockPosition(void)
+{
+  m_positionLocked = !m_positionLocked;
 }
 
 void glitch_object::slotSetStyleSheet(void)

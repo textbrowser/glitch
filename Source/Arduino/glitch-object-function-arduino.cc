@@ -72,7 +72,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
     m_parentView->consumeFunctionName(name);
 
   m_ui.label->setText(name);
-  setObjectName(name);
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -92,7 +91,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
-  setObjectName(name);
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -303,7 +301,6 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	  m_parentView->consumeFunctionName(str);
 
 	m_ui.label->setText(str);
-	setObjectName(str);
       }
 }
 
@@ -382,7 +379,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_parentView->consumeFunctionName(text);
 
       m_ui.label->setText(text);
-      setObjectName(text);
       emit changed();
       emit nameChanged(text, name, this);
     }

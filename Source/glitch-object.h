@@ -70,12 +70,16 @@ class glitch_object: public QWidget
  private:
   static quint64 s_id;
 
+ private slots:
+  void slotLockPosition(void);
+
  protected:
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_name;
   QString m_type;
   QWidget *m_parent;
   bool m_initialized;
+  bool m_positionLocked;
   glitch_object_view *m_editView;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;
