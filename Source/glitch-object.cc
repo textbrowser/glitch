@@ -186,6 +186,9 @@ void glitch_object::move(const QPoint &point)
 
 void glitch_object::move(int x, int y)
 {
+  if(m_positionLocked)
+    return;
+
   bool isChanged = false;
 
   if(pos().x() != x || pos().y() != y)
@@ -240,6 +243,11 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 void glitch_object::slotLockPosition(void)
 {
   m_positionLocked = !m_positionLocked;
+
+  if(m_proxy)
+    m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !m_positionLocked);
+
+  emit changed();
 }
 
 void glitch_object::slotSetStyleSheet(void)

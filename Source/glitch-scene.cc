@@ -473,13 +473,13 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    glitch_proxy_widget *proxy =
 	      qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
 
-	    if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsMovable))
+	    if(!proxy || !proxy->isMovable())
 	      continue;
 
 	    glitch_object *widget =
 	      qobject_cast<glitch_object *> (proxy->widget());
 
-	    if(!widget || widget->positionLocked())
+	    if(!widget)
 	      continue;
 
 	    point = widget->pos();
@@ -584,7 +584,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  if(!proxy || !proxy->widget())
 	    continue;
-	  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
+	  else if(!proxy->isMovable())
 	    continue;
 
 	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
@@ -661,9 +661,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		  glitch_proxy_widget *proxy =
 		    qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
 
-		  if(!proxy)
-		    continue;
-		  else if(!(proxy->flags() & QGraphicsItem::ItemIsMovable))
+		  if(!proxy || !proxy->isMovable())
 		    continue;
 		  else
 		    m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
