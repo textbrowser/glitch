@@ -48,6 +48,7 @@ class glitch_object: public QWidget
   QPointF scenePos(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
+  bool positionLocked(void) const;
   quint64 id(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);

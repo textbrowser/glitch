@@ -479,7 +479,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    glitch_object *widget =
 	      qobject_cast<glitch_object *> (proxy->widget());
 
-	    if(!widget)
+	    if(!widget || widget->positionLocked())
 	      continue;
 
 	    point = widget->pos();

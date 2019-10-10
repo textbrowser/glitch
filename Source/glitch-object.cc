@@ -109,6 +109,11 @@ QString glitch_object::type(void) const
   return m_type;
 }
 
+bool glitch_object::positionLocked(void) const
+{
+  return m_positionLocked;
+}
+
 glitch_object *glitch_object::createFromValues
 (const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {
