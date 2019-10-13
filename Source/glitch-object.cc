@@ -221,6 +221,9 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
   if(query.lastError().isValid())
     error = query.lastError().text();
+
+  if(error.isEmpty())
+    saveProperties(QMap<QString, QVariant> (), db, error);
 }
 
 void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
