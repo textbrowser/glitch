@@ -223,6 +223,36 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
     error = query.lastError().text();
 }
 
+void glitch_object::saveProperties(const QMap<QString, QVariant> &properties,
+				   const QSqlDatabase &db,
+				   QString &error)
+{
+  QMapIterator<QString, QVariant> it(properties);
+  QSqlQuery query(db);
+  QString string("");
+
+  while(it.hasNext())
+    {
+      it.next();
+      string.append(it.key());
+      string.append(" = ");
+      string.append("\"");
+      string.append(it.value().toString());
+      string.append("\"");
+
+      if(it.hasNext())
+	string.append("&");
+    }
+
+  query.prepare("UPDATE objects SET properties = ? WHERE myoid = ?");
+  query.addBindValue(string);
+  query.addBindValue(m_id);
+  query.exec();
+
+  if(query.lastError().isValid())
+    error = query.lastError().text();
+}
+
 void glitch_object::setName(const QString &name)
 {
   if(!name.trimmed().isEmpty())

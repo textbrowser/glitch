@@ -251,16 +251,12 @@ void glitch_object_function_arduino::save
   if(!error.isEmpty())
     return;
 
-  QSqlQuery query(db);
+  QMap<QString, QVariant> properties;
 
-  query.prepare("UPDATE objects SET properties = ? WHERE myoid = ?");
-  query.addBindValue(QString("name = \"%1\"").arg(m_ui.label->text()));
-  query.addBindValue(m_id);
-  query.exec();
+  properties["name"] = m_ui.label->text().trimmed();
+  glitch_object::saveProperties(properties, db, error);
 
-  if(query.lastError().isValid())
-    error = query.lastError().text();
-  else if(m_editView)
+  if(error.isEmpty() && m_editView)
     m_editView->save(db, error);
 }
 
