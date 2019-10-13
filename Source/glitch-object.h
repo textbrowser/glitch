@@ -84,9 +84,10 @@ class glitch_object: public QWidget
   glitch_object_view *m_editView;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;
-  void saveProperties(const QMap<QString, QVariant> &properties,
+  void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);
+  void setProperties(const QStringList &list);
 
  protected slots:
   void slotSetStyleSheet(void);

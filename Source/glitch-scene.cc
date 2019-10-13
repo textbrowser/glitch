@@ -200,9 +200,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  proxy,
 	  SLOT(deleteLater(void)),
 	  Qt::UniqueConnection);
-  object->setProperty("movable", true);
   object->setProxy(proxy);
-  proxy->setFlag(QGraphicsItem::ItemIsMovable, true);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
   emit changed();
@@ -582,9 +580,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  glitch_proxy_widget *proxy =
 	    qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
 
-	  if(!proxy || !proxy->widget())
-	    continue;
-	  else if(!proxy->isMovable())
+	  if(!proxy || !proxy->isMovable())
 	    continue;
 
 	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));

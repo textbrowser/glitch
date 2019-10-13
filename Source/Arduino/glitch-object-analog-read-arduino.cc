@@ -67,6 +67,7 @@ createFromValues(const QMap<QString, QVariant> &values,
     glitch_object_analog_read_arduino
     (values.value("myoid").toULongLong(), parent);
 
+  object->setProperties(values.value("properties").toString().split('&'));
   return object;
 }
 

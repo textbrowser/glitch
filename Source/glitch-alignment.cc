@@ -381,14 +381,14 @@ void glitch_alignment::stack(const StackType stackType)
     {
       glitch_object *widget = list2.at(i);
 
-      if(!widget)
+      if(!widget || !widget->proxy())
 	continue;
 
       QPoint point;
 
       if(stackType == HORIZONTAL_STACK)
         {
-	  if(widget->property("movable").toBool())
+	  if(widget->proxy()->isMovable())
 	    {
 	      point = widget->pos();
 	      widget->move(coordinate, widget->pos().y());
@@ -398,7 +398,7 @@ void glitch_alignment::stack(const StackType stackType)
         }
       else
 	{
-	  if(widget->property("movable").toBool())
+	  if(widget->proxy()->isMovable())
 	    {
 	      point = widget->pos();
 	      widget->move(widget->pos().x(), coordinate);

@@ -280,6 +280,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 {
   QStringList list(properties.split("&"));
 
+  glitch_object::setProperties(list);
+
   for(int i = 0; i < list.size(); i++)
     if(list.at(i).startsWith("name = "))
       {

@@ -88,6 +88,7 @@ void glitch_object_loop_arduino::initialize(QWidget *parent)
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: loop()"));
   m_editWindow->resize(600, 600);
+  m_positionLocked = true;
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);

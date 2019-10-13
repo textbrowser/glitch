@@ -223,10 +223,14 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
     error = query.lastError().text();
 }
 
-void glitch_object::saveProperties(const QMap<QString, QVariant> &properties,
+void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 				   const QSqlDatabase &db,
 				   QString &error)
 {
+  QMap<QString, QVariant> properties(p);
+
+  properties["position_locked"] = m_positionLocked;
+
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
   QString string("");
@@ -259,9 +263,24 @@ void glitch_object::setName(const QString &name)
     m_name = name.trimmed();
 }
 
+void glitch_object::setProperties(const QStringList &list)
+{
+  for(int i = 0; i < list.size(); i++)
+    if(list.at(i).startsWith("position_locked = "))
+      {
+	QString str(list.at(i).mid(18));
+
+	str.remove("\"");
+	m_positionLocked = QVariant(str).toBool();
+      }
+}
+
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 {
   m_proxy = proxy;
+
+  if(m_proxy)
+    m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !m_positionLocked);
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
