@@ -29,7 +29,8 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Wall -Wcast-align -Wcast-qual \
                           -Wextra \
                           -Wno-class-memaccess \
-                          -Woverloaded-virtual -Wpointer-arith \
+                          -Woverloaded-virtual -Wno-deprecated-copy \
+                          -Wpointer-arith \
                           -Wstack-protector -Wstrict-overflow=5
 }
 

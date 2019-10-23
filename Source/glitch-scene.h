@@ -29,6 +29,7 @@
 #define _glitch_scene_h_
 
 #include <QGraphicsScene>
+#include <QHash>
 #include <QPointer>
 
 #include "glitch-common.h"
