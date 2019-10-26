@@ -62,7 +62,7 @@ QList<glitch_object *> glitch_scene::objects(void) const
       glitch_proxy_widget *proxy =
 	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
 
-      if(!proxy || !(proxy->flags() & Qt::ItemIsSelectable))
+      if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
 	continue;
 
       widgets << qobject_cast<glitch_object *> (proxy->widget());
@@ -82,7 +82,7 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
 	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
 
       if(!proxy ||
-	 !(proxy->flags() & Qt::ItemIsSelectable) ||
+	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
 	 !proxy->isSelected())
 	continue;
 
