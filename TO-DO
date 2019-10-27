@@ -74,6 +74,8 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
+- Redo / undo lock positions.
+- Redo / undo style sheets.
 - Redo, undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
