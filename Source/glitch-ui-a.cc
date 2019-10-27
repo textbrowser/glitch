@@ -997,7 +997,7 @@ void glitch_ui::slotPaste(void)
      toPoint());
   bool f = false;
 
-  m_currentView->beginMacro(tr("items pasted"));
+  m_currentView->beginMacro(tr("widget(s) pasted"));
 
   while(it.hasNext())
     {

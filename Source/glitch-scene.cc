@@ -263,7 +263,7 @@ void glitch_scene::deleteItems(void)
   bool state = false;
 
   if(m_undoStack)
-    m_undoStack->beginMacro(tr("items deleted"));
+    m_undoStack->beginMacro(tr("widget(s) deleted"));
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -527,7 +527,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 		    began = true;
 
 		    if(m_undoStack)
-		      m_undoStack->beginMacro("widgets moved");
+		      m_undoStack->beginMacro("widget(s) moved");
 		  }
 
 		if(m_undoStack)
@@ -699,7 +699,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	  else if(!began)
 	    {
 	      began = true;
-	      m_undoStack->beginMacro(tr("items moved"));
+	      m_undoStack->beginMacro(tr("widget(s) moved"));
 	    }
 
 	  glitch_undo_command *undoCommand = new glitch_undo_command
