@@ -43,6 +43,11 @@ class glitch_object: public QWidget
   Q_OBJECT
 
  public:
+  enum Properties
+  {
+   POSITION_LOCKED = 0
+  };
+
   glitch_object(QWidget *parent);
   glitch_object(const quint64 id, QWidget *parent);
   QPointF scenePos(void) const;
@@ -62,6 +67,7 @@ class glitch_object: public QWidget
   virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &name);
+  virtual void setProperty(const Properties property, const QVariant &value);
   virtual ~glitch_object();
   void move(const QPoint &point);
   void move(int x, int y);
@@ -75,12 +81,13 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
 
  protected:
+  QHash<Properties, QVariant> m_properties;
+  QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_name;
   QString m_type;
   QWidget *m_parent;
   bool m_initialized;
-  bool m_positionLocked;
   glitch_object_view *m_editView;
   quint64 m_id;
   void addDefaultActions(QMenu &menu) const;

@@ -49,6 +49,7 @@ class glitch_undo_command: public QUndoCommand
     ITEM_DELETED,
     ITEM_MOVED,
     ITEM_RENAMED,
+    PROPERTY_CHANGED,
     STYLESHEET_CHANGED
   };
 
@@ -66,6 +67,12 @@ class glitch_undo_command: public QUndoCommand
 		      const Types type,
 		      glitch_object *object,
 		      glitch_user_functions *userFunctions,
+		      QUndoCommand *parent = nullptr);
+  glitch_undo_command(const QVariant &currentProperty,
+		      const QVariant &previousProperty,
+		      const Types type,
+		      const glitch_object::Properties property,
+		      glitch_object *object,
 		      QUndoCommand *parent = nullptr);
   glitch_undo_command(const Types type,
 		      glitch_proxy_widget *proxy,
@@ -88,7 +95,10 @@ class glitch_undo_command: public QUndoCommand
   QString m_currentFunctionName;
   QString m_currentString;
   QString m_previousFunctionName;
+  QVariant m_currentProperty;
+  QVariant m_previousProperty;
   Types m_type;
+  glitch_object::Properties m_property;
 };
 
 #endif

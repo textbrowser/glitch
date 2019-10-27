@@ -36,13 +36,14 @@
 #include "glitch-object.h"
 #include "glitch-scene.h"
 #include "glitch-style-sheet.h"
+#include "glitch-undo-command.h"
 #include "glitch-view.h"
 
 glitch_object::glitch_object(QWidget *parent):
   QWidget(nullptr)
 {
   m_initialized = false;
-  m_positionLocked = false;
+  m_properties[POSITION_LOCKED] = false;
 
   QWidget *p = parent;
   glitch_view *view = nullptr;
@@ -78,7 +79,7 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):
   m_id = id;
   m_initialized = false;
   m_parent = parent;
-  m_positionLocked = false;
+  m_properties[POSITION_LOCKED] = false;
 }
 
 glitch_object::~glitch_object()
@@ -111,7 +112,7 @@ QString glitch_object::type(void) const
 
 bool glitch_object::positionLocked(void) const
 {
-  return m_positionLocked;
+  return m_properties.value(POSITION_LOCKED).toBool();
 }
 
 glitch_object *glitch_object::createFromValues
@@ -168,7 +169,7 @@ void glitch_object::addDefaultActions(QMenu &menu) const
 			  this,
 			  SLOT(slotLockPosition(void)));
   action->setCheckable(true);
-  action->setChecked(m_positionLocked);
+  action->setChecked(m_properties.value(POSITION_LOCKED).toBool());
   action->setEnabled(!isMandatory());
   menu.addAction(tr("&Set Style Sheet..."),
 		 this,
@@ -186,7 +187,7 @@ void glitch_object::move(const QPoint &point)
 
 void glitch_object::move(int x, int y)
 {
-  if(m_positionLocked)
+  if(m_properties.value(POSITION_LOCKED).toBool())
     return;
 
   bool isChanged = false;
@@ -232,7 +233,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   QMap<QString, QVariant> properties(p);
 
-  properties["position_locked"] = m_positionLocked;
+  properties["position_locked"] = m_properties.value(POSITION_LOCKED).toBool();
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -274,8 +275,29 @@ void glitch_object::setProperties(const QStringList &list)
 	QString str(list.at(i).mid(18));
 
 	str.remove("\"");
-	m_positionLocked = QVariant(str).toBool();
+	m_properties[POSITION_LOCKED] = QVariant(str).toBool();
       }
+}
+
+void glitch_object::setProperty(const Properties property,
+				const QVariant &value)
+{
+  m_properties[property] = value;
+
+  switch(property)
+    {
+    case POSITION_LOCKED:
+      {
+	if(m_proxy)
+	  m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !value.toBool());
+
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
 }
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
@@ -283,21 +305,37 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
   m_proxy = proxy;
 
   if(m_proxy)
-    m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !m_positionLocked);
+    m_proxy->setFlag(QGraphicsItem::ItemIsMovable,
+		     !m_properties.value(POSITION_LOCKED).toBool());
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
+
+  m_undoStack = undoStack;
 }
 
 void glitch_object::slotLockPosition(void)
 {
-  m_positionLocked = !m_positionLocked;
+  if(m_undoStack)
+    {
+      glitch_undo_command *undoCommand = new glitch_undo_command
+	(!m_properties.value(POSITION_LOCKED).toBool(),
+	 m_properties.value(POSITION_LOCKED),
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 POSITION_LOCKED,
+	 this);
 
-  if(m_proxy)
-    m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !m_positionLocked);
+      undoCommand->setText
+	(tr("item property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[POSITION_LOCKED] =
+      !m_properties.value(POSITION_LOCKED).toBool();
 
   emit changed();
 }

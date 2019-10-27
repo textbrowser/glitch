@@ -81,6 +81,21 @@ glitch_undo_command::glitch_undo_command
 }
 
 glitch_undo_command::glitch_undo_command
+(const QVariant &currentProperty,
+ const QVariant &previousProperty,
+ const Types type,
+ const glitch_object::Properties property,
+ glitch_object *object,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_currentProperty = currentProperty;
+  m_object = object;
+  m_previousProperty = previousProperty;
+  m_property = property;
+  m_type = type;
+}
+
+glitch_undo_command::glitch_undo_command
 (const Types type,
  glitch_proxy_widget *proxy,
  glitch_scene *scene,
@@ -154,6 +169,13 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case PROPERTY_CHANGED:
+      {
+	if(m_object)
+	  m_object->setProperty(m_property, m_currentProperty);
+
+	break;
+      }
     default:
       {
 	break;
@@ -210,6 +232,13 @@ void glitch_undo_command::undo(void)
 	    m_proxy->setPos(m_previousPosition);
 	    m_scene->update();
 	  }
+
+	break;
+      }
+    case PROPERTY_CHANGED:
+      {
+	if(m_object)
+	  m_object->setProperty(m_property, m_previousProperty);
 
 	break;
       }

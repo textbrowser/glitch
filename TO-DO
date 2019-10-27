@@ -35,9 +35,10 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Recreating functions and unique names.
-- Redo/undo function names.
-- Redo/undo shortcuts on edit windows.
-- Remove functions from User Functions on redo/undo.
+- Redo / undo function names.
+- Redo / undo lock positions.
+- Redo / undo shortcuts on edit windows.
+- Remove functions from User Functions on redo / undo.
 - Retain Tools Bar position.
 - Save As.
 - Save canvas settings.
@@ -74,7 +75,6 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
-- Redo / undo lock positions.
 - Redo / undo style sheets.
 - Redo, undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
