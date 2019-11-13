@@ -1226,7 +1226,18 @@ void glitch_ui::slotTabMoved(int from, int to)
       glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
 
       if(view)
-	m_ui.menu_Tabs->addAction(view->menuAction());
+	{
+	  QAction *action = view->menuAction();
+	  QFont font(action->font());
+
+	  if(i == m_ui.tab->currentIndex())
+	    font.setBold(true);
+	  else
+	    font.setBold(false);
+
+	  action->setFont(font);
+	  m_ui.menu_Tabs->addAction(action);
+	}
     }
 
   QApplication::restoreOverrideCursor();
