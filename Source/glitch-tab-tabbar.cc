@@ -27,6 +27,7 @@
 
 #include <QMenu>
 #include <QTabWidget>
+#include <QToolButton>
 
 #include "glitch-tab.h"
 #include "glitch-tab-tabbar.h"
@@ -38,11 +39,23 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
   setDocumentMode(true);
   setElideMode(Qt::ElideRight);
   setExpanding(true);
+  setStyleSheet("QTabBar::tear {"
+		"border: none; image: none; width: 0px;}");
   setUsesScrollButtons(true);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+
+  foreach(QToolButton *tool_button, findChildren <QToolButton *> ())
+    tool_button->setStyleSheet
+    (QString("QToolButton {background-color: %1;"
+	     "border: none;"
+	     "margin-bottom: 0px;"
+	     "margin-top: 0px;"
+	     "}"
+	     "QToolButton::menu-button {border: none;}").
+     arg(QWidget::palette().color(QWidget::backgroundRole()).name()));
 }
 
 glitch_tab_tabbar::~glitch_tab_tabbar()
