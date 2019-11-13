@@ -76,10 +76,9 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo / undo style sheets.
-- Redo, undo. See also macros.
+- Redo / undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
-- Undo of style sheets.
 - Warn of recursive functions.

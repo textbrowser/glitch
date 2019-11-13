@@ -342,8 +342,9 @@ void glitch_object::slotLockPosition(void)
 
 void glitch_object::slotSetStyleSheet(void)
 {
-  QString string(styleSheet());
-  glitch_style_sheet *styleSheet = new glitch_style_sheet(m_parent);
+  QScopedPointer<glitch_style_sheet> styleSheet
+    (new glitch_style_sheet(m_parent));
+  QString string(this->styleSheet());
 
   styleSheet->setWidget(this);
   QApplication::processEvents();
