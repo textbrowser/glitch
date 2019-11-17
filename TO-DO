@@ -38,6 +38,7 @@ Completed Items
 - Redo / undo function names.
 - Redo / undo lock positions.
 - Redo / undo shortcuts on edit windows.
+- Redo / undo style sheets.
 - Remove functions from User Functions on redo / undo.
 - Retain Tools Bar position.
 - Save As.
@@ -75,7 +76,6 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
-- Redo / undo style sheets.
 - Redo / undo. See also macros.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.

@@ -342,16 +342,27 @@ void glitch_object::slotLockPosition(void)
 
 void glitch_object::slotSetStyleSheet(void)
 {
-  QScopedPointer<glitch_style_sheet> styleSheet
-    (new glitch_style_sheet(m_parent));
-  QString string(this->styleSheet());
+  QScopedPointer<glitch_style_sheet> dialog(new glitch_style_sheet(m_parent));
+  QString string(styleSheet());
 
-  styleSheet->setWidget(this);
+  dialog->setWidget(this);
   QApplication::processEvents();
 
-  if(styleSheet->exec() == QDialog::Accepted)
+  if(dialog->exec() == QDialog::Accepted)
     {
-      setStyleSheet(styleSheet->styleSheet());
+      setStyleSheet(dialog->styleSheet());
+
+      if(m_undoStack)
+	{
+	  glitch_undo_command *undoCommand = new glitch_undo_command
+	    (string, glitch_undo_command::STYLESHEET_CHANGED, this);
+
+	  undoCommand->setText
+	    (tr("stylesheet changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+
       emit changed();
     }
   else
