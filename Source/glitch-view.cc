@@ -137,6 +137,7 @@ glitch_view::glitch_view
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_view);
   prepareDatabaseTables(m_fileName);
+  prepareDefaultActions();
 }
 
 glitch_view::~glitch_view()
@@ -147,6 +148,11 @@ glitch_view::~glitch_view()
 QAction *glitch_view::menuAction(void) const
 {
   return m_menuAction;
+}
+
+QList<QAction *> glitch_view::defaultActions(void) const
+{
+  return m_defaultActions;
 }
 
 QList<glitch_object *> glitch_view::objects(void) const
@@ -190,7 +196,7 @@ QMenu *glitch_view::defaultContextMenu(void)
 		    SIGNAL(showStructures(void)));
 
   menu->addSeparator();
-  action = menu->addAction(tr("Se&parate..."),
+  action = menu->addAction(tr("Se&parate Canvas..."),
 			   this,
 			   SLOT(slotSeparate(void)));
 
@@ -576,6 +582,26 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_view::prepareDefaultActions(void)
+{
+  if(!m_defaultActions.isEmpty())
+    return;
+
+  QAction *action = nullptr;
+
+  action = new QAction(tr("Se&parate Canvas..."), this);
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSeparate(void)));
+  m_defaultActions << action;
+  action = new QAction(tr("&User Functions..."), this);
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotShowUserFunctions(void)));
+  m_defaultActions << action;
+}
 void glitch_view::push(glitch_undo_command *undoCommand)
 {
   if(undoCommand)

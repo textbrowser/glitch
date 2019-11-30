@@ -514,6 +514,10 @@ void glitch_ui::prepareToolBar(void)
   m_ui.toolBar->clear();
   m_ui.toolBar->addAction(m_ui.action_Alignment);
   m_ui.toolBar->addAction(m_ui.action_Structures);
+
+  if(m_currentView)
+    for(int i = 0; i < m_currentView->defaultActions().size(); i++)
+      m_ui.toolBar->addAction(m_currentView->defaultActions().at(i));
 }
 
 void glitch_ui::restoreSettings(void)
@@ -893,8 +897,7 @@ void glitch_ui::slotOpenDiagram(void)
 	  else
 	    errors.append
 	      (tr("An error occurred while processing "
-		  "the file %1. (%2)\n\n").
-	       arg(fileName).arg(error));
+		  "the file %1. (%2)\n\n").arg(fileName).arg(error));
 	}
 
       if(ok)
@@ -979,6 +982,7 @@ void glitch_ui::slotPageSelected(int index)
       }
 
   prepareActionWidgets();
+  prepareToolBar();
   setWindowTitle(m_currentView);
 }
 

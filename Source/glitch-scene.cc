@@ -371,7 +371,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 
   for(qreal x = left; x < rect.right(); x += gridSize)
     for(qreal y = top; y < rect.bottom(); y += gridSize)
-      points.append(QPointF(x, y));
+      points << QPointF(x, y);
 
   painter->save();
   painter->drawPoints(points.data(), points.size());

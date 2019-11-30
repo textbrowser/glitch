@@ -54,6 +54,7 @@ class glitch_view: public QWidget
 	      QWidget *parent);
   virtual ~glitch_view();
   QAction *menuAction(void) const;
+  QList<QAction *> defaultActions(void) const;
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
@@ -84,10 +85,12 @@ class glitch_view: public QWidget
 
  private:
   void prepareDatabaseTables(const QString &fileName) const;
+  void prepareDefaultActions(void);
 
  protected:
   QAction *m_menuAction;
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
+  QList<QAction *> m_defaultActions;
   QString m_fileName;
   QString m_name;
   QUndoStack *m_undoStack;
