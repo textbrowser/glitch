@@ -397,7 +397,9 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		object = new glitch_object_function_arduino(views().value(0));
 	      else
 		object = new glitch_object_function_arduino
-		  (text.mid(25), views().value(0));
+		  (text.
+		   mid(static_cast<int> (strlen("glitch-arduino-function-"))),
+		   views().value(0));
 	    }
 	}
 
