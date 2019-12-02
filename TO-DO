@@ -67,7 +67,8 @@ Ignored Items
 
 Remaining Items
 
-- Add widget actions to Edit menu.
+- Add widget actions to Edit menu. No. Instead, ALT key and the
+  primary mouse button should display the object's context menu.
 - All of Arduino's objects.
 - Depict main functions via immutable themes.
 - Functions are defined on the main view. Allow multiple instances of
@@ -78,6 +79,7 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo / undo. See also macros.
+- Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
