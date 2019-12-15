@@ -365,9 +365,9 @@ void glitch_alignment::stack(const StackType stackType)
     }
 
   if(stackType == HORIZONTAL_STACK)
-    qSort(list2.begin(), list2.end(), x_coordinate_less_than);
+    std::sort(list2.begin(), list2.end(), x_coordinate_less_than);
   else
-    qSort(list2.begin(), list2.end(), y_coordinate_less_than);
+    std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
 
   bool began = false;
   int coordinate = 0;
