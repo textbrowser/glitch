@@ -84,7 +84,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_editView = nullptr;
   m_editWindow = nullptr;
   m_initialized = true;
-  m_isFunctionReference = true;
+  m_isFunctionClone = true;
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
@@ -115,7 +115,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_editView = nullptr;
       m_editWindow = nullptr;
       m_initialized = true;
-      m_isFunctionReference = true;
+      m_isFunctionClone = true;
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.setupUi(this);
@@ -163,7 +163,10 @@ createFromValues
      parent);
 
   object->setProperties(values.value("properties").toString());
-  object->setStyleSheet(values.value("stylesheet").toString());
+
+  if(object->m_isFunctionClone)
+    object->setStyleSheet(values.value("stylesheet").toString());
+
   return object;
 }
 
@@ -174,10 +177,10 @@ glitch_object_view *glitch_object_function_arduino::editView(void) const
 
 void glitch_object_function_arduino::addActions(QMenu &menu) const
 {
-  if(m_isFunctionReference)
+  if(m_isFunctionClone)
     {
       /*
-      ** This is a function reference.
+      ** This is a function clone.
       */
 
       addDefaultActions(menu);
@@ -222,7 +225,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->resize(600, 600);
-  m_isFunctionReference = false;
+  m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);

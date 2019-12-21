@@ -43,7 +43,7 @@ glitch_object::glitch_object(QWidget *parent):
   QWidget(nullptr)
 {
   m_initialized = false;
-  m_properties[POSITION_LOCKED] = false;
+  m_properties[Properties::POSITION_LOCKED] = false;
 
   QWidget *p = parent;
   glitch_view *view = nullptr;
@@ -79,7 +79,7 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):
   m_id = id;
   m_initialized = false;
   m_parent = parent;
-  m_properties[POSITION_LOCKED] = false;
+  m_properties[Properties::POSITION_LOCKED] = false;
 }
 
 glitch_object::~glitch_object()
@@ -112,7 +112,7 @@ QString glitch_object::type(void) const
 
 bool glitch_object::positionLocked(void) const
 {
-  return m_properties.value(POSITION_LOCKED).toBool();
+  return m_properties.value(Properties::POSITION_LOCKED).toBool();
 }
 
 glitch_object *glitch_object::createFromValues
@@ -161,19 +161,22 @@ void glitch_object::addDefaultActions(QMenu &menu) const
 
   QAction *action = nullptr;
 
-  menu.addAction(tr("&Delete"),
-		 this,
-		 SIGNAL(deletedViaContextMenu(void)))->
-    setEnabled(!isMandatory());
+  action = menu.addAction(tr("&Delete"),
+			  this,
+			  SIGNAL(deletedViaContextMenu(void)));
+  action->setData(DefaultMenuActions::DELETE);
+  action->setEnabled(!isMandatory());
   action = menu.addAction(tr("&Lock Position"),
 			  this,
 			  SLOT(slotLockPosition(void)));
   action->setCheckable(true);
-  action->setChecked(m_properties.value(POSITION_LOCKED).toBool());
+  action->setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+  action->setData(DefaultMenuActions::LOCK_POSITION);
   action->setEnabled(!isMandatory());
-  menu.addAction(tr("&Set Style Sheet..."),
-		 this,
-		 SLOT(slotSetStyleSheet(void)));
+  action = menu.addAction(tr("&Set Style Sheet..."),
+			  this,
+			  SLOT(slotSetStyleSheet(void)));
+  action->setData(DefaultMenuActions::SET_STYLE_SHEET);
 }
 
 void glitch_object::closeEditWindow(void)
@@ -187,7 +190,7 @@ void glitch_object::move(const QPoint &point)
 
 void glitch_object::move(int x, int y)
 {
-  if(m_properties.value(POSITION_LOCKED).toBool())
+  if(m_properties.value(Properties::POSITION_LOCKED).toBool())
     return;
 
   bool isChanged = false;
@@ -233,7 +236,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   QMap<QString, QVariant> properties(p);
 
-  properties["position_locked"] = m_properties.value(POSITION_LOCKED).toBool();
+  properties["position_locked"] = m_properties.value
+    (Properties::POSITION_LOCKED).toBool();
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -275,7 +279,7 @@ void glitch_object::setProperties(const QStringList &list)
 	QString str(list.at(i).mid(18));
 
 	str.remove("\"");
-	m_properties[POSITION_LOCKED] = QVariant(str).toBool();
+	m_properties[Properties::POSITION_LOCKED] = QVariant(str).toBool();
       }
 }
 
@@ -286,7 +290,7 @@ void glitch_object::setProperty(const Properties property,
 
   switch(property)
     {
-    case POSITION_LOCKED:
+    case Properties::POSITION_LOCKED:
       {
 	if(m_proxy)
 	  m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !value.toBool());
@@ -306,7 +310,7 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 
   if(m_proxy)
     m_proxy->setFlag(QGraphicsItem::ItemIsMovable,
-		     !m_properties.value(POSITION_LOCKED).toBool());
+		     !m_properties.value(Properties::POSITION_LOCKED).toBool());
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
@@ -322,10 +326,10 @@ void glitch_object::slotLockPosition(void)
   if(m_undoStack)
     {
       glitch_undo_command *undoCommand = new glitch_undo_command
-	(!m_properties.value(POSITION_LOCKED).toBool(),
-	 m_properties.value(POSITION_LOCKED),
+	(!m_properties.value(Properties::POSITION_LOCKED).toBool(),
+	 m_properties.value(Properties::POSITION_LOCKED),
 	 glitch_undo_command::PROPERTY_CHANGED,
-	 POSITION_LOCKED,
+	 Properties::POSITION_LOCKED,
 	 this);
 
       undoCommand->setText
@@ -334,8 +338,8 @@ void glitch_object::slotLockPosition(void)
       m_undoStack->push(undoCommand);
     }
   else
-    m_properties[POSITION_LOCKED] =
-      !m_properties.value(POSITION_LOCKED).toBool();
+    m_properties[Properties::POSITION_LOCKED] =
+      !m_properties.value(Properties::POSITION_LOCKED).toBool();
 
   emit changed();
 }

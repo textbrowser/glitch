@@ -43,6 +43,13 @@ class glitch_object: public QWidget
   Q_OBJECT
 
  public:
+  enum DefaultMenuActions
+  {
+   DELETE = 0,
+   LOCK_POSITION,
+   SET_STYLE_SHEET
+  };
+
   enum Properties
   {
    POSITION_LOCKED = 0
