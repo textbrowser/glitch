@@ -685,19 +685,13 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
       bool began = false;
 
-      while(!m_movedPoints.isEmpty())
+      for(int i = 0; i < m_movedPoints.size(); i++)
 	{
-	  if(!m_movedPoints.first().second)
-	    {
-	      m_movedPoints.removeFirst();
-	      continue;
-	    }
-	  else if(m_movedPoints.first().first ==
-		  m_movedPoints.first().second->pos())
-	    {
-	      m_movedPoints.removeFirst();
-	      continue;
-	    }
+	  if(!m_movedPoints.at(i).second)
+	    continue;
+	  else if(m_movedPoints.at(i).first ==
+		  m_movedPoints.at(i).second->pos())
+	    continue;
 	  else if(!began)
 	    {
 	      began = true;
@@ -705,14 +699,15 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  glitch_undo_command *undoCommand = new glitch_undo_command
-	    (m_movedPoints.first().first,
+	    (m_movedPoints.at(i).first,
 	     glitch_undo_command::ITEM_MOVED,
-	     m_movedPoints.first().second,
+	     m_movedPoints.at(i).second,
 	     this);
 
-	  m_movedPoints.removeFirst();
 	  m_undoStack->push(undoCommand);
 	}
+
+      m_movedPoints.clear();
 
       if(began)
 	{

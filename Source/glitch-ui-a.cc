@@ -887,10 +887,10 @@ void glitch_ui::slotOpenDiagram(void)
       QStringList list(dialog.selectedFiles());
       bool ok = true;
 
-      while(!list.isEmpty())
+      for(int i = 0; i < list.size(); i++)
 	{
 	  QString error("");
-	  QString fileName(list.takeFirst());
+	  QString fileName(list.at(i));
 
 	  if(openDiagram(fileName, error))
 	    ok = true;
