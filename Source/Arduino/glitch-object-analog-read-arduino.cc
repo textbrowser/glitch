@@ -81,7 +81,7 @@ bool glitch_object_analog_read_arduino::isMandatory(void) const
   return false;
 }
 
-void glitch_object_analog_read_arduino::addActions(QMenu &menu) const
+void glitch_object_analog_read_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }

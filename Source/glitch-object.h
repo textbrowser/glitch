@@ -69,7 +69,7 @@ class glitch_object: public QWidget
   virtual bool isMandatory(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual glitch_object_view *editView(void) const;
-  virtual void addActions(QMenu &menu) const = 0;
+  virtual void addActions(QMenu &menu) = 0;
   virtual void addChild(const QPointF &point, glitch_object *object);
   virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
@@ -88,6 +88,7 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
 
  protected:
+  QHash<DefaultMenuActions, QAction *> m_actions;
   QHash<Properties, QVariant> m_properties;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_proxy_widget> m_proxy;
@@ -97,7 +98,8 @@ class glitch_object: public QWidget
   bool m_initialized;
   glitch_object_view *m_editView;
   quint64 m_id;
-  void addDefaultActions(QMenu &menu) const;
+  void addDefaultActions(QMenu &menu);
+  void createActions(void);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);

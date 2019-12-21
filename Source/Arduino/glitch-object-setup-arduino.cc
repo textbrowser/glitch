@@ -63,7 +63,7 @@ glitch_object_setup_arduino *glitch_object_setup_arduino::clone
   return new glitch_object_setup_arduino(parent);
 }
 
-void glitch_object_setup_arduino::addActions(QMenu &menu) const
+void glitch_object_setup_arduino::addActions(QMenu &menu)
 {
   menu.addAction(tr("&Edit..."),
 		 this,

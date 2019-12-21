@@ -66,7 +66,7 @@ clone(QWidget *parent) const
   return new glitch_object_loop_arduino(parent);
 }
 
-void glitch_object_loop_arduino::addActions(QMenu &menu) const
+void glitch_object_loop_arduino::addActions(QMenu &menu)
 {
   menu.addAction(tr("&Edit..."),
 		 this,

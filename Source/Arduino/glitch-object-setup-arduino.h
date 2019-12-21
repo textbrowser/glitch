@@ -46,7 +46,7 @@ class glitch_object_setup_arduino: public glitch_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   glitch_object_setup_arduino *clone(QWidget *parent) const;
-  void addActions(QMenu &menu) const;
+  void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:

@@ -44,7 +44,7 @@ class glitch_object_analog_read_arduino: public glitch_object
   bool hasView(void) const;
   bool isMandatory(void) const;
   glitch_object_analog_read_arduino *clone(QWidget *parent) const;
-  void addActions(QMenu &menu) const;
+  void addActions(QMenu &menu);
 
  private:
   Ui_glitch_object_analog_read_arduino m_ui;

@@ -175,7 +175,7 @@ glitch_object_view *glitch_object_function_arduino::editView(void) const
   return m_editView;
 }
 
-void glitch_object_function_arduino::addActions(QMenu &menu) const
+void glitch_object_function_arduino::addActions(QMenu &menu)
 {
   if(m_isFunctionClone)
     {
@@ -194,6 +194,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu) const
 		 this,
 		 SLOT(slotSetFunctionName(void)));
   addDefaultActions(menu);
+  m_actions.value(DefaultMenuActions::SET_STYLE_SHEET)->setEnabled(false);
 }
 
 void glitch_object_function_arduino::addChild

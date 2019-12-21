@@ -39,8 +39,7 @@
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 
-glitch_object::glitch_object(QWidget *parent):
-  QWidget(nullptr)
+glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 {
   m_initialized = false;
   m_properties[Properties::POSITION_LOCKED] = false;
@@ -72,8 +71,7 @@ glitch_object::glitch_object(QWidget *parent):
   m_parent = parent;
 }
 
-glitch_object::glitch_object(const quint64 id, QWidget *parent):
-  QWidget(nullptr)
+glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_editView = nullptr;
   m_id = id;
@@ -154,33 +152,58 @@ void glitch_object::addChild(const QPointF &point, glitch_object *object)
   Q_UNUSED(point);
 }
 
-void glitch_object::addDefaultActions(QMenu &menu) const
+void glitch_object::addDefaultActions(QMenu &menu)
 {
-  if(!menu.actions().isEmpty())
+  createActions();
+
+  if(!m_actions.isEmpty() && !menu.actions().isEmpty())
     menu.addSeparator();
 
-  QAction *action = nullptr;
+  QHashIterator<DefaultMenuActions, QAction *> it(m_actions);
 
-  action = menu.addAction(tr("&Delete"),
-			  this,
-			  SIGNAL(deletedViaContextMenu(void)));
-  action->setData(DefaultMenuActions::DELETE);
-  action->setEnabled(!isMandatory());
-  action = menu.addAction(tr("&Lock Position"),
-			  this,
-			  SLOT(slotLockPosition(void)));
-  action->setCheckable(true);
-  action->setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
-  action->setData(DefaultMenuActions::LOCK_POSITION);
-  action->setEnabled(!isMandatory());
-  action = menu.addAction(tr("&Set Style Sheet..."),
-			  this,
-			  SLOT(slotSetStyleSheet(void)));
-  action->setData(DefaultMenuActions::SET_STYLE_SHEET);
+  while(it.hasNext())
+    {
+      it.next();
+      menu.addAction(it.value());
+    }
 }
 
 void glitch_object::closeEditWindow(void)
 {
+}
+
+void glitch_object::createActions(void)
+{
+  if(!m_actions.isEmpty())
+    return;
+
+  QAction *action = nullptr;
+
+  action = new QAction(tr("&Delete"), this);
+  action->setData(DefaultMenuActions::DELETE);
+  action->setEnabled(!isMandatory());
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SIGNAL(deletedViaContextMenu(void)));
+  m_actions[DefaultMenuActions::DELETE] = action;
+  action = new QAction(tr("&Lock Position"), this);
+  action->setCheckable(true);
+  action->setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+  action->setData(DefaultMenuActions::LOCK_POSITION);
+  action->setEnabled(!isMandatory());
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotLockPosition(void)));
+  m_actions[DefaultMenuActions::LOCK_POSITION] = action;
+  action = new QAction(tr("&Set Style Sheet..."), this);
+  action->setData(DefaultMenuActions::SET_STYLE_SHEET);
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSetStyleSheet(void)));
+  m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
 }
 
 void glitch_object::move(const QPoint &point)

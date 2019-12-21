@@ -54,7 +54,7 @@ class glitch_object_function_arduino: public glitch_object
   glitch_object_view *editView(void) const;
   static glitch_object_function_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void addActions(QMenu &menu) const;
+  void addActions(QMenu &menu);
   void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);
   void save(const QSqlDatabase &db, QString &error);
