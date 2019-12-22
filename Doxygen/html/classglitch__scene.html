@@ -89,9 +89,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> (void)</t
 <tr class="memitem:a48731984e4ae99361492cef0214fd152"><td class="memItemLeft" align="right" valign="top"><a id="a48731984e4ae99361492cef0214fd152"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>functionAdded</b> (const QString &amp;name)</td></tr>
 <tr class="separator:a48731984e4ae99361492cef0214fd152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6181cb406ad60e8e7f4e875f86f0a6f3"><td class="memItemLeft" align="right" valign="top"><a id="a6181cb406ad60e8e7f4e875f86f0a6f3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>functionNameChanged</b> (const QString &amp;before, const QString &amp;after)</td></tr>
-<tr class="separator:a6181cb406ad60e8e7f4e875f86f0a6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b2197f2bb1fcc91477cffae022722e0"><td class="memItemLeft" align="right" valign="top"><a id="a1b2197f2bb1fcc91477cffae022722e0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>functionDeleted</b> (const QString &amp;name)</td></tr>
+<tr class="separator:a1b2197f2bb1fcc91477cffae022722e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89861ac9c73de8516e06cb4be2119f9f"><td class="memItemLeft" align="right" valign="top"><a id="a89861ac9c73de8516e06cb4be2119f9f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>functionNameChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
+<tr class="separator:a89861ac9c73de8516e06cb4be2119f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addf7f68844caf521d9c3dfc29a961489"><td class="memItemLeft" align="right" valign="top"><a id="addf7f68844caf521d9c3dfc29a961489"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sceneResized</b> (void)</td></tr>
 <tr class="separator:addf7f68844caf521d9c3dfc29a961489"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,12 +116,21 @@ QPointer&lt; QUndoStack &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <tr class="memitem:a180871b693b15efbf42ee9956a9bf6a9"><td class="memItemLeft" align="right" valign="top"><a id="a180871b693b15efbf42ee9956a9bf6a9"></a>
 <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (<a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a180871b693b15efbf42ee9956a9bf6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d293c7eaab242ec6d9162f6fbcff203"><td class="memItemLeft" align="right" valign="top"><a id="a5d293c7eaab242ec6d9162f6fbcff203"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addItem</b> (QGraphicsItem *item)</td></tr>
+<tr class="separator:a5d293c7eaab242ec6d9162f6fbcff203"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3da58e454f39f6990e743bd708ba5811"><td class="memItemLeft" align="right" valign="top"><a id="a3da58e454f39f6990e743bd708ba5811"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>artificialDrop</b> (const QPointF &amp;point, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a3da58e454f39f6990e743bd708ba5811"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc89f45890120c19d167fa3718a00fd2"><td class="memItemLeft" align="right" valign="top"><a id="acc89f45890120c19d167fa3718a00fd2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteItems</b> (void)</td></tr>
 <tr class="separator:acc89f45890120c19d167fa3718a00fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9437afae3189601e1c0327f911db9b73"><td class="memItemLeft" align="right" valign="top"><a id="a9437afae3189601e1c0327f911db9b73"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>purgeRedoUndoProxies</b> (void)</td></tr>
+<tr class="separator:a9437afae3189601e1c0327f911db9b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a894b56027fb64d208556e7339f4339ff"><td class="memItemLeft" align="right" valign="top"><a id="a894b56027fb64d208556e7339f4339ff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeItem</b> (QGraphicsItem *item)</td></tr>
+<tr class="separator:a894b56027fb64d208556e7339f4339ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d09cd272ae1817a1e01f52b8087ebe5"><td class="memItemLeft" align="right" valign="top"><a id="a3d09cd272ae1817a1e01f52b8087ebe5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMainScene</b> (const bool state)</td></tr>
 <tr class="separator:a3d09cd272ae1817a1e01f52b8087ebe5"><td class="memSeparator" colspan="2">&#160;</td></tr>

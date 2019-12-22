@@ -91,6 +91,7 @@ Public Types</h2></td></tr>
 <br />
 &#160;&#160;<b>ITEM_MOVED</b>, 
 <b>ITEM_RENAMED</b>, 
+<b>PROPERTY_CHANGED</b>, 
 <b>STYLESHEET_CHANGED</b>
 <br />
  }</td></tr>
@@ -104,9 +105,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a292c7890c0252d790db55d6452db40"><td class="memItemLeft" align="right" valign="top"><a id="a5a292c7890c0252d790db55d6452db40"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const QPointF &amp;previousPosition, const Types type, <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy, <a class="el" href="classglitch__scene.html">glitch_scene</a> *scene, QUndoCommand *parent=nullptr)</td></tr>
 <tr class="separator:a5a292c7890c0252d790db55d6452db40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83731e211e7657e13511c71209efa0f2"><td class="memItemLeft" align="right" valign="top"><a id="a83731e211e7657e13511c71209efa0f2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const QString &amp;previousFunctionName, const Types type, <a class="el" href="classglitch__object.html">glitch_object</a> *object, QUndoCommand *parent=nullptr)</td></tr>
-<tr class="separator:a83731e211e7657e13511c71209efa0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae2b971124e5871a1d5f8929b07abe0b"><td class="memItemLeft" align="right" valign="top"><a id="aae2b971124e5871a1d5f8929b07abe0b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const QString &amp;previousFunctionName, const Types type, <a class="el" href="classglitch__object.html">glitch_object</a> *object, <a class="el" href="classglitch__user__functions.html">glitch_user_functions</a> *userFunctions, QUndoCommand *parent=nullptr)</td></tr>
+<tr class="separator:aae2b971124e5871a1d5f8929b07abe0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1535600f1b53ba20db2e34525c1f6a2"><td class="memItemLeft" align="right" valign="top"><a id="ae1535600f1b53ba20db2e34525c1f6a2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const QString &amp;previousStyleSheet, const Types type, <a class="el" href="classglitch__object.html">glitch_object</a> *object, QUndoCommand *parent=nullptr)</td></tr>
+<tr class="separator:ae1535600f1b53ba20db2e34525c1f6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4759408b32f14dd74fa01dccbc2c06"><td class="memItemLeft" align="right" valign="top"><a id="afe4759408b32f14dd74fa01dccbc2c06"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const QVariant &amp;currentProperty, const QVariant &amp;previousProperty, const Types type, const glitch_object::Properties property, <a class="el" href="classglitch__object.html">glitch_object</a> *object, QUndoCommand *parent=nullptr)</td></tr>
+<tr class="separator:afe4759408b32f14dd74fa01dccbc2c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77e8dbffd7aee96b7aae906a7a678663"><td class="memItemLeft" align="right" valign="top"><a id="a77e8dbffd7aee96b7aae906a7a678663"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const Types type, <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy, <a class="el" href="classglitch__scene.html">glitch_scene</a> *scene, QUndoCommand *parent=nullptr)</td></tr>
 <tr class="separator:a77e8dbffd7aee96b7aae906a7a678663"><td class="memSeparator" colspan="2">&#160;</td></tr>

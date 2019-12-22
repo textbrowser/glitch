@@ -84,9 +84,9 @@ Collaboration diagram for glitch_object_function_arduino:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
-<tr class="memitem:a07d5f44463813e75098c62014da1df00"><td class="memItemLeft" align="right" valign="top"><a id="a07d5f44463813e75098c62014da1df00"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>nameChanged</b> (const QString &amp;before, const QString &amp;after)</td></tr>
-<tr class="separator:a07d5f44463813e75098c62014da1df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6c8221a7d96a5ac55a9ea96de1a0628"><td class="memItemLeft" align="right" valign="top"><a id="af6c8221a7d96a5ac55a9ea96de1a0628"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nameChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
+<tr class="separator:af6c8221a7d96a5ac55a9ea96de1a0628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header signals_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('signals_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Signals inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
 <tr class="memitem:a34c0fae71b78d15da73a48a7f38bb567 inherit signals_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a34c0fae71b78d15da73a48a7f38bb567"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>changed</b> (void)</td></tr>
@@ -121,9 +121,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void
 <tr class="memitem:a48a5842a202bbd2d246b7da154f860c8"><td class="memItemLeft" align="right" valign="top"><a id="a48a5842a202bbd2d246b7da154f860c8"></a>
 <a class="el" href="classglitch__object__view.html">glitch_object_view</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>editView</b> (void) const</td></tr>
 <tr class="separator:a48a5842a202bbd2d246b7da154f860c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82741cf8d40d7b10d7e576310edc8389"><td class="memItemLeft" align="right" valign="top"><a id="a82741cf8d40d7b10d7e576310edc8389"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addActions</b> (QMenu &amp;menu) const</td></tr>
-<tr class="separator:a82741cf8d40d7b10d7e576310edc8389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aa498f5428e81f7a4fb1185dd2b2ce1"><td class="memItemLeft" align="right" valign="top"><a id="a3aa498f5428e81f7a4fb1185dd2b2ce1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addActions</b> (QMenu &amp;menu)</td></tr>
+<tr class="separator:a3aa498f5428e81f7a4fb1185dd2b2ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd6530044d50ac3a551234ff82492e3a"><td class="memItemLeft" align="right" valign="top"><a id="abd6530044d50ac3a551234ff82492e3a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (const QPointF &amp;point, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:abd6530044d50ac3a551234ff82492e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +133,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>closeEditWindow</b> (
 <tr class="memitem:abff644358952960f044c5b4f062f51f5"><td class="memItemLeft" align="right" valign="top"><a id="abff644358952960f044c5b4f062f51f5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
 <tr class="separator:abff644358952960f044c5b4f062f51f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8359f2a52fc50a34976adb5ac655356"><td class="memItemLeft" align="right" valign="top"><a id="af8359f2a52fc50a34976adb5ac655356"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const QString &amp;name)</td></tr>
+<tr class="separator:af8359f2a52fc50a34976adb5ac655356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
 <tr class="memitem:a8d6fdce9a033a95fce6a1732de801979 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a8d6fdce9a033a95fce6a1732de801979"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object</b> (QWidget *parent)</td></tr>
@@ -149,9 +152,15 @@ QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_w
 <tr class="memitem:a2b2cf0a8c2bf37652f1d0bf1c032ca63 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a2b2cf0a8c2bf37652f1d0bf1c032ca63"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> (void) const</td></tr>
 <tr class="separator:a2b2cf0a8c2bf37652f1d0bf1c032ca63 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26172c7ba03d7690cfc9cc0cf1171a6c inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a26172c7ba03d7690cfc9cc0cf1171a6c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>positionLocked</b> (void) const</td></tr>
+<tr class="separator:a26172c7ba03d7690cfc9cc0cf1171a6c inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a533b64c65befdba3791f7c02723f4419 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a533b64c65befdba3791f7c02723f4419"></a>
 quint64&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> (void) const</td></tr>
 <tr class="separator:a533b64c65befdba3791f7c02723f4419 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0796100478244f963a3ae328d21c1d2 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af0796100478244f963a3ae328d21c1d2"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const Properties property, const QVariant &amp;value)</td></tr>
+<tr class="separator:af0796100478244f963a3ae328d21c1d2 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae64b8d2c685e5409fbb1edd3ed6f4fb6 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ae64b8d2c685e5409fbb1edd3ed6f4fb6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (const QPoint &amp;point)</td></tr>
 <tr class="separator:ae64b8d2c685e5409fbb1edd3ed6f4fb6 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,18 +186,48 @@ static <a class="el" href="classglitch__object.html">glitch_object</a> *&#160;</
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
+<tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <b>DELETE</b> = 0, 
+<b>LOCK_POSITION</b>, 
+<b>SET_STYLE_SHEET</b>
+ }</td></tr>
+<tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <b>POSITION_LOCKED</b> = 0
+ }</td></tr>
+<tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_slots_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pro_slots_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Protected Slots inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
 <tr class="memitem:a45696aacc17b921b7e39721d76f9aeba inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a45696aacc17b921b7e39721d76f9aeba"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSetStyleSheet</b> (void)</td></tr>
 <tr class="separator:a45696aacc17b921b7e39721d76f9aeba inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
-<tr class="memitem:a0bccba26fb10e38b8a30796979e4a1f6 inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a0bccba26fb10e38b8a30796979e4a1f6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b> (QMenu &amp;menu) const</td></tr>
-<tr class="separator:a0bccba26fb10e38b8a30796979e4a1f6 inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943af83d4f46d3fd863baf105d5e4fff inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a943af83d4f46d3fd863baf105d5e4fff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b> (QMenu &amp;menu)</td></tr>
+<tr class="separator:a943af83d4f46d3fd863baf105d5e4fff inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41dbdeb609b7904a56fbf4f0877c4e4f inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a41dbdeb609b7904a56fbf4f0877c4e4f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createActions</b> (void)</td></tr>
+<tr class="separator:a41dbdeb609b7904a56fbf4f0877c4e4f inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5602c2e074a323a5b04d5fd792704c08 inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a5602c2e074a323a5b04d5fd792704c08"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>saveProperties</b> (const QMap&lt; QString, QVariant &gt; &amp;p, const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
+<tr class="separator:a5602c2e074a323a5b04d5fd792704c08 inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7461248c85d7e703c08a6ea428b1734b inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7461248c85d7e703c08a6ea428b1734b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperties</b> (const QStringList &amp;list)</td></tr>
+<tr class="separator:a7461248c85d7e703c08a6ea428b1734b inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
+<tr class="memitem:ae43561306183f7ef6716b0806d64fb2d inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ae43561306183f7ef6716b0806d64fb2d"></a>
+QHash&lt; DefaultMenuActions, QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_actions</b></td></tr>
+<tr class="separator:ae43561306183f7ef6716b0806d64fb2d inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ab93023536ce7b059250efa356345e inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a84ab93023536ce7b059250efa356345e"></a>
+QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>
+<tr class="separator:a84ab93023536ce7b059250efa356345e inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"></a>
+QPointer&lt; QUndoStack &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_undoStack</b></td></tr>
+<tr class="separator:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59a7cf1c121ec4ae7931dcf1ad235a29 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a59a7cf1c121ec4ae7931dcf1ad235a29"></a>
 QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_proxy</b></td></tr>
 <tr class="separator:a59a7cf1c121ec4ae7931dcf1ad235a29 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1efe91b44ed18ab30b6b80f095a2b635 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a1efe91b44ed18ab30b6b80f095a2b635"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
+<tr class="separator:a1efe91b44ed18ab30b6b80f095a2b635 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81b259e45fc7be1ccc1b47f8e534a84 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ae81b259e45fc7be1ccc1b47f8e534a84"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:ae81b259e45fc7be1ccc1b47f8e534a84 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>

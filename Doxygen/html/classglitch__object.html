@@ -59,6 +59,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
@@ -85,6 +86,17 @@ Collaboration diagram for glitch_object:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <b>DELETE</b> = 0, 
+<b>LOCK_POSITION</b>, 
+<b>SET_STYLE_SHEET</b>
+ }</td></tr>
+<tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <b>POSITION_LOCKED</b> = 0
+ }</td></tr>
+<tr class="separator:ad2728ee4f22086b4ae78940ac262885a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a34c0fae71b78d15da73a48a7f38bb567"><td class="memItemLeft" align="right" valign="top"><a id="a34c0fae71b78d15da73a48a7f38bb567"></a>
@@ -102,9 +114,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c797e31e90681a971604ddc2566479b"><td class="memItemLeft" align="right" valign="top"><a id="a6c797e31e90681a971604ddc2566479b"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object</b> (const quint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a6c797e31e90681a971604ddc2566479b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45033d39c3e367acc48e8a348bbac6c3"><td class="memItemLeft" align="right" valign="top"><a id="a45033d39c3e367acc48e8a348bbac6c3"></a>
-virtual <a class="el" href="classglitch__object.html">glitch_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (QWidget *parent) const =0</td></tr>
-<tr class="separator:a45033d39c3e367acc48e8a348bbac6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ee7f862fc116de2627ed01596463278"><td class="memItemLeft" align="right" valign="top"><a id="a9ee7f862fc116de2627ed01596463278"></a>
 QPointF&#160;</td><td class="memItemRight" valign="bottom"><b>scenePos</b> (void) const</td></tr>
 <tr class="separator:a9ee7f862fc116de2627ed01596463278"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,21 +123,30 @@ QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_w
 <tr class="memitem:a2b2cf0a8c2bf37652f1d0bf1c032ca63"><td class="memItemLeft" align="right" valign="top"><a id="a2b2cf0a8c2bf37652f1d0bf1c032ca63"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> (void) const</td></tr>
 <tr class="separator:a2b2cf0a8c2bf37652f1d0bf1c032ca63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26172c7ba03d7690cfc9cc0cf1171a6c"><td class="memItemLeft" align="right" valign="top"><a id="a26172c7ba03d7690cfc9cc0cf1171a6c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>positionLocked</b> (void) const</td></tr>
+<tr class="separator:a26172c7ba03d7690cfc9cc0cf1171a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a533b64c65befdba3791f7c02723f4419"><td class="memItemLeft" align="right" valign="top"><a id="a533b64c65befdba3791f7c02723f4419"></a>
 quint64&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> (void) const</td></tr>
 <tr class="separator:a533b64c65befdba3791f7c02723f4419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60708a56b7abbfed3d93fa10cab00af2"><td class="memItemLeft" align="right" valign="top"><a id="a60708a56b7abbfed3d93fa10cab00af2"></a>
+virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
+<tr class="separator:a60708a56b7abbfed3d93fa10cab00af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5128bb1ea2badb3a4cc1527933e6b22"><td class="memItemLeft" align="right" valign="top"><a id="af5128bb1ea2badb3a4cc1527933e6b22"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasView</b> (void) const =0</td></tr>
 <tr class="separator:af5128bb1ea2badb3a4cc1527933e6b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b1535642e92dd80fc6f063885d3b9b1"><td class="memItemLeft" align="right" valign="top"><a id="a3b1535642e92dd80fc6f063885d3b9b1"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void) const =0</td></tr>
 <tr class="separator:a3b1535642e92dd80fc6f063885d3b9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45033d39c3e367acc48e8a348bbac6c3"><td class="memItemLeft" align="right" valign="top"><a id="a45033d39c3e367acc48e8a348bbac6c3"></a>
+virtual <a class="el" href="classglitch__object.html">glitch_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (QWidget *parent) const =0</td></tr>
+<tr class="separator:a45033d39c3e367acc48e8a348bbac6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecdf3d1b5be6e07eacf11b7b642e2382"><td class="memItemLeft" align="right" valign="top"><a id="aecdf3d1b5be6e07eacf11b7b642e2382"></a>
 virtual <a class="el" href="classglitch__object__view.html">glitch_object_view</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>editView</b> (void) const</td></tr>
 <tr class="separator:aecdf3d1b5be6e07eacf11b7b642e2382"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad87645b1ff4246c5fefb729717bbfd0b"><td class="memItemLeft" align="right" valign="top"><a id="ad87645b1ff4246c5fefb729717bbfd0b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addActions</b> (QMenu &amp;menu) const =0</td></tr>
-<tr class="separator:ad87645b1ff4246c5fefb729717bbfd0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b87b0c5742c894babe92b22911eab85"><td class="memItemLeft" align="right" valign="top"><a id="a9b87b0c5742c894babe92b22911eab85"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addActions</b> (QMenu &amp;menu)=0</td></tr>
+<tr class="separator:a9b87b0c5742c894babe92b22911eab85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85a9cf5bcd5203ce77a5b2eaf59de1fd"><td class="memItemLeft" align="right" valign="top"><a id="a85a9cf5bcd5203ce77a5b2eaf59de1fd"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (const QPointF &amp;point, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a85a9cf5bcd5203ce77a5b2eaf59de1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,6 +156,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>closeEditWind
 <tr class="memitem:aa879064e7621d945c0dab1d26b83c917"><td class="memItemLeft" align="right" valign="top"><a id="aa879064e7621d945c0dab1d26b83c917"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
 <tr class="separator:aa879064e7621d945c0dab1d26b83c917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1ff80909b45eb23fa41ad492022f21c"><td class="memItemLeft" align="right" valign="top"><a id="ad1ff80909b45eb23fa41ad492022f21c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const QString &amp;name)</td></tr>
+<tr class="separator:ad1ff80909b45eb23fa41ad492022f21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0796100478244f963a3ae328d21c1d2"><td class="memItemLeft" align="right" valign="top"><a id="af0796100478244f963a3ae328d21c1d2"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const Properties property, const QVariant &amp;value)</td></tr>
+<tr class="separator:af0796100478244f963a3ae328d21c1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae64b8d2c685e5409fbb1edd3ed6f4fb6"><td class="memItemLeft" align="right" valign="top"><a id="ae64b8d2c685e5409fbb1edd3ed6f4fb6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (const QPoint &amp;point)</td></tr>
 <tr class="separator:ae64b8d2c685e5409fbb1edd3ed6f4fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,15 +189,36 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSetStyleSheet</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a0bccba26fb10e38b8a30796979e4a1f6"><td class="memItemLeft" align="right" valign="top"><a id="a0bccba26fb10e38b8a30796979e4a1f6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b> (QMenu &amp;menu) const</td></tr>
-<tr class="separator:a0bccba26fb10e38b8a30796979e4a1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a943af83d4f46d3fd863baf105d5e4fff"><td class="memItemLeft" align="right" valign="top"><a id="a943af83d4f46d3fd863baf105d5e4fff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b> (QMenu &amp;menu)</td></tr>
+<tr class="separator:a943af83d4f46d3fd863baf105d5e4fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41dbdeb609b7904a56fbf4f0877c4e4f"><td class="memItemLeft" align="right" valign="top"><a id="a41dbdeb609b7904a56fbf4f0877c4e4f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createActions</b> (void)</td></tr>
+<tr class="separator:a41dbdeb609b7904a56fbf4f0877c4e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5602c2e074a323a5b04d5fd792704c08"><td class="memItemLeft" align="right" valign="top"><a id="a5602c2e074a323a5b04d5fd792704c08"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>saveProperties</b> (const QMap&lt; QString, QVariant &gt; &amp;p, const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
+<tr class="separator:a5602c2e074a323a5b04d5fd792704c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7461248c85d7e703c08a6ea428b1734b"><td class="memItemLeft" align="right" valign="top"><a id="a7461248c85d7e703c08a6ea428b1734b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperties</b> (const QStringList &amp;list)</td></tr>
+<tr class="separator:a7461248c85d7e703c08a6ea428b1734b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:ae43561306183f7ef6716b0806d64fb2d"><td class="memItemLeft" align="right" valign="top"><a id="ae43561306183f7ef6716b0806d64fb2d"></a>
+QHash&lt; DefaultMenuActions, QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_actions</b></td></tr>
+<tr class="separator:ae43561306183f7ef6716b0806d64fb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ab93023536ce7b059250efa356345e"><td class="memItemLeft" align="right" valign="top"><a id="a84ab93023536ce7b059250efa356345e"></a>
+QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>
+<tr class="separator:a84ab93023536ce7b059250efa356345e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"><td class="memItemLeft" align="right" valign="top"><a id="aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"></a>
+QPointer&lt; QUndoStack &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_undoStack</b></td></tr>
+<tr class="separator:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59a7cf1c121ec4ae7931dcf1ad235a29"><td class="memItemLeft" align="right" valign="top"><a id="a59a7cf1c121ec4ae7931dcf1ad235a29"></a>
 QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_proxy</b></td></tr>
 <tr class="separator:a59a7cf1c121ec4ae7931dcf1ad235a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1efe91b44ed18ab30b6b80f095a2b635"><td class="memItemLeft" align="right" valign="top"><a id="a1efe91b44ed18ab30b6b80f095a2b635"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
+<tr class="separator:a1efe91b44ed18ab30b6b80f095a2b635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81b259e45fc7be1ccc1b47f8e534a84"><td class="memItemLeft" align="right" valign="top"><a id="ae81b259e45fc7be1ccc1b47f8e534a84"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:ae81b259e45fc7be1ccc1b47f8e534a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
