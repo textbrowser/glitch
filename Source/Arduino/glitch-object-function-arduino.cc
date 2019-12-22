@@ -166,8 +166,6 @@ createFromValues
 
   if(object->m_isFunctionClone)
     object->setStyleSheet(values.value("stylesheet").toString());
-  else
-    object->setStyleSheet("QWidget {border: 2px solid blue;}");
 
   return object;
 }
@@ -241,6 +239,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(closed(void)),
 	  m_editView,
 	  SLOT(slotParentWindowClosed(void)));
+  setStyleSheet("QWidget {border: 2px solid #000080;}");
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)

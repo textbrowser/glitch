@@ -160,7 +160,7 @@ void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
 {
   QMenu menu(this);
 
-  menu.addAction(tr("&Alignment..."),
+  menu.addAction(tr("&Alignment Tool..."),
 		 m_alignment,
 		 SLOT(show(void)));
   menu.exec(mapToGlobal(point));
