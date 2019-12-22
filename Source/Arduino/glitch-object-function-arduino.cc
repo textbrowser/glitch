@@ -166,6 +166,8 @@ createFromValues
 
   if(object->m_isFunctionClone)
     object->setStyleSheet(values.value("stylesheet").toString());
+  else
+    object->setStyleSheet("QWidget {border: 2px solid blue;}");
 
   return object;
 }
