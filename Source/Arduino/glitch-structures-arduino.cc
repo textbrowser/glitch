@@ -226,9 +226,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "shiftOut()"
 	     << "tone()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -238,9 +238,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "analogReference()"
 	     << "analogWrite()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -253,9 +253,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "multiplication (*)"
 	     << "subtraction (-)";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -269,9 +269,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "highByte()"
 	     << "lowByte()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -284,9 +284,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "right shift (>>)"
 	     << "xor (^)";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -299,9 +299,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "less than or equal to (<=)"
 	     << "not equal to (!=)";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -317,9 +317,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "multiplication (*=)"
 	     << "subtraction (-=)";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -334,9 +334,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "false"
 	     << "true";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -349,9 +349,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "long()"
 	     << "word()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -361,9 +361,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "digitalWrite()"
 	     << "pinMode()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -372,9 +372,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "attachInterrupt()"
 	     << "detachInterrupt()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -391,9 +391,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "switch case"
 	     << "while loop";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -402,9 +402,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "interrupts()"
 	     << "noInterrupts()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -414,9 +414,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "not (!)"
 	     << "or (||)";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -430,9 +430,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "pow()"
 	     << "sqrt()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -441,9 +441,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "random()"
 	     << "randomSeed()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -452,9 +452,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "Serial.begin()"
 	     << "Serial.println()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -463,9 +463,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "block comment"
 	     << "function()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -476,9 +476,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "micros()"
 	     << "millis()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -488,9 +488,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "sin()"
 	     << "tan()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -499,9 +499,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "PROGMEM"
 	     << "sizeof()";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
@@ -521,11 +521,11 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "unsigned long"
 	     << "word";
 
-	while(!list.isEmpty())
+	for(int i = 0; i < list.size(); i++)
 	  if(list.first() == "array")
 	    {
 	      QTreeWidgetItem *item = new QTreeWidgetItem
-		(QStringList() << list.takeFirst());
+		(QStringList() << list.at(i));
 
 	      m_ui.tree->addTopLevelItem(item);
 
@@ -535,7 +535,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	    }
 	  else
 	    m_ui.tree->addTopLevelItem
-	      (new QTreeWidgetItem(QStringList() << list.takeFirst()));
+	      (new QTreeWidgetItem(QStringList() << list.at(i)));
 
 	break;
       }
