@@ -20,6 +20,7 @@ Completed Items
 - Copy & paste.
 - Define databases.
 - Depict changed pages. Window titles, etc.
+- Depict main functions via immutable themes.
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
 - Display main() function. Fixed position? Yes.
@@ -70,7 +71,6 @@ Remaining Items
 - Add widget actions to Edit menu. No. Instead, ALT key and the
   primary mouse button should display the object's context menu.
 - All of Arduino's objects.
-- Depict main functions via immutable themes.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
