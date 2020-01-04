@@ -32,8 +32,8 @@ glitch_style_sheet::glitch_style_sheet(QWidget *parent):QDialog(parent)
   m_ui.setupUi(this);
   m_ui.buttonBox->setEnabled(false);
   m_ui.preview->setEnabled(false);
+  m_ui.style_sheet->setPlainText(tr("Glitch error. m_widget is zero."));
   m_ui.style_sheet->setReadOnly(true);
-  m_ui.style_sheet->setText(tr("Glitch error. m_widget is zero."));
   m_widget = nullptr;
   connect(m_ui.preview,
 	  SIGNAL(clicked(void)),
@@ -58,13 +58,13 @@ void glitch_style_sheet::setWidget(QWidget *widget)
 
   if(m_widget)
     {
+      m_ui.style_sheet->setPlainText(m_widget->styleSheet());
       m_ui.style_sheet->setReadOnly(false);
-      m_ui.style_sheet->setText(m_widget->styleSheet());
     }
   else
     {
+      m_ui.style_sheet->setPlainText(tr("Glitch error. m_widget is zero."));
       m_ui.style_sheet->setReadOnly(true);
-      m_ui.style_sheet->setText(tr("Glitch error. m_widget is zero."));
     }
 }
 
