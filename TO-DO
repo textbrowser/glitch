@@ -4,6 +4,8 @@ Completed Items
   Drag and drop support.
 - Add --open-arduino-diagram option.
 - Add newly-created projects to Recent Files menu.
+- Add widget actions to Edit menu. No. Instead, Shift key and the
+  primary mouse button should display the object's context menu.
 - Alignment panel. The panel must allow interaction with separated windows.
   Per diagram.
 - Allow opening of multiple files.
@@ -68,8 +70,6 @@ Ignored Items
 
 Remaining Items
 
-- Add widget actions to Edit menu. No. Instead, ALT key and the
-  primary mouse button should display the object's context menu.
 - All of Arduino's objects.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single

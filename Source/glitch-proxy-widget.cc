@@ -69,6 +69,8 @@ void glitch_proxy_widget::contextMenuEvent
 
       if(object)
 	{
+	  setSelected(false);
+
 	  QMenu menu;
 
 	  object->addActions(menu);
@@ -83,7 +85,22 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  Q_UNUSED(event);
+  if(event &&
+     event->button() == Qt::LeftButton &&
+     event->modifiers() & Qt::ShiftModifier)
+    {
+      setSelected(false);
+
+      glitch_object *object = qobject_cast<glitch_object *> (widget());
+
+      if(object)
+	{
+	  QMenu menu;
+
+	  object->addActions(menu);
+	  menu.exec(event->screenPos());
+	}
+    }
 }
 
 void glitch_proxy_widget::paint
