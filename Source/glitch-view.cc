@@ -131,6 +131,10 @@ glitch_view::glitch_view
 	  SIGNAL(mouseLeaveEvent(void)),
 	  this,
 	  SIGNAL(mouseLeaveEvent(void)));
+  connect(m_view,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,

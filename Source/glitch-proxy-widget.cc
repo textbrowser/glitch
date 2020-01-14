@@ -89,6 +89,7 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
      event->button() == Qt::LeftButton &&
      event->modifiers() & Qt::ShiftModifier)
     {
+      QGraphicsProxyWidget::mousePressEvent(event);
       setSelected(false);
 
       glitch_object *object = qobject_cast<glitch_object *> (widget());

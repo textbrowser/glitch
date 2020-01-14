@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMouseEvent>
+
 #include "glitch-graphicsview.h"
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):
@@ -42,4 +44,17 @@ void glitch_graphicsview::leaveEvent(QEvent *event)
 {
   QGraphicsView::leaveEvent(event);
   emit mouseLeaveEvent();
+}
+
+void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
+{
+  QGraphicsView::mousePressEvent(event);
+
+  if(event &&
+     event->button() == Qt::LeftButton &&
+     event->modifiers() & Qt::ShiftModifier &&
+     scene())
+    if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
+      emit customContextMenuRequested
+	(event ? mapToParent(event->pos()) : QPoint());
 }
