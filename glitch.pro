@@ -34,7 +34,7 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Wstack-protector -Wstrict-overflow=5
 }
 
-QMAKE_DISTCLEAN += -r html -r latex -r temp
+QMAKE_DISTCLEAN += -r .qmake* -r html -r latex -r temp
 QMAKE_EXTRA_TARGETS = doxygen purge
 QMAKE_STRIP	= echo
 
