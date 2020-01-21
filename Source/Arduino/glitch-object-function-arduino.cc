@@ -329,7 +329,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
   dialog.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   dialog.setWindowTitle(tr("Glitch: Set Function Name"));
 
-  QLineEdit *lineEdit = dialog.findChild<QLineEdit *> ();
+  auto *lineEdit = dialog.findChild<QLineEdit *> ();
 
   if(lineEdit)
     {

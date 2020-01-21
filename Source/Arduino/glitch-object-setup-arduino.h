@@ -52,7 +52,7 @@ class glitch_object_setup_arduino: public glitch_object
  private:
   QPointer<glitch_object_edit_window> m_editWindow;
   Ui_glitch_object_setup_arduino m_ui;
-  void initialize(QWidget *widget);
+  void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
