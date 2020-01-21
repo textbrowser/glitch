@@ -45,7 +45,7 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 {
   if(event)
     {
-      glitch_view *view = qobject_cast<glitch_view *> (centralWidget());
+      auto *view = qobject_cast<glitch_view *> (centralWidget());
 
       if(view && view->hasChanged())
 	{
@@ -95,7 +95,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 
 void glitch_separated_diagram_window::slotPageChanged(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (sender());
+  auto *view = qobject_cast<glitch_view *> (sender());
 
   if(view)
     {

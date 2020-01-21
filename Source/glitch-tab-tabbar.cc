@@ -111,12 +111,12 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
 {
-  glitch_tab *tab = qobject_cast<glitch_tab *> (parentWidget());
+  auto *tab = qobject_cast<glitch_tab *> (parentWidget());
 
   if(!tab)
     return;
 
-  glitch_view *view = qobject_cast<glitch_view *> (tab->widget(tabAt(point)));
+  auto *view = qobject_cast<glitch_view *> (tab->widget(tabAt(point)));
 
   if(!view)
     return;

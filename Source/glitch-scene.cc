@@ -57,10 +57,9 @@ QList<glitch_object *> glitch_scene::objects(void) const
   QList<QGraphicsItem *> list(items());
   QList<glitch_object *> widgets;
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
 	continue;
@@ -76,10 +75,9 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   QList<QGraphicsItem *> list(items());
   QList<glitch_object *> widgets;
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy ||
 	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
@@ -148,8 +146,7 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	      }
 	    }
 
-	  QTableWidget *tableWidget = qobject_cast<QTableWidget *>
-	    (event->source());
+	  auto *tableWidget = qobject_cast<QTableWidget *> (event->source());
 
 	  if(tableWidget)
 	    {
@@ -228,7 +225,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
 {
   QGraphicsScene::addItem(item);
 
-  glitch_proxy_widget *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
   if(m_redoUndoProxies.contains(proxy) && proxy)
     m_redoUndoProxies[proxy] = 0;
@@ -265,10 +262,9 @@ void glitch_scene::deleteItems(void)
   if(m_undoStack)
     m_undoStack->beginMacro(tr("widget(s) deleted"));
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
@@ -284,7 +280,7 @@ void glitch_scene::deleteItems(void)
 	      (qobject_cast
 	       <glitch_object_function_arduino *> (proxy->widget())->name());
 
-	  glitch_undo_command *undoCommand = new glitch_undo_command
+	  auto *undoCommand = new glitch_undo_command
 	    (glitch_undo_command::ITEM_DELETED, proxy, this);
 
 	  m_undoStack->push(undoCommand);
@@ -414,7 +410,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    {
 	      if(m_undoStack)
 		{
-		  glitch_undo_command *undoCommand = new glitch_undo_command
+		  auto *undoCommand = new glitch_undo_command
 		    (glitch_undo_command::ITEM_ADDED, proxy, this);
 
 		  undoCommand->setText
@@ -468,16 +464,14 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    view->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
 	  }
 
-	for(int i = 0; i < list.size(); i++)
+	for(auto i : list)
 	  {
-	    glitch_proxy_widget *proxy =
-	      qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+	    auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	    if(!proxy || !proxy->isMovable())
 	      continue;
 
-	    glitch_object *widget =
-	      qobject_cast<glitch_object *> (proxy->widget());
+	    auto *widget = qobject_cast<glitch_object *> (proxy->widget());
 
 	    if(!widget)
 	      continue;
@@ -534,7 +528,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 		if(m_undoStack)
 		  {
-		    glitch_undo_command *undoCommand = new glitch_undo_command
+		    auto *undoCommand = new glitch_undo_command
 		      (previousPosition,
 		       glitch_undo_command::ITEM_MOVED,
 		       proxy,
@@ -577,10 +571,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
       QList<QGraphicsItem *> list(selectedItems());
       bool moved = false;
 
-      for(int i = 0; i < list.size(); i++)
+      for(auto i : list)
 	{
-	  glitch_proxy_widget *proxy =
-	    qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	  if(!proxy || !proxy->isMovable())
 	    continue;
@@ -654,10 +647,9 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      QList<QGraphicsItem *> list(selectedItems());
 
-	      for(int i = 0; i < list.size(); i++)
+	      for(auto i : list)
 		{
-		  glitch_proxy_widget *proxy =
-		    qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+		  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 		  if(!proxy || !proxy->isMovable())
 		    continue;
@@ -685,12 +677,12 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
       bool began = false;
 
-      for(int i = 0; i < m_movedPoints.size(); i++)
+      for(const auto & m_movedPoint : m_movedPoints)
 	{
-	  if(!m_movedPoints.at(i).second)
+	  if(!m_movedPoint.second)
 	    continue;
-	  else if(m_movedPoints.at(i).first ==
-		  m_movedPoints.at(i).second->pos())
+	  else if(m_movedPoint.first ==
+		  m_movedPoint.second->pos())
 	    continue;
 	  else if(!began)
 	    {
@@ -698,10 +690,10 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	      m_undoStack->beginMacro(tr("widget(s) moved"));
 	    }
 
-	  glitch_undo_command *undoCommand = new glitch_undo_command
-	    (m_movedPoints.at(i).first,
+	  auto *undoCommand = new glitch_undo_command
+	    (m_movedPoint.first,
 	     glitch_undo_command::ITEM_MOVED,
-	     m_movedPoints.at(i).second,
+	     m_movedPoint.second,
 	     this);
 
 	  m_undoStack->push(undoCommand);
@@ -756,7 +748,7 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 {
   QGraphicsScene::removeItem(item);
 
-  glitch_proxy_widget *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
   if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
     emit functionDeleted
@@ -776,7 +768,7 @@ void glitch_scene::setUndoStack(QUndoStack *undoStack)
 
 void glitch_scene::slotObjectDeletedViaContextMenu(void)
 {
-  glitch_object *object = qobject_cast<glitch_object *> (sender());
+  auto *object = qobject_cast<glitch_object *> (sender());
 
   if(!object)
     return;

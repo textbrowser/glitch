@@ -54,8 +54,7 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 {
   if(event)
     {
-      glitch_object_view *view = qobject_cast<glitch_object_view *>
-	(centralWidget());
+      auto *view = qobject_cast<glitch_object_view *> (centralWidget());
 
       if(view)
 	view->setSceneRect(event->size());

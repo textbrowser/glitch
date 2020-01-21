@@ -52,7 +52,8 @@ class glitch_object: public QWidget
 
   enum Properties
   {
-   POSITION_LOCKED = 0
+   POSITION_LOCKED = 0,
+   XYZ_PROPERTY
   };
 
   glitch_object(QWidget *parent);

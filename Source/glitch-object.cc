@@ -381,7 +381,7 @@ void glitch_object::slotSetStyleSheet(void)
 
       if(m_undoStack)
 	{
-	  glitch_undo_command *undoCommand = new glitch_undo_command
+	  auto *undoCommand = new glitch_undo_command
 	    (string, glitch_undo_command::STYLESHEET_CHANGED, this);
 
 	  undoCommand->setText

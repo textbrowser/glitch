@@ -66,8 +66,8 @@ class glitch_ui: public QMainWindow
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);
   void saveSettings(void);
-  void setTabText(glitch_view *page);
-  void setWindowTitle(glitch_view *page);
+  void setTabText(glitch_view *view);
+  void setWindowTitle(glitch_view *view);
 
  private slots:
   void slotAboutToShowTabsMenu(void);

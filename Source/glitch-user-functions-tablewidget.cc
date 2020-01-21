@@ -57,8 +57,8 @@ void glitch_user_functions_tablewidget::startDrag
   if(!item)
     return;
 
-  QDrag *drag = new QDrag(this);
-  QMimeData *mimeData = new QMimeData();
+  auto *drag = new QDrag(this);
+  auto *mimeData = new QMimeData();
 
   if(m_projectType == glitch_common::ArduinoProject)
     mimeData->setText("glitch-arduino-function-" + item->text());

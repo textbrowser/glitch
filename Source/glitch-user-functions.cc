@@ -56,7 +56,7 @@ void glitch_user_functions::addFunction(const QString &name)
 
   if(!found)
     {
-      QTableWidgetItem *item = new QTableWidgetItem(name);
+      auto *item = new QTableWidgetItem(name);
 
       item->setData(Qt::UserRole, "glitch-user-function");
       item->setFlags

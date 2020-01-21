@@ -116,16 +116,14 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
 
   QList<QGraphicsItem *> list(m_scene->items());
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      glitch_object *widget = qobject_cast<glitch_object *>
-	(proxy->widget());
+      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!widget)
 	continue;

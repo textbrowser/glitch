@@ -417,9 +417,9 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Canvas_Settings->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Copy->setEnabled
-	(m_currentView && m_currentView->scene()->selectedItems().size() > 0);
+	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
-	(m_currentView && m_currentView->scene()->selectedItems().size() > 0);
+	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
 	(m_currentView && m_currentView->hasChanged());
@@ -745,13 +745,13 @@ void glitch_ui::slotCopy(void)
 
   QList<glitch_object *> list(m_currentView->selectedObjects());
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      if(!list.at(i))
+      if(!i)
 	continue;
 
-      QPoint point(list.at(i)->scenePos().toPoint());
-      glitch_object *clone = list.at(i)->clone(nullptr);
+      QPoint point(i->scenePos().toPoint());
+      glitch_object *clone = i->clone(nullptr);
 
       if(!clone)
 	continue;
@@ -763,7 +763,7 @@ void glitch_ui::slotCopy(void)
       m_copiedObjects.insert(pair, clone);
     }
 
-  m_ui.action_Paste->setEnabled(m_copiedObjects.size() > 0);
+  m_ui.action_Paste->setEnabled(!m_copiedObjects.empty());
   QApplication::restoreOverrideCursor();
 }
 
@@ -783,28 +783,28 @@ void glitch_ui::slotDelete(void)
 
 void glitch_ui::slotMouseEnterView(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (sender());
+  auto *view = qobject_cast<glitch_view *> (sender());
 
   if(!view)
     return;
   else
     m_currentView = view;
 
-  m_ui.action_Copy->setEnabled(view->scene()->selectedItems().size() > 0);
-  m_ui.action_Delete->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
+  m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
   m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
   m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
 
 void glitch_ui::slotMouseLeaveView(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (sender());
+  auto *view = qobject_cast<glitch_view *> (sender());
 
   if(!view)
     return;
 
-  m_ui.action_Copy->setEnabled(view->scene()->selectedItems().size() > 0);
-  m_ui.action_Delete->setEnabled(view->scene()->selectedItems().size() > 0);
+  m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
+  m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
   m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
   m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
@@ -890,7 +890,7 @@ void glitch_ui::slotOpenDiagram(void)
       for(int i = 0; i < list.size(); i++)
 	{
 	  QString error("");
-	  QString fileName(list.at(i));
+	  const QString &fileName(list.at(i));
 
 	  if(openDiagram(fileName, error))
 	    ok = true;
@@ -922,7 +922,7 @@ void glitch_ui::slotOpenDiagram(void)
 
 void glitch_ui::slotOpenRecentDiagram(void)
 {
-  QAction *action = qobject_cast<QAction *> (sender());
+  auto *action = qobject_cast<QAction *> (sender());
 
   if(!action)
     return;
@@ -947,7 +947,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
 void glitch_ui::slotPageChanged(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
@@ -1026,7 +1026,7 @@ void glitch_ui::slotPaste(void)
 
 	  if(proxy)
 	    {
-	      glitch_undo_command *undoCommand = new glitch_undo_command
+	      auto *undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED,
 		 proxy,
 		 m_currentView->scene());
@@ -1053,7 +1053,7 @@ void glitch_ui::slotPaste(void)
 
 	  if(proxy)
 	    {
-	      glitch_undo_command *undoCommand = new glitch_undo_command
+	      auto *undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED,
 		 proxy,
 		 m_currentView->scene());
@@ -1149,7 +1149,7 @@ void glitch_ui::slotSelectAll(void)
 
 void glitch_ui::slotSelectPage(void)
 {
-  QAction *action = qobject_cast<QAction *> (sender());
+  auto *action = qobject_cast<QAction *> (sender());
 
   if(!action)
     return;
@@ -1166,8 +1166,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   QMainWindow::setWindowTitle(tr("Glitch"));
   m_ui.tab->removeTab(m_ui.tab->indexOf(view));
 
-  glitch_separated_diagram_window *window =
-    new glitch_separated_diagram_window(this);
+  auto *window = new glitch_separated_diagram_window(this);
 
   window->setCentralWidget(view);
   view->show();
@@ -1184,7 +1183,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
 void glitch_ui::slotShowAlignment(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   if(view)
     view->showAlignment();
@@ -1192,7 +1191,7 @@ void glitch_ui::slotShowAlignment(void)
 
 void glitch_ui::slotShowCanvasSettings(void)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   if(view)
     view->showCanvasSettings();
@@ -1227,7 +1226,7 @@ void glitch_ui::slotTabMoved(int from, int to)
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
-      glitch_view *view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
+      auto *view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
 
       if(view)
 	{
@@ -1261,7 +1260,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   if(!view)
     return;
 
-  QMainWindow *window = qobject_cast<QMainWindow *> (view->parentWidget());
+  auto *window = qobject_cast<QMainWindow *> (view->parentWidget());
 
   if(!window)
     return;

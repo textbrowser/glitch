@@ -96,7 +96,7 @@ glitch_alignment::~glitch_alignment()
 
 void glitch_alignment::align(const AlignmentType alignmentType)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (parentWidget());
+  auto *view = qobject_cast<glitch_view *> (parentWidget());
 
   if(!view)
     return;
@@ -154,19 +154,19 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
  start_label:
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast <glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast <glitch_proxy_widget *> (i);
 
       if(!proxy || !proxy->isSelected())
 	continue;
 
-      bool movable = proxy->isMovable();
-      glitch_object *widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!widget)
 	continue;
+
+      bool movable = proxy->isMovable();
 
       switch(alignmentType)
 	{
@@ -297,7 +297,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
 void glitch_alignment::slotAlign(void)
 {
-  QToolButton *toolButton = qobject_cast<QToolButton *> (sender());
+  auto *toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.bottom_align == toolButton)
     align(ALIGN_BOTTOM);
@@ -315,7 +315,7 @@ void glitch_alignment::slotAlign(void)
 
 void glitch_alignment::slotStack(void)
 {
-  QToolButton *toolButton = qobject_cast<QToolButton *> (sender());
+  auto *toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.horizontal_stack == toolButton)
     stack(HORIZONTAL_STACK);
@@ -325,7 +325,7 @@ void glitch_alignment::slotStack(void)
 
 void glitch_alignment::stack(const StackType stackType)
 {
-  glitch_view *view = qobject_cast<glitch_view *> (parentWidget());
+  auto *view = qobject_cast<glitch_view *> (parentWidget());
 
   if(!view)
     return;
@@ -342,15 +342,14 @@ void glitch_alignment::stack(const StackType stackType)
 
   QList<glitch_object *> list2;
 
-  for(int i = 0; i < list1.size(); i++)
+  for(auto i : list1)
     {
-      glitch_proxy_widget *proxy = qgraphicsitem_cast
-	<glitch_proxy_widget *> (list1.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      glitch_object *widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!widget)
 	continue;
@@ -377,10 +376,8 @@ void glitch_alignment::stack(const StackType stackType)
   else
     coordinate = list2.at(0)->pos().y();
 
-  for(int i = 0; i < list2.size(); i++)
+  for(auto widget : list2)
     {
-      glitch_object *widget = list2.at(i);
-
       if(!widget || !widget->proxy())
 	continue;
 

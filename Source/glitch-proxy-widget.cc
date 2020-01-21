@@ -47,7 +47,7 @@ glitch_proxy_widget::~glitch_proxy_widget()
 
 bool glitch_proxy_widget::isMandatory(void) const
 {
-  glitch_object *object = qobject_cast<glitch_object *> (widget());
+  auto *object = qobject_cast<glitch_object *> (widget());
 
   if(object)
     return object->isMandatory();
@@ -65,7 +65,7 @@ void glitch_proxy_widget::contextMenuEvent
 {
   if(event)
     {
-      glitch_object *object = qobject_cast<glitch_object *> (widget());
+      auto *object = qobject_cast<glitch_object *> (widget());
 
       if(object)
 	{
@@ -92,7 +92,7 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       QGraphicsProxyWidget::mousePressEvent(event);
       setSelected(false);
 
-      glitch_object *object = qobject_cast<glitch_object *> (widget());
+      auto *object = qobject_cast<glitch_object *> (widget());
 
       if(object)
 	{

@@ -176,7 +176,7 @@ QMenu *glitch_view::defaultContextMenu(void)
   */
 
   QAction *action = nullptr;
-  QMenu *menu = new QMenu(this);
+  auto *menu = new QMenu(this);
 
   action = menu->addAction(tr("&Save"),
 			   this,
@@ -430,16 +430,14 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
 	QList<QGraphicsItem *> list(m_scene->items());
 
-	for(int i = 0; i < list.size(); i++)
+	for(auto i : list)
 	  {
-	    glitch_proxy_widget *proxy =
-	      qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+	    auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	    if(!proxy)
 	      continue;
 
-	    glitch_object *widget = qobject_cast<glitch_object *>
-	      (proxy->widget());
+	    auto *widget = qobject_cast<glitch_object *> (proxy->widget());
 
 	    if(!widget)
 	      continue;
@@ -641,10 +639,9 @@ void glitch_view::selectAll(void)
 
   QList<QGraphicsItem *> list(m_scene->items());
 
-  for(int i = 0; i < list.size(); i++)
+  for(auto i : list)
     {
-      glitch_proxy_widget *proxy =
-	qgraphicsitem_cast<glitch_proxy_widget *> (list.at(i));
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(proxy)
 	proxy->setSelected(true);
@@ -703,7 +700,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     {
       if(undo)
 	{
-	  glitch_undo_command *undoCommand = new glitch_undo_command
+	  auto *undoCommand = new glitch_undo_command
 	    (hash,
 	     glitch_undo_command::CANVAS_SETTINGS_CHANGED,
 	     m_canvasSettings);
@@ -751,7 +748,7 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
   m_userFunctions->addFunction(after);
   m_userFunctions->deleteFunction(before);
 
-  glitch_undo_command *undoCommand = new glitch_undo_command
+  auto *undoCommand = new glitch_undo_command
     (before,
      glitch_undo_command::FUNCTION_RENAMED,
      object,

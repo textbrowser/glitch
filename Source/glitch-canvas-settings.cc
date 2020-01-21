@@ -177,7 +177,6 @@ bool glitch_canvas_settings::save(QString &error) const
 
 void glitch_canvas_settings::accept(void)
 {
-  QString error("");
   QString name(m_ui.name->text().trimmed());
 
   if(name.isEmpty())

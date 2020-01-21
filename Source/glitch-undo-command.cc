@@ -45,6 +45,7 @@ glitch_undo_command::glitch_undo_command
 
   m_canvasSettings = canvasSettings;
   m_previousCanvasSettings = previousCanvasSettings;
+  m_property = glitch_object::XYZ_PROPERTY;
   m_type = type;
 }
 
@@ -59,6 +60,7 @@ glitch_undo_command::glitch_undo_command
     m_currentPosition = proxy->scenePos();
 
   m_previousPosition = previousPosition;
+  m_property = glitch_object::XYZ_PROPERTY;
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
@@ -76,6 +78,7 @@ glitch_undo_command::glitch_undo_command
 
   m_object = object;
   m_previousFunctionName = previousFunctionName;
+  m_property = glitch_object::XYZ_PROPERTY;
   m_type = type;
   m_userFunctions = userFunctions;
 }
@@ -91,6 +94,7 @@ glitch_undo_command::glitch_undo_command
 
   m_object = object;
   m_previousStyleSheet = previousStyleSheet;
+  m_property = glitch_object::XYZ_PROPERTY;
   m_type = type;
 }
 
@@ -115,6 +119,7 @@ glitch_undo_command::glitch_undo_command
  glitch_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
+  m_property = glitch_object::XYZ_PROPERTY;
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
@@ -161,8 +166,7 @@ void glitch_undo_command::redo(void)
       {
 	if(m_proxy && m_scene)
 	  {
-	    glitch_object *object =
-	      qobject_cast<glitch_object *> (m_proxy->widget());
+	    auto *object = qobject_cast<glitch_object *> (m_proxy->widget());
 
 	    if(object)
 	      object->closeEditWindow();
