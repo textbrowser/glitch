@@ -55,7 +55,6 @@ class glitch_view_arduino: public glitch_view
 
  private:
   QMap<QString, char> m_functionNames;
-  glitch_alignment *m_alignment;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
 
