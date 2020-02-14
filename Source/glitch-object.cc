@@ -41,34 +41,30 @@
 
 glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 {
+  m_editView = nullptr;
+  m_id = 1;
   m_initialized = false;
+  m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
 
-  QWidget *p = parent;
-  glitch_view *view = nullptr;
+  auto *p = parent;
 
   do
     {
       if(!p)
 	break;
 
-      view = qobject_cast<glitch_view *> (p);
+      auto *view = qobject_cast<glitch_view *> (p);
 
       if(view)
-	break;
+	{
+	  m_id = view->nextId();
+	  break;
+	}
 
       p = p->parentWidget();
     }
   while(true);
-
-  m_editView = nullptr;
-
-  if(view)
-    m_id = view->nextId();
-  else
-    m_id = 1;
-
-  m_parent = parent;
 }
 
 glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
