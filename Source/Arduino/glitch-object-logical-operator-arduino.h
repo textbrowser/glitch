@@ -36,6 +36,13 @@ class glitch_object_logical_operator_arduino: public glitch_object
   Q_OBJECT
 
  public:
+  enum OperatorType
+  {
+    AND_OPERATOR = 0,
+    NOT_OPERATOR,
+    OR_OPERATOR
+  };
+
   glitch_object_logical_operator_arduino(QWidget *parent);
   glitch_object_logical_operator_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_logical_operator_arduino();
@@ -47,6 +54,7 @@ class glitch_object_logical_operator_arduino: public glitch_object
   void addActions(QMenu &menu);
 
  private:
+  OperatorType m_operator;
   Ui_glitch_object_logical_operator_arduino m_ui;
 };
 
