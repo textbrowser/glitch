@@ -35,6 +35,7 @@
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
+#include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -104,10 +105,9 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     {
       if(m_mainScene)
 	{
-	  QString t(text.toLower().trimmed());
+	  QString t(text.trimmed().remove("glitch-"));
 
-	  if(t.startsWith("glitch-arduino-analogread()") ||
-	     t.startsWith("glitch-arduino-function()"))
+	  if(glitch_structures_arduino::structureNames().contains(t))
 	    {
 	      event->accept();
 	      return true;
@@ -387,6 +387,11 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(text.startsWith("glitch-arduino-analogread()"))
 	    object = new glitch_object_analog_read_arduino(views().value(0));
+	  else if(text.startsWith("glitch-arduino-and (&&)") ||
+		  text.startsWith("glitch-arduino-not (!)") ||
+		  text.startsWith("glitch-arduino-or (||)"))
+	    object = new glitch_object_logical_operator_arduino
+	      (views().value(0));
 	  else if(text.startsWith("glitch-arduino-function"))
 	    {
 	      if(text == "glitch-arduino-function()")
