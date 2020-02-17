@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>glitch_object_function_arduino</class>
- <widget class="QWidget" name="glitch_object_function_arduino">
+ <class>glitch_object_logical_operator_arduino</class>
+ <widget class="QWidget" name="glitch_object_logical_operator_arduino">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
+    <width>100</width>
     <height>35</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>function()</string>
+      <string/>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

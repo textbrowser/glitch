@@ -26,16 +26,13 @@
 */
 
 #include <QInputDialog>
-#include <QSqlError>
-#include <QSqlQuery>
 #include <QUuid>
 #include <QtDebug>
 
-#include "glitch-object-edit-window.h"
 #include "glitch-object-function-arduino.h"
 #include "glitch-misc.h"
+#include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
-#include "glitch-user-functions.h"
 #include "glitch-view-arduino.h"
 
 glitch_object_function_arduino::glitch_object_function_arduino

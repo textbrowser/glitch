@@ -25,62 +25,63 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-analog-read-arduino.h"
+#include "glitch-object-logical-operator-arduino.h"
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
+glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (QWidget *parent):glitch_object(parent)
 {
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-analogread";
+  m_type = "arduino-logicaloperator";
 }
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
+glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-analogread";
+  m_type = "arduino-logicaloperator";
 }
 
-glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
+glitch_object_logical_operator_arduino::
+~glitch_object_logical_operator_arduino()
 {
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_logical_operator_arduino *glitch_object_logical_operator_arduino::
 clone(QWidget *parent) const
 {
-  return new glitch_object_analog_read_arduino(parent);
+  return new glitch_object_logical_operator_arduino(parent);
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_logical_operator_arduino *glitch_object_logical_operator_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  glitch_object_analog_read_arduino *object = new
-    glitch_object_analog_read_arduino
+  glitch_object_logical_operator_arduino *object = new
+    glitch_object_logical_operator_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
   return object;
 }
 
-bool glitch_object_analog_read_arduino::hasView(void) const
+bool glitch_object_logical_operator_arduino::hasView(void) const
 {
   return false;
 }
 
-bool glitch_object_analog_read_arduino::isMandatory(void) const
+bool glitch_object_logical_operator_arduino::isMandatory(void) const
 {
   return false;
 }
 
-void glitch_object_analog_read_arduino::addActions(QMenu &menu)
+void glitch_object_logical_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }

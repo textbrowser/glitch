@@ -25,9 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QSqlError>
-#include <QSqlQuery>
-
 #include "glitch-object-edit-window.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-view.h"

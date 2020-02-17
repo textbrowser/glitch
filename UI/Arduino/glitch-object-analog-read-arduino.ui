@@ -37,6 +37,9 @@
      <property name="text">
       <string>analogRead()</string>
      </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>

@@ -25,43 +25,29 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
-#include <QDir>
-#include <QIcon>
-#include <QMessageBox>
+#ifndef _glitch_object_logical_operator_arduino_h_
+#define _glitch_object_logical_operator_arduino_h_
 
-#include "glitch-misc.h"
+#include "glitch-object.h"
+#include "ui_glitch-object-logical-operator-arduino.h"
 
-QPointF glitch_misc::dbPointToPointF(const QString &text)
+class glitch_object_logical_operator_arduino: public glitch_object
 {
-  QStringList list(QString(text).remove("(").remove(")").split(","));
+  Q_OBJECT
 
-  return {qAbs(list.value(0).toDouble()),
-	  qAbs(list.value(1).toDouble())};
-}
+ public:
+  glitch_object_logical_operator_arduino(QWidget *parent);
+  glitch_object_logical_operator_arduino(const quint64 id, QWidget *parent);
+  ~glitch_object_logical_operator_arduino();
+  static glitch_object_logical_operator_arduino *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
+  bool hasView(void) const;
+  bool isMandatory(void) const;
+  glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
+  void addActions(QMenu &menu);
 
-QString glitch_misc::homePath(void)
-{
-  QByteArray homepath(qgetenv("GLITCH_HOME"));
+ private:
+  Ui_glitch_object_logical_operator_arduino m_ui;
+};
 
-  if(homepath.isEmpty())
-#ifdef Q_OS_WIN32
-    return QDir::currentPath() + QDir::separator() + ".glitch";
-#else
-    return QDir::homePath() + QDir::separator() + ".glitch";
 #endif
-  else
-    return homepath.constData();
-}
-
-void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
-{
-  QMessageBox mb(parent);
-
-  mb.setIcon(QMessageBox::Critical);
-  mb.setText(text);
-  mb.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  mb.setWindowTitle(QObject::tr("Glitch: Error"));
-  mb.exec();
-  QApplication::processEvents();
-}
