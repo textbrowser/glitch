@@ -83,7 +83,7 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  QGraphicsProxyWidget::mousePressEvent(event);
+  Q_UNUSED(event);
 }
 
 void glitch_proxy_widget::paint

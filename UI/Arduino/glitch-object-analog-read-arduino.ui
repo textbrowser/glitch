@@ -7,23 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>150</width>
-    <height>35</height>
+    <height>38</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
@@ -42,6 +33,16 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QToolButton" name="context_menu">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::DownArrow</enum>
      </property>
     </widget>
    </item>

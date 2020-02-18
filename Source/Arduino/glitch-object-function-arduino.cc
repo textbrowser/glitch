@@ -85,6 +85,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
+  m_ui.context_menu->setStyleSheet
+    ("QToolButton {border: none; padding-right: 5px;}");
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
@@ -116,6 +118,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.setupUi(this);
+      m_ui.context_menu->setStyleSheet
+	("QToolButton {border: none; padding-right: 5px;}");
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
     }
@@ -145,7 +149,10 @@ bool glitch_object_function_arduino::isMandatory(void) const
 glitch_object_function_arduino *glitch_object_function_arduino::
 clone(QWidget *parent) const
 {
-  return new glitch_object_function_arduino(m_ui.label->text(), parent);
+  auto *clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
+
+  clone->setStyleSheet(styleSheet());
+  return clone;
 }
 
 glitch_object_function_arduino *glitch_object_function_arduino::
@@ -154,16 +161,13 @@ createFromValues
 {
   Q_UNUSED(error);
 
-  glitch_object_function_arduino *object = new glitch_object_function_arduino
+  auto *object = new glitch_object_function_arduino
     (values.value("parentId").toLongLong(),
      values.value("myoid").toULongLong(),
      parent);
 
   object->setProperties(values.value("properties").toString());
-
-  if(object->m_isFunctionClone)
-    object->setStyleSheet(values.value("stylesheet").toString());
-
+  object->setStyleSheet(values.value("stylesheet").toString());
   return object;
 }
 
@@ -226,6 +230,8 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.setupUi(this);
+  m_ui.context_menu->setStyleSheet
+    ("QToolButton {border: none; padding-right: 5px;}");
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   connect(m_editView,
@@ -236,7 +242,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(closed(void)),
 	  m_editView,
 	  SLOT(slotParentWindowClosed(void)));
-  setStyleSheet("QWidget {border: 2px solid #000080;}");
+  setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
