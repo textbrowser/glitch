@@ -30,10 +30,11 @@
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (QWidget *parent):glitch_object(parent)
 {
+  m_operator = AND_OPERATOR;
+  m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-logicaloperator";
 }
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino

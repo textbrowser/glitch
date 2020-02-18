@@ -30,10 +30,10 @@
 glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
 (QWidget *parent):glitch_object(parent)
 {
+  m_type = "arduino-analogread";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-analogread";
 }
 
 glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
