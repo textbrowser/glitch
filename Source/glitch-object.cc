@@ -86,7 +86,7 @@ QPointF glitch_object::scenePos(void) const
   if(m_proxy)
     return m_proxy->scenePos();
   else
-    return QPointF(0.0, 0.0);
+    return {0.0, 0.0};
 }
 
 QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
