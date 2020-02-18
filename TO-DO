@@ -79,6 +79,7 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Redo / undo. See also macros.
+- Retain loop(), setup () style sheets.
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
