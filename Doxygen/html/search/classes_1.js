@@ -9,6 +9,7 @@ var searchData=
   ['glitch_5fobject_5fanalog_5fread_5farduino',['glitch_object_analog_read_arduino',['../classglitch__object__analog__read__arduino.html',1,'']]],
   ['glitch_5fobject_5fedit_5fwindow',['glitch_object_edit_window',['../classglitch__object__edit__window.html',1,'']]],
   ['glitch_5fobject_5ffunction_5farduino',['glitch_object_function_arduino',['../classglitch__object__function__arduino.html',1,'']]],
+  ['glitch_5fobject_5flogical_5foperator_5farduino',['glitch_object_logical_operator_arduino',['../classglitch__object__logical__operator__arduino.html',1,'']]],
   ['glitch_5fobject_5floop_5farduino',['glitch_object_loop_arduino',['../classglitch__object__loop__arduino.html',1,'']]],
   ['glitch_5fobject_5fsetup_5farduino',['glitch_object_setup_arduino',['../classglitch__object__setup__arduino.html',1,'']]],
   ['glitch_5fobject_5fview',['glitch_object_view',['../classglitch__object__view.html',1,'']]],
