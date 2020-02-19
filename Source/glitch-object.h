@@ -101,6 +101,7 @@ class glitch_object: public QWidget
   quint64 m_id;
   void addDefaultActions(QMenu &menu);
   void createActions(void);
+  void prepareContextMenu(void);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);

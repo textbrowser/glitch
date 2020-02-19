@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>100</width>
-    <height>38</height>
+    <height>35</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,13 +44,22 @@
      <property name="text">
       <string/>
      </property>
-     <property name="arrowType">
-      <enum>Qt::DownArrow</enum>
+     <property name="icon">
+      <iconset resource="../../Icons/icons.qrc">
+       <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
+     </property>
+     <property name="popupMode">
+      <enum>QToolButton::MenuButtonPopup</enum>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../Icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

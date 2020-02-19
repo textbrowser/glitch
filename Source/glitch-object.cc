@@ -223,6 +223,27 @@ void glitch_object::move(int x, int y)
     emit changed();
 }
 
+void glitch_object::prepareContextMenu(void)
+{
+  foreach(QToolButton *toolButton, findChildren<QToolButton *> ())
+    if(toolButton->objectName() == "context_menu")
+      {
+	if(!toolButton->menu())
+	  {
+	    auto *menu = new QMenu(this);
+
+	    addActions(*menu);
+	    connect(toolButton,
+		    SIGNAL(clicked(void)),
+		    toolButton,
+		    SLOT(showMenu(void)));
+	    toolButton->setMenu(menu);
+	  }
+
+	break;
+      }
+}
+
 void glitch_object::save(const QSqlDatabase &db, QString &error)
 {
   QSqlQuery query(db);
