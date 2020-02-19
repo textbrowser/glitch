@@ -84,6 +84,13 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  if(event && (event->buttons() & Qt::RightButton))
+    /*
+    ** Activate a context menu.
+    */
+
+    return;
+
   auto *toolButton = qobject_cast<QToolButton *>
     (widget()->childAt(event->pos().toPoint()));
 

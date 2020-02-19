@@ -155,7 +155,7 @@ void glitch_object::addDefaultActions(QMenu &menu)
   if(!m_actions.isEmpty() && !menu.actions().isEmpty())
     menu.addSeparator();
 
-  QHashIterator<DefaultMenuActions, QAction *> it(m_actions);
+  QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
 
   while(it.hasNext())
     {
@@ -172,8 +172,10 @@ void glitch_object::createActions(void)
 {
   if(!m_actions.isEmpty())
     {
-      m_actions[DefaultMenuActions::LOCK_POSITION]->
-	setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+      if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))
+	m_actions[DefaultMenuActions::LOCK_POSITION]->
+	  setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+
       return;
     }
 
@@ -234,13 +236,17 @@ void glitch_object::prepareContextMenu(void)
       {
 	if(!toolButton->menu())
 	  {
-	    auto *menu = new QMenu(this);
+	    auto *menu = new QMenu();
 
 	    addActions(*menu);
 	    connect(toolButton,
 		    SIGNAL(clicked(void)),
 		    toolButton,
 		    SLOT(showMenu(void)));
+	    connect(toolButton,
+		    SIGNAL(destroyed(void)),
+		    menu,
+		    SLOT(deleteLater(void)));
 	    toolButton->setMenu(menu);
 	  }
 
@@ -325,6 +331,8 @@ void glitch_object::setProperties(const QStringList &list)
 	str.remove("\"");
 	m_properties[Properties::POSITION_LOCKED] = QVariant(str).toBool();
       }
+
+  createActions();
 }
 
 void glitch_object::setProperty(const Properties property,
@@ -336,6 +344,10 @@ void glitch_object::setProperty(const Properties property,
     {
     case Properties::POSITION_LOCKED:
       {
+	if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))
+	  m_actions.value(DefaultMenuActions::LOCK_POSITION)->setChecked
+	    (value.toBool());
+
 	if(m_proxy)
 	  m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !value.toBool());
 

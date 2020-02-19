@@ -85,8 +85,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
-  m_ui.context_menu->setStyleSheet
-    ("QToolButton {border: none; padding-right: 5px;}");
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
@@ -118,8 +116,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.setupUi(this);
-      m_ui.context_menu->setStyleSheet
-	("QToolButton {border: none; padding-right: 5px;}");
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
     }
@@ -230,8 +226,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.setupUi(this);
-  m_ui.context_menu->setStyleSheet
-    ("QToolButton {border: none; padding-right: 5px;}");
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   connect(m_editView,

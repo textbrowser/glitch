@@ -89,8 +89,8 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
 
  protected:
-  QHash<DefaultMenuActions, QAction *> m_actions;
   QHash<Properties, QVariant> m_properties;
+  QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_name;
