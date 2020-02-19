@@ -171,7 +171,11 @@ void glitch_object::closeEditWindow(void)
 void glitch_object::createActions(void)
 {
   if(!m_actions.isEmpty())
-    return;
+    {
+      m_actions[DefaultMenuActions::LOCK_POSITION]->
+	setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+      return;
+    }
 
   QAction *action = nullptr;
 
@@ -349,8 +353,9 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
   m_proxy = proxy;
 
   if(m_proxy)
-    m_proxy->setFlag(QGraphicsItem::ItemIsMovable,
-		     !m_properties.value(Properties::POSITION_LOCKED).toBool());
+    m_proxy->setFlag
+      (QGraphicsItem::ItemIsMovable,
+       !m_properties.value(Properties::POSITION_LOCKED).toBool());
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
