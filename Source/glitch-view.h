@@ -100,7 +100,6 @@ class glitch_view: public QWidget
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectType m_projectType;
   glitch_graphicsview *m_view;
-  glitch_object_start *m_startObject;
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;
   bool saveImplementation(const QString &fileName, QString &error);

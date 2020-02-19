@@ -52,7 +52,7 @@ void glitch_user_functions_tablewidget::startDrag
 {
   Q_UNUSED(supportedActions);
 
-  QTableWidgetItem *item = selectedItems().value(0);
+  auto *item = selectedItems().value(0);
 
   if(!item)
     return;

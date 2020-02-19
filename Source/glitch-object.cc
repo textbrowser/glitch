@@ -231,7 +231,7 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  foreach(QToolButton *toolButton, findChildren<QToolButton *> ())
+  foreach(auto *toolButton, findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")
       {
 	if(!toolButton->menu())

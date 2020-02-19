@@ -29,8 +29,7 @@
 
 #include "glitch-graphicsview.h"
 
-glitch_graphicsview::glitch_graphicsview(QWidget *parent):
-  QGraphicsView(parent)
+glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
 }
 

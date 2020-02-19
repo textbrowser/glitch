@@ -47,7 +47,7 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 
-  foreach(QToolButton *tool_button, findChildren <QToolButton *> ())
+  foreach(auto *tool_button, findChildren <QToolButton *> ())
     tool_button->setStyleSheet
     (QString("QToolButton {background-color: %1;"
 	     "border: none;"
@@ -121,7 +121,7 @@ void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
   if(!view)
     return;
 
-  QMenu *menu = view->defaultContextMenu();
+  auto *menu = view->defaultContextMenu();
 
   if(!menu)
     return;

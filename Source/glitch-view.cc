@@ -68,7 +68,6 @@ glitch_view::glitch_view
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
-  m_startObject = nullptr;
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
   m_view = new glitch_graphicsview(this);
@@ -319,13 +318,12 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		if(query.value(1).toLongLong() == -1)
 		  {
 		    QString error("");
-		    glitch_object *object = glitch_object::createFromValues
+		    auto *object = glitch_object::createFromValues
 		      (values, error, this);
 
 		    if(object)
 		      {
-			glitch_proxy_widget *proxy = m_scene->addObject
-			  (object);
+			auto *proxy = m_scene->addObject(object);
 
 			if(proxy)
 			  {
@@ -340,8 +338,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 		else
 		  {
-		    glitch_object *object = parents.value
-		      (query.value(1).toULongLong());
+		    auto *object = parents.value(query.value(1).toULongLong());
 
 		    if(object)
 		      object->addChild
@@ -722,7 +719,7 @@ void glitch_view::slotChanged(void)
 
 void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
 {
-  QMenu *menu = defaultContextMenu();
+  auto *menu = defaultContextMenu();
 
   if(!menu)
     return;

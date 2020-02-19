@@ -203,7 +203,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
-	  glitch_view_arduino *view = newArduinoDiagram(fileName, name, true);
+	  auto *view = newArduinoDiagram(fileName, name, true);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
@@ -305,7 +305,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   */
 
   if(event)
-    foreach(glitch_view *view, findChildren<glitch_view *> ())
+    foreach(auto *view, findChildren<glitch_view *> ())
       if(view->hasChanged())
 	{
 	  QMessageBox mb(this);
@@ -347,7 +347,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	i += 1;
 
-	glitch_view *view = newArduinoDiagram("", list.value(i), false);
+	auto *view = newArduinoDiagram("", list.value(i), false);
 
 	if(view)
 	  {
@@ -466,7 +466,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      QAction *action = m_ui.menu_Recent_Files->addAction(list.at(i));
+      auto *action = m_ui.menu_Recent_Files->addAction(list.at(i));
 
       action->setProperty("file_name", list.at(i));
       connect(action,
@@ -681,7 +681,7 @@ void glitch_ui::slotClearRecentFiles(void)
 
 void glitch_ui::slotCloseDiagram(int index)
 {
-  glitch_view *view = page(index);
+  auto *view = page(index);
 
   if(view)
     {
@@ -751,7 +751,7 @@ void glitch_ui::slotCopy(void)
 	continue;
 
       QPoint point(i->scenePos().toPoint());
-      glitch_object *clone = i->clone(nullptr);
+      auto *clone = i->clone(nullptr);
 
       if(!clone)
 	continue;
@@ -1007,7 +1007,7 @@ void glitch_ui::slotPaste(void)
     {
       it.next();
 
-      glitch_object *object = it.value();
+      QPointer<glitch_object> object(it.value());
 
       if(!object)
 	continue;
@@ -1021,8 +1021,7 @@ void glitch_ui::slotPaste(void)
 	{
 	  first = QPoint(x, y);
 
-	  glitch_proxy_widget *proxy =
-	    m_currentView->scene()->addObject(object);
+	  auto *proxy = m_currentView->scene()->addObject(object);
 
 	  if(proxy)
 	    {
@@ -1089,7 +1088,7 @@ void glitch_ui::slotRedo(void)
 
 void glitch_ui::slotSaveCurrentDiagram(void)
 {
-  glitch_view *view = page(m_ui.tab->currentIndex());
+  auto *view = page(m_ui.tab->currentIndex());
 
   if(view)
     {
@@ -1109,7 +1108,7 @@ void glitch_ui::slotSaveCurrentDiagram(void)
 
 void glitch_ui::slotSaveCurrentDiagramAs(void)
 {
-  glitch_view *view = page(m_ui.tab->currentIndex());
+  auto *view = page(m_ui.tab->currentIndex());
 
   if(view)
     {
@@ -1230,8 +1229,10 @@ void glitch_ui::slotTabMoved(int from, int to)
 
       if(view)
 	{
-	  QAction *action = view->menuAction();
-	  QFont font(action->font());
+	  QFont font;
+	  auto *action = view->menuAction();
+
+	  font = action->font();
 
 	  if(i == m_ui.tab->currentIndex())
 	    font.setBold(true);

@@ -270,7 +270,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 		view->beginMacro(tr("items aligned"));
 	      }
 
-	    glitch_undo_command *undoCommand = new glitch_undo_command
+	    auto *undoCommand = new glitch_undo_command
 	      (QPointF(point),
 	       glitch_undo_command::ITEM_MOVED,
 	       proxy,
@@ -413,7 +413,7 @@ void glitch_alignment::stack(const StackType stackType)
 		view->beginMacro(tr("items stacked"));
 	      }
 
-	    glitch_undo_command *undoCommand = new glitch_undo_command
+	    auto *undoCommand = new glitch_undo_command
 	      (QPointF(point),
 	       glitch_undo_command::ITEM_MOVED,
 	       widget->proxy(),

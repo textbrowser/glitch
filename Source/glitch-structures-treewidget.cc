@@ -52,7 +52,7 @@ void glitch_structures_treewidget::startDrag
 {
   Q_UNUSED(supportedActions);
 
-  QTreeWidgetItem *item = selectedItems().value(0);
+  auto *item = selectedItems().value(0);
 
   if(!item)
     return;

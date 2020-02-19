@@ -150,7 +150,7 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 
 	  if(tableWidget)
 	    {
-	      QTableWidgetItem *item = tableWidget->currentItem();
+	      auto *item = tableWidget->currentItem();
 
 	      if(item)
 		{
@@ -175,7 +175,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   if(!object)
     return nullptr;
 
-  glitch_proxy_widget *proxy = new glitch_proxy_widget();
+  auto *proxy = new glitch_proxy_widget();
 
   connect(object,
 	  SIGNAL(changed(void)),
@@ -409,7 +409,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  object->setUndoStack(m_undoStack);
 
-	  glitch_proxy_widget *proxy = addObject(object);
+	  auto *proxy = addObject(object);
 
 	  if(proxy)
 	    {
@@ -454,11 +454,11 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
       {
-	QGraphicsView *view = views().value(0);
 	QGraphicsView::ViewportUpdateMode updateMode =
 	  QGraphicsView::MinimalViewportUpdate;
-	QList<QGraphicsItem*> list(selectedItems());
+	QList<QGraphicsItem *> list(selectedItems());
 	QPoint point;
+	auto *view = views().value(0);
 	bool began = false;
 	bool moved = false;
 	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
@@ -612,17 +612,37 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
   if(event)
     {
-      QGraphicsItem *item = itemAt(event->scenePos(), QTransform());
+      auto *item = itemAt(event->scenePos(), QTransform());
 
       if(item)
 	{
-	  QGraphicsItem *parent = item->parentItem();
+	  auto *parent = item->parentItem();
 
 	  if(!parent)
 	    parent = item;
 
 	  if(!parent)
 	    goto done_label;
+
+	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (parent);
+
+	  if(proxy)
+	    {
+	      auto *object = proxy->widget();
+
+	      if(object)
+		{
+		  QPoint point
+		    (proxy->mapFromScene(event->scenePos()).toPoint());
+
+		  if(qobject_cast<QToolButton *> (object->childAt(point)))
+		    /*
+		    ** Do not grab the item.
+		    */
+
+		    goto done_label;
+		}
+	    }
 
 	  if(event->button() == Qt::RightButton)
 	    {
@@ -682,7 +702,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
       bool began = false;
 
-      for(const auto & m_movedPoint : m_movedPoints)
+      for(const auto &m_movedPoint : m_movedPoints)
 	{
 	  if(!m_movedPoint.second)
 	    continue;
@@ -715,7 +735,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
   m_movedPoints.clear();
 
-  QCursor *cursor = QApplication::overrideCursor();
+  auto *cursor = QApplication::overrideCursor();
 
   if(cursor)
     views().value(0)->viewport()->setCursor(cursor->shape());
@@ -784,7 +804,7 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 	emit functionDeleted
 	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
 
-      glitch_undo_command *undoCommand = new glitch_undo_command
+      auto *undoCommand = new glitch_undo_command
 	(glitch_undo_command::ITEM_DELETED, object->proxy(), this);
 
       undoCommand->setText
