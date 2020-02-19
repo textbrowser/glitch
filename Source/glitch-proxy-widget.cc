@@ -29,6 +29,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
+#include <QToolButton>
 #include <QtDebug>
 
 #include "glitch-object.h"
@@ -83,7 +84,11 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  Q_UNUSED(event);
+  auto *toolButton = qobject_cast<QToolButton *>
+    (widget()->childAt(event->pos().toPoint()));
+
+  if(toolButton)
+    QGraphicsProxyWidget::mousePressEvent(event);
 }
 
 void glitch_proxy_widget::paint
