@@ -772,10 +772,10 @@ void glitch_view::slotSaveAs(void)
   QFileDialog dialog(this, tr("Glitch: Save Current Diagram As"));
 
   dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setConfirmOverwrite(true);
   dialog.setDirectory(glitch_misc::homePath());
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setNameFilter("Glitch Files (*.db)");
+  dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
 

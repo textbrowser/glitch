@@ -95,7 +95,7 @@ void glitch_user_functions::renameFunction(const QString &before,
 	break;
       }
 
-  m_ui.functions->sortByColumn(0);
+  m_ui.functions->sortByColumn(0, Qt::AscendingOrder);
   QApplication::restoreOverrideCursor();
 }
 
