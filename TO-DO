@@ -74,10 +74,12 @@ Remaining Items
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
+- Function parameters and return value.
 - Icons.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
+- Proximity instead of wiring.
 - Redo / undo. See also macros.
 - Retain loop(), setup () style sheets.
 - Shortcuts in object views.
