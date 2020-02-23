@@ -4,7 +4,7 @@ doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name '*~' -exec rm {} \\;
 
 CONFIG		+= qt release warn_on
-DEFINES		+=
+DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
 QT		+= gui sql
 
