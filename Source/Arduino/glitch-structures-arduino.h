@@ -40,11 +40,13 @@ class glitch_structures_arduino: public QDialog
   glitch_structures_arduino(QWidget *parent);
   ~glitch_structures_arduino();
   static QStringList structureNames(void);
+  static QStringList types(void);
   static bool containsStructure(const QString &structureName);
 
  private:
   Ui_glitch_structures m_ui;
   static QMap<QString, char> s_structureNamesMap;
+  static QStringList s_types;
 
  private slots:
   void slotCategorySelected(void);

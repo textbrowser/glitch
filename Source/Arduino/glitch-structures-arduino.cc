@@ -28,6 +28,7 @@
 #include "glitch-structures-arduino.h"
 
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
+QStringList glitch_structures_arduino::s_types;
 
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
@@ -83,6 +84,8 @@ QStringList glitch_structures_arduino::structureNames(void)
   if(!s_structureNamesMap.isEmpty())
     return s_structureNamesMap.keys();
 
+  s_structureNamesMap["arduino-(unsigned int)"] = 0;
+  s_structureNamesMap["arduino-(unsigned long)"] = 0;
   s_structureNamesMap["arduino-HIGH"] = 0;
   s_structureNamesMap["arduino-INPUT"] = 0;
   s_structureNamesMap["arduino-INPUT_PULLUP"] = 0;
@@ -100,6 +103,8 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-analogWrite()"] = 0;
   s_structureNamesMap["arduino-and (&&)"] = 0;
   s_structureNamesMap["arduino-and (&)"] = 0;
+  s_structureNamesMap["arduino-array String"] = 0;
+  s_structureNamesMap["arduino-array bool"] = 0;
   s_structureNamesMap["arduino-array boolean"] = 0;
   s_structureNamesMap["arduino-array byte"] = 0;
   s_structureNamesMap["arduino-array char"] = 0;
@@ -108,6 +113,8 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-array int"] = 0;
   s_structureNamesMap["arduino-array long"] = 0;
   s_structureNamesMap["arduino-array short"] = 0;
+  s_structureNamesMap["arduino-array size_t"] = 0;
+  s_structureNamesMap["arduino-array string"] = 0;
   s_structureNamesMap["arduino-array unsigned char"] = 0;
   s_structureNamesMap["arduino-array unsigned int"] = 0;
   s_structureNamesMap["arduino-array unsigned long"] = 0;
@@ -121,6 +128,7 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-bitWrite()"] = 0;
   s_structureNamesMap["arduino-bitwise and (&=)"] = 0;
   s_structureNamesMap["arduino-bitwise or (|=)"] = 0;
+  s_structureNamesMap["arduino-bitwise xor (^=)"] = 0;
   s_structureNamesMap["arduino-block comment"] = 0;
   s_structureNamesMap["arduino-break"] = 0;
   s_structureNamesMap["arduino-byte()"] = 0;
@@ -175,6 +183,7 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-pinMode()"] = 0;
   s_structureNamesMap["arduino-pow()"] = 0;
   s_structureNamesMap["arduino-pulseIn()"] = 0;
+  s_structureNamesMap["arduino-pulseInLong()"] = 0;
   s_structureNamesMap["arduino-random()"] = 0;
   s_structureNamesMap["arduino-randomSeed()"] = 0;
   s_structureNamesMap["arduino-return"] = 0;
@@ -183,6 +192,7 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-shiftOut()"] = 0;
   s_structureNamesMap["arduino-sin()"] = 0;
   s_structureNamesMap["arduino-sizeof()"] = 0;
+  s_structureNamesMap["arduino-sq()"] = 0;
   s_structureNamesMap["arduino-sqrt()"] = 0;
   s_structureNamesMap["arduino-subtraction (-)"] = 0;
   s_structureNamesMap["arduino-subtraction (-=)"] = 0;
@@ -194,6 +204,32 @@ QStringList glitch_structures_arduino::structureNames(void)
   s_structureNamesMap["arduino-word()"] = 0;
   s_structureNamesMap["arduino-xor (^)"] = 0;
   return s_structureNamesMap.keys();
+}
+
+QStringList glitch_structures_arduino::types(void)
+{
+  if(!s_types.isEmpty())
+    return s_types;
+
+  s_types << "String"
+	  << "array"
+	  << "bool"
+	  << "boolean"
+	  << "byte"
+	  << "char"
+	  << "double"
+	  << "float"
+	  << "int"
+	  << "long"
+	  << "short"
+	  << "size_t"
+	  << "string"
+	  << "unsigned char"
+	  << "unsigned int"
+	  << "unsigned long"
+	  << "void"
+	  << "word";
+  return s_types;
 }
 
 bool glitch_structures_arduino::containsStructure(const QString &structureName)
@@ -222,6 +258,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
       {
 	list << "noTone()"
 	     << "pulseIn()"
+	     << "pulseInLong()"
 	     << "shiftIn()"
 	     << "shiftOut()"
 	     << "tone()";
@@ -310,6 +347,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	list << "addition (+=)"
 	     << "bitwise and (&=)"
 	     << "bitwise or (|=)"
+	     << "bitwise xor (^=)"
 	     << "decrement (--)"
 	     << "division (/=)"
 	     << "increment (++)"
@@ -342,7 +380,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
       }
     case 8:
       {
-	list << "byte()"
+	list << "(unsigned int)"
+	     << "(unsigned long)"
+	     << "byte()"
 	     << "char()"
 	     << "float()"
 	     << "int()"
@@ -428,6 +468,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
 	     << "max()"
 	     << "min()"
 	     << "pow()"
+	     << "sq()"
 	     << "sqrt()";
 
 	for(int i = 0; i < list.size(); i++)
@@ -507,19 +548,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
       }
     case 21:
       {
-	list << "array"
-	     << "boolean"
-	     << "byte"
-	     << "char"
-	     << "double"
-	     << "float"
-	     << "int"
-	     << "long"
-	     << "short"
-	     << "unsigned char"
-	     << "unsigned int"
-	     << "unsigned long"
-	     << "word";
+	list = types();
 
 	for(int i = 0; i < list.size(); i++)
 	  if(list.first() == "array")
