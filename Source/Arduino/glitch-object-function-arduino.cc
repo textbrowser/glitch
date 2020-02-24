@@ -90,6 +90,10 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+  connect(m_ui.return_type,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SIGNAL(changed(void)));
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -121,6 +125,10 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
       m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+      connect(m_ui.return_type,
+	      SIGNAL(currentIndexChanged(int)),
+	      this,
+	      SIGNAL(changed(void)));
     }
 }
 
@@ -240,6 +248,10 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(closed(void)),
 	  m_editView,
 	  SLOT(slotParentWindowClosed(void)));
+  connect(m_ui.return_type,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SIGNAL(changed(void)));
   setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
 
