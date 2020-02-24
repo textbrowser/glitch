@@ -28,6 +28,7 @@
 #include "glitch-structures-arduino.h"
 
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
+QMap<int, QStringList> glitch_structures_arduino::s_itemsForCategories;
 QStringList glitch_structures_arduino::s_types;
 
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
@@ -72,6 +73,128 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.categories->addItem(tr("Trigonometry"));
   m_ui.categories->addItem(tr("Utilities"));
   m_ui.categories->addItem(tr("Variables"));
+
+  if(s_itemsForCategories.isEmpty())
+    {
+      s_itemsForCategories[0] = QStringList() << "noTone()"
+					      << "pulseIn()"
+					      << "pulseInLong()"
+					      << "shiftIn()"
+					      << "shiftOut()"
+					      << "tone()";
+      s_itemsForCategories[1] = QStringList() << "analogRead()"
+					      << "analogReference()"
+					      << "analogWrite()";
+      s_itemsForCategories[2] = QStringList() << "addition (+)"
+					      << "assignment (=)"
+					      << "division (/)"
+					      << "modulo (%)"
+					      << "multiplication (*)"
+					      << "subtraction (-)";
+      s_itemsForCategories[3] = QStringList() << "bit()"
+					      << "bitClear()"
+					      << "bitRead()"
+					      << "bitSet()"
+					      << "bitWrite()"
+					      << "highByte()"
+					      << "lowByte()";
+      s_itemsForCategories[4] = QStringList() << "and (&)"
+					      << "left shift (<<)"
+					      << "not (~)"
+					      << "or (|)"
+					      << "right shift (>>)"
+					      << "xor (^)";
+      s_itemsForCategories[5] = QStringList() << "equal to (==)"
+					      << "greater than (>)"
+					      << "greater than or equal to (>=)"
+					      << "less than (<)"
+					      << "less than or equal to (<=)"
+					      << "not equal to (!=)";
+      s_itemsForCategories[6] = QStringList() << "addition (+=)"
+					      << "bitwise and (&=)"
+					      << "bitwise or (|=)"
+					      << "bitwise xor (^=)"
+					      << "decrement (--)"
+					      << "division (/=)"
+					      << "increment (++)"
+					      << "modulo (%=)"
+					      << "multiplication (*=)"
+					      << "subtraction (-=)";
+      s_itemsForCategories[7] = QStringList() << "HIGH"
+					      << "INPUT"
+					      << "INPUT_PULLUP"
+					      << "LED_BUILTIN"
+					      << "LOW"
+					      << "OUTPUT"
+					      << "false"
+					      << "true";
+      s_itemsForCategories[8] = QStringList() << "(unsigned int)"
+					      << "(unsigned long)"
+					      << "byte()"
+					      << "char()"
+					      << "float()"
+					      << "int()"
+					      << "long()"
+					      << "word()";
+      s_itemsForCategories[9] = QStringList() << "digitalRead()"
+					      << "digitalWrite()"
+					      << "pinMode()";
+      s_itemsForCategories[10] = QStringList() << "attachInterrupt()"
+					       << "detachInterrupt()";
+      s_itemsForCategories[11] = QStringList() << "break"
+					       << "continue"
+					       << "do while loop"
+					       << "for loop"
+					       << "goto"
+					       << "if statement"
+					       << "if-else statement"
+					       << "return"
+					       << "switch case"
+					       << "while loop";
+      s_itemsForCategories[12] = QStringList() << "interrupts()"
+					       << "noInterrupts()";
+      s_itemsForCategories[13] = QStringList() << "and (&&)"
+					       << "not (!)"
+					       << "or (||)";
+      s_itemsForCategories[14] = QStringList() << "abs()"
+					       << "constrain()"
+					       << "map()"
+					       << "max()"
+					       << "min()"
+					       << "pow()"
+					       << "sq()"
+					       << "sqrt()";
+      s_itemsForCategories[15] = QStringList() << "random()"
+					       << "randomSeed()";
+      s_itemsForCategories[16] = QStringList() << "Serial.begin()"
+					       << "Serial.println()";
+      s_itemsForCategories[17] = QStringList() << "block comment"
+					       << "function()";
+      s_itemsForCategories[18] = QStringList() << "delay()"
+					       << "delayMicroseconds()"
+					       << "micros()"
+					       << "millis()";
+      s_itemsForCategories[19] = QStringList() << "cos()"
+					       << "sin()"
+					       << "tan()";
+      s_itemsForCategories[20] = QStringList() << "PROGMEM"
+					       << "sizeof()";
+
+      QStringList arrays;
+      QStringList list(types());
+
+      list.removeOne("array");
+      list.removeOne("void");
+
+      for(const auto &i : list)
+	{
+	  arrays << "array " + i;
+	  arrays << i;
+	}
+
+      s_itemsForCategories[21] = arrays;
+    }
+
   m_ui.categories->setCurrentRow(0);
 }
 
@@ -84,125 +207,18 @@ QStringList glitch_structures_arduino::structureNames(void)
   if(!s_structureNamesMap.isEmpty())
     return s_structureNamesMap.keys();
 
-  s_structureNamesMap["arduino-(unsigned int)"] = 0;
-  s_structureNamesMap["arduino-(unsigned long)"] = 0;
-  s_structureNamesMap["arduino-HIGH"] = 0;
-  s_structureNamesMap["arduino-INPUT"] = 0;
-  s_structureNamesMap["arduino-INPUT_PULLUP"] = 0;
-  s_structureNamesMap["arduino-LED_BUILTIN"] = 0;
-  s_structureNamesMap["arduino-LOW"] = 0;
-  s_structureNamesMap["arduino-OUTPUT"] = 0;
-  s_structureNamesMap["arduino-PROGMEM"] = 0;
-  s_structureNamesMap["arduino-Serial.begin()"] = 0;
-  s_structureNamesMap["arduino-Serial.println()"] = 0;
-  s_structureNamesMap["arduino-abs()"] = 0;
-  s_structureNamesMap["arduino-addition (+)"] = 0;
-  s_structureNamesMap["arduino-addition (+=)"] = 0;
-  s_structureNamesMap["arduino-analogRead()"] = 0;
-  s_structureNamesMap["arduino-analogReference()"] = 0;
-  s_structureNamesMap["arduino-analogWrite()"] = 0;
-  s_structureNamesMap["arduino-and (&&)"] = 0;
-  s_structureNamesMap["arduino-and (&)"] = 0;
-  s_structureNamesMap["arduino-array String"] = 0;
-  s_structureNamesMap["arduino-array bool"] = 0;
-  s_structureNamesMap["arduino-array boolean"] = 0;
-  s_structureNamesMap["arduino-array byte"] = 0;
-  s_structureNamesMap["arduino-array char"] = 0;
-  s_structureNamesMap["arduino-array double"] = 0;
-  s_structureNamesMap["arduino-array float"] = 0;
-  s_structureNamesMap["arduino-array int"] = 0;
-  s_structureNamesMap["arduino-array long"] = 0;
-  s_structureNamesMap["arduino-array short"] = 0;
-  s_structureNamesMap["arduino-array size_t"] = 0;
-  s_structureNamesMap["arduino-array string"] = 0;
-  s_structureNamesMap["arduino-array unsigned char"] = 0;
-  s_structureNamesMap["arduino-array unsigned int"] = 0;
-  s_structureNamesMap["arduino-array unsigned long"] = 0;
-  s_structureNamesMap["arduino-array word"] = 0;
-  s_structureNamesMap["arduino-assignment (=)"] = 0;
-  s_structureNamesMap["arduino-attachInterrupt()"] = 0;
-  s_structureNamesMap["arduino-bit()"] = 0;
-  s_structureNamesMap["arduino-bitClear()"] = 0;
-  s_structureNamesMap["arduino-bitRead()"] = 0;
-  s_structureNamesMap["arduino-bitSet()"] = 0;
-  s_structureNamesMap["arduino-bitWrite()"] = 0;
-  s_structureNamesMap["arduino-bitwise and (&=)"] = 0;
-  s_structureNamesMap["arduino-bitwise or (|=)"] = 0;
-  s_structureNamesMap["arduino-bitwise xor (^=)"] = 0;
-  s_structureNamesMap["arduino-block comment"] = 0;
-  s_structureNamesMap["arduino-break"] = 0;
-  s_structureNamesMap["arduino-byte()"] = 0;
-  s_structureNamesMap["arduino-char()"] = 0;
-  s_structureNamesMap["arduino-constrain()"] = 0;
-  s_structureNamesMap["arduino-continue"] = 0;
-  s_structureNamesMap["arduino-cos()"] = 0;
-  s_structureNamesMap["arduino-decrement (--)"] = 0;
-  s_structureNamesMap["arduino-delay()"] = 0;
-  s_structureNamesMap["arduino-delayMicroseconds()"] = 0;
-  s_structureNamesMap["arduino-detachInterrupt()"] = 0;
-  s_structureNamesMap["arduino-digitalRead()"] = 0;
-  s_structureNamesMap["arduino-digitalWrite()"] = 0;
-  s_structureNamesMap["arduino-division (/)"] = 0;
-  s_structureNamesMap["arduino-division (/=)"] = 0;
-  s_structureNamesMap["arduino-do while loop"] = 0;
-  s_structureNamesMap["arduino-equal to (==)"] = 0;
-  s_structureNamesMap["arduino-false"] = 0;
-  s_structureNamesMap["arduino-float()"] = 0;
-  s_structureNamesMap["arduino-for loop"] = 0;
-  s_structureNamesMap["arduino-function()"] = 0;
-  s_structureNamesMap["arduino-goto"] = 0;
-  s_structureNamesMap["arduino-greater than (>)"] = 0;
-  s_structureNamesMap["arduino-greater than or equal to (>=)"] = 0;
-  s_structureNamesMap["arduino-highByte()"] = 0;
-  s_structureNamesMap["arduino-if statement"] = 0;
-  s_structureNamesMap["arduino-if-else statement"] = 0;
-  s_structureNamesMap["arduino-increment (++)"] = 0;
-  s_structureNamesMap["arduino-int()"] = 0;
-  s_structureNamesMap["arduino-interrupts()"] = 0;
-  s_structureNamesMap["arduino-left shift (<<)"] = 0;
-  s_structureNamesMap["arduino-less than (<)"] = 0;
-  s_structureNamesMap["arduino-less than or equal to (<=)"] = 0;
-  s_structureNamesMap["arduino-long()"] = 0;
-  s_structureNamesMap["arduino-lowByte()"] = 0;
-  s_structureNamesMap["arduino-map()"] = 0;
-  s_structureNamesMap["arduino-max()"] = 0;
-  s_structureNamesMap["arduino-micros()"] = 0;
-  s_structureNamesMap["arduino-millis()"] = 0;
-  s_structureNamesMap["arduino-min()"] = 0;
-  s_structureNamesMap["arduino-modulo (%)"] = 0;
-  s_structureNamesMap["arduino-modulo (%=)"] = 0;
-  s_structureNamesMap["arduino-multiplication (*)"] = 0;
-  s_structureNamesMap["arduino-multiplication (*=)"] = 0;
-  s_structureNamesMap["arduino-noInterrupts()"] = 0;
-  s_structureNamesMap["arduino-noTone()"] = 0;
-  s_structureNamesMap["arduino-not (!)"] = 0;
-  s_structureNamesMap["arduino-not (~)"] = 0;
-  s_structureNamesMap["arduino-not equal to (!=)"] = 0;
-  s_structureNamesMap["arduino-or (|)"] = 0;
-  s_structureNamesMap["arduino-or (||)"] = 0;
-  s_structureNamesMap["arduino-pinMode()"] = 0;
-  s_structureNamesMap["arduino-pow()"] = 0;
-  s_structureNamesMap["arduino-pulseIn()"] = 0;
-  s_structureNamesMap["arduino-pulseInLong()"] = 0;
-  s_structureNamesMap["arduino-random()"] = 0;
-  s_structureNamesMap["arduino-randomSeed()"] = 0;
-  s_structureNamesMap["arduino-return"] = 0;
-  s_structureNamesMap["arduino-right shift (>>)"] = 0;
-  s_structureNamesMap["arduino-shiftIn()"] = 0;
-  s_structureNamesMap["arduino-shiftOut()"] = 0;
-  s_structureNamesMap["arduino-sin()"] = 0;
-  s_structureNamesMap["arduino-sizeof()"] = 0;
-  s_structureNamesMap["arduino-sq()"] = 0;
-  s_structureNamesMap["arduino-sqrt()"] = 0;
-  s_structureNamesMap["arduino-subtraction (-)"] = 0;
-  s_structureNamesMap["arduino-subtraction (-=)"] = 0;
-  s_structureNamesMap["arduino-switch case"] = 0;
-  s_structureNamesMap["arduino-tan()"] = 0;
-  s_structureNamesMap["arduino-tone()"] = 0;
-  s_structureNamesMap["arduino-true"] = 0;
-  s_structureNamesMap["arduino-while loop"] = 0;
-  s_structureNamesMap["arduino-word()"] = 0;
-  s_structureNamesMap["arduino-xor (^)"] = 0;
+  QMapIterator<int, QStringList> it(s_itemsForCategories);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      const QStringList &list(it.value());
+
+      for(const auto &i : list)
+	s_structureNamesMap[QString("arduino-%1").arg(i)] = 0;
+    }
+
   return s_structureNamesMap.keys();
 }
 
@@ -251,326 +267,37 @@ void glitch_structures_arduino::slotCategorySelected(void)
   m_ui.tree->clear();
 
   QStringList list;
+  int row = m_ui.categories->row(items.at(0));
 
-  switch(m_ui.categories->row(items.at(0)))
+  if(row >= 0 && row <= 20)
     {
-    case 0:
-      {
-	list << "noTone()"
-	     << "pulseIn()"
-	     << "pulseInLong()"
-	     << "shiftIn()"
-	     << "shiftOut()"
-	     << "tone()";
+      list = s_itemsForCategories.value(row);
 
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
+      for(int i = 0; i < list.size(); i++)
+	m_ui.tree->addTopLevelItem
+	  (new QTreeWidgetItem(QStringList() << list.at(i)));
+    }
+  else
+    {
+      list = types();
 
-	break;
-      }
-    case 1:
-      {
-	list << "analogRead()"
-	     << "analogReference()"
-	     << "analogWrite()";
+      for(int i = 0; i < list.size(); i++)
+	if(list.at(i) == "array")
+	  {
+	    auto *item = new QTreeWidgetItem(QStringList() << list.at(i));
 
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
+	    m_ui.tree->addTopLevelItem(item);
 
-	break;
-      }
-    case 2:
-      {
-	list << "addition (+)"
-	     << "assignment (=)"
-	     << "division (/)"
-	     << "modulo (%)"
-	     << "multiplication (*)"
-	     << "subtraction (-)";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 3:
-      {
-	list << "bit()"
-	     << "bitClear()"
-	     << "bitRead()"
-	     << "bitSet()"
-	     << "bitWrite()"
-	     << "highByte()"
-	     << "lowByte()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 4:
-      {
-	list << "and (&)"
-	     << "left shift (<<)"
-	     << "not (~)"
-	     << "or (|)"
-	     << "right shift (>>)"
-	     << "xor (^)";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 5:
-      {
-	list << "equal to (==)"
-	     << "greater than (>)"
-	     << "greater than or equal to (>=)"
-	     << "less than (<)"
-	     << "less than or equal to (<=)"
-	     << "not equal to (!=)";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 6:
-      {
-	list << "addition (+=)"
-	     << "bitwise and (&=)"
-	     << "bitwise or (|=)"
-	     << "bitwise xor (^=)"
-	     << "decrement (--)"
-	     << "division (/=)"
-	     << "increment (++)"
-	     << "modulo (%=)"
-	     << "multiplication (*=)"
-	     << "subtraction (-=)";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 7:
-      {
-	list << "HIGH"
-	     << "INPUT"
-	     << "INPUT_PULLUP"
-	     << "LED_BUILTIN"
-	     << "LOW"
-	     << "OUTPUT"
-	     << "false"
-	     << "true";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 8:
-      {
-	list << "(unsigned int)"
-	     << "(unsigned long)"
-	     << "byte()"
-	     << "char()"
-	     << "float()"
-	     << "int()"
-	     << "long()"
-	     << "word()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 9:
-      {
-	list << "digitalRead()"
-	     << "digitalWrite()"
-	     << "pinMode()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 10:
-      {
-	list << "attachInterrupt()"
-	     << "detachInterrupt()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 11:
-      {
-	list << "break"
-	     << "continue"
-	     << "do while loop"
-	     << "for loop"
-	     << "goto"
-	     << "if statement"
-	     << "if-else statement"
-	     << "return"
-	     << "switch case"
-	     << "while loop";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 12:
-      {
-	list << "interrupts()"
-	     << "noInterrupts()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 13:
-      {
-	list << "and (&&)"
-	     << "not (!)"
-	     << "or (||)";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 14:
-      {
-	list << "abs()"
-	     << "constrain()"
-	     << "map()"
-	     << "max()"
-	     << "min()"
-	     << "pow()"
-	     << "sq()"
-	     << "sqrt()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 15:
-      {
-	list << "random()"
-	     << "randomSeed()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 16:
-      {
-	list << "Serial.begin()"
-	     << "Serial.println()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 17:
-      {
-	list << "block comment"
-	     << "function()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 18:
-      {
-	list << "delay()"
-	     << "delayMicroseconds()"
-	     << "micros()"
-	     << "millis()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 19:
-      {
-	list << "cos()"
-	     << "sin()"
-	     << "tan()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 20:
-      {
-	list << "PROGMEM"
-	     << "sizeof()";
-
-	for(int i = 0; i < list.size(); i++)
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    case 21:
-      {
-	list = types();
-
-	for(int i = 0; i < list.size(); i++)
-	  if(list.first() == "array")
-	    {
-	      auto *item = new QTreeWidgetItem(QStringList() << list.at(i));
-
-	      m_ui.tree->addTopLevelItem(item);
-
-	      for(int i = 0; i < list.size(); i++)
+	    for(int i = 0; i < list.size(); i++)
+	      if(list.at(i) == "array" || list.at(i) == "void")
+		continue;
+	      else
 		item->addChild
 		  (new QTreeWidgetItem(QStringList() << list.at(i)));
-	    }
-	  else
-	    m_ui.tree->addTopLevelItem
-	      (new QTreeWidgetItem(QStringList() << list.at(i)));
-
-	break;
-      }
-    default:
-      {
-	break;
-      }
+	  }
+	else
+	  m_ui.tree->addTopLevelItem
+	    (new QTreeWidgetItem(QStringList() << list.at(i)));
     }
 
   m_ui.tree->expandAll();

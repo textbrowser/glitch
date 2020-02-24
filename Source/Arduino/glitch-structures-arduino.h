@@ -46,6 +46,7 @@ class glitch_structures_arduino: public QDialog
  private:
   Ui_glitch_structures m_ui;
   static QMap<QString, char> s_structureNamesMap;
+  static QMap<int, QStringList> s_itemsForCategories;
   static QStringList s_types;
 
  private slots:
