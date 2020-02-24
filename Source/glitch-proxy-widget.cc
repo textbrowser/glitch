@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QComboBox>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QMenu>
 #include <QPainter>
@@ -91,11 +92,29 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     return;
 
+  if(!widget())
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
+  auto *comboBox = qobject_cast<QComboBox *>
+    (widget()->childAt(event->pos().toPoint()));
+
+  if(comboBox)
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
   auto *toolButton = qobject_cast<QToolButton *>
     (widget()->childAt(event->pos().toPoint()));
 
   if(toolButton)
-    QGraphicsProxyWidget::mousePressEvent(event);
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
 }
 
 void glitch_proxy_widget::paint

@@ -33,6 +33,7 @@
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
+#include "glitch-structures-arduino.h"
 #include "glitch-view-arduino.h"
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -88,6 +89,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
+  m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -118,6 +120,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.setupUi(this);
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
+      m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
     }
 }
 
@@ -228,6 +231,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,

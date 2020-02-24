@@ -29,6 +29,7 @@
 
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
 QMap<int, QStringList> glitch_structures_arduino::s_itemsForCategories;
+QStringList glitch_structures_arduino::s_nonArrayTypes;
 QStringList glitch_structures_arduino::s_types;
 
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
@@ -200,6 +201,20 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
 glitch_structures_arduino::~glitch_structures_arduino()
 {
+}
+
+QStringList glitch_structures_arduino::nonArrayTypes(void)
+{
+  if(!s_nonArrayTypes.isEmpty())
+    return s_nonArrayTypes;
+
+  s_nonArrayTypes = types();
+
+  for(int i = s_nonArrayTypes.size() - 1; i >= 0; i--)
+    if(s_nonArrayTypes.at(i).contains("array"))
+      s_nonArrayTypes.removeAt(i);
+
+  return s_nonArrayTypes;
 }
 
 QStringList glitch_structures_arduino::structureNames(void)
