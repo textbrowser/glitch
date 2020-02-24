@@ -583,6 +583,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(!proxy || !proxy->isMovable())
 	    continue;
 
+	  auto *object = qobject_cast<glitch_object *> (proxy->widget());
+
+	  if(object && object->mouseOverScrollBar(event->scenePos()))
+	    continue;
+
 	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
 	  if(point.x() < 0 || point.y() < 0)

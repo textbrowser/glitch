@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QScrollBar>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QUndoStack>
@@ -102,6 +103,18 @@ QString glitch_object::name(void) const
 QString glitch_object::type(void) const
 {
   return m_type;
+}
+
+bool glitch_object::mouseOverScrollBar(const QPointF &point) const
+{
+  foreach(auto *scrollBar, findChildren<QScrollBar *> ())
+    if(scrollBar->isSliderDown())
+      return true;
+    else if(scrollBar->rect().
+	    contains(scrollBar->mapFromGlobal(point.toPoint())))
+      return true;
+
+  return false;
 }
 
 bool glitch_object::positionLocked(void) const

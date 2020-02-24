@@ -61,6 +61,7 @@ class glitch_object: public QWidget
   QPointF scenePos(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
+  bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
   quint64 id(void) const;
   static glitch_object *createFromValues
