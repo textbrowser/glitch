@@ -272,6 +272,7 @@ void glitch_object_function_arduino::save
   QMap<QString, QVariant> properties;
 
   properties["name"] = m_ui.label->text().trimmed();
+  properties["return_type"] = m_ui.return_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 
   if(error.isEmpty() && m_editView)
@@ -317,6 +318,19 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	  m_parentView->consumeFunctionName(str);
 
 	m_ui.label->setText(str);
+      }
+    else if(list.at(i).startsWith("return_type = "))
+      {
+	QString str(list.at(i).mid(14));
+
+	str.remove("\"");
+
+	int index = m_ui.return_type->findText(str);
+
+	if(index >= 0)
+	  m_ui.return_type->setCurrentIndex(index);
+	else
+	  m_ui.return_type->setCurrentIndex(0);
       }
 }
 
