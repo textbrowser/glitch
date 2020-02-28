@@ -94,6 +94,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SIGNAL(changed(void)));
+  prepareContextMenu();
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -129,6 +130,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 	      SIGNAL(currentIndexChanged(int)),
 	      this,
 	      SIGNAL(changed(void)));
+      prepareContextMenu();
     }
 }
 
@@ -252,6 +254,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SIGNAL(changed(void)));
+  prepareContextMenu();
   setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
 
