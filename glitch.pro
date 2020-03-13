@@ -62,7 +62,8 @@ UI_DIR = temp/ui
 
 FORMS          += UI/glitch-alignment.ui \
                   UI/glitch-canvas-settings.ui \
-		  UI/glitch-errors-dialog.ui \
+                  UI/glitch-errors-dialog.ui \
+                  UI/glitch-floating-context-menu.ui \
                   UI/glitch-mainwindow.ui \
 		  UI/glitch-separated-diagram-window.ui \
                   UI/glitch-structures.ui \
