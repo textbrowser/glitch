@@ -73,6 +73,7 @@ FORMS          += UI/glitch-alignment.ui \
 
 HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-canvas-settings.h \
+                  Source/glitch-floating-context-menu.h \
                   Source/glitch-graphicsview.h \
                   Source/glitch-object.h \
                   Source/glitch-object-edit-window.h \
@@ -93,6 +94,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
                   Source/glitch-graphicsview.cc \
+                  Source/glitch-floating-context-menu.cc \
                   Source/glitch-main.cc \
                   Source/glitch-misc.cc \
                   Source/glitch-object.cc \
