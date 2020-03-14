@@ -80,6 +80,9 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 
 glitch_object::~glitch_object()
 {
+  if(m_contextMenu)
+    m_contextMenu->deleteLater();
+
   qDebug() << "Done!";
 }
 
@@ -249,7 +252,6 @@ void glitch_object::prepareContextMenu(void)
     return;
 
   m_contextMenu = new glitch_floating_context_menu(m_parent);
-  addActions(*m_contextMenu->menu());
 
   foreach(auto *toolButton, findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")

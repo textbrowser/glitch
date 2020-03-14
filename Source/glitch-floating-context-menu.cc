@@ -25,32 +25,15 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QMenu>
-
 #include "glitch-floating-context-menu.h"
 
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
-  m_menu = new QMenu(this);
   m_ui.setupUi(this);
-  connect(m_ui.toolButton,
-	  SIGNAL(clicked(void)),
-	  m_ui.toolButton,
-	  SLOT(showMenu(void)));
-  m_ui.toolButton->setMenu(m_menu);
-  m_ui.toolButton->setStyleSheet
-    ("QToolButton {margin-bottom: 1px; margin-top: 1px;}"
-     "QToolButton::menu-button {border: none;}"
-     "QToolButton::menu-indicator {image: none;}");
   setWindowModality(Qt::NonModal);
 }
 
 glitch_floating_context_menu::~glitch_floating_context_menu()
 {
-}
-
-QMenu *glitch_floating_context_menu::menu(void) const
-{
-  return m_menu;
 }

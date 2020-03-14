@@ -32,8 +32,6 @@
 
 #include "ui_glitch-floating-context-menu.h"
 
-class QMenu;
-
 class glitch_floating_context_menu: public QDialog
 {
   Q_OBJECT
@@ -41,10 +39,8 @@ class glitch_floating_context_menu: public QDialog
  public:
   glitch_floating_context_menu(QWidget *parent);
   ~glitch_floating_context_menu();
-  QMenu *menu(void) const;
 
  private:
-  QMenu *m_menu;
   Ui_glitch_floating_context_menu m_ui;
 };
 
