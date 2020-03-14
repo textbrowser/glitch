@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>400</width>
     <height>50</height>
    </rect>
   </property>
@@ -17,12 +17,19 @@
    <iconset resource="../Icons/icons.qrc">
     <normaloff>:/Logo/glitch-logo.png</normaloff>:/Logo/glitch-logo.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QToolButton" name="toolButton">
      <property name="icon">
       <iconset resource="../Icons/icons.qrc">
        <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>
