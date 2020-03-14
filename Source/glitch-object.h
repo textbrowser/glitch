@@ -36,6 +36,7 @@
 #include "glitch-proxy-widget.h"
 
 class QUndoStack;
+class glitch_floating_context_menu;
 class glitch_object_view;
 
 class glitch_object: public QWidget
@@ -82,6 +83,7 @@ class glitch_object: public QWidget
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
   void setUndoStack(QUndoStack *undoStack);
+  void simulateDelete(void);
 
  private:
   static quint64 s_id;
@@ -93,6 +95,7 @@ class glitch_object: public QWidget
   QHash<Properties, QVariant> m_properties;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
+  QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_name;
   QString m_type;

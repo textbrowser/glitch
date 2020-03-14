@@ -33,6 +33,7 @@
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
+#include "glitch-floating-context-menu.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-scene.h"
@@ -244,25 +245,21 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
+  if(m_contextMenu)
+    return;
+
+  m_contextMenu = new glitch_floating_context_menu(m_parent);
+  addActions(*m_contextMenu->menu());
+
   foreach(auto *toolButton, findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")
       {
-	if(!toolButton->menu())
-	  {
-	    auto *menu = new QMenu();
-
-	    addActions(*menu);
-	    connect(toolButton,
-		    SIGNAL(clicked(void)),
-		    toolButton,
-		    SLOT(showMenu(void)));
-	    connect(toolButton,
-		    SIGNAL(destroyed(void)),
-		    menu,
-		    SLOT(deleteLater(void)));
-	    toolButton->setMenu(menu);
-	  }
-
+	connect(toolButton,
+		SIGNAL(clicked(void)),
+		m_contextMenu,
+		SLOT(show(void)),
+		Qt::UniqueConnection);
+	toolButton->setToolTip(tr("Floating Context Menu"));
 	break;
       }
 }
@@ -389,6 +386,12 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
     m_editView->scene()->setUndoStack(undoStack);
 
   m_undoStack = undoStack;
+}
+
+void glitch_object::simulateDelete(void)
+{
+  if(m_contextMenu)
+    m_contextMenu->close();
 }
 
 void glitch_object::slotLockPosition(void)

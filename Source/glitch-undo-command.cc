@@ -169,7 +169,10 @@ void glitch_undo_command::redo(void)
 	    auto *object = qobject_cast<glitch_object *> (m_proxy->widget());
 
 	    if(object)
-	      object->closeEditWindow();
+	      {
+		object->closeEditWindow();
+		object->simulateDelete();
+	      }
 
 	    m_scene->removeItem(m_proxy);
 	    m_scene->update();
