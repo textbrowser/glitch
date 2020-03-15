@@ -25,6 +25,10 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QAction>
+#include <QCheckBox>
+#include <QPushButton>
+
 #include "glitch-floating-context-menu.h"
 
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
@@ -36,4 +40,24 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
 
 glitch_floating_context_menu::~glitch_floating_context_menu()
 {
+}
+
+void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
+{
+  for(int i = 0; i < actions.size(); i++)
+    if(actions.at(i)->isCheckable())
+      {
+	auto *checkBox = new QCheckBox(this);
+
+	checkBox->setChecked(actions.at(i)->isChecked());
+	checkBox->setText(actions.at(i)->text());
+	layout()->addWidget(checkBox);
+      }
+    else
+      {
+	auto *pushButton = new QPushButton(this);
+
+	pushButton->setText(actions.at(i)->text());
+	layout()->addWidget(pushButton);
+      }
 }

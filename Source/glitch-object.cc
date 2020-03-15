@@ -261,6 +261,8 @@ void glitch_object::prepareContextMenu(void)
 		m_contextMenu,
 		SLOT(show(void)),
 		Qt::UniqueConnection);
+	createActions();
+	m_contextMenu->addActions(m_actions.values());
 	toolButton->setToolTip(tr("Floating Context Menu"));
 	break;
       }
