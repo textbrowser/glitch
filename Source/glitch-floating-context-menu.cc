@@ -51,13 +51,13 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 
 	checkBox->setChecked(actions.at(i)->isChecked());
 	checkBox->setText(actions.at(i)->text());
-	layout()->addWidget(checkBox);
+	m_ui.frame->layout()->addWidget(checkBox);
       }
     else
       {
 	auto *pushButton = new QPushButton(this);
 
 	pushButton->setText(actions.at(i)->text());
-	layout()->addWidget(pushButton);
+	m_ui.frame->layout()->addWidget(pushButton);
       }
 }
