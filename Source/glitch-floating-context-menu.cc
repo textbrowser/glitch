@@ -46,7 +46,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(QWidget *widget, m_ui.frame->layout()->findChildren<QWidget *> ())
+  foreach(QWidget *widget, m_ui.frame->findChildren<QWidget *> ())
     {
       m_ui.frame->layout()->removeWidget(widget);
       widget->deleteLater();
@@ -61,6 +61,8 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	checkBox->setText(actions.at(i)->text());
 	m_ui.frame->layout()->addWidget(checkBox);
       }
+    else if(actions.at(i)->isSeparator())
+      continue;
     else
       {
 	auto *pushButton = new QPushButton(this);

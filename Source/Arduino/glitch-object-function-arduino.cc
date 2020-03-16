@@ -91,6 +91,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+  m_ui.return_type->setEnabled(false);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
@@ -127,6 +128,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
       m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+      m_ui.return_type->setEnabled(false);
       connect(m_ui.return_type,
 	      SIGNAL(currentIndexChanged(int)),
 	      this,
@@ -226,9 +228,11 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
   else
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
 
+  menu.addSeparator();
   addDefaultActions(menu);
-  m_actions.value(DefaultMenuActions::SET_STYLE_SHEET)->setEnabled(false);
-  m_contextMenu->addActions(m_actions.values());
+
+  if(m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
+    m_actions.value(DefaultMenuActions::SET_STYLE_SHEET)->setEnabled(false);
 }
 
 void glitch_object_function_arduino::addChild

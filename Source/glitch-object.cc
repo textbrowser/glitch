@@ -171,9 +171,6 @@ void glitch_object::addDefaultActions(QMenu &menu)
 {
   createActions();
 
-  if(!m_actions.isEmpty() && !menu.actions().isEmpty())
-    menu.addSeparator();
-
   QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
 
   while(it.hasNext())
