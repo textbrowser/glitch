@@ -29,6 +29,7 @@
 #include <QUuid>
 #include <QtDebug>
 
+#include "glitch-floating-context-menu.h"
 #include "glitch-object-function-arduino.h"
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
@@ -197,14 +198,37 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       return;
     }
 
-  menu.addAction(tr("&Edit..."),
-		 this,
-		 SLOT(slotEdit(void)));
-  menu.addAction(tr("Set Function &Name..."),
-		 this,
-		 SLOT(slotSetFunctionName(void)));
+  if(!m_actions.contains(DefaultMenuActions::EDIT))
+    {
+      auto *action = new QAction(tr("&Edit..."), this);
+
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotEdit(void)));
+      m_actions[DefaultMenuActions::EDIT] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
+
+  if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_NAME))
+    {
+      auto *action = new QAction(tr("Set Function &Name..."), this);
+
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotSetFunctionName(void)));
+      m_actions[DefaultMenuActions::SET_FUNCTION_NAME] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
+
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::SET_STYLE_SHEET)->setEnabled(false);
+  m_contextMenu->addActions(m_actions.values());
 }
 
 void glitch_object_function_arduino::addChild
@@ -221,6 +245,12 @@ void glitch_object_function_arduino::closeEditWindow(void)
 {
   if(m_editWindow)
     m_editWindow->close();
+}
+
+void glitch_object_function_arduino::createActions(void)
+{
+  glitch_object::createActions();
+  m_contextMenu->addActions(m_actions.values());
 }
 
 void glitch_object_function_arduino::initialize(QWidget *parent)

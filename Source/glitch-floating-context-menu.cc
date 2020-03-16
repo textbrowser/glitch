@@ -44,6 +44,14 @@ glitch_floating_context_menu::~glitch_floating_context_menu()
 
 void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(QWidget *widget, m_ui.frame->layout()->findChildren<QWidget *> ())
+    {
+      m_ui.frame->layout()->removeWidget(widget);
+      widget->deleteLater();
+    }
+
   for(int i = 0; i < actions.size(); i++)
     if(actions.at(i)->isCheckable())
       {
@@ -60,4 +68,6 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	pushButton->setText(actions.at(i)->text());
 	m_ui.frame->layout()->addWidget(pushButton);
       }
+
+  QApplication::restoreOverrideCursor();
 }

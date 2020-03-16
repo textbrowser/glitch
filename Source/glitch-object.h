@@ -47,7 +47,9 @@ class glitch_object: public QWidget
   enum DefaultMenuActions
   {
    DELETE = 0,
+   EDIT,
    LOCK_POSITION,
+   SET_FUNCTION_NAME,
    SET_STYLE_SHEET
   };
 
@@ -103,8 +105,8 @@ class glitch_object: public QWidget
   bool m_initialized;
   glitch_object_view *m_editView;
   quint64 m_id;
+  virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
-  void createActions(void);
   void prepareContextMenu(void);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,

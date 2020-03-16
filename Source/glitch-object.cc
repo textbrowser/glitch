@@ -43,6 +43,7 @@
 
 glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 {
+  m_contextMenu = new glitch_floating_context_menu(parent);
   m_editView = nullptr;
   m_id = 1;
   m_initialized = false;
@@ -71,6 +72,7 @@ glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 
 glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
+  m_contextMenu = new glitch_floating_context_menu(parent);
   m_editView = nullptr;
   m_id = id;
   m_initialized = false;
@@ -248,11 +250,6 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  if(m_contextMenu)
-    return;
-
-  m_contextMenu = new glitch_floating_context_menu(m_parent);
-
   foreach(auto *toolButton, findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")
       {
@@ -261,8 +258,6 @@ void glitch_object::prepareContextMenu(void)
 		m_contextMenu,
 		SLOT(show(void)),
 		Qt::UniqueConnection);
-	createActions();
-	m_contextMenu->addActions(m_actions.values());
 	toolButton->setToolTip(tr("Floating Context Menu"));
 	break;
       }
@@ -394,8 +389,7 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 
 void glitch_object::simulateDelete(void)
 {
-  if(m_contextMenu)
-    m_contextMenu->close();
+  m_contextMenu->close();
 }
 
 void glitch_object::slotLockPosition(void)
