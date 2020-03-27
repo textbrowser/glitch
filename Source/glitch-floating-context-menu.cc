@@ -64,7 +64,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 		checkBox,
 		SLOT(setChecked(bool)));
 	connect(checkBox,
-		SIGNAL(toggled(bool)),
+		SIGNAL(clicked(bool)),
 		actions.at(i),
 		SIGNAL(triggered(void)));
 	m_ui.frame->layout()->addWidget(checkBox);
