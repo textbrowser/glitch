@@ -172,11 +172,15 @@ void glitch_object::addDefaultActions(QMenu &menu)
   createActions();
 
   QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
+  int i = 0;
 
   while(it.hasNext())
     {
       it.next();
       menu.addAction(it.value());
+
+      if(i++ == 2 && it.hasNext())
+	menu.addSeparator();
     }
 }
 

@@ -228,7 +228,6 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
   else
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
 
-  menu.addSeparator();
   addDefaultActions(menu);
 
   if(m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
