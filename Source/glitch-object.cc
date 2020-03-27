@@ -190,42 +190,49 @@ void glitch_object::closeEditWindow(void)
 
 void glitch_object::createActions(void)
 {
-  if(!m_actions.isEmpty())
+  if(!m_actions.contains(DefaultMenuActions::DELETE))
     {
-      if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))
-	m_actions[DefaultMenuActions::LOCK_POSITION]->
-	  setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+      auto *action = new QAction(tr("&Delete"), this);
 
-      return;
+      action->setData(DefaultMenuActions::DELETE);
+      action->setEnabled(!isMandatory());
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SIGNAL(deletedViaContextMenu(void)));
+      m_actions[DefaultMenuActions::DELETE] = action;
     }
 
-  QAction *action = nullptr;
+  if(!m_actions.contains(DefaultMenuActions::LOCK_POSITION))
+    {
+      auto *action = new QAction(tr("&Lock Position"), this);
 
-  action = new QAction(tr("&Delete"), this);
-  action->setData(DefaultMenuActions::DELETE);
-  action->setEnabled(!isMandatory());
-  connect(action,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SIGNAL(deletedViaContextMenu(void)));
-  m_actions[DefaultMenuActions::DELETE] = action;
-  action = new QAction(tr("&Lock Position"), this);
-  action->setCheckable(true);
-  action->setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
-  action->setData(DefaultMenuActions::LOCK_POSITION);
-  action->setEnabled(!isMandatory());
-  connect(action,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotLockPosition(void)));
-  m_actions[DefaultMenuActions::LOCK_POSITION] = action;
-  action = new QAction(tr("&Set Style Sheet..."), this);
-  action->setData(DefaultMenuActions::SET_STYLE_SHEET);
-  connect(action,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotSetStyleSheet(void)));
-  m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
+      action->setCheckable(true);
+      action->setChecked
+	(m_properties.value(Properties::POSITION_LOCKED).toBool());
+      action->setData(DefaultMenuActions::LOCK_POSITION);
+      action->setEnabled(!isMandatory());
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotLockPosition(void)));
+      m_actions[DefaultMenuActions::LOCK_POSITION] = action;
+    }
+  else
+    m_actions[DefaultMenuActions::LOCK_POSITION]->
+      setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+
+  if(!m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
+    {
+      auto *action = new QAction(tr("&Set Style Sheet..."), this);
+
+      action->setData(DefaultMenuActions::SET_STYLE_SHEET);
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotSetStyleSheet(void)));
+      m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
+    }
 }
 
 void glitch_object::move(const QPoint &point)
