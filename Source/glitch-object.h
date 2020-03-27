@@ -92,6 +92,7 @@ class glitch_object: public QWidget
 
  private slots:
   void slotLockPosition(void);
+  void slotShowContextMenu(void);
 
  protected:
   QHash<Properties, QVariant> m_properties;

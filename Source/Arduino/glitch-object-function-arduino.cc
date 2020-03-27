@@ -251,12 +251,6 @@ void glitch_object_function_arduino::closeEditWindow(void)
     m_editWindow->close();
 }
 
-void glitch_object_function_arduino::createActions(void)
-{
-  glitch_object::createActions();
-  m_contextMenu->addActions(m_actions.values());
-}
-
 void glitch_object_function_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)
