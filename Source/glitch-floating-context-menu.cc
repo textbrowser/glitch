@@ -63,6 +63,10 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 		SIGNAL(toggled(bool)),
 		checkBox,
 		SLOT(setChecked(bool)));
+	connect(checkBox,
+		SIGNAL(toggled(bool)),
+		actions.at(i),
+		SIGNAL(triggered(void)));
 	m_ui.frame->layout()->addWidget(checkBox);
       }
     else if(actions.at(i)->isSeparator())
