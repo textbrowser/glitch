@@ -105,6 +105,7 @@ void glitch_object_loop_arduino::initialize(QWidget *parent)
 	  SIGNAL(changed(void)),
 	  this,
 	  SIGNAL(changed(void)));
+  prepareContextMenu();
 }
 
 void glitch_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)
