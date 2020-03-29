@@ -115,6 +115,14 @@ glitch_view::glitch_view
 				       const QString &,
 				       glitch_object *)));
   connect(m_scene,
+	  SIGNAL(functionReturnTypeChanged(const QString &,
+					   const QString &,
+					   glitch_object *)),
+	  this,
+	  SLOT(slotFunctionReturnTypeChanged(const QString &,
+					     const QString &,
+					     glitch_object *)));
+  connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
 	  SLOT(slotSceneResized(void)));
@@ -752,6 +760,23 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
      m_userFunctions);
 
   undoCommand->setText(tr("function renamed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
+						const QString &before,
+						glitch_object *object)
+{
+  Q_UNUSED(after);
+
+  auto *undoCommand = new glitch_undo_command
+    (before,
+     glitch_undo_command::FUNCTION_RETURN_TYPE_CHANGED,
+     object,
+     m_userFunctions);
+
+  undoCommand->setText(tr("function return type changed"));
   m_undoStack->push(undoCommand);
   emit changed();
 }

@@ -213,6 +213,15 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					 const QString &,
 					 glitch_object *)),
 	      Qt::UniqueConnection);
+      connect(object,
+	      SIGNAL(returnTypeChanged(const QString &,
+				       const QString &,
+				       glitch_object *)),
+	      this,
+	      SIGNAL(functionReturnTypeChanged(const QString &,
+					       const QString &,
+					       glitch_object *)),
+	      Qt::UniqueConnection);
       emit functionAdded
 	(qobject_cast<glitch_object_function_arduino *> (object)->name());
     }

@@ -77,6 +77,9 @@ class glitch_object_function_arduino: public glitch_object
   void nameChanged(const QString &after,
 		   const QString &before,
 		   glitch_object *object);
+  void returnTypeChanged(const QString &after,
+			 const QString &before,
+			 glitch_object *object);
 };
 
 #endif

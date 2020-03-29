@@ -151,6 +151,10 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case FUNCTION_RETURN_TYPE_CHANGED:
+      {
+	break;
+      }
     case ITEM_ADDED:
       {
 	if(m_proxy && m_scene)
@@ -231,6 +235,10 @@ void glitch_undo_command::undo(void)
 	    m_userFunctions->deleteFunction(m_currentFunctionName);
 	  }
 
+	break;
+      }
+    case FUNCTION_RETURN_TYPE_CHANGED:
+      {
 	break;
       }
     case ITEM_ADDED:

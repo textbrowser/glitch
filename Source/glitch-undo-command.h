@@ -45,6 +45,7 @@ class glitch_undo_command: public QUndoCommand
   {
     CANVAS_SETTINGS_CHANGED = 0,
     FUNCTION_RENAMED,
+    FUNCTION_RETURN_TYPE_CHANGED,
     ITEM_ADDED,
     ITEM_DELETED,
     ITEM_MOVED,
