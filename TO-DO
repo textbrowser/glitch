@@ -45,6 +45,7 @@ Completed Items
 - Redo / undo style sheets.
 - Remove functions from User Functions on redo / undo.
 - Retain Tools Bar position.
+- Retain loop(), setup () style sheets.
 - Save As.
 - Save canvas settings.
 - Save loop() and setup() style sheets.
@@ -81,7 +82,6 @@ Remaining Items
 - Object-view settings.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
-- Retain loop(), setup () style sheets.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
