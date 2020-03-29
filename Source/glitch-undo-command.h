@@ -64,7 +64,7 @@ class glitch_undo_command: public QUndoCommand
 		      glitch_proxy_widget *proxy,
 		      glitch_scene *scene,
 		      QUndoCommand *parent = nullptr);
-  glitch_undo_command(const QString &previousFunctionName,
+  glitch_undo_command(const QString &previousFunctionValue,
 		      const Types type,
 		      glitch_object *object,
 		      glitch_user_functions *userFunctions,
@@ -98,9 +98,11 @@ class glitch_undo_command: public QUndoCommand
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_user_functions> m_userFunctions;
   QString m_currentFunctionName;
+  QString m_currentFunctionReturnType;
   QString m_currentString;
   QString m_currentStyleSheet;
   QString m_previousFunctionName;
+  QString m_previousFunctionReturnType;
   QString m_previousStyleSheet;
   QVariant m_currentProperty;
   QVariant m_previousProperty;

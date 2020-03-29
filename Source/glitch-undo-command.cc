@@ -27,6 +27,7 @@
 
 #include <QtDebug>
 
+#include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -67,17 +68,40 @@ glitch_undo_command::glitch_undo_command
 }
 
 glitch_undo_command::glitch_undo_command
-(const QString &previousFunctionName,
+(const QString &previousFunctionValue,
  const Types type,
  glitch_object *object,
  glitch_user_functions *userFunctions,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  if(object)
-    m_currentFunctionName = object->name();
-
   m_object = object;
-  m_previousFunctionName = previousFunctionName;
+
+  switch(type)
+    {
+    case FUNCTION_RENAMED:
+      {
+	if(m_object)
+	  m_currentFunctionName = object->name();
+
+	m_previousFunctionName = previousFunctionValue;
+	break;
+      }
+    case FUNCTION_RETURN_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  m_currentFunctionReturnType =
+	    qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    returnType();
+
+	m_previousFunctionReturnType = previousFunctionValue;
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
   m_property = glitch_object::XYZ_PROPERTY;
   m_type = type;
   m_userFunctions = userFunctions;
@@ -153,6 +177,10 @@ void glitch_undo_command::redo(void)
       }
     case FUNCTION_RETURN_TYPE_CHANGED:
       {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    setReturnType(m_currentFunctionReturnType);
+
 	break;
       }
     case ITEM_ADDED:
@@ -239,6 +267,10 @@ void glitch_undo_command::undo(void)
       }
     case FUNCTION_RETURN_TYPE_CHANGED:
       {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    setReturnType(m_previousFunctionReturnType);
+
 	break;
       }
     case ITEM_ADDED:

@@ -48,6 +48,7 @@ class glitch_object_function_arduino: public glitch_object
 				 QWidget *parent);
   ~glitch_object_function_arduino();
   QString name(void) const;
+  QString returnType(void) const;
   bool hasView(void) const;
   bool isMandatory(void) const;
   glitch_object_function_arduino *clone(QWidget *parent) const;
@@ -59,6 +60,7 @@ class glitch_object_function_arduino: public glitch_object
   void closeEditWindow(void);
   void save(const QSqlDatabase &db, QString &error);
   void setName(const QString &name);
+  void setReturnType(const QString &returnType);
 
  private:
   QPointer<glitch_object_edit_window> m_editWindow;

@@ -148,6 +148,11 @@ QString glitch_object_function_arduino::name(void) const
   return m_ui.label->text();
 }
 
+QString glitch_object_function_arduino::returnType(void) const
+{
+  return m_ui.return_type->currentText();
+}
+
 bool glitch_object_function_arduino::hasView(void) const
 {
   return true;
@@ -362,6 +367,16 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	else
 	  m_ui.return_type->setCurrentIndex(0);
       }
+}
+
+void glitch_object_function_arduino::setReturnType(const QString &returnType)
+{
+  int index = m_ui.return_type->findText(returnType);
+
+  if(index >= 0)
+    m_ui.return_type->setCurrentIndex(index);
+  else
+    m_ui.return_type->setCurrentIndex(0);
 }
 
 void glitch_object_function_arduino::slotEdit(void)
