@@ -76,6 +76,10 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
       {
 	auto *pushButton = new QPushButton(this);
 
+	connect(pushButton,
+		SIGNAL(clicked(void)),
+		actions.at(i),
+		SIGNAL(triggered(void)));
 	pushButton->setEnabled(actions.at(i)->isEnabled());
 	pushButton->setText(actions.at(i)->text());
 	m_ui.frame->layout()->addWidget(pushButton);

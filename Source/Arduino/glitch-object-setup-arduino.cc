@@ -65,9 +65,20 @@ glitch_object_setup_arduino *glitch_object_setup_arduino::clone
 
 void glitch_object_setup_arduino::addActions(QMenu &menu)
 {
-  menu.addAction(tr("&Edit..."),
-		 this,
-		 SLOT(slotEdit(void)));
+  if(!m_actions.contains(DefaultMenuActions::EDIT))
+    {
+      auto *action = new QAction(tr("&Edit..."), this);
+
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotEdit(void)));
+      m_actions[DefaultMenuActions::EDIT] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
+
   addDefaultActions(menu);
 }
 
