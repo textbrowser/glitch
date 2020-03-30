@@ -95,7 +95,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  SIGNAL(changed(void)));
+	  SLOT(slotReturnTypeChanged(void)));
   prepareContextMenu();
 }
 
@@ -132,7 +132,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       connect(m_ui.return_type,
 	      SIGNAL(currentIndexChanged(int)),
 	      this,
-	      SIGNAL(changed(void)));
+	      SLOT(slotReturnTypeChanged(void)));
       prepareContextMenu();
     }
 }
@@ -285,7 +285,8 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  SIGNAL(changed(void)));
+	  SLOT(slotReturnTypeChanged(void)));
+  m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
@@ -362,10 +363,15 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	int index = m_ui.return_type->findText(str);
 
+	m_ui.return_type->blockSignals(true);
+
 	if(index >= 0)
 	  m_ui.return_type->setCurrentIndex(index);
 	else
 	  m_ui.return_type->setCurrentIndex(0);
+
+	m_ui.return_type->blockSignals(false);
+	m_previousReturnType = m_ui.return_type->currentText();
       }
 }
 
@@ -373,10 +379,14 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 {
   int index = m_ui.return_type->findText(returnType);
 
+  m_ui.return_type->blockSignals(true);
+
   if(index >= 0)
     m_ui.return_type->setCurrentIndex(index);
   else
     m_ui.return_type->setCurrentIndex(0);
+
+  m_ui.return_type->blockSignals(false);
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -386,6 +396,14 @@ void glitch_object_function_arduino::slotEdit(void)
       m_editWindow->showNormal();
       m_editWindow->raise();
     }
+}
+
+void glitch_object_function_arduino::slotReturnTypeChanged(void)
+{
+  emit changed();
+  emit returnTypeChanged
+    (m_ui.return_type->currentText(), m_previousReturnType, this);
+  m_previousReturnType = m_ui.return_type->currentText();
 }
 
 void glitch_object_function_arduino::slotSetFunctionName(void)
