@@ -210,6 +210,16 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>bottom_align</tabstop>
+  <tabstop>top_align</tabstop>
+  <tabstop>horizontal_center_align</tabstop>
+  <tabstop>vertical_center_align</tabstop>
+  <tabstop>horizontal_stack</tabstop>
+  <tabstop>vertical_stack</tabstop>
+  <tabstop>left_align</tabstop>
+  <tabstop>right_align</tabstop>
+ </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
