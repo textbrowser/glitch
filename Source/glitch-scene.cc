@@ -214,6 +214,15 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					 glitch_object *)),
 	      Qt::UniqueConnection);
       connect(object,
+	      SIGNAL(nameChanged(const QString &,
+				 const QString &,
+				 glitch_object *)),
+	      this,
+	      SLOT(slotFunctionNameChanged(const QString &,
+					   const QString &,
+					   glitch_object *)),
+	      Qt::UniqueConnection);
+      connect(object,
 	      SIGNAL(returnTypeChanged(const QString &,
 				       const QString &,
 				       glitch_object *)),
@@ -803,6 +812,34 @@ void glitch_scene::setMainScene(const bool state)
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
+}
+
+void glitch_scene::slotFunctionNameChanged(const QString &after,
+					   const QString &before,
+					   glitch_object *object)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<QGraphicsItem *> list(items());
+
+  for(auto i : list)
+    {
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy)
+	continue;
+
+      auto *widget = qobject_cast<glitch_object_function_arduino *>
+	(proxy->widget());
+
+      if(object == widget || !widget)
+	continue;
+
+      if(before == widget->name())
+	widget->setName(after);
+    }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotObjectDeletedViaContextMenu(void)

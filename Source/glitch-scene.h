@@ -75,6 +75,9 @@ class glitch_scene: public QGraphicsScene
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
  private slots:
+  void slotFunctionNameChanged(const QString &after,
+			       const QString &before,
+			       glitch_object *object);
   void slotObjectDeletedViaContextMenu(void);
   void slotRedo(void);
   void slotUndo(void);
