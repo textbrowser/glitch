@@ -99,9 +99,9 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotSceneObjectDestroyed(QObject *)));
   connect(m_scene,
-	  SIGNAL(functionAdded(const QString &)),
+	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
-	  SLOT(slotFunctionAdded(const QString &)));
+	  SLOT(slotFunctionAdded(const QString &, const bool)));
   connect(m_scene,
 	  SIGNAL(functionDeleted(const QString &)),
 	  this,
@@ -736,9 +736,10 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
   menu->deleteLater();
 }
 
-void glitch_view::slotFunctionAdded(const QString &name)
+void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
 {
-  m_userFunctions->addFunction(name);
+  if(!isClone)
+    m_userFunctions->addFunction(name);
 }
 
 void glitch_view::slotFunctionDeleted(const QString &name)

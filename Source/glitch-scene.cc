@@ -232,7 +232,8 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					       glitch_object *)),
 	      Qt::UniqueConnection);
       emit functionAdded
-	(qobject_cast<glitch_object_function_arduino *> (object)->name());
+	(qobject_cast<glitch_object_function_arduino *> (object)->name(),
+	 qobject_cast<glitch_object_function_arduino *> (object)->isClone());
     }
 
   emit sceneResized();
@@ -251,7 +252,9 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
     emit functionAdded
       (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
-       name());
+       name(),
+       qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
+       isClone());
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)

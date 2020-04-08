@@ -158,6 +158,11 @@ bool glitch_object_function_arduino::hasView(void) const
   return true;
 }
 
+bool glitch_object_function_arduino::isClone(void) const
+{
+  return m_isFunctionClone;
+}
+
 bool glitch_object_function_arduino::isMandatory(void) const
 {
   return false;
@@ -336,22 +341,32 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 {
   QStringList list(properties.split("&"));
 
+  std::sort(list.begin(), list.end());
   glitch_object::setProperties(list);
 
   for(int i = 0; i < list.size(); i++)
-    if(list.at(i).startsWith("name = "))
+    if(list.at(i).startsWith("clone = "))
+      {
+	QString str(list.at(i).mid(8));
+
+	str.remove("\"");
+	m_isFunctionClone = QVariant(str).toBool();
+      }
+    else if(list.at(i).startsWith("name = "))
       {
 	QString str(list.at(i).mid(7));
 
 	str.remove("\"");
 
-	if(m_parentView && m_parentView->containsFunctionName(str))
+	if(!m_isFunctionClone &&
+	   m_parentView &&
+	   m_parentView->containsFunctionName(str))
 	  str = m_parentView->nextUniqueFunctionName();
 
 	if(m_editWindow)
 	  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(str));
 
-	if(m_parentView)
+	if(!m_isFunctionClone && m_parentView)
 	  m_parentView->consumeFunctionName(str);
 
 	m_ui.label->setText(str);

@@ -111,7 +111,7 @@ class glitch_view: public QWidget
   void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
-  void slotFunctionAdded(const QString &name);
+  void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,

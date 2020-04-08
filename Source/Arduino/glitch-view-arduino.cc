@@ -75,9 +75,9 @@ glitch_view_arduino::glitch_view_arduino
 	  this,
 	  SLOT(slotChanged(void)));
   connect(m_scene,
-	  SIGNAL(functionAdded(const QString &)),
+	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
-	  SLOT(slotFunctionAdded(const QString &)));
+	  SLOT(slotFunctionAdded(const QString &, const bool)));
   connect(m_scene,
 	  SIGNAL(functionDeleted(const QString &)),
 	  this,
@@ -172,9 +172,11 @@ void glitch_view_arduino::removeFunctionName(const QString &name)
   m_functionNames.remove(name);
 }
 
-void glitch_view_arduino::slotFunctionAdded(const QString &name)
+void glitch_view_arduino::slotFunctionAdded(const QString &name,
+					    const bool isClone)
 {
-  consumeFunctionName(name);
+  if(!isClone)
+    consumeFunctionName(name);
 }
 
 void glitch_view_arduino::slotFunctionDeleted(const QString &name)
