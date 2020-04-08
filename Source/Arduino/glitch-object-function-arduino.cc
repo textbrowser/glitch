@@ -307,6 +307,7 @@ void glitch_object_function_arduino::save
 
   QMap<QString, QVariant> properties;
 
+  properties["clone"] = m_isFunctionClone;
   properties["name"] = m_ui.label->text().trimmed();
   properties["return_type"] = m_ui.return_type->currentText();
   glitch_object::saveProperties(properties, db, error);
