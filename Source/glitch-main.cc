@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	std::cout << "Glitch [options]" << std::endl;
 	std::cout << "--help" << std::endl;
 	std::cout << "--new-arduino-diagram name" << std::endl;
-	std::cout << "--open-arduino-diagram name" << std::endl;
+	std::cout << "--open-arduino-diagram absolute-file-name" << std::endl;
 	std::cout << "--version" << std::endl;
 	return EXIT_SUCCESS;
       }
