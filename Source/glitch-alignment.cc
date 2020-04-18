@@ -161,9 +161,9 @@ void glitch_alignment::align(const AlignmentType alignmentType)
       if(!proxy || !proxy->isSelected())
 	continue;
 
-      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto *object = qobject_cast<glitch_object *> (proxy->widget());
 
-      if(!widget)
+      if(!object)
 	continue;
 
       bool movable = proxy->isMovable();
@@ -172,37 +172,37 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 	{
 	case ALIGN_BOTTOM:
 	  {
-	    x = widget->pos().x();
-	    y = qMax(y, widget->height() + widget->pos().y());
+	    x = object->pos().x();
+	    y = qMax(y, object->height() + object->pos().y());
 	    break;
 	  }
 	case ALIGN_CENTER_HORIZONTAL:
 	case ALIGN_CENTER_VERTICAL:
 	  {
 	    maxP.first = qMax
-	      (maxP.first, widget->pos().x() + widget->width());
+	      (maxP.first, object->pos().x() + object->width());
 	    maxP.second = qMax
-	      (maxP.second, widget->height() + widget->pos().y());
-	    minP.first = qMin(minP.first, widget->pos().x());
-	    minP.second = qMin(minP.second, widget->pos().y());
+	      (maxP.second, object->height() + object->pos().y());
+	    minP.first = qMin(minP.first, object->pos().x());
+	    minP.second = qMin(minP.second, object->pos().y());
 	    break;
 	  }
 	case ALIGN_LEFT:
 	  {
-	    x = qMin(x, widget->pos().x());
-	    y = widget->pos().y();
+	    x = qMin(x, object->pos().x());
+	    y = object->pos().y();
 	    break;
 	  }
 	case ALIGN_RIGHT:
 	  {
-	    x = qMax(x, widget->pos().x() + widget->width());
-	    y = widget->pos().y();
+	    x = qMax(x, object->pos().x() + object->width());
+	    y = object->pos().y();
 	    break;
 	  }
 	case ALIGN_TOP:
 	  {
-	    x = widget->pos().x();
-	    y = qMin(y, widget->pos().y());
+	    x = object->pos().x();
+	    y = qMin(y, object->pos().y());
 	    break;
 	  }
 	default:
@@ -218,10 +218,10 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 	{
 	case ALIGN_BOTTOM:
 	  {
-	    if(y != widget->height() + widget->pos().y())
+	    if(y != object->height() + object->pos().y())
 	      {
-		point = widget->pos();
-		widget->move(x, y - widget->height());
+		point = object->pos();
+		object->move(x, y - object->height());
 	      }
 
 	    break;
@@ -232,37 +232,37 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
 
-	    point = widget->pos();
+	    point = object->pos();
 
 	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
-	      widget->move
-		(widget->pos().x(), rect.center().y() - widget->height() / 2);
+	      object->move
+		(object->pos().x(), rect.center().y() - object->height() / 2);
 	    else
-	      widget->move
-		(rect.center().x() - widget->width() / 2, widget->pos().y());
+	      object->move
+		(rect.center().x() - object->width() / 2, object->pos().y());
 
 	    break;
 	  }
 	case ALIGN_RIGHT:
 	  {
-	    if(x != widget->pos().x() + widget->width())
+	    if(x != object->pos().x() + object->width())
 	      {
-		point = widget->pos();
-		widget->move(x - widget->width(), y);
+		point = object->pos();
+		object->move(x - object->width(), y);
 	      }
 
 	    break;
 	  }
 	default:
 	  {
-	    point = widget->pos();
-	    widget->move(x, y);
+	    point = object->pos();
+	    object->move(x, y);
 	    break;
 	  }
 	}
 
       if(!point.isNull())
-	if(point != widget->pos())
+	if(object->pos() != point)
 	  {
 	    if(!began)
 	      {
@@ -349,12 +349,12 @@ void glitch_alignment::stack(const StackType stackType)
       if(!proxy)
 	continue;
 
-      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto *object = qobject_cast<glitch_object *> (proxy->widget());
 
-      if(!widget)
+      if(!object)
 	continue;
 
-      list2 << widget;
+      list2 << object;
     }
 
   if(list2.isEmpty())
