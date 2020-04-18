@@ -305,7 +305,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	query.setForwardOnly(true);
 
 	if(query.exec("SELECT myoid, parent_oid, position, properties, "
-		      "stylesheet, type FROM objects ORDER BY parent_oid"))
+		      "stylesheet, type FROM objects ORDER BY "
+		      "parent_oid, properties"))
 	  {
 	    QHash<quint64, glitch_object *> parents;
 
