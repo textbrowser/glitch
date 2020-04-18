@@ -442,12 +442,12 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	    if(!proxy)
 	      continue;
 
-	    auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+	    auto *object = qobject_cast<glitch_object *> (proxy->widget());
 
-	    if(!widget)
+	    if(!object)
 	      continue;
 
-	    widget->save(db, error);
+	    object->save(db, error);
 
 	    if(!error.isEmpty())
 	      break;
