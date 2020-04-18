@@ -294,13 +294,13 @@ void glitch_scene::deleteFunctionClones(const QString &name)
       if(!proxy)
 	continue;
 
-      auto *widget = qobject_cast<glitch_object_function_arduino *>
+      auto *object = qobject_cast<glitch_object_function_arduino *>
 	(proxy->widget());
 
-      if(!widget || !widget->isClone())
+      if(!object || !object->isClone())
 	continue;
 
-      if(name == widget->name())
+      if(name == object->name())
 	{
 	  if(m_undoStack)
 	    {
@@ -546,12 +546,12 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(!proxy || !proxy->isMovable())
 	      continue;
 
-	    auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+	    auto *object = qobject_cast<glitch_object *> (proxy->widget());
 
-	    if(!widget)
+	    if(!object)
 	      continue;
 
-	    point = widget->pos();
+	    point = object->pos();
 
 	    switch(event->key())
 	      {
@@ -586,7 +586,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	    QPointF previousPosition(proxy->scenePos());
 
-	    widget->move(point);
+	    object->move(point);
 
 	    if(previousPosition != proxy->pos())
 	      moved = true;
@@ -871,57 +871,18 @@ void glitch_scene::slotFunctionNameChanged(const QString &after,
 					   const QString &before,
 					   glitch_object *object)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QList<QGraphicsItem *> list(items());
-
-  for(auto i : list)
-    {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
-
-      if(!proxy)
-	continue;
-
-      auto *widget = qobject_cast<glitch_object_function_arduino *>
-	(proxy->widget());
-
-      if(object == widget || !widget)
-	continue;
-
-      if(before == widget->name())
-	widget->setName(after);
-    }
-
-  QApplication::restoreOverrideCursor();
+  Q_UNUSED(after);
+  Q_UNUSED(before);
+  Q_UNUSED(object);
 }
 
 void glitch_scene::slotFunctionReturnTypeChanged(const QString &after,
 						 const QString &before,
 						 glitch_object *object)
 {
+  Q_UNUSED(after);
   Q_UNUSED(before);
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QList<QGraphicsItem *> list(items());
-
-  for(auto i : list)
-    {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
-
-      if(!proxy)
-	continue;
-
-      auto *widget = qobject_cast<glitch_object_function_arduino *>
-	(proxy->widget());
-
-      if(object == widget || !widget)
-	continue;
-
-      if(object->name() == widget->name())
-	widget->setReturnType(after);
-    }
-
-  QApplication::restoreOverrideCursor();
+  Q_UNUSED(object);
 }
 
 void glitch_scene::slotObjectDeletedViaContextMenu(void)

@@ -34,6 +34,7 @@
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
+#include "glitch-scene.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-view-arduino.h"
 
@@ -80,8 +81,13 @@ glitch_object_function_arduino::glitch_object_function_arduino
   ** Clone.
   */
 
+  connect(&m_findParentFunctionTimer,
+	  SIGNAL(timeout(void)),
+	  this,
+	  SLOT(slotFindParentFunctionTimeout(void)));
   m_editView = nullptr;
   m_editWindow = nullptr;
+  m_findParentFunctionTimer.start(500);
   m_initialized = true;
   m_isFunctionClone = true;
   m_parentView = nullptr;
@@ -116,8 +122,13 @@ glitch_object_function_arduino::glitch_object_function_arduino
       ** parent is a glitch_object_view.
       */
 
+      connect(&m_findParentFunctionTimer,
+	      SIGNAL(timeout(void)),
+	      this,
+	      SLOT(slotFindParentFunctionTimeout(void)));
       m_editView = nullptr;
       m_editWindow = nullptr;
+      m_findParentFunctionTimer.start(500);
       m_initialized = true;
       m_isFunctionClone = true;
       m_parentView = nullptr;
@@ -187,6 +198,41 @@ createFromValues
   object->setProperties(values.value("properties").toString());
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
+}
+
+glitch_object_function_arduino *glitch_object_function_arduino::
+findParentFunction(void) const
+{
+  if(m_parentFunction)
+    return m_parentFunction;
+
+  if(qobject_cast<glitch_view *> (m_parent))
+    {
+      QList<QGraphicsItem *> list;
+      glitch_scene *scene = qobject_cast<glitch_view *> (m_parent)->scene();
+
+      if(scene)
+	list = scene->items();
+
+      for(auto i : list)
+	{
+	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+	  if(!proxy)
+	    continue;
+
+	  auto *object = qobject_cast<glitch_object_function_arduino *>
+	    (proxy->widget());
+
+	  if(!object || object->isClone())
+	    continue;
+
+	  if(name() == object->name())
+	    return object;
+	}
+    }
+
+  return nullptr;
 }
 
 glitch_object_view *glitch_object_function_arduino::editView(void) const
@@ -392,6 +438,24 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	m_ui.return_type->blockSignals(false);
 	m_previousReturnType = m_ui.return_type->currentText();
       }
+
+  if(m_isFunctionClone)
+    {
+      connect(&m_findParentFunctionTimer,
+	      SIGNAL(timeout(void)),
+	      this,
+	      SLOT(slotFindParentFunctionTimeout(void)),
+	      Qt::UniqueConnection);
+
+      if(m_editWindow)
+	/*
+	** Function clones do not have edit windows.
+	*/
+
+	m_editWindow->deleteLater();
+
+      m_findParentFunctionTimer.start(500);
+    }
 }
 
 void glitch_object_function_arduino::setReturnType(const QString &returnType)
@@ -415,6 +479,33 @@ void glitch_object_function_arduino::slotEdit(void)
       m_editWindow->showNormal();
       m_editWindow->raise();
     }
+}
+
+void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
+{
+  if(!m_isFunctionClone || m_parentFunction)
+    {
+      m_findParentFunctionTimer.stop();
+      return;
+    }
+
+  m_parentFunction = findParentFunction();
+
+  if(m_parentFunction)
+    connect(m_parentFunction,
+	    SIGNAL(changed(void)),
+	    this,
+	    SLOT(slotParentFunctionChanged(void)),
+	    Qt::UniqueConnection);
+}
+
+void glitch_object_function_arduino::slotParentFunctionChanged(void)
+{
+  if(!m_parentFunction)
+    return;
+
+  setName(m_parentFunction->name());
+  setReturnType(m_parentFunction->returnType());
 }
 
 void glitch_object_function_arduino::slotReturnTypeChanged(void)
