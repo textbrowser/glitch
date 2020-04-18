@@ -92,10 +92,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.label->setText(name);
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
   m_ui.return_type->setEnabled(false);
-  connect(m_ui.return_type,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotReturnTypeChanged(void)));
+  m_ui.return_type->setToolTip
+    (tr("Return type is disabled on function clone."));
   prepareContextMenu();
 }
 
@@ -129,10 +127,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.label->setAutoFillBackground(true);
       m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
       m_ui.return_type->setEnabled(false);
-      connect(m_ui.return_type,
-	      SIGNAL(currentIndexChanged(int)),
-	      this,
-	      SLOT(slotReturnTypeChanged(void)));
+      m_ui.return_type->setToolTip
+	(tr("Return type is disabled on function clone."));
       prepareContextMenu();
     }
 }
@@ -351,6 +347,13 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	str.remove("\"");
 	m_isFunctionClone = QVariant(str).toBool();
+	m_ui.return_type->setEnabled(!m_isFunctionClone);
+
+	if(!m_ui.return_type->isEnabled())
+	  m_ui.return_type->setToolTip
+	    (tr("Return type is disabled on function clone."));
+	else
+	  m_ui.return_type->setToolTip("");
       }
     else if(list.at(i).startsWith("name = "))
       {

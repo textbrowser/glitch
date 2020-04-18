@@ -82,6 +82,7 @@ Remaining Items
 - Object-view settings.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
+- Remove function clones.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
