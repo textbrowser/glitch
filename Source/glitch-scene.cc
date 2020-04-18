@@ -231,6 +231,15 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					       const QString &,
 					       glitch_object *)),
 	      Qt::UniqueConnection);
+      connect(object,
+	      SIGNAL(returnTypeChanged(const QString &,
+				       const QString &,
+				       glitch_object *)),
+	      this,
+	      SLOT(slotFunctionReturnTypeChanged(const QString &,
+						 const QString &,
+						 glitch_object *)),
+	      Qt::UniqueConnection);
       emit functionAdded
 	(qobject_cast<glitch_object_function_arduino *> (object)->name(),
 	 qobject_cast<glitch_object_function_arduino *> (object)->isClone());
@@ -242,7 +251,8 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 
 void glitch_scene::addItem(QGraphicsItem *item)
 {
-  QGraphicsScene::addItem(item);
+  if(item && !item->scene())
+    QGraphicsScene::addItem(item);
 
   auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
@@ -273,6 +283,41 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
     object->deleteLater();
 }
 
+void glitch_scene::deleteFunctionClones(const QString &name)
+{
+  QList<QGraphicsItem *> list(items());
+
+  for(auto i : list)
+    {
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy)
+	continue;
+
+      auto *widget = qobject_cast<glitch_object_function_arduino *>
+	(proxy->widget());
+
+      if(!widget || !widget->isClone())
+	continue;
+
+      if(name == widget->name())
+	{
+	  if(m_undoStack)
+	    {
+	      auto *undoCommand = new glitch_undo_command
+		(glitch_undo_command::ITEM_DELETED, proxy, this);
+
+	      m_undoStack->push(undoCommand);
+	    }
+	  else
+	    {
+	      removeItem(proxy);
+	      proxy->deleteLater();
+	    }
+	}
+    }
+}
+
 void glitch_scene::deleteItems(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -296,10 +341,14 @@ void glitch_scene::deleteItems(void)
 
       if(m_undoStack)
 	{
-	  if(qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
-	    emit functionDeleted
-	      (qobject_cast
-	       <glitch_object_function_arduino *> (proxy->widget())->name());
+	  auto *object = qobject_cast<glitch_object_function_arduino *>
+	    (proxy->widget());
+
+	  if(object)
+	    {
+	      deleteFunctionClones(object->name());
+	      emit functionDeleted(object->name());
+	    }
 
 	  auto *undoCommand = new glitch_undo_command
 	    (glitch_undo_command::ITEM_DELETED, proxy, this);
@@ -797,7 +846,8 @@ void glitch_scene::purgeRedoUndoProxies(void)
 
 void glitch_scene::removeItem(QGraphicsItem *item)
 {
-  QGraphicsScene::removeItem(item);
+  if(item && item->scene() == this)
+    QGraphicsScene::removeItem(item);
 
   auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
@@ -840,6 +890,35 @@ void glitch_scene::slotFunctionNameChanged(const QString &after,
 
       if(before == widget->name())
 	widget->setName(after);
+    }
+
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_scene::slotFunctionReturnTypeChanged(const QString &after,
+						 const QString &before,
+						 glitch_object *object)
+{
+  Q_UNUSED(before);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<QGraphicsItem *> list(items());
+
+  for(auto i : list)
+    {
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy)
+	continue;
+
+      auto *widget = qobject_cast<glitch_object_function_arduino *>
+	(proxy->widget());
+
+      if(object == widget || !widget)
+	continue;
+
+      if(object->name() == widget->name())
+	widget->setReturnType(after);
     }
 
   QApplication::restoreOverrideCursor();

@@ -65,6 +65,7 @@ class glitch_scene: public QGraphicsScene
   bool m_mainScene;
   glitch_common::ProjectType m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
+  void deleteFunctionClones(const QString &name);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
   void drawBackground(QPainter *painter, const QRectF &rect);
@@ -78,6 +79,9 @@ class glitch_scene: public QGraphicsScene
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,
 			       glitch_object *object);
+  void slotFunctionReturnTypeChanged(const QString &after,
+				     const QString &before,
+				     glitch_object *object);
   void slotObjectDeletedViaContextMenu(void);
   void slotRedo(void);
   void slotUndo(void);

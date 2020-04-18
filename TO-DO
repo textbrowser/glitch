@@ -43,6 +43,7 @@ Completed Items
 - Redo / undo lock positions.
 - Redo / undo shortcuts on edit windows.
 - Redo / undo style sheets.
+- Remove function clones.
 - Remove functions from User Functions on redo / undo.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
@@ -82,7 +83,6 @@ Remaining Items
 - Object-view settings.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
-- Remove function clones.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
