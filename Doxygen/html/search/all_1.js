@@ -3,6 +3,7 @@ var searchData=
   ['glitch_5falignment',['glitch_alignment',['../classglitch__alignment.html',1,'']]],
   ['glitch_5fcanvas_5fsettings',['glitch_canvas_settings',['../classglitch__canvas__settings.html',1,'']]],
   ['glitch_5fcommon',['glitch_common',['../classglitch__common.html',1,'']]],
+  ['glitch_5ffloating_5fcontext_5fmenu',['glitch_floating_context_menu',['../classglitch__floating__context__menu.html',1,'']]],
   ['glitch_5fgraphicsview',['glitch_graphicsview',['../classglitch__graphicsview.html',1,'']]],
   ['glitch_5fmisc',['glitch_misc',['../classglitch__misc.html',1,'']]],
   ['glitch_5fobject',['glitch_object',['../classglitch__object.html',1,'']]],
