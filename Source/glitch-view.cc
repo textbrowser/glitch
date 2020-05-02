@@ -349,7 +349,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  {
 		    auto *object = parents.value(query.value(1).toULongLong());
 
-		    if(object)
+		    if(object && object->editView())
 		      object->addChild
 			(glitch_misc::
 			 dbPointToPointF(point),

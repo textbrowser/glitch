@@ -400,14 +400,6 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 		    this,
 		    SLOT(slotFindParentFunctionTimeout(void)),
 		    Qt::UniqueConnection);
-
-	    if(m_editWindow)
-	      /*
-	      ** Function clones do not have edit windows.
-	      */
-
-	      m_editWindow->deleteLater();
-
 	    m_findParentFunctionTimer.start(100);
 	  }
 
@@ -469,7 +461,7 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 
 void glitch_object_function_arduino::slotEdit(void)
 {
-  if(m_editWindow)
+  if(m_editWindow && !m_isFunctionClone)
     {
       m_editWindow->showNormal();
       m_editWindow->raise();
@@ -493,6 +485,7 @@ void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
 	      this,
 	      SLOT(slotParentFunctionChanged(void)),
 	      Qt::UniqueConnection);
+      m_findParentFunctionTimer.stop();
       slotParentFunctionChanged();
     }
 }
@@ -508,6 +501,9 @@ void glitch_object_function_arduino::slotParentFunctionChanged(void)
 
 void glitch_object_function_arduino::slotReturnTypeChanged(void)
 {
+  if(m_isFunctionClone)
+    return;
+
   emit changed();
   emit returnTypeChanged
     (m_ui.return_type->currentText(), m_previousReturnType, this);
