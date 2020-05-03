@@ -457,6 +457,9 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
     m_ui.return_type->setCurrentIndex(0);
 
   m_ui.return_type->blockSignals(false);
+
+  if(!m_isFunctionClone)
+    emit changed();
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -512,7 +515,7 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 
 void glitch_object_function_arduino::slotSetFunctionName(void)
 {
-  if(!m_editWindow)
+  if(!m_editWindow || m_isFunctionClone)
     return;
 
   QInputDialog dialog(m_parent);
