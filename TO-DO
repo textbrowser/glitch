@@ -83,6 +83,8 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Proximity instead of wiring.
+- Raise currently-selected function via z-value. This will allow the function's
+  combination box to float above other widgets.
 - Redo / undo. See also macros.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.

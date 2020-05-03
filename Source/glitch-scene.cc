@@ -283,6 +283,24 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
     object->deleteLater();
 }
 
+void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
+{
+  if(proxy)
+    proxy->setZValue(1);
+  else
+    {
+      QList<QGraphicsItem *> list(items());
+
+      for(auto i : list)
+	{
+	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+	  if(proxy)
+	    proxy->setZValue(0);
+	}
+    }
+}
+
 void glitch_scene::deleteFunctionClones(const QString &name)
 {
   QList<QGraphicsItem *> list(items());
