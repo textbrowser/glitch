@@ -38,6 +38,8 @@ Completed Items
 - Pass undo stack from top-level view to child views.
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
+- Raise currently-selected function via z-value. This will allow the function's
+  combination box to float above other widgets.
 - Recreating functions and unique names.
 - Redo / undo function names.
 - Redo / undo lock positions.
@@ -83,8 +85,6 @@ Remaining Items
 - Implement Arduino's setup().
 - Object-view settings.
 - Proximity instead of wiring.
-- Raise currently-selected function via z-value. This will allow the function's
-  combination box to float above other widgets.
 - Redo / undo. See also macros.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.

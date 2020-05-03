@@ -728,7 +728,13 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		  QPoint point
 		    (proxy->mapFromScene(event->scenePos()).toPoint());
 
-		  if(qobject_cast<QToolButton *> (object->childAt(point)))
+		  if(qobject_cast<QComboBox *> (object->childAt(point)))
+		    {
+		      bringToFront(nullptr);
+		      bringToFront(proxy);
+		      goto done_label;
+		    }
+		  else if(qobject_cast<QToolButton *> (object->childAt(point)))
 		    /*
 		    ** Do not grab the item.
 		    */
