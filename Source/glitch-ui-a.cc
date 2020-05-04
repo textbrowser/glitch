@@ -284,6 +284,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  SLOT(slotSelectPage(void)));
   m_ui.tab->addTab(view, view->menuAction()->icon(), name);
   m_ui.tab->setCurrentWidget(view);
+  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), name);
   prepareActionWidgets();
   setWindowTitle(view);
 
@@ -1269,6 +1270,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   m_ui.action_Save_Current_Diagram->setEnabled(view->hasChanged());
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
+  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), view->name());
   prepareActionWidgets();
   setTabText(view);
   setWindowTitle(view);
