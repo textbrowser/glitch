@@ -37,9 +37,9 @@
 #endif
 #endif
 
-#include "glitch-common.h"
 #include "glitch-misc.h"
 #include "glitch-ui.h"
+#include "glitch-version.h"
 
 int main(int argc, char *argv[])
 {
