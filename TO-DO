@@ -27,6 +27,7 @@ Completed Items
 - Detect scene boundaries of object scenes.
 - Display main() function. Fixed position? Yes.
 - Do not align, stack, etc. unless coordinates would change.
+- Do not discover parent functions for copied functions.
 - Error dialog.
 - Exiting does not require closing of pages.
 - Function names and deleted functions; uniqueness errors.
@@ -75,7 +76,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Do not discover parent functions for copied functions.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.

@@ -81,13 +81,17 @@ glitch_object_function_arduino::glitch_object_function_arduino
   ** Clone.
   */
 
-  connect(&m_findParentFunctionTimer,
-	  SIGNAL(timeout(void)),
-	  this,
-	  SLOT(slotFindParentFunctionTimeout(void)));
+  if(parent)
+    {
+      connect(&m_findParentFunctionTimer,
+	      SIGNAL(timeout(void)),
+	      this,
+	      SLOT(slotFindParentFunctionTimeout(void)));
+      m_findParentFunctionTimer.start(100);
+    }
+
   m_editView = nullptr;
   m_editWindow = nullptr;
-  m_findParentFunctionTimer.start(100);
   m_initialized = true;
   m_isFunctionClone = true;
   m_parentView = nullptr;
@@ -122,13 +126,17 @@ glitch_object_function_arduino::glitch_object_function_arduino
       ** parent is a glitch_object_view.
       */
 
-      connect(&m_findParentFunctionTimer,
-	      SIGNAL(timeout(void)),
-	      this,
-	      SLOT(slotFindParentFunctionTimeout(void)));
+      if(parent)
+	{
+	  connect(&m_findParentFunctionTimer,
+		  SIGNAL(timeout(void)),
+		  this,
+		  SLOT(slotFindParentFunctionTimeout(void)));
+	  m_findParentFunctionTimer.start(100);
+	}
+
       m_editView = nullptr;
       m_editWindow = nullptr;
-      m_findParentFunctionTimer.start(100);
       m_initialized = true;
       m_isFunctionClone = true;
       m_parentView = nullptr;
