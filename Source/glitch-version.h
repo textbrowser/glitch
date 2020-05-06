@@ -25,28 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_common_h_
-#define _glitch_common_h_
-
-#include <QSqlDatabase>
-
-class glitch_common
-{
- public:
-  enum ProjectType
-  {
-    ArduinoProject = 0,
-    XYZProject
-  };
-
-  static QSqlDatabase sqliteDatabase(void);
-  static QString projectTypeToString(const ProjectType projectType);
-  static void discardDatabase(const QString &connectioName);
-
- private:
-  glitch_common(void);
-  ~glitch_common(void);
-  static quint64 s_dbId;
-};
-
+#ifndef _glitch_version_h_
+#define _glitch_version_h_
+#define GLITCH_VERSION_STR "1.00"
 #endif
