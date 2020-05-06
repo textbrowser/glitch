@@ -103,10 +103,10 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
     return false;
   else
     {
+      QString t(text.trimmed().remove("glitch-"));
+
       if(m_mainScene)
 	{
-	  QString t(text.trimmed().remove("glitch-"));
-
 	  if(glitch_structures_arduino::structureNames().contains(t))
 	    {
 	      event->accept();
@@ -124,15 +124,12 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    {
 	    case glitch_common::ArduinoProject:
 	      {
-		QString t(text.toLower().trimmed());
-
-		if(glitch_structures_arduino::
-		   containsStructure(t.mid(QString("glitch-").length())))
+		if(glitch_structures_arduino::structureNames().contains(t))
 		  /*
 		  ** Functions cannot be defined in other functions.
 		  */
 
-		  if(!t.startsWith("glitch-arduino-function()"))
+		  if(!t.startsWith("arduino-function"))
 		    {
 		      event->accept();
 		      return true;
