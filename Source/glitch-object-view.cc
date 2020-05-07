@@ -72,6 +72,10 @@ glitch_object_view::glitch_object_view
 	  this,
 	  SLOT(slotSceneResized(void)));
   connect(this,
+	  SIGNAL(copy(void)),
+	  m_scene,
+	  SLOT(slotCopy(void)));
+  connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));

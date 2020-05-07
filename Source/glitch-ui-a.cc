@@ -247,9 +247,9 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotPageChanged(void)));
   connect(view,
-	  SIGNAL(copy(void)),
+	  SIGNAL(copy(glitch_scene *)),
 	  this,
-	  SLOT(slotCopy(void)));
+	  SLOT(slotCopy(glitch_scene *)));
   connect(view,
 	  SIGNAL(destroyed(void)),
 	  this,
@@ -726,6 +726,13 @@ void glitch_ui::slotCloseDiagram(int index)
 void glitch_ui::slotCloseDiagram(void)
 {
   slotCloseDiagram(m_ui.tab->currentIndex());
+}
+
+void glitch_ui::slotCopy(glitch_scene *scene)
+{
+  qDebug() << scene;
+  if(!scene)
+    return;
 }
 
 void glitch_ui::slotCopy(void)

@@ -77,6 +77,7 @@ class glitch_scene: public QGraphicsScene
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
  private slots:
+  void slotCopy(void);
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,
 			       glitch_object *object);
@@ -89,7 +90,7 @@ class glitch_scene: public QGraphicsScene
 
  signals:
   void changed(void);
-  void copy(void);
+  void copy(glitch_scene *scene);
   void functionAdded(const QString &name, const bool isClone);
   void functionDeleted(const QString &name);
   void functionNameChanged(const QString &after,

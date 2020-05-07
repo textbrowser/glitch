@@ -95,9 +95,9 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotChanged(void)));
   connect(m_scene,
-	  SIGNAL(copy(void)),
+	  SIGNAL(copy(glitch_scene *)),
 	  this,
-	  SIGNAL(copy(void)));
+	  SIGNAL(copy(glitch_scene *)));
   connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
