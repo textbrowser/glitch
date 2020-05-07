@@ -247,6 +247,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotPageChanged(void)));
   connect(view,
+	  SIGNAL(copy(void)),
+	  this,
+	  SLOT(slotCopy(void)));
+  connect(view,
 	  SIGNAL(destroyed(void)),
 	  this,
 	  SLOT(slotArduinoViewDestroyed(void)));

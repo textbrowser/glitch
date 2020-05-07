@@ -34,6 +34,9 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent, Qt::WindowFlags() | Qt::WindowStaysOnTopHint)
 {
+  new QShortcut(tr("Ctrl+C"),
+		this,
+		SIGNAL(copy(void)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -46,8 +49,8 @@ glitch_object_edit_window::~glitch_object_edit_window()
 
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
-  emit closed();
   QMainWindow::closeEvent(event);
+  emit closed();
 }
 
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)

@@ -498,6 +498,11 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(proxy)
 	    {
+	      connect(object,
+		      SIGNAL(copy(void)),
+		      this,
+		      SIGNAL(copy(void)));
+
 	      if(m_undoStack)
 		{
 		  auto *undoCommand = new glitch_undo_command

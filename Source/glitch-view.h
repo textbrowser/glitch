@@ -131,6 +131,7 @@ class glitch_view: public QWidget
 
  signals:
   void changed(void);
+  void copy(void);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);
   void saved(void);

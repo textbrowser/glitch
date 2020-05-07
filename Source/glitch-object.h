@@ -119,6 +119,7 @@ class glitch_object: public QWidget
 
  signals:
   void changed(void);
+  void copy(void);
   void deletedViaContextMenu(void);
 };
 

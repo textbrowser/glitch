@@ -49,6 +49,7 @@ class glitch_object_edit_window: public QMainWindow
 
  signals:
   void closed(void);
+  void copy(void);
 };
 
 #endif
