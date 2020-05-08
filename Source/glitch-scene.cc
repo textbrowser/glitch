@@ -491,6 +491,10 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(object)
 	{
+	  connect(object,
+		  SIGNAL(copy(glitch_scene *)),
+		  this,
+		  SLOT(deleteLater(void)));
 	  event->accept();
 	  object->setUndoStack(m_undoStack);
 
@@ -886,12 +890,6 @@ void glitch_scene::setMainScene(const bool state)
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
-}
-
-void glitch_scene::slotCopy(void)
-{
-  qDebug() << this;
-  emit copy(this);
 }
 
 void glitch_scene::slotFunctionNameChanged(const QString &after,
