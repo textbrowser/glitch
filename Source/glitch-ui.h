@@ -33,6 +33,7 @@
 
 #include "ui_glitch-mainwindow.h"
 
+class QGraphicsView;
 class glitch_object;
 class glitch_scene;
 class glitch_structures_arduino;
@@ -59,6 +60,7 @@ class glitch_ui: public QMainWindow
 					 const QString &name,
 					 const bool fromFile);
   void closeEvent(QCloseEvent *event);
+  void copy(QGraphicsView *view);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
@@ -76,7 +78,7 @@ class glitch_ui: public QMainWindow
   void slotClearRecentFiles(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
-  void slotCopy(glitch_scene *scene);
+  void slotCopy(QGraphicsView *view);
   void slotCopy(void);
   void slotDelete(void);
   void slotMouseEnterView(void);

@@ -247,9 +247,9 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotPageChanged(void)));
   connect(view,
-	  SIGNAL(copy(glitch_scene *)),
+	  SIGNAL(copy(QGraphicsView *)),
 	  this,
-	  SLOT(slotCopy(glitch_scene *)));
+	  SLOT(slotCopy(QGraphicsView *)));
   connect(view,
 	  SIGNAL(destroyed(void)),
 	  this,
@@ -340,6 +340,62 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   saveSettings();
   QMainWindow::closeEvent(event);
   QApplication::exit();
+}
+
+void glitch_ui::copy(QGraphicsView *view)
+{
+  if(!view || !view->scene())
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
+    it(m_copiedObjects);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value())
+	it.value()->deleteLater();
+
+      it.remove();
+    }
+
+  QList<QGraphicsItem *> list(view->scene()->selectedItems());
+
+  for(auto i : list)
+    {
+      if(!i)
+	continue;
+
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy ||
+	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
+	 !proxy->isSelected())
+	continue;
+
+      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+
+      if(!widget)
+	continue;
+ 
+      auto *clone = widget->clone(nullptr);
+
+      if(!clone)
+	continue;
+
+      QPair<int, int> pair;
+      QPoint point(widget->scenePos().toPoint());
+
+      pair.first = point.x();
+      pair.second = point.y();
+      m_copiedObjects.insert(pair, clone);
+    }
+
+  m_ui.action_Paste->setEnabled(!m_copiedObjects.empty());
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::parseCommandLineArguments(void)
@@ -728,55 +784,15 @@ void glitch_ui::slotCloseDiagram(void)
   slotCloseDiagram(m_ui.tab->currentIndex());
 }
 
-void glitch_ui::slotCopy(glitch_scene *scene)
+void glitch_ui::slotCopy(QGraphicsView *view)
 {
-  qDebug() << scene;
-  if(!scene)
-    return;
+  copy(view);
 }
 
 void glitch_ui::slotCopy(void)
 {
-  if(!m_currentView)
-    return;
-
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
-    it(m_copiedObjects);
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(it.value())
-	it.value()->deleteLater();
-
-      it.remove();
-    }
-
-  QList<glitch_object *> list(m_currentView->selectedObjects());
-
-  for(auto i : list)
-    {
-      if(!i)
-	continue;
-
-      QPoint point(i->scenePos().toPoint());
-      auto *clone = i->clone(nullptr);
-
-      if(!clone)
-	continue;
-
-      QPair<int, int> pair;
-
-      pair.first = point.x();
-      pair.second = point.y();
-      m_copiedObjects.insert(pair, clone);
-    }
-
-  m_ui.action_Paste->setEnabled(!m_copiedObjects.empty());
-  QApplication::restoreOverrideCursor();
+  if(m_currentView)
+    copy(m_currentView->view());
 }
 
 void glitch_ui::slotDelete(void)

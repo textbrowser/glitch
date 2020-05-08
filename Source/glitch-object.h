@@ -98,11 +98,11 @@ class glitch_object: public QWidget
   QHash<Properties, QVariant> m_properties;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
+  QPointer<QWidget> m_parent;
   QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_name;
   QString m_type;
-  QWidget *m_parent;
   bool m_initialized;
   glitch_object_view *m_editView;
   quint64 m_id;
@@ -119,7 +119,6 @@ class glitch_object: public QWidget
 
  signals:
   void changed(void);
-  void copy(void);
   void deletedViaContextMenu(void);
 };
 

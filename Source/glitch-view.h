@@ -110,6 +110,7 @@ class glitch_view: public QWidget
  protected slots:
   void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
+  void slotCopy(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
@@ -131,7 +132,7 @@ class glitch_view: public QWidget
 
  signals:
   void changed(void);
-  void copy(glitch_scene *scene);
+  void copy(QGraphicsView *view);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);
   void saved(void);
