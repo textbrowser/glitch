@@ -134,6 +134,7 @@ class glitch_view: public QWidget
   void copy(glitch_scene *scene);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);
+  void paste(glitch_scene *scene);
   void saved(void);
   void selectionChanged(void);
   void separate(glitch_view *view);
