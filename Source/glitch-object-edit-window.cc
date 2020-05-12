@@ -37,6 +37,9 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   new QShortcut(tr("Ctrl+C"),
 		this,
 		SIGNAL(copy(void)));
+  new QShortcut(tr("Ctrl+V"),
+		this,
+		SIGNAL(paste(void)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
