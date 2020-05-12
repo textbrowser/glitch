@@ -71,7 +71,6 @@ class glitch_object_view: public QGraphicsView
  signals:
   void changed(void);
   void copy(void);
-  void paste(glitch_scene *scene);
   void paste(void);
 };
 
