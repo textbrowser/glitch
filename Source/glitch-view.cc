@@ -788,6 +788,10 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
   emit changed();
 }
 
+void glitch_view::slotPaste(void)
+{
+}
+
 void glitch_view::slotSave(void)
 {
   QString error("");

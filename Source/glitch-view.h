@@ -120,6 +120,7 @@ class glitch_view: public QWidget
   void slotFunctionReturnTypeChanged(const QString &after,
 				     const QString &before,
 				     glitch_object *object);
+  void slotPaste(void);
   void slotSave(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
@@ -135,7 +136,6 @@ class glitch_view: public QWidget
   void copy(QGraphicsView *view);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);
-  void paste(glitch_scene *scene);
   void saved(void);
   void selectionChanged(void);
   void separate(glitch_view *view);
