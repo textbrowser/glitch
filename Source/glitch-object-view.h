@@ -62,7 +62,6 @@ class glitch_object_view: public QGraphicsView
   void contextMenuEvent(QContextMenuEvent *event);
 
  protected slots:
-  void slotCopy(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotParentWindowClosed(void);
   void slotRedo(void);
@@ -71,7 +70,6 @@ class glitch_object_view: public QGraphicsView
 
  signals:
   void changed(void);
-  void copy(glitch_scene *scene);
   void copy(void);
   void paste(glitch_scene *scene);
   void paste(void);

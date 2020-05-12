@@ -72,10 +72,6 @@ glitch_object_view::glitch_object_view
 	  this,
 	  SLOT(slotSceneResized(void)));
   connect(this,
-	  SIGNAL(copy(void)),
-	  this,
-	  SLOT(slotCopy(void)));
-  connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
@@ -156,11 +152,6 @@ void glitch_object_view::setSceneRect(const QSize &size)
      0,
      qMax(static_cast<int> (b.width()), width() - 2 * frameWidth()),
      qMax(static_cast<int> (b.height()), height() - 2 * frameWidth()));
-}
-
-void glitch_object_view::slotCopy(void)
-{
-  emit copy(m_scene);
 }
 
 void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)

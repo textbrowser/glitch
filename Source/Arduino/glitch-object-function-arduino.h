@@ -75,6 +75,7 @@ class glitch_object_function_arduino: public glitch_object
   glitch_object_function_arduino *findParentFunction(void) const;
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
+  void prepareCopySignal(void);
   void setProperties(const QString &properties);
 
  private slots:

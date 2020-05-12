@@ -491,10 +491,6 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(object)
 	{
-	  connect(object,
-		  SIGNAL(copy(glitch_scene *)),
-		  this,
-		  SLOT(deleteLater(void)));
 	  event->accept();
 	  object->setUndoStack(m_undoStack);
 
