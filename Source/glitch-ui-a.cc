@@ -456,6 +456,12 @@ void glitch_ui::parseCommandLineArguments(void)
     }
 }
 
+void glitch_ui::paste(QGraphicsView *view)
+{
+  if(!view || !view->scene())
+    return;
+}
+
 void glitch_ui::prepareActionWidgets(void)
 {
   if(m_ui.tab->count() == 0)

@@ -62,6 +62,7 @@ class glitch_ui: public QMainWindow
   void closeEvent(QCloseEvent *event);
   void copy(QGraphicsView *view);
   void parseCommandLineArguments(void);
+  void paste(QGraphicsView *view);
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);
