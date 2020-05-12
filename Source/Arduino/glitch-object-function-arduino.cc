@@ -343,7 +343,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SLOT(slotReturnTypeChanged(void)));
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareCopySignal();
+  prepareEditSignals();
   setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
 
@@ -353,18 +353,26 @@ void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
   QWidget::mouseDoubleClickEvent(event);
 }
 
-void glitch_object_function_arduino::prepareCopySignal(void)
+void glitch_object_function_arduino::prepareEditSignals(void)
 {
   if(m_editView && m_editWindow && m_parent)
     {
-      connect(m_editWindow,
-	      SIGNAL(copy(void)),
-	      m_editView,
-	      SIGNAL(copy(void)));
       connect(m_editView,
 	      SIGNAL(copy(void)),
 	      m_parent,
 	      SLOT(slotCopy(void)));
+      connect(m_editView,
+	      SIGNAL(paste(void)),
+	      m_parent,
+	      SLOT(slotPaste(void)));
+      connect(m_editWindow,
+	      SIGNAL(copy(void)),
+	      m_editView,
+	      SIGNAL(copy(void)));
+      connect(m_editWindow,
+	      SIGNAL(paste(void)),
+	      m_editView,
+	      SIGNAL(paste(void)));
     }
 }
 
