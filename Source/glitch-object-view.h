@@ -66,6 +66,7 @@ class glitch_object_view: public QGraphicsView
   void slotParentWindowClosed(void);
   void slotRedo(void);
   void slotSceneResized(void);
+  void slotSelectAll(void);
   void slotUndo(void);
 
  signals:

@@ -337,6 +337,10 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  SIGNAL(closed(void)),
 	  m_editView,
 	  SLOT(slotParentWindowClosed(void)));
+  connect(m_editWindow,
+	  SIGNAL(selectAll(void)),
+	  m_editView,
+	  SLOT(slotSelectAll(void)));
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,

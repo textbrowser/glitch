@@ -34,6 +34,9 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent, Qt::WindowFlags() | Qt::WindowStaysOnTopHint)
 {
+  new QShortcut(tr("Ctrl+A"),
+		this,
+		SIGNAL(selectAll(void)));
   new QShortcut(tr("Ctrl+C"),
 		this,
 		SIGNAL(copy(void)));

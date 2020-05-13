@@ -181,6 +181,19 @@ void glitch_object_view::slotSceneResized(void)
     setSceneRect(size()); // Slight incorrectness.
 }
 
+void glitch_object_view::slotSelectAll(void)
+{
+  QList<QGraphicsItem *> list(m_scene->items());
+
+  for(auto i : list)
+    {
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(proxy)
+	proxy->setSelected(true);
+    }
+}
+
 void glitch_object_view::slotUndo(void)
 {
 }
