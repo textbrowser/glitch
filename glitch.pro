@@ -23,6 +23,15 @@ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -Wextra \
                           -Woverloaded-virtual -Wpointer-arith \
                           -Wstack-protector -Wstrict-overflow=5
+} else:win32 {
+QMAKE_CXXFLAGS_RELEASE += -fPIE -fwrapv \
+                          -mtune=generic -pedantic -pie -std=c++11 \
+                          -Wall -Wcast-align -Wcast-qual \
+                          -Wextra \
+                          -Wno-class-memaccess \
+                          -Woverloaded-virtual -Wno-deprecated-copy \
+                          -Wpointer-arith \
+                          -Wstack-protector -Wstrict-overflow=5
 } else {
 QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
                           -mtune=generic -pedantic -pie -std=c++11 \
