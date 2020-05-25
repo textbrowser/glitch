@@ -84,6 +84,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
+- Paste in child views. Redo / undo.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
 - Serial and stream (https://www.arduino.cc/reference/en).
