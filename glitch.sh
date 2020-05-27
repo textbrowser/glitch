@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 if [ -r ./Glitch ] && [ -x ./Glitch ]
 then
     exec ./Glitch "$@"
