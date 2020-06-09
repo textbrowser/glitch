@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMenuBar>
 #include <QResizeEvent>
 #include <QShortcut>
 
@@ -46,6 +47,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  menuBar()->addMenu(tr("&Edit"));
   setContentsMargins(9, 9, 9, 9);
 }
 

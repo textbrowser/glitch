@@ -121,7 +121,8 @@ void glitch_object_setup_arduino::save(const QSqlDatabase &db, QString &error)
   if(!error.isEmpty())
     return;
 
-  m_editView->save(db, error);
+  if(m_editView)
+    m_editView->save(db, error);
 }
 
 void glitch_object_setup_arduino::slotEdit(void)

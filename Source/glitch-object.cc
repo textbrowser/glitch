@@ -44,7 +44,6 @@
 glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
-  m_editView = nullptr;
   m_id = 1;
   m_initialized = false;
   m_parent = parent;
@@ -73,7 +72,6 @@ glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
-  m_editView = nullptr;
   m_id = id;
   m_initialized = false;
   m_parent = parent;

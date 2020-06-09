@@ -76,6 +76,7 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
+- Copy Edit menu to child edit windows and separated windows.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
