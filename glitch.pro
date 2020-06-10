@@ -12,38 +12,64 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 QT += widgets
 }
 
-TEMPLATE	= app
-
 QMAKE_CLEAN	+= Glitch
 
 macx {
-QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
-                          -mtune=generic -pedantic -std=c++11 \
-                          -Wall -Wcast-align -Wcast-qual \
+QMAKE_CXXFLAGS_RELEASE += -Wall \
+                          -Wcast-align \
+                          -Wcast-qual \
                           -Wextra \
-                          -Woverloaded-virtual -Wpointer-arith \
-                          -Wstack-protector -Wstrict-overflow=5
+                          -Woverloaded-virtual \
+                          -Wpointer-arith \
+                          -Wstack-protector \
+                          -Wstrict-overflow=5 \
+                          -fPIE \
+                          -fstack-protector-all \
+                          -fwrapv \
+                          -mtune=generic \
+                          -pedantic \
+                          -std=c++11
 } else:win32 {
-QMAKE_CXXFLAGS_RELEASE += -fPIE -fwrapv \
-                          -mtune=generic -pedantic -pie -std=c++11 \
-                          -Wall -Wcast-align -Wcast-qual \
+QMAKE_CXXFLAGS_RELEASE += -Wall \
+                          -Wcast-align \
+                          -Wcast-qual \
                           -Wextra \
                           -Wno-class-memaccess \
-                          -Woverloaded-virtual -Wno-deprecated-copy \
+                          -Wno-deprecated-copy \
+                          -Woverloaded-virtual \
                           -Wpointer-arith \
-                          -Wstack-protector -Wstrict-overflow=5
+                          -Wstack-protector \
+                          -Wstrict-overflow=5 \
+                          -fPIE \
+                          -fwrapv \
+                          -mtune=generic \
+                          -pedantic \
+                          -pie \
+                          -std=c++11
 } else {
-QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \
-                          -mtune=generic -pedantic -pie -std=c++11 \
-                          -Wall -Wcast-align -Wcast-qual \
+QMAKE_CXXFLAGS_RELEASE += -Wall \
+                          -Wcast-align \
+                          -Wcast-qual \
                           -Wextra \
                           -Wno-class-memaccess \
-                          -Woverloaded-virtual -Wno-deprecated-copy \
+                          -Wno-deprecated-copy \
+                          -Woverloaded-virtual \
                           -Wpointer-arith \
-                          -Wstack-protector -Wstrict-overflow=5
+                          -Wstack-protector \
+                          -Wstrict-overflow=5 \
+                          -fPIE \
+                          -fstack-protector-all \
+                          -fwrapv \
+                          -mtune=generic \
+                          -pedantic \
+                          -pie \
+                          -std=c++11
 }
 
-QMAKE_DISTCLEAN += -r .qmake* -r html -r latex -r temp
+QMAKE_DISTCLEAN += -r .qmake* \
+                   -r html \
+                   -r latex \
+                   -r temp
 QMAKE_EXTRA_TARGETS = doxygen purge
 QMAKE_STRIP	= echo
 
@@ -126,3 +152,4 @@ TRANSLATIONS    =
 
 PROJECTNAME	= Glitch
 TARGET		= Glitch
+TEMPLATE	= app
