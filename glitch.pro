@@ -18,6 +18,7 @@ macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wdouble-promotion \
                           -Wextra \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
@@ -33,6 +34,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wdouble-promotion \
                           -Wextra \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
@@ -50,6 +52,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wdouble-promotion \
                           -Wextra \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
@@ -82,18 +85,16 @@ LIBS            += -framework AppKit -framework Cocoa
 LIBS		+=
 }
 
-RESOURCES	= Icons/icons.qrc
-
-MOC_DIR = temp/moc
-
 macx {
 OBJECTIVE_HEADERS += Source/CocoaInitializer.h
 OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
 }
 
+MOC_DIR     = temp/moc
 OBJECTS_DIR = temp/obj
-RCC_DIR = temp/rcc
-UI_DIR = temp/ui
+RCC_DIR     = temp/rcc
+RESOURCES   = Icons/icons.qrc
+UI_DIR      = temp/ui
 
 FORMS          += UI/glitch-alignment.ui \
                   UI/glitch-canvas-settings.ui \
@@ -105,7 +106,6 @@ FORMS          += UI/glitch-alignment.ui \
                   UI/glitch-style-sheet.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
-
 HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-canvas-settings.h \
                   Source/glitch-floating-context-menu.h \
@@ -124,7 +124,6 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-user-functions.h \
                   Source/glitch-user-functions-tablewidget.h \
                   Source/glitch-view.h
-
 SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
@@ -146,8 +145,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-undo-command.cc \
                   Source/glitch-user-functions.cc \
                   Source/glitch-user-functions-tablewidget.cc \
-                  Source/glitch-view.cc \
-
+                  Source/glitch-view.cc
 TRANSLATIONS    =
 
 PROJECTNAME	= Glitch
