@@ -55,7 +55,6 @@ class glitch_object_view: public QGraphicsView
   void setUndoStack(QUndoStack *undoStack);
 
  private:
-  QUndoStack *m_undoStack;
   glitch_alignment *m_alignment;
   glitch_common::ProjectType m_projectType;
   glitch_scene *m_scene;

@@ -28,7 +28,7 @@
 #ifndef _glitch_style_sheet_h_
 #define _glitch_style_sheet_h_
 
-#include <QDialog>
+#include <QPointer>
 
 #include "ui_glitch-style-sheet.h"
 
@@ -43,8 +43,8 @@ class glitch_style_sheet: public QDialog
   void setWidget(QWidget *widget);
 
  private:
+  QPointer<QWidget> m_widget;
   Ui_glitch_style_sheet m_ui;
-  QWidget *m_widget;
 
  private slots:
   void slotPreview(void);
