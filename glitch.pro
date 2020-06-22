@@ -18,33 +18,36 @@ macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
+                          -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
                           -fPIE \
                           -fstack-protector-all \
                           -fwrapv \
-                          -mtune=generic \
                           -pedantic \
                           -std=c++11
 } else:win32 {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wl,-z,relro \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
+                          -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
                           -fPIE \
                           -fwrapv \
-                          -mtune=generic \
                           -pedantic \
                           -pie \
                           -std=c++11
@@ -52,18 +55,20 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
+                          -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wl,-z,relro \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
+                          -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
                           -fPIE \
                           -fstack-protector-all \
                           -fwrapv \
-                          -mtune=generic \
                           -pedantic \
                           -pie \
                           -std=c++11
