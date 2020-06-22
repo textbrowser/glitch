@@ -31,9 +31,56 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="action_Undo"/>
+    <addaction name="action_Redo"/>
+    <addaction name="separator"/>
+    <addaction name="action_Copy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="separator"/>
+    <addaction name="action_Delete"/>
+    <addaction name="actionSelect_All"/>
    </widget>
    <addaction name="menu_Edit"/>
   </widget>
+  <action name="action_Undo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="action_Redo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="action_Delete">
+   <property name="text">
+    <string>&amp;Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="text">
+    <string>Select &amp;All</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../Icons/icons.qrc"/>
