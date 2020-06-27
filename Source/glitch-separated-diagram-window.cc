@@ -103,6 +103,30 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 {
+  auto *view = qobject_cast<glitch_view *> (centralWidget());
+
+  if(!view)
+    {
+      m_ui.action_Redo->setEnabled(false);
+      m_ui.action_Redo->setText(tr("Redo"));
+      m_ui.action_Undo->setEnabled(false);
+      m_ui.action_Undo->setText(tr("Undo"));
+      return;
+    }
+
+  m_ui.action_Redo->setEnabled(view->canRedo());
+
+  if(m_ui.action_Redo->isEnabled())
+    m_ui.action_Redo->setText(tr("Redo (%1)").arg(view->redoText()));
+  else
+    m_ui.action_Redo->setText(tr("Redo"));
+
+  m_ui.action_Undo->setEnabled(view->canUndo());
+
+  if(m_ui.action_Undo->isEnabled())
+    m_ui.action_Undo->setText(tr("Undo (%1)").arg(view->undoText()));
+  else
+    m_ui.action_Undo->setText(tr("Undo"));
 }
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
