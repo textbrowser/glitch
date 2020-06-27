@@ -1,27 +1,28 @@
 digraph "glitch_view"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node3 [label="glitch_view",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 [label="glitch_view",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="QWidget",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_userFunctions" ,fontname="Helvetica"];
+  Node3 [label="glitch_user_functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__user__functions.html",tooltip=" "];
   Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="QWidget",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_userFunctions" ,fontname="Helvetica"];
-  Node5 [label="glitch_user_functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__user__functions.html"];
-  Node6 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="QDialog",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node7 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_canvasSettings" ,fontname="Helvetica"];
-  Node7 [label="glitch_canvas_settings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__canvas__settings.html"];
-  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node8 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_view" ,fontname="Helvetica"];
-  Node8 [label="glitch_graphicsview",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__graphicsview.html"];
-  Node9 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node9 [label="QGraphicsView",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node10 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_alignment" ,fontname="Helvetica"];
-  Node10 [label="glitch_alignment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__alignment.html"];
-  Node6 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node11 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_scene" ,fontname="Helvetica"];
-  Node11 [label="glitch_scene",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__scene.html"];
-  Node12 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node12 [label="QGraphicsScene",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node4 [label="QDialog",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_canvasSettings" ,fontname="Helvetica"];
+  Node5 [label="glitch_canvas_settings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__canvas__settings.html",tooltip=" "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_view" ,fontname="Helvetica"];
+  Node6 [label="glitch_graphicsview",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__graphicsview.html",tooltip=" "];
+  Node7 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="QGraphicsView",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node8 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_alignment" ,fontname="Helvetica"];
+  Node8 [label="glitch_alignment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__alignment.html",tooltip=" "];
+  Node4 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_scene" ,fontname="Helvetica"];
+  Node9 [label="glitch_scene",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__scene.html",tooltip=" "];
+  Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="QGraphicsScene",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
 }
