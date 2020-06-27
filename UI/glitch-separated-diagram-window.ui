@@ -28,6 +28,9 @@
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
+    <property name="tearOffEnabled">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string>&amp;Edit</string>
     </property>
@@ -35,10 +38,10 @@
     <addaction name="action_Redo"/>
     <addaction name="separator"/>
     <addaction name="action_Copy"/>
-    <addaction name="actionPaste"/>
+    <addaction name="action_Paste"/>
     <addaction name="separator"/>
     <addaction name="action_Delete"/>
-    <addaction name="actionSelect_All"/>
+    <addaction name="action_Select_All"/>
    </widget>
    <addaction name="menu_Edit"/>
   </widget>
@@ -63,7 +66,7 @@
     <string>Ctrl+C</string>
    </property>
   </action>
-  <action name="actionPaste">
+  <action name="action_Paste">
    <property name="text">
     <string>Paste</string>
    </property>
@@ -76,7 +79,7 @@
     <string>Del</string>
    </property>
   </action>
-  <action name="actionSelect_All">
+  <action name="action_Select_All">
    <property name="text">
     <string>Select &amp;All</string>
    </property>

@@ -46,6 +46,9 @@
 #include "glitch-undo-command.h"
 #include "ui_glitch-errors-dialog.h"
 
+QMultiMap<QPair<int, int>, QPointer<glitch_object> >
+glitch_ui::s_copiedObjects;
+
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
   m_arduinoStructures = nullptr;
@@ -143,6 +146,12 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 
 glitch_ui::~glitch_ui()
 {
+}
+
+QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::
+copiedObjects(void)
+{
+  return s_copiedObjects;
 }
 
 bool glitch_ui::openDiagram(const QString &fileName, QString &error)
@@ -350,7 +359,7 @@ void glitch_ui::copy(QGraphicsView *view)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
-    it(m_copiedObjects);
+    it(s_copiedObjects);
 
   while(it.hasNext())
     {
@@ -391,10 +400,10 @@ void glitch_ui::copy(QGraphicsView *view)
 
       pair.first = point.x();
       pair.second = point.y();
-      m_copiedObjects.insert(pair, clone);
+      s_copiedObjects.insert(pair, clone);
     }
 
-  m_ui.action_Paste->setEnabled(!m_copiedObjects.empty());
+  m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
   QApplication::restoreOverrideCursor();
 }
 
@@ -487,7 +496,7 @@ void glitch_ui::prepareActionWidgets(void)
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
-      m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
+      m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
 	(m_currentView && m_currentView->hasChanged());
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
@@ -826,7 +835,7 @@ void glitch_ui::slotMouseEnterView(void)
 
   m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
   m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
+  m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
   m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
 
@@ -839,7 +848,7 @@ void glitch_ui::slotMouseLeaveView(void)
 
   m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
   m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Paste->setEnabled(!m_copiedObjects.isEmpty());
+  m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
   m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
 
@@ -1022,12 +1031,12 @@ void glitch_ui::slotPageSelected(int index)
 
 void glitch_ui::slotPaste(void)
 {
-  if(m_copiedObjects.isEmpty() || !m_currentView)
+  if(!m_currentView || s_copiedObjects.isEmpty())
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(m_copiedObjects);
+  QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
   QPoint first;
   QPoint point
     (m_currentView->view()->mapToScene(m_currentView->view()->

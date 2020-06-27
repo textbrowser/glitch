@@ -28,7 +28,9 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 
+#include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-ui.h"
 #include "glitch-view.h"
 
 glitch_separated_diagram_window::
@@ -72,6 +74,35 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
     }
 
   deleteLater();
+}
+
+void glitch_separated_diagram_window::prepareActionWidgets(void)
+{
+  auto *view = qobject_cast<glitch_view *> (centralWidget());
+
+  if(!view)
+    {
+      m_ui.action_Copy->setEnabled(false);
+      m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Paste->setEnabled(false);
+      m_ui.action_Select_All->setEnabled(false);
+    }
+  else
+    {
+      m_ui.action_Copy->setEnabled
+	(view && !view->scene()->selectedItems().empty());
+      m_ui.action_Delete->setEnabled
+	(view && !view->scene()->selectedItems().empty());
+      m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+      m_ui.action_Select_All->setEnabled
+	(view && view->scene()->items().size() > 2);
+    }
+
+  prepareRedoUndoActions();
+}
+
+void glitch_separated_diagram_window::prepareRedoUndoActions(void)
+{
 }
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)

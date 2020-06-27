@@ -47,13 +47,15 @@ class glitch_ui: public QMainWindow
  public:
   glitch_ui(void);
   ~glitch_ui();
+  static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
+     copiedObjects(void);
 
  private:
-  QMultiMap<QPair<int, int>, QPointer<glitch_object> > m_copiedObjects;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   Ui_glitch_mainwindow m_ui;
+  static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
   glitch_view_arduino *newArduinoDiagram(const QString &fileName,
