@@ -264,21 +264,13 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotArduinoViewDestroyed(void)));
   connect(view,
-	  SIGNAL(mouseEnterEvent(void)),
-	  this,
-	  SLOT(slotMouseEnterView(void)));
-  connect(view,
-	  SIGNAL(mouseLeaveEvent(void)),
-	  this,
-	  SLOT(slotMouseLeaveView(void)));
-  connect(view,
 	  SIGNAL(saved(void)),
 	  this,
 	  SLOT(slotPageSaved(void)));
   connect(view,
 	  SIGNAL(selectionChanged(void)),
 	  this,
-	  SLOT(slotMouseEnterView(void)));
+	  SLOT(slotSelectionChanged(void)));
   connect(view,
 	  SIGNAL(separate(glitch_view *)),
 	  this,
@@ -725,6 +717,7 @@ void glitch_ui::slotArduinoViewDestroyed(void)
       m_arduinoStructures->deleteLater();
 
   QApplication::restoreOverrideCursor();
+  prepareActionWidgets();
 }
 
 void glitch_ui::slotClearRecentFiles(void)
@@ -822,34 +815,6 @@ void glitch_ui::slotDelete(void)
     m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
   else
     m_ui.action_Undo->setText(tr("Undo"));
-}
-
-void glitch_ui::slotMouseEnterView(void)
-{
-  auto *view = qobject_cast<glitch_view *> (sender());
-
-  if(!view)
-    return;
-  else
-    m_currentView = view;
-
-  m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
-  m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
-}
-
-void glitch_ui::slotMouseLeaveView(void)
-{
-  auto *view = qobject_cast<glitch_view *> (sender());
-
-  if(!view)
-    return;
-
-  m_ui.action_Copy->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Delete->setEnabled(!view->scene()->selectedItems().empty());
-  m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
-  m_ui.action_Select_All->setEnabled(view->scene()->items().size() > 2);
 }
 
 void glitch_ui::slotNewArduinoDiagram(void)
@@ -1198,6 +1163,27 @@ void glitch_ui::slotSelectPage(void)
 
   m_ui.tab->setCurrentWidget(action->parentWidget());
   setWindowTitle(qobject_cast<glitch_view *> (m_ui.tab->currentWidget()));
+}
+
+void glitch_ui::slotSelectionChanged(void)
+{
+  if(m_currentView)
+    {
+      m_ui.action_Copy->setEnabled
+	(!m_currentView->scene()->selectedItems().empty());
+      m_ui.action_Delete->setEnabled
+	(!m_currentView->scene()->selectedItems().empty());
+      m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
+      m_ui.action_Select_All->setEnabled
+	(m_currentView->scene()->items().size() > 2);
+    }
+  else
+    {
+      m_ui.action_Copy->setEnabled(false);
+      m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Paste->setEnabled(false);
+      m_ui.action_Select_All->setEnabled(false);
+    }
 }
 
 void glitch_ui::slotSeparate(glitch_view *view)

@@ -146,6 +146,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
     }
 
   QMainWindow::setCentralWidget(widget);
+  prepareActionWidgets();
 }
 
 void glitch_separated_diagram_window::slotPageChanged(void)
