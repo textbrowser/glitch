@@ -77,6 +77,7 @@ Remaining Items
 
 - All of Arduino's objects.
 - Copy Edit menu to child edit windows and separated windows.
+- Do not delete function duplicates if one duplicate is removed.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
