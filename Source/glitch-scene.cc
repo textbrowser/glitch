@@ -337,7 +337,26 @@ void glitch_scene::deleteItems(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QList<QGraphicsItem *> list(items());
+  QList<QGraphicsItem *> list;
+
+  for(auto i : items())
+    {
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy)
+	continue;
+      else if(proxy->isMandatory() || !proxy->isSelected())
+	continue;
+      else
+	list << i;
+    }
+
+  if(list.isEmpty())
+    {
+      QApplication::restoreOverrideCursor();
+      return;
+    }
+
   bool state = false;
 
   if(m_undoStack)
