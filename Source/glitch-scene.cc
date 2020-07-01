@@ -368,8 +368,6 @@ void glitch_scene::deleteItems(void)
 
       if(!proxy)
 	continue;
-      else if(proxy->isMandatory() || !proxy->isSelected())
-	continue;
 
       state = true;
 
