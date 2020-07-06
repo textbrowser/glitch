@@ -50,8 +50,6 @@ class glitch_view_arduino: public glitch_view
   bool open(const QString &fileName, QString &error);
   void consumeFunctionName(const QString &name);
   void removeFunctionName(const QString &name);
-  static const quint64 LOOP_OBJECT_ID = 1;
-  static const quint64 SETUP_OBJECT_ID = 2;
 
  private:
   QMap<QString, char> m_functionNames;

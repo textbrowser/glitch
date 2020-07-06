@@ -41,16 +41,8 @@ glitch_view_arduino::glitch_view_arduino
  const glitch_common::ProjectType projectType,
  QWidget *parent):glitch_view(fileName, name, projectType, parent)
 {
-  if(fromFile)
-    {
-      m_loopObject = new glitch_object_loop_arduino(LOOP_OBJECT_ID, this);
-      m_setupObject = new glitch_object_setup_arduino(SETUP_OBJECT_ID, this);
-    }
-  else
-    {
-      m_loopObject = new glitch_object_loop_arduino(this);
-      m_setupObject = new glitch_object_setup_arduino(this);
-    }
+  m_loopObject = new glitch_object_loop_arduino(this);
+  m_setupObject = new glitch_object_setup_arduino(this);
 
   glitch_proxy_widget *proxy = nullptr;
 
