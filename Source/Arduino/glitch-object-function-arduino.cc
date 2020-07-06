@@ -217,7 +217,7 @@ findParentFunction(void) const
   if(qobject_cast<glitch_view *> (m_parent))
     {
       QList<QGraphicsItem *> list;
-      glitch_scene *scene = qobject_cast<glitch_view *> (m_parent)->scene();
+      auto *scene = qobject_cast<glitch_view *> (m_parent)->scene();
 
       if(scene)
 	list = scene->items();
