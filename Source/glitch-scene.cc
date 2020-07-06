@@ -376,7 +376,7 @@ void glitch_scene::deleteItems(void)
 	  auto *object = qobject_cast<glitch_object_function_arduino *>
 	    (proxy->widget());
 
-	  if(object)
+	  if(object && !object->isClone())
 	    {
 	      deleteFunctionClones(object->name());
 	      emit functionDeleted(object->name());
@@ -889,10 +889,14 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 
   auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
-  if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
-    emit functionDeleted
-      (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
-       name());
+  if(proxy)
+    {
+      auto *object = qobject_cast<glitch_object_function_arduino *>
+	(proxy->widget());
+
+      if(object && !object->isClone())
+	emit functionDeleted(object->name());
+    }
 }
 
 void glitch_scene::setMainScene(const bool state)
@@ -932,7 +936,8 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 
   if(m_undoStack && object->proxy())
     {
-      if(qobject_cast<glitch_object_function_arduino *> (object))
+      if(qobject_cast<glitch_object_function_arduino *> (object) &&
+	 !qobject_cast<glitch_object_function_arduino *> (object)->isClone())
 	emit functionDeleted
 	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
 

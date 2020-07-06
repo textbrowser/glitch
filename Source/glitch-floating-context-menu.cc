@@ -46,7 +46,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(QWidget *widget, m_ui.frame->findChildren<QWidget *> ())
+  foreach(auto *widget, m_ui.frame->findChildren<QWidget *> ())
     {
       m_ui.frame->layout()->removeWidget(widget);
       widget->deleteLater();

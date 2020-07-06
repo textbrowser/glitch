@@ -402,7 +402,7 @@ void glitch_object::slotLockPosition(void)
 {
   if(m_undoStack)
     {
-      glitch_undo_command *undoCommand = new glitch_undo_command
+      auto *undoCommand = new glitch_undo_command
 	(!m_properties.value(Properties::POSITION_LOCKED).toBool(),
 	 m_properties.value(Properties::POSITION_LOCKED),
 	 glitch_undo_command::PROPERTY_CHANGED,
