@@ -41,6 +41,7 @@ glitch_view_arduino::glitch_view_arduino
  const glitch_common::ProjectType projectType,
  QWidget *parent):glitch_view(fileName, name, projectType, parent)
 {
+  Q_UNUSED(fromFile);
   m_loopObject = new glitch_object_loop_arduino(this);
   m_setupObject = new glitch_object_setup_arduino(this);
 

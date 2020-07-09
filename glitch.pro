@@ -26,6 +26,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fstack-protector-all \
                           -fwrapv \
@@ -46,6 +47,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fwrapv \
                           -pedantic \
@@ -66,6 +68,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fstack-protector-all \
                           -fwrapv \
