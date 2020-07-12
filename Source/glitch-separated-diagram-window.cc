@@ -37,6 +37,10 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_Select_All,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSelectAll(void)));
 }
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()
@@ -143,6 +147,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      this,
 	      SLOT(slotPageSaved(void)),
 	      Qt::UniqueConnection);
+      m_view = qobject_cast<glitch_view *> (widget);
     }
 
   QMainWindow::setCentralWidget(widget);
@@ -167,4 +172,10 @@ void glitch_separated_diagram_window::slotPageChanged(void)
 void glitch_separated_diagram_window::slotPageSaved(void)
 {
   slotPageChanged();
+}
+
+void glitch_separated_diagram_window::slotSelectAll(void)
+{
+  if(m_view)
+    m_view->selectAll();
 }

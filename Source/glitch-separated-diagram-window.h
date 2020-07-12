@@ -29,8 +29,11 @@
 #define _glitch_separated_diagram_window_h_
 
 #include <QMainWindow>
+#include <QPointer>
 
 #include "ui_glitch-separated-diagram-window.h"
+
+class glitch_view;
 
 class glitch_separated_diagram_window: public QMainWindow
 {
@@ -42,6 +45,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void setCentralWidget(QWidget *widget);
 
  private:
+  QPointer<glitch_view> m_view;
   Ui_glitch_separated_diagram_window m_ui;
   void closeEvent(QCloseEvent *event);
   void prepareActionWidgets(void);
@@ -50,6 +54,7 @@ class glitch_separated_diagram_window: public QMainWindow
  private slots:
   void slotPageChanged(void);
   void slotPageSaved(void);
+  void slotSelectAll(void);
 };
 
 #endif
