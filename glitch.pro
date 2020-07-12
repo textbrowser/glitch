@@ -21,11 +21,13 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wformat=2 \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wundef \
                           -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fstack-protector-all \
@@ -39,6 +41,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wformat=2 \
                           -Wl,-z,relro \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
@@ -47,6 +50,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wundef \
                           -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fwrapv \
@@ -60,6 +64,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wformat=2 \
                           -Wl,-z,relro \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
@@ -68,6 +73,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
+                          -Wundef \
                           -Wzero-as-null-pointer-constant \
                           -fPIE \
                           -fstack-protector-all \
