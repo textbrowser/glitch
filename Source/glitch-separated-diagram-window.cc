@@ -37,6 +37,10 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_Delete,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotDelete(void)));
   connect(m_ui.action_Select_All,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -49,32 +53,27 @@ glitch_separated_diagram_window::~glitch_separated_diagram_window()
 
 void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 {
-  if(event)
+  if(event && m_view && m_view->hasChanged())
     {
-      auto *view = qobject_cast<glitch_view *> (centralWidget());
+      QMessageBox mb(this);
 
-      if(view && view->hasChanged())
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText
+	(tr("The display has not been saved. Are you sure that "
+	    "you wish to close it?"));
+      mb.setWindowIcon(windowIcon());
+      mb.setWindowModality(Qt::WindowModal);
+      mb.setWindowTitle(tr("Glitch: Confirmation"));
+
+      if(mb.exec() != QMessageBox::Yes)
 	{
-	  QMessageBox mb(this);
-
-	  mb.setIcon(QMessageBox::Question);
-	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-	  mb.setText
-	    (tr("The display has not been saved. Are you sure that "
-		"you wish to close it?"));
-	  mb.setWindowIcon(windowIcon());
-	  mb.setWindowModality(Qt::WindowModal);
-	  mb.setWindowTitle(tr("Glitch: Confirmation"));
-
-	  if(mb.exec() != QMessageBox::Yes)
-	    {
-	      QApplication::processEvents();
-	      event->ignore();
-	      return;
-	    }
-
 	  QApplication::processEvents();
+	  event->ignore();
+	  return;
 	}
+
+      QApplication::processEvents();
     }
 
   deleteLater();
@@ -82,24 +81,22 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 
 void glitch_separated_diagram_window::prepareActionWidgets(void)
 {
-  auto *view = qobject_cast<glitch_view *> (centralWidget());
-
-  if(!view)
+  if(m_view)
+    {
+      m_ui.action_Copy->setEnabled
+	(m_view && !m_view->scene()->selectedItems().empty());
+      m_ui.action_Delete->setEnabled
+	(m_view && !m_view->scene()->selectedItems().empty());
+      m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+      m_ui.action_Select_All->setEnabled
+	(m_view && m_view->scene()->items().size() > 2);
+    }
+  else
     {
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
-    }
-  else
-    {
-      m_ui.action_Copy->setEnabled
-	(view && !view->scene()->selectedItems().empty());
-      m_ui.action_Delete->setEnabled
-	(view && !view->scene()->selectedItems().empty());
-      m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
-      m_ui.action_Select_All->setEnabled
-	(view && view->scene()->items().size() > 2);
     }
 
   prepareRedoUndoActions();
@@ -107,30 +104,29 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 {
-  auto *view = qobject_cast<glitch_view *> (centralWidget());
+  if(m_view)
+    {
+      m_ui.action_Redo->setEnabled(m_view->canRedo());
 
-  if(!view)
+      if(m_ui.action_Redo->isEnabled())
+	m_ui.action_Redo->setText(tr("Redo (%1)").arg(m_view->redoText()));
+      else
+	m_ui.action_Redo->setText(tr("Redo"));
+
+      m_ui.action_Undo->setEnabled(m_view->canUndo());
+
+      if(m_ui.action_Undo->isEnabled())
+	m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_view->undoText()));
+      else
+	m_ui.action_Undo->setText(tr("Undo"));
+    }
+  else
     {
       m_ui.action_Redo->setEnabled(false);
       m_ui.action_Redo->setText(tr("Redo"));
       m_ui.action_Undo->setEnabled(false);
       m_ui.action_Undo->setText(tr("Undo"));
-      return;
     }
-
-  m_ui.action_Redo->setEnabled(view->canRedo());
-
-  if(m_ui.action_Redo->isEnabled())
-    m_ui.action_Redo->setText(tr("Redo (%1)").arg(view->redoText()));
-  else
-    m_ui.action_Redo->setText(tr("Redo"));
-
-  m_ui.action_Undo->setEnabled(view->canUndo());
-
-  if(m_ui.action_Undo->isEnabled())
-    m_ui.action_Undo->setText(tr("Undo (%1)").arg(view->undoText()));
-  else
-    m_ui.action_Undo->setText(tr("Undo"));
 }
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
@@ -160,16 +156,28 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
   prepareActionWidgets();
 }
 
+void glitch_separated_diagram_window::slotDelete(void)
+{
+  if(m_view)
+    {
+      m_view->deleteItems();
+      m_ui.action_Undo->setEnabled(m_view->canUndo());
+
+      if(m_ui.action_Undo->isEnabled())
+	m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_view->undoText()));
+      else
+	m_ui.action_Undo->setText(tr("Undo"));
+    }
+}
+
 void glitch_separated_diagram_window::slotPageChanged(void)
 {
-  auto *view = qobject_cast<glitch_view *> (sender());
-
-  if(view)
+  if(m_view)
     {
-      if(view->hasChanged())
-	QMainWindow::setWindowTitle(tr("Glitch: %1 (*)").arg(view->name()));
+      if(m_view->hasChanged())
+	QMainWindow::setWindowTitle(tr("Glitch: %1 (*)").arg(m_view->name()));
       else
-	QMainWindow::setWindowTitle(tr("Glitch: %1").arg(view->name()));
+	QMainWindow::setWindowTitle(tr("Glitch: %1").arg(m_view->name()));
     }
   else
     QMainWindow::setWindowTitle(tr("Glitch"));
@@ -188,4 +196,5 @@ void glitch_separated_diagram_window::slotSelectAll(void)
 
 void glitch_separated_diagram_window::slotSelectionChanged(void)
 {
+  prepareActionWidgets();
 }

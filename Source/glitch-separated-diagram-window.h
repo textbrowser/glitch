@@ -52,6 +52,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void prepareRedoUndoActions(void);
 
  private slots:
+  void slotDelete(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotSelectAll(void);
