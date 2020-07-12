@@ -373,6 +373,7 @@ void glitch_ui::copy(QGraphicsView *view)
       auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy ||
+	 proxy->isMandatory() ||
 	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
 	 !proxy->isSelected())
 	continue;
