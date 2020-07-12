@@ -55,6 +55,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotSelectAll(void);
+  void slotSelectionChanged(void);
 };
 
 #endif

@@ -135,19 +135,25 @@ void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 {
-  if(qobject_cast<glitch_view *> (widget))
+  m_view = qobject_cast<glitch_view *> (widget);
+
+  if(m_view)
     {
-      connect(qobject_cast<glitch_view *> (widget),
+      connect(m_view,
 	      SIGNAL(changed(void)),
 	      this,
 	      SLOT(slotPageChanged(void)),
 	      Qt::UniqueConnection);
-      connect(qobject_cast<glitch_view *> (widget),
+      connect(m_view,
 	      SIGNAL(saved(void)),
 	      this,
 	      SLOT(slotPageSaved(void)),
 	      Qt::UniqueConnection);
-      m_view = qobject_cast<glitch_view *> (widget);
+      connect(m_view,
+	      SIGNAL(selectionChanged(void)),
+	      this,
+	      SLOT(slotSelectionChanged(void)),
+	      Qt::UniqueConnection);
     }
 
   QMainWindow::setCentralWidget(widget);
@@ -178,4 +184,8 @@ void glitch_separated_diagram_window::slotSelectAll(void)
 {
   if(m_view)
     m_view->selectAll();
+}
+
+void glitch_separated_diagram_window::slotSelectionChanged(void)
+{
 }
