@@ -382,7 +382,7 @@ void glitch_ui::copy(QGraphicsView *view)
 
       if(!widget)
 	continue;
- 
+
       auto *clone = widget->clone(nullptr);
 
       if(!clone)
