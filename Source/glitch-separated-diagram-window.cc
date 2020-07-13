@@ -37,6 +37,10 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_Copy,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotCopy(void)));
   connect(m_ui.action_Delete,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -154,6 +158,12 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 
   QMainWindow::setCentralWidget(widget);
   prepareActionWidgets();
+}
+
+void glitch_separated_diagram_window::slotCopy(void)
+{
+  emit copy(m_view);
+  m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().empty());
 }
 
 void glitch_separated_diagram_window::slotDelete(void)

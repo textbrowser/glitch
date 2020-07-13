@@ -52,11 +52,15 @@ class glitch_separated_diagram_window: public QMainWindow
   void prepareRedoUndoActions(void);
 
  private slots:
+  void slotCopy(void);
   void slotDelete(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotSelectAll(void);
   void slotSelectionChanged(void);
+
+ signals:
+  void copy(glitch_view *view);
 };
 
 #endif

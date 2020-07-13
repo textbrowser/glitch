@@ -49,6 +49,7 @@ class glitch_ui: public QMainWindow
   ~glitch_ui();
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
+  static void copy(QGraphicsView *view);
 
  private:
   QPointer<glitch_structures_arduino> m_arduinoStructures;
@@ -62,7 +63,6 @@ class glitch_ui: public QMainWindow
 					 const QString &name,
 					 const bool fromFile);
   void closeEvent(QCloseEvent *event);
-  void copy(QGraphicsView *view);
   void parseCommandLineArguments(void);
   void paste(QGraphicsView *view);
   void prepareActionWidgets(void);
@@ -82,6 +82,7 @@ class glitch_ui: public QMainWindow
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
   void slotCopy(QGraphicsView *view);
+  void slotCopy(glitch_view *view);
   void slotCopy(void);
   void slotDelete(void);
   void slotNewArduinoDiagram(void);

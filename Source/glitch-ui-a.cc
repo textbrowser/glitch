@@ -396,7 +396,6 @@ void glitch_ui::copy(QGraphicsView *view)
       s_copiedObjects.insert(pair, clone);
     }
 
-  m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
   QApplication::restoreOverrideCursor();
 }
 
@@ -796,12 +795,22 @@ void glitch_ui::slotCloseDiagram(void)
 void glitch_ui::slotCopy(QGraphicsView *view)
 {
   copy(view);
+  m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
+}
+
+void glitch_ui::slotCopy(glitch_view *view)
+{
+  if(view)
+    copy(view->view());
 }
 
 void glitch_ui::slotCopy(void)
 {
   if(m_currentView)
-    copy(m_currentView->view());
+    {
+      copy(m_currentView->view());
+      m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
+    }
 }
 
 void glitch_ui::slotDelete(void)
@@ -1197,6 +1206,10 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
   auto *window = new glitch_separated_diagram_window(this);
 
+  connect(window,
+	  SIGNAL(copy(glitch_view *)),
+	  this,
+	  SLOT(slotCopy(glitch_view *)));
   window->setCentralWidget(view);
   view->show();
   window->resize(view->size());
