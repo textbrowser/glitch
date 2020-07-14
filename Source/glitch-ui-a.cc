@@ -517,8 +517,7 @@ void glitch_ui::paste(glitch_view *view)
 	  else
 	    p.setY(p.y() - (first.y() - y));
 
-	  glitch_proxy_widget *proxy =
-	    view->scene()->addObject(object);
+	  auto *proxy = view->scene()->addObject(object);
 
 	  if(proxy)
 	    {

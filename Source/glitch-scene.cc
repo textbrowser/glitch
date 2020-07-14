@@ -269,7 +269,7 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
   if(!object)
     return;
 
-  glitch_proxy_widget *proxy = addObject(object);
+  auto *proxy = addObject(object);
 
   if(proxy)
     {
