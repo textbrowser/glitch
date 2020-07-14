@@ -496,9 +496,7 @@ void glitch_ui::paste(glitch_view *view)
 	  if(proxy)
 	    {
 	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 view->scene());
+		(glitch_undo_command::ITEM_ADDED, proxy, view->scene());
 
 	      view->push(undoCommand);
 	      proxy->setPos(point);
@@ -522,9 +520,7 @@ void glitch_ui::paste(glitch_view *view)
 	  if(proxy)
 	    {
 	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 view->scene());
+		(glitch_undo_command::ITEM_ADDED, proxy, view->scene());
 
 	      view->push(undoCommand);
 	      proxy->setPos(p);
