@@ -457,10 +457,88 @@ void glitch_ui::parseCommandLineArguments(void)
     }
 }
 
-void glitch_ui::paste(QGraphicsView *view)
+void glitch_ui::paste(glitch_view *view)
 {
-  if(!view || !view->scene())
+  if(s_copiedObjects.isEmpty() || !view)
     return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
+  QPoint first;
+  QPoint point
+    (view->view()->mapToScene(view->view()->mapFromGlobal(QCursor::pos())).
+     toPoint());
+  bool f = false;
+
+  view->beginMacro(tr("widget(s) pasted"));
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      QPointer<glitch_object> object(it.value());
+
+      if(!object)
+	continue;
+      else if(!(object = object->clone(view)))
+	continue;
+
+      int x = it.key().first;
+      int y = it.key().second;
+
+      if(!f)
+	{
+	  first = QPoint(x, y);
+
+	  auto *proxy = view->scene()->addObject(object);
+
+	  if(proxy)
+	    {
+	      auto *undoCommand = new glitch_undo_command
+		(glitch_undo_command::ITEM_ADDED,
+		 proxy,
+		 view->scene());
+
+	      view->push(undoCommand);
+	      proxy->setPos(point);
+	    }
+	  else
+	    object->deleteLater();
+	}
+      else
+	{
+	  QPoint p(point);
+
+	  p.setX(p.x() + x - first.x());
+
+	  if(y > first.y())
+	    p.setY(p.y() + y - first.y());
+	  else
+	    p.setY(p.y() - (first.y() - y));
+
+	  glitch_proxy_widget *proxy =
+	    view->scene()->addObject(object);
+
+	  if(proxy)
+	    {
+	      auto *undoCommand = new glitch_undo_command
+		(glitch_undo_command::ITEM_ADDED,
+		 proxy,
+		 view->scene());
+
+	      view->push(undoCommand);
+	      proxy->setPos(p);
+	    }
+	  else
+	    object->deleteLater();
+	}
+
+      f = true;
+    }
+
+  view->endMacro();
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::prepareActionWidgets(void)
@@ -1004,88 +1082,15 @@ void glitch_ui::slotPageSelected(int index)
   setWindowTitle(m_currentView);
 }
 
+void glitch_ui::slotPaste(glitch_view *view)
+{
+  paste(view);
+}
+
 void glitch_ui::slotPaste(void)
 {
-  if(!m_currentView || s_copiedObjects.isEmpty())
-    return;
-
+  paste(m_currentView);
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
-  QPoint first;
-  QPoint point
-    (m_currentView->view()->mapToScene(m_currentView->view()->
-				       mapFromGlobal(QCursor::pos())).
-     toPoint());
-  bool f = false;
-
-  m_currentView->beginMacro(tr("widget(s) pasted"));
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      QPointer<glitch_object> object(it.value());
-
-      if(!object)
-	continue;
-      else if(!(object = object->clone(m_currentView)))
-	continue;
-
-      int x = it.key().first;
-      int y = it.key().second;
-
-      if(!f)
-	{
-	  first = QPoint(x, y);
-
-	  auto *proxy = m_currentView->scene()->addObject(object);
-
-	  if(proxy)
-	    {
-	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 m_currentView->scene());
-
-	      m_currentView->push(undoCommand);
-	      proxy->setPos(point);
-	    }
-	  else
-	    object->deleteLater();
-	}
-      else
-	{
-	  QPoint p(point);
-
-	  p.setX(p.x() + x - first.x());
-
-	  if(y > first.y())
-	    p.setY(p.y() + y - first.y());
-	  else
-	    p.setY(p.y() - (first.y() - y));
-
-	  glitch_proxy_widget *proxy =
-	    m_currentView->scene()->addObject(object);
-
-	  if(proxy)
-	    {
-	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 m_currentView->scene());
-
-	      m_currentView->push(undoCommand);
-	      proxy->setPos(p);
-	    }
-	  else
-	    object->deleteLater();
-	}
-
-      f = true;
-    }
-
-  m_currentView->endMacro();
   prepareRedoUndoActions();
   QApplication::restoreOverrideCursor();
 }
@@ -1210,6 +1215,10 @@ void glitch_ui::slotSeparate(glitch_view *view)
 	  SIGNAL(copy(glitch_view *)),
 	  this,
 	  SLOT(slotCopy(glitch_view *)));
+  connect(window,
+	  SIGNAL(paste(glitch_view *)),
+	  this,
+	  SLOT(slotPaste(glitch_view *)));
   window->setCentralWidget(view);
   view->show();
   window->resize(view->size());

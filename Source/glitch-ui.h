@@ -50,6 +50,7 @@ class glitch_ui: public QMainWindow
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
   static void copy(QGraphicsView *view);
+  static void paste(glitch_view *view);
 
  private:
   QPointer<glitch_structures_arduino> m_arduinoStructures;
@@ -64,7 +65,6 @@ class glitch_ui: public QMainWindow
 					 const bool fromFile);
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
-  void paste(QGraphicsView *view);
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);
@@ -91,6 +91,7 @@ class glitch_ui: public QMainWindow
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotPageSelected(int index);
+  void slotPaste(glitch_view *view);
   void slotPaste(void);
   void slotQuit(void);
   void slotRedo(void);

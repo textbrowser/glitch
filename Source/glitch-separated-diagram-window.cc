@@ -45,6 +45,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotDelete(void)));
+  connect(m_ui.action_Paste,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotPaste(void)));
   connect(m_ui.action_Select_All,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -196,6 +200,14 @@ void glitch_separated_diagram_window::slotPageChanged(void)
 void glitch_separated_diagram_window::slotPageSaved(void)
 {
   slotPageChanged();
+}
+
+void glitch_separated_diagram_window::slotPaste(void)
+{
+  emit paste(m_view);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  prepareRedoUndoActions();
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_separated_diagram_window::slotSelectAll(void)
