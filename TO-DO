@@ -78,6 +78,8 @@ Remaining Items
 
 - All of Arduino's objects.
 - Copy Edit menu to child edit windows and separated windows.
+- Depict cloned functions.
+- Do not clone pasted functions without parents unless they already exist.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
