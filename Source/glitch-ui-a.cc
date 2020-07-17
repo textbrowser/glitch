@@ -160,7 +160,12 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
   if(!fileInfo.isReadable() && !fileInfo.isWritable())
     {
-      error = tr("The file must be both readable and writable.");
+      if(fileName.isEmpty())
+	error = tr("Empty file name.");
+      else
+	error = tr
+	  ("The file %1 must be both readable and writable.").arg(fileName);
+
       return false;
     }
 
