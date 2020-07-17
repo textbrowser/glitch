@@ -250,29 +250,32 @@ glitch_object_view *glitch_object_function_arduino::editView(void) const
 
 void glitch_object_function_arduino::addActions(QMenu &menu)
 {
-  if(m_isFunctionClone)
-    {
-      /*
-      ** This is a function clone.
-      */
-
-      addDefaultActions(menu);
-      return;
-    }
-
   if(!m_actions.contains(DefaultMenuActions::EDIT))
     {
       auto *action = new QAction(tr("&Edit..."), this);
 
-      connect(action,
-	      SIGNAL(triggered(void)),
-	      this,
-	      SLOT(slotEdit(void)));
+      if(m_isFunctionClone)
+	connect(action,
+		SIGNAL(triggered(void)),
+		m_parentFunction,
+		SLOT(slotEdit(void)));
+      else
+	connect(action,
+		SIGNAL(triggered(void)),
+		this,
+		SLOT(slotEdit(void)));
+
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
   else
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
+
+  if(m_isFunctionClone)
+    {
+      addDefaultActions(menu);
+      return;
+    }
 
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_NAME))
     {
@@ -359,15 +362,15 @@ void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 
 void glitch_object_function_arduino::prepareEditSignals(void)
 {
-  if(m_editView && m_editWindow && m_parent)
+  if(m_editView && m_editWindow && m_parentView)
     {
       connect(m_editView,
 	      SIGNAL(copy(void)),
-	      m_parent,
+	      m_parentView,
 	      SLOT(slotCopy(void)));
       connect(m_editView,
 	      SIGNAL(paste(void)),
-	      m_parent,
+	      m_parentView,
 	      SLOT(slotPaste(void)));
       connect(m_editWindow,
 	      SIGNAL(copy(void)),
