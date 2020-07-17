@@ -61,8 +61,12 @@ glitch_view::glitch_view
   m_changed = false;
   m_fileName = fileName;
   m_menuAction = new QAction
-    (QIcon(":/Logo/glitch-arduino-logo.png"), name, this);
-  m_name = name;
+    (QIcon(":/Logo/glitch-arduino-logo.png"), name.trimmed(), this);
+  m_name = name.trimmed();
+
+  if(m_name.isEmpty())
+    m_name = tr("Glitch-Diagram");
+
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
@@ -692,7 +696,11 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 
   QHash<glitch_canvas_settings::Settings, QVariant> hash(m_settings);
 
-  m_name = m_canvasSettings->name();
+  m_name = m_canvasSettings->name().trimmed();
+
+  if(m_name.isEmpty())
+    m_name = tr("Glitch-Diagram");
+
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
   m_settings[glitch_canvas_settings::CANVAS_BACKGROUND_COLOR] =
