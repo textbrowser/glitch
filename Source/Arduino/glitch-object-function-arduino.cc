@@ -254,17 +254,10 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
     {
       auto *action = new QAction(tr("&Edit..."), this);
 
-      if(m_isFunctionClone)
-	connect(action,
-		SIGNAL(triggered(void)),
-		m_parentFunction,
-		SLOT(slotEdit(void)));
-      else
-	connect(action,
-		SIGNAL(triggered(void)),
-		this,
-		SLOT(slotEdit(void)));
-
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotEdit(void)));
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
@@ -510,7 +503,11 @@ void glitch_object_function_arduino::slotEdit(void)
     {
       m_editWindow->showNormal();
       m_editWindow->raise();
+      return;
     }
+
+  if(m_parentFunction)
+    m_parentFunction->slotEdit();
 }
 
 void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
