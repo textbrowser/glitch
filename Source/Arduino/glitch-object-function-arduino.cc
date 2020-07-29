@@ -97,6 +97,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
+  m_ui.function_definition->setVisible(false);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText(name);
@@ -142,6 +143,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.setupUi(this);
+      m_ui.function_definition->setVisible(false);
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
       m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
@@ -285,9 +287,6 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
 
   addDefaultActions(menu);
-
-  if(m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
-    m_actions.value(DefaultMenuActions::SET_STYLE_SHEET)->setEnabled(false);
 }
 
 void glitch_object_function_arduino::addChild
@@ -344,7 +343,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   prepareEditSignals();
-  setStyleSheet("QWidget {background-color: #1e90ff; color: white;}");
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
@@ -438,6 +436,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	    m_findParentFunctionTimer.start(100);
 	  }
 
+	m_ui.function_definition->setVisible(!m_isFunctionClone);
 	m_ui.return_type->setEnabled(!m_isFunctionClone);
 
 	if(!m_ui.return_type->isEnabled())
