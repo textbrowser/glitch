@@ -28,9 +28,20 @@
 #include <QMouseEvent>
 
 #include "glitch-graphicsview.h"
+#include "glitch-view.h"
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
+}
+
+bool glitch_graphicsview::containsFunction(const QString &name) const
+{
+  auto *view = qobject_cast<glitch_view *> (parent());
+
+  if(view && view->containsFunction(name))
+    return true;
+  else
+    return false;
 }
 
 void glitch_graphicsview::enterEvent(QEvent *event)

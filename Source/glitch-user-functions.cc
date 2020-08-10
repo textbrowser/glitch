@@ -38,6 +38,11 @@ glitch_user_functions::~glitch_user_functions()
 {
 }
 
+bool glitch_user_functions::contains(const QString &name) const
+{
+  return !m_ui.functions->findItems(name, Qt::MatchExactly).isEmpty();
+}
+
 void glitch_user_functions::addFunction(const QString &name)
 {
   if(name.trimmed().isEmpty())

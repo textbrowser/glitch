@@ -36,6 +36,7 @@ class glitch_graphicsview: public QGraphicsView
 
  public:
   glitch_graphicsview(QWidget *parent);
+  bool containsFunction(const QString &name) const;
 
  protected:
   void enterEvent(QEvent *event);

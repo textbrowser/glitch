@@ -64,6 +64,7 @@ class glitch_view: public QWidget
   QUndoStack *undoStack(void) const;
   bool canRedo(void) const;
   bool canUndo(void) const;
+  bool containsFunction(const QString &name) const;
   bool hasChanged(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);

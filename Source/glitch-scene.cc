@@ -40,6 +40,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
+#include "glitch-graphicsview.h"
 
 glitch_scene::glitch_scene(const glitch_common::ProjectType projectType,
 			   QObject *parent):QGraphicsScene(parent)
@@ -201,7 +202,9 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
     {
-      connect(object,
+      auto *function = qobject_cast<glitch_object_function_arduino *> (object);
+
+      connect(function,
 	      SIGNAL(nameChanged(const QString &,
 				 const QString &,
 				 glitch_object *)),
@@ -210,7 +213,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					 const QString &,
 					 glitch_object *)),
 	      Qt::UniqueConnection);
-      connect(object,
+      connect(function,
 	      SIGNAL(nameChanged(const QString &,
 				 const QString &,
 				 glitch_object *)),
@@ -219,7 +222,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					   const QString &,
 					   glitch_object *)),
 	      Qt::UniqueConnection);
-      connect(object,
+      connect(function,
 	      SIGNAL(returnTypeChanged(const QString &,
 				       const QString &,
 				       glitch_object *)),
@@ -228,7 +231,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					       const QString &,
 					       glitch_object *)),
 	      Qt::UniqueConnection);
-      connect(object,
+      connect(function,
 	      SIGNAL(returnTypeChanged(const QString &,
 				       const QString &,
 				       glitch_object *)),
@@ -237,9 +240,18 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 						 const QString &,
 						 glitch_object *)),
 	      Qt::UniqueConnection);
-      emit functionAdded
-	(qobject_cast<glitch_object_function_arduino *> (object)->name(),
-	 qobject_cast<glitch_object_function_arduino *> (object)->isClone());
+
+      /*
+      ** Does this function exist? If the function does not exist, it
+      ** is not a clone.
+      */
+
+      auto *view = qobject_cast<glitch_graphicsview *> (views().value(0));
+
+      if(view && !view->containsFunction(function->name()))
+	emit functionAdded(function->name(), false);
+      else
+	emit functionAdded(function->name(), function->isClone());
     }
 
   emit sceneResized();

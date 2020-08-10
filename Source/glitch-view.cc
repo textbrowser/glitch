@@ -270,6 +270,11 @@ bool glitch_view::canUndo(void) const
   return m_undoStack->canUndo();
 }
 
+bool glitch_view::containsFunction(const QString &name) const
+{
+  return m_userFunctions->contains(name);
+}
+
 bool glitch_view::hasChanged(void) const
 {
   return m_changed;

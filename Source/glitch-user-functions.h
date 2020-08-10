@@ -39,6 +39,7 @@ class glitch_user_functions: public QDialog
  public:
   glitch_user_functions(QWidget *parent);
   ~glitch_user_functions();
+  bool contains(const QString &name) const;
   void addFunction(const QString &name);
   void deleteFunction(const QString &name);
   void renameFunction(const QString &before, const QString &after);
