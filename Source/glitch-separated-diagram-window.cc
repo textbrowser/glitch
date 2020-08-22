@@ -27,6 +27,7 @@
 
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QShortcut>
 
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -53,6 +54,9 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectAll(void)));
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
 }
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()

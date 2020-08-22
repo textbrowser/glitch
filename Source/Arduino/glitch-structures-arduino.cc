@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QShortcut>
+
 #include "glitch-structures-arduino.h"
 
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
@@ -41,6 +43,9 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
   m_ui.setupUi(this);
   m_ui.tree->setProjectType(glitch_common::ArduinoProject);
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   connect(m_ui.categories,
 	  SIGNAL(itemSelectionChanged(void)),
 	  this,

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QShortcut>
 #include <QtDebug>
 
 #include <limits>
@@ -87,6 +88,9 @@ glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotStack(void)));
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   setWindowModality(Qt::NonModal);
 }
 

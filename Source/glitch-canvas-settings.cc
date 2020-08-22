@@ -28,6 +28,7 @@
 #include <QColorDialog>
 #include <QDir>
 #include <QSettings>
+#include <QShortcut>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -45,6 +46,9 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
     (QString("QPushButton {background-color: %1}").
      arg(QColor(211, 211, 211).name()));
   m_ui.background_color->setText(QColor(211, 211, 211).name());
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   connect(m_ui.background_color,
 	  SIGNAL(clicked(void)),
 	  this,
