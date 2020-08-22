@@ -299,6 +299,68 @@ void glitch_object_function_arduino::addChild
     m_editView->artificialDrop(point, object);
 }
 
+void glitch_object_function_arduino::declone(void)
+{
+  /*
+  ** Declone a function.
+  */
+
+  disconnect(&m_findParentFunctionTimer,
+	     SIGNAL(timeout(void)),
+	     this,
+	     SLOT(slotFindParentFunctionTimeout(void)));
+
+  if(m_editView)
+    m_editView->deleteLater();
+
+  if(m_editWindow)
+    m_editWindow->deleteLater();
+
+  m_editView = new glitch_object_view
+    (glitch_common::ArduinoProject, m_id, this);
+  m_editWindow = new glitch_object_edit_window(m_parent);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->resize(600, 600);
+  m_findParentFunctionTimer.stop();
+  m_initialized = true;
+  m_isFunctionClone = false;
+
+  if(m_parent)
+    {
+      if(!qobject_cast<glitch_view_arduino *> (m_parent))
+	m_parentView = qobject_cast<glitch_view_arduino *> (m_parent->parent());
+      else
+	m_parentView = qobject_cast<glitch_view_arduino *> (m_parent);
+    }
+  else
+    m_parentView = nullptr;
+
+  m_ui.function_definition->setVisible(true);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  m_ui.return_type->setEnabled(true);
+  m_ui.return_type->setToolTip("");
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
+  connect(m_editWindow,
+	  SIGNAL(closed(void)),
+	  m_editView,
+	  SLOT(slotParentWindowClosed(void)));
+  connect(m_editWindow,
+	  SIGNAL(selectAll(void)),
+	  m_editView,
+	  SLOT(slotSelectAll(void)));
+  connect(m_ui.return_type,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotReturnTypeChanged(void)));
+  prepareContextMenu();
+  prepareEditSignals();
+}
+
 void glitch_object_function_arduino::closeEditWindow(void)
 {
   if(m_editWindow)

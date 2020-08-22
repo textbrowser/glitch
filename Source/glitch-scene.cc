@@ -249,7 +249,10 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
       auto *view = qobject_cast<glitch_graphicsview *> (views().value(0));
 
       if(view && !view->containsFunction(function->name()))
-	emit functionAdded(function->name(), false);
+	{
+	  emit functionAdded(function->name(), false);
+	  function->declone();
+	}
       else
 	emit functionAdded(function->name(), function->isClone());
     }

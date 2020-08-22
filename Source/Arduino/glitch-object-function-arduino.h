@@ -60,6 +60,7 @@ class glitch_object_function_arduino: public glitch_object
   void addActions(QMenu &menu);
   void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);
+  void declone(void);
   void save(const QSqlDatabase &db, QString &error);
   void setName(const QString &name);
   void setReturnType(const QString &returnType);

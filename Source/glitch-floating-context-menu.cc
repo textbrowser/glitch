@@ -28,6 +28,7 @@
 #include <QAction>
 #include <QCheckBox>
 #include <QPushButton>
+#include <QShortcut>
 
 #include "glitch-floating-context-menu.h"
 
@@ -35,6 +36,9 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   setWindowModality(Qt::NonModal);
 }
 
