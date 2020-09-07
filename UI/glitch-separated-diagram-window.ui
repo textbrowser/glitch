@@ -43,6 +43,13 @@
     <addaction name="action_Delete"/>
     <addaction name="action_Select_All"/>
    </widget>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Close"/>
+   </widget>
+   <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
   </widget>
   <action name="action_Undo">
@@ -91,6 +98,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="action_Close">
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
  </widget>
