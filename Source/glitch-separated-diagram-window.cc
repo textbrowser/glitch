@@ -38,6 +38,10 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.action_Close,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(close(void)));
   connect(m_ui.action_Copy,
 	  SIGNAL(triggered(void)),
 	  this,

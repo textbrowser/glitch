@@ -56,6 +56,7 @@ static bool y_coordinate_less_than(glitch_object *w1, glitch_object *w2)
 glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.bottom_align->setFocus();
   connect(m_ui.bottom_align,
 	  SIGNAL(clicked(void)),
 	  this,
