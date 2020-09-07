@@ -44,7 +44,10 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   new QShortcut(tr("Ctrl+V"),
 		this,
 		SIGNAL(paste(void)));
-  menuBar()->addMenu(tr("&File"));
+
+  auto *menu = menuBar()->addMenu(tr("&File"));
+
+  menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
   menuBar()->addMenu(tr("&Edit"));
   setContentsMargins(9, 9, 9, 9);
 }
