@@ -38,17 +38,20 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   new QShortcut(tr("Ctrl+A"),
 		this,
 		SIGNAL(selectAll(void)));
-  new QShortcut(tr("Ctrl+C"),
-		this,
-		SIGNAL(copy(void)));
-  new QShortcut(tr("Ctrl+V"),
-		this,
-		SIGNAL(paste(void)));
 
   auto *menu = menuBar()->addMenu(tr("&File"));
 
   menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
-  menuBar()->addMenu(tr("&Edit"));
+  menu = menuBar()->addMenu(tr("&Edit"));
+  menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"))->
+    setEnabled(false);
+  menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"))->
+    setEnabled(false);
+  menu->addSeparator();
+  menu->addAction(tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"))->
+    setEnabled(false);
+  menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"))->
+    setEnabled(false);
   setContentsMargins(9, 9, 9, 9);
 }
 

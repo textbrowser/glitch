@@ -51,7 +51,9 @@ class glitch_object_edit_window: public QMainWindow
   void closed(void);
   void copy(void);
   void paste(void);
+  void redo(void);
   void selectAll(void);
+  void undo(void);
 };
 
 #endif
