@@ -46,6 +46,7 @@ glitch_object_view::glitch_object_view
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   new QShortcut(tr("Ctrl+Shift+Z"),
 		this,
 		SLOT(slotRedo(void)));
