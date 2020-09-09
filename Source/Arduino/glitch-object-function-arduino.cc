@@ -424,7 +424,7 @@ void glitch_object_function_arduino::prepareEditSignals(void)
 	      SLOT(slotCopy(void)));
       connect(m_editView,
 	      SIGNAL(paste(void)),
-	      m_parentView,
+	      m_editView,
 	      SLOT(slotPaste(void)));
       connect(m_editWindow,
 	      SIGNAL(copy(void)),

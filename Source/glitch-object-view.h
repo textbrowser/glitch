@@ -64,6 +64,7 @@ class glitch_object_view: public QGraphicsView
  protected slots:
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotParentWindowClosed(void);
+  void slotPaste(void);
   void slotRedo(void);
   void slotSceneResized(void);
   void slotSelectAll(void);

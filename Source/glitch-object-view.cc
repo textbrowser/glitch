@@ -169,6 +169,10 @@ void glitch_object_view::slotParentWindowClosed(void)
   m_alignment->close();
 }
 
+void glitch_object_view::slotPaste(void)
+{
+}
+
 void glitch_object_view::slotRedo(void)
 {
 }
