@@ -33,7 +33,7 @@
 #include "glitch-object-view.h"
 
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
-  QMainWindow(parent, Qt::WindowFlags() | Qt::WindowStaysOnTopHint)
+  QMainWindow(parent)
 {
   new QShortcut(tr("Ctrl+A"),
 		this,
