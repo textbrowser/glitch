@@ -28,11 +28,6 @@
 #ifndef _glitch_object_edit_window_h_
 #define _glitch_object_edit_window_h_
 
-/*
-** This class represents a simple main window. It's not Glitch's
-** main window, but it could be.
-*/
-
 #include <QMainWindow>
 #include <QMap>
 
