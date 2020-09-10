@@ -34,6 +34,7 @@
 */
 
 #include <QMainWindow>
+#include <QMap>
 
 class glitch_object_edit_window: public QMainWindow
 {
@@ -44,12 +45,17 @@ class glitch_object_edit_window: public QMainWindow
   ~glitch_object_edit_window();
 
  private:
+  QMap<QString, QAction *> m_actions;
   void closeEvent(QCloseEvent *event);
   void resizeEvent(QResizeEvent *event);
+
+ private slots:
+  void slotAboutToShowEditMenu(void);
 
  signals:
   void closed(void);
   void copy(void);
+  void deleteSignal(void);
   void paste(void);
   void redo(void);
   void selectAll(void);

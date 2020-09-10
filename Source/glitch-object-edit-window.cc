@@ -27,31 +27,36 @@
 
 #include <QMenuBar>
 #include <QResizeEvent>
-#include <QShortcut>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
+#include "glitch-ui.h"
 
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
-  new QShortcut(tr("Ctrl+A"),
-		this,
-		SIGNAL(selectAll(void)));
-
   auto *menu = menuBar()->addMenu(tr("&File"));
 
   menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
   menu = menuBar()->addMenu(tr("&Edit"));
-  menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"))->
-    setEnabled(false);
-  menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"))->
-    setEnabled(false);
+  connect(menu,
+	  SIGNAL(aboutToShow(void)),
+	  this,
+	  SLOT(slotAboutToShowEditMenu(void)));
+  m_actions["undo"] =
+    menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"));
+  m_actions["redo"] =
+    menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"));
   menu->addSeparator();
-  menu->addAction(tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"))->
-    setEnabled(false);
-  menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"))->
-    setEnabled(false);
+  m_actions["copy"] =
+    menu->addAction(tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"));
+  m_actions["paste"] =
+    menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"));
+  menu->addSeparator();
+  m_actions["delete"] =
+    menu->addAction(tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
+  m_actions["select all"] = menu->addAction
+    (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
   setContentsMargins(9, 9, 9, 9);
 }
 
@@ -76,4 +81,8 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
     }
 
   QMainWindow::resizeEvent(event);
+}
+
+void glitch_object_edit_window::slotAboutToShowEditMenu(void)
+{
 }
