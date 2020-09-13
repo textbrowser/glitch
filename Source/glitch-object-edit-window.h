@@ -30,6 +30,9 @@
 
 #include <QMainWindow>
 #include <QMap>
+#include <QPointer>
+
+class glitch_object_view;
 
 class glitch_object_edit_window: public QMainWindow
 {
@@ -38,9 +41,11 @@ class glitch_object_edit_window: public QMainWindow
  public:
   glitch_object_edit_window(QWidget *parent);
   ~glitch_object_edit_window();
+  void setEditView(glitch_object_view *view);
 
  private:
   QMap<QString, QAction *> m_actions;
+  QPointer<glitch_object_view> m_editView;
   void closeEvent(QCloseEvent *event);
   void resizeEvent(QResizeEvent *event);
 

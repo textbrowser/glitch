@@ -30,6 +30,7 @@
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
+#include "glitch-scene.h"
 #include "glitch-ui.h"
 
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
@@ -83,6 +84,13 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
   QMainWindow::resizeEvent(event);
 }
 
+void glitch_object_edit_window::setEditView(glitch_object_view *view)
+{
+  m_editView = view;
+}
+
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 {
+  m_actions.value("select all")->setEnabled
+    (m_editView && !m_editView->scene()->items().isEmpty());
 }
