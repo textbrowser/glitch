@@ -82,6 +82,11 @@ glitch_object_view::~glitch_object_view()
 {
 }
 
+QUndoStack *glitch_object_view::undoStack(void) const
+{
+  return m_undoStack;
+}
+
 glitch_scene *glitch_object_view::scene(void) const
 {
   return m_scene;

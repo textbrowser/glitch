@@ -322,6 +322,7 @@ void glitch_object_function_arduino::declone(void)
   m_editWindow = new glitch_object_edit_window(m_parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->resize(600, 600);
   m_findParentFunctionTimer.stop();
@@ -381,6 +382,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->resize(600, 600);
   m_isFunctionClone = false;

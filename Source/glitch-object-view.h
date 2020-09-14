@@ -47,6 +47,7 @@ class glitch_object_view: public QGraphicsView
 		     const quint64 id,
 		     QWidget *parent);
   ~glitch_object_view();
+  QUndoStack *undoStack(void) const;
   glitch_scene* scene(void) const;
   quint64 id(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object);
