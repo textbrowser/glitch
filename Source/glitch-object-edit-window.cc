@@ -91,6 +91,8 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 {
+  m_actions.value("delete")->setEnabled
+    (m_editView && !m_editView->scene()->selectedItems().isEmpty());
   m_actions.value("select all")->setEnabled
     (m_editView && !m_editView->scene()->items().isEmpty());
 }
