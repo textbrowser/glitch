@@ -27,6 +27,7 @@
 
 #include <QMenuBar>
 #include <QResizeEvent>
+#include <QUndoStack>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -87,6 +88,11 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
 {
   m_editView = view;
+}
+
+void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
+{
+  m_undoStack = undoStack;
 }
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
