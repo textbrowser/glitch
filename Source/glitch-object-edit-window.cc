@@ -102,6 +102,8 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
   m_actions.value("delete")->setEnabled
     (m_editView && !m_editView->scene()->selectedItems().isEmpty());
   m_actions.value("paste")->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+  m_actions.value("redo")->setEnabled(m_undoStack && m_undoStack->canRedo());
   m_actions.value("select all")->setEnabled
     (m_editView && !m_editView->scene()->items().isEmpty());
+  m_actions.value("undo")->setEnabled(m_undoStack && m_undoStack->canUndo());
 }
