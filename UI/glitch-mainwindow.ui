@@ -107,6 +107,8 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="action_Clear_Copied_Widgets_Buffer"/>
+    <addaction name="separator"/>
     <addaction name="action_Undo"/>
     <addaction name="action_Redo"/>
     <addaction name="separator"/>
@@ -242,6 +244,11 @@
   <action name="action_Canvas_Settings">
    <property name="text">
     <string>Canvas Settings...</string>
+   </property>
+  </action>
+  <action name="action_Clear_Copied_Widgets_Buffer">
+   <property name="text">
+    <string>Clear Copied Widgets Buffer</string>
    </property>
   </action>
  </widget>

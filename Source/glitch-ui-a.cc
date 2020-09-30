@@ -63,6 +63,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowCanvasSettings(void)));
+  connect(m_ui.action_Clear_Copied_Widgets_Buffer,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotClearCopiedWidgetsBuffer(void)));
   connect(m_ui.action_Close_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -793,6 +797,27 @@ void glitch_ui::slotArduinoViewDestroyed(void)
   if(m_arduinoStructures)
     if(findChildren<glitch_view_arduino *> ().isEmpty())
       m_arduinoStructures->deleteLater();
+
+  QApplication::restoreOverrideCursor();
+  prepareActionWidgets();
+}
+
+void glitch_ui::slotClearCopiedWidgetsBuffer(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
+    it(s_copiedObjects);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value())
+	it.value()->deleteLater();
+
+      it.remove();
+    }
 
   QApplication::restoreOverrideCursor();
   prepareActionWidgets();
