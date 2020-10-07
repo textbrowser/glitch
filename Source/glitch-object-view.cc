@@ -170,6 +170,10 @@ void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
   menu.exec(mapToGlobal(point));
 }
 
+void glitch_object_view::slotDelete(void)
+{
+}
+
 void glitch_object_view::slotParentWindowClosed(void)
 {
   m_alignment->close();
