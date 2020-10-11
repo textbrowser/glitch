@@ -34,6 +34,7 @@
 #include "ui_glitch-mainwindow.h"
 
 class QGraphicsView;
+class QUndoStack;
 class glitch_object;
 class glitch_scene;
 class glitch_structures_arduino;
@@ -50,7 +51,7 @@ class glitch_ui: public QMainWindow
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
   static void copy(QGraphicsView *view);
-  static void paste(glitch_view *view);
+  static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
   QPointer<glitch_structures_arduino> m_arduinoStructures;

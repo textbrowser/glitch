@@ -466,21 +466,19 @@ void glitch_ui::parseCommandLineArguments(void)
     }
 }
 
-void glitch_ui::paste(glitch_view *view)
+void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 {
-  if(s_copiedObjects.isEmpty() || !view)
+  if(s_copiedObjects.isEmpty() || !undoStack || !view)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
   QPoint first;
-  QPoint point
-    (view->view()->mapToScene(view->view()->mapFromGlobal(QCursor::pos())).
-     toPoint());
+  QPoint point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
   bool f = false;
 
-  view->beginMacro(tr("widget(s) pasted"));
+  undoStack->beginMacro(tr("widget(s) pasted"));
 
   while(it.hasNext())
     {
@@ -500,14 +498,17 @@ void glitch_ui::paste(glitch_view *view)
 	{
 	  first = QPoint(x, y);
 
-	  auto *proxy = view->scene()->addObject(object);
+	  auto *proxy = qobject_cast<glitch_scene *> (view->scene())->
+	    addObject(object);
 
 	  if(proxy)
 	    {
 	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED, proxy, view->scene());
+		(glitch_undo_command::ITEM_ADDED,
+		 proxy,
+		 qobject_cast<glitch_scene *> (view->scene()));
 
-	      view->push(undoCommand);
+	      undoStack->push(undoCommand);
 	      proxy->setPos(point);
 	    }
 	  else
@@ -524,14 +525,17 @@ void glitch_ui::paste(glitch_view *view)
 	  else
 	    p.setY(p.y() - (first.y() - y));
 
-	  auto *proxy = view->scene()->addObject(object);
+	  auto *proxy = qobject_cast<glitch_scene *> (view->scene())->
+	    addObject(object);
 
 	  if(proxy)
 	    {
 	      auto *undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED, proxy, view->scene());
+		(glitch_undo_command::ITEM_ADDED,
+		 proxy,
+		 qobject_cast<glitch_scene *> (view->scene()));
 
-	      view->push(undoCommand);
+	      undoStack->push(undoCommand);
 	      proxy->setPos(p);
 	    }
 	  else
@@ -541,7 +545,7 @@ void glitch_ui::paste(glitch_view *view)
       f = true;
     }
 
-  view->endMacro();
+  undoStack->endMacro();
   QApplication::restoreOverrideCursor();
 }
 
@@ -1109,12 +1113,15 @@ void glitch_ui::slotPageSelected(int index)
 
 void glitch_ui::slotPaste(glitch_view *view)
 {
-  paste(view);
+  if(view)
+    paste(view->view(), view->undoStack());
 }
 
 void glitch_ui::slotPaste(void)
 {
-  paste(m_currentView);
+  if(m_currentView)
+    paste(m_currentView->view(), m_currentView->undoStack());
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   prepareRedoUndoActions();
   QApplication::restoreOverrideCursor();

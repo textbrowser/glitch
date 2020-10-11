@@ -27,13 +27,13 @@
 
 #include <QScrollBar>
 #include <QSqlError>
-#include <QShortcut>
 
 #include "glitch-alignment.h"
 #include "glitch-object.h"
 #include "glitch-object-view.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
+#include "glitch-ui.h"
 #include "glitch-view.h"
 
 glitch_object_view::glitch_object_view
@@ -47,12 +47,6 @@ glitch_object_view::glitch_object_view
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
-  new QShortcut(tr("Ctrl+Shift+Z"),
-		this,
-		SLOT(slotRedo(void)));
-  new QShortcut(tr("Ctrl+Z"),
-		this,
-		SLOT(slotUndo(void)));
   setDragMode(QGraphicsView::RubberBandDrag);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
@@ -181,10 +175,13 @@ void glitch_object_view::slotParentWindowClosed(void)
 
 void glitch_object_view::slotPaste(void)
 {
+  glitch_ui::paste(this, m_undoStack);
 }
 
 void glitch_object_view::slotRedo(void)
 {
+  if(m_undoStack->canRedo())
+    m_undoStack->redo();
 }
 
 void glitch_object_view::slotSceneResized(void)
@@ -210,4 +207,6 @@ void glitch_object_view::slotSelectAll(void)
 
 void glitch_object_view::slotUndo(void)
 {
+  if(m_undoStack->canUndo())
+    m_undoStack->undo();
 }

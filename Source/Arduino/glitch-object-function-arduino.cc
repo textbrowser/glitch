@@ -432,9 +432,19 @@ void glitch_object_function_arduino::prepareEditSignals(void)
 	      SIGNAL(paste(void)),
 	      Qt::UniqueConnection);
       connect(m_editWindow,
+	      SIGNAL(redo(void)),
+	      m_editView,
+	      SLOT(slotRedo(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
 	      SIGNAL(selectAll(void)),
 	      m_editView,
 	      SLOT(slotSelectAll(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(undo(void)),
+	      m_editView,
+	      SLOT(slotUndo(void)),
 	      Qt::UniqueConnection);
     }
 
