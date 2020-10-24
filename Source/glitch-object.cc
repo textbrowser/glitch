@@ -390,7 +390,8 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
 
-  m_undoStack = undoStack;
+  if(!m_undoStack)
+    m_undoStack = undoStack;
 }
 
 void glitch_object::simulateDelete(void)

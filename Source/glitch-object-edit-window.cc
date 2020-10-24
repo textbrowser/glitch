@@ -92,7 +92,8 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 
 void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 {
-  m_undoStack = undoStack;
+  if(!m_undoStack)
+    m_undoStack = undoStack;
 }
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
