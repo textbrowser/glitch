@@ -135,11 +135,6 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
     }
 }
 
-void glitch_object_view::setUndoStack(QUndoStack *undoStack)
-{
-  m_scene->setUndoStack(undoStack);
-}
-
 void glitch_object_view::setSceneRect(const QSize &size)
 {
   Q_UNUSED(size);

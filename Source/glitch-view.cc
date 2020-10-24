@@ -346,7 +346,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			if(proxy)
 			  {
 			    m_scene->addItem(proxy);
-			    object->setUndoStack(m_scene->undoStack());
+			    object->setUndoStack(m_undoStack);
 			    parents[id] = object;
 			    proxy->setPos(glitch_misc::dbPointToPointF(point));
 			  }

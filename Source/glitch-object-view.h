@@ -53,7 +53,6 @@ class glitch_object_view: public QGraphicsView
   void artificialDrop(const QPointF &point, glitch_object *object);
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
-  void setUndoStack(QUndoStack *undoStack);
 
  private:
   QUndoStack *m_undoStack;
