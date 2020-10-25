@@ -98,6 +98,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5958d56a62732323268033825f80d0d8"><td class="memItemLeft" align="right" valign="top"><a id="a5958d56a62732323268033825f80d0d8"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object_view</b> (const glitch_common::ProjectType projectType, const quint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a5958d56a62732323268033825f80d0d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8367291f37bbbf9bce13f37c2baa7562"><td class="memItemLeft" align="right" valign="top"><a id="a8367291f37bbbf9bce13f37c2baa7562"></a>
+QUndoStack *&#160;</td><td class="memItemRight" valign="bottom"><b>undoStack</b> (void) const</td></tr>
+<tr class="separator:a8367291f37bbbf9bce13f37c2baa7562"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e983082bf632939cf44572560926d43"><td class="memItemLeft" align="right" valign="top"><a id="a6e983082bf632939cf44572560926d43"></a>
 <a class="el" href="classglitch__scene.html">glitch_scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>scene</b> (void) const</td></tr>
 <tr class="separator:a6e983082bf632939cf44572560926d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,18 +116,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (const QSqlD
 <tr class="memitem:a47b30ff5f3f08ad6a9d3215d96954d6d"><td class="memItemLeft" align="right" valign="top"><a id="a47b30ff5f3f08ad6a9d3215d96954d6d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSceneRect</b> (const QSize &amp;size)</td></tr>
 <tr class="separator:a47b30ff5f3f08ad6a9d3215d96954d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc9cf3255ea87ff1095c1937f0113fa3"><td class="memItemLeft" align="right" valign="top"><a id="abc9cf3255ea87ff1095c1937f0113fa3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setUndoStack</b> (QUndoStack *undoStack)</td></tr>
-<tr class="separator:abc9cf3255ea87ff1095c1937f0113fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-slots"></a>
 Protected Slots</h2></td></tr>
 <tr class="memitem:a058367e015f7b4022ff40fa622b6dca2"><td class="memItemLeft" align="right" valign="top"><a id="a058367e015f7b4022ff40fa622b6dca2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotCustomContextMenuRequested</b> (const QPoint &amp;point)</td></tr>
 <tr class="separator:a058367e015f7b4022ff40fa622b6dca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae1b1e119a910d8b9dc3be6296edd19"><td class="memItemLeft" align="right" valign="top"><a id="a0ae1b1e119a910d8b9dc3be6296edd19"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotDelete</b> (void)</td></tr>
+<tr class="separator:a0ae1b1e119a910d8b9dc3be6296edd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a831f389fc72e296ec52223cec25f5fc1"><td class="memItemLeft" align="right" valign="top"><a id="a831f389fc72e296ec52223cec25f5fc1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotParentWindowClosed</b> (void)</td></tr>
 <tr class="separator:a831f389fc72e296ec52223cec25f5fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf547da47cde0d5c262ea2dba667fb1"><td class="memItemLeft" align="right" valign="top"><a id="aaaf547da47cde0d5c262ea2dba667fb1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotPaste</b> (void)</td></tr>
+<tr class="separator:aaaf547da47cde0d5c262ea2dba667fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a659d310597a03db3698ba99afc2f5069"><td class="memItemLeft" align="right" valign="top"><a id="a659d310597a03db3698ba99afc2f5069"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotRedo</b> (void)</td></tr>
 <tr class="separator:a659d310597a03db3698ba99afc2f5069"><td class="memSeparator" colspan="2">&#160;</td></tr>

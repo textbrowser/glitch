@@ -110,16 +110,17 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classglitch__user__functions.html">glitch_user_functions</a>(QWidget *parent);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  ~<a class="code" href="classglitch__user__functions.html">glitch_user_functions</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> addFunction(<span class="keyword">const</span> QString &amp;name);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> deleteFunction(<span class="keyword">const</span> QString &amp;name);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> renameFunction(<span class="keyword">const</span> QString &amp;before, <span class="keyword">const</span> QString &amp;after);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> setProjectType(<span class="keyword">const</span> glitch_common::ProjectType projectType);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  Ui_glitch_user_functions m_ui;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">bool</span> contains(<span class="keyword">const</span> QString &amp;name) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> addFunction(<span class="keyword">const</span> QString &amp;name);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> deleteFunction(<span class="keyword">const</span> QString &amp;name);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> renameFunction(<span class="keyword">const</span> QString &amp;before, <span class="keyword">const</span> QString &amp;after);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> setProjectType(<span class="keyword">const</span> glitch_common::ProjectType projectType);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  Ui_glitch_user_functions m_ui;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassglitch__user__functions_html"><div class="ttname"><a href="classglitch__user__functions.html">glitch_user_functions</a></div><div class="ttdef"><b>Definition:</b> glitch-user-functions.h:35</div></div>
 <!-- start footer part -->
