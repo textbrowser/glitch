@@ -86,7 +86,7 @@ Remaining Items
   a defined function. All duplicate instances should be duplicates of a single
   definition.
 - Function parameters and return value.
-- Icons.
+- Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
@@ -97,7 +97,6 @@ Remaining Items
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
-- Themes.
 - Translate diagrams to Arduino via Embedded LISP.
 - Undo macros for group actions.
 - Warn of recursive functions.
