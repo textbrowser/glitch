@@ -161,6 +161,7 @@ void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
 
 void glitch_object_view::slotDelete(void)
 {
+  m_scene->deleteItems();
 }
 
 void glitch_object_view::slotParentWindowClosed(void)
