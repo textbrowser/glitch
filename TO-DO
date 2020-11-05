@@ -20,6 +20,8 @@ Completed Items
 - Context menu on main tab widget.
 - Context menus should be available as tools. See Tools Bar.
 - Copy & paste.
+- Copy Edit menu to child edit windows and separated windows.
+  Redo / undo stack.
 - Define databases.
 - Depict changed pages. Window titles, etc.
 - Depict cloned functions. Function definitions will contain labels having
@@ -79,8 +81,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Copy Edit menu to child edit windows and separated windows.
-  Redo / undo stack.
 - Do not clone pasted functions without parents unless they already exist.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single

@@ -54,10 +54,18 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotPaste(void)));
+  connect(m_ui.action_Redo,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotRedo(void)));
   connect(m_ui.action_Select_All,
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectAll(void)));
+  connect(m_ui.action_Undo,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotUndo(void)));
 }
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()
@@ -200,6 +208,8 @@ void glitch_separated_diagram_window::slotPageChanged(void)
     }
   else
     QMainWindow::setWindowTitle(tr("Glitch"));
+
+  prepareRedoUndoActions();
 }
 
 void glitch_separated_diagram_window::slotPageSaved(void)
@@ -215,6 +225,15 @@ void glitch_separated_diagram_window::slotPaste(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_separated_diagram_window::slotRedo(void)
+{
+  if(m_view)
+    {
+      m_view->redo();
+      prepareRedoUndoActions();
+    }
+}
+
 void glitch_separated_diagram_window::slotSelectAll(void)
 {
   if(m_view)
@@ -224,4 +243,13 @@ void glitch_separated_diagram_window::slotSelectAll(void)
 void glitch_separated_diagram_window::slotSelectionChanged(void)
 {
   prepareActionWidgets();
+}
+
+void glitch_separated_diagram_window::slotUndo(void)
+{
+  if(m_view)
+    {
+      m_view->undo();
+      prepareRedoUndoActions();
+    }
 }
