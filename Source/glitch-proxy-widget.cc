@@ -136,9 +136,9 @@ void glitch_proxy_widget::paint
       else
 	pen.setColor(Qt::red);
 
-      pen.setJoinStyle(Qt::MiterJoin);
-      pen.setStyle(Qt::DashLine);
-      pen.setWidthF(6.5);
+      pen.setJoinStyle(Qt::RoundJoin);
+      pen.setStyle(Qt::DotLine);
+      pen.setWidthF(4.5);
       painter->setPen(pen);
       painter->drawRect(boundingRect());
     }
