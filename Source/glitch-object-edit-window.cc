@@ -39,7 +39,8 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 {
   auto *menu = menuBar()->addMenu(tr("&File"));
 
-  menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
+  m_actions["close"] =
+    menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
 	  SIGNAL(aboutToShow(void)),
