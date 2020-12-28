@@ -80,6 +80,7 @@ Ignored Items
 
 Remaining Items
 
+- Alignment tool should be a child of the view.
 - All of Arduino's objects.
 - Do not clone pasted functions without parents unless they already exist.
 - Functions are defined on the main view. Allow multiple instances of
