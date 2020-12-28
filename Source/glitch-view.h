@@ -28,6 +28,7 @@
 #ifndef _glitch_view_h_
 #define _glitch_view_h_
 
+#include <QPointer>
 #include <QUndoStack>
 #include <QWidget>
 
@@ -92,12 +93,12 @@ class glitch_view: public QWidget
   QAction *m_menuAction;
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
+  QPointer<glitch_alignment> m_alignment;
   QString m_fileName;
   QString m_name;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   bool m_changed;
-  glitch_alignment *m_alignment;
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectType m_projectType;
   glitch_graphicsview *m_view;

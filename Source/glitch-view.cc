@@ -54,7 +54,6 @@ glitch_view::glitch_view
  QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
-  m_alignment = new glitch_alignment(this);
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->prepare();
@@ -86,10 +85,6 @@ glitch_view::glitch_view
   m_view->setScene(m_scene);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  connect(m_alignment,
-	  SIGNAL(changed(void)),
-	  this,
-	  SLOT(slotChanged(void)));
   connect(m_canvasSettings,
 	  SIGNAL(accepted(const bool)),
 	  this,
@@ -683,14 +678,27 @@ void glitch_view::setSceneRect(const QSize &size)
 
 void glitch_view::showAlignment(void)
 {
-  m_alignment->show();
+  if(!m_alignment)
+    {
+      m_alignment = new glitch_alignment(m_view);
+      connect(m_alignment,
+	      SIGNAL(changed(void)),
+	      this,
+	      SLOT(slotChanged(void)));
+    }
+
+  m_alignment->showNormal();
+  m_alignment->activateWindow();
+  m_alignment->raise();
 }
 
 void glitch_view::showCanvasSettings(void)
 {
   m_canvasSettings->setName(m_name);
   m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
-  m_canvasSettings->show();
+  m_canvasSettings->showNormal();
+  m_canvasSettings->activateWindow();
+  m_canvasSettings->raise();
 }
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
@@ -875,7 +883,9 @@ void glitch_view::slotShowCanvasSettings(void)
 
 void glitch_view::slotShowUserFunctions(void)
 {
-  m_userFunctions->show();
+  m_userFunctions->showNormal();
+  m_userFunctions->activateWindow();
+  m_userFunctions->raise();
 }
 
 void glitch_view::slotUnite(void)

@@ -583,6 +583,7 @@ void glitch_object_function_arduino::slotEdit(void)
   if(m_editWindow && !m_isFunctionClone)
     {
       m_editWindow->showNormal();
+      m_editWindow->activateWindow();
       m_editWindow->raise();
       return;
     }
