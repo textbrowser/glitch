@@ -680,7 +680,7 @@ void glitch_view::showAlignment(void)
 {
   if(!m_alignment)
     {
-      m_alignment = new glitch_alignment(m_view);
+      m_alignment = new glitch_alignment(this);
       connect(m_alignment,
 	      SIGNAL(changed(void)),
 	      this,

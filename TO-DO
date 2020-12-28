@@ -8,6 +8,7 @@ Completed Items
   primary mouse button should display the object's context menu.
 - Alignment panel. The panel must allow interaction with separated windows.
   Per diagram.
+- Alignment tool should be a child of the view's window.
 - Allow opening of multiple files.
 - Allow setting of function names.
 - Apply canvas settings.
@@ -80,7 +81,6 @@ Ignored Items
 
 Remaining Items
 
-- Alignment tool should be a child of the view.
 - All of Arduino's objects.
 - Do not clone pasted functions without parents unless they already exist.
 - Functions are defined on the main view. Allow multiple instances of

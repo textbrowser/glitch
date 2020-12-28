@@ -29,6 +29,7 @@
 #define _glitch_object_view_h_
 
 #include <QGraphicsView>
+#include <QPointer>
 #include <QSqlDatabase>
 
 #include "glitch-common.h"
@@ -55,8 +56,8 @@ class glitch_object_view: public QGraphicsView
   void setSceneRect(const QSize &size);
 
  private:
+  QPointer<glitch_alignment> m_alignment;
   QUndoStack *m_undoStack;
-  glitch_alignment *m_alignment;
   glitch_common::ProjectType m_projectType;
   glitch_scene *m_scene;
   quint64 m_id;
@@ -70,6 +71,7 @@ class glitch_object_view: public QGraphicsView
   void slotRedo(void);
   void slotSceneResized(void);
   void slotSelectAll(void);
+  void slotShowAlignment(void);
   void slotUndo(void);
 
  signals:

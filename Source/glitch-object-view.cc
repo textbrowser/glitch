@@ -41,7 +41,6 @@ glitch_object_view::glitch_object_view
  const quint64 id,
  QWidget *parent):QGraphicsView(parent)
 {
-  m_alignment = new glitch_alignment(this);
   m_id = id;
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
@@ -74,6 +73,8 @@ glitch_object_view::glitch_object_view
 
 glitch_object_view::~glitch_object_view()
 {
+  if(m_alignment)
+    m_alignment->deleteLater();
 }
 
 QUndoStack *glitch_object_view::undoStack(void) const
@@ -154,8 +155,8 @@ void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
   QMenu menu(this);
 
   menu.addAction(tr("&Alignment Tool..."),
-		 m_alignment,
-		 SLOT(show(void)));
+		 this,
+		 SLOT(slotShowAlignment(void)));
   menu.exec(mapToGlobal(point));
 }
 
@@ -166,7 +167,8 @@ void glitch_object_view::slotDelete(void)
 
 void glitch_object_view::slotParentWindowClosed(void)
 {
-  m_alignment->close();
+  if(m_alignment)
+    m_alignment->close();
 }
 
 void glitch_object_view::slotPaste(void)
@@ -199,6 +201,16 @@ void glitch_object_view::slotSelectAll(void)
       if(proxy)
 	proxy->setSelected(true);
     }
+}
+
+void glitch_object_view::slotShowAlignment(void)
+{
+  if(!m_alignment)
+    m_alignment = new glitch_alignment(parentWidget());
+
+  m_alignment->showNormal();
+  m_alignment->activateWindow();
+  m_alignment->raise();
 }
 
 void glitch_object_view::slotUndo(void)
