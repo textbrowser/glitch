@@ -64,8 +64,10 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wconversion \
                           -Wdouble-promotion \
                           -Wextra \
+                          -Wfloat-equal \
                           -Wformat=2 \
                           -Wl,-z,relro \
+                          -Wlogical-op \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
                           -Woverloaded-virtual \
