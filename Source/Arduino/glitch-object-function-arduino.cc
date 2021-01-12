@@ -217,30 +217,33 @@ findParentFunction(void) const
   if(m_parentFunction)
     return m_parentFunction;
 
-  if(qobject_cast<glitch_view *> (m_parent))
+  QGraphicsScene *scene = nullptr;
+
+  if(qobject_cast<QGraphicsView *> (m_parent))
+    scene = qobject_cast<QGraphicsView *> (m_parent)->scene();
+  else if(qobject_cast<glitch_view *> (m_parent))
+    scene = qobject_cast<glitch_view *> (m_parent)->scene();
+
+  QList<QGraphicsItem *> list;
+
+  if(scene)
+    list = scene->items();
+
+  for(auto i : list)
     {
-      QList<QGraphicsItem *> list;
-      auto *scene = qobject_cast<glitch_view *> (m_parent)->scene();
+      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(scene)
-	list = scene->items();
+      if(!proxy)
+	continue;
 
-      for(auto i : list)
-	{
-	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto *object = qobject_cast<glitch_object_function_arduino *>
+	(proxy->widget());
 
-	  if(!proxy)
-	    continue;
+      if(!object || object->isClone())
+	continue;
 
-	  auto *object = qobject_cast<glitch_object_function_arduino *>
-	    (proxy->widget());
-
-	  if(!object || object->isClone())
-	    continue;
-
-	  if(name() == object->name())
-	    return object;
-	}
+      if(name() == object->name())
+	return object;
     }
 
   return nullptr;
