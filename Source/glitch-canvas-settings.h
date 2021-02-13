@@ -42,6 +42,7 @@ class glitch_canvas_settings: public QDialog
   {
     CANVAS_BACKGROUND_COLOR,
     CANVAS_NAME,
+    REDO_UNDO_STACK_SIZE,
     VIEW_UPDATE_MODE
   };
 
@@ -52,11 +53,13 @@ class glitch_canvas_settings: public QDialog
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
   bool save(QString &error) const;
+  int redoUndoStackSize(void) const;
   void prepare(void);
   void setFileName(const QString &fileName);
   void setName(const QString &name);
-  void setSettings(const QHash<glitch_canvas_settings::Settings,
-		               QVariant> &hash);
+  void setRedoUndoStackSize(const int value);
+  void setSettings
+    (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:

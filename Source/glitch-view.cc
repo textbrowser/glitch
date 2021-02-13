@@ -71,6 +71,7 @@ glitch_view::glitch_view
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
+  m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
   m_view = new glitch_graphicsview(this);
@@ -695,6 +696,7 @@ void glitch_view::showAlignment(void)
 void glitch_view::showCanvasSettings(void)
 {
   m_canvasSettings->setName(m_name);
+  m_canvasSettings->setRedoUndoStackSize(m_undoStack->undoLimit());
   m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
   m_canvasSettings->showNormal();
   m_canvasSettings->activateWindow();
@@ -703,10 +705,6 @@ void glitch_view::showCanvasSettings(void)
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
-  /*
-  ** Canvas settings are applied immediately.
-  */
-
   QHash<glitch_canvas_settings::Settings, QVariant> hash(m_settings);
 
   m_name = m_canvasSettings->name().trimmed();
@@ -719,8 +717,11 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_settings[glitch_canvas_settings::CANVAS_BACKGROUND_COLOR] =
     m_canvasSettings->canvasBackgroundColor();
   m_settings[glitch_canvas_settings::CANVAS_NAME] = m_canvasSettings->name();
+  m_settings[glitch_canvas_settings::REDO_UNDO_STACK_SIZE] = m_canvasSettings->
+    redoUndoStackSize();
   m_settings[glitch_canvas_settings::VIEW_UPDATE_MODE] =
     m_canvasSettings->viewportUpdateMode();
+  m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
   if(hash != m_settings && !hash.isEmpty())
