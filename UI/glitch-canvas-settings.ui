@@ -153,6 +153,9 @@
          </item>
          <item>
           <widget class="QSpinBox" name="redo_undo_stack_size">
+           <property name="toolTip">
+            <string>Will be applied if the redo/undo stack is empty.</string>
+           </property>
            <property name="minimum">
             <number>500</number>
            </property>
