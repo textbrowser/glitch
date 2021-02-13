@@ -721,7 +721,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     redoUndoStackSize();
   m_settings[glitch_canvas_settings::VIEW_UPDATE_MODE] =
     m_canvasSettings->viewportUpdateMode();
-  m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
+
+  if(m_undoStack->count() == 0)
+    m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
+
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
   if(hash != m_settings && !hash.isEmpty())
