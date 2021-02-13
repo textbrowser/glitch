@@ -522,6 +522,11 @@ quint64 glitch_view::nextId(void) const
   return id;
 }
 
+void glitch_view::adjustScrollBars(void)
+{
+  QTimer::singleShot(250, this, SLOT(slotResizeScene(void)));
+}
+
 void glitch_view::beginMacro(const QString &text)
 {
   if(text.trimmed().isEmpty())
@@ -628,6 +633,7 @@ void glitch_view::redo(void)
       m_changed = true;
       m_undoStack->redo();
       emit changed();
+      adjustScrollBars();
     }
 }
 
@@ -667,14 +673,14 @@ void glitch_view::setSceneRect(const QSize &size)
 
   QRectF b(m_scene->itemsBoundingRect());
 
-  b.setTopLeft(QPointF(0, 0));
+  b.setTopLeft(QPointF(0.0, 0.0));
   m_scene->setSceneRect
-    (0,
-     0,
-     qMax(static_cast<int> (b.width()),
-	  m_view->width() - 2 * m_view->frameWidth()),
-     qMax(static_cast<int> (b.height()),
-	  m_view->height() - 2 * m_view->frameWidth()));
+    (0.0,
+     0.0,
+     static_cast<double> (qMax(static_cast<int> (b.width()),
+			       m_view->width() - 2 * m_view->frameWidth())),
+     static_cast<double> (qMax(static_cast<int> (b.height()),
+			       m_view->height() - 2 * m_view->frameWidth())));
 }
 
 void glitch_view::showAlignment(void)
@@ -817,6 +823,11 @@ void glitch_view::slotPaste(void)
 {
 }
 
+void glitch_view::slotResizeScene(void)
+{
+  setSceneRect(m_view->size());
+}
+
 void glitch_view::slotSave(void)
 {
   QString error("");
@@ -867,7 +878,7 @@ void glitch_view::slotSceneObjectDestroyed(QObject *object)
 
 void glitch_view::slotSceneResized(void)
 {
-  setSceneRect(size());
+  adjustScrollBars();
 }
 
 void glitch_view::slotSeparate(void)
@@ -904,5 +915,6 @@ void glitch_view::undo(void)
       m_changed = true;
       m_undoStack->undo();
       emit changed();
+      adjustScrollBars();
     }
 }

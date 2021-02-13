@@ -105,6 +105,7 @@ class glitch_view: public QWidget
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;
   bool saveImplementation(const QString &fileName, QString &error);
+  void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);
@@ -123,6 +124,7 @@ class glitch_view: public QWidget
 				     const QString &before,
 				     glitch_object *object);
   void slotPaste(void);
+  void slotResizeScene(void);
   void slotSave(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
