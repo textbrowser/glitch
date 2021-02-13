@@ -49,14 +49,14 @@ glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
 
-  auto *p = parent;
+  auto p = parent;
 
   do
     {
       if(!p)
 	break;
 
-      auto *view = qobject_cast<glitch_view *> (p);
+      auto view = qobject_cast<glitch_view *> (p);
 
       if(view)
 	{
@@ -111,7 +111,7 @@ QString glitch_object::type(void) const
 
 bool glitch_object::mouseOverScrollBar(const QPointF &point) const
 {
-  foreach(auto *scrollBar, findChildren<QScrollBar *> ())
+  foreach(auto scrollBar, findChildren<QScrollBar *> ())
     if(scrollBar->isSliderDown())
       return true;
     else if(scrollBar->rect().
@@ -190,7 +190,7 @@ void glitch_object::createActions(void)
 {
   if(!m_actions.contains(DefaultMenuActions::DELETE))
     {
-      auto *action = new QAction(tr("&Delete"), this);
+      auto action = new QAction(tr("&Delete"), this);
 
       action->setData(DefaultMenuActions::DELETE);
       action->setEnabled(!isMandatory());
@@ -203,7 +203,7 @@ void glitch_object::createActions(void)
 
   if(!m_actions.contains(DefaultMenuActions::LOCK_POSITION))
     {
-      auto *action = new QAction(tr("&Lock Position"), this);
+      auto action = new QAction(tr("&Lock Position"), this);
 
       action->setCheckable(true);
       action->setChecked
@@ -222,7 +222,7 @@ void glitch_object::createActions(void)
 
   if(!m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
     {
-      auto *action = new QAction(tr("&Set Style Sheet..."), this);
+      auto action = new QAction(tr("&Set Style Sheet..."), this);
 
       action->setData(DefaultMenuActions::SET_STYLE_SHEET);
       connect(action,
@@ -256,7 +256,7 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  foreach(auto *toolButton, findChildren<QToolButton *> ())
+  foreach(auto toolButton, findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")
       {
 	connect(toolButton,
@@ -403,7 +403,7 @@ void glitch_object::slotLockPosition(void)
 {
   if(m_undoStack)
     {
-      auto *undoCommand = new glitch_undo_command
+      auto undoCommand = new glitch_undo_command
 	(!m_properties.value(Properties::POSITION_LOCKED).toBool(),
 	 m_properties.value(Properties::POSITION_LOCKED),
 	 glitch_undo_command::PROPERTY_CHANGED,
@@ -436,7 +436,7 @@ void glitch_object::slotSetStyleSheet(void)
 
       if(m_undoStack)
 	{
-	  auto *undoCommand = new glitch_undo_command
+	  auto undoCommand = new glitch_undo_command
 	    (string, glitch_undo_command::STYLESHEET_CHANGED, this);
 
 	  undoCommand->setText

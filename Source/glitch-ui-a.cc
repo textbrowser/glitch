@@ -221,7 +221,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
-	  auto *view = newArduinoDiagram(fileName, name, true);
+	  auto view = newArduinoDiagram(fileName, name, true);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
@@ -320,7 +320,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   */
 
   if(event)
-    foreach(auto *view, findChildren<glitch_view *> ())
+    foreach(auto view, findChildren<glitch_view *> ())
       if(view->hasChanged())
 	{
 	  QMessageBox mb(this);
@@ -379,7 +379,7 @@ void glitch_ui::copy(QGraphicsView *view)
       if(!i)
 	continue;
 
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy ||
 	 proxy->isMandatory() ||
@@ -387,12 +387,12 @@ void glitch_ui::copy(QGraphicsView *view)
 	 !proxy->isSelected())
 	continue;
 
-      auto *widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto widget = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!widget)
 	continue;
 
-      auto *clone = widget->clone(nullptr);
+      auto clone = widget->clone(nullptr);
 
       if(!clone)
 	continue;
@@ -418,7 +418,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	i += 1;
 
-	auto *view = newArduinoDiagram("", list.value(i), false);
+	auto view = newArduinoDiagram("", list.value(i), false);
 
 	if(view)
 	  {
@@ -498,12 +498,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	{
 	  first = QPoint(x, y);
 
-	  auto *proxy = qobject_cast<glitch_scene *> (view->scene())->
+	  auto proxy = qobject_cast<glitch_scene *> (view->scene())->
 	    addObject(object);
 
 	  if(proxy)
 	    {
-	      auto *undoCommand = new glitch_undo_command
+	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED,
 		 proxy,
 		 qobject_cast<glitch_scene *> (view->scene()));
@@ -525,12 +525,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	  else
 	    p.setY(p.y() - (first.y() - y));
 
-	  auto *proxy = qobject_cast<glitch_scene *> (view->scene())->
+	  auto proxy = qobject_cast<glitch_scene *> (view->scene())->
 	    addObject(object);
 
 	  if(proxy)
 	    {
-	      auto *undoCommand = new glitch_undo_command
+	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED,
 		 proxy,
 		 qobject_cast<glitch_scene *> (view->scene()));
@@ -620,7 +620,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto *action = m_ui.menu_Recent_Files->addAction(list.at(i));
+      auto action = m_ui.menu_Recent_Files->addAction(list.at(i));
 
       action->setProperty("file_name", list.at(i));
       connect(action,
@@ -857,7 +857,7 @@ void glitch_ui::slotClearRecentFiles(void)
 
 void glitch_ui::slotCloseDiagram(int index)
 {
-  auto *view = page(index);
+  auto view = page(index);
 
   if(view)
     {
@@ -1047,7 +1047,7 @@ void glitch_ui::slotOpenDiagram(void)
 
 void glitch_ui::slotOpenRecentDiagram(void)
 {
-  auto *action = qobject_cast<QAction *> (sender());
+  auto action = qobject_cast<QAction *> (sender());
 
   if(!action)
     return;
@@ -1072,7 +1072,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
 void glitch_ui::slotPageChanged(void)
 {
-  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
@@ -1143,7 +1143,7 @@ void glitch_ui::slotRedo(void)
 
 void glitch_ui::slotSaveCurrentDiagram(void)
 {
-  auto *view = page(m_ui.tab->currentIndex());
+  auto view = page(m_ui.tab->currentIndex());
 
   if(view)
     {
@@ -1163,7 +1163,7 @@ void glitch_ui::slotSaveCurrentDiagram(void)
 
 void glitch_ui::slotSaveCurrentDiagramAs(void)
 {
-  auto *view = page(m_ui.tab->currentIndex());
+  auto view = page(m_ui.tab->currentIndex());
 
   if(view)
     {
@@ -1203,7 +1203,7 @@ void glitch_ui::slotSelectAll(void)
 
 void glitch_ui::slotSelectPage(void)
 {
-  auto *action = qobject_cast<QAction *> (sender());
+  auto action = qobject_cast<QAction *> (sender());
 
   if(!action)
     return;
@@ -1241,7 +1241,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   QMainWindow::setWindowTitle(tr("Glitch"));
   m_ui.tab->removeTab(m_ui.tab->indexOf(view));
 
-  auto *window = new glitch_separated_diagram_window(this);
+  auto window = new glitch_separated_diagram_window(this);
 
   connect(window,
 	  SIGNAL(copy(glitch_view *)),
@@ -1266,7 +1266,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
 void glitch_ui::slotShowAlignment(void)
 {
-  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   if(view)
     view->showAlignment();
@@ -1274,7 +1274,7 @@ void glitch_ui::slotShowAlignment(void)
 
 void glitch_ui::slotShowCanvasSettings(void)
 {
-  auto *view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   if(view)
     view->showCanvasSettings();
@@ -1309,12 +1309,12 @@ void glitch_ui::slotTabMoved(int from, int to)
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
-      auto *view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
+      auto view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
 
       if(view)
 	{
 	  QFont font;
-	  auto *action = view->menuAction();
+	  auto action = view->menuAction();
 
 	  font = action->font();
 
@@ -1345,7 +1345,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   if(!view)
     return;
 
-  auto *window = qobject_cast<QMainWindow *> (view->parentWidget());
+  auto window = qobject_cast<QMainWindow *> (view->parentWidget());
 
   if(!window)
     return;

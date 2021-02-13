@@ -52,13 +52,13 @@ void glitch_structures_treewidget::startDrag
 {
   Q_UNUSED(supportedActions);
 
-  auto *item = selectedItems().value(0);
+  auto item = selectedItems().value(0);
 
   if(!item)
     return;
 
-  auto *drag = new QDrag(this);
-  auto *mimeData = new QMimeData();
+  auto drag = new QDrag(this);
+  auto mimeData = new QMimeData();
 
   if(m_projectType == glitch_common::ArduinoProject)
     mimeData->setText("glitch-arduino-" + item->text(0));

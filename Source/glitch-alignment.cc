@@ -101,7 +101,7 @@ glitch_alignment::~glitch_alignment()
 
 void glitch_alignment::align(const AlignmentType alignmentType)
 {
-  auto *view = qobject_cast<glitch_view *> (parentWidget());
+  auto view = qobject_cast<glitch_view *> (parentWidget());
 
   if(!view)
     return;
@@ -161,12 +161,12 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast <glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast <glitch_proxy_widget *> (i);
 
       if(!proxy || !proxy->isSelected())
 	continue;
 
-      auto *object = qobject_cast<glitch_object *> (proxy->widget());
+      auto object = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!object)
 	continue;
@@ -275,7 +275,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 		view->beginMacro(tr("items aligned"));
 	      }
 
-	    auto *undoCommand = new glitch_undo_command
+	    auto undoCommand = new glitch_undo_command
 	      (QPointF(point),
 	       glitch_undo_command::ITEM_MOVED,
 	       proxy,
@@ -302,7 +302,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
 void glitch_alignment::slotAlign(void)
 {
-  auto *toolButton = qobject_cast<QToolButton *> (sender());
+  auto toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.bottom_align == toolButton)
     align(ALIGN_BOTTOM);
@@ -320,7 +320,7 @@ void glitch_alignment::slotAlign(void)
 
 void glitch_alignment::slotStack(void)
 {
-  auto *toolButton = qobject_cast<QToolButton *> (sender());
+  auto toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.horizontal_stack == toolButton)
     stack(HORIZONTAL_STACK);
@@ -330,7 +330,7 @@ void glitch_alignment::slotStack(void)
 
 void glitch_alignment::stack(const StackType stackType)
 {
-  auto *view = qobject_cast<glitch_view *> (parentWidget());
+  auto view = qobject_cast<glitch_view *> (parentWidget());
 
   if(!view)
     return;
@@ -349,12 +349,12 @@ void glitch_alignment::stack(const StackType stackType)
 
   for(auto i : list1)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      auto *object = qobject_cast<glitch_object *> (proxy->widget());
+      auto object = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!object)
 	continue;
@@ -418,7 +418,7 @@ void glitch_alignment::stack(const StackType stackType)
 		view->beginMacro(tr("items stacked"));
 	      }
 
-	    auto *undoCommand = new glitch_undo_command
+	    auto undoCommand = new glitch_undo_command
 	      (QPointF(point),
 	       glitch_undo_command::ITEM_MOVED,
 	       widget->proxy(),

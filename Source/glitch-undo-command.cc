@@ -198,7 +198,7 @@ void glitch_undo_command::redo(void)
       {
 	if(m_proxy && m_scene)
 	  {
-	    auto *object = qobject_cast<glitch_object *> (m_proxy->widget());
+	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
 
 	    if(object)
 	      {

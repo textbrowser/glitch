@@ -61,7 +61,7 @@ QList<glitch_object *> glitch_scene::objects(void) const
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
 	continue;
@@ -79,7 +79,7 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy ||
 	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
@@ -144,11 +144,11 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	      }
 	    }
 
-	  auto *tableWidget = qobject_cast<QTableWidget *> (event->source());
+	  auto tableWidget = qobject_cast<QTableWidget *> (event->source());
 
 	  if(tableWidget)
 	    {
-	      auto *item = tableWidget->currentItem();
+	      auto item = tableWidget->currentItem();
 
 	      if(item)
 		{
@@ -173,7 +173,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   if(!object)
     return nullptr;
 
-  auto *proxy = new glitch_proxy_widget();
+  auto proxy = new glitch_proxy_widget();
 
   connect(object,
 	  SIGNAL(changed(void)),
@@ -202,7 +202,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
     {
-      auto *function = qobject_cast<glitch_object_function_arduino *> (object);
+      auto function = qobject_cast<glitch_object_function_arduino *> (object);
 
       connect(function,
 	      SIGNAL(nameChanged(const QString &,
@@ -246,7 +246,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
       ** is not a clone.
       */
 
-      auto *view = qobject_cast<glitch_graphicsview *> (views().value(0));
+      auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
 
       if(view && !view->containsFunction(function->name()))
 	{
@@ -266,7 +266,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(item && !item->scene())
     QGraphicsScene::addItem(item);
 
-  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
   if(m_redoUndoProxies.contains(proxy) && proxy)
     m_redoUndoProxies[proxy] = 0;
@@ -284,7 +284,7 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
   if(!object)
     return;
 
-  auto *proxy = addObject(object);
+  auto proxy = addObject(object);
 
   if(proxy)
     {
@@ -305,7 +305,7 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
 
       for(auto i : list)
 	{
-	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	  if(proxy)
 	    proxy->setZValue(0);
@@ -319,12 +319,12 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      auto *object = qobject_cast<glitch_object_function_arduino *>
+      auto object = qobject_cast<glitch_object_function_arduino *>
 	(proxy->widget());
 
       if(!object || !object->isClone())
@@ -334,7 +334,7 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 	{
 	  if(m_undoStack)
 	    {
-	      auto *undoCommand = new glitch_undo_command
+	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_DELETED, proxy, this);
 
 	      m_undoStack->push(undoCommand);
@@ -356,7 +356,7 @@ void glitch_scene::deleteItems(void)
 
   for(auto i : items())
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
@@ -379,7 +379,7 @@ void glitch_scene::deleteItems(void)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
@@ -388,7 +388,7 @@ void glitch_scene::deleteItems(void)
 
       if(m_undoStack)
 	{
-	  auto *object = qobject_cast<glitch_object_function_arduino *>
+	  auto object = qobject_cast<glitch_object_function_arduino *>
 	    (proxy->widget());
 
 	  if(object && !object->isClone())
@@ -397,7 +397,7 @@ void glitch_scene::deleteItems(void)
 	      emit functionDeleted(object->name());
 	    }
 
-	  auto *undoCommand = new glitch_undo_command
+	  auto undoCommand = new glitch_undo_command
 	    (glitch_undo_command::ITEM_DELETED, proxy, this);
 
 	  m_undoStack->push(undoCommand);
@@ -526,13 +526,13 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  event->accept();
 	  object->setUndoStack(m_undoStack);
 
-	  auto *proxy = addObject(object);
+	  auto proxy = addObject(object);
 
 	  if(proxy)
 	    {
 	      if(m_undoStack)
 		{
-		  auto *undoCommand = new glitch_undo_command
+		  auto undoCommand = new glitch_undo_command
 		    (glitch_undo_command::ITEM_ADDED, proxy, this);
 
 		  undoCommand->setText
@@ -575,7 +575,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	  QGraphicsView::MinimalViewportUpdate;
 	QList<QGraphicsItem *> list(selectedItems());
 	QPoint point;
-	auto *view = views().value(0);
+	auto view = views().value(0);
 	bool began = false;
 	bool moved = false;
 	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
@@ -588,12 +588,12 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	for(auto i : list)
 	  {
-	    auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	    if(!proxy || !proxy->isMovable())
 	      continue;
 
-	    auto *object = qobject_cast<glitch_object *> (proxy->widget());
+	    auto object = qobject_cast<glitch_object *> (proxy->widget());
 
 	    if(!object)
 	      continue;
@@ -650,7 +650,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 		if(m_undoStack)
 		  {
-		    auto *undoCommand = new glitch_undo_command
+		    auto undoCommand = new glitch_undo_command
 		      (previousPosition,
 		       glitch_undo_command::ITEM_MOVED,
 		       proxy,
@@ -695,12 +695,12 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       for(auto i : list)
 	{
-	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	  if(!proxy || !proxy->isMovable())
 	    continue;
 
-	  auto *object = qobject_cast<glitch_object *> (proxy->widget());
+	  auto object = qobject_cast<glitch_object *> (proxy->widget());
 
 	  if(object && object->mouseOverScrollBar(event->scenePos()))
 	    continue;
@@ -734,11 +734,11 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
   if(event)
     {
-      auto *item = itemAt(event->scenePos(), QTransform());
+      auto item = itemAt(event->scenePos(), QTransform());
 
       if(item)
 	{
-	  auto *parent = item->parentItem();
+	  auto parent = item->parentItem();
 
 	  if(!parent)
 	    parent = item;
@@ -746,11 +746,11 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	  if(!parent)
 	    goto done_label;
 
-	  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (parent);
+	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (parent);
 
 	  if(proxy)
 	    {
-	      auto *object = proxy->widget();
+	      auto object = proxy->widget();
 
 	      if(object)
 		{
@@ -802,7 +802,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	      for(auto i : list)
 		{
-		  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 		  if(!proxy || !proxy->isMovable())
 		    continue;
@@ -843,7 +843,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	      m_undoStack->beginMacro(tr("widget(s) moved"));
 	    }
 
-	  auto *undoCommand = new glitch_undo_command
+	  auto undoCommand = new glitch_undo_command
 	    (m_movedPoint.first,
 	     glitch_undo_command::ITEM_MOVED,
 	     m_movedPoint.second,
@@ -863,7 +863,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
   m_movedPoints.clear();
 
-  auto *cursor = QApplication::overrideCursor();
+  auto cursor = QApplication::overrideCursor();
 
   if(cursor)
     views().value(0)->viewport()->setCursor(cursor->shape());
@@ -902,11 +902,11 @@ void glitch_scene::removeItem(QGraphicsItem *item)
   if(item && item->scene() == this)
     QGraphicsScene::removeItem(item);
 
-  auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
   if(proxy)
     {
-      auto *object = qobject_cast<glitch_object_function_arduino *>
+      auto object = qobject_cast<glitch_object_function_arduino *>
 	(proxy->widget());
 
       if(object && !object->isClone())
@@ -945,7 +945,7 @@ void glitch_scene::slotFunctionReturnTypeChanged(const QString &after,
 
 void glitch_scene::slotObjectDeletedViaContextMenu(void)
 {
-  auto *object = qobject_cast<glitch_object *> (sender());
+  auto object = qobject_cast<glitch_object *> (sender());
 
   if(!object)
     return;
@@ -957,7 +957,7 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 	emit functionDeleted
 	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
 
-      auto *undoCommand = new glitch_undo_command
+      auto undoCommand = new glitch_undo_command
 	(glitch_undo_command::ITEM_DELETED, object->proxy(), this);
 
       undoCommand->setText

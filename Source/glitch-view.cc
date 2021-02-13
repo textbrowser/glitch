@@ -183,7 +183,7 @@ QMenu *glitch_view::defaultContextMenu(void)
   */
 
   QAction *action = nullptr;
-  auto *menu = new QMenu(this);
+  auto menu = new QMenu(this);
 
   action = menu->addAction(tr("&Save"),
 			   this,
@@ -332,12 +332,12 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		if(query.value(1).toLongLong() == -1)
 		  {
 		    QString error("");
-		    auto *object = glitch_object::createFromValues
+		    auto object = glitch_object::createFromValues
 		      (values, error, this);
 
 		    if(object)
 		      {
-			auto *proxy = m_scene->addObject(object);
+			auto proxy = m_scene->addObject(object);
 
 			if(proxy)
 			  {
@@ -352,7 +352,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 		else
 		  {
-		    auto *object = parents.value(query.value(1).toULongLong());
+		    auto object = parents.value(query.value(1).toULongLong());
 
 		    if(object && object->editView())
 		      object->addChild
@@ -443,12 +443,12 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
 	for(auto i : list)
 	  {
-	    auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	    if(!proxy)
 	      continue;
 
-	    auto *object = qobject_cast<glitch_object *> (proxy->widget());
+	    auto object = qobject_cast<glitch_object *> (proxy->widget());
 
 	    if(!object)
 	      continue;
@@ -652,7 +652,7 @@ void glitch_view::selectAll(void)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(proxy)
 	proxy->setSelected(true);
@@ -728,7 +728,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     {
       if(undo)
 	{
-	  auto *undoCommand = new glitch_undo_command
+	  auto undoCommand = new glitch_undo_command
 	    (hash,
 	     glitch_undo_command::CANVAS_SETTINGS_CHANGED,
 	     m_canvasSettings);
@@ -755,7 +755,7 @@ void glitch_view::slotCopy(void)
 
 void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
 {
-  auto *menu = defaultContextMenu();
+  auto menu = defaultContextMenu();
 
   if(!menu)
     return;
@@ -782,7 +782,7 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
   m_userFunctions->addFunction(after);
   m_userFunctions->deleteFunction(before);
 
-  auto *undoCommand = new glitch_undo_command
+  auto undoCommand = new glitch_undo_command
     (before,
      glitch_undo_command::FUNCTION_RENAMED,
      object,
@@ -799,7 +799,7 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
 {
   Q_UNUSED(after);
 
-  auto *undoCommand = new glitch_undo_command
+  auto undoCommand = new glitch_undo_command
     (before,
      glitch_undo_command::FUNCTION_RETURN_TYPE_CHANGED,
      object,

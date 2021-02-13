@@ -119,12 +119,12 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      auto *object = qobject_cast<glitch_object *> (proxy->widget());
+      auto object = qobject_cast<glitch_object *> (proxy->widget());
 
       if(!object)
 	continue;
@@ -196,7 +196,7 @@ void glitch_object_view::slotSelectAll(void)
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(proxy)
 	proxy->setSelected(true);

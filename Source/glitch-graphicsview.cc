@@ -36,7 +36,7 @@ glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 
 bool glitch_graphicsview::containsFunction(const QString &name) const
 {
-  auto *view = qobject_cast<glitch_view *> (parent());
+  auto view = qobject_cast<glitch_view *> (parent());
 
   if(view && view->containsFunction(name))
     return true;

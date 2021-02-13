@@ -47,7 +47,7 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 
-  foreach(auto *tool_button, findChildren <QToolButton *> ())
+  foreach(auto tool_button, findChildren <QToolButton *> ())
     tool_button->setStyleSheet
     (QString("QToolButton {background-color: %1;"
 	     "border: none;"
@@ -111,17 +111,17 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
 {
-  auto *tab = qobject_cast<glitch_tab *> (parentWidget());
+  auto tab = qobject_cast<glitch_tab *> (parentWidget());
 
   if(!tab)
     return;
 
-  auto *view = qobject_cast<glitch_view *> (tab->widget(tabAt(point)));
+  auto view = qobject_cast<glitch_view *> (tab->widget(tabAt(point)));
 
   if(!view)
     return;
 
-  auto *menu = view->defaultContextMenu();
+  auto menu = view->defaultContextMenu();
 
   if(!menu)
     return;

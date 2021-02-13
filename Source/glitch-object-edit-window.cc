@@ -37,7 +37,7 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
-  auto *menu = menuBar()->addMenu(tr("&File"));
+  auto menu = menuBar()->addMenu(tr("&File"));
 
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
@@ -77,7 +77,7 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 {
   if(event)
     {
-      auto *view = qobject_cast<glitch_object_view *> (centralWidget());
+      auto view = qobject_cast<glitch_object_view *> (centralWidget());
 
       if(view)
 	view->setSceneRect(event->size());

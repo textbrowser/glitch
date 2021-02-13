@@ -49,7 +49,7 @@ glitch_proxy_widget::~glitch_proxy_widget()
 
 bool glitch_proxy_widget::isMandatory(void) const
 {
-  auto *object = qobject_cast<glitch_object *> (widget());
+  auto object = qobject_cast<glitch_object *> (widget());
 
   if(object)
     return object->isMandatory();
@@ -67,7 +67,7 @@ void glitch_proxy_widget::contextMenuEvent
 {
   if(event)
     {
-      auto *object = qobject_cast<glitch_object *> (widget());
+      auto object = qobject_cast<glitch_object *> (widget());
 
       if(object)
 	{
@@ -98,7 +98,7 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       return;
     }
 
-  auto *comboBox = qobject_cast<QComboBox *>
+  auto comboBox = qobject_cast<QComboBox *>
     (widget()->childAt(event->pos().toPoint()));
 
   if(comboBox)
@@ -107,7 +107,7 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       return;
     }
 
-  auto *toolButton = qobject_cast<QToolButton *>
+  auto toolButton = qobject_cast<QToolButton *>
     (widget()->childAt(event->pos().toPoint()));
 
   if(toolButton)
