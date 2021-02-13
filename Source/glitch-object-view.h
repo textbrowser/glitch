@@ -61,6 +61,7 @@ class glitch_object_view: public QGraphicsView
   glitch_common::ProjectType m_projectType;
   glitch_scene *m_scene;
   quint64 m_id;
+  void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
 
  protected slots:
@@ -69,6 +70,7 @@ class glitch_object_view: public QGraphicsView
   void slotParentWindowClosed(void);
   void slotPaste(void);
   void slotRedo(void);
+  void slotResizeScene(void);
   void slotSceneResized(void);
   void slotSelectAll(void);
   void slotShowAlignment(void);

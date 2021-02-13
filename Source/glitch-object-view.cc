@@ -27,6 +27,7 @@
 
 #include <QScrollBar>
 #include <QSqlError>
+#include <QTimer>
 
 #include "glitch-alignment.h"
 #include "glitch-object.h"
@@ -92,10 +93,16 @@ quint64 glitch_object_view::id(void) const
   return m_id;
 }
 
+void glitch_object_view::adjustScrollBars(void)
+{
+  QTimer::singleShot(250, this, SLOT(slotResizeScene(void)));
+}
+
 void glitch_object_view::artificialDrop
 (const QPointF &point, glitch_object *object)
 {
   m_scene->artificialDrop(point, object);
+  adjustScrollBars();
 }
 
 void glitch_object_view::contextMenuEvent(QContextMenuEvent *event)
@@ -115,9 +122,7 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
   ** Save the children!
   */
 
-  QList<QGraphicsItem *> list(m_scene->items());
-
-  for(auto i : list)
+  for(auto i : m_scene->items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -142,12 +147,14 @@ void glitch_object_view::setSceneRect(const QSize &size)
 
   QRectF b(m_scene->itemsBoundingRect());
 
-  b.setTopLeft(QPointF(0, 0));
+  b.setTopLeft(QPointF(0.0, 0.0));
   m_scene->setSceneRect
-    (0,
-     0,
-     qMax(static_cast<int> (b.width()), width() - 2 * frameWidth()),
-     qMax(static_cast<int> (b.height()), height() - 2 * frameWidth()));
+    (0.0,
+     0.0,
+     static_cast<double> (qMax(static_cast<int> (b.width()),
+			       width() - 2 * frameWidth())),
+     static_cast<double> (qMax(static_cast<int> (b.height()),
+			       height() - 2 * frameWidth())));
 }
 
 void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
@@ -174,12 +181,21 @@ void glitch_object_view::slotParentWindowClosed(void)
 void glitch_object_view::slotPaste(void)
 {
   glitch_ui::paste(this, m_undoStack);
+  adjustScrollBars();
 }
 
 void glitch_object_view::slotRedo(void)
 {
   if(m_undoStack->canRedo())
-    m_undoStack->redo();
+    {
+      m_undoStack->redo();
+      adjustScrollBars();
+    }
+}
+
+void glitch_object_view::slotResizeScene(void)
+{
+  setSceneRect(size());
 }
 
 void glitch_object_view::slotSceneResized(void)
@@ -192,9 +208,7 @@ void glitch_object_view::slotSceneResized(void)
 
 void glitch_object_view::slotSelectAll(void)
 {
-  QList<QGraphicsItem *> list(m_scene->items());
-
-  for(auto i : list)
+  for(auto i : m_scene->items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -216,5 +230,8 @@ void glitch_object_view::slotShowAlignment(void)
 void glitch_object_view::slotUndo(void)
 {
   if(m_undoStack->canUndo())
-    m_undoStack->undo();
+    {
+      m_undoStack->undo();
+      adjustScrollBars();
+    }
 }
