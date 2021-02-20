@@ -109,7 +109,7 @@ QString glitch_canvas_settings::defaultName(void) const
 
 QString glitch_canvas_settings::name(void) const
 {
-  return m_ui.name->text();
+  return m_ui.name->text().trimmed();
 }
 
 bool glitch_canvas_settings::save(QString &error) const

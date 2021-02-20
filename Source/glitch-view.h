@@ -95,7 +95,6 @@ class glitch_view: public QWidget
   QList<QAction *> m_defaultActions;
   QPointer<glitch_alignment> m_alignment;
   QString m_fileName;
-  QString m_name;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   bool m_changed;

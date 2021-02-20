@@ -60,17 +60,13 @@ glitch_view::glitch_view
   m_changed = false;
   m_fileName = fileName;
   m_menuAction = new QAction
-    (QIcon(":/Logo/glitch-arduino-logo.png"), name.trimmed(), this);
-  m_name = name.trimmed();
-
-  if(m_name.isEmpty())
-    m_name = tr("Glitch-Diagram");
-
+    (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
   m_scene->setMainScene(true);
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
+  m_settings = m_canvasSettings->settings();
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
@@ -238,7 +234,7 @@ QMenu *glitch_view::defaultContextMenu(void)
 
 QString glitch_view::name(void) const
 {
-  return m_name;
+  return m_canvasSettings->name();
 }
 
 QString glitch_view::redoText(void) const
@@ -289,6 +285,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->prepare();
   m_fileName = fileName;
+  m_settings = m_canvasSettings->settings();
   disconnect(m_scene,
 	     SIGNAL(changed(void)),
 	     this,
@@ -426,7 +423,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	query.prepare("INSERT OR REPLACE INTO diagram "
 		      "(name, type) "
 		      "VALUES (?, ?)");
-	query.addBindValue(m_name);
+	query.addBindValue(m_canvasSettings->name());
 	query.addBindValue(glitch_common::projectTypeToString(m_projectType));
 	ok = query.exec();
 
@@ -701,7 +698,7 @@ void glitch_view::showAlignment(void)
 
 void glitch_view::showCanvasSettings(void)
 {
-  m_canvasSettings->setName(m_name);
+  m_canvasSettings->setName(m_canvasSettings->name());
   m_canvasSettings->setRedoUndoStackSize(m_undoStack->undoLimit());
   m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
   m_canvasSettings->showNormal();
@@ -713,20 +710,9 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   QHash<glitch_canvas_settings::Settings, QVariant> hash(m_settings);
 
-  m_name = m_canvasSettings->name().trimmed();
-
-  if(m_name.isEmpty())
-    m_name = tr("Glitch-Diagram");
-
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
-  m_settings[glitch_canvas_settings::CANVAS_BACKGROUND_COLOR] =
-    m_canvasSettings->canvasBackgroundColor();
-  m_settings[glitch_canvas_settings::CANVAS_NAME] = m_canvasSettings->name();
-  m_settings[glitch_canvas_settings::REDO_UNDO_STACK_SIZE] = m_canvasSettings->
-    redoUndoStackSize();
-  m_settings[glitch_canvas_settings::VIEW_UPDATE_MODE] =
-    m_canvasSettings->viewportUpdateMode();
+  m_settings = m_canvasSettings->settings();
 
   if(m_undoStack->count() == 0)
     m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
@@ -834,7 +820,8 @@ void glitch_view::slotSave(void)
 
   if(!save(error))
     glitch_misc::showErrorDialog
-      (tr("Unable to save %1 (%2).").arg(m_name).arg(error), this);
+      (tr("Unable to save %1 (%2).").arg(m_canvasSettings->name()).arg(error),
+       this);
   else
     emit saved();
 }
@@ -857,7 +844,8 @@ void glitch_view::slotSaveAs(void)
 
       if(!saveAs(dialog.selectedFiles().value(0), error))
 	glitch_misc::showErrorDialog
-	  (tr("Unable to save %1 (%2).").arg(m_name).arg(error), this);
+	  (tr("Unable to save %1 (%2).").
+	   arg(m_canvasSettings->name()).arg(error), this);
       else
 	emit saved();
     }
