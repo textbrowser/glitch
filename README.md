@@ -1,4 +1,4 @@
-Program complex Arduino projects via visual diagrams. A visual compiler.
+Program complex Arduino projects via visual diagrams. A visual compiler. An initial version is scheduled for release in late 2021!
 
 Qt 5.x is preferred. C++2011 is mandatory.
 
