@@ -56,6 +56,7 @@ glitch_view::glitch_view
   m_ui.setupUi(this);
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->setFileName(fileName);
+  m_canvasSettings->setName(name);
   m_canvasSettings->prepare();
   m_changed = false;
   m_fileName = fileName;
