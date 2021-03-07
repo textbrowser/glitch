@@ -726,6 +726,8 @@ void glitch_ui::setTabText(glitch_view *view)
     m_ui.tab->setTabText(index, QString("%1 (*)").arg(view->name()));
   else
     m_ui.tab->setTabText(index, view->name());
+
+  m_ui.tab->setTabToolTip(index, view->name());
 }
 
 void glitch_ui::setWindowTitle(glitch_view *view)
@@ -987,6 +989,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
       QApplication::processEvents();
     }
 
+  QFile::remove(fileName);
   newArduinoDiagram("", name, false);
   saveRecentFile(fileName);
   prepareRecentFiles();
@@ -1353,7 +1356,6 @@ void glitch_ui::slotUnite(glitch_view *view)
   m_ui.action_Save_Current_Diagram->setEnabled(view->hasChanged());
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
-  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), view->name());
   prepareActionWidgets();
   setTabText(view);
   setWindowTitle(view);

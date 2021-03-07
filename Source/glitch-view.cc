@@ -371,6 +371,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
     db.close();
   }
 
+  error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   connect(m_scene,
 	  SIGNAL(changed(void)),
@@ -464,6 +465,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
     db.close();
   }
 
+  error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   m_changed = !ok;
   QApplication::restoreOverrideCursor();

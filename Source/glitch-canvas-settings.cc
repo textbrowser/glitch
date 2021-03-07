@@ -178,6 +178,7 @@ bool glitch_canvas_settings::save(QString &error) const
     db.close();
   }
 
+  error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
   return ok;
