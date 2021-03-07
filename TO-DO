@@ -13,6 +13,7 @@ Completed Items
 - Allow setting of function names.
 - Apply canvas settings.
 - Assign new names to functions pasted on main canvases.
+- Canvas background color redo / undo.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close edit windows via Control + W.
 - Command-line help.
@@ -84,7 +85,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Canvas background color redo / undo.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
