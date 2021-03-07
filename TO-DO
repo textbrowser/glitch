@@ -96,6 +96,7 @@ Remaining Items
 - Paste in child views. Redo / undo.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
+- Reparent support panels if a canvas is separated.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
