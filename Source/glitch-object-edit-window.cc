@@ -27,6 +27,7 @@
 
 #include <QMenuBar>
 #include <QResizeEvent>
+#include <QTimer>
 #include <QUndoStack>
 
 #include "glitch-object-edit-window.h"
@@ -60,11 +61,26 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
     menu->addAction(tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
+  connect(m_actions.value("copy"),
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotAboutToShowEditMenu(void)));
   setContentsMargins(9, 9, 9, 9);
 }
 
 glitch_object_edit_window::~glitch_object_edit_window()
 {
+}
+
+bool glitch_object_edit_window::event(QEvent *event)
+{
+  if(event)
+    {
+      if(event->type() == QEvent::Show)
+	QTimer::singleShot(1500, this, SLOT(slotAboutToShowEditMenu(void)));
+    }
+
+  return QMainWindow::event(event);
 }
 
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
@@ -89,12 +105,40 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
 {
   m_editView = view;
+
+  if(m_editView)
+    {
+      connect(m_editView->scene(),
+	      SIGNAL(changed(void)),
+	      this,
+	      SLOT(slotAboutToShowEditMenu(void)),
+	      Qt::UniqueConnection);
+      connect(m_editView->scene(),
+	      SIGNAL(selectionChanged(void)),
+	      this,
+	      SLOT(slotAboutToShowEditMenu(void)),
+	      Qt::UniqueConnection);
+    }
 }
 
 void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 {
   if(!m_undoStack)
-    m_undoStack = undoStack;
+    {
+      m_undoStack = undoStack;
+
+      if(m_undoStack)
+	{
+	  connect(m_undoStack,
+		  SIGNAL(cleanChanged(bool)),
+		  this,
+		  SLOT(slotAboutToShowEditMenu(void)));
+	  connect(m_undoStack,
+		  SIGNAL(indexChanged(int)),
+		  this,
+		  SLOT(slotAboutToShowEditMenu(void)));
+	}
+    }
 }
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
