@@ -106,7 +106,7 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
   m_actions.value("paste")->setEnabled(!glitch_ui::copiedObjects().isEmpty());
   m_actions.value("redo")->setEnabled(m_undoStack && m_undoStack->canRedo());
 
-  if(m_actions.value("redo")->isEnabled())
+  if(m_actions.value("redo")->isEnabled() && m_undoStack)
     m_actions.value("redo")->setText
       (tr("Redo (%1)").arg(m_undoStack->redoText()));
   else
@@ -116,7 +116,7 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     (m_editView && !m_editView->scene()->items().isEmpty());
   m_actions.value("undo")->setEnabled(m_undoStack && m_undoStack->canUndo());
 
-  if(m_actions.value("undo")->isEnabled())
+  if(m_actions.value("undo")->isEnabled() && m_undoStack)
     m_actions.value("undo")->setText
       (tr("Undo (%1)").arg(m_undoStack->undoText()));
   else
