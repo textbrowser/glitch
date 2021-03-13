@@ -66,6 +66,7 @@ Completed Items
 - Save, Save As on separated windows.
 - Select all.
 - Separate database objects when opening an existing diagram.
+- Shortcuts in object views.
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
 - The name of the display in settings should be separate from the file name.
@@ -98,7 +99,6 @@ Remaining Items
 - Redo / undo. See also macros.
 - Reparent support panels if a canvas is separated.
 - Serial and stream (https://www.arduino.cc/reference/en).
-- Shortcuts in object views.
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
 - Translate diagrams to Arduino via Embedded LISP.
