@@ -327,6 +327,7 @@ void glitch_object_function_arduino::declone(void)
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name()));
   m_editWindow->resize(600, 600);
   m_findParentFunctionTimer.stop();
   m_initialized = true;
@@ -372,6 +373,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   else
     m_initialized = true;
 
+  m_ui.setupUi(this);
   m_editView = new glitch_object_view
     (glitch_common::ArduinoProject, m_id, this);
   m_editWindow = new glitch_object_edit_window(parent);
@@ -379,10 +381,10 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name()));
   m_editWindow->resize(600, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
-  m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());

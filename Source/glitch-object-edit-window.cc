@@ -38,6 +38,8 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
+  setWindowFlags(Qt::Dialog | windowFlags());
+
   auto menu = menuBar()->addMenu(tr("&File"));
 
   m_actions["close"] =
