@@ -143,6 +143,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.action_Delete->setEnabled(false);
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
+  m_ui.menu_Recent_Files->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
