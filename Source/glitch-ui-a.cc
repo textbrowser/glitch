@@ -52,7 +52,10 @@ glitch_ui::s_copiedObjects;
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
   m_arduinoStructures = nullptr;
-  m_recentFilesFileName = glitch_misc::homePath() + QDir::separator() +
+  m_recentFilesFileName = glitch_misc::homePath() +
+    QDir::separator() +
+    "Glitch" +
+    QDir::separator() +
     "glitch_recent_files.db";
   m_ui.setupUi(this);
   connect(m_ui.action_Alignment,
@@ -608,7 +611,21 @@ void glitch_ui::prepareRecentFiles(void)
 
 	if(query.exec("SELECT file_name FROM glitch_recent_files ORDER BY 1"))
 	  while(query.next())
-	    list << query.value(0).toString();
+	    {
+	      QFileInfo fileInfo(query.value(0).toString());
+
+	      if(fileInfo.exists())
+		list << fileInfo.absoluteFilePath();
+	      else
+		{
+		  QSqlQuery query(db);
+
+		  query.prepare
+		    ("DELETE FROM glitch_recent_files WHERE file_name = ?");
+		  query.addBindValue(fileInfo.absoluteFilePath());
+		  query.exec();
+		}
+	    }
       }
 
     db.close();
