@@ -1,4 +1,5 @@
 FORMS          += UI/Arduino/glitch-object-analog-read-arduino.ui \
+                  UI/Arduino/glitch-object-block-comment.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
                   UI/Arduino/glitch-object-logical-operator-arduino.ui \
 		  UI/Arduino/glitch-object-loop-arduino.ui \
