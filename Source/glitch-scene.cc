@@ -34,6 +34,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
+#include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
@@ -500,24 +501,27 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(allowDrag(event, text))
 	{
+	  auto view = views().value(0);
+
 	  text = text.toLower();
 
 	  if(text.startsWith("glitch-arduino-analogread()"))
-	    object = new glitch_object_analog_read_arduino(views().value(0));
+	    object = new glitch_object_analog_read_arduino(view);
+	  else if(text.startsWith("glitch-arduino-block comment"))
+	    object = new glitch_object_block_comment_arduino(view);
 	  else if(text.startsWith("glitch-arduino-and (&&)") ||
 		  text.startsWith("glitch-arduino-not (!)") ||
 		  text.startsWith("glitch-arduino-or (||)"))
-	    object = new glitch_object_logical_operator_arduino
-	      (views().value(0));
+	    object = new glitch_object_logical_operator_arduino(view);
 	  else if(text.startsWith("glitch-arduino-function"))
 	    {
 	      if(text == "glitch-arduino-function()")
-		object = new glitch_object_function_arduino(views().value(0));
+		object = new glitch_object_function_arduino(view);
 	      else
 		object = new glitch_object_function_arduino
 		  (text.
 		   mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),
-		   views().value(0));
+		   view);
 	    }
 	}
 
