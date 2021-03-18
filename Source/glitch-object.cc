@@ -32,6 +32,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
+#include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-view.h"
@@ -134,6 +135,9 @@ glitch_object *glitch_object::createFromValues
 
   if(type == "arduino-analogread")
     object = glitch_object_analog_read_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-blockcomment")
+    object = glitch_object_block_comment_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-function")
     object = glitch_object_function_arduino::createFromValues
@@ -339,13 +343,22 @@ void glitch_object::setName(const QString &name)
 void glitch_object::setProperties(const QStringList &list)
 {
   for(int i = 0; i < list.size(); i++)
-    if(list.at(i).startsWith("position_locked = "))
-      {
-	QString str(list.at(i).mid(18));
+    {
+      QString string(list.at(i));
 
-	str.remove("\"");
-	m_properties[Properties::POSITION_LOCKED] = QVariant(str).toBool();
-      }
+      if(string.startsWith("comment = "))
+	{
+	  string = string.mid(11);
+	  string.remove("\"");
+	  m_properties[Properties::COMMENT] = string;
+	}
+      else if(string.startsWith("position_locked = "))
+	{
+	  string = string.mid(18);
+	  string.remove("\"");
+	  m_properties[Properties::POSITION_LOCKED] = QVariant(string).toBool();
+	}
+    }
 
   createActions();
 }

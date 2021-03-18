@@ -776,18 +776,18 @@ void glitch_ui::show(void)
   if(!QSqlDatabase::isDriverAvailable("QSQLITE"))
     {
       QFileInfo fileInfo("qt.conf");
-      QString str("");
+      QString string("");
 
       if(fileInfo.isReadable() && fileInfo.size() > 0)
-	str = tr("The SQLite database driver is not available. "
-		 "The file qt.conf is present in Glitch's "
-		 "current working directory. Perhaps a conflict "
-		 "exists. Please resolve!");
+	string = tr("The SQLite database driver is not available. "
+		    "The file qt.conf is present in Glitch's "
+		    "current working directory. Perhaps a conflict "
+		    "exists. Please resolve!");
       else
-	str = tr
+	string = tr
 	  ("The SQLite database driver is not available. Please resolve!");
 
-      QMessageBox::critical(this, tr("Glitch: Error"), str);
+      QMessageBox::critical(this, tr("Glitch: Error"), string);
       QApplication::processEvents();
     }
 

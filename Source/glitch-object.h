@@ -55,7 +55,9 @@ class glitch_object: public QWidget
 
   enum Properties
   {
-   POSITION_LOCKED = 0,
+   COMMENT = 0,
+   NAME,
+   POSITION_LOCKED,
    XYZ_PROPERTY
   };
 

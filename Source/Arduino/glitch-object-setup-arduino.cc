@@ -97,10 +97,10 @@ void glitch_object_setup_arduino::initialize(QWidget *parent)
   m_editWindow->setWindowTitle(tr("Glitch: setup()"));
   m_editWindow->resize(600, 600);
   m_properties[POSITION_LOCKED] = true;
+  m_type = "arduino-setup";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_type = "arduino-setup";
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,

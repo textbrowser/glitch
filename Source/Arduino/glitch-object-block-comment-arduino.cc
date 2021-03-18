@@ -32,17 +32,15 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 {
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
-  m_ui.comment->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.comment->setAutoFillBackground(true);
 }
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_ui.setupUi(this);
-  m_ui.comment->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.comment->setAutoFillBackground(true);
   m_type = "arduino-blockcomment";
+  m_ui.setupUi(this);
+  m_ui.comment->setAutoFillBackground(true);
 }
 
 glitch_object_block_comment_arduino::
@@ -71,6 +69,8 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_ui.comment->setPlainText
+    (object->m_properties.value(COMMENT).toString().trimmed());
   return object;
 }
 
@@ -87,4 +87,18 @@ bool glitch_object_block_comment_arduino::isMandatory(void) const
 void glitch_object_block_comment_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+}
+
+void glitch_object_block_comment_arduino::save
+(const QSqlDatabase &db, QString &error)
+{
+  glitch_object::save(db, error);
+
+  if(!error.isEmpty())
+    return;
+
+  QMap<QString, QVariant> properties;
+
+  properties["comment"] = m_ui.comment->toPlainText().trimmed();
+  glitch_object::saveProperties(properties, db, error);
 }
