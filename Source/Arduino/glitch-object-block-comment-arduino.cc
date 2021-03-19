@@ -54,6 +54,7 @@ clone(QWidget *parent) const
   auto *clone = new glitch_object_block_comment_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
+  clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
   return clone;
 }
 
