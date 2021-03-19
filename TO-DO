@@ -90,6 +90,7 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
+- Comment block and directional arrows.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
