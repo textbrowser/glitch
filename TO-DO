@@ -58,6 +58,8 @@ Completed Items
 - Remove function clones.
 - Remove functions from User Functions on redo / undo.
 - Remove missing diagram files.
+- Reparent support panels if a canvas is separated. Not necessary. Append
+  Qt::Dialog to separated window's window flags.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
 - Save As.
@@ -98,7 +100,6 @@ Remaining Items
 - Paste in child views. Redo / undo.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
-- Reparent support panels if a canvas is separated.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
