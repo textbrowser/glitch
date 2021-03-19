@@ -104,7 +104,6 @@ class glitch_object: public QWidget
   QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
-  QString m_name;
   QString m_type;
   bool m_initialized;
   quint64 m_id;

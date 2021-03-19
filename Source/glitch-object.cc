@@ -102,7 +102,7 @@ QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
 
 QString glitch_object::name(void) const
 {
-  return m_name;
+  return m_properties.value(Properties::NAME).toString();
 }
 
 QString glitch_object::type(void) const
@@ -337,7 +337,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 void glitch_object::setName(const QString &name)
 {
   if(!name.trimmed().isEmpty())
-    m_name = name.trimmed();
+    m_properties[Properties::NAME] = name.trimmed();
 }
 
 void glitch_object::setProperties(const QStringList &list)
@@ -348,9 +348,15 @@ void glitch_object::setProperties(const QStringList &list)
 
       if(string.startsWith("comment = "))
 	{
-	  string = string.mid(11);
+	  string = string.mid(10);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string;
+	}
+      else if(string.startsWith("name = "))
+	{
+	  string = string.mid(7);
+	  string.remove("\"");
+	  m_properties[Properties::NAME] = string;
 	}
       else if(string.startsWith("position_locked = "))
 	{
