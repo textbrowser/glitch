@@ -46,6 +46,7 @@ Completed Items
 - Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
 - Pass undo stack from top-level view to child views.
+- Paste in child views. Redo / undo.
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Raise currently-selected function via z-value. This will allow the function's
@@ -97,7 +98,6 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
-- Paste in child views. Redo / undo.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
 - Serial and stream (https://www.arduino.cc/reference/en).
