@@ -33,6 +33,7 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
   m_ui.comment->setAutoFillBackground(true);
+  prepareContextMenu();
 }
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
@@ -41,6 +42,7 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
   m_ui.comment->setAutoFillBackground(true);
+  prepareContextMenu();
 }
 
 glitch_object_block_comment_arduino::
