@@ -31,10 +31,10 @@
 #include <QGraphicsView>
 #include <QPointer>
 #include <QSqlDatabase>
+#include <QUndoStack>
 
 #include "glitch-common.h"
 
-class QUndoStack;
 class glitch_alignment;
 class glitch_object;
 class glitch_scene;
@@ -46,6 +46,7 @@ class glitch_object_view: public QGraphicsView
  public:
   glitch_object_view(const glitch_common::ProjectType projectType,
 		     const quint64 id,
+		     QUndoStack *undoStack,
 		     QWidget *parent);
   ~glitch_object_view();
   QUndoStack *undoStack(void) const;
@@ -56,8 +57,8 @@ class glitch_object_view: public QGraphicsView
   void setSceneRect(const QSize &size);
 
  private:
+  QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_alignment> m_alignment;
-  QUndoStack *m_undoStack;
   glitch_common::ProjectType m_projectType;
   glitch_scene *m_scene;
   quint64 m_id;

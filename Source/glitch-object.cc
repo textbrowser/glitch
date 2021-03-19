@@ -28,7 +28,6 @@
 #include <QScrollBar>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QUndoStack>
 #include <QtDebug>
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
@@ -42,10 +41,14 @@
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 
-glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
+glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
+{
+}
+
+glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
-  m_id = 1;
+  m_id = id;
   m_initialized = false;
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
@@ -61,22 +64,16 @@ glitch_object::glitch_object(QWidget *parent):QWidget(nullptr)
 
       if(view)
 	{
-	  m_id = view->nextId();
+	  if(m_id <= 1)
+	    m_id = view->nextId();
+
+	  setUndoStack(view->scene()->undoStack());
 	  break;
 	}
 
       p = p->parentWidget();
     }
   while(true);
-}
-
-glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
-{
-  m_contextMenu = new glitch_floating_context_menu(parent);
-  m_id = id;
-  m_initialized = false;
-  m_parent = parent;
-  m_properties[Properties::POSITION_LOCKED] = false;
 }
 
 glitch_object::~glitch_object()
@@ -409,8 +406,7 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
 
-  if(!m_undoStack)
-    m_undoStack = undoStack;
+  m_undoStack = undoStack;
 }
 
 void glitch_object::simulateDelete(void)

@@ -90,7 +90,7 @@ void glitch_object_setup_arduino::initialize(QWidget *parent)
     m_initialized = true;
 
   m_editView = new glitch_object_view
-    (glitch_common::ArduinoProject, m_id, this);
+    (glitch_common::ArduinoProject, m_id, m_undoStack, this);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));

@@ -40,13 +40,14 @@
 glitch_object_view::glitch_object_view
 (const glitch_common::ProjectType projectType,
  const quint64 id,
+ QUndoStack *undoStack,
  QWidget *parent):QGraphicsView(parent)
 {
   m_id = id;
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
-  m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
+  m_scene->setUndoStack(m_undoStack = undoStack);
   setDragMode(QGraphicsView::RubberBandDrag);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
@@ -186,7 +187,7 @@ void glitch_object_view::slotPaste(void)
 
 void glitch_object_view::slotRedo(void)
 {
-  if(m_undoStack->canRedo())
+  if(m_undoStack && m_undoStack->canRedo())
     {
       m_undoStack->redo();
       adjustScrollBars();
@@ -229,7 +230,7 @@ void glitch_object_view::slotShowAlignment(void)
 
 void glitch_object_view::slotUndo(void)
 {
-  if(m_undoStack->canUndo())
+  if(m_undoStack && m_undoStack->canUndo())
     {
       m_undoStack->undo();
       adjustScrollBars();

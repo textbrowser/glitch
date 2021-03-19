@@ -925,8 +925,7 @@ void glitch_scene::setMainScene(const bool state)
 
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
-  if(!m_undoStack)
-    m_undoStack = undoStack;
+  m_undoStack = undoStack;
 }
 
 void glitch_scene::slotFunctionNameChanged(const QString &after,
