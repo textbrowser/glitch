@@ -70,6 +70,9 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_ui.label->setText
+    (object->
+     m_properties.value(glitch_object::LOGICAL_OPERATOR).toString().trimmed());
   return object;
 }
 
@@ -86,6 +89,20 @@ bool glitch_object_logical_operator_arduino::isMandatory(void) const
 void glitch_object_logical_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+}
+
+void glitch_object_logical_operator_arduino::save
+(const QSqlDatabase &db, QString &error)
+{
+  glitch_object::save(db, error);
+
+  if(!error.isEmpty())
+    return;
+
+  QMap<QString, QVariant> properties;
+
+  properties["logical_operator"] = m_ui.label->text().trimmed();
+  glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_logical_operator_arduino::setOperatorType

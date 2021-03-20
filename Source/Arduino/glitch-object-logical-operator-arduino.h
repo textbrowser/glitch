@@ -52,6 +52,7 @@ class glitch_object_logical_operator_arduino: public glitch_object
   bool isMandatory(void) const;
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void save(const QSqlDatabase &db, QString &error);
   void setOperatorType(const OperatorType operatorType);
   void setOperatorType(const QString &operatorType);
 
