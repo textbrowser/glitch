@@ -28,22 +28,19 @@
 #include "glitch-object-logical-operator-arduino.h"
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
-(QWidget *parent):glitch_object(parent)
+(QWidget *parent):glitch_object_logical_operator_arduino(1, parent)
 {
-  m_operator = AND_OPERATOR;
-  m_type = "arduino-logicaloperator";
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
 }
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_operatorType = AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  setOperatorType(m_operatorType);
 }
 
 glitch_object_logical_operator_arduino::
@@ -57,6 +54,7 @@ clone(QWidget *parent) const
   auto *clone = new glitch_object_logical_operator_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
+  clone->setOperatorType(m_operatorType);
   return clone;
 }
 
@@ -88,4 +86,40 @@ bool glitch_object_logical_operator_arduino::isMandatory(void) const
 void glitch_object_logical_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+}
+
+void glitch_object_logical_operator_arduino::setOperatorType
+(const QString &operatorType)
+{
+  if(operatorType.contains("!"))
+    setOperatorType(OperatorType::NOT_OPERATOR);
+  else if(operatorType.contains("||"))
+    setOperatorType(OperatorType::OR_OPERATOR);
+  else
+    setOperatorType(OperatorType::AND_OPERATOR);
+}
+
+void glitch_object_logical_operator_arduino::setOperatorType
+(const OperatorType operatorType)
+{
+  m_operatorType = operatorType;
+
+  switch(m_operatorType)
+    {
+    case NOT_OPERATOR:
+      {
+	m_ui.label->setText("!");
+	break;
+      }
+    case OR_OPERATOR:
+      {
+	m_ui.label->setText("||");
+	break;
+      }
+    default:
+      {
+	m_ui.label->setText("&&");
+	break;
+      }
+    }
 }

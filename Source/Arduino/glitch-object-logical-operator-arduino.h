@@ -52,9 +52,11 @@ class glitch_object_logical_operator_arduino: public glitch_object
   bool isMandatory(void) const;
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void setOperatorType(const OperatorType operatorType);
+  void setOperatorType(const QString &operatorType);
 
  private:
-  OperatorType m_operator;
+  OperatorType m_operatorType;
   Ui_glitch_object_logical_operator_arduino m_ui;
 };
 

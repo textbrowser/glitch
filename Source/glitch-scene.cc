@@ -512,7 +512,14 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  else if(text.startsWith("glitch-arduino-and (&&)") ||
 		  text.startsWith("glitch-arduino-not (!)") ||
 		  text.startsWith("glitch-arduino-or (||)"))
-	    object = new glitch_object_logical_operator_arduino(view);
+	    {
+	      object = new glitch_object_logical_operator_arduino(view);
+
+	      if(qobject_cast
+		 <glitch_object_logical_operator_arduino *> (object))
+		qobject_cast<glitch_object_logical_operator_arduino *>
+		  (object)->setOperatorType(text);
+	    }
 	  else if(text.startsWith("glitch-arduino-function"))
 	    {
 	      if(text == "glitch-arduino-function()")
