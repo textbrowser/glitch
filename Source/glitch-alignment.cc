@@ -106,7 +106,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
   if(!view)
     return;
 
-  QList<QGraphicsItem *> list(view->scene()->items(Qt::AscendingOrder));
+  auto list(view->scene()->items(Qt::AscendingOrder));
 
   if(list.isEmpty())
     return;
@@ -154,8 +154,8 @@ void glitch_alignment::align(const AlignmentType alignmentType)
       }
     }
 
-  bool began = false;
-  bool firstIteration = true;
+  auto began = false;
+  auto firstIteration = true;
 
  start_label:
 
@@ -171,7 +171,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
       if(!object)
 	continue;
 
-      bool movable = proxy->isMovable();
+      auto movable = proxy->isMovable();
 
       switch(alignmentType)
 	{
@@ -337,7 +337,7 @@ void glitch_alignment::stack(const StackType stackType)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QList<QGraphicsItem *> list1(view->scene()->selectedItems());
+  auto list1(view->scene()->selectedItems());
 
   if(list1.isEmpty())
     {
@@ -373,7 +373,7 @@ void glitch_alignment::stack(const StackType stackType)
   else
     std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
 
-  bool began = false;
+  auto began = false;
   int coordinate = 0;
 
   if(stackType == HORIZONTAL_STACK)

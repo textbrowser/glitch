@@ -117,10 +117,10 @@ bool glitch_canvas_settings::save(QString &error) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
-  bool ok = false;
+  auto ok = false;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(m_fileName);
@@ -157,7 +157,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "VALUES (?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text());
 
-	QString name(m_ui.name->text().trimmed());
+	auto name(m_ui.name->text().trimmed());
 
 	if(name.isEmpty())
 	  name = defaultName();
@@ -191,7 +191,7 @@ int glitch_canvas_settings::redoUndoStackSize(void) const
 
 void glitch_canvas_settings::accept(void)
 {
-  QString name(m_ui.name->text().trimmed());
+  auto name(m_ui.name->text().trimmed());
 
   if(name.isEmpty())
     m_ui.name->setText(defaultName());
@@ -212,7 +212,7 @@ void glitch_canvas_settings::prepare(void)
   QString connectionName("");
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(m_fileName);
@@ -229,10 +229,10 @@ void glitch_canvas_settings::prepare(void)
 		      "FROM canvas_settings") && query.next())
 	  {
 	    QColor color(query.value(0).toString().trimmed());
-	    QString name(query.value(1).toString().trimmed());
-	    QString projectType(query.value(2).toString().trimmed());
-	    QString updateMode(query.value(4).toString().trimmed());
-	    int redoUndoStackSize = query.value(3).toInt();
+	    auto name(query.value(1).toString().trimmed());
+	    auto projectType(query.value(2).toString().trimmed());
+	    auto redoUndoStackSize = query.value(3).toInt();
+	    auto updateMode(query.value(4).toString().trimmed());
 
 	    if(!color.isValid())
 	      color = QColor(211, 211, 211);
