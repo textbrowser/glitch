@@ -17,6 +17,7 @@ Completed Items
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close edit windows via Control + W.
 - Command-line help.
+- Comment block and directional arrows.
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
 - Context menu on main tab widget.
@@ -90,7 +91,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Comment block and directional arrows.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.

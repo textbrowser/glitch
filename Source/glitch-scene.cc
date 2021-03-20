@@ -606,6 +606,12 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(!object)
 	      continue;
 
+	    if(qobject_cast<QPlainTextEdit *> (object->focusWidget()))
+	      {
+		QGraphicsScene::keyPressEvent(event);
+		continue;
+	      }
+
 	    point = object->pos();
 
 	    switch(event->key())
