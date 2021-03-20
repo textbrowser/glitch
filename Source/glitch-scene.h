@@ -64,7 +64,7 @@ class glitch_scene: public QGraphicsScene
   QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;
   glitch_common::ProjectType m_projectType;
-  bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &text);
+  bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);

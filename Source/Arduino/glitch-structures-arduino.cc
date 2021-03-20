@@ -270,7 +270,11 @@ QStringList glitch_structures_arduino::types(void)
 
 bool glitch_structures_arduino::containsStructure(const QString &structureName)
 {
-  return structureNames().contains(structureName);
+  foreach(const auto &i, structureNames())
+    if(i.toLower() == structureName.toLower())
+      return true;
+
+  return false;
 }
 
 void glitch_structures_arduino::slotCategorySelected(void)

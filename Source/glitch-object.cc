@@ -345,19 +345,25 @@ void glitch_object::setProperties(const QStringList &list)
 
       if(string.startsWith("comment = "))
 	{
-	  string = string.mid(10);
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string;
 	}
+      else if(string.startsWith("logical_operator = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::LOGICAL_OPERATOR] = string;
+	}
       else if(string.startsWith("name = "))
 	{
-	  string = string.mid(7);
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::NAME] = string;
 	}
       else if(string.startsWith("position_locked = "))
 	{
-	  string = string.mid(18);
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::POSITION_LOCKED] = QVariant(string).toBool();
 	}

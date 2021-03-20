@@ -98,18 +98,18 @@ QPointer<QUndoStack> glitch_scene::undoStack(void) const
   return m_undoStack;
 }
 
-bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
-			     const QString &text)
+bool glitch_scene::allowDrag
+(QGraphicsSceneDragDropEvent *event, const QString &t)
 {
   if(!event)
     return false;
   else
     {
-      QString t(text.trimmed().remove("glitch-"));
+      QString text(t.trimmed().remove("glitch-"));
 
       if(m_mainScene)
 	{
-	  if(glitch_structures_arduino::structureNames().contains(t))
+	  if(glitch_structures_arduino::containsStructure(text))
 	    {
 	      event->accept();
 	      return true;
@@ -126,12 +126,12 @@ bool glitch_scene::allowDrag(QGraphicsSceneDragDropEvent *event,
 	    {
 	    case glitch_common::ArduinoProject:
 	      {
-		if(glitch_structures_arduino::structureNames().contains(t))
+		if(glitch_structures_arduino::containsStructure(text))
 		  /*
 		  ** Functions cannot be defined in other functions.
 		  */
 
-		  if(!t.startsWith("arduino-function"))
+		  if(!text.startsWith("arduino-function"))
 		    {
 		      event->accept();
 		      return true;
@@ -496,14 +496,12 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().trimmed());
+      QString text(event->mimeData()->text().toLower().trimmed());
       glitch_object *object = nullptr;
 
       if(allowDrag(event, text))
 	{
 	  auto view = views().value(0);
-
-	  text = text.toLower();
 
 	  if(text.startsWith("glitch-arduino-analogread()"))
 	    object = new glitch_object_analog_read_arduino(view);
