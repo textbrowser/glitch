@@ -57,8 +57,8 @@ glitch_scene::~glitch_scene()
 
 QList<glitch_object *> glitch_scene::objects(void) const
 {
-  QList<QGraphicsItem *> list(items());
   QList<glitch_object *> widgets;
+  auto list(items());
 
   for(auto i : list)
     {
@@ -75,8 +75,8 @@ QList<glitch_object *> glitch_scene::objects(void) const
 
 QList<glitch_object *> glitch_scene::selectedObjects(void) const
 {
-  QList<QGraphicsItem *> list(items());
   QList<glitch_object *> widgets;
+  auto list(items());
 
   for(auto i : list)
     {
@@ -105,7 +105,7 @@ bool glitch_scene::allowDrag
     return false;
   else
     {
-      QString text(t.trimmed().remove("glitch-"));
+      auto text(t.trimmed().remove("glitch-"));
 
       if(m_mainScene)
 	{
@@ -302,7 +302,7 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
     proxy->setZValue(1);
   else
     {
-      QList<QGraphicsItem *> list(items());
+      auto list(items());
 
       for(auto i : list)
 	{
@@ -316,7 +316,7 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
 
 void glitch_scene::deleteFunctionClones(const QString &name)
 {
-  QList<QGraphicsItem *> list(items());
+  auto list(items());
 
   for(auto i : list)
     {
@@ -373,7 +373,7 @@ void glitch_scene::deleteItems(void)
       return;
     }
 
-  bool state = false;
+  auto state = false;
 
   if(m_undoStack)
     m_undoStack->beginMacro(tr("widget(s) deleted"));
@@ -423,7 +423,7 @@ void glitch_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().trimmed());
+      auto text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -439,7 +439,7 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().trimmed());
+      auto text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -477,14 +477,14 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
   painter->setPen(pen);
 
   QVector<QPointF> points;
+  auto left = static_cast<qreal> (rect.left()) -
+    (static_cast<int> (rect.left()) % 20);
+  auto top = static_cast<qreal> (rect.top()) -
+    (static_cast<int> (rect.top()) % 20);
   int gridSize = 20;
-  qreal left = static_cast<int> (rect.left()) -
-    (static_cast<int> (rect.left()) % gridSize);
-  qreal top = static_cast<int> (rect.top()) -
-    (static_cast<int> (rect.top()) % gridSize);
 
-  for(qreal x = left; x < rect.right(); x += gridSize)
-    for(qreal y = top; y < rect.bottom(); y += gridSize)
+  for(auto x = left; x < rect.right(); x += gridSize)
+    for(auto y = top; y < rect.bottom(); y += gridSize)
       points << QPointF(x, y);
 
   painter->save();
@@ -496,7 +496,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      QString text(event->mimeData()->text().toLower().trimmed());
+      auto text(event->mimeData()->text().toLower().trimmed());
       glitch_object *object = nullptr;
 
       if(allowDrag(event, text))
@@ -580,13 +580,12 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
       {
-	QGraphicsView::ViewportUpdateMode updateMode =
-	  QGraphicsView::MinimalViewportUpdate;
-	QList<QGraphicsItem *> list(selectedItems());
 	QPoint point;
+	auto began = false;
+	auto list(selectedItems());
+	auto moved = false;
+	auto updateMode = QGraphicsView::MinimalViewportUpdate;
 	auto view = views().value(0);
-	bool began = false;
-	bool moved = false;
 	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
 
 	if(view)
@@ -640,7 +639,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(point.x() < 0 || point.y() < 0)
 	      continue;
 
-	    QPointF previousPosition(proxy->scenePos());
+	    auto previousPosition(proxy->scenePos());
 
 	    object->move(point);
 
@@ -699,8 +698,8 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
-      QList<QGraphicsItem *> list(selectedItems());
-      bool moved = false;
+      auto list(selectedItems());
+      auto moved = false;
 
       for(auto i : list)
 	{
@@ -714,7 +713,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(object && object->mouseOverScrollBar(event->scenePos()))
 	    continue;
 
-	  QPointF point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
+	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
 	  if(point.x() < 0 || point.y() < 0)
 	    continue;
@@ -763,7 +762,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	      if(object)
 		{
-		  QPoint point
+		  auto point
 		    (proxy->mapFromScene(event->scenePos()).toPoint());
 
 		  if(qobject_cast<QComboBox *> (object->childAt(point)))
@@ -807,7 +806,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	  if(!m_lastScenePos.isNull())
 	    {
-	      QList<QGraphicsItem *> list(selectedItems());
+	      auto list(selectedItems());
 
 	      for(auto i : list)
 		{
@@ -837,7 +836,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
   if(!m_movedPoints.isEmpty() && m_undoStack)
     {
-      bool began = false;
+      auto began = false;
 
       for(const auto &m_movedPoint : m_movedPoints)
 	{
@@ -889,8 +888,8 @@ void glitch_scene::purgeRedoUndoProxies(void)
   ** be used with care!
   */
 
-  QList<QGraphicsItem *> list(items());
   QMutableHashIterator<glitch_proxy_widget *, char> it(m_redoUndoProxies);
+  auto list(items());
 
   while(it.hasNext())
     {

@@ -20,6 +20,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-qual \
                           -Wconversion \
                           -Wdouble-promotion \
+                          -Wenum-compare \
                           -Wextra \
                           -Wformat=2 \
                           -Woverloaded-virtual \
@@ -40,6 +41,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-qual \
                           -Wconversion \
                           -Wdouble-promotion \
+                          -Wenum-compare \
                           -Wextra \
                           -Wformat=2 \
                           -Wl,-z,relro \
@@ -63,6 +65,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-qual \
                           -Wconversion \
                           -Wdouble-promotion \
+                          -Wenum-compare \
                           -Wextra \
                           -Wfloat-equal \
                           -Wformat=2 \
