@@ -102,6 +102,7 @@ Remaining Items
 - Object-view settings.
 - Proximity instead of wiring.
 - Redo / undo. See also macros.
+- Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
