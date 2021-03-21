@@ -88,12 +88,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05d0f9fa0cdc2c87dc1fcb49ffbd3121"><td class="memItemLeft" align="right" valign="top"><a id="a05d0f9fa0cdc2c87dc1fcb49ffbd3121"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object_analog_read_arduino</b> (const quint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a05d0f9fa0cdc2c87dc1fcb49ffbd3121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9f805342c09f6a3ce3ade5fe5817755"><td class="memItemLeft" align="right" valign="top"><a id="ab9f805342c09f6a3ce3ade5fe5817755"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasView</b> (void) const</td></tr>
-<tr class="separator:ab9f805342c09f6a3ce3ade5fe5817755"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75680075713f4eba9bf08fa6c726ce7e"><td class="memItemLeft" align="right" valign="top"><a id="a75680075713f4eba9bf08fa6c726ce7e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void) const</td></tr>
-<tr class="separator:a75680075713f4eba9bf08fa6c726ce7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd4780dd53e3856d9b868e001e738ac2"><td class="memItemLeft" align="right" valign="top"><a id="abd4780dd53e3856d9b868e001e738ac2"></a>
 <a class="el" href="classglitch__object__analog__read__arduino.html">glitch_object_analog_read_arduino</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (QWidget *parent) const</td></tr>
 <tr class="separator:abd4780dd53e3856d9b868e001e738ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +122,12 @@ quint64&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> (void) cons
 <tr class="memitem:a60708a56b7abbfed3d93fa10cab00af2 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a60708a56b7abbfed3d93fa10cab00af2"></a>
 virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:a60708a56b7abbfed3d93fa10cab00af2 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f3a93cc4cc1846e4745062ef906cfba inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a1f3a93cc4cc1846e4745062ef906cfba"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasView</b> (void) const</td></tr>
+<tr class="separator:a1f3a93cc4cc1846e4745062ef906cfba inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95635503fad6f88f13167f40c26361d inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ac95635503fad6f88f13167f40c26361d"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void) const</td></tr>
+<tr class="separator:ac95635503fad6f88f13167f40c26361d inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecdf3d1b5be6e07eacf11b7b642e2382 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aecdf3d1b5be6e07eacf11b7b642e2382"></a>
 virtual <a class="el" href="classglitch__object__view.html">glitch_object_view</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>editView</b> (void) const</td></tr>
 <tr class="separator:aecdf3d1b5be6e07eacf11b7b642e2382 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,8 +185,14 @@ Additional Inherited Members</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <b>POSITION_LOCKED</b> = 0, 
-<b>XYZ_PROPERTY</b>
+<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <br />
+&#160;&#160;<b>COMMENT</b> = 0, 
+<b>LOGICAL_OPERATOR</b>, 
+<b>NAME</b>, 
+<b>POSITION_LOCKED</b>, 
+<br />
+&#160;&#160;<b>XYZ_PROPERTY</b>
+<br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header signals_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('signals_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Signals inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
@@ -238,9 +244,6 @@ QPointer&lt; <a class="el" href="classglitch__object__view.html">glitch_object_v
 <tr class="memitem:a59a7cf1c121ec4ae7931dcf1ad235a29 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a59a7cf1c121ec4ae7931dcf1ad235a29"></a>
 QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_proxy</b></td></tr>
 <tr class="separator:a59a7cf1c121ec4ae7931dcf1ad235a29 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1efe91b44ed18ab30b6b80f095a2b635 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a1efe91b44ed18ab30b6b80f095a2b635"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
-<tr class="separator:a1efe91b44ed18ab30b6b80f095a2b635 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81b259e45fc7be1ccc1b47f8e534a84 inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ae81b259e45fc7be1ccc1b47f8e534a84"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:ae81b259e45fc7be1ccc1b47f8e534a84 inherit pro_attribs_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>

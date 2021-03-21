@@ -113,37 +113,40 @@ $(function() {
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    CANVAS_BACKGROUND_COLOR,</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    CANVAS_NAME,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    VIEW_UPDATE_MODE</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  };</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  ~<a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> prepare(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> setSettings(<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                       QVariant&gt; &amp;hash);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  QString m_fileName;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  Ui_glitch_canvas_settings m_ui;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; <span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> slotSelectBackgroundColor(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; signals:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    REDO_UNDO_STACK_SIZE,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    VIEW_UPDATE_MODE</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  };</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  ~<a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">int</span> redoUndoStackSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> prepare(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> setRedoUndoStackSize(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> setSettings</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    (<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; &amp;hash);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  QString m_fileName;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  Ui_glitch_canvas_settings m_ui;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">void</span> slotSelectBackgroundColor(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; signals:</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassglitch__canvas__settings_html"><div class="ttname"><a href="classglitch__canvas__settings.html">glitch_canvas_settings</a></div><div class="ttdef"><b>Definition:</b> glitch-canvas-settings.h:36</div></div>
 <!-- start footer part -->

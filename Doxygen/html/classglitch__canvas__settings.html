@@ -85,6 +85,7 @@ Collaboration diagram for glitch_canvas_settings:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:ade6f20b95f3f789805459436838ed929"><td class="memItemLeft" align="right" valign="top"><a id="ade6f20b95f3f789805459436838ed929"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Settings</b> { <b>CANVAS_BACKGROUND_COLOR</b>, 
 <b>CANVAS_NAME</b>, 
+<b>REDO_UNDO_STACK_SIZE</b>, 
 <b>VIEW_UPDATE_MODE</b>
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,6 +116,9 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) co
 <tr class="memitem:a77acf413ba93995f28aebce0648b7cd8"><td class="memItemLeft" align="right" valign="top"><a id="a77acf413ba93995f28aebce0648b7cd8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (QString &amp;error) const</td></tr>
 <tr class="separator:a77acf413ba93995f28aebce0648b7cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a869e9211aefa0721a77a761a126c35cb"><td class="memItemLeft" align="right" valign="top"><a id="a869e9211aefa0721a77a761a126c35cb"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>redoUndoStackSize</b> (void) const</td></tr>
+<tr class="separator:a869e9211aefa0721a77a761a126c35cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefe134dd84d97d166610fe59cde4842e"><td class="memItemLeft" align="right" valign="top"><a id="aefe134dd84d97d166610fe59cde4842e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare</b> (void)</td></tr>
 <tr class="separator:aefe134dd84d97d166610fe59cde4842e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +128,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setFileName</b> (cons
 <tr class="memitem:a5cb3041084b9eeb75e6b197de754fc1f"><td class="memItemLeft" align="right" valign="top"><a id="a5cb3041084b9eeb75e6b197de754fc1f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const QString &amp;name)</td></tr>
 <tr class="separator:a5cb3041084b9eeb75e6b197de754fc1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memItemLeft" align="right" valign="top"><a id="a26cb6dd1a07af51ef9a2df713ea842ec"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setRedoUndoStackSize</b> (const int value)</td></tr>
+<tr class="separator:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aded04512e965bbec545fdd897570b2a5"><td class="memItemLeft" align="right" valign="top"><a id="aded04512e965bbec545fdd897570b2a5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSettings</b> (const QHash&lt; glitch_canvas_settings::Settings, QVariant &gt; &amp;hash)</td></tr>
 <tr class="separator:aded04512e965bbec545fdd897570b2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -97,8 +97,14 @@ Public Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <b>POSITION_LOCKED</b> = 0, 
-<b>XYZ_PROPERTY</b>
+<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <br />
+&#160;&#160;<b>COMMENT</b> = 0, 
+<b>LOGICAL_OPERATOR</b>, 
+<b>NAME</b>, 
+<b>POSITION_LOCKED</b>, 
+<br />
+&#160;&#160;<b>XYZ_PROPERTY</b>
+<br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -140,12 +146,12 @@ quint64&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> (void) cons
 <tr class="memitem:a60708a56b7abbfed3d93fa10cab00af2"><td class="memItemLeft" align="right" valign="top"><a id="a60708a56b7abbfed3d93fa10cab00af2"></a>
 virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:a60708a56b7abbfed3d93fa10cab00af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5128bb1ea2badb3a4cc1527933e6b22"><td class="memItemLeft" align="right" valign="top"><a id="af5128bb1ea2badb3a4cc1527933e6b22"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasView</b> (void) const =0</td></tr>
-<tr class="separator:af5128bb1ea2badb3a4cc1527933e6b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b1535642e92dd80fc6f063885d3b9b1"><td class="memItemLeft" align="right" valign="top"><a id="a3b1535642e92dd80fc6f063885d3b9b1"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void) const =0</td></tr>
-<tr class="separator:a3b1535642e92dd80fc6f063885d3b9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f3a93cc4cc1846e4745062ef906cfba"><td class="memItemLeft" align="right" valign="top"><a id="a1f3a93cc4cc1846e4745062ef906cfba"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasView</b> (void) const</td></tr>
+<tr class="separator:a1f3a93cc4cc1846e4745062ef906cfba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95635503fad6f88f13167f40c26361d"><td class="memItemLeft" align="right" valign="top"><a id="ac95635503fad6f88f13167f40c26361d"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isMandatory</b> (void) const</td></tr>
+<tr class="separator:ac95635503fad6f88f13167f40c26361d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45033d39c3e367acc48e8a348bbac6c3"><td class="memItemLeft" align="right" valign="top"><a id="a45033d39c3e367acc48e8a348bbac6c3"></a>
 virtual <a class="el" href="classglitch__object.html">glitch_object</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> (QWidget *parent) const =0</td></tr>
 <tr class="separator:a45033d39c3e367acc48e8a348bbac6c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,9 +245,6 @@ QPointer&lt; <a class="el" href="classglitch__object__view.html">glitch_object_v
 <tr class="memitem:a59a7cf1c121ec4ae7931dcf1ad235a29"><td class="memItemLeft" align="right" valign="top"><a id="a59a7cf1c121ec4ae7931dcf1ad235a29"></a>
 QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_proxy</b></td></tr>
 <tr class="separator:a59a7cf1c121ec4ae7931dcf1ad235a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1efe91b44ed18ab30b6b80f095a2b635"><td class="memItemLeft" align="right" valign="top"><a id="a1efe91b44ed18ab30b6b80f095a2b635"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
-<tr class="separator:a1efe91b44ed18ab30b6b80f095a2b635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81b259e45fc7be1ccc1b47f8e534a84"><td class="memItemLeft" align="right" valign="top"><a id="ae81b259e45fc7be1ccc1b47f8e534a84"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_type</b></td></tr>
 <tr class="separator:ae81b259e45fc7be1ccc1b47f8e534a84"><td class="memSeparator" colspan="2">&#160;</td></tr>

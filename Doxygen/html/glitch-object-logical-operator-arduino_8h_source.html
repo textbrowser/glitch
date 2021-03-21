@@ -119,17 +119,18 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  ~<a class="code" href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a>();</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">static</span> <a class="code" href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a> *createFromValues</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    (<span class="keyword">const</span> QMap&lt;QString, QVariant&gt; &amp;values, QString &amp;error, QWidget *parent);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> hasView(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> isMandatory(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a> *clone(QWidget *parent) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> addActions(QMenu &amp;menu);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  OperatorType m_operator;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  Ui_glitch_object_logical_operator_arduino m_ui;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a> *clone(QWidget *parent) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> addActions(QMenu &amp;menu);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> save(<span class="keyword">const</span> QSqlDatabase &amp;db, QString &amp;error);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> setOperatorType(<span class="keyword">const</span> OperatorType operatorType);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> setOperatorType(<span class="keyword">const</span> QString &amp;operatorType);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  OperatorType m_operatorType;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  Ui_glitch_object_logical_operator_arduino m_ui;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassglitch__object__logical__operator__arduino_html"><div class="ttname"><a href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a></div><div class="ttdef"><b>Definition:</b> glitch-object-logical-operator-arduino.h:34</div></div>
 <div class="ttc" id="aclassglitch__object_html"><div class="ttname"><a href="classglitch__object.html">glitch_object</a></div><div class="ttdef"><b>Definition:</b> glitch-object.h:42</div></div>

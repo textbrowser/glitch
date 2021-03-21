@@ -4,9 +4,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node24 [label="QGraphicsView",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node24 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node25 [label="QGraphicsView",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node25 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node0 [label="glitch_graphicsview",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__graphicsview.html",tooltip=" "];
-  Node24 -> Node26 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node26 [label="glitch_object_view",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__object__view.html",tooltip=" "];
+  Node25 -> Node27 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node27 [label="glitch_object_view",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__object__view.html",tooltip=" "];
 }

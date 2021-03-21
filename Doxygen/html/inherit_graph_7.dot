@@ -4,11 +4,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node20 [label="QMainWindow",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node20 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="QMainWindow",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node21 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node0 [label="glitch_object_edit\l_window",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__object__edit__window.html",tooltip=" "];
-  Node20 -> Node22 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node22 [label="glitch_separated_diagram\l_window",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__separated__diagram__window.html",tooltip=" "];
-  Node20 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node23 [label="glitch_ui",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__ui.html",tooltip=" "];
+  Node21 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="glitch_separated_diagram\l_window",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__separated__diagram__window.html",tooltip=" "];
+  Node21 -> Node24 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node24 [label="glitch_ui",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classglitch__ui.html",tooltip=" "];
 }

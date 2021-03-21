@@ -238,6 +238,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>slotFunctionReturnTyp
 <tr class="memitem:a8ccba425780e372275800ab7a7c85f64"><td class="memItemLeft" align="right" valign="top"><a id="a8ccba425780e372275800ab7a7c85f64"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotPaste</b> (void)</td></tr>
 <tr class="separator:a8ccba425780e372275800ab7a7c85f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44d7afc5f6904fe866537d6ffac459b"><td class="memItemLeft" align="right" valign="top"><a id="ab44d7afc5f6904fe866537d6ffac459b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotResizeScene</b> (void)</td></tr>
+<tr class="separator:ab44d7afc5f6904fe866537d6ffac459b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a673f73db706aa7ee195531d5974d77f2"><td class="memItemLeft" align="right" valign="top"><a id="a673f73db706aa7ee195531d5974d77f2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSave</b> (void)</td></tr>
 <tr class="separator:a673f73db706aa7ee195531d5974d77f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -271,6 +274,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7dbf64738711394696d9314039dd77a1"><td class="memItemLeft" align="right" valign="top"><a id="a7dbf64738711394696d9314039dd77a1"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>saveImplementation</b> (const QString &amp;fileName, QString &amp;error)</td></tr>
 <tr class="separator:a7dbf64738711394696d9314039dd77a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf94380d9c34f709a6559dcdb1de470c"><td class="memItemLeft" align="right" valign="top"><a id="adf94380d9c34f709a6559dcdb1de470c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>adjustScrollBars</b> (void)</td></tr>
+<tr class="separator:adf94380d9c34f709a6559dcdb1de470c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26883d5840179939e19563a8dc177490"><td class="memItemLeft" align="right" valign="top"><a id="a26883d5840179939e19563a8dc177490"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>contextMenuEvent</b> (QContextMenuEvent *event)</td></tr>
 <tr class="separator:a26883d5840179939e19563a8dc177490"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -292,12 +298,12 @@ QHash&lt; glitch_canvas_settings::Settings, QVariant &gt;&#160;</td><td class="m
 <tr class="memitem:a220624d3419b345c3746d142403997a3"><td class="memItemLeft" align="right" valign="top"><a id="a220624d3419b345c3746d142403997a3"></a>
 QList&lt; QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_defaultActions</b></td></tr>
 <tr class="separator:a220624d3419b345c3746d142403997a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878470c5b563b766d4e450c226b0d23e"><td class="memItemLeft" align="right" valign="top"><a id="a878470c5b563b766d4e450c226b0d23e"></a>
+QPointer&lt; <a class="el" href="classglitch__alignment.html">glitch_alignment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_alignment</b></td></tr>
+<tr class="separator:a878470c5b563b766d4e450c226b0d23e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a69e11f1bca7f48d8fbf86b99d71650"><td class="memItemLeft" align="right" valign="top"><a id="a1a69e11f1bca7f48d8fbf86b99d71650"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_fileName</b></td></tr>
 <tr class="separator:a1a69e11f1bca7f48d8fbf86b99d71650"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b74fb910e26c0aff6796a0edff81ed"><td class="memItemLeft" align="right" valign="top"><a id="ac9b74fb910e26c0aff6796a0edff81ed"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td></tr>
-<tr class="separator:ac9b74fb910e26c0aff6796a0edff81ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23ceab8140dd11bc5d2b4d6197ce4b98"><td class="memItemLeft" align="right" valign="top"><a id="a23ceab8140dd11bc5d2b4d6197ce4b98"></a>
 QUndoStack *&#160;</td><td class="memItemRight" valign="bottom"><b>m_undoStack</b></td></tr>
 <tr class="separator:a23ceab8140dd11bc5d2b4d6197ce4b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -307,9 +313,6 @@ Ui_glitch_view&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b></t
 <tr class="memitem:af8698ece79d9b5669a37f73c6edb4467"><td class="memItemLeft" align="right" valign="top"><a id="af8698ece79d9b5669a37f73c6edb4467"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_changed</b></td></tr>
 <tr class="separator:af8698ece79d9b5669a37f73c6edb4467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a924877c4a5a988295bf28308c2fa5336"><td class="memItemLeft" align="right" valign="top"><a id="a924877c4a5a988295bf28308c2fa5336"></a>
-<a class="el" href="classglitch__alignment.html">glitch_alignment</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_alignment</b></td></tr>
-<tr class="separator:a924877c4a5a988295bf28308c2fa5336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20bd17919f60ec4a7ccef37061c532f"><td class="memItemLeft" align="right" valign="top"><a id="af20bd17919f60ec4a7ccef37061c532f"></a>
 <a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_canvasSettings</b></td></tr>
 <tr class="separator:af20bd17919f60ec4a7ccef37061c532f"><td class="memSeparator" colspan="2">&#160;</td></tr>
