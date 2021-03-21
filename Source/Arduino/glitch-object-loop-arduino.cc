@@ -30,9 +30,8 @@
 #include "glitch-object-view.h"
 
 glitch_object_loop_arduino::glitch_object_loop_arduino
-(QWidget *parent):glitch_object(parent)
+(QWidget *parent):glitch_object_loop_arduino(1, parent)
 {
-  initialize(parent);
 }
 
 glitch_object_loop_arduino::glitch_object_loop_arduino

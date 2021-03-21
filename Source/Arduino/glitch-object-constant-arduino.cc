@@ -25,44 +25,43 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-analog-read-arduino.h"
+#include "glitch-object-constant-arduino.h"
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
-(QWidget *parent):glitch_object_analog_read_arduino(1, parent)
+glitch_object_constant_arduino::glitch_object_constant_arduino
+(QWidget *parent):glitch_object_constant_arduino(1, parent)
 {
 }
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
+glitch_object_constant_arduino::glitch_object_constant_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_type = "arduino-analogread";
+  m_type = "arduino-constant";
   m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
   prepareContextMenu();
 }
 
-glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
+glitch_object_constant_arduino::
+~glitch_object_constant_arduino()
 {
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_constant_arduino *glitch_object_constant_arduino::
 clone(QWidget *parent) const
 {
-  auto *clone = new glitch_object_analog_read_arduino(parent);
+  auto *clone = new glitch_object_constant_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
   return clone;
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_constant_arduino *glitch_object_constant_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto *object = new glitch_object_analog_read_arduino
+  auto *object = new glitch_object_constant_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
@@ -70,7 +69,21 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_analog_read_arduino::addActions(QMenu &menu)
+void glitch_object_constant_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+}
+
+void glitch_object_constant_arduino::save
+(const QSqlDatabase &db, QString &error)
+{
+  glitch_object::save(db, error);
+
+  if(!error.isEmpty())
+    return;
+
+  QMap<QString, QVariant> properties;
+
+  properties["constant"] = m_ui.constant->currentText();
+  glitch_object::saveProperties(properties, db, error);
 }

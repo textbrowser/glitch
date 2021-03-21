@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>glitch_object_loop_arduino</class>
- <widget class="QWidget" name="glitch_object_loop_arduino">
+ <class>glitch_object_constant_arduino</class>
+ <widget class="QWidget" name="glitch_object_constant_arduino">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>102</width>
+    <width>180</width>
     <height>45</height>
    </rect>
   </property>
@@ -30,22 +30,43 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
+    <widget class="QComboBox" name="constant">
+     <property name="toolTip">
+      <string>Return Type</string>
      </property>
-     <property name="text">
-      <string>loop()</string>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
      </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
+     <item>
+      <property name="text">
+       <string>HIGH</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>INPUT_PULLUP</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>LED_BUILTIN</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>false</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>true</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item>
@@ -61,6 +82,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>constant</tabstop>
+  <tabstop>context_menu</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Icons/icons.qrc"/>
  </resources>

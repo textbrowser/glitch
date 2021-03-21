@@ -1,11 +1,13 @@
 FORMS          += UI/Arduino/glitch-object-analog-read-arduino.ui \
                   UI/Arduino/glitch-object-block-comment-arduino.ui \
+                  UI/Arduino/glitch-object-constant-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
                   UI/Arduino/glitch-object-logical-operator-arduino.ui \
 		  UI/Arduino/glitch-object-loop-arduino.ui \
                   UI/Arduino/glitch-object-setup-arduino.ui
 HEADERS	       += Source/Arduino/glitch-object-analog-read-arduino.h \
                   Source/Arduino/glitch-object-block-comment-arduino.h \
+                  Source/Arduino/glitch-object-constant-arduino.h \
                   Source/Arduino/glitch-object-function-arduino.h \
                   Source/Arduino/glitch-object-logical-operator-arduino.h \
 		  Source/Arduino/glitch-object-loop-arduino.h \
@@ -14,6 +16,7 @@ HEADERS	       += Source/Arduino/glitch-object-analog-read-arduino.h \
 		  Source/Arduino/glitch-view-arduino.h
 SOURCES	       += Source/Arduino/glitch-object-analog-read-arduino.cc \
                   Source/Arduino/glitch-object-block-comment-arduino.cc \
+                  Source/Arduino/glitch-object-constant-arduino.cc \
                   Source/Arduino/glitch-object-function-arduino.cc \
                   Source/Arduino/glitch-object-logical-operator-arduino.cc \
 		  Source/Arduino/glitch-object-loop-arduino.cc \

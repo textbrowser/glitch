@@ -25,52 +25,28 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-analog-read-arduino.h"
+#ifndef _glitch_object_constant_arduino_h_
+#define _glitch_object_constant_arduino_h_
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
-(QWidget *parent):glitch_object_analog_read_arduino(1, parent)
+#include "glitch-object.h"
+#include "ui_glitch-object-constant-arduino.h"
+
+class glitch_object_constant_arduino: public glitch_object
 {
-}
+  Q_OBJECT
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
-{
-  m_type = "arduino-analogread";
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
-  prepareContextMenu();
-}
+ public:
+  glitch_object_constant_arduino(QWidget *parent);
+  glitch_object_constant_arduino(const quint64 id, QWidget *parent);
+  ~glitch_object_constant_arduino();
+  static glitch_object_constant_arduino *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
+  glitch_object_constant_arduino *clone(QWidget *parent) const;
+  void addActions(QMenu &menu);
+  void save(const QSqlDatabase &db, QString &error);
 
-glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
-{
-}
+ private:
+  Ui_glitch_object_constant_arduino m_ui;
+};
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
-clone(QWidget *parent) const
-{
-  auto *clone = new glitch_object_analog_read_arduino(parent);
-
-  clone->setStyleSheet(styleSheet());
-  return clone;
-}
-
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
-createFromValues(const QMap<QString, QVariant> &values,
-		 QString &error,
-		 QWidget *parent)
-{
-  Q_UNUSED(error);
-
-  auto *object = new glitch_object_analog_read_arduino
-    (values.value("myoid").toULongLong(), parent);
-
-  object->setProperties(values.value("properties").toString().split('&'));
-  object->setStyleSheet(values.value("stylesheet").toString());
-  return object;
-}
-
-void glitch_object_analog_read_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
+#endif
