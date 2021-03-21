@@ -102,6 +102,18 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
 {
+  if(m_editView)
+    {
+      disconnect(m_editView->scene(),
+		 SIGNAL(changed(void)),
+		 this,
+		 SLOT(slotAboutToShowEditMenu(void)));
+      disconnect(m_editView->scene(),
+		 SIGNAL(selectionChanged(void)),
+		 this,
+		 SLOT(slotAboutToShowEditMenu(void)));
+    }
+
   m_editView = view;
 
   if(m_editView)
@@ -109,13 +121,11 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
       connect(m_editView->scene(),
 	      SIGNAL(changed(void)),
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)),
-	      Qt::UniqueConnection);
+	      SLOT(slotAboutToShowEditMenu(void)));
       connect(m_editView->scene(),
 	      SIGNAL(selectionChanged(void)),
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)),
-	      Qt::UniqueConnection);
+	      SLOT(slotAboutToShowEditMenu(void)));
     }
 }
 
