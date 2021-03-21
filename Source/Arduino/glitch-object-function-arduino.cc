@@ -346,11 +346,13 @@ void glitch_object_function_arduino::declone(void)
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
-	  SIGNAL(changed(void)));
+	  SIGNAL(changed(void)),
+	  Qt::UniqueConnection);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  SLOT(slotReturnTypeChanged(void)));
+	  SLOT(slotReturnTypeChanged(void)),
+	  Qt::UniqueConnection);
   prepareContextMenu();
   prepareEditSignals();
 }
@@ -386,11 +388,13 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
-	  SIGNAL(changed(void)));
+	  SIGNAL(changed(void)),
+	  Qt::UniqueConnection);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  SLOT(slotReturnTypeChanged(void)));
+	  SLOT(slotReturnTypeChanged(void)),
+	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   prepareEditSignals();
