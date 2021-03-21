@@ -180,11 +180,6 @@ bool glitch_object_function_arduino::isClone(void) const
   return m_isFunctionClone;
 }
 
-bool glitch_object_function_arduino::isMandatory(void) const
-{
-  return false;
-}
-
 glitch_object_function_arduino *glitch_object_function_arduino::
 clone(QWidget *parent) const
 {

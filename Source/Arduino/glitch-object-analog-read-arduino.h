@@ -41,8 +41,6 @@ class glitch_object_analog_read_arduino: public glitch_object
   ~glitch_object_analog_read_arduino();
   static glitch_object_analog_read_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  bool hasView(void) const;
-  bool isMandatory(void) const;
   glitch_object_analog_read_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
 

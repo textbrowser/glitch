@@ -41,14 +41,15 @@ class glitch_object_block_comment_arduino: public glitch_object
   ~glitch_object_block_comment_arduino();
   static glitch_object_block_comment_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  bool hasView(void) const;
-  bool isMandatory(void) const;
   glitch_object_block_comment_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:
   Ui_glitch_object_block_comment_arduino m_ui;
+
+ private slots:
+  void slotTextChanged(void);
 };
 
 #endif

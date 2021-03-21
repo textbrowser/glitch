@@ -76,16 +76,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-bool glitch_object_logical_operator_arduino::hasView(void) const
-{
-  return false;
-}
-
-bool glitch_object_logical_operator_arduino::isMandatory(void) const
-{
-  return false;
-}
-
 void glitch_object_logical_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);

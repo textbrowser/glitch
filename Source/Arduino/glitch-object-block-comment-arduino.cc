@@ -28,12 +28,8 @@
 #include "glitch-object-block-comment-arduino.h"
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
-(QWidget *parent):glitch_object(parent)
+(QWidget *parent):glitch_object_block_comment_arduino(1, parent)
 {
-  m_type = "arduino-blockcomment";
-  m_ui.setupUi(this);
-  m_ui.comment->setAutoFillBackground(true);
-  prepareContextMenu();
 }
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
@@ -42,6 +38,10 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
   m_ui.comment->setAutoFillBackground(true);
+  connect(m_ui.comment,
+	  SIGNAL(textChanged(void)),
+	  this,
+	  SLOT(slotTextChanged(void)));
   prepareContextMenu();
 }
 
@@ -77,16 +77,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-bool glitch_object_block_comment_arduino::hasView(void) const
-{
-  return false;
-}
-
-bool glitch_object_block_comment_arduino::isMandatory(void) const
-{
-  return false;
-}
-
 void glitch_object_block_comment_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
@@ -104,4 +94,8 @@ void glitch_object_block_comment_arduino::save
 
   properties["comment"] = m_ui.comment->toPlainText().trimmed();
   glitch_object::saveProperties(properties, db, error);
+}
+
+void glitch_object_block_comment_arduino::slotTextChanged(void)
+{
 }

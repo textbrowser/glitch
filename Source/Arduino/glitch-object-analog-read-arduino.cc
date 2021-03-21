@@ -75,16 +75,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-bool glitch_object_analog_read_arduino::hasView(void) const
-{
-  return false;
-}
-
-bool glitch_object_analog_read_arduino::isMandatory(void) const
-{
-  return false;
-}
-
 void glitch_object_analog_read_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);

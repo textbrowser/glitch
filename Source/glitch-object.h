@@ -73,8 +73,8 @@ class glitch_object: public QWidget
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   virtual QString name(void) const;
-  virtual bool hasView(void) const = 0;
-  virtual bool isMandatory(void) const = 0;
+  virtual bool hasView(void) const;
+  virtual bool isMandatory(void) const;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual glitch_object_view *editView(void) const;
   virtual void addActions(QMenu &menu) = 0;

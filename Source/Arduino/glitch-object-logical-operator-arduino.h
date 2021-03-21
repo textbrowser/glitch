@@ -48,8 +48,6 @@ class glitch_object_logical_operator_arduino: public glitch_object
   ~glitch_object_logical_operator_arduino();
   static glitch_object_logical_operator_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  bool hasView(void) const;
-  bool isMandatory(void) const;
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
