@@ -37,7 +37,23 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 glitch_object_loop_arduino::glitch_object_loop_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  initialize(parent);
+  m_editView = new glitch_object_view
+    (glitch_common::ArduinoProject, m_id, m_undoStack, this);
+  m_editWindow = new glitch_object_edit_window(parent);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowTitle(tr("Glitch: loop()"));
+  m_editWindow->resize(600, 600);
+  m_properties[POSITION_LOCKED] = true;
+  m_type = "arduino-loop";
+  m_ui.setupUi(this);
+  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+  m_ui.label->setAutoFillBackground(true);
+  connect(m_editView,
+	  SIGNAL(changed(void)),
+	  this,
+	  SIGNAL(changed(void)));
+  prepareContextMenu();
 }
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()
@@ -79,32 +95,6 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   addDefaultActions(menu);
-}
-
-void glitch_object_loop_arduino::initialize(QWidget *parent)
-{
-  if(m_initialized)
-    return;
-  else
-    m_initialized = true;
-
-  m_editView = new glitch_object_view
-    (glitch_common::ArduinoProject, m_id, m_undoStack, this);
-  m_editWindow = new glitch_object_edit_window(parent);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  m_editWindow->setWindowTitle(tr("Glitch: loop()"));
-  m_editWindow->resize(600, 600);
-  m_properties[POSITION_LOCKED] = true;
-  m_type = "arduino-loop";
-  m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
-  connect(m_editView,
-	  SIGNAL(changed(void)),
-	  this,
-	  SIGNAL(changed(void)));
-  prepareContextMenu();
 }
 
 void glitch_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)

@@ -50,7 +50,6 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
   m_id = id;
-  m_initialized = false;
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
 

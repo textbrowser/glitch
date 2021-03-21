@@ -71,6 +71,7 @@ class glitch_object_function_arduino: public glitch_object
   QString m_previousReturnType;
   QTimer m_findParentFunctionTimer;
   Ui_glitch_object_function_arduino m_ui;
+  bool m_initialized;
   bool m_isFunctionClone;
   glitch_object_function_arduino *findParentFunction(void) const;
   void initialize(QWidget *parent);

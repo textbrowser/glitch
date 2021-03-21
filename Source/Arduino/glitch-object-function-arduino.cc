@@ -41,6 +41,7 @@
 glitch_object_function_arduino::glitch_object_function_arduino
 (QWidget *parent):glitch_object(parent)
 {
+  m_initialized = false;
   initialize(parent);
 
   if(parent)
@@ -118,6 +119,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       ** parent is a glitch_view.
       */
 
+      m_initialized = false;
       initialize(parent);
       m_parentView = qobject_cast<glitch_view_arduino *> (parent);
     }
