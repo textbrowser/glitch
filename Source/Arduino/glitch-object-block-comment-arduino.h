@@ -44,6 +44,7 @@ class glitch_object_block_comment_arduino: public glitch_object
   glitch_object_block_comment_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
+  void setProperty(const Properties property, const QVariant &value);
 
  private:
   Ui_glitch_object_block_comment_arduino m_ui;

@@ -78,7 +78,7 @@ glitch_undo_command::glitch_undo_command
 
   switch(type)
     {
-    case FUNCTION_RENAMED:
+    case Types::FUNCTION_RENAMED:
       {
 	if(m_object)
 	  m_currentFunctionName = object->name();
@@ -86,7 +86,7 @@ glitch_undo_command::glitch_undo_command
 	m_previousFunctionName = previousFunctionValue;
 	break;
       }
-    case FUNCTION_RETURN_TYPE_CHANGED:
+    case Types::FUNCTION_RETURN_TYPE_CHANGED:
       {
 	if(qobject_cast<glitch_object_function_arduino *> (m_object))
 	  m_currentFunctionReturnType =
@@ -157,14 +157,14 @@ void glitch_undo_command::redo(void)
 {
   switch(m_type)
     {
-    case CANVAS_SETTINGS_CHANGED:
+    case Types::CANVAS_SETTINGS_CHANGED:
       {
 	if(m_canvasSettings)
 	  m_canvasSettings->setSettings(m_currentCanvasSettings);
 
 	break;
       }
-    case FUNCTION_RENAMED:
+    case Types::FUNCTION_RENAMED:
       {
 	if(m_object && m_userFunctions)
 	  {
@@ -175,7 +175,7 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case FUNCTION_RETURN_TYPE_CHANGED:
+    case Types::FUNCTION_RETURN_TYPE_CHANGED:
       {
 	if(qobject_cast<glitch_object_function_arduino *> (m_object))
 	  qobject_cast<glitch_object_function_arduino *> (m_object)->
@@ -183,7 +183,7 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case ITEM_ADDED:
+    case Types::ITEM_ADDED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -194,7 +194,7 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case ITEM_DELETED:
+    case Types::ITEM_DELETED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -212,7 +212,7 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case ITEM_MOVED:
+    case Types::ITEM_MOVED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -222,14 +222,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case PROPERTY_CHANGED:
+    case Types::PROPERTY_CHANGED:
       {
 	if(m_object)
 	  m_object->setProperty(m_property, m_currentProperty);
 
 	break;
       }
-    case STYLESHEET_CHANGED:
+    case Types::STYLESHEET_CHANGED:
       {
 	if(m_object)
 	  m_object->setStyleSheet(m_currentStyleSheet);
@@ -247,14 +247,14 @@ void glitch_undo_command::undo(void)
 {
   switch(m_type)
     {
-    case CANVAS_SETTINGS_CHANGED:
+    case Types::CANVAS_SETTINGS_CHANGED:
       {
 	if(m_canvasSettings)
 	  m_canvasSettings->setSettings(m_previousCanvasSettings);
 
 	break;
       }
-    case FUNCTION_RENAMED:
+    case Types::FUNCTION_RENAMED:
       {
 	if(m_object && m_userFunctions)
 	  {
@@ -265,7 +265,7 @@ void glitch_undo_command::undo(void)
 
 	break;
       }
-    case FUNCTION_RETURN_TYPE_CHANGED:
+    case Types::FUNCTION_RETURN_TYPE_CHANGED:
       {
 	if(qobject_cast<glitch_object_function_arduino *> (m_object))
 	  qobject_cast<glitch_object_function_arduino *> (m_object)->
@@ -273,7 +273,7 @@ void glitch_undo_command::undo(void)
 
 	break;
       }
-    case ITEM_ADDED:
+    case Types::ITEM_ADDED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -283,7 +283,7 @@ void glitch_undo_command::undo(void)
 
 	break;
       }
-    case ITEM_DELETED:
+    case Types::ITEM_DELETED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -293,7 +293,7 @@ void glitch_undo_command::undo(void)
 
 	break;
       }
-    case ITEM_MOVED:
+    case Types::ITEM_MOVED:
       {
 	if(m_proxy && m_scene)
 	  {
@@ -303,14 +303,14 @@ void glitch_undo_command::undo(void)
 
 	break;
       }
-    case PROPERTY_CHANGED:
+    case Types::PROPERTY_CHANGED:
       {
 	if(m_object)
 	  m_object->setProperty(m_property, m_previousProperty);
 
 	break;
       }
-    case STYLESHEET_CHANGED:
+    case Types::STYLESHEET_CHANGED:
       {
 	if(m_object)
 	  m_object->setStyleSheet(m_previousStyleSheet);

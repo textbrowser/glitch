@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-block-comment-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (QWidget *parent):glitch_object_block_comment_arduino(1, parent)
@@ -56,7 +57,9 @@ clone(QWidget *parent) const
   auto *clone = new glitch_object_block_comment_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
+  clone->m_ui.comment->blockSignals(true);
   clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
+  clone->m_ui.comment->blockSignals(false);
   return clone;
 }
 
@@ -72,8 +75,10 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_ui.comment->blockSignals(true);
   object->m_ui.comment->setPlainText
     (object->m_properties.value(COMMENT).toString().trimmed());
+  object->m_ui.comment->blockSignals(false);
   return object;
 }
 
@@ -96,6 +101,29 @@ void glitch_object_block_comment_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
+void glitch_object_block_comment_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::COMMENT:
+      {
+	m_ui.comment->blockSignals(true);
+	m_ui.comment->setPlainText
+	  (m_properties.value(COMMENT).toString().trimmed());
+	m_ui.comment->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
+  emit changed();
 }

@@ -34,6 +34,9 @@
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
+     <property name="undoRedoEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
