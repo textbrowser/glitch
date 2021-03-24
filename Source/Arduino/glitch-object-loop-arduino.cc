@@ -44,7 +44,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: loop()"));
   m_editWindow->resize(600, 600);
-  m_properties[POSITION_LOCKED] = true;
+  m_properties[Properties::POSITION_LOCKED] = true;
   m_type = "arduino-loop";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);

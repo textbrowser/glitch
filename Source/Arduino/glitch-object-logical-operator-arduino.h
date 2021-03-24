@@ -36,7 +36,7 @@ class glitch_object_logical_operator_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  enum OperatorType
+  enum OperatorTypes
   {
     AND_OPERATOR = 0,
     NOT_OPERATOR,
@@ -51,11 +51,11 @@ class glitch_object_logical_operator_arduino: public glitch_object
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
-  void setOperatorType(const OperatorType operatorType);
+  void setOperatorType(const OperatorTypes operatorType);
   void setOperatorType(const QString &operatorType);
 
  private:
-  OperatorType m_operatorType;
+  OperatorTypes m_operatorType;
   Ui_glitch_object_logical_operator_arduino m_ui;
 };
 

@@ -35,7 +35,7 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_operatorType = AND_OPERATOR;
+  m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
@@ -99,26 +99,26 @@ void glitch_object_logical_operator_arduino::setOperatorType
 (const QString &operatorType)
 {
   if(operatorType.contains("!"))
-    setOperatorType(OperatorType::NOT_OPERATOR);
+    setOperatorType(OperatorTypes::NOT_OPERATOR);
   else if(operatorType.contains("||"))
-    setOperatorType(OperatorType::OR_OPERATOR);
+    setOperatorType(OperatorTypes::OR_OPERATOR);
   else
-    setOperatorType(OperatorType::AND_OPERATOR);
+    setOperatorType(OperatorTypes::AND_OPERATOR);
 }
 
 void glitch_object_logical_operator_arduino::setOperatorType
-(const OperatorType operatorType)
+(const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
 
   switch(m_operatorType)
     {
-    case NOT_OPERATOR:
+    case OperatorTypes::NOT_OPERATOR:
       {
 	m_ui.label->setText("!");
 	break;
       }
-    case OR_OPERATOR:
+    case OperatorTypes::OR_OPERATOR:
       {
 	m_ui.label->setText("||");
 	break;
