@@ -57,28 +57,52 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   ** Create the list.
   */
 
+  int i = 0;
+
   m_ui.categories->addItem(tr("Advanced I/O"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Advanced I/O");
   m_ui.categories->addItem(tr("Analog I/O"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Analog I/O");
   m_ui.categories->addItem(tr("Arithmetic Operators"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Arithmetic Operators");
   m_ui.categories->addItem(tr("Bits and Bytes"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Bits and Bytes");
   m_ui.categories->addItem(tr("Bitwise Operators"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Bitwise Operators");
   m_ui.categories->addItem(tr("Comparison Operators"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Comparison Operators");
   m_ui.categories->addItem(tr("Compound Operators"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Compound Operators");
   m_ui.categories->addItem(tr("Constants"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Constants");
   m_ui.categories->addItem(tr("Conversions"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Conversions");
   m_ui.categories->addItem(tr("Digital I/O"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Digital I/O");
   m_ui.categories->addItem(tr("External Interrupts"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "External Interrupts");
   m_ui.categories->addItem(tr("Flow Control"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Flow Control");
   m_ui.categories->addItem(tr("Interrupts"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Interrupts");
   m_ui.categories->addItem(tr("Logical Operators"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Logical Operators");
   m_ui.categories->addItem(tr("Mathematics"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Mathematics");
   m_ui.categories->addItem(tr("Random"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Random");
   m_ui.categories->addItem(tr("Serial"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Serial");
   m_ui.categories->addItem(tr("Structures"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Structures");
   m_ui.categories->addItem(tr("Time"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Time");
   m_ui.categories->addItem(tr("Trigonometry"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Trigonometry");
   m_ui.categories->addItem(tr("Utilities"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Utilities");
   m_ui.categories->addItem(tr("Variables"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Variables");
 
   if(s_itemsForCategories.isEmpty())
     {
@@ -233,7 +257,7 @@ QStringList glitch_structures_arduino::structureNames(void)
     {
       it.next();
 
-      const QStringList &list(it.value());
+      const auto &list(it.value());
 
       for(const auto &i : list)
 	s_structureNamesMap[QString("arduino-%1").arg(i)] = 0;
@@ -270,7 +294,7 @@ QStringList glitch_structures_arduino::types(void)
 
 bool glitch_structures_arduino::containsStructure(const QString &structureName)
 {
-  foreach(const auto &i, structureNames())
+  foreach(auto const &i, structureNames())
     if(i.toLower() == structureName.toLower())
       return true;
 
@@ -283,12 +307,14 @@ void glitch_structures_arduino::slotCategorySelected(void)
   ** Let's create the tree.
   */
 
-  QList<QListWidgetItem *> items(m_ui.categories->selectedItems());
+  auto items(m_ui.categories->selectedItems());
 
-  if(items.isEmpty())
+  if(items.isEmpty() || !items.at(0))
     return;
 
   m_ui.tree->clear();
+  m_ui.tree->setCategory(items.at(0)->data(Qt::UserRole).toString());
+  m_ui.tree->setHeaderLabel(items.at(0)->text());
 
   QStringList list;
   int row = m_ui.categories->row(items.at(0));

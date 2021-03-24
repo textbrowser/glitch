@@ -39,9 +39,11 @@ class glitch_structures_treewidget: public QTreeWidget
  public:
   glitch_structures_treewidget(QWidget *parent);
   ~glitch_structures_treewidget();
+  void setCategory(const QString &category);
   void setProjectType(const glitch_common::ProjectType projectType);
 
  private:
+  QString m_category;
   glitch_common::ProjectType m_projectType;
   void startDrag(Qt::DropActions supportedActions);
 };

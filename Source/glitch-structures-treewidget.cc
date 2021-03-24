@@ -41,6 +41,11 @@ glitch_structures_treewidget::
 {
 }
 
+void glitch_structures_treewidget::setCategory(const QString &category)
+{
+  m_category = category.trimmed();
+}
+
 void glitch_structures_treewidget::setProjectType
 (const glitch_common::ProjectType projectType)
 {
@@ -61,9 +66,9 @@ void glitch_structures_treewidget::startDrag
   auto mimeData = new QMimeData();
 
   if(m_projectType == glitch_common::ArduinoProject)
-    mimeData->setText("glitch-arduino-" + item->text(0));
+    mimeData->setText("glitch-arduino-" + m_category + "-" + item->text(0));
   else
-    mimeData->setText("glitch-" + item->text(0));
+    mimeData->setText("glitch-" + m_category + "-" + item->text(0));
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::CopyAction);

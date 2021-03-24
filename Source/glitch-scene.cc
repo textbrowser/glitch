@@ -35,6 +35,7 @@
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
+#include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
@@ -106,6 +107,8 @@ bool glitch_scene::allowDrag
   else
     {
       auto text(t.trimmed().remove("glitch-"));
+
+      text.remove(text.indexOf('-') + 1, text.lastIndexOf('-') - 7);
 
       if(m_mainScene)
 	{
@@ -497,16 +500,25 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
   if(event && event->mimeData())
     {
       auto text(event->mimeData()->text().toLower().trimmed());
+
       glitch_object *object = nullptr;
 
       if(allowDrag(event, text))
 	{
 	  auto view = views().value(0);
 
+	  if(!text.startsWith("glitch-arduino-function"))
+	    {
+	      text = text.mid(15);
+
+	      if(text.indexOf('-') >= 0)
+		text = text.mid(text.indexOf('-'));
+
+	      text.prepend("glitch-arduino");
+	    }
+
 	  if(text.startsWith("glitch-arduino-analogread()"))
 	    object = new glitch_object_analog_read_arduino(view);
-	  else if(text.startsWith("glitch-arduino-block comment"))
-	    object = new glitch_object_block_comment_arduino(view);
 	  else if(text.startsWith("glitch-arduino-and (&&)") ||
 		  text.startsWith("glitch-arduino-not (!)") ||
 		  text.startsWith("glitch-arduino-or (||)"))
@@ -518,6 +530,10 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		qobject_cast<glitch_object_logical_operator_arduino *>
 		  (object)->setOperatorType(text);
 	    }
+	  else if(text.startsWith("glitch-arduino-block comment"))
+	    object = new glitch_object_block_comment_arduino(view);
+	  else if(text.startsWith("glitch-arduino-constant"))
+	    object = new glitch_object_constant_arduino(view);
 	  else if(text.startsWith("glitch-arduino-function"))
 	    {
 	      if(text == "glitch-arduino-function()")
