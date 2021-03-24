@@ -92,10 +92,10 @@ settings(void) const
 {
   QHash<Settings, QVariant> hash;
 
-  hash[CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
-  hash[CANVAS_NAME] = name();
-  hash[REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
-  hash[VIEW_UPDATE_MODE] = viewportUpdateMode();
+  hash[Settings::CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
+  hash[Settings::CANVAS_NAME] = name();
+  hash[Settings::REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
+  hash[Settings::VIEW_UPDATE_MODE] = viewportUpdateMode();
   return hash;
 }
 

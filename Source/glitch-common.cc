@@ -44,7 +44,7 @@ QString glitch_common::projectTypeToString(const ProjectType projectType)
 {
   switch(projectType)
     {
-    case ArduinoProject:
+    case ProjectType::ArduinoProject:
       return "ArduinoProject";
     default:
       return "";

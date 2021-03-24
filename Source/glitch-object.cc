@@ -257,7 +257,7 @@ void glitch_object::move(int x, int y)
   if(m_properties.value(Properties::POSITION_LOCKED).toBool())
     return;
 
-  bool isChanged = false;
+  auto isChanged = false;
 
   if(pos().x() != x || pos().y() != y)
     isChanged = true;
@@ -313,7 +313,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 				   const QSqlDatabase &db,
 				   QString &error)
 {
-  QMap<QString, QVariant> properties(p);
+  auto properties(p);
 
   properties["position_locked"] = m_properties.value
     (Properties::POSITION_LOCKED).toBool();
@@ -354,7 +354,7 @@ void glitch_object::setProperties(const QStringList &list)
 {
   for(int i = 0; i < list.size(); i++)
     {
-      QString string(list.at(i));
+      auto string(list.at(i));
 
       if(string.startsWith("comment = "))
 	{
@@ -460,7 +460,7 @@ void glitch_object::slotLockPosition(void)
 void glitch_object::slotSetStyleSheet(void)
 {
   QScopedPointer<glitch_style_sheet> dialog(new glitch_style_sheet(m_parent));
-  QString string(styleSheet());
+  auto string(styleSheet());
 
   dialog->setWidget(this);
   QApplication::processEvents();
