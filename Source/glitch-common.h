@@ -33,14 +33,14 @@
 class glitch_common
 {
  public:
-  enum ProjectType
+  enum ProjectTypes
   {
     ArduinoProject = 0,
     XYZProject
   };
 
   static QSqlDatabase sqliteDatabase(void);
-  static QString projectTypeToString(const ProjectType projectType);
+  static QString projectTypeToString(const ProjectTypes projectType);
   static void discardDatabase(const QString &connectioName);
 
  private:

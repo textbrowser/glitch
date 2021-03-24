@@ -44,7 +44,7 @@ class glitch_object_view: public QGraphicsView
   Q_OBJECT
 
  public:
-  glitch_object_view(const glitch_common::ProjectType projectType,
+  glitch_object_view(const glitch_common::ProjectTypes projectType,
 		     const quint64 id,
 		     QUndoStack *undoStack,
 		     QWidget *parent);
@@ -59,7 +59,7 @@ class glitch_object_view: public QGraphicsView
  private:
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_alignment> m_alignment;
-  glitch_common::ProjectType m_projectType;
+  glitch_common::ProjectTypes m_projectType;
   glitch_scene *m_scene;
   quint64 m_id;
   void adjustScrollBars(void);

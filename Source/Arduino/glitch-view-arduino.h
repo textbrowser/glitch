@@ -42,7 +42,7 @@ class glitch_view_arduino: public glitch_view
   glitch_view_arduino(const QString &fileName,
 		      const QString &name,
 		      const bool fromFile,
-		      const glitch_common::ProjectType projectType,
+		      const glitch_common::ProjectTypes projectType,
 		      QWidget *parent);
   ~glitch_view_arduino();
   QString nextUniqueFunctionName(void) const;

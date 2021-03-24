@@ -110,7 +110,7 @@ void glitch_user_functions::renameFunction(const QString &before,
 }
 
 void glitch_user_functions::setProjectType
-(const glitch_common::ProjectType projectType)
+(const glitch_common::ProjectTypes projectType)
 {
   m_ui.functions->setProjectType(projectType);
 }

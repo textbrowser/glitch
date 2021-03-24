@@ -42,7 +42,7 @@ glitch_user_functions_tablewidget::
 }
 
 void glitch_user_functions_tablewidget::setProjectType
-(const glitch_common::ProjectType projectType)
+(const glitch_common::ProjectTypes projectType)
 {
   m_projectType = projectType;
 }
@@ -60,7 +60,7 @@ void glitch_user_functions_tablewidget::startDrag
   auto drag = new QDrag(this);
   auto mimeData = new QMimeData();
 
-  if(m_projectType == glitch_common::ArduinoProject)
+  if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
     mimeData->setText("glitch-arduino-function-" + item->text());
   else
     mimeData->setText("glitch-function-" + item->text());

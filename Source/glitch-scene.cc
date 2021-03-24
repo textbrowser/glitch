@@ -44,7 +44,7 @@
 #include "glitch-undo-command.h"
 #include "glitch-graphicsview.h"
 
-glitch_scene::glitch_scene(const glitch_common::ProjectType projectType,
+glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
   m_mainScene = false;
@@ -127,7 +127,7 @@ bool glitch_scene::allowDrag
 	{
 	  switch(m_projectType)
 	    {
-	    case glitch_common::ArduinoProject:
+	    case glitch_common::ProjectTypes::ArduinoProject:
 	      {
 		if(glitch_structures_arduino::containsStructure(text))
 		  /*

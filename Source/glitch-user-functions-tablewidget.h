@@ -39,10 +39,10 @@ class glitch_user_functions_tablewidget: public QTableWidget
  public:
   glitch_user_functions_tablewidget(QWidget *parent);
   ~glitch_user_functions_tablewidget();
-  void setProjectType(const glitch_common::ProjectType projectType);
+  void setProjectType(const glitch_common::ProjectTypes projectType);
 
  private:
-  glitch_common::ProjectType m_projectType;
+  glitch_common::ProjectTypes m_projectType;
   void startDrag(Qt::DropActions supportedActions);
 };
 

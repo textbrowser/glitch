@@ -43,7 +43,7 @@ class glitch_scene: public QGraphicsScene
   Q_OBJECT
 
  public:
-  glitch_scene(const glitch_common::ProjectType projectType, QObject *parent);
+  glitch_scene(const glitch_common::ProjectTypes projectType, QObject *parent);
   ~glitch_scene();
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
@@ -63,7 +63,7 @@ class glitch_scene: public QGraphicsScene
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;
-  glitch_common::ProjectType m_projectType;
+  glitch_common::ProjectTypes m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);

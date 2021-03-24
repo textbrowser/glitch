@@ -51,7 +51,7 @@ class glitch_view: public QWidget
  public:
   glitch_view(const QString &fileName,
 	      const QString &name,
-	      const glitch_common::ProjectType projectType,
+	      const glitch_common::ProjectTypes projectType,
 	      QWidget *parent);
   virtual ~glitch_view();
   QAction *menuAction(void) const;
@@ -69,7 +69,7 @@ class glitch_view: public QWidget
   bool hasChanged(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
-  glitch_common::ProjectType projectType(void) const;
+  glitch_common::ProjectTypes projectType(void) const;
   glitch_graphicsview *view(void) const;
   glitch_scene *scene(void) const;
   quint64 nextId(void) const;
@@ -99,7 +99,7 @@ class glitch_view: public QWidget
   Ui_glitch_view m_ui;
   bool m_changed;
   glitch_canvas_settings *m_canvasSettings;
-  glitch_common::ProjectType m_projectType;
+  glitch_common::ProjectTypes m_projectType;
   glitch_graphicsview *m_view;
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;

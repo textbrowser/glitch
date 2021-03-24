@@ -43,7 +43,7 @@ class glitch_user_functions: public QDialog
   void addFunction(const QString &name);
   void deleteFunction(const QString &name);
   void renameFunction(const QString &before, const QString &after);
-  void setProjectType(const glitch_common::ProjectType projectType);
+  void setProjectType(const glitch_common::ProjectTypes projectType);
 
  private:
   Ui_glitch_user_functions m_ui;

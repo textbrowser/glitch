@@ -38,7 +38,7 @@
 #include "glitch-view.h"
 
 glitch_object_view::glitch_object_view
-(const glitch_common::ProjectType projectType,
+(const glitch_common::ProjectTypes projectType,
  const quint64 id,
  QUndoStack *undoStack,
  QWidget *parent):QGraphicsView(parent)

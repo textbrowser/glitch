@@ -258,11 +258,15 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
       (glitch_misc::homePath() + QDir::separator() + name + ".db",
        name,
        fromFile,
-       glitch_common::ArduinoProject,
+       glitch_common::ProjectTypes::ArduinoProject,
        this);
   else
     view = new glitch_view_arduino
-      (fileName, name, fromFile, glitch_common::ArduinoProject, this);
+      (fileName,
+       name,
+       fromFile,
+       glitch_common::ProjectTypes::ArduinoProject,
+       this);
 
   connect(view,
 	  SIGNAL(changed(void)),
@@ -1115,7 +1119,7 @@ void glitch_ui::slotPageSelected(int index)
   if(m_currentView)
     switch(m_currentView->projectType())
       {
-      case glitch_common::ArduinoProject:
+      case glitch_common::ProjectTypes::ArduinoProject:
 	{
 	  m_ui.action_Structures->setText(tr("Arduino &Structures..."));
 	  break;

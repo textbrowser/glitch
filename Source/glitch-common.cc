@@ -40,11 +40,11 @@ QSqlDatabase glitch_common::sqliteDatabase(void)
   return db;
 }
 
-QString glitch_common::projectTypeToString(const ProjectType projectType)
+QString glitch_common::projectTypeToString(const ProjectTypes projectType)
 {
   switch(projectType)
     {
-    case ProjectType::ArduinoProject:
+    case ProjectTypes::ArduinoProject:
       return "ArduinoProject";
     default:
       return "";

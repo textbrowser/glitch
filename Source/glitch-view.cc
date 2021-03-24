@@ -50,7 +50,7 @@
 glitch_view::glitch_view
 (const QString &fileName,
  const QString &name,
- const glitch_common::ProjectType projectType,
+ const glitch_common::ProjectTypes projectType,
  QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
@@ -194,7 +194,7 @@ QMenu *glitch_view::defaultContextMenu(void)
 		  this,
 		  SLOT(slotShowAlignmentTool(void)));
 
-  if(m_projectType == glitch_common::ArduinoProject)
+  if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
     menu->addAction(tr("Arduino Structures..."),
 		    this,
 		    SIGNAL(showStructures(void)));
@@ -472,7 +472,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   return ok;
 }
 
-glitch_common::ProjectType glitch_view::projectType(void) const
+glitch_common::ProjectTypes glitch_view::projectType(void) const
 {
   return m_projectType;
 }

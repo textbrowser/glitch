@@ -42,7 +42,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   */
 
   m_ui.setupUi(this);
-  m_ui.tree->setProjectType(glitch_common::ArduinoProject);
+  m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
