@@ -41,7 +41,7 @@ class glitch_alignment: public QDialog
   ~glitch_alignment();
 
  private:
-  enum AlignmentType
+  enum AlignmentTypes
   {
     ALIGN_BOTTOM = 0,
     ALIGN_CENTER_HORIZONTAL,
@@ -51,15 +51,15 @@ class glitch_alignment: public QDialog
     ALIGN_TOP
   };
 
-  enum StackType
+  enum StackTypes
   {
     HORIZONTAL_STACK = 0,
     VERTICAL_STACK
   };
 
   Ui_glitch_alignment m_ui;
-  void align(const AlignmentType alignmentType);
-  void stack(const StackType stackType);
+  void align(const AlignmentTypes alignmentType);
+  void stack(const StackTypes stackType);
 
  private slots:
   void slotAlign(void);

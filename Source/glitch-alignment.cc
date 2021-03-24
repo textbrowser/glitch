@@ -99,7 +99,7 @@ glitch_alignment::~glitch_alignment()
 {
 }
 
-void glitch_alignment::align(const AlignmentType alignmentType)
+void glitch_alignment::align(const AlignmentTypes alignmentType)
 {
   auto view = qobject_cast<glitch_view *> (parentWidget());
 
@@ -120,29 +120,29 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
   switch(alignmentType)
     {
-    case AlignmentType::ALIGN_BOTTOM:
+    case AlignmentTypes::ALIGN_BOTTOM:
       {
 	y = 0;
 	break;
       }
-    case AlignmentType::ALIGN_CENTER_HORIZONTAL:
-    case AlignmentType::ALIGN_CENTER_VERTICAL:
+    case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+    case AlignmentTypes::ALIGN_CENTER_VERTICAL:
       {
 	maxP.first = maxP.second = 0;
 	minP.first = minP.second = std::numeric_limits<int>::max();
 	break;
       }
-    case AlignmentType::ALIGN_LEFT:
+    case AlignmentTypes::ALIGN_LEFT:
       {
 	x = std::numeric_limits<int>::max();
 	break;
       }
-    case AlignmentType::ALIGN_RIGHT:
+    case AlignmentTypes::ALIGN_RIGHT:
       {
 	x = 0;
 	break;
       }
-    case AlignmentType::ALIGN_TOP:
+    case AlignmentTypes::ALIGN_TOP:
       {
 	y = std::numeric_limits<int>::max();
 	break;
@@ -175,14 +175,14 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
       switch(alignmentType)
 	{
-	case AlignmentType::ALIGN_BOTTOM:
+	case AlignmentTypes::ALIGN_BOTTOM:
 	  {
 	    x = object->pos().x();
 	    y = qMax(y, object->height() + object->pos().y());
 	    break;
 	  }
-	case AlignmentType::ALIGN_CENTER_HORIZONTAL:
-	case AlignmentType::ALIGN_CENTER_VERTICAL:
+	case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+	case AlignmentTypes::ALIGN_CENTER_VERTICAL:
 	  {
 	    maxP.first = qMax
 	      (maxP.first, object->pos().x() + object->width());
@@ -192,19 +192,19 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 	    minP.second = qMin(minP.second, object->pos().y());
 	    break;
 	  }
-	case AlignmentType::ALIGN_LEFT:
+	case AlignmentTypes::ALIGN_LEFT:
 	  {
 	    x = qMin(x, object->pos().x());
 	    y = object->pos().y();
 	    break;
 	  }
-	case AlignmentType::ALIGN_RIGHT:
+	case AlignmentTypes::ALIGN_RIGHT:
 	  {
 	    x = qMax(x, object->pos().x() + object->width());
 	    y = object->pos().y();
 	    break;
 	  }
-	case AlignmentType::ALIGN_TOP:
+	case AlignmentTypes::ALIGN_TOP:
 	  {
 	    x = object->pos().x();
 	    y = qMin(y, object->pos().y());
@@ -221,7 +221,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
       switch(alignmentType)
 	{
-	case AlignmentType::ALIGN_BOTTOM:
+	case AlignmentTypes::ALIGN_BOTTOM:
 	  {
 	    if(y != object->height() + object->pos().y())
 	      {
@@ -231,15 +231,15 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
 	    break;
 	  }
-	case AlignmentType::ALIGN_CENTER_HORIZONTAL:
-	case AlignmentType::ALIGN_CENTER_VERTICAL:
+	case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+	case AlignmentTypes::ALIGN_CENTER_VERTICAL:
 	  {
 	    QRect rect(QPoint(minP.first, minP.second),
 		       QPoint(maxP.first, maxP.second));
 
 	    point = object->pos();
 
-	    if(alignmentType == ALIGN_CENTER_HORIZONTAL)
+	    if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
 	      object->move
 		(object->pos().x(), rect.center().y() - object->height() / 2);
 	    else
@@ -248,7 +248,7 @@ void glitch_alignment::align(const AlignmentType alignmentType)
 
 	    break;
 	  }
-	case AlignmentType::ALIGN_RIGHT:
+	case AlignmentTypes::ALIGN_RIGHT:
 	  {
 	    if(x != object->pos().x() + object->width())
 	      {
@@ -305,17 +305,17 @@ void glitch_alignment::slotAlign(void)
   auto toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.bottom_align == toolButton)
-    align(AlignmentType::ALIGN_BOTTOM);
+    align(AlignmentTypes::ALIGN_BOTTOM);
   else if(m_ui.horizontal_center_align == toolButton)
-    align(AlignmentType::ALIGN_CENTER_HORIZONTAL);
+    align(AlignmentTypes::ALIGN_CENTER_HORIZONTAL);
   else if(m_ui.left_align == toolButton)
-    align(AlignmentType::ALIGN_LEFT);
+    align(AlignmentTypes::ALIGN_LEFT);
   else if(m_ui.right_align == toolButton)
-    align(AlignmentType::ALIGN_RIGHT);
+    align(AlignmentTypes::ALIGN_RIGHT);
   else if(m_ui.top_align == toolButton)
-    align(AlignmentType::ALIGN_TOP);
+    align(AlignmentTypes::ALIGN_TOP);
   else if(m_ui.vertical_center_align == toolButton)
-    align(AlignmentType::ALIGN_CENTER_VERTICAL);
+    align(AlignmentTypes::ALIGN_CENTER_VERTICAL);
 }
 
 void glitch_alignment::slotStack(void)
@@ -323,12 +323,12 @@ void glitch_alignment::slotStack(void)
   auto toolButton = qobject_cast<QToolButton *> (sender());
 
   if(m_ui.horizontal_stack == toolButton)
-    stack(StackType::HORIZONTAL_STACK);
+    stack(StackTypes::HORIZONTAL_STACK);
   else if(m_ui.vertical_stack == toolButton)
-    stack(StackType::VERTICAL_STACK);
+    stack(StackTypes::VERTICAL_STACK);
 }
 
-void glitch_alignment::stack(const StackType stackType)
+void glitch_alignment::stack(const StackTypes stackType)
 {
   auto view = qobject_cast<glitch_view *> (parentWidget());
 
@@ -368,7 +368,7 @@ void glitch_alignment::stack(const StackType stackType)
       return;
     }
 
-  if(stackType == StackType::HORIZONTAL_STACK)
+  if(stackType == StackTypes::HORIZONTAL_STACK)
     std::sort(list2.begin(), list2.end(), x_coordinate_less_than);
   else
     std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
@@ -376,7 +376,7 @@ void glitch_alignment::stack(const StackType stackType)
   auto began = false;
   int coordinate = 0;
 
-  if(stackType == StackType::HORIZONTAL_STACK)
+  if(stackType == StackTypes::HORIZONTAL_STACK)
     coordinate = list2.at(0)->pos().x();
   else
     coordinate = list2.at(0)->pos().y();
@@ -388,7 +388,7 @@ void glitch_alignment::stack(const StackType stackType)
 
       QPoint point;
 
-      if(stackType == StackType::HORIZONTAL_STACK)
+      if(stackType == StackTypes::HORIZONTAL_STACK)
         {
 	  if(widget->proxy()->isMovable())
 	    {
