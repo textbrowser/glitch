@@ -137,7 +137,7 @@ bool glitch_object::positionLocked(void) const
 glitch_object *glitch_object::createFromValues
 (const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
 {
-  QString type(values.value("type").toString().toLower().trimmed());
+  auto type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
 
   if(type == "arduino-analogread")

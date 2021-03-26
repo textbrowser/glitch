@@ -293,10 +293,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	     SLOT(slotChanged(void)));
 
   QString connectionName("");
-  bool ok = true;
+  auto ok = true;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(fileName);
@@ -316,10 +316,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	    while(query.next())
 	      {
 		QMap<QString, QVariant> values;
-		QString point(query.value(2).toString().trimmed());
-		QString properties(query.value(3).toString().trimmed());
-		QString type(query.value(5).toString().toLower().trimmed());
-		quint64 id = query.value(0).toULongLong();
+		auto id = query.value(0).toULongLong();
+		auto point(query.value(2).toString().trimmed());
+		auto properties(query.value(3).toString().trimmed());
+		auto type(query.value(5).toString().toLower().trimmed());
 
 		values["myoid"] = id;
 		values["parentId"] = query.value(1).toLongLong();
@@ -405,7 +405,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   bool ok = true;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(fileName);
@@ -438,7 +438,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	query.exec("DELETE FROM objects");
 	query.exec("DELETE FROM wires");
 
-	QList<QGraphicsItem *> list(m_scene->items());
+	auto list(m_scene->items());
 
 	for(auto i : list)
 	  {
@@ -493,7 +493,7 @@ quint64 glitch_view::nextId(void) const
   quint64 id = 0;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(m_fileName);
@@ -504,7 +504,7 @@ quint64 glitch_view::nextId(void) const
 
 	if(query.exec("INSERT INTO sequence VALUES (NULL)"))
 	  {
-	    QVariant variant(query.lastInsertId());
+	    auto variant(query.lastInsertId());
 
 	    if(variant.isValid())
 	      {
@@ -563,7 +563,7 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
   QString connectionName("");
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(fileName);
@@ -654,7 +654,7 @@ void glitch_view::selectAll(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QList<QGraphicsItem *> list(m_scene->items());
+  auto list(m_scene->items());
 
   for(auto i : list)
     {
@@ -671,7 +671,7 @@ void glitch_view::setSceneRect(const QSize &size)
 {
   Q_UNUSED(size);
 
-  QRectF b(m_scene->itemsBoundingRect());
+  auto b(m_scene->itemsBoundingRect());
 
   b.setTopLeft(QPointF(0.0, 0.0));
   m_scene->setSceneRect

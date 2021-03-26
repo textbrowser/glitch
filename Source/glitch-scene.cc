@@ -156,7 +156,7 @@ bool glitch_scene::allowDrag
 
 	      if(item)
 		{
-		  QString text(item->data(Qt::UserRole).toString().toLower());
+		  auto text(item->data(Qt::UserRole).toString().toLower());
 
 		  if(text == "glitch-user-function")
 		    {

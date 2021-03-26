@@ -34,7 +34,7 @@
 
 QPointF glitch_misc::dbPointToPointF(const QString &text)
 {
-  QStringList list(QString(text).remove("(").remove(")").split(","));
+  auto list(QString(text).remove("(").remove(")").split(","));
 
   return {qAbs(list.value(0).toDouble()),
 	  qAbs(list.value(1).toDouble())};
@@ -42,7 +42,7 @@ QPointF glitch_misc::dbPointToPointF(const QString &text)
 
 QString glitch_misc::homePath(void)
 {
-  QByteArray homepath(qgetenv("GLITCH_HOME"));
+  auto homepath(qgetenv("GLITCH_HOME"));
 
   if(homepath.isEmpty())
 #ifdef Q_OS_WIN32

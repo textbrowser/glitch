@@ -182,10 +182,10 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
   QString connectionName("");
   QString name("");
   QString type("");
-  bool ok = true;
+  auto ok = true;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(fileName);
@@ -243,7 +243,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 {
   QApplication::processEvents();
 
-  QString name(n);
+  auto name(n);
 
   name.remove("(*)");
   name.replace(" ", "-");
@@ -380,7 +380,7 @@ void glitch_ui::copy(QGraphicsView *view)
       it.remove();
     }
 
-  QList<QGraphicsItem *> list(view->scene()->selectedItems());
+  auto list(view->scene()->selectedItems());
 
   for(auto i : list)
     {
@@ -406,7 +406,7 @@ void glitch_ui::copy(QGraphicsView *view)
 	continue;
 
       QPair<int, int> pair;
-      QPoint point(widget->scenePos().toPoint());
+      auto point(widget->scenePos().toPoint());
 
       pair.first = point.x();
       pair.second = point.y();
@@ -419,7 +419,7 @@ void glitch_ui::copy(QGraphicsView *view)
 void glitch_ui::parseCommandLineArguments(void)
 {
   QString errors("");
-  QStringList list(QApplication::arguments());
+  auto list(QApplication::arguments());
 
   for(int i = 1; i < list.size(); i++)
     if(list.at(i) == "--new-arduino-diagram")
@@ -483,8 +483,8 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
   QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
   QPoint first;
-  QPoint point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
-  bool f = false;
+  auto f = false;
+  auto point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
 
   undoStack->beginMacro(tr("widget(s) pasted"));
 
@@ -492,15 +492,15 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
     {
       it.next();
 
-      QPointer<glitch_object> object(it.value());
+      auto object(it.value());
 
       if(!object)
 	continue;
       else if(!(object = object->clone(view)))
 	continue;
 
-      int x = it.key().first;
-      int y = it.key().second;
+      auto x = it.key().first;
+      auto y = it.key().second;
 
       if(!f)
 	{
@@ -524,7 +524,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	}
       else
 	{
-	  QPoint p(point);
+	  auto p(point);
 
 	  p.setX(p.x() + x - first.x());
 
@@ -602,7 +602,7 @@ void glitch_ui::prepareRecentFiles(void)
   QStringList list;
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(m_recentFilesFileName);
@@ -709,7 +709,7 @@ void glitch_ui::saveRecentFile(const QString &fileName)
   QString connectionName("");
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     db.setDatabaseName(m_recentFilesFileName);
 
@@ -742,7 +742,7 @@ void glitch_ui::setTabText(glitch_view *view)
   if(!view)
     return;
 
-  int index = m_ui.tab->indexOf(view);
+  auto index = m_ui.tab->indexOf(view);
 
   if(view->hasChanged())
     m_ui.tab->setTabText(index, QString("%1 (*)").arg(view->name()));
@@ -858,7 +858,7 @@ void glitch_ui::slotClearRecentFiles(void)
   QString connectionName("");
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     db.setDatabaseName(m_recentFilesFileName);
 
@@ -986,10 +986,10 @@ void glitch_ui::slotNewArduinoDiagram(void)
   if(name.isEmpty())
     name = "Arduino-Diagram";
 
-  QString fileName(QString("%1%2%3.db").
-		   arg(glitch_misc::homePath()).
-		   arg(QDir::separator()).
-		   arg(name));
+  auto fileName(QString("%1%2%3.db").
+		arg(glitch_misc::homePath()).
+		arg(QDir::separator()).
+		arg(name));
 
   if(QFile::exists(fileName))
     {
@@ -1034,13 +1034,13 @@ void glitch_ui::slotOpenDiagram(void)
       dialog.close();
 
       QString errors("");
-      QStringList list(dialog.selectedFiles());
-      bool ok = true;
+      auto list(dialog.selectedFiles());
+      auto ok = true;
 
       for(int i = 0; i < list.size(); i++)
 	{
 	  QString error("");
-	  const QString &fileName(list.at(i));
+	  const auto &fileName(list.at(i));
 
 	  if(openDiagram(fileName, error))
 	    ok = true;

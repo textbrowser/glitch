@@ -185,7 +185,7 @@ bool glitch_object_function_arduino::isClone(void) const
 glitch_object_function_arduino *glitch_object_function_arduino::
 clone(QWidget *parent) const
 {
-  auto *clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
+  auto clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
 
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
@@ -198,7 +198,7 @@ createFromValues
 {
   Q_UNUSED(error);
 
-  auto *object = new glitch_object_function_arduino
+  auto object = new glitch_object_function_arduino
     (values.value("parentId").toLongLong(),
      values.value("myoid").toULongLong(),
      parent);
@@ -228,12 +228,12 @@ findParentFunction(void) const
 
   for(auto i : list)
     {
-      auto *proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
       if(!proxy)
 	continue;
 
-      auto *object = qobject_cast<glitch_object_function_arduino *>
+      auto object = qobject_cast<glitch_object_function_arduino *>
 	(proxy->widget());
 
       if(!object || object->isClone())
@@ -255,7 +255,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 {
   if(!m_actions.contains(DefaultMenuActions::EDIT))
     {
-      auto *action = new QAction(tr("&Edit..."), this);
+      auto action = new QAction(tr("&Edit..."), this);
 
       connect(action,
 	      SIGNAL(triggered(void)),
@@ -275,7 +275,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_NAME))
     {
-      auto *action = new QAction(tr("Set Function &Name..."), this);
+      auto action = new QAction(tr("Set Function &Name..."), this);
 
       connect(action,
 	      SIGNAL(triggered(void)),
@@ -504,7 +504,7 @@ void glitch_object_function_arduino::setName(const QString &name)
 
 void glitch_object_function_arduino::setProperties(const QString &properties)
 {
-  QStringList list(properties.split("&"));
+  auto list(properties.split("&"));
 
   std::sort(list.begin(), list.end());
   glitch_object::setProperties(list);
@@ -512,7 +512,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
   for(int i = 0; i < list.size(); i++)
     if(list.at(i).startsWith("clone = "))
       {
-	QString str(list.at(i).mid(8));
+	auto str(list.at(i).mid(8));
 
 	str.remove("\"");
 
@@ -537,7 +537,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
       }
     else if(list.at(i).startsWith("name = "))
       {
-	QString str(list.at(i).mid(7));
+	auto str(list.at(i).mid(7));
 
 	str.remove("\"");
 
@@ -558,7 +558,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
       {
 	if(!m_isFunctionClone)
 	  {
-	    QString str(list.at(i).mid(14));
+	    auto str(list.at(i).mid(14));
 
 	    str.remove("\"");
 	    setReturnType(str);
@@ -571,7 +571,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 void glitch_object_function_arduino::setReturnType(const QString &returnType)
 {
-  int index = m_ui.return_type->findText(returnType);
+  auto index = m_ui.return_type->findText(returnType);
 
   m_ui.return_type->blockSignals(true);
 
@@ -655,7 +655,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
   dialog.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   dialog.setWindowTitle(tr("Glitch: Set Function Name"));
 
-  auto *lineEdit = dialog.findChild<QLineEdit *> ();
+  auto lineEdit = dialog.findChild<QLineEdit *> ();
 
   if(lineEdit)
     {
@@ -679,7 +679,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QString text(dialog.textValue().remove("(").remove(")").trimmed());
+      auto text(dialog.textValue().remove("(").remove(")").trimmed());
 
       if(text.isEmpty())
 	return;
@@ -697,7 +697,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	  goto restart_label;
 	}
 
-      QString name(m_ui.label->text());
+      auto name(m_ui.label->text());
 
       if(m_parentView)
 	m_parentView->removeFunctionName(m_ui.label->text());

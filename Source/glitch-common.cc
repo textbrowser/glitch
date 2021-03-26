@@ -36,7 +36,7 @@ QSqlDatabase glitch_common::sqliteDatabase(void)
 
   s_dbId += 1;
   db = QSqlDatabase::addDatabase
-    ("QSQLITE", QString("glitch_database_%1_%2").arg(qrand()).arg(s_dbId));
+    ("QSQLITE", QString("glitch_database_%1").arg(s_dbId));
   return db;
 }
 

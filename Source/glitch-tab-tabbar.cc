@@ -64,9 +64,8 @@ glitch_tab_tabbar::~glitch_tab_tabbar()
 
 QSize glitch_tab_tabbar::tabSizeHint(int index) const
 {
-  QSize size(QTabBar::tabSizeHint(index));
-  QTabWidget::TabPosition tabPosition =
-    qobject_cast<glitch_tab *> (parentWidget()) ?
+  auto size(QTabBar::tabSizeHint(index));
+  auto tabPosition = qobject_cast<glitch_tab *> (parentWidget()) ?
     qobject_cast<glitch_tab *> (parentWidget())->tabPosition() :
     QTabWidget::North;
 

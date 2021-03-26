@@ -55,7 +55,7 @@ void glitch_user_functions::addFunction(const QString &name)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  bool found = false;
+  auto found = false;
 
   for(int i = 0; i < m_ui.functions->rowCount(); i++)
     if(m_ui.functions->item(i, 0) && m_ui.functions->item(i, 0)->text() == name)
