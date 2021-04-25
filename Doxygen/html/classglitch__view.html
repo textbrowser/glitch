@@ -76,11 +76,27 @@ $(function() {
 Inheritance diagram for glitch_view:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglitch__view__inherit__graph.png" border="0" usemap="#glitch__view_inherit__map" alt="Inheritance graph"/></div>
+<map name="glitch__view_inherit__map" id="glitch__view_inherit__map">
+<area shape="rect" title=" " alt="" coords="30,80,117,107"/>
+<area shape="rect" href="classglitch__view__arduino.html" title=" " alt="" coords="5,155,141,181"/>
+<area shape="rect" title=" " alt="" coords="37,5,110,32"/>
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for glitch_view:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglitch__view__coll__graph.png" border="0" usemap="#glitch__view_coll__map" alt="Collaboration graph"/></div>
+<map name="glitch__view_coll__map" id="glitch__view_coll__map">
+<area shape="rect" title=" " alt="" coords="492,107,579,133"/>
+<area shape="rect" title=" " alt="" coords="217,5,290,32"/>
+<area shape="rect" href="classglitch__user__functions.html" title=" " alt="" coords="181,56,326,83"/>
+<area shape="rect" title=" " alt="" coords="31,80,101,107"/>
+<area shape="rect" href="classglitch__canvas__settings.html" title=" " alt="" coords="176,107,331,133"/>
+<area shape="rect" href="classglitch__graphicsview.html" title=" " alt="" coords="185,157,321,184"/>
+<area shape="rect" title=" " alt="" coords="9,157,123,184"/>
+<area shape="rect" href="classglitch__scene.html" title=" " alt="" coords="206,208,301,235"/>
+<area shape="rect" title=" " alt="" coords="5,208,127,235"/>
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
@@ -115,9 +131,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>unite</b> (<a class="
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aadff8450fcac614f7c293f0684e06329"><td class="memItemLeft" align="right" valign="top"><a id="aadff8450fcac614f7c293f0684e06329"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_view</b> (const QString &amp;fileName, const QString &amp;name, const glitch_common::ProjectType projectType, QWidget *parent)</td></tr>
-<tr class="separator:aadff8450fcac614f7c293f0684e06329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad64a409fa4dde09cb579dbaeccd281"><td class="memItemLeft" align="right" valign="top"><a id="a1ad64a409fa4dde09cb579dbaeccd281"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_view</b> (const QString &amp;fileName, const QString &amp;name, const glitch_common::ProjectTypes projectType, QWidget *parent)</td></tr>
+<tr class="separator:a1ad64a409fa4dde09cb579dbaeccd281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3aaced054c46835de829d224f111636"><td class="memItemLeft" align="right" valign="top"><a id="aa3aaced054c46835de829d224f111636"></a>
 QAction *&#160;</td><td class="memItemRight" valign="bottom"><b>menuAction</b> (void) const</td></tr>
 <tr class="separator:aa3aaced054c46835de829d224f111636"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,9 +179,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (QString &am
 <tr class="memitem:a8031f2355e486e3bb3b9d9d518ea2d20"><td class="memItemLeft" align="right" valign="top"><a id="a8031f2355e486e3bb3b9d9d518ea2d20"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>saveAs</b> (const QString &amp;fileName, QString &amp;error)</td></tr>
 <tr class="separator:a8031f2355e486e3bb3b9d9d518ea2d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a917d33bb2a21f53c452760262579491a"><td class="memItemLeft" align="right" valign="top"><a id="a917d33bb2a21f53c452760262579491a"></a>
-glitch_common::ProjectType&#160;</td><td class="memItemRight" valign="bottom"><b>projectType</b> (void) const</td></tr>
-<tr class="separator:a917d33bb2a21f53c452760262579491a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dbc5da4833c75a23f32158cbe20680e"><td class="memItemLeft" align="right" valign="top"><a id="a1dbc5da4833c75a23f32158cbe20680e"></a>
+glitch_common::ProjectTypes&#160;</td><td class="memItemRight" valign="bottom"><b>projectType</b> (void) const</td></tr>
+<tr class="separator:a1dbc5da4833c75a23f32158cbe20680e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1698c4fb71866cee96842c6b69df3219"><td class="memItemLeft" align="right" valign="top"><a id="a1698c4fb71866cee96842c6b69df3219"></a>
 <a class="el" href="classglitch__graphicsview.html">glitch_graphicsview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>view</b> (void) const</td></tr>
 <tr class="separator:a1698c4fb71866cee96842c6b69df3219"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -316,9 +332,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_changed</b></td></t
 <tr class="memitem:af20bd17919f60ec4a7ccef37061c532f"><td class="memItemLeft" align="right" valign="top"><a id="af20bd17919f60ec4a7ccef37061c532f"></a>
 <a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_canvasSettings</b></td></tr>
 <tr class="separator:af20bd17919f60ec4a7ccef37061c532f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa015a2fb4ef7d97c56132b2930691c30"><td class="memItemLeft" align="right" valign="top"><a id="aa015a2fb4ef7d97c56132b2930691c30"></a>
-glitch_common::ProjectType&#160;</td><td class="memItemRight" valign="bottom"><b>m_projectType</b></td></tr>
-<tr class="separator:aa015a2fb4ef7d97c56132b2930691c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad66ea23651677e7e344bbbc030934e0"><td class="memItemLeft" align="right" valign="top"><a id="aad66ea23651677e7e344bbbc030934e0"></a>
+glitch_common::ProjectTypes&#160;</td><td class="memItemRight" valign="bottom"><b>m_projectType</b></td></tr>
+<tr class="separator:aad66ea23651677e7e344bbbc030934e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f0721f3f1180888e4c740bdd0d56047"><td class="memItemLeft" align="right" valign="top"><a id="a5f0721f3f1180888e4c740bdd0d56047"></a>
 <a class="el" href="classglitch__graphicsview.html">glitch_graphicsview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_view</b></td></tr>
 <tr class="separator:a5f0721f3f1180888e4c740bdd0d56047"><td class="memSeparator" colspan="2">&#160;</td></tr>

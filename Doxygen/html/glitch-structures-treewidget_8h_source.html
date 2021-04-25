@@ -110,14 +110,16 @@ $(function() {
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classglitch__structures__treewidget.html">glitch_structures_treewidget</a>(QWidget *parent);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  ~<a class="code" href="classglitch__structures__treewidget.html">glitch_structures_treewidget</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> setProjectType(<span class="keyword">const</span> glitch_common::ProjectType projectType);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  glitch_common::ProjectType m_projectType;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> startDrag(Qt::DropActions supportedActions);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> setCategory(<span class="keyword">const</span> QString &amp;category);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> setProjectType(<span class="keyword">const</span> glitch_common::ProjectTypes projectType);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  QString m_category;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  glitch_common::ProjectTypes m_projectType;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> startDrag(Qt::DropActions supportedActions);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassglitch__structures__treewidget_html"><div class="ttname"><a href="classglitch__structures__treewidget.html">glitch_structures_treewidget</a></div><div class="ttdef"><b>Definition:</b> glitch-structures-treewidget.h:35</div></div>
 <!-- start footer part -->

@@ -107,7 +107,7 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  Q_OBJECT</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">enum</span> OperatorType</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">enum</span> OperatorTypes</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    AND_OPERATOR = 0,</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    NOT_OPERATOR,</div>
@@ -122,11 +122,11 @@ $(function() {
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="classglitch__object__logical__operator__arduino.html">glitch_object_logical_operator_arduino</a> *clone(QWidget *parent) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> addActions(QMenu &amp;menu);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> save(<span class="keyword">const</span> QSqlDatabase &amp;db, QString &amp;error);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> setOperatorType(<span class="keyword">const</span> OperatorType operatorType);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> setOperatorType(<span class="keyword">const</span> OperatorTypes operatorType);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> setOperatorType(<span class="keyword">const</span> QString &amp;operatorType);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  OperatorType m_operatorType;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  OperatorTypes m_operatorType;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  Ui_glitch_object_logical_operator_arduino m_ui;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>

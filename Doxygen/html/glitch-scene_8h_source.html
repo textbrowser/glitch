@@ -114,7 +114,7 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  Q_OBJECT</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="classglitch__scene.html">glitch_scene</a>(<span class="keyword">const</span> glitch_common::ProjectType projectType, QObject *parent);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="classglitch__scene.html">glitch_scene</a>(<span class="keyword">const</span> glitch_common::ProjectTypes projectType, QObject *parent);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  ~<a class="code" href="classglitch__scene.html">glitch_scene</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  QList&lt;glitch_object *&gt; objects(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  QList&lt;glitch_object *&gt; selectedObjects(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
@@ -134,7 +134,7 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  QPointF m_lastScenePos;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  QPointer&lt;QUndoStack&gt; m_undoStack;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">bool</span> m_mainScene;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  glitch_common::ProjectType m_projectType;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  glitch_common::ProjectTypes m_projectType;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">bool</span> allowDrag(QGraphicsSceneDragDropEvent *event, <span class="keyword">const</span> QString &amp;t);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> bringToFront(<a class="code" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> deleteFunctionClones(<span class="keyword">const</span> QString &amp;name);</div>

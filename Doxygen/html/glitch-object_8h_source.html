@@ -177,25 +177,24 @@ $(function() {
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  QPointer&lt;glitch_object_view&gt; m_editView;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  QPointer&lt;glitch_proxy_widget&gt; m_proxy;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  QString m_type;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keywordtype">bool</span> m_initialized;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  quint64 m_id;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> createActions(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">void</span> addDefaultActions(QMenu &amp;menu);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> prepareContextMenu(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordtype">void</span> saveProperties(<span class="keyword">const</span> QMap&lt;QString, QVariant&gt; &amp;p,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;              <span class="keyword">const</span> QSqlDatabase &amp;db,</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;              QString &amp;error);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">void</span> setProperties(<span class="keyword">const</span> QStringList &amp;list);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; <span class="keyword">protected</span> slots:</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">void</span> slotSetStyleSheet(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; signals:</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">void</span> changed(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keywordtype">void</span> deletedViaContextMenu(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;};</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  quint64 m_id;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> createActions(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordtype">void</span> addDefaultActions(QMenu &amp;menu);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">void</span> prepareContextMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> saveProperties(<span class="keyword">const</span> QMap&lt;QString, QVariant&gt; &amp;p,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;              <span class="keyword">const</span> QSqlDatabase &amp;db,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;              QString &amp;error);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordtype">void</span> setProperties(<span class="keyword">const</span> QStringList &amp;list);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; <span class="keyword">protected</span> slots:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordtype">void</span> slotSetStyleSheet(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; signals:</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordtype">void</span> changed(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">void</span> deletedViaContextMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassglitch__floating__context__menu_html"><div class="ttname"><a href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a></div><div class="ttdef"><b>Definition:</b> glitch-floating-context-menu.h:35</div></div>
 <div class="ttc" id="aclassglitch__object_html"><div class="ttname"><a href="classglitch__object.html">glitch_object</a></div><div class="ttdef"><b>Definition:</b> glitch-object.h:42</div></div>
