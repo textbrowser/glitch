@@ -339,7 +339,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	    (tr("At least one display has not been saved. Are you sure that "
 		"you wish to exit Glitch?"));
 	  mb.setWindowIcon(windowIcon());
-	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowModality(Qt::ApplicationModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
 
 	  if(mb.exec() == QMessageBox::Yes)
@@ -897,7 +897,7 @@ void glitch_ui::slotCloseDiagram(int index)
 	    (tr("The current view has been modified. Are you sure that "
 		"you wish to close it?"));
 	  mb.setWindowIcon(windowIcon());
-	  mb.setWindowModality(Qt::WindowModal);
+	  mb.setWindowModality(Qt::ApplicationModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
 
 	  if(mb.exec() != QMessageBox::Yes)
@@ -999,7 +999,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
       mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
       mb.setText(tr("The file %1 already exists. Overwrite?").arg(fileName));
       mb.setWindowIcon(windowIcon());
-      mb.setWindowModality(Qt::WindowModal);
+      mb.setWindowModality(Qt::ApplicationModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
 
       if(mb.exec() != QMessageBox::Yes)

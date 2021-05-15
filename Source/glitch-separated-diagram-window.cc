@@ -84,7 +84,7 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 	(tr("The display has not been saved. Are you sure that "
 	    "you wish to close it?"));
       mb.setWindowIcon(windowIcon());
-      mb.setWindowModality(Qt::WindowModal);
+      mb.setWindowModality(Qt::ApplicationModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
 
       if(mb.exec() != QMessageBox::Yes)
