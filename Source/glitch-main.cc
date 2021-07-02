@@ -44,7 +44,9 @@
 int main(int argc, char *argv[])
 {
   for(int i = 0; i < argc; i++)
-    if(argv && argv[i] && strcmp(argv[i], "--help") == 0)
+    if(!argv || !argv[i])
+      continue;
+    else if(strcmp(argv[i], "--help") == 0)
       {
 	std::cout << "Glitch [options]" << std::endl;
 	std::cout << "--help" << std::endl;
@@ -53,7 +55,7 @@ int main(int argc, char *argv[])
 	std::cout << "--version" << std::endl;
 	return EXIT_SUCCESS;
       }
-    else if(argv && argv[i] && strcmp(argv[i], "--version") == 0)
+    else if(strcmp(argv[i], "--version") == 0)
       {
 	std::cout << "Glitch version " << GLITCH_VERSION_STR << "."
 		  << std::endl;
