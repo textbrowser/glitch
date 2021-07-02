@@ -26,6 +26,7 @@ Completed Items
 - Copy Edit menu to child edit windows and separated windows.
   Redo / undo stack.
 - Define databases.
+- Delegate object constructors.
 - Depict changed pages. Window titles, etc.
 - Depict cloned functions. Function definitions will contain labels having
   f symbols.
@@ -91,7 +92,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Delegate object constructors.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
