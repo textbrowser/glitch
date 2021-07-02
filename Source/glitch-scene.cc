@@ -33,6 +33,8 @@
 #include <QUndoStack>
 #include <QtDebug>
 
+#include <cmath>
+
 #include "Arduino/glitch-object-analog-read-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
@@ -484,10 +486,10 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
     (static_cast<int> (rect.left()) % 20);
   auto top = static_cast<qreal> (rect.top()) -
     (static_cast<int> (rect.top()) % 20);
-  int gridSize = 20;
+  const int gridSize = 20;
 
-  for(auto x = left; x < rect.right(); x += gridSize)
-    for(auto y = top; y < rect.bottom(); y += gridSize)
+  for(auto x = left; std::isless(x, rect.right()); x += gridSize)
+    for(auto y = top; std::isless(y, rect.bottom()); y += gridSize)
       points << QPointF(x, y);
 
   painter->save();
