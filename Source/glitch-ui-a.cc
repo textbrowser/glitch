@@ -483,7 +483,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
   QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
   QPoint first;
-  auto f = false;
+  auto f = false; // First?
   auto point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
 
   undoStack->beginMacro(tr("widget(s) pasted"));

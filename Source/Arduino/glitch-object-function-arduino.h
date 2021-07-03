@@ -46,6 +46,7 @@ class glitch_object_function_arduino: public glitch_object
   glitch_object_function_arduino(const QString &name, QWidget *parent);
   glitch_object_function_arduino(const qint64 parentId,
 				 const quint64 id,
+				 glitch_object *parentObject,
 				 QWidget *parent);
   ~glitch_object_function_arduino();
   QString name(void) const;
@@ -55,7 +56,10 @@ class glitch_object_function_arduino: public glitch_object
   glitch_object_function_arduino *clone(QWidget *parent) const;
   glitch_object_view *editView(void) const;
   static glitch_object_function_arduino *createFromValues
-    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
+    (const QMap<QString, QVariant> &values,
+     glitch_object *parentObject,
+     QString &error,
+     QWidget *parent);
   void addActions(QMenu &menu);
   void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);

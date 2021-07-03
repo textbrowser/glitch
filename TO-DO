@@ -106,6 +106,6 @@ Remaining Items
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Some wiring is not required. Translating diagrams to Arduino source is
   based on a top-down interpretation.
-- Translate diagrams to Arduino via Embedded LISP.
+- Translate diagrams to Arduino (Java).
 - Undo macros for group actions.
 - Warn of recursive functions.

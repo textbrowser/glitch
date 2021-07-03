@@ -331,7 +331,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  {
 		    QString error("");
 		    auto object = glitch_object::createFromValues
-		      (values, error, this);
+		      (values, nullptr, error, this);
 
 		    if(object)
 		      {
@@ -357,7 +357,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			(glitch_misc::
 			 dbPointToPointF(point),
 			 glitch_object::
-			 createFromValues(values, error, object->editView()));
+			 createFromValues(values,
+					  object,
+					  error,
+					  object->editView()));
 		  }
 	      }
 	  }

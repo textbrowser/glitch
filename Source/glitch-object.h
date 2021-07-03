@@ -71,7 +71,10 @@ class glitch_object: public QWidget
   bool positionLocked(void) const;
   quint64 id(void) const;
   static glitch_object *createFromValues
-    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
+    (const QMap<QString, QVariant> &values,
+     glitch_object *parentObject,
+     QString &error,
+     QWidget *parent);
   virtual QString name(void) const;
   virtual bool hasView(void) const;
   virtual bool isMandatory(void) const;

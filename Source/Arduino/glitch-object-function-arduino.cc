@@ -110,8 +110,10 @@ glitch_object_function_arduino::glitch_object_function_arduino
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
-(const qint64 parentId, const quint64 id, QWidget *parent):
-  glitch_object(id, parent)
+(const qint64 parentId,
+ const quint64 id,
+ glitch_object *parentObject,
+ QWidget *parent):glitch_object(id, parent)
 {
   if(parentId == -1)
     {
@@ -125,6 +127,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
     }
   else
     {
+      m_ui.setupUi(this);
+
       /*
       ** parent is a glitch_object_view.
       */
@@ -142,9 +146,21 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_editWindow = nullptr;
       m_initialized = true;
       m_isFunctionClone = true;
+      m_parentFunction = qobject_cast<glitch_object_function_arduino *>
+	(parentObject);
+
+      if(m_parentFunction)
+	{
+	  connect(m_parentFunction,
+		  SIGNAL(changed(void)),
+		  this,
+		  SLOT(slotParentFunctionChanged(void)),
+		  Qt::UniqueConnection);
+	  slotParentFunctionChanged();
+	}
+
       m_parentView = nullptr;
       m_type = "arduino-function";
-      m_ui.setupUi(this);
       m_ui.function_definition->setVisible(false);
       m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
       m_ui.label->setAutoFillBackground(true);
@@ -194,13 +210,17 @@ clone(QWidget *parent) const
 
 glitch_object_function_arduino *glitch_object_function_arduino::
 createFromValues
-(const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
+(const QMap<QString, QVariant> &values,
+ glitch_object *parentObject,
+ QString &error,
+ QWidget *parent)
 {
   Q_UNUSED(error);
 
   auto object = new glitch_object_function_arduino
     (values.value("parentId").toLongLong(),
      values.value("myoid").toULongLong(),
+     parentObject,
      parent);
 
   object->setProperties(values.value("properties").toString());

@@ -135,7 +135,10 @@ bool glitch_object::positionLocked(void) const
 }
 
 glitch_object *glitch_object::createFromValues
-(const QMap<QString, QVariant> &values, QString &error, QWidget *parent)
+(const QMap<QString, QVariant> &values,
+ glitch_object *parentObject,
+ QString &error,
+ QWidget *parent)
 {
   auto type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
@@ -148,7 +151,7 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-function")
     object = glitch_object_function_arduino::createFromValues
-      (values, error, parent);
+      (values, parentObject, error, parent);
   else if(type == "arduino-logicaloperator")
     object = glitch_object_logical_operator_arduino::createFromValues
       (values, error, parent);
