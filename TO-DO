@@ -42,6 +42,9 @@ Completed Items
 - Error dialog.
 - Exiting does not require closing of pages.
 - Function names and deleted functions; uniqueness errors.
+- Functions are defined on the main view. Allow multiple instances of
+  a defined function. All duplicate instances should be duplicates of a single
+  definition.
 - Group delete.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - List of recent files.
@@ -92,9 +95,6 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Functions are defined on the main view. Allow multiple instances of
-  a defined function. All duplicate instances should be duplicates of a single
-  definition.
 - Function parameters and return value.
 - Icons and themes.
 - Implement Arduino's loop().

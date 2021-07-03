@@ -38,6 +38,7 @@
 class glitch_alignment;
 class glitch_object;
 class glitch_scene;
+class glitch_undo_command;
 
 class glitch_object_view: public QGraphicsView
 {
@@ -53,6 +54,9 @@ class glitch_object_view: public QGraphicsView
   glitch_scene* scene(void) const;
   quint64 id(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object);
+  void beginMacro(const QString &text);
+  void endMacro(void);
+  void push(glitch_undo_command *undoCommand);
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
 

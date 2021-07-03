@@ -623,6 +623,7 @@ void glitch_view::prepareDefaultActions(void)
 	  SLOT(slotShowUserFunctions(void)));
   m_defaultActions << action;
 }
+
 void glitch_view::push(glitch_undo_command *undoCommand)
 {
   if(undoCommand)

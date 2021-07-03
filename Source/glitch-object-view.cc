@@ -35,6 +35,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
+#include "glitch-undo-command.h"
 #include "glitch-view.h"
 
 glitch_object_view::glitch_object_view
@@ -106,6 +107,17 @@ void glitch_object_view::artificialDrop
   adjustScrollBars();
 }
 
+void glitch_object_view::beginMacro(const QString &text)
+{
+  if(!m_undoStack)
+    return;
+
+  if(text.trimmed().isEmpty())
+    m_undoStack->beginMacro(tr("unknown"));
+  else
+    m_undoStack->beginMacro(text);
+}
+
 void glitch_object_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event && items(event->pos()).isEmpty())
@@ -115,6 +127,18 @@ void glitch_object_view::contextMenuEvent(QContextMenuEvent *event)
     }
   else
     QGraphicsView::contextMenuEvent(event);
+}
+
+void glitch_object_view::endMacro(void)
+{
+  if(m_undoStack)
+    m_undoStack->endMacro();
+}
+
+void glitch_object_view::push(glitch_undo_command *undoCommand)
+{
+  if(undoCommand)
+    m_undoStack->push(undoCommand);
 }
 
 void glitch_object_view::save(const QSqlDatabase &db, QString &error)
@@ -221,7 +245,7 @@ void glitch_object_view::slotSelectAll(void)
 void glitch_object_view::slotShowAlignment(void)
 {
   if(!m_alignment)
-    m_alignment = new glitch_alignment(parentWidget());
+    m_alignment = new glitch_alignment(this);
 
   m_alignment->showNormal();
   m_alignment->activateWindow();
