@@ -30,7 +30,31 @@
 
 #include <QDialog>
 
+#include "glitch-object-view.h"
+#include "glitch-object.h"
+#include "glitch-proxy-widget.h"
+#include "glitch-scene.h"
+#include "glitch-undo-command.h"
+#include "glitch-view.h"
 #include "ui_glitch-alignment.h"
+
+#include <limits>
+
+static bool x_coordinate_less_than(glitch_object *w1, glitch_object *w2)
+{
+  if(!w1 || !w2)
+    return false;
+  else
+    return w1->pos().x() < w2->pos().x();
+}
+
+static bool y_coordinate_less_than(glitch_object *w1, glitch_object *w2)
+{
+  if(!w1 || !w2)
+    return false;
+  else
+    return w1->pos().y() < w2->pos().y();
+}
 
 class glitch_alignment: public QDialog
 {
@@ -58,8 +82,332 @@ class glitch_alignment: public QDialog
   };
 
   Ui_glitch_alignment m_ui;
-  void align(const AlignmentTypes alignmentType);
-  void stack(const StackTypes stackType);
+
+  template<class T> void alignImplementation(const AlignmentTypes alignmentType)
+  {
+    auto view = qobject_cast<T *> (parentWidget());
+
+    if(!view)
+      return;
+
+    auto list(view->scene()->items(Qt::AscendingOrder));
+
+    if(list.isEmpty())
+      return;
+
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+    QPair<int, int> maxP;
+    QPair<int, int> minP;
+    int x = 0;
+    int y = 0;
+
+    switch(alignmentType)
+      {
+      case AlignmentTypes::ALIGN_BOTTOM:
+	{
+	  y = 0;
+	  break;
+	}
+      case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+      case AlignmentTypes::ALIGN_CENTER_VERTICAL:
+	{
+	  maxP.first = maxP.second = 0;
+	  minP.first = minP.second = std::numeric_limits<int>::max();
+	  break;
+	}
+      case AlignmentTypes::ALIGN_LEFT:
+	{
+	  x = std::numeric_limits<int>::max();
+	  break;
+	}
+      case AlignmentTypes::ALIGN_RIGHT:
+	{
+	  x = 0;
+	  break;
+	}
+      case AlignmentTypes::ALIGN_TOP:
+	{
+	  y = std::numeric_limits<int>::max();
+	  break;
+	}
+      default:
+	{
+	  QApplication::restoreOverrideCursor();
+	  return;
+	}
+      }
+
+    auto began = false;
+    auto firstIteration = true;
+
+  start_label:
+
+    for(auto i : list)
+      {
+	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+	if(!proxy || !proxy->isSelected())
+	  continue;
+
+	auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+	if(!object)
+	  continue;
+
+	auto movable = proxy->isMovable();
+
+	switch(alignmentType)
+	  {
+	  case AlignmentTypes::ALIGN_BOTTOM:
+	    {
+	      x = object->pos().x();
+	      y = qMax(y, object->height() + object->pos().y());
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+	  case AlignmentTypes::ALIGN_CENTER_VERTICAL:
+	    {
+	      maxP.first = qMax
+		(maxP.first, object->pos().x() + object->width());
+	      maxP.second = qMax
+		(maxP.second, object->height() + object->pos().y());
+	      minP.first = qMin(minP.first, object->pos().x());
+	      minP.second = qMin(minP.second, object->pos().y());
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_LEFT:
+	    {
+	      x = qMin(x, object->pos().x());
+	      y = object->pos().y();
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_RIGHT:
+	    {
+	      x = qMax(x, object->pos().x() + object->width());
+	      y = object->pos().y();
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_TOP:
+	    {
+	      x = object->pos().x();
+	      y = qMin(y, object->pos().y());
+	      break;
+	    }
+	  default:
+	    break;
+	  }
+
+	if(firstIteration || !movable)
+	  continue;
+
+	QPoint point;
+
+	switch(alignmentType)
+	  {
+	  case AlignmentTypes::ALIGN_BOTTOM:
+	    {
+	      if(y != object->height() + object->pos().y())
+		{
+		  point = object->pos();
+		  object->move(x, y - object->height());
+		}
+
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
+	  case AlignmentTypes::ALIGN_CENTER_VERTICAL:
+	    {
+	      QRect rect(QPoint(minP.first, minP.second),
+			 QPoint(maxP.first, maxP.second));
+
+	      point = object->pos();
+
+	      if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
+		object->move
+		  (object->pos().x(), rect.center().y() - object->height() / 2);
+	      else
+		object->move
+		  (rect.center().x() - object->width() / 2, object->pos().y());
+
+	      break;
+	    }
+	  case AlignmentTypes::ALIGN_RIGHT:
+	    {
+	      if(x != object->pos().x() + object->width())
+		{
+		  point = object->pos();
+		  object->move(x - object->width(), y);
+		}
+
+	      break;
+	    }
+	  default:
+	    {
+	      point = object->pos();
+	      object->move(x, y);
+	      break;
+	    }
+	  }
+
+	if(!point.isNull())
+	  if(object->pos() != point)
+	    {
+	      if(!began)
+		{
+		  began = true;
+		  view->beginMacro(tr("items aligned"));
+		}
+
+	      auto undoCommand = new glitch_undo_command
+		(QPointF(point),
+		 glitch_undo_command::ITEM_MOVED,
+		 proxy,
+		 view->scene());
+
+	      view->push(undoCommand);
+	    }
+      }
+
+    if(firstIteration)
+      {
+	firstIteration = false;
+	goto start_label;
+      }
+
+    if(began)
+      {
+	view->endMacro();
+	emit changed();
+      }
+
+    QApplication::restoreOverrideCursor();
+  }
+
+  template<class T> void stackImplementation(const StackTypes stackType)
+  {
+    auto view = qobject_cast<T *> (parentWidget());
+
+    if(!view)
+      return;
+
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+    auto list1(view->scene()->selectedItems());
+
+    if(list1.isEmpty())
+      {
+	QApplication::restoreOverrideCursor();
+	return;
+      }
+
+    QList<glitch_object *> list2;
+
+    for(auto i : list1)
+      {
+	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+	if(!proxy)
+	  continue;
+
+	auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+	if(!object)
+	  continue;
+
+	list2 << object;
+      }
+
+    if(list2.isEmpty())
+      {
+	QApplication::restoreOverrideCursor();
+	return;
+      }
+
+    if(stackType == StackTypes::HORIZONTAL_STACK)
+      std::sort(list2.begin(), list2.end(), x_coordinate_less_than);
+    else
+      std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
+
+    auto began = false;
+    int coordinate = 0;
+
+    if(stackType == StackTypes::HORIZONTAL_STACK)
+      coordinate = list2.at(0)->pos().x();
+    else
+      coordinate = list2.at(0)->pos().y();
+
+    for(auto widget : list2)
+      {
+	if(!widget || !widget->proxy())
+	  continue;
+
+	QPoint point;
+
+	if(stackType == StackTypes::HORIZONTAL_STACK)
+	  {
+	    if(widget->proxy()->isMovable())
+	      {
+		point = widget->pos();
+		widget->move(coordinate, widget->pos().y());
+	      }
+
+	    coordinate += widget->width();
+	  }
+	else
+	  {
+	    if(widget->proxy()->isMovable())
+	      {
+		point = widget->pos();
+		widget->move(widget->pos().x(), coordinate);
+	      }
+
+	    coordinate += widget->height();
+	  }
+
+	if(!point.isNull())
+	  if(point != widget->pos())
+	    {
+	      if(!began)
+		{
+		  began = true;
+		  view->beginMacro(tr("items stacked"));
+		}
+
+	      auto undoCommand = new glitch_undo_command
+		(QPointF(point),
+		 glitch_undo_command::ITEM_MOVED,
+		 widget->proxy(),
+		 view->scene());
+
+	      view->push(undoCommand);
+	    }
+      }
+
+    if(began)
+      {
+	view->endMacro();
+	emit changed();
+      }
+
+    QApplication::restoreOverrideCursor();
+  }
+
+  void align(const AlignmentTypes alignmentType)
+  {
+    if(qobject_cast<glitch_object_view *> (parentWidget()))
+      alignImplementation<glitch_object_view> (alignmentType);
+    else if(qobject_cast<glitch_view *> (parentWidget()))
+      alignImplementation<glitch_view> (alignmentType);
+  }
+
+  void stack(const StackTypes stackType)
+  {
+    if(qobject_cast<glitch_object_view *> (parentWidget()))
+      stackImplementation<glitch_object_view> (stackType);
+    else if(qobject_cast<glitch_view *> (parentWidget()))
+      stackImplementation<glitch_view> (stackType);
+  }
 
  private slots:
   void slotAlign(void);
