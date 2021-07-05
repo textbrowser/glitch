@@ -42,7 +42,7 @@ QPointF glitch_misc::dbPointToPointF(const QString &text)
 
 QString glitch_misc::homePath(void)
 {
-  auto homepath(qgetenv("GLITCH_HOME"));
+  auto homepath(qgetenv("GLITCH_HOME").trimmed());
 
   if(homepath.isEmpty())
 #ifdef Q_OS_WIN32
