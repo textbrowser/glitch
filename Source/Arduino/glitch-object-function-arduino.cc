@@ -30,9 +30,10 @@
 #include <QtDebug>
 
 #include "glitch-floating-context-menu.h"
-#include "glitch-object-function-arduino.h"
+#include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
+#include "glitch-object-function-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-structures-arduino.h"
@@ -236,10 +237,24 @@ findParentFunction(void) const
 
   QGraphicsScene *scene = nullptr;
 
-  if(qobject_cast<QGraphicsView *> (m_parent))
-    scene = qobject_cast<QGraphicsView *> (m_parent)->scene();
-  else if(qobject_cast<glitch_view *> (m_parent))
-    scene = qobject_cast<glitch_view *> (m_parent)->scene();
+  if(qobject_cast<glitch_graphicsview *> (m_parent))
+    scene = qobject_cast<glitch_graphicsview *> (m_parent)->scene();
+  else if(qobject_cast<glitch_object_view *> (m_parent))
+    {
+      auto parent = qobject_cast<QObject *> (m_parent);
+
+      do
+	{
+	  parent = parent->parent();
+
+	  if(qobject_cast<glitch_view *> (parent))
+	    {
+	      scene = qobject_cast<glitch_view *> (parent)->scene();
+	      break;
+	    }
+	}
+      while(parent);
+    }
 
   QList<QGraphicsItem *> list;
 
