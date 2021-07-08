@@ -40,6 +40,7 @@ glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
   prepareContextMenu();
+  setName(m_ui.label->text());
 }
 
 glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()

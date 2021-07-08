@@ -44,6 +44,7 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 	  this,
 	  SLOT(slotTextChanged(void)));
   prepareContextMenu();
+  setName(m_type);
 }
 
 glitch_object_block_comment_arduino::

@@ -49,7 +49,6 @@ glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
-  m_contextMenu->setName(name());
   m_id = id;
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
@@ -503,5 +502,6 @@ void glitch_object::slotShowContextMenu(void)
 
   addActions(menu);
   m_contextMenu->addActions(m_actions.values());
+  m_contextMenu->setName(name());
   m_contextMenu->show();
 }

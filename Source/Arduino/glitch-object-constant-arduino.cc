@@ -38,6 +38,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   prepareContextMenu();
+  setName(m_type);
 }
 
 glitch_object_constant_arduino::

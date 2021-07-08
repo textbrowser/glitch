@@ -40,6 +40,7 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_ui.setupUi(this);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
+  setName(m_ui.label->text());
   setOperatorType(m_operatorType);
 }
 

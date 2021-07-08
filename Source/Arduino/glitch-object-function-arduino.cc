@@ -518,9 +518,6 @@ void glitch_object_function_arduino::save
 
 void glitch_object_function_arduino::setName(const QString &name)
 {
-  if(m_contextMenu)
-    m_contextMenu->setName(name);
-
   if(m_parentView)
     {
       m_parentView->consumeFunctionName(name);
