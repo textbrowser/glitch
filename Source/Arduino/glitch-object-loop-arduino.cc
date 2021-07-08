@@ -54,6 +54,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 	  this,
 	  SIGNAL(changed(void)));
   prepareContextMenu();
+  setName(m_ui.label->text());
 }
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()

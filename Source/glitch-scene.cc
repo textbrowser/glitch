@@ -511,7 +511,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(!text.startsWith("glitch-arduino-function"))
 	    {
-	      text = text.mid(15);
+	      text = text.mid(15); // Remove glitch-arduino-function.
 
 	      if(text.indexOf('-') >= 0)
 		text = text.mid(text.indexOf('-'));

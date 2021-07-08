@@ -353,9 +353,7 @@ void glitch_object::setName(const QString &n)
 
   if(!name.isEmpty())
     {
-      if(m_contextMenu)
-	m_contextMenu->setName(name);
-
+      m_contextMenu->setName(name);
       m_properties[Properties::NAME] = name;
     }
 }
