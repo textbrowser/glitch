@@ -40,6 +40,7 @@ class glitch_floating_context_menu: public QDialog
   glitch_floating_context_menu(QWidget *parent);
   ~glitch_floating_context_menu();
   void addActions(const QList<QAction *> actions);
+  void setName(const QString &n);
 
  private:
   Ui_glitch_floating_context_menu m_ui;

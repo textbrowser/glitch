@@ -49,6 +49,7 @@ glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
+  m_contextMenu->setName(name());
   m_id = id;
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
@@ -347,10 +348,17 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     error = query.lastError().text();
 }
 
-void glitch_object::setName(const QString &name)
+void glitch_object::setName(const QString &n)
 {
-  if(!name.trimmed().isEmpty())
-    m_properties[Properties::NAME] = name.trimmed();
+  QString name(n.trimmed());
+
+  if(!name.isEmpty())
+    {
+      if(m_contextMenu)
+	m_contextMenu->setName(name);
+
+      m_properties[Properties::NAME] = name;
+    }
 }
 
 void glitch_object::setProperties(const QStringList &list)

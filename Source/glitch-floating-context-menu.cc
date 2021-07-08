@@ -31,6 +31,7 @@
 #include <QShortcut>
 
 #include "glitch-floating-context-menu.h"
+#include "glitch-object.h"
 
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
@@ -39,6 +40,7 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  resize(sizeHint());
   setWindowModality(Qt::NonModal);
 }
 
@@ -90,4 +92,12 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
       }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_floating_context_menu::setName(const QString &n)
+{
+  QString name(n.trimmed());
+
+  if(!name.isEmpty())
+    m_ui.object_name->setText(name);
 }
