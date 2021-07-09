@@ -516,15 +516,11 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	      (text.mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),
 	       view);
 	  else if(text.startsWith("glitch-arduino-logical operators"))
-	    {
-	      object = new glitch_object_logical_operator_arduino(view);
-	      qobject_cast<glitch_object_logical_operator_arduino *>
-		(object)->setOperatorType(text);
-	    }
+	    object = new glitch_object_logical_operator_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-structures-block comment"))
 	    object = new glitch_object_block_comment_arduino(view);
 	  else if(text.startsWith("glitch-arduino-constant"))
-	    object = new glitch_object_constant_arduino(view);
+	    object = new glitch_object_constant_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-structures-function"))
 	    {
 	      if(text == "glitch-arduino-structures-function()")

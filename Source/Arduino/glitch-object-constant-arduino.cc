@@ -33,8 +33,16 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 }
 
 glitch_object_constant_arduino::glitch_object_constant_arduino
+(const QString &constantType,
+ QWidget *parent):glitch_object_constant_arduino(1, parent)
+{
+  setConstantType(constantType);
+}
+
+glitch_object_constant_arduino::glitch_object_constant_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_constantType = HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   prepareContextMenu();
@@ -51,6 +59,7 @@ clone(QWidget *parent) const
 {
   auto *clone = new glitch_object_constant_arduino(parent);
 
+  clone->m_constantType = m_constantType;
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -87,4 +96,19 @@ void glitch_object_constant_arduino::save
 
   properties["constant"] = m_ui.constant->currentText();
   glitch_object::saveProperties(properties, db, error);
+}
+
+void glitch_object_constant_arduino::setConstantType
+(const QString &constantType)
+{
+  QString c(constantType.toLower().trimmed());
+
+  if(c == "false")
+    m_constantType = FALSE;
+  else if(c == "high")
+    m_constantType = HIGH;
+  else if(c == "input")
+    m_constantType = INPUT;
+  else if(c == "input_pullup")
+    m_constantType = INPUT_PULLUP;
 }

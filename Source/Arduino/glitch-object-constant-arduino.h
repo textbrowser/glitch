@@ -36,7 +36,18 @@ class glitch_object_constant_arduino: public glitch_object
   Q_OBJECT
 
  public:
+  enum ConstantTypes
+  {
+    FALSE = 0,
+    HIGH,
+    INPUT,
+    INPUT_PULLUP,
+    LED_BUILTIN,
+    TRUE
+  };
+
   glitch_object_constant_arduino(QWidget *parent);
+  glitch_object_constant_arduino(const QString &constantType, QWidget *parent);
   glitch_object_constant_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_constant_arduino();
   static glitch_object_constant_arduino *createFromValues
@@ -46,7 +57,9 @@ class glitch_object_constant_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  ConstantTypes m_constantType;
   Ui_glitch_object_constant_arduino m_ui;
+  void setConstantType(const QString &constantType);
 };
 
 #endif

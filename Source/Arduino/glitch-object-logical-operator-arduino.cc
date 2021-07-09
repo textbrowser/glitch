@@ -33,6 +33,13 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 }
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
+(const QString &operatorType, QWidget *parent):
+  glitch_object_logical_operator_arduino(1, parent)
+{
+  setOperatorType(operatorType);
+}
+
+glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_operatorType = OperatorTypes::AND_OPERATOR;
@@ -54,8 +61,8 @@ clone(QWidget *parent) const
 {
   auto *clone = new glitch_object_logical_operator_arduino(parent);
 
-  clone->setStyleSheet(styleSheet());
   clone->setOperatorType(m_operatorType);
+  clone->setStyleSheet(styleSheet());
   return clone;
 }
 

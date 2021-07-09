@@ -44,6 +44,8 @@ class glitch_object_logical_operator_arduino: public glitch_object
   };
 
   glitch_object_logical_operator_arduino(QWidget *parent);
+  glitch_object_logical_operator_arduino(const QString &operatorType,
+					 QWidget *parent);
   glitch_object_logical_operator_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_logical_operator_arduino();
   static glitch_object_logical_operator_arduino *createFromValues
@@ -51,12 +53,12 @@ class glitch_object_logical_operator_arduino: public glitch_object
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
-  void setOperatorType(const OperatorTypes operatorType);
-  void setOperatorType(const QString &operatorType);
 
  private:
   OperatorTypes m_operatorType;
   Ui_glitch_object_logical_operator_arduino m_ui;
+  void setOperatorType(const OperatorTypes operatorType);
+  void setOperatorType(const QString &operatorType);
 };
 
 #endif
