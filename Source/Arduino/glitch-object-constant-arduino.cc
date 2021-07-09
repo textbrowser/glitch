@@ -105,10 +105,14 @@ void glitch_object_constant_arduino::setConstantType
 
   if(c == "false")
     m_constantType = FALSE;
-  else if(c == "high")
-    m_constantType = HIGH;
   else if(c == "input")
     m_constantType = INPUT;
   else if(c == "input_pullup")
     m_constantType = INPUT_PULLUP;
+  else if(c == "led_builtin")
+    m_constantType = LED_BUILTIN;
+  else if(c == "true")
+    m_constantType = TRUE;
+  else
+    m_constantType = HIGH;
 }
