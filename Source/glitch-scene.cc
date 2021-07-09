@@ -509,41 +509,27 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  auto view = views().value(0);
 
-	  if(!text.startsWith("glitch-arduino-function"))
-	    {
-	      text = text.mid(15); // Remove glitch-arduino-function.
-
-	      if(text.indexOf('-') >= 0)
-		text = text.mid(text.indexOf('-'));
-
-	      text.prepend("glitch-arduino");
-	    }
-
-	  if(text.startsWith("glitch-arduino-analogread()"))
+	  if(text.startsWith("glitch-arduino-analog i/o-analogread()"))
 	    object = new glitch_object_analog_read_arduino(view);
-	  else if(text.startsWith("glitch-arduino-and (&&)") ||
-		  text.startsWith("glitch-arduino-not (!)") ||
-		  text.startsWith("glitch-arduino-or (||)"))
+	  else if(text.startsWith("glitch-arduino-logical operators"))
 	    {
 	      object = new glitch_object_logical_operator_arduino(view);
-
-	      if(qobject_cast
-		 <glitch_object_logical_operator_arduino *> (object))
-		qobject_cast<glitch_object_logical_operator_arduino *>
-		  (object)->setOperatorType(text);
+	      qobject_cast<glitch_object_logical_operator_arduino *>
+		(object)->setOperatorType(text);
 	    }
-	  else if(text.startsWith("glitch-arduino-block comment"))
+	  else if(text.startsWith("glitch-arduino-structures-block comment"))
 	    object = new glitch_object_block_comment_arduino(view);
 	  else if(text.startsWith("glitch-arduino-constant"))
 	    object = new glitch_object_constant_arduino(view);
-	  else if(text.startsWith("glitch-arduino-function"))
+	  else if(text.startsWith("glitch-arduino-structures-function"))
 	    {
-	      if(text == "glitch-arduino-function()")
+	      if(text == "glitch-arduino-structures-function()")
 		object = new glitch_object_function_arduino(view);
 	      else
 		object = new glitch_object_function_arduino
 		  (text.
-		   mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),
+		   mid(static_cast<int> (qstrlen("glitch-arduino-"
+						 "structures-function-"))),
 		   view);
 	    }
 	}
