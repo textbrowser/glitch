@@ -511,6 +511,10 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(text.startsWith("glitch-arduino-analog i/o-analogread()"))
 	    object = new glitch_object_analog_read_arduino(view);
+	  else if(text.startsWith("glitch-arduino-function"))
+	    object = new glitch_object_function_arduino
+	      (text.mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),
+	       view);
 	  else if(text.startsWith("glitch-arduino-logical operators"))
 	    {
 	      object = new glitch_object_logical_operator_arduino(view);
