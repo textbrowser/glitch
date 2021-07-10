@@ -95,6 +95,9 @@
      <property name="toolTip">
       <string>Return Type</string>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QComboBox { combobox-popup: 0; }</string>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
      </property>
