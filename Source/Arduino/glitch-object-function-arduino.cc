@@ -204,6 +204,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
 
+  clone->m_parameters = m_parameters;
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -288,19 +289,22 @@ glitch_object_view *glitch_object_function_arduino::editView(void) const
 
 void glitch_object_function_arduino::addActions(QMenu &menu)
 {
-  if(!m_actions.contains(DefaultMenuActions::EDIT))
+  if(!m_isFunctionClone)
     {
-      auto action = new QAction(tr("&Edit..."), this);
+      if(!m_actions.contains(DefaultMenuActions::EDIT))
+	{
+	  auto action = new QAction(tr("&Edit..."), this);
 
-      connect(action,
-	      SIGNAL(triggered(void)),
-	      this,
-	      SLOT(slotEdit(void)));
-      m_actions[DefaultMenuActions::EDIT] = action;
-      menu.addAction(action);
+	  connect(action,
+		  SIGNAL(triggered(void)),
+		  this,
+		  SLOT(slotEdit(void)));
+	  m_actions[DefaultMenuActions::EDIT] = action;
+	  menu.addAction(action);
+	}
+      else
+	menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
     }
-  else
-    menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   if(m_isFunctionClone)
     {

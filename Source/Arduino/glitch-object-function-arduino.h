@@ -69,6 +69,7 @@ class glitch_object_function_arduino: public glitch_object
   void setReturnType(const QString &returnType);
 
  private:
+  QMap<QString, QString> m_parameters;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_function_arduino> m_parentFunction;
   QPointer<glitch_view_arduino> m_parentView;
