@@ -322,6 +322,21 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
   else
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
 
+  if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_PARAMETERS))
+    {
+      auto action = new QAction(tr("Set Function &Parameters..."), this);
+
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotSetFunctionParameters(void)));
+      m_actions[DefaultMenuActions::SET_FUNCTION_PARAMETERS] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction
+      (m_actions.value(DefaultMenuActions::SET_FUNCTION_PARAMETERS));
+
   addDefaultActions(menu);
 }
 
@@ -746,4 +761,8 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       emit changed();
       emit nameChanged(text, name, this);
     }
+}
+
+void glitch_object_function_arduino::slotSetFunctionParameters(void)
+{
 }

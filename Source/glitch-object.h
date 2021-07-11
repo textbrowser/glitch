@@ -50,6 +50,7 @@ class glitch_object: public QWidget
    EDIT,
    LOCK_POSITION,
    SET_FUNCTION_NAME,
+   SET_FUNCTION_PARAMETERS,
    SET_STYLE_SHEET
   };
 
