@@ -28,8 +28,26 @@
 #include "glitch-object-function-parameters-arduino.h"
 
 glitch_object_function_parameters_arduino::
-glitch_object_function_parameters_arduino(QWidget *parent):QDialog(parent)
+glitch_object_function_parameters_arduino
+(const QMap<QString, QString> &parameters, QWidget *parent):QDialog(parent)
 {
+  m_ui.setupUi(this);
+  m_ui.parameters->setRowCount(parameters.size());
+
+  QMapIterator<QString, QString> it(parameters);
+  int i = 0;
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto item = new QTableWidgetItem(it.key());
+
+      m_ui.parameters->setItem(i, ColumnIndices::PARAMETER_COLUMN, item);
+      item = new QTableWidgetItem(it.value());
+      m_ui.parameters->setItem(i, ColumnIndices::TYPE_COLUMN, item);
+      i += 1;
+    }
 }
 
 glitch_object_function_parameters_arduino::

@@ -34,6 +34,7 @@
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-function-arduino.h"
+#include "glitch-object-function-parameters-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-structures-arduino.h"
@@ -769,4 +770,9 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
 void glitch_object_function_arduino::slotSetFunctionParameters(void)
 {
+  glitch_object_function_parameters_arduino *dialog =
+    new glitch_object_function_parameters_arduino(m_parameters, this);
+
+  dialog->setModal(false);
+  dialog->show();
 }
