@@ -25,8 +25,69 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QComboBox>
+
 #include "glitch-object-function-parameters-arduino.h"
-#include <QtDebug>
+
+QSize glitch_object_function_parameters_arduino_item_delegate::
+sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+  QSize size(QStyledItemDelegate::sizeHint(option, index));
+
+  size.setHeight(size.height() + static_cast<int> (5.5 * size.height()));
+  return size;
+}
+
+QWidget *glitch_object_function_parameters_arduino_item_delegate::
+createEditor(QWidget *parent,
+	     const QStyleOptionViewItem &option,
+	     const QModelIndex &index) const
+{
+  switch(index.column())
+    {
+    default:
+      {
+	break;
+      }
+    }
+
+  return QStyledItemDelegate::createEditor(parent, option, index);
+}
+
+void glitch_object_function_parameters_arduino_item_delegate::
+setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+  QStyledItemDelegate::setEditorData(editor, index);
+}
+
+void glitch_object_function_parameters_arduino_item_delegate::
+setModelData(QWidget *editor,
+	     QAbstractItemModel *model,
+             const QModelIndex &index) const
+{
+  QStyledItemDelegate::setModelData(editor, model, index);
+}
+
+void glitch_object_function_parameters_arduino_item_delegate::
+slotCurrentIndexChanged(int index)
+{
+  Q_UNUSED(index);
+
+  auto comboBox = qobject_cast<QComboBox *> (sender());
+
+  if(comboBox)
+    {
+    }
+}
+
+void glitch_object_function_parameters_arduino_item_delegate::
+updateEditorGeometry(QWidget *editor,
+		     const QStyleOptionViewItem &option,
+		     const QModelIndex &index) const
+{
+  QStyledItemDelegate::updateEditorGeometry(editor, option, index);
+}
+
 glitch_object_function_parameters_arduino::
 glitch_object_function_parameters_arduino
 (const QMap<QString, QString> &parameters, QWidget *parent):QDialog(parent)

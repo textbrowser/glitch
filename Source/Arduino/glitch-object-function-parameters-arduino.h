@@ -28,7 +28,37 @@
 #ifndef _glitch_object_function_parameters_arduino_h_
 #define _glitch_object_function_parameters_arduino_h_
 
+#include <QStyledItemDelegate>
+
 #include "ui_glitch-object-function-parameters-arduino.h"
+
+class glitch_object_function_parameters_arduino_item_delegate:
+  public QStyledItemDelegate
+{
+  Q_OBJECT
+
+ public:
+  glitch_object_function_parameters_arduino_item_delegate
+    (QObject *parent):QStyledItemDelegate(parent)
+  {
+  }
+
+  QSize sizeHint
+    (const QStyleOptionViewItem &option, const QModelIndex &index) const;
+  QWidget *createEditor(QWidget *parent,
+			const QStyleOptionViewItem &option,
+			const QModelIndex &index) const;
+  void setEditorData(QWidget *editor, const QModelIndex &index) const;
+  void setModelData(QWidget *editor,
+                    QAbstractItemModel *model,
+                    const QModelIndex &index) const;
+  void updateEditorGeometry(QWidget *editor,
+			    const QStyleOptionViewItem &option,
+			    const QModelIndex &index) const;
+
+ private slots:
+  void slotCurrentIndexChanged(int index);
+};
 
 class glitch_object_function_parameters_arduino: public QDialog
 {
