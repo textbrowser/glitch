@@ -26,7 +26,7 @@
 */
 
 #include "glitch-object-function-parameters-arduino.h"
-
+#include <QtDebug>
 glitch_object_function_parameters_arduino::
 glitch_object_function_parameters_arduino
 (const QMap<QString, QString> &parameters, QWidget *parent):QDialog(parent)

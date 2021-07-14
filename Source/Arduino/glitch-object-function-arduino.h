@@ -35,6 +35,7 @@
 #include "ui_glitch-object-function-arduino.h"
 
 class glitch_object_edit_window;
+class glitch_object_function_parameters_arduino;
 class glitch_view_arduino;
 
 class glitch_object_function_arduino: public glitch_object
@@ -72,6 +73,7 @@ class glitch_object_function_arduino: public glitch_object
   QMap<QString, QString> m_parameters;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_function_arduino> m_parentFunction;
+  QPointer<glitch_object_function_parameters_arduino> m_parametersDialog;
   QPointer<glitch_view_arduino> m_parentView;
   QString m_previousReturnType;
   QTimer m_findParentFunctionTimer;
@@ -83,6 +85,7 @@ class glitch_object_function_arduino: public glitch_object
   void mouseDoubleClickEvent(QMouseEvent *event);
   void prepareEditSignals(void);
   void setProperties(const QString &properties);
+  void simulateDelete(void);
 
  private slots:
   void slotEdit(void);

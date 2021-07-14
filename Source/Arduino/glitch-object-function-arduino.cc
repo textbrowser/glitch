@@ -641,6 +641,14 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
     emit changed();
 }
 
+void glitch_object_function_arduino::simulateDelete(void)
+{
+  glitch_object::simulateDelete();
+
+  if(m_parametersDialog)
+    m_parametersDialog->close();
+}
+
 void glitch_object_function_arduino::slotEdit(void)
 {
   if(m_editWindow && !m_isFunctionClone)
@@ -770,9 +778,12 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
 void glitch_object_function_arduino::slotSetFunctionParameters(void)
 {
-  glitch_object_function_parameters_arduino *dialog =
-    new glitch_object_function_parameters_arduino(m_parameters, this);
+  if(!m_parametersDialog)
+    m_parametersDialog =
+      new glitch_object_function_parameters_arduino(m_parameters, m_parent);
 
-  dialog->setModal(false);
-  dialog->show();
+  m_parametersDialog->setModal(false);
+  m_parametersDialog->setWindowTitle
+    (tr("Glitch: Function Parameters (%1)").arg(name()));
+  m_parametersDialog->show();
 }

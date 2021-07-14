@@ -92,7 +92,7 @@ class glitch_object: public QWidget
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
   void setUndoStack(QUndoStack *undoStack);
-  void simulateDelete(void);
+  virtual void simulateDelete(void);
 
  private:
   static quint64 s_id;
