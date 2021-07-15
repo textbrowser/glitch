@@ -54,7 +54,7 @@ createEditor(QWidget *parent,
 	comboBox->setCurrentIndex
 	  (comboBox->findText(index.data().toString().trimmed()));
 
-	if(comboBox < 0)
+	if(comboBox->currentIndex() < 0)
 	  comboBox->setCurrentIndex(0);
 
 	return comboBox;
@@ -123,9 +123,26 @@ glitch_object_function_parameters_arduino
       m_ui.parameters->setItem(i, ColumnIndices::TYPE_COLUMN, item);
       i += 1;
     }
+
+  connect(m_ui.add,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotAdd(void)));
 }
 
 glitch_object_function_parameters_arduino::
 ~glitch_object_function_parameters_arduino()
 {
+}
+
+void glitch_object_function_parameters_arduino::slotAdd(void)
+{
+  auto item = new QTableWidgetItem();
+
+  m_ui.parameters->setRowCount(m_ui.parameters->rowCount() + 1);
+  m_ui.parameters->setItem
+    (m_ui.parameters->rowCount() - 1, ColumnIndices::PARAMETER_COLUMN, item);
+  item = new QTableWidgetItem();
+  m_ui.parameters->setItem
+    (m_ui.parameters->rowCount() - 1, ColumnIndices::TYPE_COLUMN, item);
 }

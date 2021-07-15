@@ -79,6 +79,7 @@ class glitch_object_function_parameters_arduino: public QDialog
   Ui_glitch_object_function_parameters_arduino m_ui;
 
  private slots:
+  void slotAdd(void);
 };
 
 #endif
