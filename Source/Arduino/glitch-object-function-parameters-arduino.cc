@@ -26,6 +26,7 @@
 */
 
 #include <QComboBox>
+#include <QShortcut>
 
 #include "glitch-object-function-parameters-arduino.h"
 #include "glitch-structures-arduino.h"
@@ -43,8 +44,7 @@ createEditor(QWidget *parent,
 {
   switch(index.column())
     {
-    case glitch_object_function_parameters_arduino::ColumnIndices::
-         PARAMETER_COLUMN:
+    case glitch_object_function_parameters_arduino::ColumnIndices::TYPE_COLUMN:
       {
 	auto comboBox = new QComboBox(parent);
 	auto types(glitch_structures_arduino::types());
@@ -107,6 +107,9 @@ glitch_object_function_parameters_arduino
 (const QMap<QString, QString> &parameters, QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.parameters->setItemDelegateForColumn
+    (ColumnIndices::TYPE_COLUMN,
+     new glitch_object_function_parameters_arduino_item_delegate(this));
   m_ui.parameters->setRowCount(parameters.size());
 
   QMapIterator<QString, QString> it(parameters);
@@ -118,12 +121,19 @@ glitch_object_function_parameters_arduino
 
       auto item = new QTableWidgetItem(it.key());
 
+      item->setFlags
+	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.parameters->setItem(i, ColumnIndices::PARAMETER_COLUMN, item);
       item = new QTableWidgetItem(it.value());
+      item->setFlags
+	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.parameters->setItem(i, ColumnIndices::TYPE_COLUMN, item);
       i += 1;
     }
 
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   connect(m_ui.add,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -139,10 +149,12 @@ void glitch_object_function_parameters_arduino::slotAdd(void)
 {
   auto item = new QTableWidgetItem();
 
+  item->setFlags(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
   m_ui.parameters->setRowCount(m_ui.parameters->rowCount() + 1);
   m_ui.parameters->setItem
     (m_ui.parameters->rowCount() - 1, ColumnIndices::PARAMETER_COLUMN, item);
   item = new QTableWidgetItem();
+  item->setFlags(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
   m_ui.parameters->setItem
     (m_ui.parameters->rowCount() - 1, ColumnIndices::TYPE_COLUMN, item);
 }
