@@ -65,17 +65,17 @@ class glitch_object_function_parameters_arduino: public QDialog
   Q_OBJECT
 
  public:
+  enum ColumnIndices
+  {
+    PARAMETER_COLUMN = 0,
+    TYPE_COLUMN
+  };
+
   glitch_object_function_parameters_arduino
     (const QMap<QString, QString> &parameters, QWidget *parent);
   ~glitch_object_function_parameters_arduino();
 
  private:
-  enum ColumnIndices
-    {
-      PARAMETER_COLUMN = 0,
-      TYPE_COLUMN
-    };
-
   Ui_glitch_object_function_parameters_arduino m_ui;
 
  private slots:

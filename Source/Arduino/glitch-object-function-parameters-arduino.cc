@@ -28,14 +28,12 @@
 #include <QComboBox>
 
 #include "glitch-object-function-parameters-arduino.h"
+#include "glitch-structures-arduino.h"
 
 QSize glitch_object_function_parameters_arduino_item_delegate::
 sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-  QSize size(QStyledItemDelegate::sizeHint(option, index));
-
-  size.setHeight(size.height() + static_cast<int> (5.5 * size.height()));
-  return size;
+  return QStyledItemDelegate::sizeHint(option, index);
 }
 
 QWidget *glitch_object_function_parameters_arduino_item_delegate::
@@ -45,6 +43,22 @@ createEditor(QWidget *parent,
 {
   switch(index.column())
     {
+    case glitch_object_function_parameters_arduino::ColumnIndices::
+         PARAMETER_COLUMN:
+      {
+	auto comboBox = new QComboBox(parent);
+	auto types(glitch_structures_arduino::types());
+
+	types.removeAll("void");
+	comboBox->addItems(types);
+	comboBox->setCurrentIndex
+	  (comboBox->findText(index.data().toString().trimmed()));
+
+	if(comboBox < 0)
+	  comboBox->setCurrentIndex(0);
+
+	return comboBox;
+      }
     default:
       {
 	break;
