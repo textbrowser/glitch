@@ -95,6 +95,7 @@ settings(void) const
   hash[Settings::CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
   hash[Settings::CANVAS_NAME] = name();
   hash[Settings::REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
+  hash[Settings::SHOW_CANVAS_DOTS] = showCanvasDots();
   hash[Settings::VIEW_UPDATE_MODE] = viewportUpdateMode();
   return hash;
 }
@@ -136,6 +137,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
+	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart'))"
@@ -153,8 +155,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "name, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
+	   "show_canvas_dots, "
 	   "update_mode) "
-	   "VALUES (?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text());
 
 	auto name(m_ui.name->text().trimmed());
@@ -165,6 +168,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(name);
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
+	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue
 	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
 
@@ -182,6 +186,11 @@ bool glitch_canvas_settings::save(QString &error) const
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
   return ok;
+}
+
+bool glitch_canvas_settings::showCanvasDots(void) const
+{
+  return m_ui.show_canvas_dots->isChecked();
 }
 
 int glitch_canvas_settings::redoUndoStackSize(void) const
@@ -221,18 +230,24 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
+	query.exec
+	  ("ALTER TABLE canvas_settings "
+	   "ADD show_canvas_dots INTEGER NOT NULL DEFAULT 1");
+
 	if(query.exec("SELECT background_color, " // 0
 		      "name, "                    // 1
 		      "project_type, "            // 2
 		      "redo_undo_stack_size, "    // 3
-		      "update_mode "              // 4
+		      "show_canvas_dots, "        // 4
+		      "update_mode "              // 5
 		      "FROM canvas_settings") && query.next())
 	  {
 	    QColor color(query.value(0).toString().trimmed());
 	    auto name(query.value(1).toString().trimmed());
 	    auto projectType(query.value(2).toString().trimmed());
 	    auto redoUndoStackSize = query.value(3).toInt();
-	    auto updateMode(query.value(4).toString().trimmed());
+	    auto showCanvasDots = query.value(4).toBool();
+	    auto updateMode(query.value(5).toString().trimmed());
 
 	    if(!color.isValid())
 	      color = QColor(211, 211, 211);
@@ -251,6 +266,7 @@ void glitch_canvas_settings::prepare(void)
 
 	    m_ui.name->setText(name);
 	    m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
+	    m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	    m_ui.update_mode->setCurrentIndex
 	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
 
