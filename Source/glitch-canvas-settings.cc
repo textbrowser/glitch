@@ -313,9 +313,15 @@ void glitch_canvas_settings::setSettings
   m_ui.background_color->setText(color.name());
   setName(hash.value(CANVAS_NAME).toString());
   setResult(QDialog::Accepted);
+  setShowCanvasDots(hash.value(SHOW_CANVAS_DOTS).toBool());
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(VIEW_UPDATE_MODE).toInt()));
   emit accepted(false);
+}
+
+void glitch_canvas_settings::setShowCanvasDots(const bool state)
+{
+  m_ui.show_canvas_dots->setChecked(state);
 }
 
 void glitch_canvas_settings::setViewportUpdateMode

@@ -51,6 +51,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 {
   m_mainScene = false;
   m_projectType = projectType;
+  m_showDots = true;
   m_undoStack = nullptr;
 }
 
@@ -458,7 +459,7 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-  if(!painter)
+  if(!m_showDots || !painter)
     {
       QGraphicsScene::drawBackground(painter, rect);
       return;
@@ -935,6 +936,11 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 void glitch_scene::setMainScene(const bool state)
 {
   m_mainScene = state;
+}
+
+void glitch_scene::setShowDots(const bool state)
+{
+  m_showDots = state;
 }
 
 void glitch_scene::setUndoStack(QUndoStack *undoStack)

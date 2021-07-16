@@ -55,6 +55,7 @@ class glitch_scene: public QGraphicsScene
   void purgeRedoUndoProxies(void);
   void removeItem(QGraphicsItem *item);
   void setMainScene(const bool state);
+  void setShowDots(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
  private:
@@ -63,6 +64,7 @@ class glitch_scene: public QGraphicsScene
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;
+  bool m_showDots;
   glitch_common::ProjectTypes m_projectType;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t);
   void bringToFront(glitch_proxy_widget *proxy);
