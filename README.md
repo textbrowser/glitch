@@ -4,3 +4,5 @@ Qt 5.x is preferred. C++2011 is mandatory.
 
 The QtNQC project was originally registered in 2004.
 It was intended to be a Qt interface for NQC. NQC has since been retired.
+
+![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
