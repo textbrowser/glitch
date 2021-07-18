@@ -83,18 +83,6 @@ setModelData(QWidget *editor,
 }
 
 void glitch_object_function_parameters_arduino_item_delegate::
-slotCurrentIndexChanged(int index)
-{
-  Q_UNUSED(index);
-
-  auto comboBox = qobject_cast<QComboBox *> (sender());
-
-  if(comboBox)
-    {
-    }
-}
-
-void glitch_object_function_parameters_arduino_item_delegate::
 updateEditorGeometry(QWidget *editor,
 		     const QStyleOptionViewItem &option,
 		     const QModelIndex &index) const

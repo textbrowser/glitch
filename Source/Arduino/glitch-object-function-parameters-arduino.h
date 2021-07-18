@@ -55,9 +55,6 @@ class glitch_object_function_parameters_arduino_item_delegate:
   void updateEditorGeometry(QWidget *editor,
 			    const QStyleOptionViewItem &option,
 			    const QModelIndex &index) const;
-
- private slots:
-  void slotCurrentIndexChanged(int index);
 };
 
 class glitch_object_function_parameters_arduino: public QDialog
