@@ -26,7 +26,17 @@
      <property name="childrenCollapsible">
       <bool>false</bool>
      </property>
-     <widget class="QListWidget" name="categories"/>
+     <widget class="QListWidget" name="categories">
+      <property name="tabKeyNavigation">
+       <bool>true</bool>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+     </widget>
      <widget class="glitch_structures_treewidget" name="tree">
       <property name="tabKeyNavigation">
        <bool>true</bool>
