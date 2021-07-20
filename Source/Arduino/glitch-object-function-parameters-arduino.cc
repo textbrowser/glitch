@@ -126,6 +126,14 @@ glitch_object_function_parameters_arduino
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotAdd(void)));
+  connect(m_ui.apply,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotApply(void)));
+  connect(m_ui.remove,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotDelete(void)));
 }
 
 glitch_object_function_parameters_arduino::
@@ -135,14 +143,25 @@ glitch_object_function_parameters_arduino::
 
 void glitch_object_function_parameters_arduino::slotAdd(void)
 {
+  m_ui.parameters->setSortingEnabled(false);
+
   auto item = new QTableWidgetItem();
 
   item->setFlags(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
   m_ui.parameters->setRowCount(m_ui.parameters->rowCount() + 1);
   m_ui.parameters->setItem
     (m_ui.parameters->rowCount() - 1, ColumnIndices::PARAMETER_COLUMN, item);
-  item = new QTableWidgetItem();
+  item = new QTableWidgetItem(tr("int"));
   item->setFlags(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
   m_ui.parameters->setItem
     (m_ui.parameters->rowCount() - 1, ColumnIndices::TYPE_COLUMN, item);
+  m_ui.parameters->setSortingEnabled(true);
+}
+
+void glitch_object_function_parameters_arduino::slotApply(void)
+{
+}
+
+void glitch_object_function_parameters_arduino::slotDelete(void)
+{
 }

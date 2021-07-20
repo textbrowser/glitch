@@ -77,6 +77,8 @@ class glitch_object_function_parameters_arduino: public QDialog
 
  private slots:
   void slotAdd(void);
+  void slotApply(void);
+  void slotDelete(void);
 };
 
 #endif
