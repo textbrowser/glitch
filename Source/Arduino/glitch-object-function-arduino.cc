@@ -538,18 +538,23 @@ void glitch_object_function_arduino::save
 
 void glitch_object_function_arduino::setName(const QString &name)
 {
+  glitch_object::setName(name);
+
+  if(m_editWindow)
+    m_editWindow->setWindowTitle
+      (tr("Glitch: %1").arg(m_properties.value(Properties::NAME).toString()));
+
+  if(m_parametersDialog)
+    m_parametersDialog->setWindowTitle
+      (tr("Glitch: Function Parameters (%1)").
+       arg(m_properties.value(NAME).toString()));
+
   if(m_parentView)
     {
       m_parentView->consumeFunctionName(name);
       m_parentView->removeFunctionName
 	(m_properties.value(Properties::NAME).toString());
     }
-
-  glitch_object::setName(name);
-
-  if(m_editWindow)
-    m_editWindow->setWindowTitle
-      (tr("Glitch: %1").arg(m_properties.value(Properties::NAME).toString()));
 
   m_ui.label->setText(m_properties.value(Properties::NAME).toString());
 
