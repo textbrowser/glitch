@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QSqlQuery>
+#include <QWidgetAction>
 
 #include "Arduino/glitch-structures-arduino.h"
 #include "Arduino/glitch-view-arduino.h"
@@ -642,13 +643,26 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto action = m_ui.menu_Recent_Files->addAction(list.at(i));
+      QHBoxLayout *layout = nullptr;
+      auto fileInfo(QFileInfo(list.at(i)));
+      auto label = new QLabel(this);
+      auto widget = new QWidget(this);
+      auto widgetAction = new QWidgetAction(this);
 
-      action->setProperty("file_name", list.at(i));
-      connect(action,
+      if(!fileInfo.exists() || !fileInfo.isReadable())
+	label->setStyleSheet("QLabel {color: #8b0000;}");
+
+      label->setText(list.at(i));
+      layout = new QHBoxLayout(widget);
+      layout->addWidget(label);
+      layout->setContentsMargins(5, 5, 5, 5);
+      widgetAction->setDefaultWidget(widget);
+      widgetAction->setProperty("file_name", list.at(i));
+      connect(widgetAction,
 	      SIGNAL(triggered(void)),
 	      this,
 	      SLOT(slotOpenRecentDiagram(void)));
+      m_ui.menu_Recent_Files->addAction(widgetAction);
     }
 
   if(!list.isEmpty())
