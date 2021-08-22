@@ -96,6 +96,7 @@ Remaining Items
 
 - All of Arduino's objects.
 - Function parameters and return value.
+- Function redo/undo. Private.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
