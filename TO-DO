@@ -42,6 +42,8 @@ Completed Items
 - Error dialog.
 - Exiting does not require closing of pages.
 - Function names and deleted functions; uniqueness errors.
+- Function redo/undo private container. The redo/undo stack must be
+  separate of the function's parent view.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
@@ -96,7 +98,6 @@ Remaining Items
 
 - All of Arduino's objects.
 - Function parameters and return value.
-- Function redo/undo. Private.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
