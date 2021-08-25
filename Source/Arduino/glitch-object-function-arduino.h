@@ -68,6 +68,7 @@ class glitch_object_function_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
   void setName(const QString &name);
   void setReturnType(const QString &returnType);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   QMap<QString, QString> m_parameters;

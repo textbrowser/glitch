@@ -87,11 +87,11 @@ class glitch_object: public QWidget
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
+  virtual void setUndoStack(QUndoStack *undoStack);
   virtual ~glitch_object();
   void move(const QPoint &point);
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
-  void setUndoStack(QUndoStack *undoStack);
   virtual void simulateDelete(void);
 
  private:

@@ -373,7 +373,10 @@ void glitch_object_function_arduino::declone(void)
     m_editWindow->deleteLater();
 
   m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject, m_id, m_undoStack, this);
+    (glitch_common::ProjectTypes::ArduinoProject,
+     m_id,
+     m_undoStack = new QUndoStack(this),
+     this);
   m_editWindow = new glitch_object_edit_window(m_parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
@@ -429,7 +432,10 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 
   m_ui.setupUi(this);
   m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject, m_id, m_undoStack, this);
+    (glitch_common::ProjectTypes::ArduinoProject,
+     m_id,
+     m_undoStack = new QUndoStack(this),
+     this);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
@@ -644,6 +650,11 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 
   if(!m_isFunctionClone)
     emit changed();
+}
+
+void glitch_object_function_arduino::setUndoStack(QUndoStack *undoStack)
+{
+  Q_UNUSED(undoStack);
 }
 
 void glitch_object_function_arduino::simulateDelete(void)
