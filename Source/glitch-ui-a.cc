@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QSqlQuery>
+#include <QTimer>
 #include <QWidgetAction>
 
 #include "Arduino/glitch-structures-arduino.h"
@@ -421,6 +422,7 @@ void glitch_ui::parseCommandLineArguments(void)
 {
   QString errors("");
   auto list(QApplication::arguments());
+  auto showArduinoStructures = false;
 
   for(int i = 1; i < list.size(); i++)
     if(list.at(i) == "--new-arduino-diagram")
@@ -455,6 +457,14 @@ void glitch_ui::parseCommandLineArguments(void)
 	  errors.append
 	    (tr("An error occurred while processing "
 		"the file %1. (%2)\n\n").arg(list.value(i)).arg(error));
+      }
+    else if(list.at(i) == "--show-arduino-structures")
+      {
+	if(!showArduinoStructures)
+	  {
+	    QTimer::singleShot(500, this, SLOT(slotShowStructures(void)));
+	    showArduinoStructures = true;
+	  }
       }
     else if(list.at(i) == "--version")
       {
