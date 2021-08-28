@@ -469,7 +469,7 @@ void glitch_ui::parseCommandLineArguments(void)
     else if(list.at(i) == "--version")
       {
       }
-    else
+    else if(!list.at(i).trimmed().isEmpty())
       qDebug() << "The option " << list.at(i) << " is not supported.";
 
   if(!errors.isEmpty())
