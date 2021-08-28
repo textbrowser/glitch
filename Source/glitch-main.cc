@@ -32,9 +32,7 @@
 #include <iostream>
 
 #ifdef Q_OS_MAC
-#if QT_VERSION >= 0x050000
 #include "CocoaInitializer.h"
-#endif
 #endif
 
 #include "glitch-misc.h"
@@ -68,7 +66,11 @@ int main(int argc, char *argv[])
 #endif
 
   QApplication qapplication(argc, argv);
+  QFont font(qapplication.font());
 
+  font.setStyleStrategy
+    (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
+  qapplication.setFont(font);
   qapplication.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
 
   QDir dir;
@@ -76,21 +78,17 @@ int main(int argc, char *argv[])
   dir.mkdir(glitch_misc::homePath());
 
 #ifdef Q_OS_MAC
-#if QT_VERSION >= 0x050000
   /*
   ** Eliminate pool errors on OS X.
   */
 
   CocoaInitializer ci;
 #endif
-#endif
-  QCoreApplication::setApplicationName("Glitch");
-#if QT_VERSION >= 0x050700
   QApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
-#endif
-  QCoreApplication::setOrganizationName("Glitch");
-  QCoreApplication::setOrganizationDomain("glitch.sf.net");
+  QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
+  QCoreApplication::setApplicationName("Glitch");
   QCoreApplication::setApplicationVersion(GLITCH_VERSION_STR);
+  QCoreApplication::setOrganizationName("Glitch");
   QSettings::setDefaultFormat(QSettings::IniFormat);
   QSettings::setPath(QSettings::IniFormat,
 		     QSettings::UserScope,

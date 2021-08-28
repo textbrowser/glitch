@@ -560,6 +560,9 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 void glitch_ui::prepareActionWidgets(void)
 {
+  m_ui.action_Clear_Copied_Widgets_Buffer->setEnabled
+    (!s_copiedObjects.isEmpty());
+
   if(m_ui.tab->count() == 0)
     {
       m_ui.action_Alignment->setEnabled(false);
@@ -940,13 +943,16 @@ void glitch_ui::slotCloseDiagram(void)
 void glitch_ui::slotCopy(QGraphicsView *view)
 {
   copy(view);
-  m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
+  prepareActionWidgets();
 }
 
 void glitch_ui::slotCopy(glitch_view *view)
 {
   if(view)
-    copy(view->view());
+    {
+      copy(view->view());
+      prepareActionWidgets();
+    }
 }
 
 void glitch_ui::slotCopy(void)
@@ -954,7 +960,7 @@ void glitch_ui::slotCopy(void)
   if(m_currentView)
     {
       copy(m_currentView->view());
-      m_ui.action_Paste->setEnabled(!s_copiedObjects.empty());
+      prepareActionWidgets();
     }
 }
 
