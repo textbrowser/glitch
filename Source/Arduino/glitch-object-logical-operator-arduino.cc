@@ -103,6 +103,14 @@ void glitch_object_logical_operator_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
+void glitch_object_logical_operator_arduino::setProperties
+(const QStringList &list)
+{
+  glitch_object::setProperties(list);
+  setOperatorType
+    (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
+}
+
 void glitch_object_logical_operator_arduino::setOperatorType
 (const QString &operatorType)
 {
