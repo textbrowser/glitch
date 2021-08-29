@@ -50,7 +50,7 @@ glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
 glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
 clone(QWidget *parent) const
 {
-  auto *clone = new glitch_object_analog_read_arduino(parent);
+  auto clone = new glitch_object_analog_read_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -63,7 +63,7 @@ createFromValues(const QMap<QString, QVariant> &values,
 {
   Q_UNUSED(error);
 
-  auto *object = new glitch_object_analog_read_arduino
+  auto object = new glitch_object_analog_read_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));

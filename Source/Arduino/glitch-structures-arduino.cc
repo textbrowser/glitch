@@ -334,7 +334,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
       for(int i = 0; i < list.size(); i++)
 	if(list.at(i) == "array")
 	  {
-	    auto *item = new QTreeWidgetItem(QStringList() << list.at(i));
+	    auto item = new QTreeWidgetItem(QStringList() << list.at(i));
 
 	    m_ui.tree->addTopLevelItem(item);
 

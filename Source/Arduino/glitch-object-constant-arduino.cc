@@ -57,7 +57,7 @@ glitch_object_constant_arduino::
 glitch_object_constant_arduino *glitch_object_constant_arduino::
 clone(QWidget *parent) const
 {
-  auto *clone = new glitch_object_constant_arduino(parent);
+  auto clone = new glitch_object_constant_arduino(parent);
 
   clone->m_constantType = m_constantType;
   clone->setStyleSheet(styleSheet());
@@ -71,7 +71,7 @@ createFromValues(const QMap<QString, QVariant> &values,
 {
   Q_UNUSED(error);
 
-  auto *object = new glitch_object_constant_arduino
+  auto object = new glitch_object_constant_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));

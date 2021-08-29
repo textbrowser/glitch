@@ -83,7 +83,7 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
 {
   if(!m_actions.contains(DefaultMenuActions::EDIT))
     {
-      auto *action = new QAction(tr("&Edit..."), this);
+      auto action = new QAction(tr("&Edit..."), this);
 
       connect(action,
 	      SIGNAL(triggered(void)),

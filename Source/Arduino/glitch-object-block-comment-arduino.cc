@@ -55,7 +55,7 @@ glitch_object_block_comment_arduino::
 glitch_object_block_comment_arduino *glitch_object_block_comment_arduino::
 clone(QWidget *parent) const
 {
-  auto *clone = new glitch_object_block_comment_arduino(parent);
+  auto clone = new glitch_object_block_comment_arduino(parent);
 
   clone->setStyleSheet(styleSheet());
   clone->m_ui.comment->blockSignals(true);
@@ -71,7 +71,7 @@ createFromValues(const QMap<QString, QVariant> &values,
 {
   Q_UNUSED(error);
 
-  auto *object = new glitch_object_block_comment_arduino
+  auto object = new glitch_object_block_comment_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
