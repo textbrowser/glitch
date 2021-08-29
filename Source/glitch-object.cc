@@ -32,6 +32,7 @@
 
 #include "Arduino/glitch-object-analog-read-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
+#include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "glitch-floating-context-menu.h"
@@ -148,6 +149,9 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-blockcomment")
     object = glitch_object_block_comment_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-constant")
+    object = glitch_object_constant_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-function")
     object = glitch_object_function_arduino::createFromValues
