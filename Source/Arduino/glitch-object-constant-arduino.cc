@@ -125,6 +125,14 @@ void glitch_object_constant_arduino::setConstantType
     m_constantType = TRUE;
   else
     m_constantType = HIGH;
+
+  m_ui.constant->blockSignals(true);
+  m_ui.constant->setCurrentIndex(m_ui.constant->findText(constantType));
+
+  if(m_ui.constant->currentIndex() < 0)
+    m_ui.constant->setCurrentIndex(0);
+
+  m_ui.constant->blockSignals(false);
 }
 
 void glitch_object_constant_arduino::slotConstantChanged(void)
