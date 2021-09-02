@@ -27,6 +27,7 @@
 
 #include <QtDebug>
 
+#include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
@@ -118,7 +119,10 @@ glitch_undo_command::glitch_undo_command
       {
       case Types::CONSTANT_TYPE_CHANGED:
 	{
-	  m_currentString = "";
+	  if(qobject_cast<glitch_object_constant_arduino *> (object))
+	    m_currentString = qobject_cast<glitch_object_constant_arduino *>
+	      (object)->constantType();
+
 	  break;
 	}
       case Types::STYLESHEET_CHANGED:

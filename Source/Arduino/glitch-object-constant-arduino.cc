@@ -59,6 +59,11 @@ glitch_object_constant_arduino::
 {
 }
 
+QString glitch_object_constant_arduino::constantType(void) const
+{
+  return m_ui.constant->currentText();
+}
+
 glitch_object_constant_arduino *glitch_object_constant_arduino::
 clone(QWidget *parent) const
 {
