@@ -374,6 +374,12 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
 	}
+      else if(string.startsWith("constant = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONSTANT_TYPE] = string.trimmed();
+	}
       else if(string.startsWith("logical_operator = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);

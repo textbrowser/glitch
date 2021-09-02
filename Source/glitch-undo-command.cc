@@ -184,6 +184,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::CONSTANT_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_constant_arduino *> (m_object))
+	  qobject_cast<glitch_object_constant_arduino *>
+	    (m_object)->setConstantType(m_currentString);
+
+	break;
+      }
     case Types::FUNCTION_RENAMED:
       {
 	if(m_object && m_userFunctions)
@@ -271,6 +279,14 @@ void glitch_undo_command::undo(void)
       {
 	if(m_canvasSettings)
 	  m_canvasSettings->setSettings(m_previousCanvasSettings);
+
+	break;
+      }
+    case Types::CONSTANT_TYPE_CHANGED:
+      {
+      	if(qobject_cast<glitch_object_constant_arduino *> (m_object))
+	  qobject_cast<glitch_object_constant_arduino *>
+	    (m_object)->setConstantType(m_previousString);
 
 	break;
       }

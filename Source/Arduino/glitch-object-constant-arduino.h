@@ -56,11 +56,11 @@ class glitch_object_constant_arduino: public glitch_object
   glitch_object_constant_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
+  void setConstantType(const QString &constantType);
 
  private:
   ConstantTypes m_constantType;
   Ui_glitch_object_constant_arduino m_ui;
-  void setConstantType(const QString &constantType);
 
  private slots:
   void slotConstantChanged(void);

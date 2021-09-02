@@ -134,6 +134,7 @@ void glitch_object_constant_arduino::slotConstantChanged(void)
      glitch_undo_command::CONSTANT_TYPE_CHANGED,
      this);
 
+  m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
   undoCommand->setText(tr("constant type changed"));
   m_undoStack->push(undoCommand);
   emit changed();
