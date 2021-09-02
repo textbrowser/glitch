@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-constant-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_constant_arduino::glitch_object_constant_arduino
 (QWidget *parent):glitch_object_constant_arduino(1, parent)
@@ -45,6 +46,10 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_constantType = HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
+  connect(m_ui.constant,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotConstantChanged(void)));
   prepareContextMenu();
   setName(m_type);
 }
@@ -115,4 +120,16 @@ void glitch_object_constant_arduino::setConstantType
     m_constantType = TRUE;
   else
     m_constantType = HIGH;
+}
+
+void glitch_object_constant_arduino::slotConstantChanged(void)
+{
+  auto undoCommand = new glitch_undo_command
+    (m_properties.value(Properties::CONSTANT_TYPE).toString(),
+     glitch_undo_command::CONSTANT_TYPE_CHANGED,
+     this);
+
+  undoCommand->setText(tr("constant type changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }

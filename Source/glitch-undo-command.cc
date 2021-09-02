@@ -108,16 +108,32 @@ glitch_undo_command::glitch_undo_command
 }
 
 glitch_undo_command::glitch_undo_command
-(const QString &previousStyleSheet,
+(const QString &previousString,
  const Types type,
  glitch_object *object,
  QUndoCommand *parent):QUndoCommand(parent)
 {
   if(object)
-    m_currentStyleSheet = object->styleSheet();
+    switch(type)
+      {
+      case Types::CONSTANT_TYPE_CHANGED:
+	{
+	  m_currentString = "";
+	  break;
+	}
+      case Types::STYLESHEET_CHANGED:
+	{
+	  m_currentString = object->styleSheet();
+	  break;
+	}
+      default:
+	{
+	  break;
+	}
+      }
 
   m_object = object;
-  m_previousStyleSheet = previousStyleSheet;
+  m_previousString = previousString;
   m_property = glitch_object::XYZ_PROPERTY;
   m_type = type;
 }
@@ -232,7 +248,7 @@ void glitch_undo_command::redo(void)
     case Types::STYLESHEET_CHANGED:
       {
 	if(m_object)
-	  m_object->setStyleSheet(m_currentStyleSheet);
+	  m_object->setStyleSheet(m_currentString);
 
 	break;
       }
@@ -313,7 +329,7 @@ void glitch_undo_command::undo(void)
     case Types::STYLESHEET_CHANGED:
       {
 	if(m_object)
-	  m_object->setStyleSheet(m_previousStyleSheet);
+	  m_object->setStyleSheet(m_previousString);
 
 	break;
       }

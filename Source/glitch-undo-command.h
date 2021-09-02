@@ -44,6 +44,7 @@ class glitch_undo_command: public QUndoCommand
   enum Types
   {
     CANVAS_SETTINGS_CHANGED = 0,
+    CONSTANT_TYPE_CHANGED,
     FUNCTION_RENAMED,
     FUNCTION_RETURN_TYPE_CHANGED,
     ITEM_ADDED,
@@ -69,7 +70,7 @@ class glitch_undo_command: public QUndoCommand
 		      glitch_object *object,
 		      glitch_user_functions *userFunctions,
 		      QUndoCommand *parent = nullptr);
-  glitch_undo_command(const QString &previousStyleSheet,
+  glitch_undo_command(const QString &previousValue,
 		      const Types type,
 		      glitch_object *object,
 		      QUndoCommand *parent = nullptr);
@@ -100,10 +101,9 @@ class glitch_undo_command: public QUndoCommand
   QString m_currentFunctionName;
   QString m_currentFunctionReturnType;
   QString m_currentString;
-  QString m_currentStyleSheet;
   QString m_previousFunctionName;
   QString m_previousFunctionReturnType;
-  QString m_previousStyleSheet;
+  QString m_previousString;
   QVariant m_currentProperty;
   QVariant m_previousProperty;
   Types m_type;
