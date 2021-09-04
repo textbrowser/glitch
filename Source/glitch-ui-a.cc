@@ -1344,7 +1344,8 @@ void glitch_ui::slotShowStructures(void)
       QApplication::restoreOverrideCursor();
 
       if(!m_arduinoStructures)
-	m_arduinoStructures = new glitch_structures_arduino(this);
+	m_arduinoStructures = new glitch_structures_arduino
+	  (m_ui.tab->currentWidget());
 
       m_arduinoStructures->showNormal();
       m_arduinoStructures->activateWindow();
