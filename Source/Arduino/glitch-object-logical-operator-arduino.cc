@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-logical-operator-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 (QWidget *parent):glitch_object_logical_operator_arduino(1, parent)
@@ -155,4 +156,18 @@ void glitch_object_logical_operator_arduino::setOperatorType
     }
 
   setName(m_ui.logical_operator->currentText());
+}
+
+void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
+{
+  auto undoCommand = new glitch_undo_command
+    (m_properties.value(Properties::LOGICAL_OPERATOR).toString(),
+     glitch_undo_command::LOGICAL_OPERATOR_CHANGED,
+     this);
+
+  m_properties[Properties::LOGICAL_OPERATOR] =
+    m_ui.logical_operator->currentText();
+  undoCommand->setText(tr("logical operator changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
