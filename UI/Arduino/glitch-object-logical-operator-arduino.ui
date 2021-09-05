@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>102</width>
+    <width>118</width>
     <height>45</height>
    </rect>
   </property>
@@ -52,25 +52,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QToolButton" name="context_menu">
      <property name="text">
       <string/>
@@ -83,6 +64,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>logical_operator</tabstop>
+  <tabstop>context_menu</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Icons/icons.qrc"/>
  </resources>

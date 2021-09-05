@@ -45,8 +45,7 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
+  m_ui.logical_operator->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
@@ -78,9 +77,18 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ui.label->setText
+
+  auto str
     (object->
      m_properties.value(glitch_object::LOGICAL_OPERATOR).toString().trimmed());
+
+  if(str == "!")
+    object->m_ui.logical_operator->setCurrentIndex(1);
+  else if(str == "||")
+    object->m_ui.logical_operator->setCurrentIndex(2);
+  else
+    object->m_ui.logical_operator->setCurrentIndex(0);
+
   return object;
 }
 
@@ -99,7 +107,8 @@ void glitch_object_logical_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["logical_operator"] = m_ui.label->text().trimmed();
+  properties["logical_operator"] =
+    m_ui.logical_operator->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -131,20 +140,20 @@ void glitch_object_logical_operator_arduino::setOperatorType
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	m_ui.label->setText("!");
+	m_ui.logical_operator->setCurrentIndex(1);
 	break;
       }
     case OperatorTypes::OR_OPERATOR:
       {
-	m_ui.label->setText("||");
+	m_ui.logical_operator->setCurrentIndex(2);
 	break;
       }
     default:
       {
-	m_ui.label->setText("&&");
+	m_ui.logical_operator->setCurrentIndex(0);
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  setName(m_ui.logical_operator->currentText());
 }
