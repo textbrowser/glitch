@@ -45,7 +45,6 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
-  m_ui.logical_operator->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
