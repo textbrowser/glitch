@@ -29,6 +29,7 @@
 
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
+#include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -122,6 +123,15 @@ glitch_undo_command::glitch_undo_command
 	  if(qobject_cast<glitch_object_constant_arduino *> (object))
 	    m_currentString = qobject_cast<glitch_object_constant_arduino *>
 	      (object)->constantType();
+
+	  break;
+	}
+      case Types::LOGICAL_OPERATOR_CHANGED:
+	{
+	  if(qobject_cast<glitch_object_logical_operator_arduino *> (object))
+	    m_currentString = qobject_cast
+	      <glitch_object_logical_operator_arduino *> (object)->
+	      logicalOperator();
 
 	  break;
 	}
@@ -250,6 +260,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::LOGICAL_OPERATOR_CHANGED:
+      {
+	if(qobject_cast<glitch_object_logical_operator_arduino *> (m_object))
+	  qobject_cast<glitch_object_logical_operator_arduino *> (m_object)->
+	    setOperatorType(m_currentString);
+
+	break;
+      }
     case Types::PROPERTY_CHANGED:
       {
 	if(m_object)
@@ -336,6 +354,14 @@ void glitch_undo_command::undo(void)
 	    m_proxy->setPos(m_previousPosition);
 	    m_scene->update();
 	  }
+
+	break;
+      }
+    case Types::LOGICAL_OPERATOR_CHANGED:
+      {
+	if(qobject_cast<glitch_object_logical_operator_arduino *> (m_object))
+	  qobject_cast<glitch_object_logical_operator_arduino *> (m_object)->
+	    setOperatorType(m_previousString);
 
 	break;
       }

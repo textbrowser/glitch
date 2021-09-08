@@ -46,6 +46,10 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
+  connect(m_ui.logical_operator,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotLogicalOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
@@ -53,6 +57,11 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 glitch_object_logical_operator_arduino::
 ~glitch_object_logical_operator_arduino()
 {
+}
+
+QString glitch_object_logical_operator_arduino::logicalOperator(void) const
+{
+  return m_ui.logical_operator->currentText();
 }
 
 glitch_object_logical_operator_arduino *glitch_object_logical_operator_arduino::
@@ -135,6 +144,7 @@ void glitch_object_logical_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
+  m_ui.logical_operator->blockSignals(true);
 
   switch(m_operatorType)
     {
@@ -155,6 +165,7 @@ void glitch_object_logical_operator_arduino::setOperatorType
       }
     }
 
+  m_ui.logical_operator->blockSignals(false);
   setName(m_ui.logical_operator->currentText());
 }
 
