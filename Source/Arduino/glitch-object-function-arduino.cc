@@ -578,11 +578,11 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
   for(int i = 0; i < list.size(); i++)
     if(list.at(i).startsWith("clone = "))
       {
-	auto str(list.at(i).mid(8));
+	auto string(list.at(i).mid(8));
 
-	str.remove("\"");
+	string.remove("\"");
 
-	if((m_isFunctionClone = QVariant(str).toBool()))
+	if((m_isFunctionClone = QVariant(string).toBool()))
 	  {
 	    connect(&m_findParentFunctionTimer,
 		    SIGNAL(timeout(void)),
@@ -603,31 +603,31 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
       }
     else if(list.at(i).startsWith("name = "))
       {
-	auto str(list.at(i).mid(7));
+	auto string(list.at(i).mid(7));
 
-	str.remove("\"");
+	string.remove("\"");
 
 	if(!m_isFunctionClone &&
 	   m_parentView &&
-	   m_parentView->containsFunctionName(str))
-	  str = m_parentView->nextUniqueFunctionName();
+	   m_parentView->containsFunctionName(string))
+	  string = m_parentView->nextUniqueFunctionName();
 
 	if(m_editWindow)
-	  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(str));
+	  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(string));
 
 	if(!m_isFunctionClone && m_parentView)
-	  m_parentView->consumeFunctionName(str);
+	  m_parentView->consumeFunctionName(string);
 
-	m_ui.label->setText(str);
+	m_ui.label->setText(string);
       }
     else if(list.at(i).startsWith("return_type = "))
       {
 	if(!m_isFunctionClone)
 	  {
-	    auto str(list.at(i).mid(14));
+	    auto string(list.at(i).mid(14));
 
-	    str.remove("\"");
-	    setReturnType(str);
+	    string.remove("\"");
+	    setReturnType(string);
 	    m_previousReturnType = m_ui.return_type->currentText();
 	  }
 	else

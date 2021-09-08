@@ -87,13 +87,13 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
 
-  auto str
+  auto string
     (object->
      m_properties.value(glitch_object::LOGICAL_OPERATOR).toString().trimmed());
 
-  if(str == "!")
+  if(string == "!")
     object->m_ui.logical_operator->setCurrentIndex(1);
-  else if(str == "||")
+  else if(string == "||")
     object->m_ui.logical_operator->setCurrentIndex(2);
   else
     object->m_ui.logical_operator->setCurrentIndex(0);

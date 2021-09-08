@@ -86,6 +86,26 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+
+  auto string
+    (object->m_properties.value(glitch_object::CONSTANT_TYPE).
+     toString().toLower().trimmed());
+  
+  if(string == "false")
+    object->m_ui.constant->setCurrentIndex(4);
+  else if(string == "high")
+    object->m_ui.constant->setCurrentIndex(0);
+  else if(string == "input")
+    object->m_ui.constant->setCurrentIndex(1);
+  else if(string == "input_pullup")
+    object->m_ui.constant->setCurrentIndex(2);
+  else if(string == "led_builtin")
+    object->m_ui.constant->setCurrentIndex(3);
+  else if(string == "true")
+    object->m_ui.constant->setCurrentIndex(5);
+  else
+    object->m_ui.constant->setCurrentIndex(0);
+
   return object;
 }
 
