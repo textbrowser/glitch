@@ -61,6 +61,7 @@ class glitch_object_constant_arduino: public glitch_object
  private:
   ConstantTypes m_constantType;
   Ui_glitch_object_constant_arduino m_ui;
+  void setProperties(const QStringList &list);
 
  private slots:
   void slotConstantChanged(void);

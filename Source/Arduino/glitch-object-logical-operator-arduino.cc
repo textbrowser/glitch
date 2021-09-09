@@ -86,18 +86,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-
-  auto string
-    (object->
-     m_properties.value(glitch_object::LOGICAL_OPERATOR).toString().trimmed());
-
-  if(string == "!")
-    object->m_ui.logical_operator->setCurrentIndex(1);
-  else if(string == "||")
-    object->m_ui.logical_operator->setCurrentIndex(2);
-  else
-    object->m_ui.logical_operator->setCurrentIndex(0);
-
   return object;
 }
 
@@ -119,14 +107,6 @@ void glitch_object_logical_operator_arduino::save
   properties["logical_operator"] =
     m_ui.logical_operator->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
-}
-
-void glitch_object_logical_operator_arduino::setProperties
-(const QStringList &list)
-{
-  glitch_object::setProperties(list);
-  setOperatorType
-    (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
 }
 
 void glitch_object_logical_operator_arduino::setOperatorType
@@ -167,6 +147,14 @@ void glitch_object_logical_operator_arduino::setOperatorType
 
   m_ui.logical_operator->blockSignals(false);
   setName(m_ui.logical_operator->currentText());
+}
+
+void glitch_object_logical_operator_arduino::setProperties
+(const QStringList &list)
+{
+  glitch_object::setProperties(list);
+  setOperatorType
+    (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
 }
 
 void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
