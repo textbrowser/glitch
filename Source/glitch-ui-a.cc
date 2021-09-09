@@ -1393,6 +1393,7 @@ void glitch_ui::slotUndo(void)
     {
       m_currentView->undo();
       prepareRedoUndoActions();
+      setWindowTitle(m_currentView);
     }
 }
 

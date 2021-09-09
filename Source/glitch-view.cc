@@ -914,4 +914,7 @@ void glitch_view::undo(void)
       emit changed();
       adjustScrollBars();
     }
+
+  if(!m_undoStack->canUndo())
+    m_changed = false;
 }

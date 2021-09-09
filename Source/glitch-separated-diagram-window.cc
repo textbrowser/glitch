@@ -264,5 +264,6 @@ void glitch_separated_diagram_window::slotUndo(void)
     {
       m_view->undo();
       prepareRedoUndoActions();
+      slotPageChanged();
     }
 }
