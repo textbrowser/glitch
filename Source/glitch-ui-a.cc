@@ -669,6 +669,10 @@ void glitch_ui::prepareRecentFiles(void)
       layout = new QHBoxLayout(widget);
       layout->addWidget(label);
       layout->setContentsMargins(5, 5, 5, 5);
+      widget->setStyleSheet
+	(QString("QWidget:hover {background-color: %1; color: %2;}").
+	 arg(widget->palette().color(QPalette::Highlight).name()).
+	 arg(widget->palette().color(QPalette::HighlightedText).name()));
       widgetAction->setDefaultWidget(widget);
       widgetAction->setProperty("file_name", list.at(i));
       connect(widgetAction,
