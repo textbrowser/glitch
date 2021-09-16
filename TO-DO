@@ -97,13 +97,12 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
-- Function parameters and return value.
+- Function parameters and return value. Also redo/undo.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
 - Proximity instead of wiring.
-- Redo / undo. See also macros.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Some wiring is not required. Translating diagrams to Arduino source is
