@@ -111,6 +111,8 @@ class glitch_object: public QWidget
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;
+  bool m_drawInputConnector;
+  bool m_drawOutputConnector;
   quint64 m_id;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
