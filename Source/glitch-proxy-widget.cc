@@ -122,7 +122,9 @@ void glitch_proxy_widget::paint
 {
   if(painter)
     painter->setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 			    QPainter::HighQualityAntialiasing | // OpenGL?
+#endif
 			    QPainter::SmoothPixmapTransform |
 			    QPainter::TextAntialiasing,
 			    true);

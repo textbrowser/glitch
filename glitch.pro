@@ -18,14 +18,12 @@ macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
-                          -Wconversion \
                           -Wdouble-promotion \
                           -Wenum-compare \
                           -Wextra \
                           -Wformat=2 \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
-                          -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
                           -Wundef \
@@ -39,7 +37,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
-                          -Wconversion \
                           -Wdouble-promotion \
                           -Wenum-compare \
                           -Wextra \
@@ -49,7 +46,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wno-deprecated-copy \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
-                          -Wsign-conversion \
                           -Wstack-protector \
                           -Wstrict-overflow=5 \
                           -Wundef \
@@ -63,7 +59,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
-                          -Wconversion \
                           -Wdouble-promotion \
                           -Wenum-compare \
                           -Wextra \
@@ -75,9 +70,8 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wno-deprecated-copy \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
-                          -Wsign-conversion \
                           -Wstack-protector \
-                          -Wstrict-overflow=5 \
+                          -Wstrict-overflow=1 \
                           -Wundef \
                           -Wzero-as-null-pointer-constant \
                           -fPIE \

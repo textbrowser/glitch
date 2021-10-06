@@ -746,7 +746,8 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	** trailing parentheses.
 	*/
 
-	(new QRegExpValidator(QRegExp("[A-Za-z][\\w]*\\(\\)"), &dialog));
+	(new QRegularExpressionValidator
+	 (QRegularExpression("[A-Za-z][\\w]*\\(\\)"), &dialog));
     }
   else
     qDebug() << "glitch_object_function_arduino::slotSetFunctionName(): "

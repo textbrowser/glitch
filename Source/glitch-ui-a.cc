@@ -330,32 +330,34 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   */
 
   if(event)
-    foreach(auto view, findChildren<glitch_view *> ())
-      if(view->hasChanged())
-	{
-	  QMessageBox mb(this);
+    {
+      foreach(auto view, findChildren<glitch_view *> ())
+	if(view->hasChanged())
+	  {
+	    QMessageBox mb(this);
 
-	  mb.setIcon(QMessageBox::Question);
-	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-	  mb.setText
-	    (tr("At least one display has not been saved. Are you sure that "
-		"you wish to exit Glitch?"));
-	  mb.setWindowIcon(windowIcon());
-	  mb.setWindowModality(Qt::ApplicationModal);
-	  mb.setWindowTitle(tr("Glitch: Confirmation"));
+	    mb.setIcon(QMessageBox::Question);
+	    mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+	    mb.setText
+	      (tr("At least one display has not been saved. Are you sure that "
+		  "you wish to exit Glitch?"));
+	    mb.setWindowIcon(windowIcon());
+	    mb.setWindowModality(Qt::ApplicationModal);
+	    mb.setWindowTitle(tr("Glitch: Confirmation"));
 
-	  if(mb.exec() == QMessageBox::Yes)
-	    {
-	      QApplication::processEvents();
-	      break;
-	    }
-	  else
-	    {
-	      QApplication::processEvents();
-	      event->ignore();
-	      return;
-	    }
-	}
+	    if(mb.exec() == QMessageBox::Yes)
+	      {
+		QApplication::processEvents();
+		break;
+	      }
+	    else
+	      {
+		QApplication::processEvents();
+		event->ignore();
+		return;
+	      }
+	  }
+    }
 
   saveSettings();
   QMainWindow::closeEvent(event);
@@ -369,8 +371,13 @@ void glitch_ui::copy(QGraphicsView *view)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
     it(s_copiedObjects);
+#else
+  QMutableMultiMapIterator<QPair<int, int>, QPointer<glitch_object> >
+    it(s_copiedObjects);
+#endif
 
   while(it.hasNext())
     {
@@ -492,7 +499,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QMapIterator<QPair<int, int>, QPointer<glitch_object> > it(s_copiedObjects);
+#else
+  QMultiMapIterator<QPair<int, int>, QPointer<glitch_object> >
+    it(s_copiedObjects);
+#endif
   QPoint first;
   auto f = false; // First?
   auto point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
@@ -865,8 +877,13 @@ void glitch_ui::slotClearCopiedWidgetsBuffer(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
     it(s_copiedObjects);
+#else
+  QMutableMultiMapIterator<QPair<int, int>, QPointer<glitch_object > >
+    it(s_copiedObjects);
+#endif
 
   while(it.hasNext())
     {

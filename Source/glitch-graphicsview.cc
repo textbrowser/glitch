@@ -44,7 +44,11 @@ bool glitch_graphicsview::containsFunction(const QString &name) const
     return false;
 }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+void glitch_graphicsview::enterEvent(QEnterEvent *event)
+#else
 void glitch_graphicsview::enterEvent(QEvent *event)
+#endif
 {
   QGraphicsView::enterEvent(event);
   emit mouseEnterEvent();
