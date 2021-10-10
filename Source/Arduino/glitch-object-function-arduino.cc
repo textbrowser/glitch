@@ -375,7 +375,7 @@ void glitch_object_function_arduino::declone(void)
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
-     new QUndoStack(this),
+     new QUndoStack(this), // New redo/undo stack.
      this);
   m_editWindow = new glitch_object_edit_window(m_parent);
   m_editWindow->setCentralWidget(m_editView);
@@ -434,7 +434,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
-     new QUndoStack(this),
+     new QUndoStack(this), // New redo/undo stack.
      this);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
