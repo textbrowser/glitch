@@ -97,6 +97,7 @@ Ignored Items
 Remaining Items
 
 - All of Arduino's objects.
+- Draw input and output connectors.
 - Function parameters and return value. Also redo/undo.
 - Icons and themes.
 - Implement Arduino's loop().
