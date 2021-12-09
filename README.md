@@ -1,5 +1,5 @@
 Program complex Arduino projects via visual diagrams. A visual compiler.
-An initial version is scheduled for release in late 2021!
+An initial version is scheduled for release in late 2022!
 
 Qt 5.12 LTS, Qt 5.15 LTS, or 6.2 LTS is preferred. C++2011 is mandatory.
 
