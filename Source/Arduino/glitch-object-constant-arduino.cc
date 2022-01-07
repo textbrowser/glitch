@@ -70,6 +70,7 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_constant_arduino(parent);
 
   clone->m_constantType = m_constantType;
+  clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -144,6 +145,9 @@ void glitch_object_constant_arduino::setProperties
 
 void glitch_object_constant_arduino::slotConstantChanged(void)
 {
+  if(!m_undoStack)
+    return;
+
   auto undoCommand = new glitch_undo_command
     (m_properties.value(Properties::CONSTANT_TYPE).toString(),
      glitch_undo_command::CONSTANT_TYPE_CHANGED,

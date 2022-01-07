@@ -103,6 +103,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
+- Remove function copies on parent removal.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino (Java).

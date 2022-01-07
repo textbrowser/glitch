@@ -78,7 +78,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.comment->blockSignals(true);
   object->m_ui.comment->setPlainText
-    (object->m_properties.value(COMMENT).toString().trimmed());
+    (object->m_properties.value(Properties::COMMENT).toString().trimmed());
   object->m_ui.comment->blockSignals(false);
   return object;
 }
@@ -113,7 +113,7 @@ void glitch_object_block_comment_arduino::setProperty
       {
 	m_ui.comment->blockSignals(true);
 	m_ui.comment->setPlainText
-	  (m_properties.value(COMMENT).toString().trimmed());
+	  (m_properties.value(Properties::COMMENT).toString().trimmed());
 	m_ui.comment->blockSignals(false);
 	break;
       }
