@@ -49,17 +49,15 @@ glitch_proxy_widget::~glitch_proxy_widget()
 
 bool glitch_proxy_widget::isMandatory(void) const
 {
-  auto object = qobject_cast<glitch_object *> (widget());
-
-  if(object)
-    return object->isMandatory();
+  if(m_object)
+    return m_object->isMandatory();
   else
     return false;
 }
 
 bool glitch_proxy_widget::isMovable(void) const
 {
-  return flags() & QGraphicsItem::ItemIsMovable;
+  return QGraphicsItem::ItemIsMovable & flags();
 }
 
 void glitch_proxy_widget::contextMenuEvent
@@ -67,13 +65,11 @@ void glitch_proxy_widget::contextMenuEvent
 {
   if(event)
     {
-      auto object = qobject_cast<glitch_object *> (widget());
-
-      if(object)
+      if(m_object)
 	{
 	  QMenu menu;
 
-	  object->addActions(menu);
+	  m_object->addActions(menu);
 	  menu.exec(event->screenPos());
 	}
       else
@@ -85,21 +81,21 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  if(event && (event->buttons() & Qt::RightButton))
+  if(event && (Qt::RightButton & event->buttons()))
     /*
     ** Activate a context menu.
     */
 
     return;
 
-  if(!widget())
+  if(!m_object)
     {
       QGraphicsProxyWidget::mousePressEvent(event);
       return;
     }
 
   auto comboBox = qobject_cast<QComboBox *>
-    (widget()->childAt(event->pos().toPoint()));
+    (m_object->childAt(event->pos().toPoint()));
 
   if(comboBox)
     {
@@ -108,7 +104,7 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 
   auto toolButton = qobject_cast<QToolButton *>
-    (widget()->childAt(event->pos().toPoint()));
+    (m_object->childAt(event->pos().toPoint()));
 
   if(toolButton)
     {
@@ -146,4 +142,10 @@ void glitch_proxy_widget::paint
     }
 
   QGraphicsProxyWidget::paint(painter, opt, widget);
+}
+
+void glitch_proxy_widget::setWidget(QWidget *widget)
+{
+  QGraphicsProxyWidget::setWidget(widget);
+  m_object = qobject_cast<glitch_object *> (widget);
 }

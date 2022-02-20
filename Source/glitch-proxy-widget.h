@@ -29,6 +29,9 @@
 #define _glitch_proxy_widget_h_
 
 #include <QGraphicsProxyWidget>
+#include <QPointer>
+
+class glitch_object;
 
 class glitch_proxy_widget: public QGraphicsProxyWidget
 {
@@ -40,8 +43,10 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   ~glitch_proxy_widget();
   bool isMandatory(void) const;
   bool isMovable(void) const;
+  void setWidget(QWidget *widget);
 
  private:
+  QPointer<glitch_object> m_object;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
