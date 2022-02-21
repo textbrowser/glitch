@@ -1184,6 +1184,7 @@ void glitch_ui::slotPageSelected(int index)
 
   prepareActionWidgets();
   prepareToolBar();
+  setTabText(m_currentView);
   setWindowTitle(m_currentView);
 }
 
@@ -1414,6 +1415,7 @@ void glitch_ui::slotUndo(void)
     {
       m_currentView->undo();
       prepareRedoUndoActions();
+      setTabText(m_currentView);
       setWindowTitle(m_currentView);
     }
 }
