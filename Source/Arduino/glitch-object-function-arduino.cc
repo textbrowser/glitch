@@ -190,6 +190,11 @@ QString glitch_object_function_arduino::returnType(void) const
   return m_ui.return_type->currentText();
 }
 
+bool glitch_object_function_arduino::hasOutput(void) const
+{
+  return m_ui.return_type->currentText() != tr("void");
+}
+
 bool glitch_object_function_arduino::hasView(void) const
 {
   return true;

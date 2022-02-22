@@ -52,6 +52,7 @@ class glitch_object_function_arduino: public glitch_object
   ~glitch_object_function_arduino();
   QString name(void) const;
   QString returnType(void) const;
+  bool hasOutput(void) const;
   bool hasView(void) const;
   bool isClone(void) const;
   glitch_object_function_arduino *clone(QWidget *parent) const;
