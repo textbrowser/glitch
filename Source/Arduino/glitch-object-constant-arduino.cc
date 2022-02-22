@@ -64,6 +64,11 @@ QString glitch_object_constant_arduino::constantType(void) const
   return m_ui.constant->currentText();
 }
 
+bool glitch_object_constant_arduino::hasOutput(void) const
+{
+  return true;
+}
+
 glitch_object_constant_arduino *glitch_object_constant_arduino::
 clone(QWidget *parent) const
 {

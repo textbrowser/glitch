@@ -110,6 +110,11 @@ QString glitch_object::type(void) const
   return m_type;
 }
 
+bool glitch_object::hasOutput(void) const
+{
+  return false;
+}
+
 bool glitch_object::hasView(void) const
 {
   return false;
