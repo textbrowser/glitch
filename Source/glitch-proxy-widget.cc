@@ -130,16 +130,33 @@ void glitch_proxy_widget::paint
       QPen pen;
 
       if(isMovable())
-	pen.setColor(Qt::green);
+	pen.setColor(QColor("lightgreen"));
       else
-	pen.setColor(Qt::red);
+	pen.setColor(QColor("orange"));
 
       pen.setJoinStyle(Qt::MiterJoin);
       pen.setStyle(Qt::DotLine);
       pen.setWidthF(5.5);
+      painter->save();
       painter->setPen(pen);
       painter->drawRect(boundingRect());
+      painter->restore();
     }
+
+  if(painter)
+    if(m_object && m_object->hasOutput())
+      {
+	QPainterPath path;
+	auto rect(this->rect());
+
+	path.addRect(rect.topRight().x() + 1.0,
+		     rect.height() / 2.0 + rect.topRight().y() - 5.0,
+		     10.0,
+		     10.0);
+	painter->save();
+	painter->fillPath(path, Qt::blue);
+	painter->restore();
+      }
 
   QGraphicsProxyWidget::paint(painter, opt, widget);
 }
