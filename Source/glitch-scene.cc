@@ -49,6 +49,7 @@
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
+  m_dotsColor = Qt::black;
   m_mainScene = false;
   m_projectType = projectType;
   m_showDots = true;
@@ -476,9 +477,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 
   QPen pen;
 
-  pen.setBrush(QColor(0xff - backgroundBrush().color().red(),
-		      0xff - backgroundBrush().color().green(),
-		      0xff - backgroundBrush().color().blue()));
+  pen.setBrush(m_dotsColor);
   pen.setWidthF(1.00);
   painter->setPen(pen);
 
@@ -931,6 +930,14 @@ void glitch_scene::removeItem(QGraphicsItem *item)
       if(object && !object->isClone())
 	emit functionDeleted(object->name());
     }
+}
+
+void glitch_scene::setDotsColor(const QColor &color)
+{
+  if(color.isValid())
+    m_dotsColor = color;
+  else
+    m_dotsColor = Qt::black;
 }
 
 void glitch_scene::setMainScene(const bool state)

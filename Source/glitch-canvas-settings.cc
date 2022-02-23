@@ -46,13 +46,19 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
     (QString("QPushButton {background-color: %1}").
      arg(QColor(211, 211, 211).name()));
   m_ui.background_color->setText(QColor(211, 211, 211).name());
+  m_ui.dots_color->setStyleSheet("QPushButton {background-color: black}");
+  m_ui.dots_color->setText(QColor(Qt::black).name());
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
   connect(m_ui.background_color,
 	  SIGNAL(clicked(void)),
 	  this,
-	  SLOT(slotSelectBackgroundColor(void)));
+	  SLOT(slotSelectColor(void)));
+  connect(m_ui.dots_color,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotSelectColor(void)));
   connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
 	  SIGNAL(clicked(void)),
 	  this,
@@ -67,6 +73,11 @@ glitch_canvas_settings::~glitch_canvas_settings()
 QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 {
   return QColor(m_ui.background_color->text());
+}
+
+QColor glitch_canvas_settings::dotsColor(void) const
+{
+  return QColor(m_ui.dots_color->text());
 }
 
 QGraphicsView::ViewportUpdateMode glitch_canvas_settings::
@@ -94,6 +105,7 @@ settings(void) const
 
   hash[Settings::CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
   hash[Settings::CANVAS_NAME] = name();
+  hash[Settings::DOTS_COLOR] = dotsColor().name();
   hash[Settings::REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
   hash[Settings::SHOW_CANVAS_DOTS] = showCanvasDots();
   hash[Settings::VIEW_UPDATE_MODE] = viewportUpdateMode();
@@ -133,6 +145,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.exec
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
+	   "dots_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
@@ -152,13 +165,15 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
+	   "dots_color, "
 	   "name, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
 	   "show_canvas_dots, "
 	   "update_mode) "
-	   "VALUES (?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text());
+	query.addBindValue(m_ui.dots_color->text());
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -235,26 +250,35 @@ void glitch_canvas_settings::prepare(void)
 	   "ADD show_canvas_dots INTEGER NOT NULL DEFAULT 1");
 
 	if(query.exec("SELECT background_color, " // 0
-		      "name, "                    // 1
-		      "project_type, "            // 2
-		      "redo_undo_stack_size, "    // 3
-		      "show_canvas_dots, "        // 4
-		      "update_mode "              // 5
+		      "dots_color, "              // 1
+		      "name, "                    // 2
+		      "project_type, "            // 3
+		      "redo_undo_stack_size, "    // 4
+		      "show_canvas_dots, "        // 5
+		      "update_mode "              // 6
 		      "FROM canvas_settings") && query.next())
 	  {
 	    QColor color(query.value(0).toString().trimmed());
-	    auto name(query.value(1).toString().trimmed());
-	    auto projectType(query.value(2).toString().trimmed());
-	    auto redoUndoStackSize = query.value(3).toInt();
-	    auto showCanvasDots = query.value(4).toBool();
-	    auto updateMode(query.value(5).toString().trimmed());
+	    QColor dotsColor(query.value(1).toString().trimmed());
+	    auto name(query.value(2).toString().trimmed());
+	    auto projectType(query.value(3).toString().trimmed());
+	    auto redoUndoStackSize = query.value(4).toInt();
+	    auto showCanvasDots = query.value(5).toBool();
+	    auto updateMode(query.value(6).toString().trimmed());
 
 	    if(!color.isValid())
 	      color = QColor(211, 211, 211);
 
+	    if(!dotsColor.isValid())
+	      color = QColor(Qt::black);
+
 	    m_ui.background_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").arg(color.name()));
 	    m_ui.background_color->setText(color.name());
+	    m_ui.dots_color->setStyleSheet
+	      (QString("QPushButton {background-color: %1}").
+	       arg(dotsColor.name()));
+	    m_ui.dots_color->setText(dotsColor.name());
 	    m_ui.project_type->setCurrentIndex
 	      (m_ui.project_type->findText(projectType));
 
@@ -311,6 +335,10 @@ void glitch_canvas_settings::setSettings
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.background_color->setText(color.name());
+  color = QColor(hash.value(DOTS_COLOR).toString());
+  m_ui.dots_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").arg(color.name()));
+  m_ui.dots_color->setText(color.name());
   setName(hash.value(CANVAS_NAME).toString());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(SHOW_CANVAS_DOTS).toBool());
@@ -362,11 +390,20 @@ void glitch_canvas_settings::setViewportUpdateMode
     m_ui.update_mode->setCurrentIndex(1); // Full.
 }
 
-void glitch_canvas_settings::slotSelectBackgroundColor(void)
+void glitch_canvas_settings::slotSelectColor(void)
 {
+  auto button = qobject_cast<QPushButton *> (sender());
+
+  if(!button)
+    return;
+
   QColorDialog dialog(this);
 
-  dialog.setCurrentColor(QColor(m_ui.background_color->text()));
+  if(button == m_ui.background_color)
+    dialog.setCurrentColor(QColor(m_ui.background_color->text()));
+  else
+    dialog.setCurrentColor(QColor(m_ui.dots_color->text()));
+
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
 
@@ -374,9 +411,8 @@ void glitch_canvas_settings::slotSelectBackgroundColor(void)
     {
       QColor color(dialog.selectedColor());
 
-      m_ui.background_color->setStyleSheet
-	(QString("QPushButton {background-color: %1;}").
-	 arg(color.name()));
-      m_ui.background_color->setText(color.name());
+      button->setStyleSheet
+	(QString("QPushButton {background-color: %1;}").arg(color.name()));
+      button->setText(color.name());
     }
 }

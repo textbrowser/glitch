@@ -54,11 +54,13 @@ class glitch_scene: public QGraphicsScene
   void deleteItems(void);
   void purgeRedoUndoProxies(void);
   void removeItem(QGraphicsItem *item);
+  void setDotsColor(const QColor &color);
   void setMainScene(const bool state);
   void setShowDots(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  QColor m_dotsColor;
   QHash<glitch_proxy_widget *, char> m_redoUndoProxies;
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
   QPointF m_lastScenePos;

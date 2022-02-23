@@ -42,6 +42,7 @@ class glitch_canvas_settings: public QDialog
   {
     CANVAS_BACKGROUND_COLOR,
     CANVAS_NAME,
+    DOTS_COLOR,
     REDO_UNDO_STACK_SIZE,
     SHOW_CANVAS_DOTS,
     VIEW_UPDATE_MODE
@@ -50,6 +51,7 @@ class glitch_canvas_settings: public QDialog
   glitch_canvas_settings(QWidget *parent);
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
+  QColor dotsColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
@@ -72,7 +74,7 @@ class glitch_canvas_settings: public QDialog
 
  private slots:
   void accept(void);
-  void slotSelectBackgroundColor(void);
+  void slotSelectColor(void);
 
  signals:
   void accepted(const bool undo);

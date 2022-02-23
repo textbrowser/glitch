@@ -65,6 +65,7 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_scene->setDotsColor(Qt::black);
   m_scene->setMainScene(true);
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
@@ -722,6 +723,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
+  m_scene->setDotsColor(m_canvasSettings->dotsColor());
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
   m_settings = m_canvasSettings->settings();
 
