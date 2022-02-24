@@ -134,6 +134,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-style-sheet.h \
                   Source/glitch-tab.h \
                   Source/glitch-tab-tabbar.h \
+                  Source/glitch-tools.h \
                   Source/glitch-ui.h \
                   Source/glitch-user-functions.h \
                   Source/glitch-user-functions-tablewidget.h \
@@ -155,6 +156,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-style-sheet.cc \
                   Source/glitch-tab.cc \
                   Source/glitch-tab-tabbar.cc \
+                  Source/glitch-tools.cc \
                   Source/glitch-ui-a.cc \
                   Source/glitch-undo-command.cc \
                   Source/glitch-user-functions.cc \
