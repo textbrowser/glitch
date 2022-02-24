@@ -117,6 +117,7 @@ FORMS          += UI/glitch-alignment.ui \
 		  UI/glitch-separated-diagram-window.ui \
                   UI/glitch-structures.ui \
                   UI/glitch-style-sheet.ui \
+                  UI/glitch-tools.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
