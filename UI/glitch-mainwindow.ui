@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -97,6 +97,8 @@
     <addaction name="action_Alignment"/>
     <addaction name="separator"/>
     <addaction name="action_Structures"/>
+    <addaction name="separator"/>
+    <addaction name="action_Tools"/>
    </widget>
    <widget class="QMenu" name="menu_Tabs">
     <property name="title">
@@ -255,6 +257,11 @@
   <action name="action_Clear_Copied_Widgets_Buffer">
    <property name="text">
     <string>Clear Copied Widgets Buffer</string>
+   </property>
+  </action>
+  <action name="action_Tools">
+   <property name="text">
+    <string>&amp;Tools...</string>
    </property>
   </action>
  </widget>

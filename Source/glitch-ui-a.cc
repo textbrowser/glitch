@@ -120,6 +120,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotShowStructures(void)));
+  connect(m_ui.action_Tools,
+	  SIGNAL(triggered(void)),
+	  SLOT(slotShowTools(void)));
   connect(m_ui.action_Undo,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -598,6 +601,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
+      m_ui.action_Tools->setEnabled(false);
     }
   else
     {
@@ -615,6 +619,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 2);
       m_ui.action_Structures->setEnabled(true);
+      m_ui.action_Tools->setEnabled(true);
     }
 
   prepareRedoUndoActions();
@@ -733,6 +738,7 @@ void glitch_ui::prepareToolBar(void)
   m_ui.toolBar->clear();
   m_ui.toolBar->addAction(m_ui.action_Alignment);
   m_ui.toolBar->addAction(m_ui.action_Structures);
+  m_ui.toolBar->addAction(m_ui.action_Tools);
 
   if(m_currentView)
     for(int i = 0; i < m_currentView->defaultActions().size(); i++)
@@ -1257,8 +1263,12 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
       if(dialog.exec() == QDialog::Accepted)
 	{
 	  QString error("");
+	  auto fileName(dialog.selectedFiles().value(0));
 
-	  if(!view->saveAs(dialog.selectedFiles().value(0), error))
+	  if(!fileName.endsWith(".db"))
+	    fileName.append(".db");
+
+	  if(!view->saveAs(fileName, error))
 	    glitch_misc::showErrorDialog
 	      (tr("Unable to save %1 (%2).").arg(view->name()).arg(error),
 	       this);
@@ -1375,6 +1385,10 @@ void glitch_ui::slotShowStructures(void)
     }
   else
     QApplication::restoreOverrideCursor();
+}
+
+void glitch_ui::slotShowTools(void)
+{
 }
 
 void glitch_ui::slotTabMoved(int from, int to)
