@@ -717,6 +717,10 @@ void glitch_view::showCanvasSettings(void)
   m_canvasSettings->raise();
 }
 
+void glitch_view::showTools(void)
+{
+}
+
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   QHash<glitch_canvas_settings::Settings, QVariant> hash(m_settings);

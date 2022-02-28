@@ -1389,6 +1389,10 @@ void glitch_ui::slotShowStructures(void)
 
 void glitch_ui::slotShowTools(void)
 {
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+
+  if(view)
+    view->showTools();
 }
 
 void glitch_ui::slotTabMoved(int from, int to)

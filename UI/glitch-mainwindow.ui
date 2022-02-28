@@ -87,12 +87,12 @@
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
-   <widget class="QMenu" name="menu_Tools">
+   <widget class="QMenu" name="menu_Windows">
     <property name="tearOffEnabled">
      <bool>true</bool>
     </property>
     <property name="title">
-     <string>&amp;Tools</string>
+     <string>&amp;Windows</string>
     </property>
     <addaction name="action_Alignment"/>
     <addaction name="separator"/>
@@ -128,7 +128,7 @@
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_Tabs"/>
-   <addaction name="menu_Tools"/>
+   <addaction name="menu_Windows"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
