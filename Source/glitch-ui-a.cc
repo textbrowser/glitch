@@ -554,10 +554,16 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 	  p.setX(p.x() + x - first.x());
 
+	  if(p.x() < 0)
+	    p.setX(0);
+
 	  if(y > first.y())
 	    p.setY(p.y() + y - first.y());
 	  else
 	    p.setY(p.y() - (first.y() - y));
+
+	  if(p.y() < 0)
+	    p.setY(0);
 
 	  auto proxy = qobject_cast<glitch_scene *> (view->scene())->
 	    addObject(object);
