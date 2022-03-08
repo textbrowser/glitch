@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>192</width>
-    <height>355</height>
+    <width>200</width>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
         <string>Bottom Align</string>
        </property>
        <property name="text">
-        <string>Wire</string>
+        <string>Wire (Connect)</string>
        </property>
        <property name="iconSize">
         <size>

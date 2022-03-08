@@ -43,6 +43,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-tools.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
 #include "glitch-view.h"
@@ -207,6 +208,9 @@ QMenu *glitch_view::defaultContextMenu(void)
 		    this,
 		    SIGNAL(showStructures(void)));
 
+  menu->addAction(tr("Tools..."),
+		  this,
+		  SLOT(slotShowTools(void)));
   menu->addSeparator();
   action = menu->addAction(tr("Se&parate Canvas..."),
 			   this,
@@ -719,6 +723,12 @@ void glitch_view::showCanvasSettings(void)
 
 void glitch_view::showTools(void)
 {
+  if(!m_tools)
+    m_tools = new glitch_tools(this);
+
+  m_tools->showNormal();
+  m_tools->activateWindow();
+  m_tools->raise();
 }
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
@@ -899,6 +909,11 @@ void glitch_view::slotShowAlignmentTool(void)
 void glitch_view::slotShowCanvasSettings(void)
 {
   showCanvasSettings();
+}
+
+void glitch_view::slotShowTools(void)
+{
+  showTools();
 }
 
 void glitch_view::slotShowUserFunctions(void)

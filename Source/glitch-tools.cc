@@ -32,6 +32,10 @@
 glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.wire,
+	  SIGNAL(toggled(bool)),
+	  this,
+	  SLOT(slotWireToggled(bool)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -40,4 +44,12 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 
 glitch_tools::~glitch_tools()
 {
+}
+
+void glitch_tools::slotWireToggled(bool state)
+{
+  if(state)
+    m_ui.wire->setText(tr("Wire (Connect)"));
+  else
+    m_ui.wire->setText(tr("Wire (Disconnect)"));
 }

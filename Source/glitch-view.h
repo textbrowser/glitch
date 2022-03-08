@@ -41,6 +41,7 @@ class glitch_graphicsview;
 class glitch_object;
 class glitch_object_start;
 class glitch_scene;
+class glitch_tools;
 class glitch_undo_command;
 class glitch_user_functions;
 
@@ -95,6 +96,7 @@ class glitch_view: public QWidget
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
   QPointer<glitch_alignment> m_alignment;
+  QPointer<glitch_tools> m_tools;
   QString m_fileName;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
@@ -132,6 +134,7 @@ class glitch_view: public QWidget
   void slotSeparate(void);
   void slotShowAlignmentTool(void);
   void slotShowCanvasSettings(void);
+  void slotShowTools(void);
   void slotShowUserFunctions(void);
   void slotUnite(void);
 
