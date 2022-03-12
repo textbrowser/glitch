@@ -451,7 +451,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
 	auto list(m_scene->items());
 
-	for(auto i : list)
+	for(const auto i : list)
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -668,7 +668,7 @@ void glitch_view::selectAll(void)
 
   auto list(m_scene->items());
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 

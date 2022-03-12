@@ -65,7 +65,7 @@ QList<glitch_object *> glitch_scene::objects(void) const
   QList<glitch_object *> widgets;
   auto list(items());
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -83,7 +83,7 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   QList<glitch_object *> widgets;
   auto list(items());
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -311,7 +311,7 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
     {
       auto list(items());
 
-      for(auto i : list)
+      for(const auto i : list)
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -325,7 +325,7 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 {
   auto list(items());
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -362,7 +362,7 @@ void glitch_scene::deleteItems(void)
 
   QList<QGraphicsItem *> list;
 
-  for(auto i : items())
+  for(const auto i : items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -385,7 +385,7 @@ void glitch_scene::deleteItems(void)
   if(m_undoStack)
     m_undoStack->beginMacro(tr("widget(s) deleted"));
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -598,7 +598,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    view->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
 	  }
 
-	for(auto i : list)
+	for(const auto i : list)
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -711,7 +711,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
       auto list(selectedItems());
       auto moved = false;
 
-      for(auto i : list)
+      for(const auto i : list)
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -818,7 +818,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      auto list(selectedItems());
 
-	      for(auto i : list)
+	      for(const auto i : list)
 		{
 		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 

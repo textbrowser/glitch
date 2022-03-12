@@ -143,7 +143,7 @@ class glitch_alignment: public QDialog
 
   start_label:
 
-    for(auto i : list)
+    for(const auto i : list)
       {
 	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -303,7 +303,7 @@ class glitch_alignment: public QDialog
 
     QList<glitch_object *> list2;
 
-    for(auto i : list1)
+    for(const auto i : list1)
       {
 	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -337,7 +337,7 @@ class glitch_alignment: public QDialog
     else
       coordinate = list2.at(0)->pos().y();
 
-    for(auto widget : list2)
+    for(const auto widget : list2)
       {
 	if(!widget || !widget->proxy())
 	  continue;

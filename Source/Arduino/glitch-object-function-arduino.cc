@@ -265,12 +265,12 @@ findParentFunction(void) const
   else if(qobject_cast<glitch_view *> (m_parent))
     scene = qobject_cast<glitch_view *> (m_parent)->scene();
 
-  QList<QGraphicsItem *> list;
+  if(!scene)
+    return nullptr;
 
-  if(scene)
-    list = scene->items();
+  auto list(scene->items());
 
-  for(auto i : list)
+  for(const auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
