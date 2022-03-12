@@ -262,6 +262,8 @@ findParentFunction(void) const
 	}
       while(parent);
     }
+  else if(qobject_cast<glitch_view *> (m_parent))
+    scene = qobject_cast<glitch_view *> (m_parent)->scene();
 
   QList<QGraphicsItem *> list;
 
