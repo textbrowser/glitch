@@ -614,6 +614,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	auto string(list.at(i).mid(7));
 
 	string.remove("\"");
+	string = string.mid
+	  (0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 
 	if(!m_isFunctionClone &&
 	   m_parentView &&

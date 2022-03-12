@@ -48,6 +48,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.background_color->setText(QColor(211, 211, 211).name());
   m_ui.dots_color->setStyleSheet("QPushButton {background-color: black}");
   m_ui.dots_color->setText(QColor(Qt::black).name());
+  m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));

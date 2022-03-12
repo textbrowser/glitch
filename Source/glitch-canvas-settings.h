@@ -38,6 +38,11 @@ class glitch_canvas_settings: public QDialog
   Q_OBJECT
 
  public:
+  enum Limits
+  {
+   NAME_MAXIMUM_LENGTH = 100
+  };
+
   enum Settings
   {
    CANVAS_BACKGROUND_COLOR,
