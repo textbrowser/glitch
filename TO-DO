@@ -96,6 +96,8 @@ Ignored Items
 
 Remaining Items
 
+- Adjust changed state of parent canvas if redo/undo stack of a child
+  is at level zero.
 - All of Arduino's objects.
 - Draw input and output connectors.
 - Function parameters and return value. Also redo/undo.
@@ -103,7 +105,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Object-view settings.
-- Remove function copies on parent removal.
+- Remove function copies from diagram on parent removal.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino (Java).
