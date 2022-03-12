@@ -103,7 +103,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.function_definition->setVisible(false);
   m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
   m_ui.label->setAutoFillBackground(true);
-  m_ui.label->setText(name);
+  m_ui.label->setText
+    (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
   m_ui.return_type->setEnabled(false);
   m_ui.return_type->setToolTip
@@ -746,15 +747,16 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
   if(lineEdit)
     {
       lineEdit->selectAll();
+      lineEdit->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
       lineEdit->setValidator
 
 	/*
-	** A mandatory letter followed by an optional word. Allow
+	** A mandatory letter or underscore followed by an optional word. Allow
 	** trailing parentheses.
 	*/
 
 	(new QRegularExpressionValidator
-	 (QRegularExpression("[A-Za-z][\\w]*\\(\\)"), &dialog));
+	 (QRegularExpression("[A-Za-z_][\\w]*\\(\\)"), &dialog));
     }
   else
     qDebug() << "glitch_object_function_arduino::slotSetFunctionName(): "

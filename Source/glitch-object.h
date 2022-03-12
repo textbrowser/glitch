@@ -54,6 +54,11 @@ class glitch_object: public QWidget
    SET_STYLE_SHEET
   };
 
+  enum Limits
+  {
+   NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
+  };
+
   enum Properties
   {
    COMMENT = 0,

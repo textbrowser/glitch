@@ -35,8 +35,8 @@ class glitch_common
  public:
   enum ProjectTypes
   {
-    ArduinoProject = 0,
-    XYZProject
+   ArduinoProject = 0,
+   XYZProject
   };
 
   static QSqlDatabase sqliteDatabase(void);

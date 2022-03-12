@@ -67,18 +67,18 @@ class glitch_alignment: public QDialog
  private:
   enum AlignmentTypes
   {
-    ALIGN_BOTTOM = 0,
-    ALIGN_CENTER_HORIZONTAL,
-    ALIGN_CENTER_VERTICAL,
-    ALIGN_LEFT,
-    ALIGN_RIGHT,
-    ALIGN_TOP
+   ALIGN_BOTTOM = 0,
+   ALIGN_CENTER_HORIZONTAL,
+   ALIGN_CENTER_VERTICAL,
+   ALIGN_LEFT,
+   ALIGN_RIGHT,
+   ALIGN_TOP
   };
 
   enum StackTypes
   {
-    HORIZONTAL_STACK = 0,
-    VERTICAL_STACK
+   HORIZONTAL_STACK = 0,
+   VERTICAL_STACK
   };
 
   Ui_glitch_alignment m_ui;

@@ -38,9 +38,9 @@ class glitch_object_logical_operator_arduino: public glitch_object
  public:
   enum OperatorTypes
   {
-    AND_OPERATOR = 0,
-    NOT_OPERATOR,
-    OR_OPERATOR
+   AND_OPERATOR = 0,
+   NOT_OPERATOR,
+   OR_OPERATOR
   };
 
   glitch_object_logical_operator_arduino(QWidget *parent);

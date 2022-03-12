@@ -40,12 +40,12 @@ class glitch_canvas_settings: public QDialog
  public:
   enum Settings
   {
-    CANVAS_BACKGROUND_COLOR,
-    CANVAS_NAME,
-    DOTS_COLOR,
-    REDO_UNDO_STACK_SIZE,
-    SHOW_CANVAS_DOTS,
-    VIEW_UPDATE_MODE
+   CANVAS_BACKGROUND_COLOR,
+   CANVAS_NAME,
+   DOTS_COLOR,
+   REDO_UNDO_STACK_SIZE,
+   SHOW_CANVAS_DOTS,
+   VIEW_UPDATE_MODE
   };
 
   glitch_canvas_settings(QWidget *parent);
