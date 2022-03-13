@@ -201,7 +201,11 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	query.setForwardOnly(true);
 
-	if(query.exec("SELECT name, type FROM diagram"))
+	if(query.exec(QString("SELECT SUBSTR(name, 1, %1), "
+			      "SUBSTR(type, 1, %2) "
+			      "FROM diagram").
+		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)).
+		      arg(static_cast<int> (Limits::TYPE_MAXIMUM_LENGTH))))
 	  if(query.next())
 	    {
 	      name = query.value(0).toString().trimmed();

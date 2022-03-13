@@ -46,6 +46,12 @@ class glitch_ui: public QMainWindow
   Q_OBJECT
 
  public:
+  enum Limits
+  {
+   NAME_MAXIMUM_LENGTH = 100,
+   TYPE_MAXIMUM_LENGTH = 100
+  };
+
   glitch_ui(void);
   ~glitch_ui();
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
