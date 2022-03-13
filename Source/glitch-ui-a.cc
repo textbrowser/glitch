@@ -655,7 +655,9 @@ void glitch_ui::prepareRecentFiles(void)
 	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
 
-	if(query.exec("SELECT file_name FROM glitch_recent_files ORDER BY 1"))
+	if(query.exec(QString("SELECT SUBSTR(file_name, 1, %1) "
+			      "FROM glitch_recent_files ORDER BY 1").
+		      arg(static_cast<int> (Limits::FILE_NAME_MAXIMUM_LENGTH))))
 	  while(query.next())
 	    {
 	      QFileInfo fileInfo(query.value(0).toString());
