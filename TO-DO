@@ -105,6 +105,7 @@ Remaining Items
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
+- Limit SQL text retrieval via SUBSTR().
 - Object-view settings.
 - Remove function copies from diagram on parent removal.
 - Resize objects.
