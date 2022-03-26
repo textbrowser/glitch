@@ -55,7 +55,9 @@ int main(int argc, char *argv[])
       }
     else if(strcmp(argv[i], "--version") == 0)
       {
-	std::cout << "Glitch version " << GLITCH_VERSION_STR << "."
+	std::cout << "Glitch version "
+		  << GLITCH_VERSION_STR
+		  << "."
 		  << std::endl;
 	return EXIT_SUCCESS;
       }
