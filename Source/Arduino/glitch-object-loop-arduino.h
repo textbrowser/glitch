@@ -48,6 +48,7 @@ class glitch_object_loop_arduino: public glitch_object
   glitch_object_loop_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   QPointer<glitch_object_edit_window> m_editWindow;
