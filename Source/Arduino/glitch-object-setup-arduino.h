@@ -33,8 +33,6 @@
 #include "glitch-object.h"
 #include "ui_glitch-object-setup-arduino.h"
 
-class glitch_object_edit_window;
-
 class glitch_object_setup_arduino: public glitch_object
 {
   Q_OBJECT
@@ -50,7 +48,6 @@ class glitch_object_setup_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  QPointer<glitch_object_edit_window> m_editWindow;
   Ui_glitch_object_setup_arduino m_ui;
   void mouseDoubleClickEvent(QMouseEvent *event);
 

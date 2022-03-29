@@ -37,6 +37,7 @@
 
 class QUndoStack;
 class glitch_floating_context_menu;
+class glitch_object_edit_window;
 class glitch_object_view;
 
 class glitch_object: public QWidget
@@ -114,6 +115,7 @@ class glitch_object: public QWidget
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
   QPointer<glitch_floating_context_menu> m_contextMenu;
+  QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;

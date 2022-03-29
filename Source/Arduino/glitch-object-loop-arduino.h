@@ -33,8 +33,6 @@
 #include "glitch-object.h"
 #include "ui_glitch-object-loop-arduino.h"
 
-class glitch_object_edit_window;
-
 class glitch_object_loop_arduino: public glitch_object
 {
   Q_OBJECT
@@ -51,7 +49,6 @@ class glitch_object_loop_arduino: public glitch_object
   void setUndoStack(QUndoStack *undoStack);
 
  private:
-  QPointer<glitch_object_edit_window> m_editWindow;
   Ui_glitch_object_loop_arduino m_ui;
   void mouseDoubleClickEvent(QMouseEvent *event);
 
