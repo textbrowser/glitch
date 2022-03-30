@@ -109,7 +109,7 @@ bool glitch_view_arduino::containsFunctionName(const QString &name) const
 
 bool glitch_view_arduino::open(const QString &fileName, QString &error)
 {
-  bool ok = glitch_view::open(fileName, error);
+  auto ok = glitch_view::open(fileName, error);
 
   if(!ok)
     return ok;
@@ -117,7 +117,7 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
   QString connectionName("");
 
   {
-    QSqlDatabase db(glitch_common::sqliteDatabase());
+    auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
     db.setDatabaseName(fileName);
@@ -132,8 +132,8 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 		      "type IN ('arduino-loop', 'arduino-setup')"))
 	  while(query.next())
 	    {
-	      QString styleSheet(query.value(0).toString().trimmed());
-	      QString type(query.value(1).toString().toLower().trimmed());
+	      auto styleSheet(query.value(0).toString().trimmed());
+	      auto type(query.value(1).toString().toLower().trimmed());
 
 	      if(type == "arduino-loop")
 		m_loopObject->setStyleSheet(styleSheet);
@@ -152,6 +152,16 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
   glitch_common::discardDatabase(connectionName);
   return ok;
+}
+
+glitch_object_loop_arduino *glitch_view_arduino::loopObject(void) const
+{
+  return m_loopObject;
+}
+
+glitch_object_setup_arduino *glitch_view_arduino::setupObject(void) const
+{
+  return m_setupObject;
 }
 
 void glitch_view_arduino::consumeFunctionName(const QString &name)

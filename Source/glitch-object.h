@@ -74,6 +74,7 @@ class glitch_object: public QWidget
   glitch_object(QWidget *parent);
   glitch_object(const quint64 id, QWidget *parent);
   QPointF scenePos(void) const;
+  QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
   bool mouseOverScrollBar(const QPointF &point) const;
@@ -89,15 +90,14 @@ class glitch_object: public QWidget
   virtual bool hasView(void) const;
   virtual bool isMandatory(void) const;
   virtual glitch_object *clone(QWidget *parent) const = 0;
-  virtual glitch_object_view *editView(void) const;
   virtual void addActions(QMenu &menu) = 0;
-  virtual void addChild(const QPointF &point, glitch_object *object);
   virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
   virtual void setUndoStack(QUndoStack *undoStack);
   virtual ~glitch_object();
+  void addChild(const QPointF &point, glitch_object *object);
   void move(const QPoint &point);
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);

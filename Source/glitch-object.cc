@@ -35,6 +35,9 @@
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
+#include "Arduino/glitch-object-loop-arduino.h"
+#include "Arduino/glitch-object-setup-arduino.h"
+#include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -94,6 +97,11 @@ QPointF glitch_object::scenePos(void) const
     return m_proxy->scenePos();
   else
     return {0.0, 0.0};
+}
+
+QPointer<glitch_object_view> glitch_object::editView(void) const
+{
+  return m_editView;
 }
 
 QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
@@ -167,6 +175,18 @@ glitch_object *glitch_object::createFromValues
   else if(type == "arduino-logicaloperator")
     object = glitch_object_logical_operator_arduino::createFromValues
       (values, error, parent);
+  else if(type == "arduino-loop" || type == "arduino-setup")
+    {
+      auto view = qobject_cast<glitch_view_arduino *> (parent);
+
+      if(view)
+	{
+	  if(type == "arduino-loop")
+	    object = view->loopObject();
+	  else
+	    object = view->setupObject();
+	}
+    }
   else
     {
       if(type.isEmpty())
@@ -178,11 +198,6 @@ glitch_object *glitch_object::createFromValues
   return object;
 }
 
-glitch_object_view *glitch_object::editView(void) const
-{
-  return nullptr;
-}
-
 quint64 glitch_object::id(void) const
 {
   return m_id;
@@ -190,8 +205,11 @@ quint64 glitch_object::id(void) const
 
 void glitch_object::addChild(const QPointF &point, glitch_object *object)
 {
-  Q_UNUSED(object);
-  Q_UNUSED(point);
+  if(!object)
+    return;
+
+  if(m_editView)
+    m_editView->artificialDrop(point, object);
 }
 
 void glitch_object::addDefaultActions(QMenu &menu)
@@ -415,8 +433,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
 void glitch_object::setName(const QString &n)
 {
-  QString name
-    (n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
+  auto name(n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
 
   if(!name.isEmpty())
     {

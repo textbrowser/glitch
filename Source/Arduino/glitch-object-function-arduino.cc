@@ -291,11 +291,6 @@ findParentFunction(void) const
   return nullptr;
 }
 
-glitch_object_view *glitch_object_function_arduino::editView(void) const
-{
-  return m_editView;
-}
-
 void glitch_object_function_arduino::addActions(QMenu &menu)
 {
   if(!m_isFunctionClone)
@@ -351,16 +346,6 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       (m_actions.value(DefaultMenuActions::SET_FUNCTION_PARAMETERS));
 
   addDefaultActions(menu);
-}
-
-void glitch_object_function_arduino::addChild
-(const QPointF &point, glitch_object *object)
-{
-  if(!object)
-    return;
-
-  if(m_editView)
-    m_editView->artificialDrop(point, object);
 }
 
 void glitch_object_function_arduino::declone(void)

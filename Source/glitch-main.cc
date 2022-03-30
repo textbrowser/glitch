@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 #endif
 
   QApplication qapplication(argc, argv);
-  QFont font(qapplication.font());
+  auto font(qapplication.font());
 
   font.setStyleStrategy
     (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));

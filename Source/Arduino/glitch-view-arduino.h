@@ -48,6 +48,8 @@ class glitch_view_arduino: public glitch_view
   QString nextUniqueFunctionName(void) const;
   bool containsFunctionName(const QString &name) const;
   bool open(const QString &fileName, QString &error);
+  glitch_object_loop_arduino *loopObject(void) const;
+  glitch_object_setup_arduino *setupObject(void) const;
   void consumeFunctionName(const QString &name);
   void removeFunctionName(const QString &name);
 

@@ -96,7 +96,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 
 void glitch_floating_context_menu::setName(const QString &n)
 {
-  QString name(n.trimmed());
+  auto name(n.trimmed());
 
   if(!name.isEmpty())
     m_ui.object_name->setText(name);

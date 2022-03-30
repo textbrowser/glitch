@@ -127,7 +127,8 @@ glitch_view::glitch_view
   connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
-	  SLOT(slotSceneResized(void)));
+	  SLOT(slotSceneResized(void)),
+	  Qt::QueuedConnection);
   connect(m_scene,
 	  SIGNAL(selectionChanged(void)),
 	  this,
@@ -343,17 +344,23 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 		    if(object)
 		      {
-			auto proxy = m_scene->addObject(object);
-
-			if(proxy)
-			  {
-			    m_scene->addItem(proxy);
-			    object->setUndoStack(m_undoStack);
-			    parents[id] = object;
-			    proxy->setPos(glitch_misc::dbPointToPointF(point));
-			  }
+			if(object->isMandatory())
+			  parents[id] = object;
 			else
-			  object->deleteLater();
+			  {
+			    auto proxy = m_scene->addObject(object);
+
+			    if(proxy)
+			      {
+				m_scene->addItem(proxy);
+				object->setUndoStack(m_undoStack);
+				parents[id] = object;
+				proxy->setPos
+				  (glitch_misc::dbPointToPointF(point));
+			      }
+			    else
+			      object->deleteLater();
+			  }
 		      }
 		  }
 		else
@@ -413,7 +420,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
-  bool ok = true;
+  auto ok = true;
 
   {
     auto db(glitch_common::sqliteDatabase());

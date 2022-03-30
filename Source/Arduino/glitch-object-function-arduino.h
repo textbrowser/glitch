@@ -55,14 +55,12 @@ class glitch_object_function_arduino: public glitch_object
   bool hasView(void) const;
   bool isClone(void) const;
   glitch_object_function_arduino *clone(QWidget *parent) const;
-  glitch_object_view *editView(void) const;
   static glitch_object_function_arduino *createFromValues
     (const QMap<QString, QVariant> &values,
      glitch_object *parentObject,
      QString &error,
      QWidget *parent);
   void addActions(QMenu &menu);
-  void addChild(const QPointF &point, glitch_object *object);
   void closeEditWindow(void);
   void declone(void);
   void save(const QSqlDatabase &db, QString &error);
