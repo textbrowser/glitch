@@ -422,7 +422,7 @@ void glitch_object_function_arduino::declone(void)
 	  SLOT(slotReturnTypeChanged(void)),
 	  Qt::UniqueConnection);
   prepareContextMenu();
-  prepareEditSignals();
+  prepareEditSignals(m_parentView);
 }
 
 void glitch_object_function_arduino::closeEditWindow(void)
@@ -468,67 +468,13 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareEditSignals();
+  prepareEditSignals(m_parentView);
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 {
   slotEdit();
   QWidget::mouseDoubleClickEvent(event);
-}
-
-void glitch_object_function_arduino::prepareEditSignals(void)
-{
-  if(m_editView && m_editWindow)
-    {
-      connect(m_editView,
-	      SIGNAL(paste(void)),
-	      m_editView,
-	      SLOT(slotPaste(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(closed(void)),
-	      m_editView,
-	      SLOT(slotParentWindowClosed(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(copy(void)),
-	      m_editView,
-	      SIGNAL(copy(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(deleteSignal(void)),
-	      m_editView,
-	      SLOT(slotDelete(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(paste(void)),
-	      m_editView,
-	      SIGNAL(paste(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(redo(void)),
-	      m_editView,
-	      SLOT(slotRedo(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(selectAll(void)),
-	      m_editView,
-	      SLOT(slotSelectAll(void)),
-	      Qt::UniqueConnection);
-      connect(m_editWindow,
-	      SIGNAL(undo(void)),
-	      m_editView,
-	      SLOT(slotUndo(void)),
-	      Qt::UniqueConnection);
-    }
-
-  if(m_editView && m_parentView)
-    connect(m_editView,
-	    SIGNAL(copy(void)),
-	    m_parentView,
-	    SLOT(slotCopy(void)),
-	    Qt::UniqueConnection);
 }
 
 void glitch_object_function_arduino::save

@@ -39,6 +39,7 @@ class QUndoStack;
 class glitch_floating_context_menu;
 class glitch_object_edit_window;
 class glitch_object_view;
+class glitch_view;
 
 class glitch_object: public QWidget
 {
@@ -125,6 +126,7 @@ class glitch_object: public QWidget
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void prepareContextMenu(void);
+  void prepareEditSignals(const glitch_view *parentView);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);

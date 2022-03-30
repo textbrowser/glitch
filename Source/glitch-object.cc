@@ -36,6 +36,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "glitch-floating-context-menu.h"
+#include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-scene.h"
@@ -295,6 +296,60 @@ void glitch_object::prepareContextMenu(void)
 	toolButton->setToolTip(tr("Floating Context Menu"));
 	break;
       }
+}
+
+void glitch_object::prepareEditSignals(const glitch_view *parentView)
+{
+  if(m_editView && m_editWindow)
+    {
+      connect(m_editView,
+	      SIGNAL(paste(void)),
+	      m_editView,
+	      SLOT(slotPaste(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(closed(void)),
+	      m_editView,
+	      SLOT(slotParentWindowClosed(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(copy(void)),
+	      m_editView,
+	      SIGNAL(copy(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(deleteSignal(void)),
+	      m_editView,
+	      SLOT(slotDelete(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(paste(void)),
+	      m_editView,
+	      SIGNAL(paste(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(redo(void)),
+	      m_editView,
+	      SLOT(slotRedo(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(selectAll(void)),
+	      m_editView,
+	      SLOT(slotSelectAll(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(undo(void)),
+	      m_editView,
+	      SLOT(slotUndo(void)),
+	      Qt::UniqueConnection);
+    }
+
+  if(m_editView && parentView)
+    connect(m_editView,
+	    SIGNAL(copy(void)),
+	    parentView,
+	    SLOT(slotCopy(void)),
+	    Qt::UniqueConnection);
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)
