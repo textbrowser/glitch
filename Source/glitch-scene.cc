@@ -292,6 +292,7 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
   if(!object)
     return;
 
+  QSignalBlocker blocker(this); // Are we creating from a database?
   auto proxy = addObject(object);
 
   if(proxy)
@@ -301,6 +302,8 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
     }
   else
     object->deleteLater();
+
+  blocker.unblock();
 }
 
 void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
