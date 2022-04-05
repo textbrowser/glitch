@@ -410,12 +410,6 @@ void glitch_object_function_arduino::declone(void)
   prepareEditSignals(m_parentView);
 }
 
-void glitch_object_function_arduino::closeEditWindow(void)
-{
-  if(m_editWindow)
-    m_editWindow->close();
-}
-
 void glitch_object_function_arduino::initialize(QWidget *parent)
 {
   if(m_initialized)

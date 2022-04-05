@@ -229,10 +229,6 @@ void glitch_object::addDefaultActions(QMenu &menu)
     }
 }
 
-void glitch_object::closeEditWindow(void)
-{
-}
-
 void glitch_object::createActions(void)
 {
   if(!m_actions.contains(DefaultMenuActions::DELETE))
@@ -530,6 +526,9 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 
 void glitch_object::simulateDelete(void)
 {
+  if(m_editWindow)
+    m_editWindow->close();
+
   m_contextMenu->close();
 }
 

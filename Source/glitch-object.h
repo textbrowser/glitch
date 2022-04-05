@@ -91,7 +91,6 @@ class glitch_object: public QWidget
   virtual bool isMandatory(void) const;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
-  virtual void closeEditWindow(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
