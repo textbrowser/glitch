@@ -35,9 +35,9 @@ glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
   m_ui.setupUi(this);
   m_ui.bottom_align->setFocus();
   connect(m_ui.bottom_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.horizontal_center_align,
 	  SIGNAL(clicked(void)),
 	  this,
