@@ -920,6 +920,10 @@ void glitch_scene::purgeRedoUndoProxies(void)
 
 void glitch_scene::removeItem(QGraphicsItem *item)
 {
+  /*
+  ** Do not add removed items to redo/undo stack here.
+  */
+
   if(item && item->scene() == this)
     QGraphicsScene::removeItem(item);
 
@@ -931,7 +935,10 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 	(proxy->widget());
 
       if(object && !object->isClone())
-	emit functionDeleted(object->name());
+	{
+	  deleteFunctionClones(object->name());
+	  emit functionDeleted(object->name());
+	}
     }
 }
 
@@ -985,17 +992,21 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 
   if(m_undoStack && object->proxy())
     {
+      m_undoStack->beginMacro(tr("widget(s) deleted"));
+
       if(qobject_cast<glitch_object_function_arduino *> (object) &&
 	 !qobject_cast<glitch_object_function_arduino *> (object)->isClone())
-	emit functionDeleted
-	  (qobject_cast<glitch_object_function_arduino *> (object)->name());
+	{
+	  deleteFunctionClones(object->name());
+	  emit functionDeleted
+	    (qobject_cast<glitch_object_function_arduino *> (object)->name());
+	}
 
       auto undoCommand = new glitch_undo_command
 	(glitch_undo_command::ITEM_DELETED, object->proxy(), this);
 
-      undoCommand->setText
-	(tr("item deleted (%1, %2)").arg(object->x()).arg(object->y()));
       m_undoStack->push(undoCommand);
+      m_undoStack->endMacro();
     }
   else
     object->deleteLater();

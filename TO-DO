@@ -106,7 +106,7 @@ Remaining Items
 - Implement Arduino's loop().
 - Implement Arduino's setup().
 - Limit SQL text retrieval via SUBSTR().
-- Object-view settings.
+- Object-view settings. Identical to canvas settings.
 - Remove function copies from diagram(s) on parent removal.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
