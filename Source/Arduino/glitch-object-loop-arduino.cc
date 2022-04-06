@@ -28,6 +28,7 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-view.h"
+#include "glitch-view.h"
 
 glitch_object_loop_arduino::glitch_object_loop_arduino
 (QWidget *parent):glitch_object_loop_arduino(1, parent)
@@ -59,7 +60,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 	  this,
 	  SIGNAL(changed(void)));
   prepareContextMenu();
-  prepareEditSignals(nullptr);
+  prepareEditSignals(qobject_cast<glitch_view *> (parent));
   setName(m_ui.label->text());
 }
 
