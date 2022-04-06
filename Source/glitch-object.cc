@@ -198,6 +198,14 @@ glitch_object *glitch_object::createFromValues
   return object;
 }
 
+glitch_scene *glitch_object::scene(void) const
+{
+  if(m_editView)
+    return m_editView->scene();
+  else
+    return nullptr;
+}
+
 quint64 glitch_object::id(void) const
 {
   return m_id;

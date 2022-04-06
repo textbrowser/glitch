@@ -203,6 +203,14 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  proxy,
 	  SLOT(deleteLater(void)),
 	  Qt::UniqueConnection);
+
+  if(object->scene())
+    connect(this,
+	    &glitch_scene::functionDeleted,
+	    object->scene(),
+	    &glitch_scene::slotFunctionDeleted,
+	    Qt::UniqueConnection);
+
   object->setProxy(proxy);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
@@ -276,6 +284,13 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
+  if(proxy && proxy->object() && proxy->object()->scene())
+    connect(this,
+	    &glitch_scene::functionDeleted,
+	    proxy->object()->scene(),
+	    &glitch_scene::slotFunctionDeleted,
+	    Qt::UniqueConnection);
+
   if(m_redoUndoProxies.contains(proxy) && proxy)
     m_redoUndoProxies[proxy] = 0;
 
@@ -348,6 +363,7 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_DELETED, proxy, this);
 
+	      undoCommand->setText(tr("function clone deleted"));
 	      m_undoStack->push(undoCommand);
 	    }
 	  else
@@ -963,6 +979,26 @@ void glitch_scene::setShowDots(const bool state)
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
+}
+
+void glitch_scene::slotFunctionDeleted(const QString &name)
+{
+  foreach(auto object, objects())
+    if(object && object->name() == name && object->type().contains("function"))
+      {
+	if(m_undoStack)
+	  {
+	    auto undoCommand = new glitch_undo_command
+	      (glitch_undo_command::ITEM_DELETED, object->proxy(), this);
+
+	    undoCommand->setText(tr("function clone deleted"));
+	    m_undoStack->push(undoCommand);
+	  }
+	else
+	  removeItem(object->proxy());
+
+	break;
+      }
 }
 
 void glitch_scene::slotFunctionNameChanged(const QString &after,

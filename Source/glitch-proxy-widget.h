@@ -41,8 +41,20 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   glitch_proxy_widget(QGraphicsItem *parent = nullptr,
 		      Qt::WindowFlags wFlags = Qt::WindowFlags());
   ~glitch_proxy_widget();
+  QPointer<glitch_object> object(void) const;
   bool isMandatory(void) const;
   bool isMovable(void) const;
+
+  enum
+  {
+   Type = QGraphicsItem::UserType + 1
+  };
+
+  int type(void ) const
+  {
+    return Type;
+  }
+
   void setWidget(QWidget *widget);
 
  private:
