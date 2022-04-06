@@ -652,6 +652,7 @@ void glitch_ui::prepareRecentFiles(void)
       {
 	QSqlQuery query(db);
 
+	query.setForwardOnly(true);
 	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
 
