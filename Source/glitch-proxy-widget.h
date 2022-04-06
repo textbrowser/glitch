@@ -50,7 +50,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
    Type = QGraphicsItem::UserType + 1
   };
 
-  int type(void ) const
+  int type(void) const
   {
     return Type;
   }

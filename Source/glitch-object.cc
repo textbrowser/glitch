@@ -60,6 +60,20 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
 
+  {
+    auto view = qobject_cast<glitch_object_view *> (parent);
+
+    if(view)
+      setUndoStack(view->scene()->undoStack());
+  }
+
+  {
+    auto view = qobject_cast<glitch_view *> (parent);
+
+    if(view)
+      setUndoStack(view->scene()->undoStack());
+  }
+
   auto p = parent;
 
   do
@@ -74,7 +88,6 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 	  if(m_id <= 1)
 	    m_id = view->nextId();
 
-	  setUndoStack(view->scene()->undoStack());
 	  break;
 	}
 
