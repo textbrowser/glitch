@@ -41,6 +41,7 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
     (glitch_common::ProjectTypes::ArduinoProject, m_id, m_undoStack, this);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setEditView(m_editView);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: setup()"));
   m_editWindow->resize(600, 600);
