@@ -28,6 +28,7 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-setup-arduino.h"
 #include "glitch-object-view.h"
+#include "glitch-view.h"
 
 glitch_object_setup_arduino::glitch_object_setup_arduino
 (QWidget *parent):glitch_object_setup_arduino(1, parent)
@@ -38,10 +39,14 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject, m_id, m_undoStack, this);
+    (glitch_common::ProjectTypes::ArduinoProject,
+     m_id,
+     new QUndoStack(this), // New redo/undo stack.
+     this);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: setup()"));
   m_editWindow->resize(600, 600);
@@ -55,13 +60,12 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
 	  this,
 	  SIGNAL(changed(void)));
   prepareContextMenu();
+  prepareEditSignals(qobject_cast<glitch_view *> (parent));
   setName(m_ui.label->text());
 }
 
 glitch_object_setup_arduino::~glitch_object_setup_arduino()
 {
-  if(m_editWindow)
-    m_editWindow->deleteLater();
 }
 
 bool glitch_object_setup_arduino::hasView(void) const

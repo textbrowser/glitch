@@ -66,8 +66,6 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()
 {
-  if(m_editWindow)
-    m_editWindow->deleteLater();
 }
 
 bool glitch_object_loop_arduino::hasView(void) const

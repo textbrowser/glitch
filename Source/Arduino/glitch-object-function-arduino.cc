@@ -177,8 +177,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
 glitch_object_function_arduino::~glitch_object_function_arduino()
 {
-  if(m_editWindow)
-    m_editWindow->deleteLater();
 }
 
 QString glitch_object_function_arduino::name(void) const

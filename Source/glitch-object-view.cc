@@ -80,6 +80,8 @@ glitch_object_view::~glitch_object_view()
 {
   if(m_alignment)
     m_alignment->deleteLater();
+
+  qDebug() << "Object view destroyed!";
 }
 
 QUndoStack *glitch_object_view::undoStack(void) const
