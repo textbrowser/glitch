@@ -101,3 +101,25 @@ void glitch_floating_context_menu::setName(const QString &n)
   if(!name.isEmpty())
     m_ui.object_name->setText(name);
 }
+
+void glitch_floating_context_menu::setObject(glitch_object *object)
+{
+  m_object = object;
+
+  if(m_object)
+    {
+      connect(m_object,
+	      &glitch_object::changed,
+	      this,
+	      &glitch_floating_context_menu::slotObjectChanged,
+	      Qt::UniqueConnection);
+      slotObjectChanged();
+    }
+}
+
+void glitch_floating_context_menu::slotObjectChanged(void)
+{
+  if(m_object)
+    m_ui.position->setText
+      (QString("(%1, %2)").arg(m_object->pos().x()).arg(m_object->pos().y()));
+}
