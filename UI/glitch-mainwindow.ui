@@ -125,8 +125,14 @@
     <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
    </widget>
+   <widget class="QMenu" name="menu_Generate">
+    <property name="title">
+     <string>&amp;Generate</string>
+    </property>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
+   <addaction name="menu_Generate"/>
    <addaction name="menu_Tabs"/>
    <addaction name="menu_Windows"/>
   </widget>

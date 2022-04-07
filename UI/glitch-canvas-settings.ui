@@ -126,6 +126,34 @@
         </layout>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>&amp;Output File</string>
+           </property>
+           <property name="buddy">
+            <cstring>output_file</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="output_file">
+           <property name="placeholderText">
+            <string>Output File</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="select_output_file">
+           <property name="text">
+            <string>Select</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <widget class="QLabel" name="label_4">
@@ -320,6 +348,8 @@
   <tabstop>background_color</tabstop>
   <tabstop>name</tabstop>
   <tabstop>dots_color</tabstop>
+  <tabstop>output_file</tabstop>
+  <tabstop>select_output_file</tabstop>
   <tabstop>project_type</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
   <tabstop>show_canvas_dots</tabstop>
