@@ -54,7 +54,7 @@ glitch_view_arduino::glitch_view_arduino
   proxy->resize(m_loopObject->size());
   m_loopObject->setProxy(proxy);
   m_scene->addItem(proxy);
-  proxy->setPos(10.0, 10.0);
+  proxy->setPos(QPointF(10.0, 10.0));
   proxy = new glitch_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsMovable, false);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -62,7 +62,7 @@ glitch_view_arduino::glitch_view_arduino
   proxy->resize(m_setupObject->size());
   m_scene->addItem(proxy);
   m_setupObject->setProxy(proxy);
-  proxy->setPos(m_loopObject->width() + 20.0, 10.0);
+  proxy->setPos(QPointF(m_loopObject->width() + 20.0, 10.0));
   connect(m_loopObject,
 	  SIGNAL(changed(void)),
 	  this,

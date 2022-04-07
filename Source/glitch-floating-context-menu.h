@@ -46,12 +46,12 @@ class glitch_floating_context_menu: public QDialog
   void setObject(glitch_object *object);
   void setName(const QString &n);
 
+ public slots:
+  void slotObjectChanged(void);
+
  private:
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
-
- private slots:
-  void slotObjectChanged(void);
 };
 
 #endif

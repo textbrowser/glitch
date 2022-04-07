@@ -33,6 +33,7 @@
 #include <QToolButton>
 #include <QtDebug>
 
+#include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 
@@ -172,8 +173,21 @@ void glitch_proxy_widget::paint
   QGraphicsProxyWidget::paint(painter, opt, widget);
 }
 
+void glitch_proxy_widget::setPos(const QPointF &point)
+{
+  QGraphicsProxyWidget::setPos(point);
+  emit changed();
+}
+
 void glitch_proxy_widget::setWidget(QWidget *widget)
 {
   QGraphicsProxyWidget::setWidget(widget);
   m_object = qobject_cast<glitch_object *> (widget);
+
+  if(m_object)
+    connect(this,
+	    &glitch_proxy_widget::changed,
+	    m_object->contextMenu(),
+	    &glitch_floating_context_menu::slotObjectChanged,
+	    Qt::UniqueConnection);
 }

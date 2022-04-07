@@ -99,8 +99,7 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
 
 glitch_object::~glitch_object()
 {
-  if(m_contextMenu)
-    m_contextMenu->deleteLater();
+  m_contextMenu->deleteLater();
 
   if(m_editView)
     m_editView->deleteLater();

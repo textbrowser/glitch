@@ -55,6 +55,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
     return Type;
   }
 
+  void setPos(const QPointF &point);
   void setWidget(QWidget *widget);
 
  private:
@@ -64,6 +65,9 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
+
+ signals:
+  void changed(void);
 };
 
 #endif

@@ -81,6 +81,12 @@ class glitch_object: public QWidget
   bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
   quint64 id(void) const;
+
+  glitch_floating_context_menu *contextMenu(void) const
+  {
+    return m_contextMenu;
+  }
+
   glitch_scene *scene(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values,
@@ -116,13 +122,13 @@ class glitch_object: public QWidget
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
-  QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
+  glitch_floating_context_menu *m_contextMenu;
   quint64 m_id;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
