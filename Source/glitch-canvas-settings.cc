@@ -27,11 +27,13 @@
 
 #include <QColorDialog>
 #include <QDir>
+#include <QFileDialog>
 #include <QSettings>
 #include <QShortcut>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QStandardPaths>
 
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
@@ -57,14 +59,18 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotSelectColor(void)));
-  connect(m_ui.dots_color,
-	  SIGNAL(clicked(void)),
-	  this,
-	  SLOT(slotSelectColor(void)));
   connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(accept(void)));
+  connect(m_ui.dots_color,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotSelectColor(void)));
+  connect(m_ui.select_output_file,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSelectOutputFile);
   setWindowModality(Qt::NonModal);
 }
 
@@ -108,6 +114,7 @@ settings(void) const
   hash[Settings::CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
   hash[Settings::CANVAS_NAME] = name();
   hash[Settings::DOTS_COLOR] = dotsColor().name();
+  hash[Settings::OUTPUT_FILE] = outputFile();
   hash[Settings::REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
   hash[Settings::SHOW_CANVAS_DOTS] = showCanvasDots();
   hash[Settings::VIEW_UPDATE_MODE] = viewportUpdateMode();
@@ -125,6 +132,11 @@ QString glitch_canvas_settings::defaultName(void) const
 QString glitch_canvas_settings::name(void) const
 {
   return m_ui.name->text().trimmed();
+}
+
+QString glitch_canvas_settings::outputFile(void) const
+{
+  return m_ui.output_file->text();
 }
 
 bool glitch_canvas_settings::save(QString &error) const
@@ -149,6 +161,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "background_color TEXT NOT NULL, "
 	   "dots_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
+	   "output_file TEXT, "
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
@@ -169,11 +182,12 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "(background_color, "
 	   "dots_color, "
 	   "name, "
+	   "output_file, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
 	   "show_canvas_dots, "
 	   "update_mode) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text());
 	query.addBindValue(m_ui.dots_color->text());
 
@@ -183,6 +197,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  name = defaultName();
 
 	query.addBindValue(name);
+	query.addBindValue(m_ui.output_file->text());
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
@@ -220,7 +235,10 @@ void glitch_canvas_settings::accept(void)
   auto name(m_ui.name->text().trimmed());
 
   if(name.isEmpty())
-    m_ui.name->setText(defaultName());
+    {
+      m_ui.name->setText(defaultName());
+      m_ui.name->setCursorPosition(0);
+    }
 
   setResult(QDialog::Accepted);
   emit accepted(true);
@@ -247,26 +265,24 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
-	query.exec
-	  ("ALTER TABLE canvas_settings "
-	   "ADD show_canvas_dots INTEGER NOT NULL DEFAULT 1");
-
 	if(query.exec("SELECT background_color, " // 0
 		      "dots_color, "              // 1
 		      "name, "                    // 2
-		      "project_type, "            // 3
-		      "redo_undo_stack_size, "    // 4
-		      "show_canvas_dots, "        // 5
-		      "update_mode "              // 6
+		      "output_file, "             // 3
+		      "project_type, "            // 4
+		      "redo_undo_stack_size, "    // 5
+		      "show_canvas_dots, "        // 6
+		      "update_mode "              // 7
 		      "FROM canvas_settings") && query.next())
 	  {
 	    QColor color(query.value(0).toString().trimmed());
 	    QColor dotsColor(query.value(1).toString().trimmed());
 	    auto name(query.value(2).toString().trimmed());
-	    auto projectType(query.value(3).toString().trimmed());
-	    auto redoUndoStackSize = query.value(4).toInt();
-	    auto showCanvasDots = query.value(5).toBool();
-	    auto updateMode(query.value(6).toString().trimmed());
+	    auto outputFile(query.value(3).toString());
+	    auto projectType(query.value(4).toString().trimmed());
+	    auto redoUndoStackSize = query.value(5).toInt();
+	    auto showCanvasDots = query.value(6).toBool();
+	    auto updateMode(query.value(7).toString().trimmed());
 
 	    if(!color.isValid())
 	      color = QColor(211, 211, 211);
@@ -281,16 +297,20 @@ void glitch_canvas_settings::prepare(void)
 	      (QString("QPushButton {background-color: %1}").
 	       arg(dotsColor.name()));
 	    m_ui.dots_color->setText(dotsColor.name());
+
+	    if(name.isEmpty())
+	      name = defaultName();
+
+	    m_ui.name->setText(name);
+	    m_ui.name->setCursorPosition(0);
+	    m_ui.output_file->setText(outputFile);
+	    m_ui.output_file->setCursorPosition(0);
 	    m_ui.project_type->setCurrentIndex
 	      (m_ui.project_type->findText(projectType));
 
 	    if(m_ui.project_type->currentIndex() < 0)
 	      m_ui.project_type->setCurrentIndex(0);
 
-	    if(name.isEmpty())
-	      name = defaultName();
-
-	    m_ui.name->setText(name);
 	    m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
 	    m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	    m_ui.update_mode->setCurrentIndex
@@ -322,6 +342,14 @@ void glitch_canvas_settings::setName(const QString &name)
     m_ui.name->setText(defaultName());
   else
     m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
+
+  m_ui.name->setCursorPosition(0);
+}
+
+void glitch_canvas_settings::setOutputFile(const QString &fileName)
+{
+  m_ui.output_file->setText(fileName);
+  m_ui.output_file->setCursorPosition(0);
 }
 
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
@@ -342,6 +370,7 @@ void glitch_canvas_settings::setSettings
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.dots_color->setText(color.name());
   setName(hash.value(CANVAS_NAME).toString());
+  setOutputFile(hash.value(OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(SHOW_CANVAS_DOTS).toBool());
   setViewportUpdateMode
@@ -416,5 +445,27 @@ void glitch_canvas_settings::slotSelectColor(void)
       button->setStyleSheet
 	(QString("QPushButton {background-color: %1;}").arg(color.name()));
       button->setText(color.name());
+    }
+}
+
+void glitch_canvas_settings::slotSelectOutputFile(void)
+{
+  QFileDialog dialog(this);
+
+  dialog.setAcceptMode(QFileDialog::AcceptOpen);
+  dialog.setDirectory
+    (QStandardPaths::
+     standardLocations(QStandardPaths::DesktopLocation).value(0));
+  dialog.setFileMode(QFileDialog::AnyFile);
+  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(tr("Glitch: Select Ouput File"));
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      dialog.close();
+      m_ui.output_file->setText(dialog.selectedFiles().value(0));
+      m_ui.output_file->setCursorPosition(0);
     }
 }
