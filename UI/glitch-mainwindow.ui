@@ -129,7 +129,7 @@
     <property name="title">
      <string>&amp;Generate</string>
     </property>
-    <addaction name="action_Source"/>
+    <addaction name="action_Generate_Source"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -271,7 +271,7 @@
     <string>&amp;Tools...</string>
    </property>
   </action>
-  <action name="action_Source">
+  <action name="action_Generate_Source">
    <property name="text">
     <string>&amp;Source</string>
    </property>

@@ -84,6 +84,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotDelete(void)));
+  connect(m_ui.action_Generate_Source,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotGenerateSource);
   connect(m_ui.action_New_Arduino,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -1026,6 +1030,12 @@ void glitch_ui::slotDelete(void)
     m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
   else
     m_ui.action_Undo->setText(tr("Undo"));
+}
+
+void glitch_ui::slotGenerateSource(void)
+{
+  if(m_currentView)
+    m_currentView->generateSource();
 }
 
 void glitch_ui::slotNewArduinoDiagram(void)

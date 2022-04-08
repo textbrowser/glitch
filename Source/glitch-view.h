@@ -75,6 +75,7 @@ class glitch_view: public QWidget
   glitch_scene *scene(void) const;
   quint64 nextId(void) const;
   virtual bool open(const QString &fileName, QString &error);
+  virtual void generateSource(void);
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);

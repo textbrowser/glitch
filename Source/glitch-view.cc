@@ -574,6 +574,10 @@ void glitch_view::endMacro(void)
   m_undoStack->endMacro();
 }
 
+void glitch_view::generateSource(void)
+{
+}
+
 void glitch_view::prepareDatabaseTables(const QString &fileName) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

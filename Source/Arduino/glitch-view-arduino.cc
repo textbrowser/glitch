@@ -170,6 +170,10 @@ void glitch_view_arduino::consumeFunctionName(const QString &name)
     m_functionNames[name] = '0';
 }
 
+void glitch_view_arduino::generateSource(void)
+{
+}
+
 void glitch_view_arduino::removeFunctionName(const QString &name)
 {
   m_functionNames.remove(name);

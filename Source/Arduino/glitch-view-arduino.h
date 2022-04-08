@@ -51,6 +51,7 @@ class glitch_view_arduino: public glitch_view
   glitch_object_loop_arduino *loopObject(void) const;
   glitch_object_setup_arduino *setupObject(void) const;
   void consumeFunctionName(const QString &name);
+  void generateSource(void);
   void removeFunctionName(const QString &name);
 
  private:
