@@ -41,7 +41,7 @@ class glitch_common
 
   static QSqlDatabase sqliteDatabase(void);
   static QString projectTypeToString(const ProjectTypes projectType);
-  static void discardDatabase(const QString &connectioName);
+  static void discardDatabase(const QString &connectionName);
 
  private:
   glitch_common(void);
