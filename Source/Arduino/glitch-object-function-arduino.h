@@ -49,6 +49,7 @@ class glitch_object_function_arduino: public glitch_object
 				 glitch_object *parentObject,
 				 QWidget *parent);
   ~glitch_object_function_arduino();
+  QString code(void) const;
   QString name(void) const;
   QString returnType(void) const;
   bool hasOutput(void) const;

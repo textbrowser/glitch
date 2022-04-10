@@ -52,6 +52,11 @@ glitch_object_block_comment_arduino::
 {
 }
 
+QString glitch_object_block_comment_arduino::code(void) const
+{
+  return "";
+}
+
 glitch_object_block_comment_arduino *glitch_object_block_comment_arduino::
 clone(QWidget *parent) const
 {

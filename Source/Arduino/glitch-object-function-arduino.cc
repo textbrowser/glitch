@@ -179,6 +179,11 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
 {
 }
 
+QString glitch_object_function_arduino::code(void) const
+{
+  return "";
+}
+
 QString glitch_object_function_arduino::name(void) const
 {
   return m_ui.label->text();

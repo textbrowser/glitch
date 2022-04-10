@@ -41,6 +41,7 @@ class glitch_object_setup_arduino: public glitch_object
   glitch_object_setup_arduino(QWidget *parent);
   glitch_object_setup_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_setup_arduino();
+  QString code(void) const;
   bool hasView(void) const;
   bool isMandatory(void) const;
   glitch_object_setup_arduino *clone(QWidget *parent) const;

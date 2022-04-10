@@ -47,6 +47,11 @@ glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
 {
 }
 
+QString glitch_object_analog_read_arduino::code(void) const
+{
+  return "";
+}
+
 glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
 clone(QWidget *parent) const
 {

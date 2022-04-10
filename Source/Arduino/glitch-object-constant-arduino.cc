@@ -59,6 +59,11 @@ glitch_object_constant_arduino::
 {
 }
 
+QString glitch_object_constant_arduino::code(void) const
+{
+  return "";
+}
+
 QString glitch_object_constant_arduino::constantType(void) const
 {
   return m_ui.constant->currentText();

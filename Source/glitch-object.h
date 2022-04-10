@@ -93,6 +93,7 @@ class glitch_object: public QWidget
      glitch_object *parentObject,
      QString &error,
      QWidget *parent);
+  virtual QString code(void) const = 0;
   virtual QString name(void) const;
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;

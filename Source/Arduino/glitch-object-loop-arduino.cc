@@ -68,6 +68,11 @@ glitch_object_loop_arduino::~glitch_object_loop_arduino()
 {
 }
 
+QString glitch_object_loop_arduino::code(void) const
+{
+  return "";
+}
+
 bool glitch_object_loop_arduino::hasView(void) const
 {
   return true;

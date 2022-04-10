@@ -71,7 +71,6 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 
 glitch_object_edit_window::~glitch_object_edit_window()
 {
-  qDebug() << "Object window destroyed!";
 }
 
 bool glitch_object_edit_window::event(QEvent *event)
