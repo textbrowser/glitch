@@ -64,6 +64,7 @@ Completed Items
 - Redo / undo shortcuts on edit windows.
 - Redo / undo style sheets.
 - Remove function clones.
+- Remove function copies from diagram(s) on parent removal.
 - Remove functions from User Functions on redo / undo.
 - Remove missing diagram files.
 - Reparent support panels if a canvas is separated. Not necessary. Append
@@ -107,7 +108,6 @@ Remaining Items
 - Implement Arduino's setup().
 - Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
-- Remove function copies from diagram(s) on parent removal.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino (Java).

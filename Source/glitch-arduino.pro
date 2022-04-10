@@ -4,7 +4,8 @@ FORMS          += UI/Arduino/glitch-object-analog-read-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
                   UI/Arduino/glitch-object-function-parameters-arduino.ui \
                   UI/Arduino/glitch-object-logical-operator-arduino.ui \
-		  UI/Arduino/glitch-object-loop-arduino.ui \
+                  UI/Arduino/glitch-object-loop-arduino.ui \
+                  UI/Arduino/glitch-object-loop-flow-arduino.ui \
                   UI/Arduino/glitch-object-setup-arduino.ui
 HEADERS	       += Source/Arduino/glitch-object-analog-read-arduino.h \
                   Source/Arduino/glitch-object-block-comment-arduino.h \
