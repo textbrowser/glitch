@@ -40,6 +40,7 @@
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
+#include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -530,6 +531,10 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 	  if(text.startsWith("glitch-arduino-analog i/o-analogread()"))
 	    object = new glitch_object_analog_read_arduino(view);
+	  else if(text.startsWith("glitch-arduino-constant"))
+	    object = new glitch_object_constant_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-flow control-"))
+	    object = new glitch_object_loop_flow_arduino(view);
 	  else if(text.startsWith("glitch-arduino-function"))
 	    object = new glitch_object_function_arduino
 	      (text.mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),
@@ -538,8 +543,6 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_logical_operator_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-structures-block comment"))
 	    object = new glitch_object_block_comment_arduino(view);
-	  else if(text.startsWith("glitch-arduino-constant"))
-	    object = new glitch_object_constant_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-structures-function"))
 	    {
 	      if(text == "glitch-arduino-structures-function()")

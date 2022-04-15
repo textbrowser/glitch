@@ -56,6 +56,16 @@
      </item>
      <item>
       <property name="text">
+       <string>LOW</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>OUTPUT</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>false</string>
       </property>
      </item>

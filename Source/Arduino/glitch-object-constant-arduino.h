@@ -43,6 +43,8 @@ class glitch_object_constant_arduino: public glitch_object
    INPUT,
    INPUT_PULLUP,
    LED_BUILTIN,
+   LOW,
+   OUTPUT,
    TRUE
   };
 

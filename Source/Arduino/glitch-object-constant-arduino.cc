@@ -122,23 +122,51 @@ void glitch_object_constant_arduino::save
 void glitch_object_constant_arduino::setConstantType
 (const QString &constantType)
 {
-  QString c(constantType.toLower().trimmed());
+  auto c(constantType.toLower().trimmed());
 
-  if(c == "false")
-    m_constantType = FALSE;
-  else if(c == "input")
-    m_constantType = INPUT;
-  else if(c == "input_pullup")
-    m_constantType = INPUT_PULLUP;
-  else if(c == "led_builtin")
-    m_constantType = LED_BUILTIN;
-  else if(c == "true")
-    m_constantType = TRUE;
+  if(c.endsWith("false"))
+    {
+      c = "false";
+      m_constantType = ConstantTypes::FALSE;
+    }
+  else if(c.endsWith("input"))
+    {
+      c = "input";
+      m_constantType = ConstantTypes::INPUT;
+    }
+  else if(c.endsWith("input_pullup"))
+    {
+      c = "input_pullup";
+      m_constantType = ConstantTypes::INPUT_PULLUP;
+    }
+  else if(c.endsWith("led_builtin"))
+    {
+      c = "led_builtin";
+      m_constantType = ConstantTypes::LED_BUILTIN;
+    }
+  else if(c.endsWith("low"))
+    {
+      c = "low";
+      m_constantType = ConstantTypes::LOW;
+    }
+  else if(c.endsWith("output"))
+    {
+      c = "output";
+      m_constantType = ConstantTypes::OUTPUT;
+    }
+  else if(c.endsWith("true"))
+    {
+      c = "true";
+      m_constantType = ConstantTypes::TRUE;
+    }
   else
-    m_constantType = HIGH;
+    {
+      c = "high";
+      m_constantType = ConstantTypes::HIGH;
+    }
 
   m_ui.constant->blockSignals(true);
-  m_ui.constant->setCurrentIndex(m_ui.constant->findText(constantType));
+  m_ui.constant->setCurrentIndex(m_ui.constant->findText(c, Qt::MatchEndsWith));
 
   if(m_ui.constant->currentIndex() < 0)
     m_ui.constant->setCurrentIndex(0);
