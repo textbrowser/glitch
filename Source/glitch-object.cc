@@ -498,7 +498,8 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  string = string.mid(0, static_cast<int> (NAME_MAXIMUM_LENGTH));
+	  string = string.mid
+	    (0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 	  m_properties[Properties::NAME] = string.trimmed();
 	}
       else if(string.startsWith("position_locked = "))

@@ -360,21 +360,22 @@ void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 void glitch_canvas_settings::setSettings
 (const QHash<glitch_canvas_settings::Settings, QVariant> &hash)
 {
-  QColor color(hash.value(CANVAS_BACKGROUND_COLOR).toString());
+  QColor color(hash.value(Settings::CANVAS_BACKGROUND_COLOR).toString());
 
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.background_color->setText(color.name());
-  color = QColor(hash.value(DOTS_COLOR).toString());
+  color = QColor(hash.value(Settings::DOTS_COLOR).toString());
   m_ui.dots_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.dots_color->setText(color.name());
-  setName(hash.value(CANVAS_NAME).toString());
-  setOutputFile(hash.value(OUTPUT_FILE).toString());
+  setName(hash.value(Settings::CANVAS_NAME).toString());
+  setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
-  setShowCanvasDots(hash.value(SHOW_CANVAS_DOTS).toBool());
+  setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
   setViewportUpdateMode
-    (QGraphicsView::ViewportUpdateMode(hash.value(VIEW_UPDATE_MODE).toInt()));
+    (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
+						  VIEW_UPDATE_MODE).toInt()));
   emit accepted(false);
 }
 
@@ -413,8 +414,11 @@ void glitch_canvas_settings::setViewportUpdateMode
 	break;
       }
     default:
-      m_ui.update_mode->setCurrentIndex
-	(m_ui.update_mode->findText(tr("Full")));
+      {
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(tr("Full")));
+	break;
+      }
     }
 
   if(m_ui.update_mode->currentIndex() < 0)
