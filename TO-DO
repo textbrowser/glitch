@@ -108,6 +108,8 @@ Remaining Items
 - Implement Arduino's setup().
 - Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
+- Order items by bubbles and coordinates. Orders describe order in
+  generated source.
 - Resize objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino (Java).
