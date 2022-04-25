@@ -204,6 +204,10 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  proxy,
 	  SLOT(deleteLater(void)),
 	  Qt::UniqueConnection);
+  connect(proxy,
+	  &glitch_proxy_widget::changed,
+	  this,
+	  &glitch_scene::slotProxyChanged);
 
   if(object->scene())
     connect(this,
@@ -285,15 +289,15 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
+  if(m_redoUndoProxies.contains(proxy) && proxy)
+    m_redoUndoProxies[proxy] = 0;
+
   if(proxy && proxy->object() && proxy->object()->scene())
     connect(this,
 	    &glitch_scene::functionDeleted,
 	    proxy->object()->scene(),
 	    &glitch_scene::slotFunctionDeleted,
 	    Qt::UniqueConnection);
-
-  if(m_redoUndoProxies.contains(proxy) && proxy)
-    m_redoUndoProxies[proxy] = 0;
 
   if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
     emit functionAdded
@@ -1051,6 +1055,23 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
     object->deleteLater();
 
   emit changed();
+}
+
+void glitch_scene::slotProxyChanged(void)
+{
+  auto proxy = qobject_cast<glitch_proxy_widget *> (sender());
+
+  if(!proxy)
+    return;
+
+  auto pair(m_objectsHash.value(proxy));
+
+  m_objectsHash[proxy] = QPair<qreal, qreal> (proxy->x(), proxy->y());
+
+  if(m_objectsMap.contains(pair, proxy))
+    m_objectsMap.remove(pair, proxy);
+
+  m_objectsMap.insert(QPair<qreal, qreal> (proxy->x(), proxy->y()), proxy);
 }
 
 void glitch_scene::slotRedo(void)

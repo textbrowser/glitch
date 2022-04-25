@@ -30,6 +30,7 @@
 
 #include <QGraphicsScene>
 #include <QHash>
+#include <QMultiMap>
 #include <QPointer>
 
 #include "glitch-common.h"
@@ -61,8 +62,10 @@ class glitch_scene: public QGraphicsScene
 
  private:
   QColor m_dotsColor;
+  QHash<glitch_proxy_widget *, QPair<qreal, qreal> > m_objectsHash;
   QHash<glitch_proxy_widget *, char> m_redoUndoProxies;
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
+  QMultiMap<QPair<qreal, qreal>, glitch_proxy_widget *> m_objectsMap;
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;
@@ -89,6 +92,7 @@ class glitch_scene: public QGraphicsScene
 				     const QString &before,
 				     glitch_object *object);
   void slotObjectDeletedViaContextMenu(void);
+  void slotProxyChanged(void);
   void slotRedo(void);
   void slotUndo(void);
 
