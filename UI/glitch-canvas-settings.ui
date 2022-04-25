@@ -139,6 +139,9 @@
          </item>
          <item>
           <widget class="QLineEdit" name="output_file">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generated source will be written to this file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="placeholderText">
             <string>Output File</string>
            </property>
