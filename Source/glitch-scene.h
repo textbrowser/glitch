@@ -51,7 +51,17 @@ class glitch_scene: public QGraphicsScene
   QList<glitch_object *> selectedObjects(void) const;
   QPointer<QUndoStack> undoStack(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);
-  int objectOrder(glitch_proxy_widget *proxy) const;
+
+  int objectOrder(glitch_proxy_widget *proxy) const
+  {
+    if(!proxy)
+      return -1;
+
+    return std::distance
+      (m_objectsMap.begin(),
+       m_objectsMap.find(m_objectsHash.value(proxy), proxy));
+  }
+
   void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object);
   void deleteItems(void);

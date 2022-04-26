@@ -31,6 +31,8 @@
 #include <QGraphicsProxyWidget>
 #include <QPointer>
 
+#include "glitch-scene.h"
+
 class glitch_object;
 
 class glitch_proxy_widget: public QGraphicsProxyWidget
@@ -49,6 +51,16 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   QPointer<glitch_object> object(void) const;
   bool isMandatory(void) const;
   bool isMovable(void) const;
+
+  int objectOrder(void) const
+  {
+    glitch_scene *scene = qobject_cast<glitch_scene *> (this->scene());
+
+    if(scene)
+      return scene->objectOrder(const_cast<glitch_proxy_widget *> (this));
+    else
+      return -1;
+  }
 
   int type(void) const
   {

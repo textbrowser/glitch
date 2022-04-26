@@ -282,16 +282,6 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   return proxy;
 }
 
-int glitch_scene::objectOrder(glitch_proxy_widget *proxy) const
-{
-  if(!proxy)
-    return -1;
-
-  return std::distance
-    (m_objectsMap.begin(),
-     m_objectsMap.find(m_objectsHash.value(proxy), proxy));
-}
-
 void glitch_scene::addItem(QGraphicsItem *item)
 {
   if(item && !item->scene())
