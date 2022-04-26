@@ -123,55 +123,78 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glitch_proxy_widget::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {
-  if(painter)
-    painter->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-			    QPainter::HighQualityAntialiasing | // OpenGL?
-#endif
-			    QPainter::SmoothPixmapTransform |
-			    QPainter::TextAntialiasing,
-			    true);
-
-  if(opt && (opt->state & QStyle::State_Selected) && painter)
-    {
-      QPen pen;
-
-      if(isMovable())
-	pen.setColor(QColor("lightgreen"));
-      else
-	pen.setColor(QColor("orange"));
-
-      pen.setJoinStyle(Qt::MiterJoin);
-      pen.setStyle(Qt::DotLine);
-      pen.setWidthF(5.5);
-      painter->setPen(pen);
-      painter->drawRect(boundingRect());
-    }
-
-  if(painter)
-    if(m_object && m_object->hasOutput())
-      {
-	QPainterPath path;
-	auto rect(this->rect());
-
-	path.addRect(rect.topRight().x() + 1.0,
-		     rect.height() / 2.0 + rect.topRight().y() - 5.0,
-		     10.0,
-		     10.0);
-	painter->fillPath(path, Qt::blue);
-
-	QPen pen;
-
-	pen.setColor(Qt::yellow);
-	pen.setWidthF(1.5);
-	painter->setPen(pen);
-	painter->drawRect(rect.topRight().x() + 1.0,
-			  rect.height() / 2.0 + rect.topRight().y() - 5.0,
-			  10.0,
-			  10.0);
-      }
-
   QGraphicsProxyWidget::paint(painter, opt, widget);
+
+  if(painter)
+    {
+      painter->setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+			      QPainter::HighQualityAntialiasing | // OpenGL?
+#endif
+			      QPainter::SmoothPixmapTransform |
+			      QPainter::TextAntialiasing,
+			      true);
+
+      if(!isMandatory())
+	{
+	  /*
+	  ** Draw the object's order.
+	  */
+
+	  QPainterPath path;
+	  auto rect(this->rect().bottomRight());
+
+	  path.addRect(rect.x() - 25.0,
+		       rect.y() - 25.0,
+		       50.0,
+		       50.0);
+	  painter->save();
+	  painter->fillPath(path, QColor(173, 216, 230, 150));
+	  painter->restore();
+	}
+
+      if(m_object && m_object->hasOutput())
+	{
+	  QPainterPath path;
+	  auto rect(this->rect());
+
+	  path.addRect(rect.topRight().x() + 1.0,
+		       rect.height() / 2.0 + rect.topRight().y() - 5.0,
+		       10.0,
+		       10.0);
+	  painter->fillPath(path, Qt::blue);
+
+	  QPen pen;
+
+	  pen.setColor(Qt::yellow);
+	  pen.setWidthF(1.5);
+	  painter->save();
+	  painter->setPen(pen);
+	  painter->drawRect(rect.topRight().x() + 1.0,
+			    rect.height() / 2.0 + rect.topRight().y() - 5.0,
+			    10.0,
+			    10.0);
+	  painter->restore();
+	}
+
+      if(opt && (opt->state & QStyle::State_Selected))
+	{
+	  QPen pen;
+
+	  if(isMovable())
+	    pen.setColor(QColor("lightgreen"));
+	  else
+	    pen.setColor(QColor("orange"));
+
+	  pen.setJoinStyle(Qt::MiterJoin);
+	  pen.setStyle(Qt::DotLine);
+	  pen.setWidthF(5.5);
+	  painter->save();
+	  painter->setPen(pen);
+	  painter->drawRect(boundingRect());
+	  painter->restore();
+	}
+    }
 }
 
 void glitch_proxy_widget::setPos(const QPointF &point)
