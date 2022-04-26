@@ -142,14 +142,29 @@ void glitch_proxy_widget::paint
 	  */
 
 	  QPainterPath path;
-	  auto rect(this->rect().bottomRight());
+	  QPen pen;
+	  auto font(painter->font());
+	  auto order(QString::number(objectOrder()));
+	  auto point(this->rect().bottomRight());
 
-	  path.addRect(rect.x() - 25.0,
-		       rect.y() - 25.0,
+	  path.addRect(point.x() - 15.0,
+		       point.y() - 15.0,
 		       50.0,
-		       50.0);
+		       40.0);
+	  pen.setColor(Qt::blue);
+	  pen.setWidthF(1.0);
 	  painter->save();
+	  painter->setPen(pen);
+	  painter->drawPath(path);
 	  painter->fillPath(path, QColor(173, 216, 230, 150));
+	  painter->restore();
+	  painter->save();
+	  font.setBold(true);
+	  font.setPointSize(20);
+	  pen.setColor(Qt::white);
+	  painter->setFont(font);
+	  painter->setPen(pen);
+	  painter->drawText(path.boundingRect(), Qt::AlignCenter, order);
 	  painter->restore();
 	}
 
