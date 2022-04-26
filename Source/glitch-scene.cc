@@ -282,6 +282,16 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   return proxy;
 }
 
+int glitch_scene::objectOrder(glitch_proxy_widget *proxy) const
+{
+  if(!proxy)
+    return -1;
+
+  return std::distance
+    (m_objectsMap.begin(),
+     m_objectsMap.find(m_objectsHash.value(proxy), proxy));
+}
+
 void glitch_scene::addItem(QGraphicsItem *item)
 {
   if(item && !item->scene())
@@ -1064,14 +1074,14 @@ void glitch_scene::slotProxyChanged(void)
   if(!proxy)
     return;
 
-  auto pair(m_objectsHash.value(proxy));
+  auto point(m_objectsHash.value(proxy));
 
-  m_objectsHash[proxy] = QPair<qreal, qreal> (proxy->x(), proxy->y());
+  m_objectsHash[proxy] = glitch_point(proxy->pos());
 
-  if(m_objectsMap.contains(pair, proxy))
-    m_objectsMap.remove(pair, proxy);
+  if(m_objectsMap.contains(point, proxy))
+    m_objectsMap.remove(point, proxy);
 
-  m_objectsMap.insert(QPair<qreal, qreal> (proxy->x(), proxy->y()), proxy);
+  m_objectsMap.insert(glitch_point(proxy->pos()), proxy);
 }
 
 void glitch_scene::slotRedo(void)

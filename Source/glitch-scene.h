@@ -32,6 +32,7 @@
 #include <QHash>
 #include <QMultiMap>
 #include <QPointer>
+#include <QtGlobal>
 
 #include "glitch-common.h"
 
@@ -50,6 +51,7 @@ class glitch_scene: public QGraphicsScene
   QList<glitch_object *> selectedObjects(void) const;
   QPointer<QUndoStack> undoStack(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);
+  int objectOrder(glitch_proxy_widget *proxy) const;
   void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object);
   void deleteItems(void);
@@ -61,11 +63,35 @@ class glitch_scene: public QGraphicsScene
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  class glitch_point
+  {
+   public:
+    glitch_point(const QPointF &point)
+    {
+      m_x = point.x();
+      m_y = point.y();
+    };
+
+    glitch_point(void)
+    {
+      m_x = m_y = 0.0;
+    }
+
+    bool operator<(const glitch_point &point) const
+    {
+      return m_y < point.m_y ||
+	(qFuzzyCompare(m_y, point.m_y) && m_x < point.m_x);
+    }
+
+    qreal m_x;
+    qreal m_y;
+  };
+
   QColor m_dotsColor;
-  QHash<glitch_proxy_widget *, QPair<qreal, qreal> > m_objectsHash;
+  QHash<glitch_proxy_widget *, glitch_point> m_objectsHash;
   QHash<glitch_proxy_widget *, char> m_redoUndoProxies;
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
-  QMultiMap<QPair<qreal, qreal>, glitch_proxy_widget *> m_objectsMap;
+  QMultiMap<glitch_point, glitch_proxy_widget *> m_objectsMap;
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   bool m_mainScene;

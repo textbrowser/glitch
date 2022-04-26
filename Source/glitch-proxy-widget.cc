@@ -36,6 +36,7 @@
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
+#include "glitch-scene.h"
 
 glitch_proxy_widget::glitch_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):
