@@ -694,7 +694,7 @@ void glitch_view::setSceneRect(const QSize &size)
 {
   Q_UNUSED(size);
 
-  auto b(m_scene->itemsBoundingRect());
+  auto b(m_scene->itemsBoundingRect().adjusted(0.0, 0.0, 25.0, 25.0));
 
   b.setTopLeft(QPointF(0.0, 0.0));
   m_scene->setSceneRect

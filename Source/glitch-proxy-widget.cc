@@ -141,16 +141,19 @@ void glitch_proxy_widget::paint
 	  ** Draw the object's order.
 	  */
 
+	  QFontMetrics fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
 	  auto font(painter->font());
 	  auto order(QString::number(objectOrder()));
 	  auto point(this->rect().bottomRight());
 
-	  path.addRect(point.x() - 15.0,
-		       point.y() - 15.0,
-		       50.0,
-		       40.0);
+	  path.addRect
+	    (point.x() - 15.0,
+	     point.y() - 15.0,
+	     40.0 +
+	     static_cast<qreal> (fontMetrics.boundingRect(order).width()),
+	     40.0);
 	  pen.setColor(Qt::blue);
 	  pen.setWidthF(1.0);
 	  painter->save();
@@ -160,7 +163,7 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	  painter->save();
 	  font.setBold(true);
-	  font.setPointSize(20);
+	  font.setPointSize(15);
 	  pen.setColor(Qt::white);
 	  painter->setFont(font);
 	  painter->setPen(pen);
