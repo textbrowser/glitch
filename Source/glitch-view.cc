@@ -778,6 +778,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 void glitch_view::slotChanged(void)
 {
   m_changed = true;
+  setSceneRect(m_view->size());
   emit changed();
 }
 
