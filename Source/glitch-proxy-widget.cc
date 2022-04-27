@@ -135,6 +135,24 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
+      if(opt && (opt->state & QStyle::State_Selected))
+	{
+	  QPen pen;
+
+	  if(isMovable())
+	    pen.setColor(QColor("lightgreen"));
+	  else
+	    pen.setColor(QColor("orange"));
+
+	  pen.setJoinStyle(Qt::MiterJoin);
+	  pen.setStyle(Qt::DotLine);
+	  pen.setWidthF(5.5);
+	  painter->save();
+	  painter->setPen(pen);
+	  painter->drawRect(boundingRect());
+	  painter->restore();
+	}
+
       if(!isMandatory())
 	{
 	  /*
@@ -146,11 +164,11 @@ void glitch_proxy_widget::paint
 	  QPen pen;
 	  auto font(painter->font());
 	  auto order(QString::number(objectOrder()));
-	  auto point(this->rect().bottomRight());
+	  auto point(this->rect().topRight() / 2.0);
 
 	  path.addRect
 	    (point.x() - 15.0,
-	     point.y() - 15.0,
+	     point.y() - 30.0,
 	     40.0 +
 	     static_cast<qreal> (fontMetrics.boundingRect(order).width()),
 	     40.0);
@@ -192,24 +210,6 @@ void glitch_proxy_widget::paint
 			    rect.height() / 2.0 + rect.topRight().y() - 5.0,
 			    10.0,
 			    10.0);
-	  painter->restore();
-	}
-
-      if(opt && (opt->state & QStyle::State_Selected))
-	{
-	  QPen pen;
-
-	  if(isMovable())
-	    pen.setColor(QColor("lightgreen"));
-	  else
-	    pen.setColor(QColor("orange"));
-
-	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setStyle(Qt::DotLine);
-	  pen.setWidthF(5.5);
-	  painter->save();
-	  painter->setPen(pen);
-	  painter->drawRect(boundingRect());
 	  painter->restore();
 	}
     }
