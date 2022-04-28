@@ -6,70 +6,71 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>500</height>
+    <width>200</width>
+    <height>48</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <widget class="QComboBox" name="type">
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
+     </property>
      <item>
-      <widget class="QComboBox" name="type">
-       <property name="sizeAdjustPolicy">
-        <enum>QComboBox::AdjustToContents</enum>
-       </property>
-       <item>
-        <property name="text">
-         <string>Do Loop</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>For Loop</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>While Loop</string>
-        </property>
-       </item>
-      </widget>
+      <property name="text">
+       <string>Do Loop</string>
+      </property>
      </item>
      <item>
-      <widget class="QToolButton" name="context_menu">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Icons/icons.qrc">
-         <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
-       </property>
-      </widget>
+      <property name="text">
+       <string>For Loop</string>
+      </property>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      <property name="text">
+       <string>While Loop</string>
+      </property>
      </item>
-    </layout>
+    </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+    <widget class="QToolButton" name="context_menu">
+     <property name="text">
+      <string/>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="icon">
+      <iconset resource="../../Icons/icons.qrc">
+       <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
      </property>
     </widget>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
