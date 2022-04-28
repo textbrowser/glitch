@@ -609,6 +609,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Generate_Source->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
@@ -626,6 +627,7 @@ void glitch_ui::prepareActionWidgets(void)
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
+      m_ui.action_Generate_Source->setEnabled(true);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
 	(m_currentView && m_currentView->hasChanged());

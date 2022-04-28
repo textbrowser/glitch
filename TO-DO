@@ -52,6 +52,8 @@ Completed Items
 - List of recent files.
 - Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
+- Order items by bubbles and coordinates. Orders describe order in
+  generated source.
 - Pass undo stack from top-level view to child views.
 - Paste in child views. Redo / undo.
 - Prepare Copy, Delete, Paste, and Select All states.
@@ -108,10 +110,9 @@ Remaining Items
 - Implement Arduino's setup().
 - Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
-- Order items by bubbles and coordinates. Orders describe order in
-  generated source.
-- Resize objects.
+- Resize objects?
+- Save button on tab.
 - Serial and stream (https://www.arduino.cc/reference/en).
-- Translate diagrams to Arduino (Java).
+- Translate diagrams to Arduino code.
 - Undo macros for group actions.
 - Warn of recursive functions.
