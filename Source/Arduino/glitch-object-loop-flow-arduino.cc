@@ -60,7 +60,7 @@ QString glitch_object_loop_flow_arduino::code(void) const
 
 bool glitch_object_loop_flow_arduino::hasOutput(void) const
 {
-  return true;
+  return false;
 }
 
 glitch_object_loop_flow_arduino *glitch_object_loop_flow_arduino::

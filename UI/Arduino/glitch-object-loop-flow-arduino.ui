@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
-    <height>48</height>
+    <width>175</width>
+    <height>45</height>
    </rect>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
@@ -58,19 +58,6 @@
        <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
      </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
