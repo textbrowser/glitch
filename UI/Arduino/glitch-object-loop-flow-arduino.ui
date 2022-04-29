@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>175</width>
+    <width>500</width>
     <height>45</height>
    </rect>
   </property>
@@ -49,6 +49,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLineEdit" name="condition">
+     <property name="placeholderText">
+      <string>Condition</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QToolButton" name="context_menu">
      <property name="text">
       <string/>
@@ -63,6 +70,7 @@
  </widget>
  <tabstops>
   <tabstop>type</tabstop>
+  <tabstop>condition</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
  <resources>
