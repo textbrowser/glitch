@@ -95,6 +95,7 @@ Completed Items
 
 Ignored Items
 
+- Resize objects?
 - The glitch_view parent must be passed to every child.
 
 Remaining Items
@@ -110,7 +111,6 @@ Remaining Items
 - Implement Arduino's setup().
 - Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
-- Resize objects?
 - Save button on tab.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino code.
