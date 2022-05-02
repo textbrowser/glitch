@@ -265,14 +265,15 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
-	if(query.exec("SELECT background_color, " // 0
-		      "dots_color, "              // 1
-		      "name, "                    // 2
-		      "output_file, "             // 3
-		      "project_type, "            // 4
-		      "redo_undo_stack_size, "    // 5
-		      "show_canvas_dots, "        // 6
-		      "update_mode "              // 7
+	if(query.exec("SELECT "
+		      "SUBSTR(background_color, 1, 50), " // 0
+		      "SUBSTR(dots_color, 1, 50), "       // 1
+		      "SUBSTR(name, 1, 500), "            // 2
+		      "SUBSTR(output_file, 1, 5000), "    // 3
+		      "SUBSTR(project_type, 1, 50), "     // 4
+		      "redo_undo_stack_size, "            // 5
+		      "show_canvas_dots, "                // 6
+		      "SUBSTR(update_mode, 1, 100) "      // 7
 		      "FROM canvas_settings") && query.next())
 	  {
 	    QColor color(query.value(0).toString().trimmed());
