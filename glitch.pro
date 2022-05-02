@@ -81,6 +81,11 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -std=c++11
 }
 
+greaterThan(QT_MAJOR_VERSION, 5) {
+QMAKE_CXXFLAGS_RELEASE += -std=c++17
+QMAKE_CXXFLAGS_RELEASE -= -std=c++11
+}
+
 QMAKE_DISTCLEAN += -r .qmake* \
                    -r html \
                    -r latex \
