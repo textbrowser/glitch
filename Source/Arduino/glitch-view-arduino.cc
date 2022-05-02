@@ -128,7 +128,10 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
 	query.setForwardOnly(true);
 
-	if(query.exec("SELECT stylesheet, type FROM objects WHERE "
+	if(query.exec("SELECT "
+		      "SUBSTR(stylesheet, 1, 10000), "
+		      "SUBSTR(type, 1, 100) "
+		      "FROM objects WHERE "
 		      "type IN ('arduino-loop', 'arduino-setup')"))
 	  while(query.next())
 	    {
