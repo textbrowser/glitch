@@ -49,6 +49,7 @@ Completed Items
   definition.
 - Group delete.
 - Inspect coordinates upon opening of diagrams. Adjust.
+- Limit SQL text retrieval via SUBSTR().
 - List of recent files.
 - Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
@@ -110,7 +111,6 @@ Remaining Items
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
-- Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
 - Save button on tab.
 - Serial and stream (https://www.arduino.cc/reference/en).
