@@ -96,6 +96,7 @@ class glitch_object: public QWidget
   virtual QString code(void) const = 0;
   virtual QString name(void) const;
   virtual bool canResize(void) const;
+  virtual bool hasInput(void) const;
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;
   virtual bool isMandatory(void) const;

@@ -50,6 +50,11 @@ class glitch_view: public QWidget
   Q_OBJECT
 
  public:
+  enum Limits
+  {
+    STYLESHEET_MAXIMUM_LENGTH = 10000
+  };
+
   glitch_view(const QString &fileName,
 	      const QString &name,
 	      const glitch_common::ProjectTypes projectType,

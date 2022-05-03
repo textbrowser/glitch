@@ -49,6 +49,7 @@ Completed Items
   definition.
 - Group delete.
 - Inspect coordinates upon opening of diagrams. Adjust.
+- Limit SQL text retrieval via SUBSTR().
 - List of recent files.
 - Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
@@ -95,6 +96,7 @@ Completed Items
 
 Ignored Items
 
+- Resize objects?
 - The glitch_view parent must be passed to every child.
 
 Remaining Items
@@ -102,15 +104,14 @@ Remaining Items
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
 - All of Arduino's objects.
+- Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Function names and keywords.
 - Function parameters and return value. Also redo/undo.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
-- Limit SQL text retrieval via SUBSTR().
 - Object-view settings. Identical to canvas settings.
-- Resize objects?
 - Save button on tab.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino code.

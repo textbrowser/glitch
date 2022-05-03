@@ -44,6 +44,7 @@
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-tools.h"
+#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
 #include "glitch-view.h"
@@ -316,9 +317,18 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 	query.setForwardOnly(true);
 
-	if(query.exec("SELECT myoid, parent_oid, position, properties, "
-		      "stylesheet, type FROM objects ORDER BY "
-		      "parent_oid, properties"))
+	if(query.exec(QString("SELECT "
+			      "myoid, "
+			      "parent_oid, "
+			      "position, "
+			      "SUBSTR(properties, 1, 50000), "
+			      "SUBSTR(stylesheet, 1, %1), "
+			      "SUBSTR(type, 1, %2) "
+			      "FROM objects ORDER BY "
+			      "parent_oid, properties").
+		      arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
+		      arg(static_cast<int> (glitch_ui::Limits::
+					    TYPE_MAXIMUM_LENGTH))))
 	  {
 	    QHash<quint64, glitch_object *> parents;
 

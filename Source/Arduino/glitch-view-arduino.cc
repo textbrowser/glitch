@@ -128,8 +128,13 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
 	query.setForwardOnly(true);
 
-	if(query.exec("SELECT stylesheet, type FROM objects WHERE "
-		      "type IN ('arduino-loop', 'arduino-setup')"))
+	if(query.exec(QString("SELECT "
+			      "SUBSTR(stylesheet, 1, %1), "
+			      "SUBSTR(type, 1, 100) "
+			      "FROM objects WHERE "
+			      "type IN ('arduino-loop', 'arduino-setup')").
+		      arg(static_cast<int> (glitch_view::Limits::
+					    STYLESHEET_MAXIMUM_LENGTH))))
 	  while(query.next())
 	    {
 	      auto styleSheet(query.value(0).toString().trimmed());
