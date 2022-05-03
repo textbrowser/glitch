@@ -144,6 +144,11 @@ bool glitch_object::canResize(void) const
   return false;
 }
 
+bool glitch_object::hasInput(void) const
+{
+  return false;
+}
+
 bool glitch_object::hasOutput(void) const
 {
   return false;

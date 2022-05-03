@@ -52,6 +52,7 @@ class glitch_object_function_arduino: public glitch_object
   QString code(void) const;
   QString name(void) const;
   QString returnType(void) const;
+  bool hasInput(void) const;
   bool hasOutput(void) const;
   bool hasView(void) const;
   bool isClone(void) const;
