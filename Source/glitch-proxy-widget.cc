@@ -135,6 +135,10 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
+      /*
+      ** Draw a selection rectangle.
+      */
+
       if(opt && (opt->state & QStyle::State_Selected))
 	{
 	  QPen pen;
@@ -153,12 +157,12 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
+      /*
+      ** Draw the object's order.
+      */
+
       if(!isMandatory())
 	{
-	  /*
-	  ** Draw the object's order.
-	  */
-
 	  QFontMetrics fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
@@ -189,28 +193,57 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
-      if(m_object && m_object->hasOutput())
+      if(m_object)
 	{
-	  QPainterPath path;
-	  auto rect(this->rect());
+	  if(m_object->hasInput())
+	    {
+	      QPainterPath path;
+	      auto rect(this->rect());
 
-	  path.addRect(rect.topRight().x() + 1.0,
-		       rect.height() / 2.0 + rect.topRight().y() - 5.0,
-		       10.0,
-		       10.0);
-	  painter->fillPath(path, Qt::blue);
+	      path.addRect(rect.topLeft().x() - 11.0,
+			   rect.height() / 2.0 + rect.topLeft().y() - 5.0,
+			   10.0,
+			   10.0);
+	      painter->fillPath(path, Qt::blue);
 
-	  QPen pen;
+	      QPen pen;
 
-	  pen.setColor(Qt::yellow);
-	  pen.setWidthF(1.5);
-	  painter->save();
-	  painter->setPen(pen);
-	  painter->drawRect(rect.topRight().x() + 1.0,
-			    rect.height() / 2.0 + rect.topRight().y() - 5.0,
-			    10.0,
-			    10.0);
-	  painter->restore();
+	      pen.setColor(Qt::yellow);
+	      pen.setWidthF(1.5);
+	      painter->save();
+	      painter->setPen(pen);
+	      painter->drawRect
+		(rect.topLeft().x() - 11.0,
+		 rect.height() / 2.0 + rect.topLeft().y() - 5.0,
+		 10.0,
+		 10.0);
+	      painter->restore();
+	    }
+
+	  if(m_object->hasOutput())
+	    {
+	      QPainterPath path;
+	      auto rect(this->rect());
+
+	      path.addRect(rect.topRight().x() + 1.0,
+			   rect.height() / 2.0 + rect.topRight().y() - 5.0,
+			   10.0,
+			   10.0);
+	      painter->fillPath(path, Qt::blue);
+
+	      QPen pen;
+
+	      pen.setColor(Qt::yellow);
+	      pen.setWidthF(1.5);
+	      painter->save();
+	      painter->setPen(pen);
+	      painter->drawRect
+		(rect.topRight().x() + 1.0,
+		 rect.height() / 2.0 + rect.topRight().y() - 5.0,
+		 10.0,
+		 10.0);
+	      painter->restore();
+	    }
 	}
     }
 }
@@ -224,12 +257,18 @@ void glitch_proxy_widget::setPos(const QPointF &point)
 void glitch_proxy_widget::setWidget(QWidget *widget)
 {
   QGraphicsProxyWidget::setWidget(widget);
+
+  if(m_object)
+    disconnect(this,
+	       &glitch_proxy_widget::changed,
+	       m_object->contextMenu(),
+	       &glitch_floating_context_menu::slotObjectChanged);
+
   m_object = qobject_cast<glitch_object *> (widget);
 
   if(m_object)
     connect(this,
 	    &glitch_proxy_widget::changed,
 	    m_object->contextMenu(),
-	    &glitch_floating_context_menu::slotObjectChanged,
-	    Qt::UniqueConnection);
+	    &glitch_floating_context_menu::slotObjectChanged);
 }
