@@ -28,6 +28,7 @@
 #include <QMenuBar>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QtDebug>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -66,7 +67,13 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotAboutToShowEditMenu(void)));
-  setContentsMargins(9, 9, 9, 9);
+}
+
+QWidget *glitch_object_edit_window::centralWidget(void) const
+{
+  auto frame = qobject_cast<QFrame *> (QMainWindow::centralWidget());
+
+  return frame->layout()->itemAt(0)->widget();
 }
 
 glitch_object_edit_window::~glitch_object_edit_window()
@@ -98,6 +105,20 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
     }
 
   QMainWindow::resizeEvent(event);
+}
+
+void glitch_object_edit_window::setCentralWidget(QWidget *widget)
+{
+  if(!widget)
+    return;
+
+  auto frame = new QFrame(this);
+
+  delete frame->layout();
+  frame->setLayout(new QVBoxLayout());
+  frame->layout()->addWidget(widget);
+  frame->layout()->setContentsMargins(9, 9, 9, 9);
+  QMainWindow::setCentralWidget(frame);
 }
 
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
@@ -156,6 +177,16 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 	      this,
 	      SLOT(slotAboutToShowEditMenu(void)));
     }
+}
+
+void glitch_object_edit_window::showEvent(QShowEvent *event)
+{
+  QMainWindow::showEvent(event);
+
+  auto view = qobject_cast<glitch_object_view *> (centralWidget());
+
+  if(view)
+    view->setSceneRect(size());
 }
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)

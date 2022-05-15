@@ -42,6 +42,8 @@ class glitch_object_edit_window: public QMainWindow
  public:
   glitch_object_edit_window(QWidget *parent);
   ~glitch_object_edit_window();
+  QWidget *centralWidget(void) const;
+  void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
   void setUndoStack(QUndoStack *undoStack);
 
@@ -52,6 +54,7 @@ class glitch_object_edit_window: public QMainWindow
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void resizeEvent(QResizeEvent *event);
+  void showEvent(QShowEvent *event);
 
  private slots:
   void slotAboutToShowEditMenu(void);

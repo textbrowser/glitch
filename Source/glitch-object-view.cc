@@ -28,6 +28,7 @@
 #include <QScrollBar>
 #include <QSqlError>
 #include <QTimer>
+#include <QtDebug>
 
 #include "glitch-alignment.h"
 #include "glitch-object.h"
