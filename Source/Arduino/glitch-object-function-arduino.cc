@@ -34,7 +34,6 @@
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-function-arduino.h"
-#include "glitch-object-function-parameters-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-structures-arduino.h"
@@ -219,7 +218,6 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
 
-  clone->m_parameters = m_parameters;
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -337,21 +335,6 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
     }
   else
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
-
-  if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_PARAMETERS))
-    {
-      auto action = new QAction(tr("Set Function &Parameters..."), this);
-
-      connect(action,
-	      SIGNAL(triggered(void)),
-	      this,
-	      SLOT(slotSetFunctionParameters(void)));
-      m_actions[DefaultMenuActions::SET_FUNCTION_PARAMETERS] = action;
-      menu.addAction(action);
-    }
-  else
-    menu.addAction
-      (m_actions.value(DefaultMenuActions::SET_FUNCTION_PARAMETERS));
 
   addDefaultActions(menu);
 }
@@ -491,11 +474,6 @@ void glitch_object_function_arduino::setName(const QString &name)
     m_editWindow->setWindowTitle
       (tr("Glitch: %1").arg(m_properties.value(Properties::NAME).toString()));
 
-  if(m_parametersDialog)
-    m_parametersDialog->setWindowTitle
-      (tr("Glitch: Function Parameters (%1)").
-       arg(m_properties.value(NAME).toString()));
-
   if(m_parentView)
     {
       m_parentView->consumeFunctionName(name);
@@ -603,9 +581,6 @@ void glitch_object_function_arduino::setUndoStack(QUndoStack *undoStack)
 void glitch_object_function_arduino::simulateDelete(void)
 {
   glitch_object::simulateDelete();
-
-  if(m_parametersDialog)
-    m_parametersDialog->close();
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -735,16 +710,4 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       emit changed();
       emit nameChanged(text, name, this);
     }
-}
-
-void glitch_object_function_arduino::slotSetFunctionParameters(void)
-{
-  if(!m_parametersDialog)
-    m_parametersDialog =
-      new glitch_object_function_parameters_arduino(m_parameters, m_parent);
-
-  m_parametersDialog->setModal(false);
-  m_parametersDialog->setWindowTitle
-    (tr("Glitch: Function Parameters (%1)").arg(name()));
-  m_parametersDialog->show();
 }
