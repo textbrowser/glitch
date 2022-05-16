@@ -69,7 +69,8 @@ class glitch_object_view: public QGraphicsView
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
 
- protected slots:
+ private slots:
+  void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotDelete(void);
   void slotParentWindowClosed(void);

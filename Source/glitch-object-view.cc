@@ -173,7 +173,7 @@ void glitch_object_view::setSceneRect(const QSize &size)
 {
   Q_UNUSED(size);
 
-  auto b(m_scene->itemsBoundingRect());
+  auto b(m_scene->itemsBoundingRect().adjusted(0.0, 0.0, 25.0, 25.0));
 
   b.setTopLeft(QPointF(0.0, 0.0));
   m_scene->setSceneRect
@@ -183,6 +183,11 @@ void glitch_object_view::setSceneRect(const QSize &size)
 			       width() - 2 * frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       height() - 2 * frameWidth())));
+}
+
+void glitch_object_view::slotChanged(void)
+{
+  setSceneRect(size());
 }
 
 void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
@@ -248,7 +253,13 @@ void glitch_object_view::slotSelectAll(void)
 void glitch_object_view::slotShowAlignment(void)
 {
   if(!m_alignment)
-    m_alignment = new glitch_alignment(this);
+    {
+      m_alignment = new glitch_alignment(this);
+      connect(m_alignment,
+	      &glitch_alignment::changed,
+	      this,
+	      &glitch_object_view::slotChanged);
+    }
 
   m_alignment->showNormal();
   m_alignment->activateWindow();
