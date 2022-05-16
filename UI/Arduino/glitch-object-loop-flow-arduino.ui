@@ -27,7 +27,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QComboBox" name="type">
+    <widget class="QComboBox" name="loop_type">
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
      </property>
@@ -69,7 +69,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>type</tabstop>
+  <tabstop>loop_type</tabstop>
   <tabstop>condition</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>

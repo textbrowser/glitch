@@ -37,14 +37,19 @@ glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
 (const QString &loopType, QWidget *parent):
   glitch_object_loop_flow_arduino(1, parent)
 {
-  Q_UNUSED(loopType);
+  setLoopType(loopType);
 }
 
 glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_loopType = LoopTypes::DO_LOOP;
   m_type = "arduino-loop-flow";
   m_ui.setupUi(this);
+  connect(m_ui.loop_type,
+	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  this,
+	  &glitch_object_loop_flow_arduino::slotLoopTypeChanged);
   prepareContextMenu();
   setName(m_type);
 }
@@ -68,6 +73,8 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_loop_flow_arduino(parent);
 
+  clone->m_loopType = m_loopType;
+  clone->m_ui.loop_type->setCurrentIndex(m_ui.loop_type->currentIndex());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -105,7 +112,35 @@ void glitch_object_loop_flow_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
+void glitch_object_loop_flow_arduino::setLoopType
+(const QString &loopType)
+{
+  auto l(loopType.toLower().trimmed());
+
+  if(l == "do loop")
+    m_loopType = LoopTypes::DO_LOOP;
+  else if(l == "for loop")
+    m_loopType = LoopTypes::FOR_LOOP;
+  else if(l == "while loop")
+    m_loopType = LoopTypes::WHILE_LOOP;
+  else
+    m_loopType = LoopTypes::DO_LOOP;
+
+  m_ui.loop_type->blockSignals(true);
+  m_ui.loop_type->setCurrentIndex
+    (m_ui.loop_type->findText(l, Qt::MatchEndsWith));
+
+  if(m_ui.loop_type->currentIndex() < 0)
+    m_ui.loop_type->setCurrentIndex(0);
+
+  m_ui.loop_type->blockSignals(false);
+}
+
 void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+}
+
+void glitch_object_loop_flow_arduino::slotLoopTypeChanged(void)
+{
 }

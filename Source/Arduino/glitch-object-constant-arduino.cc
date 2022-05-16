@@ -43,7 +43,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 glitch_object_constant_arduino::glitch_object_constant_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_constantType = HIGH;
+  m_constantType = ConstantTypes::HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   connect(m_ui.constant,

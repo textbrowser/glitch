@@ -56,8 +56,13 @@ class glitch_object_loop_flow_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  LoopTypes m_loopType;
   Ui_glitch_object_loop_flow_arduino m_ui;
+  void setLoopType(const QString &loopType);
   void setProperties(const QStringList &list);
+
+ private slots:
+  void slotLoopTypeChanged(void);
 };
 
 #endif
