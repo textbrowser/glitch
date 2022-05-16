@@ -109,6 +109,8 @@ void glitch_object_loop_flow_arduino::save
 
   QMap<QString, QVariant> properties;
 
+  properties["condition"] = m_ui.condition->text().trimmed();
+  properties["loop_type"] = m_ui.loop_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -139,6 +141,7 @@ void glitch_object_loop_flow_arduino::setLoopType
 void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  setLoopType(m_properties.value(glitch_object::LOOP_TYPE).toString());
 }
 
 void glitch_object_loop_flow_arduino::slotLoopTypeChanged(void)

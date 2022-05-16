@@ -66,6 +66,7 @@ class glitch_object: public QWidget
    COMMENT = 0,
    CONSTANT_TYPE,
    LOGICAL_OPERATOR,
+   LOOP_TYPE,
    NAME,
    POSITION_LOCKED,
    XYZ_PROPERTY

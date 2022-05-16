@@ -503,6 +503,12 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::LOGICAL_OPERATOR] = string.trimmed();
 	}
+      else if(string.startsWith("loop_type = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::LOOP_TYPE] = string.trimmed();
+	}
       else if(string.startsWith("name = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
