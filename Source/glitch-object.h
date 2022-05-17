@@ -64,6 +64,7 @@ class glitch_object: public QWidget
   enum Properties
   {
    COMMENT = 0,
+   CONDITION,
    CONSTANT_TYPE,
    LOGICAL_OPERATOR,
    LOOP_TYPE,

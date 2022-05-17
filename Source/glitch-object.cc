@@ -485,31 +485,37 @@ void glitch_object::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.startsWith("comment = "))
+      if(string.simplified().startsWith("comment = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
 	}
-      else if(string.startsWith("constant = "))
+      else if(string.simplified().startsWith("condition = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONDITION] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("constant = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::CONSTANT_TYPE] = string.trimmed();
 	}
-      else if(string.startsWith("logical_operator = "))
+      else if(string.simplified().startsWith("logical_operator = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::LOGICAL_OPERATOR] = string.trimmed();
 	}
-      else if(string.startsWith("loop_type = "))
+      else if(string.simplified().startsWith("loop_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::LOOP_TYPE] = string.trimmed();
 	}
-      else if(string.startsWith("name = "))
+      else if(string.simplified().startsWith("name = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
@@ -517,7 +523,7 @@ void glitch_object::setProperties(const QStringList &list)
 	    (0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 	  m_properties[Properties::NAME] = string.trimmed();
 	}
-      else if(string.startsWith("position_locked = "))
+      else if(string.simplified().startsWith("position_locked = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");

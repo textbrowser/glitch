@@ -83,6 +83,7 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_loop_flow_arduino(parent);
 
   clone->m_loopType = m_loopType;
+  clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
   clone->m_ui.loop_type->setCurrentIndex(m_ui.loop_type->currentIndex());
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -100,6 +101,10 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_ui.condition->blockSignals(true);
+  object->m_ui.condition->setText
+    (object->m_properties.value(Properties::CONDITION).toString().trimmed());
+  object->m_ui.condition->blockSignals(false);
   return object;
 }
 
