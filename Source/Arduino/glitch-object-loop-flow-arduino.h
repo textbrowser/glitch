@@ -48,17 +48,18 @@ class glitch_object_loop_flow_arduino: public glitch_object
   glitch_object_loop_flow_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_loop_flow_arduino();
   QString code(void) const;
+  QString loopType(void) const;
   bool hasOutput(void) const;
   static glitch_object_loop_flow_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   glitch_object_loop_flow_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
+  void setLoopType(const QString &loopType);
 
  private:
   LoopTypes m_loopType;
   Ui_glitch_object_loop_flow_arduino m_ui;
-  void setLoopType(const QString &loopType);
   void setProperties(const QStringList &list);
 
  private slots:

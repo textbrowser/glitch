@@ -63,6 +63,11 @@ QString glitch_object_loop_flow_arduino::code(void) const
   return "";
 }
 
+QString glitch_object_loop_flow_arduino::loopType(void) const
+{
+  return m_ui.loop_type->currentText();
+}
+
 bool glitch_object_loop_flow_arduino::hasOutput(void) const
 {
   return false;
@@ -114,8 +119,7 @@ void glitch_object_loop_flow_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_loop_flow_arduino::setLoopType
-(const QString &loopType)
+void glitch_object_loop_flow_arduino::setLoopType(const QString &loopType)
 {
   auto l(loopType.toLower().trimmed());
 
@@ -146,4 +150,16 @@ void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
 
 void glitch_object_loop_flow_arduino::slotLoopTypeChanged(void)
 {
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_properties.value(Properties::LOOP_TYPE).toString(),
+     glitch_undo_command::LOOP_TYPE_CHANGED,
+     this);
+
+  m_properties[Properties::LOOP_TYPE] = m_ui.loop_type->currentText();
+  undoCommand->setText(tr("loop type changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }

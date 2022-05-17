@@ -30,6 +30,7 @@
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
+#include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -132,6 +133,14 @@ glitch_undo_command::glitch_undo_command
 	    m_currentString = qobject_cast
 	      <glitch_object_logical_operator_arduino *> (object)->
 	      logicalOperator();
+
+	  break;
+	}
+      case Types::LOOP_TYPE_CHANGED:
+	{
+	  if(qobject_cast<glitch_object_loop_flow_arduino *> (object))
+	    m_currentString = qobject_cast<glitch_object_loop_flow_arduino *>
+	      (object)->loopType();
 
 	  break;
 	}
@@ -265,6 +274,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::LOOP_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_loop_flow_arduino *> (m_object))
+	  qobject_cast<glitch_object_loop_flow_arduino *>
+	    (m_object)->setLoopType(m_currentString);
+
+	break;
+      }
     case Types::PROPERTY_CHANGED:
       {
 	if(m_object)
@@ -359,6 +376,14 @@ void glitch_undo_command::undo(void)
 	if(qobject_cast<glitch_object_logical_operator_arduino *> (m_object))
 	  qobject_cast<glitch_object_logical_operator_arduino *> (m_object)->
 	    setOperatorType(m_previousString);
+
+	break;
+      }
+    case Types::LOOP_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_loop_flow_arduino *> (m_object))
+	  qobject_cast<glitch_object_loop_flow_arduino *>
+	    (m_object)->setLoopType(m_previousString);
 
 	break;
       }
