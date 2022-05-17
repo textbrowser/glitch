@@ -459,6 +459,7 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
 {
   QFileDialog dialog(this);
 
+  dialog.selectFile(m_ui.name->text() + tr(".c"));
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
   dialog.setDirectory
     (QStandardPaths::
