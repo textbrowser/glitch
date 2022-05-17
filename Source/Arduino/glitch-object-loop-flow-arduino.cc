@@ -46,6 +46,10 @@ glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
   m_loopType = LoopTypes::DO_LOOP;
   m_type = "arduino-loop-flow";
   m_ui.setupUi(this);
+  connect(m_ui.condition,
+	  &QLineEdit::textChanged,
+	  this,
+	  &glitch_object::changed);
   connect(m_ui.loop_type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,

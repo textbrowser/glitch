@@ -40,9 +40,9 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
   m_ui.setupUi(this);
   m_ui.comment->setAutoFillBackground(true);
   connect(m_ui.comment,
-	  SIGNAL(textChanged(void)),
+	  &QPlainTextEdit::textChanged,
 	  this,
-	  SLOT(slotTextChanged(void)));
+	  &glitch_object_block_comment_arduino::slotTextChanged);
   prepareContextMenu();
   setName(m_type);
 }
