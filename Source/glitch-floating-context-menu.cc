@@ -67,13 +67,13 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	checkBox->setEnabled(actions.at(i)->isEnabled());
 	checkBox->setText(actions.at(i)->text());
 	connect(actions.at(i),
-		SIGNAL(toggled(bool)),
+		QOverload<bool>::of(&QAction::toggled),
 		checkBox,
-		SLOT(setChecked(bool)));
+		QOverload<bool>::of(&QCheckBox::setChecked));
 	connect(checkBox,
-		SIGNAL(clicked(bool)),
+		QOverload<bool>::of(&QCheckBox::clicked),
 		actions.at(i),
-		SIGNAL(triggered(void)));
+		&QAction::triggered);
 	m_ui.frame->layout()->addWidget(checkBox);
       }
     else if(actions.at(i)->isSeparator())
@@ -83,9 +83,9 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	auto pushButton = new QPushButton(this);
 
 	connect(pushButton,
-		SIGNAL(clicked(void)),
+		&QPushButton::clicked,
 		actions.at(i),
-		SIGNAL(triggered(void)));
+		&QAction::triggered);
 	pushButton->setEnabled(actions.at(i)->isEnabled());
 	pushButton->setText(actions.at(i)->text());
 	m_ui.frame->layout()->addWidget(pushButton);
