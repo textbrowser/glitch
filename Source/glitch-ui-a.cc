@@ -505,7 +505,9 @@ void glitch_ui::parseCommandLineArguments(void)
 
 void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 {
-  if(s_copiedObjects.isEmpty() || !undoStack || !view)
+  auto scene = qobject_cast<glitch_scene *> (view->scene());
+
+  if(s_copiedObjects.isEmpty() || !scene || !undoStack || !view)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -540,15 +542,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	{
 	  first = QPoint(x, y);
 
-	  auto proxy = qobject_cast<glitch_scene *> (view->scene())->
-	    addObject(object);
+	  auto proxy = scene->addObject(object);
 
 	  if(proxy)
 	    {
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 qobject_cast<glitch_scene *> (view->scene()));
+		(glitch_undo_command::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
 	      proxy->setPos(point);
@@ -573,15 +572,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	  if(p.y() < 0)
 	    p.setY(0);
 
-	  auto proxy = qobject_cast<glitch_scene *> (view->scene())->
-	    addObject(object);
+	  auto proxy = scene->addObject(object);
 
 	  if(proxy)
 	    {
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED,
-		 proxy,
-		 qobject_cast<glitch_scene *> (view->scene()));
+		(glitch_undo_command::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
 	      proxy->setPos(p);

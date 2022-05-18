@@ -217,6 +217,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	    Qt::UniqueConnection);
 
   object->setProxy(proxy);
+  object->setUndoStack(m_undoStack);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
   emit changed();
@@ -563,7 +564,6 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
       if(object)
 	{
 	  event->accept();
-	  object->setUndoStack(m_undoStack);
 
 	  auto proxy = addObject(object);
 
