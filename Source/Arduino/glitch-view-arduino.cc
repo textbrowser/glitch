@@ -177,6 +177,8 @@ void glitch_view_arduino::consumeFunctionName(const QString &name)
 
 void glitch_view_arduino::generateSource(void)
 {
+  glitch_view::generateSource();
+
   /*
   ** Generate loop().
   */
