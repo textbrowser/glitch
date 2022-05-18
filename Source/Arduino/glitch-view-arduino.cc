@@ -186,6 +186,10 @@ void glitch_view_arduino::generateSource(void)
       QTextStream stream(&file);
 
       /*
+      ** Global variables.
+      */
+
+      /*
       ** Generate loop().
       */
 
