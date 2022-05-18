@@ -80,12 +80,12 @@ glitch_canvas_settings::~glitch_canvas_settings()
 
 QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 {
-  return QColor(m_ui.background_color->text());
+  return QColor(m_ui.background_color->text().remove('&').trimmed());
 }
 
 QColor glitch_canvas_settings::dotsColor(void) const
 {
-  return QColor(m_ui.dots_color->text());
+  return QColor(m_ui.dots_color->text().remove('&').trimmed());
 }
 
 QGraphicsView::ViewportUpdateMode glitch_canvas_settings::
