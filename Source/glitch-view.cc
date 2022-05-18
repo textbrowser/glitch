@@ -96,7 +96,8 @@ glitch_view::glitch_view
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
-	  SLOT(slotChanged(void)));
+	  SLOT(slotChanged(void)),
+	  Qt::QueuedConnection);
   connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
@@ -404,7 +405,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
-	  SLOT(slotChanged(void)));
+	  SLOT(slotChanged(void)),
+	  Qt::QueuedConnection);
   return ok;
 }
 

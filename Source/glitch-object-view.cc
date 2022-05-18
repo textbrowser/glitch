@@ -70,7 +70,8 @@ glitch_object_view::glitch_object_view
   connect(m_scene,
 	  SIGNAL(sceneResized(void)),
 	  this,
-	  SLOT(slotSceneResized(void)));
+	  SLOT(slotSceneResized(void)),
+	  Qt::QueuedConnection);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
