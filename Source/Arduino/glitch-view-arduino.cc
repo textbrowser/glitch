@@ -177,6 +177,13 @@ void glitch_view_arduino::consumeFunctionName(const QString &name)
 
 void glitch_view_arduino::generateSource(void)
 {
+  if(m_canvasSettings->outputFile().trimmed().isEmpty())
+    {
+      m_canvasSettings->show();
+      return;
+    }
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   glitch_view::generateSource();
 
   QFile file(m_canvasSettings->outputFile());
@@ -202,6 +209,8 @@ void glitch_view_arduino::generateSource(void)
 
       stream << m_setupObject->code();
     }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_view_arduino::removeFunctionName(const QString &name)

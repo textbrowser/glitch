@@ -1032,8 +1032,6 @@ void glitch_ui::slotDelete(void)
 
 void glitch_ui::slotGenerateSource(void)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
   if(m_currentView)
     m_currentView->generateSource();
 

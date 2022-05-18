@@ -589,6 +589,9 @@ void glitch_view::endMacro(void)
 
 void glitch_view::generateSource(void)
 {
+  if(m_canvasSettings->outputFile().trimmed().isEmpty())
+    return;
+
   QFile file(m_canvasSettings->outputFile());
 
   if(file.open(QIODevice::Truncate | QIODevice::WriteOnly))
