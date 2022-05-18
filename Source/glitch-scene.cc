@@ -79,6 +79,25 @@ QList<glitch_object *> glitch_scene::objects(void) const
   return widgets;
 }
 
+QList<glitch_object *> glitch_scene::orderedObjects(void) const
+{
+  QMap<int, glitch_object *> widgets;
+  auto list(items());
+
+  for(const auto i : list)
+    {
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy || !proxy->widget())
+	continue;
+
+      widgets[objectOrder(proxy)] = qobject_cast<glitch_object *>
+	(proxy->widget());
+    }
+
+  return widgets.values();
+}
+
 QList<glitch_object *> glitch_scene::selectedObjects(void) const
 {
   QList<glitch_object *> widgets;

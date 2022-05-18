@@ -193,7 +193,8 @@ void glitch_view_arduino::generateSource(void)
       ** Generate loop().
       */
 
-      stream << m_loopObject->code();
+      stream << m_loopObject->code()
+	     << Qt::endl;
 
       /*
       ** Generate setup().

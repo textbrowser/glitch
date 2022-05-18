@@ -48,6 +48,7 @@ class glitch_scene: public QGraphicsScene
   glitch_scene(const glitch_common::ProjectTypes projectType, QObject *parent);
   ~glitch_scene();
   QList<glitch_object *> objects(void) const;
+  QList<glitch_object *> orderedObjects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
   QPointer<QUndoStack> undoStack(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);

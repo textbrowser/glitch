@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QTextStream>
+
 #include "glitch-object-edit-window.h"
 #include "glitch-object-setup-arduino.h"
 #include "glitch-object-view.h"
@@ -68,7 +70,30 @@ glitch_object_setup_arduino::~glitch_object_setup_arduino()
 
 QString glitch_object_setup_arduino::code(void) const
 {
-  return "";
+  QString code("");
+  QTextStream stream(&code);
+  auto widgets(m_editView->scene()->orderedObjects());
+
+  stream << "void setup(void)"
+	 << Qt::endl
+	 << "{"
+	 << Qt::endl;
+
+  for(auto w : widgets)
+    {
+      if(!w)
+	continue;
+
+      auto code(w->code());
+
+      if(!code.trimmed().isEmpty())
+	stream << code
+	       << Qt::endl;
+    }
+
+  stream << "}"
+	 << Qt::endl;
+  return code;
 }
 
 bool glitch_object_setup_arduino::hasView(void) const
