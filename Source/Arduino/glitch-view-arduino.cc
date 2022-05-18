@@ -179,13 +179,24 @@ void glitch_view_arduino::generateSource(void)
 {
   glitch_view::generateSource();
 
-  /*
-  ** Generate loop().
-  */
+  QFile file(m_canvasSettings->outputFile());
 
-  /*
-  ** Generate setup().
-  */
+  if(file.open(QIODevice::Append | QIODevice::WriteOnly))
+    {
+      QTextStream stream(&file);
+
+      /*
+      ** Generate loop().
+      */
+
+      stream << m_loopObject->code();
+
+      /*
+      ** Generate setup().
+      */
+
+      stream << m_setupObject->code();
+    }
 }
 
 void glitch_view_arduino::removeFunctionName(const QString &name)
