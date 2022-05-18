@@ -25,7 +25,9 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-object-edit-window.h"
 #include "glitch-object-loop-flow-arduino.h"
+#include "glitch-object-view.h"
 #include "glitch-undo-command.h"
 
 glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
@@ -43,6 +45,18 @@ glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
 glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_editView = new glitch_object_view
+    (glitch_common::ProjectTypes::ArduinoProject,
+     m_id,
+     new QUndoStack(this), // New redo/undo stack.
+     this);
+  m_editWindow = new glitch_object_edit_window(parent);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_editView->undoStack());
+  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowTitle(tr("Glitch: loop"));
+  m_editWindow->resize(600, 600);
   m_loopType = LoopTypes::DO_LOOP;
   m_type = "arduino-loop-flow";
   m_ui.setupUi(this);
@@ -83,6 +97,7 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_loop_flow_arduino(parent);
 
   clone->m_loopType = m_loopType;
+  clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
   clone->m_ui.loop_type->setCurrentIndex(m_ui.loop_type->currentIndex());
   clone->setStyleSheet(styleSheet());

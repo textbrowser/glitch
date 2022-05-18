@@ -100,8 +100,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.function_definition->setVisible(false);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
@@ -164,8 +162,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.function_definition->setVisible(false);
-      m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-      m_ui.label->setAutoFillBackground(true);
       m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
       m_ui.return_type->setEnabled(false);
       m_ui.return_type->setToolTip
@@ -218,6 +214,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
 
+  clone->m_properties = m_properties;
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -383,8 +380,6 @@ void glitch_object_function_arduino::declone(void)
     m_parentView = nullptr;
 
   m_ui.function_definition->setVisible(true);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
   m_ui.return_type->setEnabled(true);
   m_ui.return_type->setToolTip("");
   connect(m_editView,
@@ -423,8 +418,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->resize(600, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
   m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
   connect(m_editView,
 	  SIGNAL(changed(void)),

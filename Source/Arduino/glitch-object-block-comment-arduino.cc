@@ -38,7 +38,6 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 {
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
-  m_ui.comment->setAutoFillBackground(true);
   connect(m_ui.comment,
 	  &QPlainTextEdit::textChanged,
 	  this,
@@ -62,10 +61,11 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_block_comment_arduino(parent);
 
-  clone->setStyleSheet(styleSheet());
+  clone->m_properties = m_properties;
   clone->m_ui.comment->blockSignals(true);
   clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
   clone->m_ui.comment->blockSignals(false);
+  clone->setStyleSheet(styleSheet());
   return clone;
 }
 

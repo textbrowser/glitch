@@ -53,8 +53,6 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
   m_properties[POSITION_LOCKED] = true;
   m_type = "arduino-setup";
   m_ui.setupUi(this);
-  m_ui.label->setAttribute(Qt::WA_TransparentForMouseEvents, true);
-  m_ui.label->setAutoFillBackground(true);
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,
