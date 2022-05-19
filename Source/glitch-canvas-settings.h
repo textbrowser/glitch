@@ -76,6 +76,7 @@ class glitch_canvas_settings: public QDialog
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:
+  QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QString m_fileName;
   Ui_glitch_canvas_settings m_ui;
   QString defaultName(void) const;

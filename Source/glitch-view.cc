@@ -753,9 +753,7 @@ void glitch_view::showAlignment(void)
 
 void glitch_view::showCanvasSettings(void)
 {
-  m_canvasSettings->setName(m_canvasSettings->name());
-  m_canvasSettings->setRedoUndoStackSize(m_undoStack->undoLimit());
-  m_canvasSettings->setViewportUpdateMode(m_view->viewportUpdateMode());
+  m_canvasSettings->setSettings(m_settings);
   m_canvasSettings->showNormal();
   m_canvasSettings->activateWindow();
   m_canvasSettings->raise();

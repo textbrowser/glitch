@@ -52,6 +52,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_color->setText(QColor(Qt::black).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_type->setEnabled(false);
+  m_settings = settings();
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -80,30 +81,19 @@ glitch_canvas_settings::~glitch_canvas_settings()
 
 QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 {
-  return QColor(m_ui.background_color->text().remove('&').trimmed());
+  return QColor(m_settings.value(Settings::CANVAS_BACKGROUND_COLOR).toString());
 }
 
 QColor glitch_canvas_settings::dotsColor(void) const
 {
-  return QColor(m_ui.dots_color->text().remove('&').trimmed());
+  return QColor(m_settings.value(Settings::DOTS_COLOR).toString());
 }
 
 QGraphicsView::ViewportUpdateMode glitch_canvas_settings::
 viewportUpdateMode(void) const
 {
-  switch(m_ui.update_mode->currentIndex())
-    {
-    case 0:
-      return QGraphicsView::BoundingRectViewportUpdate;
-    case 1:
-      return QGraphicsView::FullViewportUpdate;
-    case 2:
-      return QGraphicsView::MinimalViewportUpdate;
-    case 3:
-      return QGraphicsView::SmartViewportUpdate;
-    default:
-      return QGraphicsView::FullViewportUpdate;
-    }
+  return QGraphicsView::ViewportUpdateMode
+    (m_settings.value(Settings::VIEW_UPDATE_MODE).toInt());
 }
 
 QHash<glitch_canvas_settings::Settings, QVariant> glitch_canvas_settings::
@@ -111,13 +101,44 @@ settings(void) const
 {
   QHash<Settings, QVariant> hash;
 
-  hash[Settings::CANVAS_BACKGROUND_COLOR] = canvasBackgroundColor().name();
-  hash[Settings::CANVAS_NAME] = name();
-  hash[Settings::DOTS_COLOR] = dotsColor().name();
-  hash[Settings::OUTPUT_FILE] = outputFile();
-  hash[Settings::REDO_UNDO_STACK_SIZE] = redoUndoStackSize();
-  hash[Settings::SHOW_CANVAS_DOTS] = showCanvasDots();
-  hash[Settings::VIEW_UPDATE_MODE] = viewportUpdateMode();
+  hash[Settings::CANVAS_BACKGROUND_COLOR] =
+    m_ui.background_color->text().remove('&').trimmed();
+  hash[Settings::CANVAS_NAME] = m_ui.name->text().trimmed();
+  hash[Settings::DOTS_COLOR] = m_ui.dots_color->text().remove('&').trimmed();
+  hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
+  hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
+  hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
+
+  switch(m_ui.update_mode->currentIndex())
+    {
+    case 0:
+      {
+	hash[Settings::VIEW_UPDATE_MODE] =
+	  QGraphicsView::BoundingRectViewportUpdate;
+	break;
+      }
+    case 1:
+      {
+	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
+	break;
+      }
+    case 2:
+      {
+	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::MinimalViewportUpdate;
+	break;
+      }
+    case 3:
+      {
+	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::SmartViewportUpdate;
+	break;
+      }
+    default:
+      {
+	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
+	break;
+      }
+    }
+
   return hash;
 }
 
@@ -131,12 +152,12 @@ QString glitch_canvas_settings::defaultName(void) const
 
 QString glitch_canvas_settings::name(void) const
 {
-  return m_ui.name->text().trimmed();
+  return m_settings.value(Settings::CANVAS_NAME).toString().trimmed();
 }
 
 QString glitch_canvas_settings::outputFile(void) const
 {
-  return m_ui.output_file->text();
+  return m_settings.value(Settings::OUTPUT_FILE).toString();
 }
 
 bool glitch_canvas_settings::save(QString &error) const
@@ -222,12 +243,12 @@ bool glitch_canvas_settings::save(QString &error) const
 
 bool glitch_canvas_settings::showCanvasDots(void) const
 {
-  return m_ui.show_canvas_dots->isChecked();
+  return m_settings.value(Settings::SHOW_CANVAS_DOTS).toBool();
 }
 
 int glitch_canvas_settings::redoUndoStackSize(void) const
 {
-  return m_ui.redo_undo_stack_size->value();
+  return m_settings.value(Settings::REDO_UNDO_STACK_SIZE).toInt();
 }
 
 void glitch_canvas_settings::accept(void)
@@ -322,6 +343,7 @@ void glitch_canvas_settings::prepare(void)
 	    if(m_ui.update_mode->currentIndex() < 0)
 	      m_ui.update_mode->setCurrentIndex(1); // Full
 
+	    m_settings = settings();
 	    setResult(QDialog::Accepted);
 	    emit accepted(false);
 	  }
@@ -346,11 +368,13 @@ void glitch_canvas_settings::setName(const QString &name)
   else
     m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
 
+  m_settings[Settings::CANVAS_NAME] = m_ui.name->text();
   m_ui.name->setCursorPosition(0);
 }
 
 void glitch_canvas_settings::setOutputFile(const QString &fileName)
 {
+  m_settings[Settings::OUTPUT_FILE] = fileName;
   m_ui.output_file->setText(fileName);
   m_ui.output_file->setCursorPosition(0);
 }
@@ -358,6 +382,8 @@ void glitch_canvas_settings::setOutputFile(const QString &fileName)
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 {
   m_ui.redo_undo_stack_size->setValue(value);
+  m_settings[Settings::REDO_UNDO_STACK_SIZE] =
+    m_ui.redo_undo_stack_size->value();
 }
 
 void glitch_canvas_settings::setSettings
@@ -365,6 +391,7 @@ void glitch_canvas_settings::setSettings
 {
   QColor color(hash.value(Settings::CANVAS_BACKGROUND_COLOR).toString());
 
+  m_settings = hash;
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.background_color->setText(color.name());
@@ -372,6 +399,8 @@ void glitch_canvas_settings::setSettings
   m_ui.dots_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.dots_color->setText(color.name());
+  m_ui.redo_undo_stack_size->setValue
+    (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
