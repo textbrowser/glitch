@@ -213,6 +213,10 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	  if(query.next())
 	    {
 	      name = query.value(0).toString().trimmed();
+
+	      if(name.isEmpty())
+		name = fileInfo.fileName();
+
 	      type = query.value(1).toString().trimmed();
 	    }
 
