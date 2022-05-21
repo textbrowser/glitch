@@ -46,6 +46,7 @@ class glitch_view_arduino: public glitch_view
 		      QWidget *parent);
   ~glitch_view_arduino();
   QString nextUniqueFunctionName(void) const;
+  QString projectOutputFileExtension(void) const;
   bool containsFunctionName(const QString &name) const;
   bool open(const QString &fileName, QString &error);
   glitch_object_loop_arduino *loopObject(void) const;

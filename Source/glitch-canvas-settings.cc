@@ -43,6 +43,7 @@
 glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   QDialog(parent)
 {
+  m_outputFileExtension = "";
   m_ui.setupUi(this);
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
@@ -379,6 +380,11 @@ void glitch_canvas_settings::setOutputFile(const QString &fileName)
   m_ui.output_file->setCursorPosition(0);
 }
 
+void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
+{
+  m_outputFileExtension = extension;
+}
+
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 {
   m_ui.redo_undo_stack_size->setValue(value);
@@ -488,7 +494,7 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
 {
   QFileDialog dialog(this);
 
-  dialog.selectFile(m_ui.name->text() + tr(".c"));
+  dialog.selectFile(m_ui.name->text() + m_outputFileExtension);
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
   dialog.setDirectory
     (QStandardPaths::
