@@ -40,6 +40,8 @@ class glitch_object_analog_read_arduino: public glitch_object
   glitch_object_analog_read_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_analog_read_arduino();
   QString code(void) const;
+  bool hasInput(void) const;
+  bool hasOutput(void) const;
   glitch_object_analog_read_arduino *clone(QWidget *parent) const;
   static glitch_object_analog_read_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);

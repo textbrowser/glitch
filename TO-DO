@@ -103,12 +103,10 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
-- All of Arduino's objects.
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Function clones should have redo/undo stack of parent function.
 - Function names and keywords.
-- Function parameters and return value. Also redo/undo.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().

@@ -50,6 +50,16 @@ QString glitch_object_analog_read_arduino::code(void) const
   return "";
 }
 
+bool glitch_object_analog_read_arduino::hasInput(void) const
+{
+  return true;
+}
+
+bool glitch_object_analog_read_arduino::hasOutput(void) const
+{
+  return true;
+}
+
 glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
 clone(QWidget *parent) const
 {
