@@ -136,6 +136,10 @@ QString glitch_object::name(void) const
 
 QString glitch_object::output(void) const
 {
+  /*
+  ** Must be unique.
+  */
+
   return "output";
 }
 
@@ -146,6 +150,10 @@ QString glitch_object::type(void) const
 
 QStringList glitch_object::inputs(void) const
 {
+  /*
+  ** Must be unique.
+  */
+
   return QStringList() << "input";
 }
 
