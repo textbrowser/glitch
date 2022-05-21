@@ -134,9 +134,19 @@ QString glitch_object::name(void) const
   return m_properties.value(Properties::NAME).toString();
 }
 
+QString glitch_object::output(void) const
+{
+  return "output";
+}
+
 QString glitch_object::type(void) const
 {
   return m_type;
+}
+
+QStringList glitch_object::inputs(void) const
+{
+  return QStringList() << "input";
 }
 
 bool glitch_object::canResize(void) const

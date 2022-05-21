@@ -134,6 +134,8 @@ class glitch_object: public QWidget
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;
   quint64 m_id;
+  QString output(void) const;
+  QStringList inputs(void) const;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void prepareContextMenu(void);
