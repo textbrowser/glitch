@@ -106,10 +106,10 @@ Remaining Items
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Function clones should have redo/undo stack of parent function.
-- Function names and keywords.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
+- Keywords (function names, variable names, etc.).
 - Object-view settings. Identical to canvas settings.
 - Save button on tab.
 - Serial and stream (https://www.arduino.cc/reference/en).

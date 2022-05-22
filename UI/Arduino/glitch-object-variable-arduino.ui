@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
+    <width>400</width>
     <height>45</height>
    </rect>
   </property>
@@ -30,6 +30,48 @@
     <number>0</number>
    </property>
    <item>
+    <widget class="QLineEdit" name="value">
+     <property name="toolTip">
+      <string>Initialize variable. If not set, variable will be set to the connected value.</string>
+     </property>
+     <property name="placeholderText">
+      <string>Value</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSpinBox" name="array_index">
+     <property name="toolTip">
+      <string>Array Index</string>
+     </property>
+     <property name="maximum">
+      <number>50000</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="qualifier">
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>const</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>static</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>volatile</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
     <widget class="QComboBox" name="type">
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
@@ -50,6 +92,9 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>value</tabstop>
+  <tabstop>array_index</tabstop>
+  <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
