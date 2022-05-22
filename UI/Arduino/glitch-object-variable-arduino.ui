@@ -32,7 +32,7 @@
    <item>
     <widget class="QLineEdit" name="value">
      <property name="toolTip">
-      <string>Initialize variable. If not set, variable will be set to the connected value.</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable's value to the provided value. If not set, the variable will be set to the connected value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="placeholderText">
       <string>Value</string>
@@ -72,7 +72,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="type">
+    <widget class="QComboBox" name="variable_type">
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
      </property>
@@ -95,7 +95,7 @@
   <tabstop>value</tabstop>
   <tabstop>array_index</tabstop>
   <tabstop>qualifier</tabstop>
-  <tabstop>type</tabstop>
+  <tabstop>variable_type</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
  <resources>
