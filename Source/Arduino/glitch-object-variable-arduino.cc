@@ -52,6 +52,11 @@ QString glitch_object_variable_arduino::code(void) const
   return "";
 }
 
+bool glitch_object_variable_arduino::hasInput(void) const
+{
+  return true;
+}
+
 bool glitch_object_variable_arduino::hasOutput(void) const
 {
   return true;

@@ -41,6 +41,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-flow-arduino.h"
+#include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -578,6 +579,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 						 "structures-function-"))),
 		   view);
 	    }
+	  else if(text.startsWith("glitch-arduino-variable"))
+	    object = new glitch_object_variable_arduino(view);
 	}
 
       if(object)
