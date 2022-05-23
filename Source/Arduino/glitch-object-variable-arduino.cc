@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-variable-arduino.h"
+#include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
@@ -38,6 +39,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
+  m_ui.variable_type->addItems(glitch_structures_arduino::types());
   prepareContextMenu();
   setName(m_type);
 }

@@ -28,6 +28,9 @@
    </property>
    <item>
     <widget class="QComboBox" name="loop_type">
+     <property name="styleSheet">
+      <string notr="true">QComboBox { combobox-popup: 0; }</string>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
      </property>
