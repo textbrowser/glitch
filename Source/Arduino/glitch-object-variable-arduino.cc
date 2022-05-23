@@ -135,7 +135,7 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
 
   if(comboBox == m_ui.variable_type)
     {
-      m_ui.array_index->setVisible(comboBox->currentText() == tr("array"));
-      m_ui.array_size->setVisible(comboBox->currentText() == tr("array"));
+      m_ui.array_index->setVisible(comboBox->currentText() == "array");
+      m_ui.array_size->setVisible(comboBox->currentText() == "array");
     }
 }
