@@ -39,42 +39,42 @@
      </property>
      <item>
       <property name="text">
-       <string>HIGH</string>
+       <string notr="true">HIGH</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>INPUT</string>
+       <string notr="true">INPUT</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>INPUT_PULLUP</string>
+       <string notr="true">INPUT_PULLUP</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>LED_BUILTIN</string>
+       <string notr="true">LED_BUILTIN</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>LOW</string>
+       <string notr="true">LOW</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>OUTPUT</string>
+       <string notr="true">OUTPUT</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>false</string>
+       <string notr="true">false</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>true</string>
+       <string notr="true">true</string>
       </property>
      </item>
     </widget>

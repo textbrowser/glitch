@@ -39,17 +39,17 @@
      </property>
      <item>
       <property name="text">
-       <string>&amp;&amp;</string>
+       <string notr="true">&amp;&amp;</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>!</string>
+       <string notr="true">!</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>||</string>
+       <string notr="true">||</string>
       </property>
      </item>
     </widget>

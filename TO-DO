@@ -115,5 +115,6 @@ Remaining Items
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino code.
 - Undo macros for group actions.
+- Variable clones.
 - Warn of recursive functions.
 - Widgets for decorations.

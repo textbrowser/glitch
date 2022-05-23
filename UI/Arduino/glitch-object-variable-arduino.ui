@@ -80,6 +80,9 @@
          <property name="toolTip">
           <string>Array Size</string>
          </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
          <property name="maximum">
           <number>50000</number>
          </property>
@@ -94,29 +97,29 @@
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
          </property>
          <item>
           <property name="text">
-           <string>const</string>
+           <string notr="true">const</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>none</string>
+           <string notr="true">none</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>static</string>
+           <string notr="true">static</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>volatile</string>
+           <string notr="true">volatile</string>
           </property>
          </item>
         </widget>
@@ -140,24 +143,24 @@
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
          </property>
          <item>
           <property name="text">
-           <string>&amp;</string>
+           <string notr="true">&amp;</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>*</string>
+           <string notr="true">*</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string/>
+           <string notr="true"/>
           </property>
          </item>
         </widget>
