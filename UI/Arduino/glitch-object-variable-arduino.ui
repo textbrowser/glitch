@@ -125,7 +125,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="variable_type">
+        <widget class="QComboBox" name="type">
          <property name="styleSheet">
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
@@ -190,7 +190,7 @@
   <tabstop>array_index</tabstop>
   <tabstop>array_size</tabstop>
   <tabstop>qualifier</tabstop>
-  <tabstop>variable_type</tabstop>
+  <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>

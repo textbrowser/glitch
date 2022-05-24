@@ -41,8 +41,8 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.setupUi(this);
   m_ui.array_index->setVisible(false);
   m_ui.array_size->setVisible(false);
-  m_ui.variable_type->addItems(glitch_structures_arduino::types());
-  connect(m_ui.variable_type,
+  m_ui.type->addItems(glitch_structures_arduino::types());
+  connect(m_ui.type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
 	  &glitch_object_variable_arduino::slotComboBoxChanged);
@@ -60,20 +60,26 @@ QString glitch_object_variable_arduino::code(void) const
   auto name(m_ui.name->text().trimmed());
   auto pointerAccess(m_ui.pointer_access->currentText());
   auto qualifier(m_ui.qualifier->currentText());
-  auto type(m_ui.variable_type->currentText());
+  auto type(m_ui.type->currentText());
   auto value(m_ui.value->text().trimmed());
 
   if(value.isEmpty())
-    return qualifier + " " + type + " " + pointerAccess + name + ";";
+    return (qualifier +
+	    " " +
+	    type +
+	    " " +
+	    pointerAccess +
+	    name +
+	    ";").trimmed();
   else
-    return qualifier +
-      " " +
-      type +
-      " " +
-      pointerAccess +
-      name +
-      " = " +
-      value + ";";
+    return (qualifier +
+	    " " +
+	    type +
+	    " " +
+	    pointerAccess +
+	    name +
+	    " = " +
+	    value + ";").trimmed();
 }
 
 bool glitch_object_variable_arduino::hasInput(void) const
@@ -131,7 +137,7 @@ void glitch_object_variable_arduino::save
   properties["variable_name"] = m_ui.name->text().trimmed();
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
-  properties["variable_type"] = m_ui.variable_type->currentText();
+  properties["variable_type"] = m_ui.type->currentText();
   properties["variable_value"] = m_ui.value->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
@@ -144,6 +150,68 @@ void glitch_object_variable_arduino::setProperties
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
+
+      if(string.simplified().startsWith("variable_array_index = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_ARRAY_INDEX] = string.trimmed();
+	  m_ui.array_index->setValue(string.trimmed().toInt());
+	}
+      else if(string.simplified().startsWith("variable_array_size = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_ARRAY_SIZE] = string.trimmed();
+	  m_ui.array_size->setValue(string.trimmed().toInt());
+	}
+      else if(string.simplified().startsWith("variable_name = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_NAME] = string.trimmed();
+	  m_ui.name->setText(string.trimmed());
+	}
+      else if(string.simplified().startsWith("variable_pointer_access = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_POINTER_ACCESS] = string.trimmed();
+	  m_ui.pointer_access->setCurrentIndex
+	    (m_ui.pointer_access->findText(string.trimmed()));
+
+	  if(m_ui.pointer_access->currentIndex() < 0)
+	    m_ui.pointer_access->setCurrentIndex
+	      (m_ui.pointer_access->findText(""));
+	}
+      else if(string.simplified().startsWith("variable_qualifier = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_QUALIFIER] = string.trimmed();
+	  m_ui.qualifier->setCurrentIndex
+	    (m_ui.qualifier->findText(string.trimmed()));
+
+	  if(m_ui.qualifier->currentIndex() < 0)
+	    m_ui.qualifier->setCurrentIndex(m_ui.qualifier->findText(""));
+	}
+      else if(string.simplified().startsWith("variable_type = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_TYPE] = string.trimmed();
+	  m_ui.type->setCurrentIndex(m_ui.type->findText(string.trimmed()));
+
+	  if(m_ui.type->currentIndex() < 0)
+	    m_ui.type->setCurrentIndex(0);
+	}
+      else if(string.simplified().startsWith("variable_value = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_VALUE] = string.trimmed();
+	  m_ui.value->setText(string.trimmed());
+	}
     }
 }
 
@@ -154,7 +222,7 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
   if(!comboBox)
     return;
 
-  if(comboBox == m_ui.variable_type)
+  if(comboBox == m_ui.type)
     {
       m_ui.array_index->setVisible(comboBox->currentText() == "array");
       m_ui.array_size->setVisible(comboBox->currentText() == "array");
