@@ -63,6 +63,10 @@ class glitch_object: public QWidget
 
   enum Properties
   {
+   /*
+   ** Arduino Properties
+   */
+
    COMMENT = 0,
    CONDITION,
    CONSTANT_TYPE,

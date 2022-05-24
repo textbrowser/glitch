@@ -169,6 +169,25 @@ void glitch_object_loop_flow_arduino::setLoopType(const QString &loopType)
 void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("condition = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONDITION] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("loop_type = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::LOOP_TYPE] = string.trimmed();
+	}
+    }
+
   setLoopType(m_properties.value(glitch_object::LOOP_TYPE).toString());
 }
 

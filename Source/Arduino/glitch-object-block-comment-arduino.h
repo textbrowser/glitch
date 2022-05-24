@@ -49,6 +49,7 @@ class glitch_object_block_comment_arduino: public glitch_object
 
  private:
   Ui_glitch_object_block_comment_arduino m_ui;
+  void setProperties(const QStringList &list);
 
  private slots:
   void slotTextChanged(void);

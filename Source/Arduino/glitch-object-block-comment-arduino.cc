@@ -129,6 +129,21 @@ void glitch_object_block_comment_arduino::setProperty
     }
 }
 
+void glitch_object_block_comment_arduino::setProperties(const QStringList &list)
+{
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("comment = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::COMMENT] = string.trimmed();
+	}
+    }
+}
+
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
   emit changed();
