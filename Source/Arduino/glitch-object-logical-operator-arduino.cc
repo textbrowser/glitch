@@ -159,6 +159,19 @@ void glitch_object_logical_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("logical_operator = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::LOGICAL_OPERATOR] = string.trimmed();
+	}
+    }
+
   setOperatorType
     (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
 }

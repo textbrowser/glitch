@@ -140,6 +140,11 @@ void glitch_object_variable_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+    }
 }
 
 void glitch_object_variable_arduino::slotComboBoxChanged(void)

@@ -179,6 +179,19 @@ void glitch_object_constant_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("constant = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONSTANT_TYPE] = string.trimmed();
+	}
+    }
+
   setConstantType(m_properties.value(glitch_object::CONSTANT_TYPE).toString());
 }
 

@@ -519,18 +519,6 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::CONDITION] = string.trimmed();
 	}
-      else if(string.simplified().startsWith("constant = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::CONSTANT_TYPE] = string.trimmed();
-	}
-      else if(string.simplified().startsWith("logical_operator = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::LOGICAL_OPERATOR] = string.trimmed();
-	}
       else if(string.simplified().startsWith("loop_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
