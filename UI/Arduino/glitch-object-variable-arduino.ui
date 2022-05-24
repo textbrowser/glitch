@@ -97,7 +97,7 @@
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
@@ -109,17 +109,17 @@
          </item>
          <item>
           <property name="text">
-           <string notr="true">none</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string notr="true">static</string>
           </property>
          </item>
          <item>
           <property name="text">
            <string notr="true">volatile</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string/>
           </property>
          </item>
         </widget>
