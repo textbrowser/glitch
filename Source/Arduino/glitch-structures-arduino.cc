@@ -26,13 +26,14 @@
 */
 
 #include <QShortcut>
+#include <QtDebug>
 
 #include "glitch-structures-arduino.h"
 
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
 QMap<int, QStringList> glitch_structures_arduino::s_itemsForCategories;
-QStringList glitch_structures_arduino::s_nonArrayTypes;
-QStringList glitch_structures_arduino::s_types;
+QStringList glitch_structures_arduino::s_nonArrayVariableTypes;
+QStringList glitch_structures_arduino::s_variableTypes;
 
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
@@ -211,7 +212,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					       << "sizeof()";
 
       QStringList arrays;
-      QStringList list(types());
+      QStringList list(variableTypes());
 
       list.removeOne("array");
       list.removeOne("void");
@@ -232,18 +233,18 @@ glitch_structures_arduino::~glitch_structures_arduino()
 {
 }
 
-QStringList glitch_structures_arduino::nonArrayTypes(void)
+QStringList glitch_structures_arduino::nonArrayVariableTypes(void)
 {
-  if(!s_nonArrayTypes.isEmpty())
-    return s_nonArrayTypes;
+  if(!s_nonArrayVariableTypes.isEmpty())
+    return s_nonArrayVariableTypes;
 
-  s_nonArrayTypes = types();
+  s_nonArrayVariableTypes = variableTypes();
 
-  for(int i = s_nonArrayTypes.size() - 1; i >= 0; i--)
-    if(s_nonArrayTypes.at(i).contains("array"))
-      s_nonArrayTypes.removeAt(i);
+  for(int i = s_nonArrayVariableTypes.size() - 1; i >= 0; i--)
+    if(s_nonArrayVariableTypes.at(i).contains("array"))
+      s_nonArrayVariableTypes.removeAt(i);
 
-  return s_nonArrayTypes;
+  return s_nonArrayVariableTypes;
 }
 
 QStringList glitch_structures_arduino::structureNames(void)
@@ -266,36 +267,41 @@ QStringList glitch_structures_arduino::structureNames(void)
   return s_structureNamesMap.keys();
 }
 
-QStringList glitch_structures_arduino::types(void)
+QStringList glitch_structures_arduino::variableTypes(void)
 {
-  if(!s_types.isEmpty())
-    return s_types;
+  if(!s_variableTypes.isEmpty())
+    return s_variableTypes;
 
-  s_types << "String"
-	  << "array"
-	  << "bool"
-	  << "boolean"
-	  << "byte"
-	  << "char"
-	  << "double"
-	  << "float"
-	  << "int"
-	  << "long"
-	  << "short"
-	  << "size_t"
-	  << "string"
-	  << "unsigned char"
-	  << "unsigned int"
-	  << "unsigned long"
-	  << "void"
-	  << "word";
-  return s_types;
+  s_variableTypes << "String"
+		  << "array"
+		  << "bool"
+		  << "boolean"
+		  << "byte"
+		  << "char"
+		  << "double"
+		  << "float"
+		  << "int"
+		  << "long"
+		  << "short"
+		  << "size_t"
+		  << "string"
+		  << "unsigned char"
+		  << "unsigned int"
+		  << "unsigned long"
+		  << "void"
+		  << "word";
+  return s_variableTypes;
 }
 
 bool glitch_structures_arduino::containsStructure(const QString &structureName)
 {
+  auto sn(structureName.toLower().trimmed());
+
+  if(sn.endsWith(" (array)"))
+    sn.remove(" (array)");
+
   foreach(auto const &i, structureNames())
-    if(i.toLower() == structureName.toLower())
+    if(i.toLower() == sn)
       return true;
 
   return false;
@@ -329,7 +335,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
     }
   else
     {
-      list = types();
+      list = variableTypes();
 
       for(int i = 0; i < list.size(); i++)
 	if(list.at(i) == "array")
@@ -343,7 +349,8 @@ void glitch_structures_arduino::slotCategorySelected(void)
 		continue;
 	      else
 		item->addChild
-		  (new QTreeWidgetItem(QStringList() << list.at(i)));
+		  (new QTreeWidgetItem(QStringList() << QString("%1 (array)").
+				                        arg(list.at(i))));
 	  }
 	else
 	  m_ui.tree->addTopLevelItem

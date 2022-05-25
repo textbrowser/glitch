@@ -102,7 +102,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.function_definition->setVisible(false);
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
-  m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+  m_ui.return_type->addItems
+    (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->setEnabled(false);
   m_ui.return_type->setToolTip
     (tr("Return type is disabled on function clone."));
@@ -162,7 +163,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.function_definition->setVisible(false);
-      m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+      m_ui.return_type->addItems
+	(glitch_structures_arduino::nonArrayVariableTypes());
       m_ui.return_type->setEnabled(false);
       m_ui.return_type->setToolTip
 	(tr("Return type is disabled on function clone."));
@@ -418,7 +420,8 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->resize(600, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
-  m_ui.return_type->addItems(glitch_structures_arduino::nonArrayTypes());
+  m_ui.return_type->addItems
+    (glitch_structures_arduino::nonArrayVariableTypes());
   connect(m_editView,
 	  SIGNAL(changed(void)),
 	  this,

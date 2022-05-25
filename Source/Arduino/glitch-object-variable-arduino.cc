@@ -28,10 +28,17 @@
 #include "glitch-object-variable-arduino.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
-
+#include <QtDebug>
 glitch_object_variable_arduino::glitch_object_variable_arduino
 (QWidget *parent):glitch_object_variable_arduino(1, parent)
 {
+}
+
+glitch_object_variable_arduino::glitch_object_variable_arduino
+(const QString &variableType,
+ QWidget *parent):glitch_object_variable_arduino(1, parent)
+{
+  Q_UNUSED(variableType);
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
@@ -41,7 +48,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.setupUi(this);
   m_ui.array_index->setVisible(false);
   m_ui.array_size->setVisible(false);
-  m_ui.type->addItems(glitch_structures_arduino::types());
+  m_ui.type->addItems(glitch_structures_arduino::variableTypes());
   connect(m_ui.type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,

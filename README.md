@@ -8,12 +8,16 @@ Summary of Glitch
 <ul>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
+<li>Copy-and-paste.</li>
+<li>Diagrams are recorded in portable SQLite.</li>
+<li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
 <li>Infinite diagrams.</li>
 <li>Modern C++.</li>
 <li>Qt 5 LTS and Qt 6 LTS.</li>
 <li>Raspberry Pi.</li>
 <li>Rich redo/undo stack.</li>
+<li>Unlimited diagrams.</li>
 </ul>
 
 The QtNQC project was originally registered in 2004.

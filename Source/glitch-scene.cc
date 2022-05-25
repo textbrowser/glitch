@@ -580,7 +580,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		   view);
 	    }
 	  else if(text.startsWith("glitch-arduino-variable"))
-	    object = new glitch_object_variable_arduino(view);
+	    object = new glitch_object_variable_arduino(text, view);
 	}
 
       if(object)
