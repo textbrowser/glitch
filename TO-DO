@@ -112,6 +112,7 @@ Remaining Items
 - Keywords (function names, variable names, etc.).
 - Object-view settings. Identical to canvas settings.
 - Save button on tab.
+- Separated window: context menu, generate source.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Translate diagrams to Arduino code.
 - Undo macros for group actions.
