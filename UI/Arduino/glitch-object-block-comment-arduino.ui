@@ -31,6 +31,9 @@
    </property>
    <item>
     <widget class="QPlainTextEdit" name="comment">
+     <property name="toolTip">
+      <string>Comment</string>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>

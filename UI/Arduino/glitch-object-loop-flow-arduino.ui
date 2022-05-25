@@ -53,6 +53,9 @@
    </item>
    <item>
     <widget class="QLineEdit" name="condition">
+     <property name="toolTip">
+      <string>Loop Condition</string>
+     </property>
      <property name="placeholderText">
       <string>Condition</string>
      </property>
