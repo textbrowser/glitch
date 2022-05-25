@@ -126,5 +126,4 @@ void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
     return;
 
   menu->exec(mapToGlobal(point));
-  menu->deleteLater();
 }

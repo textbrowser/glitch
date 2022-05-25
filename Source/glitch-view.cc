@@ -184,65 +184,69 @@ QList<glitch_object *> glitch_view::selectedObjects(void) const
 
 QMenu *glitch_view::defaultContextMenu(void)
 {
-  /*
-  ** The returned object must be destroyed!
-  */
+  if(!m_contextMenu)
+    {
+      m_contextMenu = new QMenu(this);
+      m_contextMenu->setTearOffEnabled(true);
+      m_contextMenu->setTitle(tr("Glitch: Floating Context Menu"));
+    }
+  else
+    m_contextMenu->clear();
 
   QAction *action = nullptr;
-  auto menu = new QMenu(this);
 
-  action = menu->addAction(tr("&Save"),
-			   this,
-			   SLOT(slotSave(void)));
+  action = m_contextMenu->addAction(tr("&Save"),
+				    this,
+				    SLOT(slotSave(void)));
   action->setEnabled(hasChanged());
-  menu->addAction(tr("Save &As..."),
-		  this,
-		  SLOT(slotSaveAs(void)));
-  menu->addSeparator();
-  menu->addAction(tr("Alignment Tool..."),
-		  this,
-		  SLOT(slotShowAlignmentTool(void)));
+  m_contextMenu->addAction(tr("Save &As..."),
+			   this,
+			   SLOT(slotSaveAs(void)));
+  m_contextMenu->addSeparator();
+  m_contextMenu->addAction(tr("Alignment Tool..."),
+			   this,
+			   SLOT(slotShowAlignmentTool(void)));
 
   if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
-    menu->addAction(tr("Arduino Structures..."),
-		    this,
-		    SIGNAL(showStructures(void)));
+    m_contextMenu->addAction(tr("Arduino Structures..."),
+			     this,
+			     SIGNAL(showStructures(void)));
   else
-    menu->addAction(tr("Structures..."),
-		    this,
-		    SIGNAL(showStructures(void)));
+    m_contextMenu->addAction(tr("Structures..."),
+			     this,
+			     SIGNAL(showStructures(void)));
 
-  menu->addAction(tr("Tools..."),
-		  this,
-		  SLOT(slotShowTools(void)));
-  menu->addSeparator();
-  action = menu->addAction(tr("Se&parate Canvas..."),
+  m_contextMenu->addAction(tr("Tools..."),
 			   this,
-			   SLOT(slotSeparate(void)));
+			   SLOT(slotShowTools(void)));
+  m_contextMenu->addSeparator();
+  action = m_contextMenu->addAction(tr("Se&parate Canvas..."),
+				    this,
+				    SLOT(slotSeparate(void)));
 
   if(qobject_cast<QMainWindow *> (parentWidget()))
     action->setEnabled(false);
   else
     action->setEnabled(true);
 
-  action = menu->addAction(tr("&Unite"),
-			   this,
-			   SLOT(slotUnite(void)));
+  action = m_contextMenu->addAction(tr("&Unite"),
+				    this,
+				    SLOT(slotUnite(void)));
 
   if(qobject_cast<glitch_separated_diagram_window *> (parentWidget()))
     action->setEnabled(true);
   else
     action->setEnabled(false);
 
-  menu->addSeparator();
-  menu->addAction(tr("Show Canvas &Settings..."),
-		  this,
-		  SLOT(slotShowCanvasSettings(void)));
-  menu->addSeparator();
-  menu->addAction(tr("&User Functions..."),
-		  this,
-		  SLOT(slotShowUserFunctions(void)));
-  return menu;
+  m_contextMenu->addSeparator();
+  m_contextMenu->addAction(tr("Show Canvas &Settings..."),
+			   this,
+			   SLOT(slotShowCanvasSettings(void)));
+  m_contextMenu->addSeparator();
+  m_contextMenu->addAction(tr("&User Functions..."),
+			   this,
+			   SLOT(slotShowUserFunctions(void)));
+  return m_contextMenu;
 }
 
 QString glitch_view::name(void) const
@@ -822,7 +826,6 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
     return;
 
   menu->exec(mapToGlobal(point));
-  menu->deleteLater();
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)

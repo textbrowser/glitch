@@ -84,6 +84,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotDelete(void)));
+  connect(m_ui.action_Diagram_Context_Menu,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowDiagramContextMenu);
   connect(m_ui.action_Generate_Source,
 	  &QAction::triggered,
 	  this,
@@ -609,6 +613,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Diagram_Context_Menu->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
@@ -627,6 +632,7 @@ void glitch_ui::prepareActionWidgets(void)
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
+      m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(true);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
@@ -1396,6 +1402,17 @@ void glitch_ui::slotShowCanvasSettings(void)
 
 void glitch_ui::slotShowDiagramContextMenu(void)
 {
+  if(m_currentView)
+    {
+      auto menu = m_currentView->defaultContextMenu();
+
+      if(menu)
+	{
+	  menu->update();
+	  menu->raise();
+	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
+	}
+    }
 }
 
 void glitch_ui::slotShowStructures(void)
