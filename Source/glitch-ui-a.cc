@@ -1394,6 +1394,10 @@ void glitch_ui::slotShowCanvasSettings(void)
     view->showCanvasSettings();
 }
 
+void glitch_ui::slotShowDiagramContextMenu(void)
+{
+}
+
 void glitch_ui::slotShowStructures(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
