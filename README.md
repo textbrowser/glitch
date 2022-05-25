@@ -5,6 +5,7 @@ Qt 5.15 LTS or 6.2 LTS is preferred. C++2011 is mandatory.
 
 Summary of Glitch
 
+<ul>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
 <li>Extensible with other frameworks.</li>
@@ -13,6 +14,7 @@ Summary of Glitch
 <li>Qt 5 LTS and Qt 6 LTS.</li>
 <li>Raspberry Pi.</li>
 <li>Rich redo/undo stack.</li>
+</ul>
 
 The QtNQC project was originally registered in 2004.
 It was intended to be a Qt interface for NQC. NQC has since been retired.
