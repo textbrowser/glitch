@@ -658,7 +658,8 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(!object)
 	      continue;
 
-	    if(qobject_cast<QPlainTextEdit *> (object->focusWidget()))
+	    if(qobject_cast<QLineEdit *> (object->focusWidget()) ||
+	       qobject_cast<QPlainTextEdit *> (object->focusWidget()))
 	      {
 		QGraphicsScene::keyPressEvent(event);
 		continue;
