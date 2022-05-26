@@ -471,14 +471,14 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
   while(it.hasNext())
     {
       it.next();
-      string.append(it.key());
-      string.append(" = ");
-      string.append("\"");
-      string.append(it.value().toString());
-      string.append("\"");
+      string += it.key();
+      string += " = ";
+      string += "\"";
+      string += it.value().toString();
+      string += "\"";
 
       if(it.hasNext())
-	string.append("&");
+	string += "&";
     }
 
   query.prepare("UPDATE objects SET properties = ? WHERE myoid = ?");

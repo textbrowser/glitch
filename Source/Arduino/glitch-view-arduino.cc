@@ -199,8 +199,25 @@ void glitch_view_arduino::generateSource(void)
       QTextStream stream(&file);
 
       /*
-      ** Global variables.
+      ** Other objects.
       */
+
+      auto widgets(scene()->orderedObjects());
+
+      for(auto w : widgets)
+	{
+	  if(!w)
+	    continue;
+	  else if(m_loopObject == w || m_setupObject == w)
+	    continue;
+
+	  auto code(w->code());
+
+	  if(!code.trimmed().isEmpty())
+	    stream << code
+		   << Qt::endl
+		   << Qt::endl;
+	}
 
       /*
       ** Generate loop().

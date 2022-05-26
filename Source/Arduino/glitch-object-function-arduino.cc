@@ -679,7 +679,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       if(text.isEmpty())
 	return;
       else
-	text.append("()");
+	text += "()";
 
       if(m_ui.label->text() == text)
 	return;

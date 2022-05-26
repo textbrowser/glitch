@@ -53,7 +53,24 @@ glitch_object_block_comment_arduino::
 
 QString glitch_object_block_comment_arduino::code(void) const
 {
-  return "";
+  QString code("/*\n");
+  auto string(m_ui.comment->toPlainText());
+  int i = 0;
+
+  do
+    {
+      code += "** ";
+      code += string.mid(i, 40).trimmed();
+      code += "\n";
+      i += 40;
+
+      if(i >= string.length())
+	break;
+    }
+  while(true);
+
+  code += "*/";
+  return code;
 }
 
 glitch_object_block_comment_arduino *glitch_object_block_comment_arduino::

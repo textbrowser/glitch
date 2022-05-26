@@ -1044,8 +1044,6 @@ void glitch_ui::slotGenerateSource(void)
 {
   if(m_currentView)
     m_currentView->generateSource();
-
-  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::slotNewArduinoDiagram(void)
@@ -1299,7 +1297,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 	  auto fileName(dialog.selectedFiles().value(0));
 
 	  if(!fileName.endsWith(".db"))
-	    fileName.append(".db");
+	    fileName += ".db";
 
 	  if(!view->saveAs(fileName, error))
 	    glitch_misc::showErrorDialog
