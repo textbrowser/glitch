@@ -69,29 +69,6 @@
      <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QSpinBox" name="array_index">
-         <property name="toolTip">
-          <string>Array Index</string>
-         </property>
-         <property name="maximum">
-          <number>50000</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="array_size">
-         <property name="toolTip">
-          <string>Array Size</string>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>50000</number>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QComboBox" name="qualifier">
          <property name="toolTip">
           <string>Qualifier</string>
@@ -190,8 +167,6 @@
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>value</tabstop>
-  <tabstop>array_index</tabstop>
-  <tabstop>array_size</tabstop>
   <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>

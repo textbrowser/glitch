@@ -28,7 +28,7 @@
 #include "glitch-object-variable-arduino.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
-#include <QtDebug>
+
 glitch_object_variable_arduino::glitch_object_variable_arduino
 (QWidget *parent):glitch_object_variable_arduino(1, parent)
 {
@@ -38,7 +38,10 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 (const QString &variableType,
  QWidget *parent):glitch_object_variable_arduino(1, parent)
 {
-  Q_UNUSED(variableType);
+  auto string(variableType);
+
+  string.remove("glitch-arduino-variables-");
+  m_ui.type->setCurrentIndex(m_ui.type->findText(string));
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
@@ -46,9 +49,11 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
-  m_ui.array_index->setVisible(false);
-  m_ui.array_size->setVisible(false);
-  m_ui.type->addItems(glitch_structures_arduino::variableTypes());
+
+  auto list(glitch_structures_arduino::variableTypes());
+
+  list.removeAll("array");
+  m_ui.type->addItems(list);
   connect(m_ui.type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
@@ -139,8 +144,6 @@ void glitch_object_variable_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["variable_array_index"] = m_ui.array_index->value();
-  properties["variable_array_size"] = m_ui.array_size->value();
   properties["variable_name"] = m_ui.name->text().trimmed();
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
@@ -163,14 +166,12 @@ void glitch_object_variable_arduino::setProperties
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_ARRAY_INDEX] = string.trimmed();
-	  m_ui.array_index->setValue(string.trimmed().toInt());
 	}
       else if(string.simplified().startsWith("variable_array_size = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_ARRAY_SIZE] = string.trimmed();
-	  m_ui.array_size->setValue(string.trimmed().toInt());
 	}
       else if(string.simplified().startsWith("variable_name = "))
 	{
@@ -228,10 +229,4 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
 
   if(!comboBox)
     return;
-
-  if(comboBox == m_ui.type)
-    {
-      m_ui.array_index->setVisible(comboBox->currentText() == "array");
-      m_ui.array_size->setVisible(comboBox->currentText() == "array");
-    }
 }
