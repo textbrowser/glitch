@@ -110,6 +110,12 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_variable_arduino(parent);
 
   clone->m_properties = m_properties;
+  clone->m_ui.name->setText(m_ui.name->text().trimmed());
+  clone->m_ui.pointer_access->setCurrentIndex
+    (m_ui.pointer_access->currentIndex());
+  clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
+  clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
+  clone->m_ui.value->setText(m_ui.value->text().trimmed());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
