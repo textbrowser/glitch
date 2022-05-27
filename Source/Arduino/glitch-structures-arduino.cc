@@ -215,7 +215,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
       QStringList list(variableTypes());
 
       list.removeOne("array");
-      list.removeOne("void");
 
       for(const auto &i : list)
 	{
