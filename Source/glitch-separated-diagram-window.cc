@@ -42,6 +42,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(close(void)));
+  connect(m_ui.action_Context_Menu,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotShowContextMenu);
   connect(m_ui.action_Copy,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -256,6 +260,21 @@ void glitch_separated_diagram_window::slotSelectAll(void)
 void glitch_separated_diagram_window::slotSelectionChanged(void)
 {
   prepareActionWidgets();
+}
+
+void glitch_separated_diagram_window::slotShowContextMenu(void)
+{
+  if(m_view)
+    {
+      auto menu = m_view->defaultContextMenu();
+
+      if(menu)
+	{
+	  menu->update();
+	  menu->raise();
+	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
+	}
+    }
 }
 
 void glitch_separated_diagram_window::slotUndo(void)

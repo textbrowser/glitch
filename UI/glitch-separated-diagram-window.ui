@@ -59,7 +59,7 @@
     <property name="title">
      <string>&amp;Windows</string>
     </property>
-    <addaction name="actionContext_Menu"/>
+    <addaction name="action_Context_Menu"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -127,7 +127,7 @@
     <string>&amp;Source</string>
    </property>
   </action>
-  <action name="actionContext_Menu">
+  <action name="action_Context_Menu">
    <property name="text">
     <string>&amp;Context Menu...</string>
    </property>

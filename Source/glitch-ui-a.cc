@@ -1370,6 +1370,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 	  this,
 	  SLOT(slotPaste(glitch_view *)));
   window->setCentralWidget(view);
+  view->defaultContextMenu()->deleteLater();
   view->show();
   window->resize(view->size());
 
@@ -1500,5 +1501,6 @@ void glitch_ui::slotUnite(glitch_view *view)
   prepareActionWidgets();
   setTabText(view);
   setWindowTitle(view);
+  view->defaultContextMenu()->deleteLater();
   window->deleteLater();
 }

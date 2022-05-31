@@ -60,6 +60,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotRedo(void);
   void slotSelectAll(void);
   void slotSelectionChanged(void);
+  void slotShowContextMenu(void);
   void slotUndo(void);
 
  signals:
