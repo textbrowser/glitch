@@ -202,7 +202,7 @@
   </action>
   <action name="action_Alignment">
    <property name="text">
-    <string>&amp;Alignment...</string>
+    <string>&amp;Alignment Tool...</string>
    </property>
   </action>
   <action name="action_Close_Diagram">

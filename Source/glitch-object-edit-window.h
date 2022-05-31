@@ -49,6 +49,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private:
   QMap<QString, QAction *> m_actions;
+  QMenu *m_windowsMenu;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_object_view> m_editView;
   bool event(QEvent *event);

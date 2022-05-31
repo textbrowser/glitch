@@ -103,6 +103,7 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
+- Array variable.
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Function clones should have redo/undo stack of parent function.
