@@ -25,61 +25,61 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-analog-read-arduino.h"
+#include "glitch-object-analog-io-arduino.h"
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
-(QWidget *parent):glitch_object_analog_read_arduino(1, parent)
+glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
+(QWidget *parent):glitch_object_analog_io_arduino(1, parent)
 {
 }
 
-glitch_object_analog_read_arduino::glitch_object_analog_read_arduino
+glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_type = "arduino-analogread";
+  m_type = "arduino-analogio";
   m_ui.setupUi(this);
   prepareContextMenu();
   setName(m_ui.label->text());
 }
 
-glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
+glitch_object_analog_io_arduino::~glitch_object_analog_io_arduino()
 {
 }
 
-QString glitch_object_analog_read_arduino::code(void) const
+QString glitch_object_analog_io_arduino::code(void) const
 {
   return QString("int %1 = analogRead(%2);").
     arg(output()).
     arg(inputs().value(0));
 }
 
-bool glitch_object_analog_read_arduino::hasInput(void) const
+bool glitch_object_analog_io_arduino::hasInput(void) const
 {
   return true;
 }
 
-bool glitch_object_analog_read_arduino::hasOutput(void) const
+bool glitch_object_analog_io_arduino::hasOutput(void) const
 {
   return true;
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_analog_read_arduino(parent);
+  auto clone = new glitch_object_analog_io_arduino(parent);
 
   clone->m_properties = m_properties;
   clone->setStyleSheet(styleSheet());
   return clone;
 }
 
-glitch_object_analog_read_arduino *glitch_object_analog_read_arduino::
+glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto object = new glitch_object_analog_read_arduino
+  auto object = new glitch_object_analog_io_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
@@ -87,7 +87,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_analog_read_arduino::addActions(QMenu &menu)
+void glitch_object_analog_io_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }

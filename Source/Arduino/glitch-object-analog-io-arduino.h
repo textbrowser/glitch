@@ -25,30 +25,30 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_object_analog_read_arduino_h_
-#define _glitch_object_analog_read_arduino_h_
+#ifndef _glitch_object_analog_io_arduino_h_
+#define _glitch_object_analog_io_arduino_h_
 
 #include "glitch-object.h"
-#include "ui_glitch-object-analog-read-arduino.h"
+#include "ui_glitch-object-analog-io-arduino.h"
 
-class glitch_object_analog_read_arduino: public glitch_object
+class glitch_object_analog_io_arduino: public glitch_object
 {
   Q_OBJECT
 
  public:
-  glitch_object_analog_read_arduino(QWidget *parent);
-  glitch_object_analog_read_arduino(const quint64 id, QWidget *parent);
-  ~glitch_object_analog_read_arduino();
+  glitch_object_analog_io_arduino(QWidget *parent);
+  glitch_object_analog_io_arduino(const quint64 id, QWidget *parent);
+  ~glitch_object_analog_io_arduino();
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
-  glitch_object_analog_read_arduino *clone(QWidget *parent) const;
-  static glitch_object_analog_read_arduino *createFromValues
+  glitch_object_analog_io_arduino *clone(QWidget *parent) const;
+  static glitch_object_analog_io_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
 
  private:
-  Ui_glitch_object_analog_read_arduino m_ui;
+  Ui_glitch_object_analog_io_arduino m_ui;
 };
 
 #endif
