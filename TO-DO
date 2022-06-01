@@ -16,6 +16,7 @@ Completed Items
 - Canvas background color redo / undo.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close edit windows via Control + W.
+- Close floating context menu of newly-created object upon delete.
 - Command-line help.
 - Comment block and directional arrows.
 - Confirm closing of changed separated windows.

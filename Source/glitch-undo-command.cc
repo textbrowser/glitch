@@ -345,6 +345,11 @@ void glitch_undo_command::undo(void)
       {
 	if(m_proxy && m_scene)
 	  {
+	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
+
+	    if(object)
+	      object->simulateDelete();
+
 	    m_scene->removeItem(m_proxy);
 	    m_scene->update();
 	  }
