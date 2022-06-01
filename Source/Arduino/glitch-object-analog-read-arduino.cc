@@ -47,7 +47,7 @@ glitch_object_analog_read_arduino::~glitch_object_analog_read_arduino()
 
 QString glitch_object_analog_read_arduino::code(void) const
 {
-  return QString("int %1 = analogRead(%2)").
+  return QString("int %1 = analogRead(%2);").
     arg(output()).
     arg(inputs().value(0));
 }
