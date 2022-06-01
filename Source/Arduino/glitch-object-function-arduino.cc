@@ -157,6 +157,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 		  this,
 		  SLOT(slotParentFunctionChanged(void)),
 		  Qt::UniqueConnection);
+	  m_undoStack = m_parentFunction->m_undoStack;
 	  slotParentFunctionChanged();
 	}
 
@@ -611,6 +612,7 @@ void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
 	      SLOT(slotParentFunctionChanged(void)),
 	      Qt::UniqueConnection);
       m_findParentFunctionTimer.stop();
+      m_undoStack = m_parentFunction->m_undoStack;
       slotParentFunctionChanged();
     }
 }

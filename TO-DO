@@ -41,6 +41,7 @@ Completed Items
 - Dragging an item onto a diagram and scroll bars.
 - Error dialog.
 - Exiting does not require closing of pages.
+- Function clones should have redo/undo stack of parent function.
 - Function names and deleted functions; uniqueness errors.
 - Function redo/undo private container. The redo/undo stack must be
   separate of the function's parent view.
@@ -106,7 +107,6 @@ Remaining Items
 - Array variable.
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
-- Function clones should have redo/undo stack of parent function.
 - Icons and themes.
 - Implement Arduino's loop().
 - Implement Arduino's setup().
