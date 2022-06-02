@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>loop()</string>
+      <string notr="true">loop()</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

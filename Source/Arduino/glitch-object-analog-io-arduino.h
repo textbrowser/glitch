@@ -36,7 +36,7 @@ class glitch_object_analog_io_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  glitch_object_analog_io_arduino(QWidget *parent);
+  glitch_object_analog_io_arduino(const QString &ioType, QWidget *parent);
   glitch_object_analog_io_arduino(const quint64 id, QWidget *parent);
   ~glitch_object_analog_io_arduino();
   QString code(void) const;
@@ -46,9 +46,51 @@ class glitch_object_analog_io_arduino: public glitch_object
   static glitch_object_analog_io_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
+  void save(const QSqlDatabase &db, QString &error);
 
  private:
+  enum Type
+  {
+    READ = 0,
+    REFERENCE,
+    WRITE
+  };
+
+  Type m_ioType;
   Ui_glitch_object_analog_io_arduino m_ui;
+
+  QString ioTypeToString(void) const
+  {
+    switch(m_ioType)
+      {
+      case Type::REFERENCE:
+	{
+	  return "reference";
+	}
+      case Type::WRITE:
+	{
+	  return "write";
+	}
+      default:
+	{
+	  return "read";
+	}
+      }
+  }
+
+  static Type stringToIOType(const QString &s)
+  {
+    auto string(s.toLower());
+
+    if(string.contains("reference"))
+      return Type::REFERENCE;
+    else if(string.contains("write"))
+      return Type::WRITE;
+    else
+      return Type::READ;
+  }
+
+  void setProperties(const QStringList &list);
 };
 
 #endif

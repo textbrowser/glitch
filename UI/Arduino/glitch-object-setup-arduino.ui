@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>setup()</string>
+      <string notr="true">setup()</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

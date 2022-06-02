@@ -555,7 +555,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  auto view = views().value(0);
 
 	  if(text.startsWith("glitch-arduino-analog i/o-analog"))
-	    object = new glitch_object_analog_io_arduino(view);
+	    object = new glitch_object_analog_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-constant"))
 	    object = new glitch_object_constant_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-flow control-"))

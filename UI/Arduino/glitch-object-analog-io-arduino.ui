@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>analogIO()</string>
+      <string notr="true">analogIO()</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
