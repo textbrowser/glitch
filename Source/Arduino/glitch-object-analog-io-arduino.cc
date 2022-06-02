@@ -157,7 +157,7 @@ void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 
       if(string.simplified().startsWith("iotype = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1);
+	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
 	  if(string.contains("reference"))
