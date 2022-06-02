@@ -90,7 +90,10 @@ bool glitch_object_analog_io_arduino::hasInput(void) const
 
 bool glitch_object_analog_io_arduino::hasOutput(void) const
 {
-  return true;
+  if(m_ioType == Type::READ)
+    return true;
+  else
+    return false;
 }
 
 glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
