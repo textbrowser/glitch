@@ -117,6 +117,8 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_ioType = stringToIOType
+    (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
   object->m_ui.label->setText
     (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
   return object;
@@ -143,6 +145,12 @@ void glitch_object_analog_io_arduino::save
 
 void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 {
+  /*
+  ** Redundancies.
+  */
+
+  m_properties[Properties::ANALOG_IO_TYPE] = "analogRead()";
+
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
