@@ -173,4 +173,6 @@ void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 	  m_properties[Properties::ANALOG_IO_TYPE] = string.trimmed();
 	}
     }
+
+  setName(m_properties.value(Properties::ANALOG_IO_TYPE).toString());
 }
