@@ -185,6 +185,7 @@ void glitch_object_variable_arduino::setProperties
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_NAME] = string.trimmed();
 	  m_ui.name->setText(string.trimmed());
+	  setName(m_ui.name->text());
 	}
       else if(string.simplified().startsWith("variable_pointer_access = "))
 	{
