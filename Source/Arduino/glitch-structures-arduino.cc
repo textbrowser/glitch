@@ -94,6 +94,8 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Random");
   m_ui.categories->addItem(tr("Serial"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Serial");
+  m_ui.categories->addItem(tr("Stream"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Stream");
   m_ui.categories->addItem(tr("Structures"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Structures");
   m_ui.categories->addItem(tr("Time"));
@@ -199,16 +201,16 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					       << "randomSeed()";
       s_itemsForCategories[16] = QStringList() << "Serial.begin()"
 					       << "Serial.println()";
-      s_itemsForCategories[17] = QStringList() << "block comment"
+      s_itemsForCategories[18] = QStringList() << "block comment"
 					       << "function()";
-      s_itemsForCategories[18] = QStringList() << "delay()"
+      s_itemsForCategories[19] = QStringList() << "delay()"
 					       << "delayMicroseconds()"
 					       << "micros()"
 					       << "millis()";
-      s_itemsForCategories[19] = QStringList() << "cos()"
+      s_itemsForCategories[20] = QStringList() << "cos()"
 					       << "sin()"
 					       << "tan()";
-      s_itemsForCategories[20] = QStringList() << "PROGMEM"
+      s_itemsForCategories[21] = QStringList() << "PROGMEM"
 					       << "sizeof()";
 
       QStringList arrays;

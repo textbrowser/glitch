@@ -105,19 +105,15 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
-- Array variable.
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Icons and themes.
-- Implement Arduino's loop().
-- Implement Arduino's setup().
 - Keywords (function names, variable names, etc.).
 - Object-view settings. Identical to canvas settings.
 - Reset object order on delete/redo/undo.
 - Save button on tab.
 - Separated window: context menu, generate source.
 - Serial and stream (https://www.arduino.cc/reference/en).
-- Translate diagrams to Arduino code.
 - Undo macros for group actions.
 - Variable clones.
 - Warn of recursive functions.
