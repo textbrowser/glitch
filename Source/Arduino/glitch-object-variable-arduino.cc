@@ -236,4 +236,25 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
 
   if(!comboBox)
     return;
+
+  auto property = glitch_object::Properties::XYZ_PROPERTY;
+
+  if(comboBox == m_ui.pointer_access)
+    property = glitch_object::Properties::VARIABLE_POINTER_ACCESS;
+  else if(comboBox == m_ui.qualifier)
+    property = glitch_object::Properties::VARIABLE_QUALIFIER;
+  else
+    property = glitch_object::Properties::VARIABLE_TYPE;
+
+  auto undoCommand = new glitch_undo_command
+    (comboBox->currentText(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = comboBox->currentText();
+  undoCommand->setText(tr("variable property changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
