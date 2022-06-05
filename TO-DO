@@ -105,6 +105,9 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
+- Completed Categories
+  Analog I/O
+  Structures
 - Define function parameters from connected objects. Order is also important.
 - Draw input and output connectors.
 - Icons and themes.
