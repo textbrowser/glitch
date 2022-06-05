@@ -143,6 +143,7 @@ class glitch_scene: public QGraphicsScene
   void functionReturnTypeChanged(const QString &after,
 				 const QString &before,
 				 glitch_object *object);
+  void mousePressed(void);
   void sceneResized(void);
 };
 

@@ -887,6 +887,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
  done_label:
   QGraphicsScene::mousePressEvent(event);
+  emit mousePressed();
 }
 
 void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

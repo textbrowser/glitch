@@ -131,6 +131,10 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 		 this,
 		 SLOT(slotAboutToShowEditMenu(void)));
       disconnect(m_editView->scene(),
+		 SIGNAL(mousePressed(void)),
+		 this,
+		 SLOT(slotAboutToShowEditMenu(void)));
+      disconnect(m_editView->scene(),
 		 SIGNAL(selectionChanged(void)),
 		 this,
 		 SLOT(slotAboutToShowEditMenu(void)));
@@ -151,6 +155,10 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 	      this,
 	      SLOT(slotAboutToShowEditMenu(void)),
 	      Qt::QueuedConnection);
+      connect(m_editView->scene(),
+	      SIGNAL(mousePressed(void)),
+	      this,
+	      SLOT(slotAboutToShowEditMenu(void)));
       connect(m_editView->scene(),
 	      SIGNAL(selectionChanged(void)),
 	      this,

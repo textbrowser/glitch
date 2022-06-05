@@ -172,10 +172,10 @@ void glitch_proxy_widget::paint
 
 	  path.addRect
 	    (point.x() - 15.0,
-	     point.y() - 30.0,
-	     40.0 +
+	     point.y() - 25.0,
+	     30.0 +
 	     static_cast<qreal> (fontMetrics.boundingRect(order).width()),
-	     40.0);
+	     30.0);
 	  pen.setColor(Qt::blue);
 	  pen.setWidthF(1.0);
 	  painter->save();
@@ -185,7 +185,7 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	  painter->save();
 	  font.setBold(true);
-	  font.setPointSize(15);
+	  font.setPointSizeF(11.5);
 	  pen.setColor(Qt::white);
 	  painter->setFont(font);
 	  painter->setPen(pen);
