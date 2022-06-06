@@ -51,7 +51,9 @@ class glitch_object_variable_arduino: public glitch_object
 
  private:
   Ui_glitch_object_variable_arduino m_ui;
+  void connectSignals(const bool state);
   void setProperties(const QStringList &list);
+  void setProperty(const Properties property, const QVariant &value);
 
  private slots:
   void slotComboBoxChanged(void);

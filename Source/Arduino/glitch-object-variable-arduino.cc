@@ -54,10 +54,6 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 
   list.removeAll("array");
   m_ui.type->addItems(list);
-  connect(m_ui.type,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
-	  this,
-	  &glitch_object_variable_arduino::slotComboBoxChanged);
   prepareContextMenu();
   setName(m_type);
 }
@@ -140,6 +136,43 @@ void glitch_object_variable_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_variable_arduino::connectSignals(const bool state)
+{
+  if(state)
+    {
+      connect(m_ui.pointer_access,
+	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      this,
+	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      Qt::UniqueConnection);
+      connect(m_ui.qualifier,
+	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      this,
+	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      Qt::UniqueConnection);
+      connect(m_ui.type,
+	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      this,
+	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      Qt::UniqueConnection);
+    }
+  else
+    {
+      disconnect(m_ui.pointer_access,
+		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 this,
+		 &glitch_object_variable_arduino::slotComboBoxChanged);
+      disconnect(m_ui.qualifier,
+		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 this,
+		 &glitch_object_variable_arduino::slotComboBoxChanged);
+      disconnect(m_ui.type,
+		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 this,
+		 &glitch_object_variable_arduino::slotComboBoxChanged);
+    }
+}
+
 void glitch_object_variable_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -161,6 +194,7 @@ void glitch_object_variable_arduino::save
 void glitch_object_variable_arduino::setProperties
 (const QStringList &list)
 {
+  connectSignals(false);
   glitch_object::setProperties(list);
 
   for(int i = 0; i < list.size(); i++)
@@ -227,6 +261,45 @@ void glitch_object_variable_arduino::setProperties
 	  m_properties[Properties::VARIABLE_VALUE] = string.trimmed();
 	  m_ui.value->setText(string.trimmed());
 	}
+    }
+
+  connectSignals(true);
+}
+
+void glitch_object_variable_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::VARIABLE_POINTER_ACCESS:
+      {
+	m_ui.pointer_access->blockSignals(true);
+	m_ui.pointer_access->setCurrentIndex
+	  (m_ui.pointer_access->findText(value.toString()));
+	m_ui.pointer_access->blockSignals(false);
+	break;
+      }
+    case Properties::VARIABLE_QUALIFIER:
+      {
+	m_ui.qualifier->blockSignals(true);
+	m_ui.qualifier->setCurrentIndex
+	  (m_ui.qualifier->findText(value.toString()));
+	m_ui.qualifier->blockSignals(false);
+	break;
+      }
+    case Properties::VARIABLE_TYPE:
+      {
+	m_ui.type->blockSignals(true);
+	m_ui.type->setCurrentIndex(m_ui.type->findText(value.toString()));
+	m_ui.type->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
     }
 }
 
