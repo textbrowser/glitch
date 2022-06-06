@@ -115,6 +115,7 @@ clone(QWidget *parent) const
   clone->m_ui.value->setText(m_ui.value->text().trimmed());
   clone->m_ui.value->selectAll();
   clone->connectSignals(true);
+  clone->setName(clone->name());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -300,6 +301,7 @@ void glitch_object_variable_arduino::setProperty
       {
 	m_ui.name->setText(value.toString().trimmed());
 	m_ui.name->selectAll();
+	setName(m_ui.name->text());
 	break;
       }
     case Properties::VARIABLE_POINTER_ACCESS:
