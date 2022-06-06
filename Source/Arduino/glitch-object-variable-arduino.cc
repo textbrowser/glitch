@@ -107,11 +107,14 @@ clone(QWidget *parent) const
 
   clone->m_properties = m_properties;
   clone->m_ui.name->setText(m_ui.name->text().trimmed());
+  clone->m_ui.name->selectAll();
   clone->m_ui.pointer_access->setCurrentIndex
     (m_ui.pointer_access->currentIndex());
   clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
   clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
   clone->m_ui.value->setText(m_ui.value->text().trimmed());
+  clone->m_ui.value->selectAll();
+  clone->connectSignals(true);
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -140,6 +143,11 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 {
   if(state)
     {
+      connect(m_ui.name,
+	      &QLineEdit::returnPressed,
+	      this,
+	      &glitch_object_variable_arduino::slotLineEditSet,
+	      Qt::UniqueConnection);
       connect(m_ui.pointer_access,
 	      QOverload<int>::of(&QComboBox::currentIndexChanged),
 	      this,
@@ -155,9 +163,18 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 	      this,
 	      &glitch_object_variable_arduino::slotComboBoxChanged,
 	      Qt::UniqueConnection);
+      connect(m_ui.value,
+	      &QLineEdit::returnPressed,
+	      this,
+	      &glitch_object_variable_arduino::slotLineEditSet,
+	      Qt::UniqueConnection);
     }
   else
     {
+      disconnect(m_ui.name,
+		 &QLineEdit::returnPressed,
+		 this,
+		 &glitch_object_variable_arduino::slotLineEditSet);
       disconnect(m_ui.pointer_access,
 		 QOverload<int>::of(&QComboBox::currentIndexChanged),
 		 this,
@@ -170,6 +187,10 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 		 QOverload<int>::of(&QComboBox::currentIndexChanged),
 		 this,
 		 &glitch_object_variable_arduino::slotComboBoxChanged);
+      disconnect(m_ui.value,
+		 &QLineEdit::returnPressed,
+		 this,
+		 &glitch_object_variable_arduino::slotLineEditSet);
     }
 }
 
@@ -219,6 +240,7 @@ void glitch_object_variable_arduino::setProperties
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_NAME] = string.trimmed();
 	  m_ui.name->setText(string.trimmed());
+	  m_ui.name->selectAll();
 	  setName(m_ui.name->text());
 	}
       else if(string.simplified().startsWith("variable_pointer_access = "))
@@ -260,6 +282,7 @@ void glitch_object_variable_arduino::setProperties
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_VALUE] = string.trimmed();
 	  m_ui.value->setText(string.trimmed());
+	  m_ui.value->selectAll();
 	}
     }
 
@@ -273,6 +296,12 @@ void glitch_object_variable_arduino::setProperty
 
   switch(property)
     {
+    case Properties::VARIABLE_NAME:
+      {
+	m_ui.name->setText(value.toString().trimmed());
+	m_ui.name->selectAll();
+	break;
+      }
     case Properties::VARIABLE_POINTER_ACCESS:
       {
 	m_ui.pointer_access->blockSignals(true);
@@ -294,6 +323,12 @@ void glitch_object_variable_arduino::setProperty
 	m_ui.type->blockSignals(true);
 	m_ui.type->setCurrentIndex(m_ui.type->findText(value.toString()));
 	m_ui.type->blockSignals(false);
+	break;
+      }
+    case Properties::VARIABLE_VALUE:
+      {
+	m_ui.value->setText(value.toString().trimmed());
+	m_ui.value->selectAll();
 	break;
       }
     default:
@@ -327,6 +362,39 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
      this);
 
   m_properties[property] = comboBox->currentText();
+  undoCommand->setText(tr("variable property changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_object_variable_arduino::slotLineEditSet(void)
+{
+  auto lineEdit = qobject_cast<QLineEdit *> (sender());
+
+  if(!lineEdit)
+    return;
+
+  lineEdit->setText(lineEdit->text().trimmed());
+  lineEdit->selectAll();
+
+  auto property = glitch_object::Properties::XYZ_PROPERTY;
+
+  if(lineEdit == m_ui.name)
+    property = glitch_object::Properties::VARIABLE_NAME;
+  else
+    property = glitch_object::Properties::VARIABLE_VALUE;
+
+  if(lineEdit->text() == m_properties.value(property).toString())
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (lineEdit->text(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = lineEdit->text();
   undoCommand->setText(tr("variable property changed"));
   m_undoStack->push(undoCommand);
   emit changed();

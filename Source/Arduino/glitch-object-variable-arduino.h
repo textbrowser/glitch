@@ -57,6 +57,7 @@ class glitch_object_variable_arduino: public glitch_object
 
  private slots:
   void slotComboBoxChanged(void);
+  void slotLineEditSet(void);
 };
 
 #endif
