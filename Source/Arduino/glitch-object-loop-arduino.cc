@@ -87,7 +87,8 @@ QString glitch_object_loop_arduino::code(void) const
       auto code(w->code());
 
       if(!code.trimmed().isEmpty())
-	stream << code
+	stream << "\t"
+	       << code
 	       << Qt::endl;
     }
 

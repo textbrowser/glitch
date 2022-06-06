@@ -105,7 +105,7 @@ QString glitch_view_arduino::nextUniqueFunctionName(void) const
 
 QString glitch_view_arduino::projectOutputFileExtension(void) const
 {
-  return ".cc";
+  return ".ino";
 }
 
 bool glitch_view_arduino::containsFunctionName(const QString &name) const
