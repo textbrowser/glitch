@@ -179,7 +179,36 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
 
 QString glitch_object_function_arduino::code(void) const
 {
-  return "";
+  if(!m_editView)
+    return "";
+
+  QString code("");
+  QTextStream stream(&code);
+  auto widgets(m_editView->scene()->orderedObjects());
+
+  stream << m_ui.return_type->currentText()
+	 << " "
+	 << m_ui.label->text().remove("()")
+	 << "(void)"
+	 << Qt::endl
+	 << "{"
+	 << Qt::endl;
+
+  for(auto w : widgets)
+    {
+      if(!w)
+	continue;
+
+      auto code(w->code());
+
+      if(!code.trimmed().isEmpty())
+	stream << "\t"
+	       << code
+	       << Qt::endl;
+    }
+
+  stream << "}";
+  return code;
 }
 
 QString glitch_object_function_arduino::name(void) const
