@@ -28,11 +28,7 @@
 #ifndef _glitch_tools_h_
 #define _glitch_tools_h_
 
-#include <QDialog>
-
 #include "ui_glitch-tools.h"
-
-#include <limits>
 
 class glitch_tools: public QDialog
 {
@@ -44,9 +40,6 @@ class glitch_tools: public QDialog
 
  private:
   Ui_glitch_tools m_ui;
-
- private slots:
-  void slotWireToggled(bool state);
 };
 
 #endif
