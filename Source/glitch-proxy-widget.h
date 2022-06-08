@@ -42,7 +42,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
  public:
   enum
   {
-   Type = QGraphicsProxyWidget::UserType + 1
+    Type = QGraphicsProxyWidget::UserType + 1
   };
 
   glitch_proxy_widget(QGraphicsItem *parent = nullptr,

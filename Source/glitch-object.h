@@ -49,40 +49,40 @@ class glitch_object: public QWidget
  public:
   enum DefaultMenuActions
   {
-   DELETE = 0,
-   EDIT,
-   LOCK_POSITION,
-   SET_FUNCTION_NAME,
-   SET_STYLE_SHEET
+    DELETE = 0,
+    EDIT,
+    LOCK_POSITION,
+    SET_FUNCTION_NAME,
+    SET_STYLE_SHEET
   };
 
   enum Limits
   {
-   NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
+    NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
   };
 
   enum Properties
   {
-   /*
-   ** Arduino Properties
-   */
+    /*
+    ** Arduino Properties
+    */
 
-   ANALOG_IO_TYPE = 0,
-   COMMENT,
-   CONDITION,
-   CONSTANT_TYPE,
-   LOGICAL_OPERATOR,
-   LOOP_TYPE,
-   NAME,
-   POSITION_LOCKED,
-   VARIABLE_ARRAY_INDEX,
-   VARIABLE_ARRAY_SIZE,
-   VARIABLE_NAME,
-   VARIABLE_POINTER_ACCESS,
-   VARIABLE_QUALIFIER,
-   VARIABLE_TYPE,
-   VARIABLE_VALUE,
-   XYZ_PROPERTY
+    ANALOG_IO_TYPE = 0,
+    COMMENT,
+    CONDITION,
+    CONSTANT_TYPE,
+    LOGICAL_OPERATOR,
+    LOOP_TYPE,
+    NAME,
+    POSITION_LOCKED,
+    VARIABLE_ARRAY_INDEX,
+    VARIABLE_ARRAY_SIZE,
+    VARIABLE_NAME,
+    VARIABLE_POINTER_ACCESS,
+    VARIABLE_QUALIFIER,
+    VARIABLE_TYPE,
+    VARIABLE_VALUE,
+    XYZ_PROPERTY
   };
 
   glitch_object(QWidget *parent);

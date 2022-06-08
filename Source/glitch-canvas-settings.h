@@ -40,18 +40,18 @@ class glitch_canvas_settings: public QDialog
  public:
   enum Limits
   {
-   NAME_MAXIMUM_LENGTH = 100
+    NAME_MAXIMUM_LENGTH = 100
   };
 
   enum Settings
   {
-   CANVAS_BACKGROUND_COLOR,
-   CANVAS_NAME,
-   DOTS_COLOR,
-   OUTPUT_FILE,
-   REDO_UNDO_STACK_SIZE,
-   SHOW_CANVAS_DOTS,
-   VIEW_UPDATE_MODE
+    CANVAS_BACKGROUND_COLOR = 0,
+    CANVAS_NAME,
+    DOTS_COLOR,
+    OUTPUT_FILE,
+    REDO_UNDO_STACK_SIZE,
+    SHOW_CANVAS_DOTS,
+    VIEW_UPDATE_MODE
   };
 
   glitch_canvas_settings(QWidget *parent);

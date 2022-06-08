@@ -35,11 +35,21 @@ class glitch_tools: public QDialog
   Q_OBJECT
 
  public:
+  enum Operations
+  {
+    SELECT = 0,
+    WIRE_CONNECT,
+    WIRE_DISCONNECT
+  };
+
   glitch_tools(QWidget *parent);
   ~glitch_tools();
 
  private:
   Ui_glitch_tools m_ui;
+
+ signals:
+  void operation(const Operations operation);
 };
 
 #endif

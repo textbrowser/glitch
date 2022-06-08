@@ -38,9 +38,9 @@ class glitch_object_loop_flow_arduino: public glitch_object
  public:
   enum LoopTypes
   {
-   DO_LOOP,
-   FOR_LOOP,
-   WHILE_LOOP
+    DO_LOOP = 0,
+    FOR_LOOP,
+    WHILE_LOOP
   };
 
   glitch_object_loop_flow_arduino(QWidget *parent);

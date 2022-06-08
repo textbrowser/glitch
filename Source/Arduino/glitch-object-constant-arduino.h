@@ -38,14 +38,14 @@ class glitch_object_constant_arduino: public glitch_object
  public:
   enum ConstantTypes
   {
-   FALSE = 0,
-   HIGH,
-   INPUT,
-   INPUT_PULLUP,
-   LED_BUILTIN,
-   LOW,
-   OUTPUT,
-   TRUE
+    FALSE = 0,
+    HIGH,
+    INPUT,
+    INPUT_PULLUP,
+    LED_BUILTIN,
+    LOW,
+    OUTPUT,
+    TRUE
   };
 
   glitch_object_constant_arduino(QWidget *parent);
