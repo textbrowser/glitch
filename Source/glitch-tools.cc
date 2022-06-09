@@ -32,6 +32,14 @@
 glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+
+  foreach(auto widget, findChildren<QRadioButton *> ())
+    if(widget)
+      connect(widget,
+	      &QRadioButton::clicked,
+	      this,
+	      &glitch_tools::slotOperationChanged);
+
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -40,4 +48,14 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 
 glitch_tools::~glitch_tools()
 {
+}
+
+void glitch_tools::slotOperationChanged(void)
+{
+  if(m_ui.select == sender())
+    emit operation(Operations::SELECT);
+  else if(m_ui.wire_connect == sender())
+    emit operation(Operations::WIRE_CONNECT);
+  else
+    emit operation(Operations::WIRE_DISCONNECT);
 }

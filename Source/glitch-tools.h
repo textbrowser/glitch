@@ -48,6 +48,9 @@ class glitch_tools: public QDialog
  private:
   Ui_glitch_tools m_ui;
 
+ private slots:
+  void slotOperationChanged(void);
+
  signals:
   void operation(const Operations operation);
 };
