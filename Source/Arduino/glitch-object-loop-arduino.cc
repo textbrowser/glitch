@@ -56,9 +56,9 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   m_type = "arduino-loop";
   m_ui.setupUi(this);
   connect(m_editView,
-	  SIGNAL(changed(void)),
+	  &glitch_object_view::changed,
 	  this,
-	  SIGNAL(changed(void)));
+	  &glitch_object_loop_arduino::changed);
   prepareContextMenu();
   prepareEditSignals(qobject_cast<glitch_view *> (parent));
   setName(m_ui.label->text());
@@ -120,9 +120,9 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
       auto action = new QAction(tr("&Edit..."), this);
 
       connect(action,
-	      SIGNAL(triggered(void)),
+	      &QAction::triggered,
 	      this,
-	      SLOT(slotEdit(void)));
+	      &glitch_object_loop_arduino::slotEdit);
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }

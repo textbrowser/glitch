@@ -47,9 +47,9 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
   connect(m_ui.logical_operator,
-	  SIGNAL(currentIndexChanged(int)),
+	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  SLOT(slotLogicalOperatorChanged(void)));
+	  &glitch_object_logical_operator_arduino::slotLogicalOperatorChanged);
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }

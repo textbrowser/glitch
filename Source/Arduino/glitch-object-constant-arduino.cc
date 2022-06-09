@@ -47,9 +47,9 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   connect(m_ui.constant,
-	  SIGNAL(currentIndexChanged(int)),
+	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  SLOT(slotConstantChanged(void)));
+	  &glitch_object_constant_arduino::slotConstantChanged);
   prepareContextMenu();
   setName(m_type);
 }

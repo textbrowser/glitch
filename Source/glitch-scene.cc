@@ -55,6 +55,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
   m_mainScene = false;
   m_projectType = projectType;
   m_showDots = true;
+  m_toolsOperation = glitch_tools::Operations::SELECT;
   m_undoStack = nullptr;
 }
 

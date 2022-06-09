@@ -35,6 +35,7 @@
 #include <QtGlobal>
 
 #include "glitch-common.h"
+#include "glitch-tools.h"
 
 class QUndoStack;
 class glitch_object;
@@ -108,6 +109,7 @@ class glitch_scene: public QGraphicsScene
   bool m_mainScene;
   bool m_showDots;
   glitch_common::ProjectTypes m_projectType;
+  glitch_tools::Operations m_toolsOperation;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
