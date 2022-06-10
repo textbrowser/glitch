@@ -65,21 +65,24 @@ glitch_view_arduino::glitch_view_arduino
   m_setupObject->setProxy(proxy);
   proxy->setPos(QPointF(m_loopObject->width() + 20.0, 10.0));
   connect(m_loopObject,
-	  SIGNAL(changed(void)),
+	  &glitch_object_loop_arduino::changed,
 	  this,
-	  SLOT(slotChanged(void)));
-  connect(m_scene,
-	  SIGNAL(functionAdded(const QString &, const bool)),
-	  this,
-	  SLOT(slotFunctionAdded(const QString &, const bool)));
-  connect(m_scene,
-	  SIGNAL(functionDeleted(const QString &)),
-	  this,
-	  SLOT(slotFunctionDeleted(const QString &)));
+	  &glitch_view_arduino::slotChanged);
+  connect
+    (m_scene,
+     QOverload<const QString &, const bool>::of(&glitch_scene::functionAdded),
+     this,
+     QOverload<const QString &,
+               const bool>::of(&glitch_view_arduino::slotFunctionAdded));
+  connect
+    (m_scene,
+     QOverload<const QString &>::of(&glitch_scene::functionDeleted),
+     this,
+     QOverload<const QString &>::of(&glitch_view_arduino::slotFunctionDeleted));
   connect(m_setupObject,
-	  SIGNAL(changed(void)),
+	  &glitch_object_setup_arduino::changed,
 	  this,
-	  SLOT(slotChanged(void)));
+	  &glitch_view_arduino::slotChanged);
 }
 
 glitch_view_arduino::~glitch_view_arduino()
