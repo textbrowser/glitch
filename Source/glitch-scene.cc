@@ -797,6 +797,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  if(m_toolsOperation != glitch_tools::Operations::SELECT)
+    goto done_label;
+
   m_lastScenePos = QPointF();
   m_movedPoints.clear();
 
@@ -1108,6 +1111,13 @@ void glitch_scene::slotRedo(void)
       emit changed();
       QApplication::restoreOverrideCursor();
     }
+}
+
+void glitch_scene::slotToolsOperationChanged
+(const glitch_tools::Operations operation)
+{
+  clearSelection();
+  m_toolsOperation = operation;
 }
 
 void glitch_scene::slotUndo(void)

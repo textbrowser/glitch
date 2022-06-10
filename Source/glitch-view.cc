@@ -766,7 +766,16 @@ void glitch_view::showCanvasSettings(void)
 void glitch_view::showTools(void)
 {
   if(!m_tools)
-    m_tools = new glitch_tools(this);
+    {
+      m_tools = new glitch_tools(this);
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 m_scene,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_scene::slotToolsOperationChanged));
+    }
 
   m_tools->showNormal();
   m_tools->activateWindow();
