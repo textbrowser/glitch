@@ -48,9 +48,9 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 		this,
 		SLOT(close(void)));
   connect(m_ui.categories,
-	  SIGNAL(itemSelectionChanged(void)),
+	  &QListWidget::itemSelectionChanged,
 	  this,
-	  SLOT(slotCategorySelected(void)));
+	  &glitch_structures_arduino::slotCategorySelected);
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
 
