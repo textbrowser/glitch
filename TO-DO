@@ -110,10 +110,12 @@ Remaining Items
   Analog I/O
   Structures
 - Define parameters from connected objects. Order is also important.
+- Display tool mode in status bar.
 - Icons and themes.
 - Keywords (function names, variable names, etc.).
 - Modern connect().
 - Object-view settings. Identical to canvas settings.
+- Reopen (or reparent) child windows after a separation event.
 - Reset object order on delete/redo/undo.
 - Save button on tab.
 - Separated window: context menu, generate source.

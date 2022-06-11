@@ -785,6 +785,13 @@ void glitch_view::showTools(void)
 	 this,
 	 QOverload<const glitch_tools::Operations>::
 	 of(&glitch_view::slotToolsOperationChanged));
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 this,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_view::toolsOperationChanged));
     }
 
   m_tools->showNormal();

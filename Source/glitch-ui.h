@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include <QPointer>
 
+#include "glitch-tools.h"
 #include "ui_glitch-mainwindow.h"
 
 class QGraphicsView;
@@ -117,6 +118,7 @@ class glitch_ui: public QMainWindow
   void slotShowStructures(void);
   void slotShowTools(void);
   void slotTabMoved(int from, int to);
+  void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
   void slotUnite(glitch_view *view);
 

@@ -159,6 +159,7 @@ class glitch_view: public QWidget
   void selectionChanged(void);
   void separate(glitch_view *view);
   void showStructures(void);
+  void toolsOperationChanged(const glitch_tools::Operations operation);
   void unite(glitch_view *view);
 };
 

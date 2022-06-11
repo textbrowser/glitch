@@ -317,6 +317,13 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  SIGNAL(showStructures(void)),
 	  this,
 	  SLOT(slotShowStructures(void)));
+  connect
+    (view,
+     QOverload<const glitch_tools::Operations>::
+     of(&glitch_view::toolsOperationChanged),
+     this,
+     QOverload<const glitch_tools::Operations>::
+     of(&glitch_ui::slotToolsOperationChanged));
   connect(view,
 	  SIGNAL(unite(glitch_view *)),
 	  this,
@@ -1472,6 +1479,23 @@ void glitch_ui::slotTabMoved(int from, int to)
     }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_ui::slotToolsOperationChanged
+(const glitch_tools::Operations operation)
+{
+  if(m_ui.tab->currentWidget() != sender())
+    return;
+
+  if(statusBar())
+    {
+      if(operation == glitch_tools::Operations::SELECT)
+	statusBar()->showMessage(tr("Select Mode"));
+      else if(operation == glitch_tools::Operations::WIRE_DISCONNECT)
+	statusBar()->showMessage(tr("Wire (Connect) Mode"));
+      else
+	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
+    }
 }
 
 void glitch_ui::slotUndo(void)
