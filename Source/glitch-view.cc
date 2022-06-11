@@ -708,6 +708,9 @@ void glitch_view::save(void)
 
 void glitch_view::selectAll(void)
 {
+  if(m_tools && m_tools->operation() != glitch_tools::Operations::SELECT)
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto list(m_scene->items());

@@ -50,6 +50,16 @@ glitch_tools::~glitch_tools()
 {
 }
 
+glitch_tools::Operations glitch_tools::operation(void) const
+{
+  if(m_ui.select->isChecked())
+    return Operations::SELECT;
+  else if(m_ui.wire_connect->isChecked())
+    return Operations::WIRE_CONNECT;
+  else
+    return Operations::WIRE_DISCONNECT;
+}
+
 void glitch_tools::slotOperationChanged(void)
 {
   if(m_ui.select == sender())

@@ -44,6 +44,7 @@ class glitch_tools: public QDialog
 
   glitch_tools(QWidget *parent);
   ~glitch_tools();
+  glitch_tools::Operations operation(void) const;
 
  private:
   Ui_glitch_tools m_ui;
