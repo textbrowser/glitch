@@ -778,6 +778,13 @@ void glitch_view::showTools(void)
 	 m_scene,
 	 QOverload<const glitch_tools::Operations>::
 	 of(&glitch_scene::slotToolsOperationChanged));
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 this,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_view::slotToolsOperationChanged));
     }
 
   m_tools->showNormal();
@@ -975,6 +982,15 @@ void glitch_view::slotShowUserFunctions(void)
   m_userFunctions->showNormal();
   m_userFunctions->activateWindow();
   m_userFunctions->raise();
+}
+
+void glitch_view::slotToolsOperationChanged
+(const glitch_tools::Operations operation)
+{
+  if(operation == glitch_tools::Operations::SELECT)
+    m_view->setDragMode(QGraphicsView::RubberBandDrag);
+  else
+    m_view->setDragMode(QGraphicsView::NoDrag);
 }
 
 void glitch_view::slotUnite(void)

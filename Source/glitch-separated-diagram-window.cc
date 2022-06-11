@@ -70,6 +70,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotUndo(void)));
+  statusBar(); // Create a status bar.
 }
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()

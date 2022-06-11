@@ -34,6 +34,7 @@
 
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
+#include "glitch-tools.h"
 #include "ui_glitch-view.h"
 
 class glitch_alignment;
@@ -97,6 +98,9 @@ class glitch_view: public QWidget
  private:
   void prepareDatabaseTables(const QString &fileName) const;
   void prepareDefaultActions(void);
+
+ private slots:
+  void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  protected:
   QAction *m_menuAction;
