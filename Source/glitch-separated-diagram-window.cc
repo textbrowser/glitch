@@ -171,6 +171,13 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 SIGNAL(selectionChanged(void)),
 		 this,
 		 SLOT(slotSelectionChanged(void)));
+      disconnect(m_view,
+		 QOverload<const glitch_tools::Operations>::
+		 of(&glitch_view::toolsOperationChanged),
+		 this,
+		 QOverload<const glitch_tools::Operations>::
+		 of(&glitch_separated_diagram_window::
+		    slotToolsOperationChanged));
     }
 
   m_view = qobject_cast<glitch_view *> (widget);
@@ -189,6 +196,13 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      SIGNAL(selectionChanged(void)),
 	      this,
 	      SLOT(slotSelectionChanged(void)));
+      connect(m_view,
+	      QOverload<const glitch_tools::Operations>::
+	      of(&glitch_view::toolsOperationChanged),
+	      this,
+	      QOverload<const glitch_tools::Operations>::
+	      of(&glitch_separated_diagram_window::slotToolsOperationChanged));
+      slotToolsOperationChanged(m_view->toolsOperation());
     }
 
   QMainWindow::setCentralWidget(widget);
@@ -275,6 +289,20 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->raise();
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
+    }
+}
+
+void glitch_separated_diagram_window::slotToolsOperationChanged
+(const glitch_tools::Operations operation)
+{
+  if(statusBar())
+    {
+      if(operation == glitch_tools::Operations::SELECT)
+	statusBar()->showMessage(tr("Select Mode"));
+      else if(operation == glitch_tools::Operations::WIRE_DISCONNECT)
+	statusBar()->showMessage(tr("Wire (Connect) Mode"));
+      else
+	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
     }
 }
 

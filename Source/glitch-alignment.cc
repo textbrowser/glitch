@@ -39,33 +39,33 @@ glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
 	  this,
 	  &glitch_alignment::slotAlign);
   connect(m_ui.horizontal_center_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.horizontal_stack,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotStack(void)));
+	  &glitch_alignment::slotStack);
   connect(m_ui.left_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.right_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.top_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.vertical_center_align,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotAlign(void)));
+	  &glitch_alignment::slotAlign);
   connect(m_ui.vertical_stack,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotStack(void)));
+	  &glitch_alignment::slotStack);
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));

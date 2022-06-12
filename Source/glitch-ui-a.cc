@@ -317,13 +317,12 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  SIGNAL(showStructures(void)),
 	  this,
 	  SLOT(slotShowStructures(void)));
-  connect
-    (view,
-     QOverload<const glitch_tools::Operations>::
-     of(&glitch_view::toolsOperationChanged),
-     this,
-     QOverload<const glitch_tools::Operations>::
-     of(&glitch_ui::slotToolsOperationChanged));
+  connect(view,
+	  QOverload<const glitch_tools::Operations>::
+	  of(&glitch_view::toolsOperationChanged),
+	  this,
+	  QOverload<const glitch_tools::Operations>::
+	  of(&glitch_ui::slotToolsOperationChanged));
   connect(view,
 	  SIGNAL(unite(glitch_view *)),
 	  this,

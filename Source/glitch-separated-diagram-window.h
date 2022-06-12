@@ -31,6 +31,7 @@
 #include <QMainWindow>
 #include <QPointer>
 
+#include "glitch-tools.h"
 #include "ui_glitch-separated-diagram-window.h"
 
 class glitch_view;
@@ -61,6 +62,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotSelectAll(void);
   void slotSelectionChanged(void);
   void slotShowContextMenu(void);
+  void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
 
  signals:
