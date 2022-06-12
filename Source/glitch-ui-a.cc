@@ -336,6 +336,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
   m_ui.tab->setCurrentWidget(view);
   m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), name);
   prepareActionWidgets();
+  prepareStatusBar();
   setWindowTitle(view);
 
   if(!fromFile)
@@ -765,6 +766,26 @@ void glitch_ui::prepareRedoUndoActions(void)
     m_ui.action_Undo->setText(tr("Undo"));
 }
 
+void glitch_ui::prepareStatusBar(void)
+{
+  if(!statusBar())
+    return;
+
+  if(m_currentView)
+    {
+      auto operation = m_currentView->toolsOperation();
+
+      if(operation == glitch_tools::Operations::SELECT)
+	statusBar()->showMessage(tr("Select Mode"));
+      else if(operation == glitch_tools::Operations::WIRE_DISCONNECT)
+	statusBar()->showMessage(tr("Wire (Connect) Mode"));
+      else
+	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
+    }
+  else
+    statusBar()->showMessage("");
+}
+
 void glitch_ui::prepareToolBar(void)
 {
   m_ui.toolBar->clear();
@@ -1002,6 +1023,7 @@ void glitch_ui::slotCloseDiagram(int index)
 
   m_ui.tab->removeTab(index);
   prepareActionWidgets();
+  prepareStatusBar();
 }
 
 void glitch_ui::slotCloseDiagram(void)
@@ -1227,6 +1249,7 @@ void glitch_ui::slotPageSelected(int index)
       }
 
   prepareActionWidgets();
+  prepareStatusBar();
   prepareToolBar();
   setTabText(m_currentView);
   setWindowTitle(m_currentView);
@@ -1388,6 +1411,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
   window->show();
   prepareActionWidgets();
+  prepareStatusBar();
 }
 
 void glitch_ui::slotShowAlignment(void)
@@ -1523,6 +1547,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
+  prepareStatusBar();
   setTabText(view);
   setWindowTitle(view);
   view->defaultContextMenu()->deleteLater();

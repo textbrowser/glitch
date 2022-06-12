@@ -77,6 +77,7 @@ class glitch_ui: public QMainWindow
   void prepareActionWidgets(void);
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);
+  void prepareStatusBar(void);
   void prepareToolBar(void);
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);

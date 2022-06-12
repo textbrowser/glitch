@@ -79,6 +79,7 @@ class glitch_view: public QWidget
   glitch_common::ProjectTypes projectType(void) const;
   glitch_graphicsview *view(void) const;
   glitch_scene *scene(void) const;
+  glitch_tools::Operations toolsOperation(void) const;
   quint64 nextId(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
