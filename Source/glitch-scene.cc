@@ -327,6 +327,8 @@ void glitch_scene::addItem(QGraphicsItem *item)
        name(),
        qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
        isClone());
+
+  recordProxyOrder(proxy);
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
@@ -969,6 +971,21 @@ void glitch_scene::purgeRedoUndoProxies(void)
     }
 }
 
+void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
+{
+  if(!proxy || proxy->isMandatory())
+    return;
+
+  auto point(m_objectsHash.value(proxy));
+
+  m_objectsHash[proxy] = glitch_point(proxy->pos());
+
+  if(m_objectsMap.contains(point, proxy))
+    m_objectsMap.remove(point, proxy);
+
+  m_objectsMap.insert(glitch_point(proxy->pos()), proxy);
+}
+
 void glitch_scene::removeItem(QGraphicsItem *item)
 {
   /*
@@ -990,6 +1007,15 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 	  deleteFunctionClones(object->name());
 	  emit functionDeleted(object->name());
 	}
+
+      /*
+      ** Remove order information.
+      */
+
+      auto point(m_objectsHash.value(proxy));
+
+      m_objectsHash.remove(proxy);
+      m_objectsMap.remove(point, proxy);
     }
 }
 
@@ -1087,19 +1113,7 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 
 void glitch_scene::slotProxyChanged(void)
 {
-  auto proxy = qobject_cast<glitch_proxy_widget *> (sender());
-
-  if(!proxy)
-    return;
-
-  auto point(m_objectsHash.value(proxy));
-
-  m_objectsHash[proxy] = glitch_point(proxy->pos());
-
-  if(m_objectsMap.contains(point, proxy))
-    m_objectsMap.remove(point, proxy);
-
-  m_objectsMap.insert(glitch_point(proxy->pos()), proxy);
+  recordProxyOrder(qobject_cast<glitch_proxy_widget *> (sender()));
 }
 
 void glitch_scene::slotRedo(void)

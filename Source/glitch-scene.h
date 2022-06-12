@@ -121,6 +121,7 @@ class glitch_scene: public QGraphicsScene
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+  void recordProxyOrder(glitch_proxy_widget *proxy);
 
  public slots:
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
