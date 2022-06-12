@@ -102,6 +102,7 @@ class glitch_view: public QWidget
   void prepareDefaultActions(void);
 
  private slots:
+  virtual void slotReparent(void) = 0;
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  protected:

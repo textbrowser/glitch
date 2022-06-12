@@ -28,6 +28,7 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QShortcut>
+#include <QTimer>
 
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -184,6 +185,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 
   if(m_view)
     {
+      QTimer::singleShot(250, m_view, SLOT(slotReparent(void)));
       connect(m_view,
 	      SIGNAL(changed(void)),
 	      this,
