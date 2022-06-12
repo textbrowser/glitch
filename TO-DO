@@ -101,7 +101,7 @@ Completed Items
 Ignored Items
 
 - Resize objects?
-- The glitch_view parent must be passed to every child.
+- The glitch_view parent must be passed to every child?
 
 Remaining Items
 
@@ -124,4 +124,5 @@ Remaining Items
 - Undo macros for group actions.
 - Variable clones.
 - Warn of recursive functions.
+- Wiring.
 - Widgets for decorations.
