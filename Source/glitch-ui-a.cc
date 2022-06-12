@@ -36,7 +36,6 @@
 #include <QTimer>
 #include <QWidgetAction>
 
-#include "Arduino/glitch-structures-arduino.h"
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-alignment.h"
 #include "glitch-graphicsview.h"
@@ -53,7 +52,6 @@ glitch_ui::s_copiedObjects;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
-  m_arduinoStructures = nullptr;
   m_recentFilesFileName = glitch_misc::homePath() +
     QDir::separator() +
     "Glitch" +
@@ -314,10 +312,6 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotSeparate(glitch_view *)));
   connect(view,
-	  SIGNAL(showStructures(void)),
-	  this,
-	  SLOT(slotShowStructures(void)));
-  connect(view,
 	  QOverload<const glitch_tools::Operations>::
 	  of(&glitch_view::toolsOperationChanged),
 	  this,
@@ -453,9 +447,12 @@ void glitch_ui::copy(QGraphicsView *view)
 
 void glitch_ui::parseCommandLineArguments(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   QString errors("");
   auto list(QApplication::arguments());
   auto showArduinoStructures = false;
+  auto showTools = false;
 
   for(int i = 1; i < list.size(); i++)
     if(list.at(i) == "--new-arduino-diagram")
@@ -471,6 +468,9 @@ void glitch_ui::parseCommandLineArguments(void)
 			   arg(QDir::separator()).
 			   arg(view->name()));
 	    prepareRecentFiles();
+
+	    if(showTools)
+	      view->showTools();
 	  }
       }
     else if(list.at(i) == "--open-arduino-diagram")
@@ -491,7 +491,18 @@ void glitch_ui::parseCommandLineArguments(void)
 	    (tr("An error occurred while processing "
 		"the file %1. (%2)\n\n").arg(list.value(i)).arg(error));
       }
-    else if(list.at(i) == "--show-arduino-structures")
+    else if(list.at(i) == "--show-arduino-structures" ||
+	    list.at(i) == "--show-tools" ||
+	    list.at(i) == "--version")
+      {
+      }
+    else if(!list.at(i).trimmed().isEmpty())
+      qDebug() << "The option " << list.at(i) << " is not supported.";
+
+  QApplication::processEvents();
+
+  for(int i = 1; i < list.size(); i++)
+    if(list.at(i) == "--show-arduino-structures")
       {
 	if(!showArduinoStructures)
 	  {
@@ -499,11 +510,8 @@ void glitch_ui::parseCommandLineArguments(void)
 	    showArduinoStructures = true;
 	  }
       }
-    else if(list.at(i) == "--version")
-      {
-      }
-    else if(!list.at(i).trimmed().isEmpty())
-      qDebug() << "The option " << list.at(i) << " is not supported.";
+
+  QApplication::restoreOverrideCursor();
 
   if(!errors.isEmpty())
     {
@@ -921,13 +929,6 @@ void glitch_ui::slotAboutToShowTabsMenu(void)
 
 void glitch_ui::slotArduinoViewDestroyed(void)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  if(m_arduinoStructures)
-    if(findChildren<glitch_view_arduino *> ().isEmpty())
-      m_arduinoStructures->deleteLater();
-
-  QApplication::restoreOverrideCursor();
   prepareActionWidgets();
 }
 
@@ -1451,14 +1452,6 @@ void glitch_ui::slotShowStructures(void)
   if(!findChildren<glitch_view_arduino *> ().isEmpty())
     {
       QApplication::restoreOverrideCursor();
-
-      if(!m_arduinoStructures)
-	m_arduinoStructures = new glitch_structures_arduino
-	  (m_ui.tab->currentWidget());
-
-      m_arduinoStructures->showNormal();
-      m_arduinoStructures->activateWindow();
-      m_arduinoStructures->raise();
     }
   else
     QApplication::restoreOverrideCursor();

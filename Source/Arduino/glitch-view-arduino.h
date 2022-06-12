@@ -33,6 +33,7 @@
 class glitch_alignment;
 class glitch_object_loop_arduino;
 class glitch_object_setup_arduino;
+class glitch_structures_arduino;
 
 class glitch_view_arduino: public glitch_view
 {
@@ -54,15 +55,18 @@ class glitch_view_arduino: public glitch_view
   void consumeFunctionName(const QString &name);
   void generateSource(void);
   void removeFunctionName(const QString &name);
+  void showStructures(void);
 
  private:
   QMap<QString, char> m_functionNames;
+  QPointer<glitch_structures_arduino> m_arduinoStructures;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
 
  private slots:
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
+  void slotShowStructures(void);
 };
 
 #endif

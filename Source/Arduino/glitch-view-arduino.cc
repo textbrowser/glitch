@@ -28,6 +28,7 @@
 #include <QSqlQuery>
 #include <QtDebug>
 
+#include "Arduino/glitch-structures-arduino.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-setup-arduino.h"
 #include "glitch-proxy-widget.h"
@@ -244,6 +245,16 @@ void glitch_view_arduino::removeFunctionName(const QString &name)
   m_functionNames.remove(name);
 }
 
+void glitch_view_arduino::showStructures(void)
+{
+  if(!m_arduinoStructures)
+    m_arduinoStructures = new glitch_structures_arduino(this);
+
+  m_arduinoStructures->showNormal();
+  m_arduinoStructures->activateWindow();
+  m_arduinoStructures->raise();
+}
+
 void glitch_view_arduino::slotFunctionAdded(const QString &name,
 					    const bool isClone)
 {
@@ -254,4 +265,9 @@ void glitch_view_arduino::slotFunctionAdded(const QString &name,
 void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 {
   removeFunctionName(name);
+}
+
+void glitch_view_arduino::slotShowStructures(void)
+{
+  showStructures();
 }

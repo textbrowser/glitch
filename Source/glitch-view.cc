@@ -210,11 +210,11 @@ QMenu *glitch_view::defaultContextMenu(void)
   if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
     m_contextMenu->addAction(tr("Arduino Structures..."),
 			     this,
-			     SIGNAL(showStructures(void)));
+			     SLOT(slotShowStructures(void)));
   else
     m_contextMenu->addAction(tr("Structures..."),
 			     this,
-			     SIGNAL(showStructures(void)));
+			     SLOT(slotShowStructures(void)));
 
   m_contextMenu->addAction(tr("Tools..."),
 			   this,

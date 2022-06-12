@@ -1009,7 +1009,7 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 	}
 
       /*
-      ** Remove order information.
+      ** Remove object order information.
       */
 
       auto point(m_objectsHash.value(proxy));

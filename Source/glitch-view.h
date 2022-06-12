@@ -84,6 +84,7 @@ class glitch_view: public QWidget
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
   virtual void generateSource(void);
+  virtual void showStructures(void) = 0;
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);
@@ -126,6 +127,7 @@ class glitch_view: public QWidget
   void setSceneRect(const QSize &size);
 
  protected slots:
+  virtual void slotShowStructures(void) = 0;
   void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
   void slotCopy(void);
@@ -159,7 +161,6 @@ class glitch_view: public QWidget
   void saved(void);
   void selectionChanged(void);
   void separate(glitch_view *view);
-  void showStructures(void);
   void toolsOperationChanged(const glitch_tools::Operations operation);
   void unite(glitch_view *view);
 };

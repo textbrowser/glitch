@@ -38,7 +38,6 @@ class QGraphicsView;
 class QUndoStack;
 class glitch_object;
 class glitch_scene;
-class glitch_structures_arduino;
 class glitch_view;
 class glitch_view_arduino;
 
@@ -62,7 +61,6 @@ class glitch_ui: public QMainWindow
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
-  QPointer<glitch_structures_arduino> m_arduinoStructures;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   Ui_glitch_mainwindow m_ui;
