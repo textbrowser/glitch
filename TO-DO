@@ -122,7 +122,7 @@ Remaining Items
 - Separated window: context menu, generate source.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Undo macros for group actions.
-- Variable clones.
+- Variable clones. May not be necessary.
 - Warn of recursive functions.
 - Wiring.
 - Widgets for decorations.
