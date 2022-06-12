@@ -112,6 +112,8 @@ class glitch_ui: public QMainWindow
   void slotSelectionChanged(void);
   void slotSeparate(glitch_view *view);
   void slotShowAlignment(void);
+  void slotShowAllStructures(void);
+  void slotShowAllTools(void);
   void slotShowCanvasSettings(void);
   void slotShowDiagramContextMenu(void);
   void slotShowStructures(void);

@@ -506,8 +506,16 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	if(!showArduinoStructures)
 	  {
-	    QTimer::singleShot(500, this, SLOT(slotShowStructures(void)));
+	    QTimer::singleShot(500, this, SLOT(slotShowAllStructures(void)));
 	    showArduinoStructures = true;
+	  }
+      }
+    else if(list.at(i) == "--show-tools")
+      {
+	if(!showTools)
+	  {
+	    QTimer::singleShot(500, this, SLOT(slotShowAllTools(void)));
+	    showTools = true;
 	  }
       }
 
@@ -1422,6 +1430,28 @@ void glitch_ui::slotShowAlignment(void)
     view->showAlignment();
 }
 
+void glitch_ui::slotShowAllStructures(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto view, findChildren<glitch_view *> ())
+    if(view)
+      view->showStructures();
+
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_ui::slotShowAllTools(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto view, findChildren<glitch_view *> ())
+    if(view)
+      view->showTools();
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::slotShowCanvasSettings(void)
 {
   auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
@@ -1447,14 +1477,10 @@ void glitch_ui::slotShowDiagramContextMenu(void)
 
 void glitch_ui::slotShowStructures(void)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
-  if(!findChildren<glitch_view_arduino *> ().isEmpty())
-    {
-      QApplication::restoreOverrideCursor();
-    }
-  else
-    QApplication::restoreOverrideCursor();
+  if(view)
+    view->showStructures();
 }
 
 void glitch_ui::slotShowTools(void)
