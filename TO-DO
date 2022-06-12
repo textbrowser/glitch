@@ -119,6 +119,7 @@ Remaining Items
 - Object-view settings. Identical to canvas settings.
 - Reopen (or reparent) child windows after a separation event.
 - Save button on tab.
+- Search structures.
 - Separated window: context menu, generate source.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Undo macros for group actions.
