@@ -776,7 +776,7 @@ void glitch_ui::prepareStatusBar(void)
 
       if(operation == glitch_tools::Operations::SELECT)
 	statusBar()->showMessage(tr("Select Mode"));
-      else if(operation == glitch_tools::Operations::WIRE_DISCONNECT)
+      else if(operation == glitch_tools::Operations::WIRE_CONNECT)
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));
       else
 	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
@@ -1514,7 +1514,7 @@ void glitch_ui::slotToolsOperationChanged
     {
       if(operation == glitch_tools::Operations::SELECT)
 	statusBar()->showMessage(tr("Select Mode"));
-      else if(operation == glitch_tools::Operations::WIRE_DISCONNECT)
+      else if(operation == glitch_tools::Operations::WIRE_CONNECT)
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));
       else
 	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));

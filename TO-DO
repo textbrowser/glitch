@@ -35,6 +35,7 @@ Completed Items
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
 - Display main() function. Fixed position? Yes.
+- Display tool mode in status bar.
 - Do not align, stack, etc. unless coordinates would change.
 - Do not clone pasted functions without parents unless they already exist.
 - Do not delete function duplicates if one duplicate is removed.
@@ -110,7 +111,6 @@ Remaining Items
   Analog I/O
   Structures
 - Define parameters from connected objects. Order is also important.
-- Display tool mode in status bar.
 - Icons and themes.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text.
