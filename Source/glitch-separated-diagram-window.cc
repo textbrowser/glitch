@@ -28,7 +28,6 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QShortcut>
-#include <QTimer>
 
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -185,7 +184,6 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 
   if(m_view)
     {
-      QTimer::singleShot(250, m_view, SLOT(slotReparent(void)));
       connect(m_view,
 	      SIGNAL(changed(void)),
 	      this,
@@ -204,11 +202,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      this,
 	      QOverload<const glitch_tools::Operations>::
 	      of(&glitch_separated_diagram_window::slotToolsOperationChanged));
+      QMainWindow::setCentralWidget(m_view);
+      prepareActionWidgets();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
-
-  QMainWindow::setCentralWidget(widget);
-  prepareActionWidgets();
 }
 
 void glitch_separated_diagram_window::slotCopy(void)

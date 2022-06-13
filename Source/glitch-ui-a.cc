@@ -1394,7 +1394,6 @@ void glitch_ui::slotSeparate(glitch_view *view)
   if(!view)
     return;
 
-  QMainWindow::setWindowTitle(tr("Glitch"));
   m_ui.tab->removeTab(m_ui.tab->indexOf(view));
 
   auto window = new glitch_separated_diagram_window(this);
@@ -1420,6 +1419,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   window->show();
   prepareActionWidgets();
   prepareStatusBar();
+  setWindowTitle(nullptr);
 }
 
 void glitch_ui::slotShowAlignment(void)

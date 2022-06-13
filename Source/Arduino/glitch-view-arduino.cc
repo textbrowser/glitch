@@ -269,34 +269,6 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
   removeFunctionName(name);
 }
 
-void glitch_view_arduino::slotReparent(void)
-{
-  if(m_alignment && m_alignment->isVisible())
-    {
-      m_alignment->deleteLater();
-      m_alignment = nullptr;
-      showAlignment();
-    }
-
-  if(m_arduinoStructures && m_arduinoStructures->isVisible())
-    {
-      m_arduinoStructures->deleteLater();
-      m_arduinoStructures = nullptr;
-      showStructures();
-    }
-
-  if(m_tools && m_tools->isVisible())
-    {
-      m_tools->deleteLater();
-      m_tools = nullptr;
-      showTools();
-    }
-
-  if(m_userFunctions && m_userFunctions->isVisible())
-    {
-    }
-}
-
 void glitch_view_arduino::slotShowStructures(void)
 {
   showStructures();
