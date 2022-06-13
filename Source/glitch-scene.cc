@@ -304,6 +304,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   return proxy;
 }
 
+glitch_tools::Operations glitch_scene::toolsOperation(void) const
+{
+  return m_toolsOperation;
+}
+
 void glitch_scene::addItem(QGraphicsItem *item)
 {
   if(item && !item->scene())

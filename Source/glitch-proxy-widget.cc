@@ -37,11 +37,13 @@
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
+#include "glitch-tools.h"
 
 glitch_proxy_widget::glitch_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):
   QGraphicsProxyWidget(parent, wFlags)
 {
+  m_hoveredSection = Sections::XYZ;
 }
 
 glitch_proxy_widget::~glitch_proxy_widget()
@@ -91,15 +93,17 @@ void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
   if(!m_scene)
     m_scene = qobject_cast<glitch_scene *> (scene());
 
+  if(m_scene && m_scene->toolsOperation() != glitch_tools::Operations::SELECT)
+    {
+    }
+
   QGraphicsProxyWidget::hoverEnterEvent(event);
 }
 
 void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-  if(!m_scene)
-    m_scene = qobject_cast<glitch_scene *> (scene());
-
   QGraphicsProxyWidget::hoverLeaveEvent(event);
+  m_hoveredSection = Sections::XYZ;
 }
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
