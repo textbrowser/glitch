@@ -86,6 +86,22 @@ void glitch_proxy_widget::contextMenuEvent
     QGraphicsProxyWidget::contextMenuEvent(event);
 }
 
+void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+  if(!m_scene)
+    m_scene = qobject_cast<glitch_scene *> (scene());
+
+  QGraphicsProxyWidget::hoverEnterEvent(event);
+}
+
+void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+  if(!m_scene)
+    m_scene = qobject_cast<glitch_scene *> (scene());
+
+  QGraphicsProxyWidget::hoverLeaveEvent(event);
+}
+
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && (Qt::RightButton & event->buttons()))

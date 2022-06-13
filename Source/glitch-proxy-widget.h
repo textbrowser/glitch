@@ -72,7 +72,10 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 
  private:
   QPointer<glitch_object> m_object;
+  QPointer<glitch_scene> m_scene;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
