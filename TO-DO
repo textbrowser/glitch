@@ -74,7 +74,6 @@ Completed Items
 - Remove function copies from diagram(s) on parent removal.
 - Remove functions from User Functions on redo / undo.
 - Remove missing diagram files.
-- Reopen (or reparent) child windows after a separation event.
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
 - Reset object order on delete/redo/undo.
@@ -118,6 +117,7 @@ Remaining Items
 - Menu hovering and status bar text.
 - Modern connect().
 - Object-view settings. Identical to canvas settings.
+- Reopen (or reparent) child windows after a separation event.
 - Save button on tab.
 - Search structures.
 - Separated window: context menu, generate source.
