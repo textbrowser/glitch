@@ -32,6 +32,7 @@
 #include <QStyleOptionGraphicsItem>
 #include <QToolButton>
 #include <QtDebug>
+#include <QtMath>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
@@ -90,20 +91,20 @@ void glitch_proxy_widget::contextMenuEvent
 
 void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-  if(!m_scene)
-    m_scene = qobject_cast<glitch_scene *> (scene());
-
-  if(m_scene && m_scene->toolsOperation() != glitch_tools::Operations::SELECT)
-    {
-    }
-
   QGraphicsProxyWidget::hoverEnterEvent(event);
+  prepareHoverSection(event);
 }
 
 void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverLeaveEvent(event);
   m_hoveredSection = Sections::XYZ;
+}
+
+void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+  QGraphicsProxyWidget::hoverMoveEvent(event);
+  prepareHoverSection(event);
 }
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -266,6 +267,39 @@ void glitch_proxy_widget::paint
 	    }
 	}
     }
+}
+
+void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
+{
+  if(!m_scene)
+    m_scene = qobject_cast<glitch_scene *> (scene());
+
+  if(event &&
+     m_scene &&
+     m_scene->toolsOperation() != glitch_tools::Operations::SELECT)
+    {
+      auto distance1 = qSqrt(qPow(event->scenePos().x() -
+				  pos().x(),
+				  2.0) +
+			     qPow(event->scenePos().y() -
+				  pos().y(),
+				  2.0));
+      auto distance2 = qSqrt(qPow(event->scenePos().x() -
+				  pos().x() -
+				  size().width(),
+				  2.0) +
+			     qPow(event->scenePos().y() -
+				  pos().y() -
+				  size().height(),
+				  2.0));
+
+      if(distance1 < distance2)
+	m_hoveredSection = Sections::LEFT;
+      else
+	m_hoveredSection = Sections::RIGHT;
+    }
+  else
+    m_hoveredSection = Sections::XYZ;
 }
 
 void glitch_proxy_widget::setPos(const QPointF &point)

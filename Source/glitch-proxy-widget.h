@@ -84,10 +84,12 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+  void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
+  void prepareHoverSection(QGraphicsSceneHoverEvent *event);
 
  signals:
   void changed(void);
