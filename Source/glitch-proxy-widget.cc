@@ -93,18 +93,21 @@ void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverEnterEvent(event);
   prepareHoverSection(event);
+  update();
 }
 
 void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverLeaveEvent(event);
   m_hoveredSection = Sections::XYZ;
+  update();
 }
 
 void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverMoveEvent(event);
   prepareHoverSection(event);
+  update();
 }
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -265,35 +268,36 @@ void glitch_proxy_widget::paint
 		 10.0);
 	      painter->restore();
 	    }
-	}
 
-      if(!isMandatory() && m_hoveredSection != Sections::XYZ)
-	{
-	  QPainterPath path;
-	  auto rect(this->rect());
+	  if(m_hoveredSection != Sections::XYZ && (m_object->hasInput() ||
+						   m_object->hasOutput()))
+	    {
+	      QPainterPath path;
+	      auto rect(this->rect());
 
-	  if(m_hoveredSection == Sections::LEFT)
-	    path.addEllipse(rect.topLeft().x() - size().height() / 2.0,
-			    rect.topLeft().y(),
-			    size().height(),
-			    size().height());
+	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
+		path.addEllipse(rect.topLeft().x() - size().height() / 2.0,
+				rect.topLeft().y(),
+				size().height(),
+				size().height());
 
-	  painter->fillPath(path, QColor(255, 192, 203, 200));
+	      painter->fillPath(path, QColor(255, 192, 203, 200));
 
-	  QPen pen;
+	      QPen pen;
 
-	  pen.setColor(QColor(199, 21, 133));
-	  pen.setWidthF(1.5);
-	  painter->save();
-	  painter->setPen(pen);
+	      pen.setColor(QColor(199, 21, 133));
+	      pen.setWidthF(1.5);
+	      painter->save();
+	      painter->setPen(pen);
 
-	  if(m_hoveredSection == Sections::LEFT)
-	    painter->drawEllipse(rect.topLeft().x() - size().height() / 2.0,
-				 rect.topLeft().y(),
-				 size().height(),
-				 size().height());
+	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
+		painter->drawEllipse(rect.topLeft().x() - size().height() / 2.0,
+				     rect.topLeft().y(),
+				     size().height(),
+				     size().height());
 
-	  painter->restore();
+	      painter->restore();
+	    }
 	}
     }
 }
