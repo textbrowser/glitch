@@ -280,6 +280,11 @@ void glitch_proxy_widget::paint
 				rect.topLeft().y(),
 				size().height(),
 				size().height());
+	      else
+		path.addEllipse(rect.topRight().x() - size().height() / 2.0,
+				rect.topRight().y(),
+				size().height(),
+				size().height());
 
 	      painter->fillPath(path, QColor(255, 192, 203, 200));
 
@@ -291,10 +296,17 @@ void glitch_proxy_widget::paint
 	      painter->setPen(pen);
 
 	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
-		painter->drawEllipse(rect.topLeft().x() - size().height() / 2.0,
-				     rect.topLeft().y(),
-				     size().height(),
-				     size().height());
+		painter->drawEllipse
+		  (rect.topLeft().x() - size().height() / 2.0,
+		   rect.topLeft().y(),
+		   size().height(),
+		   size().height());
+	      else
+		painter->drawEllipse
+		  (rect.topRight().x() - size().height() / 2.0,
+		   rect.topRight().y(),
+		   size().height(),
+		   size().height());
 
 	      painter->restore();
 	    }
