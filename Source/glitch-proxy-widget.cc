@@ -266,6 +266,35 @@ void glitch_proxy_widget::paint
 	      painter->restore();
 	    }
 	}
+
+      if(!isMandatory() && m_hoveredSection != Sections::XYZ)
+	{
+	  QPainterPath path;
+	  auto rect(this->rect());
+
+	  if(m_hoveredSection == Sections::LEFT)
+	    path.addEllipse(rect.topLeft().x() - size().height() / 2.0,
+			    rect.topLeft().y(),
+			    size().height(),
+			    size().height());
+
+	  painter->fillPath(path, QColor(255, 192, 203, 200));
+
+	  QPen pen;
+
+	  pen.setColor(QColor(199, 21, 133));
+	  pen.setWidthF(1.5);
+	  painter->save();
+	  painter->setPen(pen);
+
+	  if(m_hoveredSection == Sections::LEFT)
+	    painter->drawEllipse(rect.topLeft().x() - size().height() / 2.0,
+				 rect.topLeft().y(),
+				 size().height(),
+				 size().height());
+
+	  painter->restore();
+	}
     }
 }
 
