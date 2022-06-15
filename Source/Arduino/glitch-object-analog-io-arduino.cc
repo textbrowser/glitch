@@ -51,6 +51,8 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 	break;
       }
     }
+
+  setName(m_ui.label->text());
 }
 
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
