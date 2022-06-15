@@ -269,8 +269,8 @@ void glitch_proxy_widget::paint
 	      painter->restore();
 	    }
 
-	  if(m_hoveredSection != Sections::XYZ && (m_object->hasInput() ||
-						   m_object->hasOutput()))
+	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
+	     (m_hoveredSection == Sections::RIGHT && m_object->hasOutput()))
 	    {
 	      QPainterPath path;
 	      auto rect(this->rect());
