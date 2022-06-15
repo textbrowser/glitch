@@ -67,7 +67,13 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
     auto view = qobject_cast<glitch_object_view *> (parent);
 
     if(view)
-      setUndoStack(view->scene()->undoStack());
+      {
+	connect(view,
+		&glitch_object_view::closed,
+		m_contextMenu,
+		&glitch_floating_context_menu::close);
+	setUndoStack(view->scene()->undoStack());
+      }
   }
 
   {
@@ -388,6 +394,11 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      SIGNAL(closed(void)),
 	      m_editView,
 	      SLOT(slotParentWindowClosed(void)),
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      &glitch_object_edit_window::closed,
+	      m_editView,
+	      &glitch_object_view::closed,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
 	      SIGNAL(copy(void)),

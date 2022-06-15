@@ -84,6 +84,7 @@ class glitch_object_view: public QGraphicsView
 
  signals:
   void changed(void);
+  void closed(void);
   void copy(void);
   void paste(void);
 };
