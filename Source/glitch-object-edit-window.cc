@@ -74,7 +74,10 @@ QWidget *glitch_object_edit_window::centralWidget(void) const
 {
   auto frame = qobject_cast<QFrame *> (QMainWindow::centralWidget());
 
-  return frame->layout()->itemAt(0)->widget();
+  if(frame && frame->layout() && frame->layout()->itemAt(0))
+    return frame->layout()->itemAt(0)->widget();
+  else
+    return nullptr;
 }
 
 glitch_object_edit_window::~glitch_object_edit_window()
