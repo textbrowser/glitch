@@ -50,6 +50,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotCopy(void)));
+  connect(m_ui.action_Generate_Source,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotGenerateSource);
   connect(m_ui.action_Delete,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -226,6 +230,12 @@ void glitch_separated_diagram_window::slotDelete(void)
       else
 	m_ui.action_Undo->setText(tr("Undo"));
     }
+}
+
+void glitch_separated_diagram_window::slotGenerateSource(void)
+{
+  if(m_view)
+    m_view->generateSource();
 }
 
 void glitch_separated_diagram_window::slotPageChanged(void)

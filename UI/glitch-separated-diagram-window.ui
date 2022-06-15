@@ -48,6 +48,8 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_Close"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Diagram"/>
    </widget>
    <widget class="QMenu" name="menu_Generate">
     <property name="title">
@@ -130,6 +132,14 @@
   <action name="action_Context_Menu">
    <property name="text">
     <string>&amp;Context Menu...</string>
+   </property>
+  </action>
+  <action name="actionSave_Diagram">
+   <property name="text">
+    <string>&amp;Save Diagram</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>

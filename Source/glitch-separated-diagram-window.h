@@ -55,6 +55,7 @@ class glitch_separated_diagram_window: public QMainWindow
  private slots:
   void slotCopy(void);
   void slotDelete(void);
+  void slotGenerateSource(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotPaste(void);
