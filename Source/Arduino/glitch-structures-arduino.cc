@@ -201,6 +201,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					       << "randomSeed()";
       s_itemsForCategories[16] = QStringList() << "Serial.begin()"
 					       << "Serial.println()";
+      s_itemsForCategories[17] = QStringList() << "stream.available()";
       s_itemsForCategories[18] = QStringList() << "block comment"
 					       << "function()";
       s_itemsForCategories[19] = QStringList() << "delay()"
@@ -224,7 +225,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  arrays << i;
 	}
 
-      s_itemsForCategories[21] = arrays;
+      s_itemsForCategories[22] = arrays;
     }
 
   m_ui.categories->setCurrentRow(0);
@@ -326,7 +327,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
   QStringList list;
   int row = m_ui.categories->row(items.at(0));
 
-  if(row >= 0 && row <= 20)
+  if(row >= 0 && row <= 21)
     {
       list = s_itemsForCategories.value(row);
 
