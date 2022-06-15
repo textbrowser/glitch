@@ -148,9 +148,12 @@ void glitch_object_block_comment_arduino::setProperty
     {
     case Properties::COMMENT:
       {
+	auto cursor(m_ui.comment->textCursor());
+
 	m_ui.comment->blockSignals(true);
 	m_ui.comment->setPlainText
-	  (m_properties.value(Properties::COMMENT).toString().trimmed());
+	  (m_properties.value(Properties::COMMENT).toString());
+	m_ui.comment->setTextCursor(cursor);
 	m_ui.comment->blockSignals(false);
 	break;
       }
@@ -163,5 +166,16 @@ void glitch_object_block_comment_arduino::setProperty
 
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
+  auto property = glitch_object::Properties::COMMENT;
+  auto undoCommand = new glitch_undo_command
+    (m_ui.comment->toPlainText(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = m_ui.comment->toPlainText();
+  undoCommand->setText(tr("comment changed"));
+  m_undoStack->push(undoCommand);
   emit changed();
 }
