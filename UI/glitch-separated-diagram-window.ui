@@ -49,7 +49,7 @@
     </property>
     <addaction name="action_Close"/>
     <addaction name="separator"/>
-    <addaction name="actionSave_Diagram"/>
+    <addaction name="action_Save_Diagram"/>
    </widget>
    <widget class="QMenu" name="menu_Generate">
     <property name="title">
@@ -134,7 +134,7 @@
     <string>&amp;Context Menu...</string>
    </property>
   </action>
-  <action name="actionSave_Diagram">
+  <action name="action_Save_Diagram">
    <property name="text">
     <string>&amp;Save Diagram</string>
    </property>

@@ -29,6 +29,7 @@
 #include <QMessageBox>
 #include <QShortcut>
 
+#include "glitch-misc.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-ui.h"
@@ -66,6 +67,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotRedo(void)));
+  connect(m_ui.action_Save_Diagram,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotSaveDiagram);
   connect(m_ui.action_Select_All,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -113,19 +118,18 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 {
   if(m_view)
     {
-      m_ui.action_Copy->setEnabled
-	(m_view && !m_view->scene()->selectedItems().empty());
-      m_ui.action_Delete->setEnabled
-	(m_view && !m_view->scene()->selectedItems().empty());
+      m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
+      m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
-      m_ui.action_Select_All->setEnabled
-	(m_view && m_view->scene()->items().size() > 2);
+      m_ui.action_Save_Diagram->setEnabled(m_view->hasChanged());
+      m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
     }
   else
     {
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
+      m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
     }
 
@@ -250,7 +254,7 @@ void glitch_separated_diagram_window::slotPageChanged(void)
   else
     QMainWindow::setWindowTitle(tr("Glitch"));
 
-  prepareRedoUndoActions();
+  prepareActionWidgets();
 }
 
 void glitch_separated_diagram_window::slotPageSaved(void)
@@ -273,6 +277,20 @@ void glitch_separated_diagram_window::slotRedo(void)
       m_view->redo();
       prepareRedoUndoActions();
     }
+}
+
+void glitch_separated_diagram_window::slotSaveDiagram(void)
+{
+  if(m_view)
+    {
+      QString error("");
+
+      if(!m_view->save(error))
+	glitch_misc::showErrorDialog
+	  (tr("Unable to save %1 (%2).").arg(m_view->name()).arg(error), this);
+    }
+
+  prepareActionWidgets();
 }
 
 void glitch_separated_diagram_window::slotSelectAll(void)
