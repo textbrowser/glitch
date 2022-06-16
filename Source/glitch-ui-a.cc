@@ -773,6 +773,7 @@ void glitch_ui::prepareRedoUndoActions(void)
   else
     m_ui.action_Redo->setText(tr("Redo"));
 
+  m_ui.action_Save_Current_Diagram->setEnabled(m_currentView->canUndo());
   m_ui.action_Undo->setEnabled(m_currentView->canUndo());
 
   if(m_ui.action_Undo->isEnabled())
