@@ -673,12 +673,21 @@ void glitch_ui::prepareActionWidgets(void)
 
 void glitch_ui::prepareIcons(void)
 {
+  m_ui.action_Canvas_Settings->setIcon(QIcon::fromTheme("preferences-system"));
+  m_ui.action_Clear_Copied_Widgets_Buffer->setIcon
+    (QIcon::fromTheme("edit-clear"));
   m_ui.action_Close_Diagram->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
+  m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
   m_ui.action_Open_Diagram->setIcon(QIcon::fromTheme("document-open"));
+  m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
   m_ui.action_Quit->setIcon(QIcon::fromTheme("application-exit"));
+  m_ui.action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
   m_ui.action_Save_Current_Diagram->setIcon(QIcon::fromTheme("document-save"));
   m_ui.action_Save_Current_Diagram_As->setIcon
     (QIcon::fromTheme("document-save-as"));
+  m_ui.action_Select_All->setIcon(QIcon::fromTheme("edit-select-all"));
+  m_ui.action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
   m_ui.menu_New_Diagram->setIcon(QIcon::fromTheme("document-new"));
   m_ui.menu_Recent_Files->setIcon(QIcon::fromTheme("document-open-recent"));
 }
