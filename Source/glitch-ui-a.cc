@@ -1103,7 +1103,21 @@ void glitch_ui::slotDelete(void)
 void glitch_ui::slotGenerateSource(void)
 {
   if(m_currentView)
-    m_currentView->generateSource();
+    {
+      if(statusBar())
+	{
+	  statusBar()->showMessage(tr("Generating source. Please be patient"));
+	  statusBar()->repaint();
+	}
+
+      m_currentView->generateSource();
+
+      if(statusBar())
+	{
+	  statusBar()->showMessage("");
+	  statusBar()->repaint();
+	}
+    }
 }
 
 void glitch_ui::slotNewArduinoDiagram(void)

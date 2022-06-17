@@ -50,6 +50,7 @@ class glitch_separated_diagram_window: public QMainWindow
   Ui_glitch_separated_diagram_window m_ui;
   void closeEvent(QCloseEvent *event);
   void prepareActionWidgets(void);
+  void prepareIcons(void);
   void prepareRedoUndoActions(void);
 
  private slots:

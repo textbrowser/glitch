@@ -79,6 +79,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotUndo(void)));
+  prepareIcons();
   statusBar(); // Create a status bar.
 }
 
@@ -134,6 +135,10 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
     }
 
   prepareRedoUndoActions();
+}
+
+void glitch_separated_diagram_window::prepareIcons(void)
+{
 }
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
@@ -239,7 +244,21 @@ void glitch_separated_diagram_window::slotDelete(void)
 void glitch_separated_diagram_window::slotGenerateSource(void)
 {
   if(m_view)
-    m_view->generateSource();
+    {
+      if(statusBar())
+	{
+	  statusBar()->showMessage(tr("Generating source. Please be patient"));
+	  statusBar()->repaint();
+	}
+
+      m_view->generateSource();
+
+      if(statusBar())
+	{
+	  statusBar()->showMessage("");
+	  statusBar()->repaint();
+	}
+    }
 }
 
 void glitch_separated_diagram_window::slotPageChanged(void)
