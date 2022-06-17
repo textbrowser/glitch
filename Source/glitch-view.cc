@@ -199,9 +199,11 @@ QMenu *glitch_view::defaultContextMenu(void)
 				    this,
 				    SLOT(slotSave(void)));
   action->setEnabled(hasChanged());
+  action->setIcon(QIcon::fromTheme("document-save"));
   m_contextMenu->addAction(tr("Save &As..."),
 			   this,
-			   SLOT(slotSaveAs(void)));
+			   SLOT(slotSaveAs(void)))->
+    setIcon(QIcon::fromTheme("document-save-as"));
   m_contextMenu->addSeparator();
   m_contextMenu->addAction(tr("Alignment Tool..."),
 			   this,
@@ -241,7 +243,8 @@ QMenu *glitch_view::defaultContextMenu(void)
   m_contextMenu->addSeparator();
   m_contextMenu->addAction(tr("Show Canvas &Settings..."),
 			   this,
-			   SLOT(slotShowCanvasSettings(void)));
+			   SLOT(slotShowCanvasSettings(void)))->
+    setIcon(QIcon::fromTheme("preferences-system"));
   m_contextMenu->addSeparator();
   m_contextMenu->addAction(tr("&User Functions..."),
 			   this,
