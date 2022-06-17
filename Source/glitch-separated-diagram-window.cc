@@ -139,6 +139,14 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 
 void glitch_separated_diagram_window::prepareIcons(void)
 {
+  m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
+  m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
+  m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
+  m_ui.action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
+  m_ui.action_Save_Diagram->setIcon(QIcon::fromTheme("document-save"));
+  m_ui.action_Select_All->setIcon(QIcon::fromTheme("edit-select-all"));
+  m_ui.action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
 }
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
