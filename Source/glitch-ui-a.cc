@@ -159,6 +159,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   prepareActionWidgets();
+  prepareIcons();
   prepareRecentFiles();
   prepareToolBar();
 }
@@ -668,6 +669,18 @@ void glitch_ui::prepareActionWidgets(void)
     }
 
   prepareRedoUndoActions();
+}
+
+void glitch_ui::prepareIcons(void)
+{
+  m_ui.action_Close_Diagram->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.action_Open_Diagram->setIcon(QIcon::fromTheme("document-open"));
+  m_ui.action_Quit->setIcon(QIcon::fromTheme("application-exit"));
+  m_ui.action_Save_Current_Diagram->setIcon(QIcon::fromTheme("document-save"));
+  m_ui.action_Save_Current_Diagram_As->setIcon
+    (QIcon::fromTheme("document-save-as"));
+  m_ui.menu_New_Diagram->setIcon(QIcon::fromTheme("document-new"));
+  m_ui.menu_Recent_Files->setIcon(QIcon::fromTheme("document-open-recent"));
 }
 
 void glitch_ui::prepareRecentFiles(void)
