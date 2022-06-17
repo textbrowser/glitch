@@ -86,6 +86,7 @@ Completed Items
 - Save, Save As on separated windows.
 - Select all.
 - Separate database objects when opening an existing diagram.
+- Separated window: context menu, generate source, save.
 - Shortcuts in object views.
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
@@ -121,7 +122,6 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - Save button on tab.
 - Search structures.
-- Separated window: context menu, generate source, save.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Undo macros for group actions.
 - Variable clones. May not be necessary.
