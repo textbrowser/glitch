@@ -87,7 +87,7 @@
    <item>
     <widget class="QLineEdit" name="other">
      <property name="toolTip">
-      <string>Constant</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the constant's value to the provided value. Press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string notr="true"/>

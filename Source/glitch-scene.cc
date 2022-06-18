@@ -853,12 +853,8 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 			(lineEdit->cursorPositionAt(point));
 		      lineEdit->setFocus();
 		    }
-		  else if(qobject_cast<QToolButton *> (object->childAt(point)))
-		    /*
-		    ** Do not grab the item.
-		    */
-
-		    goto done_label;
+		  else
+		    object->setFocus();
 		}
 	    }
 
