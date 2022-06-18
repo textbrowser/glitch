@@ -704,7 +704,8 @@ void glitch_view::redo(void)
       adjustScrollBars();
     }
 
-  m_saveDiagramAction->setEnabled(m_changed);
+  if(m_saveDiagramAction)
+    m_saveDiagramAction->setEnabled(m_changed);
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -849,7 +850,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 void glitch_view::slotChanged(void)
 {
   m_changed = true;
-  m_saveDiagramAction->setEnabled(true);
+
+  if(m_saveDiagramAction)
+    m_saveDiagramAction->setEnabled(true);
+
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -934,7 +938,9 @@ void glitch_view::slotSave(void)
        this);
   else
     {
-      m_saveDiagramAction->setEnabled(false);
+      if(m_saveDiagramAction)
+	m_saveDiagramAction->setEnabled(false);
+
       emit saved();
     }
 }
@@ -1036,5 +1042,6 @@ void glitch_view::undo(void)
   if(!m_undoStack->canUndo())
     m_changed = false;
 
-  m_saveDiagramAction->setEnabled(m_changed);
+  if(m_saveDiagramAction)
+    m_saveDiagramAction->setEnabled(m_changed);
 }
