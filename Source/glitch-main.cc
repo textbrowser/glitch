@@ -27,6 +27,11 @@
 
 #include <QApplication>
 #include <QDir>
+#ifdef Q_OS_ANDROID
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 1, 0))
+#include <QJniObject>
+#endif
+#endif
 #include <QSettings>
 
 #include <iostream>
@@ -101,5 +106,15 @@ int main(int argc, char *argv[])
   glitch_ui ui;
 
   ui.show();
-  return qapplication.exec();
+
+  auto rc = qapplication.exec();
+
+#ifdef Q_OS_ANDROID
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 1, 0))
+  auto activity = QJniObject(QNativeInterface::QAndroidApplication::context());
+
+  activity.callMethod<void> ("finishAndRemoveTask");
+#endif
+#endif
+  return rc;
 }

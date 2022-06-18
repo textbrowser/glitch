@@ -109,6 +109,7 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo/undo stack of a child
   is at level zero.
+- Android.
 - Completed Categories
   Analog I/O
   Constants
