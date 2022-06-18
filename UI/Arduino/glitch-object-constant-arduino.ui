@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
+    <width>250</width>
     <height>45</height>
    </rect>
   </property>
@@ -69,6 +69,11 @@
      </item>
      <item>
       <property name="text">
+       <string notr="true">Other</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string notr="true">false</string>
       </property>
      </item>
@@ -77,6 +82,19 @@
        <string notr="true">true</string>
       </property>
      </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="other">
+     <property name="toolTip">
+      <string>Constant</string>
+     </property>
+     <property name="text">
+      <string notr="true"/>
+     </property>
+     <property name="placeholderText">
+      <string>Constant</string>
+     </property>
     </widget>
    </item>
    <item>
@@ -94,6 +112,7 @@
  </widget>
  <tabstops>
   <tabstop>constant</tabstop>
+  <tabstop>other</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
  <resources>

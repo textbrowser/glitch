@@ -159,6 +159,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					      << "LED_BUILTIN"
 					      << "LOW"
 					      << "OUTPUT"
+					      << "Other"
 					      << "false"
 					      << "true";
       s_itemsForCategories[8] = QStringList() << "(unsigned int)"

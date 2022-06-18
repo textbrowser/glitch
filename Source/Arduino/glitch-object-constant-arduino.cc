@@ -46,6 +46,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_constantType = ConstantTypes::HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
+  m_ui.other->setVisible(false);
   connect(m_ui.constant,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
@@ -123,6 +124,8 @@ void glitch_object_constant_arduino::save
 void glitch_object_constant_arduino::setConstantType
 (const QString &constantType)
 {
+  m_ui.other->setVisible(false);
+
   auto c(constantType.toLower().trimmed());
 
   if(c.endsWith("false"))
@@ -149,6 +152,12 @@ void glitch_object_constant_arduino::setConstantType
     {
       c = "low";
       m_constantType = ConstantTypes::LOW;
+    }
+  else if(c.endsWith("other"))
+    {
+      c = "other";
+      m_constantType = ConstantTypes::OTHER;
+      m_ui.other->setVisible(true);
     }
   else if(c.endsWith("output"))
     {
