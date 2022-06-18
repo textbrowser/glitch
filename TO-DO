@@ -124,6 +124,7 @@ Remaining Items
 - Menu hovering and status bar text.
 - Modern Qt connect().
 - Object-view settings. Identical to canvas settings.
+- Other constants.
 - Reopen (or reparent) child windows after a separation event.
 - Save button on tab.
 - Search structures.
