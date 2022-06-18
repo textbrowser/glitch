@@ -76,6 +76,13 @@ QString glitch_object_analog_io_arduino::code(void) const
       {
 	return QString("analogReference(%1);").arg(inputs().value(0));
       }
+    case Type::WRITE:
+      {
+	return QString("int %1 = analogWrite(%2, %3);").
+	  arg(output()).
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
     default:
       {
 	return QString("int %1 = analogRead(%2);").

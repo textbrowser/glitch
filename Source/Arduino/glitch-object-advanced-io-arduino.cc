@@ -92,6 +92,34 @@ QString glitch_object_advanced_io_arduino::code(void) const
 {
   switch(m_ioType)
     {
+    case Type::PULSE_IN:
+      {
+	if(inputs().size() == 2)
+	  return QString("int %1 = pulseIn(%2, %3);").
+	    arg(output()).
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+	else
+	  return QString("int %1 = pulseIn(%2, %3, %4);").
+	    arg(output()).
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1)).
+	    arg(inputs().value(2));
+      }
+    case Type::PULSE_IN_LONG:
+      {
+	if(inputs().size() == 2)
+	  return QString("int %1 = pulseInLong(%2, %3);").
+	    arg(output()).
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+	else
+	  return QString("int %1 = pulseInLong(%2, %3, %4);").
+	    arg(output()).
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1)).
+	    arg(inputs().value(2));
+      }
     default:
       {
 	return QString("noTone(%1);").arg(inputs().value(0));
