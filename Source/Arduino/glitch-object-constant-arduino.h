@@ -70,6 +70,7 @@ class glitch_object_constant_arduino: public glitch_object
 
  private slots:
   void slotConstantChanged(void);
+  void slotOtherConstantChanged(void);
 };
 
 #endif

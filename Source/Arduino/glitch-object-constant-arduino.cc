@@ -51,6 +51,10 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
 	  &glitch_object_constant_arduino::slotConstantChanged);
+  connect(m_ui.other,
+	  &QLineEdit::returnPressed,
+	  this,
+	  &glitch_object_constant_arduino::slotOtherConstantChanged);
   prepareContextMenu();
   setName(m_type);
 }
@@ -83,6 +87,9 @@ clone(QWidget *parent) const
   clone->m_constantType = m_constantType;
   clone->m_properties = m_properties;
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
+  clone->m_ui.other->setText(m_ui.other->text().trimmed());
+  clone->m_ui.other->selectAll();
+  clone->setConstantType(m_ui.constant->currentText());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -206,6 +213,7 @@ void glitch_object_constant_arduino::setProperties
 	  string.remove("\"");
 	  m_properties[Properties::CONSTANT_OTHER] = string.trimmed();
 	  m_ui.other->setText(string.trimmed());
+	  m_ui.other->selectAll();
 	}
     }
 
@@ -224,6 +232,25 @@ void glitch_object_constant_arduino::slotConstantChanged(void)
 
   m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
   undoCommand->setText(tr("constant type changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_object_constant_arduino::slotOtherConstantChanged(void)
+{
+  m_ui.other->setText(m_ui.other->text().trimmed());
+  m_ui.other->selectAll();
+
+  auto property = glitch_object::Properties::CONSTANT_OTHER;
+  auto undoCommand = new glitch_undo_command
+    (m_ui.other->text(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = m_ui.other->text();
+  undoCommand->setText(tr("constant property changed"));
   m_undoStack->push(undoCommand);
   emit changed();
 }

@@ -59,6 +59,7 @@ Completed Items
 - Object numbers should be sequenced.
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
+- Other constants.
 - Pass undo stack from top-level view to child views.
 - Paste in child views. Redo / undo.
 - Prepare Copy, Delete, Paste, and Select All states.
@@ -124,7 +125,6 @@ Remaining Items
 - Menu hovering and status bar text.
 - Modern Qt connect().
 - Object-view settings. Identical to canvas settings.
-- Other constants.
 - Reopen (or reparent) child windows after a separation event.
 - Save button on tab.
 - Search structures.
