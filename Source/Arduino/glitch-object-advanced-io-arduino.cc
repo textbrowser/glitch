@@ -120,6 +120,34 @@ QString glitch_object_advanced_io_arduino::code(void) const
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
       }
+    case Type::SHIFT_IN:
+      {
+	return QString("int %1 = shiftIn(%2, %3, %4);").
+	  arg(output()).
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2));
+      }
+    case Type::SHIFT_OUT:
+      {
+	return QString("shiftOut(%1, %2, %3, %4);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2)).
+	  arg(inputs().value(3));
+      }
+    case Type::TONE:
+      {
+	if(inputs().size() == 2)
+	  return QString("pulseInLong(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+	else
+	  return QString("pulseInLong(%1, %2, %3);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1)).
+	    arg(inputs().value(2));
+      }
     default:
       {
 	return QString("noTone(%1);").arg(inputs().value(0));
