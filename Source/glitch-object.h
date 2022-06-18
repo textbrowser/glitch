@@ -71,6 +71,7 @@ class glitch_object: public QWidget
     ANALOG_IO_TYPE,
     COMMENT,
     CONDITION,
+    CONSTANT_OTHER,
     CONSTANT_TYPE,
     LOGICAL_OPERATOR,
     LOOP_TYPE,

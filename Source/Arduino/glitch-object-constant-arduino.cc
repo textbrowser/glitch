@@ -118,6 +118,7 @@ void glitch_object_constant_arduino::save
   QMap<QString, QVariant> properties;
 
   properties["constant"] = m_ui.constant->currentText();
+  properties["constant_other"] = m_ui.other->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -198,6 +199,13 @@ void glitch_object_constant_arduino::setProperties
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::CONSTANT_TYPE] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("constant_other = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONSTANT_OTHER] = string.trimmed();
+	  m_ui.other->setText(string.trimmed());
 	}
     }
 
