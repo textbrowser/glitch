@@ -67,7 +67,8 @@ class glitch_object: public QWidget
     ** Arduino Properties
     */
 
-    ANALOG_IO_TYPE = 0,
+    ADVANCED_IO_TYPE = 0,
+    ANALOG_IO_TYPE,
     COMMENT,
     CONDITION,
     CONSTANT_TYPE,
