@@ -299,7 +299,11 @@ void glitch_object_variable_arduino::setProperty
     {
     case Properties::VARIABLE_NAME:
       {
-	m_ui.name->setText(value.toString().trimmed());
+	if(value.toString().trimmed().isEmpty())
+	  m_ui.name->setText(tr("arduino-variable"));
+	else
+	  m_ui.name->setText(value.toString().trimmed());
+
 	m_ui.name->selectAll();
 	setName(m_ui.name->text());
 	break;

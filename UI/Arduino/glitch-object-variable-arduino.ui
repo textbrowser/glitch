@@ -38,6 +38,9 @@
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable name and press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
+         <property name="text">
+          <string notr="true"/>
+         </property>
          <property name="placeholderText">
           <string>Variable Name</string>
          </property>
@@ -47,6 +50,9 @@
         <widget class="QLineEdit" name="value">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable's value to the provided value. If not set, the variable will be set to the connected input value. Press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string notr="true"/>
          </property>
          <property name="placeholderText">
           <string>Variable Value</string>
