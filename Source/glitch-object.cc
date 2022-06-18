@@ -219,7 +219,7 @@ glitch_object *glitch_object::createFromValues
   if(type == "arduino-advancedio")
     object = glitch_object_advanced_io_arduino::createFromValues
       (values, error, parent);
-  if(type == "arduino-analogio")
+  else if(type == "arduino-analogio")
     object = glitch_object_analog_io_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-blockcomment")
