@@ -195,9 +195,10 @@ QMenu *glitch_view::defaultContextMenu(void)
 
   QAction *action = nullptr;
 
-  action = m_contextMenu->addAction(tr("&Save"),
-				    this,
-				    SLOT(slotSave(void)));
+  action = m_saveDiagramAction = m_contextMenu->addAction
+    (tr("&Save"),
+     this,
+     SLOT(slotSave(void)));
   action->setEnabled(hasChanged());
   action->setIcon(QIcon::fromTheme("document-save"));
   m_contextMenu->addAction(tr("Save &As..."),
@@ -702,6 +703,8 @@ void glitch_view::redo(void)
       emit changed();
       adjustScrollBars();
     }
+
+  m_saveDiagramAction->setEnabled(m_changed);
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -846,6 +849,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 void glitch_view::slotChanged(void)
 {
   m_changed = true;
+  m_saveDiagramAction->setEnabled(true);
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -929,7 +933,10 @@ void glitch_view::slotSave(void)
       (tr("Unable to save %1 (%2).").arg(m_canvasSettings->name()).arg(error),
        this);
   else
-    emit saved();
+    {
+      m_saveDiagramAction->setEnabled(false);
+      emit saved();
+    }
 }
 
 void glitch_view::slotSaveAs(void)
@@ -1028,4 +1035,6 @@ void glitch_view::undo(void)
 
   if(!m_undoStack->canUndo())
     m_changed = false;
+
+  m_saveDiagramAction->setEnabled(m_changed);
 }

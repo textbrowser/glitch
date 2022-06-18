@@ -108,6 +108,7 @@ class glitch_view: public QWidget
   QAction *m_menuAction;
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
+  QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<glitch_alignment> m_alignment;
   QPointer<glitch_tools> m_tools;
