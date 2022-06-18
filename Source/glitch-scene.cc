@@ -845,9 +845,13 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    }
 		  else if(qobject_cast<QLineEdit *> (object->childAt(point)))
 		    {
-		      qobject_cast<QLineEdit *> (object->childAt(point))->
-			setFocus();
-		      goto done_label;
+		      auto lineEdit = qobject_cast<QLineEdit *>
+			(object->childAt(point));
+
+		      point = lineEdit->mapFromParent(point);
+		      lineEdit->setCursorPosition
+			(lineEdit->cursorPositionAt(point));
+		      lineEdit->setFocus();
 		    }
 		  else if(qobject_cast<QToolButton *> (object->childAt(point)))
 		    /*
