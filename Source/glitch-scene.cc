@@ -35,6 +35,7 @@
 
 #include <cmath>
 
+#include "Arduino/glitch-object-advanced-io-arduino.h"
 #include "Arduino/glitch-object-analog-io-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
@@ -562,6 +563,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	{
 	  auto view = views().value(0);
 
+	  if(text.startsWith("glitch-arduino-advanced i/o-"))
+	    object = new glitch_object_advanced_io_arduino(text, view);
 	  if(text.startsWith("glitch-arduino-analog i/o-analog"))
 	    object = new glitch_object_analog_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-constant"))

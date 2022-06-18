@@ -101,17 +101,17 @@ class glitch_object_advanced_io_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string == "notone")
+    if(string.contains("notone"))
       return Type::NO_TONE;
-    else if(string == "pulsein")
-      return Type::PULSE_IN;
-    else if(string == "pulseinlong")
+    else if(string.contains("pulseinlong"))
       return Type::PULSE_IN_LONG;
-    else if(string == "shiftin")
+    else if(string.contains("pulsein"))
+      return Type::PULSE_IN;
+    else if(string.contains("shiftin"))
       return Type::SHIFT_IN;
-    else if(string == "shiftout")
+    else if(string.contains("shiftout"))
       return Type::SHIFT_OUT;
-    else if(string == "tone")
+    else if(string.contains("tone"))
       return Type::TONE;
     else
       return Type::NO_TONE;

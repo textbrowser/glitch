@@ -30,6 +30,7 @@
 #include <QSqlQuery>
 #include <QtDebug>
 
+#include "Arduino/glitch-object-advanced-io-arduino.h"
 #include "Arduino/glitch-object-analog-io-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
@@ -215,6 +216,9 @@ glitch_object *glitch_object::createFromValues
   auto type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
 
+  if(type == "arduino-advancedio")
+    object = glitch_object_advanced_io_arduino::createFromValues
+      (values, error, parent);
   if(type == "arduino-analogio")
     object = glitch_object_analog_io_arduino::createFromValues
       (values, error, parent);

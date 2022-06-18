@@ -181,17 +181,17 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  if(string == "notone")
+	  if(string.contains("notone"))
 	    string = "noTone()";
-	  else if(string == "pulsein")
-	    string = "pulseIn()";
-	  else if(string == "pulseinlong")
+	  else if(string.contains("pulseinlong"))
 	    string = "pulseInLong()";
-	  else if(string == "shiftin")
+	  else if(string.contains("pulsein"))
+	    string = "pulseIn()";
+	  else if(string.contains("shiftin"))
 	    string = "shiftIn()";
-	  else if(string == "shiftout")
+	  else if(string.contains("shiftout"))
 	    string = "shiftOut()";
-	  else if(string == "tone")
+	  else if(string.contains("tone"))
 	    string = "tone()";
 	  else
 	    string = "noTone()";
