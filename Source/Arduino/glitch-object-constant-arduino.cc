@@ -220,6 +220,26 @@ void glitch_object_constant_arduino::setProperties
   setConstantType(m_properties.value(glitch_object::CONSTANT_TYPE).toString());
 }
 
+void glitch_object_constant_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::CONSTANT_OTHER:
+      {
+	m_ui.other->setText(value.toString().trimmed());
+	m_ui.other->selectAll();
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
 void glitch_object_constant_arduino::slotConstantChanged(void)
 {
   if(!m_undoStack)
