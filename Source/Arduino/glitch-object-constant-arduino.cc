@@ -242,6 +242,10 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
   m_ui.other->selectAll();
 
   auto property = glitch_object::Properties::CONSTANT_OTHER;
+
+  if(m_properties.value(property).toString() == m_ui.other->text())
+    return;
+
   auto undoCommand = new glitch_undo_command
     (m_ui.other->text(),
      m_properties.value(property),
