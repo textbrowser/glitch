@@ -59,8 +59,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   setName(m_type);
 }
 
-glitch_object_constant_arduino::
-~glitch_object_constant_arduino()
+glitch_object_constant_arduino::~glitch_object_constant_arduino()
 {
 }
 

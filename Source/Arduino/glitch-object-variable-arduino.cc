@@ -58,8 +58,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   setName(m_type);
 }
 
-glitch_object_variable_arduino::
-~glitch_object_variable_arduino()
+glitch_object_variable_arduino::~glitch_object_variable_arduino()
 {
 }
 
