@@ -42,6 +42,7 @@ Completed Items
 - Do not discover parent functions for copied functions.
 - Dragging an item onto a diagram and scroll bars.
 - Draw input and output connectors.
+- Edit window icons.
 - Error dialog.
 - Exiting does not require closing of pages.
 - Function clones should have redo/undo stack of parent function.
@@ -119,7 +120,6 @@ Remaining Items
 - Context-menu action states.
 - Context-menu icons.
 - Define parameters from connected objects. Order is also important.
-- Edit window icons.
 - Find objects.
 - Icons and themes.
 - Keywords (function names, variable names, etc.).
