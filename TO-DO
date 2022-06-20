@@ -21,6 +21,7 @@ Completed Items
 - Comment block and directional arrows.
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
+- Context menu action states.
 - Context menu on main tab widget.
 - Context menus should be available as tools. See Tools Bar.
 - Copy & paste.
@@ -117,7 +118,6 @@ Remaining Items
   Analog I/O
   Constants
   Structures
-- Context-menu action states.
 - Context-menu icons.
 - Define parameters from connected objects. Order is also important.
 - Find objects.
