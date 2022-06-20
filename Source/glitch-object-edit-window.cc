@@ -68,6 +68,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  this,
 	  SLOT(slotAboutToShowEditMenu(void)));
   m_windowsMenu = menuBar()->addMenu(tr("&Windows"));
+  prepareIcons();
 }
 
 QWidget *glitch_object_edit_window::centralWidget(void) const
@@ -96,6 +97,17 @@ void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
   QMainWindow::closeEvent(event);
   emit closed();
+}
+
+void glitch_object_edit_window::prepareIcons(void)
+{
+  m_actions.value("close")->setIcon(QIcon::fromTheme("window-close"));
+  m_actions.value("copy")->setIcon(QIcon::fromTheme("edit-copy"));
+  m_actions.value("delete")->setIcon(QIcon::fromTheme("edit-delete"));
+  m_actions.value("paste")->setIcon(QIcon::fromTheme("edit-paste"));
+  m_actions.value("redo")->setIcon(QIcon::fromTheme("edit-redo"));
+  m_actions.value("select all")->setIcon(QIcon::fromTheme("edit-select-all"));
+  m_actions.value("undo")->setIcon(QIcon::fromTheme("edit-undo"));
 }
 
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)

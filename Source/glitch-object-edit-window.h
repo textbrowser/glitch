@@ -54,6 +54,7 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<glitch_object_view> m_editView;
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
+  void prepareIcons(void);
   void resizeEvent(QResizeEvent *event);
   void showEvent(QShowEvent *event);
 

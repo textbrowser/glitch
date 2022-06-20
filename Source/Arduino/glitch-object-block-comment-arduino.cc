@@ -51,6 +51,11 @@ glitch_object_block_comment_arduino::
 {
 }
 
+QPlainTextEdit *glitch_object_block_comment_arduino::plainTextEdit(void) const
+{
+  return m_ui.comment;
+}
+
 QString glitch_object_block_comment_arduino::code(void) const
 {
   QString code("/*\n");
