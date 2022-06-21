@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QSettings>
 #include <QShortcut>
 
 #include "glitch-tools.h"
@@ -62,10 +63,21 @@ glitch_tools::Operations glitch_tools::operation(void) const
 
 void glitch_tools::slotOperationChanged(void)
 {
+  QSettings settings;
+
   if(m_ui.select == sender())
-    emit operation(Operations::SELECT);
+    {
+      emit operation(Operations::SELECT);
+      settings.setValue("tools/operation", "select");
+    }
   else if(m_ui.wire_connect == sender())
-    emit operation(Operations::WIRE_CONNECT);
+    {
+      emit operation(Operations::WIRE_CONNECT);
+      settings.setValue("tools/operation", "wire_connect");
+    }
   else
-    emit operation(Operations::WIRE_DISCONNECT);
+    {
+      emit operation(Operations::WIRE_DISCONNECT);
+      settings.setValue("tools/operation", "wire_disconnect");
+    }
 }
