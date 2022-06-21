@@ -34,6 +34,17 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
 
+  QSettings settings;
+  auto value(settings.value("tools/operation", "select").
+	     toString().toLower().trimmed());
+
+  if(value == "select")
+    m_ui.select->setChecked(true);
+  else if(value == "wire_connect")
+    m_ui.wire_connect->setChecked(true);
+  else
+    m_ui.wire_disconnect->setChecked(true);
+
   foreach(auto widget, findChildren<QRadioButton *> ())
     if(widget)
       connect(widget,
