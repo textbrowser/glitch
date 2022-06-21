@@ -89,3 +89,31 @@ void glitch_object_wire::save(const QSqlDatabase &db, QString &error)
 
   glitch_object::saveProperties(properties, db, error);
 }
+
+void glitch_object_wire::setLeftObject(glitch_object *object)
+{
+  if(!object)
+    return;
+  else if(m_leftObject || m_rightObject == object)
+    return;
+
+  connect(object,
+	  &glitch_object::destroyed,
+	  this,
+	  &glitch_object_wire::deleteLater);
+  m_leftObject = object;
+}
+
+void glitch_object_wire::setRightObject(glitch_object *object)
+{
+  if(!object)
+    return;
+  else if(m_leftObject == object || m_rightObject)
+    return;
+
+  connect(object,
+	  &glitch_object::destroyed,
+	  this,
+	  &glitch_object_wire::deleteLater);
+  m_rightObject = object;
+}

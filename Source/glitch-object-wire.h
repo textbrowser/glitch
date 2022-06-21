@@ -43,8 +43,12 @@ class glitch_object_wire: public glitch_object
   static glitch_object_wire *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void save(const QSqlDatabase &db, QString &error);
+  void setLeftObject(glitch_object *object);
+  void setRightObject(glitch_object *object);
 
  private:
+  QPointer<glitch_object> m_leftObject;
+  QPointer<glitch_object> m_rightObject;
   void addActions(QMenu &menu);
 };
 
