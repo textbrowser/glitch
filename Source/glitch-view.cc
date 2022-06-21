@@ -73,6 +73,7 @@ glitch_view::glitch_view
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
+  m_tools = new glitch_tools(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
@@ -136,6 +137,24 @@ glitch_view::glitch_view
 	  SIGNAL(selectionChanged(void)),
 	  this,
 	  SIGNAL(selectionChanged(void)));
+  connect
+    (m_tools,
+     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
+     m_scene,
+     QOverload<const glitch_tools::Operations>::of(&glitch_scene::
+						   slotToolsOperationChanged));
+  connect
+    (m_tools,
+     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
+     this,
+     QOverload<const glitch_tools::Operations>::of(&glitch_view::
+						   slotToolsOperationChanged));
+  connect
+    (m_tools,
+     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
+     this,
+     QOverload<const glitch_tools::Operations>::of(&glitch_view::
+						   toolsOperationChanged));
   connect(m_view,
 	  SIGNAL(mouseEnterEvent(void)),
 	  this,
@@ -783,32 +802,6 @@ void glitch_view::showCanvasSettings(void)
 
 void glitch_view::showTools(void)
 {
-  if(!m_tools)
-    {
-      m_tools = new glitch_tools(this);
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 m_scene,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_scene::slotToolsOperationChanged));
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 this,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_view::slotToolsOperationChanged));
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 this,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_view::toolsOperationChanged));
-    }
-
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();
