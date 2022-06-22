@@ -172,6 +172,7 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_view);
+  m_scene->setToolsOperation(m_tools->operation());
   prepareDatabaseTables(m_fileName);
   prepareDefaultActions();
 }

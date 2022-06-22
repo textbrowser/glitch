@@ -121,6 +121,11 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   return widgets;
 }
 
+void glitch_scene::setToolsOperation(const glitch_tools::Operations operation)
+{
+  m_toolsOperation = operation;
+}
+
 QPointer<QUndoStack> glitch_scene::undoStack(void) const
 {
   return m_undoStack;
