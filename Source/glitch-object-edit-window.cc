@@ -125,6 +125,9 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 
 void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 {
+  if(centralWidget())
+    centralWidget()->deleteLater();
+
   if(!widget)
     return;
 

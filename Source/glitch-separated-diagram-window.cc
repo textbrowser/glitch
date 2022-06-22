@@ -178,6 +178,9 @@ void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 {
+  if(centralWidget())
+    centralWidget()->deleteLater();
+
   if(m_view)
     {
       disconnect(m_view,
