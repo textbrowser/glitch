@@ -55,6 +55,7 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   setWindowModality(Qt::NonModal);
 }
 

@@ -69,6 +69,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   setWindowModality(Qt::NonModal);
 }
 

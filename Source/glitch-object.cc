@@ -437,11 +437,21 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
     }
 
   if(m_editView && parentView)
-    connect(m_editView,
-	    SIGNAL(copy(void)),
-	    parentView,
-	    SLOT(slotCopy(void)),
-	    Qt::UniqueConnection);
+    {
+      connect(m_editView,
+	      SIGNAL(copy(void)),
+	      parentView,
+	      SLOT(slotCopy(void)),
+	      Qt::UniqueConnection);
+      connect
+	(parentView,
+	 QOverload<const glitch_tools::Operations>::of
+	 (&glitch_view::toolsOperationChanged),
+	 m_editView->scene(),
+	 QOverload<const glitch_tools::Operations>::of
+	 (&glitch_scene::slotToolsOperationChanged));
+      m_editView->scene()->setToolsOperation(parentView->toolsOperation());
+    }
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)
