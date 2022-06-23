@@ -172,7 +172,6 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_view);
-  m_scene->setToolsOperation(m_tools->operation());
   prepareDatabaseTables(m_fileName);
   prepareDefaultActions();
 }
@@ -743,9 +742,6 @@ void glitch_view::save(void)
 
 void glitch_view::selectAll(void)
 {
-  if(m_tools && m_tools->operation() != glitch_tools::Operations::SELECT)
-    return;
-
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto list(m_scene->items());
@@ -1012,10 +1008,7 @@ void glitch_view::slotShowUserFunctions(void)
 void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
-  if(operation == glitch_tools::Operations::SELECT)
-    m_view->setDragMode(QGraphicsView::RubberBandDrag);
-  else
-    m_view->setDragMode(QGraphicsView::NoDrag);
+  Q_UNUSED(operation);
 }
 
 void glitch_view::slotUnite(void)

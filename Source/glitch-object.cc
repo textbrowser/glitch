@@ -450,7 +450,6 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	 m_editView->scene(),
 	 QOverload<const glitch_tools::Operations>::of
 	 (&glitch_scene::slotToolsOperationChanged));
-      m_editView->scene()->setToolsOperation(parentView->toolsOperation());
     }
 }
 

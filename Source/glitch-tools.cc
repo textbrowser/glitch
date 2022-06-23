@@ -25,7 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QSettings>
 #include <QShortcut>
 
 #include "glitch-tools.h"
@@ -40,17 +39,6 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 	      &QRadioButton::clicked,
 	      this,
 	      &glitch_tools::slotOperationChanged);
-
-  QSettings settings;
-  auto value(settings.value("tools/operation", "select").
-	     toString().toLower().trimmed());
-
-  if(value == "select")
-    m_ui.select->setChecked(true);
-  else if(value == "wire_connect")
-    m_ui.wire_connect->setChecked(true);
-  else
-    m_ui.wire_disconnect->setChecked(true);
 
   new QShortcut(tr("Ctrl+W"),
 		this,
@@ -75,21 +63,10 @@ glitch_tools::Operations glitch_tools::operation(void) const
 
 void glitch_tools::slotOperationChanged(void)
 {
-  QSettings settings;
-
   if(m_ui.select == sender())
-    {
-      emit operation(Operations::SELECT);
-      settings.setValue("tools/operation", "select");
-    }
+    emit operation(Operations::SELECT);
   else if(m_ui.wire_connect == sender())
-    {
-      emit operation(Operations::WIRE_CONNECT);
-      settings.setValue("tools/operation", "wire_connect");
-    }
+    emit operation(Operations::WIRE_CONNECT);
   else
-    {
-      emit operation(Operations::WIRE_DISCONNECT);
-      settings.setValue("tools/operation", "wire_disconnect");
-    }
+    emit operation(Operations::WIRE_DISCONNECT);
 }

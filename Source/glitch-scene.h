@@ -73,7 +73,6 @@ class glitch_scene: public QGraphicsScene
   void setDotsColor(const QColor &color);
   void setMainScene(const bool state);
   void setShowDots(const bool state);
-  void setToolsOperation(const glitch_tools::Operations operation);
   void setUndoStack(QUndoStack *undoStack);
 
  private:

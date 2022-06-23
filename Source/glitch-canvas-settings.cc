@@ -190,6 +190,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
+	   "tools_operation TEXT NOT NULL DEFAULT 'select', "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart'))"
