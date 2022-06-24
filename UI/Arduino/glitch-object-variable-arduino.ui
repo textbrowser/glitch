@@ -49,7 +49,7 @@
        <item>
         <widget class="QLineEdit" name="value">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable's value to the provided value. If not set, the variable will be set to the connected input value. Press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable's value to the provided value and press the Enter key to confirm. If a value is not provided, the variable will be set to the connected input value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string notr="true"/>
