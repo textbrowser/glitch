@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
-    <height>125</height>
+    <width>300</width>
+    <height>275</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,58 +17,98 @@
    <iconset resource="../Icons/icons.qrc">
     <normaloff>:/Logo/glitch-logo.png</normaloff>:/Logo/glitch-logo.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QRadioButton" name="select">
-       <property name="text">
-        <string>Select</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QFrame" name="frame">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-      </spacer>
-     </item>
-     <item row="1" column="1">
-      <widget class="QRadioButton" name="wire_connect">
-       <property name="text">
-        <string>Wire (Connect)</string>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Select one or more objects.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="select">
+          <property name="text">
+           <string>Select</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QRadioButton" name="wire_disconnect">
-       <property name="text">
-        <string>Wire (Disconnect)</string>
+     <item row="1" column="0">
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Connect two objects. Selections are also allowed.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="wire_connect">
+          <property name="text">
+           <string>Wire (Connect)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
-     <item row="0" column="2">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="2" column="0">
+      <widget class="QFrame" name="frame_3">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
        </property>
-      </spacer>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Disconnect objects. Selections are also allowed.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="wire_disconnect">
+          <property name="text">
+           <string>Wire (Disconnect)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
     </layout>
    </item>
@@ -87,6 +127,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>select</tabstop>
+  <tabstop>wire_connect</tabstop>
+  <tabstop>wire_disconnect</tabstop>
+ </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
