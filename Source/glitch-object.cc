@@ -310,6 +310,7 @@ void glitch_object::createActions(void)
 
       action->setData(DefaultMenuActions::DELETE);
       action->setEnabled(!isMandatory());
+      action->setIcon(QIcon::fromTheme("edit-delete"));
       connect(action,
 	      SIGNAL(triggered(void)),
 	      this,
