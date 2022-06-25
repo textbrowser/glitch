@@ -134,7 +134,6 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-view.h \
-                  Source/glitch-object-wire.h \
                   Source/glitch-proxy-widget.h \
                   Source/glitch-scene.h \
                   Source/glitch-separated-diagram-window.h \
@@ -146,7 +145,8 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-ui.h \
                   Source/glitch-user-functions.h \
                   Source/glitch-user-functions-tablewidget.h \
-                  Source/glitch-view.h
+                  Source/glitch-view.h \
+                  Source/glitch-wire.h
 SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
@@ -157,7 +157,6 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-object.cc \
                   Source/glitch-object-edit-window.cc \
                   Source/glitch-object-view.cc \
-                  Source/glitch-object-wire.cc \
                   Source/glitch-proxy-widget.cc \
                   Source/glitch-scene.cc \
                   Source/glitch-separated-diagram-window.cc \
@@ -170,7 +169,8 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-undo-command.cc \
                   Source/glitch-user-functions.cc \
                   Source/glitch-user-functions-tablewidget.cc \
-                  Source/glitch-view.cc
+                  Source/glitch-view.cc \
+		  Source/glitch-wire.cc
 TRANSLATIONS    =
 
 PROJECTNAME	= Glitch

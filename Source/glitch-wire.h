@@ -25,31 +25,24 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_object_wire_h_
-#define _glitch_object_wire_h_
+#ifndef _glitch_wire_h_
+#define _glitch_wire_h_
 
-#include "glitch-object.h"
+#include <QGraphicsObject>
 
-class glitch_object_wire: public glitch_object
+class glitch_object;
+
+class glitch_wire: public QGraphicsObject
 {
-  Q_OBJECT
-
  public:
-  glitch_object_wire(QWidget *parent);
-  glitch_object_wire(const quint64 id, QWidget *parent);
-  ~glitch_object_wire();
-  QString code(void) const;
-  glitch_object_wire *clone(QWidget *parent) const;
-  static glitch_object_wire *createFromValues
-    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void save(const QSqlDatabase &db, QString &error);
+  glitch_wire(QGraphicsItem *parent);
+  ~glitch_wire();
   void setLeftObject(glitch_object *object);
   void setRightObject(glitch_object *object);
 
  private:
   QPointer<glitch_object> m_leftObject;
   QPointer<glitch_object> m_rightObject;
-  void addActions(QMenu &menu);
 };
 
 #endif

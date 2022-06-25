@@ -25,72 +25,18 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-wire.h"
-#include "glitch-undo-command.h"
+#include "glitch-object.h"
+#include "glitch-wire.h"
 
-glitch_object_wire::glitch_object_wire
-(QWidget *parent):glitch_object_wire(1, parent)
+glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
 }
 
-glitch_object_wire::glitch_object_wire
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
-{
-  m_type = "glitch-wire";
-  setName(m_type);
-}
-
-glitch_object_wire::~glitch_object_wire()
+glitch_wire::~glitch_wire()
 {
 }
 
-QString glitch_object_wire::code(void) const
-{
-  return "";
-}
-
-glitch_object_wire *glitch_object_wire::clone(QWidget *parent) const
-{
-  auto clone = new glitch_object_wire(parent);
-
-  clone->m_properties = m_properties;
-  clone->setStyleSheet(styleSheet());
-  return clone;
-}
-
-glitch_object_wire *glitch_object_wire::
-createFromValues(const QMap<QString, QVariant> &values,
-		 QString &error,
-		 QWidget *parent)
-{
-  Q_UNUSED(error);
-
-  auto object = new glitch_object_wire
-    (values.value("myoid").toULongLong(), parent);
-
-  object->setProperties(values.value("properties").toString().split('&'));
-  object->setStyleSheet(values.value("stylesheet").toString());
-  return object;
-}
-
-void glitch_object_wire::addActions(QMenu &menu)
-{
-  Q_UNUSED(menu);
-}
-
-void glitch_object_wire::save(const QSqlDatabase &db, QString &error)
-{
-  glitch_object::save(db, error);
-
-  if(!error.isEmpty())
-    return;
-
-  QMap<QString, QVariant> properties;
-
-  glitch_object::saveProperties(properties, db, error);
-}
-
-void glitch_object_wire::setLeftObject(glitch_object *object)
+void glitch_wire::setLeftObject(glitch_object *object)
 {
   if(!object)
     return;
@@ -100,11 +46,11 @@ void glitch_object_wire::setLeftObject(glitch_object *object)
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
-	  &glitch_object_wire::deleteLater);
+	  &glitch_wire::deleteLater);
   m_leftObject = object;
 }
 
-void glitch_object_wire::setRightObject(glitch_object *object)
+void glitch_wire::setRightObject(glitch_object *object)
 {
   if(!object)
     return;
@@ -114,6 +60,6 @@ void glitch_object_wire::setRightObject(glitch_object *object)
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
-	  &glitch_object_wire::deleteLater);
+	  &glitch_wire::deleteLater);
   m_rightObject = object;
 }
