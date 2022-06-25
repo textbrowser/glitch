@@ -1181,4 +1181,9 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
       if(object->hasInput() || object->hasOutput())
 	m_objectsToWire << proxy;
     }
+
+  if(m_objectsToWire.size() == 2)
+    {
+      m_objectsToWire.clear();
+    }
 }
