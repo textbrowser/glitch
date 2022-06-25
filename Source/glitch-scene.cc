@@ -807,11 +807,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  if(m_toolsOperation != glitch_tools::Operations::SELECT)
-    goto done_label;
-
-  m_lastScenePos = QPointF();
-  m_movedPoints.clear();
+  if(m_toolsOperation == glitch_tools::Operations::SELECT)
+    {
+      m_lastScenePos = QPointF();
+      m_movedPoints.clear();
+    }
 
   if(event)
     {
@@ -831,6 +831,12 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	  if(proxy)
 	    {
+	      if(m_toolsOperation == glitch_tools::Operations::WIRE_CONNECT)
+		{
+		  wireObjects(proxy);
+		  goto done_label;
+		}
+
 	      auto object = proxy->widget();
 
 	      if(object)
@@ -898,10 +904,10 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		}
 	    }
 	}
-      else
+      else if(m_toolsOperation == glitch_tools::Operations::SELECT)
 	clearSelection();
     }
-  else
+  else if(m_toolsOperation == glitch_tools::Operations::SELECT)
     clearSelection();
 
  done_label:
@@ -1154,5 +1160,25 @@ void glitch_scene::slotUndo(void)
       m_undoStack->undo();
       emit changed();
       QApplication::restoreOverrideCursor();
+    }
+}
+
+void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
+{
+  if(!proxy)
+    return;
+
+  auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+  if(m_objectsToWire.isEmpty())
+    {
+      if(object->hasInput() || object->hasOutput())
+	m_objectsToWire << proxy;
+    }
+  else if(m_objectsToWire.at(0) != proxy &&
+	  m_objectsToWire.size() == 1)
+    {
+      if(object->hasInput() || object->hasOutput())
+	m_objectsToWire << proxy;
     }
 }
