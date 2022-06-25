@@ -44,10 +44,11 @@
 #include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-graphicsview.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
-#include "glitch-graphicsview.h"
+#include "glitch-wire.h"
 
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
@@ -1184,6 +1185,7 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
 
   if(m_objectsToWire.size() == 2)
     {
+      addItem(new glitch_wire(nullptr));
       m_objectsToWire.clear();
     }
 }

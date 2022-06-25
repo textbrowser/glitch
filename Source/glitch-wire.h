@@ -29,11 +29,14 @@
 #define _glitch_wire_h_
 
 #include <QGraphicsObject>
+#include <QPointer>
 
 class glitch_object;
 
 class glitch_wire: public QGraphicsObject
 {
+  Q_OBJECT
+
  public:
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
@@ -43,6 +46,10 @@ class glitch_wire: public QGraphicsObject
  private:
   QPointer<glitch_object> m_leftObject;
   QPointer<glitch_object> m_rightObject;
+  QRectF boundingRect(void) const;
+  void paint(QPainter *painter,
+	     const QStyleOptionGraphicsItem *opt,
+	     QWidget *widget);
 };
 
 #endif

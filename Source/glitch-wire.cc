@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QPainter>
+
 #include "glitch-object.h"
 #include "glitch-wire.h"
 
@@ -34,6 +36,26 @@ glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 
 glitch_wire::~glitch_wire()
 {
+}
+
+QRectF glitch_wire::boundingRect(void) const
+{
+  return QRectF();
+}
+
+void glitch_wire::paint
+(QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
+{
+  if(painter)
+    {
+      painter->setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+			      QPainter::HighQualityAntialiasing | // OpenGL?
+#endif
+			      QPainter::SmoothPixmapTransform |
+			      QPainter::TextAntialiasing,
+			      true);
+    }
 }
 
 void glitch_wire::setLeftObject(glitch_object *object)
