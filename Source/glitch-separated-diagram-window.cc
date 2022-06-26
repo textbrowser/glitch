@@ -258,7 +258,7 @@ void glitch_separated_diagram_window::slotGenerateSource(void)
     {
       if(statusBar())
 	{
-	  statusBar()->showMessage(tr("Generating source. Please be patient"));
+	  statusBar()->showMessage(tr("Generating source. Please be patient."));
 	  statusBar()->repaint();
 	}
 
@@ -360,6 +360,8 @@ void glitch_separated_diagram_window::slotToolsOperationChanged
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));
       else
 	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
+
+      statusBar()->repaint();
     }
 }
 

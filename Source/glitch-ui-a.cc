@@ -191,6 +191,12 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  if(statusBar())
+    {
+      statusBar()->showMessage(tr("Opening %1...").arg(fileName));
+      statusBar()->repaint();
+    }
+
   QString connectionName("");
   QString name("");
   QString type("");
@@ -252,6 +258,12 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	}
       else
 	ok = false;
+    }
+
+  if(statusBar())
+    {
+      statusBar()->showMessage("");
+      statusBar()->repaint();
     }
 
   QApplication::restoreOverrideCursor();
@@ -823,6 +835,8 @@ void glitch_ui::prepareStatusBar(void)
     }
   else
     statusBar()->showMessage("");
+
+  statusBar()->repaint();
 }
 
 void glitch_ui::prepareToolBar(void)
@@ -1107,7 +1121,7 @@ void glitch_ui::slotGenerateSource(void)
     {
       if(statusBar())
 	{
-	  statusBar()->showMessage(tr("Generating source. Please be patient"));
+	  statusBar()->showMessage(tr("Generating source. Please be patient."));
 	  statusBar()->repaint();
 	}
 
@@ -1575,6 +1589,8 @@ void glitch_ui::slotToolsOperationChanged
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));
       else
 	statusBar()->showMessage(tr("Wire (Disconnect) Mode"));
+
+      statusBar()->repaint();
     }
 }
 

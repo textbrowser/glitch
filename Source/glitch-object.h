@@ -103,6 +103,7 @@ class glitch_object: public QWidget
   }
 
   glitch_scene *editScene(void) const;
+  glitch_scene *scene(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values,
      glitch_object *parentObject,

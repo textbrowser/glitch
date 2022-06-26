@@ -271,6 +271,14 @@ glitch_scene *glitch_object::editScene(void) const
     return nullptr;
 }
 
+glitch_scene *glitch_object::scene(void) const
+{
+  if(m_proxy)
+    return qobject_cast<glitch_scene *> (m_proxy->scene());
+  else
+    return nullptr;
+}
+
 quint64 glitch_object::id(void) const
 {
   return m_id;
@@ -527,7 +535,7 @@ void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
     {
       it.next();
 
-      if(!it.value() || !it.value()->proxy() || !it.value()->proxy()->scene())
+      if(!it.value() || !it.value()->scene())
 	continue;
 
       query.prepare
