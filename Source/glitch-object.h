@@ -138,7 +138,7 @@ class glitch_object: public QWidget
 
  protected:
   QHash<Properties, QVariant> m_properties;
-  QHash<quint64, char> m_outputObjectIds;
+  QHash<quint64, char> m_wires;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
@@ -159,6 +159,7 @@ class glitch_object: public QWidget
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);
+  void saveWires(const QSqlDatabase &db, QString &error);
   void setProperties(const QStringList &list);
 
  protected slots:

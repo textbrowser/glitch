@@ -1219,7 +1219,7 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
 	  object2->setOutputObjectId(object1->id());
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
-	  wire->setZValue(0);
+	  wire->setZValue(5);
 	  addItem(wire);
 	  m_objectsToWire.clear();
 	  emit changed();

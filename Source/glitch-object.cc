@@ -478,6 +478,9 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
   if(error.isEmpty())
     saveProperties(QMap<QString, QVariant> (), db, error);
+
+  if(error.isEmpty())
+    saveWires(db, error);
 }
 
 void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
@@ -515,6 +518,26 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     error = query.lastError().text();
 }
 
+void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
+{
+  QHashIterator<quint64, char> it(m_wires);
+  QSqlQuery query(db);
+
+  while(it.hasNext())
+    {
+      it.next();
+      query.prepare
+	("INSERT OR REPLACE INTO wires (object_input_oid, object_output_oid) "
+	 "VALUES (?, ?)");
+      query.addBindValue(m_id);
+      query.addBindValue(it.key());
+      query.exec();
+
+      if(error.isEmpty() && query.lastError().isValid())
+	error = query.lastError().text();
+    }
+}
+
 void glitch_object::setName(const QString &n)
 {
   auto name(n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
@@ -528,8 +551,8 @@ void glitch_object::setName(const QString &n)
 
 void glitch_object::setOutputObjectId(const quint64 id)
 {
-  if(!m_outputObjectIds.contains(id) && id != m_id)
-    m_outputObjectIds[id] = 0;
+  if(!m_wires.contains(id) && id != m_id)
+    m_wires[id] = 0;
 }
 
 void glitch_object::setProperties(const QStringList &list)

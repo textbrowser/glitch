@@ -674,9 +674,7 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
 	query.exec("CREATE TABLE IF NOT EXISTS wires ("
 		   "object_input_oid INTEGER NOT NULL, "
 		   "object_output_oid INTEGER NOT NULL, "
-		   "parent_oid INTEGER NOT NULL, "
-		   "PRIMARY KEY (object_input_oid, "
-		   "object_output_oid, parent_oid))");
+		   "PRIMARY KEY (object_input_oid, object_output_oid))");
       }
 
     db.close();
