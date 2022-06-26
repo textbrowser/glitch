@@ -115,6 +115,7 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
 	      this,
 	      &glitch_floating_context_menu::slotObjectChanged,
 	      Qt::UniqueConnection);
+      m_ui.object_id->setText(tr("ID: %1").arg(object->id()));
       slotObjectChanged();
     }
 }
