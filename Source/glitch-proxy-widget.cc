@@ -70,6 +70,11 @@ bool glitch_proxy_widget::isMovable(void) const
   return QGraphicsItem::ItemIsMovable & flags();
 }
 
+glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
+{
+  return m_hoveredSection;
+}
+
 void glitch_proxy_widget::contextMenuEvent
 (QGraphicsSceneContextMenuEvent *event)
 {

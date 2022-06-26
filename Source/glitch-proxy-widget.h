@@ -45,10 +45,18 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
     Type = QGraphicsProxyWidget::UserType + 1
   };
 
+  enum Sections
+  {
+    LEFT = 0,
+    RIGHT,
+    XYZ
+  };
+
   glitch_proxy_widget(QGraphicsItem *parent = nullptr,
 		      Qt::WindowFlags wFlags = Qt::WindowFlags());
   ~glitch_proxy_widget();
   QPointer<glitch_object> object(void) const;
+  Sections hoveredSection(void) const;
   bool isMandatory(void) const;
   bool isMovable(void) const;
 
@@ -71,13 +79,6 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void setWidget(QWidget *widget);
 
  private:
-  enum Sections
-  {
-    LEFT = 0,
-    RIGHT,
-    XYZ
-  };
-
   QPointer<glitch_object> m_object;
   QPointer<glitch_scene> m_scene;
   Sections m_hoveredSection;

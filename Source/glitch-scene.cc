@@ -1171,21 +1171,31 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
 
   auto object = qobject_cast<glitch_object *> (proxy->widget());
 
+  if(!object)
+    return;
+
   if(m_objectsToWire.isEmpty())
     {
       if(object->hasInput() || object->hasOutput())
-	m_objectsToWire << proxy;
+	{
+	  if(proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	    m_objectsToWire["input"] = proxy;
+	  else if(proxy->hoveredSection() ==
+		  glitch_proxy_widget::Sections::RIGHT)
+	    m_objectsToWire["output"] = proxy;
+	}
     }
-  else if(m_objectsToWire.at(0) != proxy &&
-	  m_objectsToWire.size() == 1)
+  else if(m_objectsToWire.size() == 1)
     {
       if(object->hasInput() || object->hasOutput())
-	m_objectsToWire << proxy;
+	{
+	}
     }
 
   if(m_objectsToWire.size() == 2)
     {
-      addItem(new glitch_wire(nullptr));
+      auto wire(new glitch_wire(nullptr));
+
       m_objectsToWire.clear();
     }
 }

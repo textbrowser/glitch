@@ -101,13 +101,13 @@ class glitch_scene: public QGraphicsScene
   };
 
   QColor m_dotsColor;
+  QHash<QString, QPointer<glitch_proxy_widget> > m_objectsToWire;
   QHash<glitch_proxy_widget *, glitch_point> m_objectsHash; // For ordering.
   QHash<glitch_proxy_widget *, char> m_redoUndoProxies;
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
   QMultiMap<glitch_point, glitch_proxy_widget *> m_objectsMap; // For ordering.
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
-  QVector<QPointer<glitch_proxy_widget> > m_objectsToWire;
   bool m_mainScene;
   bool m_showDots;
   glitch_common::ProjectTypes m_projectType;
