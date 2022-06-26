@@ -31,7 +31,7 @@
 #include <QGraphicsObject>
 #include <QPointer>
 
-class glitch_object;
+class glitch_proxy_widget;
 
 class glitch_wire: public QGraphicsObject
 {
@@ -40,12 +40,12 @@ class glitch_wire: public QGraphicsObject
  public:
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
-  void setLeftObject(glitch_object *object);
-  void setRightObject(glitch_object *object);
+  void setLeftProxy(glitch_proxy_widget *proxy);
+  void setRightProxy(glitch_proxy_widget *proxy);
 
  private:
-  QPointer<glitch_object> m_leftObject;
-  QPointer<glitch_object> m_rightObject;
+  QPointer<glitch_proxy_widget> m_leftProxy;
+  QPointer<glitch_proxy_widget> m_rightProxy;
   QRectF boundingRect(void) const;
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,

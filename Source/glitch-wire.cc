@@ -28,6 +28,7 @@
 #include <QPainter>
 
 #include "glitch-object.h"
+#include "glitch-proxy-widget.h"
 #include "glitch-wire.h"
 
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
@@ -46,6 +47,9 @@ QRectF glitch_wire::boundingRect(void) const
 void glitch_wire::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {
+  Q_UNUSED(opt);
+  Q_UNUSED(widget);
+
   if(painter)
     {
       painter->setRenderHints(QPainter::Antialiasing |
@@ -58,30 +62,40 @@ void glitch_wire::paint
     }
 }
 
-void glitch_wire::setLeftObject(glitch_object *object)
+void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
 {
-  if(!object)
+  if(!proxy)
     return;
-  else if(m_leftObject || m_rightObject == object)
+  else if(m_leftProxy || m_rightProxy == proxy)
+    return;
+
+  auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+  if(!object)
     return;
 
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
 	  &glitch_wire::deleteLater);
-  m_leftObject = object;
+  m_leftProxy = proxy;
 }
 
-void glitch_wire::setRightObject(glitch_object *object)
+void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
 {
-  if(!object)
+  if(!proxy)
     return;
-  else if(m_leftObject == object || m_rightObject)
+  else if(m_leftProxy == proxy || m_rightProxy)
+    return;
+
+  auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+  if(!object)
     return;
 
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
 	  &glitch_wire::deleteLater);
-  m_rightObject = object;
+  m_rightProxy = proxy;
 }

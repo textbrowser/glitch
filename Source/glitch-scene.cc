@@ -1189,6 +1189,14 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
     {
       if(object->hasInput() || object->hasOutput())
 	{
+	  if(!m_objectsToWire.values().contains(proxy))
+	    {
+	      if(proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+		m_objectsToWire["input"] = proxy;
+	      else if(proxy->hoveredSection() ==
+		      glitch_proxy_widget::Sections::RIGHT)
+		m_objectsToWire["output"] = proxy;
+	    }
 	}
     }
 
@@ -1196,6 +1204,8 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
     {
       auto wire(new glitch_wire(nullptr));
 
+      wire->setLeftProxy(m_objectsToWire.value("output"));
+      wire->setRightProxy(m_objectsToWire.value("input"));
       addItem(wire);
       m_objectsToWire.clear();
     }
