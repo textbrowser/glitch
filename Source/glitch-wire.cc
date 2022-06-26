@@ -34,6 +34,7 @@
 
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
+  m_wireColor = QColor(255, 192, 203, 200);
 }
 
 glitch_wire::~glitch_wire()
@@ -72,7 +73,7 @@ void glitch_wire::paint
 	{
 	  QPen pen;
 
-	  pen.setColor(QColor(255, 192, 203, 200));
+	  pen.setColor(m_wireColor);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(13.0);
 	  painter->setPen(pen);
