@@ -66,7 +66,8 @@ void glitch_wire::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
-      if(m_leftProxy->x() <= m_rightProxy->x() &&
+      if(m_leftProxy->size().width() + m_leftProxy->x() + 15.0 <=
+	 m_rightProxy->x() &&
 	 m_leftProxy->y() <= m_rightProxy->y())
 	{
 	  QPen pen;
