@@ -96,8 +96,8 @@ void glitch_wire::paint
 		 << QPointF(x1 + 2.0 * xd - 6.0,
 			    m_leftProxy->pos().y() +
 			    m_leftProxy->size().height() / 2.0 - 1.0 + yd);
-	  painter->drawPolyline(points);
 	  m_boundingRect = points.boundingRect();
+	  painter->drawPolyline(points);
 	}
     }
 }

@@ -663,6 +663,7 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
 		   "type TEXT NOT NULL)");
 	query.exec("CREATE TABLE IF NOT EXISTS objects ("
 		   "myoid INTEGER NOT NULL UNIQUE, "
+		   "output_object_id INTEGER NOT NULL DEFAULT -1, "
 		   "parent_oid INTEGER NOT NULL DEFAULT -1, "
 		   "position TEXT NOT NULL, "
 		   "properties TEXT, "

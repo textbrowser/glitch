@@ -76,6 +76,7 @@ class glitch_object: public QWidget
     LOGICAL_OPERATOR,
     LOOP_TYPE,
     NAME,
+    OUTPUT_OBJECT_ID,
     POSITION_LOCKED,
     VARIABLE_ARRAY_INDEX,
     VARIABLE_ARRAY_SIZE,
@@ -125,6 +126,7 @@ class glitch_object: public QWidget
   void addChild(const QPointF &point, glitch_object *object);
   void move(const QPoint &point);
   void move(int x, int y);
+  void setOutputObjectId(const quint64 id);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
   virtual void simulateDelete(void);
 

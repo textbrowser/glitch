@@ -47,9 +47,9 @@ Completed Items
 - Edit window icons.
 - Error dialog.
 - Exiting does not require closing of pages.
-- Function clones should have redo/undo stack of parent function.
+- Function clones should have redo / undo stack of parent function.
 - Function names and deleted functions; uniqueness errors.
-- Function redo/undo private container. The redo/undo stack must be
+- Function redo / undo private container. The redo / undo stack must be
   separate of the function's parent view.
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
@@ -80,7 +80,7 @@ Completed Items
 - Remove missing diagram files.
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
-- Reset object order on delete/redo/undo.
+- Reset object order on delete / redo / undo.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
 - Save As.
@@ -111,7 +111,7 @@ Ignored Items
 
 Remaining Items
 
-- Adjust changed state of parent canvas if redo/undo stack of a child
+- Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero.
 - Android.
 - Completed Categories
@@ -136,4 +136,5 @@ Remaining Items
 - Warn of recursive functions.
 - Widgets for decorations.
 - Wire color setting.
+- Wire redo / undo.
 - Wiring.
