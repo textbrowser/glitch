@@ -134,5 +134,6 @@ Remaining Items
 - Undo macros for group actions.
 - Variable clones. May not be necessary.
 - Warn of recursive functions.
-- Wiring.
 - Widgets for decorations.
+- Wire color setting.
+- Wiring.
