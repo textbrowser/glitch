@@ -56,6 +56,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.type->addItems(list);
   prepareContextMenu();
   setName(m_type);
+  connectSignals(true);
 }
 
 glitch_object_variable_arduino::~glitch_object_variable_arduino()
@@ -345,6 +346,9 @@ void glitch_object_variable_arduino::setProperty
 
 void glitch_object_variable_arduino::slotComboBoxChanged(void)
 {
+  if(!m_undoStack)
+    return;
+
   auto comboBox = qobject_cast<QComboBox *> (sender());
 
   if(!comboBox)
@@ -381,6 +385,9 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
 
   lineEdit->setText(lineEdit->text().trimmed());
   lineEdit->selectAll();
+
+  if(!m_undoStack)
+    return;
 
   auto property = glitch_object::Properties::XYZ_PROPERTY;
 

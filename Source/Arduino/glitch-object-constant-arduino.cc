@@ -260,6 +260,9 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
   m_ui.other->setText(m_ui.other->text().trimmed());
   m_ui.other->selectAll();
 
+  if(!m_undoStack)
+    return;
+
   auto property = glitch_object::Properties::CONSTANT_OTHER;
 
   if(m_properties.value(property).toString() == m_ui.other->text())

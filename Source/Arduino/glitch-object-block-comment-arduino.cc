@@ -170,6 +170,9 @@ void glitch_object_block_comment_arduino::setProperty
 
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
+  if(!m_undoStack)
+    return;
+
   auto property = glitch_object::Properties::COMMENT;
   auto undoCommand = new glitch_undo_command
     (m_ui.comment->toPlainText(),

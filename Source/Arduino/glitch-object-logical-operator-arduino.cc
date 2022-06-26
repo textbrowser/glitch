@@ -178,6 +178,9 @@ void glitch_object_logical_operator_arduino::setProperties
 
 void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
 {
+  if(!m_undoStack)
+    return;
+
   auto undoCommand = new glitch_undo_command
     (m_properties.value(Properties::LOGICAL_OPERATOR).toString(),
      glitch_undo_command::LOGICAL_OPERATOR_CHANGED,
