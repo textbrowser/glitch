@@ -520,17 +520,21 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
 void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
 {
-  QHashIterator<quint64, char> it(m_wires);
+  QHashIterator<quint64, QPointer<glitch_object> > it(m_wires);
   QSqlQuery query(db);
 
   while(it.hasNext())
     {
       it.next();
+
+      if(!it.value() || !it.value()->proxy() || !it.value()->proxy()->scene())
+	continue;
+
       query.prepare
 	("INSERT OR REPLACE INTO wires (object_input_oid, object_output_oid) "
 	 "VALUES (?, ?)");
-      query.addBindValue(m_id);
       query.addBindValue(it.key());
+      query.addBindValue(m_id);
       query.exec();
 
       if(error.isEmpty() && query.lastError().isValid())
@@ -547,12 +551,6 @@ void glitch_object::setName(const QString &n)
       m_contextMenu->setName(name);
       m_properties[Properties::NAME] = name;
     }
-}
-
-void glitch_object::setOutputObjectId(const quint64 id)
-{
-  if(!m_wires.contains(id) && id != m_id)
-    m_wires[id] = 0;
 }
 
 void glitch_object::setProperties(const QStringList &list)
@@ -628,6 +626,14 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
     m_editView->scene()->setUndoStack(undoStack);
 
   m_undoStack = undoStack;
+}
+
+void glitch_object::setWiredObject(glitch_object *object)
+{
+  if(!object || m_id == object->id() || m_wires.contains(object->id()))
+    return;
+
+  m_wires[object->id()] = object;
 }
 
 void glitch_object::simulateDelete(void)

@@ -121,13 +121,13 @@ class glitch_object: public QWidget
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
   virtual void setUndoStack(QUndoStack *undoStack);
+  virtual void simulateDelete(void);
   virtual ~glitch_object();
   void addChild(const QPointF &point, glitch_object *object);
   void move(const QPoint &point);
   void move(int x, int y);
-  void setOutputObjectId(const quint64 id);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
-  virtual void simulateDelete(void);
+  void setWiredObject(glitch_object *object);
 
  private:
   static quint64 s_id;
@@ -138,7 +138,7 @@ class glitch_object: public QWidget
 
  protected:
   QHash<Properties, QVariant> m_properties;
-  QHash<quint64, char> m_wires;
+  QHash<quint64, QPointer<glitch_object> > m_wires;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
