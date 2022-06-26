@@ -50,6 +50,9 @@ void glitch_wire::paint
   Q_UNUSED(opt);
   Q_UNUSED(widget);
 
+  if(!m_leftProxy || !m_rightProxy)
+    return;
+
   if(painter)
     {
       painter->setRenderHints(QPainter::Antialiasing |
