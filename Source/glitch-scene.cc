@@ -1196,6 +1196,7 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
     {
       auto wire(new glitch_wire(nullptr));
 
+      addItem(wire);
       m_objectsToWire.clear();
     }
 }
