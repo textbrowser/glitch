@@ -71,7 +71,7 @@ void glitch_wire::paint
 	{
 	  QPen pen;
 
-	  pen.setColor(Qt::blue);
+	  pen.setColor(QColor(255, 192, 203, 200));
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(13.0);
 	  painter->setPen(pen);
@@ -80,8 +80,9 @@ void glitch_wire::paint
 	  auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  auto x2 = m_rightProxy->pos().x();
 	  auto xd = qAbs(x1 - x2) / 2.0;
-	  auto yd = qAbs(m_leftProxy->y() -
-			 m_rightProxy->y());
+	  auto yd = qAbs
+	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
+	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
 	  points << QPointF(x1 + 6.0,
 			    m_leftProxy->pos().y() +
