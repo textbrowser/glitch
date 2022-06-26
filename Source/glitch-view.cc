@@ -49,6 +49,7 @@
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
 #include "glitch-view.h"
+#include "glitch-wire.h"
 
 glitch_view::glitch_view
 (const QString &fileName,
@@ -335,6 +336,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
   auto ok = true;
 
   {
+    QHash<quint64, glitch_object *> objects;
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
@@ -393,6 +395,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      {
 				m_scene->addItem(proxy);
 				object->setUndoStack(m_undoStack);
+				objects[object->id()] = object;
 				parents[id] = object;
 				proxy->setPos
 				  (glitch_misc::dbPointToPointF(point));
@@ -407,14 +410,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    auto object = parents.value(query.value(1).toULongLong());
 
 		    if(object && object->editView())
-		      object->addChild
-			(glitch_misc::
-			 dbPointToPointF(point),
-			 glitch_object::
-			 createFromValues(values,
-					  object,
-					  error,
-					  object->editView()));
+		      {
+			auto o = glitch_object::createFromValues
+			  (values, object, error, object->editView());
+
+			object->addChild
+			  (glitch_misc::dbPointToPointF(point), o);
+			objects[o->id()] = o;
+		      }
 		  }
 	      }
 	  }
@@ -422,6 +425,38 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  {
 	    error = tr("An error occurred while accessing the objects table.");
 	    ok = false;
+	  }
+
+	if(error.isEmpty())
+	  {
+	    if(query.exec("SELECT object_input_oid, object_output_oid "
+			  "FROM wires"))
+	      while(query.next())
+		{
+		  auto object1 = objects.value(query.value(0).toULongLong());
+		  auto object2 = objects.value(query.value(1).toULongLong());
+
+		  if(object1 &&
+		     object1->proxy() &&
+		     object1->proxy()->scene() &&
+		     object2 &&
+		     object2->proxy())
+		    {
+		      auto wire(new glitch_wire(nullptr));
+
+		      object2->setOutputObjectId(object1->id());
+		      wire->setLeftProxy(object1->proxy());
+		      wire->setRightProxy(object2->proxy());
+		      wire->setZValue(5);
+		      object1->proxy()->scene()->addItem(wire);
+		    }
+		}
+	    else
+	      {
+		error = tr
+		  ("An error occurred while accessing the wires table.");
+		ok = false;
+	      }
 	  }
       }
 
