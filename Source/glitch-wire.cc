@@ -42,7 +42,7 @@ glitch_wire::~glitch_wire()
 
 QRectF glitch_wire::boundingRect(void) const
 {
-  return QRectF();
+  return m_boundingRect;
 }
 
 void glitch_wire::paint
@@ -97,6 +97,7 @@ void glitch_wire::paint
 			    m_leftProxy->pos().y() +
 			    m_leftProxy->size().height() / 2.0 - 1.0 + yd);
 	  painter->drawPolyline(points);
+	  m_boundingRect = points.boundingRect();
 	}
     }
 }

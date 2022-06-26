@@ -46,6 +46,7 @@ class glitch_wire: public QGraphicsObject
  private:
   QPointer<glitch_proxy_widget> m_leftProxy;
   QPointer<glitch_proxy_widget> m_rightProxy;
+  QRectF m_boundingRect;
   QRectF boundingRect(void) const;
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
