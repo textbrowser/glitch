@@ -62,6 +62,11 @@ void glitch_wire::paint
 			      QPainter::SmoothPixmapTransform |
 			      QPainter::TextAntialiasing,
 			      true);
+
+      if(m_leftProxy->x() <= m_rightProxy->x() &&
+	 m_leftProxy->y() >= m_rightProxy->y())
+	{
+	}
     }
 }
 
