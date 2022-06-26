@@ -62,7 +62,6 @@ glitch_object::glitch_object(const quint64 id, QWidget *parent):QWidget(nullptr)
   m_drawOutputConnector = false;
   m_id = id;
   m_parent = parent;
-  m_properties[Properties::OUTPUT_OBJECT_ID] = -1;
   m_properties[Properties::POSITION_LOCKED] = false;
 
   {
@@ -459,12 +458,10 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 {
   QSqlQuery query(db);
 
-  query.prepare
-    ("INSERT OR REPLACE INTO objects "
-     "(myoid, output_object_id, parent_oid, position, stylesheet, type) "
-     "VALUES(?, ?, ?, ?, ?, ?)");
+  query.prepare("INSERT OR REPLACE INTO objects "
+		"(myoid, parent_oid, position, stylesheet, type) "
+		"VALUES(?, ?, ?, ?, ?)");
   query.addBindValue(m_id);
-  query.addBindValue(m_properties.value(Properties::OUTPUT_OBJECT_ID));
 
   if(qobject_cast<glitch_object_view *> (m_parent))
     query.addBindValue(qobject_cast<glitch_object_view *> (m_parent)->id());
@@ -531,10 +528,8 @@ void glitch_object::setName(const QString &n)
 
 void glitch_object::setOutputObjectId(const quint64 id)
 {
-  if(id == m_id)
-    m_properties[Properties::OUTPUT_OBJECT_ID] = -1;
-  else
-    m_properties[Properties::OUTPUT_OBJECT_ID] = id;
+  if(!m_outputObjectIds.contains(id) && id != m_id)
+    m_outputObjectIds[id] = 0;
 }
 
 void glitch_object::setProperties(const QStringList &list)

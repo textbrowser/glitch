@@ -76,7 +76,6 @@ class glitch_object: public QWidget
     LOGICAL_OPERATOR,
     LOOP_TYPE,
     NAME,
-    OUTPUT_OBJECT_ID,
     POSITION_LOCKED,
     VARIABLE_ARRAY_INDEX,
     VARIABLE_ARRAY_SIZE,
@@ -139,6 +138,7 @@ class glitch_object: public QWidget
 
  protected:
   QHash<Properties, QVariant> m_properties;
+  QHash<quint64, char> m_outputObjectIds;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
