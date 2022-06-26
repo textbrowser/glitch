@@ -232,10 +232,10 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  this,
 	  &glitch_scene::slotProxyChanged);
 
-  if(object->scene())
+  if(object->editScene())
     connect(this,
 	    &glitch_scene::functionDeleted,
-	    object->scene(),
+	    object->editScene(),
 	    &glitch_scene::slotFunctionDeleted,
 	    Qt::UniqueConnection);
 
@@ -321,10 +321,10 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(m_redoUndoProxies.contains(proxy) && proxy)
     m_redoUndoProxies[proxy] = 0;
 
-  if(proxy && proxy->object() && proxy->object()->scene())
+  if(proxy && proxy->object() && proxy->object()->editScene())
     connect(this,
 	    &glitch_scene::functionDeleted,
-	    proxy->object()->scene(),
+	    proxy->object()->editScene(),
 	    &glitch_scene::slotFunctionDeleted,
 	    Qt::UniqueConnection);
 

@@ -263,7 +263,7 @@ glitch_object *glitch_object::createFromValues
   return object;
 }
 
-glitch_scene *glitch_object::scene(void) const
+glitch_scene *glitch_object::editScene(void) const
 {
   if(m_editView)
     return m_editView->scene();

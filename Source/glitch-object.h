@@ -102,7 +102,7 @@ class glitch_object: public QWidget
     return m_contextMenu;
   }
 
-  glitch_scene *scene(void) const;
+  glitch_scene *editScene(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values,
      glitch_object *parentObject,
