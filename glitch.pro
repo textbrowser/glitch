@@ -57,7 +57,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -std=c++11
 } else {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
-                          -Wcast-align \
                           -Wcast-qual \
                           -Wdouble-promotion \
                           -Wenum-compare \
