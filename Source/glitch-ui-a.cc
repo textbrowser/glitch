@@ -707,6 +707,7 @@ void glitch_ui::prepareIcons(void)
 void glitch_ui::prepareRecentFiles(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  QDir().mkdir(glitch_misc::homePath() + QDir::separator() + "Glitch");
 
   QString connectionName("");
   QStringList list;
@@ -866,12 +867,15 @@ void glitch_ui::saveRecentFile(const QString &fileName)
   {
     auto db(glitch_common::sqliteDatabase());
 
+    connectionName = db.connectionName();
     db.setDatabaseName(m_recentFilesFileName);
 
     if(db.open())
       {
 	QSqlQuery query(db);
 
+	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
+		   "file_name TEXT NOT NULL PRIMARY KEY)");
 	query.prepare
 	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name) VALUES (?)");
 	query.addBindValue(fileName);
@@ -1013,6 +1017,7 @@ void glitch_ui::slotClearRecentFiles(void)
   {
     auto db(glitch_common::sqliteDatabase());
 
+    connectionName = db.connectionName();
     db.setDatabaseName(m_recentFilesFileName);
 
     if(db.open())
