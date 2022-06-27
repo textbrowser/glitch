@@ -6,11 +6,7 @@ purge.commands = find . -name '*~' -exec rm {} \\;
 CONFIG		+= qt release warn_on
 DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
-QT		+= gui sql
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-QT += widgets
-}
+QT		+= gui sql widgets
 
 QMAKE_CLEAN	+= Glitch
 
@@ -85,7 +81,7 @@ QMAKE_CXXFLAGS_RELEASE += -std=c++17
 QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
-QMAKE_CXXFLAGS_RELEASE += -O0
+QMAKE_CXXFLAGS_RELEASE += -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
 QMAKE_DISTCLEAN += -r .qmake* \
