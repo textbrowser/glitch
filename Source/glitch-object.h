@@ -139,7 +139,10 @@ class glitch_object: public QWidget
 
  protected:
   QHash<Properties, QVariant> m_properties;
-  QHash<quint64, QPointer<glitch_object> > m_wires;
+  QHash<quint64, QPointer<glitch_object> > m_wires; /*
+						    ** Must be cloned, if
+						    ** required!
+						    */
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
