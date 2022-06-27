@@ -106,9 +106,7 @@ void glitch_wire::paint
 
 void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
 {
-  if(!proxy)
-    return;
-  else if(m_leftProxy || m_rightProxy == proxy)
+  if(!proxy || m_leftProxy || m_rightProxy == proxy)
     return;
 
   auto object = qobject_cast<glitch_object *> (proxy->widget());
@@ -125,9 +123,7 @@ void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
 
 void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
 {
-  if(!proxy)
-    return;
-  else if(m_leftProxy == proxy || m_rightProxy)
+  if(!proxy || m_leftProxy == proxy || m_rightProxy)
     return;
 
   auto object = qobject_cast<glitch_object *> (proxy->widget());
