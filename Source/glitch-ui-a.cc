@@ -549,9 +549,12 @@ void glitch_ui::parseCommandLineArguments(void)
 
 void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 {
+  if(s_copiedObjects.isEmpty())
+    return;
+
   auto scene = qobject_cast<glitch_scene *> (view->scene());
 
-  if(s_copiedObjects.isEmpty() || !scene || !undoStack || !view)
+  if(!scene || !undoStack || !view)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
