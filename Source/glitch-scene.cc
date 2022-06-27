@@ -202,7 +202,7 @@ bool glitch_scene::allowDrag
 
 glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 {
-  if(!object || object->proxy())
+  if(!object || object->proxy() || object->scene() == this)
     return nullptr;
 
   auto proxy = new glitch_proxy_widget();
