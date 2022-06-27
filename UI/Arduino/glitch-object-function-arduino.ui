@@ -43,7 +43,7 @@
       </font>
      </property>
      <property name="toolTip">
-      <string>Function definition.</string>
+      <string>A function.</string>
      </property>
      <property name="text">
       <string>&amp;fnof;</string>
