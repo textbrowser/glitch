@@ -40,11 +40,12 @@ class glitch_wire: public QGraphicsObject
  public:
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
+  void setColor(const QColor &color);
   void setLeftProxy(glitch_proxy_widget *proxy);
   void setRightProxy(glitch_proxy_widget *proxy);
 
  private:
-  QColor m_wireColor;
+  QColor m_color;
   QPointer<glitch_proxy_widget> m_leftProxy;
   QPointer<glitch_proxy_widget> m_rightProxy;
   QRectF m_boundingRect;
