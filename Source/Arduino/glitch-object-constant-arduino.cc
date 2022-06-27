@@ -88,6 +88,7 @@ clone(QWidget *parent) const
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
   clone->m_ui.other->setText(m_ui.other->text().trimmed());
   clone->m_ui.other->selectAll();
+  clone->m_wires = m_wires;
   clone->setConstantType(m_ui.constant->currentText());
   clone->setStyleSheet(styleSheet());
   return clone;

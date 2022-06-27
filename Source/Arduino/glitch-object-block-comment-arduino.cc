@@ -86,6 +86,7 @@ clone(QWidget *parent) const
   clone->m_ui.comment->blockSignals(true);
   clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
   clone->m_ui.comment->blockSignals(false);
+  clone->m_wires = m_wires;
   clone->setStyleSheet(styleSheet());
   return clone;
 }

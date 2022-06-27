@@ -75,6 +75,7 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_logical_operator_arduino(parent);
 
   clone->m_properties = m_properties;
+  clone->m_wires = m_wires;
   clone->setOperatorType(m_operatorType);
   clone->setStyleSheet(styleSheet());
   return clone;

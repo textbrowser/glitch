@@ -113,6 +113,7 @@ clone(QWidget *parent) const
   clone->m_ioType = m_ioType;
   clone->m_properties = m_properties;
   clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_wires = m_wires;
   clone->setStyleSheet(styleSheet());
   return clone;
 }
