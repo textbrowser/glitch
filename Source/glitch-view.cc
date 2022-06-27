@@ -436,7 +436,11 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  auto object1 = objects.value(query.value(0).toULongLong());
 		  auto object2 = objects.value(query.value(1).toULongLong());
 
-		  if(object1 && object1->scene() && object2 && object2->proxy())
+		  if(object1 &&
+		     object1->proxy() &&
+		     object1->scene() &&
+		     object2 &&
+		     object2->proxy())
 		    {
 		      auto wire(new glitch_wire(nullptr));
 
