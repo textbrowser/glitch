@@ -528,8 +528,21 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	    goto done_label;
 	  }
 
-	query.exec("DELETE FROM objects");
-	query.exec("DELETE FROM wires");
+	ok = query.exec("DELETE FROM objects");
+
+	if(!ok)
+	  {
+	    error = query.lastError().text();
+	    goto done_label;
+	  }
+
+	ok = query.exec("DELETE FROM wires");
+
+	if(!ok)
+	  {
+	    error = query.lastError().text();
+	    goto done_label;
+	  }
 
 	auto list(m_scene->items());
 
@@ -548,7 +561,10 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	    object->save(db, error);
 
 	    if(!error.isEmpty())
-	      break;
+	      {
+		ok = false;
+		break;
+	      }
 	  }
       }
     else
@@ -560,6 +576,16 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
+
+  if(error.isEmpty())
+    {
+      if(m_saveDiagramAction)
+	m_saveDiagramAction->setEnabled(false);
+
+      if(m_tabButton)
+	m_tabButton->setEnabled(false);
+    }
+
   m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
@@ -971,15 +997,7 @@ void glitch_view::slotSave(void)
       (tr("Unable to save %1 (%2).").arg(m_canvasSettings->name()).arg(error),
        this);
   else
-    {
-      if(m_saveDiagramAction)
-	m_saveDiagramAction->setEnabled(false);
-
-      if(m_tabButton)
-	m_tabButton->setEnabled(false);
-
-      emit saved();
-    }
+    emit saved();
 }
 
 void glitch_view::slotSaveAs(void)
