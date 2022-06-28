@@ -143,7 +143,6 @@ void glitch_wire::paint
 	  m_boundingRect = points.boundingRect();
 	  painter->drawPolyline(points);
 	}
-
     }
 }
 
