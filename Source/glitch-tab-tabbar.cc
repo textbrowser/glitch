@@ -87,9 +87,9 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
   else
     {
 #ifdef Q_OS_MAC
-      int preferred = 200;
+      int preferred = 250;
 #else
-      int preferred = 200;
+      int preferred = 250;
 #endif
       int preferredTabWidth = 0;
 
