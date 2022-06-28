@@ -123,6 +123,7 @@ Remaining Items
 - Copy wires if necessary.
 - Define parameters from connected objects. Order is also important.
 - Find objects.
+- Full-screen and normal-screen modes.
 - Icons and themes.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.
