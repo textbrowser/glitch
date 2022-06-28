@@ -65,6 +65,8 @@ void glitch_wire::paint
 
   if(painter)
     {
+      static qreal penWidth = 13.0;
+
       painter->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 			      QPainter::HighQualityAntialiasing | // OpenGL?
@@ -82,14 +84,14 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(13.0);
+	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
 	  QPolygonF points;
-	  auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  auto x2 = m_rightProxy->pos().x();
-	  auto xd = qAbs(x1 - x2) / 2.0;
-	  auto yd = qAbs
+	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  const auto x2 = m_rightProxy->pos().x();
+	  const auto xd = qAbs(x1 - x2) / 2.0;
+	  const auto yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
@@ -117,14 +119,14 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(13.0);
+	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
 	  QPolygonF points;
-	  auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  auto x2 = m_rightProxy->pos().x();
-	  auto xd = qAbs(x1 - x2) / 2.0;
-	  auto yd = qAbs
+	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  const auto x2 = m_rightProxy->pos().x();
+	  const auto xd = qAbs(x1 - x2) / 2.0;
+	  const auto yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
@@ -142,6 +144,21 @@ void glitch_wire::paint
 			    m_leftProxy->size().height() / 2.0 - 1.0 - yd);
 	  m_boundingRect = points.boundingRect();
 	  painter->drawPolyline(points);
+	}
+      else if(m_leftProxy->size().width() + m_leftProxy->y() >=
+	      m_rightProxy->y())
+	{
+	  QPen pen;
+
+	  pen.setColor(m_color);
+	  pen.setJoinStyle(Qt::MiterJoin);
+	  pen.setWidthF(penWidth);
+	  painter->setPen(pen);
+
+	  QPolygonF points;
+	  const auto yd = qAbs
+	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
+	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y()) / 2.0;
 	}
     }
 }

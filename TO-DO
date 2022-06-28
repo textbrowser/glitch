@@ -113,7 +113,7 @@ Ignored Items
 Remaining Items
 
 - Adjust changed state of parent canvas if redo / undo stack of a child
-  is at level zero.
+  is at level zero. This is very difficult.
 - Android.
 - Completed Categories
   Advanced I/O
