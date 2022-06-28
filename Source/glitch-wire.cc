@@ -35,6 +35,7 @@
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
   m_color = QColor(255, 192, 203, 200);
+  setFlag(QGraphicsItem::ItemIsSelectable, false);
 }
 
 glitch_wire::~glitch_wire()
