@@ -25,8 +25,11 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-tab.h"
+#include <QPushButton>
+
 #include "glitch-tab-tabbar.h"
+#include "glitch-tab.h"
+#include "glitch-view.h"
 
 glitch_tab::glitch_tab(QWidget *parent):QTabWidget(parent)
 {
@@ -45,4 +48,24 @@ glitch_tab::~glitch_tab()
 QTabBar *glitch_tab::tabBar(void) const
 {
   return m_tabBar;
+}
+
+int glitch_tab::addTab
+(glitch_view *view, const QIcon &icon, const QString &label)
+{
+  if(!view)
+    return -1;
+
+  auto index = QTabWidget::addTab(view, icon, label);
+  auto pushButton = new QPushButton(tr("Save"), this);
+
+  connect(pushButton,
+	  &QPushButton::clicked,
+	  view,
+	  &glitch_view::slotSave);
+  m_tabBar->setTabButton
+    (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
+  pushButton->setEnabled(view->hasChanged());
+  view->setTabButton(pushButton);
+  return index;
 }

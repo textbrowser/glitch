@@ -108,6 +108,29 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
   return size;
 }
 
+QTabBar::ButtonPosition glitch_tab_tabbar::
+preferredCloseButtonPositionOpposite(void) const
+{
+#ifdef Q_OS_MACOS
+  if(!style())
+    return QTabBar::RightSide;
+#else
+  if(!style())
+    return QTabBar::RightSide;
+#endif
+
+  auto buttonPosition = static_cast<QTabBar::ButtonPosition>
+    (style()->styleHint(QStyle::SH_TabBar_CloseButtonPosition, 0, this));
+
+#ifdef Q_OS_MACOS
+  return buttonPosition == QTabBar::LeftSide ?
+    QTabBar::RightSide : QTabBar::LeftSide;
+#else
+  return buttonPosition == QTabBar::LeftSide ?
+    QTabBar::RightSide : QTabBar::LeftSide;
+#endif
+}
+
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)
 {
   auto tab = qobject_cast<glitch_tab *> (parentWidget());

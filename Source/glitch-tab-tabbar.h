@@ -37,6 +37,7 @@ class glitch_tab_tabbar: public QTabBar
  public:
   glitch_tab_tabbar(QWidget *parent);
   ~glitch_tab_tabbar();
+  QTabBar::ButtonPosition preferredCloseButtonPositionOpposite(void) const;
 
  private:
   QSize tabSizeHint(int index) const;

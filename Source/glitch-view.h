@@ -92,10 +92,14 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
+  void setTabButton(QPushButton *pushButton);
   void showAlignment(void);
   void showCanvasSettings(void);
   void showTools(void);
   void undo(void);
+
+ public slots:
+  void slotSave(void);
 
  private:
   void prepareDatabaseTables(const QString &fileName) const;
@@ -110,6 +114,7 @@ class glitch_view: public QWidget
   QList<QAction *> m_defaultActions;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
+  QPointer<QPushButton> m_tabButton;
   QPointer<glitch_alignment> m_alignment;
   QPointer<glitch_tools> m_tools;
   QString m_fileName;
@@ -143,7 +148,6 @@ class glitch_view: public QWidget
 				     glitch_object *object);
   void slotPaste(void);
   void slotResizeScene(void);
-  void slotSave(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);

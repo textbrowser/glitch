@@ -31,6 +31,7 @@
 #include <QTabWidget>
 
 class glitch_tab_tabbar;
+class glitch_view;
 
 class glitch_tab: public QTabWidget
 {
@@ -40,6 +41,7 @@ class glitch_tab: public QTabWidget
   glitch_tab(QWidget *parent);
   ~glitch_tab();
   QTabBar *tabBar(void) const;
+  int addTab(glitch_view *view, const QIcon &icon, const QString &label);
 
  private:
   glitch_tab_tabbar *m_tabBar;

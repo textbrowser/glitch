@@ -758,6 +758,9 @@ void glitch_view::redo(void)
 
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(m_changed);
+
+  if(m_tabButton)
+    m_tabButton->setEnabled(m_changed);
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -804,6 +807,11 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->width() - 2 * m_view->frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       m_view->height() - 2 * m_view->frameWidth())));
+}
+
+void glitch_view::setTabButton(QPushButton *pushButton)
+{
+  m_tabButton = pushButton;
 }
 
 void glitch_view::showAlignment(void)
@@ -876,6 +884,9 @@ void glitch_view::slotChanged(void)
 
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(true);
+
+  if(m_tabButton)
+    m_tabButton->setEnabled(true);
 
   setSceneRect(m_view->size());
   emit changed();
@@ -963,6 +974,9 @@ void glitch_view::slotSave(void)
     {
       if(m_saveDiagramAction)
 	m_saveDiagramAction->setEnabled(false);
+
+      if(m_tabButton)
+	m_tabButton->setEnabled(false);
 
       emit saved();
     }
@@ -1064,4 +1078,7 @@ void glitch_view::undo(void)
 
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(m_changed);
+
+  if(m_tabButton)
+    m_tabButton->setEnabled(m_changed);
 }
