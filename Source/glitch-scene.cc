@@ -336,6 +336,11 @@ void glitch_scene::addItem(QGraphicsItem *item)
        isClone());
 
   recordProxyOrder(proxy);
+
+  auto wire = qgraphicsitem_cast<glitch_wire *> (item);
+
+  if(wire)
+    m_wires << wire;
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
@@ -834,7 +839,13 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      if(m_toolsOperation == glitch_tools::Operations::WIRE_CONNECT)
 		{
-		  wireObjects(proxy);
+		  wireConnectObjects(proxy);
+		  goto done_label;
+		}
+	      else if(m_toolsOperation ==
+		      glitch_tools::Operations::WIRE_DISCONNECT)
+		{
+		  wireDisconnectObjects(event->scenePos(), proxy);
 		  goto done_label;
 		}
 
@@ -1076,7 +1087,10 @@ void glitch_scene::slotFunctionDeleted(const QString &name)
 	    m_undoStack->push(undoCommand);
 	  }
 	else
-	  removeItem(object->proxy());
+	  {
+	    removeItem(object->proxy());
+	    object->deleteLater();
+	  }
 
 	break;
       }
@@ -1164,7 +1178,7 @@ void glitch_scene::slotUndo(void)
     }
 }
 
-void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
+void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 {
   if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_CONNECT)
     return;
@@ -1224,4 +1238,36 @@ void glitch_scene::wireObjects(glitch_proxy_widget *proxy)
 	  emit changed();
 	}
     }
+}
+
+void glitch_scene::wireDisconnectObjects
+(const QPointF &point, glitch_proxy_widget *proxy)
+{
+  if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_DISCONNECT)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMutableSetIterator<glitch_wire *> it(m_wires);
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire)
+	{
+	  it.remove();
+	  continue;
+	}
+
+      if(proxy == wire->proxyNearPoint(point))
+	{
+	  delete wire;
+	  it.remove();
+	  update();
+	  emit changed();
+	}
+    }
+
+  QApplication::restoreOverrideCursor();
 }

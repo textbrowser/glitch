@@ -32,6 +32,7 @@
 #include <QHash>
 #include <QMultiMap>
 #include <QPointer>
+#include <QSet>
 #include <QtGlobal>
 
 #include "glitch-common.h"
@@ -40,6 +41,7 @@
 class QUndoStack;
 class glitch_object;
 class glitch_proxy_widget;
+class glitch_wire;
 
 class glitch_scene: public QGraphicsScene
 {
@@ -108,6 +110,7 @@ class glitch_scene: public QGraphicsScene
   QMultiMap<glitch_point, glitch_proxy_widget *> m_objectsMap; // For ordering.
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
+  QSet<glitch_wire *> m_wires;
   bool m_mainScene;
   bool m_showDots;
   glitch_common::ProjectTypes m_projectType;
@@ -124,7 +127,8 @@ class glitch_scene: public QGraphicsScene
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
   void recordProxyOrder(glitch_proxy_widget *proxy);
-  void wireObjects(glitch_proxy_widget *proxy);
+  void wireConnectObjects(glitch_proxy_widget *proxy);
+  void wireDisconnectObjects(const QPointF &point, glitch_proxy_widget *proxy);
 
  public slots:
   void slotToolsOperationChanged(const glitch_tools::Operations operation);

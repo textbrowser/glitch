@@ -27,6 +27,7 @@
 
 #include <QPainter>
 #include <QtDebug>
+#include <QtMath>
 
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
@@ -41,6 +42,27 @@ glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 
 glitch_wire::~glitch_wire()
 {
+}
+
+QPointer<glitch_proxy_widget> glitch_wire::
+proxyNearPoint(const QPointF &point) const
+{
+  if(!m_leftProxy && !m_rightProxy)
+    return nullptr;
+  else if(!m_leftProxy && m_rightProxy)
+    return m_rightProxy;
+  else if(!m_rightProxy && m_leftProxy)
+    return m_leftProxy;
+
+  auto distance1 = qSqrt(qPow(m_leftProxy->x() - point.x(), 2.0) +
+			 qPow(m_leftProxy->y() - point.y(), 2.0));
+  auto distance2 = qSqrt(qPow(m_rightProxy->x() - point.x(), 2.0) +
+			 qPow(m_rightProxy->y() - point.y(), 2.0));
+
+  if(distance1 < distance2)
+    return m_leftProxy;
+  else
+    return m_rightProxy;
 }
 
 QRectF glitch_wire::boundingRect(void) const

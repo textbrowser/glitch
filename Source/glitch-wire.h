@@ -38,8 +38,20 @@ class glitch_wire: public QGraphicsObject
   Q_OBJECT
 
  public:
+  enum
+  {
+    Type = QGraphicsObject::UserType + 2
+  };
+
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
+  QPointer<glitch_proxy_widget> proxyNearPoint(const QPointF &point) const;
+
+  int type(void) const
+  {
+    return Type;
+  }
+
   void setColor(const QColor &color);
   void setLeftProxy(glitch_proxy_widget *proxy);
   void setRightProxy(glitch_proxy_widget *proxy);
