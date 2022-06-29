@@ -91,10 +91,10 @@ class glitch_object_time_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string.contains("delay"))
-      return Type::DELAY;
-    else if(string.contains("delaymicroseconds"))
+    if(string.contains("delaymicroseconds"))
       return Type::DELAY_MICROSECONDS;
+    else if(string.contains("delay"))
+      return Type::DELAY;
     else if(string.contains("micros"))
       return Type::MICROS;
     else if(string.contains("millis"))
