@@ -45,7 +45,8 @@ class glitch_wire: public QGraphicsObject
 
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
-  QPointer<glitch_proxy_widget> proxyNearPoint(const QPointF &point) const;
+  QPointer<glitch_proxy_widget> leftProxy(void) const;
+  QPointer<glitch_proxy_widget> rightProxy(void) const;
 
   int type(void) const
   {

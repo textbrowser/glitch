@@ -1243,6 +1243,8 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 void glitch_scene::wireDisconnectObjects
 (const QPointF &point, glitch_proxy_widget *proxy)
 {
+  Q_UNUSED(point);
+
   if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_DISCONNECT)
     return;
 
@@ -1260,7 +1262,14 @@ void glitch_scene::wireDisconnectObjects
 	  continue;
 	}
 
-      if(proxy == wire->proxyNearPoint(point))
+      glitch_proxy_widget *p = nullptr;
+
+      if(proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	p = wire->rightProxy();
+      else if(proxy->hoveredSection() == glitch_proxy_widget::Sections::RIGHT)
+	p = wire->leftProxy();
+
+      if(p == proxy)
 	{
 	  delete wire;
 	  it.remove();
