@@ -39,6 +39,7 @@
 #include "Arduino/glitch-object-loop-arduino.h"
 #include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "Arduino/glitch-object-setup-arduino.h"
+#include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
