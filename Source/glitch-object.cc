@@ -250,6 +250,9 @@ glitch_object *glitch_object::createFromValues
   else if(type == "arduino-loop-flow")
     object = glitch_object_loop_flow_arduino::createFromValues
       (values, error, parent);
+  else if(type == "arduino-time")
+    object = glitch_object_time_arduino::createFromValues
+      (values, error, parent);
   else if(type == "arduino-variable")
     object = glitch_object_variable_arduino::createFromValues
       (values, error, parent);

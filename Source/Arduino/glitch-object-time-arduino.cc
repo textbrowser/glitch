@@ -83,47 +83,19 @@ QString glitch_object_time_arduino::code(void) const
     {
     case Type::DELAY:
       {
-	if(inputs().size() == 2)
-	  return QString("int %1 = pulseIn(%2, %3);").
-	    arg(output()).
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-	else
-	  return QString("int %1 = pulseIn(%2, %3, %4);").
-	    arg(output()).
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1)).
-	    arg(inputs().value(2));
+	return QString("delay(%1);").arg(inputs().value(0));
       }
     case Type::DELAY_MICROSECONDS:
       {
-	if(inputs().size() == 2)
-	  return QString("int %1 = pulseInLong(%2, %3);").
-	    arg(output()).
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-	else
-	  return QString("int %1 = pulseInLong(%2, %3, %4);").
-	    arg(output()).
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1)).
-	    arg(inputs().value(2));
+	return QString("delayMicroseconds(%1);").arg(inputs().value(0));
       }
     case Type::MICROS:
       {
-	return QString("int %1 = shiftIn(%2, %3, %4);").
-	  arg(output()).
-	  arg(inputs().value(0)).
-	  arg(inputs().value(1)).
-	  arg(inputs().value(2));
+	return QString("int %1 = micros();").arg(output());
       }
     case Type::MILLIS:
       {
-	return QString("shiftOut(%1, %2, %3, %4);").
-	  arg(inputs().value(0)).
-	  arg(inputs().value(1)).
-	  arg(inputs().value(2)).
-	  arg(inputs().value(3));
+	return QString("int %1 = millis();").arg(output());
       }
     default:
       {
