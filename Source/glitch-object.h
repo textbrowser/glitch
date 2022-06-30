@@ -117,6 +117,7 @@ class glitch_object: public QWidget
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;
   virtual bool isMandatory(void) const;
+  virtual bool shouldPrint(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
   virtual void save(const QSqlDatabase &db, QString &error);
@@ -155,8 +156,8 @@ class glitch_object: public QWidget
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;
   quint64 m_id;
-  QString output(void) const;
-  QStringList inputs(void) const;
+  virtual QString output(void) const;
+  virtual QStringList inputs(void) const;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void prepareContextMenu(void);

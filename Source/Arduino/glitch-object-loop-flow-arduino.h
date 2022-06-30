@@ -50,6 +50,7 @@ class glitch_object_loop_flow_arduino: public glitch_object
   QString code(void) const;
   QString loopType(void) const;
   bool hasOutput(void) const;
+  bool shouldPrint(void) const;
   static glitch_object_loop_flow_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   glitch_object_loop_flow_arduino *clone(QWidget *parent) const;

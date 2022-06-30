@@ -213,7 +213,7 @@ void glitch_view_arduino::generateSource(void)
 
       for(auto w : widgets)
 	{
-	  if(!w)
+	  if(!w || !w->shouldPrint())
 	    continue;
 	  else if(m_loopObject == w || m_setupObject == w)
 	    continue;

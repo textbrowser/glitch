@@ -50,6 +50,7 @@
 #include "glitch-style-sheet.h"
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
+#include "glitch-wire.h"
 
 glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 {
@@ -162,6 +163,32 @@ QStringList glitch_object::inputs(void) const
   /*
   ** Must be unique.
   */
+
+  auto scene = this->scene();
+
+  if(!scene)
+    return QStringList() << "input";    
+
+  QSetIterator<glitch_wire *> it(scene->wires());
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire || !wire->rightProxy())
+	continue;
+
+      if(this == wire->rightProxy()->object() &&
+	 wire->leftProxy() &&
+	 wire->leftProxy()->widget())
+	{
+	  auto object = qobject_cast<glitch_object *>
+	    (wire->leftProxy()->widget());
+
+	  if(object)
+	    return QStringList() << object->code();
+	}
+    }
 
   return QStringList() << "input";
 }

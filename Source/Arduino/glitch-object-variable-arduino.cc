@@ -78,7 +78,8 @@ QString glitch_object_variable_arduino::code(void) const
 	    " " +
 	    pointerAccess +
 	    name +
-	    ";").trimmed();
+	    " = " +
+	    inputs().value(0) + ";").trimmed();
   else
     return (qualifier +
 	    " " +
@@ -96,6 +97,11 @@ bool glitch_object_variable_arduino::hasInput(void) const
 }
 
 bool glitch_object_variable_arduino::hasOutput(void) const
+{
+  return true;
+}
+
+bool glitch_object_variable_arduino::shouldPrint(void) const
 {
   return true;
 }

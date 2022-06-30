@@ -81,7 +81,7 @@ QString glitch_object_loop_arduino::code(void) const
 
   for(auto w : widgets)
     {
-      if(!w)
+      if(!w || !w->shouldPrint())
 	continue;
 
       auto code(w->code());
@@ -103,6 +103,11 @@ bool glitch_object_loop_arduino::hasView(void) const
 }
 
 bool glitch_object_loop_arduino::isMandatory(void) const
+{
+  return true;
+}
+
+bool glitch_object_loop_arduino::shouldPrint(void) const
 {
   return true;
 }

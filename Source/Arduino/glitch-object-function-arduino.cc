@@ -241,6 +241,11 @@ bool glitch_object_function_arduino::isClone(void) const
   return m_isFunctionClone;
 }
 
+bool glitch_object_function_arduino::shouldPrint(void) const
+{
+  return true;
+}
+
 glitch_object_function_arduino *glitch_object_function_arduino::
 clone(QWidget *parent) const
 {

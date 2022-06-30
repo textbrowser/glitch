@@ -120,6 +120,11 @@ bool glitch_object_time_arduino::hasOutput(void) const
     return false;
 }
 
+bool glitch_object_time_arduino::shouldPrint(void) const
+{
+  return true;
+}
+
 glitch_object_time_arduino *glitch_object_time_arduino::
 clone(QWidget *parent) const
 {

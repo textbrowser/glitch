@@ -65,7 +65,10 @@ glitch_object_constant_arduino::~glitch_object_constant_arduino()
 
 QString glitch_object_constant_arduino::code(void) const
 {
-  return "";
+  if(m_ui.constant->currentText() == tr("Other"))
+    return m_ui.other->text().trimmed();
+  else
+    return m_ui.constant->currentText();
 }
 
 QString glitch_object_constant_arduino::constantType(void) const
@@ -76,6 +79,11 @@ QString glitch_object_constant_arduino::constantType(void) const
 bool glitch_object_constant_arduino::hasOutput(void) const
 {
   return true;
+}
+
+bool glitch_object_constant_arduino::shouldPrint(void) const
+{
+  return false;
 }
 
 glitch_object_constant_arduino *glitch_object_constant_arduino::

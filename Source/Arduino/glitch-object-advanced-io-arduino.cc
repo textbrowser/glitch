@@ -170,6 +170,11 @@ bool glitch_object_advanced_io_arduino::hasOutput(void) const
     return false;
 }
 
+bool glitch_object_advanced_io_arduino::shouldPrint(void) const
+{
+  return true;
+}
+
 glitch_object_advanced_io_arduino *glitch_object_advanced_io_arduino::
 clone(QWidget *parent) const
 {

@@ -78,16 +78,13 @@ QString glitch_object_analog_io_arduino::code(void) const
       }
     case Type::WRITE:
       {
-	return QString("int %1 = analogWrite(%2, %3);").
-	  arg(output()).
+	return QString("analogWrite(%1, %2);").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1));
       }
     default:
       {
-	return QString("int %1 = analogRead(%2);").
-	  arg(output()).
-	  arg(inputs().value(0));
+	return QString("analogRead(%1)").arg(inputs().value(0));
       }
     }
 }
@@ -103,6 +100,22 @@ bool glitch_object_analog_io_arduino::hasOutput(void) const
     return true;
   else
     return false;
+}
+
+bool glitch_object_analog_io_arduino::shouldPrint(void) const
+{
+  switch(m_ioType)
+    {
+    case Type::REFERENCE:
+    case Type::WRITE:
+      {
+	return true;
+      }
+    default:
+      {
+	return false;
+      }
+    }
 }
 
 glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
