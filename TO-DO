@@ -123,6 +123,7 @@ Remaining Items
   Time
 - Copy wires if necessary.
 - Define parameters from connected objects. Order is also important.
+- Denote occupied functions, loop(), setup(), etc.
 - Find objects.
 - Full-screen and normal-screen modes.
 - Icons and themes.
