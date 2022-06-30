@@ -95,13 +95,11 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN:
       {
 	if(inputs().size() == 2)
-	  return QString("int %1 = pulseIn(%2, %3);").
-	    arg(output()).
+	  return QString("pulseIn(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("int %1 = pulseIn(%2, %3, %4);").
-	    arg(output()).
+	  return QString("pulseIn(%1, %2, %3);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
@@ -109,21 +107,18 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN_LONG:
       {
 	if(inputs().size() == 2)
-	  return QString("int %1 = pulseInLong(%2, %3);").
-	    arg(output()).
+	  return QString("pulseInLong(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("int %1 = pulseInLong(%2, %3, %4);").
-	    arg(output()).
+	  return QString("pulseInLong(%1, %2, %3);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
       }
     case Type::SHIFT_IN:
       {
-	return QString("int %1 = shiftIn(%2, %3, %4);").
-	  arg(output()).
+	return QString("shiftIn(%1, %2, %3);").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1)).
 	  arg(inputs().value(2));
@@ -172,7 +167,24 @@ bool glitch_object_advanced_io_arduino::hasOutput(void) const
 
 bool glitch_object_advanced_io_arduino::shouldPrint(void) const
 {
-  return true;
+  switch(m_ioType)
+    {
+    case Type::PULSE_IN:
+    case Type::PULSE_IN_LONG:
+    case Type::SHIFT_IN:
+      {
+	return false;
+      }
+    case Type::SHIFT_OUT:
+    case Type::TONE:
+      {
+	return true;
+      }
+    default:
+      {
+	return true;
+      }
+    }
 }
 
 glitch_object_advanced_io_arduino *glitch_object_advanced_io_arduino::
