@@ -31,6 +31,7 @@
 #include <QMenu>
 #include <QPointer>
 #include <QSqlDatabase>
+#include <QTimer>
 #include <QWidget>
 
 #include "glitch-proxy-widget.h"
@@ -152,6 +153,7 @@ class glitch_object: public QWidget
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;
+  QTimer m_itemsCountTimer;
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;

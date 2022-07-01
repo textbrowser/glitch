@@ -56,6 +56,7 @@ class glitch_object_loop_arduino: public glitch_object
 
  private slots:
   void slotEdit(void);
+  void slotItemsCountTimeout(void);
 };
 
 #endif

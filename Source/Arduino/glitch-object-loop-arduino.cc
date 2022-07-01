@@ -26,6 +26,7 @@
 */
 
 #include <QTextStream>
+#include <QtDebug>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-loop-arduino.h"
@@ -52,9 +53,15 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: loop()"));
   m_editWindow->resize(600, 600);
+  m_itemsCountTimer.start(2500);
   m_properties[Properties::POSITION_LOCKED] = true;
   m_type = "arduino-loop";
   m_ui.setupUi(this);
+  m_ui.occupied->setVisible(false);
+  connect(&m_itemsCountTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_object_loop_arduino::slotItemsCountTimeout);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
@@ -164,4 +171,14 @@ void glitch_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->showNormal();
   m_editWindow->raise();
+}
+
+void glitch_object_loop_arduino::slotItemsCountTimeout(void)
+{
+  auto scene = editScene();
+
+  if(!scene)
+    return;
+
+  m_ui.occupied->setVisible(!scene->objects().isEmpty());
 }
