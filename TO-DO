@@ -47,6 +47,7 @@ Completed Items
 - Edit window icons.
 - Error dialog.
 - Exiting does not require closing of pages.
+- Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
 - Function names and deleted functions; uniqueness errors.
 - Function redo / undo private container. The redo / undo stack must be
@@ -121,11 +122,10 @@ Remaining Items
   Constants
   Structures
   Time
-- Copy wires if necessary.
+- Copy wires?
 - Define parameters from connected objects. Order is also important.
 - Denote occupied objects (functions, loop(), setup(), etc).
 - Find objects.
-- Full-screen and normal-screen modes.
 - Icons and themes.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.

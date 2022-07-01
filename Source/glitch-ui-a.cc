@@ -86,6 +86,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowDiagramContextMenu);
+  connect(m_ui.action_Full_Screen,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowFullScreenMode);
   connect(m_ui.action_Generate_Source,
 	  &QAction::triggered,
 	  this,
@@ -939,6 +943,11 @@ void glitch_ui::show(void)
   repaint();
   QApplication::processEvents();
 
+  if(isFullScreen())
+    m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
+  else
+    m_ui.action_Full_Screen->setText(tr("&Full Screen"));
+
   if(!QSqlDatabase::isDriverAvailable("QSQLITE"))
     {
       QFileInfo fileInfo("qt.conf");
@@ -1532,6 +1541,20 @@ void glitch_ui::slotShowDiagramContextMenu(void)
 	  menu->raise();
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
+    }
+}
+
+void glitch_ui::slotShowFullScreenMode(void)
+{
+  if(isFullScreen())
+    {
+      m_ui.action_Full_Screen->setText(tr("&Full Screen"));
+      showNormal();
+    }
+  else
+    {
+      m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
+      showFullScreen();
     }
 }
 

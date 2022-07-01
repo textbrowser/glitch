@@ -138,10 +138,17 @@
      <string>&amp;Help</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="action_Full_Screen"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_Generate"/>
    <addaction name="menu_Tabs"/>
+   <addaction name="menu_View"/>
    <addaction name="menu_Windows"/>
    <addaction name="menu_Help"/>
   </widget>
@@ -287,6 +294,14 @@
   <action name="action_Diagram_Context_Menu">
    <property name="text">
     <string>&amp;Diagram's Context Menu...</string>
+   </property>
+  </action>
+  <action name="action_Full_Screen">
+   <property name="text">
+    <string>&amp;Full Screen</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
    </property>
   </action>
  </widget>
