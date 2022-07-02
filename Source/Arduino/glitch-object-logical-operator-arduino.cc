@@ -209,14 +209,38 @@ void glitch_object_logical_operator_arduino::setProperties
     (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
 }
 
+void glitch_object_logical_operator_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::LOGICAL_OPERATOR:
+      {
+	m_ui.logical_operator->blockSignals(true);
+	m_ui.logical_operator->setCurrentIndex
+	  (m_ui.logical_operator->findText(value.toString()));
+	m_ui.logical_operator->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
 void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
 {
   if(!m_undoStack)
     return;
 
   auto undoCommand = new glitch_undo_command
-    (m_properties.value(Properties::LOGICAL_OPERATOR).toString(),
-     glitch_undo_command::LOGICAL_OPERATOR_CHANGED,
+    (m_ui.logical_operator->currentText(),
+     m_properties.value(Properties::LOGICAL_OPERATOR).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::LOGICAL_OPERATOR,
      this);
 
   m_properties[Properties::LOGICAL_OPERATOR] =

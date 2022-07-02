@@ -65,6 +65,7 @@ class glitch_object_logical_operator_arduino: public glitch_object
   Ui_glitch_object_logical_operator_arduino m_ui;
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);
+  void setProperty(const Properties property, const QVariant &value);
 
  private slots:
   void slotLogicalOperatorChanged(void);
