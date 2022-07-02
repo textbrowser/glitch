@@ -31,7 +31,6 @@
 #include <QMenu>
 #include <QPointer>
 #include <QSqlDatabase>
-#include <QTimer>
 #include <QWidget>
 
 #include "glitch-proxy-widget.h"
@@ -121,6 +120,7 @@ class glitch_object: public QWidget
   virtual bool shouldPrint(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
+  virtual void hideOrShowOccupied(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
@@ -153,7 +153,6 @@ class glitch_object: public QWidget
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;
-  QTimer m_itemsCountTimer;
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;

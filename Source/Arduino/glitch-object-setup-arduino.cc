@@ -55,6 +55,7 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
   m_properties[POSITION_LOCKED] = true;
   m_type = "arduino-setup";
   m_ui.setupUi(this);
+  m_ui.occupied->setVisible(false);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
@@ -136,6 +137,16 @@ void glitch_object_setup_arduino::addActions(QMenu &menu)
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   addDefaultActions(menu);
+}
+
+void glitch_object_setup_arduino::hideOrShowOccupied(void)
+{
+  auto scene = editScene();
+
+  if(!scene)
+    return;
+
+  m_ui.occupied->setVisible(!scene->objects().isEmpty());
 }
 
 void glitch_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)

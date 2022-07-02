@@ -47,6 +47,7 @@ class glitch_object_loop_arduino: public glitch_object
   bool shouldPrint(void) const;
   glitch_object_loop_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void hideOrShowOccupied(void);
   void save(const QSqlDatabase &db, QString &error);
   void setUndoStack(QUndoStack *undoStack);
 
@@ -56,7 +57,6 @@ class glitch_object_loop_arduino: public glitch_object
 
  private slots:
   void slotEdit(void);
-  void slotItemsCountTimeout(void);
 };
 
 #endif

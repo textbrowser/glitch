@@ -416,6 +416,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 			object->addChild
 			  (glitch_misc::dbPointToPointF(point), o);
+			object->hideOrShowOccupied();
 			objects[o->id()] = o;
 		      }
 		  }

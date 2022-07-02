@@ -47,6 +47,7 @@ class glitch_object_setup_arduino: public glitch_object
   bool shouldPrint(void) const;
   glitch_object_setup_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void hideOrShowOccupied(void);
   void save(const QSqlDatabase &db, QString &error);
 
  private:

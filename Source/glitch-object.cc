@@ -389,6 +389,10 @@ void glitch_object::createActions(void)
     }
 }
 
+void glitch_object::hideOrShowOccupied(void)
+{
+}
+
 void glitch_object::move(const QPoint &point)
 {
   move(point.x(), point.y());
