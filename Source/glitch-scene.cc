@@ -1238,7 +1238,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	{
 	  auto wire(new glitch_wire(nullptr));
 
-	  object2->setWiredObject(object1);
+	  object2->setWiredObject(object1, wire);
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
 	  addItem(wire);

@@ -445,7 +445,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    {
 		      auto wire(new glitch_wire(nullptr));
 
-		      object2->setWiredObject(object1);
+		      object2->setWiredObject(object1, wire);
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
 		      object1->scene()->addItem(wire);

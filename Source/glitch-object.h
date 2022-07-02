@@ -131,7 +131,7 @@ class glitch_object: public QWidget
   void move(const QPoint &point);
   void move(int x, int y);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
-  void setWiredObject(glitch_object *object);
+  void setWiredObject(glitch_object *object, glitch_wire *wire);
 
  private:
   static quint64 s_id;
@@ -139,13 +139,14 @@ class glitch_object: public QWidget
  private slots:
   void slotLockPosition(void);
   void slotShowContextMenu(void);
+  void slotWireDestroyed(void);
 
  protected:
   QHash<Properties, QVariant> m_properties;
-  QHash<quint64, QPointer<glitch_object> > m_wires; /*
-						    ** Must be cloned, if
-						    ** required!
-						    */
+  QHash<quint64, QPointer<glitch_wire> > m_wires; /*
+						  ** Must be cloned, if
+						  ** required!
+						  */
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;

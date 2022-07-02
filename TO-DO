@@ -117,6 +117,7 @@ Remaining Items
 
 - Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero. This is very difficult.
+- Allow removal of wire by selection.
 - Android.
 - Completed Categories
   Advanced I/O
@@ -143,3 +144,4 @@ Remaining Items
 - Wire color setting.
 - Wire redo / undo.
 - Wiring.
+- Wiring beyond the scene.

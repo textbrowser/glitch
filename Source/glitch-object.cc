@@ -52,6 +52,15 @@
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
+static bool coordinates_less_than(glitch_object *o1,
+				  glitch_object *o2)
+{
+  if(!o1 || !o2)
+    return false;
+  else
+    return o1->x() < o2->x() || (o1->x() == o2->x() && o1->y() < o2->y());
+}
+
 glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 {
 }
@@ -169,6 +178,7 @@ QStringList glitch_object::inputs(void) const
   if(!scene)
     return QStringList() << "input";    
 
+  QList<glitch_object *> objects;
   QSetIterator<glitch_wire *> it(scene->wires());
 
   while(it.hasNext())
@@ -186,11 +196,21 @@ QStringList glitch_object::inputs(void) const
 	    (wire->leftProxy()->widget());
 
 	  if(object)
-	    return QStringList() << object->code();
+	    objects << object;
 	}
     }
 
-  return QStringList() << "input";
+  std::sort(objects.begin(), objects.end(), coordinates_less_than);
+
+  QStringList inputs;
+
+  foreach(auto object, objects)
+    inputs << object->code();
+
+  if(inputs.isEmpty())
+    inputs << "input";
+
+  return inputs;
 }
 
 bool glitch_object::canResize(void) const
@@ -563,14 +583,14 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
 void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
 {
-  QHashIterator<quint64, QPointer<glitch_object> > it(m_wires);
+  QHashIterator<quint64, QPointer<glitch_wire> > it(m_wires);
   QSqlQuery query(db);
 
   while(it.hasNext())
     {
       it.next();
 
-      if(!it.value() || !it.value()->scene())
+      if(!it.value())
 	continue;
 
       query.prepare
@@ -671,12 +691,16 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
   m_undoStack = undoStack;
 }
 
-void glitch_object::setWiredObject(glitch_object *object)
+void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 {
-  if(!object || m_id == object->id() || m_wires.contains(object->id()))
+  if(!object || !wire || m_id == object->id() || m_wires.contains(object->id()))
     return;
 
-  m_wires[object->id()] = object;
+  connect(wire,
+	  &glitch_wire::destroyed,
+	  this,
+	  &glitch_object::slotWireDestroyed);
+  m_wires[object->id()] = wire;
 }
 
 void glitch_object::simulateDelete(void)
@@ -747,4 +771,21 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->addActions(m_actions.values());
   m_contextMenu->setName(name());
   m_contextMenu->show();
+}
+
+void glitch_object::slotWireDestroyed(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMutableHashIterator<quint64, QPointer<glitch_wire> > it(m_wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(!it.value())
+	it.remove();
+    }
+
+  QApplication::restoreOverrideCursor();
 }
