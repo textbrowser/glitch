@@ -86,9 +86,9 @@ glitch_object_function_arduino::glitch_object_function_arduino
   if(parent)
     {
       connect(&m_findParentFunctionTimer,
-	      SIGNAL(timeout(void)),
+	      &QTimer::timeout,
 	      this,
-	      SLOT(slotFindParentFunctionTimeout(void)));
+	      &glitch_object_function_arduino::slotFindParentFunctionTimeout);
       m_findParentFunctionTimer.start(100);
     }
 
@@ -102,6 +102,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.function_definition->setVisible(false);
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
+  m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->setEnabled(false);
@@ -136,10 +137,11 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
       if(parent)
 	{
-	  connect(&m_findParentFunctionTimer,
-		  SIGNAL(timeout(void)),
-		  this,
-		  SLOT(slotFindParentFunctionTimeout(void)));
+	  connect
+	    (&m_findParentFunctionTimer,
+	     &QTimer::timeout,
+	     this,
+	     &glitch_object_function_arduino::slotFindParentFunctionTimeout);
 	  m_findParentFunctionTimer.start(100);
 	}
 
@@ -153,9 +155,9 @@ glitch_object_function_arduino::glitch_object_function_arduino
       if(m_parentFunction)
 	{
 	  connect(m_parentFunction,
-		  SIGNAL(changed(void)),
+		  &glitch_object_function_arduino::changed,
 		  this,
-		  SLOT(slotParentFunctionChanged(void)),
+		  &glitch_object_function_arduino::slotParentFunctionChanged,
 		  Qt::UniqueConnection);
 	  m_undoStack = m_parentFunction->m_undoStack;
 	  slotParentFunctionChanged();
@@ -164,6 +166,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.function_definition->setVisible(false);
+      m_ui.occupied->setVisible(false);
       m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       m_ui.return_type->setEnabled(false);
@@ -175,6 +178,11 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
 glitch_object_function_arduino::~glitch_object_function_arduino()
 {
+  if(m_editView)
+    disconnect(m_editView->undoStack(),
+	       &QUndoStack::indexChanged,
+	       this,
+	       &glitch_object_function_arduino::slotHideOrShowOccupied);
 }
 
 QString glitch_object_function_arduino::code(void) const
@@ -341,9 +349,9 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
 	  action->setIcon(QIcon::fromTheme("document-edit"));
 	  connect(action,
-		  SIGNAL(triggered(void)),
+		  &QAction::triggered,
 		  this,
-		  SLOT(slotEdit(void)));
+		  &glitch_object_function_arduino::slotEdit);
 	  m_actions[DefaultMenuActions::EDIT] = action;
 	  menu.addAction(action);
 	}
@@ -362,9 +370,9 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       auto action = new QAction(tr("Set Function &Name..."), this);
 
       connect(action,
-	      SIGNAL(triggered(void)),
+	      &QAction::triggered,
 	      this,
-	      SLOT(slotSetFunctionName(void)));
+	      &glitch_object_function_arduino::slotSetFunctionName);
       m_actions[DefaultMenuActions::SET_FUNCTION_NAME] = action;
       menu.addAction(action);
     }
@@ -381,9 +389,9 @@ void glitch_object_function_arduino::declone(void)
   */
 
   disconnect(&m_findParentFunctionTimer,
-	     SIGNAL(timeout(void)),
+	     &QTimer::timeout,
 	     this,
-	     SLOT(slotFindParentFunctionTimeout(void)));
+	     &glitch_object_function_arduino::slotFindParentFunctionTimeout);
 
   if(m_editView)
     m_editView->deleteLater();
@@ -421,17 +429,32 @@ void glitch_object_function_arduino::declone(void)
   m_ui.return_type->setEnabled(true);
   m_ui.return_type->setToolTip("");
   connect(m_editView,
-	  SIGNAL(changed(void)),
+	  &glitch_object_view::changed,
 	  this,
-	  SIGNAL(changed(void)),
+	  &glitch_object_function_arduino::changed,
+	  Qt::UniqueConnection);
+  connect(m_editView->undoStack(),
+	  &QUndoStack::indexChanged,
+	  this,
+	  &glitch_object_function_arduino::slotHideOrShowOccupied,
 	  Qt::UniqueConnection);
   connect(m_ui.return_type,
-	  SIGNAL(currentIndexChanged(int)),
+	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  SLOT(slotReturnTypeChanged(void)),
+	  &glitch_object_function_arduino::slotReturnTypeChanged,
 	  Qt::UniqueConnection);
   prepareContextMenu();
   prepareEditSignals(m_parentView);
+}
+
+void glitch_object_function_arduino::hideOrShowOccupied(void)
+{
+  auto scene = editScene();
+
+  if(!scene)
+    return;
+
+  m_ui.occupied->setVisible(!scene->objects().isEmpty());
 }
 
 void glitch_object_function_arduino::initialize(QWidget *parent)
@@ -456,17 +479,23 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->resize(600, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
+  m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   connect(m_editView,
-	  SIGNAL(changed(void)),
+	  &glitch_object_view::changed,
 	  this,
-	  SIGNAL(changed(void)),
+	  &glitch_object_function_arduino::changed,
+	  Qt::UniqueConnection);
+  connect(m_editView->undoStack(),
+	  &QUndoStack::indexChanged,
+	  this,
+	  &glitch_object_function_arduino::slotHideOrShowOccupied,
 	  Qt::UniqueConnection);
   connect(m_ui.return_type,
-	  SIGNAL(currentIndexChanged(int)),
+	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  SLOT(slotReturnTypeChanged(void)),
+	  &glitch_object_function_arduino::slotReturnTypeChanged,
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
@@ -535,11 +564,12 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	if((m_isFunctionClone = QVariant(string).toBool()))
 	  {
-	    connect(&m_findParentFunctionTimer,
-		    SIGNAL(timeout(void)),
-		    this,
-		    SLOT(slotFindParentFunctionTimeout(void)),
-		    Qt::UniqueConnection);
+	    connect
+	      (&m_findParentFunctionTimer,
+	       &QTimer::timeout,
+	       this,
+	       &glitch_object_function_arduino::slotFindParentFunctionTimeout,
+	       Qt::UniqueConnection);
 	    m_findParentFunctionTimer.start(100);
 	  }
 
@@ -642,14 +672,19 @@ void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
   if(m_parentFunction)
     {
       connect(m_parentFunction,
-	      SIGNAL(changed(void)),
+	      &glitch_object_function_arduino::changed,
 	      this,
-	      SLOT(slotParentFunctionChanged(void)),
+	      &glitch_object_function_arduino::slotParentFunctionChanged,
 	      Qt::UniqueConnection);
       m_findParentFunctionTimer.stop();
       m_undoStack = m_parentFunction->m_undoStack;
       slotParentFunctionChanged();
     }
+}
+
+void glitch_object_function_arduino::slotHideOrShowOccupied(void)
+{
+  hideOrShowOccupied();
 }
 
 void glitch_object_function_arduino::slotParentFunctionChanged(void)

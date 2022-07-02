@@ -78,6 +78,7 @@ class glitch_object_function_arduino: public glitch_object
   bool m_initialized;
   bool m_isFunctionClone;
   glitch_object_function_arduino *findParentFunction(void) const;
+  void hideOrShowOccupied(void);
   void initialize(QWidget *parent);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void setProperties(const QString &properties);
@@ -86,6 +87,7 @@ class glitch_object_function_arduino: public glitch_object
  private slots:
   void slotEdit(void);
   void slotFindParentFunctionTimeout(void);
+  void slotHideOrShowOccupied(void);
   void slotParentFunctionChanged(void);
   void slotReturnTypeChanged(void);
   void slotSetFunctionName(void);
