@@ -56,6 +56,7 @@ class glitch_object_setup_arduino: public glitch_object
 
  private slots:
   void slotEdit(void);
+  void slotHideOrShowOccupied(void);
 };
 
 #endif

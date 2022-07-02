@@ -61,6 +61,10 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 	  &glitch_object_view::changed,
 	  this,
 	  &glitch_object_loop_arduino::changed);
+  connect(m_editView->undoStack(),
+	  &QUndoStack::indexChanged,
+	  this,
+	  &glitch_object_loop_arduino::slotHideOrShowOccupied);
   prepareContextMenu();
   prepareEditSignals(qobject_cast<glitch_view *> (parent));
   setName(m_ui.label->text());
@@ -68,6 +72,10 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()
 {
+  disconnect(m_editView->undoStack(),
+	     &QUndoStack::indexChanged,
+	     this,
+	     &glitch_object_loop_arduino::slotHideOrShowOccupied);
 }
 
 QString glitch_object_loop_arduino::code(void) const
@@ -176,4 +184,9 @@ void glitch_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->showNormal();
   m_editWindow->raise();
+}
+
+void glitch_object_loop_arduino::slotHideOrShowOccupied(void)
+{
+  hideOrShowOccupied();
 }

@@ -234,11 +234,6 @@ void glitch_undo_command::redo(void)
       {
 	if(m_proxy && m_scene)
 	  {
-	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
-
-	    if(object)
-	      object->hideOrShowOccupied();
-
 	    m_proxy->setParent(m_scene);
 	    m_scene->addItem(m_proxy);
 	    m_scene->update();
@@ -253,10 +248,7 @@ void glitch_undo_command::redo(void)
 	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
 
 	    if(object)
-	      {
-		object->hideOrShowOccupied();
-		object->simulateDelete();
-	      }
+	      object->simulateDelete();
 
 	    m_scene->removeItem(m_proxy);
 	    m_scene->update();
@@ -356,10 +348,7 @@ void glitch_undo_command::undo(void)
 	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
 
 	    if(object)
-	      {
-		object->hideOrShowOccupied();
-		object->simulateDelete();
-	      }
+	      object->simulateDelete();
 
 	    m_scene->removeItem(m_proxy);
 	    m_scene->update();
@@ -371,11 +360,6 @@ void glitch_undo_command::undo(void)
       {
 	if(m_proxy && m_scene)
 	  {
-	    auto object = qobject_cast<glitch_object *> (m_proxy->widget());
-
-	    if(object)
-	      object->hideOrShowOccupied();
-
 	    m_scene->addItem(m_proxy);
 	    m_scene->update();
 	  }
