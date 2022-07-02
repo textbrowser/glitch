@@ -129,6 +129,7 @@ Remaining Items
 - Define parameters from connected objects. Order is also important.
 - Find objects.
 - Icons and themes.
+- Identifiers are incorrect for function children.
 - Indicate wire input / output.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.
