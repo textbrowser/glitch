@@ -28,8 +28,10 @@ Completed Items
 - Copy & paste.
 - Copy Edit menu to child edit windows and separated windows.
   Redo / undo stack.
+- Copy wires? No, connections must be defined new.
 - Define databases.
 - Delegate object constructors.
+- Denote occupied objects (functions, loop(), setup(), etc).
 - Depict changed pages. Window titles, etc.
 - Depict cloned functions. Function definitions will contain labels having
   f symbols.
@@ -122,11 +124,10 @@ Remaining Items
   Constants
   Structures
   Time
-- Copy wires?
 - Define parameters from connected objects. Order is also important.
-- Denote occupied objects (functions, loop(), setup(), etc).
 - Find objects.
 - Icons and themes.
+- Indicate wire input / output.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect().

@@ -69,6 +69,16 @@ QString glitch_object_logical_operator_arduino::logicalOperator(void) const
   return m_ui.logical_operator->currentText();
 }
 
+bool glitch_object_logical_operator_arduino::hasInput(void) const
+{
+  return true;
+}
+
+bool glitch_object_logical_operator_arduino::hasOutput(void) const
+{
+  return true;
+}
+
 bool glitch_object_logical_operator_arduino::shouldPrint(void) const
 {
   return true;

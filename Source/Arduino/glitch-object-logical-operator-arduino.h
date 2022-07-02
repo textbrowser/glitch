@@ -50,6 +50,8 @@ class glitch_object_logical_operator_arduino: public glitch_object
   ~glitch_object_logical_operator_arduino();
   QString code(void) const;
   QString logicalOperator(void) const;
+  bool hasInput(void) const;
+  bool hasOutput(void) const;
   bool shouldPrint(void) const;
   glitch_object_logical_operator_arduino *clone(QWidget *parent) const;
   static glitch_object_logical_operator_arduino *createFromValues
