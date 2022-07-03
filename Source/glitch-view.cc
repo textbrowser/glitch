@@ -899,8 +899,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 	  m_undoStack->push(undoCommand);
 	}
 
-      m_changed = true;
-      emit changed();
+      slotChanged();
     }
 }
 
