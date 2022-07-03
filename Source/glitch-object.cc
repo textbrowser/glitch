@@ -779,8 +779,8 @@ void glitch_object::slotShowContextMenu(void)
 
   addActions(menu);
   m_contextMenu->addActions(m_actions.values());
-  m_contextMenu->setName(name());
   m_contextMenu->setIdentifier(m_id);
+  m_contextMenu->setName(name());
   m_contextMenu->show();
 }
 
