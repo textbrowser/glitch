@@ -178,7 +178,7 @@ QStringList glitch_object::inputs(void) const
   auto scene = this->scene();
 
   if(!scene)
-    return QStringList() << "input";
+    return QStringList();
 
   QList<glitch_object *> objects;
   QSetIterator<glitch_wire *> it(scene->wires());
@@ -214,9 +214,6 @@ QStringList glitch_object::inputs(void) const
 	else
 	  inputs << object->code();
       }
-
-  if(inputs.isEmpty())
-    inputs << "input";
 
   return inputs;
 }
