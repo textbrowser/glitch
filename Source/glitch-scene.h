@@ -39,6 +39,7 @@
 #include "glitch-tools.h"
 
 class QUndoStack;
+class glitch_canvas_settings;
 class glitch_object;
 class glitch_proxy_widget;
 class glitch_wire;
@@ -73,6 +74,7 @@ class glitch_scene: public QGraphicsScene
   void deleteItems(void);
   void purgeRedoUndoProxies(void);
   void removeItem(QGraphicsItem *item);
+  void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setDotsColor(const QColor &color);
   void setMainScene(const bool state);
   void setShowDots(const bool state);
@@ -111,6 +113,7 @@ class glitch_scene: public QGraphicsScene
   QMultiMap<glitch_point, glitch_proxy_widget *> m_objectsMap; // For ordering.
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
+  QPointer<glitch_canvas_settings> m_canvasSettings;
   QSet<glitch_wire *> m_wires;
   bool m_mainScene;
   bool m_showDots;

@@ -70,6 +70,8 @@ void glitch_wire::setColor(const QColor &color)
 {
   if(color.isValid())
     m_color = color;
+
+  m_color.setAlpha(200);
 }
 
 void glitch_wire::paint

@@ -69,6 +69,7 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_scene->setCanvasSettings(m_canvasSettings);
   m_scene->setDotsColor(Qt::black);
   m_scene->setMainScene(true);
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
@@ -446,6 +447,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		      auto wire(new glitch_wire(nullptr));
 
 		      object2->setWiredObject(object1, wire);
+		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
 		      object1->scene()->addItem(wire);
