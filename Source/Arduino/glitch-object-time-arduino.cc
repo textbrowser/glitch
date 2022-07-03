@@ -171,7 +171,7 @@ void glitch_object_time_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["iotype"] = m_ui.label->text().trimmed();
+  properties["timetype"] = m_ui.label->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -187,7 +187,7 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("iotype = "))
+      if(string.simplified().startsWith("timetype = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
