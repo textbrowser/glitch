@@ -34,6 +34,7 @@
 #include "Arduino/glitch-object-analog-io-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
+#include "Arduino/glitch-object-digital-io-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-arduino.h"
@@ -282,6 +283,9 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-constant")
     object = glitch_object_constant_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-digitalio")
+    object = glitch_object_digital_io_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-function")
     object = glitch_object_function_arduino::createFromValues

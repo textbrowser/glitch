@@ -90,7 +90,7 @@ void glitch_wire::paint
 
   if(painter)
     {
-      static qreal penWidth = 13.0;
+      static qreal penWidth = 5.0;
 
       painter->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>glitch_object_analog_io_arduino</class>
- <widget class="QWidget" name="glitch_object_analog_io_arduino">
+ <class>glitch_object_digital_io_arduino</class>
+ <widget class="QWidget" name="glitch_object_digital_io_arduino">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
+    <width>175</width>
     <height>45</height>
    </rect>
   </property>
@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string notr="true">analogIO()</string>
+      <string notr="true">digitalIO()</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>

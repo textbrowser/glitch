@@ -73,6 +73,7 @@ class glitch_object: public QWidget
     CONDITION,
     CONSTANT_OTHER,
     CONSTANT_TYPE,
+    DIGITAL_IO_TYPE,
     LOGICAL_OPERATOR,
     LOOP_TYPE,
     NAME,
