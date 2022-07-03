@@ -69,6 +69,7 @@ void glitch_wire::paint
 {
   Q_UNUSED(opt);
   Q_UNUSED(widget);
+  m_boundingRect = QRectF();
 
   if(!m_leftProxy || !m_rightProxy)
     return;
@@ -86,6 +87,7 @@ void glitch_wire::paint
 			      QPainter::SmoothPixmapTransform |
 			      QPainter::TextAntialiasing,
 			      true);
+      prepareGeometryChange();
 
       if(m_leftProxy->size().height() / 2.0 + m_leftProxy->y() <=
 	 m_rightProxy->size().height() / 2.0 + m_rightProxy->y() &&
