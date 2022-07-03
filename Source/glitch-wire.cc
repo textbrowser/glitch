@@ -87,7 +87,6 @@ void glitch_wire::paint
 			      QPainter::SmoothPixmapTransform |
 			      QPainter::TextAntialiasing,
 			      true);
-      prepareGeometryChange();
 
       if(m_leftProxy->size().height() / 2.0 + m_leftProxy->y() <=
 	 m_rightProxy->size().height() / 2.0 + m_rightProxy->y() &&

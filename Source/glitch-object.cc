@@ -206,7 +206,13 @@ QStringList glitch_object::inputs(void) const
   QStringList inputs;
 
   foreach(auto object, objects)
-    inputs << object->code();
+    if(object)
+      {
+	if(object->type() == "arduino-variable")
+	  inputs << object->name();
+	else
+	  inputs << object->code();
+      }
 
   if(inputs.isEmpty())
     inputs << "input";

@@ -149,3 +149,4 @@ Remaining Items
 - Wire color setting.
 - Wire redo / undo.
 - Wiring.
+- prepareGeometryChange() may decrease performance.
