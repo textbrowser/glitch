@@ -177,7 +177,7 @@ QStringList glitch_object::inputs(void) const
   auto scene = this->scene();
 
   if(!scene)
-    return QStringList() << "input";    
+    return QStringList() << "input";
 
   QList<glitch_object *> objects;
   QSetIterator<glitch_wire *> it(scene->wires());

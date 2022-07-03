@@ -43,6 +43,14 @@ glitch_wire::~glitch_wire()
 {
 }
 
+QPainterPath glitch_wire::shape(void) const
+{
+  QPainterPath path;
+
+  path.addRect(m_boundingRect);
+  return path;
+}
+
 QPointer<glitch_proxy_widget> glitch_wire::leftProxy(void) const
 {
   return m_leftProxy;
