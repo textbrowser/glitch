@@ -109,6 +109,7 @@ Completed Items
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle.
 - glitch_canvas_settings::settings(). Not needed.
+- prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
 
 Ignored Items
@@ -149,4 +150,3 @@ Remaining Items
 - Wire color setting.
 - Wire redo / undo.
 - Wiring.
-- prepareGeometryChange() may decrease performance.

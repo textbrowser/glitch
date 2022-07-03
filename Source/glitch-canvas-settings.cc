@@ -53,6 +53,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_color->setText(QColor(Qt::black).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_type->setEnabled(false);
+  m_ui.wire_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").
+     arg(QColor(255, 192, 203, 200).name()));
+  m_ui.wire_color->setText(QColor(255, 192, 203, 200).name());
   m_settings = settings();
   new QShortcut(tr("Ctrl+W"),
 		this,
@@ -73,6 +77,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectOutputFile);
+  connect(m_ui.wire_color,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(slotSelectColor(void)));
   setWindowModality(Qt::NonModal);
 }
 
@@ -89,6 +97,12 @@ QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 QColor glitch_canvas_settings::dotsColor(void) const
 {
   return QColor(m_settings.value(Settings::DOTS_COLOR).
+		toString().remove('&').trimmed());
+}
+
+QColor glitch_canvas_settings::wireColor(void) const
+{
+  return QColor(m_settings.value(Settings::WIRE_COLOR).
 		toString().remove('&').trimmed());
 }
 
@@ -142,6 +156,7 @@ settings(void) const
       }
     }
 
+  hash[Settings::WIRE_COLOR] = m_ui.wire_color->text().remove('&').trimmed();
   return hash;
 }
 
@@ -192,7 +207,8 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
-	   "'smart'))"
+	   "'smart')), "
+	   "wire_color TEXT NOT NULL"
 	   ")");
 
 	if(!(ok = query.exec("DELETE FROM canvas_settings")))
@@ -210,8 +226,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_type, "
 	   "redo_undo_stack_size, "
 	   "show_canvas_dots, "
-	   "update_mode) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+	   "update_mode, "
+	   "wire_color) "
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_color->text().remove('&'));
 
@@ -227,6 +244,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue
 	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
+	query.addBindValue(m_ui.wire_color->text().remove('&'));
 
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
@@ -298,12 +316,14 @@ void glitch_canvas_settings::prepare(void)
 			      "redo_undo_stack_size, "            // 5
 			      "show_canvas_dots, "                // 6
 			      "SUBSTR(update_mode, 1, 100) "      // 7
+			      "SUBSTR(wire_color, 1, 50), "       // 8
 			      "FROM canvas_settings").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
 	   query.next())
 	  {
 	    QColor color(query.value(0).toString().remove('&').trimmed());
 	    QColor dotsColor(query.value(1).toString().remove('&').trimmed());
+	    QColor wireColor(query.value(8).toString().remove('&').trimmed());
 	    auto name(query.value(2).toString().trimmed());
 	    auto outputFile(query.value(3).toString());
 	    auto projectType(query.value(4).toString().trimmed());
@@ -346,6 +366,10 @@ void glitch_canvas_settings::prepare(void)
 	    if(m_ui.update_mode->currentIndex() < 0)
 	      m_ui.update_mode->setCurrentIndex(1); // Full
 
+	    m_ui.wire_color->setStyleSheet
+	      (QString("QPushButton {background-color: %1}").
+	       arg(wireColor.name()));
+	    m_ui.wire_color->setText(wireColor.name());
 	    m_settings = settings();
 	    setResult(QDialog::Accepted);
 	    emit accepted(false);
@@ -411,6 +435,11 @@ void glitch_canvas_settings::setSettings
   m_ui.dots_color->setText(color.name());
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
+  color = QColor
+    (hash.value(Settings::WIRE_COLOR).toString().remove('&').trimmed());
+  m_ui.wire_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").arg(color.name()));
+  m_ui.wire_color->setText(color.name());
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
@@ -478,8 +507,10 @@ void glitch_canvas_settings::slotSelectColor(void)
 
   if(button == m_ui.background_color)
     dialog.setCurrentColor(QColor(m_ui.background_color->text().remove('&')));
-  else
+  else if(button == m_ui.dots_color)
     dialog.setCurrentColor(QColor(m_ui.dots_color->text().remove('&')));
+  else
+    dialog.setCurrentColor(QColor(m_ui.wire_color->text().remove('&')));
 
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();

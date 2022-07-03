@@ -51,13 +51,15 @@ class glitch_canvas_settings: public QDialog
     OUTPUT_FILE,
     REDO_UNDO_STACK_SIZE,
     SHOW_CANVAS_DOTS,
-    VIEW_UPDATE_MODE
+    VIEW_UPDATE_MODE,
+    WIRE_COLOR
   };
 
   glitch_canvas_settings(QWidget *parent);
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
   QColor dotsColor(void) const;
+  QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;

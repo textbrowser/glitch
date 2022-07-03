@@ -242,6 +242,8 @@ void glitch_wire::paint
 	  m_boundingRect = points.boundingRect();
 	  painter->drawPolyline(points);
 	}
+
+      m_boundingRect.setSize(1.5 * m_boundingRect.size());
     }
 }
 
