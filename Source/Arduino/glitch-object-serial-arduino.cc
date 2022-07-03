@@ -25,29 +25,29 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-analog-io-arduino.h"
+#include "glitch-object-serial-arduino.h"
 
-glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
-(const QString &ioType, QWidget *parent):
-  glitch_object_analog_io_arduino(1, parent)
+glitch_object_serial_arduino::glitch_object_serial_arduino
+(const QString &serialType, QWidget *parent):
+  glitch_object_serial_arduino(1, parent)
 {
-  m_ioType = stringToIOType(ioType);
+  m_serialType = stringToSerialType(serialType);
 
-  switch(m_ioType)
+  switch(m_serialType)
     {
-    case Type::REFERENCE:
+    case Type::BEGIN:
       {
-	m_ui.label->setText("analogReference()");
+	m_ui.label->setText("Serial.begin()");
 	break;
       }
-    case Type::WRITE:
+    case Type::PRINTLN:
       {
-	m_ui.label->setText("analogWrite()");
+	m_ui.label->setText("Serial.println()");
 	break;
       }
     default:
       {
-	m_ui.label->setText("analogRead()");
+	m_ui.label->setText("Serial.available()");
 	break;
       }
     }
@@ -55,59 +55,54 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
   setName(m_ui.label->text());
 }
 
-glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
+glitch_object_serial_arduino::glitch_object_serial_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_type = "arduino-analogio";
+  m_type = "arduino-serial";
   m_ui.setupUi(this);
   prepareContextMenu();
   setName(m_ui.label->text());
 }
 
-glitch_object_analog_io_arduino::~glitch_object_analog_io_arduino()
+glitch_object_serial_arduino::~glitch_object_serial_arduino()
 {
 }
 
-QString glitch_object_analog_io_arduino::code(void) const
+QString glitch_object_serial_arduino::code(void) const
 {
-  switch(m_ioType)
+  switch(m_serialType)
     {
-    case Type::REFERENCE:
+    case Type::BEGIN:
       {
-	return QString("analogReference(%1);").arg(inputs().value(0));
+	if(inputs().size() == 1)
+	  return QString("Serial.begin(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.begin(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
       }
-    case Type::WRITE:
+    case Type::PRINTLN:
       {
-	return QString("analogWrite(%1, %2);").
-	  arg(inputs().value(0)).
-	  arg(inputs().value(1));
+	if(inputs().size() == 1)
+	  return QString("Serial.println(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.println(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
       }
     default:
       {
-	return QString("analogRead(%1)").arg(inputs().value(0));
+	return QString("Serial.available(%1);").arg(inputs().value(0));
       }
     }
 }
 
-bool glitch_object_analog_io_arduino::hasInput(void) const
+bool glitch_object_serial_arduino::hasInput(void) const
 {
-  return true;
-}
-
-bool glitch_object_analog_io_arduino::hasOutput(void) const
-{
-  if(m_ioType == Type::READ)
-    return true;
-  else
-    return false;
-}
-
-bool glitch_object_analog_io_arduino::shouldPrint(void) const
-{
-  switch(m_ioType)
+  switch(m_serialType)
     {
-    case Type::REFERENCE:
-    case Type::WRITE:
+    case Type::BEGIN:
+    case Type::PRINTLN:
       {
 	return true;
       }
@@ -118,43 +113,67 @@ bool glitch_object_analog_io_arduino::shouldPrint(void) const
     }
 }
 
-glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
+bool glitch_object_serial_arduino::hasOutput(void) const
+{
+  switch(m_serialType)
+    {
+    case Type::BEGIN:
+      {
+	return false;
+      }
+    case Type::PRINTLN:
+      {
+	return false;
+      }
+    default:
+      {
+	return false;
+      }
+    }
+}
+
+bool glitch_object_serial_arduino::shouldPrint(void) const
+{
+  return true;
+}
+
+glitch_object_serial_arduino *glitch_object_serial_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_analog_io_arduino(ioTypeToString(), parent);
+  auto clone = new glitch_object_serial_arduino(serialTypeToString(), parent);
 
-  clone->m_ioType = m_ioType;
+  clone->m_serialType = m_serialType;
   clone->m_properties = m_properties;
   clone->m_ui.label->setText(m_ui.label->text());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
 
-glitch_object_analog_io_arduino *glitch_object_analog_io_arduino::
+glitch_object_serial_arduino *glitch_object_serial_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto object = new glitch_object_analog_io_arduino
+  auto object = new glitch_object_serial_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ioType = stringToIOType
-    (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
+  object->m_serialType = stringToSerialType
+    (object->m_properties.value(Properties::SERIAL_TYPE).toString());
   object->m_ui.label->setText
-    (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
+    (object->m_properties.value(Properties::SERIAL_TYPE).toString());
   return object;
 }
 
-void glitch_object_analog_io_arduino::addActions(QMenu &menu)
+void glitch_object_serial_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }
 
-void glitch_object_analog_io_arduino::save
+void glitch_object_serial_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
   glitch_object::save(db, error);
@@ -164,37 +183,37 @@ void glitch_object_analog_io_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["io_type"] = m_ui.label->text().trimmed();
+  properties["serial_type"] = m_ui.label->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
+void glitch_object_serial_arduino::setProperties(const QStringList &list)
 {
   /*
   ** Redundancies.
   */
 
-  m_properties[Properties::ANALOG_IO_TYPE] = "analogRead()";
+  m_properties[Properties::SERIAL_TYPE] = "Serial.available()";
 
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("io_type = "))
+      if(string.simplified().startsWith("serial_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  if(string.contains("reference"))
-	    string = "analogReference()";
-	  else if(string.contains("write"))
-	    string = "analogWrite()";
+	  if(string.contains("begin"))
+	    string = "Serial.begin()";
+	  else if(string.contains("println"))
+	    string = "Serial.println()";
 	  else
-	    string = "analogRead()";
+	    string = "Serial.available()";
 
-	  m_properties[Properties::ANALOG_IO_TYPE] = string.trimmed();
+	  m_properties[Properties::SERIAL_TYPE] = string.trimmed();
 	}
     }
 
-  setName(m_properties.value(Properties::ANALOG_IO_TYPE).toString());
+  setName(m_properties.value(Properties::SERIAL_TYPE).toString());
 }

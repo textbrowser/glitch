@@ -42,6 +42,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-flow-arduino.h"
+#include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
@@ -589,6 +590,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	       view);
 	  else if(text.startsWith("glitch-arduino-logical operators"))
 	    object = new glitch_object_logical_operator_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-serial"))
+	    object = new glitch_object_serial_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-structures-block comment"))
 	    object = new glitch_object_block_comment_arduino(view);
 	  else if(text.startsWith("glitch-arduino-structures-function"))

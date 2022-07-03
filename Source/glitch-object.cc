@@ -38,6 +38,7 @@
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-arduino.h"
 #include "Arduino/glitch-object-loop-flow-arduino.h"
+#include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-setup-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
@@ -296,6 +297,9 @@ glitch_object *glitch_object::createFromValues
     }
   else if(type == "arduino-loop-flow")
     object = glitch_object_loop_flow_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-serial")
+    object = glitch_object_serial_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-time")
     object = glitch_object_time_arduino::createFromValues

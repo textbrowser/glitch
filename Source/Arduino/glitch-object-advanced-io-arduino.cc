@@ -95,11 +95,11 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN:
       {
 	if(inputs().size() == 2)
-	  return QString("pulseIn(%1, %2);").
+	  return QString("pulseIn(%1, %2)").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("pulseIn(%1, %2, %3);").
+	  return QString("pulseIn(%1, %2, %3)").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
@@ -107,18 +107,18 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN_LONG:
       {
 	if(inputs().size() == 2)
-	  return QString("pulseInLong(%1, %2);").
+	  return QString("pulseInLong(%1, %2)").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("pulseInLong(%1, %2, %3);").
+	  return QString("pulseInLong(%1, %2, %3)").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
       }
     case Type::SHIFT_IN:
       {
-	return QString("shiftIn(%1, %2, %3);").
+	return QString("shiftIn(%1, %2, %3)").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1)).
 	  arg(inputs().value(2));
@@ -134,11 +134,11 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::TONE:
       {
 	if(inputs().size() == 2)
-	  return QString("pulseInLong(%1, %2);").
+	  return QString("tone(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("pulseInLong(%1, %2, %3);").
+	  return QString("tone(%1, %2, %3);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
@@ -233,7 +233,7 @@ void glitch_object_advanced_io_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["iotype"] = m_ui.label->text().trimmed();
+  properties["io_type"] = m_ui.label->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -249,7 +249,7 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("iotype = "))
+      if(string.simplified().startsWith("io_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
