@@ -315,8 +315,8 @@ void glitch_canvas_settings::prepare(void)
 			      "SUBSTR(project_type, 1, 50), "     // 4
 			      "redo_undo_stack_size, "            // 5
 			      "show_canvas_dots, "                // 6
-			      "SUBSTR(update_mode, 1, 100) "      // 7
-			      "SUBSTR(wire_color, 1, 50), "       // 8
+			      "SUBSTR(update_mode, 1, 100), "     // 7
+			      "SUBSTR(wire_color, 1, 50) "        // 8
 			      "FROM canvas_settings").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
 	   query.next())
