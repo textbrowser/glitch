@@ -32,9 +32,11 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-wire.h"
 
+static int s_alpha = 175;
+
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
-  m_color = QColor(255, 192, 203, 200);
+  m_color = QColor(255, 192, 203, s_alpha);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
   setZValue(-1);
 }
@@ -71,7 +73,7 @@ void glitch_wire::setColor(const QColor &color)
   if(color.isValid())
     m_color = color;
 
-  m_color.setAlpha(200);
+  m_color.setAlpha(s_alpha);
 }
 
 void glitch_wire::paint

@@ -632,6 +632,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	      else
 		addItem(proxy);
 
+	      object->setCanvasSettings(m_canvasSettings);
 	      proxy->setPos(event->scenePos());
 	      emit changed();
 	    }
@@ -1063,7 +1064,14 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 
 void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
+  if(!canvasSettings || m_canvasSettings)
+    return;
+
   m_canvasSettings = canvasSettings;
+  connect(m_canvasSettings,
+	  QOverload<bool>::of(&glitch_canvas_settings::accepted),
+	  this,
+	  QOverload<bool>::of(&glitch_scene::slotCanvasSettingsChanged));
 }
 
 void glitch_scene::setDotsColor(const QColor &color)
@@ -1087,6 +1095,29 @@ void glitch_scene::setShowDots(const bool state)
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
+}
+
+void glitch_scene::slotCanvasSettingsChanged(const bool undo)
+{
+  Q_UNUSED(undo);
+
+  if(!m_canvasSettings)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QSetIterator<glitch_wire *> it(m_wires);
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(wire)
+	wire->setColor(m_canvasSettings->wireColor());
+    }
+
+  update();
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotFunctionDeleted(const QString &name)
@@ -1247,7 +1278,10 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  auto wire(new glitch_wire(nullptr));
 
 	  object2->setWiredObject(object1, wire);
-	  wire->setColor(m_canvasSettings->wireColor());
+
+	  if(m_canvasSettings)
+	    wire->setColor(m_canvasSettings->wireColor());
+
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
 	  addItem(wire);

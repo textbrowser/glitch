@@ -131,6 +131,7 @@ class glitch_object: public QWidget
   void addChild(const QPointF &point, glitch_object *object);
   void move(const QPoint &point);
   void move(int x, int y);
+  void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
   void setWiredObject(glitch_object *object, glitch_wire *wire);
 

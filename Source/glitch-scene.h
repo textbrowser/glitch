@@ -138,6 +138,7 @@ class glitch_scene: public QGraphicsScene
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  private slots:
+  void slotCanvasSettingsChanged(const bool undo);
   void slotFunctionDeleted(const QString &name);
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,

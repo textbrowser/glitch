@@ -106,6 +106,7 @@ Completed Items
 - Warn of faulty home directory: read and write permissions.
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
+- Wire color setting.
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle.
 - glitch_canvas_settings::settings(). Not needed.
@@ -147,6 +148,5 @@ Remaining Items
 - Variable clones. May not be necessary.
 - Warn of recursive functions.
 - Widgets for decorations.
-- Wire color setting.
 - Wire redo / undo.
 - Wiring.

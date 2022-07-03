@@ -418,6 +418,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			object->addChild
 			  (glitch_misc::dbPointToPointF(point), o);
 			object->hideOrShowOccupied();
+			object->setCanvasSettings(m_canvasSettings);
 			objects[o->id()] = o;
 		      }
 		  }
