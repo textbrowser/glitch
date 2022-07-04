@@ -1318,6 +1318,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
 	  m_objectsToWire.clear();
+	  update();
 	  emit changed();
 	}
       else
