@@ -447,11 +447,11 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    {
 		      auto wire(new glitch_wire(nullptr));
 
+		      object1->scene()->addItem(wire);
 		      object2->setWiredObject(object1, wire);
 		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
-		      object1->scene()->addItem(wire);
 		    }
 		}
 	    else

@@ -136,7 +136,7 @@ QSet<glitch_wire *> glitch_scene::wires(void) const
 }
 
 bool glitch_scene::allowDrag
-(QGraphicsSceneDragDropEvent *event, const QString &t)
+(QGraphicsSceneDragDropEvent *event, const QString &t) const
 {
   if(!event)
     return false;
@@ -206,6 +206,35 @@ bool glitch_scene::allowDrag
 	  return false;
 	}
     }
+}
+
+bool glitch_scene::areObjectsWired
+(glitch_object *object1, glitch_object *object2) const
+{
+  if(!object1 || !object2)
+    return false;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QSetIterator<glitch_wire *> it(m_wires);
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(wire)
+	if((object1->proxy() == wire->leftProxy() &&
+	    object2->proxy() == wire->rightProxy()) ||
+	   (object1->proxy() == wire->rightProxy() &&
+	    object2->proxy() == wire->leftProxy()))
+	  {
+	    QApplication::restoreOverrideCursor();
+	    return true;
+	  }
+    }
+
+  QApplication::restoreOverrideCursor();
+  return false;
 }
 
 glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
@@ -1276,10 +1305,11 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
       auto object2 = qobject_cast<glitch_object *>
 	(m_objectsToWire.value("output")->widget());
 
-      if(object1 && object2)
+      if(!areObjectsWired(object1, object2) && object1 && object2)
 	{
 	  auto wire(new glitch_wire(nullptr));
 
+	  addItem(wire);
 	  object2->setWiredObject(object1, wire);
 
 	  if(m_canvasSettings)
@@ -1287,10 +1317,11 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
-	  addItem(wire);
 	  m_objectsToWire.clear();
 	  emit changed();
 	}
+      else
+	m_objectsToWire.clear();
     }
 }
 
