@@ -62,6 +62,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
   m_showDots = true;
   m_toolsOperation = glitch_tools::Operations::SELECT;
   m_undoStack = nullptr;
+  setItemIndexMethod(QGraphicsScene::NoIndex);
 }
 
 glitch_scene::~glitch_scene()

@@ -80,6 +80,7 @@ glitch_view::glitch_view
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
   m_view = new glitch_graphicsview(this);
+  m_view->setCacheMode(QGraphicsView::CacheNone);
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
