@@ -52,6 +52,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void prepareActionWidgets(void);
   void prepareIcons(void);
   void prepareRedoUndoActions(void);
+  void prepareToolBar(void);
 
  private slots:
   void slotCopy(void);

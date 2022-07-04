@@ -39,6 +39,7 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
+  m_ui.toolBar->setIconSize(QSize(32, 32));
   connect(m_ui.action_Close,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -176,6 +177,15 @@ void glitch_separated_diagram_window::prepareRedoUndoActions(void)
     }
 }
 
+void glitch_separated_diagram_window::prepareToolBar(void)
+{
+  m_ui.toolBar->clear();
+
+  if(m_view)
+    for(int i = 0; i < m_view->alignmentActions().size(); i++)
+      m_ui.toolBar->addAction(m_view->alignmentActions().at(i));
+}
+
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 {
   if(centralWidget())
@@ -228,6 +238,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      of(&glitch_separated_diagram_window::slotToolsOperationChanged));
       QMainWindow::setCentralWidget(m_view);
       prepareActionWidgets();
+      prepareToolBar();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
 }
