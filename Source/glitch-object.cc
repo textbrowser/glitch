@@ -601,7 +601,7 @@ void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
     {
       it.next();
 
-      if(!it.value())
+      if(!it.value() || !it.value()->scene())
 	continue;
 
       query.prepare
