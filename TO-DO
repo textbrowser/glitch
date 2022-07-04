@@ -30,6 +30,7 @@ Completed Items
   Redo / undo stack.
 - Copy wires? No, connections must be defined new.
 - Define databases.
+- Define input parameters from connected objects. Order is also important.
 - Delegate object constructors.
 - Denote occupied objects (functions, loop(), setup(), etc).
 - Depict changed pages. Window titles, etc.
@@ -124,7 +125,7 @@ Remaining Items
   is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
-- Combination boxes are obscured by view's margins.
+- Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O
   Analog I/O
@@ -133,7 +134,6 @@ Remaining Items
   Logical Operators
   Structures
   Time
-- Define parameters from connected objects. Order is also important.
 - Denote function return.
 - Find objects.
 - Icons and themes.
