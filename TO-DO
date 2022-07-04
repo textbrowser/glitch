@@ -124,6 +124,7 @@ Remaining Items
   is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
+- Combination boxes are obscured by view's margins.
 - Completed Categories
   Advanced I/O
   Analog I/O
