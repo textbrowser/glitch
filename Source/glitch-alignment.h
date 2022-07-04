@@ -28,15 +28,12 @@
 #ifndef _glitch_alignment_h_
 #define _glitch_alignment_h_
 
-#include <QDialog>
-
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
-#include "ui_glitch-alignment.h"
 
 #include <limits>
 
@@ -56,13 +53,14 @@ static bool y_coordinate_less_than(glitch_object *w1, glitch_object *w2)
     return w1->pos().y() < w2->pos().y();
 }
 
-class glitch_alignment: public QDialog
+class glitch_alignment: public QWidget
 {
   Q_OBJECT
 
  public:
   glitch_alignment(QWidget *parent);
   ~glitch_alignment();
+  QList<QAction *> actions(void) const;
 
  private:
   enum AlignmentTypes
@@ -81,7 +79,7 @@ class glitch_alignment: public QDialog
     VERTICAL_STACK
   };
 
-  Ui_glitch_alignment m_ui;
+  QList<QAction *> m_actions;
 
   template<class T> void alignImplementation(const AlignmentTypes alignmentType)
   {

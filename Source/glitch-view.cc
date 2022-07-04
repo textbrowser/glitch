@@ -58,6 +58,7 @@ glitch_view::glitch_view
  QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
+  m_alignment = new glitch_alignment(this);
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->setName(name);
@@ -94,6 +95,10 @@ glitch_view::glitch_view
   m_view->setScene(m_scene);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  connect(m_alignment,
+	  &glitch_alignment::changed,
+	  this,
+	  &glitch_view::slotChanged);
   connect(m_canvasSettings,
 	  SIGNAL(accepted(const bool)),
 	  this,
@@ -189,6 +194,11 @@ QAction *glitch_view::menuAction(void) const
   return m_menuAction;
 }
 
+QList<QAction *> glitch_view::alignmentActions(void) const
+{
+  return m_alignment->actions();
+}
+
 QList<QAction *> glitch_view::defaultActions(void) const
 {
   return m_defaultActions;
@@ -228,9 +238,6 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   SLOT(slotSaveAs(void)))->
     setIcon(QIcon::fromTheme("document-save-as"));
   m_contextMenu->addSeparator();
-  m_contextMenu->addAction(tr("Alignment Tool..."),
-			   this,
-			   SLOT(slotShowAlignmentTool(void)));
 
   if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
     m_contextMenu->addAction(tr("Arduino Structures..."),
@@ -844,22 +851,6 @@ void glitch_view::setTabButton(QPushButton *pushButton)
   m_tabButton = pushButton;
 }
 
-void glitch_view::showAlignment(void)
-{
-  if(!m_alignment)
-    {
-      m_alignment = new glitch_alignment(this);
-      connect(m_alignment,
-	      SIGNAL(changed(void)),
-	      this,
-	      SLOT(slotChanged(void)));
-    }
-
-  m_alignment->showNormal();
-  m_alignment->activateWindow();
-  m_alignment->raise();
-}
-
 void glitch_view::showCanvasSettings(void)
 {
   m_canvasSettings->setSettings(m_settings);
@@ -873,6 +864,11 @@ void glitch_view::showTools(void)
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();
+}
+
+void glitch_view::showUserFunctions(void)
+{
+  slotShowUserFunctions();
 }
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
@@ -1049,11 +1045,6 @@ void glitch_view::slotSceneResized(void)
 void glitch_view::slotSeparate(void)
 {
   emit separate(this);
-}
-
-void glitch_view::slotShowAlignmentTool(void)
-{
-  showAlignment();
 }
 
 void glitch_view::slotShowCanvasSettings(void)

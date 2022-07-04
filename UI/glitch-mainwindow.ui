@@ -94,9 +94,8 @@
     <property name="title">
      <string>&amp;Windows</string>
     </property>
-    <addaction name="action_Alignment"/>
-    <addaction name="separator"/>
     <addaction name="action_Diagram_Context_Menu"/>
+    <addaction name="action_User_Functions"/>
     <addaction name="separator"/>
     <addaction name="action_Structures"/>
     <addaction name="separator"/>
@@ -207,11 +206,6 @@
     <string>&amp;Structures...</string>
    </property>
   </action>
-  <action name="action_Alignment">
-   <property name="text">
-    <string>&amp;Alignment Tool...</string>
-   </property>
-  </action>
   <action name="action_Close_Diagram">
    <property name="text">
     <string>&amp;Close Diagram</string>
@@ -302,6 +296,11 @@
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="action_User_Functions">
+   <property name="text">
+    <string>&amp;User Functions...</string>
    </property>
   </action>
  </widget>

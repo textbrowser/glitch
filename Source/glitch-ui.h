@@ -112,7 +112,6 @@ class glitch_ui: public QMainWindow
   void slotSelectPage(void);
   void slotSelectionChanged(void);
   void slotSeparate(glitch_view *view);
-  void slotShowAlignment(void);
   void slotShowAllStructures(void);
   void slotShowAllTools(void);
   void slotShowCanvasSettings(void);
@@ -120,6 +119,7 @@ class glitch_ui: public QMainWindow
   void slotShowFullScreenMode(void);
   void slotShowStructures(void);
   void slotShowTools(void);
+  void slotShowUserFunctions(void);
   void slotTabMoved(int from, int to);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);

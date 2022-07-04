@@ -25,82 +25,141 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QShortcut>
 #include <QtDebug>
 
 #include "glitch-alignment.h"
 
-glitch_alignment::glitch_alignment(QWidget *parent):QDialog(parent)
+glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 {
-  m_ui.setupUi(this);
-  m_ui.bottom_align->setFocus();
-  connect(m_ui.bottom_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.horizontal_center_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.horizontal_stack,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotStack);
-  connect(m_ui.left_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.right_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.top_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.vertical_center_align,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotAlign);
-  connect(m_ui.vertical_stack,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_alignment::slotStack);
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
-  setWindowModality(Qt::NonModal);
+  for(int i = 0; i < 8; i++)
+    {
+      auto action = new QAction(this);
+
+      switch(i)
+	{
+	case 0:
+	  {
+	    action->setIcon(QIcon(":bottom-align.png"));
+	    action->setToolTip(tr("Bottom Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 1:
+	  {
+	    action->setIcon(QIcon(":top-align.png"));
+	    action->setToolTip(tr("Top Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 2:
+	  {
+	    action->setIcon(QIcon(":horizontal-center-align.png"));
+	    action->setToolTip(tr("Horizontal Center Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 3:
+	  {
+	    action->setIcon(QIcon(":vertical-center-align.png"));
+	    action->setToolTip(tr("Vertical Center Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 4:
+	  {
+	    action->setIcon(QIcon(":left-align.png"));
+	    action->setToolTip(tr("Left Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 5:
+	  {
+	    action->setIcon(QIcon(":right-align.png"));
+	    action->setToolTip(tr("Right Align"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotAlign);
+	    break;
+	  }
+	case 6:
+	  {
+	    action->setIcon(QIcon(":horizontal-stack.png"));
+	    action->setToolTip(tr("Horizontal Stack"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotStack);
+	    break;
+	  }
+	case 7:
+	  {
+	    action->setIcon(QIcon(":vertical-stack.png"));
+	    action->setToolTip(tr("Vertical Stack"));
+	    connect(action,
+		    &QAction::triggered,
+		    this,
+		    &glitch_alignment::slotStack);
+	    break;
+	  }
+	default:
+	  {
+	    break;
+	  }
+	}
+
+      m_actions << action;
+    }
 }
 
 glitch_alignment::~glitch_alignment()
 {
 }
 
+QList<QAction *> glitch_alignment::actions(void) const
+{
+  return m_actions;
+}
+
 void glitch_alignment::slotAlign(void)
 {
-  auto toolButton = qobject_cast<QToolButton *> (sender());
+  auto action = qobject_cast<QAction *> (sender());
 
-  if(m_ui.bottom_align == toolButton)
+  if(action == m_actions.at(0))
     align(AlignmentTypes::ALIGN_BOTTOM);
-  else if(m_ui.horizontal_center_align == toolButton)
-    align(AlignmentTypes::ALIGN_CENTER_HORIZONTAL);
-  else if(m_ui.left_align == toolButton)
-    align(AlignmentTypes::ALIGN_LEFT);
-  else if(m_ui.right_align == toolButton)
-    align(AlignmentTypes::ALIGN_RIGHT);
-  else if(m_ui.top_align == toolButton)
+  else if(action == m_actions.at(1))
     align(AlignmentTypes::ALIGN_TOP);
-  else if(m_ui.vertical_center_align == toolButton)
+  else if(action == m_actions.at(2))
+    align(AlignmentTypes::ALIGN_CENTER_HORIZONTAL);
+  else if(action == m_actions.at(3))
     align(AlignmentTypes::ALIGN_CENTER_VERTICAL);
+  else if(action == m_actions.at(4))
+    align(AlignmentTypes::ALIGN_LEFT);
+  else if(action == m_actions.at(5))
+    align(AlignmentTypes::ALIGN_RIGHT);
 }
 
 void glitch_alignment::slotStack(void)
 {
-  auto toolButton = qobject_cast<QToolButton *> (sender());
+  auto action = qobject_cast<QAction *> (sender());
 
-  if(m_ui.horizontal_stack == toolButton)
+  if(action == m_actions.at(6))
     stack(StackTypes::HORIZONTAL_STACK);
-  else if(m_ui.vertical_stack == toolButton)
+  else if(action == m_actions.at(7))
     stack(StackTypes::VERTICAL_STACK);
 }

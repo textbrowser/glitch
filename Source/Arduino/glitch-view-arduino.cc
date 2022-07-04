@@ -35,7 +35,6 @@
 #include "glitch-object-setup-arduino.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
-#include "glitch-user-functions.h"
 #include "glitch-view-arduino.h"
 
 glitch_view_arduino::glitch_view_arduino

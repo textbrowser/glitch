@@ -37,7 +37,6 @@
 #include <QWidgetAction>
 
 #include "Arduino/glitch-view-arduino.h"
-#include "glitch-alignment.h"
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
@@ -58,10 +57,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     QDir::separator() +
     "glitch_recent_files.db";
   m_ui.setupUi(this);
-  connect(m_ui.action_Alignment,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotShowAlignment(void)));
   connect(m_ui.action_Canvas_Settings,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -137,6 +132,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotUndo(void)));
+  connect(m_ui.action_User_Functions,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowUserFunctions);
   connect(m_ui.menu_Tabs,
 	  SIGNAL(aboutToShow(void)),
 	  this,
@@ -651,7 +650,6 @@ void glitch_ui::prepareActionWidgets(void)
 
   if(m_ui.tab->count() == 0)
     {
-      m_ui.action_Alignment->setEnabled(false);
       m_ui.action_Canvas_Settings->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
@@ -665,10 +663,10 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Structures->setEnabled(false);
       m_ui.action_Structures->setText(tr("&Structures..."));
       m_ui.action_Tools->setEnabled(false);
+      m_ui.action_User_Functions->setEnabled(false);
     }
   else
     {
-      m_ui.action_Alignment->setEnabled(true);
       m_ui.action_Canvas_Settings->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Copy->setEnabled
@@ -685,6 +683,7 @@ void glitch_ui::prepareActionWidgets(void)
 	(m_currentView && m_currentView->scene()->items().size() > 2);
       m_ui.action_Structures->setEnabled(true);
       m_ui.action_Tools->setEnabled(true);
+      m_ui.action_User_Functions->setEnabled(true);
     }
 
   prepareRedoUndoActions();
@@ -850,13 +849,10 @@ void glitch_ui::prepareStatusBar(void)
 void glitch_ui::prepareToolBar(void)
 {
   m_ui.toolBar->clear();
-  m_ui.toolBar->addAction(m_ui.action_Alignment);
-  m_ui.toolBar->addAction(m_ui.action_Structures);
-  m_ui.toolBar->addAction(m_ui.action_Tools);
 
   if(m_currentView)
-    for(int i = 0; i < m_currentView->defaultActions().size(); i++)
-      m_ui.toolBar->addAction(m_currentView->defaultActions().at(i));
+    for(int i = 0; i < m_currentView->alignmentActions().size(); i++)
+      m_ui.toolBar->addAction(m_currentView->alignmentActions().at(i));
 }
 
 void glitch_ui::restoreSettings(void)
@@ -1491,14 +1487,6 @@ void glitch_ui::slotSeparate(glitch_view *view)
   setWindowTitle(nullptr);
 }
 
-void glitch_ui::slotShowAlignment(void)
-{
-  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
-
-  if(view)
-    view->showAlignment();
-}
-
 void glitch_ui::slotShowAllStructures(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1572,6 +1560,14 @@ void glitch_ui::slotShowTools(void)
 
   if(view)
     view->showTools();
+}
+
+void glitch_ui::slotShowUserFunctions(void)
+{
+  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
+
+  if(view)
+    view->showUserFunctions();  
 }
 
 void glitch_ui::slotTabMoved(int from, int to)

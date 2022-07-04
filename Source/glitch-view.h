@@ -62,6 +62,7 @@ class glitch_view: public QWidget
 	      QWidget *parent);
   virtual ~glitch_view();
   QAction *menuAction(void) const;
+  QList<QAction *> alignmentActions(void) const;
   QList<QAction *> defaultActions(void) const;
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
@@ -93,9 +94,9 @@ class glitch_view: public QWidget
   void save(void);
   void selectAll(void);
   void setTabButton(QPushButton *pushButton);
-  void showAlignment(void);
   void showCanvasSettings(void);
   void showTools(void);
+  void showUserFunctions(void);
   void undo(void);
 
  public slots:
@@ -152,7 +153,6 @@ class glitch_view: public QWidget
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
   void slotSeparate(void);
-  void slotShowAlignmentTool(void);
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);
