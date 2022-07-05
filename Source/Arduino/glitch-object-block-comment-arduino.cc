@@ -77,6 +77,11 @@ QString glitch_object_block_comment_arduino::code(void) const
   return code;
 }
 
+bool glitch_object_block_comment_arduino::isFullyWired(void) const
+{
+  return true;
+}
+
 bool glitch_object_block_comment_arduino::shouldPrint(void) const
 {
   return true;

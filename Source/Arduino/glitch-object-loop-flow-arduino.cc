@@ -91,6 +91,11 @@ bool glitch_object_loop_flow_arduino::hasOutput(void) const
   return false;
 }
 
+bool glitch_object_loop_flow_arduino::isFullyWired(void) const
+{
+  return true;
+}
+
 bool glitch_object_loop_flow_arduino::shouldPrint(void) const
 {
   return true;

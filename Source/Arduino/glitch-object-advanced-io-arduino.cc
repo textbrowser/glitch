@@ -165,6 +165,11 @@ bool glitch_object_advanced_io_arduino::hasOutput(void) const
     return false;
 }
 
+bool glitch_object_advanced_io_arduino::isFullyWired(void) const
+{
+  return false;
+}
+
 bool glitch_object_advanced_io_arduino::shouldPrint(void) const
 {
   switch(m_ioType)

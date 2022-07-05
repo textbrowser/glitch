@@ -111,6 +111,11 @@ bool glitch_object_setup_arduino::hasView(void) const
   return true;
 }
 
+bool glitch_object_setup_arduino::isFullyWired(void) const
+{
+  return true;
+}
+
 bool glitch_object_setup_arduino::isMandatory(void) const
 {
   return true;

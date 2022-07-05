@@ -42,6 +42,7 @@ class glitch_object_analog_io_arduino: public glitch_object
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
+  bool isFullyWired(void) const;
   bool shouldPrint(void) const;
   glitch_object_analog_io_arduino *clone(QWidget *parent) const;
   static glitch_object_analog_io_arduino *createFromValues

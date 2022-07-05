@@ -112,6 +112,11 @@ bool glitch_object_variable_arduino::hasOutput(void) const
   return true;
 }
 
+bool glitch_object_variable_arduino::isFullyWired(void) const
+{
+  return false;
+}
+
 bool glitch_object_variable_arduino::shouldPrint(void) const
 {
   return inputs().size() > 0;

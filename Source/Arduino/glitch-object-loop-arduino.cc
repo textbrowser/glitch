@@ -112,6 +112,11 @@ bool glitch_object_loop_arduino::hasView(void) const
   return true;
 }
 
+bool glitch_object_loop_arduino::isFullyWired(void) const
+{
+  return true;
+}
+
 bool glitch_object_loop_arduino::isMandatory(void) const
 {
   return true;

@@ -132,6 +132,11 @@ bool glitch_object_serial_arduino::hasOutput(void) const
     }
 }
 
+bool glitch_object_serial_arduino::isFullyWired(void) const
+{
+  return false;
+}
+
 bool glitch_object_serial_arduino::shouldPrint(void) const
 {
   return true;

@@ -43,6 +43,7 @@ class glitch_object_setup_arduino: public glitch_object
   ~glitch_object_setup_arduino();
   QString code(void) const;
   bool hasView(void) const;
+  bool isFullyWired(void) const;
   bool isMandatory(void) const;
   bool shouldPrint(void) const;
   glitch_object_setup_arduino *clone(QWidget *parent) const;

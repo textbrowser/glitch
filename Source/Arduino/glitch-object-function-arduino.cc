@@ -249,6 +249,11 @@ bool glitch_object_function_arduino::isClone(void) const
   return m_isFunctionClone;
 }
 
+bool glitch_object_function_arduino::isFullyWired(void) const
+{
+  return false;
+}
+
 bool glitch_object_function_arduino::shouldPrint(void) const
 {
   return true;

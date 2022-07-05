@@ -1270,7 +1270,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 
   auto object = qobject_cast<glitch_object *> (proxy->widget());
 
-  if(!object)
+  if(!object || object->isFullyWired())
     return;
 
   if(m_objectsToWire.isEmpty())
@@ -1283,6 +1283,8 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 		  glitch_proxy_widget::Sections::RIGHT)
 	    m_objectsToWire["output"] = proxy;
 	}
+
+      return;
     }
   else if(m_objectsToWire.size() == 1)
     {
