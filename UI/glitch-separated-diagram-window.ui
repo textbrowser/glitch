@@ -47,9 +47,9 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="action_Close"/>
-    <addaction name="separator"/>
     <addaction name="action_Save_Diagram"/>
+    <addaction name="separator"/>
+    <addaction name="action_Close"/>
    </widget>
    <widget class="QMenu" name="menu_Generate">
     <property name="title">
