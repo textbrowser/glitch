@@ -57,6 +57,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   ~glitch_proxy_widget();
   QPointer<glitch_object> object(void) const;
   Sections hoveredSection(void) const;
+  bool isFullyWired(void) const;
   bool isMandatory(void) const;
   bool isMovable(void) const;
 

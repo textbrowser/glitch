@@ -118,7 +118,7 @@ class glitch_object: public QWidget
   virtual bool hasInput(void) const;
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;
-  virtual bool isFullyWired(void) const = 0;
+  virtual bool isFullyWired(void) const = 0; // Are all inputs wired?
   virtual bool isMandatory(void) const;
   virtual bool shouldPrint(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;

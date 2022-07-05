@@ -1273,7 +1273,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 
   auto object = qobject_cast<glitch_object *> (proxy->widget());
 
-  if(!object || object->isFullyWired())
+  if(!object)
     {
       m_objectsToWire.clear();
       return;
