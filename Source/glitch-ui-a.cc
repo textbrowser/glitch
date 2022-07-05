@@ -1568,7 +1568,7 @@ void glitch_ui::slotShowUserFunctions(void)
   auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
 
   if(view)
-    view->showUserFunctions();  
+    view->showUserFunctions();
 }
 
 void glitch_ui::slotTabMoved(int from, int to)

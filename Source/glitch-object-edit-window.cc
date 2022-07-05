@@ -38,8 +38,6 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
-  setWindowFlags(Qt::Dialog | windowFlags());
-
   auto menu = menuBar()->addMenu(tr("&File"));
 
   m_actions["close"] =
@@ -69,6 +67,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  SLOT(slotAboutToShowEditMenu(void)));
   m_windowsMenu = menuBar()->addMenu(tr("&Windows"));
   prepareIcons();
+  setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());
 }
 
 QWidget *glitch_object_edit_window::centralWidget(void) const

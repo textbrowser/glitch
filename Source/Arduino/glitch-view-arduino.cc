@@ -215,6 +215,10 @@ void glitch_view_arduino::generateSource(void)
 	  if(!w || !w->shouldPrint())
 	    continue;
 	  else if(m_loopObject == w || m_setupObject == w)
+	    /*
+	    ** The loop() and setup() methods are processed later.
+	    */
+
 	    continue;
 
 	  auto code(w->code());
