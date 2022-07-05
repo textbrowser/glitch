@@ -69,6 +69,11 @@ class glitch_scene: public QGraphicsScene
        m_objectsMap.find(m_objectsHash.value(proxy), proxy));
   }
 
+  int selectedForWiringCount(void) const
+  {
+    return m_objectsToWire.size();
+  }
+
   void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object);
   void deleteItems(void);
