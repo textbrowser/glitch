@@ -167,7 +167,33 @@ bool glitch_object_advanced_io_arduino::hasOutput(void) const
 
 bool glitch_object_advanced_io_arduino::isFullyWired(void) const
 {
-  return false;
+  switch(m_ioType)
+    {
+    case Type::PULSE_IN:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::PULSE_IN_LONG:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::SHIFT_IN:
+      {
+	return inputs().size() >= 3;
+      }
+    case Type::SHIFT_OUT:
+      {
+	return inputs().size() >= 4;
+      }
+    case Type::TONE:
+      {
+	return inputs().size() >= 2;
+      }
+    default:
+      {
+	return inputs().size() >= 1;
+      }
+    }
 }
 
 bool glitch_object_advanced_io_arduino::shouldPrint(void) const

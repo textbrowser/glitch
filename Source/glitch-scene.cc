@@ -1261,7 +1261,10 @@ void glitch_scene::slotUndo(void)
 void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 {
   if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_CONNECT)
-    return;
+    {
+      m_objectsToWire.clear();
+      return;
+    }
 
   /*
   ** Do not wire objects if they are wired. This requirement will vary
@@ -1271,7 +1274,10 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
   auto object = qobject_cast<glitch_object *> (proxy->widget());
 
   if(!object || object->isFullyWired())
-    return;
+    {
+      m_objectsToWire.clear();
+      return;
+    }
 
   if(m_objectsToWire.isEmpty())
     {
