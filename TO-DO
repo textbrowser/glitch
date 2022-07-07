@@ -151,6 +151,6 @@ Remaining Items
 - Variable clones. May not be necessary.
 - Warn of recursive functions.
 - Widgets for decorations.
-- Wire is not intially drawn if objects are connected at great a distance.
+- Wire is not intially drawn if objects are connected at a great distance.
 - Wire redo / undo.
 - Wiring.
