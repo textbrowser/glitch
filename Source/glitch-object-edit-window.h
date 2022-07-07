@@ -43,6 +43,7 @@ class glitch_object_edit_window: public QMainWindow
   glitch_object_edit_window(QWidget *parent);
   ~glitch_object_edit_window();
   QWidget *centralWidget(void) const;
+  void prepareToolBar(const QList<QAction *> &actions);
   void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
   void setUndoStack(QUndoStack *undoStack);

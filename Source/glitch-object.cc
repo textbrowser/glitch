@@ -509,6 +509,7 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      m_editView,
 	      SLOT(slotUndo(void)),
 	      Qt::UniqueConnection);
+      m_editWindow->prepareToolBar(m_editView->alignmentActions());
     }
 
   if(m_editView && parentView)

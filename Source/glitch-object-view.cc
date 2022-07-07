@@ -87,6 +87,11 @@ glitch_object_view::~glitch_object_view()
 {
 }
 
+QList<QAction *> glitch_object_view::alignmentActions(void) const
+{
+  return m_alignment->actions();
+}
+
 QUndoStack *glitch_object_view::undoStack(void) const
 {
   return m_undoStack;

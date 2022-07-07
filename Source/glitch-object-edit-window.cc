@@ -111,6 +111,12 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("undo")->setIcon(QIcon::fromTheme("edit-undo"));
 }
 
+void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
+{
+  m_toolBar->clear();
+  m_toolBar->addActions(actions);
+}
+
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 {
   if(event)

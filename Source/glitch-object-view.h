@@ -50,6 +50,7 @@ class glitch_object_view: public QGraphicsView
 		     QUndoStack *undoStack,
 		     QWidget *parent);
   ~glitch_object_view();
+  QList<QAction *> alignmentActions(void) const;
   QUndoStack *undoStack(void) const;
   glitch_scene* scene(void) const;
   quint64 id(void) const;
