@@ -574,7 +574,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
   QPen pen;
 
   pen.setBrush(m_dotsColor);
-  pen.setWidthF(1.50);
+  pen.setWidthF(1.25);
   painter->setPen(pen);
 
   QVector<QPointF> points;
