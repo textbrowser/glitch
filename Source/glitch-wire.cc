@@ -49,7 +49,7 @@ QPainterPath glitch_wire::shape(void) const
 {
   QPainterPath path;
 
-  path.addRect(m_boundingRect);
+  path.addPolygon(m_points);
   return path;
 }
 
@@ -65,7 +65,7 @@ QPointer<glitch_proxy_widget> glitch_wire::rightProxy(void) const
 
 QRectF glitch_wire::boundingRect(void) const
 {
-  return m_boundingRect;
+  return m_points.boundingRect();
 }
 
 void glitch_wire::setColor(const QColor &color)
@@ -81,7 +81,7 @@ void glitch_wire::paint
 {
   Q_UNUSED(opt);
   Q_UNUSED(widget);
-  m_boundingRect = QRectF();
+  m_points.clear();
 
   if(!m_leftProxy || !m_rightProxy)
     return;
@@ -112,7 +112,6 @@ void glitch_wire::paint
 	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
-	  QPolygonF points;
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto x2 = m_rightProxy->pos().x();
 	  const auto xd = qAbs(x1 - x2) / 2.0;
@@ -120,20 +119,19 @@ void glitch_wire::paint
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
-	  points << QPointF(x1 + 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 + yd)
-		 << QPointF(x1 + 2.0 * xd - 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 + yd);
-	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+	  m_points << QPointF(x1 + 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 + yd)
+		   << QPointF(x1 + 2.0 * xd - 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 + yd);
+	  painter->drawPolyline(m_points);
 	}
       else if(m_leftProxy->size().height() / 2.0 + m_leftProxy->y() >=
 	      m_rightProxy->size().height() / 2.0 + m_rightProxy->y() &&
@@ -147,7 +145,6 @@ void glitch_wire::paint
 	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
-	  QPolygonF points;
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto x2 = m_rightProxy->pos().x();
 	  const auto xd = qAbs(x1 - x2) / 2.0;
@@ -155,20 +152,19 @@ void glitch_wire::paint
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
-	  points << QPointF(x1 + 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 - yd)
-		 << QPointF(x1 + 2.0 * xd - 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 - yd);
-	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+	  m_points << QPointF(x1 + 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 - yd)
+		   << QPointF(x1 + 2.0 * xd - 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 - yd);
+	  painter->drawPolyline(m_points);
 	}
       else if(m_leftProxy->size().width() + m_leftProxy->x() + 15.0 >=
 	      m_rightProxy->x() &&
@@ -181,33 +177,31 @@ void glitch_wire::paint
 	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
-	  QPolygonF points;
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto xd = m_rightProxy->pos().x() - x1;
 	  const auto yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y()) / 2.0;
 
-	  points << QPointF(x1 + 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 + yd)
-		 << QPointF(x1 + xd - 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 + yd)
-		 << QPointF(x1 + xd - 26.0,
-			    m_rightProxy->pos().y() +
-			    m_rightProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd - 6.0,
-			    m_rightProxy->pos().y() +
-			    m_rightProxy->size().height() / 2.0 - 1.0);
-	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+	  m_points << QPointF(x1 + 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 + yd)
+		   << QPointF(x1 + xd - 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 + yd)
+		   << QPointF(x1 + xd - 26.0,
+			      m_rightProxy->pos().y() +
+			      m_rightProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd - 6.0,
+			      m_rightProxy->pos().y() +
+			      m_rightProxy->size().height() / 2.0 - 1.0);
+	  painter->drawPolyline(m_points);
 	}
       else
 	{
@@ -218,36 +212,32 @@ void glitch_wire::paint
 	  pen.setWidthF(penWidth);
 	  painter->setPen(pen);
 
-	  QPolygonF points;
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto xd = m_rightProxy->pos().x() - x1;
 	  const auto yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y()) / 2.0;
 
-	  points << QPointF(x1 + 6.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 - yd)
-		 << QPointF(x1 + xd - 26.0,
-			    m_leftProxy->pos().y() +
-			    m_leftProxy->size().height() / 2.0 - 1.0 - yd)
-		 << QPointF(x1 + xd - 26.0,
-			    m_rightProxy->pos().y() +
-			    m_rightProxy->size().height() / 2.0 - 1.0)
-		 << QPointF(x1 + xd - 6.0,
-			    m_rightProxy->pos().y() +
-			    m_rightProxy->size().height() / 2.0 - 1.0);
-	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+	  m_points << QPointF(x1 + 6.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 - yd)
+		   << QPointF(x1 + xd - 26.0,
+			      m_leftProxy->pos().y() +
+			      m_leftProxy->size().height() / 2.0 - 1.0 - yd)
+		   << QPointF(x1 + xd - 26.0,
+			      m_rightProxy->pos().y() +
+			      m_rightProxy->size().height() / 2.0 - 1.0)
+		   << QPointF(x1 + xd - 6.0,
+			      m_rightProxy->pos().y() +
+			      m_rightProxy->size().height() / 2.0 - 1.0);
+	  painter->drawPolyline(m_points);
 	}
-
-      m_boundingRect.setSize(1.5 * m_boundingRect.size());
     }
 }
 
