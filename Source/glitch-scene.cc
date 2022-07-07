@@ -864,7 +864,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
       auto item = itemAt(event->scenePos(), QTransform());
 
-      if(item)
+      if(!qgraphicsitem_cast<glitch_wire *> (item) && item)
 	{
 	  auto parent = item->parentItem();
 

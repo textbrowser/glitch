@@ -95,6 +95,7 @@ Completed Items
 - Save position-locked property.
 - Save, Save As on separated windows.
 - Select all.
+- Selection rectangle moves wired objects. Ignore wires.
 - Separate database objects when opening an existing diagram.
 - Separated window: context menu, generate source, save.
 - Shortcuts in object views.
@@ -144,7 +145,6 @@ Remaining Items
 - Object-view settings. Identical to canvas settings.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
-- Selection rectangle moves wired objects.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Set focus on plain-text-edit during mouse-press event.
 - Undo macros for group actions.
