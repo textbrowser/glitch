@@ -116,12 +116,12 @@ class glitch_view: public QWidget
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
-  QPointer<glitch_alignment> m_alignment;
   QPointer<glitch_tools> m_tools;
   QString m_fileName;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   bool m_changed;
+  glitch_alignment *m_alignment;
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectTypes m_projectType;
   glitch_graphicsview *m_view;

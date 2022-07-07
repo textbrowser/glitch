@@ -852,8 +852,7 @@ void glitch_ui::prepareToolBar(void)
   m_ui.toolBar->clear();
 
   if(m_currentView)
-    for(int i = 0; i < m_currentView->alignmentActions().size(); i++)
-      m_ui.toolBar->addAction(m_currentView->alignmentActions().at(i));
+    m_ui.toolBar->addActions(m_currentView->alignmentActions());
 }
 
 void glitch_ui::restoreSettings(void)

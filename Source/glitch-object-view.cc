@@ -45,6 +45,7 @@ glitch_object_view::glitch_object_view
  QUndoStack *undoStack,
  QWidget *parent):QGraphicsView(parent)
 {
+  m_alignment = new glitch_alignment(this);
   m_id = id;
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
@@ -63,6 +64,10 @@ glitch_object_view::glitch_object_view
   setScene(m_scene);
   setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  connect(m_alignment,
+	  &glitch_alignment::changed,
+	  this,
+	  &glitch_object_view::slotChanged);
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
@@ -80,8 +85,6 @@ glitch_object_view::glitch_object_view
 
 glitch_object_view::~glitch_object_view()
 {
-  if(m_alignment)
-    m_alignment->deleteLater();
 }
 
 QUndoStack *glitch_object_view::undoStack(void) const
@@ -193,12 +196,7 @@ void glitch_object_view::slotChanged(void)
 
 void glitch_object_view::slotCustomContextMenuRequested(const QPoint &point)
 {
-  QMenu menu(this);
-
-  menu.addAction(tr("&Alignment Tool..."),
-		 this,
-		 SLOT(slotShowAlignment(void)));
-  menu.exec(mapToGlobal(point));
+  Q_UNUSED(point);
 }
 
 void glitch_object_view::slotDelete(void)
@@ -208,8 +206,6 @@ void glitch_object_view::slotDelete(void)
 
 void glitch_object_view::slotParentWindowClosed(void)
 {
-  if(m_alignment)
-    m_alignment->close();
 }
 
 void glitch_object_view::slotPaste(void)
@@ -249,22 +245,6 @@ void glitch_object_view::slotSelectAll(void)
       if(proxy)
 	proxy->setSelected(true);
     }
-}
-
-void glitch_object_view::slotShowAlignment(void)
-{
-  if(!m_alignment)
-    {
-      m_alignment = new glitch_alignment(this);
-      connect(m_alignment,
-	      &glitch_alignment::changed,
-	      this,
-	      &glitch_object_view::slotChanged);
-    }
-
-  m_alignment->showNormal();
-  m_alignment->activateWindow();
-  m_alignment->raise();
 }
 
 void glitch_object_view::slotUndo(void)

@@ -65,7 +65,9 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotAboutToShowEditMenu(void)));
-  m_windowsMenu = menuBar()->addMenu(tr("&Windows"));
+  m_toolBar = new QToolBar(tr("Tool Bar"), this);
+  m_toolBar->setIconSize(QSize(32, 32));
+  addToolBar(m_toolBar);
   prepareIcons();
   setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());
 }
@@ -155,12 +157,6 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 		 SIGNAL(selectionChanged(void)),
 		 this,
 		 SLOT(slotAboutToShowEditMenu(void)));
-
-      if(m_actions.value("alignment"))
-	{
-	  m_actions.value("alignment")->deleteLater();
-	  m_actions.remove("alignment");
-	}
     }
 
   m_editView = view;
@@ -180,8 +176,6 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 	      SIGNAL(selectionChanged(void)),
 	      this,
 	      SLOT(slotAboutToShowEditMenu(void)));
-      m_actions["alignment"] = m_windowsMenu->addAction
-	(tr("Alignment Tool..."), m_editView, SLOT(slotShowAlignment(void)));
     }
 }
 

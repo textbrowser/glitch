@@ -62,7 +62,7 @@ class glitch_object_view: public QGraphicsView
 
  private:
   QPointer<QUndoStack> m_undoStack;
-  QPointer<glitch_alignment> m_alignment;
+  glitch_alignment *m_alignment;
   glitch_common::ProjectTypes m_projectType;
   glitch_scene *m_scene;
   quint64 m_id;
@@ -79,7 +79,6 @@ class glitch_object_view: public QGraphicsView
   void slotResizeScene(void);
   void slotSceneResized(void);
   void slotSelectAll(void);
-  void slotShowAlignment(void);
   void slotUndo(void);
 
  signals:
