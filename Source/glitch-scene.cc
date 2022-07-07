@@ -568,15 +568,13 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
   ** Here be magical points!
   */
 
-  painter->save();
   painter->fillRect(rect, backgroundBrush());
   painter->setBrushOrigin(0, 0);
-  painter->restore();
 
   QPen pen;
 
   pen.setBrush(m_dotsColor);
-  pen.setWidthF(1.00);
+  pen.setWidthF(1.50);
   painter->setPen(pen);
 
   QVector<QPointF> points;
@@ -590,9 +588,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
     for(auto y = top; std::isless(y, rect.bottom()); y += gridSize)
       points << QPointF(x, y);
 
-  painter->save();
   painter->drawPoints(points.data(), points.size());
-  painter->restore();
 }
 
 void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)

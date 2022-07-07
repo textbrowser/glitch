@@ -285,6 +285,10 @@ void glitch_proxy_widget::paint
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
 	     (m_hoveredSection == Sections::RIGHT && m_object->hasOutput()))
 	    {
+	      /*
+	      ** Draw input or output selection indicators.
+	      */
+
 	      QPainterPath path;
 	      auto rect(this->rect());
 
@@ -299,7 +303,7 @@ void glitch_proxy_widget::paint
 				size().height(),
 				size().height());
 
-	      painter->fillPath(path, QColor(255, 192, 203, 200));
+	      painter->fillPath(path, QColor(255, 192, 203, 225));
 
 	      QPen pen;
 
@@ -322,6 +326,23 @@ void glitch_proxy_widget::paint
 		   size().height());
 
 	      painter->restore();
+
+	      if(m_scene &&
+		 m_scene->toolsOperation() ==
+		 glitch_tools::Operations::WIRE_CONNECT)
+		{
+		  auto font(painter->font());
+
+		  font.setBold(true);
+		  font.setPointSizeF(25.0);
+		  pen.setColor(Qt::white);
+		  painter->setFont(font);
+		  painter->setPen(pen);
+		  painter->drawText
+		    (path.boundingRect(),
+		     Qt::AlignCenter,
+		     QString::number(m_scene->selectedForWiringCount() + 1));
+		}
 	    }
 	}
     }
