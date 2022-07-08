@@ -172,12 +172,12 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
-      /*
-      ** Draw a selection rectangle.
-      */
-
       if(opt && (opt->state & QStyle::State_Selected))
 	{
+	  /*
+	  ** Draw a selection rectangle.
+	  */
+
 	  QPen pen;
 
 	  if(isMovable())
@@ -194,12 +194,12 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
-      /*
-      ** Draw the object's order.
-      */
-
       if(!isMandatory())
 	{
+	  /*
+	  ** Draw the object's order.
+	  */
+
 	  QFontMetrics fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
@@ -234,6 +234,10 @@ void glitch_proxy_widget::paint
 	{
 	  if(m_object->hasInput())
 	    {
+	      /*
+	      ** Draw an input port.
+	      */
+
 	      QPainterPath path;
 	      auto rect(this->rect());
 
@@ -259,6 +263,10 @@ void glitch_proxy_widget::paint
 
 	  if(m_object->hasOutput())
 	    {
+	      /*
+	      ** Draw an output port.
+	      */
+
 	      QPainterPath path;
 	      auto rect(this->rect());
 
@@ -331,6 +339,10 @@ void glitch_proxy_widget::paint
 		 m_scene->toolsOperation() ==
 		 glitch_tools::Operations::WIRE_CONNECT)
 		{
+		  /*
+		  ** Draw wiring order text.
+		  */
+
 		  auto font(painter->font());
 
 		  font.setBold(true);
