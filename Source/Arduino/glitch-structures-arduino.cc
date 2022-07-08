@@ -204,7 +204,8 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					       << "Serial.println()";
       s_itemsForCategories[17] = QStringList() << "stream.available()";
       s_itemsForCategories[18] = QStringList() << "block comment"
-					       << "function()";
+					       << "function()"
+					       << "function-return";
       s_itemsForCategories[19] = QStringList() << "delay()"
 					       << "delayMicroseconds()"
 					       << "micros()"

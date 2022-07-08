@@ -4,6 +4,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \
                   UI/Arduino/glitch-object-digital-io-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
+                  UI/Arduino/glitch-object-function-return-arduino.ui \
                   UI/Arduino/glitch-object-logical-operator-arduino.ui \
                   UI/Arduino/glitch-object-loop-arduino.ui \
                   UI/Arduino/glitch-object-loop-flow-arduino.ui \
