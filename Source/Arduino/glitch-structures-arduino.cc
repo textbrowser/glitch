@@ -70,6 +70,8 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Bits and Bytes");
   m_ui.categories->addItem(tr("Bitwise Operators"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Bitwise Operators");
+  m_ui.categories->addItem(tr("Characters"));
+  m_ui.categories->item(i++)->setData(Qt::UserRole, "Characters");
   m_ui.categories->addItem(tr("Comparison Operators"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Comparison Operators");
   m_ui.categories->addItem(tr("Compound Operators"));
@@ -109,112 +111,127 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
   if(s_itemsForCategories.isEmpty())
     {
-      s_itemsForCategories[0] = QStringList() << "noTone()"
-					      << "pulseIn()"
-					      << "pulseInLong()"
-					      << "shiftIn()"
-					      << "shiftOut()"
-					      << "tone()";
-      s_itemsForCategories[1] = QStringList() << "analogRead()"
-					      << "analogReference()"
-					      << "analogWrite()";
-      s_itemsForCategories[2] = QStringList() << "addition (+)"
-					      << "assignment (=)"
-					      << "division (/)"
-					      << "modulo (%)"
-					      << "multiplication (*)"
-					      << "subtraction (-)";
-      s_itemsForCategories[3] = QStringList() << "bit()"
-					      << "bitClear()"
-					      << "bitRead()"
-					      << "bitSet()"
-					      << "bitWrite()"
-					      << "highByte()"
-					      << "lowByte()";
-      s_itemsForCategories[4] = QStringList() << "and (&)"
-					      << "left shift (<<)"
-					      << "not (~)"
-					      << "or (|)"
-					      << "right shift (>>)"
-					      << "xor (^)";
-      s_itemsForCategories[5] = QStringList() << "equal to (==)"
-					      << "greater than (>)"
-					      << "greater than or equal to (>=)"
-					      << "less than (<)"
-					      << "less than or equal to (<=)"
-					      << "not equal to (!=)";
-      s_itemsForCategories[6] = QStringList() << "addition (+=)"
-					      << "bitwise and (&=)"
-					      << "bitwise or (|=)"
-					      << "bitwise xor (^=)"
-					      << "decrement (--)"
-					      << "division (/=)"
-					      << "increment (++)"
-					      << "modulo (%=)"
-					      << "multiplication (*=)"
-					      << "subtraction (-=)";
-      s_itemsForCategories[7] = QStringList() << "HIGH"
-					      << "INPUT"
-					      << "INPUT_PULLUP"
-					      << "LED_BUILTIN"
-					      << "LOW"
-					      << "OUTPUT"
-					      << "Other"
-					      << "false"
-					      << "true";
-      s_itemsForCategories[8] = QStringList() << "(unsigned int)"
-					      << "(unsigned long)"
-					      << "byte()"
-					      << "char()"
-					      << "float()"
-					      << "int()"
-					      << "long()"
-					      << "word()";
-      s_itemsForCategories[9] = QStringList() << "digitalRead()"
-					      << "digitalWrite()"
-					      << "pinMode()";
-      s_itemsForCategories[10] = QStringList() << "attachInterrupt()"
-					       << "detachInterrupt()";
-      s_itemsForCategories[11] = QStringList() << "break"
-					       << "continue"
-					       << "do while loop"
-					       << "for loop"
-					       << "goto"
-					       << "if statement"
-					       << "if-else statement"
-					       << "label"
-					       << "return"
-					       << "switch case"
-					       << "while loop";
-      s_itemsForCategories[12] = QStringList() << "interrupts()"
-					       << "noInterrupts()";
-      s_itemsForCategories[13] = QStringList() << "and (&&)"
-					       << "not (!)"
-					       << "or (||)";
-      s_itemsForCategories[14] = QStringList() << "abs()"
-					       << "constrain()"
-					       << "map()"
-					       << "max()"
-					       << "min()"
-					       << "pow()"
-					       << "sq()"
-					       << "sqrt()";
-      s_itemsForCategories[15] = QStringList() << "random()"
-					       << "randomSeed()";
-      s_itemsForCategories[16] = QStringList() << "Serial.begin()"
-					       << "Serial.println()";
-      s_itemsForCategories[17] = QStringList() << "stream.available()";
-      s_itemsForCategories[18] = QStringList() << "block comment"
-					       << "function()";
-      s_itemsForCategories[19] = QStringList() << "delay()"
-					       << "delayMicroseconds()"
-					       << "micros()"
-					       << "millis()";
-      s_itemsForCategories[20] = QStringList() << "cos()"
-					       << "sin()"
-					       << "tan()";
-      s_itemsForCategories[21] = QStringList() << "PROGMEM"
-					       << "sizeof()";
+      i = 0;
+      s_itemsForCategories[i++] = QStringList() << "noTone()"
+						<< "pulseIn()"
+						<< "pulseInLong()"
+						<< "shiftIn()"
+						<< "shiftOut()"
+						<< "tone()";
+      s_itemsForCategories[i++] = QStringList() << "analogRead()"
+						<< "analogReference()"
+						<< "analogWrite()";
+      s_itemsForCategories[i++] = QStringList() << "addition (+)"
+						<< "assignment (=)"
+						<< "division (/)"
+						<< "modulo (%)"
+						<< "multiplication (*)"
+						<< "subtraction (-)";
+      s_itemsForCategories[i++] = QStringList() << "bit()"
+						<< "bitClear()"
+						<< "bitRead()"
+						<< "bitSet()"
+						<< "bitWrite()"
+						<< "highByte()"
+						<< "lowByte()";
+      s_itemsForCategories[i++] = QStringList() << "and (&)"
+						<< "left shift (<<)"
+						<< "not (~)"
+						<< "or (|)"
+						<< "right shift (>>)"
+						<< "xor (^)";
+      s_itemsForCategories[i++] = QStringList() << "isAlpha()"
+						<< "isAlphaNumeric()"
+						<< "isAscii()"
+						<< "isControl()"
+						<< "isDigit()"
+						<< "isGraph()"
+						<< "isHexadecimalDigit()"
+						<< "isLowerCase()"
+						<< "isPrintable()"
+						<< "isPunct()"
+						<< "isSpace()"
+						<< "isUpperCase()"
+						<< "isWhitespace()"; 
+      s_itemsForCategories[i++] =
+	QStringList() << "equal to (==)"
+		      << "greater than (>)"
+		      << "greater than or equal to (>=)"
+		      << "less than (<)"
+		      << "less than or equal to (<=)"
+		      << "not equal to (!=)";
+      s_itemsForCategories[i++] = QStringList() << "addition (+=)"
+						<< "bitwise and (&=)"
+						<< "bitwise or (|=)"
+						<< "bitwise xor (^=)"
+						<< "decrement (--)"
+						<< "division (/=)"
+						<< "increment (++)"
+						<< "modulo (%=)"
+						<< "multiplication (*=)"
+						<< "subtraction (-=)";
+      s_itemsForCategories[i++] = QStringList() << "HIGH"
+						<< "INPUT"
+						<< "INPUT_PULLUP"
+						<< "LED_BUILTIN"
+						<< "LOW"
+						<< "OUTPUT"
+						<< "Other"
+						<< "false"
+						<< "true";
+      s_itemsForCategories[i++] = QStringList() << "(unsigned int)"
+						<< "(unsigned long)"
+						<< "byte()"
+						<< "char()"
+						<< "float()"
+						<< "int()"
+						<< "long()"
+						<< "word()";
+      s_itemsForCategories[i++] = QStringList() << "digitalRead()"
+						<< "digitalWrite()"
+						<< "pinMode()";
+      s_itemsForCategories[i++] = QStringList() << "attachInterrupt()"
+						<< "detachInterrupt()";
+      s_itemsForCategories[i++] = QStringList() << "break"
+						<< "continue"
+						<< "do while loop"
+						<< "for loop"
+						<< "goto"
+						<< "if statement"
+						<< "if-else statement"
+						<< "label"
+						<< "return"
+						<< "switch case"
+						<< "while loop";
+      s_itemsForCategories[i++] = QStringList() << "interrupts()"
+						<< "noInterrupts()";
+      s_itemsForCategories[i++] = QStringList() << "and (&&)"
+						<< "not (!)"
+						<< "or (||)";
+      s_itemsForCategories[i++] = QStringList() << "abs()"
+						<< "constrain()"
+						<< "map()"
+						<< "max()"
+						<< "min()"
+						<< "pow()"
+						<< "sq()"
+						<< "sqrt()";
+      s_itemsForCategories[i++] = QStringList() << "random()"
+						<< "randomSeed()";
+      s_itemsForCategories[i++] = QStringList() << "Serial.begin()"
+						<< "Serial.println()";
+      s_itemsForCategories[i++] = QStringList() << "stream.available()";
+      s_itemsForCategories[i++] = QStringList() << "block comment"
+						<< "function()";
+      s_itemsForCategories[i++] = QStringList() << "delay()"
+						<< "delayMicroseconds()"
+						<< "micros()"
+						<< "millis()";
+      s_itemsForCategories[i++] = QStringList() << "cos()"
+						<< "sin()"
+						<< "tan()";
+      s_itemsForCategories[i++] = QStringList() << "PROGMEM"
+						<< "sizeof()";
 
       QStringList arrays;
       QStringList list(variableTypes());
@@ -227,7 +244,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  arrays << i;
 	}
 
-      s_itemsForCategories[22] = arrays;
+      s_itemsForCategories[i++] = arrays;
     }
 
   m_ui.categories->setCurrentRow(0);
@@ -329,7 +346,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
   QStringList list;
   int row = m_ui.categories->row(items.at(0));
 
-  if(row >= 0 && row <= 21)
+  if(row >= 0 && row <= 22)
     {
       list = s_itemsForCategories.value(row);
 
