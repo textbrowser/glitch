@@ -182,6 +182,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 					       << "goto"
 					       << "if statement"
 					       << "if-else statement"
+					       << "label"
 					       << "return"
 					       << "switch case"
 					       << "while loop";
