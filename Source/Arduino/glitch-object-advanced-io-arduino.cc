@@ -95,11 +95,11 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN:
       {
 	if(inputs().size() == 2)
-	  return QString("pulseIn(%1, %2)").
+	  return QString("pulseIn(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("pulseIn(%1, %2, %3)").
+	  return QString("pulseIn(%1, %2, %3);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));
@@ -107,11 +107,11 @@ QString glitch_object_advanced_io_arduino::code(void) const
     case Type::PULSE_IN_LONG:
       {
 	if(inputs().size() == 2)
-	  return QString("pulseInLong(%1, %2)").
+	  return QString("pulseInLong(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
 	else
-	  return QString("pulseInLong(%1, %2, %3)").
+	  return QString("pulseInLong(%1, %2, %3);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1)).
 	    arg(inputs().value(2));

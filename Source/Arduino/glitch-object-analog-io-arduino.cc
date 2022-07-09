@@ -84,7 +84,7 @@ QString glitch_object_analog_io_arduino::code(void) const
       }
     default:
       {
-	return QString("analogRead(%1)").arg(inputs().value(0));
+	return QString("analogRead(%1);").arg(inputs().value(0));
       }
     }
 }

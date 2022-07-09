@@ -210,7 +210,14 @@ QStringList glitch_object::inputs(void) const
     if(object)
       {
 	if(object->type() != "arduino-variable")
-	  inputs << object->code();
+	  {
+	    auto code(object->code());
+
+	    if(code.endsWith(';'))
+	      code = code.mid(0, code.length() - 1);
+
+	    inputs << code;
+	  }
 	else
 	  inputs << object->name();
       }

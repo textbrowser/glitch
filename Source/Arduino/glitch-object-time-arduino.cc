@@ -91,11 +91,11 @@ QString glitch_object_time_arduino::code(void) const
       }
     case Type::MICROS:
       {
-	return QString("int %1 = micros();").arg(output());
+	return "micros();";
       }
     case Type::MILLIS:
       {
-	return QString("int %1 = millis();").arg(output());
+	return "millis();";
       }
     default:
       {

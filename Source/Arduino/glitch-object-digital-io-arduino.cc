@@ -74,7 +74,7 @@ QString glitch_object_digital_io_arduino::code(void) const
     {
     case Type::READ:
       {
-	return QString("digitalRead(%1)").arg(inputs().value(0));
+	return QString("digitalRead(%1);").arg(inputs().value(0));
       }
     case Type::WRITE:
       {
