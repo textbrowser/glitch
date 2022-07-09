@@ -172,7 +172,7 @@ QString glitch_object::type(void) const
 QStringList glitch_object::inputs(void) const
 {
   /*
-  ** Must be unique.
+  ** Must be rapidly unique!
   */
 
   auto scene = this->scene();
@@ -209,10 +209,10 @@ QStringList glitch_object::inputs(void) const
   foreach(auto object, objects)
     if(object)
       {
-	if(object->type() == "arduino-variable")
-	  inputs << object->name();
-	else
+	if(object->type() != "arduino-variable")
 	  inputs << object->code();
+	else
+	  inputs << object->name();
       }
 
   return inputs;

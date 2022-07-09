@@ -104,7 +104,21 @@ bool glitch_object_analog_io_arduino::hasOutput(void) const
 
 bool glitch_object_analog_io_arduino::isFullyWired(void) const
 {
-  return false;
+  switch(m_ioType)
+    {
+    case Type::REFERENCE:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::WRITE:
+      {
+	return inputs().size() >= 2;
+      }
+    default:
+      {
+	return inputs().size() >= 1;
+      }
+    }
 }
 
 bool glitch_object_analog_io_arduino::shouldPrint(void) const
