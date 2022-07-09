@@ -67,17 +67,23 @@ QString glitch_object_logical_operator_arduino::code(void) const
       {
 	return QString("(!(%1))").arg(inputs().value(0));
       }
-    case OperatorTypes::OR_OPERATOR:
-      {
-	return QString("((%1) || (%2))").
-	  arg(inputs().value(0)).
-	  arg(inputs().value(1));
-      }
     default:
       {
-       	return QString("((%1) && (%2))").
-	  arg(inputs().value(0)).
-	  arg(inputs().value(1));
+	QString str("(");
+	auto list(inputs());
+
+	for(int i = 0; i < list.size(); i++)
+	  {
+	    str.append(QString("(%1)").arg(list.at(i)));
+
+	    if(i != list.size() - 1)
+	      str.append(QString(" %1 ").
+			 arg(m_ui.logical_operator->currentText()));
+	  }
+
+	str = str.trimmed();
+	str.append(")");
+	return str;
       }
     }
 }
@@ -105,13 +111,9 @@ bool glitch_object_logical_operator_arduino::isFullyWired(void) const
       {
 	return inputs().size() >= 1;
       }
-    case OperatorTypes::OR_OPERATOR:
-      {
-	return inputs().size() >= 2;
-      }
     default:
       {
-	return inputs().size() >= 2;
+	return false;
       }
     }
 }
@@ -252,6 +254,8 @@ void glitch_object_logical_operator_arduino::setProperty
 
 void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
 {
+  setOperatorType(m_ui.logical_operator->currentText());
+
   if(!m_undoStack)
     return;
 
