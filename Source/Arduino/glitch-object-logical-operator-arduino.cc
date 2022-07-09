@@ -65,17 +65,17 @@ QString glitch_object_logical_operator_arduino::code(void) const
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	return QString("(!%1)").arg(inputs().value(0));
+	return QString("(!(%1))").arg(inputs().value(0));
       }
     case OperatorTypes::OR_OPERATOR:
       {
-	return QString("(%1 || %2)").
+	return QString("((%1) || (%2))").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1));
       }
     default:
       {
-       	return QString("(%1 && %2)").
+       	return QString("((%1) && (%2))").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1));
       }
@@ -99,7 +99,21 @@ bool glitch_object_logical_operator_arduino::hasOutput(void) const
 
 bool glitch_object_logical_operator_arduino::isFullyWired(void) const
 {
-  return false;
+  switch(m_operatorType)
+    {
+    case OperatorTypes::NOT_OPERATOR:
+      {
+	return inputs().size() >= 1;
+      }
+    case OperatorTypes::OR_OPERATOR:
+      {
+	return inputs().size() >= 2;
+      }
+    default:
+      {
+	return inputs().size() >= 2;
+      }
+    }
 }
 
 bool glitch_object_logical_operator_arduino::shouldPrint(void) const

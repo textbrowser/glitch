@@ -204,7 +204,7 @@ QString glitch_object_function_arduino::code(void) const
 
   for(auto w : widgets)
     {
-      if(!w)
+      if(!w || !w->shouldPrint())
 	continue;
 
       auto code(w->code());
