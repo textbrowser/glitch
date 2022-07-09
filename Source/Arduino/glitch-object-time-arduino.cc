@@ -122,12 +122,29 @@ bool glitch_object_time_arduino::hasOutput(void) const
 
 bool glitch_object_time_arduino::isFullyWired(void) const
 {
-  return false;
+  switch(m_timeType)
+    {
+    case Type::DELAY:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::DELAY_MICROSECONDS:
+      {
+	return inputs().size() >= 1;
+      }
+    default:
+      {
+	return true;
+      }
+    }
 }
 
 bool glitch_object_time_arduino::shouldPrint(void) const
 {
-  return true;
+  if(m_timeType == Type::DELAY || m_timeType == Type::DELAY_MICROSECONDS)
+    return true;
+  else
+    return false;
 }
 
 glitch_object_time_arduino *glitch_object_time_arduino::
