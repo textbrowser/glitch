@@ -234,7 +234,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "sizeof()";
 
       QStringList arrays;
-      QStringList list(variableTypes());
+      auto list(variableTypes());
 
       list.removeOne("array");
 
@@ -344,7 +344,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
   m_ui.tree->setHeaderLabel(items.at(0)->text());
 
   QStringList list;
-  int row = m_ui.categories->row(items.at(0));
+  auto row = m_ui.categories->row(items.at(0));
 
   if(row >= 0 && row <= 22)
     {
