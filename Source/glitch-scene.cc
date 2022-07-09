@@ -1361,9 +1361,9 @@ void glitch_scene::wireDisconnectObjects
 
       if(p == proxy)
 	{
-	  delete wire;
 	  it.remove();
 	  update();
+	  wire->deleteLater();
 	  emit changed();
 	}
     }
