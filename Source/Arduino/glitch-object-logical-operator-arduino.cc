@@ -77,8 +77,8 @@ QString glitch_object_logical_operator_arduino::code(void) const
 	    str.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      str.append(QString(" %1 ").
-			 arg(m_ui.logical_operator->currentText()));
+	      str.append
+		(QString(" %1 ").arg(m_ui.logical_operator->currentText()));
 	  }
 
 	str = str.trimmed();

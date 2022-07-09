@@ -101,6 +101,7 @@ bool glitch_object_serial_arduino::hasInput(void) const
 {
   switch(m_serialType)
     {
+    case Type::AVAILABLE:
     case Type::BEGIN:
     case Type::PRINTLN:
       {
@@ -117,11 +118,12 @@ bool glitch_object_serial_arduino::hasOutput(void) const
 {
   switch(m_serialType)
     {
-    case Type::BEGIN:
-      {
-	return false;
-      }
+    case Type::AVAILABLE:
     case Type::PRINTLN:
+      {
+	return true;
+      }
+    case Type::BEGIN:
       {
 	return false;
       }
@@ -134,7 +136,25 @@ bool glitch_object_serial_arduino::hasOutput(void) const
 
 bool glitch_object_serial_arduino::isFullyWired(void) const
 {
-  return false;
+  switch(m_serialType)
+    {
+    case Type::AVAILABLE:
+      {
+	return true;
+      }
+    case Type::BEGIN:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::PRINTLN:
+      {
+	return inputs().size() >= 2;
+      }
+    default:
+      {
+	return false;
+      }
+    }
 }
 
 bool glitch_object_serial_arduino::shouldPrint(void) const
