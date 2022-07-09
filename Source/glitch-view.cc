@@ -420,14 +420,17 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 		    if(object && object->editView())
 		      {
-			auto o = glitch_object::createFromValues
+			auto child = glitch_object::createFromValues
 			  (values, object, error, object->editView());
 
-			object->addChild
-			  (glitch_misc::dbPointToPointF(point), o);
-			object->hideOrShowOccupied();
-			object->setCanvasSettings(m_canvasSettings);
-			objects[o->id()] = o;
+			if(child)
+			  {
+			    object->addChild
+			      (glitch_misc::dbPointToPointF(point), child);
+			    object->hideOrShowOccupied();
+			    object->setCanvasSettings(m_canvasSettings);
+			    objects[child->id()] = child;
+			  }
 		      }
 		  }
 	      }
