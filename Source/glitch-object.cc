@@ -283,8 +283,8 @@ glitch_object *glitch_object::createFromValues
   else if(type == "arduino-analogio")
     object = glitch_object_analog_io_arduino::createFromValues
       (values, error, parent);
-  else if(type == "arithmetic-logicaloperator")
-    object = glitch_object_logical_operator_arduino::createFromValues
+  else if(type == "arduino-arithmeticoperator")
+    object = glitch_object_arithmetic_operator_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-blockcomment")
     object = glitch_object_block_comment_arduino::createFromValues
