@@ -873,7 +873,7 @@ void glitch_view::showUserFunctions(void)
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
-  QHash<glitch_canvas_settings::Settings, QVariant> hash(m_settings);
+  auto hash(m_settings);
 
   m_scene->setBackgroundBrush
     (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
