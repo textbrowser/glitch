@@ -57,6 +57,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     QDir::separator() +
     "glitch_recent_files.db";
   m_ui.setupUi(this);
+  connect(m_ui.action_About,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowCanvasSettings);
   connect(m_ui.action_Canvas_Settings,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -975,6 +979,10 @@ void glitch_ui::show(void)
     }
 
   parseCommandLineArguments();
+}
+
+void glitch_ui::slotAbout(void)
+{
 }
 
 void glitch_ui::slotAboutToShowTabsMenu(void)
