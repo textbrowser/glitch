@@ -136,6 +136,7 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="action_About"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -301,6 +302,11 @@
   <action name="action_User_Functions">
    <property name="text">
     <string>&amp;User Functions...</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>&amp;About...</string>
    </property>
   </action>
  </widget>
