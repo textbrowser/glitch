@@ -12,6 +12,7 @@ Completed Items
 - Allow opening of multiple files.
 - Allow setting of function names.
 - Apply canvas settings.
+- Arithmetic and subtraction (-). Special parsing.
 - Assign new names to functions pasted on main canvases.
 - Canvas background color redo / undo.
 - Close a function's Objects Alignment dialog if its editing window is closed.
@@ -129,7 +130,6 @@ Remaining Items
   is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
-- Arithmetic and subtraction (-).
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O
