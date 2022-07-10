@@ -146,7 +146,14 @@ bool glitch_scene::allowDrag
     {
       auto text(t.trimmed().remove("glitch-"));
 
-      text.remove(text.indexOf('-') + 1, text.lastIndexOf('-') - 7);
+      if(text.endsWith("(-)"))
+	text = "subtraction (-)";
+      else if(text.endsWith("(--)"))
+	text = "decrement (--)";
+      else if(text.endsWith("(-=)"))
+	text = "subtraction (-=)";
+      else
+	text.remove(text.indexOf('-') + 1, text.lastIndexOf('-') - 7);
 
       if(m_mainScene)
 	{

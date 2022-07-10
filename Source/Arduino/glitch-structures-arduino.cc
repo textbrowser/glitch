@@ -198,7 +198,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "for loop"
 						<< "goto"
 						<< "if statement"
-						<< "if-else statement"
+						<< "if else statement"
 						<< "label"
 						<< "return"
 						<< "switch case"
@@ -317,6 +317,9 @@ QStringList glitch_structures_arduino::variableTypes(void)
 bool glitch_structures_arduino::containsStructure(const QString &structureName)
 {
   auto sn(structureName.toLower().trimmed());
+
+  if(!sn.startsWith("arduino-"))
+    sn.prepend("arduino-");
 
   if(sn.endsWith(" (array)"))
     sn.remove(" (array)");
