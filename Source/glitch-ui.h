@@ -29,6 +29,7 @@
 #define _glitch_ui_h_
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QPointer>
 
 #include "glitch-tools.h"
@@ -61,6 +62,7 @@ class glitch_ui: public QMainWindow
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
+  QMessageBox m_about;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   Ui_glitch_mainwindow m_ui;

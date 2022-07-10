@@ -44,6 +44,7 @@
 #include "glitch-separated-diagram-window.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
+#include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
 QMultiMap<QPair<int, int>, QPointer<glitch_object> >
@@ -51,6 +52,23 @@ glitch_ui::s_copiedObjects;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
+  m_about.setIconPixmap
+    (QPixmap(":/Logo/glitch-logo.png").scaled(QSize(256, 256),
+					      Qt::KeepAspectRatio,
+					      Qt::SmoothTransformation));
+  m_about.setText
+    (tr("<html>"
+	"<b>Glitch Version %1</b><br><br>"
+	"Glitch is a visual compiler and designer for Arduino.<br>"
+	"Developing through diagrams.<br><br>"
+	"Please visit "
+	"<a href=\"https://textbrowser.github.io/glitch\">"
+	"https://textbrowser.github.io/glitch</a> for more details.").
+     arg(GLITCH_VERSION_STR));
+  m_about.setTextFormat(Qt::RichText);
+  m_about.setWindowIcon(windowIcon());
+  m_about.setWindowModality(Qt::NonModal);
+  m_about.setWindowTitle(tr("Glitch: About"));
   m_recentFilesFileName = glitch_misc::homePath() +
     QDir::separator() +
     "Glitch" +
@@ -60,7 +78,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
-	  &glitch_ui::slotShowCanvasSettings);
+	  &glitch_ui::slotAbout);
   connect(m_ui.action_Canvas_Settings,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -983,6 +1001,9 @@ void glitch_ui::show(void)
 
 void glitch_ui::slotAbout(void)
 {
+  m_about.showNormal();
+  m_about.activateWindow();
+  m_about.raise();
 }
 
 void glitch_ui::slotAboutToShowTabsMenu(void)
