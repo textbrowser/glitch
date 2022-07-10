@@ -52,6 +52,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 
   auto list(glitch_structures_arduino::variableTypes());
 
+  list.prepend(" ");
   list.removeAll("array");
   m_ui.type->addItems(list);
   prepareContextMenu();
@@ -68,10 +69,22 @@ QString glitch_object_variable_arduino::code(void) const
   auto name(m_ui.name->text().trimmed());
   auto pointerAccess(m_ui.pointer_access->currentText());
   auto qualifier(m_ui.qualifier->currentText());
-  auto type(m_ui.type->currentText());
+  auto type(m_ui.type->currentText().trimmed());
   auto value(m_ui.value->text().trimmed());
 
-  if(value.isEmpty())
+  if(type.isEmpty())
+    {
+      if(value.isEmpty())
+	{
+	  if(inputs().isEmpty())
+	    return (name + ";").trimmed();
+	  else
+	    return (name + " = " + inputs().value(0) + ";").trimmed();
+	}
+      else
+	return (name + " = " + value + ";").trimmed();
+    }
+  else if(value.isEmpty())
     {
       if(inputs().isEmpty())
 	return (qualifier +
@@ -230,7 +243,7 @@ void glitch_object_variable_arduino::save
   properties["variable_name"] = m_ui.name->text().trimmed();
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
-  properties["variable_type"] = m_ui.type->currentText();
+  properties["variable_type"] = m_ui.type->currentText().trimmed();
   properties["variable_value"] = m_ui.value->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
@@ -349,7 +362,12 @@ void glitch_object_variable_arduino::setProperty
     case Properties::VARIABLE_TYPE:
       {
 	m_ui.type->blockSignals(true);
-	m_ui.type->setCurrentIndex(m_ui.type->findText(value.toString()));
+	m_ui.type->setCurrentIndex
+	  (m_ui.type->findText(value.toString().trimmed()));
+
+	if(m_ui.type->currentIndex() < 0)
+	  m_ui.type->setCurrentIndex(0);
+
 	m_ui.type->blockSignals(false);
 	break;
       }
