@@ -187,8 +187,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
     m_flowControlType = FlowControlTypes::BREAK;
 
   m_ui.flow_control_type->blockSignals(true);
-  m_ui.flow_control_type->setCurrentIndex
-    (m_ui.flow_control_type->findText(f, Qt::MatchEndsWith));
+  m_ui.flow_control_type->setCurrentIndex(m_ui.flow_control_type->findText(f));
 
   if(m_ui.flow_control_type->currentIndex() < 0)
     m_ui.flow_control_type->setCurrentIndex(0);
