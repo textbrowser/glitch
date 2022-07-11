@@ -38,9 +38,18 @@ class glitch_object_flow_control_arduino: public glitch_object
  public:
   enum FlowControlTypes
   {
-    DO_LOOP = 0,
-    FOR_LOOP,
-    WHILE_LOOP
+    BREAK = 0,
+    CASE,
+    CONTINUE,
+    DO_WHILE,
+    ELSE_IF,
+    FOR,
+    GOTO,
+    IF,
+    LABEL,
+    RETURN,
+    SWITCH,
+    WHILE
   };
 
   glitch_object_flow_control_arduino(QWidget *parent);

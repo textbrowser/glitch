@@ -45,7 +45,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_flowControlType = FlowControlTypes::DO_LOOP;
+  m_flowControlType = FlowControlTypes::BREAK;
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
@@ -159,14 +159,32 @@ void glitch_object_flow_control_arduino::setFlowControlType
 {
   auto f(flowControlType.toLower().trimmed());
 
-  if(f == "do loop")
-    m_flowControlType = FlowControlTypes::DO_LOOP;
-  else if(f == "for loop")
-    m_flowControlType = FlowControlTypes::FOR_LOOP;
-  else if(f == "while loop")
-    m_flowControlType = FlowControlTypes::WHILE_LOOP;
+  if(f == "break")
+    m_flowControlType = FlowControlTypes::BREAK;
+  else if(f == "case")
+    m_flowControlType = FlowControlTypes::CASE;
+  else if(f == "continue")
+    m_flowControlType = FlowControlTypes::CONTINUE;
+  else if(f == "do while")
+    m_flowControlType = FlowControlTypes::DO_WHILE;
+  else if(f == "else if")
+    m_flowControlType = FlowControlTypes::ELSE_IF;
+  else if(f == "for")
+    m_flowControlType = FlowControlTypes::FOR;
+  else if(f == "goto")
+    m_flowControlType = FlowControlTypes::GOTO;
+  else if(f == "if")
+    m_flowControlType = FlowControlTypes::IF;
+  else if(f == "label")
+    m_flowControlType = FlowControlTypes::LABEL;
+  else if(f == "return")
+    m_flowControlType = FlowControlTypes::RETURN;
+  else if(f == "switch")
+    m_flowControlType = FlowControlTypes::SWITCH;
+  else if(f == "while")
+    m_flowControlType = FlowControlTypes::WHILE;
   else
-    m_flowControlType = FlowControlTypes::DO_LOOP;
+    m_flowControlType = FlowControlTypes::BREAK;
 
   m_ui.flow_control_type->blockSignals(true);
   m_ui.flow_control_type->setCurrentIndex
@@ -192,7 +210,7 @@ void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::CONDITION] = string.trimmed();
 	}
-      else if(string.simplified().startsWith("control_type = "))
+      else if(string.simplified().startsWith("flow_control_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
