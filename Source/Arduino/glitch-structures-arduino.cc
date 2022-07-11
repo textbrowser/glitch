@@ -193,16 +193,17 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
       s_itemsForCategories[i++] = QStringList() << "attachInterrupt()"
 						<< "detachInterrupt()";
       s_itemsForCategories[i++] = QStringList() << "break"
+						<< "case"
 						<< "continue"
-						<< "do while loop"
-						<< "for loop"
+						<< "do while"
+						<< "else if"
+						<< "for"
 						<< "goto"
-						<< "if statement"
-						<< "if else statement"
+						<< "if"
 						<< "label"
 						<< "return"
-						<< "switch case"
-						<< "while loop";
+						<< "switch"
+						<< "while";
       s_itemsForCategories[i++] = QStringList() << "interrupts()"
 						<< "noInterrupts()";
       s_itemsForCategories[i++] = QStringList() << "and (&&)"
