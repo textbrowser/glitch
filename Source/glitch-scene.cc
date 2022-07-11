@@ -41,9 +41,9 @@
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
+#include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
-#include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
@@ -622,7 +622,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-flow control-"))
-	    object = new glitch_object_loop_flow_arduino(view);
+	    object = new glitch_object_flow_control_arduino(view);
 	  else if(text.startsWith("glitch-arduino-function"))
 	    object = new glitch_object_function_arduino
 	      (text.mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),

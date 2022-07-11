@@ -26,25 +26,26 @@
 */
 
 #include "glitch-object-edit-window.h"
-#include "glitch-object-loop-flow-arduino.h"
+#include "glitch-object-flow-control-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-undo-command.h"
 
-glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
-(QWidget *parent):glitch_object_loop_flow_arduino(1, parent)
+glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
+(QWidget *parent):glitch_object_flow_control_arduino(1, parent)
 {
 }
 
-glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
-(const QString &loopType, QWidget *parent):
-  glitch_object_loop_flow_arduino(1, parent)
+glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
+(const QString &flowControlType, QWidget *parent):
+  glitch_object_flow_control_arduino(1, parent)
 {
-  setLoopType(loopType);
+  setFlowControlType(flowControlType);
 }
 
-glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
+glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_flowControlType = FlowControlTypes::DO_LOOP;
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
@@ -55,73 +56,73 @@ glitch_object_loop_flow_arduino::glitch_object_loop_flow_arduino
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  m_editWindow->setWindowTitle(tr("Glitch: loop"));
+  m_editWindow->setWindowTitle(tr("Glitch: flow-control"));
   m_editWindow->resize(600, 600);
-  m_loopType = LoopTypes::DO_LOOP;
-  m_type = "arduino-loop-flow";
+  m_type = "arduino-flow-control";
   m_ui.setupUi(this);
   connect(m_ui.condition,
 	  &QLineEdit::textChanged,
 	  this,
 	  &glitch_object::changed);
-  connect(m_ui.loop_type,
+  connect(m_ui.flow_control_type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  &glitch_object_loop_flow_arduino::slotLoopTypeChanged);
+	  &glitch_object_flow_control_arduino::slotFlowControlTypeChanged);
   prepareContextMenu();
   setName(m_type);
 }
 
-glitch_object_loop_flow_arduino::~glitch_object_loop_flow_arduino()
+glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 {
 }
 
-QString glitch_object_loop_flow_arduino::code(void) const
+QString glitch_object_flow_control_arduino::code(void) const
 {
   return "";
 }
 
-QString glitch_object_loop_flow_arduino::loopType(void) const
+QString glitch_object_flow_control_arduino::flowControlType(void) const
 {
-  return m_ui.loop_type->currentText();
+  return m_ui.flow_control_type->currentText();
 }
 
-bool glitch_object_loop_flow_arduino::hasOutput(void) const
+bool glitch_object_flow_control_arduino::hasOutput(void) const
 {
   return false;
 }
 
-bool glitch_object_loop_flow_arduino::isFullyWired(void) const
+bool glitch_object_flow_control_arduino::isFullyWired(void) const
 {
   return true;
 }
 
-bool glitch_object_loop_flow_arduino::shouldPrint(void) const
+bool glitch_object_flow_control_arduino::shouldPrint(void) const
 {
   return true;
 }
 
-glitch_object_loop_flow_arduino *glitch_object_loop_flow_arduino::
+glitch_object_flow_control_arduino *glitch_object_flow_control_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_loop_flow_arduino(parent);
+  auto clone = new glitch_object_flow_control_arduino(parent);
 
-  clone->m_loopType = m_loopType;
+  clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
-  clone->m_ui.loop_type->setCurrentIndex(m_ui.loop_type->currentIndex());
+  clone->m_ui.flow_control_type->setCurrentIndex
+    (m_ui.flow_control_type->currentIndex());
   clone->setStyleSheet(styleSheet());
   return clone;
 }
 
-glitch_object_loop_flow_arduino *glitch_object_loop_flow_arduino::
+glitch_object_flow_control_arduino *glitch_object_flow_control_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto object = new glitch_object_loop_flow_arduino
+  auto object = new glitch_object_flow_control_arduino
     (values.value("myoid").toULongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
@@ -133,12 +134,12 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_loop_flow_arduino::addActions(QMenu &menu)
+void glitch_object_flow_control_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }
 
-void glitch_object_loop_flow_arduino::save
+void glitch_object_flow_control_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
   glitch_object::save(db, error);
@@ -149,34 +150,35 @@ void glitch_object_loop_flow_arduino::save
   QMap<QString, QVariant> properties;
 
   properties["condition"] = m_ui.condition->text().trimmed();
-  properties["loop_type"] = m_ui.loop_type->currentText();
+  properties["flow_control_type"] = m_ui.flow_control_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_loop_flow_arduino::setLoopType(const QString &loopType)
+void glitch_object_flow_control_arduino::setFlowControlType
+(const QString &flowControlType)
 {
-  auto l(loopType.toLower().trimmed());
+  auto f(flowControlType.toLower().trimmed());
 
-  if(l == "do loop")
-    m_loopType = LoopTypes::DO_LOOP;
-  else if(l == "for loop")
-    m_loopType = LoopTypes::FOR_LOOP;
-  else if(l == "while loop")
-    m_loopType = LoopTypes::WHILE_LOOP;
+  if(f == "do loop")
+    m_flowControlType = FlowControlTypes::DO_LOOP;
+  else if(f == "for loop")
+    m_flowControlType = FlowControlTypes::FOR_LOOP;
+  else if(f == "while loop")
+    m_flowControlType = FlowControlTypes::WHILE_LOOP;
   else
-    m_loopType = LoopTypes::DO_LOOP;
+    m_flowControlType = FlowControlTypes::DO_LOOP;
 
-  m_ui.loop_type->blockSignals(true);
-  m_ui.loop_type->setCurrentIndex
-    (m_ui.loop_type->findText(l, Qt::MatchEndsWith));
+  m_ui.flow_control_type->blockSignals(true);
+  m_ui.flow_control_type->setCurrentIndex
+    (m_ui.flow_control_type->findText(f, Qt::MatchEndsWith));
 
-  if(m_ui.loop_type->currentIndex() < 0)
-    m_ui.loop_type->setCurrentIndex(0);
+  if(m_ui.flow_control_type->currentIndex() < 0)
+    m_ui.flow_control_type->setCurrentIndex(0);
 
-  m_ui.loop_type->blockSignals(false);
+  m_ui.flow_control_type->blockSignals(false);
 }
 
-void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
+void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
 
@@ -190,29 +192,31 @@ void glitch_object_loop_flow_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::CONDITION] = string.trimmed();
 	}
-      else if(string.simplified().startsWith("loop_type = "))
+      else if(string.simplified().startsWith("control_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::LOOP_TYPE] = string.trimmed();
+	  m_properties[Properties::FLOW_CONTROL_TYPE] = string.trimmed();
 	}
     }
 
-  setLoopType(m_properties.value(glitch_object::LOOP_TYPE).toString());
+  setFlowControlType
+    (m_properties.value(glitch_object::FLOW_CONTROL_TYPE).toString());
 }
 
-void glitch_object_loop_flow_arduino::slotLoopTypeChanged(void)
+void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
 {
   if(!m_undoStack)
     return;
 
   auto undoCommand = new glitch_undo_command
-    (m_properties.value(Properties::LOOP_TYPE).toString(),
-     glitch_undo_command::LOOP_TYPE_CHANGED,
+    (m_properties.value(Properties::FLOW_CONTROL_TYPE).toString(),
+     glitch_undo_command::FLOW_CONTROL_TYPE_CHANGED,
      this);
 
-  m_properties[Properties::LOOP_TYPE] = m_ui.loop_type->currentText();
-  undoCommand->setText(tr("loop type changed"));
+  m_properties[Properties::FLOW_CONTROL_TYPE] =
+    m_ui.flow_control_type->currentText();
+  undoCommand->setText(tr("flow control type changed"));
   m_undoStack->push(undoCommand);
   emit changed();
 }

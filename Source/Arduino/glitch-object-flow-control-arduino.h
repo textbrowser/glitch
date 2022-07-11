@@ -25,47 +25,48 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_object_loop_flow_arduino_h_
-#define _glitch_object_loop_flow_arduino_h_
+#ifndef _glitch_object_flow_control_arduino_h_
+#define _glitch_object_flow_control_arduino_h_
 
 #include "glitch-object.h"
-#include "ui_glitch-object-loop-flow-arduino.h"
+#include "ui_glitch-object-flow-control-arduino.h"
 
-class glitch_object_loop_flow_arduino: public glitch_object
+class glitch_object_flow_control_arduino: public glitch_object
 {
   Q_OBJECT
 
  public:
-  enum LoopTypes
+  enum FlowControlTypes
   {
     DO_LOOP = 0,
     FOR_LOOP,
     WHILE_LOOP
   };
 
-  glitch_object_loop_flow_arduino(QWidget *parent);
-  glitch_object_loop_flow_arduino(const QString &loopType, QWidget *parent);
-  glitch_object_loop_flow_arduino(const quint64 id, QWidget *parent);
-  ~glitch_object_loop_flow_arduino();
+  glitch_object_flow_control_arduino(QWidget *parent);
+  glitch_object_flow_control_arduino
+    (const QString &flowControlType, QWidget *parent);
+  glitch_object_flow_control_arduino(const quint64 id, QWidget *parent);
+  ~glitch_object_flow_control_arduino();
   QString code(void) const;
-  QString loopType(void) const;
+  QString flowControlType(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;
-  static glitch_object_loop_flow_arduino *createFromValues
+  static glitch_object_flow_control_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  glitch_object_loop_flow_arduino *clone(QWidget *parent) const;
+  glitch_object_flow_control_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
-  void setLoopType(const QString &loopType);
+  void setFlowControlType(const QString &flowControlType);
 
  private:
-  LoopTypes m_loopType;
-  Ui_glitch_object_loop_flow_arduino m_ui;
+  FlowControlTypes m_flowControlType;
+  Ui_glitch_object_flow_control_arduino m_ui;
   void setProperties(const QStringList &list);
 
  private slots:
-  void slotLoopTypeChanged(void);
+  void slotFlowControlTypeChanged(void);
 };
 
 #endif

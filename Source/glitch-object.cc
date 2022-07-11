@@ -36,10 +36,10 @@
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
+#include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-arduino.h"
-#include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-setup-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
@@ -295,6 +295,9 @@ glitch_object *glitch_object::createFromValues
   else if(type == "arduino-digitalio")
     object = glitch_object_digital_io_arduino::createFromValues
       (values, error, parent);
+  else if(type == "arduino-flow-control")
+    object = glitch_object_flow_control_arduino::createFromValues
+      (values, error, parent);
   else if(type == "arduino-function")
     object = glitch_object_function_arduino::createFromValues
       (values, parentObject, error, parent);
@@ -313,9 +316,6 @@ glitch_object *glitch_object::createFromValues
 	    object = view->setupObject();
 	}
     }
-  else if(type == "arduino-loop-flow")
-    object = glitch_object_loop_flow_arduino::createFromValues
-      (values, error, parent);
   else if(type == "arduino-serial")
     object = glitch_object_serial_arduino::createFromValues
       (values, error, parent);

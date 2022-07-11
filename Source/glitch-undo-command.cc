@@ -28,8 +28,8 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-object-constant-arduino.h"
+#include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
-#include "Arduino/glitch-object-loop-flow-arduino.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
@@ -126,11 +126,11 @@ glitch_undo_command::glitch_undo_command
 
 	  break;
 	}
-      case Types::LOOP_TYPE_CHANGED:
+      case Types::FLOW_CONTROL_TYPE_CHANGED:
 	{
-	  if(qobject_cast<glitch_object_loop_flow_arduino *> (object))
-	    m_currentString = qobject_cast<glitch_object_loop_flow_arduino *>
-	      (object)->loopType();
+	  if(qobject_cast<glitch_object_flow_control_arduino *> (object))
+	    m_currentString = qobject_cast<glitch_object_flow_control_arduino *>
+	      (object)->flowControlType();
 
 	  break;
 	}
@@ -201,6 +201,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::FLOW_CONTROL_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_flow_control_arduino *> (m_object))
+	  qobject_cast<glitch_object_flow_control_arduino *>
+	    (m_object)->setFlowControlType(m_currentString);
+
+	break;
+      }
     case Types::FUNCTION_RENAMED:
       {
 	if(m_object && m_userFunctions)
@@ -256,14 +264,6 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
-    case Types::LOOP_TYPE_CHANGED:
-      {
-	if(qobject_cast<glitch_object_loop_flow_arduino *> (m_object))
-	  qobject_cast<glitch_object_loop_flow_arduino *>
-	    (m_object)->setLoopType(m_currentString);
-
-	break;
-      }
     case Types::PROPERTY_CHANGED:
       {
 	if(m_object)
@@ -301,6 +301,14 @@ void glitch_undo_command::undo(void)
       	if(qobject_cast<glitch_object_constant_arduino *> (m_object))
 	  qobject_cast<glitch_object_constant_arduino *>
 	    (m_object)->setConstantType(m_previousString);
+
+	break;
+      }
+    case Types::FLOW_CONTROL_TYPE_CHANGED:
+      {
+	if(qobject_cast<glitch_object_flow_control_arduino *> (m_object))
+	  qobject_cast<glitch_object_flow_control_arduino *>
+	    (m_object)->setFlowControlType(m_previousString);
 
 	break;
       }
@@ -355,14 +363,6 @@ void glitch_undo_command::undo(void)
 	    m_proxy->setPos(m_previousPosition);
 	    m_scene->update();
 	  }
-
-	break;
-      }
-    case Types::LOOP_TYPE_CHANGED:
-      {
-	if(qobject_cast<glitch_object_loop_flow_arduino *> (m_object))
-	  qobject_cast<glitch_object_loop_flow_arduino *>
-	    (m_object)->setLoopType(m_previousString);
 
 	break;
       }
