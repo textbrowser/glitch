@@ -61,10 +61,13 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"<b>Glitch Version %1</b><br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
 	"Developing through diagrams.<br><br>"
+	"Qt version %2 (runtime %3).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
-     arg(GLITCH_VERSION_STR));
+     arg(GLITCH_VERSION_STR).
+     arg(QT_VERSION_STR).
+     arg(qVersion()));
   m_about.setTextFormat(Qt::RichText);
   m_about.setWindowIcon(windowIcon());
   m_about.setWindowModality(Qt::NonModal);

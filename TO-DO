@@ -2,6 +2,7 @@ Completed Items
 
 - A function panel. The panel should include a list of defined functions.
   Drag and drop support.
+- About.
 - Add --open-arduino-diagram option.
 - Add newly-created projects to Recent Files menu.
 - Add widget actions to Edit menu. No. Instead, Shift key and the
@@ -124,7 +125,6 @@ Ignored Items
 
 Remaining Items
 
-- About.
 - Add close buttons to dialogs and windows.
 - Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero. This is very difficult.
