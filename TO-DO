@@ -157,6 +157,9 @@ Remaining Items
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire is not intially drawn if objects are connected at a great distance.
+- Wire options:
+  color alpha
+  width
 - Wire redo / undo.
 - Wiring.
 - Wiring: curves and / or poly-lines options.

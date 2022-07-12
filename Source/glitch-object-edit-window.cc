@@ -66,7 +66,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  this,
 	  SLOT(slotAboutToShowEditMenu(void)));
   m_toolBar = new QToolBar(tr("Tool Bar"), this);
-  m_toolBar->setIconSize(QSize(32, 32));
+  m_toolBar->setIconSize(QSize(24, 24));
   addToolBar(m_toolBar);
   prepareIcons();
   setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());

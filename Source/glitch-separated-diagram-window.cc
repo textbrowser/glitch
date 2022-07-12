@@ -39,7 +39,7 @@ glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
-  m_ui.toolBar->setIconSize(QSize(32, 32));
+  m_ui.toolBar->setIconSize(QSize(24, 24));
   connect(m_ui.action_Close,
 	  SIGNAL(triggered(void)),
 	  this,
