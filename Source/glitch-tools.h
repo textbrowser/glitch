@@ -37,7 +37,8 @@ class glitch_tools: public QDialog
  public:
   enum Operations
   {
-    SELECT = 0,
+    INTELLIGENT = 0,
+    SELECT,
     WIRE_CONNECT,
     WIRE_DISCONNECT
   };

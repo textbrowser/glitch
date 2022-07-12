@@ -857,9 +857,9 @@ void glitch_ui::prepareStatusBar(void)
 
   if(m_currentView)
     {
-      auto operation = m_currentView->toolsOperation();
-
-      if(operation == glitch_tools::Operations::SELECT)
+      if(operation == glitch_tools::Operations::INTELLIGENT)
+	statusBar()->showMessage(tr("Intelligent Mode"));
+      else if(operation == glitch_tools::Operations::SELECT)
 	statusBar()->showMessage(tr("Select Mode"));
       else if(operation == glitch_tools::Operations::WIRE_CONNECT)
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));
@@ -1642,7 +1642,9 @@ void glitch_ui::slotToolsOperationChanged
 
   if(statusBar())
     {
-      if(operation == glitch_tools::Operations::SELECT)
+      if(operation == glitch_tools::Operations::INTELLIGENT)
+	statusBar()->showMessage(tr("Intelligent Mode"));
+      else if(operation == glitch_tools::Operations::SELECT)
 	statusBar()->showMessage(tr("Select Mode"));
       else if(operation == glitch_tools::Operations::WIRE_CONNECT)
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));

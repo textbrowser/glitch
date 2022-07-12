@@ -54,10 +54,13 @@
 #include "glitch-undo-command.h"
 #include "glitch-wire.h"
 
+static int s_dotsColorAlpha = 175;
+
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
   m_dotsColor = Qt::black;
+  m_dotsColor.setAlpha(s_dotsColorAlpha);
   m_mainScene = false;
   m_projectType = projectType;
   m_showDots = true;
@@ -1119,6 +1122,8 @@ void glitch_scene::setDotsColor(const QColor &color)
     m_dotsColor = color;
   else
     m_dotsColor = Qt::black;
+
+  m_dotsColor.setAlpha(s_dotsColorAlpha);
 }
 
 void glitch_scene::setMainScene(const bool state)
