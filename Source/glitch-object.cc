@@ -198,7 +198,7 @@ QStringList glitch_object::inputs(void) const
 	  auto object = qobject_cast<glitch_object *>
 	    (wire->leftProxy()->widget());
 
-	  if(object)
+	  if(object && object->scene())
 	    objects << object;
 	}
     }
