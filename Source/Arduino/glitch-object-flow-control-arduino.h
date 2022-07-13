@@ -59,6 +59,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   ~glitch_object_flow_control_arduino();
   QString code(void) const;
   QString flowControlType(void) const;
+  bool hasInput(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;

@@ -86,6 +86,11 @@ QString glitch_object_flow_control_arduino::flowControlType(void) const
   return m_ui.flow_control_type->currentText();
 }
 
+bool glitch_object_flow_control_arduino::hasInput(void) const
+{
+  return m_ui.flow_control_type->currentText() == "return";
+}
+
 bool glitch_object_flow_control_arduino::hasOutput(void) const
 {
   return false;
