@@ -40,6 +40,8 @@
 #include "glitch-scene.h"
 #include "glitch-tools.h"
 
+static qreal s_intelligentDistance = 15.0;
+
 glitch_proxy_widget::glitch_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):
   QGraphicsProxyWidget(parent, wFlags)
@@ -76,6 +78,11 @@ bool glitch_proxy_widget::isMandatory(void) const
 bool glitch_proxy_widget::isMovable(void) const
 {
   return QGraphicsItem::ItemIsMovable & flags();
+}
+
+bool glitch_proxy_widget::nearInputOrOutput(const QPointF &point) const
+{
+  return false;
 }
 
 glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
@@ -371,25 +378,56 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
      m_scene &&
      m_scene->toolsOperation() != glitch_tools::Operations::SELECT)
     {
-      auto distance1 = qSqrt(qPow(event->scenePos().x() -
-				  pos().x(),
-				  2.0) +
-			     qPow(event->scenePos().y() -
-				  pos().y(),
-				  2.0));
-      auto distance2 = qSqrt(qPow(event->scenePos().x() -
-				  pos().x() -
-				  size().width(),
-				  2.0) +
-			     qPow(event->scenePos().y() -
-				  pos().y() -
-				  size().height(),
-				  2.0));
+      if(m_scene->toolsOperation() == glitch_tools::Operations::INTELLIGENT)
+	{
+	  auto distance = qSqrt
+	    (qPow(event->scenePos().x() - pos().x(),
+		  2.0) +
+	     qPow(event->scenePos().y() - pos().y() - size().height() / 2.0,
+		  2.0));
 
-      if(distance1 < distance2)
-	m_hoveredSection = Sections::LEFT;
+	  if(distance <= s_intelligentDistance)
+	    {
+	      m_hoveredSection = Sections::LEFT;
+	      return;
+	    }
+
+	  distance = qSqrt
+	    (qPow(event->scenePos().x() - pos().x() - size().width(),
+		  2.0) +
+	     qPow(event->scenePos().y() - pos().y() - size().height() / 2.0,
+		  2.0));
+
+	  if(distance <= s_intelligentDistance)
+	    {
+	      m_hoveredSection = Sections::RIGHT;
+	      return;
+	    }
+
+	  m_hoveredSection = Sections::XYZ;
+	}
       else
-	m_hoveredSection = Sections::RIGHT;
+	{
+	  auto distance1 = qSqrt(qPow(event->scenePos().x() -
+				      pos().x(),
+				      2.0) +
+				 qPow(event->scenePos().y() -
+				      pos().y(),
+				      2.0));
+	  auto distance2 = qSqrt(qPow(event->scenePos().x() -
+				      pos().x() -
+				      size().width(),
+				      2.0) +
+				 qPow(event->scenePos().y() -
+				      pos().y() -
+				      size().height(),
+				      2.0));
+
+	  if(distance1 < distance2)
+	    m_hoveredSection = Sections::LEFT;
+	  else
+	    m_hoveredSection = Sections::RIGHT;
+	}
     }
   else
     m_hoveredSection = Sections::XYZ;

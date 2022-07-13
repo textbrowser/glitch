@@ -128,6 +128,7 @@ Remaining Items
 - Add close buttons to dialogs and windows.
 - Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero. This is very difficult.
+- Allow removal of individual items from Recent Diagrams.
 - Allow removal of wire by selection.
 - Android.
 - Combination boxes are obscured by view's margins. Pop out of the view!

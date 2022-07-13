@@ -60,6 +60,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   bool isFullyWired(void) const;
   bool isMandatory(void) const;
   bool isMovable(void) const;
+  bool nearInputOrOutput(const QPointF &point) const;
 
   int objectOrder(void) const
   {

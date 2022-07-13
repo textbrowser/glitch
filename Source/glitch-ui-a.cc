@@ -182,7 +182,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.action_Delete->setEnabled(false);
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
-  m_ui.menu_Recent_Files->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
@@ -733,7 +733,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Select_All->setIcon(QIcon::fromTheme("edit-select-all"));
   m_ui.action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
   m_ui.menu_New_Diagram->setIcon(QIcon::fromTheme("document-new"));
-  m_ui.menu_Recent_Files->setIcon(QIcon::fromTheme("document-open-recent"));
+  m_ui.menu_Recent_Diagrams->setIcon(QIcon::fromTheme("document-open-recent"));
 }
 
 void glitch_ui::prepareRecentFiles(void)
@@ -784,7 +784,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   glitch_common::discardDatabase(connectionName);
 
-  m_ui.menu_Recent_Files->clear();
+  m_ui.menu_Recent_Diagrams->clear();
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -811,13 +811,13 @@ void glitch_ui::prepareRecentFiles(void)
 	      SIGNAL(triggered(void)),
 	      this,
 	      SLOT(slotOpenRecentDiagram(void)));
-      m_ui.menu_Recent_Files->addAction(widgetAction);
+      m_ui.menu_Recent_Diagrams->addAction(widgetAction);
     }
 
   if(!list.isEmpty())
-    m_ui.menu_Recent_Files->addSeparator();
+    m_ui.menu_Recent_Diagrams->addSeparator();
 
-  m_ui.menu_Recent_Files->addAction
+  m_ui.menu_Recent_Diagrams->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
   QApplication::restoreOverrideCursor();
 }
@@ -1073,8 +1073,8 @@ void glitch_ui::slotClearRecentFiles(void)
   }
 
   glitch_common::discardDatabase(connectionName);
-  m_ui.menu_Recent_Files->clear();
-  m_ui.menu_Recent_Files->addAction
+  m_ui.menu_Recent_Diagrams->clear();
+  m_ui.menu_Recent_Diagrams->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
   QApplication::restoreOverrideCursor();
 }

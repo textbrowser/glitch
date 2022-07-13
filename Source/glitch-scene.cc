@@ -64,7 +64,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
   m_mainScene = false;
   m_projectType = projectType;
   m_showDots = true;
-  m_toolsOperation = glitch_tools::Operations::SELECT;
+  m_toolsOperation = glitch_tools::Operations::INTELLIGENT;
   m_undoStack = nullptr;
   setItemIndexMethod(QGraphicsScene::NoIndex);
 }
@@ -891,7 +891,14 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 	  if(proxy)
 	    {
-	      if(m_toolsOperation == glitch_tools::Operations::WIRE_CONNECT)
+	      if(m_toolsOperation == glitch_tools::Operations::INTELLIGENT)
+		{
+		  if(proxy->nearInputOrOutput(event->scenePos()))
+		    {
+		    }
+		}
+	      else if(m_toolsOperation ==
+		      glitch_tools::Operations::WIRE_CONNECT)
 		{
 		  wireConnectObjects(proxy);
 		  goto done_label;

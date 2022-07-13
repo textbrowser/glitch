@@ -71,14 +71,14 @@
      </property>
      <addaction name="action_New_Arduino"/>
     </widget>
-    <widget class="QMenu" name="menu_Recent_Files">
+    <widget class="QMenu" name="menu_Recent_Diagrams">
      <property name="title">
-      <string>&amp;Recent Files</string>
+      <string>&amp;Recent Diagrams</string>
      </property>
     </widget>
     <addaction name="menu_New_Diagram"/>
     <addaction name="action_Open_Diagram"/>
-    <addaction name="menu_Recent_Files"/>
+    <addaction name="menu_Recent_Diagrams"/>
     <addaction name="separator"/>
     <addaction name="action_Close_Diagram"/>
     <addaction name="separator"/>
