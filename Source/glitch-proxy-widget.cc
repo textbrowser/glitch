@@ -335,9 +335,11 @@ void glitch_proxy_widget::paint
 
 	      painter->restore();
 
-	      if(m_scene &&
-		 m_scene->toolsOperation() ==
-		 glitch_tools::Operations::WIRE_CONNECT)
+	      auto operation = m_scene ?
+		m_scene->toolsOperation() : glitch_tools::Operations::XYZ;
+
+	      if(operation == glitch_tools::Operations::INTELLIGENT ||
+		 operation == glitch_tools::Operations::WIRE_CONNECT)
 		{
 		  /*
 		  ** Draw wiring order text.

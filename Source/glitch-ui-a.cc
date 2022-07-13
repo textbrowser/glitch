@@ -857,6 +857,8 @@ void glitch_ui::prepareStatusBar(void)
 
   if(m_currentView)
     {
+      auto operation = m_currentView->toolsOperation();
+
       if(operation == glitch_tools::Operations::INTELLIGENT)
 	statusBar()->showMessage(tr("Intelligent Mode"));
       else if(operation == glitch_tools::Operations::SELECT)

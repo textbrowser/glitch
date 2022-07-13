@@ -40,7 +40,8 @@ class glitch_tools: public QDialog
     INTELLIGENT = 0,
     SELECT,
     WIRE_CONNECT,
-    WIRE_DISCONNECT
+    WIRE_DISCONNECT,
+    XYZ
   };
 
   glitch_tools(QWidget *parent);
