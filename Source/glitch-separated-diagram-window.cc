@@ -365,7 +365,9 @@ void glitch_separated_diagram_window::slotToolsOperationChanged
 {
   if(statusBar())
     {
-      if(operation == glitch_tools::Operations::SELECT)
+      if(operation == glitch_tools::Operations::INTELLIGENT)
+	statusBar()->showMessage(tr("Intelligent Mode"));
+      else if(operation == glitch_tools::Operations::SELECT)
 	statusBar()->showMessage(tr("Select Mode"));
       else if(operation == glitch_tools::Operations::WIRE_CONNECT)
 	statusBar()->showMessage(tr("Wire (Connect) Mode"));

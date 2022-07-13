@@ -628,7 +628,7 @@ glitch_tools::Operations glitch_view::toolsOperation(void) const
   if(m_tools)
     return m_tools->operation();
   else
-    return glitch_tools::Operations::SELECT;
+    return glitch_tools::Operations::INTELLIGENT;
 }
 
 quint64 glitch_view::nextId(void) const
