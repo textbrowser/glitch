@@ -56,14 +56,14 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  m_editWindow->setWindowTitle(tr("Glitch: flow-control"));
+  m_editWindow->setWindowTitle(tr("Glitch: flow control"));
   m_editWindow->resize(600, 600);
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
   connect(m_ui.condition,
-	  &QLineEdit::textChanged,
+	  &QLineEdit::returnPressed,
 	  this,
-	  &glitch_object::changed);
+	  &glitch_object_flow_control_arduino::slotConditionChanged);
   connect(m_ui.flow_control_type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
@@ -114,6 +114,7 @@ clone(QWidget *parent) const
   clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
+  clone->m_ui.condition->selectAll();
   clone->m_ui.flow_control_type->setCurrentIndex
     (m_ui.flow_control_type->currentIndex());
   clone->setStyleSheet(styleSheet());
@@ -135,6 +136,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->m_ui.condition->blockSignals(true);
   object->m_ui.condition->setText
     (object->m_properties.value(Properties::CONDITION).toString().trimmed());
+  object->m_ui.condition->selectAll();
   object->m_ui.condition->blockSignals(false);
   return object;
 }
@@ -224,6 +226,52 @@ void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 
   setFlowControlType
     (m_properties.value(glitch_object::FLOW_CONTROL_TYPE).toString());
+}
+
+void glitch_object_flow_control_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::CONDITION:
+      {
+	m_ui.condition->setText(value.toString().trimmed());
+	m_ui.condition->selectAll();
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_flow_control_arduino::slotConditionChanged(void)
+{
+  m_ui.condition->setText(m_ui.condition->text().trimmed());
+  m_ui.condition->selectAll();
+
+  if(!m_undoStack)
+    return;
+
+  auto property = glitch_object::Properties::CONDITION;
+
+  if(m_properties.value(property).toString() == m_ui.condition->text())
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.condition->text(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = m_ui.condition->text();
+  undoCommand->setText(tr("flow control condition changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)

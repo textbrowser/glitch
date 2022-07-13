@@ -99,7 +99,7 @@
    <item>
     <widget class="QLineEdit" name="condition">
      <property name="toolTip">
-      <string>Condition / Label</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the condition / label and press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string notr="true"/>
