@@ -893,8 +893,20 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      if(m_toolsOperation == glitch_tools::Operations::INTELLIGENT)
 		{
-		  if(proxy->nearInputOrOutput(event->scenePos()))
+		  if(proxy->hoveredSection() ==
+		     glitch_proxy_widget::Sections::XYZ)
 		    {
+		      // Select Mode
+
+		      m_lastScenePos = QPointF();
+		      m_movedPoints.clear();
+		    }
+		  else
+		    {
+		      // Wire Mode
+
+		      wireConnectObjects(proxy);
+		      goto done_label;
 		    }
 		}
 	      else if(m_toolsOperation ==
@@ -1278,7 +1290,9 @@ void glitch_scene::slotUndo(void)
 
 void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 {
-  if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_CONNECT)
+  if(!proxy ||
+     m_toolsOperation == glitch_tools::Operations::SELECT ||
+     m_toolsOperation == glitch_tools::Operations::WIRE_DISCONNECT)
     {
       m_objectsToWire.clear();
       return;

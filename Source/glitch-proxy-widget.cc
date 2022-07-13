@@ -80,11 +80,6 @@ bool glitch_proxy_widget::isMovable(void) const
   return QGraphicsItem::ItemIsMovable & flags();
 }
 
-bool glitch_proxy_widget::nearInputOrOutput(const QPointF &point) const
-{
-  return false;
-}
-
 glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
 {
   return m_hoveredSection;
@@ -381,7 +376,7 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
       if(m_scene->toolsOperation() == glitch_tools::Operations::INTELLIGENT)
 	{
 	  /*
-	  ** Determine if we're close to an input or output port.
+	  ** Determine if we're close to an input or an output port.
 	  */
 
 	  auto distance = qSqrt
