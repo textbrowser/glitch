@@ -380,6 +380,10 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
     {
       if(m_scene->toolsOperation() == glitch_tools::Operations::INTELLIGENT)
 	{
+	  /*
+	  ** Determine if we're close to an input or output port.
+	  */
+
 	  auto distance = qSqrt
 	    (qPow(event->scenePos().x() - pos().x(),
 		  2.0) +
