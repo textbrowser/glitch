@@ -78,6 +78,7 @@ class glitch_object_flow_control_arduino: public glitch_object
 
  private slots:
   void slotConditionChanged(void);
+  void slotEdit(void);
   void slotFlowControlTypeChanged(void);
 };
 

@@ -143,6 +143,21 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_flow_control_arduino::addActions(QMenu &menu)
 {
+  if(!m_actions.contains(DefaultMenuActions::EDIT))
+    {
+      auto action = new QAction(tr("&Edit..."), this);
+
+      action->setIcon(QIcon::fromTheme("document-edit"));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_flow_control_arduino::slotEdit);
+      m_actions[DefaultMenuActions::EDIT] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
+
   addDefaultActions(menu);
 }
 
@@ -272,6 +287,10 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
   undoCommand->setText(tr("flow control condition changed"));
   m_undoStack->push(undoCommand);
   emit changed();
+}
+
+void glitch_object_flow_control_arduino::slotEdit(void)
+{
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
