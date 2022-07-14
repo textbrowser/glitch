@@ -125,6 +125,13 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 
       m_actions << action;
     }
+
+  /*
+  ** Hide the widget. Otherwise, it will interfere with the view's scene.
+  */
+
+  resize(0, 0);
+  setVisible(false);
 }
 
 glitch_alignment::~glitch_alignment()
