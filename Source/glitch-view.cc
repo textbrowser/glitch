@@ -86,6 +86,7 @@ glitch_view::glitch_view
   m_view = new glitch_graphicsview(this);
   m_view->setCacheMode(QGraphicsView::CacheNone);
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
+  m_view->setFrameStyle(QFrame::NoFrame);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
   m_view->setRenderHints(QPainter::Antialiasing |
@@ -96,8 +97,8 @@ glitch_view::glitch_view
 			 QPainter::TextAntialiasing);
   m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);
   m_view->setScene(m_scene);
-  m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+  m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   connect(m_alignment,
 	  &glitch_alignment::changed,
 	  this,

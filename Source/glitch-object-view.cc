@@ -39,6 +39,8 @@
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 
+static int s_sceneColorAlpha = 175;
+
 glitch_object_view::glitch_object_view
 (const glitch_common::ProjectTypes projectType,
  const quint64 id,
@@ -49,9 +51,12 @@ glitch_object_view::glitch_object_view
   m_id = id;
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
-  m_scene->setBackgroundBrush(QBrush(QColor(211, 211, 211), Qt::SolidPattern));
+  m_scene->setBackgroundBrush
+    (QBrush(QColor(211, 211, 211, s_sceneColorAlpha), Qt::SolidPattern));
   m_scene->setUndoStack(m_undoStack = undoStack);
+  setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::RubberBandDrag);
+  setFrameStyle(QFrame::NoFrame);  
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
   setRenderHints(QPainter::Antialiasing |

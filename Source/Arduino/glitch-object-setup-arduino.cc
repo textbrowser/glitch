@@ -46,6 +46,7 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
      new QUndoStack(this), // New redo/undo stack.
      this);
   m_editWindow = new glitch_object_edit_window(parent);
+  m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
