@@ -90,6 +90,7 @@ glitch_object_view::glitch_object_view
 
 glitch_object_view::~glitch_object_view()
 {
+  m_scene->purgeRedoUndoProxies();
 }
 
 QList<QAction *> glitch_object_view::alignmentActions(void) const

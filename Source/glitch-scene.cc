@@ -367,7 +367,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
-  if(m_redoUndoProxies.contains(proxy) && proxy)
+  if(!m_redoUndoProxies.contains(proxy) && proxy)
     m_redoUndoProxies[proxy] = 0;
 
   if(proxy && proxy->object() && proxy->object()->editScene())
@@ -1054,11 +1054,11 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void glitch_scene::purgeRedoUndoProxies(void)
 {
   /*
-  ** Delete proxies which are not on the scene. This method should only
-  ** be used with care!
+  ** Move proxies from the redo/undo stack onto the scene.
   */
 
-  QMutableHashIterator<glitch_proxy_widget *, char> it(m_redoUndoProxies);
+  QMutableMapIterator<QPointer<glitch_proxy_widget>, char> it
+    (m_redoUndoProxies);
   auto list(items());
 
   while(it.hasNext())
@@ -1068,7 +1068,7 @@ void glitch_scene::purgeRedoUndoProxies(void)
       if(!list.contains(it.key()))
 	{
 	  if(it.key())
-	    it.key()->deleteLater();
+	    QGraphicsScene::addItem(it.key());
 
 	  it.remove();
 	}
