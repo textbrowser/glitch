@@ -25,10 +25,13 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QTextStream>
+
 #include "glitch-object-edit-window.h"
 #include "glitch-object-flow-control-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-undo-command.h"
+#include "glitch-view.h"
 
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 (QWidget *parent):glitch_object_flow_control_arduino(1, parent)
@@ -45,7 +48,6 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 (const quint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_flowControlType = FlowControlTypes::BREAK;
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
@@ -58,27 +60,66 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: flow control"));
   m_editWindow->resize(600, 600);
+  m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
+  m_ui.occupied->setVisible(false);
   connect(m_ui.condition,
 	  &QLineEdit::returnPressed,
 	  this,
 	  &glitch_object_flow_control_arduino::slotConditionChanged);
+  connect(m_editView,
+	  &glitch_object_view::changed,
+	  this,
+	  &glitch_object_flow_control_arduino::changed);
+  connect(m_editView->undoStack(),
+	  &QUndoStack::indexChanged,
+	  this,
+	  &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
   connect(m_ui.flow_control_type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
 	  &glitch_object_flow_control_arduino::slotFlowControlTypeChanged);
   prepareContextMenu();
+  prepareEditSignals(qobject_cast<glitch_view *> (parent));
   setName(m_type);
 }
 
 glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 {
+  disconnect(m_editView->undoStack(),
+	     &QUndoStack::indexChanged,
+	     this,
+	     &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
 }
 
 QString glitch_object_flow_control_arduino::code(void) const
 {
-  return "";
+  QString code("");
+  QTextStream stream(&code);
+  auto widgets(m_editView->scene()->orderedObjects());
+
+  stream << "void loop(void)"
+	 << Qt::endl
+	 << "{"
+	 << Qt::endl;
+
+  for(auto w : widgets)
+    {
+      if(!w || !w->shouldPrint())
+	continue;
+
+      auto code(w->code());
+
+      if(!code.trimmed().isEmpty())
+	stream << "\t"
+	       << code
+	       << Qt::endl;
+    }
+
+  stream << "}"
+	 << Qt::endl;
+  return code;
 }
 
 QString glitch_object_flow_control_arduino::flowControlType(void) const
@@ -94,6 +135,11 @@ bool glitch_object_flow_control_arduino::hasInput(void) const
 bool glitch_object_flow_control_arduino::hasOutput(void) const
 {
   return false;
+}
+
+bool glitch_object_flow_control_arduino::hasView(void) const
+{
+  return true;
 }
 
 bool glitch_object_flow_control_arduino::isFullyWired(void) const
@@ -161,6 +207,23 @@ void glitch_object_flow_control_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
+{
+  auto scene = editScene();
+
+  if(!scene)
+    return;
+
+  m_ui.occupied->setVisible(!scene->objects().isEmpty());
+}
+
+void glitch_object_flow_control_arduino::mouseDoubleClickEvent
+(QMouseEvent *event)
+{
+  slotEdit();
+  glitch_object::mouseDoubleClickEvent(event);
+}
+
 void glitch_object_flow_control_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -168,6 +231,9 @@ void glitch_object_flow_control_arduino::save
 
   if(!error.isEmpty())
     return;
+
+  if(m_editView)
+    m_editView->save(db, error);
 
   QMap<QString, QVariant> properties;
 
@@ -263,6 +329,11 @@ void glitch_object_flow_control_arduino::setProperty
     }
 }
 
+void glitch_object_flow_control_arduino::setUndoStack(QUndoStack *undoStack)
+{
+  Q_UNUSED(undoStack);
+}
+
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(m_ui.condition->text().trimmed());
@@ -291,6 +362,8 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
 
 void glitch_object_flow_control_arduino::slotEdit(void)
 {
+  m_editWindow->showNormal();
+  m_editWindow->raise();
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
@@ -308,4 +381,9 @@ void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
   undoCommand->setText(tr("flow control type changed"));
   m_undoStack->push(undoCommand);
   emit changed();
+}
+
+void glitch_object_flow_control_arduino::slotHideOrShowOccupied(void)
+{
+  hideOrShowOccupied();
 }

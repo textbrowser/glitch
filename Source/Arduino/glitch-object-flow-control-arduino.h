@@ -61,25 +61,30 @@ class glitch_object_flow_control_arduino: public glitch_object
   QString flowControlType(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
+  bool hasView(void) const;
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;
   static glitch_object_flow_control_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   glitch_object_flow_control_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void hideOrShowOccupied(void);
   void save(const QSqlDatabase &db, QString &error);
   void setFlowControlType(const QString &flowControlType);
   void setProperty(const Properties property, const QVariant &value);
+  void setUndoStack(QUndoStack *undoStack);
 
  private:
   FlowControlTypes m_flowControlType;
   Ui_glitch_object_flow_control_arduino m_ui;
+  void mouseDoubleClickEvent(QMouseEvent *event);
   void setProperties(const QStringList &list);
 
  private slots:
   void slotConditionChanged(void);
   void slotEdit(void);
   void slotFlowControlTypeChanged(void);
+  void slotHideOrShowOccupied(void);
 };
 
 #endif

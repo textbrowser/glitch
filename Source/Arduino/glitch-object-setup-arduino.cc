@@ -165,7 +165,7 @@ void glitch_object_setup_arduino::hideOrShowOccupied(void)
 void glitch_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 {
   slotEdit();
-  QWidget::mouseDoubleClickEvent(event);
+  glitch_object::mouseDoubleClickEvent(event);
 }
 
 void glitch_object_setup_arduino::save(const QSqlDatabase &db, QString &error)
