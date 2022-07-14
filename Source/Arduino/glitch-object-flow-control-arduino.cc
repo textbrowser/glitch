@@ -95,12 +95,36 @@ glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 
 QString glitch_object_flow_control_arduino::code(void) const
 {
+  if(m_ui.flow_control_type->currentText() == "break")
+    return "break;";
+  else if(m_ui.flow_control_type->currentText() == "continue")
+    return "continue;";
+  else if(m_ui.flow_control_type->currentText() == "goto")
+    return QString("goto %1;").arg(m_ui.condition->text().trimmed());
+  else if(m_ui.flow_control_type->currentText() == "label")
+    return QString("%1:").arg(m_ui.condition->text().trimmed());
+  else if(m_ui.flow_control_type->currentText() == "return")
+    return QString("return (%1);").arg(inputs().value(0));
+
   QString code("");
   QTextStream stream(&code);
   auto widgets(m_editView->scene()->orderedObjects());
 
-  stream << "void loop(void)"
-	 << Qt::endl
+  if(m_ui.flow_control_type->currentText() == "case")
+    stream << "case "
+	   << m_ui.condition->text().trimmed()
+	   << ":";
+  else if(m_ui.flow_control_type->currentText() == "if")
+    stream << "if("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
+  else if(m_ui.flow_control_type->currentText() == "switch")
+    stream << "switch ("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
+
+  stream << Qt::endl
+	 << "\t"
 	 << "{"
 	 << Qt::endl;
 
@@ -117,7 +141,8 @@ QString glitch_object_flow_control_arduino::code(void) const
 	       << Qt::endl;
     }
 
-  stream << "}"
+  stream << "\t"
+	 << "}"
 	 << Qt::endl;
   return code;
 }
@@ -144,7 +169,10 @@ bool glitch_object_flow_control_arduino::hasView(void) const
 
 bool glitch_object_flow_control_arduino::isFullyWired(void) const
 {
-  return true;
+  if(m_ui.flow_control_type->currentText() == "return")
+    return inputs().size() >= 1;
+  else
+    return true;
 }
 
 bool glitch_object_flow_control_arduino::shouldPrint(void) const
@@ -232,14 +260,14 @@ void glitch_object_flow_control_arduino::save
   if(!error.isEmpty())
     return;
 
-  if(m_editView)
-    m_editView->save(db, error);
-
   QMap<QString, QVariant> properties;
 
   properties["condition"] = m_ui.condition->text().trimmed();
   properties["flow_control_type"] = m_ui.flow_control_type->currentText();
   glitch_object::saveProperties(properties, db, error);
+
+  if(error.isEmpty() && m_editView)
+    m_editView->save(db, error);
 }
 
 void glitch_object_flow_control_arduino::setFlowControlType

@@ -55,13 +55,13 @@
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
-static bool coordinates_less_than(glitch_object *o1,
-				  glitch_object *o2)
+static bool order_less_than(glitch_object *o1, glitch_object *o2)
 {
-  if(!o1 || !o2)
+  if(!o1 || !o1->proxy() || !o1->scene() || !o2 || !o2->proxy() || !o2->scene())
     return false;
   else
-    return o1->x() < o2->x() || (o1->x() == o2->x() && o1->y() < o2->y());
+    return o1->scene()->objectOrder(o1->proxy()) <
+      o2->scene()->objectOrder(o2->proxy());
 }
 
 glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
@@ -203,7 +203,7 @@ QStringList glitch_object::inputs(void) const
 	}
     }
 
-  std::sort(objects.begin(), objects.end(), coordinates_less_than);
+  std::sort(objects.begin(), objects.end(), order_less_than);
 
   QStringList inputs;
 
