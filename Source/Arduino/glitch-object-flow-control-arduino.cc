@@ -144,8 +144,7 @@ QString glitch_object_flow_control_arduino::code(void) const
     }
 
   stream << "\t"
-	 << "}"
-	 << Qt::endl;
+	 << "}";
   return code;
 }
 
