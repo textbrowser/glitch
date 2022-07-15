@@ -544,6 +544,14 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      SLOT(slotUndo(void)),
 	      Qt::UniqueConnection);
     }
+  else
+    {
+      if(!m_editView)
+	qDebug() << "m_editView is zero! Signals cannot be established!";
+
+      if(!m_editWindow)
+	qDebug() << "m_editWindow is zero! Signals cannot be established!";
+    }
 
   if(m_editView && parentView)
     {

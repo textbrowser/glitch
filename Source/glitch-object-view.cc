@@ -55,7 +55,7 @@ glitch_object_view::glitch_object_view
   m_scene->setUndoStack(m_undoStack = undoStack);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::RubberBandDrag);
-  setFrameStyle(QFrame::NoFrame);  
+  setFrameStyle(QFrame::NoFrame);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   setInteractive(true);
   setRenderHints(QPainter::Antialiasing |

@@ -151,7 +151,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "isPunct()"
 						<< "isSpace()"
 						<< "isUpperCase()"
-						<< "isWhitespace()"; 
+						<< "isWhitespace()";
       s_itemsForCategories[i++] =
 	QStringList() << "equal to (==)"
 		      << "greater than (>)"
