@@ -46,7 +46,7 @@ class glitch_common
  private:
   glitch_common(void);
   ~glitch_common(void);
-  static quint64 s_dbId;
+  static qint64 s_dbId;
 };
 
 #endif

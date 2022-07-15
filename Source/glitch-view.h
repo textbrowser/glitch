@@ -81,7 +81,7 @@ class glitch_view: public QWidget
   glitch_graphicsview *view(void) const;
   glitch_scene *scene(void) const;
   glitch_tools::Operations toolsOperation(void) const;
-  quint64 nextId(void) const;
+  qint64 nextId(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
   virtual void generateSource(void);
@@ -103,6 +103,11 @@ class glitch_view: public QWidget
   void slotSave(void);
 
  private:
+  void createParentFromValues
+    (QHash<qint64, char> &ids,
+     QHash<qint64, glitch_object *> &parents,
+     const QSqlDatabase &db,
+     const qint64 oid) const;
   void prepareDatabaseTables(const QString &fileName) const;
   void prepareDefaultActions(void);
 

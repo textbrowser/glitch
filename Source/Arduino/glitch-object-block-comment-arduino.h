@@ -37,7 +37,7 @@ class glitch_object_block_comment_arduino: public glitch_object
 
  public:
   glitch_object_block_comment_arduino(QWidget *parent);
-  glitch_object_block_comment_arduino(const quint64 id, QWidget *parent);
+  glitch_object_block_comment_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_block_comment_arduino();
   QPlainTextEdit *plainTextEdit(void) const;
   QString code(void) const;

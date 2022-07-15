@@ -97,7 +97,7 @@ QString glitch_view_arduino::nextUniqueFunctionName(void) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString name("function_0()");
-  quint64 i = 0;
+  qint64 i = 0;
 
   while(m_functionNames.contains(name))
     {

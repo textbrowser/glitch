@@ -28,7 +28,7 @@
 #include "glitch-common.h"
 #include "glitch-misc.h"
 
-quint64 glitch_common::s_dbId = 0;
+qint64 glitch_common::s_dbId = 0;
 
 QSqlDatabase glitch_common::sqliteDatabase(void)
 {

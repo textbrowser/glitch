@@ -37,7 +37,7 @@ class glitch_object_time_arduino: public glitch_object
 
  public:
   glitch_object_time_arduino(const QString &timeType, QWidget *parent);
-  glitch_object_time_arduino(const quint64 id, QWidget *parent);
+  glitch_object_time_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_time_arduino();
   QString code(void) const;
   bool hasInput(void) const;

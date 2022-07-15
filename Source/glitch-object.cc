@@ -68,7 +68,7 @@ glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 {
 }
 
-glitch_object::glitch_object(const quint64 id, QWidget *parent):
+glitch_object::glitch_object(const qint64 id, QWidget *parent):
   QWidget(nullptr), m_id(id)
 {
   m_contextMenu = new glitch_floating_context_menu(parent);
@@ -352,7 +352,7 @@ glitch_scene *glitch_object::scene(void) const
     return nullptr;
 }
 
-quint64 glitch_object::id(void) const
+qint64 glitch_object::id(void) const
 {
   return m_id;
 }
@@ -605,7 +605,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
 void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
 {
-  QHashIterator<quint64, QPointer<glitch_wire> > it(m_wires);
+  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
   QSqlQuery query(db);
 
   while(it.hasNext())
@@ -808,7 +808,7 @@ void glitch_object::slotWireDestroyed(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QMutableHashIterator<quint64, QPointer<glitch_wire> > it(m_wires);
+  QMutableHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
 
   while(it.hasNext())
     {

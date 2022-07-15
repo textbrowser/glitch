@@ -41,7 +41,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 }
 
 glitch_object_constant_arduino::glitch_object_constant_arduino
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_constantType = ConstantTypes::HIGH;
   m_type = "arduino-constant";
@@ -114,7 +114,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   Q_UNUSED(error);
 
   auto object = new glitch_object_constant_arduino
-    (values.value("myoid").toULongLong(), parent);
+    (values.value("myoid").toLongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());

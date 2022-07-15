@@ -46,7 +46,7 @@ class glitch_object_logical_operator_arduino: public glitch_object
   glitch_object_logical_operator_arduino(QWidget *parent);
   glitch_object_logical_operator_arduino(const QString &operatorType,
 					 QWidget *parent);
-  glitch_object_logical_operator_arduino(const quint64 id, QWidget *parent);
+  glitch_object_logical_operator_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_logical_operator_arduino();
   QString code(void) const;
   QString logicalOperator(void) const;

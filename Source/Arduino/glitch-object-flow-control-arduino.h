@@ -55,7 +55,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   glitch_object_flow_control_arduino(QWidget *parent);
   glitch_object_flow_control_arduino
     (const QString &flowControlType, QWidget *parent);
-  glitch_object_flow_control_arduino(const quint64 id, QWidget *parent);
+  glitch_object_flow_control_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_flow_control_arduino();
   QString code(void) const;
   QString flowControlType(void) const;

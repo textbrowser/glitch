@@ -45,7 +45,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
@@ -163,7 +163,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   Q_UNUSED(error);
 
   auto object = new glitch_object_variable_arduino
-    (values.value("myoid").toULongLong(), parent);
+    (values.value("myoid").toLongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());

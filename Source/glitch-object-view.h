@@ -46,14 +46,14 @@ class glitch_object_view: public QGraphicsView
 
  public:
   glitch_object_view(const glitch_common::ProjectTypes projectType,
-		     const quint64 id,
+		     const qint64 id,
 		     QUndoStack *undoStack,
 		     QWidget *parent);
   ~glitch_object_view();
   QList<QAction *> alignmentActions(void) const;
   QUndoStack *undoStack(void) const;
   glitch_scene* scene(void) const;
-  quint64 id(void) const;
+  qint64 id(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object);
   void beginMacro(const QString &text);
   void endMacro(void);
@@ -66,7 +66,7 @@ class glitch_object_view: public QGraphicsView
   glitch_alignment *m_alignment;
   glitch_common::ProjectTypes m_projectType;
   glitch_scene *m_scene;
-  quint64 m_id;
+  qint64 m_id;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
 

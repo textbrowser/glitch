@@ -44,7 +44,7 @@ glitch_object_arithmetic_operator_arduino
 
 glitch_object_arithmetic_operator_arduino::
 glitch_object_arithmetic_operator_arduino
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_operatorType = OperatorTypes::ADDITION_OPERATOR;
   m_type = "arduino-arithmeticoperator";
@@ -140,7 +140,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   Q_UNUSED(error);
 
   auto object = new glitch_object_arithmetic_operator_arduino
-    (values.value("myoid").toULongLong(), parent);
+    (values.value("myoid").toLongLong(), parent);
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());

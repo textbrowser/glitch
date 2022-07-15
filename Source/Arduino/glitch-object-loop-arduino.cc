@@ -39,7 +39,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 }
 
 glitch_object_loop_arduino::glitch_object_loop_arduino
-(const quint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,

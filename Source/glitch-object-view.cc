@@ -43,7 +43,7 @@ static int s_sceneColorAlpha = 175;
 
 glitch_object_view::glitch_object_view
 (const glitch_common::ProjectTypes projectType,
- const quint64 id,
+ const qint64 id,
  QUndoStack *undoStack,
  QWidget *parent):QGraphicsView(parent)
 {
@@ -108,7 +108,7 @@ glitch_scene *glitch_object_view::scene(void) const
   return m_scene;
 }
 
-quint64 glitch_object_view::id(void) const
+qint64 glitch_object_view::id(void) const
 {
   return m_id;
 }

@@ -279,6 +279,7 @@ void glitch_canvas_settings::accept(void)
   if(name.isEmpty())
     {
       m_ui.name->setText(defaultName());
+      m_ui.name->setToolTip(m_ui.name->text());
       m_ui.name->setCursorPosition(0);
     }
 
@@ -349,8 +350,10 @@ void glitch_canvas_settings::prepare(void)
 	      name = defaultName();
 
 	    m_ui.name->setText(name);
+	    m_ui.name->setToolTip(name);
 	    m_ui.name->setCursorPosition(0);
 	    m_ui.output_file->setText(outputFile);
+	    m_ui.output_file->setToolTip(m_ui.output_file->text());
 	    m_ui.output_file->setCursorPosition(0);
 	    m_ui.project_type->setCurrentIndex
 	      (m_ui.project_type->findText(projectType));
@@ -396,6 +399,7 @@ void glitch_canvas_settings::setName(const QString &name)
     m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
 
   m_settings[Settings::CANVAS_NAME] = m_ui.name->text();
+  m_ui.name->setToolTip(m_ui.name->text());
   m_ui.name->setCursorPosition(0);
 }
 
@@ -403,6 +407,7 @@ void glitch_canvas_settings::setOutputFile(const QString &fileName)
 {
   m_settings[Settings::OUTPUT_FILE] = fileName;
   m_ui.output_file->setText(fileName);
+  m_ui.output_file->setToolTip(fileName);
   m_ui.output_file->setCursorPosition(0);
 }
 
@@ -544,6 +549,7 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
     {
       dialog.close();
       m_ui.output_file->setText(dialog.selectedFiles().value(0));
+      m_ui.output_file->setToolTip(m_ui.output_file->text());
       m_ui.output_file->setCursorPosition(0);
     }
 }

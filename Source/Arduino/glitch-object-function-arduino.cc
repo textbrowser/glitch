@@ -113,7 +113,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
 glitch_object_function_arduino::glitch_object_function_arduino
 (const qint64 parentId,
- const quint64 id,
+ const qint64 id,
  glitch_object *parentObject,
  QWidget *parent):glitch_object(id, parent)
 {
@@ -281,7 +281,7 @@ createFromValues
 
   auto object = new glitch_object_function_arduino
     (values.value("parentId").toLongLong(),
-     values.value("myoid").toULongLong(),
+     values.value("myoid").toLongLong(),
      parentObject,
      parent);
 

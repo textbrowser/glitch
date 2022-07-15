@@ -349,7 +349,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
   auto ok = true;
 
   {
-    QHash<quint64, glitch_object *> objects;
+    QHash<qint64, char> ids;
+    QHash<qint64, glitch_object *> objects;
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
@@ -374,12 +375,15 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		      arg(static_cast<int> (glitch_ui::Limits::
 					    TYPE_MAXIMUM_LENGTH))))
 	  {
-	    QHash<quint64, glitch_object *> parents;
+	    QHash<qint64, glitch_object *> parents;
 
 	    while(query.next())
 	      {
+		if(ids.contains(query.value(0).toLongLong()))
+		  continue;
+
 		QMap<QString, QVariant> values;
-		auto id = query.value(0).toULongLong();
+		auto id = query.value(0).toLongLong();
 		auto point(query.value(2).toString().trimmed());
 		auto properties(query.value(3).toString().trimmed());
 		auto type(query.value(5).toString().toLower().trimmed());
@@ -398,6 +402,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 		    if(object)
 		      {
+			ids[object->id()] = 0;
+
 			if(object->isMandatory())
 			  parents[id] = object;
 			else
@@ -420,7 +426,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 		else
 		  {
-		    auto object = parents.value(query.value(1).toULongLong());
+		    auto object = parents.value(query.value(1).toLongLong());
+
+		    if(!object)
+		      {
+			createParentFromValues
+			  (ids, parents, db, query.value(1).toLongLong());
+			object = parents.value(query.value(1).toLongLong());
+		      }
 
 		    if(object && object->editView())
 		      {
@@ -429,6 +442,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 			if(child)
 			  {
+			    ids[child->id()] = 0;
 			    object->addChild
 			      (glitch_misc::dbPointToPointF(point), child);
 			    object->hideOrShowOccupied();
@@ -451,8 +465,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			  "FROM wires"))
 	      while(query.next())
 		{
-		  auto object1 = objects.value(query.value(0).toULongLong());
-		  auto object2 = objects.value(query.value(1).toULongLong());
+		  auto object1 = objects.value(query.value(0).toLongLong());
+		  auto object2 = objects.value(query.value(1).toLongLong());
 
 		  if(object1 &&
 		     object1->proxy() &&
@@ -632,10 +646,10 @@ glitch_tools::Operations glitch_view::toolsOperation(void) const
     return glitch_tools::Operations::INTELLIGENT;
 }
 
-quint64 glitch_view::nextId(void) const
+qint64 glitch_view::nextId(void) const
 {
   QString connectionName("");
-  quint64 id = 0;
+  qint64 id = 0;
 
   {
     auto db(glitch_common::sqliteDatabase());
@@ -653,7 +667,7 @@ quint64 glitch_view::nextId(void) const
 
 	    if(variant.isValid())
 	      {
-		id = variant.toULongLong();
+		id = variant.toLongLong();
 		query.exec
 		  (QString("DELETE FROM sequence WHERE value < %1").arg(id));
 	      }
@@ -689,6 +703,59 @@ void glitch_view::contextMenuEvent(QContextMenuEvent *event)
     }
   else
     QWidget::contextMenuEvent(event);
+}
+
+void glitch_view::createParentFromValues
+(QHash<qint64, char> &ids,
+ QHash<qint64, glitch_object *> &parents,
+ const QSqlDatabase &db,
+ const qint64 oid) const
+{
+  QSqlQuery query(db);
+
+  query.setForwardOnly(true);
+  query.prepare
+    (QString("SELECT "
+	     "parent_oid, "
+	     "position, "
+	     "SUBSTR(properties, 1, 50000), "
+	     "SUBSTR(stylesheet, 1, %1), "
+	     "SUBSTR(type, 1, %2) "
+	     "FROM objects WHERE myoid = ?").
+     arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
+     arg(static_cast<int> (glitch_ui::Limits::TYPE_MAXIMUM_LENGTH)));
+  query.addBindValue(oid);
+  query.exec();
+  query.next();
+
+  auto object = parents.value(query.value(0).toLongLong());
+
+  if(!object)
+    return;
+
+  QMap<QString, QVariant> values;
+  QString error("");
+  auto point(query.value(1).toString().trimmed());
+  auto properties(query.value(2).toString().trimmed());
+  auto type(query.value(4).toString().toLower().trimmed());
+
+  values["myoid"] = oid;
+  values["parentId"] = query.value(0).toLongLong();
+  values["properties"] = properties;
+  values["stylesheet"] = query.value(3).toString().trimmed();
+  values["type"] = type;
+
+  auto child = glitch_object::createFromValues
+    (values, object, error, object->editView());
+
+  if(child)
+    {
+      ids[child->id()] = 0;
+      object->addChild(glitch_misc::dbPointToPointF(point), child);
+      object->hideOrShowOccupied();
+      object->setCanvasSettings(m_canvasSettings);
+      parents[oid] = child;
+    }
 }
 
 void glitch_view::deleteItems(void)

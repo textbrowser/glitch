@@ -92,14 +92,14 @@ class glitch_object: public QWidget
   };
 
   glitch_object(QWidget *parent);
-  glitch_object(const quint64 id, QWidget *parent);
+  glitch_object(const qint64 id, QWidget *parent);
   QPointF scenePos(void) const;
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
   bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
-  quint64 id(void) const;
+  qint64 id(void) const;
 
   glitch_floating_context_menu *contextMenu(void) const
   {
@@ -139,7 +139,7 @@ class glitch_object: public QWidget
   void setWiredObject(glitch_object *object, glitch_wire *wire);
 
  private:
-  static quint64 s_id;
+  static qint64 s_id;
 
  private slots:
   void slotLockPosition(void);
@@ -148,10 +148,10 @@ class glitch_object: public QWidget
 
  protected:
   QHash<Properties, QVariant> m_properties;
-  QHash<quint64, QPointer<glitch_wire> > m_wires; /*
-						  ** Must be cloned, if
-						  ** required!
-						  */
+  QHash<qint64, QPointer<glitch_wire> > m_wires; /*
+						 ** Must be cloned, if
+						 ** required!
+						 */
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
@@ -162,7 +162,7 @@ class glitch_object: public QWidget
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;
-  quint64 m_id;
+  qint64 m_id;
   virtual QString output(void) const;
   virtual QStringList inputs(void) const;
   virtual void createActions(void);
