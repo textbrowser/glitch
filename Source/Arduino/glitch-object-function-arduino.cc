@@ -450,7 +450,7 @@ void glitch_object_function_arduino::declone(void)
 	  &glitch_object_function_arduino::slotReturnTypeChanged,
 	  Qt::UniqueConnection);
   prepareContextMenu();
-  prepareEditSignals(m_parentView);
+  prepareEditSignals(findNearestGlitchView(m_parentView));
 }
 
 void glitch_object_function_arduino::hideOrShowOccupied(void)
@@ -506,7 +506,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareEditSignals(m_parentView);
+  prepareEditSignals(findNearestGlitchView(m_parentView));
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)

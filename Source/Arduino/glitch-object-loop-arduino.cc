@@ -67,7 +67,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 	  this,
 	  &glitch_object_loop_arduino::slotHideOrShowOccupied);
   prepareContextMenu();
-  prepareEditSignals(qobject_cast<glitch_view *> (parent));
+  prepareEditSignals(findNearestGlitchView(parent));
   setName(m_ui.label->text());
 }
 

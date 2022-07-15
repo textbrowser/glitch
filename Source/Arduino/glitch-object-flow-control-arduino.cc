@@ -82,7 +82,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  this,
 	  &glitch_object_flow_control_arduino::slotFlowControlTypeChanged);
   prepareContextMenu();
-  prepareEditSignals(qobject_cast<glitch_view *> (parent));
+  prepareEditSignals(findNearestGlitchView(parent));
   setName(m_type);
 }
 

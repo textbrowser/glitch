@@ -352,6 +352,29 @@ glitch_scene *glitch_object::scene(void) const
     return nullptr;
 }
 
+glitch_view *glitch_object::findNearestGlitchView(QWidget *widget) const
+{
+  if(!widget)
+    return nullptr;
+  else if(qobject_cast<glitch_view *> (widget))
+    return qobject_cast<glitch_view *> (widget);
+
+  auto parent = widget->parentWidget();
+
+  do
+    {
+      if(qobject_cast<glitch_view *> (parent))
+	return qobject_cast<glitch_view *> (parent);
+      else if(parent)
+	parent = parent->parentWidget();
+      else
+	break;
+    }
+  while(true);
+
+  return nullptr;
+}
+
 qint64 glitch_object::id(void) const
 {
   return m_id;
@@ -536,6 +559,14 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	 m_editView->scene(),
 	 QOverload<const glitch_tools::Operations>::of
 	 (&glitch_scene::slotToolsOperationChanged));
+    }
+  else
+    {
+      if(!m_editView)
+	qDebug() << "m_editView is zero! Signals cannot be established!";
+
+      if(!parentView)
+	qDebug() << "parentView is zero! Signals cannot be established!";
     }
 }
 
