@@ -123,6 +123,10 @@ QString glitch_object_flow_control_arduino::code(void) const
     stream << "switch ("
 	   << m_ui.condition->text().trimmed()
 	   << ")";
+  else if(m_ui.flow_control_type->currentText() == "while")
+    stream << "while ("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
 
   stream << Qt::endl
 	 << "\t"
