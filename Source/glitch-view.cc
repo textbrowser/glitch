@@ -725,8 +725,9 @@ void glitch_view::createParentFromValues
      arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
      arg(static_cast<int> (glitch_ui::Limits::TYPE_MAXIMUM_LENGTH)));
   query.addBindValue(oid);
-  query.exec();
-  query.next();
+
+  if(!query.exec() || !query.next())
+    return;
 
   auto object = parents.value(query.value(0).toLongLong());
 
