@@ -178,9 +178,17 @@ bool glitch_object_serial_arduino::isFullyWired(void) const
       {
 	return inputs().size() >= 1;
       }
+    case Type::PRINT:
+      {
+	return inputs().size() >= 2;
+      }
     case Type::PRINTLN:
       {
 	return inputs().size() >= 2;
+      }
+    case Type::WRITE:
+      {
+      	return inputs().size() >= 2;
       }
     default:
       {
@@ -265,6 +273,10 @@ void glitch_object_serial_arduino::setProperties(const QStringList &list)
 	    string = "Serial.begin()";
 	  else if(string.contains("println"))
 	    string = "Serial.println()";
+	  else if(string.contains("print"))
+	    string = "Serial.print()";
+	  else if(string.contains("write"))
+	    string = "Serial.write()";
 	  else
 	    string = "Serial.available()";
 
