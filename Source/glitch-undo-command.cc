@@ -25,8 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtDebug>
-
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"

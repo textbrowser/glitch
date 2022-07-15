@@ -31,7 +31,6 @@
 #include <QMimeData>
 #include <QTableWidget>
 #include <QUndoStack>
-#include <QtDebug>
 
 #include <cmath>
 

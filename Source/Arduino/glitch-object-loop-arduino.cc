@@ -26,7 +26,6 @@
 */
 
 #include <QTextStream>
-#include <QtDebug>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-loop-arduino.h"

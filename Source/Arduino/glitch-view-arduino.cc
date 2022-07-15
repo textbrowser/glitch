@@ -27,7 +27,7 @@
 
 #include <QFile>
 #include <QSqlQuery>
-#include <QtDebug>
+#include <QTextStream>
 
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"

@@ -28,7 +28,6 @@
 #include <QMenuBar>
 #include <QResizeEvent>
 #include <QTimer>
-#include <QtDebug>
 
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"

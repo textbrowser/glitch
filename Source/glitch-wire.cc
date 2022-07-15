@@ -26,7 +26,6 @@
 */
 
 #include <QPainter>
-#include <QtDebug>
 
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"

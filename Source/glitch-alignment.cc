@@ -25,8 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QtDebug>
-
 #include "glitch-alignment.h"
 
 glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)

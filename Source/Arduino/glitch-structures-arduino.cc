@@ -26,7 +26,6 @@
 */
 
 #include <QShortcut>
-#include <QtDebug>
 
 #include "glitch-structures-arduino.h"
 
