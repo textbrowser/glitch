@@ -91,12 +91,30 @@ QString glitch_object_serial_arduino::code(void) const
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
       }
+    case Type::PRINT:
+      {
+	if(inputs().size() == 1)
+	  return QString("Serial.print(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.print(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+      }
     case Type::PRINTLN:
       {
 	if(inputs().size() == 1)
 	  return QString("Serial.println(%1);").arg(inputs().value(0));
 	else
 	  return QString("Serial.println(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+      }
+    case Type::WRITE:
+      {
+	if(inputs().size() == 1)
+	  return QString("Serial.write(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.write(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
       }
@@ -113,7 +131,9 @@ bool glitch_object_serial_arduino::hasInput(void) const
     {
     case Type::AVAILABLE:
     case Type::BEGIN:
+    case Type::PRINT:
     case Type::PRINTLN:
+    case Type::WRITE:
       {
 	return true;
       }
@@ -129,7 +149,9 @@ bool glitch_object_serial_arduino::hasOutput(void) const
   switch(m_serialType)
     {
     case Type::AVAILABLE:
+    case Type::PRINT:
     case Type::PRINTLN:
+    case Type::WRITE:
       {
 	return true;
       }
