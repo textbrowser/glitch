@@ -624,7 +624,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-flow control-"))
-	    object = new glitch_object_flow_control_arduino(view);
+	    object = new glitch_object_flow_control_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-function"))
 	    object = new glitch_object_function_arduino
 	      (text.mid(static_cast<int> (qstrlen("glitch-arduino-function-"))),

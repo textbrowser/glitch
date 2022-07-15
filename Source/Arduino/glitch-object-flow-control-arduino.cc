@@ -278,7 +278,8 @@ void glitch_object_flow_control_arduino::save
 void glitch_object_flow_control_arduino::setFlowControlType
 (const QString &flowControlType)
 {
-  auto f(flowControlType.toLower().trimmed());
+  auto f(flowControlType.
+	 mid(flowControlType.lastIndexOf('-') + 1).toLower().trimmed());
 
   if(f == "break")
     m_flowControlType = FlowControlTypes::BREAK;
