@@ -426,7 +426,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 		else
 		  {
-		    auto object = parents.value(query.value(1).toLongLong());
+		    auto object = objects.value(query.value(1).toLongLong());
+
+		    if(!object)
+		      object = parents.value(query.value(1).toLongLong());
 
 		    if(!object)
 		      {

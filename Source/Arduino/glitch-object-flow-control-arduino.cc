@@ -137,7 +137,9 @@ QString glitch_object_flow_control_arduino::code(void) const
       auto code(w->code());
 
       if(!code.trimmed().isEmpty())
-	stream << code
+	stream << "\t"
+	       << "\t"
+	       << code
 	       << Qt::endl;
     }
 
