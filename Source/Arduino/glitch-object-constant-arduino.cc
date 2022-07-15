@@ -222,7 +222,8 @@ void glitch_object_constant_arduino::setProperties
       else if(string.simplified().startsWith("constant_other = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
+	  string = string.mid(string.indexOf('"') + 1);
+	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::CONSTANT_OTHER] = string.trimmed();
 	  m_ui.other->setText(string.trimmed());
 	  m_ui.other->selectAll();

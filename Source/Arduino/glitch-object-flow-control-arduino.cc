@@ -328,7 +328,8 @@ void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
       if(string.simplified().startsWith("condition = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
+	  string = string.mid(string.indexOf('"') + 1);
+	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::CONDITION] = string.trimmed();
 	}
       else if(string.simplified().startsWith("flow_control_type = "))

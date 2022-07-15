@@ -315,7 +315,8 @@ void glitch_object_variable_arduino::setProperties
       else if(string.simplified().startsWith("variable_value = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
+	  string = string.mid(string.indexOf('"') + 1);
+	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::VARIABLE_VALUE] = string.trimmed();
 	  m_ui.value->setText(string.trimmed());
 	  m_ui.value->selectAll();

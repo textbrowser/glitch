@@ -155,6 +155,7 @@ Remaining Items
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Set focus on plain-text-edit during mouse-press event.
+- Split properties via special regular expression.
 - Undo macros for group actions.
 - Warn of recursive functions?
 - Widgets for decorations.
