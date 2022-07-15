@@ -55,7 +55,9 @@ class glitch_object_serial_arduino: public glitch_object
   {
     AVAILABLE = 0,
     BEGIN,
-    PRINTLN
+    PRINT,
+    PRINTLN,
+    WRITE
   };
 
   Type m_serialType;
@@ -69,9 +71,17 @@ class glitch_object_serial_arduino: public glitch_object
 	{
 	  return "begin";
 	}
+      case Type::PRINT:
+	{
+	  return "print";
+	}
       case Type::PRINTLN:
 	{
 	  return "println";
+	}
+      case Type::WRITE:
+	{
+	  return "write";
 	}
       default:
 	{
@@ -88,6 +98,10 @@ class glitch_object_serial_arduino: public glitch_object
       return Type::BEGIN;
     else if(string.contains("println"))
       return Type::PRINTLN;
+    else if(string.contains("print"))
+      return Type::PRINT;
+    else if(string.contains("write"))
+      return Type::WRITE;
     else
       return Type::AVAILABLE;
   }

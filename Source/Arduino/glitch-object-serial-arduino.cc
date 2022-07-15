@@ -40,9 +40,19 @@ glitch_object_serial_arduino::glitch_object_serial_arduino
 	m_ui.label->setText("Serial.begin()");
 	break;
       }
+    case Type::PRINT:
+      {
+	m_ui.label->setText("Serial.print()");
+	break;
+      }
     case Type::PRINTLN:
       {
 	m_ui.label->setText("Serial.println()");
+	break;
+      }
+    case Type::WRITE:
+      {
+	m_ui.label->setText("Serial.write()");
 	break;
       }
     default:
