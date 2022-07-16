@@ -145,6 +145,7 @@ Remaining Items
   Time
 - Copy children?
 - Denote function return.
+- Display condition / label in flow control's edit window.
 - Dots and grids.
 - Find objects.
 - Generate source from terminal for testing results.

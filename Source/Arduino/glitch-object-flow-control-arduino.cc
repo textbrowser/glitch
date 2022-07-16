@@ -163,9 +163,9 @@ QString glitch_object_flow_control_arduino::code(void) const
 	 << "}";
 
   if(m_ui.flow_control_type->currentText() == "do while")
-    stream << "while ("
+    stream << " while ("
 	   << m_ui.condition->text().trimmed()
-	   << ")";
+	   << ");";
 
   return code;
 }
