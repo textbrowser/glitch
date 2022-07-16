@@ -75,6 +75,7 @@ Completed Items
 - Paste in child views. Redo / undo.
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
+- Prepare settings of child views on initialization.
 - Raise currently-selected function via z-value. This will allow the function's
   combination box to float above other widgets.
 - Recreating functions and unique names.
@@ -155,7 +156,6 @@ Remaining Items
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect().
 - Object-view settings. Identical to canvas settings.
-- Prepare settings of child views on initialization.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).

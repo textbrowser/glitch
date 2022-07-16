@@ -1129,6 +1129,7 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 	  QOverload<bool>::of(&glitch_canvas_settings::accepted),
 	  this,
 	  QOverload<bool>::of(&glitch_scene::slotCanvasSettingsChanged));
+  slotCanvasSettingsChanged(false);
 }
 
 void glitch_scene::setDotsColor(const QColor &color)
@@ -1174,6 +1175,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
     }
 
   m_dotsColor = m_canvasSettings->dotsColor();
+  m_showDots = m_canvasSettings->showCanvasDots();
   setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   update();
   QApplication::restoreOverrideCursor();
