@@ -220,6 +220,19 @@ QString glitch_object_function_arduino::code(void) const
       stream << m_ui.return_type->currentText()
 	     << " "
 	     << m_ui.label->text().remove("()")
+	     << "(";
+
+      auto list(inputs());
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  stream << list.at(i);
+
+	  if(i != list.size() - 1)
+	    stream << ", ";
+	}
+
+      stream << ")"
 	     << Qt::endl
 	     << "{"
 	     << Qt::endl;
@@ -279,7 +292,7 @@ bool glitch_object_function_arduino::isFullyWired(void) const
 
 bool glitch_object_function_arduino::shouldPrint(void) const
 {
-  return true;
+  return output().isEmpty();
 }
 
 glitch_object_function_arduino *glitch_object_function_arduino::

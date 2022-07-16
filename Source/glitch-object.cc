@@ -159,10 +159,41 @@ QString glitch_object::name(void) const
 QString glitch_object::output(void) const
 {
   /*
-  ** Must be unique.
+  ** Must be rapidly unique!
   */
 
-  return "output";
+  QString output("");
+  auto scene = this->scene();
+
+  if(!scene)
+    return output;
+
+  QList<glitch_object *> objects;
+  QSetIterator<glitch_wire *> it(scene->wires());
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire || !wire->leftProxy())
+	continue;
+
+      if(this == wire->leftProxy()->object() &&
+	 wire->rightProxy() &&
+	 wire->rightProxy()->widget())
+	{
+	  auto object = qobject_cast<glitch_object *>
+	    (wire->rightProxy()->widget());
+
+	  if(object && object->scene())
+	    {
+	      output = "output";
+	      break;
+	    }
+	}
+    }
+
+  return output;
 }
 
 QString glitch_object::type(void) const
