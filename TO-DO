@@ -155,6 +155,7 @@ Remaining Items
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect().
 - Object-view settings. Identical to canvas settings.
+- Prepare settings of child views on initialization.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
