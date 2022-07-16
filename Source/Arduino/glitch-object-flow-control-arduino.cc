@@ -115,6 +115,16 @@ QString glitch_object_flow_control_arduino::code(void) const
     stream << "case "
 	   << m_ui.condition->text().trimmed()
 	   << ":";
+  else if(m_ui.flow_control_type->currentText() == "do while")
+    stream << "do";
+  else if(m_ui.flow_control_type->currentText() == "else if")
+    stream << "else if("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
+  else if(m_ui.flow_control_type->currentText() == "for")
+    stream << "for("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
   else if(m_ui.flow_control_type->currentText() == "if")
     stream << "if("
 	   << m_ui.condition->text().trimmed()
@@ -149,6 +159,12 @@ QString glitch_object_flow_control_arduino::code(void) const
 
   stream << "\t"
 	 << "}";
+
+  if(m_ui.flow_control_type->currentText() == "do while")
+    stream << "while ("
+	   << m_ui.condition->text().trimmed()
+	   << ")";
+
   return code;
 }
 
