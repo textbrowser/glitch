@@ -159,6 +159,7 @@ Remaining Items
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect().
+- Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
