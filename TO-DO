@@ -114,6 +114,8 @@ Completed Items
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
 - Wire color setting.
+- Wire is not intially drawn if objects are connected at a great distance.
+  Set initial bounding rectangle.
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle.
 - glitch_canvas_settings::settings(). Not needed.
@@ -165,7 +167,6 @@ Remaining Items
 - Undo macros for group actions.
 - Warn of recursive functions?
 - Widgets for decorations.
-- Wire is not intially drawn if objects are connected at a great distance.
 - Wire options:
   color alpha
   width
