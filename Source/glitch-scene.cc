@@ -1350,6 +1350,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 
 	  addItem(wire);
 	  object2->setWiredObject(object1, wire);
+	  wire->setBoundingRect(sceneRect());
 
 	  if(m_canvasSettings)
 	    wire->setColor(m_canvasSettings->wireColor());
