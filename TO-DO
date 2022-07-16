@@ -122,6 +122,7 @@ Completed Items
 
 Ignored Items
 
+- Object-view settings. Identical to canvas settings.
 - Resize objects?
 - The glitch_view parent must be passed to every child?
 
@@ -149,13 +150,13 @@ Remaining Items
 - Display condition / label in flow control's edit window.
 - Dots and grids.
 - Find objects.
+- Function inputs.
 - Generate source from terminal for testing results.
 - Icons and themes.
 - Indicate wire input / output.
 - Keywords (function names, variable names, etc.).
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect().
-- Object-view settings. Identical to canvas settings.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
