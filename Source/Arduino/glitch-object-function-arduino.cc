@@ -187,36 +187,59 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
 
 QString glitch_object_function_arduino::code(void) const
 {
-  if(!m_editView)
-    return "";
-
-  QString code("");
-  QTextStream stream(&code);
-  auto widgets(m_editView->scene()->orderedObjects());
-
-  stream << m_ui.return_type->currentText()
-	 << " "
-	 << m_ui.label->text().remove("()")
-	 << "(void)"
-	 << Qt::endl
-	 << "{"
-	 << Qt::endl;
-
-  for(auto w : widgets)
+  if(m_isFunctionClone)
     {
-      if(!w || !w->shouldPrint())
-	continue;
+      QString code("");
 
-      auto code(w->code());
+      code.append(m_ui.label->text().remove("()"));
+      code.append("(");
 
-      if(!code.trimmed().isEmpty())
-	stream << "\t"
-	       << code
-	       << Qt::endl;
+      auto list(inputs());
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  code.append(list.at(i));
+
+	  if(i != list.size() - 1)
+	    code.append(", ");
+	}
+
+      code = code.trimmed();
+      code.append(");");
+      return code;
     }
+  else
+    {
+      if(!m_editView)
+	return "";
 
-  stream << "}";
-  return code;
+      QString code("");
+      QTextStream stream(&code);
+      auto widgets(m_editView->scene()->orderedObjects());
+
+      stream << m_ui.return_type->currentText()
+	     << " "
+	     << m_ui.label->text().remove("()")
+	     << Qt::endl
+	     << "{"
+	     << Qt::endl;
+
+      for(auto w : widgets)
+	{
+	  if(!w || !w->shouldPrint())
+	    continue;
+
+	  auto code(w->code());
+
+	  if(!code.trimmed().isEmpty())
+	    stream << "\t"
+		   << code
+		   << Qt::endl;
+	}
+
+      stream << "}";
+      return code;
+    }
 }
 
 QString glitch_object_function_arduino::name(void) const
