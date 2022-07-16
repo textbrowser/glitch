@@ -292,7 +292,7 @@ bool glitch_object_function_arduino::isFullyWired(void) const
 
 bool glitch_object_function_arduino::shouldPrint(void) const
 {
-  return output().isEmpty();
+  return outputs().isEmpty();
 }
 
 glitch_object_function_arduino *glitch_object_function_arduino::

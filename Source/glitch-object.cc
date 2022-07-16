@@ -156,46 +156,6 @@ QString glitch_object::name(void) const
   return m_properties.value(Properties::NAME).toString();
 }
 
-QString glitch_object::output(void) const
-{
-  /*
-  ** Must be rapidly unique!
-  */
-
-  QString output("");
-  auto scene = this->scene();
-
-  if(!scene)
-    return output;
-
-  QList<glitch_object *> objects;
-  QSetIterator<glitch_wire *> it(scene->wires());
-
-  while(it.hasNext())
-    {
-      auto wire = it.next();
-
-      if(!wire || !wire->leftProxy())
-	continue;
-
-      if(this == wire->leftProxy()->object() &&
-	 wire->rightProxy() &&
-	 wire->rightProxy()->widget())
-	{
-	  auto object = qobject_cast<glitch_object *>
-	    (wire->rightProxy()->widget());
-
-	  if(object && object->scene())
-	    {
-	      output = "output";
-	      break;
-	    }
-	}
-    }
-
-  return output;
-}
-
 QString glitch_object::type(void) const
 {
   return m_type;
@@ -211,6 +171,10 @@ QStringList glitch_object::inputs(void) const
 
   if(!scene)
     return QStringList();
+
+  /*
+  ** Discover objects on the right ends of wires.
+  */
 
   QList<glitch_object *> objects;
   QSetIterator<glitch_wire *> it(scene->wires());
@@ -234,6 +198,10 @@ QStringList glitch_object::inputs(void) const
 	}
     }
 
+  /*
+  ** Sort the discovered objects according to their scene orders.
+  */
+
   std::sort(objects.begin(), objects.end(), order_less_than);
 
   QStringList inputs;
@@ -255,6 +223,70 @@ QStringList glitch_object::inputs(void) const
       }
 
   return inputs;
+}
+
+QStringList glitch_object::outputs(void) const
+{
+  /*
+  ** Must be rapidly unique!
+  */
+
+  auto scene = this->scene();
+
+  if(!scene)
+    return QStringList();
+
+  /*
+  ** Discover objects on the left ends of wires.
+  */
+
+  QList<glitch_object *> objects;
+  QSetIterator<glitch_wire *> it(scene->wires());
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire || !wire->leftProxy())
+	continue;
+
+      if(this == wire->leftProxy()->object() &&
+	 wire->rightProxy() &&
+	 wire->rightProxy()->widget())
+	{
+	  auto object = qobject_cast<glitch_object *>
+	    (wire->rightProxy()->widget());
+
+	  if(object && object->scene())
+	    objects << object;
+	}
+    }
+
+  /*
+  ** Sort the discovered objects according to their scene orders.
+  */
+
+  std::sort(objects.begin(), objects.end(), order_less_than);
+
+  QStringList outputs;
+
+  foreach(auto object, objects)
+    if(object)
+      {
+	if(object->type() != "arduino-variable")
+	  {
+	    auto code(object->code());
+
+	    if(code.endsWith(';'))
+	      code = code.mid(0, code.length() - 1);
+
+	    outputs << code;
+	  }
+	else
+	  outputs << object->name();
+      }
+
+  return outputs;
 }
 
 bool glitch_object::canResize(void) const

@@ -164,8 +164,8 @@ class glitch_object: public QWidget
   glitch_floating_context_menu *m_contextMenu;
   qint64 m_id;
   glitch_view *findNearestGlitchView(QWidget *widget) const;
-  virtual QString output(void) const;
   virtual QStringList inputs(void) const;
+  virtual QStringList outputs(void) const;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void prepareContextMenu(void);
