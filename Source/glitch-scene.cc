@@ -1173,6 +1173,8 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
 	wire->setColor(m_canvasSettings->wireColor());
     }
 
+  m_dotsColor = m_canvasSettings->dotsColor();
+  setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   update();
   QApplication::restoreOverrideCursor();
 }
