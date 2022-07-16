@@ -51,8 +51,6 @@
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
-static int s_sceneColorAlpha = 175;
-
 glitch_view::glitch_view
 (const QString &fileName,
  const QString &name,
@@ -71,10 +69,9 @@ glitch_view::glitch_view
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
-  m_scene->setBackgroundBrush
-    (QBrush(QColor(211, 211, 211, s_sceneColorAlpha), Qt::SolidPattern));
+  m_scene->setBackgroundBrush(QBrush(QColor(0, 170, 255), Qt::SolidPattern));
   m_scene->setCanvasSettings(m_canvasSettings);
-  m_scene->setDotsColor(Qt::black);
+  m_scene->setDotsColor(Qt::white);
   m_scene->setMainScene(true);
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
@@ -951,11 +948,10 @@ void glitch_view::showUserFunctions(void)
 
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
-  auto color(m_canvasSettings->canvasBackgroundColor());
   auto hash(m_settings);
 
-  color.setAlpha(s_sceneColorAlpha);
-  m_scene->setBackgroundBrush(QBrush(color, Qt::SolidPattern));
+  m_scene->setBackgroundBrush
+    (QBrush(m_canvasSettings->canvasBackgroundColor(), Qt::SolidPattern));
   m_scene->setDotsColor(m_canvasSettings->dotsColor());
   m_scene->setShowDots(m_canvasSettings->showCanvasDots());
   m_settings = m_canvasSettings->settings();

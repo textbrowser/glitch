@@ -47,16 +47,16 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.setupUi(this);
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
-     arg(QColor(211, 211, 211).name()));
-  m_ui.background_color->setText(QColor(211, 211, 211).name());
-  m_ui.dots_color->setStyleSheet("QPushButton {background-color: black}");
-  m_ui.dots_color->setText(QColor(Qt::black).name());
+     arg(QColor(0, 170, 255).name()));
+  m_ui.background_color->setText(QColor(0, 170, 255).name());
+  m_ui.dots_color->setStyleSheet("QPushButton {background-color: white}");
+  m_ui.dots_color->setText(QColor(Qt::white).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_type->setEnabled(false);
   m_ui.wire_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
-     arg(QColor(255, 192, 203, 200).name()));
-  m_ui.wire_color->setText(QColor(255, 192, 203, 200).name());
+     arg(QColor(255, 192, 203, 175).name()));
+  m_ui.wire_color->setText(QColor(255, 192, 203, 175).name());
   m_settings = settings();
   new QShortcut(tr("Ctrl+W"),
 		this,
@@ -333,10 +333,10 @@ void glitch_canvas_settings::prepare(void)
 	    auto updateMode(query.value(7).toString().trimmed());
 
 	    if(!color.isValid())
-	      color = QColor(211, 211, 211);
+	      color = QColor(0, 170, 255);
 
 	    if(!dotsColor.isValid())
-	      dotsColor = QColor(Qt::black);
+	      dotsColor = QColor(Qt::white);
 
 	    m_ui.background_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").arg(color.name()));
