@@ -42,6 +42,7 @@ class glitch_object_flow_control_arduino: public glitch_object
     CASE,
     CONTINUE,
     DO_WHILE,
+    ELSE,
     ELSE_IF,
     FOR,
     GOTO,

@@ -195,6 +195,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "case"
 						<< "continue"
 						<< "do while"
+						<< "else"
 						<< "else if"
 						<< "for"
 						<< "goto"

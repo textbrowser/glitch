@@ -56,6 +56,11 @@
      </item>
      <item>
       <property name="text">
+       <string notr="true">else</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string notr="true">else if</string>
       </property>
      </item>

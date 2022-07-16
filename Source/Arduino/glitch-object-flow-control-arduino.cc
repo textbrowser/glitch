@@ -117,6 +117,8 @@ QString glitch_object_flow_control_arduino::code(void) const
 	   << ":";
   else if(m_ui.flow_control_type->currentText() == "do while")
     stream << "do";
+  else if(m_ui.flow_control_type->currentText() == "else")
+    stream << "else";
   else if(m_ui.flow_control_type->currentText() == "else if")
     stream << "else if("
 	   << m_ui.condition->text().trimmed()
@@ -305,6 +307,8 @@ void glitch_object_flow_control_arduino::setFlowControlType
     m_flowControlType = FlowControlTypes::CONTINUE;
   else if(f == "do while")
     m_flowControlType = FlowControlTypes::DO_WHILE;
+  else if(f == "else")
+    m_flowControlType = FlowControlTypes::ELSE;
   else if(f == "else if")
     m_flowControlType = FlowControlTypes::ELSE_IF;
   else if(f == "for")
