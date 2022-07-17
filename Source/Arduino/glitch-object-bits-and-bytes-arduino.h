@@ -99,7 +99,7 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
 	}
       default:
 	{
-	  return "noTone";
+	  return "bit";
 	}
       }
   }

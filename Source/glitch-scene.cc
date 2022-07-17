@@ -37,6 +37,7 @@
 #include "Arduino/glitch-object-advanced-io-arduino.h"
 #include "Arduino/glitch-object-analog-io-arduino.h"
 #include "Arduino/glitch-object-arithmetic-operator-arduino.h"
+#include "Arduino/glitch-object-bits-and-bytes-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
@@ -617,6 +618,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_analog_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-arithmetic operators"))
 	    object = new glitch_object_arithmetic_operator_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-bits and bytes-"))
+	    object = new glitch_object_bits_and_bytes_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-constant"))
 	    object = new glitch_object_constant_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
