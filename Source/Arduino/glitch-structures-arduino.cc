@@ -42,10 +42,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   */
 
   m_ui.setupUi(this);
-  m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
   connect(m_ui.categories,
 	  &QListWidget::itemSelectionChanged,
 	  this,
@@ -54,6 +50,11 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_structures_arduino::close);
+  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
+  new QShortcut(tr("Ctrl+W"),
+		this,
+		SLOT(close(void)));
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
 
@@ -75,8 +76,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Bitwise Operators");
   m_ui.categories->addItem(tr("Characters"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Characters");
-  m_ui.categories->addItem(tr("Comparison Operators"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Comparison Operators");
   m_ui.categories->addItem(tr("Compound Operators"));
   m_ui.categories->item(i++)->setData(Qt::UserRole, "Compound Operators");
   m_ui.categories->addItem(tr("Constants"));
@@ -156,13 +155,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "isSpace()"
 						<< "isUpperCase()"
 						<< "isWhitespace()";
-      s_itemsForCategories[i++] =
-	QStringList() << "equal to (==)"
-		      << "greater than (>)"
-		      << "greater than or equal to (>=)"
-		      << "less than (<)"
-		      << "less than or equal to (<=)"
-		      << "not equal to (!=)";
       s_itemsForCategories[i++] = QStringList() << "addition (+=)"
 						<< "bitwise and (&=)"
 						<< "bitwise or (|=)"
@@ -356,7 +348,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
   QStringList list;
   auto row = m_ui.categories->row(items.at(0));
 
-  if(row >= 0 && row <= 22)
+  if(row >= 0 && row <= 21)
     {
       list = s_itemsForCategories.value(row);
 
