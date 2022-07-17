@@ -34,6 +34,7 @@ Completed Items
 - Define databases.
 - Define input parameters from connected objects. Order is also important.
 - Delegate object constructors.
+- Denote function return. See return flow control.
 - Denote occupied objects (functions, loop(), setup(), etc).
 - Depict changed pages. Window titles, etc.
 - Depict cloned functions. Function definitions will contain labels having
@@ -148,11 +149,10 @@ Remaining Items
   Structures
   Time
 - Copy children?
-- Denote function return.
 - Display condition / label in flow control's edit window.
 - Dots and grids.
 - Find objects.
-- Function inputs.
+- Function input parameters.
 - Generate source from terminal for testing results.
 - Icons and themes.
 - Indicate wire input / output.

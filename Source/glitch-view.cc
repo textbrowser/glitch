@@ -400,6 +400,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    if(object)
 		      {
 			ids[object->id()] = 0;
+			object->setCanvasSettings(m_canvasSettings);
 
 			if(object->isMandatory())
 			  parents[id] = object;

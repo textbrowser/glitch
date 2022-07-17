@@ -284,6 +284,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	    &glitch_scene::slotFunctionDeleted,
 	    Qt::UniqueConnection);
 
+  object->setCanvasSettings(m_canvasSettings);
   object->setProxy(proxy);
   object->setUndoStack(m_undoStack);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
@@ -670,7 +671,6 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	      else
 		addItem(proxy);
 
-	      object->setCanvasSettings(m_canvasSettings);
 	      proxy->setPos(event->scenePos());
 	      emit changed();
 	    }
