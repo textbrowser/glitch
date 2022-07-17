@@ -792,7 +792,7 @@ void glitch_ui::prepareRecentFiles(void)
       auto action = new glitch_recent_diagram
 	(list.at(i), m_ui.menu_Recent_Diagrams);
 
-      action->setProperty("fileName", list.at(i));
+      action->setProperty("file_name", list.at(i));
       connect(action,
 	      &QAction::triggered,
 	      this,
