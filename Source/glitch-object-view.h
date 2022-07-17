@@ -69,6 +69,7 @@ class glitch_object_view: public QGraphicsView
   qint64 m_id;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
+  void resizeEvent(QResizeEvent *event);
 
  private slots:
   void slotChanged(void);

@@ -79,10 +79,19 @@ QWidget *glitch_object_edit_window::centralWidget(void) const
 {
   auto frame = qobject_cast<QFrame *> (QMainWindow::centralWidget());
 
-  if(frame && frame->layout() && frame->layout()->itemAt(0))
-    return frame->layout()->itemAt(0)->widget();
-  else
+  if(!frame || !frame->layout())
     return nullptr;
+
+  /*
+  ** Discover the glitch_object_view child.
+  */
+
+  for(int i = 0; i < frame->layout()->count(); i++)
+    if(qobject_cast
+       <glitch_object_view *> (frame->layout()->itemAt(i)->widget()))
+      return frame->layout()->itemAt(i)->widget();
+
+  return nullptr;
 }
 
 glitch_object_edit_window::~glitch_object_edit_window()

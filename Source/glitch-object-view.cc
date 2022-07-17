@@ -155,6 +155,12 @@ void glitch_object_view::push(glitch_undo_command *undoCommand)
     m_undoStack->push(undoCommand);
 }
 
+void glitch_object_view::resizeEvent(QResizeEvent *event)
+{
+  QWidget::resizeEvent(event);
+  setSceneRect(size());
+}
+
 void glitch_object_view::save(const QSqlDatabase &db, QString &error)
 {
   /*
