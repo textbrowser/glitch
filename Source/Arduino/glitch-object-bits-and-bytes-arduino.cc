@@ -97,6 +97,43 @@ QString glitch_object_bits_and_bytes_arduino::code(void) const
 {
   switch(m_babType)
     {
+    case Type::BIT:
+      {
+	return QString("bit(%1);").arg(inputs().value(0));
+      }
+    case Type::BIT_CLEAR:
+      {
+	return QString("bitClear(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::BIT_READ:
+      {
+	return QString("bitRead(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::BIT_SET:
+      {
+	return QString("bitSet(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::BIT_WRITE:
+      {
+	return QString("bitWrite(%1, %2, %3);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2));
+      }
+    case Type::HIGH_BYTE:
+      {
+	return QString("highByte(%1);").arg(inputs().value(0));
+      }
+    case Type::LOW_BYTE:
+      {
+	return QString("lowByte(%1);").arg(inputs().value(0));
+      }
     default:
       {
 	return QString("bit(%1);").arg(inputs().value(0));
@@ -160,9 +197,14 @@ bool glitch_object_bits_and_bytes_arduino::shouldPrint(void) const
 {
   switch(m_babType)
     {
-    default:
+    case Type::BIT_SET:
+    case Type::BIT_WRITE:
       {
 	return true;
+      }
+    default:
+      {
+	return false;
       }
     }
 }
@@ -213,7 +255,7 @@ void glitch_object_bits_and_bytes_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["io_type"] = m_ui.label->text().trimmed();
+  properties["bab_type"] = m_ui.label->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -224,18 +266,31 @@ void glitch_object_bits_and_bytes_arduino::setProperties
   ** Redundancies.
   */
 
-  m_properties[Properties::BITS_AND_BYTES_TYPE] = "noTone()";
+  m_properties[Properties::BITS_AND_BYTES_TYPE] = "bit()";
 
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("io_type = "))
+      if(string.simplified().startsWith("bab_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  string = "bit()";
+	  if(string.contains("bitclear"))
+	    string = "bitClear()";
+	  else if(string.contains("bitread"))
+	    string = "bitRead()";
+	  else if(string.contains("bitset"))
+	    string = "bitSet()";
+	  else if(string.contains("bitwrite"))
+	    string = "bitWrite()";
+	  else if(string.contains("highbyte"))
+	    string = "highByte()";
+	  else if(string.contains("lowbyte"))
+	    string = "lowByte()";
+	  else
+	    string = "bit()";
 
 	  m_properties[Properties::BITS_AND_BYTES_TYPE] = string.trimmed();
 	}
