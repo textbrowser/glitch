@@ -4,6 +4,7 @@ Completed Items
   Drag and drop support.
 - About.
 - Add --open-arduino-diagram option.
+- Add close buttons to dialogs and windows.
 - Add newly-created projects to Recent Files menu.
 - Add widget actions to Edit menu. No. Instead, Shift key and the
   primary mouse button should display the object's context menu.
@@ -131,7 +132,6 @@ Ignored Items
 
 Remaining Items
 
-- Add close buttons to dialogs and windows.
 - Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero. This is very difficult.
 - Allow removal of individual items from Recent Diagrams.
