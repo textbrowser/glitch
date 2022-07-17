@@ -35,6 +35,41 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 
   switch(m_babType)
     {
+    case BIT:
+      {
+	m_ui.label->setText("bit()");
+	break;
+      }
+    case BIT_CLEAR:
+      {
+	m_ui.label->setText("bitClear()");
+	break;
+      }
+    case BIT_READ:
+      {
+	m_ui.label->setText("bitRead()");
+	break;
+      }
+    case BIT_SET:
+      {
+	m_ui.label->setText("bitSet()");
+	break;
+      }
+    case BIT_WRITE:
+      {
+	m_ui.label->setText("bitWrite()");
+	break;
+      }
+    case HIGH_BYTE:
+      {
+	m_ui.label->setText("highByte()");
+	break;
+      }
+    case LOW_BYTE:
+      {
+	m_ui.label->setText("lowByte()");
+	break;
+      }
     default:
       {
 	m_ui.label->setText("bit()");
@@ -76,13 +111,44 @@ bool glitch_object_bits_and_bytes_arduino::hasInput(void) const
 
 bool glitch_object_bits_and_bytes_arduino::hasOutput(void) const
 {
-  return true;
+  if(m_babType == Type::BIT_SET || m_babType == Type::BIT_WRITE)
+    return false;
+  else
+    return true;
 }
 
 bool glitch_object_bits_and_bytes_arduino::isFullyWired(void) const
 {
   switch(m_babType)
     {
+    case Type::BIT:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::BIT_CLEAR:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::BIT_READ:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::BIT_SET:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::BIT_WRITE:
+      {
+	return inputs().size() >= 3;
+      }
+    case Type::HIGH_BYTE:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::LOW_BYTE:
+      {
+	return inputs().size() >= 1;
+      }
     default:
       {
 	return inputs().size() >= 1;
