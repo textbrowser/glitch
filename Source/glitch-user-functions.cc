@@ -32,6 +32,10 @@
 glitch_user_functions::glitch_user_functions(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.close,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_user_functions::close);
   m_ui.functions->horizontalHeader()->setSortIndicator(0, Qt::AscendingOrder);
   m_ui.functions->horizontalHeader()->setSortIndicatorShown(true);
   new QShortcut(tr("Ctrl+W"),
