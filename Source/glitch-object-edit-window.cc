@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QLineEdit>
 #include <QMenuBar>
 #include <QResizeEvent>
 #include <QTimer>
@@ -64,6 +65,9 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotAboutToShowEditMenu(void)));
+  m_header = new QLineEdit(this);
+  m_header->setReadOnly(true);
+  m_header->setVisible(false);
   m_toolBar = new QToolBar(tr("Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
   addToolBar(m_toolBar);
@@ -97,6 +101,20 @@ void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
   QMainWindow::closeEvent(event);
   emit closed();
+}
+
+void glitch_object_edit_window::prepareHeader(const QString &text)
+{
+  if(!text.trimmed().isEmpty())
+    {
+      m_header->setText(text.trimmed());
+      m_header->setVisible(true);
+    }
+  else
+    {
+      m_header->clear();
+      m_header->setVisible(false);
+    }
 }
 
 void glitch_object_edit_window::prepareIcons(void)
@@ -141,6 +159,7 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 
   delete frame->layout();
   frame->setLayout(new QVBoxLayout());
+  frame->layout()->addWidget(m_header);
   frame->layout()->addWidget(widget);
   frame->layout()->setContentsMargins(9, 9, 9, 9);
   frame->layout()->setSpacing(0);

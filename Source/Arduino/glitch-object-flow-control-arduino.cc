@@ -235,6 +235,7 @@ createFromValues(const QMap<QString, QVariant> &values,
     (object->m_properties.value(Properties::CONDITION).toString().trimmed());
   object->m_ui.condition->selectAll();
   object->m_ui.condition->blockSignals(false);
+  object->prepareEditWindowHeader();
   return object;
 }
 
@@ -273,6 +274,14 @@ void glitch_object_flow_control_arduino::mouseDoubleClickEvent
 {
   slotEdit();
   glitch_object::mouseDoubleClickEvent(event);
+}
+
+void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
+{
+  m_editWindow->prepareHeader
+    (QString("%1 (%2)").
+     arg(m_ui.flow_control_type->currentText()).
+     arg(m_ui.condition->text()));
 }
 
 void glitch_object_flow_control_arduino::save
@@ -383,6 +392,10 @@ void glitch_object_flow_control_arduino::setFlowControlType
     m_ui.flow_control_type->setCurrentIndex(0);
 
   m_ui.flow_control_type->blockSignals(false);
+  m_editWindow->prepareHeader
+    (QString("%1 (%2)").
+     arg(m_ui.flow_control_type->currentText()).
+     arg(m_ui.condition->text()));
   resize(qMax(minimumWidth, sizeHint().width()), height());
 }
 
@@ -424,6 +437,7 @@ void glitch_object_flow_control_arduino::setProperty
       {
 	m_ui.condition->setText(value.toString().trimmed());
 	m_ui.condition->selectAll();
+	prepareEditWindowHeader();
 	break;
       }
     default:

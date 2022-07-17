@@ -32,6 +32,7 @@
 #include <QMap>
 #include <QPointer>
 
+class QLineEdit;
 class QUndoStack;
 class glitch_object_view;
 
@@ -43,12 +44,14 @@ class glitch_object_edit_window: public QMainWindow
   glitch_object_edit_window(QWidget *parent);
   ~glitch_object_edit_window();
   QWidget *centralWidget(void) const;
+  void prepareHeader(const QString &text);
   void prepareToolBar(const QList<QAction *> &actions);
   void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  QLineEdit *m_header;
   QMap<QString, QAction *> m_actions;
   QToolBar *m_toolBar;
   QPointer<QUndoStack> m_undoStack;

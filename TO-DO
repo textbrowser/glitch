@@ -44,6 +44,7 @@ Completed Items
 - Depict main functions via immutable themes.
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
+- Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
 - Display tool mode in status bar.
 - Do not align, stack, etc. unless coordinates would change.
@@ -149,7 +150,6 @@ Remaining Items
   Structures
   Time
 - Copy children?
-- Display condition / label in flow control's edit window.
 - Dots and grids.
 - Find objects.
 - Function input parameters.
@@ -161,6 +161,7 @@ Remaining Items
 - Modern Qt connect().
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
+- Review lengthy tool tips.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Set focus on plain-text-edit during mouse-press event.
