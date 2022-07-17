@@ -25,8 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_recent_display_h_
-#define _glitch_recent_display_h_
+#ifndef _glitch_recent_diagram_h_
+#define _glitch_recent_diagram_h_
 
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -34,12 +34,12 @@
 #include <QPushButton>
 #include <QWidgetAction>
 
-class glitch_recent_display: public QWidgetAction
+class glitch_recent_diagram: public QWidgetAction
 {
   Q_OBJECT
 
  public:
-  glitch_recent_display(const QString &fileName, QWidget *parent):
+  glitch_recent_diagram(const QString &fileName, QWidget *parent):
     QWidgetAction(parent)
   {
     m_fileName = fileName;
@@ -59,7 +59,7 @@ class glitch_recent_display: public QWidgetAction
 
     m_layout = new QHBoxLayout(m_widget);
     m_layout->setContentsMargins(5, 1, 5, 1);
-    m_pushButton = new QPushButton("Forget", m_widget);
+    m_pushButton = new QPushButton(tr("Forget"), m_widget);
     m_pushButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
     m_layout->addWidget(m_pushButton);
     m_layout->addWidget(m_label);
@@ -71,10 +71,10 @@ class glitch_recent_display: public QWidgetAction
     connect(m_pushButton,
 	    &QPushButton::clicked,
 	    this,
-	    &glitch_recent_display::slotClicked);
+	    &glitch_recent_diagram::slotClicked);
   }
 
-  ~glitch_recent_display()
+  ~glitch_recent_diagram()
   {
     m_label->deleteLater();
     m_layout->deleteLater();

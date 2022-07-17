@@ -90,6 +90,9 @@
            <property name="placeholderText">
             <string>Canvas Name</string>
            </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
         </layout>
@@ -147,6 +150,9 @@
            </property>
            <property name="placeholderText">
             <string>Output File</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>

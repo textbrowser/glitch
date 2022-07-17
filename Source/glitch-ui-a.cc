@@ -40,6 +40,7 @@
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
+#include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-ui.h"
@@ -788,37 +789,27 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      QHBoxLayout *layout = nullptr;
-      auto fileInfo(QFileInfo(list.at(i)));
-      auto label = new QLabel(this);
-      auto widget = new QWidget(this);
-      auto widgetAction = new QWidgetAction(this);
+      auto action = new glitch_recent_diagram
+	(list.at(i), m_ui.menu_Recent_Diagrams);
 
-      if(!fileInfo.exists() || !fileInfo.isReadable())
-	label->setStyleSheet("QLabel {color: #8b0000;}");
-
-      label->setText(list.at(i));
-      layout = new QHBoxLayout(widget);
-      layout->addWidget(label);
-      layout->setContentsMargins(5, 5, 5, 5);
-      widget->setStyleSheet
-	(QString("QWidget:hover {background-color: %1; color: %2;}").
-	 arg(widget->palette().color(QPalette::Highlight).name()).
-	 arg(widget->palette().color(QPalette::HighlightedText).name()));
-      widgetAction->setDefaultWidget(widget);
-      widgetAction->setProperty("file_name", list.at(i));
-      connect(widgetAction,
-	      SIGNAL(triggered(void)),
+      action->setProperty("fileName", list.at(i));
+      connect(action,
+	      &QAction::triggered,
 	      this,
-	      SLOT(slotOpenRecentDiagram(void)));
-      m_ui.menu_Recent_Diagrams->addAction(widgetAction);
+	      &glitch_ui::slotOpenRecentDiagram);
+      connect(action,
+	      &glitch_recent_diagram::clicked,
+	      this,
+	      &glitch_ui::slotForgetRecentDiagram);
+      m_ui.menu_Recent_Diagrams->addAction(action);
     }
 
   if(!list.isEmpty())
     m_ui.menu_Recent_Diagrams->addSeparator();
 
   m_ui.menu_Recent_Diagrams->addAction
-    (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
+    (tr("Clear"), this, SLOT(slotClearRecentFiles(void)))->setIcon
+    (QIcon::fromTheme("edit-clear"));
   QApplication::restoreOverrideCursor();
 }
 
@@ -1160,6 +1151,10 @@ void glitch_ui::slotDelete(void)
     m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
   else
     m_ui.action_Undo->setText(tr("Undo"));
+}
+
+void glitch_ui::slotForgetRecentDiagram(void)
+{
 }
 
 void glitch_ui::slotGenerateSource(void)

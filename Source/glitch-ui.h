@@ -98,6 +98,7 @@ class glitch_ui: public QMainWindow
   void slotCopy(glitch_view *view);
   void slotCopy(void);
   void slotDelete(void);
+  void slotForgetRecentDiagram(void);
   void slotGenerateSource(void);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);
