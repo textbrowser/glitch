@@ -129,6 +129,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-view.h \
                   Source/glitch-proxy-widget.h \
+                  Source/glitch-recent-display.h \
                   Source/glitch-scene.h \
                   Source/glitch-separated-diagram-window.h \
                   Source/glitch-structures-treewidget.h \
