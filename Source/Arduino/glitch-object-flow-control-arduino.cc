@@ -132,11 +132,11 @@ QString glitch_object_flow_control_arduino::code(void) const
 	   << m_ui.condition->text().trimmed()
 	   << ")";
   else if(m_ui.flow_control_type->currentText() == "switch")
-    stream << "switch ("
+    stream << "switch("
 	   << m_ui.condition->text().trimmed()
 	   << ")";
   else if(m_ui.flow_control_type->currentText() == "while")
-    stream << "while ("
+    stream << "while("
 	   << m_ui.condition->text().trimmed()
 	   << ")";
 
