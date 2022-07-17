@@ -108,7 +108,20 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    return Type::BIT;
+    if(string.contains("bitclear"))
+      return Type::BIT_CLEAR;
+    else if(string.contains("bitread"))
+      return Type::BIT_READ;
+    else if(string.contains("bitset"))
+      return Type::BIT_SET;
+    else if(string.contains("bitwrite"))
+      return Type::BIT_WRITE;
+    else if(string.contains("highbyte"))
+      return Type::HIGH_BYTE;
+    else if(string.contains("lowbyte"))
+      return Type::LOW_BYTE;
+    else
+      return Type::BIT;
   }
 
   void setProperties(const QStringList &list);
