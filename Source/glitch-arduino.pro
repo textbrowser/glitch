@@ -1,6 +1,7 @@
 FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-analog-io-arduino.ui \
                   UI/Arduino/glitch-object-arithmetic-operator-arduino.ui \
+                  UI/Arduino/glitch-object-bits-and-bytes-arduino.ui \
                   UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \
                   UI/Arduino/glitch-object-digital-io-arduino.ui \
