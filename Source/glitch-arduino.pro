@@ -16,6 +16,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
 HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-analog-io-arduino.h \
                   Source/Arduino/glitch-object-arithmetic-operator-arduino.h \
+                  Source/Arduino/glitch-object-bits-and-bytes-arduino.h \
                   Source/Arduino/glitch-object-block-comment-arduino.h \
                   Source/Arduino/glitch-object-constant-arduino.h \
                   Source/Arduino/glitch-object-digital-io-arduino.h \
@@ -32,6 +33,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
 SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-analog-io-arduino.cc \
                   Source/Arduino/glitch-object-arithmetic-operator-arduino.cc \
+                  Source/Arduino/glitch-object-bits-and-bytes-arduino.cc \
                   Source/Arduino/glitch-object-block-comment-arduino.cc \
                   Source/Arduino/glitch-object-constant-arduino.cc \
                   Source/Arduino/glitch-object-digital-io-arduino.cc \
