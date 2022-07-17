@@ -298,35 +298,83 @@ void glitch_object_flow_control_arduino::setFlowControlType
 {
   auto f(flowControlType.
 	 mid(flowControlType.lastIndexOf('-') + 1).toLower().trimmed());
+  int minimumWidth = 500;
 
   if(f == "break")
-    m_flowControlType = FlowControlTypes::BREAK;
+    {
+      m_flowControlType = FlowControlTypes::BREAK;
+      m_ui.condition->setVisible(false);
+      minimumWidth = 0;
+    }
   else if(f == "case")
-    m_flowControlType = FlowControlTypes::CASE;
+    {
+      m_flowControlType = FlowControlTypes::CASE;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "continue")
-    m_flowControlType = FlowControlTypes::CONTINUE;
+    {
+      m_flowControlType = FlowControlTypes::CONTINUE;
+      m_ui.condition->setVisible(false);
+      minimumWidth = 0;
+    }
   else if(f == "do while")
-    m_flowControlType = FlowControlTypes::DO_WHILE;
+    {
+      m_flowControlType = FlowControlTypes::DO_WHILE;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "else")
-    m_flowControlType = FlowControlTypes::ELSE;
+    {
+      m_flowControlType = FlowControlTypes::ELSE;
+      m_ui.condition->setVisible(false);
+      minimumWidth = 0;
+    }
   else if(f == "else if")
-    m_flowControlType = FlowControlTypes::ELSE_IF;
+    {
+      m_flowControlType = FlowControlTypes::ELSE_IF;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "for")
-    m_flowControlType = FlowControlTypes::FOR;
+    {
+      m_flowControlType = FlowControlTypes::FOR;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "goto")
-    m_flowControlType = FlowControlTypes::GOTO;
+    {
+      m_flowControlType = FlowControlTypes::GOTO;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "if")
-    m_flowControlType = FlowControlTypes::IF;
+    {
+      m_flowControlType = FlowControlTypes::IF;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "label")
-    m_flowControlType = FlowControlTypes::LABEL;
+    {
+      m_flowControlType = FlowControlTypes::LABEL;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "return")
-    m_flowControlType = FlowControlTypes::RETURN;
+    {
+      m_flowControlType = FlowControlTypes::RETURN;
+      m_ui.condition->setVisible(false);
+      minimumWidth = 0;
+    }
   else if(f == "switch")
-    m_flowControlType = FlowControlTypes::SWITCH;
+    {
+      m_flowControlType = FlowControlTypes::SWITCH;
+      m_ui.condition->setVisible(true);
+    }
   else if(f == "while")
-    m_flowControlType = FlowControlTypes::WHILE;
+    {
+      m_flowControlType = FlowControlTypes::WHILE;
+      m_ui.condition->setVisible(true);
+    }
   else
-    m_flowControlType = FlowControlTypes::BREAK;
+    {
+      m_flowControlType = FlowControlTypes::BREAK;
+      m_ui.condition->setVisible(false);
+      minimumWidth = 0;
+    }
 
   m_ui.flow_control_type->blockSignals(true);
   m_ui.flow_control_type->setCurrentIndex(m_ui.flow_control_type->findText(f));
@@ -335,6 +383,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
     m_ui.flow_control_type->setCurrentIndex(0);
 
   m_ui.flow_control_type->blockSignals(false);
+  resize(qMax(minimumWidth, sizeHint().width()), height());
 }
 
 void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
