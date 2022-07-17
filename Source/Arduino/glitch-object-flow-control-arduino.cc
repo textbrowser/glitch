@@ -230,11 +230,9 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ui.condition->blockSignals(true);
   object->m_ui.condition->setText
     (object->m_properties.value(Properties::CONDITION).toString().trimmed());
   object->m_ui.condition->selectAll();
-  object->m_ui.condition->blockSignals(false);
   object->prepareEditWindowHeader();
   return object;
 }
