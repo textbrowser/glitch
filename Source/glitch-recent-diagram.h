@@ -58,8 +58,9 @@ class glitch_recent_diagram: public QWidgetAction
       }
 
     m_layout = new QHBoxLayout(m_widget);
-    m_layout->setContentsMargins(5, 1, 5, 1);
+    m_layout->setContentsMargins(5, 5, 5, 5);
     m_pushButton = new QPushButton(tr("Forget"), m_widget);
+    m_pushButton->setProperty("file_name", m_fileName);
     m_pushButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
     m_layout->addWidget(m_pushButton);
     m_layout->addWidget(m_label);
@@ -68,10 +69,6 @@ class glitch_recent_diagram: public QWidgetAction
        arg(m_widget->palette().color(QPalette::Highlight).name()).
        arg(m_widget->palette().color(QPalette::HighlightedText).name()));
     setDefaultWidget(m_widget);
-    connect(m_pushButton,
-	    &QPushButton::clicked,
-	    this,
-	    &glitch_recent_diagram::slotClicked);
   }
 
   ~glitch_recent_diagram()
@@ -82,21 +79,17 @@ class glitch_recent_diagram: public QWidgetAction
     m_widget->deleteLater();
   }
 
+  QPushButton *pushButton(void) const
+  {
+    return m_pushButton;
+  }
+
  private:
   QHBoxLayout *m_layout;
   QLabel *m_label;
   QPushButton *m_pushButton;
   QString m_fileName;
   QWidget *m_widget;
-
- private slots:
-  void slotClicked(void)
-  {
-    emit clicked(m_fileName);
-  }
-
- signals:
-  void clicked(const QString &fileName);
 };
 
 #endif

@@ -792,13 +792,14 @@ void glitch_ui::prepareRecentFiles(void)
       auto action = new glitch_recent_diagram
 	(list.at(i), m_ui.menu_Recent_Diagrams);
 
+      action->pushButton()->addAction(action);
       action->setProperty("file_name", list.at(i));
       connect(action,
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotOpenRecentDiagram);
-      connect(action,
-	      &glitch_recent_diagram::clicked,
+      connect(action->pushButton(),
+	      &QPushButton::clicked,
 	      this,
 	      &glitch_ui::slotForgetRecentDiagram);
       m_ui.menu_Recent_Diagrams->addAction(action);
@@ -1155,6 +1156,38 @@ void glitch_ui::slotDelete(void)
 
 void glitch_ui::slotForgetRecentDiagram(void)
 {
+  auto pushButton = qobject_cast<QPushButton *> (sender());
+
+  if(!pushButton)
+    return;
+
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+
+  QString connectionName("");
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_recentFilesFileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.prepare("DELETE FROM glitch_recent_files WHERE file_name = ?");
+	query.addBindValue(pushButton->property("file_name").toString());
+
+	if(query.exec())
+	  m_ui.menu_Recent_Diagrams->removeAction
+	    (pushButton->actions().value(0));
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::slotGenerateSource(void)
