@@ -203,12 +203,11 @@ void glitch_view_arduino::generateSource(void)
   if(file.open(QIODevice::Append | QIODevice::WriteOnly))
     {
       QTextStream stream(&file);
+      auto widgets(scene()->orderedObjects());
 
       /*
       ** Other objects.
       */
-
-      auto widgets(scene()->orderedObjects());
 
       for(auto w : widgets)
 	{

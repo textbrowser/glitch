@@ -90,7 +90,11 @@ QList<glitch_object *> glitch_scene::objects(void) const
 
 QList<glitch_object *> glitch_scene::orderedObjects(void) const
 {
-  QMap<int, glitch_object *> widgets;
+  QMultiMap<int, glitch_object *> widgets; /*
+					   ** Order may not be unique. For
+					   ** example, loop() and setup()
+					   ** have 0 orders.
+					   */
   auto list(items());
 
   for(const auto i : list)
@@ -100,8 +104,8 @@ QList<glitch_object *> glitch_scene::orderedObjects(void) const
       if(!proxy || !proxy->widget())
 	continue;
 
-      widgets[objectOrder(proxy)] = qobject_cast<glitch_object *>
-	(proxy->widget());
+      widgets.insert
+	(objectOrder(proxy), qobject_cast<glitch_object *> (proxy->widget()));
     }
 
   return widgets.values();
