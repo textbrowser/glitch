@@ -806,10 +806,12 @@ void glitch_object::setProperty(const Properties property,
 
 void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
+  m_canvasSettings = canvasSettings;
+
   auto scene = editScene();
 
   if(scene)
-    scene->setCanvasSettings(canvasSettings);
+    scene->setCanvasSettings(m_canvasSettings);
 }
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)

@@ -156,6 +156,7 @@ class glitch_object: public QWidget
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
+  QPointer<glitch_canvas_settings> m_canvasSettings;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;

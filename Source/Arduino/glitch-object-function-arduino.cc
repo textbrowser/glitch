@@ -445,6 +445,7 @@ void glitch_object_function_arduino::declone(void)
      m_id,
      new QUndoStack(this), // New redo/undo stack.
      this);
+  m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window(m_parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
@@ -512,6 +513,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
      m_id,
      new QUndoStack(this), // New redo/undo stack.
      this);
+  m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window(parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
