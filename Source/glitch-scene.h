@@ -36,6 +36,7 @@
 #include <QtGlobal>
 
 #include "glitch-common.h"
+#include "glitch-point.h"
 #include "glitch-tools.h"
 
 class QUndoStack;
@@ -86,31 +87,6 @@ class glitch_scene: public QGraphicsScene
   void setUndoStack(QUndoStack *undoStack);
 
  private:
-  class glitch_point
-  {
-   public:
-    glitch_point(const QPointF &point)
-    {
-      m_x = point.x();
-      m_y = point.y();
-    };
-
-    glitch_point(void)
-    {
-      m_x = m_y = 0.0;
-    }
-
-    bool operator<(const glitch_point &point) const
-    {
-      return m_y < point.m_y ||
-	(qFuzzyCompare(m_y, point.m_y) && m_x < point.m_x);
-    }
-
-   private:
-    qreal m_x;
-    qreal m_y;
-  };
-
   QColor m_dotsColor;
   QHash<QString, QPointer<glitch_proxy_widget> > m_objectsToWire;
   QHash<glitch_proxy_widget *, glitch_point> m_objectsHash; // For ordering.
