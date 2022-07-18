@@ -106,6 +106,7 @@ class glitch_scene: public QGraphicsScene
 	(qFuzzyCompare(m_y, point.m_y) && m_x < point.m_x);
     }
 
+   private:
     qreal m_x;
     qreal m_y;
   };
