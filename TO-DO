@@ -64,6 +64,7 @@ Completed Items
 - Functions are defined on the main view. Allow multiple instances of
   a defined function. All duplicate instances should be duplicates of a single
   definition.
+- Generate periodically.
 - Group delete.
 - Identifiers are incorrect for function children.
 - Inspect coordinates upon opening of diagrams. Adjust.
@@ -158,7 +159,6 @@ Remaining Items
 - Dots and grids.
 - Find objects.
 - Function input parameters.
-- Generate periodically.
 - Generate source from terminal for testing results.
 - Icons and themes.
 - Indicate wire input / output.
