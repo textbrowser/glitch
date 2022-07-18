@@ -96,6 +96,11 @@
          </property>
          <item>
           <property name="text">
+           <string notr="true"/>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string notr="true">const</string>
           </property>
          </item>
@@ -124,11 +129,6 @@
            <string notr="true">volatile</string>
           </property>
          </item>
-         <item>
-          <property name="text">
-           <string notr="true"/>
-          </property>
-         </item>
         </widget>
        </item>
        <item>
@@ -153,11 +153,16 @@
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
          </property>
+         <item>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+         </item>
          <item>
           <property name="text">
            <string notr="true">&amp;</string>
@@ -166,11 +171,6 @@
          <item>
           <property name="text">
            <string notr="true">*</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true"/>
           </property>
          </item>
         </widget>
