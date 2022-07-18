@@ -228,7 +228,8 @@ createFromValues(const QMap<QString, QVariant> &values,
   auto object = new glitch_object_flow_control_arduino
     (values.value("myoid").toLongLong(), parent);
 
-  object->setProperties(values.value("properties").toString().split('&'));
+  object->setProperties
+    (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (object->m_properties.value(Properties::CONDITION).toString().trimmed());

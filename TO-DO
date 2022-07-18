@@ -138,6 +138,7 @@ Remaining Items
   is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
+- Arrays.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O
@@ -151,6 +152,7 @@ Remaining Items
   Structures
   Time
 - Copy children?
+- Custom shortcuts.
 - Dots and grids.
 - Find objects.
 - Function input parameters.

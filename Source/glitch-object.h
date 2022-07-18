@@ -164,6 +164,7 @@ class glitch_object: public QWidget
   bool m_drawOutputConnector;
   glitch_floating_context_menu *m_contextMenu;
   qint64 m_id;
+  static QRegularExpression s_splitRegularExpression;
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
   virtual QStringList outputs(void) const;
