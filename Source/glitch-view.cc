@@ -982,6 +982,9 @@ void glitch_view::slotChanged(void)
 {
   m_changed = true;
 
+  if(m_canvasSettings->generatePeriodically())
+    QTimer::singleShot(1500, this, SLOT(slotGenerate(void)));
+
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(true);
 
@@ -1051,6 +1054,11 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
   undoCommand->setText(tr("function return type changed"));
   m_undoStack->push(undoCommand);
   emit changed();
+}
+
+void glitch_view::slotGenerate(void)
+{
+  generateSource();
 }
 
 void glitch_view::slotPaste(void)

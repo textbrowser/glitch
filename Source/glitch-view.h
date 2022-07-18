@@ -144,6 +144,7 @@ class glitch_view: public QWidget
   void slotChanged(void);
   void slotCopy(void);
   void slotCustomContextMenuRequested(const QPoint &point);
+  void slotGenerate(void);
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotFunctionNameChanged(const QString &after,

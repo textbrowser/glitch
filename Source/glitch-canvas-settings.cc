@@ -181,6 +181,11 @@ QString glitch_canvas_settings::outputFile(void) const
   return m_settings.value(Settings::OUTPUT_FILE).toString();
 }
 
+bool glitch_canvas_settings::generatePeriodically(void) const
+{
+  return m_settings.value(Settings::GENERATE_PERIODICALLY).toBool();
+}
+
 bool glitch_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -479,6 +484,8 @@ void glitch_canvas_settings::setSettings
   m_ui.dots_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.dots_color->setText(color.name());
+  m_ui.generate_periodically->setChecked
+    (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
   color = QColor

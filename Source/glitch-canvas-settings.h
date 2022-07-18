@@ -65,6 +65,7 @@ class glitch_canvas_settings: public QDialog
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
   QString outputFile(void) const;
+  bool generatePeriodically(void) const;
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
   int redoUndoStackSize(void) const;
