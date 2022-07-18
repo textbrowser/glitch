@@ -209,7 +209,7 @@
   </action>
   <action name="action_Close_Diagram">
    <property name="text">
-    <string>&amp;Close Diagram</string>
+    <string>Close Diagram</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
@@ -267,9 +267,6 @@
    <property name="text">
     <string>Canvas Settings...</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+G</string>
-   </property>
   </action>
   <action name="action_Clear_Copied_Widgets_Buffer">
    <property name="text">
@@ -283,7 +280,10 @@
   </action>
   <action name="action_Generate_Source">
    <property name="text">
-    <string>&amp;Source</string>
+    <string>&amp;Generate Source</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
    </property>
   </action>
   <action name="action_Diagram_Context_Menu">
