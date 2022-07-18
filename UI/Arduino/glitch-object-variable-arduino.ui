@@ -89,7 +89,7 @@
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
          <property name="currentIndex">
-          <number>5</number>
+          <number>0</number>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
@@ -97,6 +97,11 @@
          <item>
           <property name="text">
            <string notr="true">const</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">const static</string>
           </property>
          </item>
          <item>
