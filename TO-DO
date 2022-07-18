@@ -121,8 +121,9 @@ Completed Items
 - Wire color setting.
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
+- Wiring.
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
-  the bounding rectangle.
+  the bounding rectangle. Not necessary. Approximate the bounding rectangle.
 - glitch_canvas_settings::settings(). Not needed.
 - prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
@@ -178,5 +179,4 @@ Remaining Items
   color alpha
   width
 - Wire redo / undo.
-- Wiring.
 - Wiring: curves and / or poly-lines options.

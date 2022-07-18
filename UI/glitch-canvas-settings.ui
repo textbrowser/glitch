@@ -132,6 +132,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="generate_periodically">
+         <property name="toolTip">
+          <string>Generate the code shortly after a change is made.</string>
+         </property>
+         <property name="text">
+          <string>Generate Periodically</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
           <widget class="QLabel" name="label_7">
@@ -394,12 +404,14 @@
   <tabstop>background_color</tabstop>
   <tabstop>name</tabstop>
   <tabstop>dots_color</tabstop>
+  <tabstop>generate_periodically</tabstop>
   <tabstop>output_file</tabstop>
   <tabstop>select_output_file</tabstop>
   <tabstop>project_type</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
   <tabstop>show_canvas_dots</tabstop>
   <tabstop>update_mode</tabstop>
+  <tabstop>wire_color</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
