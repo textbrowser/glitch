@@ -33,6 +33,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QStandardPaths>
 
 #include "glitch-canvas-settings.h"
@@ -122,6 +123,8 @@ settings(void) const
     m_ui.background_color->text().remove('&').trimmed();
   hash[Settings::CANVAS_NAME] = m_ui.name->text().trimmed();
   hash[Settings::DOTS_COLOR] = m_ui.dots_color->text().remove('&').trimmed();
+  hash[Settings::GENERATE_PERIODICALLY] =
+    m_ui.generate_periodically->isChecked();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
@@ -199,6 +202,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
 	   "dots_color TEXT NOT NULL, "
+	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
 	   "project_type TEXT NOT NULL CHECK "
@@ -221,6 +225,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
 	   "dots_color, "
+	   "generate_periodically, "
 	   "name, "
 	   "output_file, "
 	   "project_type, "
@@ -228,9 +233,10 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_dots, "
 	   "update_mode, "
 	   "wire_color) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_color->text().remove('&'));
+	query.addBindValue(m_ui.generate_periodically->isChecked());
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -308,29 +314,63 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
+	query.setForwardOnly(true);
+
 	if(query.exec(QString("SELECT "
 			      "SUBSTR(background_color, 1, 50), " // 0
 			      "SUBSTR(dots_color, 1, 50), "       // 1
-			      "SUBSTR(name, 1, %1), "             // 2
-			      "SUBSTR(output_file, 1, 5000), "    // 3
-			      "SUBSTR(project_type, 1, 50), "     // 4
-			      "redo_undo_stack_size, "            // 5
-			      "show_canvas_dots, "                // 6
-			      "SUBSTR(update_mode, 1, 100), "     // 7
-			      "SUBSTR(wire_color, 1, 50) "        // 8
+			      "generate_periodically, "           // 2
+			      "SUBSTR(name, 1, %1), "             // 3
+			      "SUBSTR(output_file, 1, 5000), "    // 4
+			      "SUBSTR(project_type, 1, 50), "     // 5
+			      "redo_undo_stack_size, "            // 6
+			      "show_canvas_dots, "                // 7
+			      "SUBSTR(update_mode, 1, 100), "     // 8
+			      "SUBSTR(wire_color, 1, 50) "        // 9
 			      "FROM canvas_settings").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
 	   query.next())
 	  {
-	    QColor color(query.value(0).toString().remove('&').trimmed());
-	    QColor dotsColor(query.value(1).toString().remove('&').trimmed());
-	    QColor wireColor(query.value(8).toString().remove('&').trimmed());
-	    auto name(query.value(2).toString().trimmed());
-	    auto outputFile(query.value(3).toString());
-	    auto projectType(query.value(4).toString().trimmed());
-	    auto redoUndoStackSize = query.value(5).toInt();
-	    auto showCanvasDots = query.value(6).toBool();
-	    auto updateMode(query.value(7).toString().trimmed());
+	    QColor color;
+	    QColor dotsColor;
+	    QColor wireColor;
+	    QString name("");
+	    QString outputFile("");
+	    QString projectType("");
+	    QString updateMode("");
+	    auto generatePeriodically = false;
+	    auto record(query.record());
+	    auto showCanvasDots = true;
+	    int redoUndoStackSize = 0;
+
+	    for(int i = 0; i < record.count(); i++)
+	      {
+		auto fieldName(record.fieldName(i));
+
+		if(fieldName.contains("background_color"))
+		  color = QColor
+		    (record.value(i).toString().remove('&').trimmed());
+		else if(fieldName.contains("dots_color"))
+		  dotsColor = QColor
+		    (record.value(i).toString().remove('&').trimmed());
+		else if(fieldName.contains("generate_periodically"))
+		  generatePeriodically = record.value(i).toBool();
+		else if(fieldName.contains("name"))
+		  name = record.value(i).toString().trimmed();
+		else if(fieldName.contains("output_file"))
+		  outputFile = record.value(i).toString();
+		else if(fieldName.contains("project_type"))
+		  projectType = record.value(i).toString().trimmed();
+		else if(fieldName.contains("redo_undo_stack_size"))
+		  redoUndoStackSize = record.value(i).toInt();
+		else if(fieldName.contains("show_canvas_dots"))
+		  showCanvasDots = record.value(i).toBool();
+		else if(fieldName.contains("update_mode"))
+		  updateMode = record.value(i).toString().trimmed();
+		else if(fieldName.contains("wire_color"))
+		  wireColor = QColor
+		    (record.value(i).toString().remove('&').trimmed());
+	      }
 
 	    if(!color.isValid())
 	      color = QColor(0, 170, 255);
@@ -345,6 +385,7 @@ void glitch_canvas_settings::prepare(void)
 	      (QString("QPushButton {background-color: %1}").
 	       arg(dotsColor.name()));
 	    m_ui.dots_color->setText(dotsColor.name());
+	    m_ui.generate_periodically->setChecked(generatePeriodically);
 
 	    if(name.isEmpty())
 	      name = defaultName();

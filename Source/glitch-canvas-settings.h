@@ -48,6 +48,7 @@ class glitch_canvas_settings: public QDialog
     CANVAS_BACKGROUND_COLOR = 0,
     CANVAS_NAME,
     DOTS_COLOR,
+    GENERATE_PERIODICALLY,
     OUTPUT_FILE,
     REDO_UNDO_STACK_SIZE,
     SHOW_CANVAS_DOTS,
