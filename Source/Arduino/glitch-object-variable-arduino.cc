@@ -91,19 +91,19 @@ QString glitch_object_variable_arduino::code(void) const
 	return (qualifier +
 		" " +
 		type +
-		array +
 		" " +
 		pointerAccess +
 		name +
+		array +
 		";").trimmed();
       else
 	return (qualifier +
 		" " +
 		type +
-		array +
 		" " +
 		pointerAccess +
 		name +
+		array +
 		" = " +
 		inputs().value(0) + ";").trimmed();
     }
@@ -111,10 +111,10 @@ QString glitch_object_variable_arduino::code(void) const
     return (qualifier +
 	    " " +
 	    type +
-	    array +
 	    " " +
 	    pointerAccess +
 	    name +
+	    array +
 	    " = " +
 	    value + ";").trimmed();
 }
