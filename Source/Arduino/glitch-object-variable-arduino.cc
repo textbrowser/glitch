@@ -185,6 +185,11 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 {
   if(state)
     {
+      connect(m_ui.array,
+	      QOverload<bool>::of(&QToolButton::toggled),
+	      this,
+	      &glitch_object_variable_arduino::slotToolButtonChecked,
+	      Qt::UniqueConnection);
       connect(m_ui.name,
 	      &QLineEdit::returnPressed,
 	      this,
@@ -336,6 +341,13 @@ void glitch_object_variable_arduino::setProperty
 
   switch(property)
     {
+    case Properties::VARIABLE_ARRAY:
+      {
+	m_ui.array->blockSignals(true);
+	m_ui.array->setChecked(value.toBool());
+	m_ui.array->blockSignals(false);
+	break;
+      }
     case Properties::VARIABLE_NAME:
       {
 	if(value.toString().trimmed().isEmpty())
@@ -451,6 +463,30 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
      this);
 
   m_properties[property] = lineEdit->text();
+  undoCommand->setText(tr("variable property changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_object_variable_arduino::slotToolButtonChecked(void)
+{
+  if(!m_undoStack)
+    return;
+
+  auto toolButton = qobject_cast<QToolButton *> (sender());
+
+  if(!toolButton)
+    return;
+
+  auto property = glitch_object::Properties::VARIABLE_ARRAY;
+  auto undoCommand = new glitch_undo_command
+    (toolButton->isChecked(),
+     m_properties.value(property),
+     glitch_undo_command::PROPERTY_CHANGED,
+     property,
+     this);
+
+  m_properties[property] = toolButton->isChecked(),
   undoCommand->setText(tr("variable property changed"));
   m_undoStack->push(undoCommand);
   emit changed();
