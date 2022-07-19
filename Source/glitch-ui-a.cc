@@ -707,7 +707,7 @@ void glitch_ui::prepareActionWidgets(void)
 	(m_currentView && m_currentView->hasChanged());
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Select_All->setEnabled
-	(m_currentView && m_currentView->scene()->items().size() > 2);
+	(m_currentView && m_currentView->scene()->items().size() > 0);
       m_ui.action_Structures->setEnabled(true);
       m_ui.action_Tools->setEnabled(true);
       m_ui.action_User_Functions->setEnabled(true);
@@ -1505,7 +1505,7 @@ void glitch_ui::slotSelectionChanged(void)
 	(!m_currentView->scene()->selectedItems().empty());
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Select_All->setEnabled
-	(m_currentView->scene()->items().size() > 2);
+	(m_currentView->scene()->items().size() > 0);
     }
   else
     {
