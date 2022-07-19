@@ -65,6 +65,8 @@ glitch_view::glitch_view
   m_canvasSettings->prepare();
   m_changed = false;
   m_fileName = fileName;
+  m_generateTimer.setInterval(1500);
+  m_generateTimer.setSingleShot(true);
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
@@ -96,6 +98,10 @@ glitch_view::glitch_view
   m_view->setScene(m_scene);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  connect(&m_generateTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_view::slotGenerate);
   connect(m_alignment,
 	  &glitch_alignment::changed,
 	  this,
@@ -983,7 +989,7 @@ void glitch_view::slotChanged(void)
   m_changed = true;
 
   if(m_canvasSettings->generatePeriodically())
-    QTimer::singleShot(1500, this, SLOT(slotGenerate(void)));
+    m_generateTimer.start();
 
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(true);

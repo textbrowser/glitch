@@ -29,6 +29,7 @@
 #define _glitch_view_h_
 
 #include <QPointer>
+#include <QTimer>
 #include <QUndoStack>
 #include <QWidget>
 
@@ -123,6 +124,7 @@ class glitch_view: public QWidget
   QPointer<QPushButton> m_tabButton;
   QPointer<glitch_tools> m_tools;
   QString m_fileName;
+  QTimer m_generateTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   bool m_changed;
