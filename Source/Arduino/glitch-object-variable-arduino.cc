@@ -66,6 +66,7 @@ glitch_object_variable_arduino::~glitch_object_variable_arduino()
 
 QString glitch_object_variable_arduino::code(void) const
 {
+  auto array(m_ui.array->isChecked() ? "[]" : "");
   auto name(m_ui.name->text().trimmed());
   auto pointerAccess(m_ui.pointer_access->currentText());
   auto qualifier(m_ui.qualifier->currentText());
@@ -90,6 +91,7 @@ QString glitch_object_variable_arduino::code(void) const
 	return (qualifier +
 		" " +
 		type +
+		array +
 		" " +
 		pointerAccess +
 		name +
@@ -98,6 +100,7 @@ QString glitch_object_variable_arduino::code(void) const
 	return (qualifier +
 		" " +
 		type +
+		array +
 		" " +
 		pointerAccess +
 		name +
@@ -108,6 +111,7 @@ QString glitch_object_variable_arduino::code(void) const
     return (qualifier +
 	    " " +
 	    type +
+	    array +
 	    " " +
 	    pointerAccess +
 	    name +
@@ -241,6 +245,7 @@ void glitch_object_variable_arduino::save
 
   QMap<QString, QVariant> properties;
 
+  properties["variable_array"] = m_ui.array->isChecked();
   properties["variable_name"] = m_ui.name->text().trimmed();
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
@@ -259,17 +264,13 @@ void glitch_object_variable_arduino::setProperties
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("variable_array_index = "))
+      if(string.simplified().startsWith("variable_array = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::VARIABLE_ARRAY_INDEX] = string.trimmed();
-	}
-      else if(string.simplified().startsWith("variable_array_size = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::VARIABLE_ARRAY_SIZE] = string.trimmed();
+	  m_properties[Properties::VARIABLE_ARRAY] =
+	    QVariant(string.trimmed()).toBool();
+	  m_ui.array->setChecked(QVariant(string.trimmed()).toBool());
 	}
       else if(string.simplified().startsWith("variable_name = "))
 	{

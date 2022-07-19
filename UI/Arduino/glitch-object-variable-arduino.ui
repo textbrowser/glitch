@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
+    <width>400</width>
     <height>85</height>
    </rect>
   </property>
@@ -80,6 +80,22 @@
      </item>
      <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QToolButton" name="array">
+         <property name="toolTip">
+          <string>Check to make this variable an array.</string>
+         </property>
+         <property name="text">
+          <string>[ ]</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QComboBox" name="qualifier">
          <property name="toolTip">
@@ -175,19 +191,6 @@
          </item>
         </widget>
        </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </item>
     </layout>
@@ -197,6 +200,7 @@
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>value</tabstop>
+  <tabstop>array</tabstop>
   <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>

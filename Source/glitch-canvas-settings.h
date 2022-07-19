@@ -52,6 +52,7 @@ class glitch_canvas_settings: public QDialog
     OUTPUT_FILE,
     REDO_UNDO_STACK_SIZE,
     SHOW_CANVAS_DOTS,
+    SHOW_CANVAS_GRIDS,
     VIEW_UPDATE_MODE,
     WIRE_COLOR
   };
