@@ -145,6 +145,7 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_variable_arduino(parent);
 
   clone->m_properties = m_properties;
+  clone->m_ui.array->setChecked(clone->m_ui.array->isChecked());
   clone->m_ui.name->setText(m_ui.name->text().trimmed());
   clone->m_ui.name->selectAll();
   clone->m_ui.pointer_access->setCurrentIndex
