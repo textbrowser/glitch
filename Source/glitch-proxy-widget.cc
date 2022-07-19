@@ -187,12 +187,12 @@ void glitch_proxy_widget::paint
 	  else
 	    pen.setColor(QColor("orange"));
 
-	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setStyle(Qt::DotLine);
-	  pen.setWidthF(5.5);
+	  pen.setJoinStyle(Qt::RoundJoin);
+	  pen.setStyle(Qt::SolidLine);
+	  pen.setWidthF(5.0);
 	  painter->save();
 	  painter->setPen(pen);
-	  painter->drawRect(boundingRect());
+	  painter->drawRect(boundingRect().adjusted(1.5, 1.5, -1.5, -1.5));
 	  painter->restore();
 	}
 
