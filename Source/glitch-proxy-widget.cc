@@ -243,7 +243,7 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto rect(this->rect());
 
-	      path.addRect(rect.topLeft().x() - 11.0,
+	      path.addRect(rect.topLeft().x() - 5.5,
 			   rect.height() / 2.0 + rect.topLeft().y() - 5.0,
 			   10.0,
 			   10.0);
@@ -256,7 +256,7 @@ void glitch_proxy_widget::paint
 	      painter->save();
 	      painter->setPen(pen);
 	      painter->drawRect
-		(rect.topLeft().x() - 11.0,
+		(rect.topLeft().x() - 5.5,
 		 rect.height() / 2.0 + rect.topLeft().y() - 5.0,
 		 10.0,
 		 10.0);
@@ -272,7 +272,7 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto rect(this->rect());
 
-	      path.addRect(rect.topRight().x() + 1.0,
+	      path.addRect(rect.topRight().x() - 5.5,
 			   rect.height() / 2.0 + rect.topRight().y() - 5.0,
 			   10.0,
 			   10.0);
@@ -285,7 +285,7 @@ void glitch_proxy_widget::paint
 	      painter->save();
 	      painter->setPen(pen);
 	      painter->drawRect
-		(rect.topRight().x() + 1.0,
+		(rect.topRight().x() - 5.5,
 		 rect.height() / 2.0 + rect.topRight().y() - 5.0,
 		 10.0,
 		 10.0);
