@@ -16,6 +16,7 @@ Completed Items
 - Allow setting of function names.
 - Apply canvas settings.
 - Arithmetic and subtraction (-). Special parsing.
+- Arrays.
 - Assign new names to functions pasted on main canvases.
 - Canvas background color redo / undo.
 - Close a function's Objects Alignment dialog if its editing window is closed.
@@ -141,7 +142,6 @@ Remaining Items
   is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
-- Arrays.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O
@@ -167,7 +167,7 @@ Remaining Items
 - Modern Qt connect().
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Periodically generate and redo / undo.
+- Periodically-generated source and redo / undo.
 - Reopen (or reparent) child windows after a separation event.
 - Review lengthy tool tips.
 - Search structures.
