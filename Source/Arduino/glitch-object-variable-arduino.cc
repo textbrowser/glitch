@@ -52,7 +52,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 
   auto list(glitch_structures_arduino::variableTypes());
 
-  list.prepend(" ");
+  list.prepend("");
   list.removeAll("array");
   m_ui.type->addItems(list);
   prepareContextMenu();
@@ -74,8 +74,14 @@ QString glitch_object_variable_arduino::code(void) const
 
   if(array.isEmpty())
     {
+      // Non-arrays.
+
       if(type.isEmpty())
 	{
+	  /*
+	  ** The variable is not being defined.
+	  */
+
 	  if(inputs().isEmpty())
 	    return (name + ";").trimmed();
 	  else
@@ -103,7 +109,52 @@ QString glitch_object_variable_arduino::code(void) const
 	}
     }
   else
-    return "";
+    {
+      // Arrays.
+
+      if(type.isEmpty())
+	{
+	  if(inputs().size() == 2)
+	    return QString("%1[%2] = %3;").
+	      arg(name).
+	      arg(inputs().value(0)).
+	      arg(inputs().value(1));
+	  else
+	    return QString("%1[%2];").arg(name).arg(inputs().value(0));
+	}
+      else
+	{
+	  auto inputs(this->inputs());
+
+	  if(inputs.size() == 2)
+	    return QString("%1[%2] = %3;").
+	      arg(name).
+	      arg(inputs.value(0)).
+	      arg(inputs.value(1));
+	  else
+	    {
+	      if(inputs.value(0).startsWith("{"))
+		return (qualifier +
+			" " +
+			type +
+			" " +
+			pointerAccess +
+			name +
+			"[] = " +
+			inputs.value(0) + ";").trimmed();
+	      else
+		return (qualifier +
+			" " +
+			type +
+			" " +
+			pointerAccess +
+			name +
+			"[" +
+			inputs.value(0) +
+			"];").trimmed();
+	    }
+	}
+    }
 }
 
 bool glitch_object_variable_arduino::hasInput(void) const
@@ -113,7 +164,7 @@ bool glitch_object_variable_arduino::hasInput(void) const
 
 bool glitch_object_variable_arduino::hasOutput(void) const
 {
-  return true;
+  return m_ui.type->currentText().length() == 0;
 }
 
 bool glitch_object_variable_arduino::isFullyWired(void) const
@@ -127,7 +178,8 @@ bool glitch_object_variable_arduino::isFullyWired(void) const
 bool glitch_object_variable_arduino::shouldPrint(void) const
 {
   if(m_ui.array->isChecked())
-    return inputs().size() >= 1;
+    return inputs().size() == 2 ||
+      m_ui.type->currentText().trimmed().length() > 0;
   else
     return inputs().size() > 0;
 }
