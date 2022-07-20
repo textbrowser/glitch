@@ -213,17 +213,12 @@ QStringList glitch_object::inputs(void) const
   foreach(auto object, objects)
     if(object)
       {
-	if(object->type() != "arduino-variable")
-	  {
-	    auto code(object->code());
+	auto code(object->code());
 
-	    if(code.endsWith(';'))
-	      code = code.mid(0, code.length() - 1);
+	if(code.endsWith(';'))
+	  code = code.mid(0, code.length() - 1);
 
-	    inputs << code;
-	  }
-	else
-	  inputs << object->name();
+	inputs << code;
       }
 
   return inputs;
@@ -277,17 +272,12 @@ QStringList glitch_object::outputs(void) const
   foreach(auto object, objects)
     if(object)
       {
-	if(object->type() != "arduino-variable")
-	  {
-	    auto code(object->code());
+	auto code(object->code());
 
-	    if(code.endsWith(';'))
-	      code = code.mid(0, code.length() - 1);
+	if(code.endsWith(';'))
+	  code = code.mid(0, code.length() - 1);
 
-	    outputs << code;
-	  }
-	else
-	  outputs << object->name();
+	outputs << code;
       }
 
   return outputs;
