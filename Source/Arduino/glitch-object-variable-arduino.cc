@@ -114,7 +114,7 @@ QString glitch_object_variable_arduino::code(void) const
 
       if(type.isEmpty())
 	{
-	  if(inputs().size() == 2)
+	  if(inputs().size() >= 2)
 	    return QString("%1[%2] = %3;").
 	      arg(name).
 	      arg(inputs().value(0)).
@@ -126,11 +126,16 @@ QString glitch_object_variable_arduino::code(void) const
 	{
 	  auto inputs(this->inputs());
 
-	  if(inputs.size() == 2)
-	    return QString("%1[%2] = %3;").
-	      arg(name).
-	      arg(inputs.value(0)).
-	      arg(inputs.value(1));
+	  if(inputs.size() >= 2)
+	    return (qualifier +
+		    " " +
+		    type +
+		    " " +
+		    pointerAccess +
+		    name +
+		    "[" +
+		    inputs.value(0) +
+		    "];").trimmed();
 	  else
 	    {
 	      if(inputs.value(0).startsWith("{"))
@@ -164,7 +169,7 @@ bool glitch_object_variable_arduino::hasInput(void) const
 
 bool glitch_object_variable_arduino::hasOutput(void) const
 {
-  return m_ui.type->currentText().length() == 0;
+  return inputs().size() <= 1 && m_ui.type->currentText().length() == 0;
 }
 
 bool glitch_object_variable_arduino::isFullyWired(void) const
