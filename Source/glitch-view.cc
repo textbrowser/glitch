@@ -867,6 +867,9 @@ void glitch_view::push(glitch_undo_command *undoCommand)
 
 void glitch_view::redo(void)
 {
+  if(m_canvasSettings->generatePeriodically())
+    m_generateTimer.start();
+
   if(m_undoStack->canRedo())
     {
       m_changed = true;
@@ -1166,6 +1169,9 @@ void glitch_view::slotUnite(void)
 
 void glitch_view::undo(void)
 {
+  if(m_canvasSettings->generatePeriodically())
+    m_generateTimer.start();
+
   if(m_undoStack->canUndo())
     {
       m_changed = true;
