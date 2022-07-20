@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>350</width>
     <height>85</height>
    </rect>
   </property>
@@ -61,22 +61,6 @@
           <bool>true</bool>
          </property>
          <property name="autoRaise">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="value">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the variable's value to the provided value and press the Enter key to confirm. If a value is not provided, the variable will be set to the connected input value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string notr="true"/>
-         </property>
-         <property name="placeholderText">
-          <string>Variable Value</string>
-         </property>
-         <property name="clearButtonEnabled">
           <bool>true</bool>
          </property>
         </widget>
@@ -200,7 +184,6 @@
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>array</tabstop>
-  <tabstop>value</tabstop>
   <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>

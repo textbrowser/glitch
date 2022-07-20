@@ -87,7 +87,6 @@ class glitch_object: public QWidget
     VARIABLE_POINTER_ACCESS,
     VARIABLE_QUALIFIER,
     VARIABLE_TYPE,
-    VARIABLE_VALUE,
     XYZ_PROPERTY
   };
 

@@ -66,16 +66,15 @@ glitch_object_variable_arduino::~glitch_object_variable_arduino()
 
 QString glitch_object_variable_arduino::code(void) const
 {
-  auto array(m_ui.array->isChecked() ? "[]" : "");
+  auto array(m_ui.array->isChecked() ? QString("[]") : QString(""));
   auto name(m_ui.name->text().trimmed());
   auto pointerAccess(m_ui.pointer_access->currentText());
   auto qualifier(m_ui.qualifier->currentText());
   auto type(m_ui.type->currentText().trimmed());
-  auto value(m_ui.value->text().trimmed());
 
-  if(type.isEmpty())
+  if(array.isEmpty())
     {
-      if(value.isEmpty())
+      if(type.isEmpty())
 	{
 	  if(inputs().isEmpty())
 	    return (name + ";").trimmed();
@@ -83,40 +82,28 @@ QString glitch_object_variable_arduino::code(void) const
 	    return (name + " = " + inputs().value(0) + ";").trimmed();
 	}
       else
-	return (name + " = " + value + ";").trimmed();
-    }
-  else if(value.isEmpty())
-    {
-      if(inputs().isEmpty())
-	return (qualifier +
-		" " +
-		type +
-		" " +
-		pointerAccess +
-		name +
-		array +
-		";").trimmed();
-      else
-	return (qualifier +
-		" " +
-		type +
-		" " +
-		pointerAccess +
-		name +
-		array +
-		" = " +
-		inputs().value(0) + ";").trimmed();
+	{
+	  if(inputs().isEmpty())
+	    return (qualifier +
+		    " " +
+		    type +
+		    " " +
+		    pointerAccess +
+		    name +
+		    ";").trimmed();
+	  else
+	    return (qualifier +
+		    " " +
+		    type +
+		    " " +
+		    pointerAccess +
+		    name +
+		    " = " +
+		    inputs().value(0) + ";").trimmed();
+	}
     }
   else
-    return (qualifier +
-	    " " +
-	    type +
-	    " " +
-	    pointerAccess +
-	    name +
-	    array +
-	    " = " +
-	    value + ";").trimmed();
+    return "";
 }
 
 bool glitch_object_variable_arduino::hasInput(void) const
@@ -131,12 +118,18 @@ bool glitch_object_variable_arduino::hasOutput(void) const
 
 bool glitch_object_variable_arduino::isFullyWired(void) const
 {
-  return inputs().size() > 0 || m_ui.value->text().trimmed().length() > 0;
+  if(m_ui.array->isChecked())
+    return inputs().size() >= 1;
+  else
+    return inputs().size() > 0;
 }
 
 bool glitch_object_variable_arduino::shouldPrint(void) const
 {
-  return inputs().size() > 0 || m_ui.value->text().trimmed().length() > 0;
+  if(m_ui.array->isChecked())
+    return inputs().size() >= 1;
+  else
+    return inputs().size() > 0;
 }
 
 glitch_object_variable_arduino *glitch_object_variable_arduino::
@@ -145,15 +138,13 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_variable_arduino(parent);
 
   clone->m_properties = m_properties;
-  clone->m_ui.array->setChecked(clone->m_ui.array->isChecked());
+  clone->m_ui.array->setChecked(m_ui.array->isChecked());
   clone->m_ui.name->setText(m_ui.name->text().trimmed());
   clone->m_ui.name->selectAll();
   clone->m_ui.pointer_access->setCurrentIndex
     (m_ui.pointer_access->currentIndex());
   clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
   clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
-  clone->m_ui.value->setText(m_ui.value->text().trimmed());
-  clone->m_ui.value->selectAll();
   clone->connectSignals(true);
   clone->setName(clone->name());
   clone->setStyleSheet(styleSheet());
@@ -210,14 +201,13 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 	      this,
 	      &glitch_object_variable_arduino::slotComboBoxChanged,
 	      Qt::UniqueConnection);
-      connect(m_ui.value,
-	      &QLineEdit::returnPressed,
-	      this,
-	      &glitch_object_variable_arduino::slotLineEditSet,
-	      Qt::UniqueConnection);
     }
   else
     {
+      disconnect(m_ui.array,
+		 QOverload<bool>::of(&QToolButton::toggled),
+		 this,
+		 &glitch_object_variable_arduino::slotToolButtonChecked);
       disconnect(m_ui.name,
 		 &QLineEdit::returnPressed,
 		 this,
@@ -234,10 +224,6 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 		 QOverload<int>::of(&QComboBox::currentIndexChanged),
 		 this,
 		 &glitch_object_variable_arduino::slotComboBoxChanged);
-      disconnect(m_ui.value,
-		 &QLineEdit::returnPressed,
-		 this,
-		 &glitch_object_variable_arduino::slotLineEditSet);
     }
 }
 
@@ -256,7 +242,6 @@ void glitch_object_variable_arduino::save
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
   properties["variable_type"] = m_ui.type->currentText().trimmed();
-  properties["variable_value"] = m_ui.value->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -320,15 +305,6 @@ void glitch_object_variable_arduino::setProperties
 	  if(m_ui.type->currentIndex() < 0)
 	    m_ui.type->setCurrentIndex(0);
 	}
-      else if(string.simplified().startsWith("variable_value = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string = string.mid(string.indexOf('"') + 1);
-	  string = string.mid(0, string.lastIndexOf('"'));
-	  m_properties[Properties::VARIABLE_VALUE] = string.trimmed();
-	  m_ui.value->setText(string.trimmed());
-	  m_ui.value->selectAll();
-	}
     }
 
   connectSignals(true);
@@ -387,12 +363,6 @@ void glitch_object_variable_arduino::setProperty
 	m_ui.type->blockSignals(false);
 	break;
       }
-    case Properties::VARIABLE_VALUE:
-      {
-	m_ui.value->setText(value.toString().trimmed());
-	m_ui.value->selectAll();
-	break;
-      }
     default:
       {
 	break;
@@ -445,12 +415,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
   if(!m_undoStack)
     return;
 
-  auto property = glitch_object::Properties::XYZ_PROPERTY;
-
-  if(lineEdit == m_ui.name)
-    property = glitch_object::Properties::VARIABLE_NAME;
-  else
-    property = glitch_object::Properties::VARIABLE_VALUE;
+  auto property = glitch_object::Properties::VARIABLE_NAME;
 
   if(lineEdit->text() == m_properties.value(property).toString())
     return;
