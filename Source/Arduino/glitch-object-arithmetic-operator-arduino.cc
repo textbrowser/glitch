@@ -269,6 +269,7 @@ void glitch_object_arithmetic_operator_arduino::setProperty
 	m_ui.arithmetic_operator->setCurrentIndex
 	  (m_ui.arithmetic_operator->findText(value.toString()));
 	m_ui.arithmetic_operator->blockSignals(false);
+	setOperatorType(value.toString());
 	break;
       }
     default:
