@@ -1172,7 +1172,18 @@ void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
   if(!undoStack)
     return;
 
+  connect(undoStack,
+	  QOverload<bool>::of(&QUndoStack::cleanChanged),
+	  this,
+	  &glitch_view::slotUndoStackCleanChanged,
+	  Qt::UniqueConnection);
   m_undoStacks << undoStack;
+}
+
+void glitch_view::slotUndoStackCleanChanged(void)
+{
+  if(m_canvasSettings->generatePeriodically())
+    m_generateTimer.start();
 }
 
 void glitch_view::slotUnite(void)

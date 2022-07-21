@@ -79,6 +79,7 @@ Completed Items
 - Other constants.
 - Pass undo stack from top-level view to child views.
 - Paste in child views. Redo / undo.
+- Periodically-generated source and redo / undo.
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
@@ -168,7 +169,6 @@ Remaining Items
 - Modern Qt connect().
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Periodically-generated source and redo / undo.
 - Reopen (or reparent) child windows after a separation event.
 - Review lengthy tool tips.
 - Search structures.
