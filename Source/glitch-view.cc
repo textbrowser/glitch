@@ -80,6 +80,7 @@ glitch_view::glitch_view
   m_settings = m_canvasSettings->settings();
   m_tools = new glitch_tools(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
+  m_undoStacks << m_undoStack;
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
   m_view = new glitch_graphicsview(this);
@@ -153,9 +154,9 @@ glitch_view::glitch_view
 	  this,
 	  SIGNAL(selectionChanged(void)));
   connect(m_scene,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackChanged),
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
 	  this,
-	  QOverload<QUndoStack *>::of(&glitch_view::slotUndoStackChanged));
+	  QOverload<QUndoStack *>::of(&glitch_view::slotUndoStackCreated));
   connect
     (m_tools,
      QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
@@ -1166,13 +1167,12 @@ void glitch_view::slotToolsOperationChanged
   Q_UNUSED(operation);
 }
 
-void glitch_view::slotUndoStackChanged(QUndoStack *undoStack)
+void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
 {
   if(!undoStack)
     return;
 
-  if(m_canvasSettings->generatePeriodically())
-    m_generateTimer.start();  
+  m_undoStacks << undoStack;
 }
 
 void glitch_view::slotUnite(void)

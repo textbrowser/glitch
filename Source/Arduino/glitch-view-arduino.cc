@@ -71,6 +71,10 @@ glitch_view_arduino::glitch_view_arduino
 	  &glitch_object_loop_arduino::changed,
 	  this,
 	  &glitch_view_arduino::slotChanged);
+  connect(m_loopObject,
+	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	  m_scene,
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated));
   connect
     (m_scene,
      QOverload<const QString &, const bool>::of(&glitch_scene::functionAdded),
@@ -86,6 +90,10 @@ glitch_view_arduino::glitch_view_arduino
 	  &glitch_object_setup_arduino::changed,
 	  this,
 	  &glitch_view_arduino::slotChanged);
+  connect(m_setupObject,
+	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	  m_scene,
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated));
 }
 
 glitch_view_arduino::~glitch_view_arduino()

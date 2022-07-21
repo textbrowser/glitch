@@ -278,9 +278,9 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  QOverload<QObject *>::of(&glitch_scene::destroyed),
 	  Qt::UniqueConnection);
   connect(object,
-	  QOverload<QUndoStack *>::of(&glitch_object::undoStackChanged),
+	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
 	  this,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackChanged),
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
 	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,

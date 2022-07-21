@@ -179,11 +179,12 @@ class glitch_object: public QWidget
 
  protected slots:
   void slotSetStyleSheet(void);
+  void slotUndoStackCreated(void);
 
  signals:
   void changed(void);
   void deletedViaContextMenu(void);
-  void undoStackChanged(QUndoStack *undoStack);
+  void undoStackCreated(QUndoStack *undoStack);
 };
 
 #endif

@@ -556,13 +556,6 @@ void glitch_object::prepareContextMenu(void)
 
 void glitch_object::prepareEditSignals(const glitch_view *parentView)
 {
-  if(m_editView)
-    connect(m_editView,
-	    QOverload<QUndoStack *>::of(&glitch_object_view::undoStackChanged),
-	    this,
-	    QOverload<QUndoStack *>::of(&glitch_object::undoStackChanged),
-	    Qt::UniqueConnection);
-
   if(m_editView && m_editWindow)
     {
       connect(m_editView,
@@ -910,6 +903,12 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
   m_contextMenu->show();
+}
+
+void glitch_object::slotUndoStackCreated(void)
+{
+  if(m_editView)
+    emit undoStackCreated(m_editView->undoStack());
 }
 
 void glitch_object::slotWireDestroyed(void)

@@ -233,7 +233,6 @@ void glitch_object_view::slotRedo(void)
     {
       m_undoStack->redo();
       adjustScrollBars();
-      emit undoStackChanged(m_undoStack);
     }
 }
 
@@ -267,6 +266,5 @@ void glitch_object_view::slotUndo(void)
     {
       m_undoStack->undo();
       adjustScrollBars();
-      emit undoStackChanged(m_undoStack);
     }
 }

@@ -68,6 +68,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
   setName(m_ui.label->text());
+  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()

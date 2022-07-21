@@ -119,6 +119,7 @@ class glitch_view: public QWidget
   QAction *m_menuAction;
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
+  QList<QPointer<QUndoStack> > m_undoStacks;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
@@ -164,7 +165,7 @@ class glitch_view: public QWidget
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);
-  void slotUndoStackChanged(QUndoStack *undoStack);
+  void slotUndoStackCreated(QUndoStack *undoStack);
   void slotUnite(void);
 
  signals:

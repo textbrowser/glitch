@@ -488,6 +488,7 @@ void glitch_object_function_arduino::declone(void)
 	  Qt::UniqueConnection);
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(m_parentView));
+  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 void glitch_object_function_arduino::hideOrShowOccupied(void)
@@ -545,6 +546,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(m_parentView));
+  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
