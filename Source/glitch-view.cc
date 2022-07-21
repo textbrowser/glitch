@@ -1177,7 +1177,9 @@ void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
 	  this,
 	  &glitch_view::slotUndoStackCleanChanged,
 	  Qt::UniqueConnection);
-  m_undoStacks << undoStack;
+
+  if(!m_undoStacks.contains(undoStack))
+    m_undoStacks << undoStack;
 }
 
 void glitch_view::slotUndoStackCleanChanged(void)
