@@ -439,6 +439,12 @@ void glitch_object_flow_control_arduino::setProperty
 	prepareEditWindowHeader();
 	break;
       }
+    case Properties::FLOW_CONTROL_TYPE:
+      {
+	setFlowControlType(value.toString().trimmed());
+	prepareEditWindowHeader();
+	break;
+      }
     default:
       {
 	break;
@@ -448,7 +454,7 @@ void glitch_object_flow_control_arduino::setProperty
 
 void glitch_object_flow_control_arduino::setUndoStack(QUndoStack *undoStack)
 {
-  Q_UNUSED(undoStack);
+  m_undoStack = undoStack;
 }
 
 void glitch_object_flow_control_arduino::slotConditionChanged(void)

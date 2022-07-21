@@ -183,6 +183,7 @@ class glitch_object: public QWidget
  signals:
   void changed(void);
   void deletedViaContextMenu(void);
+  void undoStackChanged(QUndoStack *undoStack);
 };
 
 #endif

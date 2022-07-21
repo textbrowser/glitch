@@ -164,6 +164,7 @@ class glitch_view: public QWidget
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);
+  void slotUndoStackChanged(QUndoStack *undoStack);
   void slotUnite(void);
 
  signals:

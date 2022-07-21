@@ -258,24 +258,29 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   auto proxy = new glitch_proxy_widget();
 
   connect(object,
-	  SIGNAL(changed(void)),
+	  &glitch_object::changed,
 	  this,
-	  SIGNAL(changed(void)),
+	  &glitch_scene::changed,
 	  Qt::UniqueConnection);
   connect(object,
-	  SIGNAL(deletedViaContextMenu(void)),
+	  &glitch_object::deletedViaContextMenu,
 	  this,
-	  SLOT(slotObjectDeletedViaContextMenu(void)),
+	  &glitch_scene::slotObjectDeletedViaContextMenu,
 	  Qt::UniqueConnection);
   connect(object,
-	  SIGNAL(destroyed(QObject *)),
-	  this,
-	  SIGNAL(destroyed(QObject *)),
-	  Qt::UniqueConnection);
-  connect(object,
-	  SIGNAL(destroyed(void)),
+	  &glitch_object::destroyed,
 	  proxy,
-	  SLOT(deleteLater(void)),
+	  &glitch_proxy_widget::deleteLater,
+	  Qt::UniqueConnection);
+  connect(object,
+	  QOverload<QObject *>::of(&glitch_object::destroyed),
+	  this,
+	  QOverload<QObject *>::of(&glitch_scene::destroyed),
+	  Qt::UniqueConnection);
+  connect(object,
+	  QOverload<QUndoStack *>::of(&glitch_object::undoStackChanged),
+	  this,
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackChanged),
 	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,

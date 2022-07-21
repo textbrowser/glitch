@@ -88,6 +88,7 @@ class glitch_object_view: public QGraphicsView
   void closed(void);
   void copy(void);
   void paste(void);
+  void undoStackChanged(QUndoStack *undoStack);
 };
 
 #endif

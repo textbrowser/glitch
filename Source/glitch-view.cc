@@ -152,6 +152,10 @@ glitch_view::glitch_view
 	  SIGNAL(selectionChanged(void)),
 	  this,
 	  SIGNAL(selectionChanged(void)));
+  connect(m_scene,
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackChanged),
+	  this,
+	  QOverload<QUndoStack *>::of(&glitch_view::slotUndoStackChanged));
   connect
     (m_tools,
      QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
@@ -1160,6 +1164,15 @@ void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
   Q_UNUSED(operation);
+}
+
+void glitch_view::slotUndoStackChanged(QUndoStack *undoStack)
+{
+  if(!undoStack)
+    return;
+
+  if(m_canvasSettings->generatePeriodically())
+    m_generateTimer.start();  
 }
 
 void glitch_view::slotUnite(void)
