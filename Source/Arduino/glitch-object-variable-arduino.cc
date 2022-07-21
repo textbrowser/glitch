@@ -186,7 +186,8 @@ bool glitch_object_variable_arduino::shouldPrint(void) const
     return inputs().size() == 2 ||
       m_ui.type->currentText().trimmed().length() > 0;
   else
-    return inputs().size() > 0;
+    return inputs().size() > 0 ||
+      m_ui.type->currentText().trimmed().length() > 0;
 }
 
 glitch_object_variable_arduino *glitch_object_variable_arduino::
