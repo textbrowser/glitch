@@ -911,7 +911,15 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    }
 		  else
 		    {
-		      // Wire Mode
+		      auto instance = qobject_cast<QGuiApplication *>
+			(QApplication::instance());
+
+		      if(instance &&
+			 instance->keyboardModifiers() & Qt::ShiftModifier)
+			{
+			  wireDisconnectObjects(event->scenePos(), proxy);
+			  goto done_label;
+			}
 
 		      wireConnectObjects(proxy);
 		      goto done_label;
@@ -1300,9 +1308,7 @@ void glitch_scene::slotUndo(void)
 
 void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 {
-  if(!proxy ||
-     m_toolsOperation == glitch_tools::Operations::SELECT ||
-     m_toolsOperation == glitch_tools::Operations::WIRE_DISCONNECT)
+  if(!proxy)
     {
       m_objectsToWire.clear();
       return;
@@ -1382,7 +1388,7 @@ void glitch_scene::wireDisconnectObjects
 {
   Q_UNUSED(point);
 
-  if(!proxy || m_toolsOperation != glitch_tools::Operations::WIRE_DISCONNECT)
+  if(!proxy)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
