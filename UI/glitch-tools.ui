@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>450</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>288</width>
-        <height>368</height>
+        <height>446</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -48,7 +48,7 @@
           <item>
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Select or wire mode determined by proximity.</string>
+             <string>Connect, disconnect, or select. To disconnect, press and hold the Shift key and then click the desired object to disconnect.</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -182,22 +182,22 @@
          </layout>
         </widget>
        </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
