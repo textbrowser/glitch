@@ -28,7 +28,6 @@
 #ifndef _glitch_separated_diagram_window_h_
 #define _glitch_separated_diagram_window_h_
 
-#include <QMainWindow>
 #include <QPointer>
 
 #include "glitch-tools.h"

@@ -28,7 +28,6 @@
 #ifndef _glitch_floating_context_menu_h_
 #define _glitch_floating_context_menu_h_
 
-#include <QDialog>
 #include <QPointer>
 
 #include "ui_glitch-floating-context-menu.h"

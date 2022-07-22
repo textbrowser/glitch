@@ -28,7 +28,6 @@
 #ifndef _glitch_ui_h_
 #define _glitch_ui_h_
 
-#include <QMainWindow>
 #include <QMessageBox>
 #include <QPointer>
 

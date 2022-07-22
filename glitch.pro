@@ -6,7 +6,7 @@ purge.commands = find . -name '*~' -exec rm {} \\;
 CONFIG		+= qt release warn_on
 DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
-QT		+= gui sql widgets
+QT		+= gui printsupport sql widgets
 
 QMAKE_CLEAN	+= Glitch
 
@@ -112,6 +112,7 @@ RESOURCES   = Icons/icons.qrc
 UI_DIR      = temp/ui
 
 FORMS          += UI/glitch-canvas-settings.ui \
+                  UI/glitch-documentation.ui \
                   UI/glitch-errors-dialog.ui \
                   UI/glitch-floating-context-menu.ui \
                   UI/glitch-mainwindow.ui \
@@ -123,6 +124,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-canvas-settings.h \
+                  Source/glitch-documentation.h \
                   Source/glitch-floating-context-menu.h \
                   Source/glitch-graphicsview.h \
                   Source/glitch-object.h \
@@ -145,6 +147,7 @@ HEADERS	       += Source/glitch-alignment.h \
 SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
+                  Source/glitch-documentation.cc \
                   Source/glitch-graphicsview.cc \
                   Source/glitch-floating-context-menu.cc \
                   Source/glitch-main.cc \

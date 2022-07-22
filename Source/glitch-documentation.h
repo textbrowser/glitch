@@ -25,26 +25,35 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_user_functions_h_
-#define _glitch_user_functions_h_
+#ifndef _glitch_documentation_h_
+#define _glitch_documentation_h_
 
-#include "ui_glitch-user-functions.h"
+#include "ui_glitch-documentation.h"
 
-class glitch_user_functions: public QDialog
+class glitch_documentation: public QMainWindow
 {
   Q_OBJECT
 
  public:
-  glitch_user_functions(QWidget *parent);
-  ~glitch_user_functions();
-  bool contains(const QString &name) const;
-  void addFunction(const QString &name);
-  void deleteFunction(const QString &name);
-  void renameFunction(const QString &before, const QString &after);
-  void setProjectType(const glitch_common::ProjectTypes projectType);
+  glitch_documentation(const QUrl &url, QWidget *parent);
+  ~glitch_documentation();
+  void setAllowOpeningOfExternalLinks(const bool state);
+  void setHtml(const QString &html);
+
+ public slots:
+  void show(void);
 
  private:
-  Ui_glitch_user_functions m_ui;
+  QPalette m_originalFindPalette;
+  Ui_glitch_documentation m_ui;
+  bool m_openExternalLinks;
+  void connectSignals(void);
+
+ private slots:
+  void slotAnchorClicked(const QUrl &url);
+  void slotFind(void);
+  void slotFindText(void);
+  void slotPrint(void);
 };
 
 #endif

@@ -28,7 +28,6 @@
 #ifndef _glitch_canvas_settings_h_
 #define _glitch_canvas_settings_h_
 
-#include <QDialog>
 #include <QGraphicsView>
 
 #include "ui_glitch-canvas-settings.h"

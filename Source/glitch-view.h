@@ -31,7 +31,6 @@
 #include <QPointer>
 #include <QTimer>
 #include <QUndoStack>
-#include <QWidget>
 
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
