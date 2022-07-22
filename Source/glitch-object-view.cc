@@ -157,7 +157,7 @@ void glitch_object_view::push(glitch_undo_command *undoCommand)
 
 void glitch_object_view::resizeEvent(QResizeEvent *event)
 {
-  QWidget::resizeEvent(event);
+  QGraphicsView::resizeEvent(event);
   setSceneRect(size());
 }
 
