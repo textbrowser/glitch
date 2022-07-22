@@ -98,6 +98,12 @@ class glitch_object: public QWidget
   QString type(void) const;
   bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
+
+  bool isWired(void) const
+  {
+    return inputs().size() > 0 || outputs().size() > 0;
+  }
+
   qint64 id(void) const;
 
   glitch_floating_context_menu *contextMenu(void) const

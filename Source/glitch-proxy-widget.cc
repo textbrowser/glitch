@@ -80,6 +80,14 @@ bool glitch_proxy_widget::isMovable(void) const
   return QGraphicsItem::ItemIsMovable & flags();
 }
 
+bool glitch_proxy_widget::isWired(void) const
+{
+  if(m_object)
+    return m_object->isWired();
+  else
+    return true;
+}
+
 glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
 {
   return m_hoveredSection;
