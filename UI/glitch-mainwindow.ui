@@ -277,6 +277,9 @@
    <property name="text">
     <string>&amp;Tools...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="action_Generate_Source">
    <property name="text">
