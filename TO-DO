@@ -169,6 +169,7 @@ Remaining Items
 - Modern Qt connect().
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
+- Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
 - Review lengthy tool tips.
 - Search structures.
