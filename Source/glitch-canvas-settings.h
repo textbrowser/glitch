@@ -69,6 +69,7 @@ class glitch_canvas_settings: public QDialog
   bool generatePeriodically(void) const;
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
+  bool showCanvasGrids(void) const;
   int redoUndoStackSize(void) const;
   void prepare(void);
   void setFileName(const QString &fileName);

@@ -128,6 +128,7 @@ settings(void) const
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
+  hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
 
   switch(m_ui.update_mode->currentIndex())
     {
@@ -214,6 +215,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
+	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart')), "
@@ -276,6 +278,11 @@ bool glitch_canvas_settings::save(QString &error) const
 bool glitch_canvas_settings::showCanvasDots(void) const
 {
   return m_settings.value(Settings::SHOW_CANVAS_DOTS).toBool();
+}
+
+bool glitch_canvas_settings::showCanvasGrids(void) const
+{
+  return m_settings.value(Settings::SHOW_CANVAS_GRIDS).toBool();
 }
 
 int glitch_canvas_settings::redoUndoStackSize(void) const
