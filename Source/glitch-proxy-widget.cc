@@ -351,6 +351,16 @@ void glitch_proxy_widget::paint
 	      if(operation == glitch_tools::Operations::INTELLIGENT ||
 		 operation == glitch_tools::Operations::WIRE_CONNECT)
 		{
+		  if(operation == glitch_tools::Operations::INTELLIGENT)
+		    {
+		      auto instance = qobject_cast<QGuiApplication *>
+			(QApplication::instance());
+
+		      if(instance &&
+			 instance->keyboardModifiers() & Qt::ShiftModifier)
+			return;
+		    }
+
 		  /*
 		  ** Draw wiring order text.
 		  */
