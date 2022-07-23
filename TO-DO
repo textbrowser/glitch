@@ -100,6 +100,7 @@ Completed Items
 - Reset object order on delete / redo / undo.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
+- Review lengthy tool tips.
 - Save As.
 - Save button on tab.
 - Save canvas settings.
@@ -173,7 +174,6 @@ Remaining Items
 - Percolate redo / undo of functions through child views.
 - Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
-- Review lengthy tool tips.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Set focus on plain-text-edit during mouse-press event.

@@ -370,7 +370,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  SLOT(slotSelectPage(void)));
   m_ui.tab->addTab(view, view->menuAction()->icon(), name);
   m_ui.tab->setCurrentWidget(view);
-  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), name);
+  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), "<html>" + name + "</html>");
   prepareActionWidgets();
   prepareStatusBar();
   setWindowTitle(view);
@@ -930,7 +930,7 @@ void glitch_ui::setTabText(glitch_view *view)
   else
     m_ui.tab->setTabText(index, view->name());
 
-  m_ui.tab->setTabToolTip(index, view->name());
+  m_ui.tab->setTabToolTip(index, "<html>" + view->name() + "</html>");
 }
 
 void glitch_ui::setWindowTitle(glitch_view *view)
