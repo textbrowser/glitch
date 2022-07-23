@@ -59,7 +59,7 @@
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 
-static bool order_less_than(glitch_object *o1, glitch_object *o2)
+inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
 {
   if(!o1 || !o1->proxy() || !o1->scene() || !o2 || !o2->proxy() || !o2->scene())
     return false;

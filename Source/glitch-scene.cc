@@ -54,6 +54,19 @@
 #include "glitch-undo-command.h"
 #include "glitch-wire.h"
 
+inline static qreal round(const qreal s, const qreal value)
+{
+  auto step = s;
+
+  if(!(step < 0.0 || step > 0.0))
+    step = 20.0;
+
+  auto tmp = static_cast<int> (value + step / 2.0);
+
+  tmp -= tmp % static_cast<int> (step);
+  return static_cast<qreal> (tmp);
+}
+
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
@@ -599,13 +612,55 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 	(static_cast<int> (rect.left()) % 20);
       auto top = static_cast<qreal> (rect.top()) -
 	(static_cast<int> (rect.top()) % 20);
-      const int gridSize = 20;
+      const qreal step = 20.0;
 
-      for(auto x = left; std::isless(x, rect.right()); x += gridSize)
-	for(auto y = top; std::isless(y, rect.bottom()); y += gridSize)
+      for(auto x = left; std::isless(x, rect.right()); x += step)
+	for(auto y = top; std::isless(y, rect.bottom()); y += step)
 	  points << QPointF(x, y);
 
       painter->drawPoints(points.data(), points.size());
+    }
+  else
+    {
+      QPen pen;
+      auto color(m_dotsGridsColor);
+      qreal step = 25.0;
+
+      pen.setWidthF(1.25);
+
+      for(int i = 1; i <= 2; i++)
+	{
+	  if(i == 1)
+	    {
+	      color.setAlpha(50);
+	      pen.setStyle(Qt::DashLine);
+	    }
+	  else
+	    {
+	      color.setAlpha(100);
+	      pen.setStyle(Qt::SolidLine);
+	      step = 100.0;
+	    }
+
+	  pen.setBrush(color);
+	  painter->setPen(pen);
+
+	  auto start = round(step, rect.left());
+
+	  if(rect.left() < start)
+	    start -= step;
+
+	  for(auto x = start - step; x < rect.right(); x += step)
+	    painter->drawLine(x, rect.top(), x, rect.bottom());
+
+	  start = round(step, rect.top());
+
+	  if(rect.top() < start)
+	    start -= step;
+
+	  for(auto y = start - step; y < rect.bottom(); y += step)
+	    painter->drawLine(rect.left(), y, rect.right(), y);
+	}
     }
 }
 
