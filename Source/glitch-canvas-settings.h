@@ -46,7 +46,7 @@ class glitch_canvas_settings: public QDialog
   {
     CANVAS_BACKGROUND_COLOR = 0,
     CANVAS_NAME,
-    DOTS_COLOR,
+    DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
     OUTPUT_FILE,
     REDO_UNDO_STACK_SIZE,
@@ -59,7 +59,7 @@ class glitch_canvas_settings: public QDialog
   glitch_canvas_settings(QWidget *parent);
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
-  QColor dotsColor(void) const;
+  QColor dotsGridsColor(void) const;
   QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;

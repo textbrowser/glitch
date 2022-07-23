@@ -81,14 +81,14 @@ class glitch_scene: public QGraphicsScene
   void purgeRedoUndoProxies(void);
   void removeItem(QGraphicsItem *item);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
-  void setDotsColor(const QColor &color);
+  void setDotsGridsColor(const QColor &color);
   void setMainScene(const bool state);
-  void setShowDots(const bool state);
-  void setShowGrids(const bool state);
+  void setShowCanvasDots(const bool state);
+  void setShowCanvasGrids(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
  private:
-  QColor m_dotsColor;
+  QColor m_dotsGridsColor;
   QHash<QString, QPointer<glitch_proxy_widget> > m_objectsToWire;
   QHash<glitch_proxy_widget *, glitch_point> m_objectsHash; // For ordering.
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
@@ -99,8 +99,8 @@ class glitch_scene: public QGraphicsScene
   QPointer<glitch_canvas_settings> m_canvasSettings;
   QSet<glitch_wire *> m_wires;
   bool m_mainScene;
-  bool m_showDots;
-  bool m_showGrids;
+  bool m_showCanvasDots;
+  bool m_showCanvasGrids;
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;

@@ -102,15 +102,15 @@
          <item>
           <widget class="QLabel" name="label_6">
            <property name="text">
-            <string>&amp;Dots Color</string>
+            <string>&amp;Dots / Grids Color</string>
            </property>
            <property name="buddy">
-            <cstring>dots_color</cstring>
+            <cstring>dots_grids_color</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="dots_color">
+          <widget class="QPushButton" name="dots_grids_color">
            <property name="text">
             <string notr="true"/>
            </property>
@@ -264,23 +264,38 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="show_canvas_dots">
-         <property name="text">
-          <string>&amp;Show Canvas Dots</string>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
          </property>
-         <property name="checked">
-          <bool>true</bool>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="show_canvas_grids">
-         <property name="text">
-          <string>&amp;Show Canvas Grids</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="show_canvas_dots">
+            <property name="text">
+             <string>&amp;Show Canvas Dots</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="show_canvas_grids">
+            <property name="text">
+             <string>&amp;Show Canvas Grids</string>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -413,7 +428,7 @@
   <tabstop>scrollArea</tabstop>
   <tabstop>background_color</tabstop>
   <tabstop>name</tabstop>
-  <tabstop>dots_color</tabstop>
+  <tabstop>dots_grids_color</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>output_file</tabstop>
   <tabstop>select_output_file</tabstop>
@@ -461,4 +476,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

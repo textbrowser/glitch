@@ -73,10 +73,10 @@ glitch_view::glitch_view
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QColor(0, 170, 255));
   m_scene->setCanvasSettings(m_canvasSettings);
-  m_scene->setDotsColor(Qt::white);
+  m_scene->setDotsGridsColor(Qt::white);
   m_scene->setMainScene(true);
-  m_scene->setShowDots(m_canvasSettings->showCanvasDots());
-  m_scene->setShowGrids(m_canvasSettings->showCanvasGrids());
+  m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
+  m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
   m_tools = new glitch_tools(this);
@@ -967,9 +967,9 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   auto hash(m_settings);
 
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
-  m_scene->setDotsColor(m_canvasSettings->dotsColor());
-  m_scene->setShowDots(m_canvasSettings->showCanvasDots());
-  m_scene->setShowGrids(m_canvasSettings->showCanvasGrids());
+  m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
+  m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
+  m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_settings = m_canvasSettings->settings();
 
   if(m_undoStack->count() == 0)

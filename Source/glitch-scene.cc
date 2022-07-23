@@ -57,11 +57,11 @@
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
-  m_dotsColor = Qt::white;
+  m_dotsGridsColor = Qt::white;
   m_mainScene = false;
   m_projectType = projectType;
-  m_showDots = true;
-  m_showGrids = true;
+  m_showCanvasDots = true;
+  m_showCanvasGrids = !m_showCanvasDots;
   m_toolsOperation = glitch_tools::Operations::INTELLIGENT;
   m_undoStack = nullptr;
   setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -583,18 +583,14 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
       return;
     }
 
-  if(m_showDots)
+  painter->fillRect(rect, backgroundBrush());
+  painter->setBrushOrigin(0, 0);
+
+  if(m_showCanvasDots)
     {
-      /*
-      ** Here be magical points!
-      */
-
-      painter->fillRect(rect, backgroundBrush());
-      painter->setBrushOrigin(0, 0);
-
       QPen pen;
 
-      pen.setBrush(m_dotsColor);
+      pen.setBrush(m_dotsGridsColor);
       pen.setWidthF(1.25);
       painter->setPen(pen);
 
@@ -1156,12 +1152,12 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
   slotCanvasSettingsChanged(false);
 }
 
-void glitch_scene::setDotsColor(const QColor &color)
+void glitch_scene::setDotsGridsColor(const QColor &color)
 {
   if(color.isValid())
-    m_dotsColor = color;
+    m_dotsGridsColor = color;
   else
-    m_dotsColor = Qt::white;
+    m_dotsGridsColor = Qt::white;
 }
 
 void glitch_scene::setMainScene(const bool state)
@@ -1169,14 +1165,16 @@ void glitch_scene::setMainScene(const bool state)
   m_mainScene = state;
 }
 
-void glitch_scene::setShowDots(const bool state)
+void glitch_scene::setShowCanvasDots(const bool state)
 {
-  m_showDots = state;
+  m_showCanvasDots = state;
+  m_showCanvasGrids = !state;
 }
 
-void glitch_scene::setShowGrids(const bool state)
+void glitch_scene::setShowCanvasGrids(const bool state)
 {
-  m_showGrids = state;
+  m_showCanvasDots = !state;
+  m_showCanvasGrids = state;
 }
 
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
@@ -1203,9 +1201,9 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
 	wire->setColor(m_canvasSettings->wireColor());
     }
 
-  m_dotsColor = m_canvasSettings->dotsColor();
-  m_showDots = m_canvasSettings->showCanvasDots();
-  m_showGrids = m_canvasSettings->showCanvasGrids();
+  m_dotsGridsColor = m_canvasSettings->dotsGridsColor();
+  m_showCanvasDots = m_canvasSettings->showCanvasDots();
+  m_showCanvasGrids = !m_showCanvasDots;
   setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   update();
   QApplication::restoreOverrideCursor();

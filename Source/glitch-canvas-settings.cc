@@ -50,8 +50,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
     (QString("QPushButton {background-color: %1}").
      arg(QColor(0, 170, 255).name()));
   m_ui.background_color->setText(QColor(0, 170, 255).name());
-  m_ui.dots_color->setStyleSheet("QPushButton {background-color: white}");
-  m_ui.dots_color->setText(QColor(Qt::white).name());
+  m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
+  m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_type->setEnabled(false);
   m_ui.wire_color->setStyleSheet
@@ -70,7 +70,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(accept(void)));
-  connect(m_ui.dots_color,
+  connect(m_ui.dots_grids_color,
 	  SIGNAL(clicked(void)),
 	  this,
 	  SLOT(slotSelectColor(void)));
@@ -95,9 +95,9 @@ QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 		toString().remove('&').trimmed());
 }
 
-QColor glitch_canvas_settings::dotsColor(void) const
+QColor glitch_canvas_settings::dotsGridsColor(void) const
 {
-  return QColor(m_settings.value(Settings::DOTS_COLOR).
+  return QColor(m_settings.value(Settings::DOTS_GRIDS_COLOR).
 		toString().remove('&').trimmed());
 }
 
@@ -122,7 +122,8 @@ settings(void) const
   hash[Settings::CANVAS_BACKGROUND_COLOR] =
     m_ui.background_color->text().remove('&').trimmed();
   hash[Settings::CANVAS_NAME] = m_ui.name->text().trimmed();
-  hash[Settings::DOTS_COLOR] = m_ui.dots_color->text().remove('&').trimmed();
+  hash[Settings::DOTS_GRIDS_COLOR] =
+    m_ui.dots_grids_color->text().remove('&').trimmed();
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
@@ -207,7 +208,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.exec
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
-	   "dots_color TEXT NOT NULL, "
+	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
@@ -231,7 +232,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
-	   "dots_color, "
+	   "dots_grids_color, "
 	   "generate_periodically, "
 	   "name, "
 	   "output_file, "
@@ -243,7 +244,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color) "
 	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
-	query.addBindValue(m_ui.dots_color->text().remove('&'));
+	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
 
 	auto name(m_ui.name->text().trimmed());
@@ -332,7 +333,7 @@ void glitch_canvas_settings::prepare(void)
 
 	if(query.exec(QString("SELECT "
 			      "SUBSTR(background_color, 1, 50), "
-			      "SUBSTR(dots_color, 1, 50), "
+			      "SUBSTR(dots_grids_color, 1, 50), "
 			      "generate_periodically, "
 			      "SUBSTR(name, 1, %1), "
 			      "SUBSTR(output_file, 1, 5000), "
@@ -347,7 +348,7 @@ void glitch_canvas_settings::prepare(void)
 	   query.next())
 	  {
 	    QColor color;
-	    QColor dotsColor;
+	    QColor dotsGridsColor;
 	    QColor wireColor;
 	    QString name("");
 	    QString outputFile("");
@@ -366,8 +367,8 @@ void glitch_canvas_settings::prepare(void)
 		if(fieldName.contains("background_color"))
 		  color = QColor
 		    (record.value(i).toString().remove('&').trimmed());
-		else if(fieldName.contains("dots_color"))
-		  dotsColor = QColor
+		else if(fieldName.contains("dots_grids_color"))
+		  dotsGridsColor = QColor
 		    (record.value(i).toString().remove('&').trimmed());
 		else if(fieldName.contains("generate_periodically"))
 		  generatePeriodically = record.value(i).toBool();
@@ -393,16 +394,16 @@ void glitch_canvas_settings::prepare(void)
 	    if(!color.isValid())
 	      color = QColor(0, 170, 255);
 
-	    if(!dotsColor.isValid())
-	      dotsColor = QColor(Qt::white);
+	    if(!dotsGridsColor.isValid())
+	      dotsGridsColor = QColor(Qt::white);
 
 	    m_ui.background_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").arg(color.name()));
 	    m_ui.background_color->setText(color.name());
-	    m_ui.dots_color->setStyleSheet
+	    m_ui.dots_grids_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").
-	       arg(dotsColor.name()));
-	    m_ui.dots_color->setText(dotsColor.name());
+	       arg(dotsGridsColor.name()));
+	    m_ui.dots_grids_color->setText(dotsGridsColor.name());
 	    m_ui.generate_periodically->setChecked(generatePeriodically);
 
 	    if(name.isEmpty())
@@ -494,10 +495,10 @@ void glitch_canvas_settings::setSettings
     (QString("QPushButton {background-color: %1}").arg(color.name()));
   m_ui.background_color->setText(color.name());
   color = QColor
-    (hash.value(Settings::DOTS_COLOR).toString().remove('&').trimmed());
-  m_ui.dots_color->setStyleSheet
+    (hash.value(Settings::DOTS_GRIDS_COLOR).toString().remove('&').trimmed());
+  m_ui.dots_grids_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").arg(color.name()));
-  m_ui.dots_color->setText(color.name());
+  m_ui.dots_grids_color->setText(color.name());
   m_ui.generate_periodically->setChecked
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
   m_ui.redo_undo_stack_size->setValue
@@ -580,8 +581,8 @@ void glitch_canvas_settings::slotSelectColor(void)
 
   if(button == m_ui.background_color)
     dialog.setCurrentColor(QColor(m_ui.background_color->text().remove('&')));
-  else if(button == m_ui.dots_color)
-    dialog.setCurrentColor(QColor(m_ui.dots_color->text().remove('&')));
+  else if(button == m_ui.dots_grids_color)
+    dialog.setCurrentColor(QColor(m_ui.dots_grids_color->text().remove('&')));
   else
     dialog.setCurrentColor(QColor(m_ui.wire_color->text().remove('&')));
 
