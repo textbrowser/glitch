@@ -688,6 +688,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
   properties["position_locked"] = m_properties.value
     (Properties::POSITION_LOCKED).toBool();
+  properties["size"] = QString("(%1, %2)").
+    arg(size().width()).arg(size().height());
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -764,18 +766,38 @@ void glitch_object::setProperties(const QStringList &list)
 	}
       else if(string.simplified().startsWith("name = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  string = string.mid
-	    (0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
-	  m_properties[Properties::NAME] = string.trimmed();
+	  if(!isMandatory())
+	    {
+	      string = string.mid(string.indexOf('=') + 1);
+	      string.remove("\"");
+	      string = string.mid
+		(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
+	      m_properties[Properties::NAME] = string.trimmed();
+	    }
 	}
       else if(string.simplified().startsWith("position_locked = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::POSITION_LOCKED] =
-	    QVariant(string.trimmed()).toBool();
+	  if(!isMandatory())
+	    {
+	      string = string.mid(string.indexOf('=') + 1);
+	      string.remove("\"");
+	      m_properties[Properties::POSITION_LOCKED] =
+		QVariant(string.trimmed()).toBool();
+	    }
+	}
+      else if(string.simplified().startsWith("size = "))
+	{
+	  if(!isMandatory())
+	    {
+	      string = string.mid(string.indexOf('=') + 1);
+	      string.remove('"').remove('(').remove(')');
+
+	      QSize size(this->size());
+
+	      size.setWidth
+		(qBound(100, string.split(',').value(0).toInt(), 500));
+	      resize(size);
+	    }
 	}
     }
 
@@ -798,6 +820,11 @@ void glitch_object::setProperty(const Properties property,
 	if(m_proxy)
 	  m_proxy->setFlag(QGraphicsItem::ItemIsMovable, !value.toBool());
 
+	break;
+      }
+    case Properties::SIZE:
+      {
+	resize(value.toSize());
 	break;
       }
     default:
@@ -857,7 +884,29 @@ void glitch_object::simulateDelete(void)
 
 void glitch_object::slotAdjustSize(void)
 {
+  auto before(size());
+
   resize(sizeHint().width(), height());
+
+  if(before == this->size())
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(size(),
+	 before,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_object::Properties::SIZE,
+	 this);
+
+      undoCommand->setText
+	(tr("object size changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+
+  emit changed();
 }
 
 void glitch_object::slotLockPosition(void)

@@ -82,6 +82,7 @@ class glitch_object: public QWidget
     NAME,
     POSITION_LOCKED,
     SERIAL_TYPE,
+    SIZE,
     TIME_TYPE,
     VARIABLE_ARRAY,
     VARIABLE_NAME,
