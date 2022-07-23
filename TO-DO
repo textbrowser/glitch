@@ -52,6 +52,7 @@ Completed Items
 - Do not clone pasted functions without parents unless they already exist.
 - Do not delete function duplicates if one duplicate is removed.
 - Do not discover parent functions for copied functions.
+- Dots and grids.
 - Dragging an item onto a diagram and scroll bars.
 - Draw input and output connectors.
 - Edit window icons.
@@ -157,7 +158,6 @@ Remaining Items
   Time
 - Copy children?
 - Custom shortcuts.
-- Dots and grids.
 - Draw disconnect symbols.
 - Find objects.
 - Function input parameters.
