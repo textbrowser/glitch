@@ -79,6 +79,7 @@ class glitch_canvas_settings: public QDialog
   void setSettings
     (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
   void setShowCanvasDots(const bool state);
+  void setShowCanvasGrids(const bool state);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:

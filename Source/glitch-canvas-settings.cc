@@ -238,9 +238,10 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_type, "
 	   "redo_undo_stack_size, "
 	   "show_canvas_dots, "
+	   "show_canvas_grids, "
 	   "update_mode, "
 	   "wire_color) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -255,6 +256,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
+	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue
 	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
@@ -329,16 +331,17 @@ void glitch_canvas_settings::prepare(void)
 	query.setForwardOnly(true);
 
 	if(query.exec(QString("SELECT "
-			      "SUBSTR(background_color, 1, 50), " // 0
-			      "SUBSTR(dots_color, 1, 50), "       // 1
-			      "generate_periodically, "           // 2
-			      "SUBSTR(name, 1, %1), "             // 3
-			      "SUBSTR(output_file, 1, 5000), "    // 4
-			      "SUBSTR(project_type, 1, 50), "     // 5
-			      "redo_undo_stack_size, "            // 6
-			      "show_canvas_dots, "                // 7
-			      "SUBSTR(update_mode, 1, 100), "     // 8
-			      "SUBSTR(wire_color, 1, 50) "        // 9
+			      "SUBSTR(background_color, 1, 50), "
+			      "SUBSTR(dots_color, 1, 50), "
+			      "generate_periodically, "
+			      "SUBSTR(name, 1, %1), "
+			      "SUBSTR(output_file, 1, 5000), "
+			      "SUBSTR(project_type, 1, 50), "
+			      "redo_undo_stack_size, "
+			      "show_canvas_dots, "
+			      "show_canvas_grids, "
+			      "SUBSTR(update_mode, 1, 100), "
+			      "SUBSTR(wire_color, 1, 50) "
 			      "FROM canvas_settings").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
 	   query.next())
@@ -353,6 +356,7 @@ void glitch_canvas_settings::prepare(void)
 	    auto generatePeriodically = false;
 	    auto record(query.record());
 	    auto showCanvasDots = true;
+	    auto showCanvasGrids = true;
 	    int redoUndoStackSize = 0;
 
 	    for(int i = 0; i < record.count(); i++)
@@ -377,6 +381,8 @@ void glitch_canvas_settings::prepare(void)
 		  redoUndoStackSize = record.value(i).toInt();
 		else if(fieldName.contains("show_canvas_dots"))
 		  showCanvasDots = record.value(i).toBool();
+		else if(fieldName.contains("show_canvas_grids"))
+		  showCanvasGrids = record.value(i).toBool();
 		else if(fieldName.contains("update_mode"))
 		  updateMode = record.value(i).toString().trimmed();
 		else if(fieldName.contains("wire_color"))
@@ -416,6 +422,7 @@ void glitch_canvas_settings::prepare(void)
 
 	    m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
 	    m_ui.show_canvas_dots->setChecked(showCanvasDots);
+	    m_ui.show_canvas_grids->setChecked(showCanvasGrids);
 	    m_ui.update_mode->setCurrentIndex
 	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
 
@@ -504,6 +511,7 @@ void glitch_canvas_settings::setSettings
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
+  setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
 						  VIEW_UPDATE_MODE).toInt()));
@@ -513,6 +521,11 @@ void glitch_canvas_settings::setSettings
 void glitch_canvas_settings::setShowCanvasDots(const bool state)
 {
   m_ui.show_canvas_dots->setChecked(state);
+}
+
+void glitch_canvas_settings::setShowCanvasGrids(const bool state)
+{
+  m_ui.show_canvas_grids->setChecked(state);
 }
 
 void glitch_canvas_settings::setViewportUpdateMode

@@ -61,6 +61,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
   m_mainScene = false;
   m_projectType = projectType;
   m_showDots = true;
+  m_showGrids = true;
   m_toolsOperation = glitch_tools::Operations::INTELLIGENT;
   m_undoStack = nullptr;
   setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -576,37 +577,40 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-  if(!m_showDots || !painter)
+  if(!painter)
     {
       QGraphicsScene::drawBackground(painter, rect);
       return;
     }
 
-  /*
-  ** Here be magical points!
-  */
+  if(m_showDots)
+    {
+      /*
+      ** Here be magical points!
+      */
 
-  painter->fillRect(rect, backgroundBrush());
-  painter->setBrushOrigin(0, 0);
+      painter->fillRect(rect, backgroundBrush());
+      painter->setBrushOrigin(0, 0);
 
-  QPen pen;
+      QPen pen;
 
-  pen.setBrush(m_dotsColor);
-  pen.setWidthF(1.25);
-  painter->setPen(pen);
+      pen.setBrush(m_dotsColor);
+      pen.setWidthF(1.25);
+      painter->setPen(pen);
 
-  QVector<QPointF> points;
-  auto left = static_cast<qreal> (rect.left()) -
-    (static_cast<int> (rect.left()) % 20);
-  auto top = static_cast<qreal> (rect.top()) -
-    (static_cast<int> (rect.top()) % 20);
-  const int gridSize = 20;
+      QVector<QPointF> points;
+      auto left = static_cast<qreal> (rect.left()) -
+	(static_cast<int> (rect.left()) % 20);
+      auto top = static_cast<qreal> (rect.top()) -
+	(static_cast<int> (rect.top()) % 20);
+      const int gridSize = 20;
 
-  for(auto x = left; std::isless(x, rect.right()); x += gridSize)
-    for(auto y = top; std::isless(y, rect.bottom()); y += gridSize)
-      points << QPointF(x, y);
+      for(auto x = left; std::isless(x, rect.right()); x += gridSize)
+	for(auto y = top; std::isless(y, rect.bottom()); y += gridSize)
+	  points << QPointF(x, y);
 
-  painter->drawPoints(points.data(), points.size());
+      painter->drawPoints(points.data(), points.size());
+    }
 }
 
 void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
@@ -1170,6 +1174,11 @@ void glitch_scene::setShowDots(const bool state)
   m_showDots = state;
 }
 
+void glitch_scene::setShowGrids(const bool state)
+{
+  m_showGrids = state;
+}
+
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
@@ -1196,6 +1205,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
 
   m_dotsColor = m_canvasSettings->dotsColor();
   m_showDots = m_canvasSettings->showCanvasDots();
+  m_showGrids = m_canvasSettings->showCanvasGrids();
   setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   update();
   QApplication::restoreOverrideCursor();

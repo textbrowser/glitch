@@ -84,6 +84,7 @@ class glitch_scene: public QGraphicsScene
   void setDotsColor(const QColor &color);
   void setMainScene(const bool state);
   void setShowDots(const bool state);
+  void setShowGrids(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
  private:
@@ -99,6 +100,7 @@ class glitch_scene: public QGraphicsScene
   QSet<glitch_wire *> m_wires;
   bool m_mainScene;
   bool m_showDots;
+  bool m_showGrids;
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
