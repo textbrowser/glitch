@@ -49,7 +49,8 @@ class glitch_object: public QWidget
  public:
   enum DefaultMenuActions
   {
-    DELETE = 0,
+    ADJUST_SIZE = 0,
+    DELETE,
     EDIT,
     LOCK_POSITION,
     SET_FUNCTION_NAME,
@@ -147,6 +148,7 @@ class glitch_object: public QWidget
   static qint64 s_id;
 
  private slots:
+  void slotAdjustSize(void);
   void slotLockPosition(void);
   void slotShowContextMenu(void);
   void slotWireDestroyed(void);

@@ -67,6 +67,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	checkBox->setEnabled(actions.at(i)->isEnabled());
 	checkBox->setIcon(actions.at(i)->icon());
 	checkBox->setText(actions.at(i)->text());
+	checkBox->setToolTip(actions.at(i)->toolTip());
 	connect(actions.at(i),
 		QOverload<bool>::of(&QAction::toggled),
 		checkBox,
@@ -90,6 +91,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 	pushButton->setEnabled(actions.at(i)->isEnabled());
 	pushButton->setIcon(actions.at(i)->icon());
 	pushButton->setText(actions.at(i)->text());
+	pushButton->setToolTip(actions.at(i)->toolTip());
 	m_ui.frame->layout()->addWidget(pushButton);
       }
 

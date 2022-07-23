@@ -468,6 +468,19 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
 void glitch_object::createActions(void)
 {
+  if(!m_actions.contains(DefaultMenuActions::ADJUST_SIZE))
+    {
+      auto action = new QAction(tr("&Adjust Size"), this);
+
+      action->setData(DefaultMenuActions::ADJUST_SIZE);
+      action->setEnabled(!isMandatory());
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotAdjustSize);
+      m_actions[DefaultMenuActions::ADJUST_SIZE] = action;
+    }
+
   if(!m_actions.contains(DefaultMenuActions::DELETE))
     {
       auto action = new QAction(tr("&Delete"), this);
@@ -840,6 +853,11 @@ void glitch_object::simulateDelete(void)
     m_editWindow->close();
 
   m_contextMenu->close();
+}
+
+void glitch_object::slotAdjustSize(void)
+{
+  resize(sizeHint().width(), height());
 }
 
 void glitch_object::slotLockPosition(void)
