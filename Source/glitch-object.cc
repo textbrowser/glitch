@@ -624,10 +624,10 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
   else
     {
       if(!m_editView)
-	qDebug() << "m_editView is zero! Signals cannot be established!";
+	qDebug() << tr("m_editView is zero! Signals cannot be established!");
 
       if(!m_editWindow)
-	qDebug() << "m_editWindow is zero! Signals cannot be established!";
+	qDebug() << tr("m_editWindow is zero! Signals cannot be established!");
     }
 
   if(m_editView && parentView)
@@ -648,10 +648,10 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
   else
     {
       if(!m_editView)
-	qDebug() << "m_editView is zero! Signals cannot be established!";
+	qDebug() << tr("m_editView is zero! Signals cannot be established!");
 
       if(!parentView)
-	qDebug() << "parentView is zero! Signals cannot be established!";
+	qDebug() << tr("parentView is zero! Signals cannot be established!");
     }
 }
 

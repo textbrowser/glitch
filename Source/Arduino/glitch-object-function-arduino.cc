@@ -784,9 +784,9 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	 (QRegularExpression("[A-Za-z_][\\w]*\\(\\)"), &dialog));
     }
   else
-    qDebug() << "glitch_object_function_arduino::slotSetFunctionName(): "
-	     << "QInputDialog does not have a textfield! Cannot set "
-	     << "an input validator.";
+    qDebug() << tr("glitch_object_function_arduino::slotSetFunctionName(): "
+		   "QInputDialog does not have a textfield! Cannot set "
+		   "an input validator.");
 
  restart_label:
   QApplication::processEvents();

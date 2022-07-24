@@ -540,7 +540,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
       }
     else if(!list.at(i).trimmed().isEmpty())
-      qDebug() << "The option " << list.at(i) << " is not supported.";
+      qDebug() << tr("The option ") << list.at(i) << tr(" is not supported.");
 
   QApplication::processEvents();
 
