@@ -65,10 +65,6 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
   m_ui.occupied->setVisible(false);
-  connect(m_ui.condition,
-	  &QLineEdit::returnPressed,
-	  this,
-	  &glitch_object_flow_control_arduino::slotConditionChanged);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
@@ -77,6 +73,10 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  &QUndoStack::indexChanged,
 	  this,
 	  &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
+  connect(m_ui.condition,
+	  &QLineEdit::returnPressed,
+	  this,
+	  &glitch_object_flow_control_arduino::slotConditionChanged);
   connect(m_ui.flow_control_type,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
