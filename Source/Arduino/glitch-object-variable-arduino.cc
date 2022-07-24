@@ -41,7 +41,8 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   auto string(variableType);
 
   string.remove("glitch-arduino-variables-");
-  m_ui.type->setCurrentIndex(m_ui.type->findText(string));
+  m_ui.array->setChecked(string.contains("array"));
+  m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove(" (array)")));
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
