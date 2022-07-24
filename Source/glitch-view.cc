@@ -199,6 +199,13 @@ glitch_view::glitch_view
 
 glitch_view::~glitch_view()
 {
+  foreach(auto undoStack, m_undoStacks)
+    if(undoStack)
+      disconnect(undoStack,
+		 QOverload<bool>::of(&QUndoStack::cleanChanged),
+		 this,
+		 &glitch_view::slotUndoStackCleanChanged);
+
   m_scene->purgeRedoUndoProxies();
 }
 

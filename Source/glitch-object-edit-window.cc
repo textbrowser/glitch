@@ -96,6 +96,17 @@ QWidget *glitch_object_edit_window::centralWidget(void) const
 
 glitch_object_edit_window::~glitch_object_edit_window()
 {
+  if(m_undoStack)
+    {
+      disconnect(m_undoStack,
+		 QOverload<bool>::of(&QUndoStack::cleanChanged),
+		 this,
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
+      disconnect(m_undoStack,
+		 QOverload<int>::of(&QUndoStack::indexChanged),
+		 this,
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
+    }
 }
 
 bool glitch_object_edit_window::event(QEvent *event)
