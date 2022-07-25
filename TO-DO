@@ -187,5 +187,4 @@ Remaining Items
 - Wire options:
   color alpha
   width
-- Wire redo / undo: do not redo a wire if two objects are already connected.
 - Wiring: curves and / or poly-lines options.
