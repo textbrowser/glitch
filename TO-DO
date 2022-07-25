@@ -8,6 +8,9 @@ Completed Items
 - Add newly-created projects to Recent Files menu.
 - Add widget actions to Edit menu. No. Instead, Shift key and the
   primary mouse button should display the object's context menu.
+- Adjust changed state of parent canvas if redo / undo stack of a child
+  is at level zero. This is very difficult. Quite simple: review states of
+  known redo/undo stacks.
 - Alignment panel. The panel must allow interaction with separated windows.
   Per diagram.
 - Alignment tool should be a child of the view's window.
@@ -117,6 +120,7 @@ Completed Items
 - Style sheets. User input is not validated.
 - The name of the display in settings should be separate from the file name.
 - Tools Bar?
+- Undo macros for group actions.
 - Unite separated windows.
 - Variable clones. Not necessary.
 - View separation.
@@ -142,8 +146,6 @@ Ignored Items
 
 Remaining Items
 
-- Adjust changed state of parent canvas if redo / undo stack of a child
-  is at level zero. This is very difficult.
 - Allow removal of wire by selection.
 - Android.
 - Combination boxes are obscured by view's margins. Pop out of the view!
@@ -181,7 +183,6 @@ Remaining Items
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Set focus on plain-text-edit during mouse-press event.
-- Undo macros for group actions.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

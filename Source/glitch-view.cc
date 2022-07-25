@@ -1195,6 +1195,18 @@ void glitch_view::slotUndoStackCleanChanged(void)
 {
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
+
+  auto clean = true;
+
+  foreach(auto undoStack, m_undoStacks)
+    if(!(undoStack && undoStack->isClean()))
+      {
+	clean = false;
+	break;
+      }
+
+  m_changed = !clean;
+  emit changed();
 }
 
 void glitch_view::slotUnite(void)
