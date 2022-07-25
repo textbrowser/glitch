@@ -1437,7 +1437,17 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	{
 	  auto wire(new glitch_wire(nullptr));
 
-	  addItem(wire);
+	  if(m_undoStack)
+	    {
+	      auto undoCommand = new glitch_undo_command
+		(glitch_undo_command::WIRE_ADDED, this, wire);
+
+	      undoCommand->setText(tr("objects connected"));
+	      m_undoStack->push(undoCommand);
+	    }
+	  else
+	    addItem(wire);
+
 	  object2->setWiredObject(object1, wire);
 	  wire->setBoundingRect(sceneRect());
 
