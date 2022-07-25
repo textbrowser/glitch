@@ -126,6 +126,7 @@ Completed Items
 - Wire color setting.
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
+- Wire redo / undo.
 - Wiring.
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle. Not necessary. Approximate the bounding rectangle.
@@ -185,5 +186,4 @@ Remaining Items
 - Wire options:
   color alpha
   width
-- Wire redo / undo.
 - Wiring: curves and / or poly-lines options.

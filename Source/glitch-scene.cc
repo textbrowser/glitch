@@ -1195,6 +1195,11 @@ void glitch_scene::removeItem(QGraphicsItem *item)
       m_objectsHash.remove(proxy);
       m_objectsMap.remove(point, proxy);
     }
+
+  auto wire = qgraphicsitem_cast<glitch_wire *> (item);
+
+  if(wire)
+    m_wires.remove(wire);
 }
 
 void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
@@ -1459,6 +1464,11 @@ void glitch_scene::wireDisconnectObjects
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto state = false;
+
+  if(m_undoStack)
+    m_undoStack->beginMacro(tr("widget(s) disconnected"));
+
   QMutableSetIterator<glitch_wire *> it(m_wires);
 
   while(it.hasNext())
@@ -1480,12 +1490,28 @@ void glitch_scene::wireDisconnectObjects
 
       if(p == proxy)
 	{
-	  it.remove();
-	  update();
-	  wire->deleteLater();
-	  emit changed();
+	  if(m_undoStack)
+	    {
+	      auto undoCommand = new glitch_undo_command
+		(glitch_undo_command::WIRE_DELETED, this, wire);
+
+	      m_undoStack->push(undoCommand);
+	      state = true;
+	    }
+	  else
+	    {
+	      it.remove();
+	      state = true;
+	      wire->deleteLater();
+	    }
 	}
     }
 
+  if(m_undoStack)
+    m_undoStack->endMacro();
+
   QApplication::restoreOverrideCursor();
+
+  if(state)
+    emit changed();
 }

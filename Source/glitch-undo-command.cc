@@ -33,6 +33,7 @@
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
+#include "glitch-wire.h"
 
 glitch_undo_command::glitch_undo_command
 (const QHash<glitch_canvas_settings::Settings,
@@ -176,6 +177,18 @@ glitch_undo_command::glitch_undo_command
   m_type = type;
 }
 
+glitch_undo_command::glitch_undo_command
+(const Types type,
+ glitch_scene *scene,
+ glitch_wire *wire,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_property = glitch_object::XYZ_PROPERTY;
+  m_scene = scene;
+  m_type = type;
+  m_wire = wire;
+}
+
 glitch_undo_command::~glitch_undo_command()
 {
 }
@@ -273,6 +286,26 @@ void glitch_undo_command::redo(void)
       {
 	if(m_object)
 	  m_object->setStyleSheet(m_currentString);
+
+	break;
+      }
+    case Types::WIRE_ADDED:
+      {
+	if(m_scene && m_wire)
+	  {
+	    m_scene->addItem(m_wire);
+	    m_scene->update();
+	  }
+
+	break;
+      }
+    case Types::WIRE_DELETED:
+      {
+	if(m_scene && m_wire)
+	  {
+	    m_scene->removeItem(m_wire);
+	    m_scene->update();
+	  }
 
 	break;
       }
@@ -375,6 +408,26 @@ void glitch_undo_command::undo(void)
       {
 	if(m_object)
 	  m_object->setStyleSheet(m_previousString);
+
+	break;
+      }
+    case Types::WIRE_ADDED:
+      {
+	if(m_scene && m_wire)
+	  {
+	    m_scene->removeItem(m_wire);
+	    m_scene->update();
+	  }
+
+	break;
+      }
+    case Types::WIRE_DELETED:
+      {
+	if(m_scene && m_wire)
+	  {
+	    m_scene->addItem(m_wire);
+	    m_scene->update();
+	  }
 
 	break;
       }

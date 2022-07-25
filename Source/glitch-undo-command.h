@@ -37,6 +37,7 @@ class glitch_object;
 class glitch_proxy_widget;
 class glitch_scene;
 class glitch_user_functions;
+class glitch_wire;
 
 class glitch_undo_command: public QUndoCommand
 {
@@ -53,7 +54,9 @@ class glitch_undo_command: public QUndoCommand
     ITEM_MOVED,
     ITEM_RENAMED,
     PROPERTY_CHANGED,
-    STYLESHEET_CHANGED
+    STYLESHEET_CHANGED,
+    WIRE_ADDED,
+    WIRE_DELETED
   };
 
   glitch_undo_command(const QHash<glitch_canvas_settings::Settings,
@@ -85,6 +88,10 @@ class glitch_undo_command: public QUndoCommand
 		      glitch_proxy_widget *proxy,
 		      glitch_scene *scene,
 		      QUndoCommand *parent = nullptr);
+  glitch_undo_command(const Types type,
+		      glitch_scene *scene,
+		      glitch_wire *wire,
+		      QUndoCommand *parent = nullptr);
   ~glitch_undo_command();
   void redo(void);
   void undo(void);
@@ -99,6 +106,7 @@ class glitch_undo_command: public QUndoCommand
   QPointer<glitch_proxy_widget> m_proxy;
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_user_functions> m_userFunctions;
+  QPointer<glitch_wire> m_wire;
   QString m_currentFunctionName;
   QString m_currentFunctionReturnType;
   QString m_currentString;
