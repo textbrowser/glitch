@@ -169,6 +169,7 @@ Remaining Items
 - Generate view.
 - Icons and themes.
 - Indicate wire input / output.
+- Intelligent beginMacro() / endMacro().
 - Keywords (function names, variable names, etc.).
 - Languages option.
 - Menu hovering and status bar text. QStatusTipEvent.

@@ -1474,10 +1474,8 @@ void glitch_scene::wireDisconnectObjects
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto began = false;
   auto state = false;
-
-  if(m_undoStack)
-    m_undoStack->beginMacro(tr("widget(s) disconnected"));
 
   QMutableSetIterator<glitch_wire *> it(m_wires);
 
@@ -1502,6 +1500,12 @@ void glitch_scene::wireDisconnectObjects
 	{
 	  if(m_undoStack)
 	    {
+	      if(!began)
+		{
+		  began = true;
+		  m_undoStack->beginMacro(tr("widget(s) disconnected"));
+		}
+
 	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::WIRE_DELETED, this, wire);
 
@@ -1517,7 +1521,7 @@ void glitch_scene::wireDisconnectObjects
 	}
     }
 
-  if(m_undoStack)
+  if(began && m_undoStack)
     m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
