@@ -596,10 +596,9 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
     it(s_copiedObjects);
 #endif
   QPoint first;
+  auto began = false;
   auto f = false; // First?
   auto point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
-
-  undoStack->beginMacro(tr("widget(s) pasted"));
 
   while(it.hasNext())
     {
@@ -623,6 +622,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 	  if(proxy)
 	    {
+	      if(!began)
+		{
+		  began = true;
+		  undoStack->beginMacro(tr("widget(s) pasted"));
+		}
+
 	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED, proxy, scene);
 
@@ -653,6 +658,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 	  if(proxy)
 	    {
+	      if(!began)
+		{
+		  began = true;
+		  undoStack->beginMacro(tr("widget(s) pasted"));
+		}
+
 	      auto undoCommand = new glitch_undo_command
 		(glitch_undo_command::ITEM_ADDED, proxy, scene);
 
@@ -666,7 +677,9 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
       f = true;
     }
 
-  undoStack->endMacro();
+  if(began)
+    undoStack->endMacro();
+
   QApplication::restoreOverrideCursor();
 }
 

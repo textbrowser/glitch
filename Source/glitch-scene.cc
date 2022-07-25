@@ -511,10 +511,8 @@ void glitch_scene::deleteItems(void)
       return;
     }
 
+  auto began = false;
   auto state = false;
-
-  if(m_undoStack)
-    m_undoStack->beginMacro(tr("widget(s) deleted"));
 
   for(const auto i : list)
     {
@@ -527,6 +525,12 @@ void glitch_scene::deleteItems(void)
 
       if(m_undoStack)
 	{
+	  if(!began)
+	    {
+	      began = true;
+	      m_undoStack->beginMacro(tr("widget(s) deleted"));
+	    }
+
 	  auto object = qobject_cast<glitch_object_function_arduino *>
 	    (proxy->widget());
 
@@ -548,7 +552,7 @@ void glitch_scene::deleteItems(void)
 	}
     }
 
-  if(m_undoStack)
+  if(began && m_undoStack)
     m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
