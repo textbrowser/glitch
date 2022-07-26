@@ -304,8 +304,14 @@ clone(QWidget *parent) const
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_editView)
-    foreach(auto object, m_editView->scene()->objects())
+  if(m_copiedChildren.isEmpty())
+    {
+      if(m_editView)
+	foreach(auto object, m_editView->scene()->objects())
+	  clone->m_copiedChildren << object->clone(nullptr);
+    }
+  else
+    foreach(auto object, m_copiedChildren)
       clone->m_copiedChildren << object->clone(nullptr);
 
   return clone;
