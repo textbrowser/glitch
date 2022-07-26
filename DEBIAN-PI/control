@@ -1,4 +1,4 @@
-Architecture: amd64
+Architecture: armhf
 Depends: libqt5core5a (>= 5.9.0),
          libqt5gui5 (>= 5.9.0),
          libqt5sql5 (>= 5.9.0),
@@ -10,5 +10,5 @@ Priority: optional
 Section: Development
 Version: 2022.12.25
 Description: Glitch
- Welcome to Glitch!
+ Welcome to Glitch on ARM!
  Glitch is governed by a BSD license. Enjoy!

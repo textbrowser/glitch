@@ -139,7 +139,7 @@ glitch_object::~glitch_object()
   if(m_editWindow)
     m_editWindow->deleteLater();
 
-  qDebug() << "Done!";
+  qDebug() << "Done (glitch_object)!";
 }
 
 QPointF glitch_object::scenePos(void) const

@@ -51,7 +51,7 @@ glitch_proxy_widget::glitch_proxy_widget
 
 glitch_proxy_widget::~glitch_proxy_widget()
 {
-  qDebug() << "Destroyed!";
+  qDebug() << "Destroyed (glitch_proxy_widget)!";
 }
 
 QPointer<glitch_object> glitch_proxy_widget::object(void) const
