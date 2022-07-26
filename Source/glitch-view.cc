@@ -202,9 +202,9 @@ glitch_view::~glitch_view()
   foreach(auto undoStack, m_undoStacks)
     if(undoStack)
       disconnect(undoStack,
-		 QOverload<bool>::of(&QUndoStack::cleanChanged),
+		 QOverload<int>::of(&QUndoStack::indexChanged),
 		 this,
-		 &glitch_view::slotUndoStackCleanChanged);
+		 &glitch_view::slotUndoStackChanged);
 
   m_scene->purgeRedoUndoProxies();
 }
@@ -1182,16 +1182,16 @@ void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
     return;
 
   connect(undoStack,
-	  QOverload<bool>::of(&QUndoStack::cleanChanged),
+	  QOverload<int>::of(&QUndoStack::indexChanged),
 	  this,
-	  &glitch_view::slotUndoStackCleanChanged,
+	  &glitch_view::slotUndoStackChanged,
 	  Qt::UniqueConnection);
 
   if(!m_undoStacks.contains(undoStack))
     m_undoStacks << undoStack;
 }
 
-void glitch_view::slotUndoStackCleanChanged(void)
+void glitch_view::slotUndoStackChanged(void)
 {
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
