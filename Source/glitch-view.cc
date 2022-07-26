@@ -1206,6 +1206,13 @@ void glitch_view::slotUndoStackChanged(void)
       }
 
   m_changed = !clean;
+
+  if(m_saveDiagramAction)
+    m_saveDiagramAction->setEnabled(m_changed);
+
+  if(m_tabButton)
+    m_tabButton->setEnabled(m_changed);
+
   emit changed();
 }
 

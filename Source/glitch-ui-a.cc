@@ -1373,6 +1373,7 @@ void glitch_ui::slotPageChanged(void)
 void glitch_ui::slotPageSaved(void)
 {
   m_ui.action_Save_Current_Diagram->setEnabled(false);
+  prepareActionWidgets();
   setTabText(qobject_cast<glitch_view *> (sender()));
   setWindowTitle(qobject_cast<glitch_view *> (sender()));
 }
