@@ -81,9 +81,6 @@ QMAKE_CXXFLAGS_RELEASE += -std=c++17
 QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
-QMAKE_CXXFLAGS_RELEASE += -O1
-QMAKE_CXXFLAGS_RELEASE -= -O2
-
 QMAKE_DISTCLEAN += -r .qmake* \
                    -r html \
                    -r latex \

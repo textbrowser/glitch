@@ -217,8 +217,12 @@ clone(QWidget *parent) const
     (m_ui.flow_control_type->currentIndex());
   clone->setStyleSheet(styleSheet());
 
-  foreach(auto object, m_editView->scene()->objects())
-    clone->m_copiedChildren << object->clone(nullptr);
+  if(m_copiedChildren.isEmpty())
+    foreach(auto object, m_editView->scene()->objects())
+      clone->m_copiedChildren << object->clone(nullptr);
+  else
+    foreach(auto object, m_copiedChildren)
+      clone->m_copiedChildren << object->clone(nullptr);
 
   return clone;
 }
