@@ -303,6 +303,11 @@ clone(QWidget *parent) const
   clone->m_properties = m_properties;
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
+
+  if(m_editView)
+    foreach(auto object, m_editView->scene()->objects())
+      clone->m_copiedChildren << object->clone(nullptr);
+
   return clone;
 }
 

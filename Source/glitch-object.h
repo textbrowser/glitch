@@ -161,6 +161,7 @@ class glitch_object: public QWidget
 						 ** Must be cloned, if
 						 ** required!
 						 */
+  QList<QPointer<glitch_object> > m_copiedChildren;
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;

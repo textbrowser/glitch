@@ -127,6 +127,10 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
 
 glitch_object::~glitch_object()
 {
+  foreach(auto object, m_copiedChildren)
+    if(object)
+      object->deleteLater();
+
   m_contextMenu->deleteLater();
 
   if(m_editView)
@@ -649,9 +653,6 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
     {
       if(!m_editView)
 	qDebug() << tr("m_editView is zero! Signals cannot be established!");
-
-      if(!parentView)
-	qDebug() << tr("parentView is zero! Signals cannot be established!");
     }
 }
 

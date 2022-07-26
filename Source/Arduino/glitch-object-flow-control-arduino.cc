@@ -216,6 +216,10 @@ clone(QWidget *parent) const
   clone->m_ui.flow_control_type->setCurrentIndex
     (m_ui.flow_control_type->currentIndex());
   clone->setStyleSheet(styleSheet());
+
+  foreach(auto object, m_editView->scene()->objects())
+    clone->m_copiedChildren << object->clone(nullptr);
+
   return clone;
 }
 
