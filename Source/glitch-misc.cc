@@ -36,8 +36,7 @@ QPointF glitch_misc::dbPointToPointF(const QString &text)
 {
   auto list(QString(text).remove("(").remove(")").split(","));
 
-  return {qAbs(list.value(0).toDouble()),
-	  qAbs(list.value(1).toDouble())};
+  return {qAbs(list.value(0).toDouble()), qAbs(list.value(1).toDouble())};
 }
 
 QString glitch_misc::homePath(void)

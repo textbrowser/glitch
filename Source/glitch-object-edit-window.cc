@@ -44,9 +44,9 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
-	  SIGNAL(aboutToShow(void)),
+	  &QMenu::aboutToShow,
 	  this,
-	  SLOT(slotAboutToShowEditMenu(void)));
+	  &glitch_object_edit_window::slotAboutToShowEditMenu);
   m_actions["undo"] =
     menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"));
   m_actions["redo"] =
@@ -62,9 +62,9 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
   connect(m_actions.value("copy"),
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotAboutToShowEditMenu(void)));
+	  &glitch_object_edit_window::slotAboutToShowEditMenu);
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
@@ -96,17 +96,11 @@ QWidget *glitch_object_edit_window::centralWidget(void) const
 
 glitch_object_edit_window::~glitch_object_edit_window()
 {
+  if(m_editView)
+    disconnect(m_editView->scene(), nullptr, this, nullptr);
+
   if(m_undoStack)
-    {
-      disconnect(m_undoStack,
-		 QOverload<bool>::of(&QUndoStack::cleanChanged),
-		 this,
-		 &glitch_object_edit_window::slotAboutToShowEditMenu);
-      disconnect(m_undoStack,
-		 QOverload<int>::of(&QUndoStack::indexChanged),
-		 this,
-		 &glitch_object_edit_window::slotAboutToShowEditMenu);
-    }
+    disconnect(m_undoStack, nullptr, this, nullptr);
 }
 
 bool glitch_object_edit_window::event(QEvent *event)
@@ -191,17 +185,17 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
   if(m_editView)
     {
       disconnect(m_editView->scene(),
-		 SIGNAL(changed(void)),
+		 &glitch_scene::changed,
 		 this,
-		 SLOT(slotAboutToShowEditMenu(void)));
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
       disconnect(m_editView->scene(),
-		 SIGNAL(mousePressed(void)),
+		 &glitch_scene::mousePressed,
 		 this,
-		 SLOT(slotAboutToShowEditMenu(void)));
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
       disconnect(m_editView->scene(),
-		 SIGNAL(selectionChanged(void)),
+		 &glitch_scene::selectionChanged,
 		 this,
-		 SLOT(slotAboutToShowEditMenu(void)));
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
     }
 
   m_editView = view;
@@ -209,18 +203,18 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
   if(m_editView)
     {
       connect(m_editView->scene(),
-	      SIGNAL(changed(void)),
+	      &glitch_scene::changed,
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)),
+	      &glitch_object_edit_window::slotAboutToShowEditMenu,
 	      Qt::QueuedConnection);
       connect(m_editView->scene(),
-	      SIGNAL(mousePressed(void)),
+	      &glitch_scene::mousePressed,
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)));
+	      &glitch_object_edit_window::slotAboutToShowEditMenu);
       connect(m_editView->scene(),
-	      SIGNAL(selectionChanged(void)),
+	      &glitch_scene::selectionChanged,
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)));
+	      &glitch_object_edit_window::slotAboutToShowEditMenu);
     }
 }
 
@@ -229,13 +223,13 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
   if(m_undoStack)
     {
       disconnect(m_undoStack,
-		 SIGNAL(cleanChanged(bool)),
+		 QOverload<bool>::of(&QUndoStack::cleanChanged),
 		 this,
-		 SLOT(slotAboutToShowEditMenu(void)));
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
       disconnect(m_undoStack,
-		 SIGNAL(indexChanged(int)),
+		 QOverload<int>::of(&QUndoStack::indexChanged),
 		 this,
-		 SLOT(slotAboutToShowEditMenu(void)));
+		 &glitch_object_edit_window::slotAboutToShowEditMenu);
     }
 
   m_undoStack = undoStack;
@@ -243,13 +237,13 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
   if(m_undoStack)
     {
       connect(m_undoStack,
-	      SIGNAL(cleanChanged(bool)),
+	      QOverload<bool>::of(&QUndoStack::cleanChanged),
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)));
+	      &glitch_object_edit_window::slotAboutToShowEditMenu);
       connect(m_undoStack,
-	      SIGNAL(indexChanged(int)),
+	      QOverload<int>::of(&QUndoStack::indexChanged),
 	      this,
-	      SLOT(slotAboutToShowEditMenu(void)));
+	      &glitch_object_edit_window::slotAboutToShowEditMenu);
     }
 }
 
