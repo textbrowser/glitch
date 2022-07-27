@@ -454,7 +454,7 @@ void glitch_ui::copy(QGraphicsView *view)
 
   auto list(view->scene()->selectedItems());
 
-  for(const auto i : list)
+  for(auto i : list)
     {
       if(!i)
 	continue;
