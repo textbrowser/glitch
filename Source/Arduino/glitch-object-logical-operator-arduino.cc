@@ -128,6 +128,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_logical_operator_arduino(parent);
 
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
   clone->setOperatorType(m_operatorType);
   clone->setStyleSheet(styleSheet());

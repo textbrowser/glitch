@@ -207,8 +207,9 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_serial_arduino(serialTypeToString(), parent);
 
-  clone->m_serialType = m_serialType;
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
+  clone->m_serialType = m_serialType;
   clone->m_ui.label->setText(m_ui.label->text());
   clone->setStyleSheet(styleSheet());
   return clone;

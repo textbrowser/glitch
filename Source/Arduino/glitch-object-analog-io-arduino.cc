@@ -142,6 +142,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_analog_io_arduino(ioTypeToString(), parent);
 
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_ioType = m_ioType;
   clone->m_properties = m_properties;
   clone->m_ui.label->setText(m_ui.label->text());

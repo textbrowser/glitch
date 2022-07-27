@@ -96,6 +96,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_constant_arduino(parent);
 
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_constantType = m_constantType;
   clone->m_properties = m_properties;
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());

@@ -152,8 +152,9 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_time_arduino(timeTypeToString(), parent);
 
-  clone->m_timeType = m_timeType;
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
+  clone->m_timeType = m_timeType;
   clone->m_ui.label->setText(m_ui.label->text());
   clone->setStyleSheet(styleSheet());
   return clone;

@@ -206,6 +206,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_flow_control_arduino(parent);
 
+  clone->m_canvasSettings = m_canvasSettings;
   clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
@@ -216,10 +217,24 @@ clone(QWidget *parent) const
 
   if(m_copiedChildren.isEmpty())
     for(auto object : m_editView->scene()->objects())
-      clone->m_copiedChildren << object->clone(nullptr);
+      {
+	auto child = object->clone(nullptr);
+
+	if(child)
+	  clone->m_copiedChildren << child;
+      }
   else
     for(auto object : m_copiedChildren)
-      clone->m_copiedChildren << object->clone(nullptr);
+      {
+	auto child = object->clone(nullptr);
+
+	if(child)
+	  {
+	    child->setCanvasSettings(m_canvasSettings);
+	    clone->addChild(object->pos(), child);
+	    clone->hideOrShowOccupied();
+	  }
+      }
 
   return clone;
 }

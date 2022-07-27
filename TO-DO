@@ -167,6 +167,7 @@ Remaining Items
 - Custom shortcuts.
 - Draw disconnect symbols.
 - Find objects.
+- Flow-control objects and edit views (break does not have a view).
 - Function input parameters.
 - Generate source from terminal for testing results.
 - Generate view.
