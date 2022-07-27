@@ -149,6 +149,7 @@ Remaining Items
 
 - Allow removal of wire by selection.
 - Android.
+- Close all edit windows on simulated delete.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O

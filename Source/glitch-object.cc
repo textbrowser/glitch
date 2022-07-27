@@ -746,6 +746,16 @@ void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
     }
 }
 
+void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
+{
+  m_canvasSettings = canvasSettings;
+
+  auto scene = editScene();
+
+  if(scene)
+    scene->setCanvasSettings(m_canvasSettings);
+}
+
 void glitch_object::setName(const QString &n)
 {
   auto name(n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
@@ -839,14 +849,9 @@ void glitch_object::setProperty(const Properties property,
     }
 }
 
-void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
+void glitch_object::setProperty(const char *name, const QVariant &value)
 {
-  m_canvasSettings = canvasSettings;
-
-  auto scene = editScene();
-
-  if(scene)
-    scene->setCanvasSettings(m_canvasSettings);
+  QObject::setProperty(name, value);
 }
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)

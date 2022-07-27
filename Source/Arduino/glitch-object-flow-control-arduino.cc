@@ -220,7 +220,10 @@ clone(QWidget *parent) const
 	auto child = object->clone(nullptr);
 
 	if(child)
-	  clone->m_copiedChildren << child;
+	  {
+	    child->setProperty("position", object->scenePos());
+	    clone->m_copiedChildren << child;
+	  }
       }
   else
     for(auto object : m_copiedChildren)
@@ -230,7 +233,7 @@ clone(QWidget *parent) const
 	if(child)
 	  {
 	    child->setCanvasSettings(m_canvasSettings);
-	    clone->addChild(object->pos(), child);
+	    clone->addChild(object->property("position").toPoint(), child);
 	    clone->hideOrShowOccupied();
 	  }
       }
