@@ -211,8 +211,7 @@ clone(QWidget *parent) const
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
   clone->m_ui.condition->selectAll();
-  clone->m_ui.flow_control_type->setCurrentIndex
-    (m_ui.flow_control_type->currentIndex());
+  clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
   if(m_copiedChildren.isEmpty())
