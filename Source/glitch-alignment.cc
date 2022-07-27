@@ -145,17 +145,17 @@ void glitch_alignment::slotAlign(void)
 {
   auto action = qobject_cast<QAction *> (sender());
 
-  if(action == m_actions.at(0))
+  if(action == m_actions.value(0))
     align(AlignmentTypes::ALIGN_BOTTOM);
-  else if(action == m_actions.at(1))
+  else if(action == m_actions.value(1))
     align(AlignmentTypes::ALIGN_TOP);
-  else if(action == m_actions.at(2))
+  else if(action == m_actions.value(2))
     align(AlignmentTypes::ALIGN_CENTER_HORIZONTAL);
-  else if(action == m_actions.at(3))
+  else if(action == m_actions.value(3))
     align(AlignmentTypes::ALIGN_CENTER_VERTICAL);
-  else if(action == m_actions.at(4))
+  else if(action == m_actions.value(4))
     align(AlignmentTypes::ALIGN_LEFT);
-  else if(action == m_actions.at(5))
+  else if(action == m_actions.value(5))
     align(AlignmentTypes::ALIGN_RIGHT);
 }
 
@@ -163,8 +163,8 @@ void glitch_alignment::slotStack(void)
 {
   auto action = qobject_cast<QAction *> (sender());
 
-  if(action == m_actions.at(6))
+  if(action == m_actions.value(6))
     stack(StackTypes::HORIZONTAL_STACK);
-  else if(action == m_actions.at(7))
+  else if(action == m_actions.value(7))
     stack(StackTypes::VERTICAL_STACK);
 }
