@@ -89,10 +89,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 
 glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 {
-  disconnect(m_editView->undoStack(),
-	     &QUndoStack::indexChanged,
-	     this,
-	     &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
+  disconnect(m_editView->undoStack(), nullptr, this, nullptr);
 }
 
 QString glitch_object_flow_control_arduino::code(void) const
@@ -218,10 +215,10 @@ clone(QWidget *parent) const
   clone->setStyleSheet(styleSheet());
 
   if(m_copiedChildren.isEmpty())
-    foreach(auto object, m_editView->scene()->objects())
+    for(auto object : m_editView->scene()->objects())
       clone->m_copiedChildren << object->clone(nullptr);
   else
-    foreach(auto object, m_copiedChildren)
+    for(auto object : m_copiedChildren)
       clone->m_copiedChildren << object->clone(nullptr);
 
   return clone;

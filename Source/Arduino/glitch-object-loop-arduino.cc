@@ -73,10 +73,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()
 {
-  disconnect(m_editView->undoStack(),
-	     &QUndoStack::indexChanged,
-	     this,
-	     &glitch_object_loop_arduino::slotHideOrShowOccupied);
+  disconnect(m_editView->undoStack(), nullptr, this, nullptr);
 }
 
 QString glitch_object_loop_arduino::code(void) const

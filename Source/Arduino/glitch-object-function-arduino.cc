@@ -179,10 +179,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 glitch_object_function_arduino::~glitch_object_function_arduino()
 {
   if(m_editView)
-    disconnect(m_editView->undoStack(),
-	       &QUndoStack::indexChanged,
-	       this,
-	       &glitch_object_function_arduino::slotHideOrShowOccupied);
+    disconnect(m_editView->undoStack(), nullptr, this, nullptr);
 }
 
 QString glitch_object_function_arduino::code(void) const
@@ -307,11 +304,11 @@ clone(QWidget *parent) const
   if(m_copiedChildren.isEmpty())
     {
       if(m_editView)
-	foreach(auto object, m_editView->scene()->objects())
+	for(auto object : m_editView->scene()->objects())
 	  clone->m_copiedChildren << object->clone(nullptr);
     }
   else
-    foreach(auto object, m_copiedChildren)
+    for(auto object : m_copiedChildren)
       clone->m_copiedChildren << object->clone(nullptr);
 
   return clone;
@@ -371,7 +368,7 @@ findParentFunction(void) const
 
   auto list(scene->items());
 
-  for(const auto i : list)
+  for(auto i : list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 

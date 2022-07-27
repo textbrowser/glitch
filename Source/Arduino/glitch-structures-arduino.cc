@@ -323,7 +323,7 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
   if(sn.endsWith(" (array)"))
     sn.remove(" (array)");
 
-  foreach(auto const &i, structureNames())
+  for(auto const &i : structureNames())
     if(i.toLower() == sn)
       return true;
 
