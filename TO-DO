@@ -169,6 +169,7 @@ Remaining Items
 - Custom shortcuts.
 - Draw disconnect symbols.
 - Find objects.
+- Function clones.
 - Function input parameters.
 - Generate source from terminal for testing results.
 - Generate view.
@@ -180,6 +181,7 @@ Remaining Items
 - Modern Qt connect(). Source/Arduino is completed.
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
+- Redo / undo and nested objects.
 - Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.

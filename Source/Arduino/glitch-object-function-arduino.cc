@@ -303,15 +303,77 @@ clone(QWidget *parent) const
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty())
-    {
-      if(m_editView)
-	for(auto object : m_editView->scene()->objects())
-	  clone->m_copiedChildren << object->clone(nullptr);
-    }
+  if(m_copiedChildren.isEmpty() && m_editView)
+    /*
+    ** First, copy!
+    */
+
+    for(auto object : m_editView->scene()->objects())
+      {
+	auto child = object->clone(nullptr);
+
+	if(child)
+	  {
+	    child->setProperty("position", object->scenePos());
+	    clone->m_copiedChildren << child;
+	  }
+      }
   else
-    for(auto object : m_copiedChildren)
-      clone->m_copiedChildren << object->clone(nullptr);
+    {
+      /*
+      ** Now, paste!
+      */
+
+      clone->m_editView = new glitch_object_view
+	(glitch_common::ProjectTypes::ArduinoProject,
+	 clone->m_id,
+	 new QUndoStack(clone), // New redo/undo stack.
+	 clone);
+      clone->m_editView->scene()->setCanvasSettings(m_canvasSettings);
+      clone->m_editWindow = new glitch_object_edit_window(parent);
+      clone->m_editWindow->prepareToolBar
+	(clone->m_editView->alignmentActions());
+      clone->m_editWindow->setCentralWidget(clone->m_editView);
+      clone->m_editWindow->setEditView(clone->m_editView);
+      clone->m_editWindow->setUndoStack(clone->m_editView->undoStack());
+      clone->m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+      clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
+      clone->m_editWindow->resize(600, 600);
+      clone->m_isFunctionClone = false;
+      clone->m_type = "arduino-function";
+      clone->m_ui.occupied->setVisible(false);
+      clone->m_ui.return_type->addItems
+	(glitch_structures_arduino::nonArrayVariableTypes());
+      connect(clone->m_editView,
+	      &glitch_object_view::changed,
+	      clone,
+	      &glitch_object_function_arduino::changed);
+      connect(clone->m_editView->undoStack(),
+	      &QUndoStack::indexChanged,
+	      clone,
+	      &glitch_object_function_arduino::slotHideOrShowOccupied);
+      connect(clone->m_ui.return_type,
+	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      clone,
+	      &glitch_object_function_arduino::slotReturnTypeChanged);
+      clone->m_previousReturnType = clone->m_ui.return_type->currentText();
+      clone->prepareContextMenu();
+      clone->prepareEditSignals
+	(clone->findNearestGlitchView(clone->m_parentView));
+      QTimer::singleShot(1500, clone, SLOT(slotUndoStackCreated(void)));
+
+      for(auto object : m_copiedChildren)
+	{
+	  auto child = object->clone(nullptr);
+
+	  if(child)
+	    {
+	      child->setCanvasSettings(m_canvasSettings);
+	      clone->addChild(object->property("position").toPoint(), child);
+	      clone->hideOrShowOccupied();
+	    }
+	}
+    }
 
   return clone;
 }
