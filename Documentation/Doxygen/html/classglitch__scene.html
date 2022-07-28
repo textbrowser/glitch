@@ -62,7 +62,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -119,6 +118,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mousePressed</b> (voi
 <tr class="memitem:addf7f68844caf521d9c3dfc29a961489"><td class="memItemLeft" align="right" valign="top"><a id="addf7f68844caf521d9c3dfc29a961489"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>sceneResized</b> (void)</td></tr>
 <tr class="separator:addf7f68844caf521d9c3dfc29a961489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac63eb6f779e68b3bc08b1abf23559a8c"><td class="memItemLeft" align="right" valign="top"><a id="ac63eb6f779e68b3bc08b1abf23559a8c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>undoStackCreated</b> (QUndoStack *undoStack)</td></tr>
+<tr class="separator:ac63eb6f779e68b3bc08b1abf23559a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -137,6 +139,12 @@ QList&lt; <a class="el" href="classglitch__object.html">glitch_object</a> * &gt;
 <tr class="memitem:ac84b6ebd4e4b0ee355df3f3a489f2252"><td class="memItemLeft" align="right" valign="top"><a id="ac84b6ebd4e4b0ee355df3f3a489f2252"></a>
 QPointer&lt; QUndoStack &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>undoStack</b> (void) const</td></tr>
 <tr class="separator:ac84b6ebd4e4b0ee355df3f3a489f2252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9080a03d11d822b21b3401f0aab9898a"><td class="memItemLeft" align="right" valign="top"><a id="a9080a03d11d822b21b3401f0aab9898a"></a>
+QPointer&lt; <a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>canvasSettings</b> (void) const</td></tr>
+<tr class="separator:a9080a03d11d822b21b3401f0aab9898a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1906b44dfa82efef626bbca398d8da5e"><td class="memItemLeft" align="right" valign="top"><a id="a1906b44dfa82efef626bbca398d8da5e"></a>
+QSet&lt; <a class="el" href="classglitch__wire.html">glitch_wire</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>wires</b> (void) const</td></tr>
+<tr class="separator:a1906b44dfa82efef626bbca398d8da5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a180871b693b15efbf42ee9956a9bf6a9"><td class="memItemLeft" align="right" valign="top"><a id="a180871b693b15efbf42ee9956a9bf6a9"></a>
 <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>addObject</b> (<a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a180871b693b15efbf42ee9956a9bf6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,6 +154,9 @@ glitch_tools::Operations&#160;</td><td class="memItemRight" valign="bottom"><b>t
 <tr class="memitem:a1ae17a159557de63cb327384f0ef3161"><td class="memItemLeft" align="right" valign="top"><a id="a1ae17a159557de63cb327384f0ef3161"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>objectOrder</b> (<a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy) const</td></tr>
 <tr class="separator:a1ae17a159557de63cb327384f0ef3161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c82c342c9c05b37c31744e625050dc8"><td class="memItemLeft" align="right" valign="top"><a id="a3c82c342c9c05b37c31744e625050dc8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>selectedForWiringCount</b> (void) const</td></tr>
+<tr class="separator:a3c82c342c9c05b37c31744e625050dc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d293c7eaab242ec6d9162f6fbcff203"><td class="memItemLeft" align="right" valign="top"><a id="a5d293c7eaab242ec6d9162f6fbcff203"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addItem</b> (QGraphicsItem *item)</td></tr>
 <tr class="separator:a5d293c7eaab242ec6d9162f6fbcff203"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,15 +172,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>purgeRedoUndoProxies<
 <tr class="memitem:a894b56027fb64d208556e7339f4339ff"><td class="memItemLeft" align="right" valign="top"><a id="a894b56027fb64d208556e7339f4339ff"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeItem</b> (QGraphicsItem *item)</td></tr>
 <tr class="separator:a894b56027fb64d208556e7339f4339ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d5b2c6c4a9402269b57e0c71ac76517"><td class="memItemLeft" align="right" valign="top"><a id="a7d5b2c6c4a9402269b57e0c71ac76517"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setDotsColor</b> (const QColor &amp;color)</td></tr>
-<tr class="separator:a7d5b2c6c4a9402269b57e0c71ac76517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65f49ef39b1c2d2e4010b63ff09ce471"><td class="memItemLeft" align="right" valign="top"><a id="a65f49ef39b1c2d2e4010b63ff09ce471"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCanvasSettings</b> (<a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *canvasSettings)</td></tr>
+<tr class="separator:a65f49ef39b1c2d2e4010b63ff09ce471"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ab637af04b7c36a2f8d33734a0774c5"><td class="memItemLeft" align="right" valign="top"><a id="a0ab637af04b7c36a2f8d33734a0774c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setDotsGridsColor</b> (const QColor &amp;color)</td></tr>
+<tr class="separator:a0ab637af04b7c36a2f8d33734a0774c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d09cd272ae1817a1e01f52b8087ebe5"><td class="memItemLeft" align="right" valign="top"><a id="a3d09cd272ae1817a1e01f52b8087ebe5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setMainScene</b> (const bool state)</td></tr>
 <tr class="separator:a3d09cd272ae1817a1e01f52b8087ebe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8e10589569b87c94f261bdb91c56802"><td class="memItemLeft" align="right" valign="top"><a id="ab8e10589569b87c94f261bdb91c56802"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowDots</b> (const bool state)</td></tr>
-<tr class="separator:ab8e10589569b87c94f261bdb91c56802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bb9cea4cbb3fabc94ff9fc7123ee65b"><td class="memItemLeft" align="right" valign="top"><a id="a9bb9cea4cbb3fabc94ff9fc7123ee65b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowCanvasDots</b> (const bool state)</td></tr>
+<tr class="separator:a9bb9cea4cbb3fabc94ff9fc7123ee65b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ba87df1551909a21aef3eab71a7768"><td class="memItemLeft" align="right" valign="top"><a id="a49ba87df1551909a21aef3eab71a7768"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowCanvasGrids</b> (const bool state)</td></tr>
+<tr class="separator:a49ba87df1551909a21aef3eab71a7768"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a421645b052783d369c725063a78046"><td class="memItemLeft" align="right" valign="top"><a id="a3a421645b052783d369c725063a78046"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setUndoStack</b> (QUndoStack *undoStack)</td></tr>
 <tr class="separator:a3a421645b052783d369c725063a78046"><td class="memSeparator" colspan="2">&#160;</td></tr>

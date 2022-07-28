@@ -93,18 +93,20 @@ Public Types</h2></td></tr>
 <tr class="memitem:a10d6a41f3bb4593e005d68c021d5d69d"><td class="memItemLeft" align="right" valign="top"><a id="a10d6a41f3bb4593e005d68c021d5d69d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Types</b> { <br />
 &#160;&#160;<b>CANVAS_SETTINGS_CHANGED</b> = 0
 , <b>CONSTANT_TYPE_CHANGED</b>
+, <b>FLOW_CONTROL_TYPE_CHANGED</b>
 , <b>FUNCTION_RENAMED</b>
-, <b>FUNCTION_RETURN_TYPE_CHANGED</b>
 , <br />
-&#160;&#160;<b>ITEM_ADDED</b>
+&#160;&#160;<b>FUNCTION_RETURN_TYPE_CHANGED</b>
+, <b>ITEM_ADDED</b>
 , <b>ITEM_DELETED</b>
 , <b>ITEM_MOVED</b>
-, <b>ITEM_RENAMED</b>
 , <br />
-&#160;&#160;<b>LOGICAL_OPERATOR_CHANGED</b>
-, <b>LOOP_TYPE_CHANGED</b>
+&#160;&#160;<b>ITEM_RENAMED</b>
 , <b>PROPERTY_CHANGED</b>
 , <b>STYLESHEET_CHANGED</b>
+, <b>WIRE_ADDED</b>
+, <br />
+&#160;&#160;<b>WIRE_DELETED</b>
 <br />
  }</td></tr>
 <tr class="separator:a10d6a41f3bb4593e005d68c021d5d69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +131,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a77e8dbffd7aee96b7aae906a7a678663"><td class="memItemLeft" align="right" valign="top"><a id="a77e8dbffd7aee96b7aae906a7a678663"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const Types type, <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy, <a class="el" href="classglitch__scene.html">glitch_scene</a> *scene, QUndoCommand *parent=nullptr)</td></tr>
 <tr class="separator:a77e8dbffd7aee96b7aae906a7a678663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82cf5039728a829f62231fcfadfdd53a"><td class="memItemLeft" align="right" valign="top"><a id="a82cf5039728a829f62231fcfadfdd53a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>glitch_undo_command</b> (const Types type, <a class="el" href="classglitch__scene.html">glitch_scene</a> *scene, <a class="el" href="classglitch__wire.html">glitch_wire</a> *wire, QUndoCommand *parent=nullptr)</td></tr>
+<tr class="separator:a82cf5039728a829f62231fcfadfdd53a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79c2208f723c04e09a2429840d3e8283"><td class="memItemLeft" align="right" valign="top"><a id="a79c2208f723c04e09a2429840d3e8283"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>redo</b> (void)</td></tr>
 <tr class="separator:a79c2208f723c04e09a2429840d3e8283"><td class="memSeparator" colspan="2">&#160;</td></tr>

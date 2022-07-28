@@ -97,12 +97,16 @@ Public Types</h2></td></tr>
 <tr class="memitem:ade6f20b95f3f789805459436838ed929"><td class="memItemLeft" align="right" valign="top"><a id="ade6f20b95f3f789805459436838ed929"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Settings</b> { <br />
 &#160;&#160;<b>CANVAS_BACKGROUND_COLOR</b> = 0
 , <b>CANVAS_NAME</b>
-, <b>DOTS_COLOR</b>
-, <b>OUTPUT_FILE</b>
+, <b>DOTS_GRIDS_COLOR</b>
+, <b>GENERATE_PERIODICALLY</b>
 , <br />
-&#160;&#160;<b>REDO_UNDO_STACK_SIZE</b>
+&#160;&#160;<b>OUTPUT_FILE</b>
+, <b>REDO_UNDO_STACK_SIZE</b>
 , <b>SHOW_CANVAS_DOTS</b>
-, <b>VIEW_UPDATE_MODE</b>
+, <b>SHOW_CANVAS_GRIDS</b>
+, <br />
+&#160;&#160;<b>VIEW_UPDATE_MODE</b>
+, <b>WIRE_COLOR</b>
 <br />
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,9 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c69124303637646ee07335ef3fc5ca3"><td class="memItemLeft" align="right" valign="top"><a id="a7c69124303637646ee07335ef3fc5ca3"></a>
 QColor&#160;</td><td class="memItemRight" valign="bottom"><b>canvasBackgroundColor</b> (void) const</td></tr>
 <tr class="separator:a7c69124303637646ee07335ef3fc5ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79b26a456f3981b43a33233425ed1ad5"><td class="memItemLeft" align="right" valign="top"><a id="a79b26a456f3981b43a33233425ed1ad5"></a>
-QColor&#160;</td><td class="memItemRight" valign="bottom"><b>dotsColor</b> (void) const</td></tr>
-<tr class="separator:a79b26a456f3981b43a33233425ed1ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a6de6fc866504099d75a32e81a2c15a"><td class="memItemLeft" align="right" valign="top"><a id="a2a6de6fc866504099d75a32e81a2c15a"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>dotsGridsColor</b> (void) const</td></tr>
+<tr class="separator:a2a6de6fc866504099d75a32e81a2c15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cc03cf6171e56821c8a49ef5bcfc286"><td class="memItemLeft" align="right" valign="top"><a id="a8cc03cf6171e56821c8a49ef5bcfc286"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>wireColor</b> (void) const</td></tr>
+<tr class="separator:a8cc03cf6171e56821c8a49ef5bcfc286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02a15a65c006da16d484fa52cbf9a0c4"><td class="memItemLeft" align="right" valign="top"><a id="a02a15a65c006da16d484fa52cbf9a0c4"></a>
 QGraphicsView::ViewportUpdateMode&#160;</td><td class="memItemRight" valign="bottom"><b>viewportUpdateMode</b> (void) const</td></tr>
 <tr class="separator:a02a15a65c006da16d484fa52cbf9a0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,12 +143,18 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) co
 <tr class="memitem:adcbd5c2761dc5e880af94190226fd57a"><td class="memItemLeft" align="right" valign="top"><a id="adcbd5c2761dc5e880af94190226fd57a"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>outputFile</b> (void) const</td></tr>
 <tr class="separator:adcbd5c2761dc5e880af94190226fd57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80f5a722d18e4edfac2b406571221064"><td class="memItemLeft" align="right" valign="top"><a id="a80f5a722d18e4edfac2b406571221064"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>generatePeriodically</b> (void) const</td></tr>
+<tr class="separator:a80f5a722d18e4edfac2b406571221064"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77acf413ba93995f28aebce0648b7cd8"><td class="memItemLeft" align="right" valign="top"><a id="a77acf413ba93995f28aebce0648b7cd8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (QString &amp;error) const</td></tr>
 <tr class="separator:a77acf413ba93995f28aebce0648b7cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25ad46682a88bf009bf38a32ad1dc910"><td class="memItemLeft" align="right" valign="top"><a id="a25ad46682a88bf009bf38a32ad1dc910"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>showCanvasDots</b> (void) const</td></tr>
 <tr class="separator:a25ad46682a88bf009bf38a32ad1dc910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a571b33de71cdf4cedf9ab82859220e88"><td class="memItemLeft" align="right" valign="top"><a id="a571b33de71cdf4cedf9ab82859220e88"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>showCanvasGrids</b> (void) const</td></tr>
+<tr class="separator:a571b33de71cdf4cedf9ab82859220e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a869e9211aefa0721a77a761a126c35cb"><td class="memItemLeft" align="right" valign="top"><a id="a869e9211aefa0721a77a761a126c35cb"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>redoUndoStackSize</b> (void) const</td></tr>
 <tr class="separator:a869e9211aefa0721a77a761a126c35cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,6 +182,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setSettings</b> (cons
 <tr class="memitem:a47e973a70b67cd7d645bdcb0ec30a1a1"><td class="memItemLeft" align="right" valign="top"><a id="a47e973a70b67cd7d645bdcb0ec30a1a1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowCanvasDots</b> (const bool state)</td></tr>
 <tr class="separator:a47e973a70b67cd7d645bdcb0ec30a1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35050f3322941303d2b538731baa4bd"><td class="memItemLeft" align="right" valign="top"><a id="ab35050f3322941303d2b538731baa4bd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowCanvasGrids</b> (const bool state)</td></tr>
+<tr class="separator:ab35050f3322941303d2b538731baa4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13f832030f212788c237936715d3671e"><td class="memItemLeft" align="right" valign="top"><a id="a13f832030f212788c237936715d3671e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setViewportUpdateMode</b> (const QGraphicsView::ViewportUpdateMode mode)</td></tr>
 <tr class="separator:a13f832030f212788c237936715d3671e"><td class="memSeparator" colspan="2">&#160;</td></tr>
