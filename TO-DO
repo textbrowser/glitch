@@ -62,6 +62,7 @@ Completed Items
 - Edit window icons.
 - Error dialog.
 - Exiting does not require closing of pages.
+- Flow-control objects and edit views (break does not have a view).
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
 - Function names and deleted functions; uniqueness errors.
@@ -168,7 +169,6 @@ Remaining Items
 - Custom shortcuts.
 - Draw disconnect symbols.
 - Find objects.
-- Flow-control objects and edit views (break does not have a view).
 - Function input parameters.
 - Generate source from terminal for testing results.
 - Generate view.
