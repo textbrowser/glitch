@@ -35,12 +35,12 @@
 #include <QSet>
 #include <QtGlobal>
 
+#include "glitch-canvas-settings.h"
 #include "glitch-common.h"
 #include "glitch-point.h"
 #include "glitch-tools.h"
 
 class QUndoStack;
-class glitch_canvas_settings;
 class glitch_object;
 class glitch_proxy_widget;
 class glitch_wire;

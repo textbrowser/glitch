@@ -43,6 +43,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   glitch_object_flow_control_arduino(1, parent)
 {
   setFlowControlType(flowControlType);
+  resize(sizeHint().width(), height());
 }
 
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
@@ -206,15 +207,20 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_flow_control_arduino(parent);
 
-  clone->m_canvasSettings = m_canvasSettings;
   clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
   clone->m_ui.condition->selectAll();
+  clone->resize(size());
+  clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty())
+  if(m_copiedChildren.isEmpty() && m_editView)
+    /*
+    ** First, copy!
+    */
+
     for(auto object : m_editView->scene()->objects())
       {
 	auto child = object->clone(nullptr);
@@ -226,6 +232,10 @@ clone(QWidget *parent) const
 	  }
       }
   else
+    /*
+    ** Now, paste!
+    */
+
     for(auto object : m_copiedChildren)
       {
 	auto child = object->clone(nullptr);
@@ -329,13 +339,11 @@ void glitch_object_flow_control_arduino::setFlowControlType
 {
   auto f(flowControlType.
 	 mid(flowControlType.lastIndexOf('-') + 1).toLower().trimmed());
-  int minimumWidth = 500;
 
   if(f == "break")
     {
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
-      minimumWidth = 0;
     }
   else if(f == "case")
     {
@@ -346,7 +354,6 @@ void glitch_object_flow_control_arduino::setFlowControlType
     {
       m_flowControlType = FlowControlTypes::CONTINUE;
       m_ui.condition->setVisible(false);
-      minimumWidth = 0;
     }
   else if(f == "do while")
     {
@@ -357,7 +364,6 @@ void glitch_object_flow_control_arduino::setFlowControlType
     {
       m_flowControlType = FlowControlTypes::ELSE;
       m_ui.condition->setVisible(false);
-      minimumWidth = 0;
     }
   else if(f == "else if")
     {
@@ -388,7 +394,6 @@ void glitch_object_flow_control_arduino::setFlowControlType
     {
       m_flowControlType = FlowControlTypes::RETURN;
       m_ui.condition->setVisible(false);
-      minimumWidth = 0;
     }
   else if(f == "switch")
     {
@@ -404,7 +409,6 @@ void glitch_object_flow_control_arduino::setFlowControlType
     {
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
-      minimumWidth = 0;
     }
 
   m_ui.flow_control_type->blockSignals(true);
@@ -418,7 +422,6 @@ void glitch_object_flow_control_arduino::setFlowControlType
     (QString("%1 (%2)").
      arg(m_ui.flow_control_type->currentText()).
      arg(m_ui.condition->text()));
-  resize(qMax(minimumWidth, sizeHint().width()), height());
 }
 
 void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
@@ -446,6 +449,7 @@ void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 
   setFlowControlType
     (m_properties.value(glitch_object::FLOW_CONTROL_TYPE).toString());
+  resize(sizeHint().width(), height());
 }
 
 void glitch_object_flow_control_arduino::setProperty
@@ -466,6 +470,7 @@ void glitch_object_flow_control_arduino::setProperty
       {
 	setFlowControlType(value.toString().trimmed());
 	prepareEditWindowHeader();
+	resize(sizeHint().width(), height());
 	break;
       }
     default:

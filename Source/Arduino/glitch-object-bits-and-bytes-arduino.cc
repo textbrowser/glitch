@@ -215,9 +215,10 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_bits_and_bytes_arduino(typeToString(), parent);
 
   clone->m_babType = m_babType;
-  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
   clone->m_ui.label->setText(m_ui.label->text());
+  clone->resize(size());
+  clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
   return clone;
 }

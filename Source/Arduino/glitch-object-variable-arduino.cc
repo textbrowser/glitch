@@ -196,7 +196,6 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_variable_arduino(parent);
 
-  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
   clone->m_ui.array->setChecked(m_ui.array->isChecked());
   clone->m_ui.name->setText(m_ui.name->text().trimmed());
@@ -206,6 +205,8 @@ clone(QWidget *parent) const
   clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
   clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
   clone->connectSignals(true);
+  clone->resize(size());
+  clone->setCanvasSettings(m_canvasSettings);
   clone->setName(clone->name());
   clone->setStyleSheet(styleSheet());
   return clone;

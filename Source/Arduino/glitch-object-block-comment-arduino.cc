@@ -92,11 +92,12 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_block_comment_arduino(parent);
 
-  clone->m_canvasSettings = m_canvasSettings;
   clone->m_properties = m_properties;
   clone->m_ui.comment->blockSignals(true);
   clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
   clone->m_ui.comment->blockSignals(false);
+  clone->resize(size());
+  clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
   return clone;
 }
