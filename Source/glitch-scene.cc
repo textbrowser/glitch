@@ -151,6 +151,11 @@ QPointer<QUndoStack> glitch_scene::undoStack(void) const
   return m_undoStack;
 }
 
+QPointer<glitch_canvas_settings> glitch_scene::canvasSettings(void) const
+{
+  return m_canvasSettings;
+}
+
 QSet<glitch_wire *> glitch_scene::wires(void) const
 {
   return m_wires;
@@ -1211,6 +1216,11 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
     return;
 
   m_canvasSettings = canvasSettings;
+
+  for(auto object : objects())
+    if(object)
+      object->setCanvasSettings(m_canvasSettings);
+
   connect(m_canvasSettings,
 	  QOverload<bool>::of(&glitch_canvas_settings::accepted),
 	  this,

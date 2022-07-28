@@ -608,7 +608,10 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
       if(!object)
 	continue;
-      else if(!(object = object->clone(view)))
+
+      object->setCanvasSettings(scene->canvasSettings());
+
+      if(!(object = object->clone(view)))
 	continue;
 
       auto x = it.key().first;
