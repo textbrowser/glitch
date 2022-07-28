@@ -47,6 +47,7 @@ class glitch_floating_context_menu: public QDialog
   void setName(const QString &n);
 
  public slots:
+  void slotActionChanged(void);
   void slotObjectChanged(void);
 
  private:

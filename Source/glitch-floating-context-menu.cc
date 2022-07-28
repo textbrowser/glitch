@@ -84,6 +84,11 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
       {
 	auto pushButton = new QPushButton(this);
 
+	actions.at(i)->setProperty("index", m_ui.frame->layout()->count());
+	connect(actions.at(i),
+		&QAction::changed,
+		this,
+		&glitch_floating_context_menu::slotActionChanged);
 	connect(pushButton,
 		&QPushButton::clicked,
 		actions.at(i),
@@ -125,6 +130,26 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
       m_ui.object_id->setText(tr("ID: %1").arg(m_object->id()));
       slotObjectChanged();
     }
+}
+
+void glitch_floating_context_menu::slotActionChanged(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  auto item = m_ui.frame->layout()->itemAt(action->property("index").toInt());
+
+  if(!item)
+    return;
+
+  auto widget = item->widget();
+
+  if(!widget)
+    return;
+
+  widget->setEnabled(action->isEnabled());
 }
 
 void glitch_floating_context_menu::slotObjectChanged(void)

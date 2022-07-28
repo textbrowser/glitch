@@ -337,11 +337,14 @@ void glitch_object_flow_control_arduino::save
 void glitch_object_flow_control_arduino::setFlowControlType
 (const QString &flowControlType)
 {
+  auto enabled = true;
   auto f(flowControlType.
 	 mid(flowControlType.lastIndexOf('-') + 1).toLower().trimmed());
 
   if(f == "break")
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
     }
@@ -352,6 +355,8 @@ void glitch_object_flow_control_arduino::setFlowControlType
     }
   else if(f == "continue")
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::CONTINUE;
       m_ui.condition->setVisible(false);
     }
@@ -377,6 +382,8 @@ void glitch_object_flow_control_arduino::setFlowControlType
     }
   else if(f == "goto")
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::GOTO;
       m_ui.condition->setVisible(true);
     }
@@ -387,11 +394,15 @@ void glitch_object_flow_control_arduino::setFlowControlType
     }
   else if(f == "label")
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::LABEL;
       m_ui.condition->setVisible(true);
     }
   else if(f == "return")
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::RETURN;
       m_ui.condition->setVisible(false);
     }
@@ -407,9 +418,14 @@ void glitch_object_flow_control_arduino::setFlowControlType
     }
   else
     {
+      enabled = false;
+      m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
     }
+
+  if(m_actions.value(DefaultMenuActions::EDIT))
+    m_actions.value(DefaultMenuActions::EDIT)->setEnabled(enabled);
 
   m_ui.flow_control_type->blockSignals(true);
   m_ui.flow_control_type->setCurrentIndex(m_ui.flow_control_type->findText(f));
@@ -513,6 +529,22 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
 
 void glitch_object_flow_control_arduino::slotEdit(void)
 {
+  switch(m_flowControlType)
+    {
+    case FlowControlTypes::BREAK:
+    case FlowControlTypes::CONTINUE:
+    case FlowControlTypes::GOTO:
+    case FlowControlTypes::LABEL:
+    case FlowControlTypes::RETURN:
+      {
+	return;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
   m_editWindow->showNormal();
   m_editWindow->raise();
 }
