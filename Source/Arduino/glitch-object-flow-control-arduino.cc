@@ -174,6 +174,25 @@ QString glitch_object_flow_control_arduino::flowControlType(void) const
   return m_ui.flow_control_type->currentText();
 }
 
+bool glitch_object_flow_control_arduino::editable(void) const
+{
+  switch(m_flowControlType)
+    {
+    case FlowControlTypes::BREAK:
+    case FlowControlTypes::CONTINUE:
+    case FlowControlTypes::GOTO:
+    case FlowControlTypes::LABEL:
+    case FlowControlTypes::RETURN:
+      {
+	return false;
+      }
+    default:
+      {
+	return true;
+      }
+    }
+}
+
 bool glitch_object_flow_control_arduino::hasInput(void) const
 {
   return m_ui.flow_control_type->currentText() == "return";
@@ -277,6 +296,7 @@ void glitch_object_flow_control_arduino::addActions(QMenu &menu)
     {
       auto action = new QAction(tr("&Edit..."), this);
 
+      action->setEnabled(editable());
       action->setIcon(QIcon::fromTheme("document-edit"));
       connect(action,
 	      &QAction::triggered,

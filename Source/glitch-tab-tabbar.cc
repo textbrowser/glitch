@@ -47,7 +47,7 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 
-  foreach(auto tool_button, findChildren <QToolButton *> ())
+  for(auto tool_button : findChildren <QToolButton *> ())
     tool_button->setStyleSheet
     (QString("QToolButton {background-color: %1;"
 	     "border: none;"

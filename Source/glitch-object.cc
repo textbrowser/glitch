@@ -127,7 +127,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
 
 glitch_object::~glitch_object()
 {
-  foreach(auto object, m_copiedChildren)
+  for(auto object : m_copiedChildren)
     if(object)
       object->deleteLater();
 
@@ -215,7 +215,7 @@ QStringList glitch_object::inputs(void) const
 
   QStringList inputs;
 
-  foreach(auto object, objects)
+  for(auto object : objects)
     if(object)
       {
 	auto code(object->code());
@@ -274,7 +274,7 @@ QStringList glitch_object::outputs(void) const
 
   QStringList outputs;
 
-  foreach(auto object, objects)
+  for(auto object : objects)
     if(object)
       {
 	auto code(object->code());
@@ -315,7 +315,7 @@ bool glitch_object::isMandatory(void) const
 
 bool glitch_object::mouseOverScrollBar(const QPointF &point) const
 {
-  foreach(auto scrollBar, findChildren<QScrollBar *> ())
+  for(auto scrollBar : findChildren<QScrollBar *> ())
     if(scrollBar->isSliderDown())
       return true;
     else if(scrollBar->rect().
@@ -562,7 +562,7 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  foreach(auto toolButton, findChildren<QToolButton *> ())
+  for(auto toolButton : findChildren<QToolButton *> ())
     if(toolButton->objectName() == "context_menu")
       {
 	connect(toolButton,

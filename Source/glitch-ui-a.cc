@@ -394,7 +394,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 
   if(event)
     {
-      foreach(auto view, findChildren<glitch_view *> ())
+      for(auto view : findChildren<glitch_view *> ())
 	if(view->hasChanged())
 	  {
 	    QMessageBox mb(this);
@@ -1572,7 +1572,7 @@ void glitch_ui::slotShowAllStructures(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(auto view, findChildren<glitch_view *> ())
+  for(auto view : findChildren<glitch_view *> ())
     if(view)
       view->showStructures();
 
@@ -1583,7 +1583,7 @@ void glitch_ui::slotShowAllTools(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(auto view, findChildren<glitch_view *> ())
+  for(auto view : findChildren<glitch_view *> ())
     if(view)
       view->showTools();
 

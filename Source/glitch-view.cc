@@ -199,7 +199,7 @@ glitch_view::glitch_view
 
 glitch_view::~glitch_view()
 {
-  foreach(auto undoStack, m_undoStacks)
+  for(auto undoStack : m_undoStacks)
     if(undoStack)
       disconnect(undoStack,
 		 QOverload<int>::of(&QUndoStack::indexChanged),
@@ -1198,7 +1198,7 @@ void glitch_view::slotUndoStackChanged(void)
 
   auto clean = true;
 
-  foreach(auto undoStack, m_undoStacks)
+  for(auto undoStack : m_undoStacks)
     if(!(undoStack && undoStack->isClean()))
       {
 	clean = false;

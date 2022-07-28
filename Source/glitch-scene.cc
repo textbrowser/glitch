@@ -1287,7 +1287,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
 
 void glitch_scene::slotFunctionDeleted(const QString &name)
 {
-  foreach(auto object, objects())
+  for(auto object : objects())
     if(object && object->name() == name && object->type().contains("function"))
       {
 	if(m_undoStack)

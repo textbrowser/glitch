@@ -52,7 +52,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(auto widget, m_ui.frame->findChildren<QWidget *> ())
+  for(auto widget : m_ui.frame->findChildren<QWidget *> ())
     {
       m_ui.frame->layout()->removeWidget(widget);
       widget->deleteLater();
@@ -118,6 +118,9 @@ void glitch_floating_context_menu::setName(const QString &n)
 
 void glitch_floating_context_menu::setObject(glitch_object *object)
 {
+  if(m_object)
+    return;
+
   m_object = object;
 
   if(m_object)
@@ -125,8 +128,7 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
       connect(m_object,
 	      &glitch_object::changed,
 	      this,
-	      &glitch_floating_context_menu::slotObjectChanged,
-	      Qt::UniqueConnection);
+	      &glitch_floating_context_menu::slotObjectChanged);
       m_ui.object_id->setText(tr("ID: %1").arg(m_object->id()));
       slotObjectChanged();
     }
