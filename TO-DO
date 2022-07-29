@@ -93,6 +93,7 @@ Completed Items
 - Raise currently-selected function via z-value. This will allow the function's
   combination box to float above other widgets.
 - Recreating functions and unique names.
+- Redo / undo and nested objects.
 - Redo / undo function names.
 - Redo / undo lock positions.
 - Redo / undo shortcuts on edit windows.
@@ -181,7 +182,6 @@ Remaining Items
 - Modern Qt connect(). Source/Arduino is completed.
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Redo / undo and nested objects.
 - Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
