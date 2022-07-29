@@ -290,8 +290,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   connect(object,
 	  &glitch_object::destroyed,
 	  proxy,
-	  &glitch_proxy_widget::deleteLater,
-	  Qt::UniqueConnection);
+	  &glitch_proxy_widget::deleteLater);
   connect(object,
 	  QOverload<QObject *>::of(&glitch_object::destroyed),
 	  this,
