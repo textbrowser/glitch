@@ -1027,7 +1027,20 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		      lineEdit->setFocus();
 		    }
 		  else
-		    object->setFocus();
+		    {
+		      for(auto child : object->findChildren<QWidget *> ())
+			if(child && child->objectName().contains("viewport"))
+			  {
+			    child->setFocus();
+			    goto exit_label;
+			  }
+
+		      object->setFocus();
+
+		    exit_label:
+		      {
+		      }
+		    }
 		}
 	    }
 

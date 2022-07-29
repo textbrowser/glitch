@@ -118,6 +118,8 @@ Completed Items
 - Selection rectangle moves wired objects. Ignore wires.
 - Separate database objects when opening an existing diagram.
 - Separated window: context menu, generate source, save.
+- Set focus on plain-text-edit during mouse-press event. Discover the
+  "viewport" widget.
 - Shortcuts in object views.
 - Split properties via special regular expression.
 - Structures context menu on view object.
@@ -186,7 +188,6 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
-- Set focus on plain-text-edit during mouse-press event.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:
