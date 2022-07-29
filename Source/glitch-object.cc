@@ -584,6 +584,13 @@ void glitch_object::prepareContextMenu(void)
 
 void glitch_object::prepareEditSignals(const glitch_view *parentView)
 {
+  if(m_editView)
+    connect(m_editView,
+	    QOverload<QUndoStack *>::of(&glitch_object_view::undoStackCreated),
+	    this,
+	    QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	    Qt::UniqueConnection);
+
   if(m_editView && m_editWindow)
     {
       connect(m_editView,

@@ -70,18 +70,25 @@ glitch_object_view::glitch_object_view
 	  this,
 	  &glitch_object_view::slotChanged);
   connect(m_scene,
-	  SIGNAL(changed(void)),
+	  &glitch_scene::changed,
 	  this,
-	  SIGNAL(changed(void)));
+	  &glitch_object_view::changed);
   connect(m_scene,
-	  SIGNAL(sceneResized(void)),
+	  &glitch_scene::sceneResized,
 	  this,
-	  SLOT(slotSceneResized(void)),
+	  &glitch_object_view::slotSceneResized,
 	  Qt::QueuedConnection);
-  connect(this,
-	  SIGNAL(customContextMenuRequested(const QPoint &)),
+  connect(m_scene,
+	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
 	  this,
-	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+	  QOverload<QUndoStack *>::of(&glitch_object_view::undoStackCreated));
+  connect
+    (this,
+     QOverload<const QPoint &>::
+     of(&glitch_object_view::customContextMenuRequested),
+     this,
+     QOverload<const QPoint &>::
+     of(&glitch_object_view::slotCustomContextMenuRequested));
 }
 
 glitch_object_view::~glitch_object_view()
