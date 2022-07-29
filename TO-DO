@@ -23,6 +23,7 @@ Completed Items
 - Assign new names to functions pasted on main canvases.
 - Canvas background color redo / undo.
 - Close a function's Objects Alignment dialog if its editing window is closed.
+- Close all edit windows on simulated delete.
 - Close edit windows via Control + W.
 - Close floating context menu of newly-created object upon delete.
 - Command-line help.
@@ -37,7 +38,6 @@ Completed Items
 - Copy Edit menu to child edit windows and separated windows.
   Redo / undo stack.
 - Copy children!
-- Copy wires? No, connections must be defined new.
 - Define databases.
 - Define input parameters from connected objects. Order is also important.
 - Delegate object constructors.
@@ -151,7 +151,6 @@ Remaining Items
 
 - Allow removal of wire by selection.
 - Android.
-- Close all edit windows on simulated delete.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Completed Categories
   Advanced I/O
@@ -166,6 +165,7 @@ Remaining Items
   Structures
   Time
   Variables
+- Copy wires.
 - Custom shortcuts.
 - Draw disconnect symbols.
 - Find objects.

@@ -152,6 +152,7 @@ class glitch_object: public QWidget
 
  private slots:
   void slotAdjustSize(void);
+  void slotSimulateDelete(void);
   void slotLockPosition(void);
   void slotShowContextMenu(void);
   void slotWireDestroyed(void);
@@ -196,6 +197,7 @@ class glitch_object: public QWidget
  signals:
   void changed(void);
   void deletedViaContextMenu(void);
+  void simulateDeleteSignal(void);
   void undoStackCreated(QUndoStack *undoStack);
 };
 

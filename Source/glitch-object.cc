@@ -453,6 +453,13 @@ void glitch_object::addChild(const QPointF &point, glitch_object *object)
   if(!object)
     return;
 
+  if(object->editView())
+    connect(this,
+	    &glitch_object::simulateDeleteSignal,
+	    object,
+	    &glitch_object::slotSimulateDelete,
+	    Qt::UniqueConnection);
+
   if(m_editView)
     m_editView->artificialDrop(point, object);
 }
@@ -886,10 +893,12 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 
 void glitch_object::simulateDelete(void)
 {
+  m_contextMenu->close();
+
   if(m_editWindow)
     m_editWindow->close();
 
-  m_contextMenu->close();
+  emit simulateDeleteSignal();
 }
 
 void glitch_object::slotAdjustSize(void)
@@ -940,6 +949,11 @@ void glitch_object::slotLockPosition(void)
       !m_properties.value(Properties::POSITION_LOCKED).toBool();
 
   emit changed();
+}
+
+void glitch_object::slotSimulateDelete(void)
+{
+  simulateDelete();
 }
 
 void glitch_object::slotSetStyleSheet(void)
