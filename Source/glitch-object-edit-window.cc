@@ -68,6 +68,11 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
+
+  auto font(m_header->font());
+
+  font.setBold(true);
+  m_header->setFont(font);
   m_toolBar = new QToolBar(tr("Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
   addToolBar(m_toolBar);
