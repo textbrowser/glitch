@@ -600,12 +600,18 @@ void glitch_canvas_settings::slotSelectColor(void)
 void glitch_canvas_settings::slotSelectOutputFile(void)
 {
   QFileDialog dialog(this);
+  QFileInfo fileInfo(m_ui.output_file->text());
 
   dialog.selectFile(m_ui.name->text() + m_outputFileExtension);
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
-  dialog.setDirectory
-    (QStandardPaths::
-     standardLocations(QStandardPaths::DesktopLocation).value(0));
+
+  if(fileInfo.isWritable())
+    dialog.setDirectory(fileInfo.dir());
+  else
+    dialog.setDirectory
+      (QStandardPaths::
+       standardLocations(QStandardPaths::DesktopLocation).value(0));
+
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setWindowIcon(windowIcon());

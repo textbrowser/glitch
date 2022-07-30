@@ -200,7 +200,7 @@ void glitch_proxy_widget::paint
 	  pen.setWidthF(5.0);
 	  painter->save();
 	  painter->setPen(pen);
-	  painter->drawRect(boundingRect().adjusted(1.5, 1.5, -1.5, -1.5));
+	  painter->drawRect(boundingRect().adjusted(0.5, 0.5, -0.5, -0.5));
 	  painter->restore();
 	}
 
