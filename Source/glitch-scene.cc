@@ -889,6 +889,16 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	return;
       }
+    case Qt::Key_Z:
+      {
+	if(event->modifiers() & Qt::ControlModifier)
+	  {
+	    if(event->modifiers() & Qt::ShiftModifier)
+	      redo();
+	    else
+	      undo();
+	  }
+      }
     default:
       {
 	break;
@@ -1184,6 +1194,17 @@ void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
   m_objectsMap.insert(glitch_point(proxy->pos()), proxy);
 }
 
+void glitch_scene::redo(void)
+{
+  if(m_undoStack && m_undoStack->canRedo())
+    {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+      m_undoStack->redo();
+      emit changed();
+      QApplication::restoreOverrideCursor();
+    }
+}
+
 void glitch_scene::removeItem(QGraphicsItem *item)
 {
   /*
@@ -1374,24 +1395,13 @@ void glitch_scene::slotProxyChanged(void)
   recordProxyOrder(qobject_cast<glitch_proxy_widget *> (sender()));
 }
 
-void glitch_scene::slotRedo(void)
-{
-  if(m_undoStack && m_undoStack->canRedo())
-    {
-      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-      m_undoStack->redo();
-      emit changed();
-      QApplication::restoreOverrideCursor();
-    }
-}
-
 void glitch_scene::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
   m_toolsOperation = operation;
 }
 
-void glitch_scene::slotUndo(void)
+void glitch_scene::undo(void)
 {
   if(m_undoStack && m_undoStack->canUndo())
     {

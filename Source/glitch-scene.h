@@ -117,6 +117,8 @@ class glitch_scene: public QGraphicsScene
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
   void recordProxyOrder(glitch_proxy_widget *proxy);
+  void redo(void);
+  void undo(void);
   void wireConnectObjects(glitch_proxy_widget *proxy);
   void wireDisconnectObjects(const QPointF &point, glitch_proxy_widget *proxy);
 
@@ -134,8 +136,6 @@ class glitch_scene: public QGraphicsScene
 				     glitch_object *object);
   void slotObjectDeletedViaContextMenu(void);
   void slotProxyChanged(void);
-  void slotRedo(void);
-  void slotUndo(void);
 
  signals:
   void changed(void);
