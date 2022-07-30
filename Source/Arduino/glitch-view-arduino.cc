@@ -199,6 +199,7 @@ void glitch_view_arduino::generateSource(void)
 {
   if(m_canvasSettings->outputFile().trimmed().isEmpty())
     {
+      m_canvasSettings->notify();
       m_canvasSettings->show();
       return;
     }

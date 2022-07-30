@@ -53,6 +53,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
+  m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
   m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
   m_ui.wire_color->setStyleSheet
@@ -304,8 +305,17 @@ void glitch_canvas_settings::accept(void)
       m_ui.name->setCursorPosition(0);
     }
 
+  notify();
   setResult(QDialog::Accepted);
   emit accepted(true);
+}
+
+void glitch_canvas_settings::notify(void)
+{
+  if(m_ui.output_file->text().trimmed().isEmpty())
+    m_ui.output_file_warning_label->setVisible(true);
+  else
+    m_ui.output_file_warning_label->setVisible(false);
 }
 
 void glitch_canvas_settings::prepare(void)
@@ -514,6 +524,7 @@ void glitch_canvas_settings::setSettings
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
 						  VIEW_UPDATE_MODE).toInt()));
+  notify();
   emit accepted(false);
 }
 

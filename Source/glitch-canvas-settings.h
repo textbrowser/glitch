@@ -70,6 +70,7 @@ class glitch_canvas_settings: public QDialog
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
   int redoUndoStackSize(void) const;
+  void notify(void);
   void prepare(void);
   void setFileName(const QString &fileName);
   void setName(const QString &name);
