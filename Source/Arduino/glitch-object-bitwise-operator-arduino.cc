@@ -108,6 +108,10 @@ bool glitch_object_bitwise_operator_arduino::isFullyWired(void) const
 {
   switch(m_operatorType)
     {
+    case OperatorTypes::NOT_OPERATOR:
+      {
+	return inputs().size() >= 1;
+      }
     default:
       {
 	return false;
