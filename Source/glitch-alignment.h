@@ -160,7 +160,7 @@ class glitch_alignment: public QWidget
 	  case AlignmentTypes::ALIGN_BOTTOM:
 	    {
 	      x = object->pos().x();
-	      y = qMax(y, object->height() + object->pos().y());
+	      y = qMax(object->height() + object->pos().y(), y);
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
@@ -176,20 +176,20 @@ class glitch_alignment: public QWidget
 	    }
 	  case AlignmentTypes::ALIGN_LEFT:
 	    {
-	      x = qMin(x, object->pos().x());
+	      x = qMin(object->pos().x(), x);
 	      y = object->pos().y();
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_RIGHT:
 	    {
-	      x = qMax(x, object->pos().x() + object->width());
+	      x = qMax(object->pos().x() + object->width(), x);
 	      y = object->pos().y();
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_TOP:
 	    {
 	      x = object->pos().x();
-	      y = qMin(y, object->pos().y());
+	      y = qMin(object->pos().y(), y);
 	      break;
 	    }
 	  default:
@@ -205,7 +205,7 @@ class glitch_alignment: public QWidget
 	  {
 	  case AlignmentTypes::ALIGN_BOTTOM:
 	    {
-	      if(y != object->height() + object->pos().y())
+	      if(object->height() + object->pos().y() != y)
 		{
 		  point = object->pos();
 		  object->move(x, y - object->height());
@@ -232,7 +232,7 @@ class glitch_alignment: public QWidget
 	    }
 	  case AlignmentTypes::ALIGN_RIGHT:
 	    {
-	      if(x != object->pos().x() + object->width())
+	      if(object->pos().x() + object->width() != x)
 		{
 		  point = object->pos();
 		  object->move(x - object->width(), y);
