@@ -52,7 +52,7 @@
        <item>
         <widget class="QToolButton" name="array">
          <property name="toolTip">
-          <string>Check to make this variable an array.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate to make this variable an array.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>[ ]</string>

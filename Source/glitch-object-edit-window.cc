@@ -38,6 +38,8 @@
 glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   QMainWindow(parent)
 {
+  Q_UNUSED(statusBar());
+
   auto menu = menuBar()->addMenu(tr("&File"));
 
   m_actions["close"] =
@@ -286,4 +288,9 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
       (tr("Undo (%1)").arg(m_undoStack->undoText()));
   else
     m_actions.value("undo")->setText(tr("Undo"));
+
+  if(m_editView && statusBar())
+    statusBar()->showMessage
+      (tr("%1 Item(s) Selected").
+       arg(m_editView->scene()->selectedItems().size()));
 }

@@ -1500,7 +1500,14 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 void glitch_ui::slotSelectAll(void)
 {
   if(m_currentView)
-    m_currentView->selectAll();
+    {
+      m_currentView->selectAll();
+
+      if(statusBar())
+	statusBar()->showMessage
+	  (tr("%1 Item(s) Selected").
+	   arg(m_currentView->scene()->selectedItems().size()));
+    }
 }
 
 void glitch_ui::slotSelectPage(void)
@@ -1525,6 +1532,11 @@ void glitch_ui::slotSelectionChanged(void)
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Select_All->setEnabled
 	(m_currentView->scene()->items().size() > 0);
+
+      if(statusBar())
+	statusBar()->showMessage
+	  (tr("%1 Item(s) Selected").
+	   arg(m_currentView->scene()->selectedItems().size()));      
     }
   else
     {
@@ -1532,6 +1544,7 @@ void glitch_ui::slotSelectionChanged(void)
       m_ui.action_Delete->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
+      prepareStatusBar();
     }
 }
 
