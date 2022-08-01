@@ -189,6 +189,7 @@ void glitch_proxy_widget::paint
 	  */
 
 	  QPen pen;
+	  const qreal offset = 10.0;
 
 	  if(isMovable())
 	    pen.setColor(QColor("lightgreen"));
@@ -200,7 +201,8 @@ void glitch_proxy_widget::paint
 	  pen.setWidthF(5.0);
 	  painter->save();
 	  painter->setPen(pen);
-	  painter->drawRect(boundingRect().adjusted(0.5, 0.5, -0.5, -0.5));
+	  painter->drawRect
+	    (boundingRect().adjusted(-offset, -offset, offset, offset));
 	  painter->restore();
 	}
 
@@ -255,11 +257,11 @@ void glitch_proxy_widget::paint
 			   rect.height() / 2.0 + rect.topLeft().y() - 5.0,
 			   10.0,
 			   10.0);
-	      painter->fillPath(path, Qt::blue);
+	      painter->fillPath(path, Qt::gray);
 
 	      QPen pen;
 
-	      pen.setColor(Qt::yellow);
+	      pen.setColor(Qt::blue);
 	      pen.setWidthF(1.5);
 	      painter->save();
 	      painter->setPen(pen);
@@ -284,11 +286,11 @@ void glitch_proxy_widget::paint
 			   rect.height() / 2.0 + rect.topRight().y() - 5.0,
 			   10.0,
 			   10.0);
-	      painter->fillPath(path, Qt::blue);
+	      painter->fillPath(path, Qt::gray);
 
 	      QPen pen;
 
-	      pen.setColor(Qt::yellow);
+	      pen.setColor(Qt::blue);
 	      pen.setWidthF(1.5);
 	      painter->save();
 	      painter->setPen(pen);
