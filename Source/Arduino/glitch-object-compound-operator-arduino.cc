@@ -144,7 +144,8 @@ createFromValues(const QMap<QString, QVariant> &values,
   auto object = new glitch_object_compound_operator_arduino
     (values.value("myoid").toLongLong(), parent);
 
-  object->setProperties(values.value("properties").toString().split('&'));
+  object->setProperties
+    (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
 }
@@ -204,9 +205,70 @@ void glitch_object_compound_operator_arduino::setOperatorType
 
   switch(m_operatorType)
     {
+    case OperatorTypes::ADDITION_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("+="));
+	break;
+      }
+    case OperatorTypes::BITWISE_AND_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("&="));
+	break;
+      }
+    case OperatorTypes::BITWISE_OR_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("|="));
+	break;
+      }
+    case OperatorTypes::BITWISE_XOR_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("^="));
+	break;
+      }
+    case OperatorTypes::DECREMENT_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("--"));
+	break;
+      }
+    case OperatorTypes::DIVISION_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("/="));
+	break;
+      }
+    case OperatorTypes::INCREMENT_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("++"));
+	break;
+      }
+    case OperatorTypes::MODULO_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("%="));
+	break;
+      }
+    case OperatorTypes::MULTIPLICATION_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("*="));
+	break;
+      }
+    case OperatorTypes::SUBTRACTION_OPERATOR:
+      {
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("-="));
+	break;
+      }
     default:
       {
-	m_ui.compound_operator->setCurrentIndex(0);
+	m_ui.compound_operator->setCurrentIndex
+	  (m_ui.compound_operator->findText("+="));
 	break;
       }
     }
