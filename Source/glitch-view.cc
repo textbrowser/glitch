@@ -176,6 +176,10 @@ glitch_view::glitch_view
      this,
      QOverload<const glitch_tools::Operations>::of(&glitch_view::
 						   toolsOperationChanged));
+  connect(m_undoStack,
+	  QOverload<int>::of(&QUndoStack::indexChanged),
+	  this,
+	  &glitch_view::slotUndoStackChanged);
   connect(m_view,
 	  SIGNAL(mouseEnterEvent(void)),
 	  this,
