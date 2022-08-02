@@ -47,26 +47,28 @@ glitch_view_arduino::glitch_view_arduino
   Q_UNUSED(fromFile);
   m_canvasSettings->setOutputFileExtension(projectOutputFileExtension());
   m_loopObject = new glitch_object_loop_arduino(this);
+  m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);
+  m_setupObject->setCanvasSettings(m_canvasSettings);
 
   glitch_proxy_widget *proxy = nullptr;
 
   proxy = new glitch_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsMovable, false);
-  proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(m_loopObject);
   proxy->resize(m_loopObject->size());
   m_loopObject->setProxy(proxy);
   m_scene->addItem(proxy);
-  proxy->setPos(QPointF(10.0, 10.0));
+  proxy->setPos(QPointF(15.0, 15.0));
   proxy = new glitch_proxy_widget();
   proxy->setFlag(QGraphicsItem::ItemIsMovable, false);
-  proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(m_setupObject);
   proxy->resize(m_setupObject->size());
   m_scene->addItem(proxy);
   m_setupObject->setProxy(proxy);
-  proxy->setPos(QPointF(m_loopObject->width() + 20.0, 10.0));
+  proxy->setPos(QPointF(m_loopObject->width() + 45.0, 15.0));
   connect(m_loopObject,
 	  &glitch_object_loop_arduino::changed,
 	  this,
