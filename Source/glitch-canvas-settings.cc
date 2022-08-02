@@ -45,6 +45,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   QDialog(parent)
 {
   m_outputFileExtension = "";
+  m_timer.start(2500);
   m_ui.setupUi(this);
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
@@ -64,6 +65,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  connect(&m_timer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_canvas_settings::slotTimerTimeout);
   connect(m_ui.background_color,
 	  SIGNAL(clicked(void)),
 	  this,
@@ -635,5 +640,28 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
       m_ui.output_file->setText(dialog.selectedFiles().value(0));
       m_ui.output_file->setToolTip(m_ui.output_file->text());
       m_ui.output_file->setCursorPosition(0);
+    }
+}
+
+void glitch_canvas_settings::slotTimerTimeout(void)
+{
+  QFileInfo fileInfo(m_ui.output_file->text());
+
+  if(!fileInfo.isWritable())
+    {
+      if(m_ui.output_file->text().trimmed().isEmpty())
+	m_ui.output_file_warning_label->setToolTip
+	  (tr("The output file is not writable."));
+      else
+	m_ui.output_file_warning_label->setToolTip
+	  (tr("<html>The output file %1 is not writable.</html>").
+	   arg(fileInfo.absoluteFilePath()));
+
+      m_ui.output_file_warning_label->setVisible(true);
+    }
+  else
+    {
+      m_ui.output_file_warning_label->setToolTip("");
+      m_ui.output_file_warning_label->setVisible(false);
     }
 }

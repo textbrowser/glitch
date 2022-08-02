@@ -29,6 +29,7 @@
 #define _glitch_canvas_settings_h_
 
 #include <QGraphicsView>
+#include <QTimer>
 
 #include "ui_glitch-canvas-settings.h"
 
@@ -87,6 +88,7 @@ class glitch_canvas_settings: public QDialog
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QString m_fileName;
   QString m_outputFileExtension;
+  QTimer m_timer;
   Ui_glitch_canvas_settings m_ui;
   QString defaultName(void) const;
 
@@ -94,6 +96,7 @@ class glitch_canvas_settings: public QDialog
   void accept(void);
   void slotSelectColor(void);
   void slotSelectOutputFile(void);
+  void slotTimerTimeout(void);
 
  signals:
   void accepted(const bool undo);
