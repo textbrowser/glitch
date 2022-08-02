@@ -890,9 +890,18 @@ void glitch_view::redo(void)
   if(m_undoStack->canRedo())
     {
       m_changed = true;
+      disconnect(m_scene,
+		 SIGNAL(changed(void)),
+		 this,
+		 SLOT(slotChanged(void)));
       m_undoStack->redo();
-      emit changed();
+      connect(m_scene,
+	      SIGNAL(changed(void)),
+	      this,
+	      SLOT(slotChanged(void)),
+	      Qt::QueuedConnection);
       adjustScrollBars();
+      emit changed();
     }
 
   if(m_saveDiagramAction)
@@ -1233,9 +1242,18 @@ void glitch_view::undo(void)
   if(m_undoStack->canUndo())
     {
       m_changed = true;
+      disconnect(m_scene,
+		 SIGNAL(changed(void)),
+		 this,
+		 SLOT(slotChanged(void)));
       m_undoStack->undo();
-      emit changed();
+      connect(m_scene,
+	      SIGNAL(changed(void)),
+	      this,
+	      SLOT(slotChanged(void)),
+	      Qt::QueuedConnection);
       adjustScrollBars();
+      emit changed();
     }
 
   if(!m_undoStack->canUndo())
