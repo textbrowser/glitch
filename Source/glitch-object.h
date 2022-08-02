@@ -103,9 +103,19 @@ class glitch_object: public QWidget
   bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
 
+  bool isInputWired(void) const
+  {
+    return !inputs().isEmpty();
+  }
+
+  bool isOutputWired(void) const
+  {
+    return !outputs().isEmpty();
+  }
+
   bool isWired(void) const
   {
-    return inputs().size() > 0 || outputs().size() > 0;
+    return isInputWired() || isOutputWired();
   }
 
   qint64 id(void) const;

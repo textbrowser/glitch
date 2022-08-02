@@ -257,7 +257,11 @@ void glitch_proxy_widget::paint
 			   rect.height() / 2.0 + rect.topLeft().y() - 5.0,
 			   10.0,
 			   10.0);
-	      painter->fillPath(path, Qt::gray);
+
+	      if(m_object->isInputWired())
+		painter->fillPath(path, Qt::green);
+	      else
+		painter->fillPath(path, Qt::gray);
 
 	      QPen pen;
 
@@ -286,7 +290,11 @@ void glitch_proxy_widget::paint
 			   rect.height() / 2.0 + rect.topRight().y() - 5.0,
 			   10.0,
 			   10.0);
-	      painter->fillPath(path, Qt::gray);
+
+	      if(m_object->isOutputWired())
+		painter->fillPath(path, Qt::green);
+	      else
+		painter->fillPath(path, Qt::gray);
 
 	      QPen pen;
 
