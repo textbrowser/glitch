@@ -31,6 +31,7 @@
 #include <QMimeData>
 #include <QTableWidget>
 #include <QUndoStack>
+#include <QtDebug>
 
 #include <cmath>
 
@@ -1038,6 +1039,13 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		      lineEdit->setCursorPosition
 			(lineEdit->cursorPositionAt(point));
 		      lineEdit->setFocus();
+		    }
+		  else if(qobject_cast<QToolButton *> (object->childAt(point)))
+		    {
+		      auto toolButton = qobject_cast<QToolButton *>
+			(object->childAt(point));
+
+		      toolButton->setFocus();
 		    }
 		  else
 		    {

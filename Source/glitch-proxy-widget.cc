@@ -27,6 +27,7 @@
 
 #include <QComboBox>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QLineEdit>
 #include <QMenu>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -157,6 +158,15 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       return;
     }
 
+  auto lineEdit = qobject_cast<QLineEdit *>
+    (m_object->childAt(event->pos().toPoint()));
+
+  if(lineEdit)
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
   auto toolButton = qobject_cast<QToolButton *>
     (m_object->childAt(event->pos().toPoint()));
 
@@ -165,6 +175,8 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       QGraphicsProxyWidget::mousePressEvent(event);
       return;
     }
+
+  m_object->setFocus();
 }
 
 void glitch_proxy_widget::paint

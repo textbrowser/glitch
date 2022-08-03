@@ -219,17 +219,22 @@ QString glitch_object_function_arduino::code(void) const
 	     << m_ui.label->text().remove("()")
 	     << "(";
 
+      QString parameters("");
       auto list(inputs());
 
       for(int i = 0; i < list.size(); i++)
 	{
-	  stream << list.at(i);
+	  parameters.append(list.at(i));
 
 	  if(i != list.size() - 1)
-	    stream << ", ";
+	    parameters.append(", ");
 	}
 
-      stream << ")"
+      if(parameters.isEmpty())
+	parameters = "void";
+
+      stream << parameters
+	     << ")"
 	     << Qt::endl
 	     << "{"
 	     << Qt::endl;
