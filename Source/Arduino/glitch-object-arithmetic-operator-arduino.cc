@@ -75,21 +75,21 @@ QString glitch_object_arithmetic_operator_arduino::code(void) const
     {
     default:
       {
-	QString str("(");
+	QString string("(");
 	auto list(inputs());
 
 	for(int i = 0; i < list.size(); i++)
 	  {
-	    str.append(QString("(%1)").arg(list.at(i)));
+	    string.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      str.append
+	      string.append
 		(QString(" %1 ").arg(m_ui.arithmetic_operator->currentText()));
 	  }
 
-	str = str.trimmed();
-	str.append(")");
-	return str;
+	string = string.trimmed();
+	string.append(")");
+	return string;
       }
     }
 }
