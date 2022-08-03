@@ -55,6 +55,11 @@ glitch_object_compound_operator_arduino
 	  this,
 	  &glitch_object_compound_operator_arduino::
 	  slotCompoundOperatorChanged);
+  connect(m_ui.pre,
+	  QOverload<bool>::of(&QToolButton::toggled),
+	  this,
+	  QOverload<bool>::
+	  of(&glitch_object_compound_operator_arduino::slotPreToggled));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
@@ -79,10 +84,21 @@ QString glitch_object_compound_operator_arduino::code(void) const
       {
 	QString string("");
 
-	string.append("(");
-	string.append(inputs().value(0));
-	string.append(")");
-	string.append(m_ui.compound_operator->currentText());
+	if(m_ui.pre->isChecked())
+	  {
+	    string.append(m_ui.compound_operator->currentText());
+	    string.append("(");
+	    string.append(inputs().value(0));
+	    string.append(")");
+	  }
+	else
+	  {
+	    string.append("(");
+	    string.append(inputs().value(0));
+	    string.append(")");
+	    string.append(m_ui.compound_operator->currentText());
+	  }
+
 	string.append(";");
 	return string;
       }
@@ -146,7 +162,7 @@ bool glitch_object_compound_operator_arduino::shouldPrint(void) const
     case OperatorTypes::DECREMENT_OPERATOR:
     case OperatorTypes::INCREMENT_OPERATOR:
       {
-	return true;
+	return !inputs().isEmpty();
       }
     default:
       {
@@ -162,6 +178,9 @@ glitch_object_compound_operator_arduino::clone(QWidget *parent) const
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
+  clone->m_ui.pre->blockSignals(true);
+  clone->m_ui.pre->setChecked(m_ui.pre->isChecked());
+  clone->m_ui.pre->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setOperatorType(m_operatorType);
@@ -203,6 +222,7 @@ void glitch_object_compound_operator_arduino::save
 
   properties["compound_operator"] =
     m_ui.compound_operator->currentText().trimmed();
+  properties["compound_operator_pre"] = m_ui.pre->isChecked();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -336,6 +356,10 @@ void glitch_object_compound_operator_arduino::setProperties
 	  string.remove("\"");
 	  m_properties[Properties::COMPOUND_OPERATOR_PRE] =
 	    QVariant(string.trimmed()).toBool();
+	  m_ui.pre->blockSignals(true);
+	  m_ui.pre->setChecked
+	    (m_properties.value(Properties::COMPOUND_OPERATOR_PRE).toBool());
+	  m_ui.pre->blockSignals(false);
 	}
     }
 
@@ -386,6 +410,25 @@ void glitch_object_compound_operator_arduino::slotCompoundOperatorChanged
      m_properties.value(Properties::COMPOUND_OPERATOR).toString(),
      glitch_undo_command::PROPERTY_CHANGED,
      Properties::COMPOUND_OPERATOR,
+     this);
+
+  m_properties[Properties::COMPOUND_OPERATOR] =
+    m_ui.compound_operator->currentText();
+  undoCommand->setText(tr("compound operator changed"));
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_object_compound_operator_arduino::slotPreToggled(bool state)
+{
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (state,
+     m_properties.value(Properties::COMPOUND_OPERATOR_PRE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::COMPOUND_OPERATOR_PRE,
      this);
 
   m_properties[Properties::COMPOUND_OPERATOR] =

@@ -90,9 +90,15 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="pre">
+    <widget class="QToolButton" name="pre">
      <property name="text">
       <string>Pre</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="autoRaise">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

@@ -77,6 +77,7 @@ class glitch_object_compound_operator_arduino: public glitch_object
 
  private slots:
   void slotCompoundOperatorChanged(void);
+  void slotPreToggled(bool state);
 };
 
 #endif
