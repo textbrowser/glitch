@@ -49,6 +49,7 @@ glitch_object_compound_operator_arduino
   m_operatorType = OperatorTypes::MODULO_OPERATOR;
   m_type = "arduino-compoundoperator";
   m_ui.setupUi(this);
+  m_ui.pre->setVisible(false);
   connect(m_ui.compound_operator,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
@@ -309,6 +310,8 @@ void glitch_object_compound_operator_arduino::setOperatorType
     }
 
   m_ui.compound_operator->blockSignals(false);
+  m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
+		       m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
   setName(m_ui.compound_operator->currentText());
 }
 
@@ -326,6 +329,13 @@ void glitch_object_compound_operator_arduino::setProperties
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMPOUND_OPERATOR] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("compound_operator_pre = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::COMPOUND_OPERATOR_PRE] =
+	    QVariant(string.trimmed()).toBool();
 	}
     }
 
@@ -347,6 +357,13 @@ void glitch_object_compound_operator_arduino::setProperty
 	  (m_ui.compound_operator->findText(value.toString()));
 	m_ui.compound_operator->blockSignals(false);
 	setOperatorType(value.toString());
+	break;
+      }
+    case Properties::COMPOUND_OPERATOR_PRE:
+      {
+	m_ui.pre->blockSignals(true);
+	m_ui.pre->setChecked(value.toBool());
+	m_ui.pre->blockSignals(false);
 	break;
       }
     default:

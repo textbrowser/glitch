@@ -75,6 +75,7 @@ class glitch_object: public QWidget
     BITWISE_OPERATOR,
     COMMENT,
     COMPOUND_OPERATOR,
+    COMPOUND_OPERATOR_PRE,
     CONDITION,
     CONSTANT_OTHER,
     CONSTANT_TYPE,

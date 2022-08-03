@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>125</width>
+    <width>200</width>
     <height>45</height>
    </rect>
   </property>
@@ -90,6 +90,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="pre">
+     <property name="text">
+      <string>Pre</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QToolButton" name="context_menu">
      <property name="text">
       <string/>
@@ -104,6 +111,7 @@
  </widget>
  <tabstops>
   <tabstop>compound_operator</tabstop>
+  <tabstop>pre</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
  <resources>
