@@ -73,23 +73,33 @@ QString glitch_object_compound_operator_arduino::code(void) const
 {
   switch(m_operatorType)
     {
+    case OperatorTypes::DECREMENT_OPERATOR:
+    case OperatorTypes::INCREMENT_OPERATOR:
+      {
+	QString string("");
+
+	string.append(inputs().value(0));
+	string.append(m_ui.compound_operator->currentText());
+	string.append(";");
+	return string;
+      }
     default:
       {
-	QString str("(");
+	QString string("(");
 	auto list(inputs());
 
 	for(int i = 0; i < list.size(); i++)
 	  {
-	    str.append(QString("(%1)").arg(list.at(i)));
+	    string.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      str.append
+	      string.append
 		(QString(" %1 ").arg(m_ui.compound_operator->currentText()));
 	  }
 
-	str = str.trimmed();
-	str.append(")");
-	return str;
+	string = string.trimmed();
+	string.append(")");
+	return string;
       }
     }
 }
@@ -101,7 +111,18 @@ bool glitch_object_compound_operator_arduino::hasInput(void) const
 
 bool glitch_object_compound_operator_arduino::hasOutput(void) const
 {
-  return true;
+  switch(m_operatorType)
+    {
+    case OperatorTypes::DECREMENT_OPERATOR:
+    case OperatorTypes::INCREMENT_OPERATOR:
+      {
+	return false;
+      }
+    default:
+      {
+	return true;
+      }
+    }
 }
 
 bool glitch_object_compound_operator_arduino::isFullyWired(void) const
@@ -117,7 +138,18 @@ bool glitch_object_compound_operator_arduino::isFullyWired(void) const
 
 bool glitch_object_compound_operator_arduino::shouldPrint(void) const
 {
-  return false;
+  switch(m_operatorType)
+    {
+    case OperatorTypes::DECREMENT_OPERATOR:
+    case OperatorTypes::INCREMENT_OPERATOR:
+      {
+	return true;
+      }
+    default:
+      {
+	return false;
+      }
+    }
 }
 
 glitch_object_compound_operator_arduino *
