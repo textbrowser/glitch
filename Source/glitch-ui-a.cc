@@ -61,7 +61,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     (tr("<html>"
 	"<b>Glitch Version %1</b><br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
-	"Developing through diagrams.<br><br>"
+	"Develop through diagrams.<br><br>"
+	"Software for and from the margins.<br><br>"
 	"Qt version %2 (runtime %3).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
@@ -1016,6 +1017,7 @@ void glitch_ui::show(void)
 
 void glitch_ui::slotAbout(void)
 {
+  m_about.resize(m_about.sizeHint());
   m_about.showNormal();
   m_about.activateWindow();
   m_about.raise();
