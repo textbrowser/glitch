@@ -92,6 +92,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_block_comment_arduino(parent);
 
+  clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_ui.comment->blockSignals(true);
   clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());

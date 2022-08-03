@@ -485,6 +485,21 @@ void glitch_object::addDefaultActions(QMenu &menu)
     }
 }
 
+void glitch_object::cloneWires
+(const QHash<qint64, QPointer<glitch_wire> > &wires)
+{
+  QHashIterator<qint64, QPointer<glitch_wire> > it(wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value())
+	{
+	}
+    }
+}
+
 void glitch_object::createActions(void)
 {
   if(!m_actions.contains(DefaultMenuActions::ADJUST_SIZE))

@@ -193,6 +193,7 @@ class glitch_object: public QWidget
   virtual QStringList outputs(void) const;
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
+  void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void prepareContextMenu(void);
   void prepareEditSignals(const glitch_view *parentView);
   void saveProperties(const QMap<QString, QVariant> &p,

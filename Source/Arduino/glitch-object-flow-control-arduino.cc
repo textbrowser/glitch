@@ -226,6 +226,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_flow_control_arduino(parent);
 
+  clone->cloneWires(m_wires);
   clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());

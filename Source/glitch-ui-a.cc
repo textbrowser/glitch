@@ -1536,7 +1536,7 @@ void glitch_ui::slotSelectionChanged(void)
       if(statusBar())
 	statusBar()->showMessage
 	  (tr("%1 Item(s) Selected").
-	   arg(m_currentView->scene()->selectedItems().size()));      
+	   arg(m_currentView->scene()->selectedItems().size()));
     }
   else
     {

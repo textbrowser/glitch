@@ -129,6 +129,7 @@ glitch_object_bitwise_operator_arduino::clone(QWidget *parent) const
 {
   auto clone = new glitch_object_bitwise_operator_arduino(parent);
 
+  clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
