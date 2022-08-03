@@ -84,9 +84,10 @@ QString glitch_object_variable_arduino::code(void) const
 	  */
 
 	  if(inputs().isEmpty())
-	    return (name + ";").trimmed();
+	    return (pointerAccess + name + ";").trimmed();
 	  else
-	    return (name + " = " + inputs().value(0) + ";").trimmed();
+	    return (pointerAccess + name + " = " + inputs().value(0) + ";").
+	      trimmed();
 	}
       else
 	{
@@ -170,20 +171,22 @@ bool glitch_object_variable_arduino::hasInput(void) const
 
 bool glitch_object_variable_arduino::hasOutput(void) const
 {
-  return inputs().size() <= 1 && m_ui.type->currentText().length() == 0;
+  return true;
 }
 
 bool glitch_object_variable_arduino::isFullyWired(void) const
 {
   if(m_ui.array->isChecked())
-    return inputs().size() >= 1;
+    return inputs().size() > 1;
   else
     return inputs().size() > 0;
 }
 
 bool glitch_object_variable_arduino::shouldPrint(void) const
 {
-  if(m_ui.array->isChecked())
+  if(outputs().size() > 0)
+    return false;
+  else if(m_ui.array->isChecked())
     return inputs().size() == 2 ||
       m_ui.type->currentText().trimmed().length() > 0;
   else
