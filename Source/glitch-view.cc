@@ -502,6 +502,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 		      object1->scene()->addItem(wire);
 		      object2->setWiredObject(object1, wire);
+		      wire->setBoundingRect(object1->scene()->sceneRect());
 		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
