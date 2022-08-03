@@ -78,7 +78,9 @@ QString glitch_object_compound_operator_arduino::code(void) const
       {
 	QString string("");
 
+	string.append("(");
 	string.append(inputs().value(0));
+	string.append(")");
 	string.append(m_ui.compound_operator->currentText());
 	string.append(";");
 	return string;
