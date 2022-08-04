@@ -183,7 +183,7 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
   frame->layout()->addWidget(m_header);
   frame->layout()->addWidget(widget);
   frame->layout()->setContentsMargins(9, 9, 9, 9);
-  frame->layout()->setSpacing(0);
+  frame->layout()->setSpacing(5);
   QMainWindow::setCentralWidget(frame);
 }
 
