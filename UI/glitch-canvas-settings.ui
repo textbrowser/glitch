@@ -292,9 +292,6 @@
             <property name="text">
              <string>&amp;Show Canvas Dots</string>
             </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
             <attribute name="buttonGroup">
              <string notr="true">buttonGroup</string>
             </attribute>
@@ -304,6 +301,9 @@
            <widget class="QRadioButton" name="show_canvas_grids">
             <property name="text">
              <string>&amp;Show Canvas Grids</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
             <attribute name="buttonGroup">
              <string notr="true">buttonGroup</string>
