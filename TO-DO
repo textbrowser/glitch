@@ -65,6 +65,7 @@ Completed Items
 - Flow-control objects and edit views (break does not have a view).
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
+- Function input parameters.
 - Function names and deleted functions; uniqueness errors.
 - Function redo / undo private container. The redo / undo stack must be
   separate of the function's parent view.
@@ -174,7 +175,6 @@ Remaining Items
 - Draw disconnect symbols.
 - Find objects.
 - Function clones.
-- Function input parameters.
 - Generate source from terminal for testing results.
 - Generate view.
 - Icons and themes.
