@@ -124,7 +124,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "analogReference()"
 						<< "analogWrite()";
       s_itemsForCategories[i++] = QStringList() << "addition (+)"
-						<< "assignment (=)"
 						<< "division (/)"
 						<< "modulo (%)"
 						<< "multiplication (*)"

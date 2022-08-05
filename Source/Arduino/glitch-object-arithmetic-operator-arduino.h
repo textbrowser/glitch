@@ -39,7 +39,6 @@ class glitch_object_arithmetic_operator_arduino: public glitch_object
   enum OperatorTypes
   {
     ADDITION_OPERATOR = 0,
-    ASSIGNMENT_OPERATOR,
     DIVISION_OPERATOR,
     MULTIPLICATION_OPERATOR,
     REMAINDER_OPERATOR,

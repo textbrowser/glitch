@@ -179,8 +179,6 @@ void glitch_object_arithmetic_operator_arduino::setOperatorType
     setOperatorType(OperatorTypes::MULTIPLICATION_OPERATOR);
   else if(operatorType.contains("/"))
     setOperatorType(OperatorTypes::DIVISION_OPERATOR);
-  else if(operatorType.contains("="))
-    setOperatorType(OperatorTypes::ASSIGNMENT_OPERATOR);
   else if(operatorType.contains("+"))
     setOperatorType(OperatorTypes::ADDITION_OPERATOR);
   else if(operatorType.contains("-"))
@@ -199,37 +197,38 @@ void glitch_object_arithmetic_operator_arduino::setOperatorType
     {
     case OperatorTypes::ADDITION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(5);
-	break;
-      }
-    case OperatorTypes::ASSIGNMENT_OPERATOR:
-      {
-	m_ui.arithmetic_operator->setCurrentIndex(4);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("+"));
 	break;
       }
     case OperatorTypes::DIVISION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(3);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("/"));
 	break;
       }
     case OperatorTypes::MULTIPLICATION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(1);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("*"));
 	break;
       }
     case OperatorTypes::REMAINDER_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(0);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("%"));
 	break;
       }
     case OperatorTypes::SUBTRACTION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(2);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("-"));
 	break;
       }
     default:
       {
-	m_ui.arithmetic_operator->setCurrentIndex(5);
+	m_ui.arithmetic_operator->setCurrentIndex
+	  (m_ui.arithmetic_operator->findText("+"));
 	break;
       }
     }

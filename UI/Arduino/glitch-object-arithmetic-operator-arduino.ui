@@ -59,11 +59,6 @@
      </item>
      <item>
       <property name="text">
-       <string notr="true">=</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string notr="true">+</string>
       </property>
      </item>

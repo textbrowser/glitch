@@ -635,7 +635,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
     {
       QPen pen;
       auto color(m_dotsGridsColor);
-      qreal step = 25.0;
+      qreal step = 20.0;
 
       pen.setWidthF(1.25);
 

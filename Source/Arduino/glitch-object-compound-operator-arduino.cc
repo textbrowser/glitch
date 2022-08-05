@@ -104,19 +104,11 @@ QString glitch_object_compound_operator_arduino::code(void) const
       }
     default:
       {
-	QString string("(");
-	auto list(inputs());
+	QString string("");
 
-	for(int i = 0; i < list.size(); i++)
-	  {
-	    string.append(QString("(%1)").arg(list.at(i)));
-
-	    if(i != list.size() - 1)
-	      string.append
-		(QString(" %1 ").arg(m_ui.compound_operator->currentText()));
-	  }
-
-	string = string.trimmed();
+	string.append(m_ui.compound_operator->currentText());
+	string.append(" (");
+	string.append(inputs().value(0));
 	string.append(")");
 	return string;
       }
