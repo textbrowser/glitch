@@ -229,8 +229,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
       s_itemsForCategories[i++] = QStringList() << "cos()"
 						<< "sin()"
 						<< "tan()";
-      s_itemsForCategories[i++] = QStringList() << "PROGMEM"
-						<< "sizeof()";
+      s_itemsForCategories[i++] = QStringList() << "sizeof()";
 
       QStringList arrays;
       auto list(variableTypes());

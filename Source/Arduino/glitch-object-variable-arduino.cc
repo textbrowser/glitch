@@ -206,6 +206,7 @@ clone(QWidget *parent) const
   clone->m_ui.name->selectAll();
   clone->m_ui.pointer_access->setCurrentIndex
     (m_ui.pointer_access->currentIndex());
+  clone->m_ui.progmem->setChecked(m_ui.progmem->isChecked());
   clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
   clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
   clone->connectSignals(true);
@@ -256,6 +257,11 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 	      this,
 	      &glitch_object_variable_arduino::slotComboBoxChanged,
 	      Qt::UniqueConnection);
+      connect(m_ui.progmem,
+	      QOverload<bool>::of(&QToolButton::toggled),
+	      this,
+	      &glitch_object_variable_arduino::slotToolButtonChecked,
+	      Qt::UniqueConnection);
       connect(m_ui.qualifier,
 	      QOverload<int>::of(&QComboBox::currentIndexChanged),
 	      this,
@@ -281,6 +287,10 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 		 QOverload<int>::of(&QComboBox::currentIndexChanged),
 		 this,
 		 &glitch_object_variable_arduino::slotComboBoxChanged);
+      disconnect(m_ui.progmem,
+		 QOverload<bool>::of(&QToolButton::toggled),
+		 this,
+		 &glitch_object_variable_arduino::slotToolButtonChecked);
       disconnect(m_ui.qualifier,
 		 QOverload<int>::of(&QComboBox::currentIndexChanged),
 		 this,
@@ -305,6 +315,7 @@ void glitch_object_variable_arduino::save
   properties["variable_array"] = m_ui.array->isChecked();
   properties["variable_name"] = m_ui.name->text().trimmed();
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
+  properties["variable_progmem"] = m_ui.progmem->isChecked();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
   properties["variable_type"] = m_ui.type->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
@@ -348,6 +359,14 @@ void glitch_object_variable_arduino::setProperties
 	  if(m_ui.pointer_access->currentIndex() < 0)
 	    m_ui.pointer_access->setCurrentIndex
 	      (m_ui.pointer_access->findText(""));
+	}
+      if(string.simplified().startsWith("variable_progmem = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VARIABLE_PROGMEM] =
+	    QVariant(string.trimmed()).toBool();
+	  m_ui.progmem->setChecked(QVariant(string.trimmed()).toBool());
 	}
       else if(string.simplified().startsWith("variable_qualifier = "))
 	{
@@ -406,6 +425,13 @@ void glitch_object_variable_arduino::setProperty
 	m_ui.pointer_access->setCurrentIndex
 	  (m_ui.pointer_access->findText(value.toString()));
 	m_ui.pointer_access->blockSignals(false);
+	break;
+      }
+    case Properties::VARIABLE_PROGMEM:
+      {
+	m_ui.progmem->blockSignals(true);
+	m_ui.progmem->setChecked(value.toBool());
+	m_ui.progmem->blockSignals(false);
 	break;
       }
     case Properties::VARIABLE_QUALIFIER:
@@ -509,6 +535,10 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
     return;
 
   auto property = glitch_object::Properties::VARIABLE_ARRAY;
+
+  if(m_ui.progmem == toolButton)
+    property = glitch_object::Properties::VARIABLE_PROGMEM;
+
   auto undoCommand = new glitch_undo_command
     (toolButton->isChecked(),
      m_properties.value(property),

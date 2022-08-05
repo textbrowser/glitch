@@ -52,10 +52,26 @@
        <item>
         <widget class="QToolButton" name="array">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate to make this variable an array.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Variable is an array.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>[ ]</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="progmem">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Store data in flash memory instead of SRAM.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>PROGMEM</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -184,6 +200,7 @@
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>array</tabstop>
+  <tabstop>progmem</tabstop>
   <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>
