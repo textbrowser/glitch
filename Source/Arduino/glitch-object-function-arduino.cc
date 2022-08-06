@@ -224,7 +224,7 @@ QString glitch_object_function_arduino::code(void) const
 
       for(int i = 0; i < list.size(); i++)
 	{
-	  parameters.append(list.at(i));
+	  parameters.append(list.at(i).trimmed());
 
 	  if(i != list.size() - 1)
 	    parameters.append(", ");
