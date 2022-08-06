@@ -67,12 +67,32 @@ glitch_object_variable_arduino::~glitch_object_variable_arduino()
 
 QString glitch_object_variable_arduino::code(void) const
 {
+  QString assignment("=");
   auto array(m_ui.array->isChecked() ? QString("[]") : QString(""));
+  auto inputs(this->inputs());
   auto name(m_ui.name->text().trimmed());
   auto pointerAccess(m_ui.pointer_access->currentText());
-  auto progmem(m_ui.progmem->isChecked() ? QString(" PROGMEM") : QString(""));
+  auto progmem(m_ui.progmem->isChecked() ? QString("PROGMEM") : QString(""));
   auto qualifier(m_ui.qualifier->currentText());
   auto type(m_ui.type->currentText().trimmed());
+
+  if(inputs.value(0).startsWith("%= ") ||
+     inputs.value(0).startsWith("&= ") ||
+     inputs.value(0).startsWith("*= ") ||
+     inputs.value(0).startsWith("+= ") ||
+     inputs.value(0).startsWith("-= ") ||
+     inputs.value(0).startsWith("/= ") ||
+     inputs.value(0).startsWith("^= ") ||
+     inputs.value(0).startsWith("|= ") ||
+     inputs.value(1).startsWith("%= ") ||
+     inputs.value(1).startsWith("&= ") ||
+     inputs.value(1).startsWith("*= ") ||
+     inputs.value(1).startsWith("+= ") ||
+     inputs.value(1).startsWith("-= ") ||
+     inputs.value(1).startsWith("/= ") ||
+     inputs.value(1).startsWith("^= ") ||
+     inputs.value(1).startsWith("|= "))
+    assignment.clear();
 
   if(array.isEmpty())
     {
@@ -84,11 +104,16 @@ QString glitch_object_variable_arduino::code(void) const
 	  ** The variable is not being defined.
 	  */
 
-	  if(inputs().isEmpty())
+	  if(inputs.isEmpty())
 	    return (pointerAccess + name + ";").trimmed();
 	  else
-	    return (pointerAccess + name + " = " + inputs().value(0) + ";").
-	      trimmed();
+	    return (pointerAccess +
+		    name +
+		    " " +
+		    assignment +
+		    " " +
+		    inputs.value(0) +
+		    ";").trimmed();
 	}
       else
 	{
@@ -96,13 +121,14 @@ QString glitch_object_variable_arduino::code(void) const
 	  ** The variable is being defined.
 	  */
 
-	  if(inputs().isEmpty())
+	  if(inputs.isEmpty())
 	    return (qualifier +
 		    " " +
 		    type +
 		    " " +
 		    pointerAccess +
 		    name +
+		    " " +
 		    progmem +
 		    ";").trimmed();
 	  else
@@ -112,9 +138,12 @@ QString glitch_object_variable_arduino::code(void) const
 		    " " +
 		    pointerAccess +
 		    name +
+		    " " +
 		    progmem +
-		    " = " +
-		    inputs().value(0) + ";").trimmed();
+		    " " +
+		    assignment +
+		    " " +
+		    inputs.value(0) + ";").trimmed();
 	}
     }
   else
@@ -127,18 +156,16 @@ QString glitch_object_variable_arduino::code(void) const
 	  ** The array is not being defined.
 	  */
 
-	  if(inputs().size() >= 2)
+	  if(inputs.size() >= 2)
 	    return QString("%1[%2] = %3;").
 	      arg(name).
-	      arg(inputs().value(0)).
-	      arg(inputs().value(1));
+	      arg(inputs.value(0)).
+	      arg(inputs.value(1));
 	  else
-	    return QString("%1[%2];").arg(name).arg(inputs().value(0));
+	    return QString("%1[%2];").arg(name).arg(inputs.value(0));
 	}
       else
 	{
-	  auto inputs(this->inputs());
-
 	  if(inputs.size() >= 2)
 	    return (qualifier +
 		    " " +
@@ -148,7 +175,7 @@ QString glitch_object_variable_arduino::code(void) const
 		    name +
 		    "[" +
 		    inputs.value(0) +
-		    "]" +
+		    "] " +
 		    progmem +
 		    ";").trimmed();
 	  else
@@ -160,9 +187,11 @@ QString glitch_object_variable_arduino::code(void) const
 			" " +
 			pointerAccess +
 			name +
-			"[]" +
+			"[] " +
 			progmem +
-			" = " +
+			" " +
+			assignment +
+			" " +
 			inputs.value(0) + ";").trimmed();
 	      else
 		return (qualifier +
@@ -173,7 +202,7 @@ QString glitch_object_variable_arduino::code(void) const
 			name +
 			"[" +
 			inputs.value(0) +
-			"]" +
+			"] " +
 			progmem +
 			";").trimmed();
 	    }
