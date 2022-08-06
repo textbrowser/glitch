@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-object-compound-operator-arduino.h"
 #include "glitch-object-variable-arduino.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
@@ -76,27 +77,13 @@ QString glitch_object_variable_arduino::code(void) const
   auto qualifier(m_ui.qualifier->currentText());
   auto type(m_ui.type->currentText().trimmed());
 
-  if(inputs.value(0).startsWith("%= ") ||
-     inputs.value(0).startsWith("&= ") ||
-     inputs.value(0).startsWith("*= ") ||
-     inputs.value(0).startsWith("+= ") ||
-     inputs.value(0).startsWith("-= ") ||
-     inputs.value(0).startsWith("/= ") ||
-     inputs.value(0).startsWith("^= ") ||
-     inputs.value(0).startsWith("|= ") ||
-     inputs.value(1).startsWith("%= ") ||
-     inputs.value(1).startsWith("&= ") ||
-     inputs.value(1).startsWith("*= ") ||
-     inputs.value(1).startsWith("+= ") ||
-     inputs.value(1).startsWith("-= ") ||
-     inputs.value(1).startsWith("/= ") ||
-     inputs.value(1).startsWith("^= ") ||
-     inputs.value(1).startsWith("|= "))
+  if(glitch_object_compound_operator_arduino::isOperator(inputs.value(0)) ||
+     glitch_object_compound_operator_arduino::isOperator(inputs.value(1)))
     assignment.clear();
 
   if(array.isEmpty())
     {
-      // Non-arrays.
+      // Non-array.
 
       if(type.isEmpty())
 	{
@@ -148,7 +135,7 @@ QString glitch_object_variable_arduino::code(void) const
     }
   else
     {
-      // Arrays.
+      // Array.
 
       if(type.isEmpty())
 	{
@@ -166,6 +153,10 @@ QString glitch_object_variable_arduino::code(void) const
 	}
       else
 	{
+	  /*
+	  ** The array is being defined.
+	  */
+
 	  if(inputs.size() >= 2)
 	    return (qualifier +
 		    " " +

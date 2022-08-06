@@ -147,6 +147,20 @@ bool glitch_object_compound_operator_arduino::isFullyWired(void) const
     }
 }
 
+bool glitch_object_compound_operator_arduino::isOperator(const QString &o)
+{
+  auto op(o.trimmed());
+
+  return op.startsWith("%= ") ||
+    op.startsWith("&= ") ||
+    op.startsWith("*= ") ||
+    op.startsWith("+= ") ||
+    op.startsWith("-= ") ||
+    op.startsWith("/= ") ||
+    op.startsWith("^= ") ||
+    op.startsWith("|= ");
+}
+
 bool glitch_object_compound_operator_arduino::shouldPrint(void) const
 {
   switch(m_operatorType)

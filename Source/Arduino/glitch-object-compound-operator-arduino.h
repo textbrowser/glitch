@@ -62,6 +62,7 @@ class glitch_object_compound_operator_arduino: public glitch_object
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;
   glitch_object_compound_operator_arduino *clone(QWidget *parent) const;
+  static bool isOperator(const QString &o);
   static glitch_object_compound_operator_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
