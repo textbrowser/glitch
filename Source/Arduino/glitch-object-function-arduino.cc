@@ -274,7 +274,7 @@ bool glitch_object_function_arduino::hasInput(void) const
 
 bool glitch_object_function_arduino::hasOutput(void) const
 {
-  return m_ui.return_type->currentText() != "void";
+  return m_isFunctionClone && m_ui.return_type->currentText() != "void";
 }
 
 bool glitch_object_function_arduino::hasView(void) const
