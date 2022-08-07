@@ -35,11 +35,6 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
 
   switch(m_utilitiesType)
     {
-    case Type::SIZEOF:
-      {
-	m_ui.label->setText("sizeof()");
-	break;
-      }
     default:
       {
 	m_ui.label->setText("sizeof()");
@@ -67,10 +62,6 @@ QString glitch_object_utilities_arduino::code(void) const
 {
   switch(m_utilitiesType)
     {
-    case Type::SIZEOF:
-      {
-	return QString("sizeof(%1);").arg(inputs().value(0));
-      }
     default:
       {
 	return QString("sizeof(%1);").arg(inputs().value(0));
@@ -132,9 +123,9 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_utilitiesType = stringToUtilitiesType
-    (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
   object->m_ui.label->setText
+    (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
+  object->m_utilitiesType = stringToUtilitiesType
     (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
   return object;
 }
