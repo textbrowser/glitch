@@ -49,6 +49,7 @@
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
+#include "Arduino/glitch-object-utilities-arduino.h"
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-graphicsview.h"
@@ -728,6 +729,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    }
 	  else if(text.startsWith("glitch-arduino-time"))
 	    object = new glitch_object_time_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-utilities"))
+	    object = new glitch_object_utilities_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-variable"))
 	    object = new glitch_object_variable_arduino(text, view);
 	}
