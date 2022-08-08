@@ -27,7 +27,6 @@
 
 #include <QInputDialog>
 #include <QUuid>
-#include <QtDebug>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
