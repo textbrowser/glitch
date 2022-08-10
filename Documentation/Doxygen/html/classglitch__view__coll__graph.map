@@ -1,0 +1,12 @@
+<map id="glitch_view" name="glitch_view">
+<area shape="rect" id="node1" title=" " alt="" coords="525,120,621,147"/>
+<area shape="rect" id="node2" title=" " alt="" coords="30,19,109,46"/>
+<area shape="rect" id="node8" href="$classglitch__alignment.html" title=" " alt="" coords="203,44,333,71"/>
+<area shape="rect" id="node3" href="$classglitch__user__functions.html" title=" " alt="" coords="188,95,348,122"/>
+<area shape="rect" id="node4" title=" " alt="" coords="32,122,107,148"/>
+<area shape="rect" id="node5" href="$classglitch__canvas__settings.html" title=" " alt="" coords="183,146,353,172"/>
+<area shape="rect" id="node6" href="$classglitch__graphicsview.html" title=" " alt="" coords="193,196,343,223"/>
+<area shape="rect" id="node7" title=" " alt="" coords="9,196,130,223"/>
+<area shape="rect" id="node9" href="$classglitch__scene.html" title=" " alt="" coords="217,247,319,274"/>
+<area shape="rect" id="node10" title=" " alt="" coords="5,247,133,274"/>
+</map>
