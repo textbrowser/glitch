@@ -373,6 +373,8 @@ void glitch_proxy_widget::paint
 	      if(operation == glitch_tools::Operations::INTELLIGENT ||
 		 operation == glitch_tools::Operations::WIRE_CONNECT)
 		{
+		  auto disconnect = false;
+
 		  if(operation == glitch_tools::Operations::INTELLIGENT)
 		    {
 		      auto instance = qobject_cast<QGuiApplication *>
@@ -380,7 +382,7 @@ void glitch_proxy_widget::paint
 
 		      if(instance &&
 			 instance->keyboardModifiers() & Qt::ShiftModifier)
-			return;
+			disconnect = true;
 		    }
 
 		  /*
@@ -394,10 +396,18 @@ void glitch_proxy_widget::paint
 		  pen.setColor(Qt::white);
 		  painter->setFont(font);
 		  painter->setPen(pen);
-		  painter->drawText
-		    (path.boundingRect(),
-		     Qt::AlignCenter,
-		     QString::number(m_scene->selectedForWiringCount() + 1));
+
+		  if(disconnect)
+		    {
+		      QIcon icon(":clear.png");
+
+		      icon.paint(painter, path.boundingRect().toRect());
+		    }
+		  else
+		    painter->drawText
+		      (path.boundingRect(),
+		       Qt::AlignCenter,
+		       QString::number(m_scene->selectedForWiringCount() + 1));
 		}
 	    }
 	}
