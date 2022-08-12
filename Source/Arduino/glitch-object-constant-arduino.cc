@@ -83,7 +83,7 @@ bool glitch_object_constant_arduino::hasOutput(void) const
 
 bool glitch_object_constant_arduino::isFullyWired(void) const
 {
-  return false;
+  return true;
 }
 
 bool glitch_object_constant_arduino::shouldPrint(void) const

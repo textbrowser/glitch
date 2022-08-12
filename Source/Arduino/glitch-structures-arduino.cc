@@ -214,9 +214,24 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 						<< "sqrt()";
       s_itemsForCategories[i++] = QStringList() << "random()"
 						<< "randomSeed()";
-      s_itemsForCategories[i++] = QStringList() << "Serial.begin()"
+      s_itemsForCategories[i++] = QStringList() << "Serial.available()"
+						<< "Serial.availableForWrite()"
+						<< "Serial.begin()"
+						<< "Serial.end()"
+						<< "Serial.find()"
+						<< "Serial.findUntil()"
+						<< "Serial.flush()"
+						<< "Serial.parseFloat()"
+						<< "Serial.parseInt()"
+						<< "Serial.peek()"
 						<< "Serial.print()"
 						<< "Serial.println()"
+						<< "Serial.read()"
+						<< "Serial.readBytes()"
+						<< "Serial.readBytesUntil()"
+						<< "Serial.readString()"
+						<< "Serial.readStringUntil()"
+						<< "Serial.setTimeout()"
 						<< "Serial.write()";
       s_itemsForCategories[i++] = QStringList() << "stream.available()";
       s_itemsForCategories[i++] = QStringList() << "block comment"

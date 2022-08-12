@@ -54,9 +54,24 @@ class glitch_object_serial_arduino: public glitch_object
   enum Type
   {
     AVAILABLE = 0,
+    AVAILABLE_FOR_WRITE,
     BEGIN,
+    END,
+    FIND,
+    FIND_UNTIL,
+    FLUSH,
+    PARSE_FLOAT,
+    PARSE_INT,
+    PEEK,
     PRINT,
     PRINTLN,
+    READ,
+    READ_BYTES,
+    READ_BYTES_UNTIL,
+    READ_STRING,
+    READ_STRING_UNTIL,
+    SERIAL_EVENT,
+    SET_TIMEOUT,
     WRITE
   };
 
