@@ -54,7 +54,19 @@ class glitch_object_characters_arduino: public glitch_object
  private:
   enum Type
   {
-    IS_ALPHA = 0
+    IS_ALPHA = 0,
+    IS_ALPHA_NUMERIC,
+    IS_ASCII,
+    IS_CONTROL,
+    IS_DIGIT,
+    IS_GRAPH,
+    IS_HEXADECIMAL_DIGIT,
+    IS_LOWER_CASE,
+    IS_PRINTABLE,
+    IS_PUNCT,
+    IS_SPACE,
+    IS_UPPER_CASE,
+    IS_WHITESPACE
   };
 
   Type m_charactersType;
