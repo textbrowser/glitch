@@ -58,6 +58,7 @@ Completed Items
 - Do not discover parent functions for copied functions.
 - Dots and grids.
 - Dragging an item onto a diagram and scroll bars.
+- Draw disconnect symbols.
 - Draw input and output connectors.
 - Edit window icons.
 - Error dialog.
@@ -174,7 +175,6 @@ Remaining Items
   Variables
 - Copy wires.
 - Custom shortcuts.
-- Draw disconnect symbols.
 - Find objects.
 - Function clones.
 - Generate source from terminal for testing results.
