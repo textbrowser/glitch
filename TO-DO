@@ -180,6 +180,7 @@ Remaining Items
 - Function clones.
 - Generate source from terminal for testing results.
 - Generate view.
+- Hide alignment options.
 - Icons and themes.
 - Indicate wire input / output.
 - Integrate isFullyWired().
