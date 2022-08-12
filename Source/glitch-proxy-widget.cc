@@ -360,6 +360,11 @@ void glitch_proxy_widget::paint
 		    }
 		}
 
+	      if(m_hoveredSection == Sections::LEFT &&
+		 m_object->hasInput() &&
+		 m_object->isFullyWired())
+		return;
+
 	      /*
 	      ** Draw input or output selection indicators.
 	      */
