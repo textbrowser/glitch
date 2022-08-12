@@ -325,11 +325,9 @@ void glitch_proxy_widget::paint
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
 	     (m_hoveredSection == Sections::RIGHT && m_object->hasOutput()))
 	    {
-	      /*
-	      ** Draw input or output selection indicators.
-	      */
-
 	      QPainterPath path;
+	      auto operation = m_scene ?
+		m_scene->toolsOperation() : glitch_tools::Operations::XYZ;
 	      auto rect(this->rect());
 
 	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
@@ -342,6 +340,29 @@ void glitch_proxy_widget::paint
 				rect.topRight().y(),
 				size().height(),
 				size().height());
+
+	      if(operation == glitch_tools::Operations::INTELLIGENT ||
+		 operation == glitch_tools::Operations::WIRE_CONNECT)
+		{
+		  if(operation == glitch_tools::Operations::INTELLIGENT)
+		    {
+		      auto instance = qobject_cast<QGuiApplication *>
+			(QApplication::instance());
+
+		      if(instance &&
+			 instance->keyboardModifiers() & Qt::ShiftModifier)
+			{
+			  QIcon icon(":clear.png");
+
+			  icon.paint(painter, path.boundingRect().toRect());
+			  return;
+			}
+		    }
+		}
+
+	      /*
+	      ** Draw input or output selection indicators.
+	      */
 
 	      painter->fillPath(path, QColor(255, 192, 203, 225));
 
@@ -367,24 +388,9 @@ void glitch_proxy_widget::paint
 
 	      painter->restore();
 
-	      auto operation = m_scene ?
-		m_scene->toolsOperation() : glitch_tools::Operations::XYZ;
-
 	      if(operation == glitch_tools::Operations::INTELLIGENT ||
 		 operation == glitch_tools::Operations::WIRE_CONNECT)
 		{
-		  auto disconnect = false;
-
-		  if(operation == glitch_tools::Operations::INTELLIGENT)
-		    {
-		      auto instance = qobject_cast<QGuiApplication *>
-			(QApplication::instance());
-
-		      if(instance &&
-			 instance->keyboardModifiers() & Qt::ShiftModifier)
-			disconnect = true;
-		    }
-
 		  /*
 		  ** Draw wiring order text.
 		  */
@@ -396,18 +402,10 @@ void glitch_proxy_widget::paint
 		  pen.setColor(Qt::white);
 		  painter->setFont(font);
 		  painter->setPen(pen);
-
-		  if(disconnect)
-		    {
-		      QIcon icon(":clear.png");
-
-		      icon.paint(painter, path.boundingRect().toRect());
-		    }
-		  else
-		    painter->drawText
-		      (path.boundingRect(),
-		       Qt::AlignCenter,
-		       QString::number(m_scene->selectedForWiringCount() + 1));
+		  painter->drawText
+		    (path.boundingRect(),
+		     Qt::AlignCenter,
+		     QString::number(m_scene->selectedForWiringCount() + 1));
 		}
 	    }
 	}
