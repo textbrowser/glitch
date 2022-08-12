@@ -70,7 +70,6 @@ class glitch_object_serial_arduino: public glitch_object
     READ_BYTES_UNTIL,
     READ_STRING,
     READ_STRING_UNTIL,
-    SERIAL_EVENT,
     SET_TIMEOUT,
     WRITE
   };
@@ -109,12 +108,38 @@ class glitch_object_serial_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string.contains("begin"))
+    if(string.contains("availableforwrite"))
+      return Type::AVAILABLE_FOR_WRITE;
+    else if(string.contains("begin"))
       return Type::BEGIN;
+    else if(string.contains("end"))
+      return Type::END;
+    else if(string.contains("finduntil"))
+      return Type::FIND_UNTIL;
+    else if(string.contains("find"))
+      return Type::FIND;
+    else if(string.contains("parsefloat"))
+      return Type::PARSE_FLOAT;
+    else if(string.contains("parseint"))
+      return Type::PARSE_INT;
+    else if(string.contains("peek"))
+      return Type::PEEK;
     else if(string.contains("println"))
       return Type::PRINTLN;
     else if(string.contains("print"))
       return Type::PRINT;
+    else if(string.contains("readbytesuntil"))
+      return Type::READ_BYTES_UNTIL;
+    else if(string.contains("readbytes"))
+      return Type::READ_BYTES;
+    else if(string.contains("readstringuntil"))
+      return Type::READ_STRING_UNTIL;
+    else if(string.contains("readstring"))
+      return Type::READ_STRING;
+    else if(string.contains("read"))
+      return Type::READ;
+    else if(string.contains("settimeout"))
+      return Type::SET_TIMEOUT;
     else if(string.contains("write"))
       return Type::WRITE;
     else
