@@ -36,6 +36,7 @@
 #include "Arduino/glitch-object-bits-and-bytes-arduino.h"
 #include "Arduino/glitch-object-bitwise-operator-arduino.h"
 #include "Arduino/glitch-object-block-comment-arduino.h"
+#include "Arduino/glitch-object-characters-arduino.h"
 #include "Arduino/glitch-object-compound-operator-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
@@ -359,6 +360,9 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-blockcomment")
     object = glitch_object_block_comment_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-characters")
+    object = glitch_object_characters_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-compoundoperator")
     object = glitch_object_compound_operator_arduino::createFromValues

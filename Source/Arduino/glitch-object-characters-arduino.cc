@@ -35,6 +35,61 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 
   switch(m_charactersType)
     {
+    case Type::IS_ALPHA_NUMERIC:
+      {
+	m_ui.label->setText("isAlphaNumeric()");
+	break;
+      }
+    case Type::IS_ASCII:
+      {
+	m_ui.label->setText("isAscii()");
+	break;
+      }
+    case Type::IS_CONTROL:
+      {
+	m_ui.label->setText("isControl()");
+	break;
+      }
+    case Type::IS_DIGIT:
+      {
+	m_ui.label->setText("isDigit()");
+	break;
+      }
+    case Type::IS_HEXADECIMAL_DIGIT:
+      {
+	m_ui.label->setText("isHexadecimalDigit()");
+	break;
+      }
+    case Type::IS_LOWER_CASE:
+      {
+	m_ui.label->setText("isLowerCase()");
+	break;
+      }
+    case Type::IS_PRINTABLE:
+      {
+	m_ui.label->setText("isPrintable()");
+	break;
+      }
+    case Type::IS_PUNCT:
+      {
+	m_ui.label->setText("isPunct()");
+	break;
+      }
+    case Type::IS_SPACE:
+      {
+	m_ui.label->setText("isSpace()");
+	break;
+      }
+    case Type::IS_UPPER_CASE:
+      {
+	m_ui.label->setText("isUpperCase()");
+	break;
+      }
+    case Type::IS_WHITESPACE:
+      {
+	m_ui.label->setText("isWhitespace()");
+	break;
+      }
     default:
       {
 	m_ui.label->setText("isAlpha()");
@@ -60,13 +115,9 @@ glitch_object_characters_arduino::~glitch_object_characters_arduino()
 
 QString glitch_object_characters_arduino::code(void) const
 {
-  switch(m_charactersType)
-    {
-    default:
-      {
-	return QString("isAlpha(%1);").arg(inputs().value(0));
-      }
-    }
+  return QString("%1(%2);").
+    arg(charactersTypeToString()).
+    arg(inputs().value(0));
 }
 
 bool glitch_object_characters_arduino::hasInput(void) const
@@ -155,7 +206,7 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
   ** Redundancies.
   */
 
-  m_properties[Properties::CHARACTERS_TYPE] = "delay()";
+  m_properties[Properties::CHARACTERS_TYPE] = "isAlpha()";
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -166,7 +217,30 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  string = "isAlpha()";
+	  if(string.contains("isalphanumeric"))
+	    string = "isAlphaNumeric()";
+	  else if(string.contains("isascii"))
+	    string = "isAscii()";
+	  else if(string.contains("iscontrol"))
+	    string = "isControl()";
+	  else if(string.contains("isdigit"))
+	    string = "isDigit()";
+	  else if(string.contains("ishexadecimaldigit"))
+	    string = "isHexadecimalDigit()";
+	  else if(string.contains("islowercase"))
+	    string = "isLowerCase()";
+	  else if(string.contains("isprintable"))
+	    string = "isPrintable()";
+	  else if(string.contains("ispunct"))
+	    string = "isPunct()";
+	  else if(string.contains("isspace"))
+	    string = "isSpace()";
+	  else if(string.contains("isuppercase"))
+	    string = "isUpperCase()";
+	  else if(string.contains("iswhitespace"))
+	    string = "isWhitespace()";
+	  else
+	    string = "isAlpha()";
 
 	  m_properties[Properties::CHARACTERS_TYPE] = string.trimmed();
 	}
