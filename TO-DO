@@ -192,6 +192,7 @@ Remaining Items
 - Percolate redo / undo of functions through child views.
 - Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
+- SQLite modes.
 - Search structures.
 - Serial and stream (https://www.arduino.cc/reference/en).
 - Warn of recursive functions?

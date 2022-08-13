@@ -564,6 +564,8 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
       {
 	QSqlQuery query(db);
 
+	query.exec("PRAGMA JOURNAL_MODE = WAL");
+	query.exec("PRAGMA SYNCHRONOUS = NORMAL");
 	ok = query.exec("DELETE FROM diagram");
 
 	if(!ok)
