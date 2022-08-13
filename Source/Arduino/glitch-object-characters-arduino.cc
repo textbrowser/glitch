@@ -85,7 +85,7 @@ bool glitch_object_characters_arduino::isFullyWired(void) const
     {
     default:
       {
-	return true;
+	return inputs().size() >= 1;
       }
     }
 }

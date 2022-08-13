@@ -76,6 +76,50 @@ class glitch_object_characters_arduino: public glitch_object
   {
     switch(m_charactersType)
       {
+      case Type::IS_ALPHA_NUMERIC:
+	{
+	  return "isAlphaNumeric";
+	}
+      case Type::IS_ASCII:
+	{
+	  return "isAscii";
+	}
+      case Type::IS_CONTROL:
+	{
+	  return "isControl";
+	}
+      case Type::IS_DIGIT:
+	{
+	  return "isDigit";
+	}
+      case Type::IS_HEXADECIMAL_DIGIT:
+	{
+	  return "isHexadecimalDigit";
+	}
+      case Type::IS_LOWER_CASE:
+	{
+	  return "isLowerCase";
+	}
+      case Type::IS_PRINTABLE:
+	{
+	  return "isPrintable";
+	}
+      case Type::IS_PUNCT:
+	{
+	  return "isPunct";
+	}
+      case Type::IS_SPACE:
+	{
+	  return "isSpace";
+	}
+      case Type::IS_UPPER_CASE:
+	{
+	  return "isUpperCase";
+	}
+      case Type::IS_WHITESPACE:
+	{
+	  return "isWhitespace";
+	}
       default:
 	{
 	  return "isAlpha";
@@ -87,7 +131,30 @@ class glitch_object_characters_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    return Type::IS_ALPHA;
+    if(string.contains("isalphanumeric"))
+      return Type::IS_ALPHA_NUMERIC;
+    else if(string.contains("isascii"))
+      return Type::IS_ASCII;
+    else if(string.contains("iscontrol"))
+      return Type::IS_CONTROL;
+    else if(string.contains("isdigit"))
+      return Type::IS_DIGIT;
+    else if(string.contains("ishexadecimaldigit"))
+      return Type::IS_HEXADECIMAL_DIGIT;
+    else if(string.contains("islowercase"))
+      return Type::IS_LOWER_CASE;
+    else if(string.contains("isprintable"))
+      return Type::IS_PRINTABLE;
+    else if(string.contains("ispunct"))
+      return Type::IS_PUNCT;
+    else if(string.contains("isspace"))
+      return Type::IS_SPACE;
+    else if(string.contains("isuppercase"))
+      return Type::IS_UPPER_CASE;
+    else if(string.contains("iswhitespace"))
+      return Type::IS_WHITESPACE;
+    else
+      return Type::IS_ALPHA;
   }
 
   void setProperties(const QStringList &list);
