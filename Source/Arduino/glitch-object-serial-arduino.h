@@ -81,6 +81,14 @@ class glitch_object_serial_arduino: public glitch_object
   {
     switch(m_serialType)
       {
+      case Type::AVAILABLE:
+	{
+	  return "available";
+	}
+      case Type::AVAILABLE_FOR_WRITE:
+	{
+	  return "availableForWrite";
+	}
       case Type::BEGIN:
 	{
 	  return "begin";
