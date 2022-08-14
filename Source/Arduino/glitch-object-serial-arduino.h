@@ -93,6 +93,22 @@ class glitch_object_serial_arduino: public glitch_object
 	{
 	  return "begin";
 	}
+      case Type::END:
+	{
+	  return "end";
+	}
+      case Type::FIND:
+	{
+	  return "find";
+	}
+      case Type::FIND_UNTIL:
+	{
+	  return "findUntil";
+	}
+      case Type::FLUSH:
+	{
+	  return "flush";
+	}
       case Type::PRINT:
 	{
 	  return "print";
