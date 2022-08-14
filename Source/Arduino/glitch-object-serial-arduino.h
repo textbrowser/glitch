@@ -109,6 +109,18 @@ class glitch_object_serial_arduino: public glitch_object
 	{
 	  return "flush";
 	}
+      case Type::PARSE_FLOAT:
+	{
+	  return "parseFloat";
+	}
+      case Type::PARSE_INT:
+	{
+	  return "parseInt";
+	}
+      case Type::PEEK:
+	{
+	  return "peek";
+	}
       case Type::PRINT:
 	{
 	  return "print";
