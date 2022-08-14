@@ -123,6 +123,11 @@ class glitch_object: public QWidget
     return isInputWired() || isOutputWired();
   }
 
+  bool showOrderIndicator(void) const
+  {
+    return m_canvasSettings && m_canvasSettings->showOrderIndicators();
+  }
+
   qint64 id(void) const;
 
   glitch_floating_context_menu *contextMenu(void) const

@@ -218,7 +218,7 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
-      if(!isMandatory())
+      if(!isMandatory() && m_object && m_object->showOrderIndicator())
 	{
 	  /*
 	  ** Draw the object's order.

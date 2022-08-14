@@ -354,8 +354,6 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
-	query.exec("ALTER TABLE canvas_settings "
-		   "ADD show_order_indicators INTEGER NOT NULL DEFAULT 1");
 	query.setForwardOnly(true);
 
 	if(query.exec(QString("SELECT "
