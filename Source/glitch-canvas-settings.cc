@@ -137,6 +137,8 @@ settings(void) const
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
   hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
+  hash[Settings::SHOW_ORDER_INDICATORS] =
+    m_ui.show_order_indicators->isChecked();
 
   switch(m_ui.update_mode->currentIndex())
     {
@@ -224,6 +226,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
+	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL CHECK "
 	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
 	   "'smart')), "
@@ -247,9 +250,10 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "redo_undo_stack_size, "
 	   "show_canvas_dots, "
 	   "show_canvas_grids, "
+	   "show_order_indicators, "
 	   "update_mode, "
 	   "wire_color) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -265,6 +269,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
+	query.addBindValue(m_ui.show_order_indicators->isChecked());
 	query.addBindValue
 	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
@@ -293,6 +298,11 @@ bool glitch_canvas_settings::showCanvasDots(void) const
 bool glitch_canvas_settings::showCanvasGrids(void) const
 {
   return m_settings.value(Settings::SHOW_CANVAS_GRIDS).toBool();
+}
+
+bool glitch_canvas_settings::showOrderIndicators(void) const
+{
+  return m_settings.value(Settings::SHOW_ORDER_INDICATORS).toBool();
 }
 
 int glitch_canvas_settings::redoUndoStackSize(void) const
@@ -344,6 +354,8 @@ void glitch_canvas_settings::prepare(void)
       {
 	QSqlQuery query(db);
 
+	query.exec("ALTER TABLE canvas_settings "
+		   "ADD show_order_indicators INTEGER NOT NULL DEFAULT 1");
 	query.setForwardOnly(true);
 
 	if(query.exec(QString("SELECT "
@@ -356,6 +368,7 @@ void glitch_canvas_settings::prepare(void)
 			      "redo_undo_stack_size, "
 			      "show_canvas_dots, "
 			      "show_canvas_grids, "
+			      "show_order_indicators, "
 			      "SUBSTR(update_mode, 1, 100), "
 			      "SUBSTR(wire_color, 1, 50) "
 			      "FROM canvas_settings").
@@ -373,6 +386,7 @@ void glitch_canvas_settings::prepare(void)
 	    auto record(query.record());
 	    auto showCanvasDots = true;
 	    auto showCanvasGrids = true;
+	    auto showOrderIndicators = true;
 	    int redoUndoStackSize = 0;
 
 	    for(int i = 0; i < record.count(); i++)
@@ -399,6 +413,8 @@ void glitch_canvas_settings::prepare(void)
 		  showCanvasDots = record.value(i).toBool();
 		else if(fieldName.contains("show_canvas_grids"))
 		  showCanvasGrids = record.value(i).toBool();
+		else if(fieldName.contains("show_order_indicators"))
+		  showOrderIndicators = record.value(i).toBool();
 		else if(fieldName.contains("update_mode"))
 		  updateMode = record.value(i).toString().trimmed();
 		else if(fieldName.contains("wire_color"))
@@ -438,6 +454,7 @@ void glitch_canvas_settings::prepare(void)
 	    m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
 	    m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	    m_ui.show_canvas_grids->setChecked(showCanvasGrids);
+	    m_ui.show_order_indicators->setChecked(showOrderIndicators);
 	    m_ui.update_mode->setCurrentIndex
 	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
 
@@ -526,6 +543,7 @@ void glitch_canvas_settings::setSettings
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
+  setShowOrderIndicators(hash.value(Settings::SHOW_ORDER_INDICATORS).toBool());
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
 						  VIEW_UPDATE_MODE).toInt()));
@@ -541,6 +559,11 @@ void glitch_canvas_settings::setShowCanvasDots(const bool state)
 void glitch_canvas_settings::setShowCanvasGrids(const bool state)
 {
   m_ui.show_canvas_grids->setChecked(state);
+}
+
+void glitch_canvas_settings::setShowOrderIndicators(const bool state)
+{
+  m_ui.show_order_indicators->setChecked(state);
 }
 
 void glitch_canvas_settings::setViewportUpdateMode

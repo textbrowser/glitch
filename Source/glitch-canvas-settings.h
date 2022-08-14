@@ -53,6 +53,7 @@ class glitch_canvas_settings: public QDialog
     REDO_UNDO_STACK_SIZE,
     SHOW_CANVAS_DOTS,
     SHOW_CANVAS_GRIDS,
+    SHOW_ORDER_INDICATORS,
     VIEW_UPDATE_MODE,
     WIRE_COLOR
   };
@@ -70,6 +71,7 @@ class glitch_canvas_settings: public QDialog
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
+  bool showOrderIndicators(void) const;
   int redoUndoStackSize(void) const;
   void notify(void);
   void prepare(void);
@@ -82,6 +84,7 @@ class glitch_canvas_settings: public QDialog
     (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
   void setShowCanvasDots(const bool state);
   void setShowCanvasGrids(const bool state);
+  void setShowOrderIndicators(const bool state);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
 
  private:
