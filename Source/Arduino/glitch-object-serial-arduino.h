@@ -129,6 +129,30 @@ class glitch_object_serial_arduino: public glitch_object
 	{
 	  return "println";
 	}
+      case Type::READ:
+	{
+	  return "read";
+	}
+      case Type::READ_BYTES:
+	{
+	  return "readBytes";
+	}
+      case Type::READ_BYTES_UNTIL:
+	{
+	  return "readBytesUntil";
+	}
+      case Type::READ_STRING:
+	{
+	  return "readString";
+	}
+      case Type::READ_STRING_UNTIL:
+	{
+	  return "readStringUntil";
+	}
+      case Type::SET_TIMEOUT:
+	{
+	  return "setTimeout";
+	}
       case Type::WRITE:
 	{
 	  return "write";
