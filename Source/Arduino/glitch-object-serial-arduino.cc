@@ -155,13 +155,25 @@ bool glitch_object_serial_arduino::isFullyWired(void) const
 {
   switch(m_serialType)
     {
-    case Type::AVAILABLE:
-      {
-	return true;
-      }
     case Type::BEGIN:
       {
 	return inputs().size() >= 1;
+      }
+    case Type::FIND:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::FIND_UNTIL:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::PARSE_FLOAT:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::PARSE_INT:
+      {
+	return inputs().size() >= 2;
       }
     case Type::PRINT:
       {
@@ -171,13 +183,29 @@ bool glitch_object_serial_arduino::isFullyWired(void) const
       {
 	return inputs().size() >= 2;
       }
+    case Type::READ_BYTES:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::READ_BYTES_UNTIL:
+      {
+	return inputs().size() >= 3;
+      }
+    case Type::READ_STRING_UNTIL:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::SET_TIMEOUT:
+      {
+	return inputs().size() >= 1;
+      }
     case Type::WRITE:
       {
       	return inputs().size() >= 2;
       }
     default:
       {
-	return false;
+	return true;
       }
     }
 }
