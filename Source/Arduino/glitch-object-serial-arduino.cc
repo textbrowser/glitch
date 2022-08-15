@@ -32,36 +32,7 @@ glitch_object_serial_arduino::glitch_object_serial_arduino
   glitch_object_serial_arduino(1, parent)
 {
   m_serialType = stringToSerialType(serialType);
-
-  switch(m_serialType)
-    {
-    case Type::BEGIN:
-      {
-	m_ui.label->setText("Serial.begin()");
-	break;
-      }
-    case Type::PRINT:
-      {
-	m_ui.label->setText("Serial.print()");
-	break;
-      }
-    case Type::PRINTLN:
-      {
-	m_ui.label->setText("Serial.println()");
-	break;
-      }
-    case Type::WRITE:
-      {
-	m_ui.label->setText("Serial.write()");
-	break;
-      }
-    default:
-      {
-	m_ui.label->setText("Serial.available()");
-	break;
-      }
-    }
-
+  m_ui.label->setText(QString("Serial.%1()").arg(serialTypeToString()));
   setName(m_ui.label->text());
 }
 
@@ -129,10 +100,17 @@ bool glitch_object_serial_arduino::hasInput(void) const
 {
   switch(m_serialType)
     {
-    case Type::AVAILABLE:
     case Type::BEGIN:
+    case Type::FIND:
+    case Type::FIND_UNTIL:
+    case Type::PARSE_FLOAT:
+    case Type::PARSE_INT:
     case Type::PRINT:
     case Type::PRINTLN:
+    case Type::READ_BYTES:
+    case Type::READ_BYTES_UNTIL:
+    case Type::READ_STRING_UNTIL:
+    case Type::SET_TIMEOUT:
     case Type::WRITE:
       {
 	return true;
@@ -149,15 +127,22 @@ bool glitch_object_serial_arduino::hasOutput(void) const
   switch(m_serialType)
     {
     case Type::AVAILABLE:
+    case Type::AVAILABLE_FOR_WRITE:
+    case Type::FIND:
+    case Type::FIND_UNTIL:
+    case Type::PARSE_FLOAT:
+    case Type::PARSE_INT:
+    case Type::PEEK:
     case Type::PRINT:
     case Type::PRINTLN:
+    case Type::READ:
+    case Type::READ_BYTES:
+    case Type::READ_BYTES_UNTIL:
+    case Type::READ_STRING:
+    case Type::READ_STRING_UNTIL:
     case Type::WRITE:
       {
 	return true;
-      }
-    case Type::BEGIN:
-      {
-	return false;
       }
     default:
       {
