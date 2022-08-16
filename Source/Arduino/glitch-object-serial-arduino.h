@@ -77,9 +77,9 @@ class glitch_object_serial_arduino: public glitch_object
   Type m_serialType;
   Ui_glitch_object_serial_arduino m_ui;
 
-  QString serialTypeToString(void) const
+  QString serialTypeToString(const Type type) const
   {
-    switch(m_serialType)
+    switch(type)
       {
       case Type::AVAILABLE:
 	{
@@ -178,6 +178,8 @@ class glitch_object_serial_arduino: public glitch_object
       return Type::FIND_UNTIL;
     else if(string.contains("find"))
       return Type::FIND;
+    else if(string.contains("flush"))
+      return Type::FLUSH;
     else if(string.contains("parsefloat"))
       return Type::PARSE_FLOAT;
     else if(string.contains("parseint"))

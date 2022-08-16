@@ -32,7 +32,8 @@ glitch_object_serial_arduino::glitch_object_serial_arduino
   glitch_object_serial_arduino(1, parent)
 {
   m_serialType = stringToSerialType(serialType);
-  m_ui.label->setText(QString("Serial.%1()").arg(serialTypeToString()));
+  m_ui.label->setText
+    (QString("Serial.%1()").arg(serialTypeToString(m_serialType)));
   setName(m_ui.label->text());
 }
 
@@ -218,7 +219,8 @@ bool glitch_object_serial_arduino::shouldPrint(void) const
 glitch_object_serial_arduino *glitch_object_serial_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_serial_arduino(serialTypeToString(), parent);
+  auto clone = new glitch_object_serial_arduino
+    (serialTypeToString(m_serialType), parent);
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
@@ -284,18 +286,8 @@ void glitch_object_serial_arduino::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
-
-	  if(string.contains("begin"))
-	    string = "Serial.begin()";
-	  else if(string.contains("println"))
-	    string = "Serial.println()";
-	  else if(string.contains("print"))
-	    string = "Serial.print()";
-	  else if(string.contains("write"))
-	    string = "Serial.write()";
-	  else
-	    string = "Serial.available()";
-
+	  string = serialTypeToString(stringToSerialType(string));
+	  string = QString("Serial.%1()").arg(string);
 	  m_properties[Properties::SERIAL_TYPE] = string.trimmed();
 	}
     }
