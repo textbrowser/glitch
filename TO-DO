@@ -169,6 +169,7 @@ Remaining Items
   Digital I/O
   Flow Control
   Logical Operators
+  Serial
   Structures
   Time
   Trigonometry
@@ -192,9 +193,9 @@ Remaining Items
 - Percolate redo / undo of functions through child views.
 - Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
+- SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Search structures.
-- Serial and stream (https://www.arduino.cc/reference/en).
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

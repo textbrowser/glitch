@@ -54,6 +54,14 @@ QString glitch_object_serial_arduino::code(void) const
 {
   switch(m_serialType)
     {
+    case Type::AVAILABLE:
+      {
+	return "Serial.available();";
+      }
+    case Type::AVAILABLE_FOR_WRITE:
+      {
+	return "Serial.availableForWrite();";
+      }
     case Type::BEGIN:
       {
 	if(inputs().size() == 1)
@@ -62,6 +70,55 @@ QString glitch_object_serial_arduino::code(void) const
 	  return QString("Serial.begin(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
+      }
+    case Type::END:
+      {
+	return "Serial.end();";
+      }
+    case Type::FIND:
+      {
+	if(inputs().size() == 1)
+	  return QString("Serial.find(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.find(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+      }
+    case Type::FIND_UNTIL:
+      {
+	return QString("Serial.findUntil(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::FLUSH:
+      {
+	return "Serial.flush()";
+      }
+    case Type::PARSE_FLOAT:
+      {
+	if(inputs().isEmpty())
+	  return "Serial.parseFloat();";
+	else if(inputs().size() == 1)
+	  return QString("Serial.parseFloat(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.parseFloat(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+      }
+    case Type::PARSE_INT:
+      {
+	if(inputs().isEmpty())
+	  return "Serial.parseInt();";
+	else if(inputs().size() == 1)
+	  return QString("Serial.parseInt(%1);").arg(inputs().value(0));
+	else
+	  return QString("Serial.parseInt(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
+      }
+    case Type::PEEK:
+      {
+	return "Serial.peek();";
       }
     case Type::PRINT:
       {
@@ -80,6 +137,27 @@ QString glitch_object_serial_arduino::code(void) const
 	  return QString("Serial.println(%1, %2);").
 	    arg(inputs().value(0)).
 	    arg(inputs().value(1));
+      }
+    case Type::READ:
+      {
+	return "Serial.read();";
+      }
+    case Type::READ_BYTES:
+      {
+	return QString("Serial.readBytes(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::READ_BYTES_UNTIL:
+      {
+	return QString("Serial.readBytesUntil(%1, %2, %3);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2));
+      }
+    case Type::READ_STRING:
+      {
+	return "Serial.readString();";
       }
     case Type::WRITE:
       {
