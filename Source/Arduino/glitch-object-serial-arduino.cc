@@ -159,6 +159,14 @@ QString glitch_object_serial_arduino::code(void) const
       {
 	return "Serial.readString();";
       }
+    case Type::READ_STRING_UNTIL:
+      {
+	return QString("Serial.readStringUntil(%1);").arg(inputs().value(0));
+      }
+    case Type::SET_TIMEOUT:
+      {
+	return QString("Serial.setTimeout(%1);").arg(inputs().value(0));
+      }
     case Type::WRITE:
       {
 	if(inputs().size() == 1)
@@ -170,7 +178,7 @@ QString glitch_object_serial_arduino::code(void) const
       }
     default:
       {
-	return QString("Serial.available(%1);").arg(inputs().value(0));
+	return "Serial.available();";
       }
     }
 }
