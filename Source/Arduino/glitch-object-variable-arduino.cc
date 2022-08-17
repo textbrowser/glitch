@@ -130,7 +130,8 @@ QString glitch_object_variable_arduino::code(void) const
 		    " " +
 		    assignment +
 		    " " +
-		    inputs.value(0) + ";").trimmed();
+		    inputs.value(0) +
+		    ";").trimmed();
 	}
     }
   else
@@ -183,7 +184,8 @@ QString glitch_object_variable_arduino::code(void) const
 			" " +
 			assignment +
 			" " +
-			inputs.value(0) + ";").trimmed();
+			inputs.value(0) +
+			";").trimmed();
 	      else
 		return (qualifier +
 			" " +

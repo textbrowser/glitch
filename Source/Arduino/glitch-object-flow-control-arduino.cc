@@ -104,7 +104,7 @@ QString glitch_object_flow_control_arduino::code(void) const
   else if(m_ui.flow_control_type->currentText() == "label")
     return QString("%1:").arg(m_ui.condition->text().trimmed());
   else if(m_ui.flow_control_type->currentText() == "return")
-    return QString("return (%1);").arg(inputs().value(0));
+    return QString("return(%1);").arg(inputs().value(0));
 
   QString code("");
   QTextStream stream(&code);
