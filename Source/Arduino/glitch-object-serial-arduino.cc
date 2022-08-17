@@ -92,7 +92,7 @@ QString glitch_object_serial_arduino::code(void) const
       }
     case Type::FLUSH:
       {
-	return "Serial.flush()";
+	return "Serial.flush();";
       }
     case Type::PARSE_FLOAT:
       {

@@ -284,8 +284,12 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	{
 	  auto view = newArduinoDiagram(fileName, name, true);
 
+	  view->setUpdatesEnabled(false);
+
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
+
+	  view->setUpdatesEnabled(true);
 	}
       else
 	ok = false;
