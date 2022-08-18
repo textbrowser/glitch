@@ -143,6 +143,8 @@
      <string>&amp;View</string>
     </property>
     <addaction name="action_Full_Screen"/>
+    <addaction name="separator"/>
+    <addaction name="action_View_Tools"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -310,6 +312,17 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About...</string>
+   </property>
+  </action>
+  <action name="action_View_Tools">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Tools</string>
    </property>
   </action>
  </widget>

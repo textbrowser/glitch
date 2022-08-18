@@ -28,7 +28,6 @@
 #include <QColorDialog>
 #include <QDir>
 #include <QFileDialog>
-#include <QSettings>
 #include <QShortcut>
 #include <QSqlDatabase>
 #include <QSqlError>

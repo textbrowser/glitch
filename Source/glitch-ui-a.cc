@@ -163,6 +163,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowUserFunctions);
+  connect(m_ui.action_View_Tools,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotViewTools);
   connect(m_ui.menu_Tabs,
 	  SIGNAL(aboutToShow(void)),
 	  this,
@@ -1753,4 +1757,13 @@ void glitch_ui::slotUnite(glitch_view *view)
   setWindowTitle(view);
   view->defaultContextMenu()->deleteLater();
   window->deleteLater();
+}
+
+void glitch_ui::slotViewTools(void)
+{
+  QSettings settings;
+
+  settings.setValue
+    ("main_window/view_tools", m_ui.action_View_Tools->isChecked());
+  m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
 }
