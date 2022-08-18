@@ -905,6 +905,9 @@ void glitch_ui::restoreSettings(void)
 {
   QSettings settings;
 
+  m_ui.action_View_Tools->setChecked
+    (settings.value("main_window/view_tools", true).toBool());
+  m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
