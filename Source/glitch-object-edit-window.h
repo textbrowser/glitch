@@ -64,6 +64,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private slots:
   void slotAboutToShowEditMenu(void);
+  void slotViewTools(void);
 
  signals:
   void closed(void);

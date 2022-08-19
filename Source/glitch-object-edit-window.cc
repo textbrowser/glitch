@@ -63,10 +63,18 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
     menu->addAction(tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
+  menu = menuBar()->addMenu(tr("&View"));
+  m_actions["tools"] = menu->addAction(tr("&Tools"));
+  m_actions["tools"]->setCheckable(true);
+  m_actions["tools"]->setChecked(true);
   connect(m_actions.value("copy"),
 	  &QAction::triggered,
 	  this,
 	  &glitch_object_edit_window::slotAboutToShowEditMenu);
+  connect(m_actions.value("tools"),
+	  &QAction::triggered,
+	  this,
+	  &glitch_object_edit_window::slotViewTools);
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
@@ -293,4 +301,10 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotViewTools(void)
+{
+  if(m_toolBar)
+    m_toolBar->setVisible(m_actions.value("tools")->isChecked());
 }
