@@ -75,6 +75,7 @@ Completed Items
   definition.
 - Generate periodically.
 - Group delete.
+- Hide alignment options.
 - Identifiers are incorrect for function children.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - Intelligent beginMacro() / endMacro().
@@ -181,7 +182,6 @@ Remaining Items
 - Function clones.
 - Generate source from terminal for testing results.
 - Generate view.
-- Hide alignment options.
 - Icons and themes.
 - Indicate wire input / output.
 - Integrate isFullyWired().
