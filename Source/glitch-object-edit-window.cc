@@ -235,8 +235,7 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 
 void glitch_object_edit_window::setToolBarVisible(const bool state)
 {
-  if(m_toolBar)
-    m_toolBar->setVisible(state);
+  m_toolBar->setVisible(state);
 }
 
 void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
@@ -311,9 +310,7 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 
 void glitch_object_edit_window::slotViewTools(void)
 {
-  if(m_toolBar)
-    m_toolBar->setVisible(m_actions.value("tools")->isChecked());
-
+  m_toolBar->setVisible(m_actions.value("tools")->isChecked());
   emit propertyChanged
     ("tool_bar_visible", m_actions.value("tools")->isChecked());
 }
