@@ -1073,7 +1073,14 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
      object,
      m_userFunctions);
 
-  undoCommand->setText(tr("function renamed"));
+  if(object)
+    undoCommand->setText
+      (tr("function renamed (%1, %2)").
+       arg(object->scenePos().x()).
+       arg(object->scenePos().y()));
+  else
+    undoCommand->setText(tr("function renamed"));
+
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -1090,7 +1097,14 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
      object,
      m_userFunctions);
 
-  undoCommand->setText(tr("function return type changed"));
+  if(object)
+    undoCommand->setText
+      (tr("function return type changed (%1, %2)").
+       arg(object->scenePos().x()).
+       arg(object->scenePos().y()));
+  else
+    undoCommand->setText(tr("function return type changed"));
+
   m_undoStack->push(undoCommand);
   emit changed();
 }
