@@ -309,5 +309,5 @@ void glitch_object_edit_window::slotViewTools(void)
     m_toolBar->setVisible(m_actions.value("tools")->isChecked());
 
   emit propertyChanged
-    ("toolbar_visible", m_actions.value("tools")->isChecked());
+    ("tool_bar_visible", m_actions.value("tools")->isChecked());
 }

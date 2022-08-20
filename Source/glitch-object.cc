@@ -690,6 +690,15 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
       if(!m_editView)
 	qDebug() << tr("m_editView is zero! Signals cannot be established!");
     }
+
+  if(m_editWindow)
+    connect(m_editWindow,
+	    QOverload<const QString &, const QVariant &>::
+	    of(&glitch_object_edit_window::propertyChanged),
+	    this,
+	    QOverload<const QString &, const QVariant &>::
+	    of(&glitch_object::slotPropertyChanged),
+	    Qt::UniqueConnection);
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)
@@ -850,6 +859,13 @@ void glitch_object::setProperties(const QStringList &list)
 	      resize(size);
 	    }
 	}
+      else if(string.simplified().startsWith("tool_bar_visible = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::TOOL_BAR_VISIBLE] =
+	    QVariant(string.trimmed()).toBool();
+	}
     }
 
   createActions();
@@ -978,6 +994,16 @@ void glitch_object::slotLockPosition(void)
       !m_properties.value(Properties::POSITION_LOCKED).toBool();
 
   emit changed();
+}
+
+void glitch_object::slotPropertyChanged
+(const QString &property, const QVariant &value)
+{
+  if(property == "tool_bar_visible")
+    {
+      m_properties[Properties::TOOL_BAR_VISIBLE] = value;
+      emit changed();
+    }
 }
 
 void glitch_object::slotSimulateDelete(void)
