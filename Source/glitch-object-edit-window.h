@@ -48,6 +48,7 @@ class glitch_object_edit_window: public QMainWindow
   void prepareToolBar(const QList<QAction *> &actions);
   void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
+  void setToolBarVisible(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
  private:

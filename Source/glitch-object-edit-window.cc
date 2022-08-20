@@ -233,6 +233,12 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
     }
 }
 
+void glitch_object_edit_window::setToolBarVisible(const bool state)
+{
+  if(m_toolBar)
+    m_toolBar->setVisible(state);
+}
+
 void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 {
   if(m_undoStack)

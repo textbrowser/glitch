@@ -894,6 +894,13 @@ void glitch_object::setProperty(const Properties property,
 	resize(value.toSize());
 	break;
       }
+    case Properties::TOOL_BAR_VISIBLE:
+      {
+	if(m_editWindow)
+	  m_editWindow->setToolBarVisible(value.toBool());
+
+	break;
+      }
     default:
       {
 	break;
