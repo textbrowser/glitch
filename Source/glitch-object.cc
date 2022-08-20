@@ -999,10 +999,27 @@ void glitch_object::slotLockPosition(void)
 void glitch_object::slotPropertyChanged
 (const QString &property, const QVariant &value)
 {
+  auto p = Properties::XYZ_PROPERTY;
+
   if(property == "tool_bar_visible")
+    p = Properties::TOOL_BAR_VISIBLE;
+
+  if(p != Properties::XYZ_PROPERTY)
     {
-      m_properties[Properties::TOOL_BAR_VISIBLE] = value;
-      emit changed();
+      auto before = m_properties.value(p);
+
+      m_properties[p] = value;
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (value, before, glitch_undo_command::PROPERTY_CHANGED, p, this);
+
+	  undoCommand->setText
+	    (tr("object property changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
     }
 }
 
