@@ -386,11 +386,12 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      "myoid, "
 			      "parent_oid, "
 			      "position, "
-			      "SUBSTR(properties, 1, 50000), "
-			      "SUBSTR(stylesheet, 1, %1), "
-			      "SUBSTR(type, 1, %2) "
+			      "SUBSTR(properties, 1, %1), "
+			      "SUBSTR(stylesheet, 1, %2), "
+			      "SUBSTR(type, 1, %3) "
 			      "FROM objects ORDER BY "
 			      "parent_oid, properties").
+		      arg(static_cast<int> (Limits::PROPERTIES_MAXIMUM_LENGTH)).
 		      arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
 		      arg(static_cast<int> (glitch_ui::Limits::
 					    TYPE_MAXIMUM_LENGTH))))
@@ -745,10 +746,11 @@ void glitch_view::createParentFromValues
     (QString("SELECT "
 	     "parent_oid, "
 	     "position, "
-	     "SUBSTR(properties, 1, 50000), "
-	     "SUBSTR(stylesheet, 1, %1), "
-	     "SUBSTR(type, 1, %2) "
+	     "SUBSTR(properties, 1, %1), "
+	     "SUBSTR(stylesheet, 1, %2), "
+	     "SUBSTR(type, 1, %3) "
 	     "FROM objects WHERE myoid = ?").
+     arg(static_cast<int> (Limits::PROPERTIES_MAXIMUM_LENGTH)).
      arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
      arg(static_cast<int> (glitch_ui::Limits::TYPE_MAXIMUM_LENGTH)));
   query.addBindValue(oid);

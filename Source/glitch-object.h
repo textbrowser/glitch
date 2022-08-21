@@ -165,6 +165,7 @@ class glitch_object: public QWidget
   void move(const QPoint &point);
   void move(int x, int y);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
+  void setProperties(const QStringList &list);
   void setProperty(const char *name, const QVariant &value);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
   void setWiredObject(glitch_object *object, glitch_wire *wire);
@@ -212,7 +213,6 @@ class glitch_object: public QWidget
 		      const QSqlDatabase &db,
 		      QString &error);
   void saveWires(const QSqlDatabase &db, QString &error);
-  void setProperties(const QStringList &list);
 
  protected slots:
   void slotSetStyleSheet(void);

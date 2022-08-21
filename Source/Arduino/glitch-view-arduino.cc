@@ -151,21 +151,31 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 	query.setForwardOnly(true);
 
 	if(query.exec(QString("SELECT "
-			      "SUBSTR(stylesheet, 1, %1), "
+			      "SUBSTR(properties, 1, %1), "
+			      "SUBSTR(stylesheet, 1, %2), "
 			      "SUBSTR(type, 1, 100) "
 			      "FROM objects WHERE "
 			      "type IN ('arduino-loop', 'arduino-setup')").
 		      arg(static_cast<int> (glitch_view::Limits::
+					    PROPERTIES_MAXIMUM_LENGTH)).
+		      arg(static_cast<int> (glitch_view::Limits::
 					    STYLESHEET_MAXIMUM_LENGTH))))
 	  while(query.next())
 	    {
-	      auto styleSheet(query.value(0).toString().trimmed());
-	      auto type(query.value(1).toString().toLower().trimmed());
+	      auto properties(query.value(0).toString().trimmed());
+	      auto styleSheet(query.value(1).toString().trimmed());
+	      auto type(query.value(2).toString().toLower().trimmed());
 
 	      if(type == "arduino-loop")
-		m_loopObject->setStyleSheet(styleSheet);
+		{
+		  m_loopObject->setProperties(properties.split('&'));
+		  m_loopObject->setStyleSheet(styleSheet);
+		}
 	      else
-		m_setupObject->setStyleSheet(styleSheet);
+		{
+		  m_setupObject->setProperties(properties.split('&'));
+		  m_setupObject->setStyleSheet(styleSheet);
+		}
 	    }
 	else
 	  {
