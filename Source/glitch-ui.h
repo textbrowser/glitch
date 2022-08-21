@@ -64,6 +64,7 @@ class glitch_ui: public QMainWindow
   QMessageBox m_about;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
+  QStringList m_delayedDiagrams; // Open after launch.
   Ui_glitch_mainwindow m_ui;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   bool openDiagram(const QString &fileName, QString &error);
@@ -96,6 +97,7 @@ class glitch_ui: public QMainWindow
   void slotCopy(QGraphicsView *view);
   void slotCopy(glitch_view *view);
   void slotCopy(void);
+  void slotDelayedOpenDiagrams(void);
   void slotDelete(void);
   void slotForgetRecentDiagram(void);
   void slotGenerateSource(void);

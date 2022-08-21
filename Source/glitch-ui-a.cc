@@ -499,6 +499,7 @@ void glitch_ui::copy(QGraphicsView *view)
 
 void glitch_ui::parseCommandLineArguments(void)
 {
+  QApplication::processEvents();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString errors("");
@@ -529,19 +530,10 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	i += 1;
 
-	QString error("");
-
 	if(i >= list.size())
-	  errors.append(tr("Incorrect usage of --open-arduino-diagram."));
-	else if(openDiagram(list.value(i), error))
-	  {
-	    prepareActionWidgets();
-	    prepareRecentFiles();
-	  }
+	  errors.append(tr("Incorrect usage of --open-arduino-diagram.\n\n"));
 	else
-	  errors.append
-	    (tr("An error occurred while processing "
-		"the file %1. (%2)\n\n").arg(list.value(i)).arg(error));
+	  m_delayedDiagrams << list.value(i);
       }
     else if(list.at(i) == "--show-arduino-structures" ||
 	    list.at(i) == "--show-tools" ||
@@ -584,6 +576,9 @@ void glitch_ui::parseCommandLineArguments(void)
       QApplication::processEvents();
       dialog.exec();
     }
+
+  if(!m_delayedDiagrams.isEmpty())
+    QTimer::singleShot(500, this, SLOT(slotDelayedOpenDiagrams(void)));
 }
 
 void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
@@ -1168,6 +1163,45 @@ void glitch_ui::slotCopy(void)
     {
       copy(m_currentView->view());
       prepareActionWidgets();
+    }
+}
+
+void glitch_ui::slotDelayedOpenDiagrams(void)
+{
+  QString errors("");
+  auto state = false;
+
+  for(auto i : m_delayedDiagrams)
+    {
+      QString error("");
+
+      if(openDiagram(i, error))
+	state = true;
+      else
+	errors.append
+	  (tr("An error occurred while processing the file %1. (%2)\n\n").
+	   arg(i).arg(error));
+    }
+
+  m_delayedDiagrams.clear();
+  QApplication::processEvents();
+
+  if(!errors.isEmpty())
+    {
+      QDialog dialog(this);
+      Ui_glitch_errors_dialog ui;
+
+      ui.setupUi(&dialog);
+      ui.label->setText(tr("The following errors occurred."));
+      ui.text->setPlainText(errors.trimmed());
+      QApplication::processEvents();
+      dialog.exec();
+    }
+
+  if(state)
+    {
+      prepareActionWidgets();
+      prepareRecentFiles();
     }
 }
 
