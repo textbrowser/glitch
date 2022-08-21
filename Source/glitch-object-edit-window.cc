@@ -66,7 +66,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   menu = menuBar()->addMenu(tr("&View"));
   m_actions["tools"] = menu->addAction(tr("&Tools"));
   m_actions["tools"]->setCheckable(true);
-  m_actions["tools"]->setChecked(true);
+  m_actions["tools"]->setChecked(false);
   connect(m_actions.value("copy"),
 	  &QAction::triggered,
 	  this,
@@ -85,6 +85,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   m_header->setFont(font);
   m_toolBar = new QToolBar(tr("Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
+  m_toolBar->setVisible(false);
   addToolBar(m_toolBar);
   prepareIcons();
   setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());

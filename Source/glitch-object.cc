@@ -86,7 +86,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_drawOutputConnector = false;
   m_parent = parent;
   m_properties[Properties::POSITION_LOCKED] = false;
-  m_properties[Properties::TOOL_BAR_VISIBLE] = true;
+  m_properties[Properties::TOOL_BAR_VISIBLE] = false;
 
   {
     auto view = qobject_cast<glitch_object_view *> (parent);
@@ -866,11 +866,6 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-
-	  if(m_editWindow)
-	    m_editWindow->setToolBarVisible
-	      (QVariant(string.trimmed()).toBool());
-
 	  m_properties[Properties::TOOL_BAR_VISIBLE] =
 	    QVariant(string.trimmed()).toBool();
 	}
