@@ -185,7 +185,10 @@ void glitch_object_loop_arduino::setUndoStack(QUndoStack *undoStack)
 
 void glitch_object_loop_arduino::slotEdit(void)
 {
+  m_editWindow->setToolBarVisible
+    (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
   m_editWindow->showNormal();
+  m_editWindow->activateWindow();
   m_editWindow->raise();
 }
 

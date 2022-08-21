@@ -565,7 +565,10 @@ void glitch_object_flow_control_arduino::slotEdit(void)
       }
     }
 
+  m_editWindow->setToolBarVisible
+    (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
   m_editWindow->showNormal();
+  m_editWindow->activateWindow();
   m_editWindow->raise();
 }
 
