@@ -147,17 +147,18 @@ Public Types</h2></td></tr>
 , <b>SIZE</b>
 , <b>TIME_TYPE</b>
 , <br />
-&#160;&#160;<b>TRIGONOMETRY_TYPE</b>
+&#160;&#160;<b>TOOL_BAR_VISIBLE</b>
+, <b>TRIGONOMETRY_TYPE</b>
 , <b>UTILITIES_TYPE</b>
 , <b>VARIABLE_ARRAY</b>
-, <b>VARIABLE_NAME</b>
 , <br />
-&#160;&#160;<b>VARIABLE_POINTER_ACCESS</b>
+&#160;&#160;<b>VARIABLE_NAME</b>
+, <b>VARIABLE_POINTER_ACCESS</b>
 , <b>VARIABLE_PROGMEM</b>
 , <b>VARIABLE_QUALIFIER</b>
-, <b>VARIABLE_TYPE</b>
 , <br />
-&#160;&#160;<b>XYZ_PROPERTY</b>
+&#160;&#160;<b>VARIABLE_TYPE</b>
+, <b>XYZ_PROPERTY</b>
 <br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -291,6 +292,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (int x, int 
 <tr class="memitem:ab3a2853c116675afd7cd5621ffee6ba7 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ab3a2853c116675afd7cd5621ffee6ba7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setCanvasSettings</b> (<a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *canvasSettings)</td></tr>
 <tr class="separator:ab3a2853c116675afd7cd5621ffee6ba7 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7461248c85d7e703c08a6ea428b1734b inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7461248c85d7e703c08a6ea428b1734b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperties</b> (const QStringList &amp;list)</td></tr>
+<tr class="separator:a7461248c85d7e703c08a6ea428b1734b inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6302b2439018da895a9c4a7eceaacc2c inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a6302b2439018da895a9c4a7eceaacc2c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (const char *name, const QVariant &amp;value)</td></tr>
 <tr class="separator:a6302b2439018da895a9c4a7eceaacc2c inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -364,9 +368,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>saveProperties</b> (c
 <tr class="memitem:a8db6bb7288bb8d433057c6c7a5809bfc inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a8db6bb7288bb8d433057c6c7a5809bfc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>saveWires</b> (const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
 <tr class="separator:a8db6bb7288bb8d433057c6c7a5809bfc inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7461248c85d7e703c08a6ea428b1734b inherit pro_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7461248c85d7e703c08a6ea428b1734b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperties</b> (const QStringList &amp;list)</td></tr>
-<tr class="separator:a7461248c85d7e703c08a6ea428b1734b inherit pro_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
 <tr class="memitem:a84ab93023536ce7b059250efa356345e inherit pro_attribs_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a84ab93023536ce7b059250efa356345e"></a>
 QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_properties</b></td></tr>
