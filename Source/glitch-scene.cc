@@ -95,7 +95,7 @@ QList<glitch_object *> glitch_scene::objects(void) const
   QList<glitch_object *> widgets;
   auto list(items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -117,7 +117,7 @@ QList<glitch_object *> glitch_scene::orderedObjects(void) const
 					   */
   auto list(items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -136,7 +136,7 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   QList<glitch_object *> widgets;
   auto list(items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -450,7 +450,7 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
     {
       auto list(items());
 
-      for(auto i : list)
+      foreach(auto i, list)
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -464,7 +464,7 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 {
   auto list(items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -502,7 +502,7 @@ void glitch_scene::deleteItems(void)
 
   QList<QGraphicsItem *> list;
 
-  for(auto i : items())
+  foreach(auto i, items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -523,7 +523,7 @@ void glitch_scene::deleteItems(void)
   auto began = false;
   auto state = false;
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -804,7 +804,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    view->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
 	  }
 
-	for(auto i : list)
+	foreach(auto i, list)
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -928,7 +928,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
       auto list(selectedItems());
       auto moved = false;
 
-      for(auto i : list)
+      foreach(auto i, list)
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1058,7 +1058,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    }
 		  else
 		    {
-		      for(auto child : object->findChildren<QWidget *> ())
+		      foreach(auto child, object->findChildren<QWidget *> ())
 			if(child && child->objectName().contains("viewport"))
 			  {
 			    child->setFocus();
@@ -1102,7 +1102,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      auto list(selectedItems());
 
-	      for(auto i : list)
+	      foreach(auto i, list)
 		{
 		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1133,7 +1133,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
       auto began = false;
 
-      for(const auto &movedPoint : m_movedPoints)
+      foreach(const auto &movedPoint, m_movedPoints)
 	{
 	  if(!movedPoint.second)
 	    continue;
@@ -1270,7 +1270,7 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 
   m_canvasSettings = canvasSettings;
 
-  for(auto object : objects())
+  foreach(auto object, objects())
     if(object)
       object->setCanvasSettings(m_canvasSettings);
 
@@ -1340,7 +1340,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
 
 void glitch_scene::slotFunctionDeleted(const QString &name)
 {
-  for(auto object : objects())
+  foreach(auto object, objects())
     if(object && object->name() == name && object->type().contains("function"))
       {
 	if(m_undoStack)

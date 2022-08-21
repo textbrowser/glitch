@@ -174,7 +174,7 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
   ** Save the children!
   */
 
-  for(auto i : m_scene->items())
+  foreach(auto i, m_scene->items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -258,7 +258,7 @@ void glitch_object_view::slotSceneResized(void)
 
 void glitch_object_view::slotSelectAll(void)
 {
-  for(auto i : m_scene->items())
+  foreach(auto i, m_scene->items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 

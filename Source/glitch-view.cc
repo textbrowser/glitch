@@ -203,7 +203,7 @@ glitch_view::glitch_view
 
 glitch_view::~glitch_view()
 {
-  for(auto undoStack : m_undoStacks)
+  foreach(auto undoStack, m_undoStacks)
     if(undoStack)
       disconnect(undoStack,
 		 QOverload<int>::of(&QUndoStack::indexChanged),
@@ -606,7 +606,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
 	auto list(m_scene->items());
 
-	for(auto i : list)
+	foreach(auto i, list)
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -935,7 +935,7 @@ void glitch_view::selectAll(void)
 
   auto list(m_scene->items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1230,7 +1230,7 @@ void glitch_view::slotUndoStackChanged(void)
 
   auto clean = true;
 
-  for(auto undoStack : m_undoStacks)
+  foreach(auto undoStack, m_undoStacks)
     if(!(undoStack && undoStack->isClean()))
       {
 	clean = false;

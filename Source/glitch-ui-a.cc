@@ -403,7 +403,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 
   if(event)
     {
-      for(auto view : findChildren<glitch_view *> ())
+      foreach(auto view, findChildren<glitch_view *> ())
 	if(view->hasChanged())
 	  {
 	    QMessageBox mb(this);
@@ -463,7 +463,7 @@ void glitch_ui::copy(QGraphicsView *view)
 
   auto list(view->scene()->selectedItems());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       if(!i)
 	continue;
@@ -1171,7 +1171,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
   QString errors("");
   auto state = false;
 
-  for(auto i : m_delayedDiagrams)
+  foreach(const auto &i, m_delayedDiagrams)
     {
       QString error("");
 
@@ -1632,7 +1632,7 @@ void glitch_ui::slotShowAllStructures(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  for(auto view : findChildren<glitch_view *> ())
+  foreach(auto view, findChildren<glitch_view *> ())
     if(view)
       view->showStructures();
 
@@ -1643,7 +1643,7 @@ void glitch_ui::slotShowAllTools(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  for(auto view : findChildren<glitch_view *> ())
+  foreach(auto view, findChildren<glitch_view *> ())
     if(view)
       view->showTools();
 
