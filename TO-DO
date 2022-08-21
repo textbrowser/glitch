@@ -196,6 +196,7 @@ Remaining Items
 - SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Search structures.
+- Show object coordinates in redo / undo text.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:
