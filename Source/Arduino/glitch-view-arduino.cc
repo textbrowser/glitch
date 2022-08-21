@@ -230,7 +230,7 @@ void glitch_view_arduino::generateSource(void)
       ** Other objects.
       */
 
-      for(auto w : widgets)
+      foreach(auto w, widgets)
 	{
 	  if(!w || !w->shouldPrint())
 	    continue;

@@ -87,7 +87,7 @@ QString glitch_object_setup_arduino::code(void) const
 	 << "{"
 	 << Qt::endl;
 
-  for(auto w : widgets)
+  foreach(auto w, widgets)
     {
       if(!w || !w->shouldPrint())
 	continue;

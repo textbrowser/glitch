@@ -144,7 +144,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	 << "{"
 	 << Qt::endl;
 
-  for(auto w : widgets)
+  foreach(auto w, widgets)
     {
       if(!w || !w->shouldPrint())
 	continue;
@@ -241,7 +241,7 @@ clone(QWidget *parent) const
     ** First, copy!
     */
 
-    for(auto object : m_editView->scene()->objects())
+    foreach(auto object, m_editView->scene()->objects())
       {
 	auto child = object->clone(nullptr);
 
@@ -256,7 +256,7 @@ clone(QWidget *parent) const
     ** Now, paste!
     */
 
-    for(auto object : m_copiedChildren)
+    foreach(auto object, m_copiedChildren)
       {
 	auto child = object->clone(nullptr);
 

@@ -238,7 +238,7 @@ QString glitch_object_function_arduino::code(void) const
 	     << "{"
 	     << Qt::endl;
 
-      for(auto w : widgets)
+      foreach(auto w, widgets)
 	{
 	  if(!w || !w->shouldPrint())
 	    continue;
@@ -318,7 +318,7 @@ clone(QWidget *parent) const
     ** First, copy!
     */
 
-    for(auto object : m_editView->scene()->objects())
+    foreach(auto object, m_editView->scene()->objects())
       {
 	auto child = object->clone(nullptr);
 
@@ -372,7 +372,7 @@ clone(QWidget *parent) const
 	(clone->findNearestGlitchView(clone->m_parentView));
       QTimer::singleShot(1500, clone, SLOT(slotUndoStackCreated(void)));
 
-      for(auto object : m_copiedChildren)
+      foreach(auto object, m_copiedChildren)
 	{
 	  auto child = object->clone(nullptr);
 
@@ -442,7 +442,7 @@ findParentFunction(void) const
 
   auto list(scene->items());
 
-  for(auto i : list)
+  foreach(auto i, list)
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 

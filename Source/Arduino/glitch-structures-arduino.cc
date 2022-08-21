@@ -250,7 +250,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
       list.removeOne("array");
 
-      for(const auto &i : list)
+      foreach(const auto &i, list)
 	{
 	  arrays << "array " + i;
 	  arrays << i;
@@ -293,7 +293,7 @@ QStringList glitch_structures_arduino::structureNames(void)
 
       const auto &list(it.value());
 
-      for(const auto &i : list)
+      foreach(const auto &i, list)
 	s_structureNamesMap[QString("arduino-%1").arg(i)] = 0;
     }
 
@@ -336,7 +336,7 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
   if(sn.endsWith(" (array)"))
     sn.remove(" (array)");
 
-  for(auto const &i : structureNames())
+  foreach(auto const &i, structureNames())
     if(i.toLower() == sn)
       return true;
 
