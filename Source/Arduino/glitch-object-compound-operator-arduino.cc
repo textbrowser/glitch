@@ -420,7 +420,9 @@ void glitch_object_compound_operator_arduino::slotCompoundOperatorChanged
 
   m_properties[Properties::COMPOUND_OPERATOR] =
     m_ui.compound_operator->currentText();
-  undoCommand->setText(tr("compound operator changed"));
+  undoCommand->setText
+    (tr("compound operator changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -439,7 +441,9 @@ void glitch_object_compound_operator_arduino::slotPreToggled(bool state)
 
   m_properties[Properties::COMPOUND_OPERATOR] =
     m_ui.compound_operator->currentText();
-  undoCommand->setText(tr("compound operator changed"));
+  undoCommand->setText
+    (tr("compound operator changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

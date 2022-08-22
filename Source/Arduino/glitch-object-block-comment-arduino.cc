@@ -195,7 +195,9 @@ void glitch_object_block_comment_arduino::slotTextChanged(void)
      this);
 
   m_properties[property] = m_ui.comment->toPlainText();
-  undoCommand->setText(tr("comment changed"));
+  undoCommand->setText
+    (tr("comment changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

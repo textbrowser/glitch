@@ -272,7 +272,9 @@ void glitch_object_logical_operator_arduino::slotLogicalOperatorChanged(void)
 
   m_properties[Properties::LOGICAL_OPERATOR] =
     m_ui.logical_operator->currentText();
-  undoCommand->setText(tr("logical operator changed"));
+  undoCommand->setText
+    (tr("logical operator changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

@@ -304,7 +304,9 @@ void glitch_object_bitwise_operator_arduino::slotBitwiseOperatorChanged
 
   m_properties[Properties::BITWISE_OPERATOR] =
     m_ui.bitwise_operator->currentText();
-  undoCommand->setText(tr("bitwise operator changed"));
+  undoCommand->setText
+    (tr("bitwise operator changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

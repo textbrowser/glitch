@@ -542,7 +542,9 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
      this);
 
   m_properties[property] = m_ui.condition->text();
-  undoCommand->setText(tr("flow control condition changed"));
+  undoCommand->setText
+    (tr("flow control condition changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -584,7 +586,9 @@ void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
 
   m_properties[Properties::FLOW_CONTROL_TYPE] =
     m_ui.flow_control_type->currentText();
-  undoCommand->setText(tr("flow control type changed"));
+  undoCommand->setText
+    (tr("flow control type changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

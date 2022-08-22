@@ -268,7 +268,9 @@ void glitch_object_constant_arduino::slotConstantChanged(void)
      this);
 
   m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
-  undoCommand->setText(tr("constant type changed"));
+  undoCommand->setText
+    (tr("constant type changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -294,7 +296,9 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
      this);
 
   m_properties[property] = m_ui.other->text();
-  undoCommand->setText(tr("constant property changed"));
+  undoCommand->setText
+    (tr("constant property changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

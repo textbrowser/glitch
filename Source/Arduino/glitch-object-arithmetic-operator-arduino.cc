@@ -298,7 +298,9 @@ void glitch_object_arithmetic_operator_arduino::slotArithmeticOperatorChanged
 
   m_properties[Properties::ARITHMETIC_OPERATOR] =
     m_ui.arithmetic_operator->currentText();
-  undoCommand->setText(tr("arithmetic operator changed"));
+  undoCommand->setText
+    (tr("arithmetic operator changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }

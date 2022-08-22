@@ -527,7 +527,9 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
      this);
 
   m_properties[property] = comboBox->currentText();
-  undoCommand->setText(tr("variable property changed"));
+  undoCommand->setText
+    (tr("variable property changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -558,7 +560,9 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
      this);
 
   m_properties[property] = lineEdit->text();
-  undoCommand->setText(tr("variable property changed"));
+  undoCommand->setText
+    (tr("variable property changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
@@ -585,8 +589,10 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
      property,
      this);
 
-  m_properties[property] = toolButton->isChecked(),
-  undoCommand->setText(tr("variable property changed"));
+  m_properties[property] = toolButton->isChecked();
+  undoCommand->setText
+    (tr("variable property changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
