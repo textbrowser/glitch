@@ -60,14 +60,6 @@ QPointer<glitch_object> glitch_proxy_widget::object(void) const
   return m_object;
 }
 
-bool glitch_proxy_widget::isFullyWired(void) const
-{
-  if(m_object)
-    return m_object->isFullyWired();
-  else
-    return true;
-}
-
 bool glitch_proxy_widget::isMandatory(void) const
 {
   if(m_object)
