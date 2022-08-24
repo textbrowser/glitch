@@ -130,6 +130,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-proxy-widget.h \
                   Source/glitch-recent-diagram.h \
                   Source/glitch-scene.h \
+                  Source/glitch-scroll-filter.h \
                   Source/glitch-separated-diagram-window.h \
                   Source/glitch-structures-treewidget.h \
                   Source/glitch-style-sheet.h \
