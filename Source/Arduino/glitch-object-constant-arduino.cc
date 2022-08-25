@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-constant-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_constant_arduino::glitch_object_constant_arduino
@@ -46,6 +47,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_constantType = ConstantTypes::HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
+  m_ui.constant->installEventFilter(new glitch_scroll_filter(this));
   m_ui.other->setVisible(false);
   connect(m_ui.constant,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),

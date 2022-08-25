@@ -28,6 +28,7 @@
 #ifndef _glitch_scroll_filter_h_
 #define _glitch_scroll_filter_h_
 
+#include <QEvent>
 #include <QObject>
 
 class glitch_scroll_filter: public QObject
@@ -37,6 +38,18 @@ class glitch_scroll_filter: public QObject
  public:
   glitch_scroll_filter(QObject *parent):QObject(parent)
   {
+  }
+
+ private:
+  bool eventFilter(QObject *object, QEvent *event)
+  {
+    if(!event || !object)
+      return QObject::eventFilter(object, event);
+
+    if(event->type() == QEvent::Wheel)
+      return true;
+    else
+      return QObject::eventFilter(object, event);
   }
 };
 
