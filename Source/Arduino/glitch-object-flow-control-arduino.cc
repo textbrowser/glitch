@@ -30,6 +30,7 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-flow-control-arduino.h"
 #include "glitch-object-view.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 
@@ -65,6 +66,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
+  m_ui.flow_control_type->installEventFilter(new glitch_scroll_filter(this));
   m_ui.occupied->setVisible(false);
   connect(m_editView,
 	  &glitch_object_view::changed,
