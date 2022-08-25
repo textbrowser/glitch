@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-arithmetic-operator-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_arithmetic_operator_arduino::
@@ -49,6 +50,7 @@ glitch_object_arithmetic_operator_arduino
   m_operatorType = OperatorTypes::ADDITION_OPERATOR;
   m_type = "arduino-arithmeticoperator";
   m_ui.setupUi(this);
+  m_ui.arithmetic_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.arithmetic_operator,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
