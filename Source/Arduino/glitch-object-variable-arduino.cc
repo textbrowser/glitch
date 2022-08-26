@@ -27,6 +27,7 @@
 
 #include "glitch-object-compound-operator-arduino.h"
 #include "glitch-object-variable-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
 
@@ -51,12 +52,15 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
+  m_ui.qualifier->installEventFilter(new glitch_scroll_filter(this));
+  m_ui.pointer_access->installEventFilter(new glitch_scroll_filter(this));
 
   auto list(glitch_structures_arduino::variableTypes());
 
   list.prepend("");
   list.removeAll("array");
   m_ui.type->addItems(list);
+  m_ui.type->installEventFilter(new glitch_scroll_filter(this));
   prepareContextMenu();
   setName(m_type);
   connectSignals(true);

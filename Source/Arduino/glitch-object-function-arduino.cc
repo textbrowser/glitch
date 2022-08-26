@@ -35,6 +35,7 @@
 #include "glitch-object-function-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-view-arduino.h"
 
@@ -104,6 +105,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
+  m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
   m_ui.return_type->setEnabled(false);
   m_ui.return_type->setToolTip
     (tr("Return type is disabled on function clone."));
@@ -168,6 +170,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.occupied->setVisible(false);
       m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
+      m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
       m_ui.return_type->setEnabled(false);
       m_ui.return_type->setToolTip
 	(tr("Return type is disabled on function clone."));
@@ -610,6 +613,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
+  m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,

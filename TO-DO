@@ -180,6 +180,7 @@ Remaining Items
   Variables
 - Copy wires.
 - Custom shortcuts.
+- Filter mouse scrolling on combination boxes. Prevent accidental changes.
 - Find objects.
 - Function clones.
 - Generate source from terminal for testing results.

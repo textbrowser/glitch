@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-logical-operator-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
@@ -46,6 +47,7 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-logicaloperator";
   m_ui.setupUi(this);
+  m_ui.logical_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.logical_operator,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
