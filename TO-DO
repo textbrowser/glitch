@@ -63,6 +63,7 @@ Completed Items
 - Edit window icons.
 - Error dialog.
 - Exiting does not require closing of pages.
+- Filter mouse scrolling on combination boxes. Prevent accidental changes.
 - Flow-control objects and edit views (break does not have a view).
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
@@ -180,7 +181,6 @@ Remaining Items
   Variables
 - Copy wires.
 - Custom shortcuts.
-- Filter mouse scrolling on combination boxes. Prevent accidental changes.
 - Find objects.
 - Function clones.
 - Generate source from terminal for testing results.
