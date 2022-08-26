@@ -265,10 +265,7 @@ void glitch_object_bits_and_bytes_arduino::save
 void glitch_object_bits_and_bytes_arduino::setProperties
 (const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::BITS_AND_BYTES_TYPE] = "bit()";
 
   for(int i = 0; i < list.size(); i++)

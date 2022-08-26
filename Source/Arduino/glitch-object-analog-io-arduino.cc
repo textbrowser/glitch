@@ -192,10 +192,7 @@ void glitch_object_analog_io_arduino::save
 
 void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::ANALOG_IO_TYPE] = "analogRead()";
 
   for(int i = 0; i < list.size(); i++)

@@ -202,10 +202,7 @@ void glitch_object_characters_arduino::save
 
 void glitch_object_characters_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::CHARACTERS_TYPE] = "isAlpha()";
 
   for(int i = 0; i < list.size(); i++)

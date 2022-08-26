@@ -358,10 +358,7 @@ void glitch_object_serial_arduino::save
 
 void glitch_object_serial_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::SERIAL_TYPE] = "Serial.available()";
 
   for(int i = 0; i < list.size(); i++)

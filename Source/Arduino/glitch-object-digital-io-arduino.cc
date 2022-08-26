@@ -194,10 +194,7 @@ void glitch_object_digital_io_arduino::save
 
 void glitch_object_digital_io_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::DIGITAL_IO_TYPE] = "digitalRead()";
 
   for(int i = 0; i < list.size(); i++)

@@ -273,10 +273,7 @@ void glitch_object_advanced_io_arduino::save
 
 void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::ADVANCED_IO_TYPE] = "noTone()";
 
   for(int i = 0; i < list.size(); i++)

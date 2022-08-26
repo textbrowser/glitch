@@ -202,10 +202,7 @@ void glitch_object_time_arduino::save
 
 void glitch_object_time_arduino::setProperties(const QStringList &list)
 {
-  /*
-  ** Redundancies.
-  */
-
+  glitch_object::setProperties(list);
   m_properties[Properties::TIME_TYPE] = "delay()";
 
   for(int i = 0; i < list.size(); i++)
