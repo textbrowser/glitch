@@ -35,7 +35,7 @@ glitch_object_random_arduino::glitch_object_random_arduino
 
   switch(m_randomType)
     {
-    case Type::RANDOM:
+    case Type::RANDOM_SEED:
       {
 	m_ui.label->setText("randomSeed()");
 	break;
