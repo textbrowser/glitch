@@ -152,7 +152,7 @@ void glitch_object_utilities_arduino::save
 void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::UTILITIES_TYPE] = "delay()";
+  m_properties[Properties::UTILITIES_TYPE] = "sizeof()";
 
   for(int i = 0; i < list.size(); i++)
     {

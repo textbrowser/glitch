@@ -54,7 +54,8 @@ class glitch_object_random_arduino: public glitch_object
  private:
   enum Type
   {
-    SIZEOF = 0
+    RANDOM = 0,
+    RANDOM_SEED
   };
 
   Type m_randomType;
@@ -64,13 +65,13 @@ class glitch_object_random_arduino: public glitch_object
   {
     switch(m_randomType)
       {
-      case Type::SIZEOF:
+      case Type::RANDOM_SEED:
 	{
-	  return "sizeof";
+	  return "randomSeed";
 	}
       default:
 	{
-	  return "sizeof";
+	  return "random";
 	}
       }
   }
@@ -79,10 +80,10 @@ class glitch_object_random_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string.contains("sizeof"))
-      return Type::SIZEOF;
+    if(string.contains("randomseed"))
+      return Type::RANDOM_SEED;
     else
-      return Type::SIZEOF;
+      return Type::RANDOM;
   }
 
   void setProperties(const QStringList &list);

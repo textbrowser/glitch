@@ -35,6 +35,11 @@ glitch_object_random_arduino::glitch_object_random_arduino
 
   switch(m_randomType)
     {
+    case Type::RANDOM:
+      {
+	m_ui.label->setText("randomSeed()");
+	break;
+      }
     default:
       {
 	m_ui.label->setText("random()");
@@ -62,9 +67,18 @@ QString glitch_object_random_arduino::code(void) const
 {
   switch(m_randomType)
     {
+    case Type::RANDOM:
+      {
+	return QString("randomSeed(%1);").arg(inputs().value(0));
+      }
     default:
       {
-	return QString("random(%1);").arg(inputs().value(0));
+	if(inputs().size() == 1)
+	  return QString("random(%1);").arg(inputs().value(0));
+	else
+	  return QString("random(%1, %2);").
+	    arg(inputs().value(0)).
+	    arg(inputs().value(1));
       }
     }
 }
@@ -83,23 +97,29 @@ bool glitch_object_random_arduino::isFullyWired(void) const
 {
   switch(m_randomType)
     {
-    default:
+    case Type::RANDOM:
       {
 	return inputs().size() >= 1;
+      }
+    default:
+      {
+	return inputs().size() >= 2;
       }
     }
 }
 
 bool glitch_object_random_arduino::shouldPrint(void) const
 {
-  return false;
+  if(m_randomType == Type::RANDOM_SEED)
+    return true;
+  else
+    return false;
 }
 
 glitch_object_random_arduino *glitch_object_random_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_random_arduino
-    (randomTypeToString(), parent);
+  auto clone = new glitch_object_random_arduino(randomTypeToString(), parent);
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
@@ -152,7 +172,7 @@ void glitch_object_random_arduino::save
 void glitch_object_random_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::RANDOM_TYPE] = "delay()";
+  m_properties[Properties::RANDOM_TYPE] = "random()";
 
   for(int i = 0; i < list.size(); i++)
     {

@@ -44,6 +44,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-arduino.h"
+#include "Arduino/glitch-object-random-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-setup-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
@@ -395,6 +396,9 @@ glitch_object *glitch_object::createFromValues
 	    object = view->setupObject();
 	}
     }
+  else if(type == "arduino-random")
+    object = glitch_object_random_arduino::createFromValues
+      (values, error, parent);
   else if(type == "arduino-serial")
     object = glitch_object_serial_arduino::createFromValues
       (values, error, parent);
