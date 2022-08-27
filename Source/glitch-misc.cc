@@ -26,6 +26,7 @@
 */
 
 #include <QApplication>
+#include <QComboBox>
 #include <QDir>
 #include <QIcon>
 #include <QMessageBox>
@@ -41,16 +42,25 @@ QPointF glitch_misc::dbPointToPointF(const QString &text)
 
 QString glitch_misc::homePath(void)
 {
-  auto homepath(qgetenv("GLITCH_HOME").trimmed());
+  QString homePath(qgetenv("GLITCH_HOME").trimmed());
 
-  if(homepath.isEmpty())
+  if(homePath.isEmpty())
 #ifdef Q_OS_WIN32
     return QDir::currentPath() + QDir::separator() + ".glitch";
 #else
     return QDir::homePath() + QDir::separator() + ".glitch";
 #endif
   else
-    return homepath.constData();
+    {
+      homePath.replace
+	(QRegularExpression(QString("[%1%1]+").arg(QDir::separator())),
+	 QDir::separator());
+
+      if(homePath.endsWith(QDir::separator()))
+	homePath = homePath.mid(0, homePath.length() - 1);
+
+      return homePath;
+    }
 }
 
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
@@ -63,4 +73,19 @@ void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
   mb.setWindowTitle(QObject::tr("Glitch: Error"));
   mb.exec();
   QApplication::processEvents();
+}
+
+void glitch_misc::sortCombinationBox(QComboBox *comboBox)
+{
+  if(!comboBox)
+    return;
+
+  QStringList list;
+
+  for(int i = 0; i < comboBox->count(); i++)
+    list << comboBox->itemText(i);
+
+  comboBox->clear();
+  std::sort(list.begin(), list.end());
+  comboBox->addItems(list);
 }

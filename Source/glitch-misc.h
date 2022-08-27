@@ -31,12 +31,15 @@
 #include <QString>
 #include <QtDebug>
 
+class QComboBox;
+
 class glitch_misc
 {
  public:
   static QPointF dbPointToPointF(const QString &text);
   static QString homePath(void);
   static void showErrorDialog(const QString &text, QWidget *parent);
+  static void sortCombinationBox(QComboBox *comboBox);
 
  private:
   glitch_misc(void);
