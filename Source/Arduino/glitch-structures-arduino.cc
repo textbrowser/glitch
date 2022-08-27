@@ -55,6 +55,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+  prepareCategories();
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
 
@@ -62,58 +63,10 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   ** Create the list.
   */
 
-  int i = 0;
-
-  m_ui.categories->addItem(tr("Advanced I/O"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Advanced I/O");
-  m_ui.categories->addItem(tr("Analog I/O"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Analog I/O");
-  m_ui.categories->addItem(tr("Arithmetic Operators"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Arithmetic Operators");
-  m_ui.categories->addItem(tr("Bits and Bytes"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Bits and Bytes");
-  m_ui.categories->addItem(tr("Bitwise Operators"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Bitwise Operators");
-  m_ui.categories->addItem(tr("Characters"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Characters");
-  m_ui.categories->addItem(tr("Compound Operators"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Compound Operators");
-  m_ui.categories->addItem(tr("Constants"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Constants");
-  m_ui.categories->addItem(tr("Conversions"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Conversions");
-  m_ui.categories->addItem(tr("Digital I/O"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Digital I/O");
-  m_ui.categories->addItem(tr("External Interrupts"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "External Interrupts");
-  m_ui.categories->addItem(tr("Flow Control"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Flow Control");
-  m_ui.categories->addItem(tr("Interrupts"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Interrupts");
-  m_ui.categories->addItem(tr("Logical Operators"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Logical Operators");
-  m_ui.categories->addItem(tr("Mathematics"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Mathematics");
-  m_ui.categories->addItem(tr("Random"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Random");
-  m_ui.categories->addItem(tr("Serial"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Serial");
-  m_ui.categories->addItem(tr("Stream"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Stream");
-  m_ui.categories->addItem(tr("Structures"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Structures");
-  m_ui.categories->addItem(tr("Time"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Time");
-  m_ui.categories->addItem(tr("Trigonometry"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Trigonometry");
-  m_ui.categories->addItem(tr("Utilities"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Utilities");
-  m_ui.categories->addItem(tr("Variables"));
-  m_ui.categories->item(i++)->setData(Qt::UserRole, "Variables");
-
   if(s_itemsForCategories.isEmpty())
     {
-      i = 0;
+      int i = 0;
+
       s_itemsForCategories[i++] = QStringList() << "noTone()"
 						<< "pulseIn()"
 						<< "pulseInLong()"
@@ -341,6 +294,45 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
       return true;
 
   return false;
+}
+
+void glitch_structures_arduino::prepareCategories(void)
+{
+  QMap<QString, QString> map;
+
+  map[tr("Advanced I/O")] = "Advanced I/O";
+  map[tr("Analog I/O")] = "Analog I/O";
+  map[tr("Arithmetic Operators")] = "Arithmetic Operators";
+  map[tr("Bits and Bytes")] = "Bits and Bytes";
+  map[tr("Bitwise Operators")] = "Bitwise Operators";
+  map[tr("Characters")] = "Characters";
+  map[tr("Compound Operators")] = "Compound Operators";
+  map[tr("Constants")] = "Constants";
+  map[tr("Conversions")] = "Conversions";
+  map[tr("Digital I/O")] = "Digital I/O";
+  map[tr("External Interrupts")] = "External Interrupts";
+  map[tr("Flow Control")] = "Flow Control";
+  map[tr("Interrupts")] = "Interrupts";
+  map[tr("Logical Operators")] = "Logical Operators";
+  map[tr("Mathematics")] = "Mathematics";
+  map[tr("Random")] = "Random";
+  map[tr("Serial")] = "Serial";
+  map[tr("Stream")] = "Stream";
+  map[tr("Structures")] = "Structures";
+  map[tr("Time")] = "Time";
+  map[tr("Trigonometry")] = "Trigonometry";
+  map[tr("Utilities")] = "Utilities";
+  map[tr("Variables")] = "Variables";
+  m_ui.categories->clear();
+  m_ui.categories->addItems(map.keys());
+
+  for(int i = 0; i < m_ui.categories->count(); i++)
+    {
+      auto item = m_ui.categories->item(i);
+
+      if(item)
+	item->setData(Qt::UserRole, map.value(item->text()));
+    }
 }
 
 void glitch_structures_arduino::slotCategorySelected(void)
