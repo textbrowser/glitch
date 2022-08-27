@@ -46,6 +46,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_outputFileExtension = "";
   m_timer.start(2500);
   m_ui.setupUi(this);
+  glitch_misc::sortCombinationBox(m_ui.update_mode);
   m_ui.background_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
      arg(QColor(0, 170, 255).name()));
