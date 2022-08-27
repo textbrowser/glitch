@@ -90,7 +90,10 @@ bool glitch_object_random_arduino::hasInput(void) const
 
 bool glitch_object_random_arduino::hasOutput(void) const
 {
-  return true;
+  if(m_randomType == Type::RANDOM)
+    return true;
+  else
+    return false;
 }
 
 bool glitch_object_random_arduino::isFullyWired(void) const
