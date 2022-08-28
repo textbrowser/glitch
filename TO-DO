@@ -127,6 +127,7 @@ Completed Items
   "viewport" widget.
 - Shortcuts in object views.
 - Show object coordinates in redo / undo text.
+- Sort structures for languages.
 - Split properties via special regular expression.
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
@@ -199,7 +200,6 @@ Remaining Items
 - SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Search structures.
-- Sort structures for languages.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:
