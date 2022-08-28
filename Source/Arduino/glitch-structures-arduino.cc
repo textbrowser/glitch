@@ -380,3 +380,7 @@ void glitch_structures_arduino::slotCategorySelected(void)
 
   m_ui.tree->expandAll();
 }
+
+void glitch_structures_arduino::slotFilter(void)
+{
+}
