@@ -17,22 +17,35 @@
    <iconset resource="../Icons/icons.qrc">
     <normaloff>:/Logo/glitch-logo.png</normaloff>:/Logo/glitch-logo.png</iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QListWidget" name="categories">
-      <property name="tabKeyNavigation">
-       <bool>true</bool>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="uniformItemSizes">
-       <bool>true</bool>
-      </property>
+     <widget class="QWidget" name="">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="filter">
+         <property name="placeholderText">
+          <string>Filter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="categories">
+         <property name="tabKeyNavigation">
+          <bool>true</bool>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="uniformItemSizes">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -117,8 +130,10 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>filter</tabstop>
   <tabstop>categories</tabstop>
   <tabstop>tree</tabstop>
+  <tabstop>close</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
