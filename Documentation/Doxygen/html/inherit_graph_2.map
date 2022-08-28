@@ -1,8 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,666,84,693"/>
-<area shape="rect" id="node2" href="$classglitch__alignment.html" title=" " alt="" coords="132,615,263,642"/>
-<area shape="rect" id="node3" href="$classglitch__object.html" title=" " alt="" coords="145,666,250,693"/>
-<area shape="rect" id="node24" href="$classglitch__view.html" title=" " alt="" coords="149,1014,245,1041"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,699,84,726"/>
+<area shape="rect" id="node2" href="$classglitch__alignment.html" title=" " alt="" coords="132,649,263,675"/>
+<area shape="rect" id="node3" href="$classglitch__object.html" title=" " alt="" coords="145,699,250,726"/>
+<area shape="rect" id="node25" href="$classglitch__view.html" title=" " alt="" coords="149,1047,245,1074"/>
 <area shape="rect" id="node4" href="$classglitch__object__advanced__io__arduino.html" title=" " alt="" coords="322,5,497,47"/>
 <area shape="rect" id="node5" href="$classglitch__object__analog__io__arduino.html" title=" " alt="" coords="331,71,487,112"/>
 <area shape="rect" id="node6" href="$classglitch__object__arithmetic__operator__arduino.html" title=" " alt="" coords="320,136,499,177"/>
@@ -17,11 +17,12 @@
 <area shape="rect" id="node15" href="$classglitch__object__function__arduino.html" title=" " alt="" coords="327,724,492,765"/>
 <area shape="rect" id="node16" href="$classglitch__object__logical__operator__arduino.html" title=" " alt="" coords="332,789,487,831"/>
 <area shape="rect" id="node17" href="$classglitch__object__loop__arduino.html" title=" " alt="" coords="339,855,479,896"/>
-<area shape="rect" id="node18" href="$classglitch__object__serial__arduino.html" title=" " alt="" coords="335,920,483,961"/>
-<area shape="rect" id="node19" href="$classglitch__object__setup__arduino.html" title=" " alt="" coords="335,985,483,1027"/>
-<area shape="rect" id="node20" href="$classglitch__object__time__arduino.html" title=" " alt="" coords="338,1051,481,1092"/>
-<area shape="rect" id="node21" href="$classglitch__object__trigonometry__arduino.html" title=" " alt="" coords="311,1116,508,1157"/>
-<area shape="rect" id="node22" href="$classglitch__object__utilities__arduino.html" title=" " alt="" coords="329,1181,490,1223"/>
-<area shape="rect" id="node23" href="$classglitch__object__variable__arduino.html" title=" " alt="" coords="327,1247,492,1288"/>
-<area shape="rect" id="node25" href="$classglitch__view__arduino.html" title=" " alt="" coords="333,1313,485,1339"/>
+<area shape="rect" id="node18" href="$classglitch__object__random__arduino.html" title=" " alt="" coords="328,920,491,961"/>
+<area shape="rect" id="node19" href="$classglitch__object__serial__arduino.html" title=" " alt="" coords="335,985,483,1027"/>
+<area shape="rect" id="node20" href="$classglitch__object__setup__arduino.html" title=" " alt="" coords="335,1051,483,1092"/>
+<area shape="rect" id="node21" href="$classglitch__object__time__arduino.html" title=" " alt="" coords="338,1116,481,1157"/>
+<area shape="rect" id="node22" href="$classglitch__object__trigonometry__arduino.html" title=" " alt="" coords="311,1181,508,1223"/>
+<area shape="rect" id="node23" href="$classglitch__object__utilities__arduino.html" title=" " alt="" coords="329,1247,490,1288"/>
+<area shape="rect" id="node24" href="$classglitch__object__variable__arduino.html" title=" " alt="" coords="327,1312,492,1353"/>
+<area shape="rect" id="node26" href="$classglitch__view__arduino.html" title=" " alt="" coords="333,1378,485,1405"/>
 </map>
