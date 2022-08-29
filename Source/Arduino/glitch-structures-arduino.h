@@ -58,6 +58,7 @@ class glitch_structures_arduino: public QDialog
  private slots:
   void slotCategorySelected(void);
   void slotFilter(void);
+  void slotFilterTextChanged(void);
 };
 
 #endif

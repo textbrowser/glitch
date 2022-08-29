@@ -51,6 +51,10 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_structures_arduino::close);
+  connect(m_ui.filter,
+	  QOverload<const QString &>::of(&QLineEdit::textChanged),
+	  this,
+	  &glitch_structures_arduino::slotFilterTextChanged);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
@@ -388,4 +392,9 @@ void glitch_structures_arduino::slotCategorySelected(void)
 
 void glitch_structures_arduino::slotFilter(void)
 {
+}
+
+void glitch_structures_arduino::slotFilterTextChanged(void)
+{
+  m_filterTimer.start(750);
 }
