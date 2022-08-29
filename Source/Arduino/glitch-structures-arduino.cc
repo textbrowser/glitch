@@ -37,11 +37,12 @@ QStringList glitch_structures_arduino::s_variableTypes;
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
-  /*
-  ** https://www.arduino.cc/en/Reference/HomePage
-  */
-
+  m_filterTimer.setSingleShot(true);
   m_ui.setupUi(this);
+  connect(&m_filterTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_structures_arduino::slotFilter);
   connect(m_ui.categories,
 	  &QListWidget::itemSelectionChanged,
 	  this,
@@ -145,6 +146,10 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
 
 void glitch_structures_arduino::prepareCategories(void)
 {
+  /*
+  ** https://www.arduino.cc/en/Reference/HomePage
+  */
+
   m_categoriesMap[tr("Advanced I/O")] = "Advanced I/O";
   m_categoriesMap[tr("Analog I/O")] = "Analog I/O";
   m_categoriesMap[tr("Arithmetic Operators")] = "Arithmetic Operators";

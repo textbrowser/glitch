@@ -29,6 +29,7 @@
 #define _glitch_structures_arduino_h_
 
 #include <QDialog>
+#include <QTimer>
 
 #include "ui_glitch-structures.h"
 
@@ -45,6 +46,7 @@ class glitch_structures_arduino: public QDialog
 
  private:
   QMap<QString, QString> m_categoriesMap;
+  QTimer m_filterTimer;
   Ui_glitch_structures m_ui;
   static QMap<QString, QStringList> s_itemsForCategories;
   static QMap<QString, char> s_structureNamesMap;
