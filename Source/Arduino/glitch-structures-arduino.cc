@@ -392,9 +392,26 @@ void glitch_structures_arduino::slotCategorySelected(void)
 
 void glitch_structures_arduino::slotFilter(void)
 {
+  auto string(m_ui.filter->text().trimmed());
+
+  for(int i = 0; i < m_ui.categories->count(); i++)
+    {
+      auto item = m_ui.categories->item(i);
+
+      if(!item)
+	continue;
+
+      if(string.isEmpty())
+	{
+	  item->setHidden(false);
+	  continue;
+	}
+
+      item->setHidden(!item->text().contains(string, Qt::CaseInsensitive));
+    }
 }
 
 void glitch_structures_arduino::slotFilterTextChanged(void)
 {
-  m_filterTimer.start(750);
+  m_filterTimer.start(250);
 }
