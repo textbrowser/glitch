@@ -392,6 +392,13 @@ void glitch_structures_arduino::slotCategorySelected(void)
 
 void glitch_structures_arduino::slotFilter(void)
 {
+  QListWidgetItem *found = nullptr;
+  QRegularExpression rx
+    (QRegularExpression::
+     wildcardToRegularExpression("*" +
+				 m_ui.filter->text().toLower().trimmed() +
+				 "*"),
+     QRegularExpression::CaseInsensitiveOption);
   auto string(m_ui.filter->text().trimmed());
 
   for(int i = 0; i < m_ui.categories->count(); i++)
@@ -403,11 +410,32 @@ void glitch_structures_arduino::slotFilter(void)
 
       if(string.isEmpty())
 	{
+	  if(!found)
+	    found = item;
+
 	  item->setHidden(false);
 	  continue;
 	}
 
-      item->setHidden(!item->text().contains(string, Qt::CaseInsensitive));
+      if(item->text().contains(string, Qt::CaseInsensitive))
+	item->setHidden(false);
+      else
+	item->setHidden
+	  (s_itemsForCategories.value(item->text()).indexOf(rx) == -1);
+
+      if(!found && !item->isHidden())
+	found = item;
+    }
+
+  if(found)
+    {
+      found->setSelected(true);
+      slotCategorySelected();
+    }
+  else
+    {
+      m_ui.tree->clear();
+      m_ui.tree->setHeaderLabel("");
     }
 }
 
