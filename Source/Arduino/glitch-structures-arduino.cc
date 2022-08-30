@@ -58,6 +58,9 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
+  new QShortcut(tr("Ctrl+F"),
+		m_ui.filter,
+		SLOT(setFocus(void)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
