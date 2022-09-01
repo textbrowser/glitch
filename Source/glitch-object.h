@@ -83,6 +83,7 @@ class glitch_object: public QWidget
     DIGITAL_IO_TYPE,
     FLOW_CONTROL_TYPE,
     LOGICAL_OPERATOR,
+    MATHEMATICS_TYPE,
     NAME,
     POSITION_LOCKED,
     RANDOM_TYPE,

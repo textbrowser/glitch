@@ -12,6 +12,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
                   UI/Arduino/glitch-object-logical-operator-arduino.ui \
                   UI/Arduino/glitch-object-loop-arduino.ui \
+                  UI/Arduino/glitch-object-mathematics-arduino.ui \
                   UI/Arduino/glitch-object-random-arduino.ui \
                   UI/Arduino/glitch-object-serial-arduino.ui \
                   UI/Arduino/glitch-object-setup-arduino.ui \
@@ -33,6 +34,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-function-arduino.h \
                   Source/Arduino/glitch-object-logical-operator-arduino.h \
                   Source/Arduino/glitch-object-loop-arduino.h \
+                  Source/Arduino/glitch-object-mathematics-arduino.h \
                   Source/Arduino/glitch-object-random-arduino.h \
                   Source/Arduino/glitch-object-setup-arduino.h \
                   Source/Arduino/glitch-object-serial-arduino.h \
@@ -56,6 +58,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-function-arduino.cc \
                   Source/Arduino/glitch-object-logical-operator-arduino.cc \
                   Source/Arduino/glitch-object-loop-arduino.cc \
+                  Source/Arduino/glitch-object-mathematics-arduino.cc \
                   Source/Arduino/glitch-object-random-arduino.cc \
                   Source/Arduino/glitch-object-serial-arduino.cc \
                   Source/Arduino/glitch-object-setup-arduino.cc \
