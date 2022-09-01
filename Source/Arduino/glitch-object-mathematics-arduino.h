@@ -54,9 +54,14 @@ class glitch_object_mathematics_arduino: public glitch_object
  private:
   enum Type
   {
-    COS = 0,
-    SIN,
-    TAN
+    ABS = 0,
+    CONSTRAIN,
+    MAP,
+    MAX,
+    MIN,
+    POW,
+    SQ,
+    SQRT
   };
 
   Type m_mathematicsType;
@@ -66,21 +71,41 @@ class glitch_object_mathematics_arduino: public glitch_object
   {
     switch(m_mathematicsType)
       {
-      case Type::COS:
+      case Type::ABS:
 	{
-	  return "cos";
+	  return "abs";
 	}
-      case Type::SIN:
+      case Type::CONSTRAIN:
 	{
-	  return "sin";
+	  return "constrain";
 	}
-      case Type::TAN:
+      case Type::MAP:
 	{
-	  return "tan";
+	  return "map";
+	}
+      case Type::MAX:
+	{
+	  return "max";
+	}
+      case Type::MIN:
+	{
+	  return "min";
+	}
+      case Type::POW:
+	{
+	  return "pow";
+	}
+      case Type::SQ:
+	{
+	  return "sq";
+	}
+      case Type::SQRT:
+	{
+	  return "sqrt";
 	}
       default:
 	{
-	  return "cos";
+	  return "abs";
 	}
       }
   }
@@ -89,14 +114,14 @@ class glitch_object_mathematics_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string.contains("cos"))
-      return Type::COS;
-    else if(string.contains("sin"))
-      return Type::SIN;
-    else if(string.contains("tan"))
-      return Type::TAN;
+    if(string.contains("abs"))
+      return Type::ABS;
+    else if(string.contains("constrain"))
+      return Type::CONSTRAIN;
+    else if(string.contains("map"))
+      return Type::MAP;
     else
-      return Type::COS;
+      return Type::ABS;
   }
 
   void setProperties(const QStringList &list);
