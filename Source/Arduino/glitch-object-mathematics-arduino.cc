@@ -32,31 +32,7 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
   glitch_object_mathematics_arduino(1, parent)
 {
   m_mathematicsType = stringToMathematicsType(mathematicsType);
-
-  switch(m_mathematicsType)
-    {
-    case Type::COS:
-      {
-	m_ui.label->setText("cos()");
-	break;
-      }
-    case Type::SIN:
-      {
-	m_ui.label->setText("sin()");
-	break;
-      }
-    case Type::TAN:
-      {
-	m_ui.label->setText("tan()");
-	break;
-      }
-    default:
-      {
-	m_ui.label->setText("cos()");
-	break;
-      }
-    }
-
+  m_ui.label->setText(QString("%1()").arg(mathematicsTypeToString()));
   setName(m_ui.label->text());
 }
 
@@ -77,17 +53,37 @@ QString glitch_object_mathematics_arduino::code(void) const
 {
   switch(m_mathematicsType)
     {
-    case Type::COS:
+    case Type::ABS:
       {
-	return QString("cos(%1);").arg(inputs().value(0));
+	return QString("abs(%1);").arg(inputs().value(0));
       }
-    case Type::SIN:
+    case Type::CONSTRAIN:
       {
-	return QString("sin(%1);").arg(inputs().value(0));
+	return QString("constrain(%1, %2, %3);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2));
       }
-    case Type::TAN:
+    case Type::MAP:
       {
-	return QString("tan(%1);").arg(inputs().value(0));
+	return QString("map(%1, %2, %3, %4, %5);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1)).
+	  arg(inputs().value(2)).
+	  arg(inputs().value(3)).
+	  arg(inputs().value(4));
+      }
+    case Type::MAX:
+      {
+	return QString("max(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::MIN:
+      {
+	return QString("main(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
       }
     default:
       {
