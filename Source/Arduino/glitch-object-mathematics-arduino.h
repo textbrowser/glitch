@@ -120,6 +120,16 @@ class glitch_object_mathematics_arduino: public glitch_object
       return Type::CONSTRAIN;
     else if(string.contains("map"))
       return Type::MAP;
+    else if(string.contains("max"))
+      return Type::MAX;
+    else if(string.contains("min"))
+      return Type::MIN;
+    else if(string.contains("pow"))
+      return Type::POW;
+    else if(string.contains("sqrt"))
+      return Type::SQRT;
+    else if(string.contains("sq"))
+      return Type::SQ;
     else
       return Type::ABS;
   }
