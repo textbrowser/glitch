@@ -102,7 +102,7 @@ QString glitch_object_mathematics_arduino::code(void) const
       }
     default:
       {
-	return QString("cos(%1);").arg(inputs().value(0));
+	return QString("abs(%1);").arg(inputs().value(0));
       }
     }
 }
