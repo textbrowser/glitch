@@ -32,7 +32,8 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
   glitch_object_mathematics_arduino(1, parent)
 {
   m_mathematicsType = stringToMathematicsType(mathematicsType);
-  m_ui.label->setText(QString("%1()").arg(mathematicsTypeToString()));
+  m_ui.label->setText
+    (QString("%1()").arg(mathematicsTypeToString(m_mathematicsType)));
   setName(m_ui.label->text());
 }
 
@@ -120,6 +121,38 @@ bool glitch_object_mathematics_arduino::isFullyWired(void) const
 {
   switch(m_mathematicsType)
     {
+    case Type::ABS:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::CONSTRAIN:
+      {
+	return inputs().size() >= 3;
+      }
+    case Type::MAP:
+      {
+	return inputs().size() >= 5;
+      }
+    case Type::MAX:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::MIN:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::POW:
+      {
+	return inputs().size() >= 2;
+      }
+    case Type::SQ:
+      {
+	return inputs().size() >= 1;
+      }
+    case Type::SQRT:
+      {
+	return inputs().size() >= 1;
+      }
     default:
       {
 	return inputs().size() >= 1;
@@ -136,7 +169,7 @@ glitch_object_mathematics_arduino *glitch_object_mathematics_arduino::
 clone(QWidget *parent) const
 {
   auto clone = new glitch_object_mathematics_arduino
-    (mathematicsTypeToString(), parent);
+    (mathematicsTypeToString(m_mathematicsType), parent);
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
@@ -189,7 +222,7 @@ void glitch_object_mathematics_arduino::save
 void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::MATHEMATICS_TYPE] = "delay()";
+  m_properties[Properties::MATHEMATICS_TYPE] = "abs()";
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -199,16 +232,8 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
-
-	  if(string.contains("cos"))
-	    string = "cos()";
-	  else if(string.contains("sin"))
-	    string = "sin()";
-	  else if(string.contains("tan"))
-	    string = "tan()";
-	  else
-	    string = "cos()";
-
+	  string = mathematicsTypeToString(stringToMathematicsType(string));
+	  string = QString("%1()").arg(string);
 	  m_properties[Properties::MATHEMATICS_TYPE] = string.trimmed();
 	}
     }

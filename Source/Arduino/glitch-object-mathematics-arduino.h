@@ -67,9 +67,9 @@ class glitch_object_mathematics_arduino: public glitch_object
   Type m_mathematicsType;
   Ui_glitch_object_mathematics_arduino m_ui;
 
-  QString mathematicsTypeToString(void) const
+  QString mathematicsTypeToString(const Type type) const
   {
-    switch(m_mathematicsType)
+    switch(type)
       {
       case Type::ABS:
 	{
