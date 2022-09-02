@@ -81,9 +81,23 @@ QString glitch_object_mathematics_arduino::code(void) const
       }
     case Type::MIN:
       {
-	return QString("main(%1, %2);").
+	return QString("min(%1, %2);").
 	  arg(inputs().value(0)).
 	  arg(inputs().value(1));
+      }
+    case Type::POW:
+      {
+	return QString("pow(%1, %2);").
+	  arg(inputs().value(0)).
+	  arg(inputs().value(1));
+      }
+    case Type::SQ:
+      {
+	return QString("sq(%1);").arg(inputs().value(0));
+      }
+    case Type::SQRT:
+      {
+	return QString("sqrt(%1);").arg(inputs().value(0));
       }
     default:
       {
