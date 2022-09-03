@@ -110,6 +110,7 @@ Completed Items
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
 - Reset object order on delete / redo / undo.
+- Resize objects? Yes, option included.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
 - Review lengthy tool tips.
@@ -155,7 +156,6 @@ Completed Items
 Ignored Items
 
 - Object-view settings. Identical to canvas settings.
-- Resize objects?
 - The glitch_view parent must be passed to every child?
 
 Perhaps Items
