@@ -7,6 +7,7 @@ export QT_X11_NO_MITSHM=1
 
 if [ -r ./Glitch ] && [ -x ./Glitch ]
 then
+    echo "Launching a local Glitch."
     exec ./Glitch "$@"
     exit $?
 elif [ -r /usr/local/glitch/Glitch ] && [ -x /usr/local/glitch/Glitch ]
