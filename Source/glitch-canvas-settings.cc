@@ -70,25 +70,25 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  this,
 	  &glitch_canvas_settings::slotTimerTimeout);
   connect(m_ui.background_color,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotSelectColor(void)));
+	  &glitch_canvas_settings::slotSelectColor);
   connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(accept(void)));
+	  &glitch_canvas_settings::accept);
   connect(m_ui.dots_grids_color,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotSelectColor(void)));
+	  &glitch_canvas_settings::slotSelectColor);
   connect(m_ui.select_output_file,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectOutputFile);
   connect(m_ui.wire_color,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotSelectColor(void)));
+	  &glitch_canvas_settings::slotSelectColor);
   setWindowModality(Qt::NonModal);
 }
 

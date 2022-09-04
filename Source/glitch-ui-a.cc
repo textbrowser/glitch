@@ -136,6 +136,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotRedo(void)));
+  connect(m_ui.action_Release_Notes,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowReleaseNotes);
   connect(m_ui.action_Save_Current_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -1685,6 +1689,10 @@ void glitch_ui::slotShowFullScreenMode(void)
       m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_ui::slotShowReleaseNotes(void)
+{
 }
 
 void glitch_ui::slotShowStructures(void)

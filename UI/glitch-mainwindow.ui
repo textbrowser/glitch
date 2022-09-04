@@ -137,6 +137,8 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="action_About"/>
+    <addaction name="separator"/>
+    <addaction name="action_Release_Notes"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -323,6 +325,11 @@
    </property>
    <property name="text">
     <string>&amp;Tools</string>
+   </property>
+  </action>
+  <action name="action_Release_Notes">
+   <property name="text">
+    <string>&amp;Release Notes...</string>
    </property>
   </action>
  </widget>
