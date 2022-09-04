@@ -35,9 +35,9 @@ glitch_style_sheet::glitch_style_sheet(QWidget *parent):QDialog(parent)
   m_ui.style_sheet->setPlainText(tr("Glitch error. m_widget is zero."));
   m_ui.style_sheet->setReadOnly(true);
   connect(m_ui.preview,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(slotPreview(void)));
+	  &glitch_style_sheet::slotPreview);
 }
 
 glitch_style_sheet::~glitch_style_sheet()

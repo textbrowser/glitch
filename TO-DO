@@ -198,6 +198,10 @@ Remaining Items
 - Languages option.
 - Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect(). Source/Arduino is completed.
+  glitch-object.cc
+  glitch-scene.cc
+  glitch-separated-diagram.cc
+  glitch-ui-a.cc
   glitch-view.cc
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.

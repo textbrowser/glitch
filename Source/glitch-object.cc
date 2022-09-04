@@ -535,9 +535,9 @@ void glitch_object::createActions(void)
       action->setEnabled(!isMandatory());
       action->setIcon(QIcon::fromTheme("edit-delete"));
       connect(action,
-	      SIGNAL(triggered(void)),
+	      &QAction::triggered,
 	      this,
-	      SIGNAL(deletedViaContextMenu(void)));
+	      &glitch_object::deletedViaContextMenu);
       m_actions[DefaultMenuActions::DELETE] = action;
     }
 
@@ -551,9 +551,9 @@ void glitch_object::createActions(void)
       action->setData(DefaultMenuActions::LOCK_POSITION);
       action->setEnabled(!isMandatory());
       connect(action,
-	      SIGNAL(triggered(void)),
+	      &QAction::triggered,
 	      this,
-	      SLOT(slotLockPosition(void)));
+	      &glitch_object::slotLockPosition);
       m_actions[DefaultMenuActions::LOCK_POSITION] = action;
     }
   else
@@ -566,9 +566,9 @@ void glitch_object::createActions(void)
 
       action->setData(DefaultMenuActions::SET_STYLE_SHEET);
       connect(action,
-	      SIGNAL(triggered(void)),
+	      &QAction::triggered,
 	      this,
-	      SLOT(slotSetStyleSheet(void)));
+	      &glitch_object::slotSetStyleSheet);
       m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
     }
 }
@@ -604,9 +604,9 @@ void glitch_object::prepareContextMenu(void)
     if(toolButton->objectName() == "context_menu")
       {
 	connect(toolButton,
-		SIGNAL(clicked(void)),
+		&QToolButton::clicked,
 		this,
-		SLOT(slotShowContextMenu(void)),
+		&glitch_object::slotShowContextMenu,
 		Qt::UniqueConnection);
 	toolButton->setToolTip(tr("Floating Context Menu"));
 	break;
