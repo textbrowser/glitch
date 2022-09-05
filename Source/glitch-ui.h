@@ -36,6 +36,7 @@
 
 class QGraphicsView;
 class QUndoStack;
+class glitch_documentation;
 class glitch_object;
 class glitch_scene;
 class glitch_view;
@@ -66,6 +67,7 @@ class glitch_ui: public QMainWindow
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
   Ui_glitch_mainwindow m_ui;
+  glitch_documentation *m_releaseNotes;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);

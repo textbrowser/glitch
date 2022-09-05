@@ -37,6 +37,7 @@
 #include <QWidgetAction>
 
 #include "Arduino/glitch-view-arduino.h"
+#include "glitch-documentation.h"
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
@@ -79,6 +80,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     "Glitch" +
     QDir::separator() +
     "glitch_recent_files.db";
+  m_releaseNotes = nullptr;
   m_ui.setupUi(this);
   connect(m_ui.action_About,
 	  &QAction::triggered,
@@ -1693,6 +1695,12 @@ void glitch_ui::slotShowFullScreenMode(void)
 
 void glitch_ui::slotShowReleaseNotes(void)
 {
+  if(!m_releaseNotes)
+    m_releaseNotes = new glitch_documentation(QUrl(), this);
+
+  m_releaseNotes->showNormal();
+  m_releaseNotes->activateWindow();
+  m_releaseNotes->raise();
 }
 
 void glitch_ui::slotShowStructures(void)
