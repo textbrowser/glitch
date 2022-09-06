@@ -1696,7 +1696,8 @@ void glitch_ui::slotShowFullScreenMode(void)
 void glitch_ui::slotShowReleaseNotes(void)
 {
   if(!m_releaseNotes)
-    m_releaseNotes = new glitch_documentation(QUrl(), this);
+    m_releaseNotes = new glitch_documentation
+      (QUrl("qrc:/ReleaseNotes.html"), this);
 
   m_releaseNotes->showNormal();
   m_releaseNotes->activateWindow();
