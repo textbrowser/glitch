@@ -37,7 +37,12 @@ glitch_documentation::glitch_documentation
 {
   m_openExternalLinks = false;
   m_ui.setupUi(this);
+  m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
+  m_ui.action_Print->setIcon(QIcon::fromTheme("document-print"));
   m_ui.find->setPlaceholderText(tr("Find"));
+  m_ui.next->setIcon(QIcon::fromTheme("go-next"));
+  m_ui.previous->setIcon(QIcon::fromTheme("go-previous"));
   m_ui.text->setSource(url);
   m_originalFindPalette = m_ui.find->palette();
   connect(m_ui.action_Close,

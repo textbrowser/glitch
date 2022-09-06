@@ -56,6 +56,9 @@
         <property name="text">
          <string>&amp;Next</string>
         </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
        </widget>
       </item>
       <item>
@@ -68,6 +71,9 @@
         </property>
         <property name="text">
          <string>&amp;Previous</string>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
        </widget>
       </item>
