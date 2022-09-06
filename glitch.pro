@@ -105,7 +105,8 @@ OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
 MOC_DIR     = temp/moc
 OBJECTS_DIR = temp/obj
 RCC_DIR     = temp/rcc
-RESOURCES   = Icons/icons.qrc
+RESOURCES   = Documentation/documentation.qrc \
+              Icons/icons.qrc
 UI_DIR      = temp/ui
 
 FORMS          += UI/glitch-canvas-settings.ui \
