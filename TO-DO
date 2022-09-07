@@ -104,6 +104,7 @@ Completed Items
 - Redo / undo lock positions.
 - Redo / undo shortcuts on edit windows.
 - Redo / undo style sheets.
+- Release notes under Help.
 - Remove function clones.
 - Remove function copies from diagram(s) on parent removal.
 - Remove functions from User Functions on redo / undo.
@@ -205,7 +206,6 @@ Remaining Items
   glitch-view.cc
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Release notes under Help.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
