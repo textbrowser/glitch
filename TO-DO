@@ -77,6 +77,7 @@ Completed Items
 - Generate periodically.
 - Group delete.
 - Hide alignment options.
+- Icons and themes.
 - Identifiers are incorrect for function children.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - Integrate isFullyWired().
@@ -193,7 +194,6 @@ Remaining Items
 - Function clones.
 - Generate source from terminal for testing results.
 - Generate view.
-- Icons and themes.
 - Indicate wire input / output.
 - Languages option.
 - Menu hovering and status bar text. QStatusTipEvent.
