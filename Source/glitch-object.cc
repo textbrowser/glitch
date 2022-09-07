@@ -625,14 +625,14 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
   if(m_editView && m_editWindow)
     {
       connect(m_editView,
-	      SIGNAL(paste(void)),
+	      &glitch_object_view::paste,
 	      m_editView,
-	      SLOT(slotPaste(void)),
+	      &glitch_object_view::slotPaste,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
-	      SIGNAL(closed(void)),
+	      &glitch_object_edit_window::closed,
 	      m_editView,
-	      SLOT(slotParentWindowClosed(void)),
+	      &glitch_object_view::slotParentWindowClosed,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
 	      &glitch_object_edit_window::closed,

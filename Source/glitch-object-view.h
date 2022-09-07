@@ -61,6 +61,10 @@ class glitch_object_view: public QGraphicsView
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
 
+ public slots:
+  void slotPaste(void);
+  void slotParentWindowClosed(void);
+
  private:
   QPointer<QUndoStack> m_undoStack;
   glitch_alignment *m_alignment;
@@ -75,8 +79,6 @@ class glitch_object_view: public QGraphicsView
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotDelete(void);
-  void slotParentWindowClosed(void);
-  void slotPaste(void);
   void slotRedo(void);
   void slotResizeScene(void);
   void slotSceneResized(void);
