@@ -62,6 +62,7 @@ class glitch_object_view: public QGraphicsView
   void setSceneRect(const QSize &size);
 
  public slots:
+  void slotDelete(void);
   void slotPaste(void);
   void slotParentWindowClosed(void);
 
@@ -78,7 +79,6 @@ class glitch_object_view: public QGraphicsView
  private slots:
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
-  void slotDelete(void);
   void slotRedo(void);
   void slotResizeScene(void);
   void slotSceneResized(void);

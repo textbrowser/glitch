@@ -640,14 +640,14 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      &glitch_object_view::closed,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
-	      SIGNAL(copy(void)),
+	      &glitch_object_edit_window::copy,
 	      m_editView,
-	      SIGNAL(copy(void)),
+	      &glitch_object_view::copy,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
-	      SIGNAL(deleteSignal(void)),
+	      &glitch_object_edit_window::deleteSignal,
 	      m_editView,
-	      SLOT(slotDelete(void)),
+	      &glitch_object_view::slotDelete,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
 	      SIGNAL(paste(void)),
