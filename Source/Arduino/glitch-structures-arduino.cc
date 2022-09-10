@@ -176,6 +176,7 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("Serial")] = "Serial";
   m_categoriesMap[tr("Stream")] = "Stream";
   m_categoriesMap[tr("Structures")] = "Structures";
+  m_categoriesMap[tr("Syntax")] = "Syntax";
   m_categoriesMap[tr("Time")] = "Time";
   m_categoriesMap[tr("Trigonometry")] = "Trigonometry";
   m_categoriesMap[tr("Utilities")] = "Utilities";
@@ -317,6 +318,8 @@ void glitch_structures_arduino::prepareCategories(void)
   s_itemsForCategories["Stream"] = QStringList() << "stream.available()";
   s_itemsForCategories["Structures"] = QStringList() << "block comment"
 						     << "function()";
+  s_itemsForCategories["Syntax"] = QStringList() << "#define"
+						 << "#include";
   s_itemsForCategories["Time"] = QStringList() << "delay()"
 					       << "delayMicroseconds()"
 					       << "micros()"
