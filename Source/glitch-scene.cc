@@ -78,7 +78,7 @@ inline static qreal round(const qreal s, const qreal value)
 glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 			   QObject *parent):QGraphicsScene(parent)
 {
-  m_dotsGridsColor = Qt::white;
+  m_dotsGridsColor = Qt::blue;
   m_mainScene = false;
   m_projectType = projectType;
   m_showCanvasDots = true;
@@ -1292,7 +1292,7 @@ void glitch_scene::setDotsGridsColor(const QColor &color)
   if(color.isValid())
     m_dotsGridsColor = color;
   else
-    m_dotsGridsColor = Qt::white;
+    m_dotsGridsColor = Qt::blue;
 }
 
 void glitch_scene::setMainScene(const bool state)
