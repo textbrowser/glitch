@@ -257,10 +257,10 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto rect(this->rect());
 
-	      path.addRect(rect.topLeft().x() - 5.5,
-			   rect.height() / 2.0 + rect.topLeft().y() - 5.0,
-			   10.0,
-			   10.0);
+	      path.addEllipse(rect.topLeft().x() - 5.5,
+			      rect.height() / 2.0 + rect.topLeft().y() - 5.0,
+			      10.0,
+			      10.0);
 
 	      if(m_object->isInputWired())
 		painter->fillPath(path, Qt::green);
@@ -273,7 +273,7 @@ void glitch_proxy_widget::paint
 	      pen.setWidthF(1.5);
 	      painter->save();
 	      painter->setPen(pen);
-	      painter->drawRect
+	      painter->drawEllipse
 		(rect.topLeft().x() - 5.5,
 		 rect.height() / 2.0 + rect.topLeft().y() - 5.0,
 		 10.0,
@@ -290,10 +290,10 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto rect(this->rect());
 
-	      path.addRect(rect.topRight().x() - 5.5,
-			   rect.height() / 2.0 + rect.topRight().y() - 5.0,
-			   10.0,
-			   10.0);
+	      path.addEllipse(rect.topRight().x() - 5.5,
+			      rect.height() / 2.0 + rect.topRight().y() - 5.0,
+			      10.0,
+			      10.0);
 
 	      if(m_object->isOutputWired())
 		painter->fillPath(path, Qt::green);
@@ -306,7 +306,7 @@ void glitch_proxy_widget::paint
 	      pen.setWidthF(1.5);
 	      painter->save();
 	      painter->setPen(pen);
-	      painter->drawRect
+	      painter->drawEllipse
 		(rect.topRight().x() - 5.5,
 		 rect.height() / 2.0 + rect.topRight().y() - 5.0,
 		 10.0,
