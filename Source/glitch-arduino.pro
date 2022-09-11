@@ -16,6 +16,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-random-arduino.ui \
                   UI/Arduino/glitch-object-serial-arduino.ui \
                   UI/Arduino/glitch-object-setup-arduino.ui \
+                  UI/Arduino/glitch-object-syntax-arduino.ui \
                   UI/Arduino/glitch-object-time-arduino.ui \
                   UI/Arduino/glitch-object-trigonometry-arduino.ui \
                   UI/Arduino/glitch-object-utilities-arduino.ui \
