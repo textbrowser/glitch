@@ -49,8 +49,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_misc::sortCombinationBox(m_ui.update_mode);
   m_ui.background_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.background_color->setText(QColor(Qt::white).name());
-  m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: blue}");
-  m_ui.dots_grids_color->setText(QColor(Qt::blue).name());
+  m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
+  m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
@@ -422,7 +422,7 @@ void glitch_canvas_settings::prepare(void)
 	      color = QColor(Qt::white);
 
 	    if(!dotsGridsColor.isValid())
-	      dotsGridsColor = QColor(Qt::blue);
+	      dotsGridsColor = QColor(Qt::white);
 
 	    m_ui.background_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").arg(color.name()));

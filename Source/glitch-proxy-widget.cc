@@ -186,6 +186,17 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
+      QPen pen;
+
+      pen.setColor(QColor(168, 169, 173));
+      pen.setJoinStyle(Qt::RoundJoin);
+      pen.setStyle(Qt::SolidLine);
+      pen.setWidthF(1.0);
+      painter->save();
+      painter->setPen(pen);
+      painter->drawRoundedRect(boundingRect(), 5.0, 5.0);
+      painter->restore();
+
       if(opt && (opt->state & QStyle::State_Selected))
 	{
 	  /*
