@@ -71,9 +71,9 @@ glitch_view::glitch_view
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
   m_scene = new glitch_scene(m_projectType, this);
-  m_scene->setBackgroundBrush(QColor(0, 170, 255));
+  m_scene->setBackgroundBrush(QColor(Qt::white));
   m_scene->setCanvasSettings(m_canvasSettings);
-  m_scene->setDotsGridsColor(Qt::white);
+  m_scene->setDotsGridsColor(Qt::blue);
   m_scene->setMainScene(true);
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());

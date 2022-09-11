@@ -81,7 +81,7 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
   m_dotsGridsColor = Qt::blue;
   m_mainScene = false;
   m_projectType = projectType;
-  m_showCanvasDots = true;
+  m_showCanvasDots = false;
   m_showCanvasGrids = !m_showCanvasDots;
   m_toolsOperation = glitch_tools::Operations::INTELLIGENT;
   m_undoStack = nullptr;
