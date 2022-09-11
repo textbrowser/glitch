@@ -32,6 +32,7 @@
 #include "glitch-wire.h"
 
 static int s_alpha = 175;
+static qreal s_penWidth = 2.5;
 
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
@@ -95,8 +96,6 @@ void glitch_wire::paint
 
   if(painter)
     {
-      static qreal penWidth = 5.0;
-
       painter->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 			      QPainter::HighQualityAntialiasing | // OpenGL?
@@ -115,7 +114,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(penWidth);
+	  pen.setWidthF(s_penWidth);
 	  painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
@@ -150,7 +149,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(penWidth);
+	  pen.setWidthF(s_penWidth);
 	  painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
@@ -184,7 +183,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(penWidth);
+	  pen.setWidthF(s_penWidth);
 	  painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
@@ -221,7 +220,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(penWidth);
+	  pen.setWidthF(s_penWidth);
 	  painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();

@@ -263,22 +263,9 @@ void glitch_proxy_widget::paint
 			      10.0);
 
 	      if(m_object->isInputWired())
-		painter->fillPath(path, Qt::green);
+		painter->fillPath(path, QColor(0, 80, 181));
 	      else
-		painter->fillPath(path, Qt::gray);
-
-	      QPen pen;
-
-	      pen.setColor(Qt::blue);
-	      pen.setWidthF(1.5);
-	      painter->save();
-	      painter->setPen(pen);
-	      painter->drawEllipse
-		(rect.topLeft().x() - 5.5,
-		 rect.height() / 2.0 + rect.topLeft().y() - 5.0,
-		 10.0,
-		 10.0);
-	      painter->restore();
+		painter->fillPath(path, QColor(118, 134, 146));
 	    }
 
 	  if(m_object->hasOutput())
@@ -296,22 +283,9 @@ void glitch_proxy_widget::paint
 			      10.0);
 
 	      if(m_object->isOutputWired())
-		painter->fillPath(path, Qt::green);
+		painter->fillPath(path, QColor(0, 80, 181));
 	      else
-		painter->fillPath(path, Qt::gray);
-
-	      QPen pen;
-
-	      pen.setColor(Qt::blue);
-	      pen.setWidthF(1.5);
-	      painter->save();
-	      painter->setPen(pen);
-	      painter->drawEllipse
-		(rect.topRight().x() - 5.5,
-		 rect.height() / 2.0 + rect.topRight().y() - 5.0,
-		 10.0,
-		 10.0);
-	      painter->restore();
+		painter->fillPath(path, QColor(118, 134, 146));
 	    }
 
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
