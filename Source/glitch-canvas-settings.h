@@ -55,7 +55,8 @@ class glitch_canvas_settings: public QDialog
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
     VIEW_UPDATE_MODE,
-    WIRE_COLOR
+    WIRE_COLOR,
+    WIRE_TYPE
   };
 
   glitch_canvas_settings(QWidget *parent);

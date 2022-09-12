@@ -47,6 +47,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_timer.start(2500);
   m_ui.setupUi(this);
   glitch_misc::sortCombinationBox(m_ui.update_mode);
+  glitch_misc::sortCombinationBox(m_ui.wire_type);
   m_ui.background_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.background_color->setText(QColor(Qt::white).name());
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
@@ -169,6 +170,7 @@ settings(void) const
     }
 
   hash[Settings::WIRE_COLOR] = m_ui.wire_color->text().remove('&').trimmed();
+  hash[Settings::WIRE_TYPE] = m_ui.wire_type->currentText();
   return hash;
 }
 
@@ -455,7 +457,8 @@ void glitch_canvas_settings::prepare(void)
 	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
 
 	    if(m_ui.update_mode->currentIndex() < 0)
-	      m_ui.update_mode->setCurrentIndex(1); // Full
+	      m_ui.update_mode->setCurrentIndex
+		(m_ui.update_mode->findText(tr("Full")));
 
 	    m_ui.wire_color->setStyleSheet
 	      (QString("QPushButton {background-color: %1}").
@@ -600,7 +603,7 @@ void glitch_canvas_settings::setViewportUpdateMode
     }
 
   if(m_ui.update_mode->currentIndex() < 0)
-    m_ui.update_mode->setCurrentIndex(1); // Full.
+    m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
 }
 
 void glitch_canvas_settings::slotSelectColor(void)
