@@ -139,35 +139,17 @@ settings(void) const
   hash[Settings::SHOW_ORDER_INDICATORS] =
     m_ui.show_order_indicators->isChecked();
 
-  switch(m_ui.update_mode->currentIndex())
-    {
-    case 0:
-      {
-	hash[Settings::VIEW_UPDATE_MODE] =
-	  QGraphicsView::BoundingRectViewportUpdate;
-	break;
-      }
-    case 1:
-      {
-	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
-	break;
-      }
-    case 2:
-      {
-	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::MinimalViewportUpdate;
-	break;
-      }
-    case 3:
-      {
-	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::SmartViewportUpdate;
-	break;
-      }
-    default:
-      {
-	hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
-	break;
-      }
-    }
+  if(m_ui.update_mode->currentText() == tr("Bounding Rectangle"))
+    hash[Settings::VIEW_UPDATE_MODE] =
+      QGraphicsView::BoundingRectViewportUpdate;
+  else if(m_ui.update_mode->currentText() == tr("Full"))
+    hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
+  else if(m_ui.update_mode->currentText() == tr("Minimal"))
+    hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::MinimalViewportUpdate;
+  else if(m_ui.update_mode->currentText() == tr("Smart"))
+    hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::SmartViewportUpdate;
+  else
+    hash[Settings::VIEW_UPDATE_MODE] = QGraphicsView::FullViewportUpdate;
 
   hash[Settings::WIRE_COLOR] = m_ui.wire_color->text().remove('&').trimmed();
   hash[Settings::WIRE_TYPE] = m_ui.wire_type->currentText();
@@ -227,10 +209,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
-	   "update_mode TEXT NOT NULL CHECK "
-	   "(update_mode IN ('bounding_rectangle', 'full', 'minimal', "
-	   "'smart')), "
-	   "wire_color TEXT NOT NULL"
+	   "update_mode TEXT NOT NULL, "
+	   "wire_color TEXT NOT NULL, "
+	   "wire_type TEXT NOT NULL"
 	   ")");
 
 	if(!(ok = query.exec("DELETE FROM canvas_settings")))
@@ -252,8 +233,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_grids, "
 	   "show_order_indicators, "
 	   "update_mode, "
-	   "wire_color) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "wire_color, "
+	   "wire_type) "
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -270,9 +252,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
-	query.addBindValue
-	  (m_ui.update_mode->currentText().toLower().replace(' ', '_'));
+	query.addBindValue(m_ui.update_mode->currentText());
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
+	query.addBindValue(m_ui.wire_type->currentText());
 
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
