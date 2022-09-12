@@ -350,7 +350,8 @@ void glitch_canvas_settings::prepare(void)
 			      "show_canvas_grids, "
 			      "show_order_indicators, "
 			      "SUBSTR(update_mode, 1, 100), "
-			      "SUBSTR(wire_color, 1, 50) "
+			      "SUBSTR(wire_color, 1, 50), "
+			      "SUBSTR(wire_type, 1, 50), "
 			      "FROM canvas_settings").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
 	   query.next())
@@ -362,6 +363,7 @@ void glitch_canvas_settings::prepare(void)
 	    QString outputFile("");
 	    QString projectType("");
 	    QString updateMode("");
+	    QString wireType("");
 	    auto generatePeriodically = false;
 	    auto record(query.record());
 	    auto showCanvasDots = true;
@@ -400,6 +402,8 @@ void glitch_canvas_settings::prepare(void)
 		else if(fieldName.contains("wire_color"))
 		  wireColor = QColor
 		    (record.value(i).toString().remove('&').trimmed());
+		else if(fieldName.contains("wire_type"))
+		  wireType = record.value(i).toString().trimmed();
 	      }
 
 	    if(!color.isValid())
@@ -446,6 +450,13 @@ void glitch_canvas_settings::prepare(void)
 	      (QString("QPushButton {background-color: %1}").
 	       arg(wireColor.name()));
 	    m_ui.wire_color->setText(wireColor.name());
+	    m_ui.wire_type->setCurrentIndex
+	      (m_ui.wire_type->findText(wireType, Qt::MatchFixedString));
+
+	    if(m_ui.wire_type->currentIndex() < 0)
+	      m_ui.wire_type->setCurrentIndex
+		(m_ui.wire_type->findText(tr("Curve")));
+
 	    m_settings = settings();
 	    setResult(QDialog::Accepted);
 	    emit accepted(false);
