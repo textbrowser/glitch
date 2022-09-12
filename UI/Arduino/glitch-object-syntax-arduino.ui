@@ -15,7 +15,7 @@
     <number>5</number>
    </property>
    <property name="leftMargin">
-    <number>15</number>
+    <number>5</number>
    </property>
    <property name="topMargin">
     <number>0</number>
@@ -27,15 +27,15 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLineEdit" name="define_include">
+    <widget class="QLineEdit" name="text">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the define / include and press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the text press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
       <string notr="true"/>
      </property>
      <property name="placeholderText">
-      <string>Define / Include</string>
+      <string>Text</string>
      </property>
      <property name="clearButtonEnabled">
       <bool>true</bool>
@@ -56,7 +56,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>define_include</tabstop>
+  <tabstop>text</tabstop>
   <tabstop>context_menu</tabstop>
  </tabstops>
  <resources>

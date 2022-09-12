@@ -39,9 +39,9 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
  QWidget *parent):glitch_object_syntax_arduino(1, parent)
 {
   if(syntax.endsWith("#define"))
-    m_ui.define_include->setText("#define");
+    m_ui.text->setText("#define");
   else
-    m_ui.define_include->setText("#include");
+    m_ui.text->setText("#include");
 }
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino
@@ -49,7 +49,7 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 {
   m_type = "arduino-syntax";
   m_ui.setupUi(this);
-  connect(m_ui.define_include,
+  connect(m_ui.text,
 	  &QLineEdit::returnPressed,
 	  this,
 	  &glitch_object_syntax_arduino::slotSyntaxChanged);
@@ -63,12 +63,12 @@ glitch_object_syntax_arduino::~glitch_object_syntax_arduino()
 
 QString glitch_object_syntax_arduino::code(void) const
 {
-  return m_ui.define_include->text().trimmed();
+  return m_ui.text->text().trimmed();
 }
 
 bool glitch_object_syntax_arduino::hasOutput(void) const
 {
-  return true;
+  return false;
 }
 
 bool glitch_object_syntax_arduino::isFullyWired(void) const
@@ -78,7 +78,7 @@ bool glitch_object_syntax_arduino::isFullyWired(void) const
 
 bool glitch_object_syntax_arduino::shouldPrint(void) const
 {
-  return false;
+  return true;
 }
 
 glitch_object_syntax_arduino *glitch_object_syntax_arduino::
@@ -88,8 +88,8 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
-  clone->m_ui.define_include->setText(m_ui.define_include->text().trimmed());
-  clone->m_ui.define_include->selectAll();
+  clone->m_ui.text->setText(m_ui.text->text().trimmed());
+  clone->m_ui.text->selectAll();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -127,7 +127,7 @@ void glitch_object_syntax_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["syntax"] = m_ui.define_include->text().trimmed();
+  properties["syntax"] = m_ui.text->text().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -142,6 +142,12 @@ void glitch_object_syntax_arduino::setProperties
 
       if(string.simplified().startsWith("syntax = "))
 	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string = string.mid(string.indexOf('"') + 1);
+	  string = string.mid(0, string.lastIndexOf('"'));
+	  m_properties[Properties::SYNTAX] = string.trimmed();
+	  m_ui.text->setText(string.trimmed());
+	  m_ui.text->selectAll();
 	}
     }
 }
@@ -155,8 +161,8 @@ void glitch_object_syntax_arduino::setProperty
     {
     case Properties::SYNTAX:
       {
-	m_ui.define_include->setText(value.toString().trimmed());
-	m_ui.define_include->selectAll();
+	m_ui.text->setText(value.toString().trimmed());
+	m_ui.text->selectAll();
 	break;
       }
     default:
@@ -168,25 +174,25 @@ void glitch_object_syntax_arduino::setProperty
 
 void glitch_object_syntax_arduino::slotSyntaxChanged(void)
 {
-  m_ui.define_include->setText(m_ui.define_include->text().trimmed());
-  m_ui.define_include->selectAll();
+  m_ui.text->setText(m_ui.text->text().trimmed());
+  m_ui.text->selectAll();
 
   if(!m_undoStack)
     return;
 
   auto property = glitch_object::Properties::SYNTAX;
 
-  if(m_properties.value(property).toString() == m_ui.define_include->text())
+  if(m_properties.value(property).toString() == m_ui.text->text())
     return;
 
   auto undoCommand = new glitch_undo_command
-    (m_ui.define_include->text(),
+    (m_ui.text->text(),
      m_properties.value(property),
      glitch_undo_command::PROPERTY_CHANGED,
      property,
      this);
 
-  m_properties[property] = m_ui.define_include->text();
+  m_properties[property] = m_ui.text->text();
   undoCommand->setText
     (tr("syntax property changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
