@@ -38,7 +38,10 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 (const QString &syntax,
  QWidget *parent):glitch_object_syntax_arduino(1, parent)
 {
-  m_ui.define_include->setText(syntax.trimmed());
+  if(syntax.endsWith("#define"))
+    m_ui.define_include->setText("#define");
+  else
+    m_ui.define_include->setText("#include");
 }
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino

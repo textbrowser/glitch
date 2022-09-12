@@ -64,7 +64,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-random-arduino.cc \
                   Source/Arduino/glitch-object-serial-arduino.cc \
                   Source/Arduino/glitch-object-setup-arduino.cc \
-                  Source/Arduino/glitch-object-syntax-arduino.cc \       
+                  Source/Arduino/glitch-object-syntax-arduino.cc \
                   Source/Arduino/glitch-object-time-arduino.cc \
                   Source/Arduino/glitch-object-trigonometry-arduino.cc \
                   Source/Arduino/glitch-object-utilities-arduino.cc \
