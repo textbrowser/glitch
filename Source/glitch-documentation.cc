@@ -150,6 +150,8 @@ void glitch_documentation::slotFindText(void)
 
 void glitch_documentation::slotPrint(void)
 {
+  QApplication::processEvents();
+
   QPrinter printer(QPrinter::HighResolution);
   QPrintDialog printDialog(&printer, this);
 
