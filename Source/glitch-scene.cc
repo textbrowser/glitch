@@ -263,15 +263,17 @@ bool glitch_scene::areObjectsWired
     {
       auto wire = it.next();
 
-      if(wire)
-	if((object1->proxy() == wire->leftProxy() &&
-	    object2->proxy() == wire->rightProxy()) ||
-	   (object1->proxy() == wire->rightProxy() &&
-	    object2->proxy() == wire->leftProxy()))
-	  {
-	    QApplication::restoreOverrideCursor();
-	    return true;
-	  }
+      if(!wire)
+	continue;
+
+      if((object1->proxy() == wire->leftProxy() &&
+	  object2->proxy() == wire->rightProxy()) ||
+	 (object1->proxy() == wire->rightProxy() &&
+	  object2->proxy() == wire->leftProxy()))
+	{
+	  QApplication::restoreOverrideCursor();
+	  return true;
+	}
     }
 
   QApplication::restoreOverrideCursor();
@@ -1519,7 +1521,10 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  wire->setBoundingRect(sceneRect());
 
 	  if(m_canvasSettings)
-	    wire->setColor(m_canvasSettings->wireColor());
+	    {
+	      wire->setColor(m_canvasSettings->wireColor());
+	      wire->setWireType(m_canvasSettings->wireType());
+	    }
 
 	  wire->setLeftProxy(m_objectsToWire.value("output"));
 	  wire->setRightProxy(m_objectsToWire.value("input"));
