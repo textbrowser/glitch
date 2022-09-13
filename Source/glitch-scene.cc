@@ -1336,7 +1336,10 @@ void glitch_scene::slotCanvasSettingsChanged(const bool undo)
       auto wire = it.next();
 
       if(wire)
-	wire->setColor(m_canvasSettings->wireColor());
+	{
+	  wire->setColor(m_canvasSettings->wireColor());
+	  wire->setWireType(m_canvasSettings->wireType());
+	}
     }
 
   m_dotsGridsColor = m_canvasSettings->dotsGridsColor();

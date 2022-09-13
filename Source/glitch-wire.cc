@@ -288,6 +288,14 @@ void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
   m_rightProxy = proxy;
 }
 
+void glitch_wire::setWireType(const QString &wireType)
+{
+  if(wireType.trimmed() == tr("Line"))
+    m_wireType = WireType::LINE;
+  else
+    m_wireType = WireType::CURVE;
+}
+
 void glitch_wire::setWireType(const WireType wireType)
 {
   m_wireType = wireType;

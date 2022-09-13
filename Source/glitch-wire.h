@@ -63,6 +63,7 @@ class glitch_wire: public QGraphicsObject
   void setColor(const QColor &color);
   void setLeftProxy(glitch_proxy_widget *proxy);
   void setRightProxy(glitch_proxy_widget *proxy);
+  void setWireType(const QString &wireType);
   void setWireType(const WireType wireType);
 
  private:
