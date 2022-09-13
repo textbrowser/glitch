@@ -267,7 +267,8 @@ void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
-	  &glitch_wire::deleteLater);
+	  &glitch_wire::deleteLater,
+	  Qt::UniqueConnection);
   m_leftProxy = proxy;
 }
 
@@ -284,7 +285,8 @@ void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
   connect(object,
 	  &glitch_object::destroyed,
 	  this,
-	  &glitch_wire::deleteLater);
+	  &glitch_wire::deleteLater,
+	  Qt::UniqueConnection);
   m_rightProxy = proxy;
 }
 
