@@ -43,6 +43,12 @@ class glitch_wire: public QGraphicsObject
     Type = QGraphicsObject::UserType + 2
   };
 
+  enum WireType
+  {
+    CURVE = 0,
+    LINE
+  };
+
   glitch_wire(QGraphicsItem *parent);
   ~glitch_wire();
   QPointer<glitch_proxy_widget> leftProxy(void) const;
@@ -57,12 +63,14 @@ class glitch_wire: public QGraphicsObject
   void setColor(const QColor &color);
   void setLeftProxy(glitch_proxy_widget *proxy);
   void setRightProxy(glitch_proxy_widget *proxy);
+  void setWireType(const WireType wireType);
 
  private:
   QColor m_color;
   QPointer<glitch_proxy_widget> m_leftProxy;
   QPointer<glitch_proxy_widget> m_rightProxy;
   QRectF m_boundingRect;
+  WireType m_wireType;
   QPainterPath shape(void) const;
   QRectF boundingRect(void) const;
   void paint(QPainter *painter,

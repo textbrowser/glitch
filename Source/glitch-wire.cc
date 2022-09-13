@@ -37,6 +37,7 @@ static qreal s_penWidth = 2.5;
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
   m_color = QColor(255, 192, 203, s_alpha);
+  m_wireType = WireType::CURVE;
   setCacheMode(QGraphicsItem::NoCache);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
   setZValue(-1);
@@ -67,20 +68,6 @@ QPointer<glitch_proxy_widget> glitch_wire::rightProxy(void) const
 QRectF glitch_wire::boundingRect(void) const
 {
   return m_boundingRect;
-}
-
-void glitch_wire::setBoundingRect(const QRectF &rect)
-{
-  prepareGeometryChange();
-  m_boundingRect = rect;
-}
-
-void glitch_wire::setColor(const QColor &color)
-{
-  if(color.isValid())
-    m_color = color;
-
-  m_color.setAlpha(s_alpha);
 }
 
 void glitch_wire::paint
@@ -253,6 +240,20 @@ void glitch_wire::paint
     }
 }
 
+void glitch_wire::setBoundingRect(const QRectF &rect)
+{
+  prepareGeometryChange();
+  m_boundingRect = rect;
+}
+
+void glitch_wire::setColor(const QColor &color)
+{
+  if(color.isValid())
+    m_color = color;
+
+  m_color.setAlpha(s_alpha);
+}
+
 void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
 {
   if(!proxy || m_leftProxy || m_rightProxy == proxy)
@@ -285,4 +286,9 @@ void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
 	  this,
 	  &glitch_wire::deleteLater);
   m_rightProxy = proxy;
+}
+
+void glitch_wire::setWireType(const WireType wireType)
+{
+  m_wireType = wireType;
 }
