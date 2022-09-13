@@ -104,8 +104,10 @@ void glitch_wire::paint
 	  const auto y2 = m_rightProxy->pos().y() +
 	    m_rightProxy->size().height() / 2.0;
 
-	  c1.setX(qAbs(x2 - x1) / 2.0);
-	  c1.setX(c1.x());
+	  c1.setX(qAbs(x1 - x2) / 2.0);
+	  c1.setY(y1);
+	  c2.setX(c1.x());
+	  c2.setY(y2);
 	  endPoint = QPointF(x2, y2);
 
 	  QPainterPath path(QPointF(x1, y1));
