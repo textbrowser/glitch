@@ -507,6 +507,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
+		      wire->setWireType(m_canvasSettings->wireType());
 		    }
 		}
 	    else

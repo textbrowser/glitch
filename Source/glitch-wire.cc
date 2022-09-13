@@ -91,6 +91,11 @@ void glitch_wire::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
+      if(m_wireType == WireType::CURVE)
+	{
+	  return;
+	}
+
       if(m_leftProxy->size().height() / 2.0 + m_leftProxy->y() <=
 	 m_rightProxy->size().height() / 2.0 + m_rightProxy->y() &&
 	 m_leftProxy->size().width() + m_leftProxy->x() + 15.0 <=
