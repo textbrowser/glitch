@@ -337,130 +337,126 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec(QString("SELECT "
+			   "SUBSTR(background_color, 1, 50), "
+			   "SUBSTR(dots_grids_color, 1, 50), "
+			   "generate_periodically, "
+			   "SUBSTR(name, 1, %1), "
+			   "SUBSTR(output_file, 1, 5000), "
+			   "SUBSTR(project_type, 1, 50), "
+			   "redo_undo_stack_size, "
+			   "show_canvas_dots, "
+			   "show_canvas_grids, "
+			   "show_order_indicators, "
+			   "SUBSTR(update_mode, 1, 100), "
+			   "SUBSTR(wire_color, 1, 50), "
+			   "SUBSTR(wire_type, 1, 50) "
+			   "FROM canvas_settings").
+		   arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
+	query.next();
 
-	if(query.exec(QString("SELECT "
-			      "SUBSTR(background_color, 1, 50), "
-			      "SUBSTR(dots_grids_color, 1, 50), "
-			      "generate_periodically, "
-			      "SUBSTR(name, 1, %1), "
-			      "SUBSTR(output_file, 1, 5000), "
-			      "SUBSTR(project_type, 1, 50), "
-			      "redo_undo_stack_size, "
-			      "show_canvas_dots, "
-			      "show_canvas_grids, "
-			      "show_order_indicators, "
-			      "SUBSTR(update_mode, 1, 100), "
-			      "SUBSTR(wire_color, 1, 50), "
-			      "SUBSTR(wire_type, 1, 50), "
-			      "FROM canvas_settings").
-		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH))) &&
-	   query.next())
+	QColor color;
+	QColor dotsGridsColor;
+	QColor wireColor;
+	QString name("");
+	QString outputFile("");
+	QString projectType("");
+	QString updateMode("");
+	QString wireType("");
+	auto generatePeriodically = false;
+	auto record(query.record());
+	auto showCanvasDots = true;
+	auto showCanvasGrids = true;
+	auto showOrderIndicators = true;
+	int redoUndoStackSize = 0;
+
+	for(int i = 0; i < record.count(); i++)
 	  {
-	    QColor color;
-	    QColor dotsGridsColor;
-	    QColor wireColor;
-	    QString name("");
-	    QString outputFile("");
-	    QString projectType("");
-	    QString updateMode("");
-	    QString wireType("");
-	    auto generatePeriodically = false;
-	    auto record(query.record());
-	    auto showCanvasDots = true;
-	    auto showCanvasGrids = true;
-	    auto showOrderIndicators = true;
-	    int redoUndoStackSize = 0;
+	    auto fieldName(record.fieldName(i));
 
-	    for(int i = 0; i < record.count(); i++)
-	      {
-		auto fieldName(record.fieldName(i));
-
-		if(fieldName.contains("background_color"))
-		  color = QColor
-		    (record.value(i).toString().remove('&').trimmed());
-		else if(fieldName.contains("dots_grids_color"))
-		  dotsGridsColor = QColor
-		    (record.value(i).toString().remove('&').trimmed());
-		else if(fieldName.contains("generate_periodically"))
-		  generatePeriodically = record.value(i).toBool();
-		else if(fieldName.contains("name"))
-		  name = record.value(i).toString().trimmed();
-		else if(fieldName.contains("output_file"))
-		  outputFile = record.value(i).toString();
-		else if(fieldName.contains("project_type"))
-		  projectType = record.value(i).toString().trimmed();
-		else if(fieldName.contains("redo_undo_stack_size"))
-		  redoUndoStackSize = record.value(i).toInt();
-		else if(fieldName.contains("show_canvas_dots"))
-		  showCanvasDots = record.value(i).toBool();
-		else if(fieldName.contains("show_canvas_grids"))
-		  showCanvasGrids = record.value(i).toBool();
-		else if(fieldName.contains("show_order_indicators"))
-		  showOrderIndicators = record.value(i).toBool();
-		else if(fieldName.contains("update_mode"))
-		  updateMode = record.value(i).toString().trimmed();
-		else if(fieldName.contains("wire_color"))
-		  wireColor = QColor
-		    (record.value(i).toString().remove('&').trimmed());
-		else if(fieldName.contains("wire_type"))
-		  wireType = record.value(i).toString().trimmed();
-	      }
-
-	    if(!color.isValid())
-	      color = QColor(Qt::white);
-
-	    if(!dotsGridsColor.isValid())
-	      dotsGridsColor = QColor(Qt::white);
-
-	    m_ui.background_color->setStyleSheet
-	      (QString("QPushButton {background-color: %1}").arg(color.name()));
-	    m_ui.background_color->setText(color.name());
-	    m_ui.dots_grids_color->setStyleSheet
-	      (QString("QPushButton {background-color: %1}").
-	       arg(dotsGridsColor.name()));
-	    m_ui.dots_grids_color->setText(dotsGridsColor.name());
-	    m_ui.generate_periodically->setChecked(generatePeriodically);
-
-	    if(name.isEmpty())
-	      name = defaultName();
-
-	    m_ui.name->setText(name);
-	    m_ui.name->setCursorPosition(0);
-	    m_ui.output_file->setText(outputFile);
-	    m_ui.output_file->setToolTip(m_ui.output_file->text());
-	    m_ui.output_file->setCursorPosition(0);
-	    m_ui.project_type->setCurrentIndex
-	      (m_ui.project_type->findText(projectType));
-
-	    if(m_ui.project_type->currentIndex() < 0)
-	      m_ui.project_type->setCurrentIndex(0);
-
-	    m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
-	    m_ui.show_canvas_dots->setChecked(showCanvasDots);
-	    m_ui.show_canvas_grids->setChecked(showCanvasGrids);
-	    m_ui.show_order_indicators->setChecked(showOrderIndicators);
-	    m_ui.update_mode->setCurrentIndex
-	      (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
-
-	    if(m_ui.update_mode->currentIndex() < 0)
-	      m_ui.update_mode->setCurrentIndex
-		(m_ui.update_mode->findText(tr("Full")));
-
-	    m_ui.wire_color->setStyleSheet
-	      (QString("QPushButton {background-color: %1}").
-	       arg(wireColor.name()));
-	    m_ui.wire_color->setText(wireColor.name());
-	    m_ui.wire_type->setCurrentIndex
-	      (m_ui.wire_type->findText(wireType, Qt::MatchFixedString));
-
-	    if(m_ui.wire_type->currentIndex() < 0)
-	      m_ui.wire_type->setCurrentIndex
-		(m_ui.wire_type->findText(tr("Curve")));
-
-	    m_settings = settings();
-	    setResult(QDialog::Accepted);
-	    emit accepted(false);
+	    if(fieldName.contains("background_color"))
+	      color = QColor(record.value(i).toString().remove('&').trimmed());
+	    else if(fieldName.contains("dots_grids_color"))
+	      dotsGridsColor = QColor
+		(record.value(i).toString().remove('&').trimmed());
+	    else if(fieldName.contains("generate_periodically"))
+	      generatePeriodically = record.value(i).toBool();
+	    else if(fieldName.contains("name"))
+	      name = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("output_file"))
+	      outputFile = record.value(i).toString();
+	    else if(fieldName.contains("project_type"))
+	      projectType = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("redo_undo_stack_size"))
+	      redoUndoStackSize = record.value(i).toInt();
+	    else if(fieldName.contains("show_canvas_dots"))
+	      showCanvasDots = record.value(i).toBool();
+	    else if(fieldName.contains("show_canvas_grids"))
+	      showCanvasGrids = record.value(i).toBool();
+	    else if(fieldName.contains("show_order_indicators"))
+	      showOrderIndicators = record.value(i).toBool();
+	    else if(fieldName.contains("update_mode"))
+	      updateMode = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("wire_color"))
+	      wireColor = QColor
+		(record.value(i).toString().remove('&').trimmed());
+	    else if(fieldName.contains("wire_type"))
+	      wireType = record.value(i).toString().trimmed();
 	  }
+
+	if(!color.isValid())
+	  color = QColor(Qt::white);
+
+	if(!dotsGridsColor.isValid())
+	  dotsGridsColor = QColor(Qt::white);
+
+	m_ui.background_color->setStyleSheet
+	  (QString("QPushButton {background-color: %1}").arg(color.name()));
+	m_ui.background_color->setText(color.name());
+	m_ui.dots_grids_color->setStyleSheet
+	  (QString("QPushButton {background-color: %1}").
+	   arg(dotsGridsColor.name()));
+	m_ui.dots_grids_color->setText(dotsGridsColor.name());
+	m_ui.generate_periodically->setChecked(generatePeriodically);
+
+	if(name.isEmpty())
+	  name = defaultName();
+
+	m_ui.name->setText(name);
+	m_ui.name->setCursorPosition(0);
+	m_ui.output_file->setText(outputFile);
+	m_ui.output_file->setToolTip(m_ui.output_file->text());
+	m_ui.output_file->setCursorPosition(0);
+	m_ui.project_type->setCurrentIndex
+	  (m_ui.project_type->findText(projectType));
+
+	if(m_ui.project_type->currentIndex() < 0)
+	  m_ui.project_type->setCurrentIndex(0);
+
+	m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
+	m_ui.show_canvas_dots->setChecked(showCanvasDots);
+	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
+	m_ui.show_order_indicators->setChecked(showOrderIndicators);
+	m_ui.update_mode->setCurrentIndex
+	  (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
+
+	if(m_ui.update_mode->currentIndex() < 0)
+	  m_ui.update_mode->setCurrentIndex
+	    (m_ui.update_mode->findText(tr("Full")));
+
+	m_ui.wire_color->setStyleSheet
+	  (QString("QPushButton {background-color: %1}").arg(wireColor.name()));
+	m_ui.wire_color->setText(wireColor.name());
+	m_ui.wire_type->setCurrentIndex
+	  (m_ui.wire_type->findText(wireType, Qt::MatchFixedString));
+
+	if(m_ui.wire_type->currentIndex() < 0)
+	  m_ui.wire_type->setCurrentIndex
+	    (m_ui.wire_type->findText(tr("Curve")));
+
+	m_settings = settings();
+	setResult(QDialog::Accepted);
+	emit accepted(false);
       }
 
     db.close();
