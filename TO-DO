@@ -152,6 +152,7 @@ Completed Items
 - Wiring.
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle. Not necessary. Approximate the bounding rectangle.
+- Wiring: curves and / or poly-lines options.
 - glitch_canvas_settings::settings(). Not needed.
 - prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
@@ -216,4 +217,3 @@ Remaining Items
 - Wire options:
   color alpha
   width
-- Wiring: curves and / or poly-lines options.
