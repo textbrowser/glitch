@@ -68,6 +68,7 @@ class glitch_canvas_settings: public QDialog
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
   QString outputFile(void) const;
+  QString wireType(void) const;
   bool generatePeriodically(void) const;
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
@@ -87,6 +88,7 @@ class glitch_canvas_settings: public QDialog
   void setShowCanvasGrids(const bool state);
   void setShowOrderIndicators(const bool state);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
+  void setWireType(const QString &string);
 
  private:
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;

@@ -174,6 +174,11 @@ QString glitch_canvas_settings::outputFile(void) const
   return m_settings.value(Settings::OUTPUT_FILE).toString();
 }
 
+QString glitch_canvas_settings::wireType(void) const
+{
+  return m_settings.value(Settings::WIRE_TYPE).toString().trimmed();
+}
+
 bool glitch_canvas_settings::generatePeriodically(void) const
 {
   return m_settings.value(Settings::GENERATE_PERIODICALLY).toBool();
@@ -438,7 +443,7 @@ void glitch_canvas_settings::prepare(void)
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
 	m_ui.show_order_indicators->setChecked(showOrderIndicators);
 	m_ui.update_mode->setCurrentIndex
-	  (m_ui.update_mode->findText(updateMode, Qt::MatchFixedString));
+	  (m_ui.update_mode->findText(updateMode));
 
 	if(m_ui.update_mode->currentIndex() < 0)
 	  m_ui.update_mode->setCurrentIndex
@@ -447,8 +452,7 @@ void glitch_canvas_settings::prepare(void)
 	m_ui.wire_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").arg(wireColor.name()));
 	m_ui.wire_color->setText(wireColor.name());
-	m_ui.wire_type->setCurrentIndex
-	  (m_ui.wire_type->findText(wireType, Qt::MatchFixedString));
+	m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(wireType));
 
 	if(m_ui.wire_type->currentIndex() < 0)
 	  m_ui.wire_type->setCurrentIndex
@@ -535,6 +539,7 @@ void glitch_canvas_settings::setSettings
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
 						  VIEW_UPDATE_MODE).toInt()));
+  setWireType(hash.value(Settings::WIRE_TYPE).toString());
   notify();
   emit accepted(false);
 }
@@ -593,6 +598,14 @@ void glitch_canvas_settings::setViewportUpdateMode
 
   if(m_ui.update_mode->currentIndex() < 0)
     m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
+}
+
+void glitch_canvas_settings::setWireType(const QString &string)
+{
+  m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(string));
+
+  if(m_ui.wire_type->currentIndex() < 0)
+    m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(tr("Curve")));
 }
 
 void glitch_canvas_settings::slotSelectColor(void)
