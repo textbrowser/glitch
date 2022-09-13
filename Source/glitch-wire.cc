@@ -93,6 +93,30 @@ void glitch_wire::paint
 
       if(m_wireType == WireType::CURVE)
 	{
+	  QPen pen;
+	  QPointF c1;
+	  QPointF c2;
+	  QPointF endPoint;
+	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  const auto y1 = m_leftProxy->pos().y() +
+	    m_leftProxy->size().height() / 2.0;
+	  const auto x2 = m_rightProxy->pos().x();
+	  const auto y2 = m_rightProxy->pos().y() +
+	    m_rightProxy->size().height() / 2.0;
+
+	  c1.setX(qAbs(x2 - x1) / 2.0);
+	  c1.setX(c1.x());
+	  endPoint = QPointF(x2, y2);
+
+	  QPainterPath path(QPointF(x1, y1));
+
+	  pen.setColor(m_color);
+	  pen.setJoinStyle(Qt::MiterJoin);
+	  pen.setWidthF(s_penWidth);
+	  painter->setPen(pen);
+	  path.cubicTo(c1, c2, endPoint);
+	  m_boundingRect = path.boundingRect();
+	  painter->drawPath(path);
 	  return;
 	}
 
