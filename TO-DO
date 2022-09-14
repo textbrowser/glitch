@@ -201,13 +201,14 @@ Remaining Items
 - Generate view.
 - Languages option.
 - Menu hovering and status bar text. QStatusTipEvent.
-- Modern Qt connect(). Source/Arduino is completed.
+- Modern Qt connect():
   glitch-scene.cc
   glitch-separated-diagram.cc
   glitch-ui-a.cc
   glitch-view.cc
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
+- Proper indentation of generated source.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
