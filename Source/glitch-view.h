@@ -101,6 +101,7 @@ class glitch_view: public QWidget
   void undo(void);
 
  public slots:
+  void slotCopy(void);
   void slotSave(void);
 
  private:
@@ -145,7 +146,6 @@ class glitch_view: public QWidget
   virtual void slotShowStructures(void) = 0;
   void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
-  void slotCopy(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotGenerate(void);
   void slotFunctionAdded(const QString &name, const bool isClone);

@@ -65,6 +65,9 @@ class glitch_object_view: public QGraphicsView
   void slotDelete(void);
   void slotPaste(void);
   void slotParentWindowClosed(void);
+  void slotRedo(void);
+  void slotSelectAll(void);
+  void slotUndo(void);
 
  private:
   QPointer<QUndoStack> m_undoStack;
@@ -79,11 +82,8 @@ class glitch_object_view: public QGraphicsView
  private slots:
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
-  void slotRedo(void);
   void slotResizeScene(void);
   void slotSceneResized(void);
-  void slotSelectAll(void);
-  void slotUndo(void);
 
  signals:
   void changed(void);
