@@ -97,6 +97,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
+- Proper indentation of generated source.
 - Raise currently-selected function via z-value. This will allow the function's
   combination box to float above other widgets.
 - Recreating functions and unique names.
@@ -208,7 +209,6 @@ Remaining Items
   glitch-view.cc
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Proper indentation of generated source.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, Stream, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.

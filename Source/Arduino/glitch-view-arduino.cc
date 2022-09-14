@@ -226,10 +226,6 @@ void glitch_view_arduino::generateSource(void)
       QTextStream stream(&file);
       auto widgets(scene()->orderedObjects());
 
-      /*
-      ** Other objects.
-      */
-
       foreach(auto w, widgets)
 	{
 	  if(!w || !w->shouldPrint())
@@ -249,18 +245,9 @@ void glitch_view_arduino::generateSource(void)
 		   << Qt::endl;
 	}
 
-      /*
-      ** Generate loop().
-      */
-
       stream << m_loopObject->code()
-	     << Qt::endl;
-
-      /*
-      ** Generate setup().
-      */
-
-      stream << m_setupObject->code();
+	     << Qt::endl
+	     << m_setupObject->code();
     }
 
   QApplication::restoreOverrideCursor();

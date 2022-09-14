@@ -141,8 +141,25 @@ QString glitch_object_flow_control_arduino::code(void) const
 	   << m_ui.condition->text().trimmed()
 	   << ")";
 
+  QObject *w = nullptr;
+  int level = 0;
+
+  if(scene())
+    w = scene()->parent();
+
+  do
+    {
+      if(qobject_cast<glitch_object_view *> (w))
+	level += 1;
+
+      if(w)
+	w = w->parent();
+    }
+  while(w);
+
+  level = qMax(1, level);
   stream << Qt::endl
-	 << "\t"
+	 << QString(level, '\t')
 	 << "{"
 	 << Qt::endl;
 
@@ -154,13 +171,12 @@ QString glitch_object_flow_control_arduino::code(void) const
       auto code(w->code());
 
       if(!code.trimmed().isEmpty())
-	stream << "\t"
-	       << "\t"
+	stream << QString(level + 1, '\t')
 	       << code
 	       << Qt::endl;
     }
 
-  stream << "\t"
+  stream << QString(level, '\t')
 	 << "}";
 
   if(m_ui.flow_control_type->currentText() == "do while")
