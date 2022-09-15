@@ -54,7 +54,8 @@ class glitch_object: public QWidget
     EDIT,
     LOCK_POSITION,
     SET_FUNCTION_NAME,
-    SET_STYLE_SHEET
+    SET_STYLE_SHEET,
+    SHOW_CONTEXT_MENU_BUTTON
   };
 
   enum Limits
@@ -80,6 +81,7 @@ class glitch_object: public QWidget
     CONDITION,
     CONSTANT_OTHER,
     CONSTANT_TYPE,
+    CONTEXT_MENU_BUTTON_SHOWN,
     DIGITAL_IO_TYPE,
     FLOW_CONTROL_TYPE,
     LOGICAL_OPERATOR,
@@ -182,6 +184,7 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
+  void slotShowContextMenuButton(void);
   void slotWireDestroyed(void);
 
  protected:

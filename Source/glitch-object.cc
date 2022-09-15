@@ -88,6 +88,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
   m_parent = parent;
+  m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] = true;
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
 
@@ -575,6 +576,25 @@ void glitch_object::createActions(void)
 	      &glitch_object::slotSetStyleSheet);
       m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
     }
+
+  if(!m_actions.contains(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON))
+    {
+      auto action = new QAction(tr("Show Context Menu Button"), this);
+
+      action->setCheckable(true);
+      action->setChecked
+	(m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
+      action->setData(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON);
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotShowContextMenuButton);
+      m_actions[DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON] = action;
+    }
+  else
+    m_actions[DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON]->
+      setChecked
+      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
 }
 
 void glitch_object::hideOrShowOccupied(void)
@@ -1044,6 +1064,29 @@ void glitch_object::slotPropertyChanged
 	  m_undoStack->push(undoCommand);
 	}
     }
+}
+
+void glitch_object::slotShowContextMenuButton(void)
+{
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(!m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool(),
+	 m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN),
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 Properties::CONTEXT_MENU_BUTTON_SHOWN,
+	 this);
+
+      undoCommand->setText
+	(tr("item property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
+      !m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool();
+
+  emit changed();
 }
 
 void glitch_object::slotSimulateDelete(void)
