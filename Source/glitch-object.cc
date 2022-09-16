@@ -923,6 +923,15 @@ void glitch_object::setProperty(const Properties property,
 
   switch(property)
     {
+    case Properties::CONTEXT_MENU_BUTTON_SHOWN:
+      {
+	if(m_actions.contains(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON))
+	  m_actions.value
+	    (DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON)->setChecked
+	    (value.toBool());
+
+	break;
+      }
     case Properties::POSITION_LOCKED:
       {
 	if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))
