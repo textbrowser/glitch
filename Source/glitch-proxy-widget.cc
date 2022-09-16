@@ -319,7 +319,7 @@ void glitch_proxy_widget::paint
 				size().height());
 
 	      if(operation == glitch_tools::Operations::INTELLIGENT ||
-		 operation == glitch_tools::Operations::WIRE_CONNECT)
+		 operation == glitch_tools::Operations::WIRE_DISCONNECT)
 		{
 		  if(operation == glitch_tools::Operations::INTELLIGENT)
 		    {
@@ -334,6 +334,13 @@ void glitch_proxy_widget::paint
 			  icon.paint(painter, path.boundingRect().toRect());
 			  return;
 			}
+		    }
+		  else
+		    {
+		      QIcon icon(":clear.png");
+
+		      icon.paint(painter, path.boundingRect().toRect());
+		      return;
 		    }
 		}
 
