@@ -1070,7 +1070,9 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		  else
 		    {
 		      foreach(auto child, object->findChildren<QWidget *> ())
-			if(child && child->objectName().contains("viewport"))
+			if(child &&
+			   child->objectName().
+			   contains(QString::fromUtf8("viewport")))
 			  {
 			    child->setFocus();
 			    goto exit_label;

@@ -297,6 +297,16 @@ QStringList glitch_object::outputs(void) const
   return outputs;
 }
 
+QToolButton *glitch_object::contextMenuButton(void) const
+{
+  foreach(auto toolButton, findChildren<QToolButton *> ())
+    if(toolButton &&
+       toolButton->objectName() == QString::fromUtf8("context_menu"))
+      return toolButton;
+
+  return nullptr;
+}
+
 bool glitch_object::canResize(void) const
 {
   return false;
@@ -624,17 +634,17 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  foreach(auto toolButton, findChildren<QToolButton *> ())
-    if(toolButton->objectName() == "context_menu")
-      {
-	connect(toolButton,
-		&QToolButton::clicked,
-		this,
-		&glitch_object::slotShowContextMenu,
-		Qt::UniqueConnection);
-	toolButton->setToolTip(tr("Floating Context Menu"));
-	break;
-      }
+  auto toolButton = contextMenuButton();
+
+  if(toolButton)
+    {
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      this,
+	      &glitch_object::slotShowContextMenu,
+	      Qt::UniqueConnection);
+      toolButton->setToolTip(tr("Floating Context Menu"));
+    }
 }
 
 void glitch_object::prepareEditSignals(const glitch_view *parentView)
@@ -1103,6 +1113,12 @@ void glitch_object::slotShowContextMenuButton(void)
   else
     m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
       !m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool();
+
+  auto toolButton = contextMenuButton();
+
+  if(toolButton)
+    toolButton->setVisible
+      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
 
   emit changed();
 }
