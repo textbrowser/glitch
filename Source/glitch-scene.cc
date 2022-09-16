@@ -969,7 +969,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	{
 	  emit changed();
 	  emit sceneResized();
-	  views().value(0)->viewport()->setCursor(Qt::ClosedHandCursor);
+
+	  auto view = views().value(0);
+
+	  if(view && view->viewport())
+	    view->viewport()->setCursor(Qt::ClosedHandCursor);
 	}
     }
 
@@ -1181,12 +1185,17 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
   m_movedPoints.clear();
 
-  auto cursor = QApplication::overrideCursor();
+  auto view = views().value(0);
 
-  if(cursor)
-    views().value(0)->viewport()->setCursor(cursor->shape());
-  else
-    views().value(0)->viewport()->setCursor(Qt::ArrowCursor);
+  if(view && view->viewport())
+    {
+      auto cursor = QApplication::overrideCursor();
+
+      if(cursor)
+	view->viewport()->setCursor(cursor->shape());
+      else
+	view->viewport()->setCursor(Qt::ArrowCursor);
+    }
 
   QGraphicsScene::mouseReleaseEvent(event);
 }
