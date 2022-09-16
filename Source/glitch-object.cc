@@ -39,6 +39,7 @@
 #include "Arduino/glitch-object-characters-arduino.h"
 #include "Arduino/glitch-object-compound-operator-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
+#include "Arduino/glitch-object-conversion-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
@@ -384,6 +385,9 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-constant")
     object = glitch_object_constant_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-conversion")
+    object = glitch_object_conversion_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-digitalio")
     object = glitch_object_digital_io_arduino::createFromValues

@@ -235,33 +235,6 @@ void glitch_object_compound_operator_arduino::save
 }
 
 void glitch_object_compound_operator_arduino::setOperatorType
-(const QString &operatorType)
-{
-  if(operatorType.contains("%="))
-    setOperatorType(OperatorTypes::MODULO_OPERATOR);
-  else if(operatorType.contains("&="))
-    setOperatorType(OperatorTypes::BITWISE_AND_OPERATOR);
-  else if(operatorType.contains("*="))
-    setOperatorType(OperatorTypes::MULTIPLICATION_OPERATOR);
-  else if(operatorType.contains("++"))
-    setOperatorType(OperatorTypes::INCREMENT_OPERATOR);
-  else if(operatorType.contains("+="))
-    setOperatorType(OperatorTypes::ADDITION_OPERATOR);
-  else if(operatorType.contains("--"))
-    setOperatorType(OperatorTypes::DECREMENT_OPERATOR);
-  else if(operatorType.contains("-="))
-    setOperatorType(OperatorTypes::SUBTRACTION_OPERATOR);
-  else if(operatorType.contains("/="))
-    setOperatorType(OperatorTypes::DIVISION_OPERATOR);
-  else if(operatorType.contains("^="))
-    setOperatorType(OperatorTypes::BITWISE_XOR_OPERATOR);
-  else if(operatorType.contains("|="))
-    setOperatorType(OperatorTypes::BITWISE_OR_OPERATOR);
-  else
-    setOperatorType(OperatorTypes::MODULO_OPERATOR);
-}
-
-void glitch_object_compound_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
@@ -341,6 +314,33 @@ void glitch_object_compound_operator_arduino::setOperatorType
   m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
 		       m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
   setName(m_ui.compound_operator->currentText());
+}
+
+void glitch_object_compound_operator_arduino::setOperatorType
+(const QString &operatorType)
+{
+  if(operatorType.contains("%="))
+    setOperatorType(OperatorTypes::MODULO_OPERATOR);
+  else if(operatorType.contains("&="))
+    setOperatorType(OperatorTypes::BITWISE_AND_OPERATOR);
+  else if(operatorType.contains("*="))
+    setOperatorType(OperatorTypes::MULTIPLICATION_OPERATOR);
+  else if(operatorType.contains("++"))
+    setOperatorType(OperatorTypes::INCREMENT_OPERATOR);
+  else if(operatorType.contains("+="))
+    setOperatorType(OperatorTypes::ADDITION_OPERATOR);
+  else if(operatorType.contains("--"))
+    setOperatorType(OperatorTypes::DECREMENT_OPERATOR);
+  else if(operatorType.contains("-="))
+    setOperatorType(OperatorTypes::SUBTRACTION_OPERATOR);
+  else if(operatorType.contains("/="))
+    setOperatorType(OperatorTypes::DIVISION_OPERATOR);
+  else if(operatorType.contains("^="))
+    setOperatorType(OperatorTypes::BITWISE_XOR_OPERATOR);
+  else if(operatorType.contains("|="))
+    setOperatorType(OperatorTypes::BITWISE_OR_OPERATOR);
+  else
+    setOperatorType(OperatorTypes::MODULO_OPERATOR);
 }
 
 void glitch_object_compound_operator_arduino::setProperties

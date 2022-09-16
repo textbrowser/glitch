@@ -44,6 +44,7 @@
 #include "Arduino/glitch-object-characters-arduino.h"
 #include "Arduino/glitch-object-compound-operator-arduino.h"
 #include "Arduino/glitch-object-constant-arduino.h"
+#include "Arduino/glitch-object-conversion-arduino.h"
 #include "Arduino/glitch-object-digital-io-arduino.h"
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
@@ -711,6 +712,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_compound_operator_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-constant"))
 	    object = new glitch_object_constant_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-conversion"))
+	    object = new glitch_object_conversion_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-flow control-"))
