@@ -770,6 +770,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   auto properties(p);
 
+  properties["context_menu_button_shown"] = m_properties.value
+    (Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool();
   properties["position_locked"] = m_properties.value
     (Properties::POSITION_LOCKED).toBool();
   properties["size"] = QString("(%1, %2)").
@@ -859,6 +861,13 @@ void glitch_object::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("context_menu_button_shown = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
+	    QVariant(string.trimmed()).toBool();
 	}
       else if(string.simplified().startsWith("name = "))
 	{
