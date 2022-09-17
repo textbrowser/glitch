@@ -194,5 +194,6 @@ void glitch_object_syntax_arduino::slotSyntaxChanged(void)
     (tr("syntax property changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
+  m_ui.text->selectAll();
   emit changed();
 }

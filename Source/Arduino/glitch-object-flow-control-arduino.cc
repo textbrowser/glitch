@@ -561,6 +561,7 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
     (tr("flow control condition changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
+  m_ui.condition->selectAll();
   emit changed();
 }
 

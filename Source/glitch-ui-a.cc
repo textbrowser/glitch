@@ -556,7 +556,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	if(!showArduinoStructures)
 	  {
-	    QTimer::singleShot(500, this, SLOT(slotShowAllStructures(void)));
+	    QTimer::singleShot(1500, this, SLOT(slotShowAllStructures(void)));
 	    showArduinoStructures = true;
 	  }
       }
@@ -564,7 +564,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	if(!showTools)
 	  {
-	    QTimer::singleShot(500, this, SLOT(slotShowAllTools(void)));
+	    QTimer::singleShot(1500, this, SLOT(slotShowAllTools(void)));
 	    showTools = true;
 	  }
       }

@@ -565,6 +565,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
     (tr("variable property changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
+  lineEdit->selectAll();
   emit changed();
 }
 

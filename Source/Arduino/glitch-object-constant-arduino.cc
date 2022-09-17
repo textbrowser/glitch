@@ -299,5 +299,6 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
     (tr("constant property changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
+  m_ui.other->selectAll();
   emit changed();
 }
