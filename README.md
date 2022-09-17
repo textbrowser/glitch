@@ -1,7 +1,5 @@
-Program complex Arduino projects via visual block diagrams. A visual compiler.
+Program colorful Arduino projects via visual block diagrams. A visual compiler.
 An initial version is scheduled for release in November, 2022!
-
-Qt 5.15 LTS or 6.2 LTS is preferred. C++2011 is mandatory.
 
 Summary of Glitch
 

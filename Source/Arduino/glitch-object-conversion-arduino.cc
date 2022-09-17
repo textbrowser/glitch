@@ -66,11 +66,16 @@ QString glitch_object_conversion_arduino::code(void) const
 {
   switch(m_conversionType)
     {
+    case ConversionTypes::UNSIGNED_INT:
+    case ConversionTypes::UNSIGNED_LONG:
+      {
+	return QString("%1 %2").
+	  arg(m_ui.conversion->currentText()).arg(inputs().value(0));
+      }
     default:
       {
-	QString string("");
-
-	return string;
+	return QString("%1(%2)").
+	  arg(m_ui.conversion->currentText()).arg(inputs().value(0));
       }
     }
 }
@@ -174,7 +179,6 @@ void glitch_object_conversion_arduino::setConversionType
       {
 	m_ui.conversion->setCurrentIndex
 	  (m_ui.conversion->findText("(unsigned int)"));
-
 	break;
       }
     }
@@ -183,11 +187,26 @@ void glitch_object_conversion_arduino::setConversionType
   setName(m_ui.conversion->currentText());
 }
 
-void glitch_object_conversion_arduino::setConversionType
-(const QString &conversionType)
+void glitch_object_conversion_arduino::setConversionType(const QString &ct)
 {
+  auto conversionType(ct.toLower());
+
   if(conversionType.contains("(unsigned int)"))
     setConversionType(ConversionTypes::UNSIGNED_INT);
+  else if(conversionType.contains("(unsigned long)"))
+    setConversionType(ConversionTypes::UNSIGNED_LONG);
+  else if(conversionType.contains("byte"))
+    setConversionType(ConversionTypes::BYTE);
+  else if(conversionType.contains("char"))
+    setConversionType(ConversionTypes::CHAR);
+  else if(conversionType.contains("float"))
+    setConversionType(ConversionTypes::FLOAT);
+  else if(conversionType.contains("int"))
+    setConversionType(ConversionTypes::INT);
+  else if(conversionType.contains("long"))
+    setConversionType(ConversionTypes::LONG);
+  else if(conversionType.contains("word"))
+    setConversionType(ConversionTypes::WORD);
   else
     setConversionType(ConversionTypes::UNSIGNED_INT);
 }

@@ -38,7 +38,14 @@ class glitch_object_conversion_arduino: public glitch_object
  public:
   enum ConversionTypes
   {
-    UNSIGNED_INT = 0
+    BYTE,
+    CHAR,
+    FLOAT,
+    INT,
+    LONG,
+    UNSIGNED_INT = 0,
+    UNSIGNED_LONG,
+    WORD
   };
 
   glitch_object_conversion_arduino(QWidget *parent);
@@ -57,7 +64,7 @@ class glitch_object_conversion_arduino: public glitch_object
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
-  void setConversionType(const QString &conversionType);
+  void setConversionType(const QString &ct);
 
  private:
   ConversionTypes m_conversionType;
