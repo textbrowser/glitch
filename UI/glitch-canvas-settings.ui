@@ -315,9 +315,6 @@
        </item>
        <item>
         <widget class="QCheckBox" name="show_order_indicators">
-         <property name="toolTip">
-          <string>Generate the code shortly after a change is made.</string>
-         </property>
          <property name="text">
           <string>Show Order Indicators</string>
          </property>
