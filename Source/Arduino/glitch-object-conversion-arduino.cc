@@ -75,7 +75,8 @@ QString glitch_object_conversion_arduino::code(void) const
     default:
       {
 	return QString("%1(%2)").
-	  arg(m_ui.conversion->currentText()).arg(inputs().value(0));
+	  arg(m_ui.conversion->currentText().remove("()")).
+	  arg(inputs().value(0));
       }
     }
 }
@@ -177,27 +178,27 @@ void glitch_object_conversion_arduino::setConversionType
     {
     case ConversionTypes::BYTE:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("byte"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("byte()"));
 	break;
       }
     case ConversionTypes::CHAR:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("char"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("char()"));
 	break;
       }
     case ConversionTypes::FLOAT:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("float"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("float()"));
 	break;
       }
     case ConversionTypes::INT:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("int"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("int()"));
 	break;
       }
     case ConversionTypes::LONG:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("long"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("long()"));
 	break;
       }
     case ConversionTypes::UNSIGNED_LONG:
@@ -208,7 +209,7 @@ void glitch_object_conversion_arduino::setConversionType
       }
     case ConversionTypes::WORD:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("word"));
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("word()"));
 	break;
       }
     default:
@@ -304,11 +305,9 @@ void glitch_object_conversion_arduino::slotConversionChanged(void)
      Properties::CONVERSION,
      this);
 
-  m_properties[Properties::CONVERSION] =
-    m_ui.conversion->currentText();
+  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
   undoCommand->setText
-    (tr("conversion changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
+    (tr("conversion changed (%1, %2)").arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
 }
