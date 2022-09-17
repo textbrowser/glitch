@@ -38,12 +38,12 @@ class glitch_object_conversion_arduino: public glitch_object
  public:
   enum ConversionTypes
   {
-    BYTE,
+    BYTE = 0,
     CHAR,
     FLOAT,
     INT,
     LONG,
-    UNSIGNED_INT = 0,
+    UNSIGNED_INT,
     UNSIGNED_LONG,
     WORD
   };

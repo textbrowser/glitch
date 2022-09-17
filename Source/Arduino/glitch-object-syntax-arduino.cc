@@ -89,7 +89,6 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_ui.text->setText(m_ui.text->text().trimmed());
-  clone->m_ui.text->selectAll();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -147,7 +146,6 @@ void glitch_object_syntax_arduino::setProperties
 	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::SYNTAX] = string.trimmed();
 	  m_ui.text->setText(string.trimmed());
-	  m_ui.text->selectAll();
 	}
     }
 }
@@ -162,7 +160,6 @@ void glitch_object_syntax_arduino::setProperty
     case Properties::SYNTAX:
       {
 	m_ui.text->setText(value.toString().trimmed());
-	m_ui.text->selectAll();
 	break;
       }
     default:

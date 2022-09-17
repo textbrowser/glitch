@@ -248,7 +248,6 @@ clone(QWidget *parent) const
   clone->m_flowControlType = m_flowControlType;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
-  clone->m_ui.condition->selectAll();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
@@ -304,7 +303,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (object->m_properties.value(Properties::CONDITION).toString().trimmed());
-  object->m_ui.condition->selectAll();
   object->prepareEditWindowHeader();
   return object;
 }
@@ -516,7 +514,6 @@ void glitch_object_flow_control_arduino::setProperty
     case Properties::CONDITION:
       {
 	m_ui.condition->setText(value.toString().trimmed());
-	m_ui.condition->selectAll();
 	prepareEditWindowHeader();
 	break;
       }

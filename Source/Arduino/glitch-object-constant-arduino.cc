@@ -103,7 +103,6 @@ clone(QWidget *parent) const
   clone->m_properties = m_properties;
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
   clone->m_ui.other->setText(m_ui.other->text().trimmed());
-  clone->m_ui.other->selectAll();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConstantType(m_ui.constant->currentText());
@@ -232,7 +231,6 @@ void glitch_object_constant_arduino::setProperties
 	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::CONSTANT_OTHER] = string.trimmed();
 	  m_ui.other->setText(string.trimmed());
-	  m_ui.other->selectAll();
 	}
     }
 
@@ -249,7 +247,6 @@ void glitch_object_constant_arduino::setProperty
     case Properties::CONSTANT_OTHER:
       {
 	m_ui.other->setText(value.toString().trimmed());
-	m_ui.other->selectAll();
 	break;
       }
     default:

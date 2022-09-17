@@ -69,7 +69,7 @@ QString glitch_object_conversion_arduino::code(void) const
     case ConversionTypes::UNSIGNED_INT:
     case ConversionTypes::UNSIGNED_LONG:
       {
-	return QString("%1 %2").
+	return QString("%1 (%2)").
 	  arg(m_ui.conversion->currentText()).arg(inputs().value(0));
       }
     default:
@@ -175,6 +175,42 @@ void glitch_object_conversion_arduino::setConversionType
 
   switch(m_conversionType)
     {
+    case ConversionTypes::BYTE:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("byte"));
+	break;
+      }
+    case ConversionTypes::CHAR:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("char"));
+	break;
+      }
+    case ConversionTypes::FLOAT:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("float"));
+	break;
+      }
+    case ConversionTypes::INT:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("int"));
+	break;
+      }
+    case ConversionTypes::LONG:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("long"));
+	break;
+      }
+    case ConversionTypes::UNSIGNED_LONG:
+      {
+	m_ui.conversion->setCurrentIndex
+	  (m_ui.conversion->findText("(unsigned long)"));
+	break;
+      }
+    case ConversionTypes::WORD:
+      {
+	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("word"));
+	break;
+      }
     default:
       {
 	m_ui.conversion->setCurrentIndex
@@ -211,8 +247,7 @@ void glitch_object_conversion_arduino::setConversionType(const QString &ct)
     setConversionType(ConversionTypes::UNSIGNED_INT);
 }
 
-void glitch_object_conversion_arduino::setProperties
-(const QStringList &list)
+void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
 
@@ -255,8 +290,7 @@ void glitch_object_conversion_arduino::setProperty
     }
 }
 
-void glitch_object_conversion_arduino::slotConversionChanged
-(void)
+void glitch_object_conversion_arduino::slotConversionChanged(void)
 {
   setConversionType(m_ui.conversion->currentText());
 
