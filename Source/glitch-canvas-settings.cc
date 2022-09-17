@@ -56,6 +56,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
   m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
+  m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
   m_ui.wire_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
      arg(QColor(255, 192, 203, 175).name()));

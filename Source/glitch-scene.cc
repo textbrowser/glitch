@@ -808,14 +808,14 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto began = false;
 	auto list(selectedItems());
 	auto moved = false;
-	auto updateMode = QGraphicsView::MinimalViewportUpdate;
+	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = views().value(0);
 	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
 
 	if(view)
 	  {
 	    updateMode = view->viewportUpdateMode();
-	    view->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
+	    view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 	  }
 
 	foreach(auto i, list)
