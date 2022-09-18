@@ -1014,7 +1014,8 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
   connect(wire,
 	  &glitch_wire::destroyed,
 	  this,
-	  &glitch_object::slotWireDestroyed);
+	  &glitch_object::slotWireDestroyed,
+	  Qt::UniqueConnection);
   m_wires[object->id()] = wire;
 }
 
@@ -1170,9 +1171,8 @@ void glitch_object::slotSetStyleSheet(void)
 
 void glitch_object::slotShowContextMenu(void)
 {
-  QMenu menu; // Not used.
-
-  addActions(menu);
+  m_menu.clear();
+  addActions(m_menu);
   m_contextMenu->addActions(m_actions.values());
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());

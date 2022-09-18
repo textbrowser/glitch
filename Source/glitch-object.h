@@ -177,6 +177,7 @@ class glitch_object: public QWidget
   void setWiredObject(glitch_object *object, glitch_wire *wire);
 
  private:
+  QMenu m_menu;
   static qint64 s_id;
 
  private slots:
