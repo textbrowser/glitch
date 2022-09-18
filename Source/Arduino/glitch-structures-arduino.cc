@@ -315,7 +315,19 @@ void glitch_structures_arduino::prepareCategories(void)
 						 << "Serial.readStringUntil()"
 						 << "Serial.setTimeout()"
 						 << "Serial.write()";
-  s_itemsForCategories["Stream"] = QStringList() << "stream.available()";
+  s_itemsForCategories["Stream"] = QStringList() << "stream.available()"
+						 << "stream.find()"
+						 << "stream.findUntil()"
+						 << "stream.flush()"
+						 << "stream.parseFloat()"
+						 << "stream.parseInt()"
+						 << "stream.peek()"
+						 << "stream.read()"
+						 << "stream.readBytes()"
+						 << "stream.readBytesUntil()"
+						 << "stream.readString()"
+						 << "stream.readStringUntil()"
+						 << "stream.setTimeout()";
   s_itemsForCategories["Structures"] = QStringList() << "block comment"
 						     << "function()";
   s_itemsForCategories["Syntax"] = QStringList() << "#define"

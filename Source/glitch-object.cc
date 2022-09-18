@@ -882,6 +882,13 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
 	    QVariant(string.trimmed()).toBool();
+
+	  auto toolButton = contextMenuButton();
+
+	  if(toolButton)
+	    toolButton->setVisible
+	      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).
+	       toBool());
 	}
       else if(string.simplified().startsWith("name = "))
 	{
