@@ -67,6 +67,7 @@ class glitch_ui: public QMainWindow
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
   Ui_glitch_mainwindow m_ui;
+  glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   bool openDiagram(const QString &fileName, QString &error);
@@ -121,6 +122,7 @@ class glitch_ui: public QMainWindow
   void slotSeparate(glitch_view *view);
   void slotShowAllStructures(void);
   void slotShowAllTools(void);
+  void slotShowArduinoDocumentation(void);
   void slotShowCanvasSettings(void);
   void slotShowDiagramContextMenu(void);
   void slotShowFullScreenMode(void);

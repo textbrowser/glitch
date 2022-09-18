@@ -49,8 +49,8 @@
 #include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
-QMultiMap<QPair<int, int>, QPointer<glitch_object> >
-glitch_ui::s_copiedObjects;
+QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::
+  s_copiedObjects;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
@@ -75,6 +75,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setWindowIcon(windowIcon());
   m_about.setWindowModality(Qt::NonModal);
   m_about.setWindowTitle(tr("Glitch: About"));
+  m_arduino = nullptr;
   m_recentFilesFileName = glitch_misc::homePath() +
     QDir::separator() +
     "Glitch" +
@@ -86,6 +87,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotAbout);
+  connect(m_ui.action_Arduino_Documentation,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowArduinoDocumentation);
   connect(m_ui.action_Canvas_Settings,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -1654,6 +1659,16 @@ void glitch_ui::slotShowAllTools(void)
       view->showTools();
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_ui::slotShowArduinoDocumentation(void)
+{
+  if(!m_arduino)
+    m_arduino = new glitch_documentation(QUrl("qrc:/ReleaseNotes.html"), this);
+
+  m_arduino->showNormal();
+  m_arduino->activateWindow();
+  m_arduino->raise();
 }
 
 void glitch_ui::slotShowCanvasSettings(void)

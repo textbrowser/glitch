@@ -138,6 +138,8 @@
     </property>
     <addaction name="action_About"/>
     <addaction name="separator"/>
+    <addaction name="action_Arduino_Documentation"/>
+    <addaction name="separator"/>
     <addaction name="action_Release_Notes"/>
    </widget>
    <widget class="QMenu" name="menu_View">
@@ -330,6 +332,11 @@
   <action name="action_Release_Notes">
    <property name="text">
     <string>&amp;Release Notes...</string>
+   </property>
+  </action>
+  <action name="action_Arduino_Documentation">
+   <property name="text">
+    <string>Arduino Documentation...</string>
    </property>
   </action>
  </widget>
