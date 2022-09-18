@@ -28,6 +28,28 @@ Completed Items
 - Close floating context menu of newly-created object upon delete.
 - Command-line help.
 - Comment block and directional arrows.
+- Completed Categories
+  Advanced I/O
+  Analog I/O
+  Arithmetic Operators
+  Bits And Bytes
+  Bitwise Operators
+  Characters
+  Compound Operators
+  Constants
+  Conversions
+  Digital I/O
+  Flow Control
+  Logical Operators
+  Mathematics
+  Random
+  Serial
+  Structures
+  Syntax
+  Time
+  Trigonometry
+  Utilities
+  Variables
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
 - Context menu action states.
@@ -172,28 +194,6 @@ Remaining Items
 - Allow removal of wire by selection.
 - Android.
 - Combination boxes are obscured by view's margins. Pop out of the view!
-- Completed Categories
-  Advanced I/O
-  Analog I/O
-  Arithmetic Operators
-  Bits And Bytes
-  Bitwise Operators
-  Characters
-  Compound Operators
-  Constants
-  Conversions
-  Digital I/O
-  Flow Control
-  Logical Operators
-  Mathematics
-  Random
-  Serial
-  Structures
-  Syntax
-  Time
-  Trigonometry
-  Utilities
-  Variables
 - Copy wires.
 - Custom input / output port colors.
 - Custom shortcuts.
