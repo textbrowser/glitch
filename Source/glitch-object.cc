@@ -1156,7 +1156,7 @@ void glitch_object::slotSetStyleSheet(void)
   dialog->setWidget(this);
   QApplication::processEvents();
 
-  if(dialog->exec() == QDialog::Accepted)
+  if(dialog->exec() == QDialog::Accepted && dialog->styleSheet() != string)
     {
       setStyleSheet(dialog->styleSheet());
 
@@ -1174,6 +1174,10 @@ void glitch_object::slotSetStyleSheet(void)
       emit changed();
     }
   else
+    /*
+    ** Reset as there could have been a preview!
+    */
+
     setStyleSheet(string);
 }
 
