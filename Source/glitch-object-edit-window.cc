@@ -64,7 +64,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
   menu = menuBar()->addMenu(tr("&View"));
-  m_actions["tools"] = menu->addAction(tr("&Tools"));
+  m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
   m_actions["tools"]->setChecked(false);
   connect(m_actions.value("copy"),
@@ -83,7 +83,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 
   font.setBold(true);
   m_header->setFont(font);
-  m_toolBar = new QToolBar(tr("Tool Bar"), this);
+  m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
   m_toolBar->setVisible(false);
   addToolBar(m_toolBar);
