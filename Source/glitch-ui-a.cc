@@ -487,18 +487,18 @@ void glitch_ui::copy(QGraphicsView *view)
 	 !proxy->isSelected())
 	continue;
 
-      auto widget = qobject_cast<glitch_object *> (proxy->widget());
+      auto object = proxy->object();
 
-      if(!widget)
+      if(!object)
 	continue;
 
-      auto clone = widget->clone(nullptr);
+      auto clone = object->clone(nullptr);
 
       if(!clone)
 	continue;
 
       QPair<int, int> pair;
-      auto point(widget->scenePos().toPoint());
+      auto point(object->scenePos().toPoint());
 
       pair.first = point.x();
       pair.second = point.y();
