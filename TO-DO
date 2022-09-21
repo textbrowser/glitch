@@ -44,6 +44,7 @@ Completed Items
   Mathematics
   Random
   Serial
+  Stream
   Structures
   Syntax
   Time
@@ -193,8 +194,9 @@ Remaining Items
 
 - Allow removal of wire by selection.
 - Android.
+- Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
-- Copy wires.
+- Copy wires. Very difficult.
 - Custom input / output port colors.
 - Custom shortcuts.
 - Disable redo/undo of line-edit widgets.
@@ -215,7 +217,7 @@ Remaining Items
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
-- SPI, Stream, Wire (https://www.arduino.cc/reference/en).
+- SPI, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Warn of recursive functions?
 - Widgets for decorations.

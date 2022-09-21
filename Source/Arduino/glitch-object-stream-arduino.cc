@@ -58,23 +58,6 @@ QString glitch_object_stream_arduino::code(void) const
       {
 	return "stream.available();";
       }
-    case Type::AVAILABLE_FOR_WRITE:
-      {
-	return "stream.availableForWrite();";
-      }
-    case Type::BEGIN:
-      {
-	if(inputs().size() == 1)
-	  return QString("stream.begin(%1);").arg(inputs().value(0));
-	else
-	  return QString("stream.begin(%1, %2);").
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-      }
-    case Type::END:
-      {
-	return "stream.end();";
-      }
     case Type::FIND:
       {
 	if(inputs().size() == 1)
@@ -120,24 +103,6 @@ QString glitch_object_stream_arduino::code(void) const
       {
 	return "stream.peek();";
       }
-    case Type::PRINT:
-      {
-	if(inputs().size() == 1)
-	  return QString("stream.print(%1);").arg(inputs().value(0));
-	else
-	  return QString("stream.print(%1, %2);").
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-      }
-    case Type::PRINTLN:
-      {
-	if(inputs().size() == 1)
-	  return QString("stream.println(%1);").arg(inputs().value(0));
-	else
-	  return QString("stream.println(%1, %2);").
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-      }
     case Type::READ:
       {
 	return "stream.read();";
@@ -167,15 +132,6 @@ QString glitch_object_stream_arduino::code(void) const
       {
 	return QString("stream.setTimeout(%1);").arg(inputs().value(0));
       }
-    case Type::WRITE:
-      {
-	if(inputs().size() == 1)
-	  return QString("stream.write(%1);").arg(inputs().value(0));
-	else
-	  return QString("stream.write(%1, %2);").
-	    arg(inputs().value(0)).
-	    arg(inputs().value(1));
-      }
     default:
       {
 	return "stream.available();";
@@ -187,18 +143,14 @@ bool glitch_object_stream_arduino::hasInput(void) const
 {
   switch(m_streamType)
     {
-    case Type::BEGIN:
     case Type::FIND:
     case Type::FIND_UNTIL:
     case Type::PARSE_FLOAT:
     case Type::PARSE_INT:
-    case Type::PRINT:
-    case Type::PRINTLN:
     case Type::READ_BYTES:
     case Type::READ_BYTES_UNTIL:
     case Type::READ_STRING_UNTIL:
     case Type::SET_TIMEOUT:
-    case Type::WRITE:
       {
 	return true;
       }
@@ -214,20 +166,16 @@ bool glitch_object_stream_arduino::hasOutput(void) const
   switch(m_streamType)
     {
     case Type::AVAILABLE:
-    case Type::AVAILABLE_FOR_WRITE:
     case Type::FIND:
     case Type::FIND_UNTIL:
     case Type::PARSE_FLOAT:
     case Type::PARSE_INT:
     case Type::PEEK:
-    case Type::PRINT:
-    case Type::PRINTLN:
     case Type::READ:
     case Type::READ_BYTES:
     case Type::READ_BYTES_UNTIL:
     case Type::READ_STRING:
     case Type::READ_STRING_UNTIL:
-    case Type::WRITE:
       {
 	return true;
       }
@@ -242,10 +190,6 @@ bool glitch_object_stream_arduino::isFullyWired(void) const
 {
   switch(m_streamType)
     {
-    case Type::BEGIN:
-      {
-	return inputs().size() >= 1;
-      }
     case Type::FIND:
       {
 	return inputs().size() >= 1;
@@ -259,14 +203,6 @@ bool glitch_object_stream_arduino::isFullyWired(void) const
 	return inputs().size() >= 2;
       }
     case Type::PARSE_INT:
-      {
-	return inputs().size() >= 2;
-      }
-    case Type::PRINT:
-      {
-	return inputs().size() >= 2;
-      }
-    case Type::PRINTLN:
       {
 	return inputs().size() >= 2;
       }
@@ -285,10 +221,6 @@ bool glitch_object_stream_arduino::isFullyWired(void) const
     case Type::SET_TIMEOUT:
       {
 	return inputs().size() >= 1;
-      }
-    case Type::WRITE:
-      {
-      	return inputs().size() >= 2;
       }
     default:
       {

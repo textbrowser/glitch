@@ -54,24 +54,18 @@ class glitch_object_stream_arduino: public glitch_object
   enum Type
   {
     AVAILABLE = 0,
-    AVAILABLE_FOR_WRITE,
-    BEGIN,
-    END,
     FIND,
     FIND_UNTIL,
     FLUSH,
     PARSE_FLOAT,
     PARSE_INT,
     PEEK,
-    PRINT,
-    PRINTLN,
     READ,
     READ_BYTES,
     READ_BYTES_UNTIL,
     READ_STRING,
     READ_STRING_UNTIL,
-    SET_TIMEOUT,
-    WRITE
+    SET_TIMEOUT
   };
 
   Type m_streamType;
@@ -84,18 +78,6 @@ class glitch_object_stream_arduino: public glitch_object
       case Type::AVAILABLE:
 	{
 	  return "available";
-	}
-      case Type::AVAILABLE_FOR_WRITE:
-	{
-	  return "availableForWrite";
-	}
-      case Type::BEGIN:
-	{
-	  return "begin";
-	}
-      case Type::END:
-	{
-	  return "end";
 	}
       case Type::FIND:
 	{
@@ -121,14 +103,6 @@ class glitch_object_stream_arduino: public glitch_object
 	{
 	  return "peek";
 	}
-      case Type::PRINT:
-	{
-	  return "print";
-	}
-      case Type::PRINTLN:
-	{
-	  return "println";
-	}
       case Type::READ:
 	{
 	  return "read";
@@ -153,10 +127,6 @@ class glitch_object_stream_arduino: public glitch_object
 	{
 	  return "setTimeout";
 	}
-      case Type::WRITE:
-	{
-	  return "write";
-	}
       default:
 	{
 	  return "available";
@@ -168,13 +138,7 @@ class glitch_object_stream_arduino: public glitch_object
   {
     auto string(s.toLower());
 
-    if(string.contains("availableforwrite"))
-      return Type::AVAILABLE_FOR_WRITE;
-    else if(string.contains("begin"))
-      return Type::BEGIN;
-    else if(string.contains("end"))
-      return Type::END;
-    else if(string.contains("finduntil"))
+    if(string.contains("finduntil"))
       return Type::FIND_UNTIL;
     else if(string.contains("find"))
       return Type::FIND;
@@ -186,10 +150,6 @@ class glitch_object_stream_arduino: public glitch_object
       return Type::PARSE_INT;
     else if(string.contains("peek"))
       return Type::PEEK;
-    else if(string.contains("println"))
-      return Type::PRINTLN;
-    else if(string.contains("print"))
-      return Type::PRINT;
     else if(string.contains("readbytesuntil"))
       return Type::READ_BYTES_UNTIL;
     else if(string.contains("readbytes"))
@@ -202,8 +162,6 @@ class glitch_object_stream_arduino: public glitch_object
       return Type::READ;
     else if(string.contains("settimeout"))
       return Type::SET_TIMEOUT;
-    else if(string.contains("write"))
-      return Type::WRITE;
     else
       return Type::AVAILABLE;
   }
