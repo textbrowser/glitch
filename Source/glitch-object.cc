@@ -544,8 +544,8 @@ void glitch_object::cloneWires
 	m_wires[it.value()->rightProxy()->object()->id()] =
 	  new glitch_wire(nullptr);
       else
-	qDebug() << "Cannot clone wire as the original wire lacks "
-	  "left and right objects!";
+	qDebug() << tr("Cannot clone wire as the original wire lacks "
+		       "left and right objects!");
     }
 }
 
