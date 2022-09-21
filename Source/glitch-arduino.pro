@@ -17,6 +17,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-random-arduino.ui \
                   UI/Arduino/glitch-object-serial-arduino.ui \
                   UI/Arduino/glitch-object-setup-arduino.ui \
+                  UI/Arduino/glitch-object-stream-arduino.ui \
                   UI/Arduino/glitch-object-syntax-arduino.ui \
                   UI/Arduino/glitch-object-time-arduino.ui \
                   UI/Arduino/glitch-object-trigonometry-arduino.ui \
@@ -41,6 +42,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-random-arduino.h \
                   Source/Arduino/glitch-object-setup-arduino.h \
                   Source/Arduino/glitch-object-serial-arduino.h \
+                  Source/Arduino/glitch-object-stream-arduino.h \
                   Source/Arduino/glitch-object-syntax-arduino.h \
                   Source/Arduino/glitch-object-time-arduino.h \
                   Source/Arduino/glitch-object-trigonometry-arduino.h \
@@ -67,6 +69,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-random-arduino.cc \
                   Source/Arduino/glitch-object-serial-arduino.cc \
                   Source/Arduino/glitch-object-setup-arduino.cc \
+                  Source/Arduino/glitch-object-stream-arduino.cc \
                   Source/Arduino/glitch-object-syntax-arduino.cc \
                   Source/Arduino/glitch-object-time-arduino.cc \
                   Source/Arduino/glitch-object-trigonometry-arduino.cc \

@@ -92,6 +92,7 @@ class glitch_object: public QWidget
     RANDOM_TYPE,
     SERIAL_TYPE,
     SIZE,
+    STREAM_TYPE,
     SYNTAX,
     TIME_TYPE,
     TOOL_BAR_VISIBLE,
