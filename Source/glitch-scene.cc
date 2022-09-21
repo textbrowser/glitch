@@ -52,6 +52,7 @@
 #include "Arduino/glitch-object-mathematics-arduino.h"
 #include "Arduino/glitch-object-random-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
+#include "Arduino/glitch-object-stream-arduino.h"
 #include "Arduino/glitch-object-syntax-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-trigonometry-arduino.h"
@@ -743,6 +744,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 						 "structures-function-"))),
 		   view);
 	    }
+	  else if(text.startsWith("glitch-arduino-stream"))
+	    object = new glitch_object_stream_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-syntax"))
 	    object = new glitch_object_syntax_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-time"))

@@ -49,6 +49,7 @@
 #include "Arduino/glitch-object-random-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
 #include "Arduino/glitch-object-setup-arduino.h"
+#include "Arduino/glitch-object-stream-arduino.h"
 #include "Arduino/glitch-object-syntax-arduino.h"
 #include "Arduino/glitch-object-time-arduino.h"
 #include "Arduino/glitch-object-trigonometry-arduino.h"
@@ -421,6 +422,9 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "arduino-serial")
     object = glitch_object_serial_arduino::createFromValues
+      (values, error, parent);
+  else if(type == "arduino-stream")
+    object = glitch_object_stream_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-syntax")
     object = glitch_object_syntax_arduino::createFromValues
