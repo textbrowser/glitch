@@ -310,11 +310,6 @@ clone(QWidget *parent) const
   clone->setCanvasSettings(m_canvasSettings);
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
-  return clone;
-
-  /*
-  ** Not implemented!
-  */
 
   if(m_copiedChildren.isEmpty() && m_editView)
     /*
