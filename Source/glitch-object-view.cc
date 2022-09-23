@@ -158,7 +158,7 @@ void glitch_object_view::endMacro(void)
 
 void glitch_object_view::push(glitch_undo_command *undoCommand)
 {
-  if(undoCommand)
+  if(m_undoStack && undoCommand)
     m_undoStack->push(undoCommand);
 }
 
