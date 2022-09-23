@@ -640,6 +640,8 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 	  if(proxy)
 	    {
+	      object->afterPaste();
+
 	      if(!began)
 		{
 		  began = true;
@@ -676,6 +678,8 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
 	  if(proxy)
 	    {
+	      object->afterPaste();
+
 	      if(!began)
 		{
 		  began = true;

@@ -269,21 +269,24 @@ clone(QWidget *parent) const
 	  }
       }
   else
-    /*
-    ** Now, paste!
-    */
+    {
+      /*
+      ** Now, paste!
+      */
 
-    foreach(auto object, m_copiedChildren)
-      {
-	auto child = object->clone(nullptr);
+      foreach(auto object, m_copiedChildren)
+	{
+	  auto child = object->clone(nullptr);
 
-	if(child)
-	  {
-	    child->setCanvasSettings(m_canvasSettings);
-	    clone->addChild(object->property("position").toPoint(), child);
-	    clone->hideOrShowOccupied();
-	  }
-      }
+	  if(child)
+	    {
+	      child->setCanvasSettings(m_canvasSettings);
+	      clone->addChild(object->property("position").toPoint(), child);
+	    }
+	}
+
+      clone->hideOrShowOccupied();
+    }
 
   return clone;
 }

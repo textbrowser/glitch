@@ -169,6 +169,7 @@ class glitch_object: public QWidget
   virtual void simulateDelete(void);
   virtual ~glitch_object();
   void addChild(const QPointF &point, glitch_object *object);
+  void afterPaste(void);
   void move(const QPoint &point);
   void move(int x, int y);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);

@@ -378,9 +378,10 @@ clone(QWidget *parent) const
 	    {
 	      child->setCanvasSettings(m_canvasSettings);
 	      clone->addChild(object->property("position").toPoint(), child);
-	      clone->hideOrShowOccupied();
 	    }
 	}
+
+      clone->hideOrShowOccupied();
     }
 
   return clone;

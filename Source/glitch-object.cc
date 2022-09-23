@@ -529,6 +529,15 @@ void glitch_object::addDefaultActions(QMenu &menu)
     }
 }
 
+void glitch_object::afterPaste(void)
+{
+  auto toolButton = contextMenuButton();
+
+  if(toolButton)
+    toolButton->setVisible
+      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
+}
+
 void glitch_object::cloneWires
 (const QHash<qint64, QPointer<glitch_wire> > &wires)
 {
