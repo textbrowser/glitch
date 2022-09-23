@@ -326,7 +326,7 @@ clone(QWidget *parent) const
 	    clone->m_copiedChildren << child;
 	  }
       }
-  else
+  else if(!clone->findParentFunction())
     {
       /*
       ** Now, paste!
