@@ -276,7 +276,7 @@ clone(QWidget *parent) const
 
       foreach(auto object, m_copiedChildren)
 	{
-	  auto child = object->clone(nullptr);
+	  auto child = object->clone(clone->m_editView);
 
 	  if(child)
 	    {
