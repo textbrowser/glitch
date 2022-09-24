@@ -374,17 +374,13 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	      Qt::UniqueConnection);
 
       /*
-      ** Does this function exist? If the function does not exist, it
-      ** is not a clone.
+      ** If the function does not exist, it is not a clone.
       */
 
       auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
 
       if(view && !view->containsFunction(function->name()))
-	{
-	  emit functionAdded(function->name(), false);
-	  function->declone();
-	}
+	emit functionAdded(function->name(), false);
       else
 	emit functionAdded(function->name(), function->isClone());
     }

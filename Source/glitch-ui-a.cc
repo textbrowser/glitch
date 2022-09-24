@@ -36,6 +36,7 @@
 #include <QTimer>
 #include <QWidgetAction>
 
+#include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-documentation.h"
 #include "glitch-graphicsview.h"
@@ -492,7 +493,21 @@ void glitch_ui::copy(QGraphicsView *view)
       if(!object)
 	continue;
 
-      auto clone = object->clone(nullptr);
+      glitch_object *clone = nullptr;
+
+      if(qobject_cast<glitch_object_function_arduino *> (object))
+	{
+	  object = qobject_cast<glitch_object_function_arduino *>
+	    (object)->parentFunction();
+
+	  if(!object)
+	    object = proxy->object();
+
+	  if(object)
+	    clone = object->clone(nullptr);
+	}
+      else
+	clone = object->clone(nullptr);
 
       if(!clone)
 	continue;

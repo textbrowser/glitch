@@ -184,6 +184,12 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
     disconnect(m_editView->undoStack(), nullptr, this, nullptr);
 }
 
+QPointer<glitch_object_function_arduino> glitch_object_function_arduino::
+parentFunction(void) const
+{
+  return m_parentFunction;
+}
+
 QString glitch_object_function_arduino::code(void) const
 {
   if(m_isFunctionClone)
@@ -352,6 +358,8 @@ clone(QWidget *parent) const
       clone->m_ui.occupied->setVisible(false);
       clone->m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
+      clone->m_ui.return_type->setEnabled(true);
+      clone->m_ui.return_type->setToolTip("");
       connect(clone->m_editView,
 	      &glitch_object_view::changed,
 	      clone,
