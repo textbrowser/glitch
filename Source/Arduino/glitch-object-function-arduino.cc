@@ -374,8 +374,7 @@ clone(QWidget *parent) const
 	      &glitch_object_function_arduino::slotReturnTypeChanged);
       clone->m_previousReturnType = clone->m_ui.return_type->currentText();
       clone->prepareContextMenu();
-      clone->prepareEditSignals
-	(clone->findNearestGlitchView(clone->m_parentView));
+      clone->prepareEditSignals(clone->findNearestGlitchView(parent));
       QTimer::singleShot(1500, clone, SLOT(slotUndoStackCreated(void)));
 
       foreach(auto object, m_copiedChildren)
@@ -635,7 +634,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareEditSignals(findNearestGlitchView(m_parentView));
+  prepareEditSignals(findNearestGlitchView(parent));
   QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 

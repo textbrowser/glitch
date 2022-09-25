@@ -472,7 +472,7 @@ glitch_view *glitch_object::findNearestGlitchView(QWidget *widget) const
 {
   if(!widget)
     return nullptr;
-  else if(qobject_cast<glitch_view *> (widget))
+  else if(m_editView != widget && qobject_cast<glitch_view *> (widget))
     return qobject_cast<glitch_view *> (widget);
 
   auto parent = widget->parentWidget();
@@ -768,6 +768,9 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
     {
       if(!m_editView)
 	qDebug() << tr("m_editView is zero! Signals cannot be established!");
+
+      if(!parentView)
+	qDebug() << tr("parentView is zero! Signals cannot be established!");
     }
 
   if(m_editWindow)
