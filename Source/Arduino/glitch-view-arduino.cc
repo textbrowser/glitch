@@ -258,6 +258,17 @@ void glitch_view_arduino::removeFunctionName(const QString &name)
   m_functionNames.remove(name);
 }
 
+void glitch_view_arduino::separate(void)
+{
+  defaultContextMenu()->deleteLater();
+
+  if(m_arduinoStructures && m_arduinoStructures->isVisible())
+    {
+      m_arduinoStructures->deleteLater();
+      QTimer::singleShot(500, this, SLOT(slotShowStructures(void)));
+    }
+}
+
 void glitch_view_arduino::showStructures(void)
 {
   if(!m_arduinoStructures)

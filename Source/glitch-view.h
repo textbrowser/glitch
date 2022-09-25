@@ -86,6 +86,7 @@ class glitch_view: public QWidget
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
   virtual void generateSource(void);
+  virtual void separate(void) = 0;
   virtual void showStructures(void) = 0;
   void beginMacro(const QString &text);
   void deleteItems(void);

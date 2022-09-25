@@ -1647,7 +1647,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 	  this,
 	  SLOT(slotPaste(glitch_view *)));
   window->setCentralWidget(view);
-  view->defaultContextMenu()->deleteLater();
+  view->separate();
   view->show();
   window->resize(view->size());
 

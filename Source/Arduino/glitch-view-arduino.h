@@ -55,6 +55,7 @@ class glitch_view_arduino: public glitch_view
   void consumeFunctionName(const QString &name);
   void generateSource(void);
   void removeFunctionName(const QString &name);
+  void separate(void);
   void showStructures(void);
 
  private:
