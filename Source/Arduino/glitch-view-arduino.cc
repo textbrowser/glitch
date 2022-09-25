@@ -224,9 +224,8 @@ void glitch_view_arduino::generateSource(void)
   if(file.open(QIODevice::Append | QIODevice::WriteOnly))
     {
       QTextStream stream(&file);
-      auto widgets(scene()->orderedObjects());
 
-      foreach(auto w, widgets)
+      foreach(auto w, scene()->orderedObjects())
 	{
 	  if(!w || !w->shouldPrint())
 	    continue;
@@ -267,6 +266,10 @@ void glitch_view_arduino::separate(void)
       m_arduinoStructures->deleteLater();
       QTimer::singleShot(500, this, SLOT(slotShowStructures(void)));
     }
+
+  foreach(auto w, scene()->orderedObjects())
+    if(w)
+      w->separate();
 }
 
 void glitch_view_arduino::showStructures(void)

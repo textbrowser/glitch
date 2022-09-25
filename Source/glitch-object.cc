@@ -337,9 +337,10 @@ bool glitch_object::isMandatory(void) const
 bool glitch_object::mouseOverScrollBar(const QPointF &point) const
 {
   foreach(auto scrollBar, findChildren<QScrollBar *> ())
-    if(scrollBar->isSliderDown())
+    if(scrollBar && scrollBar->isSliderDown())
       return true;
-    else if(scrollBar->rect().
+    else if(scrollBar &&
+	    scrollBar->rect().
 	    contains(scrollBar->mapFromGlobal(point.toPoint())))
       return true;
 
@@ -875,6 +876,10 @@ void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
       if(error.isEmpty() && query.lastError().isValid())
 	error = query.lastError().text();
     }
+}
+
+void glitch_object::separate(void)
+{
 }
 
 void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)

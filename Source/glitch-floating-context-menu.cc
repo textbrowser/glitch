@@ -55,7 +55,9 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
   foreach(auto widget, m_ui.frame->findChildren<QWidget *> ())
     {
       m_ui.frame->layout()->removeWidget(widget);
-      widget->deleteLater();
+
+      if(widget)
+	widget->deleteLater();
     }
 
   for(int i = 0; i < actions.size(); i++)

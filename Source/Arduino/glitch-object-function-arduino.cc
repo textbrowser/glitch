@@ -220,7 +220,6 @@ QString glitch_object_function_arduino::code(void) const
 
       QString code("");
       QTextStream stream(&code);
-      auto widgets(m_editView->scene()->orderedObjects());
 
       stream << m_ui.return_type->currentText()
 	     << " "
@@ -247,7 +246,7 @@ QString glitch_object_function_arduino::code(void) const
 	     << "{"
 	     << Qt::endl;
 
-      foreach(auto w, widgets)
+      foreach(auto w, m_editView->scene()->orderedObjects())
 	{
 	  if(!w || !w->shouldPrint())
 	    continue;
@@ -324,6 +323,9 @@ clone(QWidget *parent) const
 
     foreach(auto object, m_editView->scene()->objects())
       {
+	if(!object)
+	  continue;
+
 	auto child = object->clone(nullptr);
 
 	if(child)
@@ -379,6 +381,9 @@ clone(QWidget *parent) const
 
       foreach(auto object, m_copiedChildren)
 	{
+	  if(!object)
+	    continue;
+
 	  auto child = object->clone(clone->m_editView);
 
 	  if(child)

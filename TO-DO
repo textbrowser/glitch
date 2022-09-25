@@ -90,6 +90,7 @@ Completed Items
 - Flow-control objects and edit views (break does not have a view).
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
+- Function clones.
 - Function input parameters.
 - Function names and deleted functions; uniqueness errors.
 - Function redo / undo private container. The redo / undo stack must be
@@ -199,11 +200,10 @@ Remaining Items
 - Copy wires. Very difficult.
 - Custom input / output port colors.
 - Custom shortcuts.
-- Disable redo/undo of line-edit widgets.
+- Disable redo/undo of line-edit widgets?
 - Documentation.
 - Find objects.
 - Flow Control syntax colors.
-- Function clones.
 - Generate source from terminal for testing results.
 - Generate view.
 - Include Arduino language reference in binary.

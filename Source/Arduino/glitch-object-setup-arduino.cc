@@ -80,14 +80,13 @@ QString glitch_object_setup_arduino::code(void) const
 {
   QString code("");
   QTextStream stream(&code);
-  auto widgets(m_editView->scene()->orderedObjects());
 
   stream << "void setup(void)"
 	 << Qt::endl
 	 << "{"
 	 << Qt::endl;
 
-  foreach(auto w, widgets)
+  foreach(auto w, m_editView->scene()->orderedObjects())
     {
       if(!w || !w->shouldPrint())
 	continue;

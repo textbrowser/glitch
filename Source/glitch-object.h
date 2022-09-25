@@ -172,6 +172,7 @@ class glitch_object: public QWidget
   void afterPaste(void);
   void move(const QPoint &point);
   void move(int x, int y);
+  void separate(void);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setProperties(const QStringList &list);
   void setProperty(const char *name, const QVariant &value);

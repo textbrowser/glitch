@@ -49,15 +49,16 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 	  QOverload<const QPoint &>::
 	  of(&glitch_tab_tabbar::slotCustomContextMenuRequested));
 
-  foreach(auto tool_button, findChildren <QToolButton *> ())
-    tool_button->setStyleSheet
-    (QString("QToolButton {background-color: %1;"
-	     "border: none;"
-	     "margin-bottom: 0px;"
-	     "margin-top: 0px;"
-	     "}"
-	     "QToolButton::menu-button {border: none;}").
-     arg(QWidget::palette().color(QWidget::backgroundRole()).name()));
+  foreach(auto toolButton, findChildren <QToolButton *> ())
+    if(toolButton)
+      toolButton->setStyleSheet
+	(QString("QToolButton {background-color: %1;"
+		 "border: none;"
+		 "margin-bottom: 0px;"
+		 "margin-top: 0px;"
+		 "}"
+		 "QToolButton::menu-button {border: none;}").
+	 arg(QWidget::palette().color(QWidget::backgroundRole()).name()));
 }
 
 glitch_tab_tabbar::~glitch_tab_tabbar()

@@ -416,7 +416,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   if(event)
     {
       foreach(auto view, findChildren<glitch_view *> ())
-	if(view->hasChanged())
+	if(view && view->hasChanged())
 	  {
 	    QMessageBox mb(this);
 
