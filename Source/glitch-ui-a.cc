@@ -773,6 +773,8 @@ void glitch_ui::prepareActionWidgets(void)
 void glitch_ui::prepareIcons(void)
 {
   m_ui.action_About->setIcon(QIcon::fromTheme("help-about"));
+  m_ui.action_Arduino_Documentation->setIcon
+    (QIcon(":/Logo/glitch-arduino-logo.png"));
   m_ui.action_Canvas_Settings->setIcon(QIcon::fromTheme("preferences-system"));
   m_ui.action_Clear_Copied_Widgets_Buffer->setIcon
     (QIcon::fromTheme("edit-clear"));
