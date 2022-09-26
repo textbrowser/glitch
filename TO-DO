@@ -216,6 +216,7 @@ Remaining Items
   glitch-view.cc
 - Multiple inputs or single input?
 - Order: top-bottom followed by left-right.
+- Page shortcut (Alt-1, etc.).
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, Wire (https://www.arduino.cc/reference/en).

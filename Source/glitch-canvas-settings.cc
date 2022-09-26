@@ -57,6 +57,37 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.project_type->setEnabled(false);
   m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
   m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
+  m_ui.update_mode->setItemData
+    (0,
+     tr("<html>The bounding rectangle of all changes in a viewport "
+	"will be redrawn. This mode has the advantage that the view "
+	"searches only one region for changes, minimizing time spent "
+	"determining what needs redrawing. The disadvantage is that "
+	"areas that have not changed also need to be redrawn.</html>"),
+     Qt::ToolTipRole);
+  m_ui.update_mode->setItemData
+    (1,
+     tr("<html>When any visible part of the scene changes or is reexposed, "
+	"the view will update the entire viewport. This approach "
+	"is fastest when the view spends more time figuring out what "
+	"to draw than it would spend drawing (e.g., when very many small "
+	"items are repeatedly updated).</html>"),
+     Qt::ToolTipRole);
+  m_ui.update_mode->setItemData
+    (2,
+     tr("<html>The view will determine the minimal viewport region that "
+	"requires a redraw, minimizing the time spent drawing by avoiding "
+	"a redraw of areas that have not changed. "
+	"Although this approach provides the best performance "
+	"in general, if there are many small visible changes on the scene, "
+	"the view might end up spending more time finding the minimal "
+	"approach than it will spend drawing.</html>"),
+     Qt::ToolTipRole);
+  m_ui.update_mode->setItemData
+    (3,
+     tr("<html>The view will attempt to find an optimal update mode "
+	"by analyzing the areas that require a redraw.</html>"),
+     Qt::ToolTipRole);
   m_ui.wire_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
      arg(QColor(255, 192, 203, 175).name()));
