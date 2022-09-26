@@ -232,8 +232,7 @@ void glitch_object_logical_operator_arduino::setProperties
 	}
     }
 
-  setOperatorType
-    (m_properties.value(glitch_object::LOGICAL_OPERATOR).toString());
+  setOperatorType(m_properties.value(Properties::LOGICAL_OPERATOR).toString());
 }
 
 void glitch_object_logical_operator_arduino::setProperty

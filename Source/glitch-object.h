@@ -63,7 +63,7 @@ class glitch_object: public QWidget
     NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
   };
 
-  enum Properties
+  enum class Properties
   {
     /*
     ** Arduino Properties
@@ -236,5 +236,10 @@ class glitch_object: public QWidget
   void simulateDeleteSignal(void);
   void undoStackCreated(QUndoStack *undoStack);
 };
+
+inline uint qHash(const glitch_object::Properties &key, uint seed)
+{
+  return ::qHash(static_cast<uint> (key), seed);
+}
 
 #endif

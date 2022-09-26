@@ -257,7 +257,7 @@ void glitch_object_arithmetic_operator_arduino::setProperties
     }
 
   setOperatorType
-    (m_properties.value(glitch_object::ARITHMETIC_OPERATOR).toString());
+    (m_properties.value(Properties::ARITHMETIC_OPERATOR).toString());
 }
 
 void glitch_object_arithmetic_operator_arduino::setProperty

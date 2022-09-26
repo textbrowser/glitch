@@ -371,8 +371,7 @@ void glitch_object_compound_operator_arduino::setProperties
 	}
     }
 
-  setOperatorType
-    (m_properties.value(glitch_object::COMPOUND_OPERATOR).toString());
+  setOperatorType(m_properties.value(Properties::COMPOUND_OPERATOR).toString());
 }
 
 void glitch_object_compound_operator_arduino::setProperty

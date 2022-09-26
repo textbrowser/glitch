@@ -509,7 +509,7 @@ void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
     }
 
   setFlowControlType
-    (m_properties.value(glitch_object::FLOW_CONTROL_TYPE).toString());
+    (m_properties.value(Properties::FLOW_CONTROL_TYPE).toString());
 }
 
 void glitch_object_flow_control_arduino::setProperty

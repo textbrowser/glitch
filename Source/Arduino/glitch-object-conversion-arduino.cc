@@ -264,8 +264,7 @@ void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 	}
     }
 
-  setConversionType
-    (m_properties.value(glitch_object::CONVERSION).toString());
+  setConversionType(m_properties.value(Properties::CONVERSION).toString());
 }
 
 void glitch_object_conversion_arduino::setProperty

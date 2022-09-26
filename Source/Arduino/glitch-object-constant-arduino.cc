@@ -234,7 +234,7 @@ void glitch_object_constant_arduino::setProperties
 	}
     }
 
-  setConstantType(m_properties.value(glitch_object::CONSTANT_TYPE).toString());
+  setConstantType(m_properties.value(Properties::CONSTANT_TYPE).toString());
 }
 
 void glitch_object_constant_arduino::setProperty

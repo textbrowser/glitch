@@ -262,8 +262,7 @@ void glitch_object_bitwise_operator_arduino::setProperties
 	}
     }
 
-  setOperatorType
-    (m_properties.value(glitch_object::BITWISE_OPERATOR).toString());
+  setOperatorType(m_properties.value(Properties::BITWISE_OPERATOR).toString());
 }
 
 void glitch_object_bitwise_operator_arduino::setProperty
