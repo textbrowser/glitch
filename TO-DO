@@ -221,6 +221,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - SPI, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
+- Transparent widgets.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

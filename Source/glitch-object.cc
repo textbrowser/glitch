@@ -68,6 +68,7 @@
 
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+static qreal s_windowOpacity = 0.85;
 
 inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
 {
@@ -135,6 +136,8 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
       p = p->parentWidget();
     }
   while(true);
+
+  setWindowOpacity(s_windowOpacity);
 }
 
 glitch_object::~glitch_object()
@@ -1047,7 +1050,7 @@ void glitch_object::setProperty(const Properties property,
     case Properties::TRANSPARENT:
       {
 	if(value.toBool())
-	  setWindowOpacity(0.8);
+	  setWindowOpacity(s_windowOpacity);
 	else
 	  setWindowOpacity(0.0);
 
