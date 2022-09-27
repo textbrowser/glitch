@@ -93,6 +93,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] = true;
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
+  m_properties[Properties::TRANSPARENT] = false;
 
   {
     auto view = qobject_cast<glitch_object_view *> (parent);
@@ -569,7 +570,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Adjust Size"), this);
 
-      action->setData(DefaultMenuActions::ADJUST_SIZE);
+      action->setData(static_cast<uint> (DefaultMenuActions::ADJUST_SIZE));
       action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
@@ -582,7 +583,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Delete"), this);
 
-      action->setData(DefaultMenuActions::DELETE);
+      action->setData(static_cast<uint> (DefaultMenuActions::DELETE));
       action->setEnabled(!isMandatory());
       action->setIcon(QIcon::fromTheme("edit-delete"));
       connect(action,
@@ -599,7 +600,7 @@ void glitch_object::createActions(void)
       action->setCheckable(true);
       action->setChecked
 	(m_properties.value(Properties::POSITION_LOCKED).toBool());
-      action->setData(DefaultMenuActions::LOCK_POSITION);
+      action->setData(static_cast<uint> (DefaultMenuActions::LOCK_POSITION));
       action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
@@ -615,7 +616,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Set Style Sheet..."), this);
 
-      action->setData(DefaultMenuActions::SET_STYLE_SHEET);
+      action->setData(static_cast<uint> (DefaultMenuActions::SET_STYLE_SHEET));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -630,7 +631,8 @@ void glitch_object::createActions(void)
       action->setCheckable(true);
       action->setChecked
 	(m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
-      action->setData(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON);
+      action->setData
+	(static_cast<uint> (DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -641,6 +643,24 @@ void glitch_object::createActions(void)
     m_actions[DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON]->
       setChecked
       (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
+
+  if(!m_actions.contains(DefaultMenuActions::TRANSPARENT))
+    {
+      auto action = new QAction(tr("&Transparent"), this);
+
+      action->setCheckable(true);
+      action->setChecked(m_properties.value(Properties::TRANSPARENT).toBool());
+      action->setData(static_cast<uint> (DefaultMenuActions::TRANSPARENT));
+      action->setEnabled(!isMandatory());
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotActionTriggered);
+      m_actions[DefaultMenuActions::TRANSPARENT] = action;
+    }
+  else
+    m_actions[DefaultMenuActions::TRANSPARENT]->setChecked
+      (m_properties.value(Properties::TRANSPARENT).toBool());
 }
 
 void glitch_object::hideOrShowOccupied(void)
@@ -827,6 +847,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     arg(size().width()).arg(size().height());
   properties["tool_bar_visible"] = m_properties.value
     (Properties::TOOL_BAR_VISIBLE).toBool();
+  properties["transparent"] = m_properties.value
+    (Properties::TRANSPARENT).toBool();
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -971,6 +993,13 @@ void glitch_object::setProperties(const QStringList &list)
 	  m_properties[Properties::TOOL_BAR_VISIBLE] =
 	    QVariant(string.trimmed()).toBool();
 	}
+      else if(string.simplified().startsWith("transparent = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::TRANSPARENT] =
+	    QVariant(string.trimmed()).toBool();
+	}
     }
 
   createActions();
@@ -1066,6 +1095,16 @@ void glitch_object::simulateDelete(void)
     m_editWindow->close();
 
   emit simulateDeleteSignal();
+}
+
+void glitch_object::slotActionTriggered(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  emit changed();
 }
 
 void glitch_object::slotAdjustSize(void)
@@ -1217,6 +1256,7 @@ void glitch_object::slotShowContextMenu(void)
   m_menu.clear();
   addActions(m_menu);
   m_contextMenu->addActions(m_actions.values());
+  m_contextMenu->resize(250, 300);
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
   m_contextMenu->show();

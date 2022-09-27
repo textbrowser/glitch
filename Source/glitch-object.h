@@ -47,7 +47,12 @@ class glitch_object: public QWidget
   Q_OBJECT
 
  public:
-  enum DefaultMenuActions
+  enum Limits
+  {
+    NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
+  };
+
+  enum class DefaultMenuActions
   {
     ADJUST_SIZE = 0,
     DELETE,
@@ -55,20 +60,12 @@ class glitch_object: public QWidget
     LOCK_POSITION,
     SET_FUNCTION_NAME,
     SET_STYLE_SHEET,
-    SHOW_CONTEXT_MENU_BUTTON
-  };
-
-  enum Limits
-  {
-    NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
+    SHOW_CONTEXT_MENU_BUTTON,
+    TRANSPARENT
   };
 
   enum class Properties
   {
-    /*
-    ** Arduino Properties
-    */
-
     ADVANCED_IO_TYPE = 0,
     ANALOG_IO_TYPE,
     ARITHMETIC_OPERATOR,
@@ -96,6 +93,7 @@ class glitch_object: public QWidget
     SYNTAX,
     TIME_TYPE,
     TOOL_BAR_VISIBLE,
+    TRANSPARENT,
     TRIGONOMETRY_TYPE,
     UTILITIES_TYPE,
     VARIABLE_ARRAY,
@@ -184,6 +182,7 @@ class glitch_object: public QWidget
   static qint64 s_id;
 
  private slots:
+  void slotActionTriggered(void);
   void slotAdjustSize(void);
   void slotSimulateDelete(void);
   void slotLockPosition(void);
@@ -236,6 +235,11 @@ class glitch_object: public QWidget
   void simulateDeleteSignal(void);
   void undoStackCreated(QUndoStack *undoStack);
 };
+
+inline uint qHash(const glitch_object::DefaultMenuActions &key, uint seed)
+{
+  return ::qHash(static_cast<uint> (key), seed);
+}
 
 inline uint qHash(const glitch_object::Properties &key, uint seed)
 {
