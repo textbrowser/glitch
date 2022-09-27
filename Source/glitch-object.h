@@ -107,6 +107,12 @@ class glitch_object: public QWidget
 
   glitch_object(QWidget *parent);
   glitch_object(const qint64 id, QWidget *parent);
+
+  QHash<Properties, QVariant> properties(void) const
+  {
+    return m_properties;
+  }
+
   QPointF scenePos(void) const;
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;

@@ -1044,6 +1044,15 @@ void glitch_object::setProperty(const Properties property,
 
 	break;
       }
+    case Properties::TRANSPARENT:
+      {
+	if(value.toBool())
+	  setWindowOpacity(0.8);
+	else
+	  setWindowOpacity(0.0);
+
+	break;
+      }
     default:
       {
 	break;
