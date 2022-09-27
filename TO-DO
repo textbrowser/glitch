@@ -34,6 +34,7 @@ Completed Items
   Arithmetic Operators
   Bits And Bytes
   Bitwise Operators
+  Boolean Operators
   Characters
   Compound Operators
   Constants
@@ -220,7 +221,7 @@ Remaining Items
 - Page shortcut (Alt-1, etc.).
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
-- SPI, Wire (https://www.arduino.cc/reference/en).
+- SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Warn of recursive functions?
 - Widgets for decorations.

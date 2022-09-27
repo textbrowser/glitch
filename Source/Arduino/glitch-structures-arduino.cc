@@ -162,6 +162,7 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("Arithmetic Operators")] = "Arithmetic Operators";
   m_categoriesMap[tr("Bits and Bytes")] = "Bits and Bytes";
   m_categoriesMap[tr("Bitwise Operators")] = "Bitwise Operators";
+  m_categoriesMap[tr("Boolean Operators")] = "Boolean Operators";
   m_categoriesMap[tr("Characters")] = "Characters";
   m_categoriesMap[tr("Compound Operators")] = "Compound Operators";
   m_categoriesMap[tr("Constants")] = "Constants";
@@ -221,6 +222,10 @@ void glitch_structures_arduino::prepareCategories(void)
 		  << "or (|)"
 		  << "right shift (>>)"
 		  << "xor (^)";
+  s_itemsForCategories["Boolean Operators"] =
+    QStringList() << "and (&&)"
+		  << "not (!)"
+		  << "or (||)";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"
 						     << "isAscii()"

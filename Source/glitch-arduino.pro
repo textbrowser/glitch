@@ -4,6 +4,7 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-bits-and-bytes-arduino.ui \
                   UI/Arduino/glitch-object-bitwise-operator-arduino.ui \
                   UI/Arduino/glitch-object-block-comment-arduino.ui \
+                  UI/Arduino/glitch-object-boolean-operator-arduino.ui \
                   UI/Arduino/glitch-object-characters-arduino.ui \
                   UI/Arduino/glitch-object-compound-operator-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \
@@ -29,6 +30,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-bits-and-bytes-arduino.h \
                   Source/Arduino/glitch-object-bitwise-operator-arduino.h \
                   Source/Arduino/glitch-object-block-comment-arduino.h \
+                  Source/Arduino/glitch-object-boolean-operator-arduino.h \
                   Source/Arduino/glitch-object-characters-arduino.h \
                   Source/Arduino/glitch-object-compound-operator-arduino.h \
                   Source/Arduino/glitch-object-constant-arduino.h \
@@ -56,6 +58,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-bits-and-bytes-arduino.cc \
                   Source/Arduino/glitch-object-bitwise-operator-arduino.cc \
                   Source/Arduino/glitch-object-block-comment-arduino.cc \
+                  Source/Arduino/glitch-object-boolean-operator-arduino.cc \
                   Source/Arduino/glitch-object-characters-arduino.cc \
                   Source/Arduino/glitch-object-compound-operator-arduino.cc \
                   Source/Arduino/glitch-object-constant-arduino.cc \

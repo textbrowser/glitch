@@ -25,59 +25,59 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-bitwise-operator-arduino.h"
+#include "glitch-object-boolean-operator-arduino.h"
 #include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
-glitch_object_bitwise_operator_arduino::
-glitch_object_bitwise_operator_arduino
-(QWidget *parent):glitch_object_bitwise_operator_arduino(1, parent)
+glitch_object_boolean_operator_arduino::
+glitch_object_boolean_operator_arduino
+(QWidget *parent):glitch_object_boolean_operator_arduino(1, parent)
 {
 }
 
-glitch_object_bitwise_operator_arduino::
-glitch_object_bitwise_operator_arduino
+glitch_object_boolean_operator_arduino::
+glitch_object_boolean_operator_arduino
 (const QString &operatorType, QWidget *parent):
-  glitch_object_bitwise_operator_arduino(1, parent)
+  glitch_object_boolean_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
 }
 
-glitch_object_bitwise_operator_arduino::
-glitch_object_bitwise_operator_arduino
+glitch_object_boolean_operator_arduino::
+glitch_object_boolean_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_operatorType = OperatorTypes::AND_OPERATOR;
-  m_type = "arduino-bitwiseoperator";
+  m_operatorType = OperatorTypes::NOT_OPERATOR;
+  m_type = "arduino-booleanoperator";
   m_ui.setupUi(this);
-  m_ui.bitwise_operator->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.bitwise_operator,
+  m_ui.boolean_operator->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.boolean_operator,
 	  QOverload<int>::of(&QComboBox::currentIndexChanged),
 	  this,
-	  &glitch_object_bitwise_operator_arduino::
-	  slotBitwiseOperatorChanged);
+	  &glitch_object_boolean_operator_arduino::
+	  slotBooleanOperatorChanged);
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
 
-glitch_object_bitwise_operator_arduino::
-~glitch_object_bitwise_operator_arduino()
+glitch_object_boolean_operator_arduino::
+~glitch_object_boolean_operator_arduino()
 {
 }
 
-QString glitch_object_bitwise_operator_arduino::
-bitwiseOperator(void) const
+QString glitch_object_boolean_operator_arduino::
+booleanOperator(void) const
 {
-  return m_ui.bitwise_operator->currentText();
+  return m_ui.boolean_operator->currentText();
 }
 
-QString glitch_object_bitwise_operator_arduino::code(void) const
+QString glitch_object_boolean_operator_arduino::code(void) const
 {
   switch(m_operatorType)
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	return QString("~(%1)").arg(inputs().value(0));
+	return QString("!(%1)").arg(inputs().value(0));
       }
     default:
       {
@@ -90,7 +90,7 @@ QString glitch_object_bitwise_operator_arduino::code(void) const
 
 	    if(i != list.size() - 1)
 	      string.append
-		(QString(" %1 ").arg(m_ui.bitwise_operator->currentText()));
+		(QString(" %1 ").arg(m_ui.boolean_operator->currentText()));
 	  }
 
 	string = string.trimmed();
@@ -100,23 +100,23 @@ QString glitch_object_bitwise_operator_arduino::code(void) const
     }
 }
 
-bool glitch_object_bitwise_operator_arduino::hasInput(void) const
+bool glitch_object_boolean_operator_arduino::hasInput(void) const
 {
   return true;
 }
 
-bool glitch_object_bitwise_operator_arduino::hasOutput(void) const
+bool glitch_object_boolean_operator_arduino::hasOutput(void) const
 {
   return true;
 }
 
-bool glitch_object_bitwise_operator_arduino::isFullyWired(void) const
+bool glitch_object_boolean_operator_arduino::isFullyWired(void) const
 {
   switch(m_operatorType)
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	return inputs().size() >= 1;
+	return inputs().size() == 1;
       }
     default:
       {
@@ -125,15 +125,15 @@ bool glitch_object_bitwise_operator_arduino::isFullyWired(void) const
     }
 }
 
-bool glitch_object_bitwise_operator_arduino::shouldPrint(void) const
+bool glitch_object_boolean_operator_arduino::shouldPrint(void) const
 {
   return false;
 }
 
-glitch_object_bitwise_operator_arduino *
-glitch_object_bitwise_operator_arduino::clone(QWidget *parent) const
+glitch_object_boolean_operator_arduino *
+glitch_object_boolean_operator_arduino::clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_bitwise_operator_arduino(parent);
+  auto clone = new glitch_object_boolean_operator_arduino(parent);
 
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
@@ -144,15 +144,15 @@ glitch_object_bitwise_operator_arduino::clone(QWidget *parent) const
   return clone;
 }
 
-glitch_object_bitwise_operator_arduino *
-glitch_object_bitwise_operator_arduino::
+glitch_object_boolean_operator_arduino *
+glitch_object_boolean_operator_arduino::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto object = new glitch_object_bitwise_operator_arduino
+  auto object = new glitch_object_boolean_operator_arduino
     (values.value("myoid").toLongLong(), parent);
 
   object->setProperties
@@ -161,12 +161,12 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_bitwise_operator_arduino::addActions(QMenu &menu)
+void glitch_object_boolean_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
 }
 
-void glitch_object_bitwise_operator_arduino::save
+void glitch_object_boolean_operator_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
   glitch_object::save(db, error);
@@ -176,80 +176,52 @@ void glitch_object_bitwise_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["bitwise_operator"] =
-    m_ui.bitwise_operator->currentText().trimmed();
+  properties["boolean_operator"] =
+    m_ui.boolean_operator->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_bitwise_operator_arduino::setOperatorType
+void glitch_object_boolean_operator_arduino::setOperatorType
 (const QString &operatorType)
 {
-  if(operatorType.contains("&"))
+  if(operatorType.contains("&&"))
     setOperatorType(OperatorTypes::AND_OPERATOR);
-  else if(operatorType.contains("<<"))
-    setOperatorType(OperatorTypes::LEFT_SHIFT_OPERATOR);
-  else if(operatorType.contains(">>"))
-    setOperatorType(OperatorTypes::RIGHT_SHIFT_OPERATOR);
-  else if(operatorType.contains("^"))
-    setOperatorType(OperatorTypes::XOR_OPERATOR);
-  else if(operatorType.contains("|"))
+  else if(operatorType.contains("||"))
     setOperatorType(OperatorTypes::OR_OPERATOR);
-  else if(operatorType.contains("~"))
-    setOperatorType(OperatorTypes::NOT_OPERATOR);
   else
-    setOperatorType(OperatorTypes::AND_OPERATOR);
+    setOperatorType(OperatorTypes::NOT_OPERATOR);
 }
 
-void glitch_object_bitwise_operator_arduino::setOperatorType
+void glitch_object_boolean_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
-  m_ui.bitwise_operator->blockSignals(true);
+  m_ui.boolean_operator->blockSignals(true);
 
   switch(m_operatorType)
     {
     case OperatorTypes::AND_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(0);
-	break;
-      }
-    case OperatorTypes::LEFT_SHIFT_OPERATOR:
-      {
-	m_ui.bitwise_operator->setCurrentIndex(1);
-	break;
-      }
-    case OperatorTypes::NOT_OPERATOR:
-      {
-	m_ui.bitwise_operator->setCurrentIndex(5);
+	m_ui.boolean_operator->setCurrentIndex(1);
 	break;
       }
     case OperatorTypes::OR_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(4);
-	break;
-      }
-    case OperatorTypes::RIGHT_SHIFT_OPERATOR:
-      {
-	m_ui.bitwise_operator->setCurrentIndex(2);
-	break;
-      }
-    case OperatorTypes::XOR_OPERATOR:
-      {
-	m_ui.bitwise_operator->setCurrentIndex(3);
+	m_ui.boolean_operator->setCurrentIndex(2);
 	break;
       }
     default:
       {
-	m_ui.bitwise_operator->setCurrentIndex(0);
+	m_ui.boolean_operator->setCurrentIndex(0);
 	break;
       }
     }
 
-  m_ui.bitwise_operator->blockSignals(false);
-  setName(m_ui.bitwise_operator->currentText());
+  m_ui.boolean_operator->blockSignals(false);
+  setName(m_ui.boolean_operator->currentText());
 }
 
-void glitch_object_bitwise_operator_arduino::setProperties
+void glitch_object_boolean_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
@@ -258,30 +230,30 @@ void glitch_object_bitwise_operator_arduino::setProperties
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("bitwise_operator = "))
+      if(string.simplified().startsWith("boolean_operator = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::BITWISE_OPERATOR] = string.trimmed();
+	  m_properties[Properties::BOOLEAN_OPERATOR] = string.trimmed();
 	}
     }
 
-  setOperatorType(m_properties.value(Properties::BITWISE_OPERATOR).toString());
+  setOperatorType(m_properties.value(Properties::BOOLEAN_OPERATOR).toString());
 }
 
-void glitch_object_bitwise_operator_arduino::setProperty
+void glitch_object_boolean_operator_arduino::setProperty
 (const Properties property, const QVariant &value)
 {
   glitch_object::setProperty(property, value);
 
   switch(property)
     {
-    case Properties::BITWISE_OPERATOR:
+    case Properties::BOOLEAN_OPERATOR:
       {
-	m_ui.bitwise_operator->blockSignals(true);
-	m_ui.bitwise_operator->setCurrentIndex
-	  (m_ui.bitwise_operator->findText(value.toString()));
-	m_ui.bitwise_operator->blockSignals(false);
+	m_ui.boolean_operator->blockSignals(true);
+	m_ui.boolean_operator->setCurrentIndex
+	  (m_ui.boolean_operator->findText(value.toString()));
+	m_ui.boolean_operator->blockSignals(false);
 	setOperatorType(value.toString());
 	break;
       }
@@ -292,25 +264,25 @@ void glitch_object_bitwise_operator_arduino::setProperty
     }
 }
 
-void glitch_object_bitwise_operator_arduino::slotBitwiseOperatorChanged
+void glitch_object_boolean_operator_arduino::slotBooleanOperatorChanged
 (void)
 {
-  setOperatorType(m_ui.bitwise_operator->currentText());
+  setOperatorType(m_ui.boolean_operator->currentText());
 
   if(!m_undoStack)
     return;
 
   auto undoCommand = new glitch_undo_command
-    (m_ui.bitwise_operator->currentText(),
-     m_properties.value(Properties::BITWISE_OPERATOR).toString(),
+    (m_ui.boolean_operator->currentText(),
+     m_properties.value(Properties::BOOLEAN_OPERATOR).toString(),
      glitch_undo_command::PROPERTY_CHANGED,
-     Properties::BITWISE_OPERATOR,
+     Properties::BOOLEAN_OPERATOR,
      this);
 
-  m_properties[Properties::BITWISE_OPERATOR] =
-    m_ui.bitwise_operator->currentText();
+  m_properties[Properties::BOOLEAN_OPERATOR] =
+    m_ui.boolean_operator->currentText();
   undoCommand->setText
-    (tr("bitwise operator changed (%1, %2)").
+    (tr("boolean operator changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
