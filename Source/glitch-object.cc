@@ -303,6 +303,11 @@ QStringList glitch_object::outputs(void) const
   return outputs;
 }
 
+QStringList glitch_object::parameters(void) const
+{
+  return QStringList();
+}
+
 QToolButton *glitch_object::contextMenuButton(void) const
 {
   foreach(auto toolButton, findChildren<QToolButton *> ())

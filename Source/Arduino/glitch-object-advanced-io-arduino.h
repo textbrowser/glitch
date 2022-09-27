@@ -44,6 +44,42 @@ class glitch_object_advanced_io_arduino: public glitch_object
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;
+
+  QStringList parameters(void) const
+  {
+    switch(m_ioType)
+      {
+      case Type::NO_TONE:
+      default:
+	{
+	  return QStringList() << "pin";
+	}
+      case Type::PULSE_IN:
+	{
+	  return QStringList() << "pin" << "value" << "timeout";
+	}
+      case Type::PULSE_IN_LONG:
+	{
+	  return QStringList() << "pin" << "value" << "timeout";
+	}
+      case Type::SHIFT_IN:
+	{
+	  return QStringList() << "dataPin" << "clockPin" << "bitOrder";
+	}
+      case Type::SHIFT_OUT:
+	{
+	  return QStringList() << "dataPin"
+			       << "clockPin"
+			       << "bitOrder"
+			       << "value";
+	}
+      case Type::TONE:
+	{
+	  return QStringList() << "pin" << "frequency" << "duration";
+	}
+      }
+  }
+
   glitch_object_advanced_io_arduino *clone(QWidget *parent) const;
   static glitch_object_advanced_io_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
