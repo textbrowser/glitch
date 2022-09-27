@@ -94,7 +94,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] = true;
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
-  m_properties[Properties::TRANSPARENT] = false;
+  m_properties[Properties::TRANSPARENT] = true;
 
   {
     auto view = qobject_cast<glitch_object_view *> (parent);
@@ -654,7 +654,6 @@ void glitch_object::createActions(void)
       action->setCheckable(true);
       action->setChecked(m_properties.value(Properties::TRANSPARENT).toBool());
       action->setData(static_cast<uint> (DefaultMenuActions::TRANSPARENT));
-      action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -1002,6 +1001,11 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::TRANSPARENT] =
 	    QVariant(string.trimmed()).toBool();
+
+	  if(m_properties.value(Properties::TRANSPARENT).toBool())
+	    setWindowOpacity(s_windowOpacity);
+	  else
+	    setWindowOpacity(1.0);
 	}
     }
 
@@ -1049,10 +1053,14 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::TRANSPARENT:
       {
+	if(m_actions.contains(DefaultMenuActions::TRANSPARENT))
+	  m_actions.value(DefaultMenuActions::TRANSPARENT)->setChecked
+	    (value.toBool());
+
 	if(value.toBool())
 	  setWindowOpacity(s_windowOpacity);
 	else
-	  setWindowOpacity(0.0);
+	  setWindowOpacity(1.0);
 
 	break;
       }
@@ -1116,6 +1124,41 @@ void glitch_object::slotActionTriggered(void)
   if(!action)
     return;
 
+  if(action->isCheckable())
+    {
+      auto property = Properties::XYZ_PROPERTY;
+
+      switch(DefaultMenuActions(action->data().toUInt()))
+	{
+	case DefaultMenuActions::TRANSPARENT:
+	  {
+	    property = Properties::TRANSPARENT;
+	    break;
+	  }
+	default:
+	  {
+	    return;
+	  }
+	}
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (!m_properties.value(property).toBool(),
+	     m_properties.value(property),
+	     glitch_undo_command::PROPERTY_CHANGED,
+	     property,
+	     this);
+
+	  undoCommand->setText
+	    (tr("item property changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+      else
+	m_properties[property] = !m_properties.value(property).toBool();
+    }
+
   emit changed();
 }
 
@@ -1134,7 +1177,7 @@ void glitch_object::slotAdjustSize(void)
 	(size(),
 	 before,
 	 glitch_undo_command::PROPERTY_CHANGED,
-	 glitch_object::Properties::SIZE,
+	 Properties::SIZE,
 	 this);
 
       undoCommand->setText
