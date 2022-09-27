@@ -14,6 +14,7 @@ Summary of Glitch
 <li>Infinite diagrams.</li>
 <li>Modern C++.</li>
 <li>Object alignment.</li>
+<li>Optionally-transparent widgets if provided by local systems.</li>
 <li>Qt 5 LTS and Qt 6 LTS.</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi.</li>
