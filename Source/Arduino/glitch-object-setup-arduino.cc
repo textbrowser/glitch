@@ -82,9 +82,15 @@ QString glitch_object_setup_arduino::code(void) const
   QTextStream stream(&code);
 
   stream << "void setup(void)"
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+    	 << endl
+	 << "{"
+	 << endl;
+#else
 	 << Qt::endl
 	 << "{"
 	 << Qt::endl;
+#endif
 
   foreach(auto w, m_editView->scene()->orderedObjects())
     {
@@ -96,11 +102,19 @@ QString glitch_object_setup_arduino::code(void) const
       if(!code.trimmed().isEmpty())
 	stream << "\t"
 	       << code
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	       << endl;
+#else
 	       << Qt::endl;
+#endif
     }
 
   stream << "}"
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	 << endl;
+#else
 	 << Qt::endl;
+#endif
   return code;
 }
 
