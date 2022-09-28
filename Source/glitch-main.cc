@@ -93,7 +93,9 @@ int main(int argc, char *argv[])
 
   CocoaInitializer ci;
 #endif
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
   QApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
+#endif
   QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
   QCoreApplication::setApplicationName("Glitch");
   QCoreApplication::setApplicationVersion(GLITCH_VERSION_STR);
