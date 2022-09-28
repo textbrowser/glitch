@@ -118,7 +118,7 @@ qint64 glitch_object_view::id(void) const
 
 void glitch_object_view::adjustScrollBars(void)
 {
-  QTimer::singleShot(250, this, SLOT(slotResizeScene(void)));
+  QTimer::singleShot(250, this, &glitch_object_view::slotResizeScene);
 }
 
 void glitch_object_view::artificialDrop

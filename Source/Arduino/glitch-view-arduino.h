@@ -57,6 +57,7 @@ class glitch_view_arduino: public glitch_view
   void removeFunctionName(const QString &name);
   void separate(void);
   void showStructures(void);
+  void unite(void);
 
  private:
   QMap<QString, char> m_functionNames;

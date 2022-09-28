@@ -88,6 +88,7 @@ class glitch_view: public QWidget
   virtual void generateSource(void);
   virtual void separate(void) = 0;
   virtual void showStructures(void) = 0;
+  virtual void unite(void) = 0;
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);

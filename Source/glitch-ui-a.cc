@@ -580,7 +580,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	if(!showArduinoStructures)
 	  {
-	    QTimer::singleShot(1500, this, SLOT(slotShowAllStructures(void)));
+	    QTimer::singleShot(1500, this, &glitch_ui::slotShowAllStructures);
 	    showArduinoStructures = true;
 	  }
       }
@@ -588,7 +588,7 @@ void glitch_ui::parseCommandLineArguments(void)
       {
 	if(!showTools)
 	  {
-	    QTimer::singleShot(1500, this, SLOT(slotShowAllTools(void)));
+	    QTimer::singleShot(1500, this, &glitch_ui::slotShowAllTools);
 	    showTools = true;
 	  }
       }
@@ -608,7 +608,7 @@ void glitch_ui::parseCommandLineArguments(void)
     }
 
   if(!m_delayedDiagrams.isEmpty())
-    QTimer::singleShot(500, this, SLOT(slotDelayedOpenDiagrams(void)));
+    QTimer::singleShot(500, this, &glitch_ui::slotDelayedOpenDiagrams);
 }
 
 void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
@@ -1849,7 +1849,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   prepareStatusBar();
   setTabText(view);
   setWindowTitle(view);
-  view->defaultContextMenu()->deleteLater();
+  view->unite();
   window->deleteLater();
 }
 

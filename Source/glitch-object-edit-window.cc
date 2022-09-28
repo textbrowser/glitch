@@ -122,7 +122,8 @@ glitch_object_edit_window::~glitch_object_edit_window()
 bool glitch_object_edit_window::event(QEvent *event)
 {
   if(event && event->type() == QEvent::Show)
-    QTimer::singleShot(1500, this, SLOT(slotAboutToShowEditMenu(void)));
+    QTimer::singleShot
+      (1500, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
 
   return QMainWindow::event(event);
 }

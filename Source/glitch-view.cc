@@ -978,6 +978,34 @@ void glitch_view::showCanvasSettings(void)
 
 void glitch_view::showTools(void)
 {
+  if(!m_tools)
+    {
+      m_tools = new glitch_tools(this);
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 m_scene,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_scene::
+	    slotToolsOperationChanged));
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 this,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_view::
+	    slotToolsOperationChanged));
+      connect
+	(m_tools,
+	 QOverload<const glitch_tools::Operations>::
+	 of(&glitch_tools::operation),
+	 this,
+	 QOverload<const glitch_tools::Operations>::of(&glitch_view::
+						       toolsOperationChanged));
+    }
+
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();

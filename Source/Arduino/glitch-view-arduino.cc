@@ -264,7 +264,13 @@ void glitch_view_arduino::separate(void)
   if(m_arduinoStructures && m_arduinoStructures->isVisible())
     {
       m_arduinoStructures->deleteLater();
-      QTimer::singleShot(500, this, SLOT(slotShowStructures(void)));
+      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowStructures);
+    }
+
+  if(m_tools && m_tools->isVisible())
+    {
+      m_tools->deleteLater();
+      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowTools);
     }
 
   foreach(auto w, scene()->orderedObjects())
@@ -297,4 +303,21 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 void glitch_view_arduino::slotShowStructures(void)
 {
   showStructures();
+}
+
+void glitch_view_arduino::unite(void)
+{
+  defaultContextMenu()->deleteLater();
+
+  if(m_arduinoStructures && m_arduinoStructures->isVisible())
+    {
+      m_arduinoStructures->deleteLater();
+      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowStructures);
+    }
+
+  if(m_tools && m_tools->isVisible())
+    {
+      m_tools->deleteLater();
+      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowTools);
+    }
 }
