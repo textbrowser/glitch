@@ -718,9 +718,9 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 {
   if(m_editView)
     connect(m_editView,
-	    QOverload<QUndoStack *>::of(&glitch_object_view::undoStackCreated),
+	    SIGNAL(undoStackCreated(QUndoStack *)),
 	    this,
-	    QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	    SIGNAL(undoStackCreated(QUndoStack *)),
 	    Qt::UniqueConnection);
 
   if(m_editView && m_editWindow)
@@ -787,14 +787,11 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      parentView,
 	      &glitch_view::slotCopy,
 	      Qt::UniqueConnection);
-      connect
-	(parentView,
-	 QOverload<const glitch_tools::Operations>::of
-	 (&glitch_view::toolsOperationChanged),
-	 m_editView->scene(),
-	 QOverload<const glitch_tools::Operations>::of
-	 (&glitch_scene::slotToolsOperationChanged),
-	 Qt::UniqueConnection);
+      connect(parentView,
+	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
+	      m_editView->scene(),
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)),
+	      Qt::UniqueConnection);
     }
   else
     {
@@ -807,11 +804,9 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 
   if(m_editWindow)
     connect(m_editWindow,
-	    QOverload<const QString &, const QVariant &>::
-	    of(&glitch_object_edit_window::propertyChanged),
+	    SIGNAL(propertyChanged(const QString &, const QVariant &)),
 	    this,
-	    QOverload<const QString &, const QVariant &>::
-	    of(&glitch_object::slotPropertyChanged),
+	    SLOT(slotPropertyChanged(const QString &, const QVariant &)),
 	    Qt::UniqueConnection);
 }
 

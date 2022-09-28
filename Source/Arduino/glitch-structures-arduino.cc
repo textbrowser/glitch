@@ -52,9 +52,9 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  this,
 	  &glitch_structures_arduino::close);
   connect(m_ui.filter,
-	  QOverload<const QString &>::of(&QLineEdit::textChanged),
+	  SIGNAL(textChanged(const QString &)),
 	  this,
-	  &glitch_structures_arduino::slotFilterTextChanged);
+	  SLOT(slotFilterTextChanged(void)));
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);

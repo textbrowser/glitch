@@ -305,14 +305,14 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  proxy,
 	  &glitch_proxy_widget::deleteLater);
   connect(object,
-	  QOverload<QObject *>::of(&glitch_object::destroyed),
+	  SIGNAL(destroyed(QObject *)),
 	  this,
-	  QOverload<QObject *>::of(&glitch_scene::destroyed),
+	  SIGNAL(destroyed(QObject *)),
 	  Qt::UniqueConnection);
   connect(object,
-	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  this,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,
@@ -1302,9 +1302,9 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
       object->setCanvasSettings(m_canvasSettings);
 
   connect(m_canvasSettings,
-	  QOverload<bool>::of(&glitch_canvas_settings::accepted),
+	  SIGNAL(accepted(bool)),
 	  this,
-	  QOverload<bool>::of(&glitch_scene::slotCanvasSettingsChanged));
+	  SLOT(slotCanvasSettingsChanged(bool)));
   slotCanvasSettingsChanged(false);
 }
 

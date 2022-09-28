@@ -50,10 +50,9 @@ glitch_object_conversion_arduino::glitch_object_conversion_arduino
   m_ui.setupUi(this);
   m_ui.conversion->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.conversion,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_conversion_arduino::
-	  slotConversionChanged);
+	  SLOT(slotConversionChanged(void)));
   prepareContextMenu();
   setConversionType(m_conversionType);
 }
