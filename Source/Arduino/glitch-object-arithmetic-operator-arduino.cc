@@ -52,10 +52,9 @@ glitch_object_arithmetic_operator_arduino
   m_ui.setupUi(this);
   m_ui.arithmetic_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.arithmetic_operator,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_arithmetic_operator_arduino::
-	  slotArithmeticOperatorChanged);
+	  SLOT(slotArithmeticOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }

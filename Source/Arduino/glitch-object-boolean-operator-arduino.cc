@@ -52,10 +52,9 @@ glitch_object_boolean_operator_arduino
   m_ui.setupUi(this);
   m_ui.boolean_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.boolean_operator,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_boolean_operator_arduino::
-	  slotBooleanOperatorChanged);
+	  SLOT(slotBooleanOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }

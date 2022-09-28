@@ -70,14 +70,13 @@ glitch_documentation::glitch_documentation
 	  this,
 	  &glitch_documentation::slotFindText);
   connect(m_ui.find,
-	  QOverload<const QString &>::of(&QLineEdit::textEdited),
+	  SIGNAL(textEdited(const QString &)),
 	  this,
-	  &glitch_documentation::slotFindText);
-  connect
-    (m_ui.text,
-     QOverload<const QUrl &>::of(&QTextBrowser::anchorClicked),
-     this,
-     QOverload<const QUrl &>::of(&glitch_documentation::slotAnchorClicked));
+	  SLOT(slotFindText(void)));
+  connect(m_ui.text,
+	  SIGNAL(anchorClicked(const QUrl &)),
+	  this,
+	  SLOT(slotAnchorClicked(const QUrl &)));
 }
 
 glitch_documentation::~glitch_documentation()

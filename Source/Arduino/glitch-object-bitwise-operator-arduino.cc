@@ -52,10 +52,9 @@ glitch_object_bitwise_operator_arduino
   m_ui.setupUi(this);
   m_ui.bitwise_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.bitwise_operator,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_bitwise_operator_arduino::
-	  slotBitwiseOperatorChanged);
+	  SLOT(slotBitwiseOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }

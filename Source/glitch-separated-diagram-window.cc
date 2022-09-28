@@ -205,13 +205,11 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 SIGNAL(selectionChanged(void)),
 		 this,
 		 SLOT(slotSelectionChanged(void)));
-      disconnect(m_view,
-		 QOverload<const glitch_tools::Operations>::
-		 of(&glitch_view::toolsOperationChanged),
-		 this,
-		 QOverload<const glitch_tools::Operations>::
-		 of(&glitch_separated_diagram_window::
-		    slotToolsOperationChanged));
+      disconnect
+	(m_view,
+	 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
+	 this,
+	 SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
     }
 
   m_view = qobject_cast<glitch_view *> (widget);
@@ -231,11 +229,9 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      this,
 	      SLOT(slotSelectionChanged(void)));
       connect(m_view,
-	      QOverload<const glitch_tools::Operations>::
-	      of(&glitch_view::toolsOperationChanged),
+	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	      this,
-	      QOverload<const glitch_tools::Operations>::
-	      of(&glitch_separated_diagram_window::slotToolsOperationChanged));
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
       QMainWindow::setCentralWidget(m_view);
       prepareActionWidgets();
       prepareToolBar();
