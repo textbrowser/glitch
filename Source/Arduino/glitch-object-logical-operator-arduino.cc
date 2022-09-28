@@ -49,9 +49,9 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   m_ui.setupUi(this);
   m_ui.logical_operator->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.logical_operator,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_logical_operator_arduino::slotLogicalOperatorChanged);
+	  SLOT(slotLogicalOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
