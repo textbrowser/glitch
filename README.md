@@ -13,12 +13,13 @@ Summary of Glitch
 <li>Extensible with other frameworks.</li>
 <li>Infinite diagrams.</li>
 <li>Modern C++.</li>
-<li>Object alignment.</li>
+<li>Object alignment tools.</li>
 <li>Optionally-transparent widgets if provided by local systems.</li>
 <li>Qt 5 LTS and Qt 6 LTS.</li>
 <li>Qt-only dependency.</li>
-<li>Raspberry Pi.</li>
+<li>Raspberry Pi!</li>
 <li>Rich redo/undo stack.</li>
+<li>Sparc!</li>
 <li>Unlimited diagrams.</li>
 </ul>
 
