@@ -157,7 +157,7 @@ QString glitch_object_flow_control_arduino::code(void) const
   while(w);
 
   level = qMax(1, level);
-#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   stream << endl
 	 << QString(level, '\t')
 	 << "{"

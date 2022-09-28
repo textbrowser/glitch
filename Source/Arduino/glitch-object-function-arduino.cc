@@ -240,15 +240,13 @@ QString glitch_object_function_arduino::code(void) const
       if(parameters.isEmpty())
 	parameters = "void";
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
       stream << parameters
 	     << ")"
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
 	     << endl
 	     << "{"
 	     << endl;
 #else
-      stream << parameters
-	     << ")"
 	     << Qt::endl
 	     << "{"
 	     << Qt::endl;
@@ -262,13 +260,11 @@ QString glitch_object_function_arduino::code(void) const
 	  auto code(w->code());
 
 	  if(!code.trimmed().isEmpty())
-#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
 	    stream << "\t"
 		   << code
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
 		   << endl;
 #else
-	    stream << "\t"
-		   << code
 		   << Qt::endl;
 #endif
 	}
