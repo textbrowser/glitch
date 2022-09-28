@@ -371,9 +371,9 @@ clone(QWidget *parent) const
 	      clone,
 	      &glitch_object_function_arduino::slotHideOrShowOccupied);
       connect(clone->m_ui.return_type,
-	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      SIGNAL(currentIndexChanged(int)),
 	      clone,
-	      &glitch_object_function_arduino::slotReturnTypeChanged);
+	      SLOT(slotReturnTypeChanged(void)));
       clone->m_previousReturnType = clone->m_ui.return_type->currentText();
       clone->prepareContextMenu();
       clone->prepareEditSignals(clone->findNearestGlitchView(parent));
@@ -575,9 +575,9 @@ void glitch_object_function_arduino::declone(void)
 	  &glitch_object_function_arduino::slotHideOrShowOccupied,
 	  Qt::UniqueConnection);
   connect(m_ui.return_type,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_function_arduino::slotReturnTypeChanged,
+	  SLOT(slotReturnTypeChanged(void)),
 	  Qt::UniqueConnection);
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(m_parentView));
@@ -633,9 +633,9 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  &glitch_object_function_arduino::slotHideOrShowOccupied,
 	  Qt::UniqueConnection);
   connect(m_ui.return_type,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_function_arduino::slotReturnTypeChanged,
+	  SLOT(slotReturnTypeChanged(void)),
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
