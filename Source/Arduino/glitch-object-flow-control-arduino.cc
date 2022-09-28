@@ -157,10 +157,17 @@ QString glitch_object_flow_control_arduino::code(void) const
   while(w);
 
   level = qMax(1, level);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+  stream << endl
+	 << QString(level, '\t')
+	 << "{"
+	 << endl;
+#else
   stream << Qt::endl
 	 << QString(level, '\t')
 	 << "{"
 	 << Qt::endl;
+#endif
 
   foreach(auto w, m_editView->scene()->orderedObjects())
     {
@@ -172,7 +179,11 @@ QString glitch_object_flow_control_arduino::code(void) const
       if(!code.trimmed().isEmpty())
 	stream << QString(level + 1, '\t')
 	       << code
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	       << endl;
+#else
 	       << Qt::endl;
+#endif
     }
 
   stream << QString(level, '\t')
