@@ -246,13 +246,13 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
   if(m_undoStack)
     {
       disconnect(m_undoStack,
-		 QOverload<bool>::of(&QUndoStack::cleanChanged),
+		 SIGNAL(cleanChanged(bool)),
 		 this,
-		 &glitch_object_edit_window::slotAboutToShowEditMenu);
+		 SLOT(slotAboutToShowEditMenu(void)));
       disconnect(m_undoStack,
-		 QOverload<int>::of(&QUndoStack::indexChanged),
+		 SIGNAL(indexChanged(int)),
 		 this,
-		 &glitch_object_edit_window::slotAboutToShowEditMenu);
+		 SLOT(slotAboutToShowEditMenu(void)));
     }
 
   m_undoStack = undoStack;
@@ -260,13 +260,13 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
   if(m_undoStack)
     {
       connect(m_undoStack,
-	      QOverload<bool>::of(&QUndoStack::cleanChanged),
+	      SIGNAL(cleanChanged(bool)),
 	      this,
-	      &glitch_object_edit_window::slotAboutToShowEditMenu);
+	      SLOT(slotAboutToShowEditMenu(void)));
       connect(m_undoStack,
-	      QOverload<int>::of(&QUndoStack::indexChanged),
+	      SIGNAL(indexChanged(int)),
 	      this,
-	      &glitch_object_edit_window::slotAboutToShowEditMenu);
+	      SLOT(slotAboutToShowEditMenu(void)));
     }
 }
 
