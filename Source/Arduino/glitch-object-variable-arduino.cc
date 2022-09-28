@@ -285,9 +285,9 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
   if(state)
     {
       connect(m_ui.array,
-	      QOverload<bool>::of(&QToolButton::toggled),
+	      SIGNAL(toggled(bool)),
 	      this,
-	      &glitch_object_variable_arduino::slotToolButtonChecked,
+	      SLOT(slotToolButtonChecked(void)),
 	      Qt::UniqueConnection);
       connect(m_ui.name,
 	      &QLineEdit::returnPressed,
@@ -295,52 +295,52 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 	      &glitch_object_variable_arduino::slotLineEditSet,
 	      Qt::UniqueConnection);
       connect(m_ui.pointer_access,
-	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      SIGNAL(currentIndexChanged(int)),
 	      this,
-	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      SLOT(slotComboBoxChanged(void)),
 	      Qt::UniqueConnection);
       connect(m_ui.progmem,
-	      QOverload<bool>::of(&QToolButton::toggled),
+	      SIGNAL(toggled(bool)),
 	      this,
-	      &glitch_object_variable_arduino::slotToolButtonChecked,
+	      SLOT(slotToolButtonChecked(void)),
 	      Qt::UniqueConnection);
       connect(m_ui.qualifier,
-	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      SIGNAL(currentIndexChanged(int)),
 	      this,
-	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      SLOT(slotComboBoxChanged(void)),
 	      Qt::UniqueConnection);
       connect(m_ui.type,
-	      QOverload<int>::of(&QComboBox::currentIndexChanged),
+	      SIGNAL(currentIndexChanged(int)),
 	      this,
-	      &glitch_object_variable_arduino::slotComboBoxChanged,
+	      SLOT(slotComboBoxChanged(void)),
 	      Qt::UniqueConnection);
     }
   else
     {
       disconnect(m_ui.array,
-		 QOverload<bool>::of(&QToolButton::toggled),
+		 SIGNAL(toggled(bool)),
 		 this,
-		 &glitch_object_variable_arduino::slotToolButtonChecked);
+		 SLOT(slotToolButtonChecked(void)));
       disconnect(m_ui.name,
 		 &QLineEdit::returnPressed,
 		 this,
 		 &glitch_object_variable_arduino::slotLineEditSet);
       disconnect(m_ui.pointer_access,
-		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 SIGNAL(currentIndexChanged(int)),
 		 this,
-		 &glitch_object_variable_arduino::slotComboBoxChanged);
+		 SLOT(slotComboBoxChanged(void)));
       disconnect(m_ui.progmem,
-		 QOverload<bool>::of(&QToolButton::toggled),
+		 SIGNAL(toggled(bool)),
 		 this,
-		 &glitch_object_variable_arduino::slotToolButtonChecked);
+		 SLOT(slotToolButtonChecked(void)));
       disconnect(m_ui.qualifier,
-		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 SIGNAL(currentIndexChanged(int)),
 		 this,
-		 &glitch_object_variable_arduino::slotComboBoxChanged);
+		 SLOT(slotComboBoxChanged(void)));
       disconnect(m_ui.type,
-		 QOverload<int>::of(&QComboBox::currentIndexChanged),
+		 SIGNAL(currentIndexChanged(int)),
 		 this,
-		 &glitch_object_variable_arduino::slotComboBoxChanged);
+		 SLOT(slotComboBoxChanged(void)));
     }
 }
 
