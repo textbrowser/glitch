@@ -240,11 +240,19 @@ QString glitch_object_function_arduino::code(void) const
       if(parameters.isEmpty())
 	parameters = "void";
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+      stream << parameters
+	     << ")"
+	     << endl
+	     << "{"
+	     << endl;
+#else
       stream << parameters
 	     << ")"
 	     << Qt::endl
 	     << "{"
 	     << Qt::endl;
+#endif
 
       foreach(auto w, m_editView->scene()->orderedObjects())
 	{
@@ -254,9 +262,15 @@ QString glitch_object_function_arduino::code(void) const
 	  auto code(w->code());
 
 	  if(!code.trimmed().isEmpty())
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+	    stream << "\t"
+		   << code
+		   << endl;
+#else
 	    stream << "\t"
 		   << code
 		   << Qt::endl;
+#endif
 	}
 
       stream << "}";
