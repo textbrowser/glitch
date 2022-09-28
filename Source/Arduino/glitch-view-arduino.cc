@@ -74,28 +74,25 @@ glitch_view_arduino::glitch_view_arduino
 	  this,
 	  &glitch_view_arduino::slotChanged);
   connect(m_loopObject,
-	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  m_scene,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated));
-  connect
-    (m_scene,
-     QOverload<const QString &, const bool>::of(&glitch_scene::functionAdded),
-     this,
-     QOverload<const QString &,
-               const bool>::of(&glitch_view_arduino::slotFunctionAdded));
-  connect
-    (m_scene,
-     QOverload<const QString &>::of(&glitch_scene::functionDeleted),
-     this,
-     QOverload<const QString &>::of(&glitch_view_arduino::slotFunctionDeleted));
+	  SIGNAL(undoStackCreated(QUndoStack *)));
+  connect(m_scene,
+	  SIGNAL(functionAdded(const QString &, const bool)),
+	  this,
+	  SLOT(slotFunctionAdded(const QString &, const bool)));
+  connect(m_scene,
+	  SIGNAL(functionDeleted(const QString &)),
+	  this,
+	  SLOT(slotFunctionDeleted(const QString &)));
   connect(m_setupObject,
 	  &glitch_object_setup_arduino::changed,
 	  this,
 	  &glitch_view_arduino::slotChanged);
   connect(m_setupObject,
-	  QOverload<QUndoStack *>::of(&glitch_object::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  m_scene,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated));
+	  SIGNAL(undoStackCreated(QUndoStack *)));
 }
 
 glitch_view_arduino::~glitch_view_arduino()
@@ -240,12 +237,21 @@ void glitch_view_arduino::generateSource(void)
 
 	  if(!code.trimmed().isEmpty())
 	    stream << code
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+		   << endl
+		   << endl;
+#else
 		   << Qt::endl
 		   << Qt::endl;
+#endif
 	}
 
       stream << m_loopObject->code()
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	     << endl
+#else
 	     << Qt::endl
+#endif
 	     << m_setupObject->code();
     }
 
