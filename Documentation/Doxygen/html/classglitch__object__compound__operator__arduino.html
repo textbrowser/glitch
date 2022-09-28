@@ -112,7 +112,10 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="separator:a873e8ef9b81be7ebdcfe027a643c2fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
-<tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <br />
+<tr class="memitem:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="afac278be7866f3dd0cf2c16cce1c2a59"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Limits</b> { <b>NAME_MAXIMUM_LENGTH</b> = 64
+ }</td></tr>
+<tr class="separator:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <br />
 &#160;&#160;<b>ADJUST_SIZE</b> = 0
 , <b>DELETE</b>
 , <b>EDIT</b>
@@ -121,55 +124,57 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>SET_FUNCTION_NAME</b>
 , <b>SET_STYLE_SHEET</b>
 , <b>SHOW_CONTEXT_MENU_BUTTON</b>
+, <b>TRANSPARENT</b>
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="afac278be7866f3dd0cf2c16cce1c2a59"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Limits</b> { <b>NAME_MAXIMUM_LENGTH</b> = 64
- }</td></tr>
-<tr class="separator:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <br />
+<tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <br />
 &#160;&#160;<b>ADVANCED_IO_TYPE</b> = 0
 , <b>ANALOG_IO_TYPE</b>
 , <b>ARITHMETIC_OPERATOR</b>
 , <b>BITS_AND_BYTES_TYPE</b>
 , <br />
 &#160;&#160;<b>BITWISE_OPERATOR</b>
+, <b>BOOLEAN_OPERATOR</b>
 , <b>CHARACTERS_TYPE</b>
 , <b>COMMENT</b>
-, <b>COMPOUND_OPERATOR</b>
 , <br />
-&#160;&#160;<b>COMPOUND_OPERATOR_PRE</b>
+&#160;&#160;<b>COMPOUND_OPERATOR</b>
+, <b>COMPOUND_OPERATOR_PRE</b>
 , <b>CONDITION</b>
 , <b>CONSTANT_OTHER</b>
-, <b>CONSTANT_TYPE</b>
 , <br />
-&#160;&#160;<b>CONTEXT_MENU_BUTTON_SHOWN</b>
+&#160;&#160;<b>CONSTANT_TYPE</b>
+, <b>CONTEXT_MENU_BUTTON_SHOWN</b>
 , <b>CONVERSION</b>
 , <b>DIGITAL_IO_TYPE</b>
-, <b>FLOW_CONTROL_TYPE</b>
 , <br />
-&#160;&#160;<b>LOGICAL_OPERATOR</b>
+&#160;&#160;<b>FLOW_CONTROL_TYPE</b>
+, <b>LOGICAL_OPERATOR</b>
 , <b>MATHEMATICS_TYPE</b>
 , <b>NAME</b>
-, <b>POSITION_LOCKED</b>
 , <br />
-&#160;&#160;<b>RANDOM_TYPE</b>
+&#160;&#160;<b>POSITION_LOCKED</b>
+, <b>RANDOM_TYPE</b>
 , <b>SERIAL_TYPE</b>
 , <b>SIZE</b>
-, <b>SYNTAX</b>
 , <br />
-&#160;&#160;<b>TIME_TYPE</b>
+&#160;&#160;<b>STREAM_TYPE</b>
+, <b>SYNTAX</b>
+, <b>TIME_TYPE</b>
 , <b>TOOL_BAR_VISIBLE</b>
+, <br />
+&#160;&#160;<b>TRANSPARENT</b>
 , <b>TRIGONOMETRY_TYPE</b>
 , <b>UTILITIES_TYPE</b>
+, <b>VARIABLE_ARRAY</b>
 , <br />
-&#160;&#160;<b>VARIABLE_ARRAY</b>
-, <b>VARIABLE_NAME</b>
+&#160;&#160;<b>VARIABLE_NAME</b>
 , <b>VARIABLE_POINTER_ACCESS</b>
 , <b>VARIABLE_PROGMEM</b>
+, <b>VARIABLE_QUALIFIER</b>
 , <br />
-&#160;&#160;<b>VARIABLE_QUALIFIER</b>
-, <b>VARIABLE_TYPE</b>
+&#160;&#160;<b>VARIABLE_TYPE</b>
 , <b>XYZ_PROPERTY</b>
 <br />
  }</td></tr>
@@ -226,6 +231,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setOperatorType</b> (
 <tr class="memitem:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7047bda28b3827ec6d5f981ac4780551"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object</b> (const qint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af325ff22771e0e9dabac7e20d9fbdbbf inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af325ff22771e0e9dabac7e20d9fbdbbf"></a>
+QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>properties</b> (void) const</td></tr>
+<tr class="separator:af325ff22771e0e9dabac7e20d9fbdbbf inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ee7f862fc116de2627ed01596463278 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a9ee7f862fc116de2627ed01596463278"></a>
 QPointF&#160;</td><td class="memItemRight" valign="bottom"><b>scenePos</b> (void) const</td></tr>
 <tr class="separator:a9ee7f862fc116de2627ed01596463278 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -271,6 +279,9 @@ qint64&#160;</td><td class="memItemRight" valign="bottom"><b>id</b> (void) const
 <tr class="memitem:a60708a56b7abbfed3d93fa10cab00af2 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a60708a56b7abbfed3d93fa10cab00af2"></a>
 virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:a60708a56b7abbfed3d93fa10cab00af2 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ae13af6bed6604a31ccb10ae72aced inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ab4ae13af6bed6604a31ccb10ae72aced"></a>
+virtual QStringList&#160;</td><td class="memItemRight" valign="bottom"><b>parameters</b> (void) const</td></tr>
+<tr class="separator:ab4ae13af6bed6604a31ccb10ae72aced inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a407e78fa8f9e7e9a35e92439d7fb84ff inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a407e78fa8f9e7e9a35e92439d7fb84ff"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>canResize</b> (void) const</td></tr>
 <tr class="separator:a407e78fa8f9e7e9a35e92439d7fb84ff inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -295,12 +306,18 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>simulateDelet
 <tr class="memitem:a85a9cf5bcd5203ce77a5b2eaf59de1fd inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a85a9cf5bcd5203ce77a5b2eaf59de1fd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addChild</b> (const QPointF &amp;point, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a85a9cf5bcd5203ce77a5b2eaf59de1fd inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab717bb576132df5e8a2885c7df83cf90 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ab717bb576132df5e8a2885c7df83cf90"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>afterPaste</b> (void)</td></tr>
+<tr class="separator:ab717bb576132df5e8a2885c7df83cf90 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae64b8d2c685e5409fbb1edd3ed6f4fb6 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ae64b8d2c685e5409fbb1edd3ed6f4fb6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (const QPoint &amp;point)</td></tr>
 <tr class="separator:ae64b8d2c685e5409fbb1edd3ed6f4fb6 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e24f2fe245b98c42ce3cc7b9ff6ac6b inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a3e24f2fe245b98c42ce3cc7b9ff6ac6b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (int x, int y)</td></tr>
 <tr class="separator:a3e24f2fe245b98c42ce3cc7b9ff6ac6b inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a6455096f9a5e202cbfd5830b7553f8 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a3a6455096f9a5e202cbfd5830b7553f8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>separate</b> (void)</td></tr>
+<tr class="separator:a3a6455096f9a5e202cbfd5830b7553f8 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3a2853c116675afd7cd5621ffee6ba7 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ab3a2853c116675afd7cd5621ffee6ba7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setCanvasSettings</b> (<a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *canvasSettings)</td></tr>
 <tr class="separator:ab3a2853c116675afd7cd5621ffee6ba7 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
