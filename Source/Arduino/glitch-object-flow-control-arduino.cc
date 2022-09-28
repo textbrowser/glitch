@@ -81,9 +81,9 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  this,
 	  &glitch_object_flow_control_arduino::slotConditionChanged);
   connect(m_ui.flow_control_type,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_flow_control_arduino::slotFlowControlTypeChanged);
+	  SLOT(slotFlowControlTypeChanged(void)));
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
   setName(m_type);

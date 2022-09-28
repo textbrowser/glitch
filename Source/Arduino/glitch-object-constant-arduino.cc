@@ -50,9 +50,9 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_ui.constant->installEventFilter(new glitch_scroll_filter(this));
   m_ui.other->setVisible(false);
   connect(m_ui.constant,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_constant_arduino::slotConstantChanged);
+	  SLOT(slotConstantChanged(void)));
   connect(m_ui.other,
 	  &QLineEdit::returnPressed,
 	  this,

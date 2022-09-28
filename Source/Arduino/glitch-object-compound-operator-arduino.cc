@@ -53,15 +53,13 @@ glitch_object_compound_operator_arduino
   m_ui.compound_operator->installEventFilter(new glitch_scroll_filter(this));
   m_ui.pre->setVisible(false);
   connect(m_ui.compound_operator,
-	  QOverload<int>::of(&QComboBox::currentIndexChanged),
+	  SIGNAL(currentIndexChanged(int)),
 	  this,
-	  &glitch_object_compound_operator_arduino::
-	  slotCompoundOperatorChanged);
+	  SLOT(slotCompoundOperatorChanged(void)));
   connect(m_ui.pre,
-	  QOverload<bool>::of(&QToolButton::toggled),
+	  SIGNAL(toggled(bool)),
 	  this,
-	  QOverload<bool>::
-	  of(&glitch_object_compound_operator_arduino::slotPreToggled));
+	  SLOT(slotPreToggled(bool)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
