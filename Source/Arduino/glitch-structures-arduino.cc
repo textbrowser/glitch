@@ -416,17 +416,16 @@ void glitch_structures_arduino::slotCategorySelected(void)
 void glitch_structures_arduino::slotFilter(void)
 {
   QListWidgetItem *found = nullptr;
-  QRegularExpression rx
-    (
-#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-     "*" + m_ui.filter->text().toLower().trimmed() + "*",
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
+  QRegExp rx("*" + m_ui.filter->text().toLower().trimmed() + "*");
 #else
-     QRegularExpression::
+  QRegularExpression rx
+    (QRegularExpression::
      wildcardToRegularExpression("*" +
 				 m_ui.filter->text().toLower().trimmed() +
 				 "*"),
-#endif
      QRegularExpression::CaseInsensitiveOption);
+#endif
   auto string(m_ui.filter->text().trimmed());
 
   for(int i = 0; i < m_ui.categories->count(); i++)
