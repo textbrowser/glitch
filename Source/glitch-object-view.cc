@@ -79,16 +79,13 @@ glitch_object_view::glitch_object_view
 	  &glitch_object_view::slotSceneResized,
 	  Qt::QueuedConnection);
   connect(m_scene,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  this,
-	  QOverload<QUndoStack *>::of(&glitch_object_view::undoStackCreated));
-  connect
-    (this,
-     QOverload<const QPoint &>::
-     of(&glitch_object_view::customContextMenuRequested),
-     this,
-     QOverload<const QPoint &>::
-     of(&glitch_object_view::slotCustomContextMenuRequested));
+	  SIGNAL(undoStackCreated(QUndoStack *)));
+  connect(this,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 }
 
 glitch_object_view::~glitch_object_view()
