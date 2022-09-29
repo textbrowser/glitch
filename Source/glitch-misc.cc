@@ -32,6 +32,7 @@
 #include <QMessageBox>
 
 #include "glitch-misc.h"
+#include "glitch-view.h"
 
 QPointF glitch_misc::dbPointToPointF(const QString &text)
 {
@@ -61,6 +62,40 @@ QString glitch_misc::homePath(void)
 
       return homePath;
     }
+}
+
+bool glitch_misc::sameAncestors(const QObject *object1, const QObject *object2)
+{
+  if(!object1 || !object2)
+    return false;
+
+  auto parent1 = const_cast<QObject *> (object1);
+
+  do
+    {
+      if(qobject_cast<glitch_view *> (parent1))
+	break;
+      else if(parent1)
+	parent1 = parent1->parent();
+      else
+	break;
+    }
+  while(parent1);
+
+  auto parent2 = const_cast<QObject *> (object2);
+
+  do
+    {
+      if(qobject_cast<glitch_view *> (parent2))
+	break;
+      else if(parent2)
+	parent2 = parent2->parent();
+      else
+	break;
+    }
+  while(parent2);
+
+  return parent1 == parent2;
 }
 
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)

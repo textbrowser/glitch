@@ -77,6 +77,7 @@ Completed Items
 - Display main() function. Fixed position? Yes.
 - Display tool mode in status bar.
 - Do not align, stack, etc. unless coordinates would change.
+- Do not allow drag-and-drop operations for unaffiliated functions.
 - Do not clone pasted functions without parents unless they already exist.
 - Do not delete function duplicates if one duplicate is removed.
 - Do not discover parent functions for copied functions.
@@ -204,7 +205,6 @@ Remaining Items
 - Custom input / output port colors.
 - Custom shortcuts.
 - Disable redo/undo of line-edit widgets?
-- Do not allow drag-and-drop operations for unaffiliated functions.
 - Documentation.
 - Find objects.
 - Flow Control syntax colors.
@@ -225,6 +225,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
+- Set child window titles to parent diagram name.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

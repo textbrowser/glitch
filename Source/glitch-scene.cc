@@ -61,6 +61,7 @@
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-graphicsview.h"
+#include "glitch-misc.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
@@ -230,7 +231,7 @@ bool glitch_scene::allowDrag
 
 	  auto tableWidget = qobject_cast<QTableWidget *> (event->source());
 
-	  if(tableWidget)
+	  if(glitch_misc::sameAncestors(tableWidget, this))
 	    {
 	      auto item = tableWidget->currentItem();
 
