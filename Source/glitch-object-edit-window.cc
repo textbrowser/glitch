@@ -140,11 +140,13 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
     {
       m_header->setText(text.trimmed());
       m_header->setVisible(true);
+      setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }
   else
     {
       m_header->clear();
       m_header->setVisible(false);
+      setWindowTitle(tr("Glitch"));
     }
 }
 

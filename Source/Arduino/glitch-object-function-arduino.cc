@@ -68,7 +68,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
       QUuid::createUuid().toString().remove("{").remove("}").remove("-") +
       "()";
 
-  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name));
+  if(m_editWindow)
+    m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name));
 
   if(m_parentView)
     m_parentView->consumeFunctionName(name);
