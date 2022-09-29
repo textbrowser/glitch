@@ -46,7 +46,7 @@ class glitch_tools: public QDialog
 
   glitch_tools(QWidget *parent);
   ~glitch_tools();
-  glitch_tools::Operations operation(void) const;
+  Operations operation(void) const;
 
  private:
   Ui_glitch_tools m_ui;
@@ -55,7 +55,7 @@ class glitch_tools: public QDialog
   void slotOperationChanged(void);
 
  signals:
-  void operation(const Operations operation);
+  void operation(const glitch_tools::Operations operation);
 };
 
 #endif

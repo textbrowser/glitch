@@ -43,11 +43,9 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 		"border: none; image: none; width: 0px;}");
   setUsesScrollButtons(true);
   connect(this,
-	  QOverload<const QPoint &>::
-	  of(&glitch_tab_tabbar::customContextMenuRequested),
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
-	  QOverload<const QPoint &>::
-	  of(&glitch_tab_tabbar::slotCustomContextMenuRequested));
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
 
   foreach(auto toolButton, findChildren <QToolButton *> ())
     if(toolButton)

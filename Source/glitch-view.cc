@@ -155,31 +155,25 @@ glitch_view::glitch_view
 	  this,
 	  SIGNAL(selectionChanged(void)));
   connect(m_scene,
-	  QOverload<QUndoStack *>::of(&glitch_scene::undoStackCreated),
+	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  this,
-	  QOverload<QUndoStack *>::of(&glitch_view::slotUndoStackCreated));
-  connect
-    (m_tools,
-     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
-     m_scene,
-     QOverload<const glitch_tools::Operations>::of(&glitch_scene::
-						   slotToolsOperationChanged));
-  connect
-    (m_tools,
-     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
-     this,
-     QOverload<const glitch_tools::Operations>::of(&glitch_view::
-						   slotToolsOperationChanged));
-  connect
-    (m_tools,
-     QOverload<const glitch_tools::Operations>::of(&glitch_tools::operation),
-     this,
-     QOverload<const glitch_tools::Operations>::of(&glitch_view::
-						   toolsOperationChanged));
+	  SLOT(slotUndoStackCreated(QUndoStack *)));
+  connect(m_tools,
+	  SIGNAL(operation(const glitch_tools::Operations)),
+	  m_scene,
+	  SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+  connect(m_tools,
+	  SIGNAL(operation(const glitch_tools::Operations)),
+	  this,
+	  SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+  connect(m_tools,
+	  SIGNAL(operation(const glitch_tools::Operations)),
+	  this,
+	  SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
   connect(m_undoStack,
-	  QOverload<int>::of(&QUndoStack::indexChanged),
+	  SIGNAL(indexChanged(int)),
 	  this,
-	  &glitch_view::slotUndoStackChanged);
+	  SLOT(slotUndoStackChanged(void)));
   connect(m_view,
 	  SIGNAL(mouseEnterEvent(void)),
 	  this,
@@ -206,9 +200,9 @@ glitch_view::~glitch_view()
   foreach(auto undoStack, m_undoStacks)
     if(undoStack)
       disconnect(undoStack,
-		 QOverload<int>::of(&QUndoStack::indexChanged),
+		 SIGNAL(indexChanged(int)),
 		 this,
-		 &glitch_view::slotUndoStackChanged);
+		 SLOT(slotUndoStackChanged(void)));
 
   m_scene->purgeRedoUndoProxies();
 }
@@ -981,29 +975,18 @@ void glitch_view::showTools(void)
   if(!m_tools)
     {
       m_tools = new glitch_tools(this);
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 m_scene,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_scene::
-	    slotToolsOperationChanged));
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 this,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_view::
-	    slotToolsOperationChanged));
-      connect
-	(m_tools,
-	 QOverload<const glitch_tools::Operations>::
-	 of(&glitch_tools::operation),
-	 this,
-	 QOverload<const glitch_tools::Operations>::of(&glitch_view::
-						       toolsOperationChanged));
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      m_scene,
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      this,
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      this,
+	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
     }
 
   m_tools->showNormal();
@@ -1243,9 +1226,9 @@ void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
     return;
 
   connect(undoStack,
-	  QOverload<int>::of(&QUndoStack::indexChanged),
+	  SIGNAL(indexChanged(int)),
 	  this,
-	  &glitch_view::slotUndoStackChanged,
+	  SLOT(slotUndoStackChanged(void)),
 	  Qt::UniqueConnection);
 
   if(!m_undoStacks.contains(undoStack))
