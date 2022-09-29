@@ -204,6 +204,7 @@ Remaining Items
 - Custom input / output port colors.
 - Custom shortcuts.
 - Disable redo/undo of line-edit widgets?
+- Do not allow drag-and-drop operations for unaffiliated functions.
 - Documentation.
 - Find objects.
 - Flow Control syntax colors.

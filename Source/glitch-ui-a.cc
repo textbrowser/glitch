@@ -63,7 +63,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     (tr("<html>"
 	"<b>Glitch Version %1</b><br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
-	"Develop through diagrams.<br><br>"
+	"Develop through block diagrams.<br><br>"
 	"Software for and from the margins.<br><br>"
 	"Qt version %2 (runtime %3).<br><br>"
 	"Please visit "
