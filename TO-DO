@@ -119,6 +119,7 @@ Completed Items
 - Pass undo stack from top-level view to child views.
 - Paste in child views. Redo / undo.
 - Periodically-generated source and redo / undo.
+- PowerPC (QOverload()).
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
@@ -220,7 +221,6 @@ Remaining Items
 - Order: top-bottom followed by left-right.
 - Page shortcut (Alt-1, etc.).
 - Percolate redo / undo of functions through child views.
-- PowerPC (QOverload()).
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
