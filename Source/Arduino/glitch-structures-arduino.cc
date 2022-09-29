@@ -418,6 +418,8 @@ void glitch_structures_arduino::slotFilter(void)
   QListWidgetItem *found = nullptr;
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
   QRegExp rx("*" + m_ui.filter->text().toLower().trimmed() + "*");
+
+  rx.setPatternSyntax(QRegExp::Wildcard);
 #else
   QRegularExpression rx
     (QRegularExpression::
