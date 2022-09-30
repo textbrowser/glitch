@@ -341,6 +341,7 @@ void glitch_canvas_settings::accept(void)
 
   notify();
   setResult(QDialog::Accepted);
+  setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
   emit accepted(true);
 }
 
@@ -492,6 +493,7 @@ void glitch_canvas_settings::prepare(void)
 
 	m_settings = settings();
 	setResult(QDialog::Accepted);
+	setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
 	emit accepted(false);
       }
 
@@ -571,6 +573,7 @@ void glitch_canvas_settings::setSettings
   setViewportUpdateMode
     (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
 						  VIEW_UPDATE_MODE).toInt()));
+  setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(name()));
   setWireType(hash.value(Settings::WIRE_TYPE).toString());
   notify();
   emit accepted(false);
