@@ -156,6 +156,7 @@ Completed Items
 - Selection rectangle moves wired objects. Ignore wires.
 - Separate database objects when opening an existing diagram.
 - Separated window: context menu, generate source, save.
+- Set child window titles to parent diagram name.
 - Set focus on plain-text-edit during mouse-press event. Discover the
   "viewport" widget.
 - Shortcuts in object views.
@@ -225,7 +226,6 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
-- Set child window titles to parent diagram name.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:
