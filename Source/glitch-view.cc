@@ -999,6 +999,8 @@ void glitch_view::showTools(void)
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
     }
 
+  m_tools->setWindowTitle
+    (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();
@@ -1019,9 +1021,15 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_settings = m_canvasSettings->settings();
 
+  if(m_tools)
+    m_tools->setWindowTitle
+      (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
+
   if(m_undoStack->count() == 0)
     m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
 
+  m_userFunctions->setWindowTitle
+    (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
   if(hash != m_settings && !hash.isEmpty())
@@ -1219,6 +1227,8 @@ void glitch_view::slotShowTools(void)
 
 void glitch_view::slotShowUserFunctions(void)
 {
+  m_userFunctions->setWindowTitle
+    (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
   m_userFunctions->showNormal();
   m_userFunctions->activateWindow();
   m_userFunctions->raise();
