@@ -289,9 +289,20 @@ void glitch_view_arduino::showStructures(void)
   if(!m_arduinoStructures)
     m_arduinoStructures = new glitch_structures_arduino(this);
 
+  m_arduinoStructures->setWindowTitle
+    (tr("Glitch: Arduino Structures (%1)").arg(m_canvasSettings->name()));
   m_arduinoStructures->showNormal();
   m_arduinoStructures->activateWindow();
   m_arduinoStructures->raise();
+}
+
+void glitch_view_arduino::slotCanvasSettingsChanged(const bool undo)
+{
+  glitch_view::slotCanvasSettingsChanged(undo);
+
+  if(m_arduinoStructures)
+    m_arduinoStructures->setWindowTitle
+      (tr("Glitch: Arduino Structures (%1)").arg(m_canvasSettings->name()));
 }
 
 void glitch_view_arduino::slotFunctionAdded(const QString &name,

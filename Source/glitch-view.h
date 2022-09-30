@@ -145,8 +145,8 @@ class glitch_view: public QWidget
   void setSceneRect(const QSize &size);
 
  protected slots:
+  virtual void slotCanvasSettingsChanged(const bool undo);
   virtual void slotShowStructures(void) = 0;
-  void slotCanvasSettingsChanged(const bool undo);
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotGenerate(void);
