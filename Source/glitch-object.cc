@@ -912,12 +912,26 @@ void glitch_object::separate(void)
 
 void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
+  if(m_canvasSettings)
+    disconnect(m_canvasSettings,
+	       SIGNAL(accepted(bool)),
+	       this,
+	       SLOT(slotCanvasSettingsChanged(bool)));
+
   m_canvasSettings = canvasSettings;
+
+  if(m_canvasSettings)
+    connect(m_canvasSettings,
+	    SIGNAL(accepted(bool)),
+	    this,
+	    SLOT(slotCanvasSettingsChanged(bool)));
 
   auto scene = editScene();
 
   if(scene)
     scene->setCanvasSettings(m_canvasSettings);
+
+  slotCanvasSettingsChanged(true);
 }
 
 void glitch_object::setName(const QString &n)
@@ -1191,6 +1205,17 @@ void glitch_object::slotAdjustSize(void)
     }
 
   emit changed();
+}
+
+void glitch_object::slotCanvasSettingsChanged(bool state)
+{
+  Q_UNUSED(state);
+
+  if(!m_canvasSettings || !m_editWindow)
+    return;
+
+  m_editWindow->setWindowTitle
+    (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
 }
 
 void glitch_object::slotLockPosition(void)
