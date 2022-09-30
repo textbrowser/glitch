@@ -237,8 +237,10 @@ QMenu *glitch_view::defaultContextMenu(void)
   if(!m_contextMenu)
     {
       m_contextMenu = new QMenu(this);
+#ifndef Q_OS_ANDROID
       m_contextMenu->setTearOffEnabled(true);
       m_contextMenu->setTitle(tr("Glitch: Floating Context Menu"));
+#endif
     }
   else
     m_contextMenu->clear();

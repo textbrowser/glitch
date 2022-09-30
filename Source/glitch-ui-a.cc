@@ -198,6 +198,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  Qt::QueuedConnection);
   m_ui.action_Copy->setEnabled(false);
   m_ui.action_Delete->setEnabled(false);
+#ifdef Q_OS_ANDROID
+  m_ui.action_Full_Screen->setEnabled(false);
+#endif
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
   m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
