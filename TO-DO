@@ -10,7 +10,7 @@ Completed Items
   primary mouse button should display the object's context menu.
 - Adjust changed state of parent canvas if redo / undo stack of a child
   is at level zero. This is very difficult. Quite simple: review states of
-  known redo/undo stacks.
+  known redo / undo stacks.
 - Alignment panel. The panel must allow interaction with separated windows.
   Per diagram.
 - Alignment tool should be a child of the view's window.
@@ -205,7 +205,7 @@ Remaining Items
 - Copy wires. Very difficult.
 - Custom input / output port colors.
 - Custom shortcuts.
-- Disable redo/undo of line-edit widgets?
+- Disable redo / undo of line-edit widgets?
 - Documentation.
 - Find objects.
 - Flow Control syntax colors.
