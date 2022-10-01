@@ -117,6 +117,7 @@ Completed Items
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
 - Other constants.
+- Page shortcut (Alt-1, etc.).
 - Pass undo stack from top-level view to child views.
 - Paste in child views. Redo / undo.
 - Periodically-generated source and redo / undo.
@@ -214,14 +215,13 @@ Remaining Items
 - Include Arduino language reference in binary.
 - Languages option.
 - Menu hovering and status bar text. QStatusTipEvent.
-- Modern Qt connect():
+- Modern Qt connect() (except for QOverload() (PowerPC)):
   glitch-scene.cc
   glitch-separated-diagram.cc
   glitch-ui-a.cc
   glitch-view.cc
 - Multiple inputs or single input?
 - Order: top-bottom followed by left-right.
-- Page shortcut (Alt-1, etc.).
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).

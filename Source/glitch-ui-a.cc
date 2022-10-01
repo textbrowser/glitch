@@ -32,6 +32,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QSettings>
+#include <QShortcut>
 #include <QSqlQuery>
 #include <QTimer>
 #include <QWidgetAction>
@@ -395,6 +396,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
   m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), "<html>" + name + "</html>");
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTabShortcuts();
   setWindowTitle(view);
 
   if(!fromFile)
@@ -925,6 +927,72 @@ void glitch_ui::prepareStatusBar(void)
   statusBar()->repaint();
 }
 
+void glitch_ui::prepareTabShortcuts(void)
+{
+  foreach(auto shortcut, m_tabWidgetShortcuts)
+    if(shortcut)
+      shortcut->deleteLater();
+
+  m_tabWidgetShortcuts.clear();
+
+  for(int i = 0; i < qMin(10, m_ui.tab->count()); i++)
+    {
+      auto widget = m_ui.tab->widget(i);
+
+      if(!widget)
+	continue;
+
+      QShortcut *shortcut = nullptr;
+
+      if(i == 9)
+	{
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+	  shortcut = new QShortcut
+	    (Qt::AltModifier + Qt::Key_0,
+	     this,
+	     SLOT(slotTabWidgetShortcutActivated(void)));
+#else
+	  shortcut = new QShortcut
+	    (Qt::AltModifier | Qt::Key_0,
+	     this,
+	     SLOT(slotTabWidgetShortcutActivated(void)));
+#endif
+	  m_tabWidgetShortcuts << shortcut;
+	}
+      else
+	{
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+	  shortcut = new QShortcut
+	    (Qt::AltModifier + Qt::Key(Qt::Key_1 + i),
+	     this,
+	     SLOT(slotTabWidgetShortcutActivated(void)));
+#else
+	  shortcut = new QShortcut
+	    (Qt::AltModifier | Qt::Key(Qt::Key_1 + i),
+	     this,
+	     SLOT(slotTabWidgetShortcutActivated(void)));
+#endif
+	  m_tabWidgetShortcuts << shortcut;
+
+	  if(i == m_ui.tab->count() - 1)
+	    {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+	      shortcut = new QShortcut
+		(Qt::AltModifier + Qt::Key_0,
+		 this,
+		 SLOT(slotTabWidgetShortcutActivated(void)));
+#else
+	      shortcut = new QShortcut
+		(Qt::AltModifier | Qt::Key_0,
+		 this,
+		 SLOT(slotTabWidgetShortcutActivated(void)));
+#endif
+	      m_tabWidgetShortcuts << shortcut;
+	    }
+	}
+    }
+}
+
 void glitch_ui::prepareToolBar(void)
 {
   m_ui.toolBar->clear();
@@ -1172,6 +1240,7 @@ void glitch_ui::slotCloseDiagram(int index)
   m_ui.tab->removeTab(index);
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTabShortcuts();
 }
 
 void glitch_ui::slotCloseDiagram(void)
@@ -1662,6 +1731,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   window->show();
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTabShortcuts();
   setWindowTitle(nullptr);
 }
 
@@ -1801,6 +1871,33 @@ void glitch_ui::slotTabMoved(int from, int to)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_ui::slotTabWidgetShortcutActivated(void)
+{
+  auto shortcut = qobject_cast<QShortcut *> (sender());
+
+  if(!shortcut)
+    return;
+
+  auto key(shortcut->key());
+  int index = -1;
+
+  for(auto i = Qt::Key_1; i <= Qt::Key_9; i = Qt::Key(i + 1))
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    if(key.matches(QKeySequence(Qt::AltModifier + i)))
+#else
+    if(key.matches(QKeySequence(Qt::AltModifier | i)))
+#endif
+      {
+	index = static_cast<int> (-Qt::Key_1 + i);
+	break;
+      }
+
+  if(index == -1)
+    index = m_ui.tab->count() - 1;
+
+  m_ui.tab->setCurrentIndex(index);
+}
+
 void glitch_ui::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
@@ -1848,6 +1945,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTabShortcuts();
   setTabText(view);
   setWindowTitle(view);
   view->unite();

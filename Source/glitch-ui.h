@@ -35,6 +35,7 @@
 #include "ui_glitch-mainwindow.h"
 
 class QGraphicsView;
+class QShortcut;
 class QUndoStack;
 class glitch_documentation;
 class glitch_object;
@@ -62,6 +63,7 @@ class glitch_ui: public QMainWindow
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
+  QList<QShortcut *> m_tabWidgetShortcuts;
   QMessageBox m_about;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
@@ -82,6 +84,7 @@ class glitch_ui: public QMainWindow
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);
   void prepareStatusBar(void);
+  void prepareTabShortcuts(void);
   void prepareToolBar(void);
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);
@@ -131,6 +134,7 @@ class glitch_ui: public QMainWindow
   void slotShowTools(void);
   void slotShowUserFunctions(void);
   void slotTabMoved(int from, int to);
+  void slotTabWidgetShortcutActivated(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
   void slotUnite(glitch_view *view);
