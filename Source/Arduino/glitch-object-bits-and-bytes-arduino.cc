@@ -81,6 +81,7 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
     }
 
   m_ui.function->blockSignals(false);
+  m_properties[Properties::BITS_AND_BYTES_TYPE] = m_ui.function->currentText();
   setName(m_ui.function->currentText());
 }
 
@@ -101,6 +102,7 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotFunctionChanged(void)));
+  m_properties[Properties::BITS_AND_BYTES_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
   setName(m_ui.function->currentText());
 }
@@ -274,7 +276,7 @@ void glitch_object_bits_and_bytes_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["bab_type"] = m_ui.function->currentText().trimmed();
+  properties["bab_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 

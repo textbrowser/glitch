@@ -58,6 +58,7 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
     }
 
   m_ui.function->blockSignals(false);
+  m_properties[Properties::ANALOG_IO_TYPE] = m_ui.function->currentText();
   setName(m_ui.function->currentText());
 }
 
@@ -74,6 +75,7 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotFunctionChanged(void)));
+  m_properties[Properties::ANALOG_IO_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
   setName(m_ui.function->currentText());
 }
@@ -200,7 +202,7 @@ void glitch_object_analog_io_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["io_type"] = m_ui.function->currentText().trimmed();
+  properties["io_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
