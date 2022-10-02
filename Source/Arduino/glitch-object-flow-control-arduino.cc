@@ -501,7 +501,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
 void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::CONDITION] = "";  
+  m_properties[Properties::CONDITION] = "";
   m_properties[Properties::FLOW_CONTROL_TYPE] = "break";
 
   for(int i = 0; i < list.size(); i++)

@@ -92,6 +92,10 @@ class glitch_object_characters_arduino: public glitch_object
 	{
 	  return "isDigit";
 	}
+      case Type::IS_GRAPH:
+	{
+	  return "isGraph";
+	}
       case Type::IS_HEXADECIMAL_DIGIT:
 	{
 	  return "isHexadecimalDigit";
@@ -139,6 +143,8 @@ class glitch_object_characters_arduino: public glitch_object
       return Type::IS_CONTROL;
     else if(string.contains("isdigit"))
       return Type::IS_DIGIT;
+    else if(string.contains("isgraph"))
+      return Type::IS_GRAPH;
     else if(string.contains("ishexadecimaldigit"))
       return Type::IS_HEXADECIMAL_DIGIT;
     else if(string.contains("islowercase"))
@@ -158,6 +164,10 @@ class glitch_object_characters_arduino: public glitch_object
   }
 
   void setProperties(const QStringList &list);
+  void setProperty(const Properties property, const QVariant &value);
+
+ private slots:
+  void slotFunctionChanged(void);
 };
 
 #endif

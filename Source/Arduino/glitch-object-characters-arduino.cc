@@ -26,6 +26,8 @@
 */
 
 #include "glitch-object-characters-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_characters_arduino::glitch_object_characters_arduino
 (const QString &charactersType, QWidget *parent):
@@ -33,71 +35,82 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 {
   m_charactersType = stringToCharactersType(charactersType);
 
+  QString string("");
+
   switch(m_charactersType)
     {
     case Type::IS_ALPHA_NUMERIC:
       {
-	m_ui.label->setText("isAlphaNumeric()");
+	string = "isAlphaNumeric()";
 	break;
       }
     case Type::IS_ASCII:
       {
-	m_ui.label->setText("isAscii()");
+	string = "isAscii()";
 	break;
       }
     case Type::IS_CONTROL:
       {
-	m_ui.label->setText("isControl()");
+	string = "isControl()";
 	break;
       }
     case Type::IS_DIGIT:
       {
-	m_ui.label->setText("isDigit()");
+	string = "isDigit()";
+	break;
+      }
+    case Type::IS_GRAPH:
+      {
+	string = "isGraph()";
 	break;
       }
     case Type::IS_HEXADECIMAL_DIGIT:
       {
-	m_ui.label->setText("isHexadecimalDigit()");
+	string = "isHexadecimalDigit()";
 	break;
       }
     case Type::IS_LOWER_CASE:
       {
-	m_ui.label->setText("isLowerCase()");
+	string = "isLowerCase()";
 	break;
       }
     case Type::IS_PRINTABLE:
       {
-	m_ui.label->setText("isPrintable()");
+	string = "isPrintable()";
 	break;
       }
     case Type::IS_PUNCT:
       {
-	m_ui.label->setText("isPunct()");
+	string = "isPunct()";
 	break;
       }
     case Type::IS_SPACE:
       {
-	m_ui.label->setText("isSpace()");
+	string = "isSpace()";
 	break;
       }
     case Type::IS_UPPER_CASE:
       {
-	m_ui.label->setText("isUpperCase()");
+	string = "isUpperCase()";
 	break;
       }
     case Type::IS_WHITESPACE:
       {
-	m_ui.label->setText("isWhitespace()");
+	string = "isWhitespace()";
 	break;
       }
     default:
       {
-	m_ui.label->setText("isAlpha()");
+	string = "isAlpha()";
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex(m_ui.function->findText(string));
+  m_ui.function->blockSignals(false);
+  m_properties[Properties::CHARACTERS_TYPE] = m_ui.function->currentText();
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_characters_arduino::glitch_object_characters_arduino
@@ -105,8 +118,27 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 {
   m_type = "arduino-characters";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "isAlpha()"
+			                << "isAlphaNumeric()"
+			                << "isAscii()"
+					<< "isControl()"
+			                << "isDigit()"
+					<< "isGraph()"
+					<< "isHexadecimalDigit()"
+					<< "isLowerCase()"
+					<< "isPrintable()"
+					<< "isPunct()"
+					<< "isSpace()"
+					<< "isUpperCase()"
+			                << "isWhitespace()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
+  m_properties[Properties::CHARACTERS_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_characters_arduino::~glitch_object_characters_arduino()
@@ -155,7 +187,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_charactersType = m_charactersType;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -176,8 +210,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_charactersType = stringToCharactersType
     (object->m_properties.value(Properties::CHARACTERS_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::CHARACTERS_TYPE).toString());
   return object;
 }
 
@@ -196,7 +228,7 @@ void glitch_object_characters_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["characters_type"] = m_ui.label->text().trimmed();
+  properties["characters_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -222,6 +254,8 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
 	    string = "isControl()";
 	  else if(string.contains("isdigit"))
 	    string = "isDigit()";
+	  else if(string.contains("isgraph"))
+	    string = "isGraph()";
 	  else if(string.contains("ishexadecimaldigit"))
 	    string = "isHexadecimalDigit()";
 	  else if(string.contains("islowercase"))
@@ -243,5 +277,57 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_charactersType = stringToCharactersType
+    (m_properties.value(Properties::CHARACTERS_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::CHARACTERS_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::CHARACTERS_TYPE).toString());
+}
+
+void glitch_object_characters_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::CHARACTERS_TYPE:
+      {
+	m_charactersType = stringToCharactersType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_characters_arduino::slotFunctionChanged(void)
+{
+  m_charactersType = stringToCharactersType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::CHARACTERS_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::CHARACTERS_TYPE,
+     this);
+
+  m_properties[Properties::CHARACTERS_TYPE] = m_ui.function->currentText();
+  undoCommand->setText
+    (tr("characters function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
