@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-advanced-io-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
@@ -90,6 +91,7 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
 			                << "shiftIn()"
 			                << "shiftOut()"
 			                << "tone()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.function,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,

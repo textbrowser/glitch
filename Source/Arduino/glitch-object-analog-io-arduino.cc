@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-analog-io-arduino.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
@@ -68,6 +69,7 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
   m_ui.function->addItems(QStringList() << "analogRead()"
 			                << "analogReference()"
 			                << "analogWrite()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.function,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
