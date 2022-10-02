@@ -242,6 +242,7 @@ void glitch_object_arithmetic_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::ARITHMETIC_OPERATOR] = "+";
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -268,10 +269,6 @@ void glitch_object_arithmetic_operator_arduino::setProperty
     {
     case Properties::ARITHMETIC_OPERATOR:
       {
-	m_ui.arithmetic_operator->blockSignals(true);
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText(value.toString()));
-	m_ui.arithmetic_operator->blockSignals(false);
 	setOperatorType(value.toString());
 	break;
       }
