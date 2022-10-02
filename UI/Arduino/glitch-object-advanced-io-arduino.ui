@@ -30,7 +30,11 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QComboBox" name="function"/>
+    <widget class="QComboBox" name="function">
+     <property name="currentText">
+      <string notr="true"/>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QToolButton" name="context_menu">

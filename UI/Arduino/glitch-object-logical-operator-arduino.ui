@@ -34,6 +34,9 @@
      <property name="styleSheet">
       <string notr="true">QComboBox { combobox-popup: 0; }</string>
      </property>
+     <property name="currentText">
+      <string notr="true">&amp;&amp;</string>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QComboBox::AdjustToContents</enum>
      </property>

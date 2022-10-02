@@ -116,6 +116,9 @@
          <property name="styleSheet">
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
+         <property name="currentText">
+          <string notr="true"/>
+         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -167,6 +170,9 @@
          <property name="styleSheet">
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
          </property>
+         <property name="currentText">
+          <string notr="true"/>
+         </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContents</enum>
          </property>
@@ -179,6 +185,9 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QComboBox { combobox-popup: 0; }</string>
+         </property>
+         <property name="currentText">
+          <string notr="true"/>
          </property>
          <property name="currentIndex">
           <number>0</number>
