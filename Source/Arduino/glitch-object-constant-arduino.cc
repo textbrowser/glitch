@@ -39,6 +39,8 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
  QWidget *parent):glitch_object_constant_arduino(1, parent)
 {
   setConstantType(constantType);
+  m_properties[Properties::CONSTANT_OTHER] = "";
+  m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
 }
 
 glitch_object_constant_arduino::glitch_object_constant_arduino
@@ -57,6 +59,8 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 	  &QLineEdit::returnPressed,
 	  this,
 	  &glitch_object_constant_arduino::slotOtherConstantChanged);
+  m_properties[Properties::CONSTANT_OTHER] = "";
+  m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
   prepareContextMenu();
   setName(m_type);
 }
@@ -213,6 +217,8 @@ void glitch_object_constant_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::CONSTANT_OTHER] = "";
+  m_properties[Properties::CONSTANT_TYPE] = "high";
 
   for(int i = 0; i < list.size(); i++)
     {

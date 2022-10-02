@@ -40,6 +40,7 @@ glitch_object_conversion_arduino
   glitch_object_conversion_arduino(1, parent)
 {
   setConversionType(conversionType);
+  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
 }
 
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
@@ -55,6 +56,7 @@ glitch_object_conversion_arduino::glitch_object_conversion_arduino
 	  SLOT(slotConversionChanged(void)));
   prepareContextMenu();
   setConversionType(m_conversionType);
+  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
 }
 
 glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
@@ -163,7 +165,7 @@ void glitch_object_conversion_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["conversion"] = m_ui.conversion->currentText().trimmed();
+  properties["conversion"] = m_ui.conversion->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -250,6 +252,7 @@ void glitch_object_conversion_arduino::setConversionType(const QString &ct)
 void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::CONVERSION] = "(unsigned int)";
 
   for(int i = 0; i < list.size(); i++)
     {
