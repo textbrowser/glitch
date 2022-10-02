@@ -34,6 +34,9 @@
      <property name="currentText">
       <string notr="true"/>
      </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QComboBox::AdjustToContents</enum>
+     </property>
     </widget>
    </item>
    <item>
