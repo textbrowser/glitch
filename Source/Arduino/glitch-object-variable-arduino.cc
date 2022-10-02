@@ -45,6 +45,8 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   string.remove("glitch-arduino-variables-");
   m_ui.array->setChecked(string.contains("array"));
   m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove(" (array)")));
+  m_properties[Properties::VARIABLE_ARRAY] = m_ui.array->isChecked();
+  m_properties[Properties::VARIABLE_TYPE] = m_ui.type->currentText();
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
@@ -359,7 +361,7 @@ void glitch_object_variable_arduino::save
   properties["variable_pointer_access"] = m_ui.pointer_access->currentText();
   properties["variable_progmem"] = m_ui.progmem->isChecked();
   properties["variable_qualifier"] = m_ui.qualifier->currentText();
-  properties["variable_type"] = m_ui.type->currentText().trimmed();
+  properties["variable_type"] = m_ui.type->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -368,6 +370,12 @@ void glitch_object_variable_arduino::setProperties
 {
   connectSignals(false);
   glitch_object::setProperties(list);
+  m_properties[Properties::VARIABLE_ARRAY] = false;
+  m_properties[Properties::VARIABLE_NAME] = "";
+  m_properties[Properties::VARIABLE_POINTER_ACCESS] = "";
+  m_properties[Properties::VARIABLE_PROGMEM] = false;
+  m_properties[Properties::VARIABLE_QUALIFIER] = "";
+  m_properties[Properties::VARIABLE_TYPE] = "";
 
   for(int i = 0; i < list.size(); i++)
     {
