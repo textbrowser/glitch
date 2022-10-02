@@ -226,6 +226,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
+- Verify setProperties() for default value.
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

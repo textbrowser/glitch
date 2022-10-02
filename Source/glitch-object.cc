@@ -574,8 +574,6 @@ void glitch_object::cloneWires
 	qDebug() << tr("Cannot clone wire as the original wire lacks "
 		       "left and right objects!");
     }
-
-  qDebug() << this << m_wires.size();
 }
 
 void glitch_object::createActions(void)

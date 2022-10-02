@@ -30,23 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string notr="true">advancedIO()</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
+    <widget class="QComboBox" name="function"/>
    </item>
    <item>
     <widget class="QToolButton" name="context_menu">
@@ -61,6 +45,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>function</tabstop>
+  <tabstop>context_menu</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Icons/icons.qrc"/>
  </resources>
