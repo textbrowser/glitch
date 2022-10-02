@@ -226,8 +226,7 @@ void glitch_object_compound_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["compound_operator"] =
-    m_ui.compound_operator->currentText().trimmed();
+  properties["compound_operator"] = m_ui.compound_operator->currentText();
   properties["compound_operator_pre"] = m_ui.pre->isChecked();
   glitch_object::saveProperties(properties, db, error);
 }
@@ -303,7 +302,7 @@ void glitch_object_compound_operator_arduino::setOperatorType
     default:
       {
 	m_ui.compound_operator->setCurrentIndex
-	  (m_ui.compound_operator->findText("+="));
+	  (m_ui.compound_operator->findText("%="));
 	break;
       }
     }
@@ -345,6 +344,8 @@ void glitch_object_compound_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPOUND_OPERATOR] = "%";
+  m_properties[Properties::COMPOUND_OPERATOR_PRE] = false;
 
   for(int i = 0; i < list.size(); i++)
     {

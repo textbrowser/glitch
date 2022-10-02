@@ -41,6 +41,8 @@ glitch_object_boolean_operator_arduino
   glitch_object_boolean_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
+  m_properties[Properties::BOOLEAN_OPERATOR] =
+    m_ui.boolean_operator->currentText();
 }
 
 glitch_object_boolean_operator_arduino::
@@ -57,6 +59,8 @@ glitch_object_boolean_operator_arduino
 	  SLOT(slotBooleanOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
+  m_properties[Properties::BOOLEAN_OPERATOR] =
+    m_ui.boolean_operator->currentText();
 }
 
 glitch_object_boolean_operator_arduino::
@@ -175,8 +179,7 @@ void glitch_object_boolean_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["boolean_operator"] =
-    m_ui.boolean_operator->currentText().trimmed();
+  properties["boolean_operator"] = m_ui.boolean_operator->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -224,6 +227,7 @@ void glitch_object_boolean_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::BOOLEAN_OPERATOR] = "!";
 
   for(int i = 0; i < list.size(); i++)
     {
