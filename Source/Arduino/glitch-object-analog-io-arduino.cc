@@ -26,33 +26,38 @@
 */
 
 #include "glitch-object-analog-io-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 (const QString &ioType, QWidget *parent):
   glitch_object_analog_io_arduino(1, parent)
 {
   m_ioType = stringToIOType(ioType);
+  m_ui.function->blockSignals(true);
 
   switch(m_ioType)
     {
     case Type::REFERENCE:
       {
-	m_ui.label->setText("analogReference()");
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText("analogReference()"));
 	break;
       }
     case Type::WRITE:
       {
-	m_ui.label->setText("analogWrite()");
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText("analogWrite()"));
 	break;
       }
     default:
       {
-	m_ui.label->setText("analogRead()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("analogRead()"));
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(false);
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
@@ -60,8 +65,15 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 {
   m_type = "arduino-analogio";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "analogRead()"
+			                << "analogReference()"
+			                << "analogWrite()");
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_analog_io_arduino::~glitch_object_analog_io_arduino()
@@ -145,7 +157,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_ioType = m_ioType;
   clone->m_properties = m_properties;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -166,8 +180,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ioType = stringToIOType
     (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::ANALOG_IO_TYPE).toString());
   return object;
 }
 
@@ -186,7 +198,7 @@ void glitch_object_analog_io_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["io_type"] = m_ui.label->text().trimmed();
+  properties["io_type"] = m_ui.function->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -215,5 +227,58 @@ void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_ioType = stringToIOType
+    (m_properties.value(Properties::ANALOG_IO_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::ANALOG_IO_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::ANALOG_IO_TYPE).toString());
+}
+
+void glitch_object_analog_io_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::ANALOG_IO_TYPE:
+      {
+	m_ioType = stringToIOType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_analog_io_arduino::slotFunctionChanged(void)
+{
+  m_ioType = stringToIOType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::ANALOG_IO_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::ANALOG_IO_TYPE,
+     this);
+
+  m_properties[Properties::ANALOG_IO_TYPE] =
+    m_ui.function->currentText();
+  undoCommand->setText
+    (tr("analog i/o function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
