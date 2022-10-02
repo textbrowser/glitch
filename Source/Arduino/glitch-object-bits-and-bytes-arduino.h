@@ -125,6 +125,10 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
   }
 
   void setProperties(const QStringList &list);
+  void setProperty(const Properties property, const QVariant &value);
+
+ private slots:
+  void slotFunctionChanged(void);
 };
 
 #endif

@@ -26,58 +26,62 @@
 */
 
 #include "glitch-object-bits-and-bytes-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 (const QString &babType, QWidget *parent):
   glitch_object_bits_and_bytes_arduino(1, parent)
 {
   m_babType = stringToType(babType);
+  m_ui.function->blockSignals(true);
 
   switch(m_babType)
     {
     case BIT:
       {
-	m_ui.label->setText("bit()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bit()"));
 	break;
       }
     case BIT_CLEAR:
       {
-	m_ui.label->setText("bitClear()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bitClear()"));
 	break;
       }
     case BIT_READ:
       {
-	m_ui.label->setText("bitRead()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bitRead()"));
 	break;
       }
     case BIT_SET:
       {
-	m_ui.label->setText("bitSet()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bitSet()"));
 	break;
       }
     case BIT_WRITE:
       {
-	m_ui.label->setText("bitWrite()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bitWrite()"));
 	break;
       }
     case HIGH_BYTE:
       {
-	m_ui.label->setText("highByte()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("highByte()"));
 	break;
       }
     case LOW_BYTE:
       {
-	m_ui.label->setText("lowByte()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("lowByte()"));
 	break;
       }
     default:
       {
-	m_ui.label->setText("bit()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("bit()"));
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(false);
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
@@ -85,8 +89,20 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 {
   m_type = "arduino-bitsandbytes";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "bit()"
+			                << "bitClear()"
+			                << "bitRead()"
+			                << "bitSet()"
+			                << "bitWrite()"
+			                << "highByte()"
+			                << "lowByte()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_bits_and_bytes_arduino::~glitch_object_bits_and_bytes_arduino()
@@ -217,7 +233,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_babType = m_babType;
   clone->m_properties = m_properties;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -238,8 +256,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_babType = stringToType
     (object->m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
   return object;
 }
 
@@ -258,7 +274,7 @@ void glitch_object_bits_and_bytes_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["bab_type"] = m_ui.label->text().trimmed();
+  properties["bab_type"] = m_ui.function->currentText().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -296,5 +312,58 @@ void glitch_object_bits_and_bytes_arduino::setProperties
 	}
     }
 
+  m_babType = stringToType
+    (m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
+}
+
+void glitch_object_bits_and_bytes_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::BITS_AND_BYTES_TYPE:
+      {
+	m_babType = stringToType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_bits_and_bytes_arduino::slotFunctionChanged(void)
+{
+  m_babType = stringToType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::BITS_AND_BYTES_TYPE,
+     this);
+
+  m_properties[Properties::BITS_AND_BYTES_TYPE] =
+    m_ui.function->currentText();
+  undoCommand->setText
+    (tr("bits-and-bytes function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
