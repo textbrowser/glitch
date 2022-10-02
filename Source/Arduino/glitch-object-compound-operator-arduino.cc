@@ -41,6 +41,9 @@ glitch_object_compound_operator_arduino
   glitch_object_compound_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
+  m_properties[Properties::COMPOUND_OPERATOR] =
+    m_ui.compound_operator->currentText();
+  m_properties[Properties::COMPOUND_OPERATOR_PRE] = false;
 }
 
 glitch_object_compound_operator_arduino::
@@ -62,6 +65,9 @@ glitch_object_compound_operator_arduino
 	  SLOT(slotPreToggled(bool)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
+  m_properties[Properties::COMPOUND_OPERATOR] =
+    m_ui.compound_operator->currentText();
+  m_properties[Properties::COMPOUND_OPERATOR_PRE] = false;
 }
 
 glitch_object_compound_operator_arduino::
