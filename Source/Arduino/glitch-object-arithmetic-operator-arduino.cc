@@ -41,6 +41,8 @@ glitch_object_arithmetic_operator_arduino
   glitch_object_arithmetic_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
+  m_properties[Properties::ARITHMETIC_OPERATOR] =
+    m_ui.arithmetic_operator->currentText();
 }
 
 glitch_object_arithmetic_operator_arduino::
@@ -57,6 +59,8 @@ glitch_object_arithmetic_operator_arduino
 	  SLOT(slotArithmeticOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
+  m_properties[Properties::ARITHMETIC_OPERATOR] =
+    m_ui.arithmetic_operator->currentText();
 }
 
 glitch_object_arithmetic_operator_arduino::
@@ -166,8 +170,7 @@ void glitch_object_arithmetic_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["arithmetic_operator"] =
-    m_ui.arithmetic_operator->currentText().trimmed();
+  properties["arithmetic_operator"] = m_ui.arithmetic_operator->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
