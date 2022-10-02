@@ -44,6 +44,8 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   glitch_object_flow_control_arduino(1, parent)
 {
   setFlowControlType(flowControlType);
+  m_properties[Properties::FLOW_CONTROL_TYPE] =
+    m_ui.flow_control_type->currentText();
   resize(sizeHint().width(), height());
 }
 
@@ -499,6 +501,8 @@ void glitch_object_flow_control_arduino::setFlowControlType
 void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::CONDITION] = "";  
+  m_properties[Properties::FLOW_CONTROL_TYPE] = "break";
 
   for(int i = 0; i < list.size(); i++)
     {

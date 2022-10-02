@@ -39,6 +39,8 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
   glitch_object_logical_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
+  m_properties[Properties::LOGICAL_OPERATOR] =
+    m_ui.logical_operator->currentText();
 }
 
 glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
@@ -54,6 +56,8 @@ glitch_object_logical_operator_arduino::glitch_object_logical_operator_arduino
 	  SLOT(slotLogicalOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
+  m_properties[Properties::LOGICAL_OPERATOR] =
+    m_ui.logical_operator->currentText();
 }
 
 glitch_object_logical_operator_arduino::
@@ -170,8 +174,7 @@ void glitch_object_logical_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["logical_operator"] =
-    m_ui.logical_operator->currentText().trimmed();
+  properties["logical_operator"] = m_ui.logical_operator->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -219,6 +222,7 @@ void glitch_object_logical_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::LOGICAL_OPERATOR] = "&&";
 
   for(int i = 0; i < list.size(); i++)
     {
