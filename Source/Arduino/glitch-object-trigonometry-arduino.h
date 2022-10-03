@@ -38,7 +38,6 @@ class glitch_object_trigonometry_arduino: public glitch_object
  public:
   glitch_object_trigonometry_arduino
     (const QString &trigonometryType, QWidget *parent);
-  glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_trigonometry_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -59,6 +58,7 @@ class glitch_object_trigonometry_arduino: public glitch_object
     TAN
   };
 
+  glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
   Type m_trigonometryType;
   Ui_glitch_object_trigonometry_arduino m_ui;
 
@@ -100,6 +100,10 @@ class glitch_object_trigonometry_arduino: public glitch_object
   }
 
   void setProperties(const QStringList &list);
+  void setProperty(const Properties property, const QVariant &value);
+
+ private slots:
+  void slotFunctionChanged(void);
 };
 
 #endif
