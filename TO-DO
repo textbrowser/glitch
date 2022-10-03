@@ -125,6 +125,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
+- Private Arduino constructors (QWidget), (qint64, QWidget).
 - Proper indentation of generated source.
 - Raise currently-selected function via z-value. This will allow the function's
   combination box to float above other widgets.
@@ -224,7 +225,6 @@ Remaining Items
 - Multiple inputs or single input?
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Private Arduino constructors (QWidget), (qint64, QWidget).
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.

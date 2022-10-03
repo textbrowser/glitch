@@ -46,7 +46,6 @@ class glitch_object_bitwise_operator_arduino: public glitch_object
     XOR_OPERATOR
   };
 
-  glitch_object_bitwise_operator_arduino(QWidget *parent);
   glitch_object_bitwise_operator_arduino(const QString &operatorType,
 					 QWidget *parent);
   ~glitch_object_bitwise_operator_arduino();
@@ -64,6 +63,7 @@ class glitch_object_bitwise_operator_arduino: public glitch_object
   void setOperatorType(const QString &operatorType);
 
  private:
+  glitch_object_bitwise_operator_arduino(QWidget *parent);
   glitch_object_bitwise_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
   Ui_glitch_object_bitwise_operator_arduino m_ui;

@@ -49,7 +49,6 @@ class glitch_object_constant_arduino: public glitch_object
     TRUE
   };
 
-  glitch_object_constant_arduino(QWidget *parent);
   glitch_object_constant_arduino(const QString &constantType, QWidget *parent);
   ~glitch_object_constant_arduino();
   QString code(void) const;
@@ -65,6 +64,7 @@ class glitch_object_constant_arduino: public glitch_object
   void setConstantType(const QString &constantType);
 
  private:
+  glitch_object_constant_arduino(QWidget *parent);
   glitch_object_constant_arduino(const qint64 id, QWidget *parent);
   ConstantTypes m_constantType;
   Ui_glitch_object_constant_arduino m_ui;

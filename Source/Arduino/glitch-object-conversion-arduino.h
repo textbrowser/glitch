@@ -48,7 +48,6 @@ class glitch_object_conversion_arduino: public glitch_object
     WORD
   };
 
-  glitch_object_conversion_arduino(QWidget *parent);
   glitch_object_conversion_arduino(const QString &conversionType,
 				   QWidget *parent);
   ~glitch_object_conversion_arduino();
@@ -66,6 +65,7 @@ class glitch_object_conversion_arduino: public glitch_object
   void setConversionType(const QString &ct);
 
  private:
+  glitch_object_conversion_arduino(QWidget *parent);
   glitch_object_conversion_arduino(const qint64 id, QWidget *parent);
   ConversionTypes m_conversionType;
   Ui_glitch_object_conversion_arduino m_ui;
