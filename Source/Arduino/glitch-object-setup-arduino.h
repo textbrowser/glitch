@@ -39,7 +39,6 @@ class glitch_object_setup_arduino: public glitch_object
 
  public:
   glitch_object_setup_arduino(QWidget *parent);
-  glitch_object_setup_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_setup_arduino();
   QString code(void) const;
   bool hasView(void) const;
@@ -52,6 +51,7 @@ class glitch_object_setup_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  glitch_object_setup_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_setup_arduino m_ui;
   void mouseDoubleClickEvent(QMouseEvent *event);
 

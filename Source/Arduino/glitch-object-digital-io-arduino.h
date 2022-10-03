@@ -37,7 +37,6 @@ class glitch_object_digital_io_arduino: public glitch_object
 
  public:
   glitch_object_digital_io_arduino(const QString &ioType, QWidget *parent);
-  glitch_object_digital_io_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_digital_io_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -58,6 +57,7 @@ class glitch_object_digital_io_arduino: public glitch_object
     WRITE
   };
 
+  glitch_object_digital_io_arduino(const qint64 id, QWidget *parent);
   Type m_ioType;
   Ui_glitch_object_digital_io_arduino m_ui;
 

@@ -38,7 +38,6 @@ class glitch_object_characters_arduino: public glitch_object
  public:
   glitch_object_characters_arduino
     (const QString &charactersType, QWidget *parent);
-  glitch_object_characters_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_characters_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -69,6 +68,7 @@ class glitch_object_characters_arduino: public glitch_object
     IS_WHITESPACE
   };
 
+  glitch_object_characters_arduino(const qint64 id, QWidget *parent);
   Type m_charactersType;
   Ui_glitch_object_characters_arduino m_ui;
 

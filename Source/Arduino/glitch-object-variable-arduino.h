@@ -38,7 +38,6 @@ class glitch_object_variable_arduino: public glitch_object
  public:
   glitch_object_variable_arduino(QWidget *parent);
   glitch_object_variable_arduino(const QString &variableType, QWidget *parent);
-  glitch_object_variable_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_variable_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -52,6 +51,7 @@ class glitch_object_variable_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  glitch_object_variable_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_variable_arduino m_ui;
   void connectSignals(const bool state);
   void setProperties(const QStringList &list);

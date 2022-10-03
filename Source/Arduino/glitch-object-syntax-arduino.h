@@ -38,7 +38,6 @@ class glitch_object_syntax_arduino: public glitch_object
  public:
   glitch_object_syntax_arduino(QWidget *parent);
   glitch_object_syntax_arduino(const QString &syntax, QWidget *parent);
-  glitch_object_syntax_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_syntax_arduino();
   QString code(void) const;
   bool hasOutput(void) const;
@@ -51,6 +50,7 @@ class glitch_object_syntax_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  glitch_object_syntax_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_syntax_arduino m_ui;
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);

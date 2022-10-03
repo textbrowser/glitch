@@ -37,7 +37,6 @@ class glitch_object_stream_arduino: public glitch_object
 
  public:
   glitch_object_stream_arduino(const QString &streamType, QWidget *parent);
-  glitch_object_stream_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_stream_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -68,6 +67,7 @@ class glitch_object_stream_arduino: public glitch_object
     SET_TIMEOUT
   };
 
+  glitch_object_stream_arduino(const qint64 id, QWidget *parent);
   Type m_streamType;
   Ui_glitch_object_stream_arduino m_ui;
 

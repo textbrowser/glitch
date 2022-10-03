@@ -53,10 +53,8 @@ class glitch_object_flow_control_arduino: public glitch_object
     WHILE
   };
 
-  glitch_object_flow_control_arduino(QWidget *parent);
   glitch_object_flow_control_arduino
     (const QString &flowControlType, QWidget *parent);
-  glitch_object_flow_control_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_flow_control_arduino();
   QString code(void) const;
   QString flowControlType(void) const;
@@ -76,6 +74,8 @@ class glitch_object_flow_control_arduino: public glitch_object
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  glitch_object_flow_control_arduino(QWidget *parent);
+  glitch_object_flow_control_arduino(const qint64 id, QWidget *parent);
   FlowControlTypes m_flowControlType;
   Ui_glitch_object_flow_control_arduino m_ui;
   bool editable(void) const;

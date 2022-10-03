@@ -39,7 +39,6 @@ class glitch_object_loop_arduino: public glitch_object
 
  public:
   glitch_object_loop_arduino(QWidget *parent);
-  glitch_object_loop_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_loop_arduino();
   QString code(void) const;
   bool hasView(void) const;
@@ -53,6 +52,7 @@ class glitch_object_loop_arduino: public glitch_object
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  glitch_object_loop_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_loop_arduino m_ui;
   void mouseDoubleClickEvent(QMouseEvent *event);
 

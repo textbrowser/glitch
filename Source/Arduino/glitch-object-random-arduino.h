@@ -36,9 +36,7 @@ class glitch_object_random_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  glitch_object_random_arduino
-    (const QString &randomType, QWidget *parent);
-  glitch_object_random_arduino(const qint64 id, QWidget *parent);
+  glitch_object_random_arduino(const QString &randomType, QWidget *parent);
   ~glitch_object_random_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -58,6 +56,7 @@ class glitch_object_random_arduino: public glitch_object
     RANDOM_SEED
   };
 
+  glitch_object_random_arduino(const qint64 id, QWidget *parent);
   Type m_randomType;
   Ui_glitch_object_random_arduino m_ui;
 

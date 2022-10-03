@@ -38,7 +38,6 @@ class glitch_object_mathematics_arduino: public glitch_object
  public:
   glitch_object_mathematics_arduino
     (const QString &mathematicsType, QWidget *parent);
-  glitch_object_mathematics_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_mathematics_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -64,6 +63,7 @@ class glitch_object_mathematics_arduino: public glitch_object
     SQRT
   };
 
+  glitch_object_mathematics_arduino(const qint64 id, QWidget *parent);
   Type m_mathematicsType;
   Ui_glitch_object_mathematics_arduino m_ui;
 

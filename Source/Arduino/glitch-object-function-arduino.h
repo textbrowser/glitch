@@ -43,10 +43,6 @@ class glitch_object_function_arduino: public glitch_object
  public:
   glitch_object_function_arduino(QWidget *parent);
   glitch_object_function_arduino(const QString &name, QWidget *parent);
-  glitch_object_function_arduino(const qint64 parentId,
-				 const qint64 id,
-				 glitch_object *parentObject,
-				 QWidget *parent);
   ~glitch_object_function_arduino();
   QPointer<glitch_object_function_arduino> parentFunction(void) const;
   QString code(void) const;
@@ -72,6 +68,10 @@ class glitch_object_function_arduino: public glitch_object
   void setUndoStack(QUndoStack *undoStack);
 
  private:
+  glitch_object_function_arduino(const qint64 parentId,
+				 const qint64 id,
+				 glitch_object *parentObject,
+				 QWidget *parent);
   QPointer<glitch_object_function_arduino> m_parentFunction;
   QPointer<glitch_view_arduino> m_parentView;
   QString m_previousReturnType;

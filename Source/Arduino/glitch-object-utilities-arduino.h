@@ -38,7 +38,6 @@ class glitch_object_utilities_arduino: public glitch_object
  public:
   glitch_object_utilities_arduino
     (const QString &utilitiesType, QWidget *parent);
-  glitch_object_utilities_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_utilities_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -57,6 +56,7 @@ class glitch_object_utilities_arduino: public glitch_object
     SIZEOF = 0
   };
 
+  glitch_object_utilities_arduino(const qint64 id, QWidget *parent);
   Type m_utilitiesType;
   Ui_glitch_object_utilities_arduino m_ui;
 

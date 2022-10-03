@@ -37,7 +37,6 @@ class glitch_object_serial_arduino: public glitch_object
 
  public:
   glitch_object_serial_arduino(const QString &serialType, QWidget *parent);
-  glitch_object_serial_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_serial_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -74,6 +73,7 @@ class glitch_object_serial_arduino: public glitch_object
     WRITE
   };
 
+  glitch_object_serial_arduino(const qint64 id, QWidget *parent);
   Type m_serialType;
   Ui_glitch_object_serial_arduino m_ui;
 
