@@ -134,6 +134,7 @@ void glitch_object_syntax_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::SYNTAX] = "";
 
   for(int i = 0; i < list.size(); i++)
     {

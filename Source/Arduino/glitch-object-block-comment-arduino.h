@@ -37,7 +37,6 @@ class glitch_object_block_comment_arduino: public glitch_object
 
  public:
   glitch_object_block_comment_arduino(QWidget *parent);
-  glitch_object_block_comment_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_block_comment_arduino();
   QPlainTextEdit *plainTextEdit(void) const;
   QString code(void) const;
@@ -51,6 +50,7 @@ class glitch_object_block_comment_arduino: public glitch_object
   void setProperty(const Properties property, const QVariant &value);
 
  private:
+  glitch_object_block_comment_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_block_comment_arduino m_ui;
   void setProperties(const QStringList &list);
 

@@ -216,8 +216,6 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
 
 	  if(string.contains("delaymicroseconds"))
 	    string = "delayMicroseconds()";
-	  else if(string.contains("delay"))
-	    string = "delay()";
 	  else if(string.contains("macros"))
 	    string = "macros()";
 	  else if(string.contains("millis"))

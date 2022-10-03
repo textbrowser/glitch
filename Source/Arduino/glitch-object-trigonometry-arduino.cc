@@ -204,9 +204,7 @@ void glitch_object_trigonometry_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  if(string.contains("cos"))
-	    string = "cos()";
-	  else if(string.contains("sin"))
+	  if(string.contains("sin"))
 	    string = "sin()";
 	  else if(string.contains("tan"))
 	    string = "tan()";

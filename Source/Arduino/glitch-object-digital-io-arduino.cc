@@ -206,12 +206,12 @@ void glitch_object_digital_io_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  if(string.contains("read"))
-	    string = "digitalRead()";
+	  if(string.contains("pin"))
+	    string = "pinMode()";
 	  else if(string.contains("write"))
 	    string = "digitalWrite()";
 	  else
-	    string = "pinMode()";
+	    string = "digitalRead()";
 
 	  m_properties[Properties::DIGITAL_IO_TYPE] = string.trimmed();
 	}

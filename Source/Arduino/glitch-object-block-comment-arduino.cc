@@ -144,6 +144,7 @@ void glitch_object_block_comment_arduino::save
 void glitch_object_block_comment_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMMENT] = "";
 
   for(int i = 0; i < list.size(); i++)
     {

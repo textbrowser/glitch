@@ -350,7 +350,7 @@ void glitch_object_compound_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::COMPOUND_OPERATOR] = "%";
+  m_properties[Properties::COMPOUND_OPERATOR] = "%=";
   m_properties[Properties::COMPOUND_OPERATOR_PRE] = false;
 
   for(int i = 0; i < list.size(); i++)
