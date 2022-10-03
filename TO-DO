@@ -223,6 +223,7 @@ Remaining Items
 - Multiple inputs or single input?
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
+- Private Arduino constructors (qint64, QWidget).
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.

@@ -37,7 +37,6 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
 
  public:
   glitch_object_bits_and_bytes_arduino(const QString &babType, QWidget *parent);
-  glitch_object_bits_and_bytes_arduino(const qint64 id, QWidget *parent);
   ~glitch_object_bits_and_bytes_arduino();
   QString code(void) const;
   bool hasInput(void) const;
@@ -62,6 +61,7 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
     LOW_BYTE
   };
 
+  glitch_object_bits_and_bytes_arduino(const qint64 id, QWidget *parent);
   Type m_babType;
   Ui_glitch_object_bits_and_bytes_arduino m_ui;
 

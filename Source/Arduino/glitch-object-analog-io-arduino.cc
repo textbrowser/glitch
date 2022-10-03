@@ -75,7 +75,6 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotFunctionChanged(void)));
-  m_properties[Properties::ANALOG_IO_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
   setName(m_ui.function->currentText());
 }

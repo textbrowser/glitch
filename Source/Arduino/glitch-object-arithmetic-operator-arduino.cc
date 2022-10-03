@@ -59,8 +59,6 @@ glitch_object_arithmetic_operator_arduino
 	  SLOT(slotArithmeticOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
-  m_properties[Properties::ARITHMETIC_OPERATOR] =
-    m_ui.arithmetic_operator->currentText();
 }
 
 glitch_object_arithmetic_operator_arduino::

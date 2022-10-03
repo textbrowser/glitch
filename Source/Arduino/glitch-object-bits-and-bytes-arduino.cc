@@ -102,7 +102,6 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotFunctionChanged(void)));
-  m_properties[Properties::BITS_AND_BYTES_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
   setName(m_ui.function->currentText());
 }

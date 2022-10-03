@@ -97,7 +97,6 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotFunctionChanged(void)));
-  m_properties[Properties::ADVANCED_IO_TYPE] = m_ui.function->currentText();
   prepareContextMenu();
   setName(m_ui.function->currentText());
 }
