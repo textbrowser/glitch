@@ -424,7 +424,11 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
 
 	  if(distance <= s_intelligentDistance)
 	    {
-	      m_hoveredSection = Sections::LEFT;
+	      if(m_object && m_object->hasInput())
+		m_hoveredSection = Sections::LEFT;
+	      else
+		goto done_label;
+
 	      return;
 	    }
 
@@ -436,10 +440,15 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
 
 	  if(distance <= s_intelligentDistance)
 	    {
-	      m_hoveredSection = Sections::RIGHT;
+	      if(m_object && m_object->hasOutput())
+		m_hoveredSection = Sections::RIGHT;
+	      else
+		goto done_label;
+
 	      return;
 	    }
 
+	done_label:
 	  m_hoveredSection = Sections::XYZ;
 	}
       else
