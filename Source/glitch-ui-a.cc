@@ -298,14 +298,14 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
-	  auto view = newArduinoDiagram(fileName, name, true);
+	  setUpdatesEnabled(false);
 
-	  view->setUpdatesEnabled(false);
+	  auto view = newArduinoDiagram(fileName, name, true);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
 
-	  view->setUpdatesEnabled(true);
+	  setUpdatesEnabled(true);
 	}
       else
 	ok = false;
