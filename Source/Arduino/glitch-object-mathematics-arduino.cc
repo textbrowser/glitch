@@ -26,15 +26,21 @@
 */
 
 #include "glitch-object-mathematics-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 (const QString &mathematicsType, QWidget *parent):
   glitch_object_mathematics_arduino(1, parent)
 {
   m_mathematicsType = stringToMathematicsType(mathematicsType);
-  m_ui.label->setText
-    (QString("%1()").arg(mathematicsTypeToString(m_mathematicsType)));
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(QString("%1()").arg(mathematicsTypeToString(m_mathematicsType))));
+  m_ui.function->blockSignals(false);
+  m_properties[Properties::MATHEMATICS_TYPE] = m_ui.function->currentText();
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
@@ -42,8 +48,21 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 {
   m_type = "arduino-mathematics";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "abs()"
+			                << "constrain()"
+			                << "map()"
+			                << "max()"
+			                << "min()"
+			                << "pow()"
+			                << "sq()"
+			                << "sqrt()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_mathematics_arduino::~glitch_object_mathematics_arduino()
@@ -174,7 +193,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_mathematicsType = m_mathematicsType;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -195,8 +216,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_mathematicsType = stringToMathematicsType
     (object->m_properties.value(Properties::MATHEMATICS_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::MATHEMATICS_TYPE).toString());
   return object;
 }
 
@@ -215,7 +234,7 @@ void glitch_object_mathematics_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["mathematics_type"] = m_ui.label->text().trimmed();
+  properties["mathematics_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -238,5 +257,57 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_mathematicsType = stringToMathematicsType
+    (m_properties.value(Properties::MATHEMATICS_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::MATHEMATICS_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::MATHEMATICS_TYPE).toString());
+}
+
+void glitch_object_mathematics_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::MATHEMATICS_TYPE:
+      {
+	m_mathematicsType = stringToMathematicsType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_mathematics_arduino::slotFunctionChanged(void)
+{
+  m_mathematicsType = stringToMathematicsType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::MATHEMATICS_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::MATHEMATICS_TYPE,
+     this);
+
+  m_properties[Properties::MATHEMATICS_TYPE] = m_ui.function->currentText();
+  undoCommand->setText
+    (tr("mathematics function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }

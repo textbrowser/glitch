@@ -143,8 +143,6 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
   if(!ok)
     return ok;
 
-  m_splitter->restoreState(m_properties.value("splitter_state").toByteArray());
-
   QString connectionName("");
 
   {

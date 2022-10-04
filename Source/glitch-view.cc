@@ -502,6 +502,9 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		      (string.toLatin1());
 		  }
 	      }
+
+	    m_splitter->restoreState
+	      (m_properties.value("splitter_state").toByteArray());
 	  }
 
 	if(error.isEmpty())

@@ -291,8 +291,7 @@ void glitch_object_time_arduino::slotFunctionChanged(void)
      Properties::TIME_TYPE,
      this);
 
-  m_properties[Properties::TIME_TYPE] =
-    m_ui.function->currentText();
+  m_properties[Properties::TIME_TYPE] = m_ui.function->currentText();
   undoCommand->setText
     (tr("time function changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));

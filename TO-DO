@@ -228,6 +228,7 @@ Remaining Items
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
+- Reopen child windows after undo of delete.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Variable (combination boxes) functions.
