@@ -47,23 +47,15 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  &QListWidget::itemSelectionChanged,
 	  this,
 	  &glitch_structures_arduino::slotCategorySelected);
-  connect(m_ui.close,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_structures_arduino::close);
   connect(m_ui.filter,
 	  SIGNAL(textChanged(const QString &)),
 	  this,
 	  SLOT(slotFilterTextChanged(void)));
-  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   new QShortcut(tr("Ctrl+F"),
 		m_ui.filter,
 		SLOT(setFocus(void)));
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
   prepareCategories();
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
@@ -72,6 +64,11 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
 glitch_structures_arduino::~glitch_structures_arduino()
 {
+}
+
+QFrame *glitch_structures_arduino::frame(void) const
+{
+  return m_ui.frame;
 }
 
 QStringList glitch_structures_arduino::nonArrayVariableTypes(void)
@@ -190,7 +187,10 @@ void glitch_structures_arduino::prepareCategories(void)
       auto item = m_ui.categories->item(i);
 
       if(item)
-	item->setData(Qt::UserRole, m_categoriesMap.value(item->text()));
+	{
+	  item->setData(Qt::UserRole, m_categoriesMap.value(item->text()));
+	  item->setToolTip(item->text());
+	}
     }
 
   s_itemsForCategories["Advanced I/O"] = QStringList() << "noTone()"

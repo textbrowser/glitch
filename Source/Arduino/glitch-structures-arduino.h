@@ -40,6 +40,7 @@ class glitch_structures_arduino: public QDialog
  public:
   glitch_structures_arduino(QWidget *parent);
   ~glitch_structures_arduino();
+  QFrame *frame(void) const;
   static QStringList nonArrayVariableTypes(void);
   static QStringList variableTypes(void);
   static bool containsStructure(const QString &structureName);

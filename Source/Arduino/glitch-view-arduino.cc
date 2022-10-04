@@ -31,6 +31,7 @@
 
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-graphicsview.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-setup-arduino.h"
 #include "glitch-proxy-widget.h"
@@ -45,6 +46,7 @@ glitch_view_arduino::glitch_view_arduino
  QWidget *parent):glitch_view(fileName, name, projectType, parent)
 {
   Q_UNUSED(fromFile);
+  m_arduinoStructures = new glitch_structures_arduino(this);
   m_canvasSettings->setOutputFileExtension(projectOutputFileExtension());
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
@@ -93,6 +95,14 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  m_scene,
 	  SIGNAL(undoStackCreated(QUndoStack *)));
+  connect(m_splitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSilentSave(void)));
+  m_splitter->addWidget(m_arduinoStructures->frame());
+  m_splitter->addWidget(m_view);
+  m_splitter->setStretchFactor(0, 0);
+  m_splitter->setStretchFactor(1, 1);
 }
 
 glitch_view_arduino::~glitch_view_arduino()
@@ -132,6 +142,8 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
   if(!ok)
     return ok;
+
+  m_splitter->restoreState(m_properties.value("splitter_state").toByteArray());
 
   QString connectionName("");
 
@@ -267,12 +279,6 @@ void glitch_view_arduino::separate(void)
 {
   defaultContextMenu()->deleteLater();
 
-  if(m_arduinoStructures && m_arduinoStructures->isVisible())
-    {
-      m_arduinoStructures->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowStructures);
-    }
-
   if(m_tools && m_tools->isVisible())
     {
       m_tools->deleteLater();
@@ -286,23 +292,11 @@ void glitch_view_arduino::separate(void)
 
 void glitch_view_arduino::showStructures(void)
 {
-  if(!m_arduinoStructures)
-    m_arduinoStructures = new glitch_structures_arduino(this);
-
-  m_arduinoStructures->setWindowTitle
-    (tr("Glitch: Arduino Structures (%1)").arg(m_canvasSettings->name()));
-  m_arduinoStructures->showNormal();
-  m_arduinoStructures->activateWindow();
-  m_arduinoStructures->raise();
 }
 
 void glitch_view_arduino::slotCanvasSettingsChanged(const bool undo)
 {
   glitch_view::slotCanvasSettingsChanged(undo);
-
-  if(m_arduinoStructures)
-    m_arduinoStructures->setWindowTitle
-      (tr("Glitch: Arduino Structures (%1)").arg(m_canvasSettings->name()));
 }
 
 void glitch_view_arduino::slotFunctionAdded(const QString &name,
@@ -322,15 +316,15 @@ void glitch_view_arduino::slotShowStructures(void)
   showStructures();
 }
 
+void glitch_view_arduino::slotSilentSave(void)
+{
+  m_properties["splitter_state"] = m_splitter->saveState();
+  saveProperties();
+}
+
 void glitch_view_arduino::unite(void)
 {
   defaultContextMenu()->deleteLater();
-
-  if(m_arduinoStructures && m_arduinoStructures->isVisible())
-    {
-      m_arduinoStructures->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowStructures);
-    }
 
   if(m_tools && m_tools->isVisible())
     {

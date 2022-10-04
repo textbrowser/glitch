@@ -70,6 +70,7 @@ class glitch_view_arduino: public glitch_view
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotShowStructures(void);
+  void slotSilentSave(void);
 };
 
 #endif

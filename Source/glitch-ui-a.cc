@@ -161,10 +161,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectAll(void)));
-  connect(m_ui.action_Structures,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotShowStructures(void)));
   connect(m_ui.action_Tools,
 	  SIGNAL(triggered(void)),
 	  SLOT(slotShowTools(void)));
@@ -744,8 +740,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
-      m_ui.action_Structures->setEnabled(false);
-      m_ui.action_Structures->setText(tr("&Structures..."));
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
     }
@@ -765,7 +759,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram_As->setEnabled(true);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 0);
-      m_ui.action_Structures->setEnabled(true);
       m_ui.action_Tools->setEnabled(true);
       m_ui.action_User_Functions->setEnabled(true);
     }
@@ -1539,22 +1532,6 @@ void glitch_ui::slotPageSaved(void)
 void glitch_ui::slotPageSelected(int index)
 {
   m_currentView = qobject_cast<glitch_view *> (m_ui.tab->widget(index));
-
-  if(m_currentView)
-    switch(m_currentView->projectType())
-      {
-      case glitch_common::ProjectTypes::ArduinoProject:
-	{
-	  m_ui.action_Structures->setText(tr("Arduino &Structures..."));
-	  break;
-	}
-      default:
-	{
-	  m_ui.action_Structures->setText(tr("&Structures..."));
-	  break;
-	}
-      }
-
   prepareActionWidgets();
   prepareStatusBar();
   prepareToolBar();

@@ -37,6 +37,7 @@
 #include "glitch-tools.h"
 #include "ui_glitch-view.h"
 
+class QSplitter;
 class glitch_alignment;
 class glitch_graphicsview;
 class glitch_object;
@@ -123,10 +124,12 @@ class glitch_view: public QWidget
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
   QList<QPointer<QUndoStack> > m_undoStacks;
+  QMap<QString, QVariant> m_properties;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
   QPointer<glitch_tools> m_tools;
+  QSplitter *m_splitter;
   QString m_fileName;
   QTimer m_generateTimer;
   QUndoStack *m_undoStack;
@@ -142,6 +145,7 @@ class glitch_view: public QWidget
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
+  void saveProperties(void);
   void setSceneRect(const QSize &size);
 
  protected slots:

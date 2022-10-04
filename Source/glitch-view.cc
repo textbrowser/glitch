@@ -32,6 +32,7 @@
 #include <QMenu>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QSplitter>
 #include <QSqlError>
 #include <QSqlQuery>
 
@@ -79,6 +80,7 @@ glitch_view::glitch_view
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
+  m_splitter = new QSplitter(this);
   m_tools = new glitch_tools(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_undoStacks << m_undoStack;
@@ -190,7 +192,7 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
-  layout()->addWidget(m_view);
+  layout()->addWidget(m_splitter);
   prepareDatabaseTables(m_fileName);
   prepareDefaultActions();
 }
@@ -370,7 +372,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(fileName);
+    db.setDatabaseName(m_fileName);
 
     if((ok = db.open()))
       {
@@ -480,6 +482,28 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	    ok = false;
 	  }
 
+	if(query.exec(QString("SELECT SUBSTR(properties, 1, %1) FROM "
+			      "properties").
+		      arg(static_cast<int> (Limits::
+					    PROPERTIES_MAXIMUM_LENGTH))) &&
+	   query.next())
+	  {
+	    auto list(query.value(0).toString().trimmed().split('&'));
+
+	    for(int i = 0; i < list.size(); i++)
+	      {
+		auto string(list.at(i));
+
+		if(string.startsWith("splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["splitter_state"] = QByteArray::fromBase64
+		      (string.toLatin1());
+		  }
+	      }
+	  }
+
 	if(error.isEmpty())
 	  {
 	    if(query.exec("SELECT object_input_oid, object_output_oid "
@@ -556,7 +580,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(fileName);
+    db.setDatabaseName(m_fileName);
 
     if((ok = db.open()))
       {
@@ -850,6 +874,8 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
 		   "stylesheet TEXT, "
 		   "type TEXT NOT NULL, "
 		   "PRIMARY KEY (myoid, parent_oid))");
+	query.exec("CREATE TABLE IF NOT EXISTS properties "
+		   "(properties TEXT)");
 	query.exec("CREATE TABLE IF NOT EXISTS sequence ("
 		   "value INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)");
 	query.exec("CREATE TABLE IF NOT EXISTS wires ("
@@ -932,6 +958,48 @@ void glitch_view::save(void)
   QString error("");
 
   save(error);
+}
+
+void glitch_view::saveProperties(void)
+{
+  QString connectionName("");
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_fileName);
+
+    if(db.open())
+      {
+	QMapIterator<QString, QVariant> it(m_properties);
+	QSqlQuery query(db);
+	QString string("");
+
+	while(it.hasNext())
+	  {
+	    it.next();
+	    string += it.key();
+	    string += " = ";
+	    string += "\"";
+	    string += it.value().toByteArray().toBase64();
+	    string += "\"";
+
+	    if(it.hasNext())
+	      string += "&";
+	  }
+
+	query.exec("DELETE FROM properties");
+	query.prepare
+	  ("INSERT OR REPLACE INTO properties (properties) VALUES(?)");
+	query.addBindValue(string);
+	query.exec();
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
 }
 
 void glitch_view::selectAll(void)
