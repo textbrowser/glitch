@@ -26,6 +26,8 @@
 */
 
 #include "glitch-object-digital-io-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 (const QString &ioType, QWidget *parent):
@@ -33,26 +35,32 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 {
   m_ioType = stringToIOType(ioType);
 
+  QString string("");
+
   switch(m_ioType)
     {
     case Type::READ:
       {
-	m_ui.label->setText("digitalRead()");
+	string = "digitalRead()";
 	break;
       }
     case Type::WRITE:
       {
-	m_ui.label->setText("digitalWrite()");
+	string = "digitalWrite()";
 	break;
       }
     default:
       {
-	m_ui.label->setText("pinMode()");
+	string = "pinMode()";
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex(m_ui.function->findText(string));
+  m_ui.function->blockSignals(false);
+  m_properties[Properties::DIGITAL_IO_TYPE] = m_ui.function->currentText();
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
@@ -60,8 +68,16 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 {
   m_type = "arduino-digitalio";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "digitalRead()"
+			                << "digitalWrite()"
+			                << "pinMode()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_digital_io_arduino::~glitch_object_digital_io_arduino()
@@ -147,7 +163,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_ioType = m_ioType;
   clone->m_properties = m_properties;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -168,8 +186,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ioType = stringToIOType
     (object->m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
   return object;
 }
 
@@ -188,7 +204,7 @@ void glitch_object_digital_io_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["io_type"] = m_ui.label->text().trimmed();
+  properties["io_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -217,5 +233,58 @@ void glitch_object_digital_io_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_ioType = stringToIOType
+    (m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::DIGITAL_IO_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
+}
+
+void glitch_object_digital_io_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::DIGITAL_IO_TYPE:
+      {
+	m_ioType = stringToIOType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_digital_io_arduino::slotFunctionChanged(void)
+{
+  m_ioType = stringToIOType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::DIGITAL_IO_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::DIGITAL_IO_TYPE,
+     this);
+
+  m_properties[Properties::DIGITAL_IO_TYPE] =
+    m_ui.function->currentText();
+  undoCommand->setText
+    (tr("digital i/o function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
