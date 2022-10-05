@@ -260,16 +260,6 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   SLOT(slotSaveAs(void)))->
     setIcon(QIcon::fromTheme("document-save-as"));
   m_contextMenu->addSeparator();
-
-  if(m_projectType == glitch_common::ProjectTypes::ArduinoProject)
-    m_contextMenu->addAction(tr("Arduino Structures..."),
-			     this,
-			     SLOT(slotShowStructures(void)));
-  else
-    m_contextMenu->addAction(tr("Structures..."),
-			     this,
-			     SLOT(slotShowStructures(void)));
-
   m_contextMenu->addAction(tr("Tools..."),
 			   this,
 			   SLOT(slotShowTools(void)));
