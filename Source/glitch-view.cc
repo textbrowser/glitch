@@ -362,6 +362,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	     SIGNAL(changed(void)),
 	     this,
 	     SLOT(slotChanged(void)));
+  disconnect(m_scene,
+	     SIGNAL(sceneResized(void)),
+	     this,
+	     SLOT(slotSceneResized(void)));
 
   QString connectionName("");
   auto ok = true;
@@ -547,10 +551,16 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
+  adjustScrollBars();
   connect(m_scene,
 	  SIGNAL(changed(void)),
 	  this,
 	  SLOT(slotChanged(void)),
+	  Qt::QueuedConnection);
+  connect(m_scene,
+	  SIGNAL(sceneResized(void)),
+	  this,
+	  SLOT(slotSceneResized(void)),
 	  Qt::QueuedConnection);
   return ok;
 }
