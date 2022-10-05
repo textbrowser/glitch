@@ -358,7 +358,7 @@ clone(QWidget *parent) const
 	 clone);
       clone->m_editView->scene()->setCanvasSettings(m_canvasSettings);
       clone->m_editWindow = new glitch_object_edit_window
-	(glitch_common::ProjectTypes::ArduinoProject, parent);
+	(glitch_common::ProjectTypes::ArduinoProject, clone, parent);
       clone->m_editWindow->prepareToolBar
 	(clone->m_editView->alignmentActions());
       clone->m_editWindow->setCentralWidget(clone->m_editView);
@@ -552,7 +552,7 @@ void glitch_object_function_arduino::declone(void)
      this);
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, m_parent);
+    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
@@ -622,7 +622,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
      this);
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, parent);
+    (glitch_common::ProjectTypes::ArduinoProject, this, parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);

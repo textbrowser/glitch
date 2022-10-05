@@ -38,8 +38,9 @@
 #include "glitch-ui.h"
 
 glitch_object_edit_window::glitch_object_edit_window
-(const glitch_common::ProjectTypes projectType, QWidget *parent):
-  QMainWindow(parent)
+(const glitch_common::ProjectTypes projectType,
+ glitch_object *object,
+ QWidget *parent):QMainWindow(parent)
 {
   Q_UNUSED(statusBar());
 
@@ -86,6 +87,7 @@ glitch_object_edit_window::glitch_object_edit_window
 
   font.setBold(true);
   m_header->setFont(font);
+  m_object = object;
   m_projectType = projectType;
   m_splitter = nullptr;
   m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
@@ -305,6 +307,13 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 {
   QMainWindow::showEvent(event);
 
+  if(m_splitter)
+    m_splitter->restoreState
+      (m_object ?
+       m_object->property(glitch_object::Properties::
+			  STRUCTURES_VIEW_SPLITTER_STATE).toByteArray() :
+       QByteArray());
+
   auto view = qobject_cast<glitch_object_view *> (centralWidget());
 
   if(view)
@@ -344,6 +353,10 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 
 void glitch_object_edit_window::slotSplitterMoved(void)
 {
+  if(m_object)
+    m_object->setProperty
+      (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
+       m_splitter->saveState());
 }
 
 void glitch_object_edit_window::slotViewTools(void)

@@ -33,6 +33,7 @@
 #include <QPointer>
 
 #include "glitch-common.h"
+#include "glitch-object.h"
 
 class QLineEdit;
 class QSplitter;
@@ -46,6 +47,7 @@ class glitch_object_edit_window: public QMainWindow
 
  public:
   glitch_object_edit_window(const glitch_common::ProjectTypes projectType,
+			    glitch_object *object,
 			    QWidget *parent);
   ~glitch_object_edit_window();
   QWidget *centralWidget(void) const;
@@ -60,6 +62,7 @@ class glitch_object_edit_window: public QMainWindow
   QLineEdit *m_header;
   QMap<QString, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
+  QPointer<glitch_object> m_object;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
   QSplitter *m_splitter;

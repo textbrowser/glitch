@@ -851,6 +851,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::POSITION_LOCKED).toBool();
   properties["size"] = QString("(%1, %2)").
     arg(size().width()).arg(size().height());
+  properties["structures_view_splitter_state"] = m_properties.value
+    (Properties::STRUCTURES_VIEW_SPLITTER_STATE).toByteArray().toBase64();
   properties["tool_bar_visible"] = m_properties.value
     (Properties::TOOL_BAR_VISIBLE).toBool();
   properties["transparent"] = m_properties.value
@@ -1006,6 +1008,13 @@ void glitch_object::setProperties(const QStringList &list)
 	      resize(size);
 	    }
 	}
+      else if(string.simplified().startsWith("structures_view_splitter_state"))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::STRUCTURES_VIEW_SPLITTER_STATE] =
+	    QByteArray::fromBase64(string.trimmed().toLatin1());
+	}
       else if(string.simplified().startsWith("tool_bar_visible = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
@@ -1060,6 +1069,11 @@ void glitch_object::setProperty(const Properties property,
     case Properties::SIZE:
       {
 	resize(value.toSize());
+	break;
+      }
+    case Properties::STRUCTURES_VIEW_SPLITTER_STATE:
+      {
+	silentSave();
 	break;
       }
     case Properties::TOOL_BAR_VISIBLE:
@@ -1123,6 +1137,10 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  &glitch_object::slotWireDestroyed,
 	  Qt::UniqueConnection);
   m_wires[object->id()] = wire;
+}
+
+void glitch_object::silentSave(void)
+{
 }
 
 void glitch_object::simulateDelete(void)

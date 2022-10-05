@@ -91,6 +91,7 @@ class glitch_object: public QWidget
     SERIAL_TYPE,
     SIZE,
     STREAM_TYPE,
+    STRUCTURES_VIEW_SPLITTER_STATE,
     SYNTAX,
     TIME_TYPE,
     TOOL_BAR_VISIBLE,
@@ -118,6 +119,17 @@ class glitch_object: public QWidget
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
   QString type(void) const;
+
+  QVariant property(const Properties property) const
+  {
+    return m_properties.value(property);
+  }
+
+  QVariant property(const char *property) const
+  {
+    return QObject::property(property);
+  }
+
   bool mouseOverScrollBar(const QPointF &point) const;
   bool positionLocked(void) const;
 
@@ -188,6 +200,7 @@ class glitch_object: public QWidget
  private:
   QMenu m_menu;
   static qint64 s_id;
+  void silentSave(void);
 
  private slots:
   void slotActionTriggered(void);
