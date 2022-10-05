@@ -32,16 +32,20 @@
 #include <QMap>
 #include <QPointer>
 
+#include "glitch-common.h"
+
 class QLineEdit;
 class QUndoStack;
 class glitch_object_view;
+class glitch_structures_arduino;
 
 class glitch_object_edit_window: public QMainWindow
 {
   Q_OBJECT
 
  public:
-  glitch_object_edit_window(QWidget *parent);
+  glitch_object_edit_window(const glitch_common::ProjectTypes projectType,
+			    QWidget *parent);
   ~glitch_object_edit_window();
   QWidget *centralWidget(void) const;
   void prepareHeader(const QString &text);
@@ -54,9 +58,11 @@ class glitch_object_edit_window: public QMainWindow
  private:
   QLineEdit *m_header;
   QMap<QString, QAction *> m_actions;
-  QToolBar *m_toolBar;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_object_view> m_editView;
+  QPointer<glitch_structures_arduino> m_arduinoStructures;
+  QToolBar *m_toolBar;
+  glitch_common::ProjectTypes m_projectType;
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void prepareIcons(void);

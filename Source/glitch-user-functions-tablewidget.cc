@@ -33,7 +33,7 @@
 glitch_user_functions_tablewidget::
 glitch_user_functions_tablewidget(QWidget *parent):QTableWidget(parent)
 {
-  m_projectType = glitch_common::XYZProject;
+  m_projectType = glitch_common::ProjectTypes::XYZProject;
 }
 
 glitch_user_functions_tablewidget::

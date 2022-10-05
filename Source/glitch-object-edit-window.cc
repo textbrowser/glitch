@@ -30,12 +30,14 @@
 #include <QResizeEvent>
 #include <QTimer>
 
+#include "Arduino/glitch-structures-arduino.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 
-glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
+glitch_object_edit_window::glitch_object_edit_window
+(const glitch_common::ProjectTypes projectType, QWidget *parent):
   QMainWindow(parent)
 {
   Q_UNUSED(statusBar());
@@ -83,6 +85,7 @@ glitch_object_edit_window::glitch_object_edit_window(QWidget *parent):
 
   font.setBold(true);
   m_header->setFont(font);
+  m_projectType = projectType;
   m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
   m_toolBar->setVisible(false);

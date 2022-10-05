@@ -33,7 +33,7 @@
 class glitch_common
 {
  public:
-  enum ProjectTypes
+  enum class ProjectTypes
   {
     ArduinoProject = 0,
     XYZProject

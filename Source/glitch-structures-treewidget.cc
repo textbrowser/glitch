@@ -33,7 +33,7 @@
 glitch_structures_treewidget::
 glitch_structures_treewidget(QWidget *parent):QTreeWidget(parent)
 {
-  m_projectType = glitch_common::XYZProject;
+  m_projectType = glitch_common::ProjectTypes::XYZProject;
 }
 
 glitch_structures_treewidget::
