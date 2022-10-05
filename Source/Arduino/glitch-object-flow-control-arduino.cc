@@ -65,7 +65,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: flow control"));
-  m_editWindow->resize(600, 600);
+  m_editWindow->resize(800, 600);
   m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);

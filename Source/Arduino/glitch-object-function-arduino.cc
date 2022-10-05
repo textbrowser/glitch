@@ -366,7 +366,7 @@ clone(QWidget *parent) const
       clone->m_editWindow->setUndoStack(clone->m_editView->undoStack());
       clone->m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
       clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
-      clone->m_editWindow->resize(600, 600);
+      clone->m_editWindow->resize(800, 600);
       clone->m_isFunctionClone = false;
       clone->m_type = "arduino-function";
       clone->m_ui.occupied->setVisible(false);
@@ -559,7 +559,7 @@ void glitch_object_function_arduino::declone(void)
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name()));
-  m_editWindow->resize(600, 600);
+  m_editWindow->resize(800, 600);
   m_findParentFunctionTimer.stop();
   m_initialized = true;
   m_isFunctionClone = false;
@@ -629,7 +629,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name()));
-  m_editWindow->resize(600, 600);
+  m_editWindow->resize(800, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.occupied->setVisible(false);

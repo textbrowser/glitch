@@ -29,6 +29,7 @@
 #include <QMenuBar>
 #include <QResizeEvent>
 #include <QTimer>
+#include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-object-edit-window.h"
@@ -86,6 +87,7 @@ glitch_object_edit_window::glitch_object_edit_window
   font.setBold(true);
   m_header->setFont(font);
   m_projectType = projectType;
+  m_splitter = nullptr;
   m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolBar->setIconSize(QSize(24, 24));
   m_toolBar->setVisible(false);
@@ -185,18 +187,42 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 
 void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 {
-  if(centralWidget())
-    centralWidget()->deleteLater();
+  if(!widget || centralWidget())
+    {
+      if(centralWidget())
+	qDebug() << tr("Error! A central widget is already assigned!");
 
-  if(!widget)
-    return;
+      return;
+    }
+
+  if(m_arduinoStructures == nullptr &&
+     m_projectType == glitch_common::ProjectTypes::ArduinoProject)
+    {
+      m_arduinoStructures = new glitch_structures_arduino(this);
+      m_splitter = new QSplitter(this);
+      connect(m_splitter,
+	      SIGNAL(splitterMoved(int, int)),
+	      this,
+	      SLOT(slotSplitterMoved(void)));
+    }
 
   auto frame = new QFrame(this);
 
   delete frame->layout();
   frame->setLayout(new QVBoxLayout());
   frame->layout()->addWidget(m_header);
-  frame->layout()->addWidget(widget);
+
+  if(m_arduinoStructures)
+    {
+      m_splitter->addWidget(m_arduinoStructures->frame());
+      m_splitter->addWidget(widget);
+      m_splitter->setStretchFactor(0, 0);
+      m_splitter->setStretchFactor(1, 1);
+      frame->layout()->addWidget(m_splitter);
+    }
+  else
+    frame->layout()->addWidget(widget);
+
   frame->layout()->setContentsMargins(9, 9, 9, 9);
   frame->layout()->setSpacing(5);
   QMainWindow::setCentralWidget(frame);
@@ -314,6 +340,10 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotSplitterMoved(void)
+{
 }
 
 void glitch_object_edit_window::slotViewTools(void)

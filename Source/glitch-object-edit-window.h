@@ -35,6 +35,7 @@
 #include "glitch-common.h"
 
 class QLineEdit;
+class QSplitter;
 class QUndoStack;
 class glitch_object_view;
 class glitch_structures_arduino;
@@ -61,6 +62,7 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
+  QSplitter *m_splitter;
   QToolBar *m_toolBar;
   glitch_common::ProjectTypes m_projectType;
   bool event(QEvent *event);
@@ -71,6 +73,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private slots:
   void slotAboutToShowEditMenu(void);
+  void slotSplitterMoved(void);
   void slotViewTools(void);
 
  signals:
