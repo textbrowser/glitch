@@ -50,6 +50,7 @@ glitch_object_view::glitch_object_view
   m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QColor(0, 170, 255));
   m_scene->setUndoStack(m_undoStack = undoStack);
+  setAlignment(Qt::AlignLeft | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::RubberBandDrag);
   setFrameStyle(QFrame::NoFrame);
