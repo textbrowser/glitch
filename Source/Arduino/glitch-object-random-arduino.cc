@@ -26,28 +26,33 @@
 */
 
 #include "glitch-object-random-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_random_arduino::glitch_object_random_arduino
 (const QString &randomType, QWidget *parent):
   glitch_object_random_arduino(1, parent)
 {
   m_randomType = stringToRandomType(randomType);
+  m_ui.function->blockSignals(true);
 
   switch(m_randomType)
     {
     case Type::RANDOM_SEED:
       {
-	m_ui.label->setText("randomSeed()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("randomSeed()"));
 	break;
       }
     default:
       {
-	m_ui.label->setText("random()");
+	m_ui.function->setCurrentIndex(m_ui.function->findText("random()"));
 	break;
       }
     }
 
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(false);
+  m_properties[Properties::RANDOM_TYPE] = m_ui.function->currentText();
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_random_arduino::glitch_object_random_arduino
@@ -55,8 +60,15 @@ glitch_object_random_arduino::glitch_object_random_arduino
 {
   m_type = "arduino-random";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "random()"
+			                << "randomSeed()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_random_arduino::~glitch_object_random_arduino()
@@ -127,7 +139,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_randomType = m_randomType;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -146,8 +160,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::RANDOM_TYPE).toString());
   object->m_randomType = stringToRandomType
     (object->m_properties.value(Properties::RANDOM_TYPE).toString());
   return object;
@@ -168,7 +180,7 @@ void glitch_object_random_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["random_type"] = m_ui.label->text().trimmed();
+  properties["random_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -195,5 +207,57 @@ void glitch_object_random_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_randomType = stringToRandomType
+    (m_properties.value(Properties::RANDOM_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::RANDOM_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::RANDOM_TYPE).toString());
+}
+
+void glitch_object_random_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::RANDOM_TYPE:
+      {
+	m_randomType = stringToRandomType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_random_arduino::slotFunctionChanged(void)
+{
+  m_randomType = stringToRandomType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::RANDOM_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::RANDOM_TYPE,
+     this);
+
+  m_properties[Properties::RANDOM_TYPE] = m_ui.function->currentText();
+  undoCommand->setText
+    (tr("random function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
