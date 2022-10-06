@@ -1073,7 +1073,7 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::STRUCTURES_VIEW_SPLITTER_STATE:
       {
-	silentSave();
+	emit changed();
 	break;
       }
     case Properties::TOOL_BAR_VISIBLE:
@@ -1137,10 +1137,6 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  &glitch_object::slotWireDestroyed,
 	  Qt::UniqueConnection);
   m_wires[object->id()] = wire;
-}
-
-void glitch_object::silentSave(void)
-{
 }
 
 void glitch_object::simulateDelete(void)

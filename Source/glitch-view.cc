@@ -193,7 +193,7 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   layout()->addWidget(m_splitter);
-  prepareDatabaseTables(m_fileName);
+  prepareDatabaseTables();
   prepareDefaultActions();
 }
 
@@ -573,7 +573,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   if(!m_canvasSettings->save(error))
     return false;
 
-  prepareDatabaseTables(fileName);
+  prepareDatabaseTables();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
@@ -850,7 +850,7 @@ void glitch_view::generateSource(void)
     }
 }
 
-void glitch_view::prepareDatabaseTables(const QString &fileName) const
+void glitch_view::prepareDatabaseTables(void) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -860,7 +860,7 @@ void glitch_view::prepareDatabaseTables(const QString &fileName) const
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(fileName);
+    db.setDatabaseName(m_fileName);
 
     if(db.open())
       {

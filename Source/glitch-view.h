@@ -113,7 +113,7 @@ class glitch_view: public QWidget
      QHash<qint64, glitch_object *> &parents,
      const QSqlDatabase &db,
      const qint64 oid) const;
-  void prepareDatabaseTables(const QString &fileName) const;
+  void prepareDatabaseTables(void) const;
   void prepareDefaultActions(void);
 
  private slots:
