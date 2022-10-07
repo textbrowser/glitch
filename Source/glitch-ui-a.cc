@@ -50,8 +50,7 @@
 #include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
-QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::
-  s_copiedObjects;
+QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
@@ -734,6 +733,7 @@ void glitch_ui::prepareActionWidgets(void)
 
   if(m_ui.tab->count() == 0)
     {
+      m_statusBarTimer.stop();
       m_ui.action_Canvas_Settings->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
@@ -749,6 +749,7 @@ void glitch_ui::prepareActionWidgets(void)
     }
   else
     {
+      m_statusBarTimer.start();
       m_ui.action_Canvas_Settings->setEnabled(true);
       m_ui.action_Close_Diagram->setEnabled(true);
       m_ui.action_Copy->setEnabled
