@@ -31,6 +31,7 @@
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (QWidget *parent):glitch_object_block_comment_arduino(1, parent)
 {
+  m_properties[Properties::COMMENT] = "";
 }
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino

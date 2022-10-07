@@ -42,6 +42,7 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
       }
     }
 
+  m_properties[Properties::UTILITIES_TYPE] = m_ui.label->text();
   setName(m_ui.label->text());
 }
 

@@ -38,6 +38,8 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 (const QString &syntax,
  QWidget *parent):glitch_object_syntax_arduino(1, parent)
 {
+  m_properties[Properties::SYNTAX] = syntax;
+
   if(syntax.endsWith("#define"))
     m_ui.text->setText("#define");
   else
