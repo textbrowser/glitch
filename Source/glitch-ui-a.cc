@@ -34,7 +34,6 @@
 #include <QSettings>
 #include <QShortcut>
 #include <QSqlQuery>
-#include <QTimer>
 #include <QWidgetAction>
 
 #include "Arduino/glitch-object-function-arduino.h"
@@ -84,7 +83,12 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     QDir::separator() +
     "glitch_recent_files.db";
   m_releaseNotes = nullptr;
+  m_statusBarTimer.start(500);
   m_ui.setupUi(this);
+  connect(&m_statusBarTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_ui::slotStatusBarTimerTimeout);
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
@@ -1814,6 +1818,12 @@ void glitch_ui::slotShowUserFunctions(void)
 
   if(view)
     view->showUserFunctions();
+}
+
+void glitch_ui::slotStatusBarTimerTimeout(void)
+{
+  if(statusBar() && statusBar()->currentMessage().trimmed().isEmpty())
+    prepareStatusBar();
 }
 
 void glitch_ui::slotTabMoved(int from, int to)

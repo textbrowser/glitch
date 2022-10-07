@@ -30,6 +30,7 @@
 
 #include <QMessageBox>
 #include <QPointer>
+#include <QTimer>
 
 #include "glitch-tools.h"
 #include "ui_glitch-mainwindow.h"
@@ -68,6 +69,7 @@ class glitch_ui: public QMainWindow
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
+  QTimer m_statusBarTimer;
   Ui_glitch_mainwindow m_ui;
   glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
@@ -133,6 +135,7 @@ class glitch_ui: public QMainWindow
   void slotShowStructures(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);
+  void slotStatusBarTimerTimeout(void);
   void slotTabMoved(int from, int to);
   void slotTabWidgetShortcutActivated(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);

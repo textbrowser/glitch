@@ -113,6 +113,7 @@ Completed Items
 - Intelligent select mode: select or wire by proximity.
 - Limit SQL text retrieval via SUBSTR().
 - List of recent files.
+- Menu hovering and status bar text. QStatusTipEvent.
 - Movement via arrows. Increase distance if Shift is depressed.
 - Object numbers should be sequenced.
 - Order items by bubbles and coordinates. Orders describe order in
@@ -217,7 +218,6 @@ Remaining Items
 - Generate view.
 - Include Arduino language reference in binary.
 - Languages option.
-- Menu hovering and status bar text. QStatusTipEvent.
 - Modern Qt connect() (except for QOverload() (PowerPC)):
   glitch-scene.cc
   glitch-separated-diagram.cc

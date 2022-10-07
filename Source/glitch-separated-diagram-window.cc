@@ -38,8 +38,13 @@
 glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
+  m_statusBarTimer.start(500);
   m_ui.setupUi(this);
   m_ui.toolBar->setIconSize(QSize(24, 24));
+  connect(&m_statusBarTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_separated_diagram_window::slotStatusBarTimerTimeout);
   connect(m_ui.action_Close,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -86,6 +91,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()
 {
+  m_statusBarTimer.stop();
 }
 
 void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
@@ -354,6 +360,14 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
     }
+}
+
+void glitch_separated_diagram_window::slotStatusBarTimerTimeout(void)
+{
+  if(statusBar() &&
+     statusBar()->currentMessage().trimmed().isEmpty() &&
+     m_view)
+    slotToolsOperationChanged(m_view->toolsOperation());
 }
 
 void glitch_separated_diagram_window::slotToolsOperationChanged
