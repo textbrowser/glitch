@@ -231,6 +231,7 @@ void glitch_object_random_arduino::setProperty
 	m_ui.function->setCurrentIndex
 	  (m_ui.function->findText(value.toString()));
 	m_ui.function->blockSignals(false);
+	setName(m_ui.function->currentText());
 	break;
       }
     default:

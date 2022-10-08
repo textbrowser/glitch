@@ -248,10 +248,7 @@ void glitch_object_logical_operator_arduino::setProperty
     {
     case Properties::LOGICAL_OPERATOR:
       {
-	m_ui.logical_operator->blockSignals(true);
-	m_ui.logical_operator->setCurrentIndex
-	  (m_ui.logical_operator->findText(value.toString()));
-	m_ui.logical_operator->blockSignals(false);
+	setOperatorType(value.toString());
 	break;
       }
     default:
