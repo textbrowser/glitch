@@ -88,7 +88,14 @@ QMAKE_DISTCLEAN += -r .qmake* \
 QMAKE_EXTRA_TARGETS = doxygen purge
 QMAKE_STRIP	= echo
 
-ICON		=
+macx {
+ICON		= Icons/Logo/glitch-logo.icns
+}
+
+win32 {
+RC_FILE         = Icons/glitch.rc
+}
+
 INCLUDEPATH	+= Source
 
 macx {
