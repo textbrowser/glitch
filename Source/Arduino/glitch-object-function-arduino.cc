@@ -44,16 +44,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
 {
   m_initialized = false;
   initialize(parent);
-
-  if(parent)
-    {
-      if(!qobject_cast<glitch_view_arduino *> (parent))
-	m_parentView = qobject_cast<glitch_view_arduino *> (parent->parent());
-      else
-	m_parentView = qobject_cast<glitch_view_arduino *> (parent);
-    }
-  else
-    m_parentView = nullptr;
+  m_parentView = qobject_cast<glitch_view_arduino *>
+    (findNearestGlitchView(parent));
 
   /*
   ** Do not initialize the function's name in initialize().
@@ -563,17 +555,8 @@ void glitch_object_function_arduino::declone(void)
   m_findParentFunctionTimer.stop();
   m_initialized = true;
   m_isFunctionClone = false;
-
-  if(m_parent)
-    {
-      if(!qobject_cast<glitch_view_arduino *> (m_parent))
-	m_parentView = qobject_cast<glitch_view_arduino *> (m_parent->parent());
-      else
-	m_parentView = qobject_cast<glitch_view_arduino *> (m_parent);
-    }
-  else
-    m_parentView = nullptr;
-
+  m_parentView = qobject_cast<glitch_view_arduino *>
+    (findNearestGlitchView(m_parent));
   m_ui.function_definition->setVisible(true);
   m_ui.return_type->setEnabled(true);
   m_ui.return_type->setToolTip("");
