@@ -173,3 +173,30 @@ TRANSLATIONS    =
 PROJECTNAME	= Glitch
 TARGET		= Glitch
 TEMPLATE	= app
+
+# Installation Procedures
+
+macx {
+documentation1.extra	= cp ./Documentation/*.1 /Applications/Glitch.d/Documentation/.
+documentation1.path	= /Applications/Glitch.d/Documentation
+documentation2.extra	= cp ./TO-DO /Applications/Glitch.d/Documentation/.
+documentation2.path	= /Applications/Glitch.d/Documentation
+documentation3.extra	= cp -r ./Documentation/Arduino /Applications/Glitch.d/Documentation/.
+documentation3.path	= /Applications/Glitch.d/Documentation
+glitch.extra	        = cp -r ./Glitch.app /Applications/Glitch.d/.
+glitch.path		= /Applications/Glitch.d
+macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt /Applications/Glitch.d/Glitch.app -executable=/Applications/Glitch.d/Glitch.app/Contents/MacOS/Glitch
+macdeployqt.path	= Glitch.app
+preinstall.extra	= rm -fr /Applications/Glitch.d/Glitch.app
+preinstall.path		= /Applications/Glitch.d
+zzz.extra		= chown -Rh root:wheel /Applications/Glitch.d
+zzz.path		= /Applications/Glitch.d
+
+INSTALLS	= documentation1 \
+                  documentation2 \
+                  documentation3 \
+                  preinstall \
+                  glitch \
+                  macdeployqt \
+		  zzz
+}
