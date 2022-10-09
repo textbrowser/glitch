@@ -26,15 +26,21 @@
 */
 
 #include "glitch-object-stream-arduino.h"
+#include "glitch-scroll-filter.h"
+#include "glitch-undo-command.h"
 
 glitch_object_stream_arduino::glitch_object_stream_arduino
 (const QString &streamType, QWidget *parent):
   glitch_object_stream_arduino(1, parent)
 {
   m_streamType = stringToStreamType(streamType);
-  m_ui.label->setText
-    (QString("stream.%1()").arg(streamTypeToString(m_streamType)));
-  setName(m_ui.label->text());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(QString("stream.%1()").arg(streamTypeToString(m_streamType))));
+  m_ui.function->blockSignals(false);
+  m_properties[Properties::STREAM_TYPE] = m_ui.function->currentText();
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_stream_arduino::glitch_object_stream_arduino
@@ -42,8 +48,26 @@ glitch_object_stream_arduino::glitch_object_stream_arduino
 {
   m_type = "arduino-stream";
   m_ui.setupUi(this);
+  m_ui.function->addItems(QStringList() << "stream.available()"
+			                << "stream.find()"
+			                << "stream.findUntil()"
+			                << "stream.flush()"
+			                << "stream.parseFloat()"
+			                << "stream.parseInt()"
+			                << "stream.peek()"
+			                << "stream.read()"
+			                << "stream.readBytes()"
+			                << "stream.readBytesUntil()"
+			                << "stream.readString()"
+			                << "stream.readStringUntil()"
+			                << "stream.setTimeout()");
+  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.function,
+	  SIGNAL(currentIndexChanged(int)),
+	  this,
+	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_ui.function->currentText());
 }
 
 glitch_object_stream_arduino::~glitch_object_stream_arduino()
@@ -243,7 +267,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_properties = m_properties;
   clone->m_streamType = m_streamType;
-  clone->m_ui.label->setText(m_ui.label->text());
+  clone->m_ui.function->blockSignals(true);
+  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
+  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -264,8 +290,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_streamType = stringToStreamType
     (object->m_properties.value(Properties::STREAM_TYPE).toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::STREAM_TYPE).toString());
   return object;
 }
 
@@ -284,7 +308,7 @@ void glitch_object_stream_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["stream_type"] = m_ui.label->text().trimmed();
+  properties["stream_type"] = m_ui.function->currentText();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -307,5 +331,58 @@ void glitch_object_stream_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_streamType = stringToStreamType
+    (m_properties.value(Properties::STREAM_TYPE).toString());
+  m_ui.function->blockSignals(true);
+  m_ui.function->setCurrentIndex
+    (m_ui.function->
+     findText(m_properties.value(Properties::STREAM_TYPE).toString()));
+  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::STREAM_TYPE).toString());
+}
+
+void glitch_object_stream_arduino::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::STREAM_TYPE:
+      {
+	m_streamType = stringToStreamType(value.toString());
+	m_ui.function->blockSignals(true);
+	m_ui.function->setCurrentIndex
+	  (m_ui.function->findText(value.toString()));
+	m_ui.function->blockSignals(false);
+	setName(m_ui.function->currentText());
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
+void glitch_object_stream_arduino::slotFunctionChanged(void)
+{
+  m_streamType = stringToStreamType(m_ui.function->currentText());
+
+  if(!m_undoStack)
+    return;
+
+  auto undoCommand = new glitch_undo_command
+    (m_ui.function->currentText(),
+     m_properties.value(Properties::STREAM_TYPE).toString(),
+     glitch_undo_command::PROPERTY_CHANGED,
+     Properties::STREAM_TYPE,
+     this);
+
+  m_properties[Properties::STREAM_TYPE] = m_ui.function->currentText();
+  undoCommand->setText
+    (tr("stream function changed (%1, %2)").
+     arg(scenePos().x()).arg(scenePos().y()));
+  m_undoStack->push(undoCommand);
+  emit changed();
 }
