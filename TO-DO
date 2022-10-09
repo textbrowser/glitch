@@ -221,10 +221,7 @@ Remaining Items
 - Interrupts, SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Languages option.
 - Modern Qt connect() (except for QOverload() (PowerPC)):
-  glitch-scene.cc
-  glitch-separated-diagram.cc
   glitch-ui-a.cc
-  glitch-view.cc
 - Multiple inputs or single input?
 - Nested flow-control scenes.
 - Order: top-bottom followed by left-right.

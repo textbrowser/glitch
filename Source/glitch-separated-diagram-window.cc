@@ -46,45 +46,45 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  this,
 	  &glitch_separated_diagram_window::slotStatusBarTimerTimeout);
   connect(m_ui.action_Close,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(close(void)));
+	  &glitch_separated_diagram_window::close);
   connect(m_ui.action_Context_Menu,
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotShowContextMenu);
   connect(m_ui.action_Copy,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotCopy(void)));
+	  &glitch_separated_diagram_window::slotCopy);
   connect(m_ui.action_Generate_Source,
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotGenerateSource);
   connect(m_ui.action_Delete,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotDelete(void)));
+	  &glitch_separated_diagram_window::slotDelete);
   connect(m_ui.action_Paste,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotPaste(void)));
+	  &glitch_separated_diagram_window::slotPaste);
   connect(m_ui.action_Redo,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotRedo(void)));
+	  &glitch_separated_diagram_window::slotRedo);
   connect(m_ui.action_Save_Diagram,
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotSaveDiagram);
   connect(m_ui.action_Select_All,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSelectAll(void)));
+	  &glitch_separated_diagram_window::slotSelectAll);
   connect(m_ui.action_Undo,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotUndo(void)));
+	  &glitch_separated_diagram_window::slotUndo);
   prepareIcons();
   statusBar(); // Create a status bar.
 }
@@ -200,17 +200,17 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
   if(m_view)
     {
       disconnect(m_view,
-		 SIGNAL(changed(void)),
+		 &glitch_view::changed,
 		 this,
-		 SLOT(slotPageChanged(void)));
+		 &glitch_separated_diagram_window::slotPageChanged);
       disconnect(m_view,
-		 SIGNAL(saved(void)),
+		 &glitch_view::saved,
 		 this,
-		 SLOT(slotPageSaved(void)));
+		 &glitch_separated_diagram_window::slotPageSaved);
       disconnect(m_view,
-		 SIGNAL(selectionChanged(void)),
+		 &glitch_view::selectionChanged,
 		 this,
-		 SLOT(slotSelectionChanged(void)));
+		 &glitch_separated_diagram_window::slotSelectionChanged);
       disconnect
 	(m_view,
 	 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
@@ -223,17 +223,17 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
   if(m_view)
     {
       connect(m_view,
-	      SIGNAL(changed(void)),
+	      &glitch_view::changed,
 	      this,
-	      SLOT(slotPageChanged(void)));
+	      &glitch_separated_diagram_window::slotPageChanged);
       connect(m_view,
-	      SIGNAL(saved(void)),
+	      &glitch_view::saved,
 	      this,
-	      SLOT(slotPageSaved(void)));
+	      &glitch_separated_diagram_window::slotPageSaved);
       connect(m_view,
-	      SIGNAL(selectionChanged(void)),
+	      &glitch_view::selectionChanged,
 	      this,
-	      SLOT(slotSelectionChanged(void)));
+	      &glitch_separated_diagram_window::slotSelectionChanged);
       connect(m_view,
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	      this,

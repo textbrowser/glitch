@@ -116,9 +116,9 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCanvasSettingsChanged(const bool)));
   connect(m_scene,
-	  SIGNAL(changed(void)),
+	  &glitch_scene::changed,
 	  this,
-	  SLOT(slotChanged(void)),
+	  &glitch_view::slotChanged,
 	  Qt::QueuedConnection);
   connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
@@ -149,14 +149,14 @@ glitch_view::glitch_view
 					     const QString &,
 					     glitch_object *)));
   connect(m_scene,
-	  SIGNAL(sceneResized(void)),
+	  &glitch_scene::sceneResized,
 	  this,
-	  SLOT(slotSceneResized(void)),
+	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
   connect(m_scene,
-	  SIGNAL(selectionChanged(void)),
+	  &glitch_scene::selectionChanged,
 	  this,
-	  SIGNAL(selectionChanged(void)));
+	  &glitch_view::selectionChanged);
   connect(m_scene,
 	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  this,
@@ -178,13 +178,13 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotUndoStackChanged(void)));
   connect(m_view,
-	  SIGNAL(mouseEnterEvent(void)),
+	  &glitch_graphicsview::mouseEnterEvent,
 	  this,
-	  SIGNAL(mouseEnterEvent(void)));
+	  &glitch_view::mouseEnterEvent);
   connect(m_view,
-	  SIGNAL(mouseLeaveEvent(void)),
+	  &glitch_graphicsview::mouseLeaveEvent,
 	  this,
-	  SIGNAL(mouseLeaveEvent(void)));
+	  &glitch_view::mouseLeaveEvent);
   connect(m_view,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -350,13 +350,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
   m_fileName = fileName;
   m_settings = m_canvasSettings->settings();
   disconnect(m_scene,
-	     SIGNAL(changed(void)),
+	     &glitch_scene::changed,
 	     this,
-	     SLOT(slotChanged(void)));
+	     &glitch_view::slotChanged);
   disconnect(m_scene,
-	     SIGNAL(sceneResized(void)),
+	     &glitch_scene::sceneResized,
 	     this,
-	     SLOT(slotSceneResized(void)));
+	     &glitch_view::slotSceneResized);
 
   QString connectionName("");
   auto ok = true;
@@ -544,14 +544,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
   glitch_common::discardDatabase(connectionName);
   adjustScrollBars();
   connect(m_scene,
-	  SIGNAL(changed(void)),
+	  &glitch_scene::changed,
 	  this,
-	  SLOT(slotChanged(void)),
+	  &glitch_view::slotChanged,
 	  Qt::QueuedConnection);
   connect(m_scene,
-	  SIGNAL(sceneResized(void)),
+	  &glitch_scene::sceneResized,
 	  this,
-	  SLOT(slotSceneResized(void)),
+	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
   return ok;
 }
@@ -904,15 +904,15 @@ void glitch_view::prepareDefaultActions(void)
 
   action = new QAction(tr("Se&parate Canvas..."), this);
   connect(action,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSeparate(void)));
+	  &glitch_view::slotSeparate);
   m_defaultActions << action;
   action = new QAction(tr("&User Functions..."), this);
   connect(action,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotShowUserFunctions(void)));
+	  &glitch_view::slotShowUserFunctions);
   m_defaultActions << action;
 }
 
@@ -931,14 +931,14 @@ void glitch_view::redo(void)
     {
       m_changed = true;
       disconnect(m_scene,
-		 SIGNAL(changed(void)),
+		 &glitch_scene::changed,
 		 this,
-		 SLOT(slotChanged(void)));
+		 &glitch_view::slotChanged);
       m_undoStack->redo();
       connect(m_scene,
-	      SIGNAL(changed(void)),
+	      &glitch_scene::changed,
 	      this,
-	      SLOT(slotChanged(void)),
+	      &glitch_view::slotChanged,
 	      Qt::QueuedConnection);
       adjustScrollBars();
       emit changed();
@@ -1366,14 +1366,14 @@ void glitch_view::undo(void)
     {
       m_changed = true;
       disconnect(m_scene,
-		 SIGNAL(changed(void)),
+		 &glitch_scene::changed,
 		 this,
-		 SLOT(slotChanged(void)));
+		 &glitch_view::slotChanged);
       m_undoStack->undo();
       connect(m_scene,
-	      SIGNAL(changed(void)),
+	      &glitch_scene::changed,
 	      this,
-	      SLOT(slotChanged(void)),
+	      &glitch_view::slotChanged,
 	      Qt::QueuedConnection);
       adjustScrollBars();
       emit changed();
