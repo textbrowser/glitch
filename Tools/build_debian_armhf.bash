@@ -11,6 +11,11 @@ if [ ! -x /usr/bin/fakeroot ]; then
     exit 1
 fi
 
+if [ ! -r glitch.pro ]; then
+    echo "Please issue $0 from the primary directory."
+    exit 1
+fi
+
 # Preparing ./usr/local/glitch:
 
 make distclean 2>/dev/null
