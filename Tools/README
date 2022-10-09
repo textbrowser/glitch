@@ -1,0 +1,3 @@
+Please execute in the parent directory.
+
+> ./Tools/build_debian_amd64.bash
