@@ -26,6 +26,7 @@
 */
 
 #include <QFile>
+#include <QSplitter>
 #include <QSqlQuery>
 #include <QTextStream>
 

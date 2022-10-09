@@ -47,7 +47,6 @@ class glitch_structures_arduino: public QDialog
 
  private:
   QMap<QString, QString> m_categoriesMap;
-  QTimer m_filterTimer;
   Ui_glitch_structures m_ui;
   static QMap<QString, QStringList> s_itemsForCategories;
   static QMap<QString, char> s_structureNamesMap;
@@ -55,11 +54,6 @@ class glitch_structures_arduino: public QDialog
   static QStringList s_variableTypes;
   static QStringList structureNames(void);
   void prepareCategories(void);
-
- private slots:
-  void slotCategorySelected(void);
-  void slotFilter(void);
-  void slotFilterTextChanged(void);
 };
 
 #endif

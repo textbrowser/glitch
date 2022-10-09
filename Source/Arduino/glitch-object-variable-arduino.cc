@@ -44,7 +44,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 
   string.remove("glitch-arduino-variables-");
   m_ui.array->setChecked(string.contains("array"));
-  m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove(" (array)")));
+  m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove("array ")));
   m_properties[Properties::VARIABLE_ARRAY] = m_ui.array->isChecked();
   m_properties[Properties::VARIABLE_NAME] = "";
   m_properties[Properties::VARIABLE_POINTER_ACCESS] = "";

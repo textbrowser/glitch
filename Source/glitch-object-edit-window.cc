@@ -28,6 +28,7 @@
 #include <QLineEdit>
 #include <QMenuBar>
 #include <QResizeEvent>
+#include <QSplitter>
 #include <QTimer>
 #include <QtDebug>
 

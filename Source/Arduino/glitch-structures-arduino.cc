@@ -25,8 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QShortcut>
-
 #include "glitch-structures-arduino.h"
 
 QMap<QString, QStringList> glitch_structures_arduino::s_itemsForCategories;
@@ -37,29 +35,12 @@ QStringList glitch_structures_arduino::s_variableTypes;
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
-  m_filterTimer.setSingleShot(true);
   m_ui.setupUi(this);
-  connect(&m_filterTimer,
-	  &QTimer::timeout,
-	  this,
-	  &glitch_structures_arduino::slotFilter);
-  connect(m_ui.categories,
-	  &QListWidget::itemSelectionChanged,
-	  this,
-	  &glitch_structures_arduino::slotCategorySelected);
-  connect(m_ui.filter,
-	  SIGNAL(textChanged(const QString &)),
-	  this,
-	  SLOT(slotFilterTextChanged(void)));
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
-  new QShortcut(tr("Ctrl+F"),
-		m_ui.filter,
-		SLOT(setFocus(void)));
   prepareCategories();
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
-  m_ui.categories->setCurrentRow(0);
 }
 
 glitch_structures_arduino::~glitch_structures_arduino()
@@ -179,20 +160,8 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("Trigonometry")] = "Trigonometry";
   m_categoriesMap[tr("Utilities")] = "Utilities";
   m_categoriesMap[tr("Variables")] = "Variables";
-  m_ui.categories->clear();
-  m_ui.categories->addItems(m_categoriesMap.keys());
-
-  for(int i = 0; i < m_ui.categories->count(); i++)
-    {
-      auto item = m_ui.categories->item(i);
-
-      if(item)
-	{
-	  item->setData(Qt::UserRole, m_categoriesMap.value(item->text()));
-	  item->setToolTip(item->text());
-	}
-    }
-
+  m_ui.tree->clear();
+  m_ui.tree->setHeaderLabels(QStringList() << tr("Categories"));
   s_itemsForCategories["Advanced I/O"] = QStringList() << "noTone()"
 						       << "pulseIn()"
 						       << "pulseInLong()"
@@ -358,117 +327,31 @@ void glitch_structures_arduino::prepareCategories(void)
     }
 
   s_itemsForCategories["Variables"] = arrays;
-}
 
-void glitch_structures_arduino::slotCategorySelected(void)
-{
-  /*
-  ** Let's create the tree.
-  */
+  QMapIterator<QString, QString> it(m_categoriesMap);
 
-  auto items(m_ui.categories->selectedItems());
-
-  if(items.isEmpty() || !items.at(0))
-    return;
-
-  m_ui.tree->clear();
-  m_ui.tree->setCategory(items.at(0)->data(Qt::UserRole).toString());
-  m_ui.tree->setHeaderLabel(items.at(0)->text());
-
-  QStringList list;
-  auto string(m_categoriesMap.value(items.at(0)->text()));
-
-  if(string != "Variables")
+  while(it.hasNext())
     {
-      list = s_itemsForCategories.value(string);
+      it.next();
 
-      for(int i = 0; i < list.size(); i++)
-	m_ui.tree->addTopLevelItem
-	  (new QTreeWidgetItem(QStringList() << list.at(i)));
-    }
-  else
-    {
-      list = variableTypes();
+      auto item = new QTreeWidgetItem(m_ui.tree);
 
-      for(int i = 0; i < list.size(); i++)
-	if(list.at(i) == "array")
-	  {
-	    auto item = new QTreeWidgetItem(QStringList() << list.at(i));
+      item->setText(0, it.key());
+      m_ui.tree->addTopLevelItem(item);
 
-	    m_ui.tree->addTopLevelItem(item);
+      for(int i = 0; i < s_itemsForCategories.value(it.value()).size(); i++)
+	{
+	  auto child = new QTreeWidgetItem(item);
 
-	    for(int i = 0; i < list.size(); i++)
-	      if(list.at(i) == "array" || list.at(i) == "void")
-		continue;
-	      else
-		item->addChild
-		  (new QTreeWidgetItem(QStringList() << QString("%1 (array)").
-				                        arg(list.at(i))));
-	  }
-	else
-	  m_ui.tree->addTopLevelItem
-	    (new QTreeWidgetItem(QStringList() << list.at(i)));
+	  child->setData(0,
+			 Qt::UserRole,
+			 "glitch-arduino-" +
+			 it.value() +
+			 "-" +
+			 s_itemsForCategories.value(it.value()).at(i));
+	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
+	}
     }
 
   m_ui.tree->expandAll();
-}
-
-void glitch_structures_arduino::slotFilter(void)
-{
-  QListWidgetItem *found = nullptr;
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-  QRegExp rx("*" + m_ui.filter->text().toLower().trimmed() + "*");
-
-  rx.setPatternSyntax(QRegExp::Wildcard);
-#else
-  QRegularExpression rx
-    (QRegularExpression::
-     wildcardToRegularExpression("*" +
-				 m_ui.filter->text().toLower().trimmed() +
-				 "*"),
-     QRegularExpression::CaseInsensitiveOption);
-#endif
-  auto string(m_ui.filter->text().trimmed());
-
-  for(int i = 0; i < m_ui.categories->count(); i++)
-    {
-      auto item = m_ui.categories->item(i);
-
-      if(!item)
-	continue;
-
-      if(string.isEmpty())
-	{
-	  if(!found)
-	    found = item;
-
-	  item->setHidden(false);
-	  continue;
-	}
-
-      if(item->text().contains(string, Qt::CaseInsensitive))
-	item->setHidden(false);
-      else
-	item->setHidden
-	  (s_itemsForCategories.value(item->text()).indexOf(rx) == -1);
-
-      if(!found && !item->isHidden())
-	found = item;
-    }
-
-  if(found)
-    {
-      found->setSelected(true);
-      slotCategorySelected();
-    }
-  else
-    {
-      m_ui.tree->clear();
-      m_ui.tree->setHeaderLabel("");
-    }
-}
-
-void glitch_structures_arduino::slotFilterTextChanged(void)
-{
-  m_filterTimer.start(250);
 }

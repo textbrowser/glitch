@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>700</height>
+    <width>250</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,85 +21,43 @@
    <item>
     <widget class="QFrame" name="frame">
      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
-       <widget class="QSplitter" name="splitter">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="glitch_structures_treewidget" name="tree">
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
         </property>
-        <widget class="QWidget" name="layoutWidget1">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QLineEdit" name="filter">
-            <property name="placeholderText">
-             <string>Filter</string>
-            </property>
-            <property name="clearButtonEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QListWidget" name="categories">
-            <property name="tabKeyNavigation">
-             <bool>true</bool>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <property name="uniformItemSizes">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="layoutWidget2">
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Drag and drop an item from the below tree onto a canvas!</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="glitch_structures_treewidget" name="tree">
-            <property name="tabKeyNavigation">
-             <bool>true</bool>
-            </property>
-            <property name="dragEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="dragDropMode">
-             <enum>QAbstractItemView::DragOnly</enum>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <property name="uniformRowHeights">
-             <bool>true</bool>
-            </property>
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="animated">
-             <bool>true</bool>
-            </property>
-            <attribute name="headerHighlightSections">
-             <bool>true</bool>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Structures</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+        <property name="dragEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::DragOnly</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="animated">
+         <bool>true</bool>
+        </property>
+        <attribute name="headerHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
        </widget>
       </item>
      </layout>
@@ -115,8 +73,6 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>filter</tabstop>
-  <tabstop>categories</tabstop>
   <tabstop>tree</tabstop>
  </tabstops>
  <resources>
