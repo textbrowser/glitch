@@ -12,8 +12,10 @@ then
     exit $?
 elif [ -r /usr/local/glitch/Glitch ] && [ -x /usr/local/glitch/Glitch ]
 then
+    echo "Launching an official Glitch."
     cd /usr/local/glitch && exec ./Glitch "$@"
     exit $?
 else
+    echo "Cannot locate Glitch."
     exit 1
 fi
