@@ -101,9 +101,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotShowArduinoDocumentation);
   connect(m_ui.action_Canvas_Settings,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotShowCanvasSettings(void)));
+	  &glitch_ui::slotShowCanvasSettings);
   connect(m_ui.action_Clear_Copied_Widgets_Buffer,
 	  SIGNAL(triggered(void)),
 	  this,
