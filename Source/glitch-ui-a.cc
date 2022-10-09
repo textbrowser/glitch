@@ -64,11 +64,15 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"Glitch is a visual compiler and designer for Arduino.<br>"
 	"Develop through block diagrams.<br><br>"
 	"Software for and from the margins.<br><br>"
-	"Qt version %2 (runtime %3).<br><br>"
+	"Architecture: %2.<br>"
+	"Product: %3.<br>"
+	"Qt version %4 (runtime %5).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
      arg(GLITCH_VERSION_STR).
+     arg(QSysInfo::currentCpuArchitecture()).
+     arg(QSysInfo::prettyProductName()).
      arg(QT_VERSION_STR).
      arg(qVersion()));
   m_about.setTextFormat(Qt::RichText);
