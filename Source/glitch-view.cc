@@ -89,6 +89,7 @@ glitch_view::glitch_view
   m_view = new glitch_graphicsview(this);
   m_view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
   m_view->setCacheMode(QGraphicsView::CacheNone);
+  m_view->setCornerWidget(new QLabel(this));
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setFrameStyle(QFrame::NoFrame);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

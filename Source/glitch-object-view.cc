@@ -52,6 +52,7 @@ glitch_object_view::glitch_object_view
   m_scene->setUndoStack(m_undoStack = undoStack);
   setAlignment(Qt::AlignLeft | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
+  setCornerWidget(new QLabel(this));
   setDragMode(QGraphicsView::RubberBandDrag);
   setFrameStyle(QFrame::NoFrame);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

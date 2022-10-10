@@ -105,9 +105,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotShowCanvasSettings);
   connect(m_ui.action_Clear_Copied_Widgets_Buffer,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotClearCopiedWidgetsBuffer(void)));
+	  &glitch_ui::slotClearCopiedWidgetsBuffer);
   connect(m_ui.action_Close_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -117,9 +117,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotCopy(void)));
   connect(m_ui.action_Delete,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotDelete(void)));
+	  &::glitch_ui::slotDelete);
   connect(m_ui.action_Diagram_Context_Menu,
 	  &QAction::triggered,
 	  this,
@@ -133,48 +133,49 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotGenerateSource);
   connect(m_ui.action_New_Arduino,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotNewArduinoDiagram(void)));
+	  &glitch_ui::slotNewArduinoDiagram);
   connect(m_ui.action_Open_Diagram,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotOpenDiagram(void)));
+	  &glitch_ui::slotOpenDiagram);
   connect(m_ui.action_Paste,
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotPaste(void)));
   connect(m_ui.action_Quit,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotQuit(void)));
+	  &glitch_ui::slotQuit);
   connect(m_ui.action_Redo,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotRedo(void)));
+	  &glitch_ui::slotRedo);
   connect(m_ui.action_Release_Notes,
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowReleaseNotes);
   connect(m_ui.action_Save_Current_Diagram,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSaveCurrentDiagram(void)));
+	  &glitch_ui::slotSaveCurrentDiagram);
   connect(m_ui.action_Save_Current_Diagram_As,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSaveCurrentDiagramAs(void)));
+	  &::glitch_ui::slotSaveCurrentDiagramAs);
   connect(m_ui.action_Select_All,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSelectAll(void)));
+	  &glitch_ui::slotSelectAll);
   connect(m_ui.action_Tools,
-	  SIGNAL(triggered(void)),
-	  SLOT(slotShowTools(void)));
-  connect(m_ui.action_Undo,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotUndo(void)));
+	  &glitch_ui::slotShowTools);
+  connect(m_ui.action_Undo,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotUndo);
   connect(m_ui.action_User_Functions,
 	  &QAction::triggered,
 	  this,
@@ -184,9 +185,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotViewTools);
   connect(m_ui.menu_Tabs,
-	  SIGNAL(aboutToShow(void)),
+	  &QMenu::aboutToShow,
 	  this,
-	  SLOT(slotAboutToShowTabsMenu(void)));
+	  &glitch_ui::slotAboutToShowTabsMenu);
   connect(m_ui.tab,
 	  SIGNAL(currentChanged(int)),
 	  this,
@@ -359,25 +360,30 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
        this);
 
   connect(view,
-	  SIGNAL(changed(void)),
+	  &glitch_view_arduino::changed,
 	  this,
-	  SLOT(slotPageChanged(void)));
+	  &glitch_ui::slotPageChanged);
   connect(view,
 	  SIGNAL(copy(QGraphicsView *)),
 	  this,
 	  SLOT(slotCopy(QGraphicsView *)));
   connect(view,
-	  SIGNAL(destroyed(void)),
+	  &QAction::destroyed,
 	  this,
-	  SLOT(slotArduinoViewDestroyed(void)));
+	  &glitch_ui::slotArduinoViewDestroyed,
+	  Qt::QueuedConnection); /*
+				 ** Prevent abnormal termination
+				 ** as prepareActionWidgets() is
+				 ** issued after m_ui is destroyed.
+				 */
   connect(view,
-	  SIGNAL(saved(void)),
+	  &glitch_view_arduino::saved,
 	  this,
-	  SLOT(slotPageSaved(void)));
+	  &glitch_ui::slotPageSaved);
   connect(view,
-	  SIGNAL(selectionChanged(void)),
+	  &glitch_view_arduino::selectionChanged,
 	  this,
-	  SLOT(slotSelectionChanged(void)));
+	  &glitch_ui::slotSelectionChanged);
   connect(view,
 	  SIGNAL(separate(glitch_view *)),
 	  this,
@@ -391,9 +397,9 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotUnite(glitch_view *)));
   connect(view->menuAction(),
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotSelectPage(void)));
+	  &glitch_ui::slotSelectPage);
   m_ui.tab->addTab(view, view->menuAction()->icon(), name);
   m_ui.tab->setCurrentWidget(view);
   m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), "<html>" + name + "</html>");
