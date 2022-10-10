@@ -352,6 +352,4 @@ void glitch_structures_arduino::prepareCategories(void)
 	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
 	}
     }
-
-  m_ui.tree->expandAll();
 }
