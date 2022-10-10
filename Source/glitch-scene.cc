@@ -49,6 +49,7 @@
 #include "Arduino/glitch-object-digital-io-arduino.h"
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
+#include "Arduino/glitch-object-interrupts-arduino.h"
 #include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-mathematics-arduino.h"
 #include "Arduino/glitch-object-random-arduino.h"
@@ -717,6 +718,9 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_conversion_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-external interrupts") ||
+		  text.startsWith("glitch-arduino-interrupts"))
+	    object = new glitch_object_interrupts_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-flow control-"))
 	    object = new glitch_object_flow_control_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-function"))

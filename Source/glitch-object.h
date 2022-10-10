@@ -83,6 +83,7 @@ class glitch_object: public QWidget
     CONVERSION,
     DIGITAL_IO_TYPE,
     FLOW_CONTROL_TYPE,
+    INTERRUPTS_TYPE,
     LOGICAL_OPERATOR,
     MATHEMATICS_TYPE,
     NAME,
