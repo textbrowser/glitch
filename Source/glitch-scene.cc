@@ -305,12 +305,13 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   connect(object,
 	  &glitch_object::destroyed,
 	  proxy,
-	  &glitch_proxy_widget::deleteLater);
+	  &glitch_proxy_widget::deleteLater,
+	  Qt::QueuedConnection);
   connect(object,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SIGNAL(destroyed(QObject *)),
-	  Qt::UniqueConnection);
+	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
   connect(object,
 	  SIGNAL(undoStackCreated(QUndoStack *)),
 	  this,

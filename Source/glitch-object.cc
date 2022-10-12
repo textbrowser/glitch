@@ -156,8 +156,6 @@ glitch_object::~glitch_object()
 
   if(m_editWindow)
     m_editWindow->deleteLater();
-
-  qDebug() << "Done (glitch_object)!";
 }
 
 QPointF glitch_object::scenePos(void) const
@@ -1140,7 +1138,7 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  &glitch_wire::destroyed,
 	  this,
 	  &glitch_object::slotWireDestroyed,
-	  Qt::UniqueConnection);
+	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
   m_wires[object->id()] = wire;
 }
 

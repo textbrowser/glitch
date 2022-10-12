@@ -124,7 +124,8 @@ glitch_view::glitch_view
   connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
-	  SLOT(slotSceneObjectDestroyed(QObject *)));
+	  SLOT(slotSceneObjectDestroyed(QObject *)),
+	  Qt::QueuedConnection);
   connect(m_scene,
 	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
