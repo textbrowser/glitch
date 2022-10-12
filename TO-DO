@@ -206,7 +206,10 @@ Perhaps Items
 Remaining Items
 
 - Allow removal of wire by selection.
-- Android.
+- Android:
+  Adding user functions
+  Close buttons
+  Drag & drop
 - Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Copy wires. Very difficult.

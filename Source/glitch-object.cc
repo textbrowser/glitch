@@ -64,6 +64,7 @@
 #include "glitch-object.h"
 #include "glitch-scene.h"
 #include "glitch-style-sheet.h"
+#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 #include "glitch-wire.h"
@@ -575,8 +576,8 @@ void glitch_object::cloneWires
 	m_wires[it.value()->rightProxy()->object()->id()] =
 	  new glitch_wire(nullptr);
       else
-	qDebug() << tr("Cannot clone wire as the original wire lacks "
-		       "left and right objects!");
+	qDebug() << tr("Cannot clone wire as the original "
+		       "wire lacks left and right objects!");
     }
 }
 

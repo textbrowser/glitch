@@ -383,7 +383,11 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
   connect(view,
 	  &glitch_view_arduino::selectionChanged,
 	  this,
-	  &glitch_ui::slotSelectionChanged);
+	  &glitch_ui::slotSelectionChanged,
+	  Qt::QueuedConnection); /*
+				 ** Prevent abnormal termination
+				 ** after m_ui is destroyed.
+				 */
   connect(view,
 	  SIGNAL(separate(glitch_view *)),
 	  this,
