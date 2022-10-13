@@ -225,6 +225,7 @@ qt.files            = Qt\\qt.conf
 qt.path             = release\\.
 qtlibraries.files   = $$[QT_INSTALL_BINS]\\Qt5Core.dll \
                       $$[QT_INSTALL_BINS]\\Qt5Gui.dll \
+                      $$[QT_INSTALL_BINS]\\Qt5PrintSupport.dll \
                       $$[QT_INSTALL_BINS]\\Qt5Sql.dll \
                       $$[QT_INSTALL_BINS]\\Qt5Widgets.dll \
                       $$[QT_INSTALL_BINS]\\libgcc_s_dw2-1.dll \
