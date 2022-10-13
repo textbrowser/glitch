@@ -30,6 +30,11 @@
 
 #include "ui_glitch-documentation.h"
 
+#ifdef GLITCH_PDF_SUPPORTED
+class QPdfDocument;
+class QPdfView;
+#endif
+
 class glitch_documentation: public QMainWindow
 {
   Q_OBJECT
@@ -45,6 +50,10 @@ class glitch_documentation: public QMainWindow
 
  private:
   QPalette m_originalFindPalette;
+#ifdef GLITCH_PDF_SUPPORTED
+  QPdfDocument *m_pdfDocument;
+  QPdfView *m_pdfView;
+#endif
   Ui_glitch_documentation m_ui;
   bool m_openExternalLinks;
   void connectSignals(void);

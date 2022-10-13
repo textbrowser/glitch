@@ -26,9 +26,15 @@
 */
 
 #include <QDesktopServices>
+#include <QDir>
+#ifdef GLITCH_PDF_SUPPORTED
+#include <QPdfDocument>
+#include <QPdfView>
+#endif
 #include <QPrintDialog>
 #include <QPrinter>
 #include <QPushButton>
+#include <QtDebug>
 
 #include "glitch-documentation.h"
 
@@ -36,6 +42,22 @@ glitch_documentation::glitch_documentation
 (const QUrl &url, QWidget *parent):QMainWindow(parent)
 {
   m_openExternalLinks = false;
+#ifdef GLITCH_PDF_SUPPORTED
+  if(url.toString().toLower().trimmed().endsWith(".pdf"))
+    {
+      m_pdfDocument = new QPdfDocument(this);
+      m_pdfDocument->load(QDir::currentPath() +
+			  QDir::separator() +
+			  "Documentation" +
+			  QDir::separator() +
+			  "Arduino" +
+			  QDir::separator() +
+			  "Arduino.pdf");
+      m_pdfView = new QPdfView(this);
+      m_pdfView->setDocument(m_pdfDocument);
+      m_pdfView->setPageMode(QPdfView::PageMode::MultiPage);
+    }
+#endif
   m_ui.setupUi(this);
   m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
@@ -43,7 +65,10 @@ glitch_documentation::glitch_documentation
   m_ui.find->setPlaceholderText(tr("Find"));
   m_ui.next->setIcon(QIcon::fromTheme("go-next"));
   m_ui.previous->setIcon(QIcon::fromTheme("go-previous"));
-  m_ui.text->setSource(url);
+
+  if(url.toString().toLower().trimmed().endsWith(".html"))
+    m_ui.text->setSource(url);
+
   m_originalFindPalette = m_ui.find->palette();
   connect(m_ui.action_Close,
 	  &QAction::triggered,
@@ -77,6 +102,13 @@ glitch_documentation::glitch_documentation
 	  SIGNAL(anchorClicked(const QUrl &)),
 	  this,
 	  SLOT(slotAnchorClicked(const QUrl &)));
+#ifdef GLITCH_PDF_SUPPORTED
+  if(m_pdfView)
+    {
+      m_ui.stack->addWidget(m_pdfView);
+      m_ui.stack->setCurrentIndex(1);
+    }
+#endif
 }
 
 glitch_documentation::~glitch_documentation()

@@ -9,6 +9,13 @@ LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport sql widgets
 
+qtHaveModule(pdf) {
+qtHaveModule(pdfwidgets) {
+DEFINES         += GLITCH_PDF_SUPPORTED
+QT              += pdf pdfwidgets
+}
+}
+
 macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \

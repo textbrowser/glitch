@@ -201,6 +201,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+#ifndef GLITCH_PDF_SUPPORTED
+  m_ui.action_Arduino_Documentation->setEnabled(false);
+#endif
   m_ui.action_Copy->setEnabled(false);
   m_ui.action_Delete->setEnabled(false);
 #ifdef Q_OS_ANDROID
@@ -1756,7 +1759,7 @@ void glitch_ui::slotShowAllTools(void)
 void glitch_ui::slotShowArduinoDocumentation(void)
 {
   if(!m_arduino)
-    m_arduino = new glitch_documentation(QUrl("qrc:/ReleaseNotes.html"), this);
+    m_arduino = new glitch_documentation(QUrl("qrc:/Arduino.pdf"), this);
 
   m_arduino->showNormal();
   m_arduino->activateWindow();
