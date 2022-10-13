@@ -6,9 +6,8 @@ purge.commands = find . -name '*~' -exec rm {} \\;
 CONFIG		+= qt release warn_on
 DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
-QT		+= gui printsupport sql widgets
-
 QMAKE_CLEAN	+= Glitch
+QT		+= gui printsupport sql widgets
 
 macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
@@ -197,13 +196,13 @@ macdeployqt.path	= Glitch.app
 preinstall.extra	= rm -fr /Applications/Glitch.d/Glitch.app
 preinstall.path		= /Applications/Glitch.d
 
-INSTALLS	= documentation1 \
-                  documentation2 \
-                  documentation3 \
-                  preinstall \
-                  glitch \
-                  macdeployqt \
-		  chown
+INSTALLS = documentation1 \
+           documentation2 \
+           documentation3 \
+           preinstall \
+           glitch \
+           macdeployqt \
+           chown
 }
 
 win32 {
