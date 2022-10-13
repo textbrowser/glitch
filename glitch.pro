@@ -183,6 +183,8 @@ TEMPLATE	= app
 # Installation Procedures
 
 macx {
+chown.extra		= chown -Rh root:wheel /Applications/Glitch.d
+chown.path		= /Applications/Glitch.d
 documentation1.extra	= cp ./Documentation/*.1 /Applications/Glitch.d/Documentation/.
 documentation1.path	= /Applications/Glitch.d/Documentation
 documentation2.extra	= cp ./TO-DO /Applications/Glitch.d/Documentation/.
@@ -195,8 +197,6 @@ macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt /Applications/Glitch.d/Glitc
 macdeployqt.path	= Glitch.app
 preinstall.extra	= rm -fr /Applications/Glitch.d/Glitch.app
 preinstall.path		= /Applications/Glitch.d
-zzz.extra		= chown -Rh root:wheel /Applications/Glitch.d
-zzz.path		= /Applications/Glitch.d
 
 INSTALLS	= documentation1 \
                   documentation2 \
@@ -204,12 +204,14 @@ INSTALLS	= documentation1 \
                   preinstall \
                   glitch \
                   macdeployqt \
-		  zzz
+		  chown
 }
 
 win32 {
-documentation.files = Documentation\\Arduino\\*
-documentation.path  = release\\Documentation\\.
+documentation1.files = Documentation\\Arduino\\*
+documentation1.path  = release\\Documentation\\.
+documentation2.files = TO-DO
+documentation2.path  = release\\Documentation\\.
 plugins1.files      = $$[QT_INSTALL_PLUGINS]\\*
 plugins1.path       = release\\plugins\\.
 plugins2.files      = $$[QT_INSTALL_PLUGINS]\\gamepads\\xinputgamepad.dll
@@ -231,7 +233,8 @@ qtlibraries.files   = $$[QT_INSTALL_BINS]\\Qt5Core.dll \
                       $$[QT_INSTALL_BINS]\\libwinpthread-1.dll
 qtlibraries.path    = release\\.
 
-INSTALLS = documentation \
+INSTALLS = documentation1 \
+           documentation2 \
            plugins1 \
            pluginspurge \
            plugins2 \
