@@ -106,6 +106,7 @@ Completed Items
 - Hide alignment options.
 - Icons and themes.
 - Identifiers are incorrect for function children.
+- Include Arduino language reference in binary.
 - Indicate wire input / output.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - Integrate isFullyWired().
@@ -221,7 +222,6 @@ Remaining Items
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.
 - Generate view.
-- Include Arduino language reference in binary.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Languages option.
 - Multiple inputs or single input?

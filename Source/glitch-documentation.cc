@@ -99,6 +99,9 @@ glitch_documentation::glitch_documentation
 #ifdef GLITCH_PDF_SUPPORTED
   if(m_pdfView)
     {
+      m_ui.action_Find->setEnabled(false);
+      m_ui.action_Print->setEnabled(false);
+      m_ui.frame->setVisible(false);
       m_ui.stack->addWidget(m_pdfView);
       m_ui.stack->setCurrentIndex(1);
     }
