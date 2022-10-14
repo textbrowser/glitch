@@ -1759,7 +1759,7 @@ void glitch_ui::slotShowAllTools(void)
 void glitch_ui::slotShowArduinoDocumentation(void)
 {
   if(!m_arduino)
-    m_arduino = new glitch_documentation(QUrl("qrc:/Arduino.pdf"), this);
+    m_arduino = new glitch_documentation(":/Arduino/Arduino.pdf", this);
 
   m_arduino->showNormal();
   m_arduino->activateWindow();

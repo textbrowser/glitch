@@ -39,20 +39,14 @@
 #include "glitch-documentation.h"
 
 glitch_documentation::glitch_documentation
-(const QUrl &url, QWidget *parent):QMainWindow(parent)
+(const QString &fileName, QWidget *parent):QMainWindow(parent)
 {
   m_openExternalLinks = false;
 #ifdef GLITCH_PDF_SUPPORTED
-  if(url.toString().toLower().trimmed().endsWith(".pdf"))
+  if(fileName.toLower().trimmed().endsWith(".pdf"))
     {
       m_pdfDocument = new QPdfDocument(this);
-      m_pdfDocument->load(QDir::currentPath() +
-			  QDir::separator() +
-			  "Documentation" +
-			  QDir::separator() +
-			  "Arduino" +
-			  QDir::separator() +
-			  "Arduino.pdf");
+      m_pdfDocument->load(fileName);
       m_pdfView = new QPdfView(this);
       m_pdfView->setDocument(m_pdfDocument);
       m_pdfView->setPageMode(QPdfView::PageMode::MultiPage);
@@ -66,8 +60,8 @@ glitch_documentation::glitch_documentation
   m_ui.next->setIcon(QIcon::fromTheme("go-next"));
   m_ui.previous->setIcon(QIcon::fromTheme("go-previous"));
 
-  if(url.toString().toLower().trimmed().endsWith(".html"))
-    m_ui.text->setSource(url);
+  if(fileName.toLower().trimmed().endsWith(".html"))
+    m_ui.text->setSource(QUrl(fileName));
 
   m_originalFindPalette = m_ui.find->palette();
   connect(m_ui.action_Close,
@@ -109,6 +103,11 @@ glitch_documentation::glitch_documentation
       m_ui.stack->setCurrentIndex(1);
     }
 #endif
+}
+
+glitch_documentation::glitch_documentation
+(const QUrl &url, QWidget *parent):glitch_documentation(url.toString(), parent)
+{
 }
 
 glitch_documentation::~glitch_documentation()
