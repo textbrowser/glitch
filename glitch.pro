@@ -85,12 +85,12 @@ QMAKE_CXXFLAGS_RELEASE += -std=c++17
 QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
-QMAKE_DISTCLEAN += -r .qmake* \
-                   -r html \
-                   -r latex \
-                   -r temp
+QMAKE_DISTCLEAN     += -r .qmake* \
+                       -r html \
+                       -r latex \
+                       -r temp
 QMAKE_EXTRA_TARGETS = doxygen purge
-QMAKE_STRIP	= echo
+QMAKE_STRIP	    = echo
 
 macx {
 ICON		= Icons/Logo/glitch-logo.icns
