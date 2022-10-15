@@ -1,6 +1,7 @@
 Architecture: armhf
 Depends: libqt5core5a (>= 5.9.0),
          libqt5gui5 (>= 5.9.0),
+	 libqt5printsupport5 (>= 5.9.0),
          libqt5sql5 (>= 5.9.0),
          libqt5sql5-sqlite (>= 5.9.0),
          libqt5widgets5 (>= 5.9.0)
