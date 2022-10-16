@@ -20,7 +20,7 @@ Summary of Glitch
 <li>Qt 5.5.1 (PowerPC)!</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
-<li>Rich redo/undo stack.</li>
+<li>Rich redo / undo stack.</li>
 <li>Sparc!</li>
 <li>Unlimited diagrams.</li>
 </ul>
