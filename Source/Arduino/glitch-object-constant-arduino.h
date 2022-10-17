@@ -68,6 +68,7 @@ class glitch_object_constant_arduino: public glitch_object
   glitch_object_constant_arduino(const qint64 id, QWidget *parent);
   ConstantTypes m_constantType;
   Ui_glitch_object_constant_arduino m_ui;
+  void compressWidget(const bool state);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
 

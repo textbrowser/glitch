@@ -135,6 +135,14 @@ void glitch_object_constant_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_constant_arduino::compressWidget(const bool state)
+{
+  glitch_object::compressWidget(state);
+
+  if(m_constantType == ConstantTypes::OTHER)
+    m_ui.constant->setVisible(!state);
+}
+
 void glitch_object_constant_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -213,8 +221,7 @@ void glitch_object_constant_arduino::setConstantType
   m_ui.constant->blockSignals(false);
 }
 
-void glitch_object_constant_arduino::setProperties
-(const QStringList &list)
+void glitch_object_constant_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::CONSTANT_OTHER] = "";
@@ -241,6 +248,7 @@ void glitch_object_constant_arduino::setProperties
     }
 
   setConstantType(m_properties.value(Properties::CONSTANT_TYPE).toString());
+  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
 
 void glitch_object_constant_arduino::setProperty

@@ -577,9 +577,10 @@ void glitch_object::cloneWires
 
 void glitch_object::compressWidget(const bool state)
 {
-  foreach(auto widget, findChildren<QWidget *> ())
-    if(qobject_cast<QToolButton *> (widget))
-      widget->setVisible(!state);
+  auto toolButton = contextMenuButton();
+
+  if(toolButton)
+    toolButton->setVisible(!state);
 }
 
 void glitch_object::createActions(void)
