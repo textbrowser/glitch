@@ -94,7 +94,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
   m_parent = parent;
-  m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] = true;
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
   m_properties[Properties::TRANSPARENT] = true;
@@ -548,11 +548,7 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
 void glitch_object::afterPaste(void)
 {
-  auto toolButton = contextMenuButton();
-
-  if(toolButton)
-    toolButton->setVisible
-      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
+  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
 
 void glitch_object::cloneWires
@@ -579,6 +575,13 @@ void glitch_object::cloneWires
     }
 }
 
+void glitch_object::compressWidget(const bool state)
+{
+  foreach(auto widget, findChildren<QWidget *> ())
+    if(qobject_cast<QToolButton *> (widget))
+      widget->setVisible(!state);
+}
+
 void glitch_object::createActions(void)
 {
   if(!m_actions.contains(DefaultMenuActions::ADJUST_SIZE))
@@ -593,6 +596,25 @@ void glitch_object::createActions(void)
 	      &glitch_object::slotAdjustSize);
       m_actions[DefaultMenuActions::ADJUST_SIZE] = action;
     }
+
+  if(!m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))
+    {
+      auto action = new QAction(tr("&Compress Widget"), this);
+
+      action->setCheckable(true);
+      action->setChecked
+	(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+      action->setData(static_cast<uint> (DefaultMenuActions::COMPRESS_WIDGET));
+      action->setEnabled(!isMandatory());
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotActionTriggered);
+      m_actions[DefaultMenuActions::COMPRESS_WIDGET] = action;
+    }
+  else
+    m_actions[DefaultMenuActions::COMPRESS_WIDGET]->
+      setChecked(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 
   if(!m_actions.contains(DefaultMenuActions::DELETE))
     {
@@ -638,26 +660,6 @@ void glitch_object::createActions(void)
 	      &glitch_object::slotSetStyleSheet);
       m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
     }
-
-  if(!m_actions.contains(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON))
-    {
-      auto action = new QAction(tr("Show Context Menu Button"), this);
-
-      action->setCheckable(true);
-      action->setChecked
-	(m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
-      action->setData
-	(static_cast<uint> (DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON));
-      connect(action,
-	      &QAction::triggered,
-	      this,
-	      &glitch_object::slotShowContextMenuButton);
-      m_actions[DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON] = action;
-    }
-  else
-    m_actions[DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON]->
-      setChecked
-      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
 
   if(!m_actions.contains(DefaultMenuActions::TRANSPARENT))
     {
@@ -848,8 +850,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   auto properties(p);
 
-  properties["context_menu_button_shown"] = m_properties.value
-    (Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool();
+  properties["compressed_widget"] = m_properties.value
+    (Properties::COMPRESSED_WIDGET).toBool();
   properties["position_locked"] = m_properties.value
     (Properties::POSITION_LOCKED).toBool();
   properties["size"] = QString("(%1, %2)").
@@ -956,25 +958,20 @@ void glitch_object::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("comment = "))
+      if(string.simplified().startsWith("compressed_widget = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::COMPRESSED_WIDGET] =
+	    QVariant(string.trimmed()).toBool();
+	  compressWidget
+	    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+	}
+      else if(string.simplified().startsWith("comment = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
-	}
-      else if(string.simplified().startsWith("context_menu_button_shown = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
-	    QVariant(string.trimmed()).toBool();
-
-	  auto toolButton = contextMenuButton();
-
-	  if(toolButton)
-	    toolButton->setVisible
-	      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).
-	       toBool());
 	}
       else if(string.simplified().startsWith("name = "))
 	{
@@ -1007,7 +1004,7 @@ void glitch_object::setProperties(const QStringList &list)
 	      QSize size(this->size());
 
 	      size.setWidth
-		(qBound(100, string.split(',').value(0).toInt(), 500));
+		(qBound(50, string.split(',').value(0).toInt(), 500));
 	      resize(size);
 	    }
 	}
@@ -1049,13 +1046,13 @@ void glitch_object::setProperty(const Properties property,
 
   switch(property)
     {
-    case Properties::CONTEXT_MENU_BUTTON_SHOWN:
+    case Properties::COMPRESSED_WIDGET:
       {
-	if(m_actions.contains(DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON))
+	if(m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))
 	  m_actions.value
-	    (DefaultMenuActions::SHOW_CONTEXT_MENU_BUTTON)->setChecked
-	    (value.toBool());
+	    (DefaultMenuActions::COMPRESS_WIDGET)->setChecked(value.toBool());
 
+	compressWidget(value.toBool());
 	break;
       }
     case Properties::POSITION_LOCKED:
@@ -1165,6 +1162,11 @@ void glitch_object::slotActionTriggered(void)
 
       switch(DefaultMenuActions(action->data().toUInt()))
 	{
+	case DefaultMenuActions::COMPRESS_WIDGET:
+	  {
+	    property = Properties::COMPRESSED_WIDGET;
+	    break;
+	  }
 	case DefaultMenuActions::TRANSPARENT:
 	  {
 	    property = Properties::TRANSPARENT;
@@ -1263,7 +1265,9 @@ void glitch_object::slotPropertyChanged
 {
   auto p = Properties::XYZ_PROPERTY;
 
-  if(property == "tool_bar_visible")
+  if(property == "compressed_widget")
+    p = Properties::COMPRESSED_WIDGET;
+  else if(property == "tool_bar_visible")
     p = Properties::TOOL_BAR_VISIBLE;
 
   if(p != Properties::XYZ_PROPERTY)
@@ -1283,35 +1287,6 @@ void glitch_object::slotPropertyChanged
 	  m_undoStack->push(undoCommand);
 	}
     }
-}
-
-void glitch_object::slotShowContextMenuButton(void)
-{
-  if(m_undoStack)
-    {
-      auto undoCommand = new glitch_undo_command
-	(!m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool(),
-	 m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN),
-	 glitch_undo_command::PROPERTY_CHANGED,
-	 Properties::CONTEXT_MENU_BUTTON_SHOWN,
-	 this);
-
-      undoCommand->setText
-	(tr("item property changed (%1, %2)").
-	 arg(scenePos().x()).arg(scenePos().y()));
-      m_undoStack->push(undoCommand);
-    }
-  else
-    m_properties[Properties::CONTEXT_MENU_BUTTON_SHOWN] =
-      !m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool();
-
-  auto toolButton = contextMenuButton();
-
-  if(toolButton)
-    toolButton->setVisible
-      (m_properties.value(Properties::CONTEXT_MENU_BUTTON_SHOWN).toBool());
-
-  emit changed();
 }
 
 void glitch_object::slotSimulateDelete(void)

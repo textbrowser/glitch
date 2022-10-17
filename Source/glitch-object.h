@@ -55,12 +55,12 @@ class glitch_object: public QWidget
   enum class DefaultMenuActions
   {
     ADJUST_SIZE = 0,
+    COMPRESS_WIDGET,
     DELETE,
     EDIT,
     LOCK_POSITION,
     SET_FUNCTION_NAME,
     SET_STYLE_SHEET,
-    SHOW_CONTEXT_MENU_BUTTON,
     TRANSPARENT
   };
 
@@ -76,10 +76,10 @@ class glitch_object: public QWidget
     COMMENT,
     COMPOUND_OPERATOR,
     COMPOUND_OPERATOR_PRE,
+    COMPRESSED_WIDGET,
     CONDITION,
     CONSTANT_OTHER,
     CONSTANT_TYPE,
-    CONTEXT_MENU_BUTTON_SHOWN,
     CONVERSION,
     DIGITAL_IO_TYPE,
     FLOW_CONTROL_TYPE,
@@ -210,7 +210,6 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
-  void slotShowContextMenuButton(void);
   void slotWireDestroyed(void);
 
  protected:
@@ -237,6 +236,7 @@ class glitch_object: public QWidget
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
   virtual QStringList outputs(void) const;
+  virtual void compressWidget(const bool state);
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
