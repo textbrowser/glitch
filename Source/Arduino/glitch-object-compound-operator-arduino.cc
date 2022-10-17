@@ -222,6 +222,12 @@ void glitch_object_compound_operator_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_compound_operator_arduino::compressWidget(const bool state)
+{
+  glitch_object::compressWidget(state);
+  m_ui.pre->setVisible(!state);
+}
+
 void glitch_object_compound_operator_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -314,8 +320,13 @@ void glitch_object_compound_operator_arduino::setOperatorType
     }
 
   m_ui.compound_operator->blockSignals(false);
-  m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
-		       m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
+
+  if(m_properties.value(Properties::COMPRESSED_WIDGET).toBool())
+    m_ui.pre->setVisible(false);
+  else
+    m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
+			 m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
+
   setName(m_ui.compound_operator->currentText());
 }
 
@@ -376,6 +387,7 @@ void glitch_object_compound_operator_arduino::setProperties
 	}
     }
 
+  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   setOperatorType(m_properties.value(Properties::COMPOUND_OPERATOR).toString());
 }
 

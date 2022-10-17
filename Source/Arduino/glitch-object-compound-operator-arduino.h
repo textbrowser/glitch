@@ -72,6 +72,7 @@ class glitch_object_compound_operator_arduino: public glitch_object
   glitch_object_compound_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
   Ui_glitch_object_compound_operator_arduino m_ui;
+  void compressWidget(const bool state);
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
