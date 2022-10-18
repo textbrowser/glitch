@@ -286,6 +286,16 @@ void glitch_object_variable_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_variable_arduino::compressWidget(const bool state)
+{
+  glitch_object::compressWidget(state);
+  m_ui.array->setVisible(!state);
+  m_ui.pointer_access->setVisible(!state);
+  m_ui.progmem->setVisible(!state);
+  m_ui.qualifier->setVisible(!state);
+  m_ui.type->setVisible(!state);
+}
+
 void glitch_object_variable_arduino::connectSignals(const bool state)
 {
   if(state)
@@ -444,6 +454,7 @@ void glitch_object_variable_arduino::setProperties
 	}
     }
 
+  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   connectSignals(true);
 }
 
