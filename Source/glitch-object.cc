@@ -999,7 +999,7 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  if(!isMandatory())
 	    {
-	      string = string.mid(string.indexOf('=') + 1);
+	      string = string.mid(string.indexOf('=') + 1).trimmed();
 	      string.remove('"').remove('(').remove(')');
 
 	      QSize size(this->size());
