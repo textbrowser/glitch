@@ -830,7 +830,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-	    if(!proxy || !proxy->isMovable())
+	    if(!proxy)
 	      continue;
 
 	    auto object = qobject_cast<glitch_object *> (proxy->widget());
@@ -844,6 +844,9 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 		QGraphicsScene::keyPressEvent(event);
 		continue;
 	      }
+
+	    if(!proxy->isMovable())
+	      continue;
 
 	    point = object->pos();
 
