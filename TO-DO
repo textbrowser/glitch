@@ -213,6 +213,8 @@ Remaining Items
   Drag & drop
 - Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
+- Comment widget and redo / undo stack is empty, however, the canvas remains
+  in a modified state.
 - Copy wires. Very difficult.
 - Custom input / output port colors.
 - Custom shortcuts.

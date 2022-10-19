@@ -39,6 +39,7 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 {
   m_type = "arduino-blockcomment";
   m_ui.setupUi(this);
+  m_ui.comment->setUndoRedoEnabled(false);
   connect(m_ui.comment,
 	  &QPlainTextEdit::textChanged,
 	  this,
@@ -170,10 +171,14 @@ void glitch_object_block_comment_arduino::setProperty
     case Properties::COMMENT:
       {
 	auto cursor(m_ui.comment->textCursor());
+	auto position = cursor.anchor();
 
 	m_ui.comment->blockSignals(true);
-	m_ui.comment->setPlainText
-	  (m_properties.value(Properties::COMMENT).toString());
+	m_ui.comment->setPlainText(value.toString());
+
+	if(position <= m_ui.comment->toPlainText().length())
+	  cursor.setPosition(position);
+
 	m_ui.comment->setTextCursor(cursor);
 	m_ui.comment->blockSignals(false);
 	break;
