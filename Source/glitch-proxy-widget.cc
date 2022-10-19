@@ -167,6 +167,14 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
       return;
     }
 
+  auto widget = m_object->childAt(event->pos().toPoint());
+
+  if(widget && widget->objectName().toLower().contains("viewport"))
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
   m_object->setFocus();
 }
 
