@@ -1466,7 +1466,10 @@ void glitch_scene::undo(void)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
       m_undoStack->undo();
-      emit changed();
+
+      if(m_undoStack->canUndo())
+	emit changed();
+
       QApplication::restoreOverrideCursor();
     }
 }

@@ -339,7 +339,9 @@ void glitch_canvas_settings::accept(void)
       m_ui.name->setCursorPosition(0);
     }
 
-  QFile(m_ui.output_file->text()).open(QIODevice::NewOnly);
+  if(!m_ui.output_file->text().trimmed().isEmpty())
+    QFile(m_ui.output_file->text()).open(QIODevice::NewOnly);
+
   notify();
   setResult(QDialog::Accepted);
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
