@@ -36,6 +36,11 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.collapse,
+	  &QToolButton::clicked,
+	  this,
+	  &glitch_structures_arduino::slotCollapse);
+  m_ui.collapse->setCheckable(true);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();
@@ -351,5 +356,19 @@ void glitch_structures_arduino::prepareCategories(void)
 			 s_itemsForCategories.value(it.value()).at(i));
 	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
 	}
+    }
+}
+
+void glitch_structures_arduino::slotCollapse(void)
+{
+  if(m_ui.collapse->isChecked())
+    {
+      m_ui.collapse->setText("-");
+      m_ui.tree->expandAll();
+    }
+  else
+    {
+      m_ui.collapse->setText("+");
+      m_ui.tree->collapseAll();
     }
 }

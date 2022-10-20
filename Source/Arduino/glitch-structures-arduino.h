@@ -54,6 +54,9 @@ class glitch_structures_arduino: public QDialog
   static QStringList s_variableTypes;
   static QStringList structureNames(void);
   void prepareCategories(void);
+
+ private slots:
+  void slotCollapse(void);
 };
 
 #endif
