@@ -28,6 +28,7 @@
 #include "glitch-common.h"
 #include "glitch-misc.h"
 
+QChar glitch_common::s_indentationCharacter = ' ';
 qint64 glitch_common::s_dbId = 0;
 
 QSqlDatabase glitch_common::sqliteDatabase(void)

@@ -162,12 +162,12 @@ QString glitch_object_flow_control_arduino::code(void) const
   level = qMax(1, level);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   stream << endl
-	 << QString(level, '\t')
+	 << QString(level, glitch_common::s_indentationCharacter)
 	 << "{"
 	 << endl;
 #else
   stream << Qt::endl
-	 << QString(level, '\t')
+	 << QString(level, glitch_common::s_indentationCharacter)
 	 << "{"
 	 << Qt::endl;
 #endif
@@ -180,7 +180,7 @@ QString glitch_object_flow_control_arduino::code(void) const
       auto code(w->code());
 
       if(!code.trimmed().isEmpty())
-	stream << QString(level + 1, '\t')
+	stream << QString(level + 1, glitch_common::s_indentationCharacter)
 	       << code
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
 	       << endl;
@@ -189,7 +189,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 #endif
     }
 
-  stream << QString(level, '\t')
+  stream << QString(level, glitch_common::s_indentationCharacter)
 	 << "}";
 
   if(m_ui.flow_control_type->currentText() == "do while")

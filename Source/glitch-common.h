@@ -39,6 +39,7 @@ class glitch_common
     XYZProject
   };
 
+  static QChar s_indentationCharacter;
   static QSqlDatabase sqliteDatabase(void);
   static QString projectTypeToString(const ProjectTypes projectType);
   static void discardDatabase(const QString &connectionName);

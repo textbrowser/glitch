@@ -1463,6 +1463,7 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setDirectory(glitch_misc::homePath());
   dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setNameFilters(QStringList() << tr("Arduino Diagrams (*.db)"));
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Open Diagram"));
   QApplication::processEvents();

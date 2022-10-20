@@ -253,7 +253,7 @@ QString glitch_object_function_arduino::code(void) const
 	  auto code(w->code());
 
 	  if(!code.trimmed().isEmpty())
-	    stream << "\t"
+	    stream << glitch_common::s_indentationCharacter
 		   << code
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
 		   << endl;
