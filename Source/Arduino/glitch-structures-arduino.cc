@@ -44,10 +44,10 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
   font.setStyleHint(QFont::Courier);
   m_collapse->move(10, (m_ui.tree->header()->size().height() - 25) / 2 + 2);
+  m_collapse->resize(25, 25);
   m_collapse->setAutoRaise(true);
   m_collapse->setCheckable(true);
   m_collapse->setFont(font);
-  m_collapse->setMaximumSize(QSize(25, 25));
   m_collapse->setText(tr("+"));
   m_collapse->setToolTip(tr("Collapse / Expand"));
   connect(m_collapse,
@@ -55,6 +55,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  this,
 	  &glitch_structures_arduino::slotCollapse);
   m_ui.tree->header()->setDefaultAlignment(Qt::AlignCenter);
+  m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();

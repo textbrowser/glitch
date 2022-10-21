@@ -1054,6 +1054,8 @@ void glitch_object::setProperty(const Properties property,
 	    (DefaultMenuActions::COMPRESS_WIDGET)->setChecked(value.toBool());
 
 	compressWidget(value.toBool());
+	QApplication::processEvents(); // Necessary for a proper size.
+	resize(sizeHint().width(), height());
 	break;
       }
     case Properties::POSITION_LOCKED:
