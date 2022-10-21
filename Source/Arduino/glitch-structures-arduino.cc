@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QToolButton>
+
 #include "glitch-structures-arduino.h"
 
 QMap<QString, QStringList> glitch_structures_arduino::s_itemsForCategories;
@@ -36,11 +38,23 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
-  connect(m_ui.collapse,
+  m_collapse = new QToolButton(m_ui.frame);
+
+  auto font(m_collapse->font());
+
+  font.setStyleHint(QFont::Courier);
+  m_collapse->move(10, (m_ui.tree->header()->size().height() - 25) / 2 + 2);
+  m_collapse->setAutoRaise(true);
+  m_collapse->setCheckable(true);
+  m_collapse->setFont(font);
+  m_collapse->setMaximumSize(QSize(25, 25));
+  m_collapse->setText(tr("+"));
+  m_collapse->setToolTip(tr("Collapse / Expand"));
+  connect(m_collapse,
 	  &QToolButton::clicked,
 	  this,
 	  &glitch_structures_arduino::slotCollapse);
-  m_ui.collapse->setCheckable(true);
+  m_ui.tree->header()->setDefaultAlignment(Qt::AlignCenter);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();
@@ -361,14 +375,14 @@ void glitch_structures_arduino::prepareCategories(void)
 
 void glitch_structures_arduino::slotCollapse(void)
 {
-  if(m_ui.collapse->isChecked())
+  if(m_collapse->isChecked())
     {
-      m_ui.collapse->setText("-");
+      m_collapse->setText("-");
       m_ui.tree->expandAll();
     }
   else
     {
-      m_ui.collapse->setText("+");
+      m_collapse->setText("+");
       m_ui.tree->collapseAll();
     }
 }

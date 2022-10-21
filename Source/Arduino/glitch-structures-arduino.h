@@ -33,6 +33,8 @@
 
 #include "ui_glitch-structures.h"
 
+class QToolButton;
+
 class glitch_structures_arduino: public QDialog
 {
   Q_OBJECT
@@ -47,6 +49,7 @@ class glitch_structures_arduino: public QDialog
 
  private:
   QMap<QString, QString> m_categoriesMap;
+  QToolButton *m_collapse;
   Ui_glitch_structures m_ui;
   static QMap<QString, QStringList> s_itemsForCategories;
   static QMap<QString, char> s_structureNamesMap;
