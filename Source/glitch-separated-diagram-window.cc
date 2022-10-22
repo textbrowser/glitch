@@ -91,6 +91,9 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()
 {
+  if(m_view)
+    disconnect(m_view, nullptr, this, nullptr);
+
   m_statusBarTimer.stop();
 }
 
@@ -249,6 +252,14 @@ void glitch_separated_diagram_window::slotCopy(void)
 {
   emit copy(m_view);
   m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().empty());
+
+  if(statusBar())
+    {
+      statusBar()->showMessage
+	(tr("%1 widget(s) copied.").arg(glitch_ui::copiedObjects().size()),
+	 5000);
+      statusBar()->repaint();
+    }
 }
 
 void glitch_separated_diagram_window::slotDelete(void)
