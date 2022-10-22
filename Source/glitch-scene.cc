@@ -96,6 +96,8 @@ glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
 
 glitch_scene::~glitch_scene()
 {
+  if(m_canvasSettings)
+    disconnect(m_canvasSettings, nullptr, this, nullptr);
 }
 
 QList<glitch_object *> glitch_scene::objects(void) const

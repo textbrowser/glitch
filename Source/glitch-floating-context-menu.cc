@@ -46,6 +46,8 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
 
 glitch_floating_context_menu::~glitch_floating_context_menu()
 {
+  if(m_object)
+    disconnect(m_object, nullptr, this, nullptr);
 }
 
 void glitch_floating_context_menu::addActions(const QList<QAction *> actions)

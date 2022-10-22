@@ -149,6 +149,9 @@ glitch_object::~glitch_object()
     if(object)
       object->deleteLater();
 
+  if(m_canvasSettings)
+    disconnect(m_canvasSettings, nullptr, this, nullptr);
+
   m_contextMenu->deleteLater();
 
   if(m_editView)
