@@ -1288,7 +1288,7 @@ void glitch_ui::slotCopy(void)
       if(statusBar())
 	{
 	  statusBar()->showMessage
-	    (tr("%1 widgets copied.").arg(s_copiedObjects.size()), 5000);
+	    (tr("%1 widget(s) copied.").arg(s_copiedObjects.size()), 5000);
 	  statusBar()->repaint();
 	}
     }
