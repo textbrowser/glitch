@@ -549,6 +549,8 @@ void glitch_object::addDefaultActions(QMenu &menu)
 void glitch_object::afterPaste(void)
 {
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  QApplication::processEvents();
+  resize(sizeHint().width(), height());
 }
 
 void glitch_object::cloneWires
