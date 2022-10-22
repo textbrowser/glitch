@@ -28,8 +28,6 @@
 #ifndef _glitch_object_loop_arduino_h_
 #define _glitch_object_loop_arduino_h_
 
-#include <QPointer>
-
 #include "glitch-object.h"
 #include "ui_glitch-object-loop-arduino.h"
 

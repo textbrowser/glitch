@@ -61,9 +61,9 @@ class glitch_view_arduino: public glitch_view
 
  private:
   QMap<QString, char> m_functionNames;
-  QPointer<glitch_structures_arduino> m_arduinoStructures;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
+  glitch_structures_arduino *m_arduinoStructures;
 
  private slots:
   void slotCanvasSettingsChanged(const bool undo);

@@ -175,6 +175,9 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
 {
   if(m_editView)
     disconnect(m_editView->undoStack(), nullptr, this, nullptr);
+
+  if(m_parentFunction)
+    disconnect(m_parentFunction, nullptr, this, nullptr);
 }
 
 QPointer<glitch_object_function_arduino> glitch_object_function_arduino::
