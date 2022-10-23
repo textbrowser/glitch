@@ -235,6 +235,7 @@ Remaining Items
   are numerous windows.
 - SQLite modes.
 - Splitter states and redo / undo.
+- Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:
