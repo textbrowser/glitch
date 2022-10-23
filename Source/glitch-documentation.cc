@@ -51,6 +51,11 @@ glitch_documentation::glitch_documentation
       m_pdfView->setDocument(m_pdfDocument);
       m_pdfView->setPageMode(QPdfView::PageMode::MultiPage);
     }
+  else
+    {
+      m_pdfDocument = nullptr;
+      m_pdfView = nullptr;
+    }
 #endif
   m_ui.setupUi(this);
   m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
