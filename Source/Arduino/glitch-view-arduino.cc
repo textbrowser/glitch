@@ -48,7 +48,8 @@ glitch_view_arduino::glitch_view_arduino
 {
   Q_UNUSED(fromFile);
   m_arduinoStructures = new glitch_structures_arduino(this);
-  m_canvasSettings->setOutputFileExtension(projectOutputFileExtension());
+  m_canvasSettings->setOutputFileExtension
+    (glitch_view_arduino::projectOutputFileExtension());
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);

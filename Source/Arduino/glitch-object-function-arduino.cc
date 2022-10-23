@@ -553,7 +553,8 @@ void glitch_object_function_arduino::declone(void)
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_editView->undoStack());
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name()));
+  m_editWindow->setWindowTitle
+    (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
   m_editWindow->resize(800, 600);
   m_findParentFunctionTimer.stop();
   m_initialized = true;
@@ -835,7 +836,7 @@ void glitch_object_function_arduino::slotParentFunctionChanged(void)
   if(!m_parentFunction)
     return;
 
-  setName(m_parentFunction->name());
+  glitch_object_function_arduino::setName(m_parentFunction->name());
   setReturnType(m_parentFunction->returnType());
 }
 
