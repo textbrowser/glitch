@@ -53,9 +53,10 @@ QString glitch_misc::homePath(void)
 #endif
   else
     {
-      homePath.replace
-	(QRegularExpression(QString("[%1%1]+").arg(QDir::separator())),
-	 QDir::separator());
+      static auto r
+	(QRegularExpression(QString("[%1%1]+").arg(QDir::separator())));
+
+      homePath.replace(r, QDir::separator());
 
       if(homePath.endsWith(QDir::separator()))
 	homePath = homePath.mid(0, homePath.length() - 1);
