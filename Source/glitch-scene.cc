@@ -1313,9 +1313,9 @@ void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
       object->setCanvasSettings(m_canvasSettings);
 
   connect(m_canvasSettings,
-	  SIGNAL(accepted(bool)),
+	  SIGNAL(accepted(const bool)),
 	  this,
-	  SLOT(slotCanvasSettingsChanged(bool)));
+	  SLOT(slotCanvasSettingsChanged(const bool)));
   slotCanvasSettingsChanged(false);
 }
 
@@ -1349,9 +1349,9 @@ void glitch_scene::setUndoStack(QUndoStack *undoStack)
   m_undoStack = undoStack;
 }
 
-void glitch_scene::slotCanvasSettingsChanged(const bool undo)
+void glitch_scene::slotCanvasSettingsChanged(const bool state)
 {
-  Q_UNUSED(undo);
+  Q_UNUSED(state);
 
   if(!m_canvasSettings)
     return;

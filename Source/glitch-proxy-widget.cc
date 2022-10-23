@@ -127,6 +127,12 @@ void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 
 void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  if(!event)
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
   if(event && (Qt::RightButton & event->buttons()))
     /*
     ** Activate a context menu.

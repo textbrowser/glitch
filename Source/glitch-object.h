@@ -205,7 +205,7 @@ class glitch_object: public QWidget
  private slots:
   void slotActionTriggered(void);
   void slotAdjustSize(void);
-  void slotCanvasSettingsChanged(bool state);
+  void slotCanvasSettingsChanged(const bool state);
   void slotSimulateDelete(void);
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);

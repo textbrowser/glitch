@@ -927,17 +927,17 @@ void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
   if(m_canvasSettings)
     disconnect(m_canvasSettings,
-	       SIGNAL(accepted(bool)),
+	       SIGNAL(accepted(const bool)),
 	       this,
-	       SLOT(slotCanvasSettingsChanged(bool)));
+	       SLOT(slotCanvasSettingsChanged(const bool)));
 
   m_canvasSettings = canvasSettings;
 
   if(m_canvasSettings)
     connect(m_canvasSettings,
-	    SIGNAL(accepted(bool)),
+	    SIGNAL(accepted(const bool)),
 	    this,
-	    SLOT(slotCanvasSettingsChanged(bool)));
+	    SLOT(slotCanvasSettingsChanged(const bool)));
 
   auto scene = editScene();
 
@@ -1234,7 +1234,7 @@ void glitch_object::slotAdjustSize(void)
   emit changed();
 }
 
-void glitch_object::slotCanvasSettingsChanged(bool state)
+void glitch_object::slotCanvasSettingsChanged(const bool state)
 {
   Q_UNUSED(state);
 
