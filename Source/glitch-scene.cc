@@ -673,7 +673,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 	  if(rect.left() < start)
 	    start -= step;
 
-	  for(auto x = start - step; x < rect.right(); x += step)
+	  for(auto x = start - step; std::isless(x, rect.right()); x += step)
 	    painter->drawLine(x, rect.top(), x, rect.bottom());
 
 	  start = round(step, rect.top());
@@ -681,7 +681,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 	  if(rect.top() < start)
 	    start -= step;
 
-	  for(auto y = start - step; y < rect.bottom(); y += step)
+	  for(auto y = start - step; std::isless(y, rect.bottom()); y += step)
 	    painter->drawLine(rect.left(), y, rect.right(), y);
 	}
     }
