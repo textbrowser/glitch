@@ -40,7 +40,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.setupUi(this);
   m_ui.tree->header()->setMinimumHeight(30);
   m_collapse = new QToolButton(m_ui.frame);
-
   auto font(m_collapse->font());
 
   font.setStyleHint(QFont::Courier);
@@ -49,6 +48,10 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_collapse->setAutoRaise(true);
   m_collapse->setCheckable(true);
   m_collapse->setFont(font);
+#ifdef Q_OS_MACOS
+  m_collapse->setStyleSheet("QToolButton {border: none;}"
+			    "QToolButton::menu-button {border: none;}");
+#endif
   m_collapse->setText(tr("+"));
   m_collapse->setToolTip(tr("Collapse / Expand"));
   connect(m_collapse,
