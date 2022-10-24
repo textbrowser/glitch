@@ -1501,7 +1501,8 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
     {
       if(object->hasInput() || object->hasOutput())
 	{
-	  if(proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	  if(!object->isFullyWired() &&
+	     proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
 	    m_objectsToWire["input"] = proxy;
 	  else if(proxy->hoveredSection() ==
 		  glitch_proxy_widget::Sections::RIGHT)
@@ -1516,7 +1517,8 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	{
 	  if(!m_objectsToWire.values().contains(proxy))
 	    {
-	      if(proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	      if(!object->isFullyWired() &&
+		 proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
 		m_objectsToWire["input"] = proxy;
 	      else if(proxy->hoveredSection() ==
 		      glitch_proxy_widget::Sections::RIGHT)

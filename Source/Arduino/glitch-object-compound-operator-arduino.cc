@@ -225,7 +225,12 @@ void glitch_object_compound_operator_arduino::addActions(QMenu &menu)
 void glitch_object_compound_operator_arduino::compressWidget(const bool state)
 {
   glitch_object::compressWidget(state);
-  m_ui.pre->setVisible(!state);
+
+  if(state)
+    m_ui.pre->setVisible(false);
+  else
+    m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
+			 m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
 }
 
 void glitch_object_compound_operator_arduino::save
