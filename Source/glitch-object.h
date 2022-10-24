@@ -200,12 +200,14 @@ class glitch_object: public QWidget
 
  private:
   QMenu m_menu;
+  QPointer<QUndoStack> m_deferredUndoStack;
   static qint64 s_id;
 
  private slots:
   void slotActionTriggered(void);
   void slotAdjustSize(void);
   void slotCanvasSettingsChanged(const bool state);
+  void slotDeferredSetUndoStack(void);
   void slotSimulateDelete(void);
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
