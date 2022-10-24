@@ -234,6 +234,7 @@ Remaining Items
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
 - SQLite modes.
+- Separated window and full-screen mode.
 - Splitter states and redo / undo.
 - Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of recursive functions?
