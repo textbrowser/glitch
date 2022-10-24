@@ -13,6 +13,7 @@ qtHaveModule(pdf) {
 qtHaveModule(pdfwidgets) {
 DEFINES         += GLITCH_PDF_SUPPORTED
 QT              += pdf pdfwidgets
+message("The QtPdf module was discovered!")
 }
 }
 
