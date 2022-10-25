@@ -306,7 +306,7 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 	      SLOT(slotToolButtonChecked(void)),
 	      Qt::UniqueConnection);
       connect(m_ui.name,
-	      &QLineEdit::returnPressed,
+	      &QLineEdit::editingFinished,
 	      this,
 	      &glitch_object_variable_arduino::slotLineEditSet,
 	      Qt::UniqueConnection);
@@ -338,7 +338,7 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
 		 this,
 		 SLOT(slotToolButtonChecked(void)));
       disconnect(m_ui.name,
-		 &QLineEdit::returnPressed,
+		 &QLineEdit::editingFinished,
 		 this,
 		 &glitch_object_variable_arduino::slotLineEditSet);
       disconnect(m_ui.pointer_access,

@@ -52,7 +52,7 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
   m_type = "arduino-syntax";
   m_ui.setupUi(this);
   connect(m_ui.text,
-	  &QLineEdit::returnPressed,
+	  &QLineEdit::editingFinished,
 	  this,
 	  &glitch_object_syntax_arduino::slotSyntaxChanged);
   prepareContextMenu();

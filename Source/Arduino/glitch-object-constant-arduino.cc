@@ -56,7 +56,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 	  this,
 	  SLOT(slotConstantChanged(void)));
   connect(m_ui.other,
-	  &QLineEdit::returnPressed,
+	  &QLineEdit::editingFinished,
 	  this,
 	  &glitch_object_constant_arduino::slotOtherConstantChanged);
   m_properties[Properties::CONSTANT_OTHER] = "";

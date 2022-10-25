@@ -80,7 +80,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  this,
 	  &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
   connect(m_ui.condition,
-	  &QLineEdit::returnPressed,
+	  &QLineEdit::editingFinished,
 	  this,
 	  &glitch_object_flow_control_arduino::slotConditionChanged);
   connect(m_ui.flow_control_type,

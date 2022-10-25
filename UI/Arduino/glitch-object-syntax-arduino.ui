@@ -28,17 +28,11 @@
    </property>
    <item>
     <widget class="QLineEdit" name="text">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the text and press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
      <property name="text">
       <string notr="true"/>
      </property>
      <property name="placeholderText">
       <string>Text</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
      </property>
     </widget>
    </item>

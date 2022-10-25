@@ -89,17 +89,11 @@
    </item>
    <item>
     <widget class="QLineEdit" name="other">
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the constant's value to the provided value. Press the Enter key to confirm.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
      <property name="text">
       <string notr="true"/>
      </property>
      <property name="placeholderText">
       <string>Constant</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
      </property>
     </widget>
    </item>
