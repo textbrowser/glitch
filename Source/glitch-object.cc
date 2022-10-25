@@ -1128,6 +1128,20 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
+  if(qobject_cast<glitch_object_flow_control_arduino *> (this))
+    {
+      /*
+      ** Do not pass undoStack to the edit window.
+      */
+
+      m_undoStack = undoStack;
+      return;
+    }
+  else if(qobject_cast<glitch_object_function_arduino *> (this) ||
+	  qobject_cast<glitch_object_loop_arduino *> (this) ||
+	  qobject_cast<glitch_object_setup_arduino *> (this))
+    return;
+
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
 

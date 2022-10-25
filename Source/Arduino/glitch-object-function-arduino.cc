@@ -768,11 +768,6 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
     emit changed();
 }
 
-void glitch_object_function_arduino::setUndoStack(QUndoStack *undoStack)
-{
-  Q_UNUSED(undoStack);
-}
-
 void glitch_object_function_arduino::simulateDelete(void)
 {
   glitch_object::simulateDelete();

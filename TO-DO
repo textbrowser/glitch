@@ -183,6 +183,7 @@ Completed Items
 - Variable clones. Not necessary.
 - Verify setProperties() for default values.
 - View separation.
+- Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of faulty home directory: read and write permissions.
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
@@ -240,7 +241,6 @@ Remaining Items
 - Scroll view during selection.
 - Separated window and full-screen mode.
 - Splitter states and redo / undo.
-- Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of recursive functions?
 - Widgets for decorations.
 - Wire options:

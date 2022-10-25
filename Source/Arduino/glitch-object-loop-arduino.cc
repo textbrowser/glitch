@@ -192,11 +192,6 @@ void glitch_object_loop_arduino::save(const QSqlDatabase &db, QString &error)
     m_editView->save(db, error);
 }
 
-void glitch_object_loop_arduino::setUndoStack(QUndoStack *undoStack)
-{
-  Q_UNUSED(undoStack);
-}
-
 void glitch_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->setToolBarVisible

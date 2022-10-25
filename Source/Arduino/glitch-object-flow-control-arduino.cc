@@ -562,15 +562,6 @@ void glitch_object_flow_control_arduino::setProperty
     }
 }
 
-void glitch_object_flow_control_arduino::setUndoStack(QUndoStack *undoStack)
-{
-  /*
-  ** Do not pass undoStack to the edit window.
-  */
-
-  m_undoStack = undoStack;
-}
-
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(m_ui.condition->text().trimmed());

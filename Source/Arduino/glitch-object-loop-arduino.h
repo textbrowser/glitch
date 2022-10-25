@@ -47,7 +47,6 @@ class glitch_object_loop_arduino: public glitch_object
   void addActions(QMenu &menu);
   void hideOrShowOccupied(void);
   void save(const QSqlDatabase &db, QString &error);
-  void setUndoStack(QUndoStack *undoStack);
 
  private:
   glitch_object_loop_arduino(const qint64 id, QWidget *parent);
