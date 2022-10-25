@@ -76,6 +76,7 @@ Completed Items
 - Depict main functions via immutable themes.
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
+- Discover a function clone's correct parent function after opening a data file.
 - Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
 - Display tool mode in status bar.
@@ -235,6 +236,8 @@ Remaining Items
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
 - SQLite modes.
+- Save option from child views.
+- Scroll view during selection.
 - Separated window and full-screen mode.
 - Splitter states and redo / undo.
 - Virtual method setUndoStack() called in glitch_object::glitch_object().

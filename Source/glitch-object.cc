@@ -108,9 +108,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
 		&glitch_object_view::closed,
 		m_contextMenu,
 		&glitch_floating_context_menu::close);
-	m_deferredUndoStack = view->scene()->undoStack();
-	QTimer::singleShot
-	  (1000, this, &glitch_object::slotDeferredSetUndoStack);
+	setUndoStack(view->scene()->undoStack());
       }
   }
 
@@ -118,11 +116,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
     auto view = qobject_cast<glitch_view *> (parent);
 
     if(view)
-      {
-	m_deferredUndoStack = view->scene()->undoStack();
-	QTimer::singleShot
-	  (1000, this, &glitch_object::slotDeferredSetUndoStack);
-      }
+      setUndoStack(view->scene()->undoStack());
   }
 
   auto p = parent;
@@ -1249,14 +1243,6 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
 
   m_editWindow->setWindowTitle
     (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
-}
-
-void glitch_object::slotDeferredSetUndoStack(void)
-{
-  if(m_deferredUndoStack)
-    setUndoStack(m_deferredUndoStack);
-
-  m_deferredUndoStack = nullptr;
 }
 
 void glitch_object::slotLockPosition(void)

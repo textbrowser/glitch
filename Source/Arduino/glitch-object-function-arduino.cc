@@ -111,6 +111,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
  glitch_object *parentObject,
  QWidget *parent):glitch_object(id, parent)
 {
+  Q_UNUSED(parentObject);
+
   if(parentId == -1)
     {
       /*
@@ -143,20 +145,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_editWindow = nullptr;
       m_initialized = true;
       m_isFunctionClone = true;
-      m_parentFunction = qobject_cast<glitch_object_function_arduino *>
-	(parentObject);
-
-      if(m_parentFunction)
-	{
-	  connect(m_parentFunction,
-		  &glitch_object_function_arduino::changed,
-		  this,
-		  &glitch_object_function_arduino::slotParentFunctionChanged,
-		  Qt::UniqueConnection);
-	  m_undoStack = m_parentFunction->m_undoStack;
-	  slotParentFunctionChanged();
-	}
-
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.function_definition->setVisible(false);
