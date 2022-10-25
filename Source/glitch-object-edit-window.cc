@@ -69,6 +69,12 @@ glitch_object_edit_window::glitch_object_edit_window
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
   menu = menuBar()->addMenu(tr("&View"));
+  m_actions["screen mode"] = menu->addAction
+    (tr("&Full Screen"),
+     this,
+     &glitch_object_edit_window::slotShowFullScreenMode,
+     tr("F11"));
+  menu->addSeparator();
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
   m_actions["tools"]->setChecked(false);
@@ -165,6 +171,7 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("delete")->setIcon(QIcon::fromTheme("edit-delete"));
   m_actions.value("paste")->setIcon(QIcon::fromTheme("edit-paste"));
   m_actions.value("redo")->setIcon(QIcon::fromTheme("edit-redo"));
+  m_actions.value("screen mode")->setIcon(QIcon::fromTheme("view-fullscreen"));
   m_actions.value("select all")->setIcon(QIcon::fromTheme("edit-select-all"));
   m_actions.value("undo")->setIcon(QIcon::fromTheme("edit-undo"));
 }
@@ -350,6 +357,20 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotShowFullScreenMode(void)
+{
+  if(isFullScreen())
+    {
+      m_actions.value("screen mode")->setText(tr("&Full Screen"));
+      showNormal();
+    }
+  else
+    {
+      m_actions.value("screen mode")->setText(tr("&Normal Screen"));
+      showFullScreen();
+    }
 }
 
 void glitch_object_edit_window::slotSplitterMoved(void)

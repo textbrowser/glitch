@@ -76,6 +76,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private slots:
   void slotAboutToShowEditMenu(void);
+  void slotShowFullScreenMode(void);
   void slotSplitterMoved(void);
   void slotViewTools(void);
 
