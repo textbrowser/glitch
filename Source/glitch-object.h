@@ -172,6 +172,7 @@ class glitch_object: public QWidget
   virtual QString name(void) const;
   virtual QStringList parameters(void) const;
   virtual bool canResize(void) const;
+  virtual void compressWidget(const bool state);
   virtual bool hasInput(void) const;
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;
@@ -238,7 +239,6 @@ class glitch_object: public QWidget
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
   virtual QStringList outputs(void) const;
-  virtual void compressWidget(const bool state);
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);

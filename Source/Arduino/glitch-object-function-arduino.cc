@@ -395,6 +395,8 @@ clone(QWidget *parent) const
 
 	  if(child)
 	    {
+	      child->compressWidget
+		(child->property(Properties::COMPRESSED_WIDGET).toBool());
 	      child->setCanvasSettings(m_canvasSettings);
 	      clone->addChild(object->property("position").toPoint(), child);
 	    }
