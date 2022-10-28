@@ -218,6 +218,8 @@ documentation1.files = Documentation\\Arduino\\*
 documentation1.path  = release\\Documentation\\.
 documentation2.files = TO-DO
 documentation2.path  = release\\Documentation\\.
+examples.files      = Examples
+examples.path       = release
 plugins1.files      = $$[QT_INSTALL_PLUGINS]\\*
 plugins1.path       = release\\plugins\\.
 plugins2.files      = $$[QT_INSTALL_PLUGINS]\\gamepads\\xinputgamepad.dll
@@ -242,6 +244,7 @@ qtlibraries.path    = release\\.
 
 INSTALLS = documentation1 \
            documentation2 \
+           examples \
            plugins1 \
            pluginspurge \
            plugins2 \
