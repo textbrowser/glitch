@@ -48,45 +48,6 @@
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QLabel" name="occupied">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Object has children.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QWidget {color: #ff612f;}</string>
-     </property>
-     <property name="text">
-      <string>[!]</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QToolButton" name="context_menu">
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="../../Icons/icons.qrc">
-       <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources>

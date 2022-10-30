@@ -85,17 +85,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QToolButton" name="context_menu">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../Icons/icons.qrc">
-         <normaloff>:/context-menu.png</normaloff>:/context-menu.png</iconset>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
@@ -212,7 +201,6 @@
   <tabstop>name</tabstop>
   <tabstop>array</tabstop>
   <tabstop>progmem</tabstop>
-  <tabstop>context_menu</tabstop>
   <tabstop>qualifier</tabstop>
   <tabstop>type</tabstop>
   <tabstop>pointer_access</tabstop>

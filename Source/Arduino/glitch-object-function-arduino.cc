@@ -95,7 +95,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.function_definition->setVisible(false);
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
-  m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
@@ -148,7 +147,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_parentView = nullptr;
       m_type = "arduino-function";
       m_ui.function_definition->setVisible(false);
-      m_ui.occupied->setVisible(false);
       m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
@@ -352,7 +350,6 @@ clone(QWidget *parent) const
       clone->m_editWindow->resize(800, 600);
       clone->m_isFunctionClone = false;
       clone->m_type = "arduino-function";
-      clone->m_ui.occupied->setVisible(false);
       clone->m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       clone->m_ui.return_type->setEnabled(true);
@@ -581,7 +578,7 @@ void glitch_object_function_arduino::hideOrShowOccupied(void)
   if(!scene)
     return;
 
-  m_ui.occupied->setVisible(!scene->objects().isEmpty());
+  m_occupied = !scene->objects().isEmpty();
 }
 
 void glitch_object_function_arduino::initialize(QWidget *parent)
@@ -610,7 +607,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->resize(800, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
-  m_ui.occupied->setVisible(false);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));

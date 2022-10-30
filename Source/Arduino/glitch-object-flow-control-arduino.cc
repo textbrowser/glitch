@@ -70,7 +70,6 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
   m_ui.flow_control_type->installEventFilter(new glitch_scroll_filter(this));
-  m_ui.occupied->setVisible(false);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
@@ -364,7 +363,7 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
   if(!scene)
     return;
 
-  m_ui.occupied->setVisible(!scene->objects().isEmpty());
+  m_occupied = !scene->objects().isEmpty();
 }
 
 void glitch_object_flow_control_arduino::mouseDoubleClickEvent
