@@ -57,7 +57,6 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   m_properties[Properties::POSITION_LOCKED] = true;
   m_type = "arduino-loop";
   m_ui.setupUi(this);
-  m_ui.occupied->setVisible(false);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
@@ -172,7 +171,7 @@ void glitch_object_loop_arduino::hideOrShowOccupied(void)
   if(!scene)
     return;
 
-  m_ui.occupied->setVisible(!scene->objects().isEmpty());
+  m_occupied = !scene->objects().isEmpty();
 }
 
 void glitch_object_loop_arduino::mouseDoubleClickEvent(QMouseEvent *event)

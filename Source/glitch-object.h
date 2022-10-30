@@ -140,6 +140,11 @@ class glitch_object: public QWidget
     return !inputs().isEmpty();
   }
 
+  bool isOccupied(void) const
+  {
+    return m_occupied;
+  }
+
   bool isOutputWired(void) const
   {
     return !outputs().isEmpty();
@@ -231,6 +236,7 @@ class glitch_object: public QWidget
   QString m_type;
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
+  bool m_occupied;
   glitch_floating_context_menu *m_contextMenu;
   qint64 m_id;
   static QRegularExpression s_splitRegularExpression;

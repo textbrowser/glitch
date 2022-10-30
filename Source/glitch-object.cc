@@ -93,6 +93,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_contextMenu->setObject(this);
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
+  m_occupied = false;
   m_parent = parent;
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = false;
