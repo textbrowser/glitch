@@ -79,6 +79,7 @@ class glitch_object_function_arduino: public glitch_object
   bool m_initialized;
   bool m_isFunctionClone;
   glitch_object_function_arduino *findParentFunction(void) const;
+  void compressWidget(const bool state);
   void hideOrShowOccupied(void);
   void initialize(QWidget *parent);
   void setProperties(const QString &properties);

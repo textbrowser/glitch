@@ -554,7 +554,7 @@ void glitch_object::afterPaste(void)
 {
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   QApplication::processEvents();
-  resize(sizeHint().width(), height());
+  resize(sizeHint());
 }
 
 void glitch_object::cloneWires
@@ -1014,10 +1014,11 @@ void glitch_object::setProperties(const QStringList &list)
 	      string = string.mid(string.indexOf('=') + 1).trimmed();
 	      string.remove('"').remove('(').remove(')');
 
-	      QSize size(this->size());
+	      QSize size;
+	      auto list(string.split(','));
 
-	      size.setWidth
-		(qBound(50, string.split(',').value(0).toInt(), 500));
+	      size.setHeight(qBound(30, list.value(1).toInt(), 500));
+	      size.setWidth(qBound(50, list.value(0).toInt(), 500));
 	      resize(size);
 	    }
 	}
@@ -1067,7 +1068,7 @@ void glitch_object::setProperty(const Properties property,
 
 	compressWidget(value.toBool());
 	QApplication::processEvents(); // Necessary for a proper size.
-	resize(sizeHint().width(), height());
+	resize(sizeHint());
 	break;
       }
     case Properties::POSITION_LOCKED:
@@ -1232,7 +1233,7 @@ void glitch_object::slotAdjustSize(void)
 {
   auto before(size());
 
-  resize(sizeHint().width(), height());
+  resize(sizeHint());
 
   if(before == this->size())
     return;

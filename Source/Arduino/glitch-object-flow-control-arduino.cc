@@ -46,7 +46,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   setFlowControlType(flowControlType);
   m_properties[Properties::FLOW_CONTROL_TYPE] =
     m_ui.flow_control_type->currentText();
-  resize(sizeHint().width(), height());
+  resize(sizeHint());
 }
 
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
@@ -549,7 +549,7 @@ void glitch_object_flow_control_arduino::setProperty
       {
 	setFlowControlType(value.toString().trimmed());
 	prepareEditWindowHeader();
-	resize(sizeHint().width(), height());
+	resize(sizeHint());
 	break;
       }
     default:

@@ -508,6 +508,12 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_function_arduino::compressWidget(const bool state)
+{
+  glitch_object::compressWidget(state);
+  m_ui.return_type->setVisible(!state);
+}
+
 void glitch_object_function_arduino::declone(void)
 {
   /*
