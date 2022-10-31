@@ -78,7 +78,6 @@ class glitch_object_flow_control_arduino: public glitch_object
   FlowControlTypes m_flowControlType;
   Ui_glitch_object_flow_control_arduino m_ui;
   bool editable(void) const;
-  void mouseDoubleClickEvent(QMouseEvent *event);
   void prepareEditWindowHeader(void);
   void setProperties(const QStringList &list);
 

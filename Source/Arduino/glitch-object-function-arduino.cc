@@ -92,7 +92,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
-  m_ui.function_definition->setVisible(false);
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
   m_ui.return_type->addItems
@@ -146,7 +145,6 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_isFunctionClone = true;
       m_parentView = nullptr;
       m_type = "arduino-function";
-      m_ui.function_definition->setVisible(false);
       m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
@@ -548,7 +546,6 @@ void glitch_object_function_arduino::declone(void)
   m_isFunctionClone = false;
   m_parentView = qobject_cast<glitch_view_arduino *>
     (findNearestGlitchView(m_parent));
-  m_ui.function_definition->setVisible(true);
   m_ui.return_type->setEnabled(true);
   m_ui.return_type->setToolTip("");
   connect(m_editView,
@@ -579,6 +576,11 @@ void glitch_object_function_arduino::hideOrShowOccupied(void)
     return;
 
   m_occupied = !scene->objects().isEmpty();
+
+  auto font(m_ui.label->font());
+
+  font.setUnderline(m_occupied);
+  m_ui.label->setFont(font);
 }
 
 void glitch_object_function_arduino::initialize(QWidget *parent)
@@ -631,12 +633,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
-void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
-{
-  slotEdit();
-  glitch_object::mouseDoubleClickEvent(event);
-}
-
 void glitch_object_function_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -671,7 +667,12 @@ void glitch_object_function_arduino::setName(const QString &name)
 	(m_properties.value(Properties::NAME).toString());
     }
 
-  m_ui.label->setText(m_properties.value(Properties::NAME).toString());
+  QString string(m_properties.value(Properties::NAME).toString());
+
+  if(!m_isFunctionClone)
+    string.prepend("&amp;fnof; ");
+
+  m_ui.label->setText(string);
 
   if(!m_isFunctionClone)
     emit changed();
@@ -702,7 +703,6 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	    m_findParentFunctionTimer.start(100);
 	  }
 
-	m_ui.function_definition->setVisible(!m_isFunctionClone);
 	m_ui.return_type->setEnabled(!m_isFunctionClone);
 
 	if(!m_ui.return_type->isEnabled())

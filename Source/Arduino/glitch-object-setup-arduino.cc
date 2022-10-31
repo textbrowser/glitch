@@ -172,12 +172,11 @@ void glitch_object_setup_arduino::hideOrShowOccupied(void)
     return;
 
   m_occupied = !scene->objects().isEmpty();
-}
 
-void glitch_object_setup_arduino::mouseDoubleClickEvent(QMouseEvent *event)
-{
-  slotEdit();
-  glitch_object::mouseDoubleClickEvent(event);
+  auto font(m_ui.label->font());
+
+  font.setUnderline(m_occupied);
+  m_ui.label->setFont(font);
 }
 
 void glitch_object_setup_arduino::save(const QSqlDatabase &db, QString &error)

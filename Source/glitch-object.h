@@ -208,6 +208,7 @@ class glitch_object: public QWidget
  private:
   QMenu m_menu;
   static qint64 s_id;
+  void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotActionTriggered(void);

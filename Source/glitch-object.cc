@@ -690,6 +690,12 @@ void glitch_object::hideOrShowOccupied(void)
 {
 }
 
+void glitch_object::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  QWidget::mouseDoubleClickEvent(event);
+  slotShowContextMenu();
+}
+
 void glitch_object::move(const QPoint &point)
 {
   move(point.x(), point.y());

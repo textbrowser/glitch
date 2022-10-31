@@ -51,7 +51,6 @@ class glitch_object_setup_arduino: public glitch_object
  private:
   glitch_object_setup_arduino(const qint64 id, QWidget *parent);
   Ui_glitch_object_setup_arduino m_ui;
-  void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotEdit(void);

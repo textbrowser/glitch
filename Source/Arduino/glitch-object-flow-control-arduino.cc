@@ -364,13 +364,11 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
     return;
 
   m_occupied = !scene->objects().isEmpty();
-}
 
-void glitch_object_flow_control_arduino::mouseDoubleClickEvent
-(QMouseEvent *event)
-{
-  slotEdit();
-  glitch_object::mouseDoubleClickEvent(event);
+  auto font(m_ui.flow_control_type->font());
+
+  font.setUnderline(m_occupied);
+  m_ui.flow_control_type->setFont(font);
 }
 
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
