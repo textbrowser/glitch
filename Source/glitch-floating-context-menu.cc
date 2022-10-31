@@ -50,7 +50,7 @@ glitch_floating_context_menu::~glitch_floating_context_menu()
     disconnect(m_object, nullptr, this, nullptr);
 }
 
-void glitch_floating_context_menu::addActions(const QList<QAction *> actions)
+void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
