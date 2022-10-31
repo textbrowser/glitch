@@ -145,6 +145,7 @@ Completed Items
 - Redo / undo shortcuts on edit windows.
 - Redo / undo style sheets.
 - Release notes under Help.
+- Remove context menu buttons on Windows.
 - Remove function clones.
 - Remove function copies from diagram(s) on parent removal.
 - Remove functions from User Functions on redo / undo.
@@ -235,7 +236,6 @@ Remaining Items
 - Nested flow-control scenes.
 - Order: top-bottom followed by left-right.
 - Percolate redo / undo of functions through child views.
-- Remove context menu buttons on Windows.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
