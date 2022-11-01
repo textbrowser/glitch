@@ -1017,7 +1017,7 @@ void glitch_object::setProperties(const QStringList &list)
 	      QSize size;
 	      auto list(string.split(','));
 
-	      size.setHeight(qBound(30, list.value(1).toInt(), 500));
+	      size.setHeight(qBound(25, list.value(1).toInt(), 500));
 	      size.setWidth(qBound(50, list.value(0).toInt(), 500));
 	      resize(size);
 	    }
@@ -1136,7 +1136,8 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
-  if(qobject_cast<glitch_object_flow_control_arduino *> (this))
+  if(qobject_cast<glitch_object_flow_control_arduino *> (this) ||
+     qobject_cast<glitch_object_function_arduino *> (this))
     {
       /*
       ** Do not pass undoStack to the edit window.
@@ -1145,8 +1146,7 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
       m_undoStack = undoStack;
       return;
     }
-  else if(qobject_cast<glitch_object_function_arduino *> (this) ||
-	  qobject_cast<glitch_object_loop_arduino *> (this) ||
+  else if(qobject_cast<glitch_object_loop_arduino *> (this) ||
 	  qobject_cast<glitch_object_setup_arduino *> (this))
     return;
 

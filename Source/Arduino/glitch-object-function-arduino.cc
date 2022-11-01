@@ -467,23 +467,20 @@ findParentFunction(void) const
 
 void glitch_object_function_arduino::addActions(QMenu &menu)
 {
-  if(!m_isFunctionClone)
+  if(!m_actions.contains(DefaultMenuActions::EDIT))
     {
-      if(!m_actions.contains(DefaultMenuActions::EDIT))
-	{
-	  auto action = new QAction(tr("&Edit..."), this);
+      auto action = new QAction(tr("&Edit..."), this);
 
-	  action->setIcon(QIcon::fromTheme("document-edit"));
-	  connect(action,
-		  &QAction::triggered,
-		  this,
-		  &glitch_object_function_arduino::slotEdit);
-	  m_actions[DefaultMenuActions::EDIT] = action;
-	  menu.addAction(action);
-	}
-      else
-	menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
+      action->setIcon(QIcon::fromTheme("document-edit"));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_function_arduino::slotEdit);
+      m_actions[DefaultMenuActions::EDIT] = action;
+      menu.addAction(action);
     }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   if(m_isFunctionClone)
     {
