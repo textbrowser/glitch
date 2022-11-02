@@ -314,11 +314,6 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  this,
 	  SIGNAL(destroyed(QObject *)),
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
-  connect(object,
-	  SIGNAL(undoStackCreated(QUndoStack *)),
-	  this,
-	  SIGNAL(undoStackCreated(QUndoStack *)),
-	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,
 	  this,
@@ -334,8 +329,10 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   object->setCanvasSettings(m_canvasSettings);
   object->setProxy(proxy);
   object->setUndoStack(m_undoStack);
+  object->setVisible(false);
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
+  QTimer::singleShot(50, object, &glitch_object::show);
   emit changed();
 
   if(qobject_cast<glitch_object_function_arduino *> (object))

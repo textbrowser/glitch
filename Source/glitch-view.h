@@ -46,6 +46,7 @@ class glitch_scene;
 class glitch_tools;
 class glitch_undo_command;
 class glitch_user_functions;
+class glitch_wire;
 
 class glitch_view: public QWidget
 {
@@ -108,6 +109,7 @@ class glitch_view: public QWidget
   void slotSave(void);
 
  private:
+  QList<glitch_wire *> m_delayedWires;
   void createParentFromValues
     (QHash<qint64, char> &ids,
      QHash<qint64, glitch_object *> &parents,
@@ -171,8 +173,8 @@ class glitch_view: public QWidget
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);
+  void slotShowWires(void);
   void slotUndoStackChanged(void);
-  void slotUndoStackCreated(QUndoStack *undoStack);
   void slotUnite(void);
 
  signals:

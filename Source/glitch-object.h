@@ -256,14 +256,13 @@ class glitch_object: public QWidget
   void saveWires(const QSqlDatabase &db, QString &error);
 
  protected slots:
+  virtual void slotHideOrShowOccupied(void);
   void slotSetStyleSheet(void);
-  void slotUndoStackCreated(void);
 
  signals:
   void changed(void);
   void deletedViaContextMenu(void);
   void simulateDeleteSignal(void);
-  void undoStackCreated(QUndoStack *undoStack);
 };
 
 inline uint qHash(const glitch_object::DefaultMenuActions &key, uint seed)

@@ -734,13 +734,6 @@ void glitch_object::prepareContextMenu(void)
 
 void glitch_object::prepareEditSignals(const glitch_view *parentView)
 {
-  if(m_editView)
-    connect(m_editView,
-	    SIGNAL(undoStackCreated(QUndoStack *)),
-	    this,
-	    SIGNAL(undoStackCreated(QUndoStack *)),
-	    Qt::UniqueConnection);
-
   if(m_editView && m_editWindow)
     {
       connect(m_editView,
@@ -1136,24 +1129,17 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
-  if(qobject_cast<glitch_object_flow_control_arduino *> (this) ||
-     qobject_cast<glitch_object_function_arduino *> (this))
-    {
-      /*
-      ** Do not pass undoStack to the edit window.
-      */
-
-      m_undoStack = undoStack;
-      return;
-    }
-  else if(qobject_cast<glitch_object_loop_arduino *> (this) ||
-	  qobject_cast<glitch_object_setup_arduino *> (this))
-    return;
-
   if(m_editView)
     m_editView->scene()->setUndoStack(undoStack);
 
   m_undoStack = undoStack;
+
+  if(m_undoStack)
+    connect(m_undoStack,
+	    &QUndoStack::indexChanged,
+	    this,
+	    &glitch_object::slotHideOrShowOccupied,
+	    Qt::UniqueConnection);
 }
 
 void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
@@ -1267,6 +1253,10 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
 }
 
+void glitch_object::slotHideOrShowOccupied(void)
+{
+}
+
 void glitch_object::slotLockPosition(void)
 {
   if(m_undoStack)
@@ -1366,12 +1356,6 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
   m_contextMenu->show();
-}
-
-void glitch_object::slotUndoStackCreated(void)
-{
-  if(m_editView)
-    emit undoStackCreated(m_editView->undoStack());
 }
 
 void glitch_object::slotWireDestroyed(void)

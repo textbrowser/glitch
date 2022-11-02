@@ -159,10 +159,6 @@ glitch_view::glitch_view
 	  &glitch_scene::selectionChanged,
 	  this,
 	  &glitch_view::selectionChanged);
-  connect(m_scene,
-	  SIGNAL(undoStackCreated(QUndoStack *)),
-	  this,
-	  SLOT(slotUndoStackCreated(QUndoStack *)));
   connect(m_tools,
 	  SIGNAL(operation(const glitch_tools::Operations)),
 	  m_scene,
@@ -349,6 +345,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->prepare();
+  m_delayedWires.clear();
   m_fileName = fileName;
   m_settings = m_canvasSettings->settings();
   disconnect(m_scene,
@@ -521,12 +518,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    {
 		      auto wire(new glitch_wire(nullptr));
 
+		      m_delayedWires << wire;
 		      object1->scene()->addItem(wire);
 		      object2->setWiredObject(object1, wire);
 		      wire->setBoundingRect(object1->scene()->sceneRect());
 		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
+		      wire->setVisible(false);
 		      wire->setWireType(m_canvasSettings->wireType());
 		    }
 		}
@@ -542,6 +541,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
     db.close();
   }
 
+  QTimer::singleShot(100, this, &glitch_view::slotShowWires);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   adjustScrollBars();
@@ -1308,25 +1308,37 @@ void glitch_view::slotShowUserFunctions(void)
   m_userFunctions->raise();
 }
 
+void glitch_view::slotShowWires(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  for(int i = m_delayedWires.size() - 1; i >= 0; i--)
+    {
+      auto wire = m_delayedWires.at(i);
+
+      if(!wire)
+	continue;
+
+      if(wire->leftProxy() &&
+	 wire->leftProxy()->isVisible() &&
+	 wire->rightProxy() &&
+	 wire->rightProxy()->isVisible())
+	{
+	  m_delayedWires.removeAt(i);
+	  wire->setVisible(true);
+	}
+    }
+
+  if(!m_delayedWires.isEmpty())
+    QTimer::singleShot(500, this, &glitch_view::slotShowWires);
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
   Q_UNUSED(operation);
-}
-
-void glitch_view::slotUndoStackCreated(QUndoStack *undoStack)
-{
-  if(!undoStack)
-    return;
-
-  connect(undoStack,
-	  SIGNAL(indexChanged(int)),
-	  this,
-	  SLOT(slotUndoStackChanged(void)),
-	  Qt::UniqueConnection);
-
-  if(!m_undoStacks.contains(undoStack))
-    m_undoStacks << undoStack;
 }
 
 void glitch_view::slotUndoStackChanged(void)

@@ -55,14 +55,14 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
-     new QUndoStack(this), // New redo/undo stack.
+     m_undoStack,
      this);
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_editView->undoStack());
+  m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: flow control"));
   m_editWindow->resize(800, 600);
@@ -74,10 +74,6 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  &glitch_object_view::changed,
 	  this,
 	  &glitch_object_flow_control_arduino::changed);
-  connect(m_editView->undoStack(),
-	  &QUndoStack::indexChanged,
-	  this,
-	  &glitch_object_flow_control_arduino::slotHideOrShowOccupied);
   connect(m_ui.condition,
 	  &QLineEdit::editingFinished,
 	  this,
@@ -89,12 +85,12 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
   setName(m_type);
-  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 {
-  disconnect(m_editView->undoStack(), nullptr, this, nullptr);
+  if(m_undoStack)
+    disconnect(m_undoStack, nullptr, this, nullptr);
 }
 
 QString glitch_object_flow_control_arduino::code(void) const

@@ -174,6 +174,7 @@ Completed Items
   "viewport" widget.
 - Shortcuts in object views.
 - Show object coordinates in redo / undo text.
+- Single redo / undo stack per diagram.
 - Sort structures for languages.
 - Split properties via special regular expression.
 - Structures context menu on view object.

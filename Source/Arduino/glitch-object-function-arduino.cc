@@ -157,11 +157,11 @@ glitch_object_function_arduino::glitch_object_function_arduino
 
 glitch_object_function_arduino::~glitch_object_function_arduino()
 {
-  if(m_editView)
-    disconnect(m_editView->undoStack(), nullptr, this, nullptr);
-
   if(m_parentFunction)
     disconnect(m_parentFunction, nullptr, this, nullptr);
+
+  if(m_undoStack)
+    disconnect(m_undoStack, nullptr, this, nullptr);
 }
 
 QPointer<glitch_object_function_arduino> glitch_object_function_arduino::
@@ -333,7 +333,7 @@ clone(QWidget *parent) const
       clone->m_editView = new glitch_object_view
 	(glitch_common::ProjectTypes::ArduinoProject,
 	 clone->m_id,
-	 new QUndoStack(clone), // New redo/undo stack.
+	 clone->m_undoStack,
 	 clone);
       clone->m_editView->scene()->setCanvasSettings(m_canvasSettings);
       clone->m_editWindow = new glitch_object_edit_window
@@ -342,7 +342,7 @@ clone(QWidget *parent) const
 	(clone->m_editView->alignmentActions());
       clone->m_editWindow->setCentralWidget(clone->m_editView);
       clone->m_editWindow->setEditView(clone->m_editView);
-      clone->m_editWindow->setUndoStack(clone->m_editView->undoStack());
+      clone->m_editWindow->setUndoStack(clone->m_undoStack);
       clone->m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
       clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
       clone->m_editWindow->resize(800, 600);
@@ -352,11 +352,12 @@ clone(QWidget *parent) const
 	(glitch_structures_arduino::nonArrayVariableTypes());
       clone->m_ui.return_type->setEnabled(true);
       clone->m_ui.return_type->setToolTip("");
+      clone->m_undoStack = m_undoStack;
       connect(clone->m_editView,
 	      &glitch_object_view::changed,
 	      clone,
 	      &glitch_object_function_arduino::changed);
-      connect(clone->m_editView->undoStack(),
+      connect(clone->m_undoStack,
 	      &QUndoStack::indexChanged,
 	      clone,
 	      &glitch_object_function_arduino::slotHideOrShowOccupied);
@@ -367,7 +368,6 @@ clone(QWidget *parent) const
       clone->m_previousReturnType = clone->m_ui.return_type->currentText();
       clone->prepareContextMenu();
       clone->prepareEditSignals(clone->findNearestGlitchView(parent));
-      QTimer::singleShot(1500, clone, SLOT(slotUndoStackCreated(void)));
 
       foreach(auto object, m_copiedChildren)
 	{
@@ -531,7 +531,7 @@ void glitch_object_function_arduino::declone(void)
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
-     new QUndoStack(this), // New redo/undo stack.
+     m_undoStack,
      this);
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window
@@ -539,7 +539,7 @@ void glitch_object_function_arduino::declone(void)
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_editView->undoStack());
+  m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle
     (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
@@ -556,11 +556,6 @@ void glitch_object_function_arduino::declone(void)
 	  this,
 	  &glitch_object_function_arduino::changed,
 	  Qt::UniqueConnection);
-  connect(m_editView->undoStack(),
-	  &QUndoStack::indexChanged,
-	  this,
-	  &glitch_object_function_arduino::slotHideOrShowOccupied,
-	  Qt::UniqueConnection);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
@@ -568,7 +563,6 @@ void glitch_object_function_arduino::declone(void)
 	  Qt::UniqueConnection);
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(m_parentView));
-  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 void glitch_object_function_arduino::hideOrShowOccupied(void)
@@ -597,7 +591,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
-     new QUndoStack(this), // New redo/undo stack.
+     m_undoStack,
      this);
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window
@@ -605,7 +599,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_editView->undoStack());
+  m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle
     (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
@@ -620,11 +614,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  this,
 	  &glitch_object_function_arduino::changed,
 	  Qt::UniqueConnection);
-  connect(m_editView->undoStack(),
-	  &QUndoStack::indexChanged,
-	  this,
-	  &glitch_object_function_arduino::slotHideOrShowOccupied,
-	  Qt::UniqueConnection);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
@@ -633,7 +622,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
-  QTimer::singleShot(1500, this, SLOT(slotUndoStackCreated(void)));
 }
 
 void glitch_object_function_arduino::save

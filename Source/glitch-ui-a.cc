@@ -27,6 +27,7 @@
 
 #include <QCloseEvent>
 #include <QDir>
+#include <QElapsedTimer>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QInputDialog>
@@ -309,7 +310,10 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     {
       if(type == "ArduinoProject")
 	{
+	  QElapsedTimer timer;
+
 	  setUpdatesEnabled(false);
+	  timer.start();
 
 	  auto view = newArduinoDiagram(fileName, name, true);
 
@@ -317,12 +321,21 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	    saveRecentFile(fileName);
 
 	  setUpdatesEnabled(true);
+
+	  if(statusBar())
+	    {
+	      statusBar()->showMessage
+		(tr("%1 opened in %2 second(s).").
+		 arg(fileName).
+		 arg(timer.elapsed() / 1000.0),
+		 5000);
+	      statusBar()->repaint();
+	    }
 	}
       else
 	ok = false;
     }
-
-  if(statusBar())
+  else if(statusBar())
     {
       statusBar()->showMessage("");
       statusBar()->repaint();

@@ -77,10 +77,6 @@ glitch_view_arduino::glitch_view_arduino
 	  &glitch_object_loop_arduino::changed,
 	  this,
 	  &glitch_view_arduino::slotChanged);
-  connect(m_loopObject,
-	  SIGNAL(undoStackCreated(QUndoStack *)),
-	  m_scene,
-	  SIGNAL(undoStackCreated(QUndoStack *)));
   connect(m_scene,
 	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
@@ -93,10 +89,6 @@ glitch_view_arduino::glitch_view_arduino
 	  &glitch_object_setup_arduino::changed,
 	  this,
 	  &glitch_view_arduino::slotChanged);
-  connect(m_setupObject,
-	  SIGNAL(undoStackCreated(QUndoStack *)),
-	  m_scene,
-	  SIGNAL(undoStackCreated(QUndoStack *)));
   connect(m_splitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
