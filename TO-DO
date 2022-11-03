@@ -85,6 +85,8 @@ Completed Items
 - Do not clone pasted functions without parents unless they already exist.
 - Do not delete function duplicates if one duplicate is removed.
 - Do not discover parent functions for copied functions.
+- Do not save children of flow control objects if those objects
+  do not support children.
 - Dots and grids.
 - Dragging an item onto a diagram and scroll bars.
 - Draw disconnect symbols.
@@ -227,8 +229,6 @@ Remaining Items
 - Custom shortcuts.
 - Disable redo / undo of line-edit widgets?
 - Documentation.
-- Do not save children of flow control objects if those objects
-  do not support children.
 - Find objects.
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.
