@@ -83,13 +83,14 @@ void glitch_wire::paint
 
   if(painter)
     {
-      painter->setRenderHints(QPainter::Antialiasing |
+      if(painter->isActive())
+	painter->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-			      QPainter::HighQualityAntialiasing | // OpenGL?
+				QPainter::HighQualityAntialiasing | // OpenGL?
 #endif
-			      QPainter::SmoothPixmapTransform |
-			      QPainter::TextAntialiasing,
-			      true);
+				QPainter::SmoothPixmapTransform |
+				QPainter::TextAntialiasing,
+				true);
 
       if(m_wireType == WireType::CURVE)
 	{
@@ -114,10 +115,16 @@ void glitch_wire::paint
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(s_penWidth);
-	  painter->setPen(pen);
+
+	  if(painter->isActive())
+	    painter->setPen(pen);
+
 	  path.cubicTo(c1, c2, endPoint);
 	  m_boundingRect = path.boundingRect();
-	  painter->drawPath(path);
+
+	  if(painter->isActive())
+	    painter->drawPath(path);
+
 	  return;
 	}
 
@@ -132,7 +139,9 @@ void glitch_wire::paint
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(s_penWidth);
-	  painter->setPen(pen);
+
+	  if(painter->isActive())
+	    painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto x2 = m_rightProxy->pos().x();
@@ -154,7 +163,9 @@ void glitch_wire::paint
 			    m_leftProxy->pos().y() +
 			    m_leftProxy->size().height() / 2.0 - 1.0 + yd);
 	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+
+	  if(painter->isActive())
+	    painter->drawPolyline(points);
 	}
       else if(m_leftProxy->size().height() / 2.0 + m_leftProxy->y() >=
 	      m_rightProxy->size().height() / 2.0 + m_rightProxy->y() &&
@@ -167,7 +178,9 @@ void glitch_wire::paint
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(s_penWidth);
-	  painter->setPen(pen);
+
+	  if(painter->isActive())
+	    painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto x2 = m_rightProxy->pos().x();
@@ -189,7 +202,9 @@ void glitch_wire::paint
 			    m_leftProxy->pos().y() +
 			    m_leftProxy->size().height() / 2.0 - 1.0 - yd);
 	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+
+	  if(painter->isActive())
+	    painter->drawPolyline(points);
 	}
       else if(m_leftProxy->size().width() + m_leftProxy->x() + 15.0 >=
 	      m_rightProxy->x() &&
@@ -201,7 +216,9 @@ void glitch_wire::paint
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(s_penWidth);
-	  painter->setPen(pen);
+
+	  if(painter->isActive())
+	    painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto xd = m_rightProxy->pos().x() - x1;
@@ -228,7 +245,9 @@ void glitch_wire::paint
 			    m_rightProxy->pos().y() +
 			    m_rightProxy->size().height() / 2.0 - 1.0);
 	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+
+	  if(painter->isActive())
+	    painter->drawPolyline(points);
 	}
       else
 	{
@@ -238,7 +257,9 @@ void glitch_wire::paint
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
 	  pen.setWidthF(s_penWidth);
-	  painter->setPen(pen);
+
+	  if(painter->isActive())
+	    painter->setPen(pen);
 
 	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
 	  const auto xd = m_rightProxy->pos().x() - x1;
@@ -265,7 +286,9 @@ void glitch_wire::paint
 			    m_rightProxy->pos().y() +
 			    m_rightProxy->size().height() / 2.0 - 1.0);
 	  m_boundingRect = points.boundingRect();
-	  painter->drawPolyline(points);
+
+	  if(painter->isActive())
+	    painter->drawPolyline(points);
 	}
     }
 }
@@ -331,4 +354,11 @@ void glitch_wire::setWireType(const QString &wireType)
 void glitch_wire::setWireType(const WireType wireType)
 {
   m_wireType = wireType;
+}
+
+void glitch_wire::slotUpdate(void)
+{
+  QPainter painter;
+
+  paint(&painter, nullptr, nullptr);
 }

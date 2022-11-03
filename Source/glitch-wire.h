@@ -77,6 +77,9 @@ class glitch_wire: public QGraphicsObject
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
+
+ private slots:
+  void slotUpdate(void);
 };
 
 #endif

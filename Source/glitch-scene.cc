@@ -1535,6 +1535,11 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	{
 	  auto wire(new glitch_wire(nullptr));
 
+	  connect(this,
+		  SIGNAL(changed(const QList<QRectF> &)),
+		  wire,
+		  SLOT(slotUpdate(void)));
+
 	  if(m_undoStack)
 	    {
 	      auto undoCommand = new glitch_undo_command
