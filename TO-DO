@@ -227,6 +227,8 @@ Remaining Items
 - Custom shortcuts.
 - Disable redo / undo of line-edit widgets?
 - Documentation.
+- Do not save children of flow control objects if those objects
+  do not support children.
 - Find objects.
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.

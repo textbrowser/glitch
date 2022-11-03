@@ -390,15 +390,23 @@ void glitch_object_flow_control_arduino::save
   glitch_object::saveProperties(properties, db, error);
 
   if(error.isEmpty() && m_editView)
-    m_editView->save(db, error);
+    if(m_flowControlType == FlowControlTypes::CASE ||
+       m_flowControlType == FlowControlTypes::DO_WHILE ||
+       m_flowControlType == FlowControlTypes::ELSE ||
+       m_flowControlType == FlowControlTypes::ELSE_IF ||
+       m_flowControlType == FlowControlTypes::FOR ||
+       m_flowControlType == FlowControlTypes::IF ||
+       m_flowControlType == FlowControlTypes::SWITCH ||
+       m_flowControlType == FlowControlTypes::WHILE)
+      m_editView->save(db, error);
 }
 
 void glitch_object_flow_control_arduino::setFlowControlType
 (const QString &flowControlType)
 {
   auto enabled = true;
-  auto f(flowControlType.
-	 mid(flowControlType.lastIndexOf('-') + 1).toLower().trimmed());
+  auto f(flowControlType.mid(flowControlType.lastIndexOf('-') + 1).
+	 toLower().trimmed());
 
   if(f == "break")
     {
