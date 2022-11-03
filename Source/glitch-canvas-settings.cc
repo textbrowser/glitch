@@ -340,7 +340,18 @@ void glitch_canvas_settings::accept(void)
     }
 
   if(!m_ui.output_file->text().trimmed().isEmpty())
-    QFile(m_ui.output_file->text()).open(QIODevice::NewOnly);
+    {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
+      QFile(m_ui.output_file->text()).open(QIODevice::NewOnly);
+#else
+      QFile file(m_ui.output_file->text());
+
+      if(file.open(QIODevice::Append))
+	file.write("");
+
+      file.close();
+#endif
+    }
 
   notify();
   setResult(QDialog::Accepted);
