@@ -79,7 +79,7 @@ class glitch_wire: public QGraphicsObject
 	     QWidget *widget);
 
  private slots:
-  void slotUpdate(void);
+  void slotUpdate(const QList<QRectF> &region);
 };
 
 #endif

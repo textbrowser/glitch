@@ -131,6 +131,7 @@ Completed Items
 - Paste in child views. Redo / undo.
 - Pasting multiple objects does not respect their original relative positions.
   Functional!
+- Percolate redo / undo of functions through child views.
 - Periodically-generated source and redo / undo.
 - PowerPC (QOverload()).
 - Prepare Copy, Delete, Paste, and Select All states.
@@ -238,7 +239,6 @@ Remaining Items
 - Multiple inputs or single input?
 - Nested flow-control scenes.
 - Order: top-bottom followed by left-right.
-- Percolate redo / undo of functions through child views.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.

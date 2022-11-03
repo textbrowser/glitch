@@ -356,9 +356,14 @@ void glitch_wire::setWireType(const WireType wireType)
   m_wireType = wireType;
 }
 
-void glitch_wire::slotUpdate(void)
+void glitch_wire::slotUpdate(const QList<QRectF> &region)
 {
-  QPainter painter;
+  foreach(auto rectangle, region)
+    if(m_boundingRect.intersects(rectangle))
+      {
+	QPainter painter;
 
-  paint(&painter, nullptr, nullptr);
+	paint(&painter, nullptr, nullptr);
+	break;
+      }
 }

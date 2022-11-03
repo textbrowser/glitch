@@ -1538,7 +1538,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  connect(this,
 		  SIGNAL(changed(const QList<QRectF> &)),
 		  wire,
-		  SLOT(slotUpdate(void)));
+		  SLOT(slotUpdate(const QList<QRectF> &)));
 
 	  if(m_undoStack)
 	    {
