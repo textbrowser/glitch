@@ -72,7 +72,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_actions["screen mode"] = menu->addAction
     (tr("&Full Screen"),
      this,
-     &glitch_object_edit_window::slotShowFullScreenMode,
+     SLOT(slotShowFullScreenMode(void)),
      tr("F11"));
   menu->addSeparator();
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
