@@ -257,6 +257,8 @@ clone(QWidget *parent) const
   clone->m_ui.progmem->setChecked(m_ui.progmem->isChecked());
   clone->m_ui.qualifier->setCurrentIndex(m_ui.qualifier->currentIndex());
   clone->m_ui.type->setCurrentIndex(m_ui.type->currentIndex());
+  clone->compressWidget
+    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   clone->connectSignals(true);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);

@@ -207,15 +207,6 @@ Completed Items
 - prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
 
-Ignored Items
-
-- Object-view settings. Identical to canvas settings.
-- The glitch_view parent must be passed to every child?
-
-Perhaps Items
-
-- Keywords (function names, variable names, etc.).
-
 Remaining Items
 
 - Allow removal of wire by selection.
@@ -234,6 +225,7 @@ Remaining Items
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.
 - Generate view.
+- Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Languages option.
 - Multiple inputs or single input?
