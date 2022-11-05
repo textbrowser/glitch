@@ -61,7 +61,6 @@ class glitch_object_function_arduino: public glitch_object
      QString &error,
      QWidget *parent);
   void addActions(QMenu &menu);
-  void declone(void);
   void save(const QSqlDatabase &db, QString &error);
   void setName(const QString &name);
   void setReturnType(const QString &returnType);

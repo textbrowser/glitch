@@ -506,60 +506,6 @@ void glitch_object_function_arduino::compressWidget(const bool state)
   m_ui.return_type->setVisible(!state);
 }
 
-void glitch_object_function_arduino::declone(void)
-{
-  /*
-  ** Declone a function.
-  */
-
-  disconnect(&m_findParentFunctionTimer,
-	     &QTimer::timeout,
-	     this,
-	     &glitch_object_function_arduino::slotFindParentFunctionTimeout);
-
-  if(m_editView)
-    m_editView->deleteLater();
-
-  if(m_editWindow)
-    m_editWindow->deleteLater();
-
-  m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject,
-     m_id,
-     m_undoStack,
-     this);
-  m_editView->scene()->setCanvasSettings(m_canvasSettings);
-  m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-  m_editWindow->prepareToolBar(m_editView->alignmentActions());
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-  m_editWindow->setWindowTitle
-    (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
-  m_editWindow->resize(800, 600);
-  m_findParentFunctionTimer.stop();
-  m_initialized = true;
-  m_isFunctionClone = false;
-  m_parentView = qobject_cast<glitch_view_arduino *>
-    (findNearestGlitchView(m_parent));
-  m_ui.return_type->setEnabled(true);
-  m_ui.return_type->setToolTip("");
-  connect(m_editView,
-	  &glitch_object_view::changed,
-	  this,
-	  &glitch_object_function_arduino::changed,
-	  Qt::UniqueConnection);
-  connect(m_ui.return_type,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotReturnTypeChanged(void)),
-	  Qt::UniqueConnection);
-  prepareContextMenu();
-  prepareEditSignals(findNearestGlitchView(m_parentView));
-}
-
 void glitch_object_function_arduino::hideOrShowOccupied(void)
 {
   auto scene = editScene();
