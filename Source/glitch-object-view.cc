@@ -96,11 +96,6 @@ QList<QAction *> glitch_object_view::alignmentActions(void) const
   return m_alignment->actions();
 }
 
-QUndoStack *glitch_object_view::undoStack(void) const
-{
-  return m_undoStack;
-}
-
 glitch_scene *glitch_object_view::scene(void) const
 {
   return m_scene;
@@ -202,6 +197,12 @@ void glitch_object_view::setSceneRect(const QSize &size)
 			       width() - 2 * frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       height() - 2 * frameWidth())));
+}
+
+void glitch_object_view::setUndoStack(QUndoStack *undoStack)
+{
+  m_scene->setUndoStack(undoStack);
+  m_undoStack = undoStack;
 }
 
 void glitch_object_view::slotChanged(void)

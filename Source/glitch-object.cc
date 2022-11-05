@@ -1130,7 +1130,10 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 void glitch_object::setUndoStack(QUndoStack *undoStack)
 {
   if(m_editView)
-    m_editView->scene()->setUndoStack(undoStack);
+    m_editView->setUndoStack(undoStack);
+
+  if(m_editWindow)
+    m_editWindow->setUndoStack(undoStack);
 
   m_undoStack = undoStack;
 

@@ -51,7 +51,6 @@ class glitch_object_view: public QGraphicsView
 		     QWidget *parent);
   ~glitch_object_view();
   QList<QAction *> alignmentActions(void) const;
-  QUndoStack *undoStack(void) const;
   glitch_scene* scene(void) const;
   qint64 id(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object);
@@ -60,6 +59,7 @@ class glitch_object_view: public QGraphicsView
   void push(glitch_undo_command *undoCommand);
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
+  void setUndoStack(QUndoStack *undoStack);
 
  public slots:
   void slotDelete(void);
