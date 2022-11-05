@@ -231,6 +231,7 @@ Remaining Items
 - Multiple inputs or single input?
 - Nested flow-control scenes.
 - Order: top-bottom followed by left-right.
+- Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.

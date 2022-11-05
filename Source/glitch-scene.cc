@@ -1344,6 +1344,10 @@ void glitch_scene::setShowCanvasGrids(const bool state)
 void glitch_scene::setUndoStack(QUndoStack *undoStack)
 {
   m_undoStack = undoStack;
+
+  foreach(auto object, objects())
+    if(object)
+      object->setUndoStack(m_undoStack);
 }
 
 void glitch_scene::slotCanvasSettingsChanged(const bool state)

@@ -352,15 +352,10 @@ clone(QWidget *parent) const
 	(glitch_structures_arduino::nonArrayVariableTypes());
       clone->m_ui.return_type->setEnabled(true);
       clone->m_ui.return_type->setToolTip("");
-      clone->m_undoStack = m_undoStack;
       connect(clone->m_editView,
 	      &glitch_object_view::changed,
 	      clone,
 	      &glitch_object_function_arduino::changed);
-      connect(clone->m_undoStack,
-	      &QUndoStack::indexChanged,
-	      clone,
-	      &glitch_object_function_arduino::slotHideOrShowOccupied);
       connect(clone->m_ui.return_type,
 	      SIGNAL(currentIndexChanged(int)),
 	      clone,
