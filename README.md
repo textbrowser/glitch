@@ -25,7 +25,6 @@ Summary of Glitch
 </ul>
 
 <h3><b>Release Notes</b></h3>
-<br>
 <p>2022.11.05</p>
 <ul>
 <li>Initial release!</li>
