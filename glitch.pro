@@ -193,10 +193,12 @@ chown.extra		= chown -Rh root:wheel /Applications/Glitch.d
 chown.path		= /Applications/Glitch.d
 documentation1.extra	= cp ./Documentation/*.1 /Applications/Glitch.d/Documentation/.
 documentation1.path	= /Applications/Glitch.d/Documentation
-documentation2.extra	= cp ./TO-DO /Applications/Glitch.d/Documentation/.
-documentation2.path	= /Applications/Glitch.d/Documentation
-documentation3.extra	= cp -r ./Documentation/Arduino /Applications/Glitch.d/Documentation/.
+documentation2.extra    = cp ./Documentation/*.pdf /Applications/Glitch.d/Documentation/.
+documentation2.path     = /Applications/Glitch.d/Documentation
+documentation3.extra	= cp ./TO-DO /Applications/Glitch.d/Documentation/.
 documentation3.path	= /Applications/Glitch.d/Documentation
+documentation4.extra	= cp -r ./Documentation/Arduino /Applications/Glitch.d/Documentation/.
+documentation4.path	= /Applications/Glitch.d/Documentation
 glitch.extra	        = cp -r ./Glitch.app /Applications/Glitch.d/.
 glitch.path		= /Applications/Glitch.d
 macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt /Applications/Glitch.d/Glitch.app -executable=/Applications/Glitch.d/Glitch.app/Contents/MacOS/Glitch
@@ -207,6 +209,7 @@ preinstall.path		= /Applications/Glitch.d
 INSTALLS = documentation1 \
            documentation2 \
            documentation3 \
+           documentation4 \
            preinstall \
            glitch \
            macdeployqt \
