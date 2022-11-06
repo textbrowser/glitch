@@ -214,10 +214,12 @@ INSTALLS = documentation1 \
 }
 
 win32 {
-documentation1.files = Documentation\\Arduino\\*
+documentation1.files = Documentation\\*.pdf
 documentation1.path  = release\\Documentation\\.
-documentation2.files = TO-DO
+documentation2.files = Documentation\\Arduino\\*
 documentation2.path  = release\\Documentation\\.
+documentation3.files = TO-DO
+documentation3.path  = release\\Documentation\\.
 examples.files      = Examples
 examples.path       = release
 plugins1.files      = $$[QT_INSTALL_PLUGINS]\\*
@@ -244,6 +246,7 @@ qtlibraries.path    = release\\.
 
 INSTALLS = documentation1 \
            documentation2 \
+           documentation3 \
            examples \
            plugins1 \
            pluginspurge \
