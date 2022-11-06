@@ -1,6 +1,6 @@
 Program colorful Arduino projects via visual block diagrams. A visual compiler.
 
-Summary of Glitch
+<h3><b>Summary of Glitch</b></h3>
 
 <ul>
 <li>Android-friendly design.</li>
