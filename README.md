@@ -1,5 +1,4 @@
 Program colorful Arduino projects via visual block diagrams. A visual compiler.
-An initial version is scheduled for release in November, 2022!
 
 Summary of Glitch
 
