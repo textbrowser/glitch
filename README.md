@@ -24,11 +24,9 @@ Summary of Glitch
 <li>Unlimited diagrams.</li>
 </ul>
 
-<b>Release Notes</b>
-2022.11.05
+<h3><b>Release Notes</b></h3>
+<br>
+<p>2022.11.05</p>
 <ul>
 <li>Initial release!</li>
 </ul>
-
-![alt text](https://raw.githubusercontent.com/textbrowser/glitch/master/Images/glitch-1.png)
-![alt text](https://raw.githubusercontent.com/textbrowser/glitch/master/Images/glitch-2.png)
