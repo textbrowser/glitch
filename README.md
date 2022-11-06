@@ -1,5 +1,3 @@
-Program colorful Arduino projects via visual block diagrams. A visual compiler.
-
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
