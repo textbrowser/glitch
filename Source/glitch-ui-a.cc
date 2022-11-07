@@ -666,6 +666,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
   auto f = false; // First?
   auto point(view->mapToScene(view->mapFromGlobal(QCursor::pos())).toPoint());
 
+  if(point.x() < 0)
+    point.setX(0);
+
+  if(point.y() < 0)
+    point.setY(0);
+
   while(it.hasNext())
     {
       it.next();

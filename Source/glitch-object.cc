@@ -566,25 +566,7 @@ void glitch_object::afterPaste(void)
 void glitch_object::cloneWires
 (const QHash<qint64, QPointer<glitch_wire> > &wires)
 {
-  QHashIterator<qint64, QPointer<glitch_wire> > it(wires);
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(!it.value() || !it.value()->scene())
-	continue;
-
-      if(it.value()->leftProxy() && it.value()->leftProxy()->object())
-	m_wires[it.value()->leftProxy()->object()->id()] =
-	  new glitch_wire(nullptr);
-      else if(it.value()->rightProxy() && it.value()->rightProxy()->object())
-	m_wires[it.value()->rightProxy()->object()->id()] =
-	  new glitch_wire(nullptr);
-      else
-	qDebug() << tr("Cannot clone wire as the original "
-		       "wire lacks left and right objects!");
-    }
+  Q_UNUSED(wires);
 }
 
 void glitch_object::compressWidget(const bool state)
