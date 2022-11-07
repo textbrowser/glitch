@@ -512,6 +512,14 @@ glitch_view *glitch_object::findNearestGlitchView(QWidget *widget) const
   return nullptr;
 }
 
+int glitch_object::minimumHeight(int height)
+{
+  if(height % 10)
+    return (10 - height % 10) + height;
+  else
+    return height;
+}
+
 qint64 glitch_object::id(void) const
 {
   return m_id;
@@ -1008,8 +1016,11 @@ void glitch_object::setProperties(const QStringList &list)
 	      QSize size;
 	      auto list(string.split(','));
 
-	      size.setHeight(qBound(25, list.value(1).toInt(), 500));
-	      size.setWidth(qBound(50, list.value(0).toInt(), 500));
+	      size.setHeight
+		(minimumHeight(qBound(25,
+				      list.value(1).trimmed().toInt(),
+				      500)));
+	      size.setWidth(qBound(50, list.value(0).trimmed().toInt(), 500));
 	      resize(size);
 	    }
 	}
@@ -1218,7 +1229,7 @@ void glitch_object::slotAdjustSize(void)
 {
   auto before(size());
 
-  resize(sizeHint());
+  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 
   if(before == this->size())
     return;

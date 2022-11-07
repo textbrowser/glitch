@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>200</height>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,6 +55,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="size">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -65,7 +72,7 @@
         <x>0</x>
         <y>0</y>
         <width>384</width>
-        <height>112</height>
+        <height>138</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">

@@ -161,6 +161,12 @@ void glitch_floating_context_menu::slotActionChanged(void)
 void glitch_floating_context_menu::slotObjectChanged(void)
 {
   if(m_object)
-    m_ui.position->setText
-      (QString("(%1, %2)").arg(m_object->pos().x()).arg(m_object->pos().y()));
+    {
+      m_ui.position->setText
+	(QString("(%1, %2)").arg(m_object->pos().x()).arg(m_object->pos().y()));
+      m_ui.size->setText
+	(QString("(%1, %2)").
+	 arg(m_object->size().width()).
+	 arg(m_object->size().height()));
+    }
 }
