@@ -84,7 +84,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  SLOT(slotFlowControlTypeChanged(void)));
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
-  setName(m_type);
+  setName(m_ui.flow_control_type->currentText());
 }
 
 glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
@@ -505,6 +505,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
     (QString("%1 (%2)").
      arg(m_ui.flow_control_type->currentText()).
      arg(m_ui.condition->text()));
+  setName(m_ui.flow_control_type->currentText());
 }
 
 void glitch_object_flow_control_arduino::setProperties(const QStringList &list)
