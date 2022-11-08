@@ -125,6 +125,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowDiagramContextMenu);
+  connect(m_ui.action_Find,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotFind);
   connect(m_ui.action_Full_Screen,
 	  &QAction::triggered,
 	  this,
@@ -775,6 +779,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
       m_ui.action_Diagram_Context_Menu->setEnabled(false);
+      m_ui.action_Find->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
@@ -786,22 +791,23 @@ void glitch_ui::prepareActionWidgets(void)
   else
     {
       m_statusBarTimer.start();
-      m_ui.action_Canvas_Settings->setEnabled(true);
-      m_ui.action_Close_Diagram->setEnabled(true);
+      m_ui.action_Canvas_Settings->setEnabled(m_currentView);
+      m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
-      m_ui.action_Generate_Source->setEnabled(true);
+      m_ui.action_Find->setEnabled(m_currentView);
+      m_ui.action_Generate_Source->setEnabled(m_currentView);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled
 	(m_currentView && m_currentView->hasChanged());
-      m_ui.action_Save_Current_Diagram_As->setEnabled(true);
+      m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 0);
-      m_ui.action_Tools->setEnabled(true);
-      m_ui.action_User_Functions->setEnabled(true);
+      m_ui.action_Tools->setEnabled(m_currentView);
+      m_ui.action_User_Functions->setEnabled(m_currentView);
     }
 
   prepareRedoUndoActions();
@@ -1364,6 +1370,12 @@ void glitch_ui::slotDelete(void)
     m_ui.action_Undo->setText(tr("Undo (%1)").arg(m_currentView->undoText()));
   else
     m_ui.action_Undo->setText(tr("Undo"));
+}
+
+void glitch_ui::slotFind(void)
+{
+  if(m_currentView)
+    m_currentView->find();
 }
 
 void glitch_ui::slotForgetRecentDiagram(void)

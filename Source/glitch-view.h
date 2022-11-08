@@ -39,6 +39,7 @@
 
 class QSplitter;
 class glitch_alignment;
+class glitch_find_objects;
 class glitch_graphicsview;
 class glitch_object;
 class glitch_object_start;
@@ -94,6 +95,7 @@ class glitch_view: public QWidget
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);
+  void find(void);
   void push(glitch_undo_command *undoCommand);
   void redo(void);
   void save(void);
@@ -140,6 +142,7 @@ class glitch_view: public QWidget
   glitch_alignment *m_alignment;
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectTypes m_projectType;
+  glitch_find_objects *m_findObjects;
   glitch_graphicsview *m_view;
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;

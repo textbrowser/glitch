@@ -124,6 +124,7 @@ UI_DIR      = temp/ui
 FORMS          += UI/glitch-canvas-settings.ui \
                   UI/glitch-documentation.ui \
                   UI/glitch-errors-dialog.ui \
+                  UI/glitch-find-objects.ui \
                   UI/glitch-floating-context-menu.ui \
                   UI/glitch-mainwindow.ui \
 		  UI/glitch-separated-diagram-window.ui \
@@ -135,6 +136,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
 HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-canvas-settings.h \
                   Source/glitch-documentation.h \
+                  Source/glitch-find-objects.h \
                   Source/glitch-floating-context-menu.h \
                   Source/glitch-graphicsview.h \
                   Source/glitch-object.h \
@@ -160,6 +162,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-common.cc \
                   Source/glitch-documentation.cc \
                   Source/glitch-graphicsview.cc \
+                  Source/glitch-find-objects.cc \
                   Source/glitch-floating-context-menu.cc \
                   Source/glitch-main.cc \
                   Source/glitch-misc.cc \

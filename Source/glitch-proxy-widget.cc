@@ -48,6 +48,7 @@ glitch_proxy_widget::glitch_proxy_widget
   QGraphicsProxyWidget(parent, wFlags)
 {
   m_hoveredSection = Sections::XYZ;
+  setCacheMode(QGraphicsItem::NoCache);
 }
 
 glitch_proxy_widget::~glitch_proxy_widget()

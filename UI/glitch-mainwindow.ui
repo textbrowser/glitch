@@ -122,6 +122,8 @@
     <addaction name="action_Delete"/>
     <addaction name="action_Select_All"/>
     <addaction name="separator"/>
+    <addaction name="action_Find"/>
+    <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
    </widget>
    <widget class="QMenu" name="menu_Generate">
@@ -335,6 +337,14 @@
   <action name="action_Arduino_Documentation">
    <property name="text">
     <string>Arduino Documentation...</string>
+   </property>
+  </action>
+  <action name="action_Find">
+   <property name="text">
+    <string>&amp;Find...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

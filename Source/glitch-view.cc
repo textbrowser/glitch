@@ -38,6 +38,7 @@
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-find-objects.h"
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
@@ -66,6 +67,7 @@ glitch_view::glitch_view
   m_canvasSettings->prepare();
   m_changed = false;
   m_fileName = fileName;
+  m_findObjects = new glitch_find_objects(this);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
   m_menuAction = new QAction
@@ -827,6 +829,13 @@ void glitch_view::deleteItems(void)
 void glitch_view::endMacro(void)
 {
   m_undoStack->endMacro();
+}
+
+void glitch_view::find(void)
+{
+  m_findObjects->showNormal();
+  m_findObjects->activateWindow();
+  m_findObjects->raise();
 }
 
 void glitch_view::generateSource(void)
