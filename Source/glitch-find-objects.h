@@ -28,7 +28,11 @@
 #ifndef _glitch_find_objects_h_
 #define _glitch_find_objects_h_
 
+#include <QPointer>
+
 #include "ui_glitch-find-objects.h"
+
+class glitch_view;
 
 class glitch_find_objects: public QDialog
 {
@@ -39,7 +43,12 @@ class glitch_find_objects: public QDialog
   ~glitch_find_objects();
 
  private:
+  QPointer<glitch_view> m_view;
   Ui_glitch_find_objects m_ui;
+  void find(void);
+
+ private slots:
+  void slotFind(void);
 };
 
 #endif

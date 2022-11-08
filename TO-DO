@@ -95,6 +95,7 @@ Completed Items
 - Error dialog.
 - Exiting does not require closing of pages.
 - Filter mouse scrolling on combination boxes. Prevent accidental changes.
+- Find objects.
 - Flow-control objects and edit views (break does not have a view).
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
@@ -222,7 +223,6 @@ Remaining Items
 - Disable redo / undo of line-edit widgets?
 - Documentation.
 - Draw and, not, or, etc. objects.
-- Find objects.
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.
 - Generate view.

@@ -227,12 +227,18 @@ QList<QAction *> glitch_view::defaultActions(void) const
 
 QList<glitch_object *> glitch_view::objects(void) const
 {
-  return m_scene->objects();
+  if(m_scene)
+    return m_scene->objects();
+  else
+    return QList<glitch_object *> ();
 }
 
 QList<glitch_object *> glitch_view::selectedObjects(void) const
 {
-  return m_scene->selectedObjects();
+  if(m_scene)
+    return m_scene->selectedObjects();
+  else
+    return QList<glitch_object *> ();
 }
 
 QMenu *glitch_view::defaultContextMenu(void)

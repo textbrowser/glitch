@@ -28,6 +28,8 @@
 #include <QShortcut>
 
 #include "glitch-find-objects.h"
+#include "glitch-object.h"
+#include "glitch-view.h"
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {
@@ -36,7 +38,14 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::close);
+  connect(m_ui.find,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_find_objects::slotFind);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
+  m_ui.tree->sortItems(0, Qt::AscendingOrder);
+  m_view = qobject_cast<glitch_view *> (parent);
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -46,4 +55,29 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 
 glitch_find_objects::~glitch_find_objects()
 {
+}
+
+void glitch_find_objects::find(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  m_ui.tree->clear();
+
+  if(m_view)
+    foreach(auto object, m_view->objects())
+      if(object)
+	{
+	  auto item = new QTreeWidgetItem(m_ui.tree);
+
+	  item->setText(0, object->name());
+	  item->setText(1, object->type());
+	  m_ui.tree->addTopLevelItem(item);
+	}
+
+  m_ui.tree->resizeColumnToContents(0);
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_find_objects::slotFind(void)
+{
+  find();
 }

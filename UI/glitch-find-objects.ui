@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>250</width>
+    <width>500</width>
     <height>500</height>
    </rect>
   </property>
@@ -55,7 +55,12 @@
         </attribute>
         <column>
          <property name="text">
-          <string notr="true">1</string>
+          <string notr="true">Object</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Type</string>
          </property>
         </column>
        </widget>
@@ -79,6 +84,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="find">
+       <property name="text">
+        <string>Find</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="close">
        <property name="text">
         <string>Close</string>
@@ -98,6 +110,8 @@
  </customwidgets>
  <tabstops>
   <tabstop>tree</tabstop>
+  <tabstop>find</tabstop>
+  <tabstop>close</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>

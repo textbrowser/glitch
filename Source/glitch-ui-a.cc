@@ -824,6 +824,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Close_Diagram->setIcon(QIcon::fromTheme("window-close"));
   m_ui.action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
   m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
+  m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
   m_ui.action_Full_Screen->setIcon(QIcon::fromTheme("view-fullscreen"));
   m_ui.action_Open_Diagram->setIcon(QIcon::fromTheme("document-open"));
   m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
