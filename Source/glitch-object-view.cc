@@ -96,6 +96,11 @@ QList<QAction *> glitch_object_view::alignmentActions(void) const
   return m_alignment->actions();
 }
 
+QList<glitch_object *> glitch_object_view::objects(void) const
+{
+  return m_scene->objects();
+}
+
 glitch_scene *glitch_object_view::scene(void) const
 {
   return m_scene;

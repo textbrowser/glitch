@@ -51,6 +51,7 @@ class glitch_object_view: public QGraphicsView
 		     QWidget *parent);
   ~glitch_object_view();
   QList<QAction *> alignmentActions(void) const;
+  QList<glitch_object *> objects(void) const;
   glitch_scene* scene(void) const;
   qint64 id(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object);

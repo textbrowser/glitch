@@ -57,6 +57,22 @@ glitch_find_objects::~glitch_find_objects()
 {
 }
 
+void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
+{
+  if(!i || !object)
+    return;
+
+  foreach(auto child, object->objects())
+    if(child)
+      {
+	auto item = new QTreeWidgetItem(i);
+
+	item->setText(0, child->name());
+	item->setText(1, child->type());
+	find(item, child);
+      }
+}
+
 void glitch_find_objects::find(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -71,8 +87,10 @@ void glitch_find_objects::find(void)
 	  item->setText(0, object->name());
 	  item->setText(1, object->type());
 	  m_ui.tree->addTopLevelItem(item);
+	  find(item, object);
 	}
 
+  m_ui.tree->expandAll();
   m_ui.tree->resizeColumnToContents(0);
   QApplication::restoreOverrideCursor();
 }

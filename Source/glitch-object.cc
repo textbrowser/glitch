@@ -162,6 +162,14 @@ glitch_object::~glitch_object()
     m_editWindow->deleteLater();
 }
 
+QList<glitch_object *> glitch_object::objects(void) const
+{
+  if(m_editView)
+    return m_editView->objects();
+  else
+    return QList<glitch_object *> ();
+}
+
 QPointF glitch_object::scenePos(void) const
 {
   if(m_proxy)
