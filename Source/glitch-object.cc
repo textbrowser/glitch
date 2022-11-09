@@ -45,7 +45,6 @@
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-interrupts-arduino.h"
-#include "Arduino/glitch-object-logical-operator-arduino.h"
 #include "Arduino/glitch-object-loop-arduino.h"
 #include "Arduino/glitch-object-mathematics-arduino.h"
 #include "Arduino/glitch-object-random-arduino.h"
@@ -427,9 +426,6 @@ glitch_object *glitch_object::createFromValues
       (values, parentObject, error, parent);
   else if(type == "arduino-interrupts")
     object = glitch_object_interrupts_arduino::createFromValues
-      (values, error, parent);
-  else if(type == "arduino-logicaloperator")
-    object = glitch_object_logical_operator_arduino::createFromValues
       (values, error, parent);
   else if(type == "arduino-loop" || type == "arduino-setup")
     {

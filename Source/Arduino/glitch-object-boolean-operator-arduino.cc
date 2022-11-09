@@ -80,7 +80,7 @@ QString glitch_object_boolean_operator_arduino::code(void) const
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	return QString("!(%1)").arg(inputs().value(0));
+	return QString("(!(%1))").arg(inputs().value(0));
       }
     default:
       {
@@ -119,7 +119,7 @@ bool glitch_object_boolean_operator_arduino::isFullyWired(void) const
     {
     case OperatorTypes::NOT_OPERATOR:
       {
-	return inputs().size() == 1;
+	return inputs().size() >= 1;
       }
     default:
       {

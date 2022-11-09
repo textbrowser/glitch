@@ -153,6 +153,7 @@ Completed Items
 - Remove function clones.
 - Remove function copies from diagram(s) on parent removal.
 - Remove functions from User Functions on redo / undo.
+- Remove logical operator as it duplicates boolean operator.
 - Remove missing diagram files.
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.

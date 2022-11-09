@@ -170,7 +170,6 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("External Interrupts")] = "External Interrupts";
   m_categoriesMap[tr("Flow Control")] = "Flow Control";
   m_categoriesMap[tr("Interrupts")] = "Interrupts";
-  m_categoriesMap[tr("Logical Operators")] = "Logical Operators";
   m_categoriesMap[tr("Mathematics")] = "Mathematics";
   m_categoriesMap[tr("Random")] = "Random";
   m_categoriesMap[tr("Serial")] = "Serial";
@@ -278,9 +277,6 @@ void glitch_structures_arduino::prepareCategories(void)
 						       << "while";
   s_itemsForCategories["Interrupts"] = QStringList() << "interrupts()"
 						     << "noInterrupts()";
-  s_itemsForCategories["Logical Operators"] = QStringList() << "and (&&)"
-							    << "not (!)"
-							    << "or (||)";
   s_itemsForCategories["Mathematics"] = QStringList() << "abs()"
 						      << "constrain()"
 						      << "map()"
