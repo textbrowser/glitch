@@ -763,13 +763,10 @@ void glitch_view::beginMacro(const QString &text)
 
 void glitch_view::contextMenuEvent(QContextMenuEvent *event)
 {
-  if(event && m_view->items(event->pos()).isEmpty())
-    {
-      event->ignore();
-      emit customContextMenuRequested(event->pos());
-    }
+  if(event)
+    emit customContextMenuRequested(event->pos());
   else
-    QWidget::contextMenuEvent(event);
+    emit customContextMenuRequested(QCursor::pos());
 }
 
 void glitch_view::createParentFromValues
