@@ -600,12 +600,7 @@ void glitch_object_function_arduino::setName(const QString &name)
 	(m_properties.value(Properties::NAME).toString());
     }
 
-  QString string(m_properties.value(Properties::NAME).toString());
-
-  if(!m_isFunctionClone)
-    string.prepend("&amp;fnof; ");
-
-  m_ui.label->setText(string);
+  m_ui.label->setText(m_properties.value(Properties::NAME).toString());
 
   if(!m_isFunctionClone)
     emit changed();
