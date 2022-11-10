@@ -35,15 +35,16 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 }
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino
-(const QString &syntax,
- QWidget *parent):glitch_object_syntax_arduino(1, parent)
+(const QString &syntax, QWidget *parent):
+  glitch_object_syntax_arduino(1, parent)
 {
-  m_properties[Properties::SYNTAX] = syntax;
-
   if(syntax.endsWith("#define"))
     m_ui.text->setText("#define");
   else
     m_ui.text->setText("#include");
+
+  m_properties[Properties::SYNTAX] = m_ui.text->text();
+  setName(m_ui.text->text());
 }
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino
@@ -56,7 +57,7 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 	  this,
 	  &glitch_object_syntax_arduino::slotSyntaxChanged);
   prepareContextMenu();
-  setName(m_type);
+  setName("#define");
 }
 
 glitch_object_syntax_arduino::~glitch_object_syntax_arduino()
@@ -136,7 +137,7 @@ void glitch_object_syntax_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::SYNTAX] = "";
+  m_properties[Properties::SYNTAX] = "#define";
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -151,6 +152,8 @@ void glitch_object_syntax_arduino::setProperties
 	  m_ui.text->setText(string.trimmed());
 	}
     }
+
+  setName(m_ui.text->text());
 }
 
 void glitch_object_syntax_arduino::setProperty
@@ -163,6 +166,7 @@ void glitch_object_syntax_arduino::setProperty
     case Properties::SYNTAX:
       {
 	m_ui.text->setText(value.toString().trimmed());
+	setName(m_ui.text->text());
 	break;
       }
     default:
