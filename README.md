@@ -29,6 +29,7 @@
 <li>Minimum widget heights.</li>
 <li>Precise object names (context menus, find).</li>
 <li>Prevent pasting of object beyond scene boundary.</li>
+<li>Qt 5.15.7 for MacOS.</li>
 <li>Removed logical operator as it duplicates boolean operator.</li>
 </ul>
 <p>2022.11.05</p>
