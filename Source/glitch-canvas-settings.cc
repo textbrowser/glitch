@@ -362,7 +362,10 @@ void glitch_canvas_settings::accept(void)
 void glitch_canvas_settings::notify(void)
 {
   if(m_ui.output_file->text().trimmed().isEmpty())
-    m_ui.output_file_warning_label->setVisible(true);
+    {
+      m_ui.output_file_warning_label->setVisible(true);
+      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::GenerateSource));
+    }
   else
     m_ui.output_file_warning_label->setVisible(false);
 }

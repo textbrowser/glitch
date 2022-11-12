@@ -38,11 +38,6 @@ class glitch_canvas_settings: public QDialog
   Q_OBJECT
 
  public:
-  enum Limits
-  {
-    NAME_MAXIMUM_LENGTH = 100
-  };
-
   enum Settings
   {
     CANVAS_BACKGROUND_COLOR = 0,
@@ -91,6 +86,18 @@ class glitch_canvas_settings: public QDialog
   void setWireType(const QString &string);
 
  private:
+  enum class Limits
+  {
+    NAME_MAXIMUM_LENGTH = 100
+  };
+
+  enum class Pages
+  {
+    Canvas = 0,
+    GenerateSource = 1,
+    UndoStack
+  };
+
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QString m_fileName;
   QString m_outputFileExtension;
