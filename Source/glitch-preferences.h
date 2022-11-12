@@ -40,6 +40,13 @@ class glitch_preferences: public QDialog
 
  private:
   Ui_glitch_preferences m_ui;
+  void prepare(void);
+
+ private slots:
+  void slotApply(void);
+
+ signals:
+  void accept(void);
 };
 
 #endif

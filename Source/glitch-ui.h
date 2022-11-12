@@ -120,6 +120,7 @@ class glitch_ui: public QMainWindow
   void slotPageSelected(int index);
   void slotPaste(glitch_view *view);
   void slotPaste(void);
+  void slotPreferencesAccepted(void);
   void slotQuit(void);
   void slotRedo(void);
   void slotSaveCurrentDiagram(void);

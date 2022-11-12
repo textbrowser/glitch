@@ -27,6 +27,7 @@
 
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QSettings>
 #include <QShortcut>
 
 #include "glitch-misc.h"
@@ -86,6 +87,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  this,
 	  &glitch_separated_diagram_window::slotUndo);
   prepareIcons();
+  slotPreferencesAccepted();
   statusBar(); // Create a status bar.
 }
 
@@ -322,6 +324,14 @@ void glitch_separated_diagram_window::slotPaste(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   prepareRedoUndoActions();
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_separated_diagram_window::slotPreferencesAccepted(void)
+{
+  QSettings settings;
+
+  m_ui.menu_Edit->setTearOffEnabled
+    (settings.value("preferences/tear_off_menus", true).toBool());
 }
 
 void glitch_separated_diagram_window::slotRedo(void)

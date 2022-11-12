@@ -95,6 +95,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QTimer::timeout,
 	  this,
 	  &glitch_ui::slotStatusBarTimerTimeout);
+  connect(m_preferences,
+	  &glitch_preferences::accept,
+	  this,
+	  &glitch_ui::slotPreferencesAccepted);
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
@@ -231,6 +235,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareIcons();
   prepareRecentFiles();
   prepareToolBar();
+  slotPreferencesAccepted();
 }
 
 glitch_ui::~glitch_ui()
@@ -832,6 +837,8 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
   m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
   m_ui.action_Full_Screen->setIcon(QIcon::fromTheme("view-fullscreen"));
+  m_ui.action_Glitch_Preferences->setIcon
+    (QIcon::fromTheme("preferences-system"));
   m_ui.action_Open_Diagram->setIcon(QIcon::fromTheme("document-open"));
   m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
   m_ui.action_Quit->setIcon(QIcon::fromTheme("application-exit"));
@@ -1623,6 +1630,15 @@ void glitch_ui::slotPaste(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_ui::slotPreferencesAccepted(void)
+{
+  QSettings settings;
+  auto state = settings.value("preferences/tear_off_menus").toBool();
+
+  m_ui.menu_Edit->setTearOffEnabled(state);
+  m_ui.menu_Windows->setTearOffEnabled(state);
+}
+
 void glitch_ui::slotQuit(void)
 {
 #ifdef Q_OS_ANDROID
@@ -1759,6 +1775,10 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
   auto window = new glitch_separated_diagram_window(this);
 
+  connect(m_preferences,
+	  &glitch_preferences::accept,
+	  window,
+	  &glitch_separated_diagram_window::slotPreferencesAccepted);
   connect(window,
 	  SIGNAL(copy(glitch_view *)),
 	  this,

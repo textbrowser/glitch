@@ -25,14 +25,39 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QPushButton>
+#include <QSettings>
+
 #include "glitch-preferences.h"
 
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_preferences::slotApply);
+  prepare();
   setWindowModality(Qt::ApplicationModal);
 }
 
 glitch_preferences::~glitch_preferences()
 {
+}
+
+void glitch_preferences::prepare(void)
+{
+  QSettings settings;
+
+  m_ui.tear_off_menus->setChecked
+    (settings.value("preferences/tear_off_menus", true).toBool());
+}
+
+void glitch_preferences::slotApply(void)
+{
+  QSettings settings;
+
+  settings.setValue
+    ("preferences/tear_off_menus", m_ui.tear_off_menus->isChecked());
+  emit accept();
 }

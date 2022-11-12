@@ -45,6 +45,9 @@ class glitch_separated_diagram_window: public QMainWindow
   ~glitch_separated_diagram_window();
   void setCentralWidget(QWidget *widget);
 
+ public slots:
+  void slotPreferencesAccepted(void);
+
  private:
   QPointer<glitch_view> m_view;
   QTimer m_statusBarTimer;
