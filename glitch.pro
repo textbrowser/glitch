@@ -127,6 +127,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
                   UI/glitch-find-objects.ui \
                   UI/glitch-floating-context-menu.ui \
                   UI/glitch-mainwindow.ui \
+                  UI/glitch-preferences.ui \
 		  UI/glitch-separated-diagram-window.ui \
                   UI/glitch-structures.ui \
                   UI/glitch-style-sheet.ui \
