@@ -143,6 +143,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-view.h \
+                  Source/glitch-preferences.h \
                   Source/glitch-proxy-widget.h \
                   Source/glitch-recent-diagram.h \
                   Source/glitch-scene.h \
@@ -170,6 +171,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-object.cc \
                   Source/glitch-object-edit-window.cc \
                   Source/glitch-object-view.cc \
+                  Source/glitch-preferences.cc \
                   Source/glitch-proxy-widget.cc \
                   Source/glitch-scene.cc \
                   Source/glitch-separated-diagram-window.cc \

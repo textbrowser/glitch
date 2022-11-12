@@ -43,6 +43,7 @@
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
+#include "glitch-preferences.h"
 #include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -81,6 +82,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setWindowModality(Qt::NonModal);
   m_about.setWindowTitle(tr("Glitch: About"));
   m_arduino = nullptr;
+  m_preferences = new glitch_preferences(this);
   m_recentFilesFileName = glitch_misc::homePath() +
     QDir::separator() +
     "Glitch" +
@@ -137,6 +139,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotGenerateSource);
+  connect(m_ui.action_Glitch_Preferences,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowPreferences);
   connect(m_ui.action_New_Arduino,
 	  &QAction::triggered,
 	  this,
@@ -1845,6 +1851,11 @@ void glitch_ui::slotShowFullScreenMode(void)
       m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_ui::slotShowPreferences(void)
+{
+  m_preferences->show();
 }
 
 void glitch_ui::slotShowReleaseNotes(void)

@@ -40,6 +40,7 @@ class QShortcut;
 class QUndoStack;
 class glitch_documentation;
 class glitch_object;
+class glitch_preferences;
 class glitch_scene;
 class glitch_view;
 class glitch_view_arduino;
@@ -73,6 +74,7 @@ class glitch_ui: public QMainWindow
   Ui_glitch_mainwindow m_ui;
   glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
+  glitch_preferences *m_preferences;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
@@ -132,6 +134,7 @@ class glitch_ui: public QMainWindow
   void slotShowCanvasSettings(void);
   void slotShowDiagramContextMenu(void);
   void slotShowFullScreenMode(void);
+  void slotShowPreferences(void);
   void slotShowReleaseNotes(void);
   void slotShowStructures(void);
   void slotShowTools(void);

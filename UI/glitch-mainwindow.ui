@@ -98,7 +98,7 @@
     <addaction name="action_User_Functions"/>
     <addaction name="action_Tools"/>
     <addaction name="separator"/>
-    <addaction name="actionGlitch_Preferences"/>
+    <addaction name="action_Glitch_Preferences"/>
    </widget>
    <widget class="QMenu" name="menu_Tabs">
     <property name="title">
@@ -348,7 +348,7 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionGlitch_Preferences">
+  <action name="action_Glitch_Preferences">
    <property name="text">
     <string>Glitch Preferences...</string>
    </property>
