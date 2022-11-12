@@ -92,6 +92,9 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
     (QString("QPushButton {background-color: %1}").
      arg(QColor(255, 192, 203, 175).name()));
   m_ui.wire_color->setText(QColor(255, 192, 203, 175).name());
+  m_ui.wire_width->setToolTip(QString("[%1, %2]").
+			      arg(m_ui.wire_width->minimum()).
+			      arg(m_ui.wire_width->maximum()));
   m_settings = settings();
   new QShortcut(tr("Ctrl+W"),
 		this,
@@ -185,6 +188,7 @@ settings(void) const
 
   hash[Settings::WIRE_COLOR] = m_ui.wire_color->text().remove('&').trimmed();
   hash[Settings::WIRE_TYPE] = m_ui.wire_type->currentText();
+  hash[Settings::WIRE_WIDTH] = m_ui.wire_width->value();
   return hash;
 }
 
@@ -248,7 +252,8 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL, "
 	   "wire_color TEXT NOT NULL, "
-	   "wire_type TEXT NOT NULL"
+	   "wire_type TEXT NOT NULL, "
+	   "wire_width REAL"
 	   ")");
 
 	if(!(ok = query.exec("DELETE FROM canvas_settings")))
@@ -271,8 +276,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_order_indicators, "
 	   "update_mode, "
 	   "wire_color, "
-	   "wire_type) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "wire_type, "
+	   "wire_width) "
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -292,6 +298,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.update_mode->currentText());
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
 	query.addBindValue(m_ui.wire_type->currentText());
+	query.addBindValue(m_ui.wire_width->value());
 
 	if(!(ok = query.exec()))
 	  error = query.lastError().text();
@@ -322,6 +329,11 @@ bool glitch_canvas_settings::showCanvasGrids(void) const
 bool glitch_canvas_settings::showOrderIndicators(void) const
 {
   return m_settings.value(Settings::SHOW_ORDER_INDICATORS).toBool();
+}
+
+double glitch_canvas_settings::wireWidth(void) const
+{
+  return m_settings.value(Settings::WIRE_WIDTH).toDouble();
 }
 
 int glitch_canvas_settings::redoUndoStackSize(void) const
@@ -392,6 +404,7 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
 			   "SUBSTR(dots_grids_color, 1, 50), "
@@ -405,7 +418,8 @@ void glitch_canvas_settings::prepare(void)
 			   "show_order_indicators, "
 			   "SUBSTR(update_mode, 1, 100), "
 			   "SUBSTR(wire_color, 1, 50), "
-			   "SUBSTR(wire_type, 1, 50) "
+			   "SUBSTR(wire_type, 1, 50), "
+			   "wire_width "
 			   "FROM canvas_settings").
 		   arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
 	query.next();
@@ -457,6 +471,8 @@ void glitch_canvas_settings::prepare(void)
 		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("wire_type"))
 	      wireType = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("wire_width"))
+	      m_ui.wire_width->setValue(record.value(i).toDouble());
 	  }
 
 	if(!color.isValid())
@@ -592,6 +608,7 @@ void glitch_canvas_settings::setSettings
 						  VIEW_UPDATE_MODE).toInt()));
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(name()));
   setWireType(hash.value(Settings::WIRE_TYPE).toString());
+  setWireWidth(hash.value(Settings::WIRE_WIDTH).toDouble());
   notify();
   emit accepted(false);
 }
@@ -658,6 +675,11 @@ void glitch_canvas_settings::setWireType(const QString &string)
 
   if(m_ui.wire_type->currentIndex() < 0)
     m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(tr("Curve")));
+}
+
+void glitch_canvas_settings::setWireWidth(const double value)
+{
+  m_ui.wire_width->setValue(value);
 }
 
 void glitch_canvas_settings::slotSelectColor(void)

@@ -38,6 +38,7 @@ glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
   m_color = QColor(255, 192, 203, s_alpha);
   m_wireType = WireType::CURVE;
+  m_wireWidth = s_penWidth;
   setCacheMode(QGraphicsItem::NoCache);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
   setZValue(-1);
@@ -114,7 +115,7 @@ void glitch_wire::paint
 	  path.moveTo(QPointF(x1, y1));
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(s_penWidth);
+	  pen.setWidthF(m_wireWidth);
 
 	  if(painter->isActive())
 	    painter->setPen(pen);
@@ -138,7 +139,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(s_penWidth);
+	  pen.setWidthF(m_wireWidth);
 
 	  if(painter->isActive())
 	    painter->setPen(pen);
@@ -177,7 +178,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(s_penWidth);
+	  pen.setWidthF(m_wireWidth);
 
 	  if(painter->isActive())
 	    painter->setPen(pen);
@@ -215,7 +216,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(s_penWidth);
+	  pen.setWidthF(m_wireWidth);
 
 	  if(painter->isActive())
 	    painter->setPen(pen);
@@ -256,7 +257,7 @@ void glitch_wire::paint
 
 	  pen.setColor(m_color);
 	  pen.setJoinStyle(Qt::MiterJoin);
-	  pen.setWidthF(s_penWidth);
+	  pen.setWidthF(m_wireWidth);
 
 	  if(painter->isActive())
 	    painter->setPen(pen);
@@ -354,6 +355,11 @@ void glitch_wire::setWireType(const QString &wireType)
 void glitch_wire::setWireType(const WireType wireType)
 {
   m_wireType = wireType;
+}
+
+void glitch_wire::setWireWidth(const double value)
+{
+  m_wireWidth = qBound(2.5, value, 5.0);
 }
 
 void glitch_wire::slotUpdate(const QList<QRectF> &region)

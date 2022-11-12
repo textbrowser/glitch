@@ -539,6 +539,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		      wire->setRightProxy(object1->proxy());
 		      wire->setVisible(false);
 		      wire->setWireType(m_canvasSettings->wireType());
+		      wire->setWireWidth(m_canvasSettings->wireWidth());
 		    }
 		}
 	    else

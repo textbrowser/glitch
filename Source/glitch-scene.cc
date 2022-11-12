@@ -1366,6 +1366,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
 	{
 	  wire->setColor(m_canvasSettings->wireColor());
 	  wire->setWireType(m_canvasSettings->wireType());
+	  wire->setWireWidth(m_canvasSettings->wireWidth());
 	}
     }
 
@@ -1559,6 +1560,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	    {
 	      wire->setColor(m_canvasSettings->wireColor());
 	      wire->setWireType(m_canvasSettings->wireType());
+	      wire->setWireWidth(m_canvasSettings->wireWidth());
 	    }
 
 	  wire->setLeftProxy(m_objectsToWire.value("output"));

@@ -51,7 +51,8 @@ class glitch_canvas_settings: public QDialog
     SHOW_ORDER_INDICATORS,
     VIEW_UPDATE_MODE,
     WIRE_COLOR,
-    WIRE_TYPE
+    WIRE_TYPE,
+    WIRE_WIDTH
   };
 
   glitch_canvas_settings(QWidget *parent);
@@ -69,6 +70,7 @@ class glitch_canvas_settings: public QDialog
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
   bool showOrderIndicators(void) const;
+  double wireWidth(void) const;
   int redoUndoStackSize(void) const;
   void notify(void);
   void prepare(void);
@@ -84,6 +86,7 @@ class glitch_canvas_settings: public QDialog
   void setShowOrderIndicators(const bool state);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
   void setWireType(const QString &string);
+  void setWireWidth(const double value);
 
  private:
   enum class Limits
