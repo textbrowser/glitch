@@ -1153,10 +1153,18 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 
 void glitch_object::simulateDelete(void)
 {
+#ifdef Q_OS_ANDROID
+  m_contextMenu->hide();
+#else
   m_contextMenu->close();
+#endif
 
   if(m_editWindow)
+#ifdef Q_OS_ANDROID
+    m_editWindow->hide();
+#else
     m_editWindow->close();
+#endif
 
   emit simulateDeleteSignal();
 }

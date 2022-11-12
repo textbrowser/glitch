@@ -1619,7 +1619,11 @@ void glitch_ui::slotPaste(void)
 
 void glitch_ui::slotQuit(void)
 {
+#ifdef Q_OS_ANDROID
+  hide();
+#else
   close();
+#endif
 }
 
 void glitch_ui::slotRedo(void)
