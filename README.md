@@ -23,6 +23,13 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+<p>2022.11.15</p>
+<ul>
+<li>Glitch Preferences. Please see Windows -> Glitch Preferences.</li>
+<li>New Canvas Settings layout.</li>
+<li>Wire color alphas.</li>
+<li>Wire widths.</li>
+</ul>
 <p>2022.11.10</p>
 <ul>
 <li>Find objects.</li>
