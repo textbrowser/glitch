@@ -40,7 +40,8 @@ class glitch_preferences: public QDialog
 
  private:
   Ui_glitch_preferences m_ui;
-  void prepare(void);
+  void prepareLanguages(void);
+  void processSettings(void);
 
  private slots:
   void slotApply(void);

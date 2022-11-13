@@ -37,7 +37,8 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::slotApply);
-  prepare();
+  prepareLanguages();
+  processSettings();
   setWindowModality(Qt::ApplicationModal);
 }
 
@@ -45,11 +46,40 @@ glitch_preferences::~glitch_preferences()
 {
 }
 
-void glitch_preferences::prepare(void)
+void glitch_preferences::prepareLanguages(void)
+{
+  QMap<QString, QString> map;
+
+  map[tr("English")] = "English";
+
+  QMapIterator<QString, QString> it(map);
+
+  while(it.hasNext())
+    {
+      it.next();
+      m_ui.display_language->addItem(it.key(), it.value());
+    }
+}
+
+void glitch_preferences::processSettings(void)
 {
   QSettings settings;
+  auto language(settings.value("preferences/language").toString().trimmed());
 
-  m_ui.tear_off_menus->setChecked
+  for(int i = 0; i < m_ui.display_language->count(); i++)
+    if(QString::compare(language,
+			m_ui.display_language->itemData(i).toString(),
+			Qt::CaseInsensitive) == 0)
+      {
+	m_ui.display_language->setCurrentIndex(i);
+	break;
+      }
+
+  if(m_ui.display_language->currentIndex() < 0)
+    m_ui.display_language->setCurrentIndex
+      (m_ui.display_language->findText(tr("English")));
+
+  m_ui.display_tear_off_menus->setChecked
     (settings.value("preferences/tear_off_menus", true).toBool());
 }
 
@@ -58,6 +88,8 @@ void glitch_preferences::slotApply(void)
   QSettings settings;
 
   settings.setValue
-    ("preferences/tear_off_menus", m_ui.tear_off_menus->isChecked());
+    ("preferences/language", m_ui.display_language->currentData().toString());
+  settings.setValue
+    ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   emit accept();
 }
