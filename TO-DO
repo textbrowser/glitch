@@ -201,6 +201,7 @@ Completed Items
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
 - Wire options:
+  color alpha
   width
 - Wire redo / undo.
 - Wiring.
@@ -245,5 +246,3 @@ Remaining Items
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.
-- Wire options:
-  color alpha

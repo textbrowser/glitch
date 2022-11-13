@@ -90,8 +90,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
      Qt::ToolTipRole);
   m_ui.wire_color->setStyleSheet
     (QString("QPushButton {background-color: %1}").
-     arg(QColor(255, 192, 203, 175).name()));
-  m_ui.wire_color->setText(QColor(255, 192, 203, 175).name());
+     arg(QColor(255, 192, 203, 175).name(QColor::HexArgb)));
+  m_ui.wire_color->setText(QColor(255, 192, 203, 175).name(QColor::HexArgb));
   m_ui.wire_width->setToolTip(QString("[%1, %2]").
 			      arg(m_ui.wire_width->minimum()).
 			      arg(m_ui.wire_width->maximum()));
@@ -516,8 +516,9 @@ void glitch_canvas_settings::prepare(void)
 	    (m_ui.update_mode->findText(tr("Full")));
 
 	m_ui.wire_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").arg(wireColor.name()));
-	m_ui.wire_color->setText(wireColor.name());
+	  (QString("QPushButton {background-color: %1}").
+	   arg(wireColor.name(QColor::HexArgb)));
+	m_ui.wire_color->setText(wireColor.name(QColor::HexArgb));
 	m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(wireType));
 
 	if(m_ui.wire_type->currentIndex() < 0)
@@ -595,8 +596,9 @@ void glitch_canvas_settings::setSettings
   color = QColor
     (hash.value(Settings::WIRE_COLOR).toString().remove('&').trimmed());
   m_ui.wire_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").arg(color.name()));
-  m_ui.wire_color->setText(color.name());
+    (QString("QPushButton {background-color: %1}").
+     arg(color.name(QColor::HexArgb)));
+  m_ui.wire_color->setText(color.name(QColor::HexArgb));
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setResult(QDialog::Accepted);
@@ -696,7 +698,10 @@ void glitch_canvas_settings::slotSelectColor(void)
   else if(button == m_ui.dots_grids_color)
     dialog.setCurrentColor(QColor(m_ui.dots_grids_color->text().remove('&')));
   else
-    dialog.setCurrentColor(QColor(m_ui.wire_color->text().remove('&')));
+    {
+      dialog.setCurrentColor(QColor(m_ui.wire_color->text().remove('&')));
+      dialog.setOption(QColorDialog::ShowAlphaChannel, true);
+    }
 
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
@@ -704,10 +709,13 @@ void glitch_canvas_settings::slotSelectColor(void)
   if(dialog.exec() == QDialog::Accepted)
     {
       QColor color(dialog.selectedColor());
+      auto format = button == m_ui.wire_color ?
+	QColor::HexArgb : QColor::HexRgb;
 
       button->setStyleSheet
-	(QString("QPushButton {background-color: %1;}").arg(color.name()));
-      button->setText(color.name());
+	(QString("QPushButton {background-color: %1;}").
+	 arg(color.name(format)));
+      button->setText(color.name(format));
     }
 }
 

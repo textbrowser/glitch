@@ -304,8 +304,6 @@ void glitch_wire::setColor(const QColor &color)
 {
   if(color.isValid())
     m_color = color;
-
-  m_color.setAlpha(s_alpha);
 }
 
 void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
