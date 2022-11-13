@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QFontDialog>
 #include <QPushButton>
 #include <QSettings>
 
@@ -37,6 +38,12 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::slotApply);
+  connect(m_ui.display_application_font,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_preferences::slotSelectFont);
+  m_ui.display_application_font->setText
+    (QApplication::font().toString().trimmed());
   prepareLanguages();
   processSettings();
   setWindowModality(Qt::ApplicationModal);
@@ -64,6 +71,14 @@ void glitch_preferences::prepareLanguages(void)
 void glitch_preferences::processSettings(void)
 {
   QSettings settings;
+
+  m_ui.display_application_font->setText
+    (settings.value("preferences/application_font").toString().trimmed());
+
+  if(m_ui.display_application_font->text().isEmpty())
+    m_ui.display_application_font->setText
+      (QApplication::font().toString().trimmed());
+
   auto language(settings.value("preferences/language").toString().trimmed());
 
   for(int i = 0; i < m_ui.display_language->count(); i++)
@@ -88,8 +103,29 @@ void glitch_preferences::slotApply(void)
   QSettings settings;
 
   settings.setValue
+    ("preferences/application_font",
+     m_ui.display_application_font->text().remove('&'));
+  settings.setValue
     ("preferences/language", m_ui.display_language->currentData().toString());
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   emit accept();
+}
+
+void glitch_preferences::slotSelectFont(void)
+{
+  QFont font;
+  QFontDialog dialog(this);
+  auto string(m_ui.display_application_font->text());
+
+  if(!string.isEmpty() && font.fromString(string.remove('&')))
+    dialog.setCurrentFont(font);
+  else
+    dialog.setCurrentFont(QApplication::font());
+
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    m_ui.display_application_font->setText
+      (dialog.selectedFont().toString().trimmed());
 }

@@ -140,6 +140,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
     }
   while(true);
 
+  setFont(glitch_ui::s_defaultApplicationFont);
   setWindowOpacity(s_windowOpacity);
 }
 
@@ -333,6 +334,25 @@ QToolButton *glitch_object::contextMenuButton(void) const
 bool glitch_object::canResize(void) const
 {
   return false;
+}
+
+bool glitch_object::event(QEvent *event)
+{
+  if(event)
+    switch(event->type())
+      {
+      case QEvent::ApplicationFontChange:
+	{
+	  QTimer::singleShot(25, this, &glitch_object::slotSetFont);
+	  return true;
+	}
+      default:
+	{
+	  break;
+	}
+      }
+
+  return QWidget::event(event);
 }
 
 bool glitch_object::hasInput(void) const
@@ -1311,6 +1331,26 @@ void glitch_object::slotPropertyChanged
 	  m_undoStack->push(undoCommand);
 	}
     }
+}
+
+void glitch_object::slotSetFont(void)
+{
+  foreach(auto widget, findChildren<QWidget *> ())
+    if(widget)
+      {
+	auto font(glitch_ui::s_defaultApplicationFont);
+
+	font.setBold(widget->font().bold());
+	widget->setFont(font);
+	widget->updateGeometry();
+      }
+
+  QApplication::processEvents();
+
+  if(!isMandatory())
+    resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+
+  hideOrShowOccupied();
 }
 
 void glitch_object::slotSimulateDelete(void)

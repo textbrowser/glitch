@@ -118,6 +118,7 @@ Completed Items
 - Integrate isFullyWired().
 - Intelligent beginMacro() / endMacro().
 - Intelligent select mode: select or wire by proximity.
+- Languages option.
 - Limit SQL text retrieval via SUBSTR().
 - List of recent files.
 - Menu hovering and status bar text. QStatusTipEvent.
@@ -232,7 +233,6 @@ Remaining Items
 - Generate view.
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
-- Languages option.
 - Multiple inputs or single input?
 - Nested flow-control scenes.
 - Order: top-bottom followed by left-right.

@@ -59,6 +59,7 @@ class glitch_ui: public QMainWindow
 
   glitch_ui(void);
   ~glitch_ui();
+  static QFont s_defaultApplicationFont;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
   static QTranslator *s_translator1;
@@ -86,6 +87,7 @@ class glitch_ui: public QMainWindow
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
+  void prepareFonts(void);
   void prepareIcons(void);
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);

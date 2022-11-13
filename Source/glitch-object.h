@@ -210,12 +210,14 @@ class glitch_object: public QWidget
   QMenu m_menu;
   static qint64 s_id;
   static int minimumHeight(const int height);
+  bool event(QEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotActionTriggered(void);
   void slotAdjustSize(void);
   void slotCanvasSettingsChanged(const bool state);
+  void slotSetFont(void);
   void slotSimulateDelete(void);
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);

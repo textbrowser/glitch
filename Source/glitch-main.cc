@@ -104,6 +104,7 @@ int main(int argc, char *argv[])
   QSettings::setPath(QSettings::IniFormat,
 		     QSettings::UserScope,
                      glitch_misc::homePath());
+  glitch_ui::s_defaultApplicationFont = font;
 
   glitch_ui ui;
 

@@ -47,6 +47,40 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_21">
+             <item>
+              <widget class="QLabel" name="label_47">
+               <property name="text">
+                <string>&amp;Application Font</string>
+               </property>
+               <property name="buddy">
+                <cstring>display_application_font</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="display_application_font">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_22">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label">
@@ -82,7 +116,7 @@
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, some menus will reside in their own windows.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Tear-Off Menus</string>
+              <string>&amp;Tear-Off Menus</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -125,6 +159,7 @@
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>tab</tabstop>
+  <tabstop>display_application_font</tabstop>
   <tabstop>display_language</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
  </tabstops>

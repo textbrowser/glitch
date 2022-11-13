@@ -52,6 +52,7 @@
 #include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
+QFont glitch_ui::s_defaultApplicationFont;
 QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
 QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
@@ -826,6 +827,35 @@ void glitch_ui::prepareActionWidgets(void)
   prepareRedoUndoActions();
 }
 
+void glitch_ui::prepareFonts(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QFont font;
+  QSettings settings;
+  auto string
+    (settings.value("preferences/application_font").
+     toString().remove('&').trimmed());
+
+  if(!string.isEmpty() && !font.fromString(string))
+    font = QApplication::font();
+
+  font.setStyleStrategy
+    (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
+  QApplication::setFont(font);
+
+  foreach(auto widget, QApplication::allWidgets())
+    if(widget)
+      {
+	font.setBold(widget->font().bold());
+	widget->setFont(font);
+	widget->updateGeometry();
+	font.setBold(false);
+      }
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::prepareIcons(void)
 {
   m_ui.action_About->setIcon(QIcon::fromTheme("help-about"));
@@ -1064,6 +1094,7 @@ void glitch_ui::restoreSettings(void)
   m_ui.action_View_Tools->setChecked
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
+  prepareFonts();
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
@@ -1639,6 +1670,7 @@ void glitch_ui::slotPreferencesAccepted(void)
 
   m_ui.menu_Edit->setTearOffEnabled(state);
   m_ui.menu_Windows->setTearOffEnabled(state);
+  prepareFonts();
 }
 
 void glitch_ui::slotQuit(void)

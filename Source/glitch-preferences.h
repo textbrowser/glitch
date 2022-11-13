@@ -45,6 +45,7 @@ class glitch_preferences: public QDialog
 
  private slots:
   void slotApply(void);
+  void slotSelectFont(void);
 
  signals:
   void accept(void);
