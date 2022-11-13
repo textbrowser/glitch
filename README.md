@@ -25,7 +25,7 @@
 <h3><b>Release Notes</b></h3>
 <p>2022.11.15</p>
 <ul>
-<li>Application font.</li>
+<li>Application fonts.</li>
 <li>Glitch Preferences. Please see Windows -> Glitch Preferences.</li>
 <li>New Canvas Settings layout.</li>
 <li>Prepare for future translations.</li>
