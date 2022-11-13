@@ -53,6 +53,8 @@
 #include "ui_glitch-errors-dialog.h"
 
 QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
+QTranslator *glitch_ui::s_translator1 = nullptr;
+QTranslator *glitch_ui::s_translator2 = nullptr;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {

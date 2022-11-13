@@ -61,6 +61,8 @@ class glitch_ui: public QMainWindow
   ~glitch_ui();
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
+  static QTranslator *s_translator1;
+  static QTranslator *s_translator2;
   static void copy(QGraphicsView *view);
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
