@@ -58,6 +58,7 @@
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
+#include "glitch-font-filter.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
@@ -88,6 +89,7 @@ glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
 glitch_object::glitch_object(const qint64 id, QWidget *parent):
   QWidget(nullptr), m_id(id)
 {
+  installEventFilter(new glitch_font_filter(this));
   m_contextMenu = new glitch_floating_context_menu(parent);
   m_contextMenu->setObject(this);
   m_drawInputConnector = false;
@@ -1348,7 +1350,7 @@ void glitch_object::slotSetFont(void)
   QApplication::processEvents();
 
   if(!isMandatory())
-    resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+    resize(m_sizeBeforeFontChange);
 
   hideOrShowOccupied();
 }

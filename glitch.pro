@@ -139,6 +139,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-documentation.h \
                   Source/glitch-find-objects.h \
                   Source/glitch-floating-context-menu.h \
+                  Source/glitch-font-filter.h \
                   Source/glitch-graphicsview.h \
                   Source/glitch-object.h \
                   Source/glitch-object-edit-window.h \

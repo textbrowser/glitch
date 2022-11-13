@@ -47,6 +47,13 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Diagram objects retain their respective fonts.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_21">
              <item>
               <widget class="QLabel" name="label_47">

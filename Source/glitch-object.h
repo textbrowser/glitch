@@ -203,11 +203,18 @@ class glitch_object: public QWidget
   void setProperties(const QStringList &list);
   void setProperty(const char *name, const QVariant &value);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
+
+  void setSizeBeforeFontChange(const QSize &size)
+  {
+    m_sizeBeforeFontChange = size;
+  }
+
   void setUndoStack(QUndoStack *undoStack);
   void setWiredObject(glitch_object *object, glitch_wire *wire);
 
  private:
   QMenu m_menu;
+  QSize m_sizeBeforeFontChange;
   static qint64 s_id;
   static int minimumHeight(const int height);
   bool event(QEvent *event);
