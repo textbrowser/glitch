@@ -136,24 +136,26 @@ $(function() {
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> setRightProxy(<a class="code" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> *proxy);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> QString &amp;wireType);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> WireType wireType);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  QColor m_color;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  QPointer&lt;glitch_proxy_widget&gt; m_leftProxy;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  QPointer&lt;glitch_proxy_widget&gt; m_rightProxy;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  QRectF m_boundingRect;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  WireType m_wireType;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  QPainterPath shape(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  QRectF boundingRect(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">void</span> paint(QPainter *painter,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         <span class="keyword">const</span> QStyleOptionGraphicsItem *opt,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;         QWidget *widget);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; <span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> slotUpdate(<span class="keyword">const</span> QList&lt;QRectF&gt; &amp;region);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> setWireWidth(<span class="keyword">const</span> <span class="keywordtype">double</span> value);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  QColor m_color;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  QPointer&lt;glitch_proxy_widget&gt; m_leftProxy;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  QPointer&lt;glitch_proxy_widget&gt; m_rightProxy;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  QRectF m_boundingRect;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  WireType m_wireType;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">double</span> m_wireWidth;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  QPainterPath shape(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  QRectF boundingRect(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">void</span> paint(QPainter *painter,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;         <span class="keyword">const</span> QStyleOptionGraphicsItem *opt,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;         QWidget *widget);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> slotUpdate(<span class="keyword">const</span> QList&lt;QRectF&gt; &amp;region);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__proxy__widget_html"><div class="ttname"><a href="classglitch__proxy__widget.html">glitch_proxy_widget</a></div><div class="ttdef"><b>Definition:</b> glitch-proxy-widget.h:39</div></div>
 <div class="ttc" id="aclassglitch__wire_html"><div class="ttname"><a href="classglitch__wire.html">glitch_wire</a></div><div class="ttdef"><b>Definition:</b> glitch-wire.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->

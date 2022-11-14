@@ -109,77 +109,87 @@ $(function() {
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  Q_OBJECT</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">enum</span> Limits</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">enum</span> Settings</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    NAME_MAXIMUM_LENGTH = 100</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">enum</span> Settings</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    CANVAS_BACKGROUND_COLOR = 0,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    CANVAS_NAME,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    DOTS_GRIDS_COLOR,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    GENERATE_PERIODICALLY,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    OUTPUT_FILE,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    REDO_UNDO_STACK_SIZE,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SHOW_CANVAS_DOTS,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    SHOW_CANVAS_GRIDS,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    SHOW_ORDER_INDICATORS,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    VIEW_UPDATE_MODE,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    WIRE_COLOR,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    WIRE_TYPE</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  };</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  ~<a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  QColor dotsGridsColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  QColor wireColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  QString outputFile(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  QString wireType(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">bool</span> generatePeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">bool</span> showCanvasDots(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">bool</span> showCanvasGrids(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">bool</span> showOrderIndicators(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">int</span> redoUndoStackSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">void</span> notify(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">void</span> prepare(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> setOutputFile(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">void</span> setOutputFileExtension(<span class="keyword">const</span> QString &amp;extension);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> setRedoUndoStackSize(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordtype">void</span> setSettings</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    (<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; &amp;hash);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">void</span> setShowCanvasDots(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> setShowCanvasGrids(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> setShowOrderIndicators(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> QString &amp;<span class="keywordtype">string</span>);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; m_settings;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  QString m_fileName;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  QString m_outputFileExtension;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  QTimer m_timer;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  Ui_glitch_canvas_settings m_ui;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; <span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">void</span> slotSelectColor(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> slotSelectOutputFile(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordtype">void</span> slotTimerTimeout(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; signals:</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    CANVAS_BACKGROUND_COLOR = 0,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    CANVAS_NAME,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    DOTS_GRIDS_COLOR,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    GENERATE_PERIODICALLY,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    OUTPUT_FILE,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    REDO_UNDO_STACK_SIZE,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    SHOW_CANVAS_DOTS,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    SHOW_CANVAS_GRIDS,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    SHOW_ORDER_INDICATORS,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    VIEW_UPDATE_MODE,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    WIRE_COLOR,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    WIRE_TYPE,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    WIRE_WIDTH</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  };</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  ~<a class="code" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  QColor dotsGridsColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  QColor wireColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  QString outputFile(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  QString wireType(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">bool</span> generatePeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordtype">bool</span> showCanvasDots(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordtype">bool</span> showCanvasGrids(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">bool</span> showOrderIndicators(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">double</span> wireWidth(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">int</span> redoUndoStackSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> notify(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">void</span> prepare(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">void</span> setOutputFile(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordtype">void</span> setOutputFileExtension(<span class="keyword">const</span> QString &amp;extension);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordtype">void</span> setRedoUndoStackSize(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> setSettings</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    (<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; &amp;hash);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> setShowCanvasDots(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordtype">void</span> setShowCanvasGrids(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordtype">void</span> setShowOrderIndicators(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> QString &amp;<span class="keywordtype">string</span>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> setWireWidth(<span class="keyword">const</span> <span class="keywordtype">double</span> value);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keyword">enum class</span> Limits</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    NAME_MAXIMUM_LENGTH = 100</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  };</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">enum class</span> Pages</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    Canvas = 0,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    GenerateSource = 1,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    UndoStack</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  };</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; m_settings;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  QString m_fileName;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  QString m_outputFileExtension;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  QTimer m_timer;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  Ui_glitch_canvas_settings m_ui;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> slotSelectColor(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordtype">void</span> slotSelectOutputFile(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordtype">void</span> slotTimerTimeout(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; signals:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;};</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__canvas__settings_html"><div class="ttname"><a href="classglitch__canvas__settings.html">glitch_canvas_settings</a></div><div class="ttdef"><b>Definition:</b> glitch-canvas-settings.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

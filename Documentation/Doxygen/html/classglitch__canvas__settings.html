@@ -91,9 +91,6 @@ Collaboration diagram for glitch_canvas_settings:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6b8b420e9f12f75cc24aa7a21fe68f33"><td class="memItemLeft" align="right" valign="top"><a id="a6b8b420e9f12f75cc24aa7a21fe68f33"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Limits</b> { <b>NAME_MAXIMUM_LENGTH</b> = 100
- }</td></tr>
-<tr class="separator:a6b8b420e9f12f75cc24aa7a21fe68f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade6f20b95f3f789805459436838ed929"><td class="memItemLeft" align="right" valign="top"><a id="ade6f20b95f3f789805459436838ed929"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Settings</b> { <br />
 &#160;&#160;<b>CANVAS_BACKGROUND_COLOR</b> = 0
 , <b>CANVAS_NAME</b>
@@ -109,6 +106,8 @@ Public Types</h2></td></tr>
 , <b>VIEW_UPDATE_MODE</b>
 , <b>WIRE_COLOR</b>
 , <b>WIRE_TYPE</b>
+, <br />
+&#160;&#160;<b>WIRE_WIDTH</b>
 <br />
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +162,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>showCanvasGrids</b> (
 <tr class="memitem:a0f3613b41c99954bafeaf5311c177bec"><td class="memItemLeft" align="right" valign="top"><a id="a0f3613b41c99954bafeaf5311c177bec"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>showOrderIndicators</b> (void) const</td></tr>
 <tr class="separator:a0f3613b41c99954bafeaf5311c177bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973fbeae4c7363e03558ee75dff56781"><td class="memItemLeft" align="right" valign="top"><a id="a973fbeae4c7363e03558ee75dff56781"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>wireWidth</b> (void) const</td></tr>
+<tr class="separator:a973fbeae4c7363e03558ee75dff56781"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a869e9211aefa0721a77a761a126c35cb"><td class="memItemLeft" align="right" valign="top"><a id="a869e9211aefa0721a77a761a126c35cb"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>redoUndoStackSize</b> (void) const</td></tr>
 <tr class="separator:a869e9211aefa0721a77a761a126c35cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +207,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setViewportUpdateMode
 <tr class="memitem:a6e73b13be3e31a407fe67890ec255092"><td class="memItemLeft" align="right" valign="top"><a id="a6e73b13be3e31a407fe67890ec255092"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWireType</b> (const QString &amp;string)</td></tr>
 <tr class="separator:a6e73b13be3e31a407fe67890ec255092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75f820e720e41d39acb9e9175f7f919"><td class="memItemLeft" align="right" valign="top"><a id="ae75f820e720e41d39acb9e9175f7f919"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setWireWidth</b> (const double value)</td></tr>
+<tr class="separator:ae75f820e720e41d39acb9e9175f7f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="glitch-canvas-settings_8h_source.html">glitch-canvas-settings.h</a></li>
