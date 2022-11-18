@@ -188,7 +188,9 @@ glitch_object_compound_operator_arduino::clone(QWidget *parent) const
 {
   auto clone = new glitch_object_compound_operator_arduino(parent);
 
+  clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.pre->blockSignals(true);
   clone->m_ui.pre->setChecked(m_ui.pre->isChecked());

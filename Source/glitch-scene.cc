@@ -426,6 +426,12 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   if(wire)
     m_wires << wire;
+
+  /*
+  ** Connect pasted objects.
+  */
+
+  QTimer::singleShot(100, this, SIGNAL(wireObjects(void)));
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
@@ -445,6 +451,11 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
     object->deleteLater();
 
   blocker.unblock();
+  connect(this,
+	  SIGNAL(wireObjects(void)),
+	  object,
+	  SLOT(slotWireObjects(void)),
+	  Qt::UniqueConnection);
 }
 
 void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
@@ -1535,7 +1546,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 
       if(!areObjectsWired(object1, object2) && object1 && object2)
 	{
-	  auto wire(new glitch_wire(nullptr));
+	  auto wire = new glitch_wire(nullptr);
 
 	  connect(this,
 		  SIGNAL(changed(const QList<QRectF> &)),

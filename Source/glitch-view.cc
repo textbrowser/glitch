@@ -524,7 +524,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		     object2 &&
 		     object2->proxy())
 		    {
-		      auto wire(new glitch_wire(nullptr));
+		      auto wire = new glitch_wire(nullptr);
 
 		      connect(object1->scene(),
 			      SIGNAL(changed(const QList<QRectF> &)),

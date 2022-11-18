@@ -257,8 +257,8 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_flow_control_arduino(parent);
 
-  clone->cloneWires(m_wires);
   clone->m_flowControlType = m_flowControlType;
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
   clone->resize(size());
@@ -306,6 +306,8 @@ clone(QWidget *parent) const
 	    }
 	}
 
+      clone->cloneWires(m_copiedConnectionsPositions);
+      clone->cloneWires(m_wires);
       clone->hideOrShowOccupied();
     }
 

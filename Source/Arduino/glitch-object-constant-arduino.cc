@@ -102,8 +102,10 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_constant_arduino(parent);
 
+  clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
   clone->m_constantType = m_constantType;
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
   clone->m_ui.other->setText(m_ui.other->text().trimmed());

@@ -248,7 +248,9 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_variable_arduino(parent);
 
+  clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.array->setChecked(m_ui.array->isChecked());
   clone->m_ui.name->setText(m_ui.name->text().trimmed());

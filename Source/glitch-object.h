@@ -230,6 +230,7 @@ class glitch_object: public QWidget
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
   void slotWireDestroyed(void);
+  void slotWireObjects(void);
 
  protected:
   QHash<Properties, QVariant> m_properties;
@@ -237,8 +238,10 @@ class glitch_object: public QWidget
 						 ** Must be cloned, if
 						 ** required!
 						 */
+  QList<QPair<QPointF, QPointF> > m_copiedConnectionsPositions;
   QList<QPointer<glitch_object> > m_copiedChildren;
   QMap<DefaultMenuActions, QAction *> m_actions;
+  QPointF m_originalPosition;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
   QPointer<glitch_canvas_settings> m_canvasSettings;
@@ -259,6 +262,7 @@ class glitch_object: public QWidget
   virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
+  void cloneWires(const QList<QPair<QPointF, QPointF> > &list);
   void prepareContextMenu(void);
   void prepareEditSignals(const glitch_view *parentView);
   void saveProperties(const QMap<QString, QVariant> &p,

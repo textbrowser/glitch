@@ -233,7 +233,8 @@ QStringList glitch_object::inputs(void) const
 	    (wire->leftProxy()->widget());
 
 	  if(object && object->scene())
-	    objects << object;
+	    if(!objects.contains(object))
+	      objects << object;
 	}
     }
 
@@ -292,7 +293,8 @@ QStringList glitch_object::outputs(void) const
 	    (wire->rightProxy()->widget());
 
 	  if(object && object->scene())
-	    objects << object;
+	    if(!objects.contains(object))
+	      objects << object;
 	}
     }
 
@@ -592,7 +594,28 @@ void glitch_object::afterPaste(void)
 void glitch_object::cloneWires
 (const QHash<qint64, QPointer<glitch_wire> > &wires)
 {
-  Q_UNUSED(wires);
+  QHashIterator<qint64, QPointer<glitch_wire> > it(wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(!it.value() || !it.value()->leftProxy() || !it.value()->rightProxy())
+	continue;
+
+      QPair<QPointF, QPointF> pair;
+
+      pair.first = it.value()->leftProxy()->pos();
+      pair.second = it.value()->rightProxy()->pos();
+
+      if(!m_copiedConnectionsPositions.contains(pair))
+	m_copiedConnectionsPositions << pair;
+    }
+}
+
+void glitch_object::cloneWires(const QList<QPair<QPointF, QPointF> > &list)
+{
+  m_copiedConnectionsPositions = list;
 }
 
 void glitch_object::compressWidget(const bool state)
@@ -1419,4 +1442,71 @@ void glitch_object::slotWireDestroyed(void)
     }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_object::slotWireObjects(void)
+{
+  auto scene = this->scene();
+
+  if(!scene)
+    {
+      m_copiedConnectionsPositions.clear();
+      m_originalPosition = QPointF();
+      return;
+    }
+
+  disconnect(scene,
+	     SIGNAL(wireObjects(void)),
+	     this,
+	     SLOT(slotWireObjects(void)));
+
+  foreach(auto pair, m_copiedConnectionsPositions)
+    {
+      glitch_object *object1 = nullptr;
+      glitch_object *object2 = nullptr;
+
+      foreach(auto object, scene->objects())
+	if(object)
+	  {
+	    if(object->m_originalPosition == pair.first)
+	      {
+		if(!object1)
+		  object1 = object;
+	      }
+	    else if(object->m_originalPosition == pair.second)
+	      {
+		if(!object2)
+		  object2 = object;
+	      }
+
+	    if(object1 && object2)
+	      break;
+	  }
+
+      if(scene->areObjectsWired(object1, object2))
+	return;
+
+      if(object1 && object2)
+	{
+	  auto wire = new glitch_wire(nullptr);
+
+	  connect(scene,
+		  SIGNAL(changed(const QList<QRectF> &)),
+		  wire,
+		  SLOT(slotUpdate(const QList<QRectF> &)));
+	  object1->setWiredObject(object2, wire);
+	  scene->addItem(wire);
+	  wire->setBoundingRect(scene->sceneRect());
+
+	  if(m_canvasSettings)
+	    {
+	      wire->setColor(m_canvasSettings->wireColor());
+	      wire->setWireType(m_canvasSettings->wireType());
+	      wire->setWireWidth(m_canvasSettings->wireWidth());
+	    }
+
+	  wire->setLeftProxy(object1->proxy());
+	  wire->setRightProxy(object2->proxy());
+	}
+    }
 }

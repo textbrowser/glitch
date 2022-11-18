@@ -703,6 +703,12 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 
       if(!(object = object->clone(view)))
 	continue;
+      else
+	connect(scene,
+		SIGNAL(wireObjects(void)),
+		object,
+		SLOT(slotWireObjects(void)),
+		Qt::UniqueConnection);
 
       auto x = it.key().first;
       auto y = it.key().second;

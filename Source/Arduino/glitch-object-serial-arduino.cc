@@ -338,7 +338,9 @@ clone(QWidget *parent) const
   auto clone = new glitch_object_serial_arduino
     (serialTypeToString(m_serialType), parent);
 
+  clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_serialType = m_serialType;
   clone->m_ui.function->blockSignals(true);
