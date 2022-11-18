@@ -224,6 +224,7 @@ class glitch_object: public QWidget
   void slotActionTriggered(void);
   void slotAdjustSize(void);
   void slotCanvasSettingsChanged(const bool state);
+  void slotClearTemporaryContainers(void);
   void slotSetFont(void);
   void slotSimulateDelete(void);
   void slotLockPosition(void);

@@ -1302,6 +1302,12 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
 }
 
+void glitch_object::slotClearTemporaryContainers(void)
+{
+  m_copiedConnectionsPositions.clear();
+  m_originalPosition = QPointF();
+}
+
 void glitch_object::slotHideOrShowOccupied(void)
 {
 }
@@ -1449,12 +1455,9 @@ void glitch_object::slotWireObjects(void)
   auto scene = this->scene();
 
   if(!scene)
-    {
-      m_copiedConnectionsPositions.clear();
-      m_originalPosition = QPointF();
-      return;
-    }
+    return;
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   disconnect(scene,
 	     SIGNAL(wireObjects(void)),
 	     this,
@@ -1484,7 +1487,7 @@ void glitch_object::slotWireObjects(void)
 	  }
 
       if(scene->areObjectsWired(object1, object2))
-	return;
+	continue;
 
       if(object1 && object2)
 	{
@@ -1509,4 +1512,7 @@ void glitch_object::slotWireObjects(void)
 	  wire->setRightProxy(object2->proxy());
 	}
     }
+
+  QApplication::restoreOverrideCursor();
+  QTimer::singleShot(250, this, &glitch_object::slotClearTemporaryContainers);
 }

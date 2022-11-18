@@ -431,7 +431,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
   ** Connect pasted objects.
   */
 
-  QTimer::singleShot(100, this, SIGNAL(wireObjects(void)));
+  QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
