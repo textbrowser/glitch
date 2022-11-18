@@ -80,7 +80,7 @@ Inheritance diagram for glitch_object:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglitch__object__inherit__graph.png" border="0" usemap="#aglitch__object_inherit__map" alt="Inheritance graph"/></div>
 <map name="aglitch__object_inherit__map" id="aglitch__object_inherit__map">
-<area shape="rect" title=" " alt="" coords="132,862,237,889"/>
+<area shape="rect" title=" " alt="" coords="132,830,237,857"/>
 <area shape="rect" href="classglitch__object__advanced__io__arduino.html" title=" " alt="" coords="297,5,472,47"/>
 <area shape="rect" href="classglitch__object__analog__io__arduino.html" title=" " alt="" coords="307,71,463,112"/>
 <area shape="rect" href="classglitch__object__arithmetic__operator__arduino.html" title=" " alt="" coords="295,136,474,177"/>
@@ -96,19 +96,18 @@ Inheritance diagram for glitch_object:</div>
 <area shape="rect" href="classglitch__object__flow__control__arduino.html" title=" " alt="" coords="315,789,454,831"/>
 <area shape="rect" href="classglitch__object__function__arduino.html" title=" " alt="" coords="302,855,467,896"/>
 <area shape="rect" href="classglitch__object__interrupts__arduino.html" title=" " alt="" coords="297,920,472,961"/>
-<area shape="rect" href="classglitch__object__logical__operator__arduino.html" title=" " alt="" coords="307,985,462,1027"/>
-<area shape="rect" href="classglitch__object__loop__arduino.html" title=" " alt="" coords="315,1051,455,1092"/>
-<area shape="rect" href="classglitch__object__mathematics__arduino.html" title=" " alt="" coords="285,1116,484,1157"/>
-<area shape="rect" href="classglitch__object__random__arduino.html" title=" " alt="" coords="303,1181,466,1223"/>
-<area shape="rect" href="classglitch__object__serial__arduino.html" title=" " alt="" coords="311,1247,459,1288"/>
-<area shape="rect" href="classglitch__object__setup__arduino.html" title=" " alt="" coords="311,1312,459,1353"/>
-<area shape="rect" href="classglitch__object__stream__arduino.html" title=" " alt="" coords="305,1377,464,1419"/>
-<area shape="rect" href="classglitch__object__syntax__arduino.html" title=" " alt="" coords="307,1443,463,1484"/>
-<area shape="rect" href="classglitch__object__time__arduino.html" title=" " alt="" coords="313,1508,456,1549"/>
-<area shape="rect" href="classglitch__object__trigonometry__arduino.html" title=" " alt="" coords="286,1573,483,1615"/>
-<area shape="rect" href="classglitch__object__utilities__arduino.html" title=" " alt="" coords="304,1639,465,1680"/>
-<area shape="rect" href="classglitch__object__variable__arduino.html" title=" " alt="" coords="302,1704,467,1745"/>
-<area shape="rect" title=" " alt="" coords="5,862,84,889"/>
+<area shape="rect" href="classglitch__object__loop__arduino.html" title=" " alt="" coords="315,985,455,1027"/>
+<area shape="rect" href="classglitch__object__mathematics__arduino.html" title=" " alt="" coords="285,1051,484,1092"/>
+<area shape="rect" href="classglitch__object__random__arduino.html" title=" " alt="" coords="303,1116,466,1157"/>
+<area shape="rect" href="classglitch__object__serial__arduino.html" title=" " alt="" coords="311,1181,459,1223"/>
+<area shape="rect" href="classglitch__object__setup__arduino.html" title=" " alt="" coords="311,1247,459,1288"/>
+<area shape="rect" href="classglitch__object__stream__arduino.html" title=" " alt="" coords="305,1312,464,1353"/>
+<area shape="rect" href="classglitch__object__syntax__arduino.html" title=" " alt="" coords="307,1377,463,1419"/>
+<area shape="rect" href="classglitch__object__time__arduino.html" title=" " alt="" coords="313,1443,456,1484"/>
+<area shape="rect" href="classglitch__object__trigonometry__arduino.html" title=" " alt="" coords="286,1508,483,1549"/>
+<area shape="rect" href="classglitch__object__utilities__arduino.html" title=" " alt="" coords="304,1573,465,1615"/>
+<area shape="rect" href="classglitch__object__variable__arduino.html" title=" " alt="" coords="302,1639,467,1680"/>
+<area shape="rect" title=" " alt="" coords="5,830,84,857"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -401,6 +400,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addDefaultActions</b>
 <tr class="memitem:a2e9a50c29e0fae5f2daf814f5e05d1f1"><td class="memItemLeft" align="right" valign="top"><a id="a2e9a50c29e0fae5f2daf814f5e05d1f1"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>cloneWires</b> (const QHash&lt; qint64, QPointer&lt; <a class="el" href="classglitch__wire.html">glitch_wire</a> &gt; &gt; &amp;wires)</td></tr>
 <tr class="separator:a2e9a50c29e0fae5f2daf814f5e05d1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f2564512d564f5d0a9610235d8908c"><td class="memItemLeft" align="right" valign="top"><a id="a67f2564512d564f5d0a9610235d8908c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cloneWires</b> (const QList&lt; QPair&lt; QPointF, QPointF &gt; &gt; &amp;list)</td></tr>
+<tr class="separator:a67f2564512d564f5d0a9610235d8908c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a001d7c7f610f19d51602bef097d76857"><td class="memItemLeft" align="right" valign="top"><a id="a001d7c7f610f19d51602bef097d76857"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>prepareContextMenu</b> (void)</td></tr>
 <tr class="separator:a001d7c7f610f19d51602bef097d76857"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -422,12 +424,18 @@ QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="b
 <tr class="memitem:acb0a82b962508c1178ba7ea262207a3a"><td class="memItemLeft" align="right" valign="top"><a id="acb0a82b962508c1178ba7ea262207a3a"></a>
 QHash&lt; qint64, QPointer&lt; <a class="el" href="classglitch__wire.html">glitch_wire</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_wires</b></td></tr>
 <tr class="separator:acb0a82b962508c1178ba7ea262207a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8caf2a0377b69c946a75c0b192d49fdf"><td class="memItemLeft" align="right" valign="top"><a id="a8caf2a0377b69c946a75c0b192d49fdf"></a>
+QList&lt; QPair&lt; QPointF, QPointF &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_copiedConnectionsPositions</b></td></tr>
+<tr class="separator:a8caf2a0377b69c946a75c0b192d49fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebaf29134d453cb5fee8056a6c81870b"><td class="memItemLeft" align="right" valign="top"><a id="aebaf29134d453cb5fee8056a6c81870b"></a>
 QList&lt; QPointer&lt; <a class="el" href="classglitch__object.html">glitch_object</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_copiedChildren</b></td></tr>
 <tr class="separator:aebaf29134d453cb5fee8056a6c81870b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac326e97011255129b30c557f52c1708b"><td class="memItemLeft" align="right" valign="top"><a id="ac326e97011255129b30c557f52c1708b"></a>
 QMap&lt; DefaultMenuActions, QAction * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_actions</b></td></tr>
 <tr class="separator:ac326e97011255129b30c557f52c1708b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c33735069ab4888d1398d288122334b"><td class="memItemLeft" align="right" valign="top"><a id="a8c33735069ab4888d1398d288122334b"></a>
+QPointF&#160;</td><td class="memItemRight" valign="bottom"><b>m_originalPosition</b></td></tr>
+<tr class="separator:a8c33735069ab4888d1398d288122334b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"><td class="memItemLeft" align="right" valign="top"><a id="aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"></a>
 QPointer&lt; QUndoStack &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_undoStack</b></td></tr>
 <tr class="separator:aef5b5fff8a6a2c4ecfec9dc53a7dcaf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
