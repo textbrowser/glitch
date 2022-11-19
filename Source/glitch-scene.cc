@@ -124,9 +124,8 @@ QList<glitch_object *> glitch_scene::orderedObjects(void) const
 					   ** example, loop() and setup()
 					   ** have 0 orders.
 					   */
-  auto list(items());
 
-  foreach(auto i, list)
+  foreach(auto i, items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -143,9 +142,8 @@ QList<glitch_object *> glitch_scene::orderedObjects(void) const
 QList<glitch_object *> glitch_scene::selectedObjects(void) const
 {
   QList<glitch_object *> widgets;
-  auto list(items());
 
-  foreach(auto i, list)
+  foreach(auto i, items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -466,24 +464,18 @@ void glitch_scene::bringToFront(glitch_proxy_widget *proxy)
   if(proxy)
     proxy->setZValue(1);
   else
-    {
-      auto list(items());
+    foreach(auto i, items())
+      {
+	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      foreach(auto i, list)
-	{
-	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
-
-	  if(proxy)
-	    proxy->setZValue(0);
-	}
-    }
+	if(proxy)
+	  proxy->setZValue(0);
+      }
 }
 
 void glitch_scene::deleteFunctionClones(const QString &name)
 {
-  auto list(items());
-
-  foreach(auto i, list)
+  foreach(auto i, items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -824,7 +816,6 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
       {
 	QPoint point;
 	auto began = false;
-	auto list(selectedItems());
 	auto moved = false;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = views().value(0);
@@ -836,7 +827,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 	  }
 
-	foreach(auto i, list)
+	foreach(auto i, selectedItems())
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -960,10 +951,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
-      auto list(selectedItems());
       auto moved = false;
 
-      foreach(auto i, list)
+      foreach(auto i, selectedItems())
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1140,20 +1130,16 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  if(!m_lastScenePos.isNull())
-	    {
-	      auto list(selectedItems());
+	    foreach(auto i, selectedItems())
+	      {
+		auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-	      foreach(auto i, list)
-		{
-		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
-
-		  if(!proxy || !proxy->isMovable())
-		    continue;
-		  else
-		    m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
-		      (proxy->scenePos(), proxy);
-		}
-	    }
+		if(!proxy || !proxy->isMovable())
+		  continue;
+		else
+		  m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
+		    (proxy->scenePos(), proxy);
+	      }
 	}
       else if(m_toolsOperation == glitch_tools::Operations::SELECT)
 	clearSelection();

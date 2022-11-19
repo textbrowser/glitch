@@ -23,6 +23,12 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+<p>2022.11.20</p>
+<ul>
+<li>Connect (wire) copied items if necessary.</li>
+<li>Copy correct locations of function clones.</li>
+<li>Prevent artificial redo / undo stack entries caused by copying and pasting of objects.</li>
+</ul>
 <p>2022.11.15</p>
 <ul>
 <li>Application fonts.</li>
