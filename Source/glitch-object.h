@@ -133,9 +133,6 @@ class glitch_object: public QWidget
     return QObject::property(property);
   }
 
-  bool mouseOverScrollBar(const QPointF &point) const;
-  bool positionLocked(void) const;
-
   bool isInputWired(void) const
   {
     return !inputs().isEmpty();
@@ -155,6 +152,9 @@ class glitch_object: public QWidget
   {
     return isInputWired() || isOutputWired();
   }
+
+  bool mouseOverScrollBar(const QPointF &point) const;
+  bool positionLocked(void) const;
 
   bool showOrderIndicator(void) const
   {
