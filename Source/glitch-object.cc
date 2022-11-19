@@ -1486,10 +1486,7 @@ void glitch_object::slotWireObjects(void)
 	      break;
 	  }
 
-      if(scene->areObjectsWired(object1, object2))
-	continue;
-
-      if(object1 && object2)
+      if(!scene->areObjectsWired(object1, object2) && object1 && object2)
 	{
 	  auto wire = new glitch_wire(nullptr);
 
@@ -1500,16 +1497,14 @@ void glitch_object::slotWireObjects(void)
 	  object1->setWiredObject(object2, wire);
 	  scene->addItem(wire);
 	  wire->setBoundingRect(scene->sceneRect());
-
-	  if(m_canvasSettings)
-	    {
-	      wire->setColor(m_canvasSettings->wireColor());
-	      wire->setWireType(m_canvasSettings->wireType());
-	      wire->setWireWidth(m_canvasSettings->wireWidth());
-	    }
-
+	  wire->setColor
+	    (m_canvasSettings ? m_canvasSettings->wireColor() : QColor());
 	  wire->setLeftProxy(object1->proxy());
 	  wire->setRightProxy(object2->proxy());
+	  wire->setWireType
+	    (m_canvasSettings ? m_canvasSettings->wireType() : tr("Curve"));
+	  wire->setWireWidth
+	    (m_canvasSettings ? m_canvasSettings->wireWidth(): 2.5);
 	}
     }
 

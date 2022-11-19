@@ -102,9 +102,8 @@ glitch_scene::~glitch_scene()
 QList<glitch_object *> glitch_scene::objects(void) const
 {
   QList<glitch_object *> widgets;
-  auto list(items());
 
-  foreach(auto i, list)
+  foreach(auto i, items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
