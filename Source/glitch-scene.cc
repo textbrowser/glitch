@@ -1544,7 +1544,10 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
       auto object2 = qobject_cast<glitch_object *>
 	(m_objectsToWire.value("output")->widget());
 
-      if(!areObjectsWired(object1, object2) && object1 && object2)
+      if(!areObjectsWired(object1, object2) &&
+	 object1 != object2 &&
+	 object1 &&
+	 object2)
 	{
 	  auto wire = new glitch_wire(nullptr);
 

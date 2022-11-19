@@ -250,6 +250,7 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
+  clone->connectSignals(false);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.array->setChecked(m_ui.array->isChecked());

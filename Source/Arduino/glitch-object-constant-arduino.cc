@@ -107,7 +107,9 @@ clone(QWidget *parent) const
   clone->m_constantType = m_constantType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_ui.constant->blockSignals(true);
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
+  clone->m_ui.constant->blockSignals(false);
   clone->m_ui.other->setText(m_ui.other->text().trimmed());
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);

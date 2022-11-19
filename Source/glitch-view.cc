@@ -518,7 +518,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  auto object1 = objects.value(query.value(0).toLongLong());
 		  auto object2 = objects.value(query.value(1).toLongLong());
 
-		  if(object1 &&
+		  if(object1 != object2 &&
+		     object1 &&
 		     object1->proxy() &&
 		     object1->scene() &&
 		     object2 &&
