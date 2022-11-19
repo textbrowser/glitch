@@ -1416,7 +1416,7 @@ void glitch_object::slotSetStyleSheet(void)
     }
   else
     /*
-    ** Reset as there could have been a preview!
+    ** Reset. Perhaps a preview?
     */
 
     setStyleSheet(string);
