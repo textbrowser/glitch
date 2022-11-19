@@ -1463,7 +1463,7 @@ void glitch_object::slotWireObjects(void)
 	     this,
 	     SLOT(slotWireObjects(void)));
 
-  foreach(auto pair, m_copiedConnectionsPositions)
+  foreach(const auto &pair, m_copiedConnectionsPositions)
     {
       glitch_object *object1 = nullptr;
       glitch_object *object2 = nullptr;

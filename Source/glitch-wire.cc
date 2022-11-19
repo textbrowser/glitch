@@ -362,7 +362,7 @@ void glitch_wire::setWireWidth(const double value)
 
 void glitch_wire::slotUpdate(const QList<QRectF> &region)
 {
-  foreach(auto rectangle, region)
+  foreach(const auto &rectangle, region)
     if(m_boundingRect.intersects(rectangle))
       {
 	QPainter painter;

@@ -239,10 +239,10 @@ class glitch_object: public QWidget
 						 ** Must be cloned, if
 						 ** required!
 						 */
-  QList<QPair<QPointF, QPointF> > m_copiedConnectionsPositions;
-  QList<QPointer<glitch_object> > m_copiedChildren;
+  QList<QPair<QPointF, QPointF> > m_copiedConnectionsPositions; // Cloning.
+  QList<QPointer<glitch_object> > m_copiedChildren; // Cloning.
   QMap<DefaultMenuActions, QAction *> m_actions;
-  QPointF m_originalPosition;
+  QPointF m_originalPosition; // Wiring pasted objects.
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
   QPointer<glitch_canvas_settings> m_canvasSettings;
