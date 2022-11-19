@@ -54,6 +54,7 @@
 
 QFont glitch_ui::s_defaultApplicationFont;
 QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
+QSet<glitch_object *> glitch_ui::s_copiedObjectsSet;
 QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
 
@@ -523,6 +524,8 @@ void glitch_ui::copy(QGraphicsView *view)
       it.remove();
     }
 
+  s_copiedObjectsSet.clear();
+
   auto list(view->scene()->selectedItems());
 
   foreach(auto i, list)
@@ -700,11 +703,14 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
       if(!(object = object->clone(view)))
 	continue;
       else
-	connect(scene,
-		SIGNAL(wireObjects(void)),
-		object,
-		SLOT(slotWireObjects(void)),
-		Qt::UniqueConnection);
+	{
+	  connect(scene,
+		  SIGNAL(wireObjects(void)),
+		  object,
+		  SLOT(slotWireObjects(void)),
+		  Qt::UniqueConnection);
+	  s_copiedObjectsSet << object;
+	}
 
       auto x = it.key().first;
       auto y = it.key().second;
@@ -1258,6 +1264,7 @@ void glitch_ui::slotClearCopiedWidgetsBuffer(void)
       it.remove();
     }
 
+  s_copiedObjectsSet.clear();
   QApplication::restoreOverrideCursor();
   prepareActionWidgets();
 }

@@ -64,6 +64,7 @@
 #include "glitch-misc.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
+#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-wire.h"
 
@@ -426,11 +427,12 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(wire)
     m_wires << wire;
 
-  /*
-  ** Connect pasted objects.
-  */
+  if(glitch_ui::s_copiedObjectsSet.contains(proxy ? proxy->object() : nullptr))
+    /*
+    ** Connect pasted objects.
+    */
 
-  QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
+    QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
 }
 
 void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
@@ -450,11 +452,13 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
     object->deleteLater();
 
   blocker.unblock();
-  connect(this,
-	  SIGNAL(wireObjects(void)),
-	  object,
-	  SLOT(slotWireObjects(void)),
-	  Qt::UniqueConnection);
+
+  if(glitch_ui::s_copiedObjectsSet.contains(object))
+    connect(this,
+	    SIGNAL(wireObjects(void)),
+	    object,
+	    SLOT(slotWireObjects(void)),
+	    Qt::UniqueConnection);
 }
 
 void glitch_scene::bringToFront(glitch_proxy_widget *proxy)

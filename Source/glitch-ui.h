@@ -62,6 +62,7 @@ class glitch_ui: public QMainWindow
   static QFont s_defaultApplicationFont;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
      copiedObjects(void);
+  static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;
   static void copy(QGraphicsView *view);

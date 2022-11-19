@@ -37,6 +37,7 @@
 #include "glitch-scene.h"
 #include "glitch-scroll-filter.h"
 #include "glitch-structures-arduino.h"
+#include "glitch-ui.h"
 #include "glitch-view-arduino.h"
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -374,6 +375,7 @@ clone(QWidget *parent) const
 
 	  if(child)
 	    {
+	      glitch_ui::s_copiedObjectsSet << child;
 	      child->compressWidget
 		(child->property(Properties::COMPRESSED_WIDGET).toBool());
 	      child->setCanvasSettings(m_canvasSettings);
