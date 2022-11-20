@@ -225,6 +225,7 @@ Remaining Items
   Drag & drop
 - Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
+- Copy wires of cloned functions if necessary.
 - Custom input / output port colors.
 - Custom shortcuts.
 - Disable redo / undo of line-edit widgets?
