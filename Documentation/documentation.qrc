@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>Arduino/Arduino.pdf</file>
-	<file>ReleaseNotes.html</file>
-    </qresource>
-</RCC>
