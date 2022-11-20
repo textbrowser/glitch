@@ -1,6 +1,6 @@
 <h3><b>Summary of Glitch</b></h3>
 
-![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
+![alt text](https://github.com/textbrowser/glitch/blob/gh-pages/glitch-1.png)
 
 <ul>
 <li>Android-friendly design.</li>
