@@ -813,8 +813,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
-      m_ui.action_Save_Current_Diagram->setEnabled
-	(m_currentView && m_currentView->hasChanged());
+      m_ui.action_Save_Current_Diagram->setEnabled(m_currentView);
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 0);
@@ -977,8 +976,6 @@ void glitch_ui::prepareRedoUndoActions(void)
   else
     m_ui.action_Redo->setText(tr("Redo"));
 
-  m_ui.action_Save_Current_Diagram->setEnabled
-    (m_currentView->canUndo() || m_currentView->hasChanged());
   m_ui.action_Undo->setEnabled(m_currentView->canUndo());
 
   if(m_ui.action_Undo->isEnabled())
@@ -1620,9 +1617,6 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
 void glitch_ui::slotPageChanged(void)
 {
-  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
-
-  m_ui.action_Save_Current_Diagram->setEnabled(view && view->hasChanged());
   prepareActionWidgets();
   setTabText(qobject_cast<glitch_view *> (sender()));
   setWindowTitle(qobject_cast<glitch_view *> (sender()));
@@ -1630,7 +1624,6 @@ void glitch_ui::slotPageChanged(void)
 
 void glitch_ui::slotPageSaved(void)
 {
-  m_ui.action_Save_Current_Diagram->setEnabled(false);
   prepareActionWidgets();
   setTabText(qobject_cast<glitch_view *> (sender()));
   setWindowTitle(qobject_cast<glitch_view *> (sender()));
@@ -1703,7 +1696,6 @@ void glitch_ui::slotSaveCurrentDiagram(void)
 	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
       else
 	{
-	  m_ui.action_Save_Current_Diagram->setEnabled(false);
 	  setTabText(view);
 	  setWindowTitle(view);
 	}
@@ -1740,7 +1732,6 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 	       this);
 	  else
 	    {
-	      m_ui.action_Save_Current_Diagram->setEnabled(false);
 	      setTabText(view);
 	      setWindowTitle(view);
 	    }
@@ -2059,7 +2050,6 @@ void glitch_ui::slotUnite(glitch_view *view)
   if(!window)
     return;
 
-  m_ui.action_Save_Current_Diagram->setEnabled(view->hasChanged());
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();

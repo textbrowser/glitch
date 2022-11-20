@@ -134,7 +134,7 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
-      m_ui.action_Save_Diagram->setEnabled(m_view->hasChanged());
+      m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
     }
   else

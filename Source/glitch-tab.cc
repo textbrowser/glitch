@@ -65,7 +65,6 @@ int glitch_tab::addTab
 	  &glitch_view::slotSave);
   m_tabBar->setTabButton
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
-  pushButton->setEnabled(view->hasChanged());
   view->setTabButton(pushButton);
   return index;
 }

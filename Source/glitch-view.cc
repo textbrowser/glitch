@@ -256,7 +256,6 @@ QMenu *glitch_view::defaultContextMenu(void)
     (tr("&Save"),
      this,
      SLOT(slotSave(void)));
-  action->setEnabled(hasChanged());
   action->setIcon(QIcon::fromTheme("document-save"));
   m_contextMenu->addAction(tr("Save &As..."),
 			   this,
@@ -675,16 +674,6 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
-
-  if(error.isEmpty())
-    {
-      if(m_saveDiagramAction)
-	m_saveDiagramAction->setEnabled(false);
-
-      if(m_tabButton)
-	m_tabButton->setEnabled(false);
-    }
-
   m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
@@ -942,31 +931,9 @@ void glitch_view::push(glitch_undo_command *undoCommand)
 
 void glitch_view::redo(void)
 {
-  if(m_canvasSettings->generatePeriodically())
-    m_generateTimer.start();
-
-  if(m_undoStack->canRedo())
-    {
-      m_changed = true;
-      disconnect(m_scene,
-		 &glitch_scene::changed,
-		 this,
-		 &glitch_view::slotChanged);
-      m_undoStack->redo();
-      connect(m_scene,
-	      &glitch_scene::changed,
-	      this,
-	      &glitch_view::slotChanged,
-	      Qt::QueuedConnection);
-      adjustScrollBars();
-      emit changed();
-    }
-
-  if(m_saveDiagramAction)
-    m_saveDiagramAction->setEnabled(m_changed);
-
-  if(m_tabButton)
-    m_tabButton->setEnabled(m_changed);
+  m_changed = true;
+  m_undoStack->redo();
+  emit changed();
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -1145,12 +1112,6 @@ void glitch_view::slotChanged(void)
 
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
-
-  if(m_saveDiagramAction)
-    m_saveDiagramAction->setEnabled(true);
-
-  if(m_tabButton)
-    m_tabButton->setEnabled(true);
 
   setSceneRect(m_view->size());
   emit changed();
@@ -1362,15 +1323,7 @@ void glitch_view::slotUndoStackChanged(void)
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
-  m_changed = !m_undoStack->isClean();
-
-  if(m_saveDiagramAction)
-    m_saveDiagramAction->setEnabled(m_changed);
-
-  if(m_tabButton)
-    m_tabButton->setEnabled(m_changed);
-
-  emit changed();
+  adjustScrollBars();
 }
 
 void glitch_view::slotUnite(void)
@@ -1380,32 +1333,7 @@ void glitch_view::slotUnite(void)
 
 void glitch_view::undo(void)
 {
-  if(m_canvasSettings->generatePeriodically())
-    m_generateTimer.start();
-
-  if(m_undoStack->canUndo())
-    {
-      m_changed = true;
-      disconnect(m_scene,
-		 &glitch_scene::changed,
-		 this,
-		 &glitch_view::slotChanged);
-      m_undoStack->undo();
-      connect(m_scene,
-	      &glitch_scene::changed,
-	      this,
-	      &glitch_view::slotChanged,
-	      Qt::QueuedConnection);
-      adjustScrollBars();
-      emit changed();
-    }
-
-  if(!m_undoStack->canUndo())
-    m_changed = false;
-
-  if(m_saveDiagramAction)
-    m_saveDiagramAction->setEnabled(m_changed);
-
-  if(m_tabButton)
-    m_tabButton->setEnabled(m_changed);
+  m_changed = true;
+  m_undoStack->undo();
+  emit changed();
 }
