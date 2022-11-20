@@ -1189,7 +1189,7 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 
 void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 {
-  if(!object || !wire || m_id == object->id() || m_wires.contains(object->id()))
+  if(!object || !wire || m_id == object->id())
     return;
 
   connect(wire,
@@ -1197,7 +1197,9 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  this,
 	  &glitch_object::slotWireDestroyed,
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
-  m_wires[object->id()] = wire;
+  m_wires[object->id()] = wire; /*
+				** Replace the wire object if necessary.
+				*/
 }
 
 void glitch_object::simulateDelete(void)
