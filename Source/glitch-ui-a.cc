@@ -553,7 +553,7 @@ void glitch_ui::copy(QGraphicsView *view)
 	{
 	  /*
 	  ** Clone the real function.
-	   */
+	  */
 
 	  object = qobject_cast<glitch_object_function_arduino *>
 	    (object)->parentFunction();
