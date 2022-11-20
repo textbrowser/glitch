@@ -600,7 +600,11 @@ void glitch_object::cloneWires
     {
       it.next();
 
-      if(!it.value() || !it.value()->leftProxy() || !it.value()->rightProxy())
+      if(!it.value() || !it.value()->scene())
+	/*
+	** Ignore wires which do not reside in scenes.
+	*/
+
 	continue;
 
       QPair<QPointF, QPointF> pair;

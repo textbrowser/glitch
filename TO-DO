@@ -228,6 +228,8 @@ Remaining Items
 - Custom input / output port colors.
 - Custom shortcuts.
 - Disable redo / undo of line-edit widgets?
+- Do not create a new wire if two objects are connected with a wire
+  that resides in the redo / undo stack.
 - Draw and, not, or, etc. objects.
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.
