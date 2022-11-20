@@ -85,7 +85,6 @@ glitch_view::glitch_view
   m_splitter = new QSplitter(this);
   m_tools = new glitch_tools(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
-  m_undoStacks << m_undoStack;
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
   m_view = new glitch_graphicsview(this);
@@ -200,13 +199,10 @@ glitch_view::glitch_view
 
 glitch_view::~glitch_view()
 {
-  foreach(auto undoStack, m_undoStacks)
-    if(undoStack)
-      disconnect(undoStack,
-		 SIGNAL(indexChanged(int)),
-		 this,
-		 SLOT(slotUndoStackChanged(void)));
-
+  disconnect(m_undoStack,
+	     SIGNAL(indexChanged(int)),
+	     this,
+	     SLOT(slotUndoStackChanged(void)));
   m_scene->purgeRedoUndoProxies();
 }
 
@@ -1366,16 +1362,7 @@ void glitch_view::slotUndoStackChanged(void)
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
-  auto clean = true;
-
-  foreach(auto undoStack, m_undoStacks)
-    if(!(undoStack && undoStack->isClean()))
-      {
-	clean = false;
-	break;
-      }
-
-  m_changed = !clean;
+  m_changed = !m_undoStack->isClean();
 
   if(m_saveDiagramAction)
     m_saveDiagramAction->setEnabled(m_changed);
