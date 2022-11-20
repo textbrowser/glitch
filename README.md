@@ -22,8 +22,6 @@
 <li>Unlimited diagrams.</li>
 </ul>
 
-![alt text](https://github.com/textbrowser/glitch/blob/gh-pages/glitch-1.png)
-
 <h3><b>Release Notes</b></h3>
 <p>2022.11.20</p>
 <ul>
