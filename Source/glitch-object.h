@@ -206,6 +206,12 @@ class glitch_object: public QWidget
   void move(int x, int y);
   void separate(void);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
+
+  void setOriginalPosition(const QPointF &point)
+  {
+    m_originalPosition = point;
+  }
+
   void setProperties(const QStringList &list);
   void setProperty(const char *name, const QVariant &value);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);

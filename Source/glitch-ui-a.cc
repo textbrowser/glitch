@@ -546,7 +546,7 @@ void glitch_ui::copy(QGraphicsView *view)
       if(!object)
 	continue;
 
-      auto point(object->scenePos().toPoint());
+      auto point(object->scenePos());
       glitch_object *clone = nullptr;
 
       if(qobject_cast<glitch_object_function_arduino *> (object))
@@ -562,7 +562,10 @@ void glitch_ui::copy(QGraphicsView *view)
 	    object = proxy->object();
 
 	  if(object)
-	    clone = object->clone(nullptr);
+	    {
+	      clone = object->clone(nullptr);
+	      clone->setOriginalPosition(point);
+	    }
 	}
       else
 	clone = object->clone(nullptr);
@@ -570,7 +573,8 @@ void glitch_ui::copy(QGraphicsView *view)
       if(!clone)
 	continue;
 
-      s_copiedObjects.insert(QPair<int, int> (point.x(), point.y()), clone);
+      s_copiedObjects.insert
+	(QPair<int, int> (point.toPoint().x(), point.toPoint().y()), clone);
     }
 
   QApplication::restoreOverrideCursor();
