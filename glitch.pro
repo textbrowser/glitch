@@ -17,6 +17,9 @@ message("The QtPdf module was discovered!")
 }
 }
 
+QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_CXXFLAGS_RELEASE -= -O2
+
 macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
