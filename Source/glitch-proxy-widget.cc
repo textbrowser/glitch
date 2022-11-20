@@ -55,6 +55,14 @@ glitch_proxy_widget::~glitch_proxy_widget()
 {
 }
 
+QColor glitch_proxy_widget::selectionColor(void) const
+{
+  if(m_object && m_object->canvasSettings())
+    return m_object->canvasSettings()->selectionColor();
+  else
+    return QColor("lightgreen");
+}
+
 QPointer<glitch_object> glitch_proxy_widget::object(void) const
 {
   return m_object;
@@ -221,7 +229,7 @@ void glitch_proxy_widget::paint
 	  const qreal offset = 10.0;
 
 	  if(isMovable())
-	    pen.setColor(QColor("lightgreen"));
+	    pen.setColor(selectionColor());
 	  else
 	    pen.setColor(QColor("orange"));
 

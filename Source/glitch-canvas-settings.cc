@@ -56,6 +56,9 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
   m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
+  m_ui.selection_color->setStyleSheet
+    ("QPushButton {background-color: lightgreen}");
+  m_ui.selection_color->setText("lightgreen");
   m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
   m_ui.update_mode->setItemData
     (0,
@@ -119,6 +122,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectOutputFile);
+  connect(m_ui.selection_color,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSelectColor);
   connect(m_ui.wire_color,
 	  &QPushButton::clicked,
 	  this,
@@ -139,6 +146,12 @@ QColor glitch_canvas_settings::canvasBackgroundColor(void) const
 QColor glitch_canvas_settings::dotsGridsColor(void) const
 {
   return QColor(m_settings.value(Settings::DOTS_GRIDS_COLOR).
+		toString().remove('&').trimmed());
+}
+
+QColor glitch_canvas_settings::selectionColor(void) const
+{
+  return QColor(m_settings.value(Settings::SELECTION_COLOR).
 		toString().remove('&').trimmed());
 }
 
@@ -169,6 +182,8 @@ settings(void) const
     m_ui.generate_periodically->isChecked();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
+  hash[Settings::SELECTION_COLOR] =
+    m_ui.selection_color->text().remove('&').trimmed();
   hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
   hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
   hash[Settings::SHOW_ORDER_INDICATORS] =
@@ -247,6 +262,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
+	   "selection_color TEXT NOT NULL, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
@@ -271,6 +287,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "output_file, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
+	   "selection_color, "
 	   "show_canvas_dots, "
 	   "show_canvas_grids, "
 	   "show_order_indicators, "
@@ -278,7 +295,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -292,6 +309,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.output_file->text());
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
+	query.addBindValue(m_ui.selection_color->text().remove('&'));
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
@@ -404,6 +422,7 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
@@ -413,6 +432,7 @@ void glitch_canvas_settings::prepare(void)
 			   "SUBSTR(output_file, 1, 5000), "
 			   "SUBSTR(project_type, 1, 50), "
 			   "redo_undo_stack_size, "
+			   "SUBSTR(selection_color, 1, 50), "
 			   "show_canvas_dots, "
 			   "show_canvas_grids, "
 			   "show_order_indicators, "
@@ -426,6 +446,7 @@ void glitch_canvas_settings::prepare(void)
 
 	QColor color;
 	QColor dotsGridsColor;
+	QColor selectionColor;
 	QColor wireColor;
 	QString name("");
 	QString outputFile("");
@@ -458,6 +479,9 @@ void glitch_canvas_settings::prepare(void)
 	      projectType = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("redo_undo_stack_size"))
 	      redoUndoStackSize = record.value(i).toInt();
+	    else if(fieldName.contains("selection_color"))
+	      selectionColor = QColor
+		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("show_canvas_dots"))
 	      showCanvasDots = record.value(i).toBool();
 	    else if(fieldName.contains("show_canvas_grids"))
@@ -481,6 +505,12 @@ void glitch_canvas_settings::prepare(void)
 	if(!dotsGridsColor.isValid())
 	  dotsGridsColor = QColor(Qt::white);
 
+	if(name.isEmpty())
+	  name = defaultName();
+
+	if(!selectionColor.isValid())
+	  selectionColor = QColor("lightgreen");
+
 	m_ui.background_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").arg(color.name()));
 	m_ui.background_color->setText(color.name());
@@ -489,10 +519,6 @@ void glitch_canvas_settings::prepare(void)
 	   arg(dotsGridsColor.name()));
 	m_ui.dots_grids_color->setText(dotsGridsColor.name());
 	m_ui.generate_periodically->setChecked(generatePeriodically);
-
-	if(name.isEmpty())
-	  name = defaultName();
-
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
 	m_ui.output_file->setText(outputFile);
@@ -505,6 +531,10 @@ void glitch_canvas_settings::prepare(void)
 	  m_ui.project_type->setCurrentIndex(0);
 
 	m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
+	m_ui.selection_color->setStyleSheet
+	  (QString("QPushButton {background-color: %1}").
+	   arg(selectionColor.name(QColor::HexArgb)));
+	m_ui.selection_color->setText(selectionColor.name(QColor::HexArgb));
 	m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
 	m_ui.show_order_indicators->setChecked(showOrderIndicators);
@@ -593,6 +623,12 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
+  color = QColor
+    (hash.value(Settings::SELECTION_COLOR).toString().remove('&').trimmed());
+  m_ui.selection_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").
+     arg(color.name(QColor::HexArgb)));
+  m_ui.selection_color->setText(color.name(QColor::HexArgb));
   color = QColor
     (hash.value(Settings::WIRE_COLOR).toString().remove('&').trimmed());
   m_ui.wire_color->setStyleSheet
@@ -693,13 +729,11 @@ void glitch_canvas_settings::slotSelectColor(void)
 
   QColorDialog dialog(this);
 
-  if(button == m_ui.background_color)
-    dialog.setCurrentColor(QColor(m_ui.background_color->text().remove('&')));
-  else if(button == m_ui.dots_grids_color)
-    dialog.setCurrentColor(QColor(m_ui.dots_grids_color->text().remove('&')));
+  if(button == m_ui.background_color || button == m_ui.dots_grids_color)
+    dialog.setCurrentColor(QColor(button->text().remove('&')));
   else
     {
-      dialog.setCurrentColor(QColor(m_ui.wire_color->text().remove('&')));
+      dialog.setCurrentColor(QColor(button->text().remove('&')));
       dialog.setOption(QColorDialog::ShowAlphaChannel, true);
     }
 
@@ -709,7 +743,7 @@ void glitch_canvas_settings::slotSelectColor(void)
   if(dialog.exec() == QDialog::Accepted)
     {
       QColor color(dialog.selectedColor());
-      auto format = button == m_ui.wire_color ?
+      auto format = button == m_ui.selection_color || m_ui.wire_color ?
 	QColor::HexArgb : QColor::HexRgb;
 
       button->setStyleSheet

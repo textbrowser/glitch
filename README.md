@@ -27,6 +27,7 @@
 <ul>
 <li>Connect (wire) copied items if necessary.</li>
 <li>Copy correct locations of function clones.</li>
+<li>New selection color canvas property.</li>
 <li>Prevent artificial redo / undo stack entries caused by copying and pasting of objects.</li>
 </ul>
 <p>2022.11.15</p>

@@ -46,6 +46,7 @@ class glitch_canvas_settings: public QDialog
     GENERATE_PERIODICALLY,
     OUTPUT_FILE,
     REDO_UNDO_STACK_SIZE,
+    SELECTION_COLOR,
     SHOW_CANVAS_DOTS,
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
@@ -59,6 +60,7 @@ class glitch_canvas_settings: public QDialog
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
   QColor dotsGridsColor(void) const;
+  QColor selectionColor(void) const;
   QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;

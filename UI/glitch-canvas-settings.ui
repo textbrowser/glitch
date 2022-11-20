@@ -142,6 +142,40 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_13">
+             <item>
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>&amp;Selection Color</string>
+               </property>
+               <property name="buddy">
+                <cstring>selection_color</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="selection_color">
+               <property name="text">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_11">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QFrame" name="frame">
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -593,6 +627,7 @@
   <tabstop>background_color</tabstop>
   <tabstop>name</tabstop>
   <tabstop>dots_grids_color</tabstop>
+  <tabstop>selection_color</tabstop>
   <tabstop>show_canvas_dots</tabstop>
   <tabstop>show_canvas_grids</tabstop>
   <tabstop>show_order_indicators</tabstop>
@@ -605,6 +640,8 @@
   <tabstop>select_output_file</tabstop>
   <tabstop>project_type</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
+  <tabstop>wire_color_2</tabstop>
+  <tabstop>wire_color_3</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
@@ -617,8 +654,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>254</x>
-     <y>493</y>
+     <x>260</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -633,8 +670,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>322</x>
-     <y>493</y>
+     <x>328</x>
+     <y>543</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
