@@ -522,6 +522,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		     object1 &&
 		     object1->proxy() &&
 		     object1->scene() &&
+		     object1->scene()->
+		     areObjectsWired(object1, object2) == false &&
 		     object2 &&
 		     object2->proxy())
 		    {
