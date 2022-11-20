@@ -1,7 +1,5 @@
 <h3><b>Summary of Glitch</b></h3>
 
-![alt text](https://github.com/textbrowser/glitch/blob/gh-pages/glitch-1.png)
-
 <ul>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
@@ -23,6 +21,8 @@
 <li>Sparc!</li>
 <li>Unlimited diagrams.</li>
 </ul>
+
+![alt text](https://github.com/textbrowser/glitch/blob/gh-pages/glitch-1.png)
 
 <h3><b>Release Notes</b></h3>
 <p>2022.11.20</p>
