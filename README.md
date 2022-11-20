@@ -1,5 +1,7 @@
 <h3><b>Summary of Glitch</b></h3>
 
+![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
+
 <ul>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
@@ -28,6 +30,7 @@
 <li>Connect (wire) copied items if necessary.</li>
 <li>Copy correct locations of function clones.</li>
 <li>New selection color canvas property.</li>
+<li>Optimization level three.</li>
 <li>Prevent artificial redo / undo stack entries caused by copying and pasting of objects.</li>
 </ul>
 <p>2022.11.15</p>
