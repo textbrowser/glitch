@@ -25,38 +25,79 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_structures_arduino_h_
-#define _glitch_structures_arduino_h_
+#ifndef _glitch_collapse_expand_tool_button_h_
+#define _glitch_collapse_expand_tool_button_h_
 
-#include <QDialog>
-#include <QTimer>
+#include <QHeaderView>
+#include <QPointer>
+#include <QScrollBar>
+#include <QToolButton>
+#include <QTreeView>
 
-#include "ui_glitch-structures.h"
-
-class glitch_collapse_expand_tool_button;
-
-class glitch_structures_arduino: public QDialog
+class glitch_collapse_expand_tool_button: public QToolButton
 {
   Q_OBJECT
 
  public:
-  glitch_structures_arduino(QWidget *parent);
-  ~glitch_structures_arduino();
-  QFrame *frame(void) const;
-  static QStringList nonArrayVariableTypes(void);
-  static QStringList variableTypes(void);
-  static bool containsStructure(const QString &structureName);
+  glitch_collapse_expand_tool_button(QTreeView *tree):QToolButton(tree)
+  {
+    m_tree = tree;
+
+    if(m_tree)
+      {
+	m_tree->header()->setDefaultAlignment(Qt::AlignCenter);
+	m_tree->header()->setMinimumHeight(30);
+	move(5, (m_tree->header()->size().height() - 25) / 2 + 2);
+	resize(25, 25);
+	setCheckable(true);
+
+	auto font(this->font());
+
+	font.setStyleHint(QFont::Courier);
+	setFont(font);
+	setStyleSheet("QToolButton {border: none;}"
+		      "QToolButton::menu-button {border: none;}");
+	setText(tr("+"));
+	setToolTip(tr("Collapse / Expand"));
+	connect(m_tree->horizontalScrollBar(),
+		SIGNAL(valueChanged(int)),
+		this,
+		SLOT(slotScroll(int)));
+	connect(this,
+		&glitch_collapse_expand_tool_button::clicked,
+		this,
+		&glitch_collapse_expand_tool_button::slotCollapse);
+      }
+    else
+      setVisible(false);
+  }
 
  private:
-  QMap<QString, QString> m_categoriesMap;
-  Ui_glitch_structures m_ui;
-  glitch_collapse_expand_tool_button *m_collapse;
-  static QMap<QString, QStringList> s_itemsForCategories;
-  static QMap<QString, char> s_structureNamesMap;
-  static QStringList s_nonArrayVariableTypes;
-  static QStringList s_variableTypes;
-  static QStringList structureNames(void);
-  void prepareCategories(void);
+  QPointer<QTreeView> m_tree;
+
+ private slots:
+  void slotCollapse(void)
+  {
+    if(isChecked())
+      {
+	if(m_tree)
+	  m_tree->expandAll();
+
+	setText(tr("-"));
+      }
+    else
+      {
+	if(m_tree)
+	  m_tree->collapseAll();
+
+	setText(tr("+"));
+      }
+  }
+
+  void slotScroll(int value)
+  {
+    setVisible(geometry().right() - geometry().width() / 2 > value);
+  }
 };
 
 #endif

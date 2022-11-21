@@ -33,6 +33,7 @@
 #include "ui_glitch-find-objects.h"
 
 class QTreeWidgetItem;
+class glitch_collapse_expand_tool_button;
 class glitch_object;
 class glitch_view;
 
@@ -54,6 +55,7 @@ class glitch_find_objects: public QDialog
  private:
   QPointer<glitch_view> m_view;
   Ui_glitch_find_objects m_ui;
+  glitch_collapse_expand_tool_button *m_collapse;
   void find(QTreeWidgetItem *i, glitch_object *object);
   void find(void);
 

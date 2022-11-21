@@ -27,6 +27,7 @@
 
 #include <QShortcut>
 
+#include "glitch-collapse-expand-tool-button.h"
 #include "glitch-find-objects.h"
 #include "glitch-object.h"
 #include "glitch-view.h"
@@ -76,6 +77,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::slotFind);
+  m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
@@ -127,7 +129,11 @@ void glitch_find_objects::find(void)
 	  find(item, object);
 	}
 
-  m_ui.tree->expandAll();
+  if(m_collapse->isChecked())
+    m_ui.tree->expandAll();
+  else
+    m_ui.tree->collapseAll();
+
   m_ui.tree->resizeColumnToContents(0);
   QApplication::restoreOverrideCursor();
 }

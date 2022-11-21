@@ -50,6 +50,9 @@
         <property name="animated">
          <bool>true</bool>
         </property>
+        <attribute name="headerMinimumSectionSize">
+         <number>150</number>
+        </attribute>
         <attribute name="headerHighlightSections">
          <bool>true</bool>
         </attribute>

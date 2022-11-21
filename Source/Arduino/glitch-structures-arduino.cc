@@ -27,6 +27,7 @@
 
 #include <QToolButton>
 
+#include "glitch-collapse-expand-tool-button.h"
 #include "glitch-structures-arduino.h"
 
 QMap<QString, QStringList> glitch_structures_arduino::s_itemsForCategories;
@@ -38,25 +39,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
-  m_ui.tree->header()->setMinimumHeight(30);
-  m_collapse = new QToolButton(m_ui.tree);
-
-  auto font(m_collapse->font());
-
-  font.setStyleHint(QFont::Courier);
-  m_collapse->move(5, (m_ui.tree->header()->size().height() - 25) / 2 + 2);
-  m_collapse->resize(25, 25);
-  m_collapse->setCheckable(true);
-  m_collapse->setFont(font);
-  m_collapse->setStyleSheet("QToolButton {border: none;}"
-			    "QToolButton::menu-button {border: none;}");
-  m_collapse->setText(tr("+"));
-  m_collapse->setToolTip(tr("Collapse / Expand"));
-  connect(m_collapse,
-	  &QToolButton::clicked,
-	  this,
-	  &glitch_structures_arduino::slotCollapse);
-  m_ui.tree->header()->setDefaultAlignment(Qt::AlignCenter);
+  m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
@@ -369,19 +352,5 @@ void glitch_structures_arduino::prepareCategories(void)
 			 s_itemsForCategories.value(it.value()).at(i));
 	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
 	}
-    }
-}
-
-void glitch_structures_arduino::slotCollapse(void)
-{
-  if(m_collapse->isChecked())
-    {
-      m_collapse->setText(tr("-"));
-      m_ui.tree->expandAll();
-    }
-  else
-    {
-      m_collapse->setText(tr("+"));
-      m_ui.tree->collapseAll();
     }
 }
