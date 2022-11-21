@@ -39,12 +39,12 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 {
   m_ui.setupUi(this);
   m_ui.tree->header()->setMinimumHeight(30);
-  m_collapse = new QToolButton(m_ui.frame);
+  m_collapse = new QToolButton(m_ui.tree);
 
   auto font(m_collapse->font());
 
   font.setStyleHint(QFont::Courier);
-  m_collapse->move(10, (m_ui.tree->header()->size().height() - 25) / 2 + 2);
+  m_collapse->move(5, (m_ui.tree->header()->size().height() - 25) / 2 + 2);
   m_collapse->resize(25, 25);
   m_collapse->setCheckable(true);
   m_collapse->setFont(font);
