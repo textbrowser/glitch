@@ -45,14 +45,22 @@ class glitch_find_objects_position_item: public QTreeWidgetItem
 
   bool operator<(const QTreeWidgetItem &other) const
   {
-    for(int i = 0; i < columnCount(); i++)
+    auto i = treeWidget()->sortColumn();
+
+    if(i == static_cast<int> (glitch_find_objects::Columns::Object) ||
+       i == static_cast<int> (glitch_find_objects::Columns::Type))
+      return other.text(i) > text(i);
+    else
       {
-	if(i == static_cast<int> (glitch_find_objects::Columns::Object) ||
-	   i == static_cast<int> (glitch_find_objects::Columns::Type))
-	  return other.text(i) > text(i);
-	else
-	  {	    
-	  }
+	auto list1
+	  (other.text(i).remove(' ').remove('(').remove(')').split(','));
+	auto list2(text(i).remove(' ').remove('(').remove(')').split(','));
+	auto x1 = list1.value(0).toInt();
+	auto x2 = list2.value(0).toInt();
+	auto y1 = list1.value(1).toInt();
+	auto y2 = list2.value(1).toInt();
+
+	return !(x1 < x2 || (x1 == x2 && y1 < y2));
       }
   }
 };
