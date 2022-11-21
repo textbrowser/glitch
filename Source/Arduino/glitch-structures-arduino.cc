@@ -376,12 +376,12 @@ void glitch_structures_arduino::slotCollapse(void)
 {
   if(m_collapse->isChecked())
     {
-      m_collapse->setText("-");
+      m_collapse->setText(tr("-"));
       m_ui.tree->expandAll();
     }
   else
     {
-      m_collapse->setText("+");
+      m_collapse->setText(tr("+"));
       m_ui.tree->collapseAll();
     }
 }
