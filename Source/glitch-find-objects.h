@@ -41,6 +41,13 @@ class glitch_find_objects: public QDialog
   Q_OBJECT
 
  public:
+  enum class Columns
+  {
+    Object = 0,
+    Position,
+    Type
+  };
+
   glitch_find_objects(QWidget *parent);
   ~glitch_find_objects();
 

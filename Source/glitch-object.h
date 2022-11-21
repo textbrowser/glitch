@@ -127,6 +127,12 @@ class glitch_object: public QWidget
 
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
+
+  QString position(void) const
+  {
+    return QString("(%1, %2)").arg(pos().x()).arg(pos().y());
+  }
+
   QString type(void) const;
 
   QVariant property(const Properties property) const

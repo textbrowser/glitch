@@ -31,6 +31,32 @@
 #include "glitch-object.h"
 #include "glitch-view.h"
 
+class glitch_find_objects_position_item: public QTreeWidgetItem
+{
+ public:
+  glitch_find_objects_position_item(QTreeWidget *parent):QTreeWidgetItem(parent)
+  {
+  }
+
+  glitch_find_objects_position_item(QTreeWidgetItem *parent):
+    QTreeWidgetItem(parent)
+  {
+  }
+
+  bool operator<(const QTreeWidgetItem &other) const
+  {
+    for(int i = 0; i < columnCount(); i++)
+      {
+	if(i == static_cast<int> (glitch_find_objects::Columns::Object) ||
+	   i == static_cast<int> (glitch_find_objects::Columns::Type))
+	  return other.text(i) > text(i);
+	else
+	  {	    
+	  }
+      }
+  }
+};
+
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
@@ -65,10 +91,11 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
   foreach(auto child, object->objects())
     if(child)
       {
-	auto item = new QTreeWidgetItem(i);
+	auto item = new glitch_find_objects_position_item(i);
 
-	item->setText(0, child->name());
-	item->setText(1, child->type());
+	item->setText(static_cast<int> (Columns::Object), child->name());
+	item->setText(static_cast<int> (Columns::Position), child->position());
+	item->setText(static_cast<int> (Columns::Type), child->type());
 	find(item, child);
       }
 }
@@ -82,10 +109,12 @@ void glitch_find_objects::find(void)
     foreach(auto object, m_view->objects())
       if(object)
 	{
-	  auto item = new QTreeWidgetItem(m_ui.tree);
+	  auto item = new glitch_find_objects_position_item(m_ui.tree);
 
-	  item->setText(0, object->name());
-	  item->setText(1, object->type());
+	  item->setText(static_cast<int> (Columns::Object), object->name());
+	  item->setText
+	    (static_cast<int> (Columns::Position), object->position());
+	  item->setText(static_cast<int> (Columns::Type), object->type());
 	  m_ui.tree->addTopLevelItem(item);
 	  find(item, object);
 	}
