@@ -1197,9 +1197,7 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  this,
 	  &glitch_object::slotWireDestroyed,
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
-  m_wires[object->id()] = wire; /*
-				** Replace the wire object if necessary.
-				*/
+  m_wires[object->id()] = wire; // Replace the wire object if necessary.
 }
 
 void glitch_object::simulateDelete(void)

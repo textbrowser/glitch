@@ -85,6 +85,8 @@ Completed Items
 - Do not align, stack, etc. unless coordinates would change.
 - Do not allow drag-and-drop operations for unaffiliated functions.
 - Do not clone pasted functions without parents unless they already exist.
+- Do not create a new wire if two objects are connected with a wire
+  that resides in the redo / undo stack. Re-wire objects on undo events.
 - Do not delete function duplicates if one duplicate is removed.
 - Do not discover parent functions for copied functions.
 - Do not save children of flow control objects if those objects
@@ -229,8 +231,6 @@ Remaining Items
 - Copy wires of cloned functions if necessary.
 - Custom input / output port colors.
 - Custom shortcuts.
-- Do not create a new wire if two objects are connected with a wire
-  that resides in the redo / undo stack.
 - Draw and, not, or, etc. objects.
 - Flow Control syntax colors.
 - Generate source from terminal for testing results.

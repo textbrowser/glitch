@@ -1874,7 +1874,11 @@ void glitch_ui::slotShowDiagramContextMenu(void)
 	{
 	  menu->update();
 	  menu->raise();
+#if (QT_VERSION < QT_VERSION_CHECK(5, 7, 0))
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
+#else
+	  menu->showTearOffMenu(mapToGlobal(QPoint(size().width() / 2, 0)));
+#endif
 	}
     }
 }
