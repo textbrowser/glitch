@@ -77,6 +77,7 @@ Completed Items
 - Depict main functions via immutable themes.
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
+- Disable redo / undo of line-edit widgets? No.
 - Discover a function clone's correct parent function after opening a data file.
 - Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
@@ -228,7 +229,6 @@ Remaining Items
 - Copy wires of cloned functions if necessary.
 - Custom input / output port colors.
 - Custom shortcuts.
-- Disable redo / undo of line-edit widgets?
 - Do not create a new wire if two objects are connected with a wire
   that resides in the redo / undo stack.
 - Draw and, not, or, etc. objects.
