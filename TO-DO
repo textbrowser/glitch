@@ -133,6 +133,7 @@ Completed Items
 - Object numbers should be sequenced.
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
+- Order: top-bottom followed by left-right.
 - Other constants.
 - Page shortcut (Alt-1, etc.).
 - Pass undo stack from top-level view to child views.
@@ -238,7 +239,6 @@ Remaining Items
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
-- Order: top-bottom followed by left-right.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
