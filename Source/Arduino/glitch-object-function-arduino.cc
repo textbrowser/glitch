@@ -300,6 +300,8 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_function_arduino(m_ui.label->text(), parent);
 
+  clone->cloneWires(m_copiedConnectionsPositions);
+  clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
@@ -383,8 +385,6 @@ clone(QWidget *parent) const
 	    }
 	}
 
-      clone->cloneWires(m_copiedConnectionsPositions);
-      clone->cloneWires(m_wires);
       clone->hideOrShowOccupied();
     }
 
