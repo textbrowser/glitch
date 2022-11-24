@@ -139,6 +139,7 @@ class glitch_scene: public QGraphicsScene
 
  signals:
   void changed(void);
+  void copy(void);
   void functionAdded(const QString &name, const bool isClone);
   void functionDeleted(const QString &name);
   void functionNameChanged(const QString &after,

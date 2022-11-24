@@ -578,10 +578,11 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
   while(it.hasNext())
     {
+      i += 1;
       it.next();
       menu.addAction(it.value());
 
-      if(i++ == 2 && it.hasNext())
+      if((i == 1 || i == 3) && it.hasNext())
 	menu.addSeparator();
     }
 }
@@ -663,6 +664,19 @@ void glitch_object::createActions(void)
   else
     m_actions[DefaultMenuActions::COMPRESS_WIDGET]->
       setChecked(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+
+  if(!m_actions.contains(DefaultMenuActions::COPY))
+    {
+      auto action = new QAction(tr("Copy Object(s)"), this);
+
+      action->setData(static_cast<uint> (DefaultMenuActions::COPY));
+      action->setIcon(QIcon::fromTheme("edit-copy"));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::copy);
+      m_actions[DefaultMenuActions::COPY] = action;
+    }
 
   if(!m_actions.contains(DefaultMenuActions::DELETE))
     {

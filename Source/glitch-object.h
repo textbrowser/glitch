@@ -55,14 +55,15 @@ class glitch_object: public QWidget
 
   enum class DefaultMenuActions
   {
-    ADJUST_SIZE = 0,
-    COMPRESS_WIDGET,
-    DELETE,
-    EDIT,
-    LOCK_POSITION,
-    SET_FUNCTION_NAME,
-    SET_STYLE_SHEET,
-    TRANSPARENT
+    ADJUST_SIZE = 1,
+    COMPRESS_WIDGET = 2,
+    COPY = 0,
+    DELETE = 3,
+    EDIT = 4,
+    LOCK_POSITION = 5,
+    SET_FUNCTION_NAME = 6,
+    SET_STYLE_SHEET = 7,
+    TRANSPARENT = 8
   };
 
   enum class Properties
@@ -295,6 +296,7 @@ class glitch_object: public QWidget
 
  signals:
   void changed(void);
+  void copy(void);
   void deletedViaContextMenu(void);
   void simulateDeleteSignal(void);
 };

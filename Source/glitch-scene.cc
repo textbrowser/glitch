@@ -297,6 +297,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  &glitch_scene::changed,
 	  Qt::UniqueConnection);
   connect(object,
+	  &glitch_object::copy,
+	  this,
+	  &glitch_scene::copy,
+	  Qt::UniqueConnection);
+  connect(object,
 	  &glitch_object::deletedViaContextMenu,
 	  this,
 	  &glitch_scene::slotObjectDeletedViaContextMenu,

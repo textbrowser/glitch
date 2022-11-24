@@ -88,7 +88,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
       {
 	auto pushButton = new QPushButton(this);
 
-	actions.at(i)->setProperty("index", m_ui.frame->layout()->count());
+	actions.at(i)->setProperty("index", i);
 	connect(actions.at(i),
 		&QAction::changed,
 		this,

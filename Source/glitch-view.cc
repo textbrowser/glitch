@@ -123,6 +123,10 @@ glitch_view::glitch_view
 	  &glitch_view::slotChanged,
 	  Qt::QueuedConnection);
   connect(m_scene,
+	  &glitch_scene::copy,
+	  this,
+	  &glitch_view::slotCopy);
+  connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SLOT(slotSceneObjectDestroyed(QObject *)),
@@ -1121,7 +1125,15 @@ void glitch_view::slotChanged(void)
 
 void glitch_view::slotCopy(void)
 {
-  emit copy(qobject_cast<QGraphicsView *> (sender()));
+  if(qobject_cast<glitch_object_view *> (sender()))
+    emit copy(qobject_cast<QGraphicsView *> (sender()));
+  else
+    {
+      auto scene = qobject_cast<glitch_scene *> (sender());
+
+      if(scene)
+	emit copy(qobject_cast<QGraphicsView *> (scene->views().value(0)));
+    }
 }
 
 void glitch_view::slotCustomContextMenuRequested(const QPoint &point)

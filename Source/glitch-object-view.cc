@@ -76,6 +76,10 @@ glitch_object_view::glitch_object_view
 	  this,
 	  &glitch_object_view::changed);
   connect(m_scene,
+	  &glitch_scene::copy,
+	  this,
+	  &glitch_object_view::copy);
+  connect(m_scene,
 	  &glitch_scene::sceneResized,
 	  this,
 	  &glitch_object_view::slotSceneResized,
