@@ -389,6 +389,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  SLOT(slotCopy(QGraphicsView *)));
   connect(view,
+	  SIGNAL(paste(glitch_view *)),
+	  this,
+	  SLOT(slotPaste(glitch_view *)));
+  connect(view,
 	  &QAction::destroyed,
 	  this,
 	  &glitch_ui::slotArduinoViewDestroyed,

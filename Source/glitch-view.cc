@@ -256,12 +256,14 @@ QMenu *glitch_view::defaultContextMenu(void)
   else
     m_contextMenu->clear();
 
-  QAction *action = nullptr;
+  auto action = m_contextMenu->addAction
+    (tr("Paste"), this, &glitch_view::slotPaste);
 
+  action->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+  action->setIcon(QIcon::fromTheme("edit-paste"));
+  m_contextMenu->addSeparator();
   action = m_saveDiagramAction = m_contextMenu->addAction
-    (tr("&Save"),
-     this,
-     SLOT(slotSave(void)));
+    (tr("&Save"), this, &glitch_view::slotSave);
   action->setIcon(QIcon::fromTheme("document-save"));
   m_contextMenu->addAction(tr("Save &As..."),
 			   this,
@@ -1213,6 +1215,7 @@ void glitch_view::slotGenerate(void)
 
 void glitch_view::slotPaste(void)
 {
+  emit paste(this);
 }
 
 void glitch_view::slotResizeScene(void)
