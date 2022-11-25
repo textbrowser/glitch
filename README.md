@@ -23,6 +23,15 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+<p>2022.11.25</p>
+<ul>
+<li>Copy context-menu action.</li>
+<li>Detect clean-state of redo / undo stack and adjust diagram state.</li>
+<li>Establish wires after undo events.</li>
+<li>Fancy collapse widgets for trees.</li>
+<li>New Position column in Find Objects. Proper sorting is included.</li>
+<li>Paste context-menu actions attached to diagrams.</li>
+</ul>
 <p>2022.11.20</p>
 <ul>
 <li>Connect (wire) copied items if necessary.</li>
