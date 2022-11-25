@@ -21,3 +21,5 @@
 <li>Sparc!</li>
 <li>Unlimited diagrams.</li>
 </ul>
+
+![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
