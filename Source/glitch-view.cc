@@ -682,6 +682,10 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
+
+  if(ok)
+    m_undoStack->setClean();
+
   m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
@@ -939,9 +943,12 @@ void glitch_view::push(glitch_undo_command *undoCommand)
 
 void glitch_view::redo(void)
 {
-  m_changed = true;
-  m_undoStack->redo();
-  emit changed();
+  if(m_undoStack->canRedo())
+    {
+      m_changed = true;
+      m_undoStack->redo();
+      emit changed();
+    }
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -1350,7 +1357,10 @@ void glitch_view::slotUnite(void)
 
 void glitch_view::undo(void)
 {
-  m_changed = true;
-  m_undoStack->undo();
-  emit changed();
+  if(m_undoStack->canUndo())
+    {
+      m_undoStack->undo();
+      m_changed = !m_undoStack->isClean();
+      emit changed();
+    }
 }
