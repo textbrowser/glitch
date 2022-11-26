@@ -9,6 +9,10 @@ LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport sql widgets
 
+contains(QMAKE_TARGET.arch, power) {
+QMAKE_CXXFLAGS_RELEASE += -mcpu=powerpc
+}
+
 qtHaveModule(pdf) {
 qtHaveModule(pdfwidgets) {
 DEFINES         += GLITCH_PDF_SUPPORTED
