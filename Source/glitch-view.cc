@@ -945,8 +945,8 @@ void glitch_view::redo(void)
 {
   if(m_undoStack->canRedo())
     {
-      m_changed = true;
       m_undoStack->redo();
+      m_changed = !m_undoStack->isClean();
       emit changed();
     }
 }
