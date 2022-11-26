@@ -640,8 +640,6 @@
   <tabstop>select_output_file</tabstop>
   <tabstop>project_type</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
-  <tabstop>wire_color_2</tabstop>
-  <tabstop>wire_color_3</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>

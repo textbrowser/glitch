@@ -116,18 +116,20 @@ void glitch_find_objects::find(void)
   m_ui.tree->clear();
 
   if(m_view)
-    foreach(auto object, m_view->objects())
-      if(object)
-	{
-	  auto item = new glitch_find_objects_position_item(m_ui.tree);
+    {
+      foreach(auto object, m_view->objects())
+	if(object)
+	  {
+	    auto item = new glitch_find_objects_position_item(m_ui.tree);
 
-	  item->setText(static_cast<int> (Columns::Object), object->name());
-	  item->setText
-	    (static_cast<int> (Columns::Position), object->position());
-	  item->setText(static_cast<int> (Columns::Type), object->type());
-	  m_ui.tree->addTopLevelItem(item);
-	  find(item, object);
-	}
+	    item->setText(static_cast<int> (Columns::Object), object->name());
+	    item->setText
+	      (static_cast<int> (Columns::Position), object->position());
+	    item->setText(static_cast<int> (Columns::Type), object->type());
+	    m_ui.tree->addTopLevelItem(item);
+	    find(item, object);
+	  }
+    }
 
   if(m_collapse->isChecked())
     m_ui.tree->expandAll();

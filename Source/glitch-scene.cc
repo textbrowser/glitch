@@ -1135,16 +1135,18 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  if(!m_lastScenePos.isNull())
-	    foreach(auto i, selectedItems())
-	      {
-		auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	    {
+	      foreach(auto i, selectedItems())
+		{
+		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-		if(!proxy || !proxy->isMovable())
-		  continue;
-		else
-		  m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
-		    (proxy->scenePos(), proxy);
-	      }
+		  if(!proxy || !proxy->isMovable())
+		    continue;
+		  else
+		    m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
+		      (proxy->scenePos(), proxy);
+		}
+	    }
 	}
       else if(m_toolsOperation == glitch_tools::Operations::SELECT)
 	clearSelection();
