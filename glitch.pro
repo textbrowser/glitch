@@ -9,8 +9,12 @@ LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport sql widgets
 
+contains(QMAKE_HOST.arch, armv7l) {
+QMAKE_CXXFLAGS_RELEASE += -march=armv7
+}
+
 contains(QMAKE_HOST.arch, ppc) {
-QMAKE_CXXFLAGS_RELEASE += -mcpu=powerpc
+QMAKE_CXXFLAGS_RELEASE += -march=powerpc
 }
 
 qtHaveModule(pdf) {
