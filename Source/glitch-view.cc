@@ -1348,6 +1348,8 @@ void glitch_view::slotUndoStackChanged(void)
     m_generateTimer.start();
 
   adjustScrollBars();
+  m_changed = !m_undoStack->isClean();
+  emit changed();
 }
 
 void glitch_view::slotUnite(void)
