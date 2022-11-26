@@ -9,7 +9,7 @@ LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport sql widgets
 
-contains(QMAKE_TARGET.arch, power) {
+contains(QMAKE_HOST.arch, ppc) {
 QMAKE_CXXFLAGS_RELEASE += -mcpu=powerpc
 }
 
