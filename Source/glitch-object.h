@@ -291,6 +291,7 @@ class glitch_object: public QWidget
   void saveWires(const QSqlDatabase &db, QString &error);
 
  protected slots:
+  virtual void slotCopy(void);
   virtual void slotHideOrShowOccupied(void);
   void slotSetStyleSheet(void);
 

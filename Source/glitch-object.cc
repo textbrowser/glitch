@@ -675,6 +675,10 @@ void glitch_object::createActions(void)
 	      &QAction::triggered,
 	      this,
 	      &glitch_object::copy);
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotCopy);
       m_actions[DefaultMenuActions::COPY] = action;
     }
 
@@ -1324,6 +1328,10 @@ void glitch_object::slotClearTemporaryContainers(void)
 {
   m_copiedConnectionsPositions.clear();
   m_originalPosition = QPointF();
+}
+
+void glitch_object::slotCopy(void)
+{
 }
 
 void glitch_object::slotHideOrShowOccupied(void)

@@ -206,6 +206,10 @@ void glitch_object_loop_arduino::save(const QSqlDatabase &db, QString &error)
     m_editView->save(db, error);
 }
 
+void glitch_object_loop_arduino::slotCopy(void)
+{
+}
+
 void glitch_object_loop_arduino::slotEdit(void)
 {
   m_editWindow->setToolBarVisible

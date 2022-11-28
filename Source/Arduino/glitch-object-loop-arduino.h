@@ -53,6 +53,7 @@ class glitch_object_loop_arduino: public glitch_object
   Ui_glitch_object_loop_arduino m_ui;
 
  private slots:
+  void slotCopy(void);
   void slotEdit(void);
   void slotHideOrShowOccupied(void);
 };
