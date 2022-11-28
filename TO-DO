@@ -246,6 +246,7 @@ Remaining Items
 - SQLite modes.
 - Save option from child views.
 - Scroll view during selection.
+- Shadow copies of loop() and setup().
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.

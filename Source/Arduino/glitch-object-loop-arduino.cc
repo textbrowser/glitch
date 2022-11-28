@@ -137,7 +137,27 @@ bool glitch_object_loop_arduino::shouldPrint(void) const
 glitch_object_loop_arduino *glitch_object_loop_arduino::
 clone(QWidget *parent) const
 {
-  return new glitch_object_loop_arduino(parent);
+  auto clone = new glitch_object_loop_arduino(parent);
+
+  clone->cloneWires(m_copiedConnectionsPositions);
+  clone->cloneWires(m_wires);
+
+  if(m_copiedChildren.isEmpty() && m_editView)
+    foreach(auto object, m_editView->scene()->objects())
+      {
+	if(!object)
+	  continue;
+
+	auto child = object->clone(nullptr);
+
+	if(child)
+	  {
+	    child->setProperty("position", object->scenePos());
+	    clone->m_copiedChildren << child;
+	  }
+      }
+
+  return clone;
 }
 
 void glitch_object_loop_arduino::addActions(QMenu &menu)
