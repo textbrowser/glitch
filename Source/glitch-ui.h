@@ -65,7 +65,7 @@ class glitch_ui: public QMainWindow
   static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;
-  static void copy(QGraphicsView *view);
+  static void copy(QGraphicsView *view, const bool selected = true);
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
@@ -85,6 +85,7 @@ class glitch_ui: public QMainWindow
   glitch_view_arduino *newArduinoDiagram(const QString &fileName,
 					 const QString &name,
 					 const bool fromFile);
+  static void clearCopiedObjects(void);
   void closeEvent(QCloseEvent *event);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);

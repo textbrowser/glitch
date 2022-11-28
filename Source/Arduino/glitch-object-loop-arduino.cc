@@ -189,8 +189,7 @@ void glitch_object_loop_arduino::save(const QSqlDatabase &db, QString &error)
 
 void glitch_object_loop_arduino::slotCopy(void)
 {
-  m_editView->slotSelectAll();
-  glitch_ui::copy(m_editView);
+  glitch_ui::copy(m_editView, false);
 }
 
 void glitch_object_loop_arduino::slotEdit(void)

@@ -448,6 +448,32 @@ glitch_view *glitch_ui::page(const int index)
   return qobject_cast<glitch_view *> (m_ui.tab->widget(index));
 }
 
+void glitch_ui::clearCopiedObjects(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
+    it(s_copiedObjects);
+#else
+  QMutableMultiMapIterator<QPair<int, int>, QPointer<glitch_object > >
+    it(s_copiedObjects);
+#endif
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value())
+	it.value()->deleteLater();
+
+      it.remove();
+    }
+
+  s_copiedObjectsSet.clear();
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::closeEvent(QCloseEvent *event)
 {
   /*
@@ -489,34 +515,16 @@ void glitch_ui::closeEvent(QCloseEvent *event)
   QApplication::exit();
 }
 
-void glitch_ui::copy(QGraphicsView *view)
+void glitch_ui::copy(QGraphicsView *view, const bool selected)
 {
   if(!view || !view->scene())
     return;
 
+  clearCopiedObjects();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
-    it(s_copiedObjects);
-#else
-  QMutableMultiMapIterator<QPair<int, int>, QPointer<glitch_object> >
-    it(s_copiedObjects);
-#endif
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(it.value())
-	it.value()->deleteLater();
-
-      it.remove();
-    }
-
-  s_copiedObjectsSet.clear();
-
-  auto list(view->scene()->selectedItems());
+  auto list
+    (!selected ? view->scene()->items() : view->scene()->selectedItems());
 
   foreach(auto i, list)
     {
@@ -525,10 +533,11 @@ void glitch_ui::copy(QGraphicsView *view)
 
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(!proxy ||
-	 proxy->isMandatory() ||
-	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
-	 !proxy->isSelected())
+      if(!proxy || proxy->isMandatory())
+	continue;
+      else if((!(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
+	       !proxy->isSelected()) &&
+	      selected)
 	continue;
 
       auto object = proxy->object();
@@ -1250,28 +1259,7 @@ void glitch_ui::slotArduinoViewDestroyed(void)
 
 void glitch_ui::slotClearCopiedWidgetsBuffer(void)
 {
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-  QMutableMapIterator<QPair<int, int>, QPointer<glitch_object> >
-    it(s_copiedObjects);
-#else
-  QMutableMultiMapIterator<QPair<int, int>, QPointer<glitch_object > >
-    it(s_copiedObjects);
-#endif
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(it.value())
-	it.value()->deleteLater();
-
-      it.remove();
-    }
-
-  s_copiedObjectsSet.clear();
-  QApplication::restoreOverrideCursor();
+  clearCopiedObjects();
   prepareActionWidgets();
 }
 
