@@ -637,7 +637,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Adjust Size"), this);
 
-      action->setData(static_cast<uint> (DefaultMenuActions::ADJUST_SIZE));
+      action->setData(static_cast<int> (DefaultMenuActions::ADJUST_SIZE));
       action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
@@ -653,7 +653,7 @@ void glitch_object::createActions(void)
       action->setCheckable(true);
       action->setChecked
 	(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
-      action->setData(static_cast<uint> (DefaultMenuActions::COMPRESS_WIDGET));
+      action->setData(static_cast<int> (DefaultMenuActions::COMPRESS_WIDGET));
       action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
@@ -669,7 +669,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("Copy Object(s)"), this);
 
-      action->setData(static_cast<uint> (DefaultMenuActions::COPY));
+      action->setData(static_cast<int> (DefaultMenuActions::COPY));
       action->setIcon(QIcon::fromTheme("edit-copy"));
       connect(action,
 	      &QAction::triggered,
@@ -682,7 +682,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Delete"), this);
 
-      action->setData(static_cast<uint> (DefaultMenuActions::DELETE));
+      action->setData(static_cast<int> (DefaultMenuActions::DELETE));
       action->setEnabled(!isMandatory());
       action->setIcon(QIcon::fromTheme("edit-delete"));
       connect(action,
@@ -699,7 +699,7 @@ void glitch_object::createActions(void)
       action->setCheckable(true);
       action->setChecked
 	(m_properties.value(Properties::POSITION_LOCKED).toBool());
-      action->setData(static_cast<uint> (DefaultMenuActions::LOCK_POSITION));
+      action->setData(static_cast<int> (DefaultMenuActions::LOCK_POSITION));
       action->setEnabled(!isMandatory());
       connect(action,
 	      &QAction::triggered,
@@ -715,7 +715,7 @@ void glitch_object::createActions(void)
     {
       auto action = new QAction(tr("&Set Style Sheet..."), this);
 
-      action->setData(static_cast<uint> (DefaultMenuActions::SET_STYLE_SHEET));
+      action->setData(static_cast<int> (DefaultMenuActions::SET_STYLE_SHEET));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -729,7 +729,7 @@ void glitch_object::createActions(void)
 
       action->setCheckable(true);
       action->setChecked(m_properties.value(Properties::TRANSPARENT).toBool());
-      action->setData(static_cast<uint> (DefaultMenuActions::TRANSPARENT));
+      action->setData(static_cast<int> (DefaultMenuActions::TRANSPARENT));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -1243,7 +1243,7 @@ void glitch_object::slotActionTriggered(void)
     {
       auto property = Properties::XYZ_PROPERTY;
 
-      switch(DefaultMenuActions(action->data().toUInt()))
+      switch(DefaultMenuActions(action->data().toInt()))
 	{
 	case DefaultMenuActions::COMPRESS_WIDGET:
 	  {
