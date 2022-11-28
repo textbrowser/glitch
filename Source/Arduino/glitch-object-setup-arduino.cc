@@ -30,6 +30,7 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-setup-arduino.h"
 #include "glitch-object-view.h"
+#include "glitch-ui.h"
 #include "glitch-view.h"
 
 glitch_object_setup_arduino::glitch_object_setup_arduino
@@ -182,8 +183,12 @@ void glitch_object_setup_arduino::save(const QSqlDatabase &db, QString &error)
   if(!error.isEmpty())
     return;
 
-  if(m_editView)
-    m_editView->save(db, error);
+  m_editView->save(db, error);
+}
+
+void glitch_object_setup_arduino::slotCopy(void)
+{
+  glitch_ui::copy(m_editView, false);
 }
 
 void glitch_object_setup_arduino::slotEdit(void)
