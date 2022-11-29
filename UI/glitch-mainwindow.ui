@@ -132,6 +132,7 @@
      <string>&amp;Generate</string>
     </property>
     <addaction name="action_Generate_Source"/>
+    <addaction name="action_Show_Project_IDE"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -351,6 +352,11 @@
   <action name="action_Glitch_Preferences">
    <property name="text">
     <string>Glitch Preferences...</string>
+   </property>
+  </action>
+  <action name="action_Show_Project_IDE">
+   <property name="text">
+    <string>Show Project IDE...</string>
    </property>
   </action>
  </widget>

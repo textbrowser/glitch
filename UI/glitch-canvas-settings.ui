@@ -487,6 +487,61 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QLabel" name="project_ide_warning_label">
+               <property name="font">
+                <font>
+                 <pointsize>25</pointsize>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Please complete the Project IDE field!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QWidget {color: #ff612f;}</string>
+               </property>
+               <property name="text">
+                <string>&lt;html&gt;&amp;#9888;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>Project IDE</string>
+               </property>
+               <property name="buddy">
+                <cstring>output_file</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="project_ide">
+               <property name="maxLength">
+                <number>5000</number>
+               </property>
+               <property name="placeholderText">
+                <string>Project IDE</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_project_ide">
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="QLabel" name="label_4">
@@ -638,6 +693,8 @@
   <tabstop>generate_periodically</tabstop>
   <tabstop>output_file</tabstop>
   <tabstop>select_output_file</tabstop>
+  <tabstop>project_ide</tabstop>
+  <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
  </tabstops>
