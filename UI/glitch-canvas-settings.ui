@@ -418,7 +418,7 @@
          </widget>
          <widget class="QWidget" name="page_2">
           <attribute name="title">
-           <string>Generate Source</string>
+           <string>Project</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>

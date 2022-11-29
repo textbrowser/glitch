@@ -34,6 +34,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QStandardPaths>
+#include <QStorageInfo>
 
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
@@ -54,6 +55,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.output_file_warning_label->setVisible(false);
+  m_ui.project_ide->setText("/usr/local/arduino");
   m_ui.project_ide_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
   m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
@@ -124,6 +126,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectOutputFile);
+  connect(m_ui.select_project_ide,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSelectProjectIDE);
   connect(m_ui.selection_color,
 	  &QPushButton::clicked,
 	  this,
@@ -183,6 +189,7 @@ settings(void) const
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
+  hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SELECTION_COLOR] =
     m_ui.selection_color->text().remove('&').trimmed();
@@ -227,6 +234,11 @@ QString glitch_canvas_settings::outputFile(void) const
   return m_settings.value(Settings::OUTPUT_FILE).toString();
 }
 
+QString glitch_canvas_settings::projectIDE(void) const
+{
+  return m_settings.value(Settings::PROJECT_IDE).toString();
+}
+
 QString glitch_canvas_settings::wireType(void) const
 {
   return m_settings.value(Settings::WIRE_TYPE).toString().trimmed();
@@ -261,6 +273,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
+	   "project_ide TEXT, "
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
@@ -287,6 +300,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "generate_periodically, "
 	   "name, "
 	   "output_file, "
+	   "project_ide, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
 	   "selection_color, "
@@ -297,7 +311,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
@@ -309,6 +323,7 @@ bool glitch_canvas_settings::save(QString &error) const
 
 	query.addBindValue(name);
 	query.addBindValue(m_ui.output_file->text());
+	query.addBindValue(m_ui.project_ide->text());
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
 	query.addBindValue(m_ui.selection_color->text().remove('&'));
@@ -396,10 +411,18 @@ void glitch_canvas_settings::notify(void)
   if(m_ui.output_file->text().trimmed().isEmpty())
     {
       m_ui.output_file_warning_label->setVisible(true);
-      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::GenerateSource));
+      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
     }
   else
     m_ui.output_file_warning_label->setVisible(false);
+
+  if(m_ui.project_ide->text().trimmed().isEmpty())
+    {
+      m_ui.project_ide_warning_label->setVisible(true);
+      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
+    }
+  else
+    m_ui.project_ide_warning_label->setVisible(false);
 }
 
 void glitch_canvas_settings::prepare(void)
@@ -424,6 +447,7 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
 	query.exec(QString("SELECT "
@@ -432,6 +456,7 @@ void glitch_canvas_settings::prepare(void)
 			   "generate_periodically, "
 			   "SUBSTR(name, 1, %1), "
 			   "SUBSTR(output_file, 1, 5000), "
+			   "SUBSTR(project_ide, 1, 5000), "
 			   "SUBSTR(project_type, 1, 50), "
 			   "redo_undo_stack_size, "
 			   "SUBSTR(selection_color, 1, 50), "
@@ -452,6 +477,7 @@ void glitch_canvas_settings::prepare(void)
 	QColor wireColor;
 	QString name("");
 	QString outputFile("");
+	QString projectIDE("");
 	QString projectType("");
 	QString updateMode("");
 	QString wireType("");
@@ -477,6 +503,8 @@ void glitch_canvas_settings::prepare(void)
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("output_file"))
 	      outputFile = record.value(i).toString();
+	    else if(fieldName.contains("project_ide"))
+	      projectIDE = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_type"))
 	      projectType = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("redo_undo_stack_size"))
@@ -526,6 +554,9 @@ void glitch_canvas_settings::prepare(void)
 	m_ui.output_file->setText(outputFile);
 	m_ui.output_file->setToolTip(m_ui.output_file->text());
 	m_ui.output_file->setCursorPosition(0);
+	m_ui.project_ide->setText(projectIDE);
+	m_ui.project_ide->setToolTip(m_ui.project_ide->text());
+	m_ui.project_ide->setCursorPosition(0);
 	m_ui.project_type->setCurrentIndex
 	  (m_ui.project_type->findText(projectType));
 
@@ -599,6 +630,14 @@ void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
   m_outputFileExtension = extension;
 }
 
+void glitch_canvas_settings::setProjectIDE(const QString &fileName)
+{
+  m_settings[Settings::PROJECT_IDE] = fileName;
+  m_ui.project_ide->setText(fileName);
+  m_ui.project_ide->setToolTip(fileName);
+  m_ui.project_ide->setCursorPosition(0);
+}
+
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 {
   m_ui.redo_undo_stack_size->setValue(value);
@@ -639,6 +678,7 @@ void glitch_canvas_settings::setSettings
   m_ui.wire_color->setText(color.name(QColor::HexArgb));
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
+  setProjectIDE(hash.value(Settings::PROJECT_IDE).toString().trimmed());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
@@ -785,6 +825,29 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
     }
 }
 
+void glitch_canvas_settings::slotSelectProjectIDE(void)
+{
+  QFileDialog dialog(this);
+  QFileInfo fileInfo(m_ui.project_ide->text().trimmed());
+
+  dialog.selectFile(m_ui.project_ide->text().trimmed());
+  dialog.setAcceptMode(QFileDialog::AcceptOpen);
+  dialog.setDirectory(QStorageInfo::root().displayName());
+  dialog.setFileMode(QFileDialog::AnyFile);
+  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(tr("Glitch: Select Project IDE"));
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      dialog.close();
+      m_ui.project_ide->setText(dialog.selectedFiles().value(0));
+      m_ui.project_ide->setToolTip(m_ui.project_ide->text().trimmed());
+      m_ui.project_ide->setCursorPosition(0);
+    }
+}
+
 void glitch_canvas_settings::slotTimerTimeout(void)
 {
   QFileInfo fileInfo(m_ui.output_file->text());
@@ -805,5 +868,25 @@ void glitch_canvas_settings::slotTimerTimeout(void)
     {
       m_ui.output_file_warning_label->setToolTip("");
       m_ui.output_file_warning_label->setVisible(false);
+    }
+
+  fileInfo = QFileInfo(m_ui.project_ide->text());
+
+  if(!fileInfo.isExecutable())
+    {
+      if(m_ui.project_ide->text().trimmed().isEmpty())
+	m_ui.project_ide_warning_label->setToolTip
+	  (tr("The project IDE is not an executable."));
+      else
+	m_ui.project_ide_warning_label->setToolTip
+	  (tr("<html>The project IDE %1 is not an executable.</html>").
+	   arg(fileInfo.absoluteFilePath()));
+
+      m_ui.project_ide_warning_label->setVisible(true);
+    }
+  else
+    {
+      m_ui.project_ide_warning_label->setToolTip("");
+      m_ui.project_ide_warning_label->setVisible(false);
     }
 }

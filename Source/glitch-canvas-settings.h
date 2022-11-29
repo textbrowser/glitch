@@ -67,6 +67,7 @@ class glitch_canvas_settings: public QDialog
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString name(void) const;
   QString outputFile(void) const;
+  QString projectIDE(void) const;
   QString wireType(void) const;
   bool generatePeriodically(void) const;
   bool save(QString &error) const;
@@ -81,6 +82,7 @@ class glitch_canvas_settings: public QDialog
   void setName(const QString &name);
   void setOutputFile(const QString &fileName);
   void setOutputFileExtension(const QString &extension);
+  void setProjectIDE(const QString &filename);
   void setRedoUndoStackSize(const int value);
   void setSettings
     (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
@@ -100,7 +102,7 @@ class glitch_canvas_settings: public QDialog
   enum class Pages
   {
     Canvas = 0,
-    GenerateSource = 1,
+    Project = 1,
     UndoStack
   };
 
@@ -115,6 +117,7 @@ class glitch_canvas_settings: public QDialog
   void accept(void);
   void slotSelectColor(void);
   void slotSelectOutputFile(void);
+  void slotSelectProjectIDE(void);
   void slotTimerTimeout(void);
 
  signals:

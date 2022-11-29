@@ -95,15 +95,16 @@ class glitch_view: public QWidget
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);
-  void find(void);
+  void find(void) const;
+  void launchProjectIDE(void) const;
   void push(glitch_undo_command *undoCommand);
   void redo(void);
   void save(void);
   void selectAll(void);
   void setTabButton(QPushButton *pushButton);
-  void showCanvasSettings(void);
+  void showCanvasSettings(void) const;
   void showTools(void);
-  void showUserFunctions(void);
+  void showUserFunctions(void) const;
   void undo(void);
 
  public slots:
@@ -174,7 +175,7 @@ class glitch_view: public QWidget
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
-  void slotShowUserFunctions(void);
+  void slotShowUserFunctions(void) const;
   void slotShowWires(void);
   void slotUndoStackChanged(void);
   void slotUnite(void);

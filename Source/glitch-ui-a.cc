@@ -1902,6 +1902,8 @@ void glitch_ui::slotShowPreferences(void)
 
 void glitch_ui::slotShowProjectIDE(void)
 {
+  if(m_currentView)
+    m_currentView->launchProjectIDE();
 }
 
 void glitch_ui::slotShowReleaseNotes(void)

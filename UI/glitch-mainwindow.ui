@@ -127,9 +127,9 @@
     <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
    </widget>
-   <widget class="QMenu" name="menu_Generate">
+   <widget class="QMenu" name="menu_Project">
     <property name="title">
-     <string>&amp;Generate</string>
+     <string>&amp;Project</string>
     </property>
     <addaction name="action_Generate_Source"/>
     <addaction name="action_Show_Project_IDE"/>
@@ -154,7 +154,7 @@
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
-   <addaction name="menu_Generate"/>
+   <addaction name="menu_Project"/>
    <addaction name="menu_Tabs"/>
    <addaction name="menu_View"/>
    <addaction name="menu_Windows"/>

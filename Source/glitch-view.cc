@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QMainWindow>
 #include <QMenu>
+#include <QProcess>
 #include <QResizeEvent>
 #include <QScrollBar>
 #include <QSplitter>
@@ -835,7 +836,7 @@ void glitch_view::endMacro(void)
   m_undoStack->endMacro();
 }
 
-void glitch_view::find(void)
+void glitch_view::find(void) const
 {
   m_findObjects->showNormal();
   m_findObjects->activateWindow();
@@ -868,6 +869,15 @@ void glitch_view::generateSource(void)
 	     << Qt::endl;
 #endif
     }
+}
+
+void glitch_view::launchProjectIDE(void) const
+{
+  auto program(m_canvasSettings->projectIDE());
+  auto outputFile(m_canvasSettings->outputFile());
+
+  if(QFileInfo(program).isExecutable() && outputFile.length() > 0)
+    QProcess::startDetached(program, QStringList() << outputFile);
 }
 
 void glitch_view::prepareDatabaseTables(void) const
@@ -1044,7 +1054,7 @@ void glitch_view::setTabButton(QPushButton *pushButton)
   m_tabButton = pushButton;
 }
 
-void glitch_view::showCanvasSettings(void)
+void glitch_view::showCanvasSettings(void) const
 {
   m_canvasSettings->setSettings(m_settings);
   m_canvasSettings->showNormal();
@@ -1078,7 +1088,7 @@ void glitch_view::showTools(void)
   m_tools->raise();
 }
 
-void glitch_view::showUserFunctions(void)
+void glitch_view::showUserFunctions(void) const
 {
   slotShowUserFunctions();
 }
@@ -1300,7 +1310,7 @@ void glitch_view::slotShowTools(void)
   showTools();
 }
 
-void glitch_view::slotShowUserFunctions(void)
+void glitch_view::slotShowUserFunctions(void) const
 {
   m_userFunctions->setWindowTitle
     (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
