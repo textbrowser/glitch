@@ -667,18 +667,27 @@ void glitch_object::createActions(void)
 
   if(!m_actions.contains(DefaultMenuActions::COPY))
     {
-      auto action = new QAction(tr("Copy Object(s)"), this);
+      QAction *action = nullptr;
+
+      if(m_type == "arduino-loop" || m_type == "arduino-setup")
+	action = new QAction(tr("Copy Internal Object(s)"), this);
+      else
+	action = new QAction(tr("Copy Object(s)"), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::COPY));
       action->setIcon(QIcon::fromTheme("edit-copy"));
-      connect(action,
-	      &QAction::triggered,
-	      this,
-	      &glitch_object::copy);
-      connect(action,
-	      &QAction::triggered,
-	      this,
-	      &glitch_object::slotCopy);
+
+      if(m_type == "arduino-loop" || m_type == "arduino-setup")
+	connect(action,
+		&QAction::triggered,
+		this,
+		&glitch_object::slotCopy);
+      else
+	connect(action,
+		&QAction::triggered,
+		this,
+		&glitch_object::copy);
+
       m_actions[DefaultMenuActions::COPY] = action;
     }
 
