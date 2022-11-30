@@ -23,6 +23,13 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+<p>2022.11.30</p>
+<ul>
+<li>Detect clean states of redo / undo stacks and adjust states of parent diagrams.</li>
+<li>Project IDE. Please see Project menu.</li>
+<li>Renamed Generate menu to Project.</li>
+<li>Special copying of loop() and setup() contents.</li>
+</ul>
 <p>2022.11.25</p>
 <ul>
 <li>Copy context-menu action.</li>
