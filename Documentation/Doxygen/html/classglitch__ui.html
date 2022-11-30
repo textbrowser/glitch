@@ -109,9 +109,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a3c473112c55db9641e8688766c767078"><td class="memItemLeft" align="right" valign="top"><a id="a3c473112c55db9641e8688766c767078"></a>
 static QMultiMap&lt; QPair&lt; int, int &gt;, QPointer&lt; <a class="el" href="classglitch__object.html">glitch_object</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>copiedObjects</b> (void)</td></tr>
 <tr class="separator:a3c473112c55db9641e8688766c767078"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aa603260d0848f03539c08efa34e539"><td class="memItemLeft" align="right" valign="top"><a id="a6aa603260d0848f03539c08efa34e539"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (QGraphicsView *view)</td></tr>
-<tr class="separator:a6aa603260d0848f03539c08efa34e539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a564de2c6f8d3712e8680ca22484525cd"><td class="memItemLeft" align="right" valign="top"><a id="a564de2c6f8d3712e8680ca22484525cd"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (QGraphicsView *view, const bool selected=true)</td></tr>
+<tr class="separator:a564de2c6f8d3712e8680ca22484525cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa60b0087bfbfebd7496976edfcf21fbe"><td class="memItemLeft" align="right" valign="top"><a id="aa60b0087bfbfebd7496976edfcf21fbe"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>paste</b> (QGraphicsView *view, QUndoStack *undoStack)</td></tr>
 <tr class="separator:aa60b0087bfbfebd7496976edfcf21fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +121,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:ab9db8f732b45f511ea3dfbbc480e673e"><td class="memItemLeft" align="right" valign="top"><a id="ab9db8f732b45f511ea3dfbbc480e673e"></a>
 static QFont&#160;</td><td class="memItemRight" valign="bottom"><b>s_defaultApplicationFont</b></td></tr>
 <tr class="separator:ab9db8f732b45f511ea3dfbbc480e673e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9cbe038eef340b58e1bab98042e5cc"><td class="memItemLeft" align="right" valign="top"><a id="a2a9cbe038eef340b58e1bab98042e5cc"></a>
+static QSet&lt; <a class="el" href="classglitch__object.html">glitch_object</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>s_copiedObjectsSet</b></td></tr>
+<tr class="separator:a2a9cbe038eef340b58e1bab98042e5cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace395c325bffd236c53ba8732232a096"><td class="memItemLeft" align="right" valign="top"><a id="ace395c325bffd236c53ba8732232a096"></a>
 static QTranslator *&#160;</td><td class="memItemRight" valign="bottom"><b>s_translator1</b> = nullptr</td></tr>
 <tr class="separator:ace395c325bffd236c53ba8732232a096"><td class="memSeparator" colspan="2">&#160;</td></tr>

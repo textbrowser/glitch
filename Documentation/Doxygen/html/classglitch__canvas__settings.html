@@ -98,16 +98,18 @@ Public Types</h2></td></tr>
 , <b>GENERATE_PERIODICALLY</b>
 , <br />
 &#160;&#160;<b>OUTPUT_FILE</b>
+, <b>PROJECT_IDE</b>
 , <b>REDO_UNDO_STACK_SIZE</b>
-, <b>SHOW_CANVAS_DOTS</b>
+, <b>SELECTION_COLOR</b>
+, <br />
+&#160;&#160;<b>SHOW_CANVAS_DOTS</b>
 , <b>SHOW_CANVAS_GRIDS</b>
-, <br />
-&#160;&#160;<b>SHOW_ORDER_INDICATORS</b>
+, <b>SHOW_ORDER_INDICATORS</b>
 , <b>VIEW_UPDATE_MODE</b>
-, <b>WIRE_COLOR</b>
-, <b>WIRE_TYPE</b>
 , <br />
-&#160;&#160;<b>WIRE_WIDTH</b>
+&#160;&#160;<b>WIRE_COLOR</b>
+, <b>WIRE_TYPE</b>
+, <b>WIRE_WIDTH</b>
 <br />
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +131,9 @@ QColor&#160;</td><td class="memItemRight" valign="bottom"><b>canvasBackgroundCol
 <tr class="memitem:a2a6de6fc866504099d75a32e81a2c15a"><td class="memItemLeft" align="right" valign="top"><a id="a2a6de6fc866504099d75a32e81a2c15a"></a>
 QColor&#160;</td><td class="memItemRight" valign="bottom"><b>dotsGridsColor</b> (void) const</td></tr>
 <tr class="separator:a2a6de6fc866504099d75a32e81a2c15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0d5e61fac650d130c647787ff79f497"><td class="memItemLeft" align="right" valign="top"><a id="ab0d5e61fac650d130c647787ff79f497"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>selectionColor</b> (void) const</td></tr>
+<tr class="separator:ab0d5e61fac650d130c647787ff79f497"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cc03cf6171e56821c8a49ef5bcfc286"><td class="memItemLeft" align="right" valign="top"><a id="a8cc03cf6171e56821c8a49ef5bcfc286"></a>
 QColor&#160;</td><td class="memItemRight" valign="bottom"><b>wireColor</b> (void) const</td></tr>
 <tr class="separator:a8cc03cf6171e56821c8a49ef5bcfc286"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,6 +149,9 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) co
 <tr class="memitem:adcbd5c2761dc5e880af94190226fd57a"><td class="memItemLeft" align="right" valign="top"><a id="adcbd5c2761dc5e880af94190226fd57a"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>outputFile</b> (void) const</td></tr>
 <tr class="separator:adcbd5c2761dc5e880af94190226fd57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ca8d93f643ae8a245665cd9f6c09e0"><td class="memItemLeft" align="right" valign="top"><a id="ae9ca8d93f643ae8a245665cd9f6c09e0"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>projectIDE</b> (void) const</td></tr>
+<tr class="separator:ae9ca8d93f643ae8a245665cd9f6c09e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3eee2dcc4fc98f927ae1c608db32e50"><td class="memItemLeft" align="right" valign="top"><a id="ab3eee2dcc4fc98f927ae1c608db32e50"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>wireType</b> (void) const</td></tr>
 <tr class="separator:ab3eee2dcc4fc98f927ae1c608db32e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,6 +194,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutputFile</b> (co
 <tr class="memitem:a9237a38219fd75ac34bcfdcdcb4487d0"><td class="memItemLeft" align="right" valign="top"><a id="a9237a38219fd75ac34bcfdcdcb4487d0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutputFileExtension</b> (const QString &amp;extension)</td></tr>
 <tr class="separator:a9237a38219fd75ac34bcfdcdcb4487d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ab52c36557c312a398071f3cd1585a"><td class="memItemLeft" align="right" valign="top"><a id="a00ab52c36557c312a398071f3cd1585a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProjectIDE</b> (const QString &amp;filename)</td></tr>
+<tr class="separator:a00ab52c36557c312a398071f3cd1585a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memItemLeft" align="right" valign="top"><a id="a26cb6dd1a07af51ef9a2df713ea842ec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setRedoUndoStackSize</b> (const int value)</td></tr>
 <tr class="separator:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
