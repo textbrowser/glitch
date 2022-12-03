@@ -185,6 +185,7 @@ Completed Items
 - Set child window titles to parent diagram name.
 - Set focus on plain-text-edit during mouse-press event. Discover the
   "viewport" widget.
+- Shadow copies of loop() and setup().
 - Shortcuts in object views.
 - Show object coordinates in redo / undo text.
 - Single redo / undo stack per diagram.
@@ -246,7 +247,6 @@ Remaining Items
 - SQLite modes.
 - Save option from child views.
 - Scroll view during selection.
-- Shadow copies of loop() and setup().
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.
