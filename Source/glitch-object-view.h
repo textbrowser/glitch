@@ -70,6 +70,9 @@ class glitch_object_view: public QGraphicsView
   void slotSelectAll(void);
   void slotUndo(void);
 
+ protected:
+  void mouseMoveEvent(QMouseEvent *event);
+
  private:
   QPointer<QUndoStack> m_undoStack;
   glitch_alignment *m_alignment;

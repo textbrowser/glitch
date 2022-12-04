@@ -160,6 +160,28 @@ void glitch_object_view::endMacro(void)
     m_undoStack->endMacro();
 }
 
+void glitch_object_view::mouseMoveEvent(QMouseEvent *event)
+{
+  QGraphicsView::mouseMoveEvent(event);
+
+  if(event && event->buttons() == Qt::LeftButton)
+    {
+      const int offset = 7;
+
+      if(event->pos().x() >= width() - 50)
+	horizontalScrollBar()->setValue
+	  (horizontalScrollBar()->value() + offset);
+      else if(event->pos().x() - 50 < 0)
+	horizontalScrollBar()->setValue
+	  (horizontalScrollBar()->value() - offset);
+
+      if(event->pos().y() >= height() - 50)
+	verticalScrollBar()->setValue(verticalScrollBar()->value() + offset);
+      else if(event->pos().y() - 50 < 0)
+	verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
+    }
+}
+
 void glitch_object_view::push(glitch_undo_command *undoCommand)
 {
   if(m_undoStack && undoCommand)
