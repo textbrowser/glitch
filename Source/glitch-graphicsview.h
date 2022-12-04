@@ -45,6 +45,7 @@ class glitch_graphicsview: public QGraphicsView
   void enterEvent(QEvent *event);
 #endif
   void leaveEvent(QEvent *event);
+  void mouseMoveEvent(QMouseEvent *event);
   void mousePressEvent(QMouseEvent *event);
 
  signals:

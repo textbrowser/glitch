@@ -26,6 +26,7 @@
 */
 
 #include <QMouseEvent>
+#include <QScrollBar>
 
 #include "glitch-graphicsview.h"
 #include "glitch-view.h"
@@ -58,6 +59,28 @@ void glitch_graphicsview::leaveEvent(QEvent *event)
 {
   QGraphicsView::leaveEvent(event);
   emit mouseLeaveEvent();
+}
+
+void glitch_graphicsview::mouseMoveEvent(QMouseEvent *event)
+{
+  QGraphicsView::mouseMoveEvent(event);
+
+  if(event && event->buttons() == Qt::LeftButton)
+    {
+      const int offset = 7;
+
+      if(event->pos().x() >= width() - 50)
+	horizontalScrollBar()->setValue
+	  (horizontalScrollBar()->value() + offset);
+      else if(event->pos().x() - 50 < 0)
+	horizontalScrollBar()->setValue
+	  (horizontalScrollBar()->value() - offset);
+
+      if(event->pos().y() >= height() - 50)
+	verticalScrollBar()->setValue(verticalScrollBar()->value() + offset);
+      else if(event->pos().y() - 50 < 0)
+	verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
+    }
 }
 
 void glitch_graphicsview::mousePressEvent(QMouseEvent *event)

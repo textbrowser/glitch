@@ -176,6 +176,7 @@ Completed Items
 - Save loop() and setup() style sheets.
 - Save position-locked property.
 - Save, Save As on separated windows.
+- Scroll view during selection.
 - Search structures.
 - Select all.
 - Selection rectangle moves wired objects. Ignore wires.
@@ -246,7 +247,6 @@ Remaining Items
   are numerous windows.
 - SQLite modes.
 - Save option from child views.
-- Scroll view during selection.
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.
