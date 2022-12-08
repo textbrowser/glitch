@@ -824,7 +824,8 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto moved = false;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = views().value(0);
-	int pixels = (event->modifiers() & Qt::ShiftModifier) ? 50 : 1;
+	int pixels = (QGuiApplication::keyboardModifiers() & Qt::ShiftModifier)
+	  ? 50 : 1;
 
 	if(view)
 	  {
@@ -935,9 +936,9 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_Z:
       {
-	if(event->modifiers() & Qt::ControlModifier)
+	if(QGuiApplication::keyboardModifiers() & Qt::ControlModifier)
 	  {
-	    if(event->modifiers() & Qt::ShiftModifier)
+	    if(QGuiApplication::keyboardModifiers() & Qt::ShiftModifier)
 	      redo();
 	    else
 	      undo();
