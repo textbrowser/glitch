@@ -876,8 +876,13 @@ void glitch_view::launchProjectIDE(void) const
   auto program(m_canvasSettings->projectIDE());
   auto outputFile(m_canvasSettings->outputFile());
 
-  if(QFileInfo(program).isExecutable() && outputFile.length() > 0)
-    QProcess::startDetached(program, QStringList() << outputFile);
+  if(QFileInfo(program).isExecutable())
+    {
+      if(outputFile.length() > 0)
+	QProcess::startDetached(program, QStringList() << outputFile);
+      else
+	QProcess::startDetached(program, QStringList());
+    }
 }
 
 void glitch_view::prepareDatabaseTables(void) const

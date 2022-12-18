@@ -213,7 +213,9 @@ void glitch_proxy_widget::paint
       pen.setColor(QColor(168, 169, 173));
       pen.setJoinStyle(Qt::RoundJoin);
       pen.setStyle(Qt::SolidLine);
-      pen.setWidthF(1.0);
+      pen.setWidthF
+	(scene() ? (scene()->backgroundBrush().color() == QColor(Qt::white) ?
+		    1.0 : 3.5) : 3.5);
       painter->save();
       painter->setPen(pen);
       painter->drawRoundedRect(boundingRect(), 5.0, 5.0);
