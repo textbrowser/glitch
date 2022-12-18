@@ -574,15 +574,17 @@ void glitch_object::addDefaultActions(QMenu &menu)
   createActions();
 
   QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
-  int i = 0;
 
   while(it.hasNext())
     {
-      i += 1;
       it.next();
       menu.addAction(it.value());
 
-      if((i == 1 || i == 3) && it.hasNext())
+      if((DefaultMenuActions::COPY == it.key() ||
+	  DefaultMenuActions::DELETE == it.key() ||
+	  DefaultMenuActions::LOCK_POSITION == it.key() ||
+	  DefaultMenuActions::SET_FUNCTION_NAME == it.key()) &&
+	 it.hasNext())
 	menu.addSeparator();
     }
 }
@@ -723,6 +725,18 @@ void glitch_object::createActions(void)
   else
     m_actions[DefaultMenuActions::LOCK_POSITION]->
       setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
+
+  if(!m_actions.contains(DefaultMenuActions::PORT_COLORS))
+    {
+      auto action = new QAction(tr("Set &Port Colors..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::PORT_COLORS));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotSetStyleSheet);
+      m_actions[DefaultMenuActions::PORT_COLORS] = action;
+    }
 
   if(!m_actions.contains(DefaultMenuActions::SET_STYLE_SHEET))
     {

@@ -61,9 +61,10 @@ class glitch_object: public QWidget
     DELETE = 3,
     EDIT = 4,
     LOCK_POSITION = 5,
+    PORT_COLORS = 7,
     SET_FUNCTION_NAME = 6,
-    SET_STYLE_SHEET = 7,
-    TRANSPARENT = 8
+    SET_STYLE_SHEET = 8,
+    TRANSPARENT = 9
   };
 
   enum class Properties
