@@ -138,6 +138,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
                   UI/glitch-find-objects.ui \
                   UI/glitch-floating-context-menu.ui \
                   UI/glitch-mainwindow.ui \
+                  UI/glitch-port-colors.ui \
                   UI/glitch-preferences.ui \
 		  UI/glitch-separated-diagram-window.ui \
                   UI/glitch-structures.ui \
@@ -156,6 +157,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-view.h \
+                  Source/glitch-port-colors.h \
                   Source/glitch-preferences.h \
                   Source/glitch-proxy-widget.h \
                   Source/glitch-recent-diagram.h \
@@ -184,6 +186,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-object.cc \
                   Source/glitch-object-edit-window.cc \
                   Source/glitch-object-view.cc \
+                  Source/glitch-port-colors.cc \
                   Source/glitch-preferences.cc \
                   Source/glitch-proxy-widget.cc \
                   Source/glitch-scene.cc \

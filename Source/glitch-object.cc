@@ -62,6 +62,7 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
+#include "glitch-port-colors.h"
 #include "glitch-scene.h"
 #include "glitch-style-sheet.h"
 #include "glitch-ui.h"
