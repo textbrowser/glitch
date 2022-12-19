@@ -734,7 +734,7 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSetStyleSheet);
+	      &glitch_object::slotSetPortColors);
       m_actions[DefaultMenuActions::PORT_COLORS] = action;
     }
 
@@ -1433,9 +1433,8 @@ void glitch_object::slotSetFont(void)
   hideOrShowOccupied();
 }
 
-void glitch_object::slotSimulateDelete(void)
+void glitch_object::slotSetPortColors(void)
 {
-  simulateDelete();
 }
 
 void glitch_object::slotSetStyleSheet(void)
@@ -1480,6 +1479,11 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
   m_contextMenu->show();
+}
+
+void glitch_object::slotSimulateDelete(void)
+{
+  simulateDelete();
 }
 
 void glitch_object::slotWireDestroyed(void)

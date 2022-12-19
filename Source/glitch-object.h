@@ -294,6 +294,7 @@ class glitch_object: public QWidget
  protected slots:
   virtual void slotCopy(void);
   virtual void slotHideOrShowOccupied(void);
+  void slotSetPortColors(void);
   void slotSetStyleSheet(void);
 
  signals:
