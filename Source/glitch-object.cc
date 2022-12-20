@@ -1440,15 +1440,15 @@ void glitch_object::slotSetPortColors(void)
 
 void glitch_object::slotSetStyleSheet(void)
 {
-  QScopedPointer<glitch_style_sheet> dialog(new glitch_style_sheet(m_parent));
   auto string(styleSheet());
+  glitch_style_sheet dialog(m_parent);
 
-  dialog->setWidget(this);
+  dialog.setWidget(this);
   QApplication::processEvents();
 
-  if(dialog->exec() == QDialog::Accepted && dialog->styleSheet() != string)
+  if(dialog.exec() == QDialog::Accepted && dialog.styleSheet() != string)
     {
-      setStyleSheet(dialog->styleSheet());
+      setStyleSheet(dialog.styleSheet());
 
       if(m_undoStack)
 	{
