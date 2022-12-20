@@ -90,6 +90,7 @@ class glitch_object: public QWidget
     LOGICAL_OPERATOR,
     MATHEMATICS_TYPE,
     NAME,
+    PORT_COLORS,
     POSITION_LOCKED,
     RANDOM_TYPE,
     SERIAL_TYPE,

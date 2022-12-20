@@ -98,6 +98,14 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_occupied = false;
   m_parent = parent;
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::PORT_COLORS] =
+    QColor(0, 80, 181).name() +    // Input Connected
+    "-" +
+    QColor(118, 134, 146).name() + // Input Disconneted
+    "-" +
+    QColor(0, 80, 181).name() +    // Output Connected
+    "-" +
+    QColor(118, 134, 146).name();  // Output Disconnected
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
   m_properties[Properties::TRANSPARENT] = true;
@@ -1446,7 +1454,9 @@ void glitch_object::slotSetPortColors(void)
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
-	    ("", glitch_undo_command::PORT_COLORS_CHANGED, this);
+	    (m_properties.value(Properties::PORT_COLORS).toString(),
+	     glitch_undo_command::PORT_COLORS_CHANGED,
+	     this);
 
 	  undoCommand->setText
 	    (tr("port colors changed (%1, %2)").
