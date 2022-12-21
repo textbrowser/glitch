@@ -1085,6 +1085,9 @@ void glitch_object::setProperties(const QStringList &list)
 	}
       else if(string.simplified().startsWith("port_colors = "))
 	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::PORT_COLORS] = string.trimmed();
 	}
       else if(string.simplified().startsWith("position_locked = "))
 	{
@@ -1451,7 +1454,7 @@ void glitch_object::slotSetPortColors(void)
 {
   glitch_port_colors dialog(m_parent);
 
-  dialog.setWidget(this);
+  dialog.setObject(this);
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)

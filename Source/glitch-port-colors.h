@@ -32,6 +32,8 @@
 
 #include "ui_glitch-port-colors.h"
 
+class glitch_object;
+
 class glitch_port_colors: public QDialog
 {
   Q_OBJECT
@@ -39,10 +41,10 @@ class glitch_port_colors: public QDialog
  public:
   glitch_port_colors(QWidget *parent);
   ~glitch_port_colors();
-  void setWidget(QWidget *widget);
+  void setObject(glitch_object *object);
 
  private:
-  QPointer<QWidget> m_widget;
+  QPointer<glitch_object> m_object;
   Ui_glitch_port_colors m_ui;
 };
 

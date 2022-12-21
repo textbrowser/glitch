@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-object.h"
 #include "glitch-port-colors.h"
 
 glitch_port_colors::glitch_port_colors(QWidget *parent):QDialog(parent)
@@ -37,8 +38,20 @@ glitch_port_colors::~glitch_port_colors()
 {
 }
 
-void glitch_port_colors::setWidget(QWidget *widget)
+void glitch_port_colors::setObject(glitch_object *object)
 {
-  m_ui.buttonBox->setEnabled(widget != nullptr);
-  m_widget = widget;
+  m_object = object;
+  m_ui.buttonBox->setEnabled(object);
+
+  if(m_object)
+    {
+      auto list
+	(m_object->property(glitch_object::Properties::PORT_COLORS).
+	 toString().split('-'));
+
+      m_ui.input_connected->setText(list.value(0));
+      m_ui.input_disconnected->setText(list.value(1));
+      m_ui.output_connected->setText(list.value(2));
+      m_ui.output_disconnected->setText(list.value(3));
+    }
 }
