@@ -101,7 +101,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
     "-" +
-    QColor(118, 134, 146).name() + // Input Disconneted
+    QColor(118, 134, 146).name() + // Input Disconnected
     "-" +
     QColor(0, 80, 181).name() +    // Output Connected
     "-" +
@@ -949,6 +949,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
+  properties["port_colors"] = m_properties.value
+    (Properties::PORT_COLORS).toString();
   properties["position_locked"] = m_properties.value
     (Properties::POSITION_LOCKED).toBool();
   properties["size"] = QString("(%1, %2)").
@@ -1080,6 +1082,9 @@ void glitch_object::setProperties(const QStringList &list)
 		(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 	      m_properties[Properties::NAME] = string.trimmed();
 	    }
+	}
+      else if(string.simplified().startsWith("port_colors = "))
+	{
 	}
       else if(string.simplified().startsWith("position_locked = "))
 	{
