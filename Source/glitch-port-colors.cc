@@ -45,13 +45,23 @@ void glitch_port_colors::setObject(glitch_object *object)
 
   if(m_object)
     {
-      auto list
-	(m_object->property(glitch_object::Properties::PORT_COLORS).
-	 toString().split('-'));
+      QList<QPushButton *> list;
+      QStringList strings;
 
-      m_ui.input_connected->setText(list.value(0));
-      m_ui.input_disconnected->setText(list.value(1));
-      m_ui.output_connected->setText(list.value(2));
-      m_ui.output_disconnected->setText(list.value(3));
+      list << m_ui.input_connected
+	   << m_ui.input_disconnected
+	   << m_ui.output_connected
+	   << m_ui.output_disconnected;
+      strings << m_object->property
+	(glitch_object::Properties::PORT_COLORS).toString().split('-');
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  auto string(strings.value(i).remove('&'));
+
+	  list.at(i)->setStyleSheet
+	    (QString("QPushButton {background-color: %1;}").arg(string));
+	  list.at(i)->setText(string);
+	}
     }
 }
