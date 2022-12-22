@@ -125,9 +125,9 @@ class glitch_object: public QWidget
 
   QColor portColor(const glitch_object::PortColors portColor) const
   {
-    return QColor(m_properties.value(glitch_object::Properties::PORT_COLORS).
-		  toString().split('-').value(static_cast<int> (portColor)).
-		  remove('&'));
+    return QColor
+      (m_properties.value(Properties::PORT_COLORS).
+       toString().split('-').value(static_cast<int> (portColor)).remove('&'));
   }
 
   QHash<Properties, QVariant> properties(void) const

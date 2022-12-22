@@ -53,7 +53,6 @@ class glitch_undo_command: public QUndoCommand
     ITEM_DELETED,
     ITEM_MOVED,
     ITEM_RENAMED,
-    PORT_COLORS_CHANGED,
     PROPERTY_CHANGED,
     STYLESHEET_CHANGED,
     WIRE_ADDED,
