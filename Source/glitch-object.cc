@@ -1210,6 +1210,9 @@ void glitch_object::setProperty(const Properties property,
 	break;
       }
     }
+
+  if(m_proxy && m_proxy->scene())
+    m_proxy->scene()->update();
 }
 
 void glitch_object::setProperty(const char *name, const QVariant &value)
