@@ -1271,6 +1271,8 @@ void glitch_view::slotSaveAs(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      QApplication::processEvents();
+
       QString error("");
 
       if(!saveAs(dialog.selectedFiles().value(0), error))
@@ -1280,6 +1282,8 @@ void glitch_view::slotSaveAs(void)
       else
 	emit saved();
     }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_view::slotSceneObjectDestroyed(QObject *object)

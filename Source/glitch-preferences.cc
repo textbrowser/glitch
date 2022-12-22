@@ -126,6 +126,11 @@ void glitch_preferences::slotSelectFont(void)
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
-    m_ui.display_application_font->setText
-      (dialog.selectedFont().toString().trimmed());
+    {
+      QApplication::processEvents();
+      m_ui.display_application_font->setText
+	(dialog.selectedFont().toString().trimmed());
+    }
+  else
+    QApplication::processEvents();
 }

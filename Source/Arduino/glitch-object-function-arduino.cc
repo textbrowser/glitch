@@ -804,6 +804,8 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      QApplication::processEvents();
+
       auto text(dialog.textValue().remove("(").remove(")").trimmed());
 
       if(text.isEmpty())
@@ -836,4 +838,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       emit changed();
       emit nameChanged(text, name, this);
     }
+  else
+    QApplication::processEvents();
 }

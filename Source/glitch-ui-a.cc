@@ -661,6 +661,7 @@ void glitch_ui::parseCommandLineArguments(void)
       ui.text->setPlainText(errors.trimmed());
       QApplication::processEvents();
       dialog.exec();
+      QApplication::processEvents();
     }
 
   if(!m_delayedDiagrams.isEmpty())
@@ -1400,6 +1401,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
       ui.text->setPlainText(errors.trimmed());
       QApplication::processEvents();
       dialog.exec();
+      QApplication::processEvents();
     }
 
   if(state)
@@ -1496,9 +1498,14 @@ void glitch_ui::slotNewArduinoDiagram(void)
   QApplication::processEvents();
 
   if(dialog.exec() != QDialog::Accepted)
-    return;
+    {
+      QApplication::processEvents();
+      return;
+    }
   else
     name = dialog.textValue().trimmed();
+
+  QApplication::processEvents();
 
   if(name.isEmpty())
     name = "Arduino-Diagram";
@@ -1549,7 +1556,7 @@ void glitch_ui::slotOpenDiagram(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      dialog.close();
+      QApplication::processEvents();
 
       QString errors("");
       auto list(dialog.selectedFiles());
@@ -1584,8 +1591,11 @@ void glitch_ui::slotOpenDiagram(void)
 	  ui.text->setPlainText(errors.trimmed());
 	  QApplication::processEvents();
 	  dialog.exec();
+	  QApplication::processEvents();
 	}
     }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_ui::slotOpenRecentDiagram(void)
@@ -1610,6 +1620,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
       ui.text->setPlainText(error.trimmed());
       QApplication::processEvents();
       dialog.exec();
+      QApplication::processEvents();
     }
 }
 
@@ -1718,6 +1729,8 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 
       if(dialog.exec() == QDialog::Accepted)
 	{
+	  QApplication::processEvents();
+
 	  QString error("");
 	  auto fileName(dialog.selectedFiles().value(0));
 
@@ -1734,6 +1747,8 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 	      setWindowTitle(view);
 	    }
 	}
+      else
+	QApplication::processEvents();
     }
 }
 

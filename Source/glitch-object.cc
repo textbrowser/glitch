@@ -1460,6 +1460,7 @@ void glitch_object::slotSetPortColors(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      QApplication::processEvents();
       m_properties[Properties::PORT_COLORS] = dialog.colors();
 
       if(m_undoStack)
@@ -1475,6 +1476,8 @@ void glitch_object::slotSetPortColors(void)
 
       emit changed();
     }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_object::slotSetStyleSheet(void)
@@ -1487,6 +1490,7 @@ void glitch_object::slotSetStyleSheet(void)
 
   if(dialog.exec() == QDialog::Accepted && dialog.styleSheet() != string)
     {
+      QApplication::processEvents();
       setStyleSheet(dialog.styleSheet());
 
       if(m_undoStack)
@@ -1503,11 +1507,15 @@ void glitch_object::slotSetStyleSheet(void)
       emit changed();
     }
   else
-    /*
-    ** Reset. Perhaps a preview?
-    */
+    {
+      QApplication::processEvents();
 
-    setStyleSheet(string);
+      /*
+      ** Reset. Perhaps a preview?
+      */
+
+      setStyleSheet(string);
+    }
 }
 
 void glitch_object::slotShowContextMenu(void)

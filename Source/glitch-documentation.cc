@@ -191,10 +191,15 @@ void glitch_documentation::slotPrint(void)
   QApplication::processEvents();
 
   QPrinter printer(QPrinter::HighResolution);
-  QPrintDialog printDialog(&printer, this);
+  QPrintDialog dialog(&printer, this);
 
-  printDialog.setWindowIcon(windowIcon());
+  dialog.setWindowIcon(windowIcon());
 
-  if(printDialog.exec() == QDialog::Accepted)
-    m_ui.text->print(&printer);
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      m_ui.text->print(&printer);
+    }
+  else
+    QApplication::processEvents();
 }

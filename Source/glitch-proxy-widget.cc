@@ -321,7 +321,7 @@ void glitch_proxy_widget::paint
 			      10.0,
 			      10.0);
 
-	      if(m_object->isInputWired())
+	      if(m_object->isOutputWired())
 		painter->fillPath
 		  (path, m_object->portColor(glitch_object::PortColors::
 					     OUTPUT_CONNECTED));

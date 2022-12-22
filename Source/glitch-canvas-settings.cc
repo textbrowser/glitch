@@ -784,6 +784,8 @@ void glitch_canvas_settings::slotSelectColor(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      QApplication::processEvents();
+
       QColor color(dialog.selectedColor());
       auto format = button == m_ui.selection_color || m_ui.wire_color ?
 	QColor::HexArgb : QColor::HexRgb;
@@ -793,6 +795,8 @@ void glitch_canvas_settings::slotSelectColor(void)
 	 arg(color.name(format)));
       button->setText(color.name(format));
     }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_canvas_settings::slotSelectOutputFile(void)
@@ -818,7 +822,7 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      dialog.close();
+      QApplication::processEvents();
       m_ui.output_file->setText(dialog.selectedFiles().value(0));
       m_ui.output_file->setToolTip(m_ui.output_file->text());
       m_ui.output_file->setCursorPosition(0);
@@ -841,7 +845,7 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      dialog.close();
+      QApplication::processEvents();
       m_ui.project_ide->setText(dialog.selectedFiles().value(0));
       m_ui.project_ide->setToolTip(m_ui.project_ide->text().trimmed());
       m_ui.project_ide->setCursorPosition(0);

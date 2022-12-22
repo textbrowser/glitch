@@ -97,5 +97,26 @@ void glitch_port_colors::setObject(glitch_object *object)
 
 void glitch_port_colors::slotSelectColor(void)
 {
+  auto button = qobject_cast<QPushButton *> (sender());
+
+  if(!button)
+    return;
+
   QColorDialog dialog(this);
+
+  dialog.setCurrentColor(QColor(button->text().remove('&')));
+  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
+  dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      button->setStyleSheet
+	(QString("QPushButton {background-color: %1;}").
+	 arg(dialog.selectedColor().name(QColor::HexArgb)));
+      button->setText(dialog.selectedColor().name(QColor::HexArgb));
+    }
+  else
+    QApplication::processEvents();
 }
