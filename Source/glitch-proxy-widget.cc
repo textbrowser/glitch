@@ -298,9 +298,13 @@ void glitch_proxy_widget::paint
 			      10.0);
 
 	      if(m_object->isInputWired())
-		painter->fillPath(path, QColor(0, 80, 181));
+		painter->fillPath
+		  (path, m_object->portColor(glitch_object::PortColors::
+					     INPUT_CONNECTED));
 	      else
-		painter->fillPath(path, QColor(118, 134, 146));
+		painter->fillPath
+		  (path, m_object->portColor(glitch_object::PortColors::
+					     INPUT_DISCONNECTED));
 	    }
 
 	  if(m_object->hasOutput())
@@ -317,10 +321,14 @@ void glitch_proxy_widget::paint
 			      10.0,
 			      10.0);
 
-	      if(m_object->isOutputWired())
-		painter->fillPath(path, QColor(0, 80, 181));
+	      if(m_object->isInputWired())
+		painter->fillPath
+		  (path, m_object->portColor(glitch_object::PortColors::
+					     OUTPUT_CONNECTED));
 	      else
-		painter->fillPath(path, QColor(118, 134, 146));
+		painter->fillPath
+		  (path, m_object->portColor(glitch_object::PortColors::
+					     OUTPUT_DISCONNECTED));
 	    }
 
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||

@@ -66,6 +66,7 @@ Completed Items
   Redo / undo stack.
 - Copy children!
 - Copy wires. Very difficult.
+- Custom input and output port colors.
 - Define databases.
 - Define input parameters from connected objects. Order is also important.
 - Delegate object constructors.
@@ -232,7 +233,6 @@ Remaining Items
 - Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Copy wires of cloned functions if necessary.
-- Custom input / output port colors.
 - Custom shortcuts.
 - Draw and, not, or, etc. objects.
 - Find and take me to your leader (scroll-to, show edit view).

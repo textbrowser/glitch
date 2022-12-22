@@ -41,11 +41,15 @@ class glitch_port_colors: public QDialog
  public:
   glitch_port_colors(QWidget *parent);
   ~glitch_port_colors();
+  QString colors(void) const;
   void setObject(glitch_object *object);
 
  private:
   QPointer<glitch_object> m_object;
   Ui_glitch_port_colors m_ui;
+
+ private slots:
+  void slotSelectColor(void);
 };
 
 #endif

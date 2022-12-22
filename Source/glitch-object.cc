@@ -1452,6 +1452,7 @@ void glitch_object::slotSetFont(void)
 
 void glitch_object::slotSetPortColors(void)
 {
+  auto string(m_properties.value(Properties::PORT_COLORS).toString());
   glitch_port_colors dialog(m_parent);
 
   dialog.setObject(this);
@@ -1459,12 +1460,12 @@ void glitch_object::slotSetPortColors(void)
 
   if(dialog.exec() == QDialog::Accepted)
     {
+      m_properties[Properties::PORT_COLORS] = dialog.colors();
+
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
-	    (m_properties.value(Properties::PORT_COLORS).toString(),
-	     glitch_undo_command::PORT_COLORS_CHANGED,
-	     this);
+	    (string, glitch_undo_command::PORT_COLORS_CHANGED, this);
 
 	  undoCommand->setText
 	    (tr("port colors changed (%1, %2)").

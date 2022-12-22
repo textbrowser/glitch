@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QColorDialog>
+
 #include "glitch-object.h"
 #include "glitch-port-colors.h"
 
@@ -32,10 +34,37 @@ glitch_port_colors::glitch_port_colors(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
   m_ui.buttonBox->setEnabled(false);
+  connect(m_ui.input_connected,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::slotSelectColor);
+  connect(m_ui.input_disconnected,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::slotSelectColor);
+  connect(m_ui.output_connected,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::slotSelectColor);
+  connect(m_ui.output_disconnected,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::slotSelectColor);
 }
 
 glitch_port_colors::~glitch_port_colors()
 {
+}
+
+QString glitch_port_colors::colors(void) const
+{
+  return m_ui.input_connected->text().remove('&') +
+    "-" +
+    m_ui.input_disconnected->text().remove('&') +
+    "-" +
+    m_ui.output_connected->text().remove('&') +
+    "-" +
+    m_ui.output_disconnected->text().remove('&');
 }
 
 void glitch_port_colors::setObject(glitch_object *object)
@@ -64,4 +93,9 @@ void glitch_port_colors::setObject(glitch_object *object)
 	  list.at(i)->setText(string);
 	}
     }
+}
+
+void glitch_port_colors::slotSelectColor(void)
+{
+  QColorDialog dialog(this);
 }

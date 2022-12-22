@@ -67,6 +67,14 @@ class glitch_object: public QWidget
     TRANSPARENT = 9
   };
 
+  enum class PortColors
+  {
+    INPUT_CONNECTED = 0,
+    INPUT_DISCONNECTED,
+    OUTPUT_CONNECTED,
+    OUTPUT_DISCONNECTED
+  };
+
   enum class Properties
   {
     ADVANCED_IO_TYPE = 0,
@@ -114,6 +122,13 @@ class glitch_object: public QWidget
 
   glitch_object(QWidget *parent);
   glitch_object(const qint64 id, QWidget *parent);
+
+  QColor portColor(const glitch_object::PortColors portColor) const
+  {
+    return QColor(m_properties.value(glitch_object::Properties::PORT_COLORS).
+		  toString().split('-').value(static_cast<int> (portColor)).
+		  remove('&'));
+  }
 
   QHash<Properties, QVariant> properties(void) const
   {
