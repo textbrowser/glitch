@@ -77,6 +77,10 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::slotFind);
+  connect(m_ui.tree,
+	  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+	  this,
+	  SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
@@ -143,4 +147,13 @@ void glitch_find_objects::find(void)
 void glitch_find_objects::slotFind(void)
 {
   find();
+}
+
+void glitch_find_objects::slotItemDoubleClicked
+(QTreeWidgetItem *item, int column)
+{
+  Q_UNUSED(column);
+
+  if(!item)
+    return;
 }

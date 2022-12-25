@@ -61,6 +61,7 @@ class glitch_find_objects: public QDialog
 
  private slots:
   void slotFind(void);
+  void slotItemDoubleClicked(QTreeWidgetItem *item, int column);
 };
 
 #endif
