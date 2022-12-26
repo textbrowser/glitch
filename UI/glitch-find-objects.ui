@@ -19,6 +19,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>A double-clicked item will be selected and shown on its parent diagram.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QFrame" name="frame">
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <property name="topMargin">
