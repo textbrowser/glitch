@@ -160,4 +160,6 @@ void glitch_find_objects::slotItemDoubleClicked
   /*
   ** Select the clicked item.
   */
+
+  emit itemClicked(item);
 }

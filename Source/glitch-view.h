@@ -38,6 +38,7 @@
 #include "ui_glitch-view.h"
 
 class QSplitter;
+class QTreeWidgetItem;
 class glitch_alignment;
 class glitch_find_objects;
 class glitch_graphicsview;
@@ -122,6 +123,7 @@ class glitch_view: public QWidget
   void prepareDefaultActions(void);
 
  private slots:
+  void slotFoundItemClicked(QTreeWidgetItem *item);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  protected:
