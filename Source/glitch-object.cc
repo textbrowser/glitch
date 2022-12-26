@@ -1261,6 +1261,12 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
 }
 
+void glitch_object::showEditWindow(void) const
+{
+  if(m_editWindow)
+    m_editWindow->show();
+}
+
 void glitch_object::simulateDelete(void)
 {
 #ifdef Q_OS_ANDROID

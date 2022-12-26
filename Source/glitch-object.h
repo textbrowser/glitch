@@ -247,6 +247,7 @@ class glitch_object: public QWidget
 
   void setUndoStack(QUndoStack *undoStack);
   void setWiredObject(glitch_object *object, glitch_wire *wire);
+  void showEditWindow(void) const;
 
  private:
   QMenu m_menu;

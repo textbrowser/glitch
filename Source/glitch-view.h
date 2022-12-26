@@ -123,7 +123,6 @@ class glitch_view: public QWidget
   void prepareDefaultActions(void);
 
  private slots:
-  void slotFoundItemClicked(QTreeWidgetItem *item);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  protected:

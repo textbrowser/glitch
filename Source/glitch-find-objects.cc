@@ -44,6 +44,11 @@ class glitch_find_objects_position_item: public QTreeWidgetItem
   {
   }
 
+  QPointer<glitch_object> object(void) const
+  {
+    return m_object;
+  }
+
   bool operator<(const QTreeWidgetItem &other) const
   {
     auto i = treeWidget()->sortColumn();
@@ -64,6 +69,14 @@ class glitch_find_objects_position_item: public QTreeWidgetItem
 	return !(x1 < x2 || (x1 == x2 && y1 < y2));
       }
   }
+
+  void setObject(glitch_object *object)
+  {
+    m_object = object;
+  }
+
+ private:
+  QPointer<glitch_object> m_object;
 };
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
@@ -107,6 +120,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
       {
 	auto item = new glitch_find_objects_position_item(i);
 
+	item->setObject(child);
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->type());
@@ -126,6 +140,7 @@ void glitch_find_objects::find(void)
 	  {
 	    auto item = new glitch_find_objects_position_item(m_ui.tree);
 
+	    item->setObject(object);
 	    item->setText(static_cast<int> (Columns::Object), object->name());
 	    item->setText
 	      (static_cast<int> (Columns::Position), object->position());
@@ -149,17 +164,33 @@ void glitch_find_objects::slotFind(void)
   find();
 }
 
-void glitch_find_objects::slotItemDoubleClicked
-(QTreeWidgetItem *item, int column)
+void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 {
   Q_UNUSED(column);
 
-  if(!item)
+  if(!i)
     return;
 
   /*
   ** Select the clicked item.
   */
 
-  emit itemClicked(item);
+  auto item = static_cast<glitch_find_objects_position_item *> (i);
+
+  if(item && item->object() && item->object()->proxy())
+    {
+      auto proxy = item->object()->proxy();
+
+      proxy->ensureVisible();
+      proxy->setSelected(true);
+
+      if(item->parent())
+	{
+	  item = static_cast<glitch_find_objects_position_item *>
+	    (item->parent());
+
+	  if(item && item->object())
+	    item->object()->showEditWindow();
+	}
+    }
 }

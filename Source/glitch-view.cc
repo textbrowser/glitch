@@ -118,10 +118,6 @@ glitch_view::glitch_view
 	  SIGNAL(accepted(const bool)),
 	  this,
 	  SLOT(slotCanvasSettingsChanged(const bool)));
-  connect(m_findObjects,
-	  SIGNAL(itemClicked(QTreeWidgetItem *)),
-	  this,
-	  SLOT(slotFoundItemClicked(QTreeWidgetItem *)));
   connect(m_scene,
 	  &glitch_scene::changed,
 	  this,
@@ -1172,28 +1168,6 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
     return;
 
   menu->exec(mapToGlobal(point));
-}
-
-void glitch_view::slotFoundItemClicked(QTreeWidgetItem *item)
-{
-  if(!item)
-    return;
-
-  glitch_proxy_widget *proxy = nullptr;
-  auto text
-    (item->text(static_cast<int> (glitch_find_objects::Columns::Position)).
-     remove('(').remove(')'));
-  auto x = text.split(',').value(0).trimmed().toDouble();
-  auto y = text.split(',').value(1).trimmed().toDouble();
-
-  proxy = qgraphicsitem_cast<glitch_proxy_widget *>
-    (m_scene->itemAt(QPointF(x, y), QTransform()));
-
-  if(proxy)
-    {
-      proxy->ensureVisible();
-      proxy->setSelected(true);
-    }
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
