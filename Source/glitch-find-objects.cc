@@ -156,4 +156,8 @@ void glitch_find_objects::slotItemDoubleClicked
 
   if(!item)
     return;
+
+  /*
+  ** Select the clicked item.
+  */
 }
