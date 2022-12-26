@@ -251,3 +251,4 @@ Remaining Items
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.
+- Windows and GDI objects.
