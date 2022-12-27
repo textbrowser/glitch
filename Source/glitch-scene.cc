@@ -1072,7 +1072,9 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    {
 		      bringToFront(nullptr);
 		      bringToFront(proxy);
-		      goto done_label;
+
+		      if(event->button() == Qt::LeftButton)
+			goto done_label;
 		    }
 		  else if(qobject_cast<QLineEdit *> (object->childAt(point)))
 		    {
