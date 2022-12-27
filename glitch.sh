@@ -8,7 +8,12 @@ export QT_X11_NO_MITSHM=1
 if [ -r ./Glitch ] && [ -x ./Glitch ]
 then
     echo "Launching a local Glitch."
-    export LD_LIBRARY_PATH=.
+
+    if [ -r ./Lib ]
+    then
+	export LD_LIBRARY_PATH=Lib
+    fi
+
     exec ./Glitch "$@"
     exit $?
 elif [ -r /usr/local/glitch/Glitch ] && [ -x /usr/local/glitch/Glitch ]

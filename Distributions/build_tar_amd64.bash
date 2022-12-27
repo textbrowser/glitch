@@ -10,6 +10,7 @@ fi
 
 make distclean 2>/dev/null
 mkdir -p ./glitch/Documentation
+mkdir -p ./glitch/Lib
 qmake -o Makefile glitch.pro && make -j $(nproc)
 cp -p ./Documentation/*.1 ./glitch/Documentation/.
 cp -p ./Glitch ./glitch/.
@@ -19,8 +20,8 @@ cp -pr ./Documentation/Arduino ./glitch/Documentation/.
 
 # Prepare a tar bundle.
 
-cp $(ldd ./Glitch | awk '{print $3}' | grep -e '^/') ./glitch/.
-chmod -x ./glitch/*.so*
+cp $(ldd ./Glitch | awk '{print $3}' | grep -e '^/') ./glitch/Lib/.
+chmod -x ./glitch/Lib/*.so*
 tar -cv -f Glitch-2023.01.01.tar ./glitch
 make distclean
 rm -fr ./glitch
