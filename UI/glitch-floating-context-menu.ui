@@ -72,7 +72,7 @@
         <x>0</x>
         <y>0</y>
         <width>384</width>
-        <height>138</height>
+        <height>98</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -98,10 +98,37 @@
      </widget>
     </widget>
    </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>glitch_floating_context_menu</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>226</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>124</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
