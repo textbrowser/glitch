@@ -194,6 +194,10 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   connect(this,
+	  &glitch_view::changed,
+	  m_findObjects,
+	  &glitch_find_objects::slotSynchronize);
+  connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));

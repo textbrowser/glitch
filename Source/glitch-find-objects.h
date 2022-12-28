@@ -52,6 +52,9 @@ class glitch_find_objects: public QDialog
   glitch_find_objects(QWidget *parent);
   ~glitch_find_objects();
 
+ public slots:
+  void slotSynchronize(void);
+
  private:
   QPointer<glitch_view> m_view;
   Ui_glitch_find_objects m_ui;

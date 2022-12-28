@@ -194,3 +194,22 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 	}
     }
 }
+
+void glitch_find_objects::slotSynchronize(void)
+{
+  if(!m_ui.synchronize->isChecked())
+    return;
+
+  auto value1 = m_ui.tree->horizontalScrollBar() ?
+    m_ui.tree->horizontalScrollBar()->value() : -1;
+  auto value2 = m_ui.tree->verticalScrollBar() ?
+    m_ui.tree->verticalScrollBar()->value() : -1;
+
+  find();
+
+  if(value1 >= 0)
+    m_ui.tree->horizontalScrollBar()->setValue(value1);
+
+  if(value2 >= 0)
+    m_ui.tree->verticalScrollBar()->setValue(value2);
+}

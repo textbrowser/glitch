@@ -29,6 +29,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="synchronize">
+     <property name="text">
+      <string>Synchronize with diagram. Option is ephemeral.</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QFrame" name="frame">
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <property name="topMargin">
@@ -127,6 +137,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>synchronize</tabstop>
   <tabstop>tree</tabstop>
   <tabstop>find</tabstop>
   <tabstop>close</tabstop>
