@@ -206,6 +206,32 @@ QString glitch_object_flow_control_arduino::flowControlType(void) const
   return m_ui.flow_control_type->currentText();
 }
 
+QString glitch_object_flow_control_arduino::simplified(const QString &text)
+{
+  QString string("");
+  int state = 0;
+
+  for(int i = 0; i < text.length(); i++)
+    if(state == 0)
+      {
+	if(i > 0 && text.at(i) == ' ' && text.at(i - 1) == ' ')
+	  continue;
+	else if(text.at(i) == '"')
+	  state = 1;
+
+	string.append(text.at(i));
+      }
+    else if(state == 1)
+      {
+	if(text.at(i) == '"')
+	  state = 0;
+
+	string.append(text.at(i));
+      }
+
+  return string.trimmed();
+}
+
 bool glitch_object_flow_control_arduino::editable(void) const
 {
   switch(m_flowControlType)
@@ -263,7 +289,7 @@ clone(QWidget *parent) const
   clone->m_flowControlType = m_flowControlType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_ui.condition->setText(m_ui.condition->text().trimmed());
+  clone->m_ui.condition->setText(simplified(m_ui.condition->text()));
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
@@ -330,7 +356,7 @@ createFromValues(const QMap<QString, QVariant> &values,
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
-    (object->m_properties.value(Properties::CONDITION).toString().trimmed());
+    (simplified(object->m_properties.value(Properties::CONDITION).toString()));
   object->prepareEditWindowHeader();
   return object;
 }
@@ -550,7 +576,7 @@ void glitch_object_flow_control_arduino::setProperty
     {
     case Properties::CONDITION:
       {
-	m_ui.condition->setText(value.toString().trimmed());
+	m_ui.condition->setText(simplified(value.toString()));
 	prepareEditWindowHeader();
 	break;
       }
@@ -570,7 +596,7 @@ void glitch_object_flow_control_arduino::setProperty
 
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
-  m_ui.condition->setText(m_ui.condition->text().trimmed());
+  m_ui.condition->setText(simplified(m_ui.condition->text()));
   m_ui.condition->selectAll();
 
   if(!m_undoStack)
