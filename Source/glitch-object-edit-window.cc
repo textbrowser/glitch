@@ -33,6 +33,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
@@ -89,11 +90,6 @@ glitch_object_edit_window::glitch_object_edit_window
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
-
-  auto font(m_header->font());
-
-  font.setBold(true);
-  m_header->setFont(font);
   m_object = object;
   m_projectType = projectType;
   m_splitter = nullptr;
@@ -154,6 +150,7 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
     {
       m_header->setText(text.trimmed());
       m_header->setVisible(true);
+      glitch_misc::highlight(m_header);
       setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }
   else

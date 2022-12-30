@@ -29,7 +29,9 @@
 #include <QComboBox>
 #include <QDir>
 #include <QIcon>
+#include <QLineEdit>
 #include <QMessageBox>
+#include <QTextLayout>
 
 #include "glitch-misc.h"
 #include "glitch-view.h"
@@ -97,6 +99,67 @@ bool glitch_misc::sameAncestors(const QObject *object1, const QObject *object2)
   while(parent2);
 
   return parent1 == parent2;
+}
+
+void glitch_misc::highlight(QLineEdit *lineEdit)
+{
+  if(!lineEdit)
+    return;
+
+  QHash<QString, QColor> colors;
+
+  colors["bool"] = QColor(Qt::green);
+  colors["boolean"] = QColor(Qt::green);
+  colors["byte"] = QColor(Qt::green);
+  colors["char"] = QColor(Qt::green);
+  colors["double"] = QColor(Qt::green);
+  colors["float"] = QColor(Qt::green);
+  colors["int"] = QColor(Qt::green);
+  colors["long"] = QColor(Qt::green);
+  colors["short"] = QColor(Qt::green);
+  colors["size_t"] = QColor(Qt::green);
+  colors["unsigned char"] = QColor(Qt::green);
+  colors["unsigned int"] = QColor(Qt::green);
+  colors["unsigned long"] = QColor(Qt::green);
+  colors["word"] = QColor(Qt::green);
+
+  QTextCharFormat format;
+  QTextLayout::FormatRange *ranges = nullptr;
+  auto list(lineEdit->text().split(QRegularExpression("\\W+")));
+  int index = 0;
+
+  ranges = new QTextLayout::FormatRange[list.size()];
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      format.setFontHintingPreference(QFont::PreferFullHinting);
+      format.setFontStyleStrategy(QFont::PreferAntialias);
+      format.setFontWeight(QFont::Normal);
+
+      if(colors.contains(list.at(i)))
+	format.setForeground(colors.value(list.at(i)));
+      else
+	format.setForeground(QColor(Qt::blue));
+
+      ranges[i].format = format;
+      ranges[i].length = list.at(i).length();
+      ranges[i].start = index = lineEdit->text().indexOf(list.at(i), index);
+      index += list.at(i).length();
+    }
+
+  QList<QInputMethodEvent::Attribute> attributes;
+
+  for(int i = 0; i < list.size(); i++)
+    attributes << QInputMethodEvent::Attribute
+      (QInputMethodEvent::TextFormat,
+       ranges[i].start,
+       ranges[i].length,
+       ranges[i].format);
+
+  QInputMethodEvent event(QString(), attributes);
+
+  QCoreApplication::sendEvent(lineEdit, &event);
+  delete []ranges;
 }
 
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)

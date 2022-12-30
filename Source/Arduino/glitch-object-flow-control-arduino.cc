@@ -25,9 +25,9 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QTextLayout>
 #include <QTextStream>
 
+#include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-flow-control-arduino.h"
 #include "glitch-object-view.h"
@@ -291,7 +291,6 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(simplified(m_ui.condition->text()));
-  clone->highlight();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
@@ -359,8 +358,8 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (simplified(object->m_properties.value(Properties::CONDITION).toString()));
-  object->highlight();
   object->prepareEditWindowHeader();
+  glitch_misc::highlight(object->m_ui.condition);
   return object;
 }
 
@@ -400,66 +399,10 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
   m_ui.flow_control_type->setFont(font);
 }
 
-void glitch_object_flow_control_arduino::highlight(void)
-{
-  QHash<QString, QColor> colors;
-  QList<QInputMethodEvent::Attribute> attributes;
-  int index = 0;
-
-  colors["bool"] = QColor(Qt::green);
-  colors["boolean"] = QColor(Qt::green);
-  colors["byte"] = QColor(Qt::green);
-  colors["char"] = QColor(Qt::green);
-  colors["double"] = QColor(Qt::green);
-  colors["float"] = QColor(Qt::green);
-  colors["int"] = QColor(Qt::green);
-  colors["long"] = QColor(Qt::green);
-  colors["short"] = QColor(Qt::green);
-  colors["size_t"] = QColor(Qt::green);
-  colors["unsigned char"] = QColor(Qt::green);
-  colors["unsigned int"] = QColor(Qt::green);
-  colors["unsigned long"] = QColor(Qt::green);
-  colors["word"] = QColor(Qt::green);
-
-  foreach(const auto &string,
-	  m_ui.condition->text().split(QRegularExpression("\\W+")))
-    {
-      if(string.isEmpty())
-	continue;
-
-      QTextCharFormat format;
-
-      format.setFontHintingPreference(QFont::PreferFullHinting);
-      format.setFontStyleStrategy(QFont::PreferAntialias);
-      format.setFontWeight(QFont::Normal);
-
-      if(colors.contains(string))
-	format.setForeground(colors.value(string));
-      else
-	format.setForeground(QColor(Qt::blue));
-
-      QTextLayout::FormatRange range;
-
-      range.format = format;
-      range.length = string.length();
-      range.start = index = m_ui.condition->text().indexOf(string, index);
-      attributes << QInputMethodEvent::Attribute
-	(QInputMethodEvent::TextFormat,
-	 range.start,
-	 range.length,
-	 range.format);
-      index += string.length();
-    }
-
-  QInputMethodEvent event(QInputMethodEvent(QString(), attributes));
-
-  QApplication::sendEvent(m_ui.condition, &event);
-}
-
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
 {
   m_editWindow->prepareHeader
-    (QString("%1 (%2)").
+    (QString("%1(%2)").
      arg(m_ui.flow_control_type->currentText()).
      arg(m_ui.condition->text()));
 }
@@ -590,10 +533,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
     m_ui.flow_control_type->setCurrentIndex(0);
 
   m_ui.flow_control_type->blockSignals(false);
-  m_editWindow->prepareHeader
-    (QString("%1 (%2)").
-     arg(m_ui.flow_control_type->currentText()).
-     arg(m_ui.condition->text()));
+  prepareEditWindowHeader();
   setName(m_ui.flow_control_type->currentText());
 }
 
@@ -636,7 +576,7 @@ void glitch_object_flow_control_arduino::setProperty
     case Properties::CONDITION:
       {
 	m_ui.condition->setText(simplified(value.toString()));
-	highlight();
+	glitch_misc::highlight(m_ui.condition);
 	prepareEditWindowHeader();
 	break;
       }
@@ -657,7 +597,7 @@ void glitch_object_flow_control_arduino::setProperty
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
-  highlight();
+  glitch_misc::highlight(m_ui.condition);
 
   if(!m_undoStack)
     return;
