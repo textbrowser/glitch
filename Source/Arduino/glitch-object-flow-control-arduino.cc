@@ -421,6 +421,38 @@ void glitch_object_flow_control_arduino::highlight(void)
   format.setFontHintingPreference(QFont::PreferFullHinting);
   format.setFontStyleStrategy(QFont::PreferAntialias);
   format.setFontWeight(QFont::Normal);
+
+  foreach(const auto &string,
+	  m_ui.condition->text().split(QRegularExpression("\\w+")))
+    {
+      format.setForeground(QColor(Qt::red));
+
+      if(colors.contains(string))
+	format.setForeground(colors.value(string));
+
+      QTextLayout::FormatRange range;
+
+      range.format = format;
+      range.length = string.length();
+      range.start = m_ui.condition->text().indexOf(string);
+      formats << range;
+    }
+
+  QList<QInputMethodEvent::Attribute> attributes;
+
+  foreach(const auto format, formats)
+    {
+      auto length = format.length;
+      auto start = format.start;
+      auto type = QInputMethodEvent::TextFormat;
+      const QVariant &value(format.format);
+
+      attributes << QInputMethodEvent::Attribute(type, start, length, value);
+    }
+
+  QInputMethodEvent event(QInputMethodEvent(QString(), attributes));
+
+  QApplication::sendEvent(m_ui.condition, &event);
 }
 
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
@@ -623,7 +655,7 @@ void glitch_object_flow_control_arduino::setProperty
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
-  m_ui.condition->selectAll();
+  highlight();
 
   if(!m_undoStack)
     return;
@@ -645,7 +677,6 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
     (tr("flow control condition changed (%1, %2)").
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
-  m_ui.condition->selectAll();
   emit changed();
 }
 
