@@ -79,6 +79,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   Ui_glitch_object_flow_control_arduino m_ui;
   bool editable(void) const;
   static QString simplified(const QString &text);
+  void highlight(void);
   void prepareEditWindowHeader(void);
   void setProperties(const QStringList &list);
 

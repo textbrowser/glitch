@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QTextLayout>
 #include <QTextStream>
 
 #include "glitch-object-edit-window.h"
@@ -395,6 +396,31 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 
   font.setUnderline(m_occupied);
   m_ui.flow_control_type->setFont(font);
+}
+
+void glitch_object_flow_control_arduino::highlight(void)
+{
+  QHash<QString, QColor> colors;
+  QList<QTextLayout::FormatRange> formats;
+  QTextCharFormat format;
+
+  colors["bool"] = QColor(Qt::green);
+  colors["boolean"] = QColor(Qt::green);
+  colors["byte"] = QColor(Qt::green);
+  colors["char"] = QColor(Qt::green);
+  colors["double"] = QColor(Qt::green);
+  colors["float"] = QColor(Qt::green);
+  colors["int"] = QColor(Qt::green);
+  colors["long"] = QColor(Qt::green);
+  colors["short"] = QColor(Qt::green);
+  colors["size_t"] = QColor(Qt::green);
+  colors["unsigned char"] = QColor(Qt::green);
+  colors["unsigned int"] = QColor(Qt::green);
+  colors["unsigned long"] = QColor(Qt::green);
+  colors["word"] = QColor(Qt::green);
+  format.setFontHintingPreference(QFont::PreferFullHinting);
+  format.setFontStyleStrategy(QFont::PreferAntialias);
+  format.setFontWeight(QFont::Normal);
 }
 
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
