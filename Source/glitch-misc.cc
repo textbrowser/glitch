@@ -108,20 +108,26 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
 
   QHash<QString, QColor> colors;
 
-  colors["bool"] = QColor(Qt::green);
-  colors["boolean"] = QColor(Qt::green);
-  colors["byte"] = QColor(Qt::green);
-  colors["char"] = QColor(Qt::green);
-  colors["double"] = QColor(Qt::green);
-  colors["float"] = QColor(Qt::green);
-  colors["int"] = QColor(Qt::green);
-  colors["long"] = QColor(Qt::green);
-  colors["short"] = QColor(Qt::green);
-  colors["size_t"] = QColor(Qt::green);
-  colors["unsigned char"] = QColor(Qt::green);
-  colors["unsigned int"] = QColor(Qt::green);
-  colors["unsigned long"] = QColor(Qt::green);
-  colors["word"] = QColor(Qt::green);
+  colors["bool"] = QColor(0, 100, 0);
+  colors["boolean"] = QColor(0, 100, 0);
+  colors["byte"] = QColor(0, 100, 0);
+  colors["case"] = QColor(255, 0, 255);
+  colors["char"] = QColor(0, 100, 0);
+  colors["do"] = QColor(255, 0, 255);
+  colors["double"] = QColor(0, 100, 0);
+  colors["else"] = QColor(255, 0, 255);
+  colors["float"] = QColor(0, 100, 0);
+  colors["for"] = QColor(255, 0, 255);
+  colors["if"] = QColor(255, 0, 255);
+  colors["int"] = QColor(0, 100, 0);
+  colors["long"] = QColor(0, 100, 0);
+  colors["short"] = QColor(0, 100, 0);
+  colors["size_t"] = QColor(0, 100, 0);
+  colors["unsigned char"] = QColor(0, 100, 0);
+  colors["unsigned int"] = QColor(0, 100, 0);
+  colors["unsigned long"] = QColor(0, 100, 0);
+  colors["while"] = QColor(255, 0, 255);
+  colors["word"] = QColor(0, 100, 0);
 
   QTextCharFormat format;
   QTextLayout::FormatRange *ranges = nullptr;
@@ -152,7 +158,7 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
   for(int i = 0; i < list.size(); i++)
     attributes << QInputMethodEvent::Attribute
       (QInputMethodEvent::TextFormat,
-       ranges[i].start,
+       ranges[i].start - lineEdit->cursorPosition(),
        ranges[i].length,
        ranges[i].format);
 

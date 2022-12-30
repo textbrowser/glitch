@@ -150,7 +150,9 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
     {
       m_header->setText(text.trimmed());
       m_header->setVisible(true);
+      m_header->setReadOnly(false);
       glitch_misc::highlight(m_header);
+      m_header->setReadOnly(true);
       setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }
   else
