@@ -291,6 +291,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(simplified(m_ui.condition->text()));
+  clone->highlight();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
@@ -358,6 +359,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (simplified(object->m_properties.value(Properties::CONDITION).toString()));
+  object->highlight();
   object->prepareEditWindowHeader();
   return object;
 }
@@ -401,8 +403,8 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 void glitch_object_flow_control_arduino::highlight(void)
 {
   QHash<QString, QColor> colors;
-  QList<QTextLayout::FormatRange> formats;
-  QTextCharFormat format;
+  QList<QInputMethodEvent::Attribute> attributes;
+  int index = 0;
 
   colors["bool"] = QColor(Qt::green);
   colors["boolean"] = QColor(Qt::green);
@@ -418,36 +420,35 @@ void glitch_object_flow_control_arduino::highlight(void)
   colors["unsigned int"] = QColor(Qt::green);
   colors["unsigned long"] = QColor(Qt::green);
   colors["word"] = QColor(Qt::green);
-  format.setFontHintingPreference(QFont::PreferFullHinting);
-  format.setFontStyleStrategy(QFont::PreferAntialias);
-  format.setFontWeight(QFont::Normal);
 
   foreach(const auto &string,
-	  m_ui.condition->text().split(QRegularExpression("\\w+")))
+	  m_ui.condition->text().split(QRegularExpression("\\W+")))
     {
-      format.setForeground(QColor(Qt::red));
+      if(string.isEmpty())
+	continue;
+
+      QTextCharFormat format;
+
+      format.setFontHintingPreference(QFont::PreferFullHinting);
+      format.setFontStyleStrategy(QFont::PreferAntialias);
+      format.setFontWeight(QFont::Normal);
 
       if(colors.contains(string))
 	format.setForeground(colors.value(string));
+      else
+	format.setForeground(QColor(Qt::blue));
 
       QTextLayout::FormatRange range;
 
       range.format = format;
       range.length = string.length();
-      range.start = m_ui.condition->text().indexOf(string);
-      formats << range;
-    }
-
-  QList<QInputMethodEvent::Attribute> attributes;
-
-  foreach(const auto format, formats)
-    {
-      auto length = format.length;
-      auto start = format.start;
-      auto type = QInputMethodEvent::TextFormat;
-      const QVariant &value(format.format);
-
-      attributes << QInputMethodEvent::Attribute(type, start, length, value);
+      range.start = index = m_ui.condition->text().indexOf(string, index);
+      attributes << QInputMethodEvent::Attribute
+	(QInputMethodEvent::TextFormat,
+	 range.start,
+	 range.length,
+	 range.format);
+      index += string.length();
     }
 
   QInputMethodEvent event(QInputMethodEvent(QString(), attributes));
@@ -635,6 +636,7 @@ void glitch_object_flow_control_arduino::setProperty
     case Properties::CONDITION:
       {
 	m_ui.condition->setText(simplified(value.toString()));
+	highlight();
 	prepareEditWindowHeader();
 	break;
       }
