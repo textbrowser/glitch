@@ -58,6 +58,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotCopy);
+  connect(m_ui.action_Find,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotFind);
   connect(m_ui.action_Generate_Source,
 	  &QAction::triggered,
 	  this,
@@ -154,6 +158,7 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
   m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
+  m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
   m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
   m_ui.action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
   m_ui.action_Save_Diagram->setIcon(QIcon::fromTheme("document-save"));
@@ -276,6 +281,12 @@ void glitch_separated_diagram_window::slotDelete(void)
       else
 	m_ui.action_Undo->setText(tr("Undo"));
     }
+}
+
+void glitch_separated_diagram_window::slotFind(void)
+{
+  if(m_view)
+    m_view->find();
 }
 
 void glitch_separated_diagram_window::slotGenerateSource(void)

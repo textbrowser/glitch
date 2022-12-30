@@ -42,6 +42,8 @@
     <addaction name="separator"/>
     <addaction name="action_Delete"/>
     <addaction name="action_Select_All"/>
+    <addaction name="separator"/>
+    <addaction name="action_Find"/>
    </widget>
    <widget class="QMenu" name="menu_File">
     <property name="title">
@@ -151,6 +153,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_Find">
+   <property name="text">
+    <string>&amp;Find...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>
