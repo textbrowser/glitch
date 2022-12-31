@@ -23,6 +23,21 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+<p>2023.01.01</p>
+<ul>
+<li>Added Find action to separated window.</li>
+<li>Arduino IDE Linux path was incorrect.</li>
+<li>Close button added in Find Objects.</li>
+<li>Double-click event in Find Objects.</li>
+<li>New widget heights.</li>
+<li>Object input and output port colors.</li>
+<li>Open the Arduino IDE even if the output file is not defined.</li>
+<li>Optionally synchronize Find Objects with parent diagram.</li>
+<li>QKeyEvent::modifiers() is not reliable. Replaced with QGuiApplication::keyboardModifiers().</li>
+<li>Scroll-on-selection in diagrams.</li>
+<li>Select a widget if its combination box is clicked on by the left mouse button.</li>
+<li>Simplified flow-control conditional text.</li>
+</ul>
 <p>2022.11.30</p>
 <ul>
 <li>Detect clean states of redo / undo stacks and adjust states of parent diagrams.</li>
