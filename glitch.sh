@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# Alexis Megas.
 
 export AA_ENABLEHIGHDPISCALING=1
 export AA_USEHIGHDPIPIXMAPS=1
@@ -22,6 +23,6 @@ then
     cd /usr/local/glitch && exec ./Glitch "$@"
     exit $?
 else
-    echo "Cannot locate Glitch."
+    echo "Cannot locate Glitch. Why?"
     exit 1
 fi
