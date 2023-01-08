@@ -48,6 +48,10 @@ glitch_object_edit_window::glitch_object_edit_window
 
   auto menu = menuBar()->addMenu(tr("&File"));
 
+  m_actions["save"] =
+    menu->addAction
+    (tr("&Save Current Diagram"), this, SIGNAL(save(void)), tr("Ctrl+S"));
+  menu->addSeparator();
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
   menu = menuBar()->addMenu(tr("&Edit"));
@@ -170,6 +174,7 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("delete")->setIcon(QIcon::fromTheme("edit-delete"));
   m_actions.value("paste")->setIcon(QIcon::fromTheme("edit-paste"));
   m_actions.value("redo")->setIcon(QIcon::fromTheme("edit-redo"));
+  m_actions.value("save")->setIcon(QIcon::fromTheme("document-save"));
   m_actions.value("screen mode")->setIcon(QIcon::fromTheme("view-fullscreen"));
   m_actions.value("select all")->setIcon(QIcon::fromTheme("edit-select-all"));
   m_actions.value("undo")->setIcon(QIcon::fromTheme("edit-undo"));

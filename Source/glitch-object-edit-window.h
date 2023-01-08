@@ -87,6 +87,7 @@ class glitch_object_edit_window: public QMainWindow
   void paste(void);
   void propertyChanged(const QString &property, const QVariant &value);
   void redo(void);
+  void save(void);
   void selectAll(void);
   void undo(void);
 };
