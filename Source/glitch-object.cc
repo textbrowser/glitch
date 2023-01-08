@@ -740,6 +740,7 @@ void glitch_object::createActions(void)
       auto action = new QAction(tr("Set &Port Colors..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::PORT_COLORS));
+      action->setEnabled(hasInput() || hasOutput());
       connect(action,
 	      &QAction::triggered,
 	      this,
