@@ -157,6 +157,10 @@ glitch_view::glitch_view
 					     const QString &,
 					     glitch_object *)));
   connect(m_scene,
+	  &glitch_scene::saveSignal,
+	  this,
+	  &glitch_view::slotSave);
+  connect(m_scene,
 	  &glitch_scene::sceneResized,
 	  this,
 	  &glitch_view::slotSceneResized,

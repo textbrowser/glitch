@@ -149,6 +149,7 @@ class glitch_scene: public QGraphicsScene
 				 const QString &before,
 				 glitch_object *object);
   void mousePressed(void);
+  void saveSignal(void);
   void sceneResized(void);
   void wireObjects(void);
 };

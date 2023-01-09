@@ -177,6 +177,7 @@ Completed Items
 - Save button on tab.
 - Save canvas settings.
 - Save loop() and setup() style sheets.
+- Save option from child views.
 - Save position-locked property.
 - Save, Save As on separated windows.
 - Scroll view during selection.
@@ -248,7 +249,6 @@ Remaining Items
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
 - SQLite modes.
-- Save option from child views.
 - Splitter states and redo / undo.
 - Warn of recursive functions?
 - Widgets for decorations.

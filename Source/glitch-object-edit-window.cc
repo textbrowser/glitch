@@ -50,7 +50,7 @@ glitch_object_edit_window::glitch_object_edit_window
 
   m_actions["save"] =
     menu->addAction
-    (tr("&Save Current Diagram"), this, SIGNAL(save(void)), tr("Ctrl+S"));
+    (tr("&Save Current Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
   menu->addSeparator();
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));

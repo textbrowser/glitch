@@ -864,6 +864,11 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      &glitch_object_view::slotRedo,
 	      Qt::UniqueConnection);
       connect(m_editWindow,
+	      &glitch_object_edit_window::saveSignal,
+	      m_editView,
+	      &glitch_object_view::saveSignal,
+	      Qt::UniqueConnection);
+      connect(m_editWindow,
 	      &glitch_object_edit_window::selectAll,
 	      m_editView,
 	      &glitch_object_view::slotSelectAll,
@@ -889,6 +894,11 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      &glitch_object_view::copy,
 	      parentView,
 	      &glitch_view::slotCopy,
+	      Qt::UniqueConnection);
+      connect(m_editView,
+	      &glitch_object_view::saveSignal,
+	      parentView,
+	      &glitch_view::slotSave,
 	      Qt::UniqueConnection);
       connect(parentView,
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
