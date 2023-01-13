@@ -683,7 +683,7 @@ void glitch_object::createActions(void)
       if(m_type == "arduino-loop" || m_type == "arduino-setup")
 	action = new QAction(tr("Copy Internal Object(s)"), this);
       else
-	action = new QAction(tr("Copy Object(s)"), this);
+	action = new QAction(tr("Copy Object"), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::COPY));
       action->setIcon(QIcon::fromTheme("edit-copy"));
