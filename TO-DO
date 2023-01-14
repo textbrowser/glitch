@@ -64,6 +64,8 @@ Completed Items
 - Copy & paste.
 - Copy Edit menu to child edit windows and separated windows.
   Redo / undo stack.
+- Copy Object should result in a copied object even if the object is not
+  selected.
 - Copy children!
 - Copy wires. Very difficult.
 - Custom input and output port colors.
@@ -236,8 +238,6 @@ Remaining Items
 - Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Complete SipHash diagram.
-- Copy Object should result in a copied object even if the object is not
-  selected.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
 - Draw and, not, or, etc. objects.

@@ -583,6 +583,47 @@ void glitch_ui::copy(QGraphicsView *view, const bool selected)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_ui::copy(glitch_object *object)
+{
+  if(!object)
+    return;
+
+  clearCopiedObjects();
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  auto point(object->scenePos());
+  glitch_object *clone = nullptr;
+
+  if(qobject_cast<glitch_object_function_arduino *> (object))
+    {
+      /*
+      ** Clone the real function.
+      */
+
+      auto proxy = object->proxy();
+
+      object = qobject_cast<glitch_object_function_arduino *>
+	(object)->parentFunction();
+
+      if(!object && proxy)
+	object = proxy->object();
+
+      if(object)
+	{
+	  clone = object->clone(nullptr);
+	  clone->setOriginalPosition(point);
+	}
+    }
+  else
+    clone = object->clone(nullptr);
+
+  if(clone)
+    s_copiedObjects.insert
+      (QPair<int, int> (point.toPoint().x(), point.toPoint().y()), clone);
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::parseCommandLineArguments(void)
 {
   QApplication::processEvents();
