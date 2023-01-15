@@ -23,6 +23,16 @@
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2023.01.15</p>
+<ul>
+<li>Copy Object context menu item will not require that the object be selected.</li>
+<li>Download official version information and display it in About.</li>
+<li>Enable Set Port Colors menu item if the parent widget has input or output.</li>
+<li>Include diagram name in Find Objects.</li>
+<li>Save option from object views.</li>
+<li>Show object floating menu via context menu action.</li>
+</ul>
 <p>2023.01.01</p>
 <ul>
 <li>Added Find action to separated window.</li>
