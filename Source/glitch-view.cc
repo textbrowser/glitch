@@ -846,6 +846,8 @@ void glitch_view::endMacro(void)
 
 void glitch_view::find(void) const
 {
+  m_findObjects->setWindowTitle
+    (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
   m_findObjects->showNormal();
   m_findObjects->activateWindow();
   m_findObjects->raise();
@@ -1110,6 +1112,8 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   auto hash(m_settings);
 
+  m_findObjects->setWindowTitle
+    (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
