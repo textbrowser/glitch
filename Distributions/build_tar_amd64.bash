@@ -22,6 +22,6 @@ cp -pr ./Documentation/Arduino ./glitch/Documentation/.
 
 cp $(ldd ./Glitch | awk '{print $3}' | grep -e '^/') ./glitch/Lib/.
 chmod -x ./glitch/Lib/*.so*
-tar -cv -f Glitch-2023.01.01.tar ./glitch
+tar -cv -f Glitch-2023.01.15.tar ./glitch
 make distclean
 rm -fr ./glitch

@@ -1,6 +1,7 @@
 Architecture: amd64
 Depends: libqt5core5a (>= 5.9.0),
          libqt5gui5 (>= 5.9.0),
+	 libqt5network5 (>= 5.9.0),
 	 libqt5printsupport5 (>= 5.9.0),
          libqt5sql5 (>= 5.9.0),
          libqt5sql5-sqlite (>= 5.9.0),
@@ -9,7 +10,7 @@ Maintainer: f83043e79dc03a0abfbcbc376879a97d66f2cacb@protonmail.ch
 Package: Glitch
 Priority: optional
 Section: Development
-Version: 2023.01.01
+Version: 2023.01.15
 Description: Glitch
  Welcome to Glitch!
  Glitch is governed by a BSD license. Enjoy!

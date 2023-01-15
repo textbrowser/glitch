@@ -47,6 +47,7 @@
 #include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-swifty.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-version.h"
@@ -94,6 +95,13 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     "glitch_recent_files.db";
   m_releaseNotes = nullptr;
   m_statusBarTimer.start(500);
+  m_swifty = new swifty
+    (GLITCH_VERSION_STR,
+     "#define GLITCH_VERSION_STR",
+     QUrl::fromUserInput("https://raw.githubusercontent.com/"
+			 "textbrowser/glitch/master/Source/glitch-version.h"),
+     this);
+  m_swifty->download();
   m_ui.setupUi(this);
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
@@ -103,6 +111,14 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &glitch_preferences::accept,
 	  this,
 	  &glitch_ui::slotPreferencesAccepted);
+  connect(m_swifty,
+	  SIGNAL(different(const QString &)),
+	  this,
+	  SLOT(slotSwifty(void)));
+  connect(m_swifty,
+	  &swifty::same,
+	  this,
+	  &glitch_ui::slotSwifty);
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
@@ -2001,6 +2017,29 @@ void glitch_ui::slotStatusBarTimerTimeout(void)
 {
   if(statusBar() && statusBar()->currentMessage().trimmed().isEmpty())
     prepareStatusBar();
+}
+
+void glitch_ui::slotSwifty(void)
+{
+  m_about.setText
+    (tr("<html>"
+	"<b>Glitch Version %1</b><br>"
+	"The official version is <b>%2</b>.<br><br>"
+	"Glitch is a visual compiler and designer for Arduino.<br>"
+	"Develop through block diagrams.<br><br>"
+	"Software for and from the margins.<br><br>"
+	"Architecture: %3.<br>"
+	"Product: %4.<br>"
+	"Qt version %5 (runtime version %6).<br><br>"
+	"Please visit "
+	"<a href=\"https://textbrowser.github.io/glitch\">"
+	"https://textbrowser.github.io/glitch</a> for more details.").
+     arg(GLITCH_VERSION_STR).
+     arg(m_swifty->newest_version()).
+     arg(QSysInfo::currentCpuArchitecture()).
+     arg(QSysInfo::prettyProductName()).
+     arg(QT_VERSION_STR).
+     arg(qVersion()));
 }
 
 void glitch_ui::slotTabMoved(int from, int to)

@@ -7,7 +7,7 @@ CONFIG		+= qt release warn_on
 DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
-QT		+= gui printsupport sql widgets
+QT		+= gui printsupport network sql widgets
 
 contains(QMAKE_HOST.arch, armv7l) {
 QMAKE_CXXFLAGS_RELEASE += -march=armv7
@@ -166,6 +166,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-separated-diagram-window.h \
                   Source/glitch-structures-treewidget.h \
                   Source/glitch-style-sheet.h \
+                  Source/glitch-swifty.h \
                   Source/glitch-tab.h \
                   Source/glitch-tab-tabbar.h \
                   Source/glitch-tools.h \

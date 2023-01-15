@@ -44,6 +44,7 @@ class glitch_preferences;
 class glitch_scene;
 class glitch_view;
 class glitch_view_arduino;
+class swifty;
 
 class glitch_ui: public QMainWindow
 {
@@ -81,6 +82,7 @@ class glitch_ui: public QMainWindow
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;
   static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
+  swifty *m_swifty;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
   glitch_view_arduino *newArduinoDiagram(const QString &fileName,
@@ -150,6 +152,7 @@ class glitch_ui: public QMainWindow
   void slotShowTools(void);
   void slotShowUserFunctions(void);
   void slotStatusBarTimerTimeout(void);
+  void slotSwifty(void);
   void slotTabMoved(int from, int to);
   void slotTabWidgetShortcutActivated(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
