@@ -676,6 +676,18 @@ void glitch_object::createActions(void)
     m_actions[DefaultMenuActions::COMPRESS_WIDGET]->
       setChecked(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 
+  if(!m_actions.contains(DefaultMenuActions::CONTEXT_MENU))
+    {
+      auto action = new QAction(tr("Context Menu..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::CONTEXT_MENU));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotShowContextMenu);
+      m_actions[DefaultMenuActions::CONTEXT_MENU] = action;
+    }
+
   if(!m_actions.contains(DefaultMenuActions::COPY))
     {
       QAction *action = nullptr;

@@ -57,14 +57,15 @@ class glitch_object: public QWidget
   {
     ADJUST_SIZE = 1,
     COMPRESS_WIDGET = 2,
+    CONTEXT_MENU = 3,
     COPY = 0,
-    DELETE = 3,
-    EDIT = 4,
-    LOCK_POSITION = 5,
-    PORT_COLORS = 7,
-    SET_FUNCTION_NAME = 6,
-    SET_STYLE_SHEET = 8,
-    TRANSPARENT = 9
+    DELETE = 4,
+    EDIT = 5,
+    LOCK_POSITION = 6,
+    PORT_COLORS = 8,
+    SET_FUNCTION_NAME = 7,
+    SET_STYLE_SHEET = 9,
+    TRANSPARENT = 10
   };
 
   enum class PortColors

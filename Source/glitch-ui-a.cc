@@ -72,7 +72,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"Software for and from the margins.<br><br>"
 	"Architecture: %2.<br>"
 	"Product: %3.<br>"
-	"Qt version %4 (runtime %5).<br><br>"
+	"Qt version %4 (runtime version %5).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
