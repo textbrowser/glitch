@@ -128,6 +128,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setProperty</b> (cons
 <tr class="memitem:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7047bda28b3827ec6d5f981ac4780551"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object</b> (const qint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25cfab9aaf64e3ad42ed4430f979b8f0 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a25cfab9aaf64e3ad42ed4430f979b8f0"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>portColor</b> (const glitch_object::PortColors portColor) const</td></tr>
+<tr class="separator:a25cfab9aaf64e3ad42ed4430f979b8f0 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af325ff22771e0e9dabac7e20d9fbdbbf inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af325ff22771e0e9dabac7e20d9fbdbbf"></a>
 QHash&lt; Properties, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>properties</b> (void) const</td></tr>
 <tr class="separator:af325ff22771e0e9dabac7e20d9fbdbbf inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -263,6 +266,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setUndoStack</b> (QUn
 <tr class="memitem:ac51a399fd69b43bc8931a551da5c754d inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ac51a399fd69b43bc8931a551da5c754d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWiredObject</b> (<a class="el" href="classglitch__object.html">glitch_object</a> *object, <a class="el" href="classglitch__wire.html">glitch_wire</a> *wire)</td></tr>
 <tr class="separator:ac51a399fd69b43bc8931a551da5c754d inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0960566551b28bf29fcadcba453937a7 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a0960566551b28bf29fcadcba453937a7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showEditWindow</b> (void) const</td></tr>
+<tr class="separator:a0960566551b28bf29fcadcba453937a7 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -283,18 +289,26 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <br />
 &#160;&#160;<b>ADJUST_SIZE</b> = 1
 , <b>COMPRESS_WIDGET</b> = 2
+, <b>CONTEXT_MENU</b> = 3
 , <b>COPY</b> = 0
-, <b>DELETE</b> = 3
 , <br />
-&#160;&#160;<b>EDIT</b> = 4
-, <b>LOCK_POSITION</b> = 5
-, <b>SET_FUNCTION_NAME</b> = 6
-, <b>SET_STYLE_SHEET</b> = 7
+&#160;&#160;<b>DELETE</b> = 4
+, <b>EDIT</b> = 5
+, <b>LOCK_POSITION</b> = 6
+, <b>PORT_COLORS</b> = 8
 , <br />
-&#160;&#160;<b>TRANSPARENT</b> = 8
+&#160;&#160;<b>SET_FUNCTION_NAME</b> = 7
+, <b>SET_STYLE_SHEET</b> = 9
+, <b>TRANSPARENT</b> = 10
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb00df0e533197ab7a1d67dd1b052200 inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="adb00df0e533197ab7a1d67dd1b052200"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>PortColors</b> { <b>INPUT_CONNECTED</b> = 0
+, <b>INPUT_DISCONNECTED</b>
+, <b>OUTPUT_CONNECTED</b>
+, <b>OUTPUT_DISCONNECTED</b>
+ }</td></tr>
+<tr class="separator:adb00df0e533197ab7a1d67dd1b052200 inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="ad2728ee4f22086b4ae78940ac262885a"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Properties</b> { <br />
 &#160;&#160;<b>ADVANCED_IO_TYPE</b> = 0
 , <b>ANALOG_IO_TYPE</b>
@@ -322,29 +336,31 @@ Additional Inherited Members</h2></td></tr>
 , <b>MATHEMATICS_TYPE</b>
 , <br />
 &#160;&#160;<b>NAME</b>
+, <b>PORT_COLORS</b>
 , <b>POSITION_LOCKED</b>
 , <b>RANDOM_TYPE</b>
-, <b>SERIAL_TYPE</b>
 , <br />
-&#160;&#160;<b>SIZE</b>
+&#160;&#160;<b>SERIAL_TYPE</b>
+, <b>SIZE</b>
 , <b>STREAM_TYPE</b>
 , <b>STRUCTURES_VIEW_SPLITTER_STATE</b>
-, <b>SYNTAX</b>
 , <br />
-&#160;&#160;<b>TIME_TYPE</b>
+&#160;&#160;<b>SYNTAX</b>
+, <b>TIME_TYPE</b>
 , <b>TOOL_BAR_VISIBLE</b>
 , <b>TRANSPARENT</b>
-, <b>TRIGONOMETRY_TYPE</b>
 , <br />
-&#160;&#160;<b>UTILITIES_TYPE</b>
+&#160;&#160;<b>TRIGONOMETRY_TYPE</b>
+, <b>UTILITIES_TYPE</b>
 , <b>VARIABLE_ARRAY</b>
 , <b>VARIABLE_NAME</b>
-, <b>VARIABLE_POINTER_ACCESS</b>
 , <br />
-&#160;&#160;<b>VARIABLE_PROGMEM</b>
+&#160;&#160;<b>VARIABLE_POINTER_ACCESS</b>
+, <b>VARIABLE_PROGMEM</b>
 , <b>VARIABLE_QUALIFIER</b>
 , <b>VARIABLE_TYPE</b>
-, <b>XYZ_PROPERTY</b>
+, <br />
+&#160;&#160;<b>XYZ_PROPERTY</b>
 <br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -358,6 +374,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>copy</b> (void)</td><
 <tr class="memitem:a0bffa9c1f070a6ef58bc445be1ef9af3 inherit signals_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a0bffa9c1f070a6ef58bc445be1ef9af3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deletedViaContextMenu</b> (void)</td></tr>
 <tr class="separator:a0bffa9c1f070a6ef58bc445be1ef9af3 inherit signals_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3871416112c57d13ceb66ce8597d45c4 inherit signals_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a3871416112c57d13ceb66ce8597d45c4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>saveSignal</b> (void)</td></tr>
+<tr class="separator:a3871416112c57d13ceb66ce8597d45c4 inherit signals_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae7815156c4b446cbfb505b88c942a7e inherit signals_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aae7815156c4b446cbfb505b88c942a7e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>simulateDeleteSignal</b> (void)</td></tr>
 <tr class="separator:aae7815156c4b446cbfb505b88c942a7e inherit signals_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -368,6 +387,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotCopy</b> 
 <tr class="memitem:af46ced5136f883288c1216489c6b295a inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af46ced5136f883288c1216489c6b295a"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotHideOrShowOccupied</b> (void)</td></tr>
 <tr class="separator:af46ced5136f883288c1216489c6b295a inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2212f2e3847cac0ff021230ec7fb6f96 inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a2212f2e3847cac0ff021230ec7fb6f96"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSetPortColors</b> (void)</td></tr>
+<tr class="separator:a2212f2e3847cac0ff021230ec7fb6f96 inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45696aacc17b921b7e39721d76f9aeba inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a45696aacc17b921b7e39721d76f9aeba"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSetStyleSheet</b> (void)</td></tr>
 <tr class="separator:a45696aacc17b921b7e39721d76f9aeba inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
