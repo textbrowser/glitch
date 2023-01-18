@@ -14,7 +14,7 @@ QMAKE_CXXFLAGS_RELEASE += -march=armv7
 }
 
 contains(QMAKE_HOST.arch, ppc) {
-QMAKE_CXXFLAGS_RELEASE += -march=powerpc
+QMAKE_CXXFLAGS_RELEASE += -mcpu=powerpc -mtune=powerpc
 }
 
 qtHaveModule(pdf) {
