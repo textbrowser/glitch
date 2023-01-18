@@ -678,7 +678,7 @@ void glitch_object::createActions(void)
 
   if(!m_actions.contains(DefaultMenuActions::CONTEXT_MENU))
     {
-      auto action = new QAction(tr("Context Menu..."), this);
+      auto action = new QAction(tr("Floating Context Menu..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::CONTEXT_MENU));
       connect(action,
