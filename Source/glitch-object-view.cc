@@ -147,8 +147,7 @@ void glitch_object_view::contextMenuEvent(QContextMenuEvent *event)
   if(event && items(event->pos()).isEmpty())
     {
       QMenu menu(this);
-      auto action = menu.addAction
-	(tr("Paste"), this, &glitch_object_view::slotPaste);
+      auto action = menu.addAction(tr("Paste"), this, SLOT(slotPaste(void)));
 
       action->setEnabled(!glitch_ui::copiedObjects().isEmpty());
       action->setIcon(QIcon::fromTheme("edit-paste"));
