@@ -77,7 +77,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
-     arg(GLITCH_VERSION_STR).
+     arg(GLITCH_VERSION_STRING).
      arg(QSysInfo::currentCpuArchitecture()).
      arg(QSysInfo::prettyProductName()).
      arg(QT_VERSION_STR).
@@ -96,8 +96,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_releaseNotes = nullptr;
   m_statusBarTimer.start(500);
   m_swifty = new swifty
-    (GLITCH_VERSION_STR,
-     "#define GLITCH_VERSION_STR",
+    (GLITCH_VERSION_STRING,
+     "#define GLITCH_VERSION_STRING",
      QUrl::fromUserInput("https://raw.githubusercontent.com/"
 			 "textbrowser/glitch/master/Source/glitch-version.h"),
      this);
@@ -2034,7 +2034,7 @@ void glitch_ui::slotSwifty(void)
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
-     arg(GLITCH_VERSION_STR).
+     arg(GLITCH_VERSION_STRING).
      arg(m_swifty->newest_version()).
      arg(QSysInfo::currentCpuArchitecture()).
      arg(QSysInfo::prettyProductName()).

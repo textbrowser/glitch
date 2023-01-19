@@ -678,7 +678,7 @@ void glitch_object::createActions(void)
 
   if(!m_actions.contains(DefaultMenuActions::CONTEXT_MENU))
     {
-      auto action = new QAction(tr("Context Menu..."), this);
+      auto action = new QAction(tr("Floating Context Menu..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::CONTEXT_MENU));
       connect(action,
@@ -1554,7 +1554,7 @@ void glitch_object::slotShowContextMenu(void)
   m_menu.clear();
   addActions(m_menu);
   m_contextMenu->addActions(m_actions.values());
-  m_contextMenu->resize(250, 300);
+  m_contextMenu->resize(400, 650);
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
   m_contextMenu->show();

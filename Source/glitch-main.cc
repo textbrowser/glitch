@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     else if(strcmp(argv[i], "--version") == 0)
       {
 	std::cout << "Glitch version "
-		  << GLITCH_VERSION_STR
+		  << GLITCH_VERSION_STRING
 		  << "."
 		  << std::endl;
 	return EXIT_SUCCESS;
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 #endif
   QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
   QCoreApplication::setApplicationName("Glitch");
-  QCoreApplication::setApplicationVersion(GLITCH_VERSION_STR);
+  QCoreApplication::setApplicationVersion(GLITCH_VERSION_STRING);
   QCoreApplication::setOrganizationName("Glitch");
   QSettings::setDefaultFormat(QSettings::IniFormat);
   QSettings::setPath(QSettings::IniFormat,
