@@ -253,6 +253,9 @@ Remaining Items
   are numerous windows.
 - SQLite modes.
 - Splitter states and redo / undo.
+- Tools:
+  Compress selected objects
+  Resize selected objects
 - Warn of recursive functions?
 - Widgets for decorations.
 - Windows and GDI objects.
