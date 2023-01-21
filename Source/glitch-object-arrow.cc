@@ -45,6 +45,14 @@ glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
 {
   auto clone = new glitch_object_arrow(parent);
 
+  clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
+  clone->m_properties = m_properties;
+  clone->compressWidget
+    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  clone->resize(size());
+  clone->setCanvasSettings(m_canvasSettings);
+  clone->setName(clone->name());
+  clone->setStyleSheet(styleSheet());
   return clone;
 }
 
