@@ -25,47 +25,41 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-object-arrow.h"
+#ifndef _glitch_object_arrow_h_
+#define _glitch_object_arrow_h_
 
-glitch_object_arrow::glitch_object_arrow(QWidget *parent):
-  glitch_object_arrow(1, parent)
+#include "glitch-object.h"
+
+class glitch_object_arrow: public glitch_object
 {
-}
+  Q_OBJECT
 
-glitch_object_arrow::glitch_object_arrow
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
-{
-}
+ public:
+  ~glitch_object_arrow();
 
-glitch_object_arrow::~glitch_object_arrow()
-{
-}
+  QString code(void) const
+  {
+    return "";
+  }
 
-glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
-{
-  auto clone = new glitch_object_arrow(parent);
+  bool isFullyWired(void) const
+  {
+    return true;
+  }
 
-  return clone;
-}
+  bool shouldPrint(void) const
+  {
+    return false;
+  }
 
-void glitch_object_arrow::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
+  glitch_object_arrow *clone(QWidget *parent) const;
+  void addActions(QMenu &menu);
+  void save(const QSqlDatabase &db, QString &error);
 
-void glitch_object_arrow::paintEvent(QPaintEvent *event)
-{
-  Q_UNUSED(event);
+ private:
+  glitch_object_arrow(QWidget *parent);
+  glitch_object_arrow(const qint64 id, QWidget *parent);
+  void paintEvent(QPaintEvent *event);
+};
 
-  QPainter painter(this);
-
-  painter.setRenderHint(QPainter::Antialiasing);
-}
-
-void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
-{
-  glitch_object::save(db, error);
-
-  if(!error.isEmpty())
-    return;
-}
+#endif

@@ -155,6 +155,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-font-filter.h \
                   Source/glitch-graphicsview.h \
                   Source/glitch-object.h \
+                  Source/glitch-object-arrow.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-view.h \
                   Source/glitch-port-colors.h \
@@ -185,6 +186,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-main.cc \
                   Source/glitch-misc.cc \
                   Source/glitch-object.cc \
+                  Source/glitch-object-arrow.cc \
                   Source/glitch-object-edit-window.cc \
                   Source/glitch-object-view.cc \
                   Source/glitch-port-colors.cc \
