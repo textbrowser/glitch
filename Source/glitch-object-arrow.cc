@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QQueue>
+
 #include "glitch-object-arrow.h"
 
 glitch_object_arrow::glitch_object_arrow(QWidget *parent):
@@ -35,6 +37,7 @@ glitch_object_arrow::glitch_object_arrow(QWidget *parent):
 glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  setAttribute(Qt::WA_OpaquePaintEvent, true);
 }
 
 glitch_object_arrow::~glitch_object_arrow()
@@ -68,6 +71,86 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   QPainter painter(this);
 
   painter.setRenderHint(QPainter::Antialiasing);
+
+  const qreal sizeHeight = static_cast<qreal> (size().height());
+  const qreal sizeWidth = static_cast<qreal> (size().width());
+  QPointF block[4] =
+    {
+      QPointF(0.0, 0.0),
+      QPointF(sizeWidth, 0.0),
+      QPointF(sizeWidth, sizeHeight),
+      QPointF(0.0, sizeHeight)
+    };
+  const qreal arrowPercentOfWidth = 0.10;
+  const qreal linePercentOfHeight = 0.30;
+
+  painter.setBrush(Qt::blue);
+  painter.setPen(Qt::NoPen);
+  painter.save();
+  painter.drawConvexPolygon(block, 4);
+  painter.restore();
+
+  QQueue<qreal> widths;
+  const qreal space = 0.0;
+
+  widths.enqueue((1.0 - 2.0 * arrowPercentOfWidth) * sizeWidth);
+
+  const qreal x0 = arrowPercentOfWidth * sizeWidth;
+  qreal xi = x0;
+
+  do
+    {
+      const qreal width = widths.dequeue();
+
+      widths.enqueue(width);
+
+      QPointF block[4] =
+	{
+	  QPointF(xi, linePercentOfHeight * sizeHeight),
+	  QPointF(width + xi, linePercentOfHeight * sizeHeight),
+	  QPointF(width + xi, (1.0 - linePercentOfHeight) * sizeHeight),
+	  QPointF(xi, (1.0 - linePercentOfHeight) * sizeHeight)
+	};
+
+      painter.save();
+      painter.drawConvexPolygon(block, 4);
+      painter.restore();
+
+      if(space < std::numeric_limits<qreal>::epsilon() &&
+	 space > -std::numeric_limits<qreal>::epsilon())
+	break;
+      else
+	xi += space + width;
+
+      if(sizeHeight <= xi)
+	break;
+    }
+  while(true);
+
+  {
+    QPointF block[4] =
+      {
+	QPointF(0.0, 0.0),
+	QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
+	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight),
+	QPointF(0.0, sizeHeight)
+      };
+    QPointF leftArrow[3] =
+      {
+	QPointF(0.0, sizeHeight / 2.0),
+	QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
+	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
+      };
+
+    painter.setPen(Qt::NoPen);
+    painter.save();
+    painter.drawConvexPolygon(block, 4);
+    painter.restore();
+    painter.setPen(Qt::NoPen);
+    painter.save();
+    painter.drawConvexPolygon(leftArrow, 3);
+    painter.restore();
+  }
 }
 
 void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)

@@ -62,6 +62,7 @@
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
+#include "glitch-object-arrow.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
@@ -731,6 +732,8 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_constant_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-conversion"))
 	    object = new glitch_object_conversion_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-decorations-arrow object"))
+	    object = new glitch_object_arrow(view);
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-external interrupts") ||

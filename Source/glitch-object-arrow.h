@@ -35,6 +35,7 @@ class glitch_object_arrow: public glitch_object
   Q_OBJECT
 
  public:
+  glitch_object_arrow(QWidget *parent);
   ~glitch_object_arrow();
 
   QString code(void) const
@@ -57,7 +58,6 @@ class glitch_object_arrow: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  glitch_object_arrow(QWidget *parent);
   glitch_object_arrow(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
 };

@@ -150,6 +150,7 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("Compound Operators")] = "Compound Operators";
   m_categoriesMap[tr("Constants")] = "Constants";
   m_categoriesMap[tr("Conversions")] = "Conversions";
+  m_categoriesMap[tr("Decorations")] = "Decorations"; // Not Arduino.
   m_categoriesMap[tr("Digital I/O")] = "Digital I/O";
   m_categoriesMap[tr("External Interrupts")] = "External Interrupts";
   m_categoriesMap[tr("Flow Control")] = "Flow Control";
@@ -195,10 +196,9 @@ void glitch_structures_arduino::prepareCategories(void)
 		  << "or (|)"
 		  << "right shift (>>)"
 		  << "xor (^)";
-  s_itemsForCategories["Boolean Operators"] =
-    QStringList() << "and (&&)"
-		  << "not (!)"
-		  << "or (||)";
+  s_itemsForCategories["Boolean Operators"] = QStringList() << "and (&&)"
+							    << "not (!)"
+							    << "or (||)";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"
 						     << "isAscii()"
@@ -240,6 +240,7 @@ void glitch_structures_arduino::prepareCategories(void)
 						      << "int()"
 						      << "long()"
 						      << "word()";
+  s_itemsForCategories["Decorations"] = QStringList() << "arrow object";
   s_itemsForCategories["Digital I/O"] = QStringList() << "digitalRead()"
 						      << "digitalWrite()"
 						      << "pinMode()";
