@@ -37,6 +37,7 @@ glitch_object_arrow::glitch_object_arrow(QWidget *parent):
 glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_type = "decoration-arrow";
   setAttribute(Qt::WA_OpaquePaintEvent, true);
 }
 
@@ -142,6 +143,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
       };
 
+    painter.setBrush(QColor(Qt::green));
     painter.setPen(Qt::NoPen);
     painter.save();
     painter.drawConvexPolygon(block, 4);
