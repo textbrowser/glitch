@@ -54,6 +54,8 @@ class glitch_object_arrow: public glitch_object
   }
 
   glitch_object_arrow *clone(QWidget *parent) const;
+  static glitch_object_arrow *createFromValues
+    (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 

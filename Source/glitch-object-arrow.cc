@@ -60,6 +60,22 @@ glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
   return clone;
 }
 
+glitch_object_arrow *glitch_object_arrow::
+createFromValues(const QMap<QString, QVariant> &values,
+		 QString &error,
+		 QWidget *parent)
+{
+  Q_UNUSED(error);
+
+  auto object = new glitch_object_arrow
+    (values.value("myoid").toLongLong(), parent);
+
+  object->setProperties
+    (values.value("properties").toString().split(s_splitRegularExpression));
+  object->setStyleSheet(values.value("stylesheet").toString());
+  return object;
+}
+
 void glitch_object_arrow::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
@@ -92,7 +108,6 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   painter.restore();
 
   QQueue<qreal> widths;
-  const qreal space = 0.0;
 
   widths.enqueue((1.0 - 2.0 * arrowPercentOfWidth) * sizeWidth);
 
@@ -116,12 +131,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
       painter.save();
       painter.drawConvexPolygon(block, 4);
       painter.restore();
-
-      if(space < std::numeric_limits<qreal>::epsilon() &&
-	 space > -std::numeric_limits<qreal>::epsilon())
-	break;
-      else
-	xi += space + width;
+      xi += width;
 
       if(sizeHeight <= xi)
 	break;

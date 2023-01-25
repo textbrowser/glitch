@@ -59,6 +59,7 @@
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-font-filter.h"
+#include "glitch-object-arrow.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
@@ -499,6 +500,8 @@ glitch_object *glitch_object::createFromValues
   else if(type == "arduino-variable")
     object = glitch_object_variable_arduino::createFromValues
       (values, error, parent);
+  else if(type == "decoration-arrow")
+    object = glitch_object_arrow::createFromValues(values, error, parent);
   else
     {
       if(type.isEmpty())
