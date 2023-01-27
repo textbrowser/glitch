@@ -38,6 +38,11 @@ class glitch_object_arrow: public glitch_object
   glitch_object_arrow(QWidget *parent);
   ~glitch_object_arrow();
 
+  QSize sizeHint(void) const
+  {
+    return QSize(100, 25);
+  }
+
   QString code(void) const
   {
     return "";

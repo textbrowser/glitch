@@ -84,6 +84,8 @@ createFromValues(const QMap<QString, QVariant> &values,
 void glitch_object_arrow::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
 }
 
 void glitch_object_arrow::paintEvent(QPaintEvent *event)
