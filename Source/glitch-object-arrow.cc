@@ -38,7 +38,10 @@ glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_type = "decoration-arrow";
-  setAttribute(Qt::WA_OpaquePaintEvent, true);
+  resize(100, 25);
+  setAttribute(Qt::WA_OpaquePaintEvent, false);
+  setName("decoration-arrow");
+  setStyleSheet("background-color: transparent;");
 }
 
 glitch_object_arrow::~glitch_object_arrow()
@@ -54,6 +57,8 @@ glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
   clone->compressWidget
     (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   clone->resize(size());
+  clone->setAttribute
+    (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
   clone->setCanvasSettings(m_canvasSettings);
   clone->setName(clone->name());
   clone->setStyleSheet(styleSheet());
@@ -85,8 +90,12 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
 
+  QColor transparentColor;
   QPainter painter(this);
   QQueue<qreal> widths;
+  auto canvasBrush(m_proxy && m_proxy->scene() ?
+		   m_proxy->scene()->backgroundBrush() : QBrush(Qt::white));
+  const Qt::BrushStyle fillPattern = Qt::SolidPattern;
   const qreal sizeHeight = static_cast<qreal> (size().height());
   const qreal sizeWidth = static_cast<qreal> (size().width());
   QPointF block[4] =
@@ -101,9 +110,11 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   const qreal x0 = arrowPercentOfWidth * sizeWidth;
   qreal xi = x0;
 
-  painter.setBrush(Qt::blue);
+  transparentColor = canvasBrush.color();
+  transparentColor.setAlpha(0);
+  canvasBrush.setColor(transparentColor);
+  painter.setBrush(canvasBrush);
   painter.setPen(Qt::NoPen);
-  painter.setRenderHint(QPainter::Antialiasing);
   painter.save();
   painter.drawConvexPolygon(block, 4);
   painter.restore();
@@ -111,9 +122,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 
   do
     {
-      const qreal width = widths.dequeue();
-
-      widths.enqueue(width);
+      const auto width = widths.dequeue();
 
       QPointF block[4] =
 	{
@@ -122,10 +131,16 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	  QPointF(width + xi, (1.0 - linePercentOfHeight) * sizeHeight),
 	  QPointF(xi, (1.0 - linePercentOfHeight) * sizeHeight)
 	};
+      auto brush(QBrush(QColor(Qt::blue), fillPattern));
+      auto color(brush.color());
 
+      color.setAlpha(255);
+      brush.setColor(color);
+      painter.setBrush(brush);
       painter.save();
       painter.drawConvexPolygon(block, 4);
       painter.restore();
+      widths.enqueue(width);
       xi += width;
 
       if(sizeHeight <= xi)
@@ -147,12 +162,17 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
 	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
       };
+    auto brush(QBrush(QColor(Qt::blue), fillPattern));
+    auto color(brush.color());
 
-    painter.setBrush(QColor(Qt::green));
+    painter.setBrush(canvasBrush);
     painter.setPen(Qt::NoPen);
     painter.save();
     painter.drawConvexPolygon(block, 4);
     painter.restore();
+    color.setAlpha(255);
+    brush.setColor(color);
+    painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     painter.save();
     painter.drawConvexPolygon(leftArrow, 3);
