@@ -86,9 +86,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   Q_UNUSED(event);
 
   QPainter painter(this);
-
-  painter.setRenderHint(QPainter::Antialiasing);
-
+  QQueue<qreal> widths;
   const qreal sizeHeight = static_cast<qreal> (size().height());
   const qreal sizeWidth = static_cast<qreal> (size().width());
   QPointF block[4] =
@@ -100,19 +98,16 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
     };
   const qreal arrowPercentOfWidth = 0.10;
   const qreal linePercentOfHeight = 0.30;
+  const qreal x0 = arrowPercentOfWidth * sizeWidth;
+  qreal xi = x0;
 
   painter.setBrush(Qt::blue);
   painter.setPen(Qt::NoPen);
+  painter.setRenderHint(QPainter::Antialiasing);
   painter.save();
   painter.drawConvexPolygon(block, 4);
   painter.restore();
-
-  QQueue<qreal> widths;
-
   widths.enqueue((1.0 - 2.0 * arrowPercentOfWidth) * sizeWidth);
-
-  const qreal x0 = arrowPercentOfWidth * sizeWidth;
-  qreal xi = x0;
 
   do
     {
