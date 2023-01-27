@@ -30,7 +30,6 @@
 
 #include "glitch-view.h"
 
-class glitch_alignment;
 class glitch_object_loop_arduino;
 class glitch_object_setup_arduino;
 class glitch_structures_arduino;
