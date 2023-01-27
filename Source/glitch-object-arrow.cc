@@ -38,7 +38,7 @@ glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_type = "decoration-arrow";
-  resize(100, 25);
+  resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, false);
   setName("decoration-arrow");
   setStyleSheet("background-color: transparent;");
@@ -54,8 +54,6 @@ glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
 
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->compressWidget
-    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   clone->resize(size());
   clone->setAttribute
     (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));

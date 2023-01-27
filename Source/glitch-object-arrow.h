@@ -40,7 +40,7 @@ class glitch_object_arrow: public glitch_object
 
   QSize sizeHint(void) const
   {
-    return QSize(100, 25);
+    return QSize(100, 30);
   }
 
   QString code(void) const
