@@ -33,11 +33,11 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
   glitch_object_arrow(1, parent)
 {
   if(text.contains("left"))
-    m_orientation = "left";
+    m_orientation = Orientations::LEFT;
   else if(text.contains("right"))
-    m_orientation = "right";
+    m_orientation = Orientations::RIGHT;
   else
-    m_orientation = "left+right";
+    m_orientation = Orientations::LEFT_RIGHT;
 }
 
 glitch_object_arrow::glitch_object_arrow
@@ -56,7 +56,7 @@ glitch_object_arrow::~glitch_object_arrow()
 
 glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_arrow(m_orientation, parent);
+  auto clone = new glitch_object_arrow(orientationToString(), parent);
 
   clone->m_orientation = m_orientation;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
@@ -155,7 +155,8 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
     }
   while(true);
 
-  if(m_orientation == "left" || m_orientation == "left+right")
+  if(m_orientation == Orientations::LEFT ||
+     m_orientation == Orientations::LEFT_RIGHT)
     {
       QPointF block[4] =
 	{
@@ -197,14 +198,14 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
 
   QMap<QString, QVariant> properties;
 
-  properties["arrow_orientation"] = m_orientation;
+  properties["arrow_orientation"] = orientationToString();
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_orientation = "left+right";
+  m_orientation = Orientations::LEFT_RIGHT;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -214,7 +215,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_orientation = string;
+	  m_orientation = stringToOrientation(string);
 	}
     }
 

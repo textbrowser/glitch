@@ -37,7 +37,7 @@ static qreal s_penWidth = 2.5;
 glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
 {
   m_color = QColor(255, 192, 203, s_alpha);
-  m_wireType = WireType::CURVE;
+  m_wireType = WireTypes::CURVE;
   m_wireWidth = s_penWidth;
   setCacheMode(QGraphicsItem::NoCache);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
@@ -93,7 +93,7 @@ void glitch_wire::paint
 				QPainter::TextAntialiasing,
 				true);
 
-      if(m_wireType == WireType::CURVE)
+      if(m_wireType == WireTypes::CURVE)
 	{
 	  QPainterPath path;
 	  QPen pen;
@@ -345,12 +345,12 @@ void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
 void glitch_wire::setWireType(const QString &wireType)
 {
   if(wireType.trimmed() == tr("Line"))
-    m_wireType = WireType::LINE;
+    m_wireType = WireTypes::LINE;
   else
-    m_wireType = WireType::CURVE;
+    m_wireType = WireTypes::CURVE;
 }
 
-void glitch_wire::setWireType(const WireType wireType)
+void glitch_wire::setWireType(const WireTypes wireType)
 {
   m_wireType = wireType;
 }

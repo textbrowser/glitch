@@ -65,8 +65,37 @@ class glitch_object_arrow: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  QString m_orientation;
+  enum class Orientations
+  {
+    LEFT,
+    LEFT_RIGHT = 0,
+    RIGHT
+  };
+
+  Orientations m_orientation;
+
+  QString orientationToString(void) const
+  {
+    if(m_orientation == Orientations::LEFT)
+      return "left";
+    else if(m_orientation == Orientations::RIGHT)
+      return "right";
+    else
+      return "left+right";
+  }
+
   glitch_object_arrow(const qint64 id, QWidget *parent);
+
+  static Orientations stringToOrientation(const QString &string)
+  {
+    if(string == "left")
+      return Orientations::LEFT;
+    else if(string == "right")
+      return Orientations::RIGHT;
+    else
+      return Orientations::LEFT_RIGHT;
+  }
+
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
 };
