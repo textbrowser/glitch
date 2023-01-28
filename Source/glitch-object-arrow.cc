@@ -33,11 +33,11 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
   glitch_object_arrow(1, parent)
 {
   if(text.contains("left"))
-    m_orientation = Orientations::LEFT;
+    m_arrow = Arrows::LEFT;
   else if(text.contains("right"))
-    m_orientation = Orientations::RIGHT;
+    m_arrow = Arrows::RIGHT;
   else
-    m_orientation = Orientations::LEFT_RIGHT;
+    m_arrow = Arrows::LEFT_RIGHT;
 }
 
 glitch_object_arrow::glitch_object_arrow
@@ -56,9 +56,9 @@ glitch_object_arrow::~glitch_object_arrow()
 
 glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_arrow(orientationToString(), parent);
+  auto clone = new glitch_object_arrow(arrowToString(), parent);
 
-  clone->m_orientation = m_orientation;
+  clone->m_arrow = m_arrow;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
@@ -155,8 +155,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
     }
   while(true);
 
-  if(m_orientation == Orientations::LEFT ||
-     m_orientation == Orientations::LEFT_RIGHT)
+  if(m_arrow == Arrows::LEFT || m_arrow == Arrows::LEFT_RIGHT)
     {
       QPointF block[4] =
 	{
@@ -198,24 +197,24 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
 
   QMap<QString, QVariant> properties;
 
-  properties["arrow_orientation"] = orientationToString();
+  properties["arrows"] = arrowToString();
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_orientation = Orientations::LEFT_RIGHT;
+  m_arrow = Arrows::LEFT_RIGHT;
 
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("arrow_orientation = "))
+      if(string.simplified().startsWith("arrow = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_orientation = stringToOrientation(string);
+	  m_arrow = stringToArrow(string);
 	}
     }
 

@@ -51,7 +51,7 @@ class glitch_object_trigonometry_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum Types
   {
     COS = 0,
     SIN,
@@ -59,22 +59,22 @@ class glitch_object_trigonometry_arduino: public glitch_object
   };
 
   glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
-  Type m_trigonometryType;
+  Types m_trigonometryType;
   Ui_glitch_object_trigonometry_arduino m_ui;
 
   QString trigonometryTypeToString(void) const
   {
     switch(m_trigonometryType)
       {
-      case Type::COS:
+      case Types::COS:
 	{
 	  return "cos";
 	}
-      case Type::SIN:
+      case Types::SIN:
 	{
 	  return "sin";
 	}
-      case Type::TAN:
+      case Types::TAN:
 	{
 	  return "tan";
 	}
@@ -85,18 +85,18 @@ class glitch_object_trigonometry_arduino: public glitch_object
       }
   }
 
-  static Type stringToTrigonometryType(const QString &s)
+  static Types stringToTrigonometryType(const QString &s)
   {
     auto string(s.toLower());
 
     if(string.contains("cos"))
-      return Type::COS;
+      return Types::COS;
     else if(string.contains("sin"))
-      return Type::SIN;
+      return Types::SIN;
     else if(string.contains("tan"))
-      return Type::TAN;
+      return Types::TAN;
     else
-      return Type::COS;
+      return Types::COS;
   }
 
   void setProperties(const QStringList &list);

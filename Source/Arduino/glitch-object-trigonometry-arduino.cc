@@ -39,17 +39,17 @@ glitch_object_trigonometry_arduino::glitch_object_trigonometry_arduino
 
   switch(m_trigonometryType)
     {
-    case Type::COS:
+    case Types::COS:
       {
 	string = "cos()";
 	break;
       }
-    case Type::SIN:
+    case Types::SIN:
       {
 	string = "sin()";
 	break;
       }
-    case Type::TAN:
+    case Types::TAN:
       {
 	string = "tan()";
 	break;
@@ -91,15 +91,15 @@ QString glitch_object_trigonometry_arduino::code(void) const
 {
   switch(m_trigonometryType)
     {
-    case Type::COS:
+    case Types::COS:
       {
 	return QString("cos(%1);").arg(inputs().value(0));
       }
-    case Type::SIN:
+    case Types::SIN:
       {
 	return QString("sin(%1);").arg(inputs().value(0));
       }
-    case Type::TAN:
+    case Types::TAN:
       {
 	return QString("tan(%1);").arg(inputs().value(0));
       }
