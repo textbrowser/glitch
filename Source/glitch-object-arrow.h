@@ -68,6 +68,7 @@ class glitch_object_arrow: public glitch_object
   QString m_orientation;
   glitch_object_arrow(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
+  void setProperties(const QStringList &list);
 };
 
 #endif

@@ -241,8 +241,8 @@ void glitch_structures_arduino::prepareCategories(void)
 						      << "long()"
 						      << "word()";
   s_itemsForCategories["Decorations"] = QStringList() << "arrow"
-						      << "arrow left"
-						      << "arrow right";
+						      << "arrow (left)"
+						      << "arrow (right)";
   s_itemsForCategories["Digital I/O"] = QStringList() << "digitalRead()"
 						      << "digitalWrite()"
 						      << "pinMode()";

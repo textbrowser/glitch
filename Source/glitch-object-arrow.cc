@@ -155,36 +155,37 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
     }
   while(true);
 
-  {
-    QPointF block[4] =
-      {
-	QPointF(0.0, 0.0),
-	QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
-	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight),
-	QPointF(0.0, sizeHeight)
-      };
-    QPointF leftArrow[3] =
-      {
-	QPointF(0.0, sizeHeight / 2.0),
-	QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
-	QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
-      };
-    auto brush(QBrush(QColor(Qt::blue), fillPattern));
-    auto color(brush.color());
+  if(m_orientation == "left" || m_orientation == "left+right")
+    {
+      QPointF block[4] =
+	{
+	  QPointF(0.0, 0.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight),
+	  QPointF(0.0, sizeHeight)
+	};
+      QPointF leftArrow[3] =
+	{
+	  QPointF(0.0, sizeHeight / 2.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
+	};
+      auto brush(QBrush(QColor(Qt::blue), fillPattern));
+      auto color(brush.color());
 
-    painter.setBrush(canvasBrush);
-    painter.setPen(Qt::NoPen);
-    painter.save();
-    painter.drawConvexPolygon(block, 4);
-    painter.restore();
-    color.setAlpha(255);
-    brush.setColor(color);
-    painter.setBrush(brush);
-    painter.setPen(Qt::NoPen);
-    painter.save();
-    painter.drawConvexPolygon(leftArrow, 3);
-    painter.restore();
-  }
+      painter.setBrush(canvasBrush);
+      painter.setPen(Qt::NoPen);
+      painter.save();
+      painter.drawConvexPolygon(block, 4);
+      painter.restore();
+      color.setAlpha(255);
+      brush.setColor(color);
+      painter.setBrush(brush);
+      painter.setPen(Qt::NoPen);
+      painter.save();
+      painter.drawConvexPolygon(leftArrow, 3);
+      painter.restore();
+    }
 }
 
 void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
@@ -198,4 +199,24 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
 
   properties["arrow_orientation"] = m_orientation;
   glitch_object::saveProperties(properties, db, error);
+}
+
+void glitch_object_arrow::setProperties(const QStringList &list)
+{
+  glitch_object::setProperties(list);
+  m_orientation = "left+right";
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("arrow_orientation = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_orientation = string;
+	}
+    }
+
+  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }

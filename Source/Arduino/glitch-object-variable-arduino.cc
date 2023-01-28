@@ -384,8 +384,7 @@ void glitch_object_variable_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_variable_arduino::setProperties
-(const QStringList &list)
+void glitch_object_variable_arduino::setProperties(const QStringList &list)
 {
   connectSignals(false);
   glitch_object::setProperties(list);
