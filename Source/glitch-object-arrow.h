@@ -67,8 +67,8 @@ class glitch_object_arrow: public glitch_object
  private:
   enum class Arrows
   {
-    LEFT,
-    LEFT_RIGHT = 0,
+    LEFT = 0,
+    LEFT_RIGHT,
     RIGHT
   };
 
