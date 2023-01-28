@@ -157,18 +157,18 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 
   if(m_arrow == Arrows::LEFT || m_arrow == Arrows::LEFT_RIGHT)
     {
+      QPointF arrow[3] =
+	{
+	  QPointF(0.0, sizeHeight / 2.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
+	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
+	};
       QPointF block[4] =
 	{
 	  QPointF(0.0, 0.0),
 	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
 	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight),
 	  QPointF(0.0, sizeHeight)
-	};
-      QPointF leftArrow[3] =
-	{
-	  QPointF(0.0, sizeHeight / 2.0),
-	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
-	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
 	};
       auto brush(QBrush(QColor(Qt::blue), fillPattern));
       auto color(brush.color());
@@ -183,7 +183,39 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
       painter.setBrush(brush);
       painter.setPen(Qt::NoPen);
       painter.save();
-      painter.drawConvexPolygon(leftArrow, 3);
+      painter.drawConvexPolygon(arrow, 3);
+      painter.restore();
+    }
+
+  if(m_arrow == Arrows::LEFT_RIGHT || m_arrow == Arrows::RIGHT)
+    {
+      QPointF arrow[3] =
+	{
+	  QPointF(sizeWidth, sizeHeight / 2.0),
+	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, 0.0),
+	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, sizeHeight)
+	};
+      QPointF block[4] =
+	{
+	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, 0.0),
+	  QPointF(sizeWidth, 0.0),
+	  QPointF(sizeWidth, sizeHeight),
+	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, sizeHeight)
+	};
+      auto brush(QBrush(QColor(Qt::blue), fillPattern));
+      auto color(brush.color());
+
+      painter.setBrush(canvasBrush);
+      painter.setPen(Qt::NoPen);
+      painter.save();
+      painter.drawConvexPolygon(block, 4);
+      painter.restore();
+      color.setAlpha(255);
+      brush.setColor(color);
+      painter.setBrush(brush);
+      painter.setPen(Qt::NoPen);
+      painter.save();
+      painter.drawConvexPolygon(arrow, 3);
       painter.restore();
     }
 }
