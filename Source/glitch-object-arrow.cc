@@ -29,9 +29,15 @@
 
 #include "glitch-object-arrow.h"
 
-glitch_object_arrow::glitch_object_arrow(QWidget *parent):
+glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
   glitch_object_arrow(1, parent)
 {
+  if(text.contains("left"))
+    m_orientation = "left";
+  else if(text.contains("right"))
+    m_orientation = "right";
+  else
+    m_orientation = "left+right";
 }
 
 glitch_object_arrow::glitch_object_arrow
@@ -50,8 +56,9 @@ glitch_object_arrow::~glitch_object_arrow()
 
 glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_arrow(parent);
+  auto clone = new glitch_object_arrow(m_orientation, parent);
 
+  clone->m_orientation = m_orientation;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
@@ -186,4 +193,9 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
 
   if(!error.isEmpty())
     return;
+
+  QMap<QString, QVariant> properties;
+
+  properties["arrow_orientation"] = m_orientation;
+  glitch_object::saveProperties(properties, db, error);
 }

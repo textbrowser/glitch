@@ -35,7 +35,7 @@ class glitch_object_arrow: public glitch_object
   Q_OBJECT
 
  public:
-  glitch_object_arrow(QWidget *parent);
+  glitch_object_arrow(const QString &text, QWidget *parent);
   ~glitch_object_arrow();
 
   QSize sizeHint(void) const
@@ -65,6 +65,7 @@ class glitch_object_arrow: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  QString m_orientation;
   glitch_object_arrow(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
 };
