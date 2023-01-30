@@ -86,8 +86,10 @@ class glitch_object_arrow: public glitch_object
 
   glitch_object_arrow(const qint64 id, QWidget *parent);
 
-  static Arrows stringToArrow(const QString &string)
+  static Arrows stringToArrow(const QString &s)
   {
+    auto string(s.toLower().trimmed());
+
     if(string == "left")
       return Arrows::LEFT;
     else if(string == "right")

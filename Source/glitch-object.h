@@ -56,6 +56,7 @@ class glitch_object: public QWidget
   enum class DefaultMenuActions
   {
     ADJUST_SIZE = 1,
+    ARROW_OBJECT_COLOR = 100,
     COMPRESS_WIDGET = 2,
     CONTEXT_MENU = 3,
     COPY = 0,

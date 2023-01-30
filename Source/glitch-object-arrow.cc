@@ -242,7 +242,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("arrow = "))
+      if(string.simplified().startsWith("arrows = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
