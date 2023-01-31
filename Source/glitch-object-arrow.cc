@@ -246,6 +246,7 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
   QMap<QString, QVariant> properties;
 
   properties["arrows"] = arrowToString();
+  properties["color"] = m_color.name();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -253,6 +254,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_arrow = Arrows::LEFT_RIGHT;
+  m_color = QColor(Qt::blue);
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -263,6 +265,15 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_arrow = stringToArrow(string);
+	}
+      else if(string.simplified().startsWith("color = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_color = QColor(string.trimmed());
+
+	  if(!m_color.isValid())
+	    m_color = QColor(Qt::blue);
 	}
     }
 
