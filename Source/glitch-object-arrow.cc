@@ -88,6 +88,15 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_arrow::addActions(QMenu &menu)
 {
+  if(!m_actions.contains(DefaultMenuActions::ARROW_OBJECT_COLOR))
+    {
+      auto action = new QAction(tr("Select Color..."), this);
+
+      action->setData
+	(static_cast<int> (DefaultMenuActions::ARROW_OBJECT_COLOR));
+      m_actions[DefaultMenuActions::ARROW_OBJECT_COLOR] = action;
+    }
+
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);

@@ -595,7 +595,8 @@ void glitch_object::addDefaultActions(QMenu &menu)
       if((DefaultMenuActions::COPY == it.key() ||
 	  DefaultMenuActions::DELETE == it.key() ||
 	  DefaultMenuActions::LOCK_POSITION == it.key() ||
-	  DefaultMenuActions::SET_FUNCTION_NAME == it.key()) &&
+	  DefaultMenuActions::SET_FUNCTION_NAME == it.key() ||
+	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())
 	menu.addSeparator();
     }
