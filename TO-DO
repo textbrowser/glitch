@@ -120,6 +120,9 @@ Completed Items
 - Generate periodically.
 - Group delete.
 - Hide alignment options.
+- Horizontal arrow object for decorating:
+  Color
+  Show both, left, or right arrows
 - Icons and themes.
 - Identifiers are incorrect for function children.
 - Include Arduino language reference in binary.
@@ -243,9 +246,6 @@ Remaining Items
 - Draw and, not, or, etc. objects.
 - Generate source from terminal for testing results.
 - Generate view.
-- Horizontal arrow object for decorating:
-  Color
-  Show both, left, or right arrows (Completed)
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.

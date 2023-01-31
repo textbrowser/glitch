@@ -73,6 +73,7 @@ class glitch_object_arrow: public glitch_object
   };
 
   Arrows m_arrow;
+  QColor m_color;
 
   QString arrowToString(void) const
   {
@@ -100,6 +101,9 @@ class glitch_object_arrow: public glitch_object
 
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
+
+ private slots:
+  void slotSelectColor(void);
 };
 
 #endif
