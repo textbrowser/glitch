@@ -236,9 +236,6 @@ Remaining Items
   Close buttons
   Drag & drop
 - Arduino icons.
-- Arrow object for decorating:
-  Arrow color
-  Show both, left, or right arrows (Completed)
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
@@ -246,6 +243,9 @@ Remaining Items
 - Draw and, not, or, etc. objects.
 - Generate source from terminal for testing results.
 - Generate view.
+- Horizontal arrow object for decorating:
+  Color
+  Show both, left, or right arrows (Completed)
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
