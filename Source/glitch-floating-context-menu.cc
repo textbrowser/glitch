@@ -62,47 +62,63 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	widget->deleteLater();
     }
 
-  for(int i = 0; i < actions.size(); i++)
-    if(actions.at(i)->isCheckable())
-      {
-	auto checkBox = new QCheckBox(this);
+  QMap<QString, QAction *> map;
 
-	checkBox->setChecked(actions.at(i)->isChecked());
-	checkBox->setEnabled(actions.at(i)->isEnabled());
-	checkBox->setIcon(actions.at(i)->icon());
-	checkBox->setText(actions.at(i)->text());
-	checkBox->setToolTip(actions.at(i)->toolTip());
-	connect(actions.at(i),
-		SIGNAL(toggled(bool)),
-		checkBox,
-		SLOT(setChecked(bool)));
-	connect(checkBox,
-		SIGNAL(clicked(bool)),
-		actions.at(i),
-		SIGNAL(triggered(void)));
-	m_ui.frame->layout()->addWidget(checkBox);
-      }
-    else if(actions.at(i)->isSeparator())
-      continue;
-    else
-      {
-	auto pushButton = new QPushButton(this);
+  foreach(auto action, actions)
+    if(action)
+      map[action->text().remove('&')] = action;
 
-	actions.at(i)->setProperty("index", i);
-	connect(actions.at(i),
-		&QAction::changed,
-		this,
-		&glitch_floating_context_menu::slotActionChanged);
-	connect(pushButton,
-		&QPushButton::clicked,
-		actions.at(i),
-		&QAction::triggered);
-	pushButton->setEnabled(actions.at(i)->isEnabled());
-	pushButton->setIcon(actions.at(i)->icon());
-	pushButton->setText(actions.at(i)->text());
-	pushButton->setToolTip(actions.at(i)->toolTip());
-	m_ui.frame->layout()->addWidget(pushButton);
-      }
+  QMapIterator<QString, QAction *> it(map);
+  int i = 0;
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(!it.value())
+	continue;
+
+      if(it.value()->isCheckable())
+	{
+	  auto checkBox = new QCheckBox(this);
+
+	  checkBox->setChecked(it.value()->isChecked());
+	  checkBox->setEnabled(it.value()->isEnabled());
+	  checkBox->setIcon(it.value()->icon());
+	  checkBox->setText(it.value()->text());
+	  checkBox->setToolTip(it.value()->toolTip());
+	  connect(it.value(),
+		  SIGNAL(toggled(bool)),
+		  checkBox,
+		  SLOT(setChecked(bool)));
+	  connect(checkBox,
+		  SIGNAL(clicked(bool)),
+		  it.value(),
+		  SIGNAL(triggered(void)));
+	  m_ui.frame->layout()->addWidget(checkBox);
+	}
+      else if(it.value()->isSeparator())
+	continue;
+      else
+	{
+	  auto pushButton = new QPushButton(this);
+
+	  it.value()->setProperty("index", i++);
+	  connect(it.value(),
+		  &QAction::changed,
+		  this,
+		  &glitch_floating_context_menu::slotActionChanged);
+	  connect(pushButton,
+		  &QPushButton::clicked,
+		  it.value(),
+		  &QAction::triggered);
+	  pushButton->setEnabled(it.value()->isEnabled());
+	  pushButton->setIcon(it.value()->icon());
+	  pushButton->setText(it.value()->text());
+	  pushButton->setToolTip(it.value()->toolTip());
+	  m_ui.frame->layout()->addWidget(pushButton);
+	}
+    }
 
   QApplication::restoreOverrideCursor();
 }
