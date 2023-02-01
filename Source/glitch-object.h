@@ -82,6 +82,7 @@ class glitch_object: public QWidget
     ADVANCED_IO_TYPE = 0,
     ANALOG_IO_TYPE,
     ARITHMETIC_OPERATOR,
+    ARROW_COLOR,
     BITS_AND_BYTES_TYPE,
     BITWISE_OPERATOR,
     BOOLEAN_OPERATOR,

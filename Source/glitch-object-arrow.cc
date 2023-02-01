@@ -29,6 +29,7 @@
 #include <QQueue>
 
 #include "glitch-object-arrow.h"
+#include "glitch-undo-command.h"
 
 glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
   glitch_object_arrow(1, parent)
@@ -39,6 +40,8 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
     m_arrow = Arrows::RIGHT;
   else
     m_arrow = Arrows::LEFT_RIGHT;
+
+  m_properties[Properties::ARROW_COLOR] = m_color;
 }
 
 glitch_object_arrow::glitch_object_arrow
@@ -255,6 +258,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
   glitch_object::setProperties(list);
   m_arrow = Arrows::LEFT_RIGHT;
   m_color = QColor(Qt::blue);
+  m_properties[Properties::ARROW_COLOR] = m_color;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -274,10 +278,31 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 
 	  if(!m_color.isValid())
 	    m_color = QColor(Qt::blue);
+
+	  m_properties[Properties::ARROW_COLOR] = m_color;
 	}
     }
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+}
+
+void glitch_object_arrow::setProperty
+(const Properties property, const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+
+  switch(property)
+    {
+    case Properties::ARROW_COLOR:
+      {
+	m_color = QColor(value.toString());
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
 }
 
 void glitch_object_arrow::slotSelectColor(void)
@@ -293,6 +318,21 @@ void glitch_object_arrow::slotSelectColor(void)
     {
       QApplication::processEvents();
       m_color = dialog.selectedColor();
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (m_color.name(),
+	     m_properties.value(Properties::ARROW_COLOR),
+	     glitch_undo_command::PROPERTY_CHANGED,
+	     Properties::ARROW_COLOR,
+	     this);
+
+	  undoCommand->setText
+	    (tr("color changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
     }
   else
     QApplication::processEvents();
