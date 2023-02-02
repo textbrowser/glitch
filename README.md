@@ -24,6 +24,12 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.02.05</p>
+<ul>
+<li>Floating context menu items are now sorted by name.</li>
+<li>Horizontal arrow object for decorating diagrams.</li>
+<li>Qt 5.5.1 corrections.</li>
+</ul>
 <p>2023.01.15</p>
 <ul>
 <li>Copy Object context menu item will not require that the object be selected.</li>
