@@ -249,7 +249,7 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
   QMap<QString, QVariant> properties;
 
   properties["arrows"] = arrowToString();
-  properties["color"] = m_color.name();
+  properties["color"] = m_color.name(QColor::HexArgb);
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -322,7 +322,7 @@ void glitch_object_arrow::slotSelectColor(void)
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
-	    (m_color.name(),
+	    (m_color.name(QColor::HexArgb),
 	     m_properties.value(Properties::ARROW_COLOR),
 	     glitch_undo_command::PROPERTY_CHANGED,
 	     Properties::ARROW_COLOR,
