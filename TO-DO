@@ -254,6 +254,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
+- Resize objects manually.
 - SQLite modes.
 - Splitter states and redo / undo.
 - Tools:
