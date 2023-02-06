@@ -235,6 +235,7 @@ Completed Items
 Remaining Items
 
 - Allow removal of wire by selection.
+- Android release.
 - Android:
   Adding user functions
   Close buttons
@@ -247,6 +248,7 @@ Remaining Items
 - Draw and, not, or, etc. objects.
 - Generate source from terminal for testing results.
 - Generate view.
+- Intelligent woody.
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
