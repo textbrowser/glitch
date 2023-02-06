@@ -299,7 +299,7 @@ void glitch_separated_diagram_window::slotGenerateSource(void)
 	  statusBar()->repaint();
 	}
 
-      m_view->generateSource();
+      m_view->generateSourceFile();
 
       if(statusBar())
 	{

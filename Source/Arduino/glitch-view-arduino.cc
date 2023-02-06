@@ -125,6 +125,18 @@ QString glitch_view_arduino::projectOutputFileExtension(void) const
   return ".ino";
 }
 
+QString glitch_view_arduino::source(void) const
+{
+  QString string("");
+  QTextStream stream(&string);
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  generateSource(stream);
+  QApplication::restoreOverrideCursor();
+
+  return string;
+}
+
 bool glitch_view_arduino::containsFunctionName(const QString &name) const
 {
   return m_functionNames.contains(name);
@@ -208,7 +220,44 @@ void glitch_view_arduino::consumeFunctionName(const QString &name)
     m_functionNames[name] = '0';
 }
 
-void glitch_view_arduino::generateSource(void)
+void glitch_view_arduino::generateSource(QTextStream &stream) const
+{
+  glitch_view::generateSource(stream);
+
+  foreach(auto w, scene()->orderedObjects())
+    {
+      if(!w || !w->shouldPrint())
+	continue;
+      else if(m_loopObject == w || m_setupObject == w)
+	/*
+	** The loop() and setup() methods are processed later.
+	*/
+
+	continue;
+
+      auto code(w->code());
+
+      if(!code.trimmed().isEmpty())
+	stream << code
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	       << endl
+	       << endl;
+#else
+      << Qt::endl
+	   << Qt::endl;
+#endif
+    }
+
+  stream << m_loopObject->code()
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	 << endl
+#else
+	 << Qt::endl
+#endif
+	 << m_setupObject->code();
+}
+
+void glitch_view_arduino::generateSourceFile(void) const
 {
   if(m_canvasSettings->outputFile().trimmed().isEmpty())
     {
@@ -218,45 +267,15 @@ void glitch_view_arduino::generateSource(void)
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  glitch_view::generateSource();
+  glitch_view::generateSourceFile();
 
   QFile file(m_canvasSettings->outputFile());
 
-  if(file.open(QIODevice::Append | QIODevice::WriteOnly))
+  if(file.open(QIODevice::WriteOnly))
     {
       QTextStream stream(&file);
 
-      foreach(auto w, scene()->orderedObjects())
-	{
-	  if(!w || !w->shouldPrint())
-	    continue;
-	  else if(m_loopObject == w || m_setupObject == w)
-	    /*
-	    ** The loop() and setup() methods are processed later.
-	    */
-
-	    continue;
-
-	  auto code(w->code());
-
-	  if(!code.trimmed().isEmpty())
-	    stream << code
-#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-		   << endl
-		   << endl;
-#else
-		   << Qt::endl
-		   << Qt::endl;
-#endif
-	}
-
-      stream << m_loopObject->code()
-#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-	     << endl
-#else
-	     << Qt::endl
-#endif
-	     << m_setupObject->code();
+      generateSource(stream);
     }
 
   QApplication::restoreOverrideCursor();

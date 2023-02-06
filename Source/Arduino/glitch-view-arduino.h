@@ -47,12 +47,13 @@ class glitch_view_arduino: public glitch_view
   ~glitch_view_arduino();
   QString nextUniqueFunctionName(void) const;
   QString projectOutputFileExtension(void) const;
+  QString source(void) const;
   bool containsFunctionName(const QString &name) const;
   bool open(const QString &fileName, QString &error);
   glitch_object_loop_arduino *loopObject(void) const;
   glitch_object_setup_arduino *setupObject(void) const;
   void consumeFunctionName(const QString &name);
-  void generateSource(void);
+  void generateSourceFile(void) const;
   void removeFunctionName(const QString &name);
   void separate(void);
   void showStructures(void);
@@ -63,6 +64,7 @@ class glitch_view_arduino: public glitch_view
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
   glitch_structures_arduino *m_arduinoStructures;
+  void generateSource(QTextStream &stream) const;
 
  private slots:
   void slotCanvasSettingsChanged(const bool undo);

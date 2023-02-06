@@ -40,6 +40,7 @@ class glitch_documentation: public QMainWindow
   Q_OBJECT
 
  public:
+  glitch_documentation(QWidget *parent);
   glitch_documentation(const QString &fileName, QWidget *parent);
   glitch_documentation(const QUrl &url, QWidget *parent);
   ~glitch_documentation();

@@ -38,6 +38,11 @@
 
 #include "glitch-documentation.h"
 
+glitch_documentation::glitch_documentation(QWidget *parent):
+  glitch_documentation("", parent)
+{
+}
+
 glitch_documentation::glitch_documentation
 (const QString &fileName, QWidget *parent):QMainWindow(parent)
 {

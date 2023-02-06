@@ -163,6 +163,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotGenerateSource);
+  connect(m_ui.action_Generate_Source_View,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotGenerateSourceView);
   connect(m_ui.action_Glitch_Preferences,
 	  &QAction::triggered,
 	  this,
@@ -868,6 +872,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Diagram_Context_Menu->setEnabled(false);
       m_ui.action_Find->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
+      m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
@@ -888,6 +893,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
+      m_ui.action_Generate_Source_View->setEnabled(m_currentView);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled(m_currentView);
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
@@ -1528,8 +1534,18 @@ void glitch_ui::slotGenerateSource(void)
 {
   if(m_currentView)
     {
+      showStatsuBarMessage(tr("Generating source file. Please be patient."));
+      m_currentView->generateSourceFile();
+      showStatsuBarMessage("");
+    }
+}
+
+void glitch_ui::slotGenerateSourceView(void)
+{
+  if(m_currentView)
+    {
       showStatsuBarMessage(tr("Generating source. Please be patient."));
-      m_currentView->generateSource();
+      m_currentView->generateSourceView();
       showStatsuBarMessage("");
     }
 }

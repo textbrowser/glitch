@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>34</height>
     </rect>
    </property>
    <property name="nativeMenuBar">
@@ -132,6 +132,7 @@
      <string>&amp;Project</string>
     </property>
     <addaction name="action_Generate_Source"/>
+    <addaction name="action_Generate_Source_View"/>
     <addaction name="action_Show_Project_IDE"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -357,6 +358,11 @@
   <action name="action_Show_Project_IDE">
    <property name="text">
     <string>Show Project IDE...</string>
+   </property>
+  </action>
+  <action name="action_Generate_Source_View">
+   <property name="text">
+    <string>Generate Source View...</string>
    </property>
   </action>
  </widget>

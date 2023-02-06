@@ -40,6 +40,7 @@
 class QSplitter;
 class QTreeWidgetItem;
 class glitch_alignment;
+class glitch_documentation;
 class glitch_find_objects;
 class glitch_graphicsview;
 class glitch_object;
@@ -88,8 +89,9 @@ class glitch_view: public QWidget
   glitch_tools::Operations toolsOperation(void) const;
   qint64 nextId(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
+  virtual QString source(void) const;
   virtual bool open(const QString &fileName, QString &error);
-  virtual void generateSource(void);
+  virtual void generateSourceFile(void) const;
   virtual void separate(void) = 0;
   virtual void showStructures(void) = 0;
   virtual void unite(void) = 0;
@@ -97,6 +99,7 @@ class glitch_view: public QWidget
   void deleteItems(void);
   void endMacro(void);
   void find(void) const;
+  void generateSourceView(void);
   void launchProjectIDE(void) const;
   void push(glitch_undo_command *undoCommand);
   void redo(void);
@@ -133,6 +136,7 @@ class glitch_view: public QWidget
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
+  QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
   QString m_fileName;
@@ -148,6 +152,7 @@ class glitch_view: public QWidget
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;
   bool saveImplementation(const QString &fileName, QString &error);
+  virtual void generateSource(QTextStream &stream) const;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void resizeEvent(QResizeEvent *event);
