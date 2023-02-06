@@ -216,6 +216,10 @@ void glitch_proxy_widget::paint
 	}
       else
 	{
+	  /*
+	  ** Draw a border.
+	  */
+
 	  QPen pen;
 
 	  pen.setColor(QColor(168, 169, 173));

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QColorDialog>
 #include <QScrollBar>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -98,6 +99,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_drawOutputConnector = false;
   m_occupied = false;
   m_parent = parent;
+  m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
@@ -661,6 +663,18 @@ void glitch_object::createActions(void)
       m_actions[DefaultMenuActions::ADJUST_SIZE] = action;
     }
 
+  if(!m_actions.contains(DefaultMenuActions::BORDER_COLOR))
+    {
+      auto action = new QAction(tr("Border Color..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::BORDER_COLOR));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotSelectBorderColor);
+      m_actions[DefaultMenuActions::BORDER_COLOR] = action;
+    }
+
   if(!m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))
     {
       auto action = new QAction(tr("&Compress Widget"), this);
@@ -1076,7 +1090,13 @@ void glitch_object::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("compressed_widget = "))
+      if(string.simplified().startsWith("border_color = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::BORDER_COLOR] = QColor(string.trimmed());
+	}
+      else if(string.simplified().startsWith("compressed_widget = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
@@ -1435,7 +1455,9 @@ void glitch_object::slotPropertyChanged
 {
   auto p = Properties::XYZ_PROPERTY;
 
-  if(property == "compressed_widget")
+  if(property == "border_color")
+    p = Properties::BORDER_COLOR;
+  else if(property == "compressed_widget")
     p = Properties::COMPRESSED_WIDGET;
   else if(property == "tool_bar_visible")
     p = Properties::TOOL_BAR_VISIBLE;
@@ -1457,6 +1479,25 @@ void glitch_object::slotPropertyChanged
 	  m_undoStack->push(undoCommand);
 	}
     }
+}
+
+void glitch_object::slotSelectBorderColor(void)
+{
+  QColorDialog dialog(m_parent);
+
+  dialog.setCurrentColor
+    (QColor(m_properties.value(Properties::BORDER_COLOR).toString()));
+  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
+  dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      slotPropertyChanged("border_color", dialog.selectedColor().name());
+    }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_object::slotSetFont(void)
