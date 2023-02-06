@@ -116,18 +116,21 @@ Public Types</h2></td></tr>
 <tr class="separator:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <br />
 &#160;&#160;<b>ADJUST_SIZE</b> = 1
+, <b>ARROW_OBJECT_COLOR</b> = 100
+, <b>BORDER_COLOR</b> = 200
 , <b>COMPRESS_WIDGET</b> = 2
-, <b>CONTEXT_MENU</b> = 3
+, <br />
+&#160;&#160;<b>CONTEXT_MENU</b> = 3
 , <b>COPY</b> = 0
-, <br />
-&#160;&#160;<b>DELETE</b> = 4
+, <b>DELETE</b> = 4
 , <b>EDIT</b> = 5
-, <b>LOCK_POSITION</b> = 6
-, <b>PORT_COLORS</b> = 8
 , <br />
-&#160;&#160;<b>SET_FUNCTION_NAME</b> = 7
+&#160;&#160;<b>LOCK_POSITION</b> = 6
+, <b>PORT_COLORS</b> = 8
+, <b>SET_FUNCTION_NAME</b> = 7
 , <b>SET_STYLE_SHEET</b> = 9
-, <b>TRANSPARENT</b> = 10
+, <br />
+&#160;&#160;<b>TRANSPARENT</b> = 10
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,54 +144,56 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>ADVANCED_IO_TYPE</b> = 0
 , <b>ANALOG_IO_TYPE</b>
 , <b>ARITHMETIC_OPERATOR</b>
-, <b>BITS_AND_BYTES_TYPE</b>
+, <b>ARROW_COLOR</b>
 , <br />
-&#160;&#160;<b>BITWISE_OPERATOR</b>
+&#160;&#160;<b>BITS_AND_BYTES_TYPE</b>
+, <b>BITWISE_OPERATOR</b>
 , <b>BOOLEAN_OPERATOR</b>
-, <b>CHARACTERS_TYPE</b>
+, <b>BORDER_COLOR</b>
+, <br />
+&#160;&#160;<b>CHARACTERS_TYPE</b>
 , <b>COMMENT</b>
-, <br />
-&#160;&#160;<b>COMPOUND_OPERATOR</b>
+, <b>COMPOUND_OPERATOR</b>
 , <b>COMPOUND_OPERATOR_PRE</b>
-, <b>COMPRESSED_WIDGET</b>
+, <br />
+&#160;&#160;<b>COMPRESSED_WIDGET</b>
 , <b>CONDITION</b>
-, <br />
-&#160;&#160;<b>CONSTANT_OTHER</b>
+, <b>CONSTANT_OTHER</b>
 , <b>CONSTANT_TYPE</b>
-, <b>CONVERSION</b>
+, <br />
+&#160;&#160;<b>CONVERSION</b>
 , <b>DIGITAL_IO_TYPE</b>
-, <br />
-&#160;&#160;<b>FLOW_CONTROL_TYPE</b>
+, <b>FLOW_CONTROL_TYPE</b>
 , <b>INTERRUPTS_TYPE</b>
-, <b>LOGICAL_OPERATOR</b>
+, <br />
+&#160;&#160;<b>LOGICAL_OPERATOR</b>
 , <b>MATHEMATICS_TYPE</b>
-, <br />
-&#160;&#160;<b>NAME</b>
+, <b>NAME</b>
 , <b>PORT_COLORS</b>
-, <b>POSITION_LOCKED</b>
+, <br />
+&#160;&#160;<b>POSITION_LOCKED</b>
 , <b>RANDOM_TYPE</b>
-, <br />
-&#160;&#160;<b>SERIAL_TYPE</b>
+, <b>SERIAL_TYPE</b>
 , <b>SIZE</b>
-, <b>STREAM_TYPE</b>
+, <br />
+&#160;&#160;<b>STREAM_TYPE</b>
 , <b>STRUCTURES_VIEW_SPLITTER_STATE</b>
-, <br />
-&#160;&#160;<b>SYNTAX</b>
+, <b>SYNTAX</b>
 , <b>TIME_TYPE</b>
-, <b>TOOL_BAR_VISIBLE</b>
+, <br />
+&#160;&#160;<b>TOOL_BAR_VISIBLE</b>
 , <b>TRANSPARENT</b>
-, <br />
-&#160;&#160;<b>TRIGONOMETRY_TYPE</b>
+, <b>TRIGONOMETRY_TYPE</b>
 , <b>UTILITIES_TYPE</b>
-, <b>VARIABLE_ARRAY</b>
+, <br />
+&#160;&#160;<b>VARIABLE_ARRAY</b>
 , <b>VARIABLE_NAME</b>
-, <br />
-&#160;&#160;<b>VARIABLE_POINTER_ACCESS</b>
+, <b>VARIABLE_POINTER_ACCESS</b>
 , <b>VARIABLE_PROGMEM</b>
-, <b>VARIABLE_QUALIFIER</b>
-, <b>VARIABLE_TYPE</b>
 , <br />
-&#160;&#160;<b>XYZ_PROPERTY</b>
+&#160;&#160;<b>VARIABLE_QUALIFIER</b>
+, <b>VARIABLE_TYPE</b>
+, <b>XYZ_PROPERTY</b>
 <br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,6 +237,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setConstantType</b> (
 <tr class="memitem:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7047bda28b3827ec6d5f981ac4780551"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>glitch_object</b> (const qint64 id, QWidget *parent)</td></tr>
 <tr class="separator:a7047bda28b3827ec6d5f981ac4780551 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6721cfec997d100882cf4ad72277bb6f inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a6721cfec997d100882cf4ad72277bb6f"></a>
+QColor&#160;</td><td class="memItemRight" valign="bottom"><b>borderColor</b> (void) const</td></tr>
+<tr class="separator:a6721cfec997d100882cf4ad72277bb6f inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25cfab9aaf64e3ad42ed4430f979b8f0 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a25cfab9aaf64e3ad42ed4430f979b8f0"></a>
 QColor&#160;</td><td class="memItemRight" valign="bottom"><b>portColor</b> (const glitch_object::PortColors portColor) const</td></tr>
 <tr class="separator:a25cfab9aaf64e3ad42ed4430f979b8f0 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -403,6 +411,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotCopy</b> 
 <tr class="memitem:af46ced5136f883288c1216489c6b295a inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af46ced5136f883288c1216489c6b295a"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotHideOrShowOccupied</b> (void)</td></tr>
 <tr class="separator:af46ced5136f883288c1216489c6b295a inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf165c4c65b525106aced04e2c616264 inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="adf165c4c65b525106aced04e2c616264"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSelectBorderColor</b> (void)</td></tr>
+<tr class="separator:adf165c4c65b525106aced04e2c616264 inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2212f2e3847cac0ff021230ec7fb6f96 inherit pro_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a2212f2e3847cac0ff021230ec7fb6f96"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSetPortColors</b> (void)</td></tr>
 <tr class="separator:a2212f2e3847cac0ff021230ec7fb6f96 inherit pro_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>

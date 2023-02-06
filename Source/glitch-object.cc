@@ -980,6 +980,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   auto properties(p);
 
+  properties["border_color"] = m_properties.value
+    (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
   properties["port_colors"] = m_properties.value

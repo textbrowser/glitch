@@ -128,6 +128,11 @@ class glitch_object: public QWidget
   glitch_object(QWidget *parent);
   glitch_object(const qint64 id, QWidget *parent);
 
+  QColor borderColor(void) const
+  {
+    return QColor(m_properties.value(Properties::BORDER_COLOR).toString());
+  }
+
   QColor portColor(const glitch_object::PortColors portColor) const
   {
     return QColor

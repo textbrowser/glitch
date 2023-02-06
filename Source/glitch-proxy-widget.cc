@@ -222,7 +222,11 @@ void glitch_proxy_widget::paint
 
 	  QPen pen;
 
-	  pen.setColor(QColor(168, 169, 173));
+	  if(m_object)
+	    pen.setColor(m_object->borderColor());
+	  else
+	    pen.setColor(QColor(168, 169, 173));
+
 	  pen.setJoinStyle(Qt::RoundJoin);
 	  pen.setStyle(Qt::SolidLine);
 	  pen.setWidthF

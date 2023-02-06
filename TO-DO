@@ -138,6 +138,7 @@ Completed Items
 - Modern Qt connect() (except for QOverload() (PowerPC)).
 - Movement via arrows. Increase distance if Shift is depressed.
 - Multiple inputs or single input? Single!
+- Object border color.
 - Object numbers should be sequenced.
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
@@ -249,7 +250,6 @@ Remaining Items
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
-- Object border color.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
