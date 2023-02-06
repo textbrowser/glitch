@@ -1919,7 +1919,10 @@ void glitch_ui::slotShowAllTools(void)
 void glitch_ui::slotShowArduinoDocumentation(void)
 {
   if(!m_arduino)
-    m_arduino = new glitch_documentation(":/Arduino/Arduino.pdf", this);
+    {
+      m_arduino = new glitch_documentation(":/Arduino/Arduino.pdf", this);
+      m_arduino->setWindowTitle(tr("Glitch: Arduino Documentation"));
+    }
 
   m_arduino->showNormal();
   m_arduino->activateWindow();
@@ -1981,8 +1984,11 @@ void glitch_ui::slotShowProjectIDE(void)
 void glitch_ui::slotShowReleaseNotes(void)
 {
   if(!m_releaseNotes)
-    m_releaseNotes = new glitch_documentation
-      (QUrl("qrc:/ReleaseNotes.html"), this);
+    {
+      m_releaseNotes = new glitch_documentation
+	(QUrl("qrc:/ReleaseNotes.html"), this);
+      m_releaseNotes->setWindowTitle(tr("Glitch: Release Notes"));
+    }
 
   m_releaseNotes->showNormal();
   m_releaseNotes->activateWindow();
