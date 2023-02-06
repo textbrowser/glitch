@@ -1,0 +1,87 @@
+\hypertarget{classglitch__object__conversion__arduino}{}\doxysection{glitch\+\_\+object\+\_\+conversion\+\_\+arduino Class Reference}
+\label{classglitch__object__conversion__arduino}\index{glitch\_object\_conversion\_arduino@{glitch\_object\_conversion\_arduino}}
+
+
+Inheritance diagram for glitch\+\_\+object\+\_\+conversion\+\_\+arduino\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=217pt]{classglitch__object__conversion__arduino__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for glitch\+\_\+object\+\_\+conversion\+\_\+arduino\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{classglitch__object__conversion__arduino__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a803461b70b1f08b0df007c85cacbcffa}\label{classglitch__object__conversion__arduino_a803461b70b1f08b0df007c85cacbcffa}} 
+enum {\bfseries Conversion\+Types} \{ \newline
+{\bfseries BYTE} = 0
+, {\bfseries CHAR}
+, {\bfseries FLOAT}
+, {\bfseries INT}
+, \newline
+{\bfseries LONG}
+, {\bfseries UNSIGNED\+\_\+\+INT}
+, {\bfseries UNSIGNED\+\_\+\+LONG}
+, {\bfseries WORD}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a0854bea0063e753b94c3761dc1f93f98}\label{classglitch__object__conversion__arduino_a0854bea0063e753b94c3761dc1f93f98}} 
+{\bfseries glitch\+\_\+object\+\_\+conversion\+\_\+arduino} (const QString \&conversion\+Type, QWidget $\ast$parent)
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a724e69483a227c2057ad578926102acf}\label{classglitch__object__conversion__arduino_a724e69483a227c2057ad578926102acf}} 
+QString {\bfseries code} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_ab41d4928a05a91f1f8fb74f7946431a3}\label{classglitch__object__conversion__arduino_ab41d4928a05a91f1f8fb74f7946431a3}} 
+QString {\bfseries conversion} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a35e480f1efbe284dd01752ff21d6ee5d}\label{classglitch__object__conversion__arduino_a35e480f1efbe284dd01752ff21d6ee5d}} 
+bool {\bfseries has\+Input} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a0d5e1bc767a2f2718fb874fa6b544690}\label{classglitch__object__conversion__arduino_a0d5e1bc767a2f2718fb874fa6b544690}} 
+bool {\bfseries has\+Output} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a9b16f39e83ef4bbb4d37d1f3881ae672}\label{classglitch__object__conversion__arduino_a9b16f39e83ef4bbb4d37d1f3881ae672}} 
+bool {\bfseries is\+Fully\+Wired} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a3cda81f580b76374c3851c8a9a36c53b}\label{classglitch__object__conversion__arduino_a3cda81f580b76374c3851c8a9a36c53b}} 
+bool {\bfseries should\+Print} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_ad6988890812003dfb24da22a179916ba}\label{classglitch__object__conversion__arduino_ad6988890812003dfb24da22a179916ba}} 
+\mbox{\hyperlink{classglitch__object__conversion__arduino}{glitch\+\_\+object\+\_\+conversion\+\_\+arduino}} $\ast$ {\bfseries clone} (QWidget $\ast$parent) const
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_ab3948410d7002b8f7edef827d5b77f1d}\label{classglitch__object__conversion__arduino_ab3948410d7002b8f7edef827d5b77f1d}} 
+void {\bfseries add\+Actions} (QMenu \&menu)
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_a05a222950d0cfe8d1bb0dd9bb6aeff8b}\label{classglitch__object__conversion__arduino_a05a222950d0cfe8d1bb0dd9bb6aeff8b}} 
+void {\bfseries save} (const QSql\+Database \&db, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_aa86ca2579bea4314c767c181a79f242d}\label{classglitch__object__conversion__arduino_aa86ca2579bea4314c767c181a79f242d}} 
+void {\bfseries set\+Conversion\+Type} (const QString \&ct)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object__conversion__arduino_adb1e6b29ed24ae580171779a93f03338}\label{classglitch__object__conversion__arduino_adb1e6b29ed24ae580171779a93f03338}} 
+static \mbox{\hyperlink{classglitch__object__conversion__arduino}{glitch\+\_\+object\+\_\+conversion\+\_\+arduino}} $\ast$ {\bfseries create\+From\+Values} (const QMap$<$ QString, QVariant $>$ \&values, QString \&error, QWidget $\ast$parent)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Source/\+Arduino/glitch-\/object-\/conversion-\/arduino.\+h\item 
+Source/\+Arduino/glitch-\/object-\/conversion-\/arduino.\+cc\end{DoxyCompactItemize}

@@ -223,12 +223,15 @@ qint64&#160;</td><td class="memItemRight" valign="bottom"><b>nextId</b> (void) c
 <tr class="memitem:a59068e5f79218ed59482fb93e277e92a"><td class="memItemLeft" align="right" valign="top"><a id="a59068e5f79218ed59482fb93e277e92a"></a>
 virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>projectOutputFileExtension</b> (void) const =0</td></tr>
 <tr class="separator:a59068e5f79218ed59482fb93e277e92a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a508bcaf91309ecf3a01085cba0ef08ec"><td class="memItemLeft" align="right" valign="top"><a id="a508bcaf91309ecf3a01085cba0ef08ec"></a>
+virtual QString&#160;</td><td class="memItemRight" valign="bottom"><b>source</b> (void) const</td></tr>
+<tr class="separator:a508bcaf91309ecf3a01085cba0ef08ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a7a676a57f320562f00739535bde79e"><td class="memItemLeft" align="right" valign="top"><a id="a0a7a676a57f320562f00739535bde79e"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>open</b> (const QString &amp;fileName, QString &amp;error)</td></tr>
 <tr class="separator:a0a7a676a57f320562f00739535bde79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32fd7cbf25d90a92e6de7c33d6ca2457"><td class="memItemLeft" align="right" valign="top"><a id="a32fd7cbf25d90a92e6de7c33d6ca2457"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSource</b> (void)</td></tr>
-<tr class="separator:a32fd7cbf25d90a92e6de7c33d6ca2457"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcf6959546685c507965773c568aab07"><td class="memItemLeft" align="right" valign="top"><a id="abcf6959546685c507965773c568aab07"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSourceFile</b> (void) const</td></tr>
+<tr class="separator:abcf6959546685c507965773c568aab07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea94839806c8b9c0b9d0b7e3b2e06582"><td class="memItemLeft" align="right" valign="top"><a id="aea94839806c8b9c0b9d0b7e3b2e06582"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>separate</b> (void)=0</td></tr>
 <tr class="separator:aea94839806c8b9c0b9d0b7e3b2e06582"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,6 +253,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>endMacro</b> (void)</
 <tr class="memitem:aca2ceee664b375fc1a24d3a8d46b3241"><td class="memItemLeft" align="right" valign="top"><a id="aca2ceee664b375fc1a24d3a8d46b3241"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>find</b> (void) const</td></tr>
 <tr class="separator:aca2ceee664b375fc1a24d3a8d46b3241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade70b5619d63cad9c3bf0882e987b379"><td class="memItemLeft" align="right" valign="top"><a id="ade70b5619d63cad9c3bf0882e987b379"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSourceView</b> (void)</td></tr>
+<tr class="separator:ade70b5619d63cad9c3bf0882e987b379"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f19c6d94a0104bbbe6cccd5e7cfaf1d"><td class="memItemLeft" align="right" valign="top"><a id="a3f19c6d94a0104bbbe6cccd5e7cfaf1d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>launchProjectIDE</b> (void) const</td></tr>
 <tr class="separator:a3f19c6d94a0104bbbe6cccd5e7cfaf1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -352,6 +358,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7dbf64738711394696d9314039dd77a1"><td class="memItemLeft" align="right" valign="top"><a id="a7dbf64738711394696d9314039dd77a1"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>saveImplementation</b> (const QString &amp;fileName, QString &amp;error)</td></tr>
 <tr class="separator:a7dbf64738711394696d9314039dd77a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31eadfba5da29830117a3ab24a5bd9d6"><td class="memItemLeft" align="right" valign="top"><a id="a31eadfba5da29830117a3ab24a5bd9d6"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSource</b> (QTextStream &amp;stream) const</td></tr>
+<tr class="separator:a31eadfba5da29830117a3ab24a5bd9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf94380d9c34f709a6559dcdb1de470c"><td class="memItemLeft" align="right" valign="top"><a id="adf94380d9c34f709a6559dcdb1de470c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>adjustScrollBars</b> (void)</td></tr>
 <tr class="separator:adf94380d9c34f709a6559dcdb1de470c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -391,6 +400,9 @@ QPointer&lt; QMenu &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_
 <tr class="memitem:a95c1601e1c11530658690f33acc20571"><td class="memItemLeft" align="right" valign="top"><a id="a95c1601e1c11530658690f33acc20571"></a>
 QPointer&lt; QPushButton &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tabButton</b></td></tr>
 <tr class="separator:a95c1601e1c11530658690f33acc20571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab691b86d69ac435ffdc750d06191b896"><td class="memItemLeft" align="right" valign="top"><a id="ab691b86d69ac435ffdc750d06191b896"></a>
+QPointer&lt; <a class="el" href="classglitch__documentation.html">glitch_documentation</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_sourceView</b></td></tr>
+<tr class="separator:ab691b86d69ac435ffdc750d06191b896"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7aff0daa2bcce12c78d609b5999e6200"><td class="memItemLeft" align="right" valign="top"><a id="a7aff0daa2bcce12c78d609b5999e6200"></a>
 QPointer&lt; <a class="el" href="classglitch__tools.html">glitch_tools</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tools</b></td></tr>
 <tr class="separator:a7aff0daa2bcce12c78d609b5999e6200"><td class="memSeparator" colspan="2">&#160;</td></tr>

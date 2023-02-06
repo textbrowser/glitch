@@ -1,0 +1,372 @@
+\hypertarget{classglitch__view}{}\doxysection{glitch\+\_\+view Class Reference}
+\label{classglitch__view}\index{glitch\_view@{glitch\_view}}
+
+
+Inheritance diagram for glitch\+\_\+view\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classglitch__view__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for glitch\+\_\+view\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classglitch__view__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_ad2db06d2d176d46cf9bbab09ce5d1736}\label{classglitch__view_ad2db06d2d176d46cf9bbab09ce5d1736}} 
+enum {\bfseries Limits} \{ {\bfseries PROPERTIES\+\_\+\+MAXIMUM\+\_\+\+LENGTH} = 50000
+, {\bfseries STYLESHEET\+\_\+\+MAXIMUM\+\_\+\+LENGTH} = 10000
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a12f775bbf57370504d566a978cee8dd4}\label{classglitch__view_a12f775bbf57370504d566a978cee8dd4}} 
+void {\bfseries slot\+Copy} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a673f73db706aa7ee195531d5974d77f2}\label{classglitch__view_a673f73db706aa7ee195531d5974d77f2}} 
+void {\bfseries slot\+Save} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a5c4e832a7f69f4fc4b30253b4ce29d00}\label{classglitch__view_a5c4e832a7f69f4fc4b30253b4ce29d00}} 
+void {\bfseries changed} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a1c3680a746ea71b47d9d07fa6f3dceb6}\label{classglitch__view_a1c3680a746ea71b47d9d07fa6f3dceb6}} 
+void {\bfseries copy} (QGraphics\+View $\ast$view)
+\item 
+\mbox{\Hypertarget{classglitch__view_a95065c202fdb481ef5d9ac27d21df42e}\label{classglitch__view_a95065c202fdb481ef5d9ac27d21df42e}} 
+void {\bfseries mouse\+Enter\+Event} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a2fe13ecaf47a8ce3cc908b72d8b6bbf8}\label{classglitch__view_a2fe13ecaf47a8ce3cc908b72d8b6bbf8}} 
+void {\bfseries mouse\+Leave\+Event} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a0cf547a92d52a713912d24ce7cc061df}\label{classglitch__view_a0cf547a92d52a713912d24ce7cc061df}} 
+void {\bfseries paste} (\mbox{\hyperlink{classglitch__view}{glitch\+\_\+view}} $\ast$view)
+\item 
+\mbox{\Hypertarget{classglitch__view_a29da3134720e8361703f86cba0392cf3}\label{classglitch__view_a29da3134720e8361703f86cba0392cf3}} 
+void {\bfseries saved} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_aa89d8cb68a502ffcb95b2795478c5361}\label{classglitch__view_aa89d8cb68a502ffcb95b2795478c5361}} 
+void {\bfseries selection\+Changed} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_ab9041ef4f97ef94c1ee46d13dda2c8e4}\label{classglitch__view_ab9041ef4f97ef94c1ee46d13dda2c8e4}} 
+void {\bfseries separate} (\mbox{\hyperlink{classglitch__view}{glitch\+\_\+view}} $\ast$view)
+\item 
+\mbox{\Hypertarget{classglitch__view_af92fab4d008e90dc4bc7b760994eeae6}\label{classglitch__view_af92fab4d008e90dc4bc7b760994eeae6}} 
+void {\bfseries tools\+Operation\+Changed} (const glitch\+\_\+tools\+::\+Operations operation)
+\item 
+\mbox{\Hypertarget{classglitch__view_a6aefec6d6b4bbbc33eb0758f940c7b03}\label{classglitch__view_a6aefec6d6b4bbbc33eb0758f940c7b03}} 
+void {\bfseries unite} (\mbox{\hyperlink{classglitch__view}{glitch\+\_\+view}} $\ast$view)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a1ad64a409fa4dde09cb579dbaeccd281}\label{classglitch__view_a1ad64a409fa4dde09cb579dbaeccd281}} 
+{\bfseries glitch\+\_\+view} (const QString \&file\+Name, const QString \&name, const glitch\+\_\+common\+::\+Project\+Types project\+Type, QWidget $\ast$parent)
+\item 
+\mbox{\Hypertarget{classglitch__view_aa3aaced054c46835de829d224f111636}\label{classglitch__view_aa3aaced054c46835de829d224f111636}} 
+QAction $\ast$ {\bfseries menu\+Action} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a2253ab5019f70a5cf34a702f9ba6dcab}\label{classglitch__view_a2253ab5019f70a5cf34a702f9ba6dcab}} 
+QList$<$ QAction $\ast$ $>$ {\bfseries alignment\+Actions} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ad1175240f33c369272231f5364bb1bd6}\label{classglitch__view_ad1175240f33c369272231f5364bb1bd6}} 
+QList$<$ QAction $\ast$ $>$ {\bfseries default\+Actions} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a8cd6e6f517d25584ee7ba04329f94853}\label{classglitch__view_a8cd6e6f517d25584ee7ba04329f94853}} 
+QList$<$ \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$ $>$ {\bfseries objects} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a2613fdc237421ad8675a4bec66fec798}\label{classglitch__view_a2613fdc237421ad8675a4bec66fec798}} 
+QList$<$ \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$ $>$ {\bfseries selected\+Objects} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a0654e752708d87046e51ed4c23dbf148}\label{classglitch__view_a0654e752708d87046e51ed4c23dbf148}} 
+QMenu $\ast$ {\bfseries default\+Context\+Menu} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a29f6fc2457b9e9f90401ad5c0b9e9486}\label{classglitch__view_a29f6fc2457b9e9f90401ad5c0b9e9486}} 
+QString {\bfseries name} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a8cd58ccf976aaf6397ae65ae9df7c214}\label{classglitch__view_a8cd58ccf976aaf6397ae65ae9df7c214}} 
+QString {\bfseries redo\+Text} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_af731db72b62c181e23cd714ca82dae73}\label{classglitch__view_af731db72b62c181e23cd714ca82dae73}} 
+QString {\bfseries undo\+Text} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a2628093def709cbdbabdf467908daabc}\label{classglitch__view_a2628093def709cbdbabdf467908daabc}} 
+QUndo\+Stack $\ast$ {\bfseries undo\+Stack} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a60a49a9275de45b68c7c9947570566d9}\label{classglitch__view_a60a49a9275de45b68c7c9947570566d9}} 
+bool {\bfseries can\+Redo} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ac79df3223a607dfeb2a4aaafad8bf32d}\label{classglitch__view_ac79df3223a607dfeb2a4aaafad8bf32d}} 
+bool {\bfseries can\+Undo} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ab2f4651803fb94aae8878b6ab24bae59}\label{classglitch__view_ab2f4651803fb94aae8878b6ab24bae59}} 
+bool {\bfseries contains\+Function} (const QString \&name) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ae885c8fa8fd23c919d74b974d488e4ca}\label{classglitch__view_ae885c8fa8fd23c919d74b974d488e4ca}} 
+bool {\bfseries has\+Changed} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a5e375d8dae7899048e0de71cfba8b895}\label{classglitch__view_a5e375d8dae7899048e0de71cfba8b895}} 
+bool {\bfseries save} (QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__view_a8031f2355e486e3bb3b9d9d518ea2d20}\label{classglitch__view_a8031f2355e486e3bb3b9d9d518ea2d20}} 
+bool {\bfseries save\+As} (const QString \&file\+Name, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__view_a1dbc5da4833c75a23f32158cbe20680e}\label{classglitch__view_a1dbc5da4833c75a23f32158cbe20680e}} 
+glitch\+\_\+common\+::\+Project\+Types {\bfseries project\+Type} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a1698c4fb71866cee96842c6b69df3219}\label{classglitch__view_a1698c4fb71866cee96842c6b69df3219}} 
+\mbox{\hyperlink{classglitch__graphicsview}{glitch\+\_\+graphicsview}} $\ast$ {\bfseries view} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a06682fbc3694cf6f26035d0646b2ebe7}\label{classglitch__view_a06682fbc3694cf6f26035d0646b2ebe7}} 
+\mbox{\hyperlink{classglitch__scene}{glitch\+\_\+scene}} $\ast$ {\bfseries scene} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ab99e60dd146b64a4635c425d272a5f17}\label{classglitch__view_ab99e60dd146b64a4635c425d272a5f17}} 
+glitch\+\_\+tools\+::\+Operations {\bfseries tools\+Operation} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a012fb77862a4ea416db7aafd861eed30}\label{classglitch__view_a012fb77862a4ea416db7aafd861eed30}} 
+qint64 {\bfseries next\+Id} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a59068e5f79218ed59482fb93e277e92a}\label{classglitch__view_a59068e5f79218ed59482fb93e277e92a}} 
+virtual QString {\bfseries project\+Output\+File\+Extension} (void) const =0
+\item 
+\mbox{\Hypertarget{classglitch__view_a508bcaf91309ecf3a01085cba0ef08ec}\label{classglitch__view_a508bcaf91309ecf3a01085cba0ef08ec}} 
+virtual QString {\bfseries source} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a0a7a676a57f320562f00739535bde79e}\label{classglitch__view_a0a7a676a57f320562f00739535bde79e}} 
+virtual bool {\bfseries open} (const QString \&file\+Name, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__view_abcf6959546685c507965773c568aab07}\label{classglitch__view_abcf6959546685c507965773c568aab07}} 
+virtual void {\bfseries generate\+Source\+File} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_aea94839806c8b9c0b9d0b7e3b2e06582}\label{classglitch__view_aea94839806c8b9c0b9d0b7e3b2e06582}} 
+virtual void {\bfseries separate} (void)=0
+\item 
+\mbox{\Hypertarget{classglitch__view_a37758fe27100dbc249ea4641d1ddcbd7}\label{classglitch__view_a37758fe27100dbc249ea4641d1ddcbd7}} 
+virtual void {\bfseries show\+Structures} (void)=0
+\item 
+\mbox{\Hypertarget{classglitch__view_a9bd74b16cc25a2039319a0079763831b}\label{classglitch__view_a9bd74b16cc25a2039319a0079763831b}} 
+virtual void {\bfseries unite} (void)=0
+\item 
+\mbox{\Hypertarget{classglitch__view_ab0211df02f72871963dee5c49eae2b03}\label{classglitch__view_ab0211df02f72871963dee5c49eae2b03}} 
+void {\bfseries begin\+Macro} (const QString \&text)
+\item 
+\mbox{\Hypertarget{classglitch__view_ab030e1e999f444789fa14be56869c9a2}\label{classglitch__view_ab030e1e999f444789fa14be56869c9a2}} 
+void {\bfseries delete\+Items} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_af6de7ff63e6f7aac43fb38ccd13542ac}\label{classglitch__view_af6de7ff63e6f7aac43fb38ccd13542ac}} 
+void {\bfseries end\+Macro} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_aca2ceee664b375fc1a24d3a8d46b3241}\label{classglitch__view_aca2ceee664b375fc1a24d3a8d46b3241}} 
+void {\bfseries find} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ade70b5619d63cad9c3bf0882e987b379}\label{classglitch__view_ade70b5619d63cad9c3bf0882e987b379}} 
+void {\bfseries generate\+Source\+View} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a3f19c6d94a0104bbbe6cccd5e7cfaf1d}\label{classglitch__view_a3f19c6d94a0104bbbe6cccd5e7cfaf1d}} 
+void {\bfseries launch\+Project\+IDE} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a73a9f8ad3b686e209b6275b6b6812481}\label{classglitch__view_a73a9f8ad3b686e209b6275b6b6812481}} 
+void {\bfseries push} (\mbox{\hyperlink{classglitch__undo__command}{glitch\+\_\+undo\+\_\+command}} $\ast$undo\+Command)
+\item 
+\mbox{\Hypertarget{classglitch__view_a0cc43929a316eef861c3b30b77134c93}\label{classglitch__view_a0cc43929a316eef861c3b30b77134c93}} 
+void {\bfseries redo} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a4aab992b58cd7c96840be44ccbc9bb6f}\label{classglitch__view_a4aab992b58cd7c96840be44ccbc9bb6f}} 
+void {\bfseries save} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a778bfbc671c55946668046c977a1aa11}\label{classglitch__view_a778bfbc671c55946668046c977a1aa11}} 
+void {\bfseries select\+All} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_ab2e9d59a1dd7efea4f62792a3ca9da58}\label{classglitch__view_ab2e9d59a1dd7efea4f62792a3ca9da58}} 
+void {\bfseries set\+Tab\+Button} (QPush\+Button $\ast$push\+Button)
+\item 
+\mbox{\Hypertarget{classglitch__view_a4624b259b46763d65edb79e85f88c69a}\label{classglitch__view_a4624b259b46763d65edb79e85f88c69a}} 
+void {\bfseries show\+Canvas\+Settings} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a8adbc77346e06c2b51fa73b236f8dddd}\label{classglitch__view_a8adbc77346e06c2b51fa73b236f8dddd}} 
+void {\bfseries show\+Tools} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_aa2a86764de54eb7b5d8d24d2f7e1b766}\label{classglitch__view_aa2a86764de54eb7b5d8d24d2f7e1b766}} 
+void {\bfseries show\+User\+Functions} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_a621ab7a795f176ffc7f4ba94d14c3142}\label{classglitch__view_a621ab7a795f176ffc7f4ba94d14c3142}} 
+void {\bfseries undo} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a5017ac2095348f0fe0e10bb5485e7786}\label{classglitch__view_a5017ac2095348f0fe0e10bb5485e7786}} 
+virtual void {\bfseries slot\+Canvas\+Settings\+Changed} (const bool undo)
+\item 
+\mbox{\Hypertarget{classglitch__view_ad3fdf6faad36b69e86e4a059c737a22a}\label{classglitch__view_ad3fdf6faad36b69e86e4a059c737a22a}} 
+virtual void {\bfseries slot\+Show\+Structures} (void)=0
+\item 
+\mbox{\Hypertarget{classglitch__view_a87c975fdbe0cce1368b2189fea7c1821}\label{classglitch__view_a87c975fdbe0cce1368b2189fea7c1821}} 
+void {\bfseries slot\+Changed} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a44280a92f71fbfde29367879e837bbf3}\label{classglitch__view_a44280a92f71fbfde29367879e837bbf3}} 
+void {\bfseries slot\+Custom\+Context\+Menu\+Requested} (const QPoint \&point)
+\item 
+\mbox{\Hypertarget{classglitch__view_a0d8eccc5c562ec411bb5d2a1b950aba8}\label{classglitch__view_a0d8eccc5c562ec411bb5d2a1b950aba8}} 
+void {\bfseries slot\+Generate} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_af1b7d08a418a37a36623cc95daccf291}\label{classglitch__view_af1b7d08a418a37a36623cc95daccf291}} 
+void {\bfseries slot\+Function\+Added} (const QString \&name, const bool is\+Clone)
+\item 
+\mbox{\Hypertarget{classglitch__view_aff1281a67899af777bd66686ebe17af5}\label{classglitch__view_aff1281a67899af777bd66686ebe17af5}} 
+void {\bfseries slot\+Function\+Deleted} (const QString \&name)
+\item 
+\mbox{\Hypertarget{classglitch__view_a99af0963d33f59e22b16ce858829f749}\label{classglitch__view_a99af0963d33f59e22b16ce858829f749}} 
+void {\bfseries slot\+Function\+Name\+Changed} (const QString \&after, const QString \&before, \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$object)
+\item 
+\mbox{\Hypertarget{classglitch__view_a17d3bac32fbe017a4fdeadff4ca41b73}\label{classglitch__view_a17d3bac32fbe017a4fdeadff4ca41b73}} 
+void {\bfseries slot\+Function\+Return\+Type\+Changed} (const QString \&after, const QString \&before, \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$object)
+\item 
+\mbox{\Hypertarget{classglitch__view_a8ccba425780e372275800ab7a7c85f64}\label{classglitch__view_a8ccba425780e372275800ab7a7c85f64}} 
+void {\bfseries slot\+Paste} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_ab44d7afc5f6904fe866537d6ffac459b}\label{classglitch__view_ab44d7afc5f6904fe866537d6ffac459b}} 
+void {\bfseries slot\+Resize\+Scene} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a03b5355505ee9ec984286bfaa27c55c5}\label{classglitch__view_a03b5355505ee9ec984286bfaa27c55c5}} 
+void {\bfseries slot\+Save\+As} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a2fa46d59863a57231df62c028c785f78}\label{classglitch__view_a2fa46d59863a57231df62c028c785f78}} 
+void {\bfseries slot\+Scene\+Object\+Destroyed} (QObject $\ast$object)
+\item 
+\mbox{\Hypertarget{classglitch__view_a5800b26a212796306bd5436ea0480201}\label{classglitch__view_a5800b26a212796306bd5436ea0480201}} 
+void {\bfseries slot\+Scene\+Resized} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a899c09ca48e2059167d6918aea4b50c6}\label{classglitch__view_a899c09ca48e2059167d6918aea4b50c6}} 
+void {\bfseries slot\+Separate} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a1c8e52022580521ac50d614d6d1f2534}\label{classglitch__view_a1c8e52022580521ac50d614d6d1f2534}} 
+void {\bfseries slot\+Show\+Canvas\+Settings} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a61fb2a0d7b3f32798c137ed58ee076fd}\label{classglitch__view_a61fb2a0d7b3f32798c137ed58ee076fd}} 
+void {\bfseries slot\+Show\+Tools} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a89a8f89f0470f516d7aa405e1f5eb357}\label{classglitch__view_a89a8f89f0470f516d7aa405e1f5eb357}} 
+void {\bfseries slot\+Show\+User\+Functions} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__view_ad27dedc6b78f1ebc69290778e830c725}\label{classglitch__view_ad27dedc6b78f1ebc69290778e830c725}} 
+void {\bfseries slot\+Show\+Wires} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_ae3ba83c1873f231547e502cfa6400174}\label{classglitch__view_ae3ba83c1873f231547e502cfa6400174}} 
+void {\bfseries slot\+Undo\+Stack\+Changed} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_aad37834f2c2e250ca7ca12b7c7d88014}\label{classglitch__view_aad37834f2c2e250ca7ca12b7c7d88014}} 
+void {\bfseries slot\+Unite} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a7dbf64738711394696d9314039dd77a1}\label{classglitch__view_a7dbf64738711394696d9314039dd77a1}} 
+bool {\bfseries save\+Implementation} (const QString \&file\+Name, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__view_a31eadfba5da29830117a3ab24a5bd9d6}\label{classglitch__view_a31eadfba5da29830117a3ab24a5bd9d6}} 
+virtual void {\bfseries generate\+Source} (QText\+Stream \&stream) const
+\item 
+\mbox{\Hypertarget{classglitch__view_adf94380d9c34f709a6559dcdb1de470c}\label{classglitch__view_adf94380d9c34f709a6559dcdb1de470c}} 
+void {\bfseries adjust\+Scroll\+Bars} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a26883d5840179939e19563a8dc177490}\label{classglitch__view_a26883d5840179939e19563a8dc177490}} 
+void {\bfseries context\+Menu\+Event} (QContext\+Menu\+Event $\ast$event)
+\item 
+\mbox{\Hypertarget{classglitch__view_a3c57b18160f0666ad5d684d6eb3860e1}\label{classglitch__view_a3c57b18160f0666ad5d684d6eb3860e1}} 
+void {\bfseries resize\+Event} (QResize\+Event $\ast$event)
+\item 
+\mbox{\Hypertarget{classglitch__view_aeadff9d7d90aa30e0b95e83124a8737b}\label{classglitch__view_aeadff9d7d90aa30e0b95e83124a8737b}} 
+void {\bfseries save\+Properties} (void)
+\item 
+\mbox{\Hypertarget{classglitch__view_a0a96c54aa66517a755b1f39e6cc2862e}\label{classglitch__view_a0a96c54aa66517a755b1f39e6cc2862e}} 
+void {\bfseries set\+Scene\+Rect} (const QSize \&size)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__view_a06e83c5da593e3a3a57bcf5cb9b6f95c}\label{classglitch__view_a06e83c5da593e3a3a57bcf5cb9b6f95c}} 
+QAction $\ast$ {\bfseries m\+\_\+menu\+Action}
+\item 
+\mbox{\Hypertarget{classglitch__view_a4956b671c7dc5d23580db13fd9aec21f}\label{classglitch__view_a4956b671c7dc5d23580db13fd9aec21f}} 
+QHash$<$ glitch\+\_\+canvas\+\_\+settings\+::\+Settings, QVariant $>$ {\bfseries m\+\_\+settings}
+\item 
+\mbox{\Hypertarget{classglitch__view_a220624d3419b345c3746d142403997a3}\label{classglitch__view_a220624d3419b345c3746d142403997a3}} 
+QList$<$ QAction $\ast$ $>$ {\bfseries m\+\_\+default\+Actions}
+\item 
+\mbox{\Hypertarget{classglitch__view_a7ce375b566746611976fd1c200e6c792}\label{classglitch__view_a7ce375b566746611976fd1c200e6c792}} 
+QMap$<$ QString, QVariant $>$ {\bfseries m\+\_\+properties}
+\item 
+\mbox{\Hypertarget{classglitch__view_afc06cc290a9e72181127064f94f8b95c}\label{classglitch__view_afc06cc290a9e72181127064f94f8b95c}} 
+QPointer$<$ QAction $>$ {\bfseries m\+\_\+save\+Diagram\+Action}
+\item 
+\mbox{\Hypertarget{classglitch__view_a15a16d548f002ccd01f18dda2e64ff22}\label{classglitch__view_a15a16d548f002ccd01f18dda2e64ff22}} 
+QPointer$<$ QMenu $>$ {\bfseries m\+\_\+context\+Menu}
+\item 
+\mbox{\Hypertarget{classglitch__view_a95c1601e1c11530658690f33acc20571}\label{classglitch__view_a95c1601e1c11530658690f33acc20571}} 
+QPointer$<$ QPush\+Button $>$ {\bfseries m\+\_\+tab\+Button}
+\item 
+\mbox{\Hypertarget{classglitch__view_ab691b86d69ac435ffdc750d06191b896}\label{classglitch__view_ab691b86d69ac435ffdc750d06191b896}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__documentation}{glitch\+\_\+documentation}} $>$ {\bfseries m\+\_\+source\+View}
+\item 
+\mbox{\Hypertarget{classglitch__view_a7aff0daa2bcce12c78d609b5999e6200}\label{classglitch__view_a7aff0daa2bcce12c78d609b5999e6200}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__tools}{glitch\+\_\+tools}} $>$ {\bfseries m\+\_\+tools}
+\item 
+\mbox{\Hypertarget{classglitch__view_aa3c13663a08ed72ea0b765ee8a2e098e}\label{classglitch__view_aa3c13663a08ed72ea0b765ee8a2e098e}} 
+QSplitter $\ast$ {\bfseries m\+\_\+splitter}
+\item 
+\mbox{\Hypertarget{classglitch__view_a1a69e11f1bca7f48d8fbf86b99d71650}\label{classglitch__view_a1a69e11f1bca7f48d8fbf86b99d71650}} 
+QString {\bfseries m\+\_\+file\+Name}
+\item 
+\mbox{\Hypertarget{classglitch__view_a8f8404314fdf496ec3ba7f358ecce0f0}\label{classglitch__view_a8f8404314fdf496ec3ba7f358ecce0f0}} 
+QTimer {\bfseries m\+\_\+generate\+Timer}
+\item 
+\mbox{\Hypertarget{classglitch__view_a23ceab8140dd11bc5d2b4d6197ce4b98}\label{classglitch__view_a23ceab8140dd11bc5d2b4d6197ce4b98}} 
+QUndo\+Stack $\ast$ {\bfseries m\+\_\+undo\+Stack}
+\item 
+\mbox{\Hypertarget{classglitch__view_ae94daae2d2f4fd8b6bd2f81f99c5b652}\label{classglitch__view_ae94daae2d2f4fd8b6bd2f81f99c5b652}} 
+Ui\+\_\+glitch\+\_\+view {\bfseries m\+\_\+ui}
+\item 
+\mbox{\Hypertarget{classglitch__view_af8698ece79d9b5669a37f73c6edb4467}\label{classglitch__view_af8698ece79d9b5669a37f73c6edb4467}} 
+bool {\bfseries m\+\_\+changed}
+\item 
+\mbox{\Hypertarget{classglitch__view_a924877c4a5a988295bf28308c2fa5336}\label{classglitch__view_a924877c4a5a988295bf28308c2fa5336}} 
+\mbox{\hyperlink{classglitch__alignment}{glitch\+\_\+alignment}} $\ast$ {\bfseries m\+\_\+alignment}
+\item 
+\mbox{\Hypertarget{classglitch__view_af20bd17919f60ec4a7ccef37061c532f}\label{classglitch__view_af20bd17919f60ec4a7ccef37061c532f}} 
+\mbox{\hyperlink{classglitch__canvas__settings}{glitch\+\_\+canvas\+\_\+settings}} $\ast$ {\bfseries m\+\_\+canvas\+Settings}
+\item 
+\mbox{\Hypertarget{classglitch__view_aad66ea23651677e7e344bbbc030934e0}\label{classglitch__view_aad66ea23651677e7e344bbbc030934e0}} 
+glitch\+\_\+common\+::\+Project\+Types {\bfseries m\+\_\+project\+Type}
+\item 
+\mbox{\Hypertarget{classglitch__view_ad6278b6f9dddaaca572d80233a569609}\label{classglitch__view_ad6278b6f9dddaaca572d80233a569609}} 
+\mbox{\hyperlink{classglitch__find__objects}{glitch\+\_\+find\+\_\+objects}} $\ast$ {\bfseries m\+\_\+find\+Objects}
+\item 
+\mbox{\Hypertarget{classglitch__view_a5f0721f3f1180888e4c740bdd0d56047}\label{classglitch__view_a5f0721f3f1180888e4c740bdd0d56047}} 
+\mbox{\hyperlink{classglitch__graphicsview}{glitch\+\_\+graphicsview}} $\ast$ {\bfseries m\+\_\+view}
+\item 
+\mbox{\Hypertarget{classglitch__view_a3332cc0ae16ebad67748351b1c569b3e}\label{classglitch__view_a3332cc0ae16ebad67748351b1c569b3e}} 
+\mbox{\hyperlink{classglitch__scene}{glitch\+\_\+scene}} $\ast$ {\bfseries m\+\_\+scene}
+\item 
+\mbox{\Hypertarget{classglitch__view_a5cfccc909acfb62baccdbf05fac03399}\label{classglitch__view_a5cfccc909acfb62baccdbf05fac03399}} 
+\mbox{\hyperlink{classglitch__user__functions}{glitch\+\_\+user\+\_\+functions}} $\ast$ {\bfseries m\+\_\+user\+Functions}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Source/glitch-\/view.\+h\item 
+Source/glitch-\/view.\+cc\end{DoxyCompactItemize}

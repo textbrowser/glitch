@@ -1,0 +1,451 @@
+\hypertarget{classglitch__object}{}\doxysection{glitch\+\_\+object Class Reference}
+\label{classglitch__object}\index{glitch\_object@{glitch\_object}}
+
+
+Inheritance diagram for glitch\+\_\+object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classglitch__object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for glitch\+\_\+object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{classglitch__object__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_afac278be7866f3dd0cf2c16cce1c2a59}\label{classglitch__object_afac278be7866f3dd0cf2c16cce1c2a59}} 
+enum {\bfseries Limits} \{ {\bfseries NAME\+\_\+\+MAXIMUM\+\_\+\+LENGTH} = 64
+ \}
+\item 
+\mbox{\Hypertarget{classglitch__object_aaa4a1adbfd4de13fd131ce1bda2dcd1c}\label{classglitch__object_aaa4a1adbfd4de13fd131ce1bda2dcd1c}} 
+enum class {\bfseries Default\+Menu\+Actions} \{ \newline
+{\bfseries ADJUST\+\_\+\+SIZE} = 1
+, {\bfseries ARROW\+\_\+\+OBJECT\+\_\+\+COLOR} = 100
+, {\bfseries BORDER\+\_\+\+COLOR} = 200
+, {\bfseries COMPRESS\+\_\+\+WIDGET} = 2
+, \newline
+{\bfseries CONTEXT\+\_\+\+MENU} = 3
+, {\bfseries COPY} = 0
+, {\bfseries DELETE} = 4
+, {\bfseries EDIT} = 5
+, \newline
+{\bfseries LOCK\+\_\+\+POSITION} = 6
+, {\bfseries PORT\+\_\+\+COLORS} = 8
+, {\bfseries SET\+\_\+\+FUNCTION\+\_\+\+NAME} = 7
+, {\bfseries SET\+\_\+\+STYLE\+\_\+\+SHEET} = 9
+, \newline
+{\bfseries TRANSPARENT} = 10
+ \}
+\item 
+\mbox{\Hypertarget{classglitch__object_adb00df0e533197ab7a1d67dd1b052200}\label{classglitch__object_adb00df0e533197ab7a1d67dd1b052200}} 
+enum class {\bfseries Port\+Colors} \{ {\bfseries INPUT\+\_\+\+CONNECTED} = 0
+, {\bfseries INPUT\+\_\+\+DISCONNECTED}
+, {\bfseries OUTPUT\+\_\+\+CONNECTED}
+, {\bfseries OUTPUT\+\_\+\+DISCONNECTED}
+ \}
+\item 
+\mbox{\Hypertarget{classglitch__object_ad2728ee4f22086b4ae78940ac262885a}\label{classglitch__object_ad2728ee4f22086b4ae78940ac262885a}} 
+enum class {\bfseries Properties} \{ \newline
+{\bfseries ADVANCED\+\_\+\+IO\+\_\+\+TYPE} = 0
+, {\bfseries ANALOG\+\_\+\+IO\+\_\+\+TYPE}
+, {\bfseries ARITHMETIC\+\_\+\+OPERATOR}
+, {\bfseries ARROW\+\_\+\+COLOR}
+, \newline
+{\bfseries BITS\+\_\+\+AND\+\_\+\+BYTES\+\_\+\+TYPE}
+, {\bfseries BITWISE\+\_\+\+OPERATOR}
+, {\bfseries BOOLEAN\+\_\+\+OPERATOR}
+, {\bfseries BORDER\+\_\+\+COLOR}
+, \newline
+{\bfseries CHARACTERS\+\_\+\+TYPE}
+, {\bfseries COMMENT}
+, {\bfseries COMPOUND\+\_\+\+OPERATOR}
+, {\bfseries COMPOUND\+\_\+\+OPERATOR\+\_\+\+PRE}
+, \newline
+{\bfseries COMPRESSED\+\_\+\+WIDGET}
+, {\bfseries CONDITION}
+, {\bfseries CONSTANT\+\_\+\+OTHER}
+, {\bfseries CONSTANT\+\_\+\+TYPE}
+, \newline
+{\bfseries CONVERSION}
+, {\bfseries DIGITAL\+\_\+\+IO\+\_\+\+TYPE}
+, {\bfseries FLOW\+\_\+\+CONTROL\+\_\+\+TYPE}
+, {\bfseries INTERRUPTS\+\_\+\+TYPE}
+, \newline
+{\bfseries LOGICAL\+\_\+\+OPERATOR}
+, {\bfseries MATHEMATICS\+\_\+\+TYPE}
+, {\bfseries NAME}
+, {\bfseries PORT\+\_\+\+COLORS}
+, \newline
+{\bfseries POSITION\+\_\+\+LOCKED}
+, {\bfseries RANDOM\+\_\+\+TYPE}
+, {\bfseries SERIAL\+\_\+\+TYPE}
+, {\bfseries SIZE}
+, \newline
+{\bfseries STREAM\+\_\+\+TYPE}
+, {\bfseries STRUCTURES\+\_\+\+VIEW\+\_\+\+SPLITTER\+\_\+\+STATE}
+, {\bfseries SYNTAX}
+, {\bfseries TIME\+\_\+\+TYPE}
+, \newline
+{\bfseries TOOL\+\_\+\+BAR\+\_\+\+VISIBLE}
+, {\bfseries TRANSPARENT}
+, {\bfseries TRIGONOMETRY\+\_\+\+TYPE}
+, {\bfseries UTILITIES\+\_\+\+TYPE}
+, \newline
+{\bfseries VARIABLE\+\_\+\+ARRAY}
+, {\bfseries VARIABLE\+\_\+\+NAME}
+, {\bfseries VARIABLE\+\_\+\+POINTER\+\_\+\+ACCESS}
+, {\bfseries VARIABLE\+\_\+\+PROGMEM}
+, \newline
+{\bfseries VARIABLE\+\_\+\+QUALIFIER}
+, {\bfseries VARIABLE\+\_\+\+TYPE}
+, {\bfseries XYZ\+\_\+\+PROPERTY}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a34c0fae71b78d15da73a48a7f38bb567}\label{classglitch__object_a34c0fae71b78d15da73a48a7f38bb567}} 
+void {\bfseries changed} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_ab5d900353c17590bc85644635de11991}\label{classglitch__object_ab5d900353c17590bc85644635de11991}} 
+void {\bfseries copy} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a0bffa9c1f070a6ef58bc445be1ef9af3}\label{classglitch__object_a0bffa9c1f070a6ef58bc445be1ef9af3}} 
+void {\bfseries deleted\+Via\+Context\+Menu} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a3871416112c57d13ceb66ce8597d45c4}\label{classglitch__object_a3871416112c57d13ceb66ce8597d45c4}} 
+void {\bfseries save\+Signal} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_aae7815156c4b446cbfb505b88c942a7e}\label{classglitch__object_aae7815156c4b446cbfb505b88c942a7e}} 
+void {\bfseries simulate\+Delete\+Signal} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a8d6fdce9a033a95fce6a1732de801979}\label{classglitch__object_a8d6fdce9a033a95fce6a1732de801979}} 
+{\bfseries glitch\+\_\+object} (QWidget $\ast$parent)
+\item 
+\mbox{\Hypertarget{classglitch__object_a7047bda28b3827ec6d5f981ac4780551}\label{classglitch__object_a7047bda28b3827ec6d5f981ac4780551}} 
+{\bfseries glitch\+\_\+object} (const qint64 id, QWidget $\ast$parent)
+\item 
+\mbox{\Hypertarget{classglitch__object_a6721cfec997d100882cf4ad72277bb6f}\label{classglitch__object_a6721cfec997d100882cf4ad72277bb6f}} 
+QColor {\bfseries border\+Color} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a25cfab9aaf64e3ad42ed4430f979b8f0}\label{classglitch__object_a25cfab9aaf64e3ad42ed4430f979b8f0}} 
+QColor {\bfseries port\+Color} (const glitch\+\_\+object\+::\+Port\+Colors port\+Color) const
+\item 
+\mbox{\Hypertarget{classglitch__object_af325ff22771e0e9dabac7e20d9fbdbbf}\label{classglitch__object_af325ff22771e0e9dabac7e20d9fbdbbf}} 
+QHash$<$ Properties, QVariant $>$ {\bfseries properties} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a32fb03ae0301a92ad8f98f829ce1941f}\label{classglitch__object_a32fb03ae0301a92ad8f98f829ce1941f}} 
+QList$<$ \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$ $>$ {\bfseries objects} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a9ee7f862fc116de2627ed01596463278}\label{classglitch__object_a9ee7f862fc116de2627ed01596463278}} 
+QPointF {\bfseries scene\+Pos} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a614b2e152dfc543a8e4479b98b347981}\label{classglitch__object_a614b2e152dfc543a8e4479b98b347981}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__canvas__settings}{glitch\+\_\+canvas\+\_\+settings}} $>$ {\bfseries canvas\+Settings} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_ab86f5a0427f04228e646f6055d1be2cf}\label{classglitch__object_ab86f5a0427f04228e646f6055d1be2cf}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__object__view}{glitch\+\_\+object\+\_\+view}} $>$ {\bfseries edit\+View} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a99d97f6c4722933f04921037500128e3}\label{classglitch__object_a99d97f6c4722933f04921037500128e3}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__proxy__widget}{glitch\+\_\+proxy\+\_\+widget}} $>$ {\bfseries proxy} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a43593c584919b2bbfee5fc5be682dcb6}\label{classglitch__object_a43593c584919b2bbfee5fc5be682dcb6}} 
+QString {\bfseries position} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a2b2cf0a8c2bf37652f1d0bf1c032ca63}\label{classglitch__object_a2b2cf0a8c2bf37652f1d0bf1c032ca63}} 
+QString {\bfseries type} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_afb5be86fac0e7eefc12d318218eb9d91}\label{classglitch__object_afb5be86fac0e7eefc12d318218eb9d91}} 
+QVariant {\bfseries property} (const Properties property) const
+\item 
+\mbox{\Hypertarget{classglitch__object_af6c6718717dfca31c77f4749318ca721}\label{classglitch__object_af6c6718717dfca31c77f4749318ca721}} 
+QVariant {\bfseries property} (const char $\ast$property) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a6d69f7a572867e18c9a99f7fb351febe}\label{classglitch__object_a6d69f7a572867e18c9a99f7fb351febe}} 
+bool {\bfseries is\+Input\+Wired} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_aa95c136881bcaaa655d97b39f9139e26}\label{classglitch__object_aa95c136881bcaaa655d97b39f9139e26}} 
+bool {\bfseries is\+Occupied} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a4d11b08b2ff2292db1420d2229ed48b3}\label{classglitch__object_a4d11b08b2ff2292db1420d2229ed48b3}} 
+bool {\bfseries is\+Output\+Wired} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a14aa7589e908b66c5f766e6e2a8162df}\label{classglitch__object_a14aa7589e908b66c5f766e6e2a8162df}} 
+bool {\bfseries is\+Wired} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a3fc25fd2f5f7bbf32ceef61118fcbbeb}\label{classglitch__object_a3fc25fd2f5f7bbf32ceef61118fcbbeb}} 
+bool {\bfseries mouse\+Over\+Scroll\+Bar} (const QPointF \&point) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a26172c7ba03d7690cfc9cc0cf1171a6c}\label{classglitch__object_a26172c7ba03d7690cfc9cc0cf1171a6c}} 
+bool {\bfseries position\+Locked} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a18406f7f82ad341907f1040ab888c405}\label{classglitch__object_a18406f7f82ad341907f1040ab888c405}} 
+bool {\bfseries show\+Order\+Indicator} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a94b62e81c0b1797bf48946543684eb2b}\label{classglitch__object_a94b62e81c0b1797bf48946543684eb2b}} 
+qint64 {\bfseries id} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a8c24ec09a0e98b2268a7e56467e56639}\label{classglitch__object_a8c24ec09a0e98b2268a7e56467e56639}} 
+\mbox{\hyperlink{classglitch__floating__context__menu}{glitch\+\_\+floating\+\_\+context\+\_\+menu}} $\ast$ {\bfseries context\+Menu} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a7d2ef96dcb54af251314bd2837ae7dd3}\label{classglitch__object_a7d2ef96dcb54af251314bd2837ae7dd3}} 
+\mbox{\hyperlink{classglitch__scene}{glitch\+\_\+scene}} $\ast$ {\bfseries edit\+Scene} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_abf99a5d53bc342f124c75dffb3115a64}\label{classglitch__object_abf99a5d53bc342f124c75dffb3115a64}} 
+\mbox{\hyperlink{classglitch__scene}{glitch\+\_\+scene}} $\ast$ {\bfseries scene} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_aa6b021946c8cd0393d8340536adca56c}\label{classglitch__object_aa6b021946c8cd0393d8340536adca56c}} 
+virtual QString {\bfseries code} (void) const =0
+\item 
+\mbox{\Hypertarget{classglitch__object_a60708a56b7abbfed3d93fa10cab00af2}\label{classglitch__object_a60708a56b7abbfed3d93fa10cab00af2}} 
+virtual QString {\bfseries name} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_ab4ae13af6bed6604a31ccb10ae72aced}\label{classglitch__object_ab4ae13af6bed6604a31ccb10ae72aced}} 
+virtual QString\+List {\bfseries parameters} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a407e78fa8f9e7e9a35e92439d7fb84ff}\label{classglitch__object_a407e78fa8f9e7e9a35e92439d7fb84ff}} 
+virtual bool {\bfseries can\+Resize} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a970244d46c869fc7ecc463fbe5443838}\label{classglitch__object_a970244d46c869fc7ecc463fbe5443838}} 
+virtual void {\bfseries compress\+Widget} (const bool state)
+\item 
+\mbox{\Hypertarget{classglitch__object_a3b6827c7f2a658e7b4f1ade458c3cc8c}\label{classglitch__object_a3b6827c7f2a658e7b4f1ade458c3cc8c}} 
+virtual bool {\bfseries has\+Input} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a03742df6689e556c20f382790a039a9b}\label{classglitch__object_a03742df6689e556c20f382790a039a9b}} 
+virtual bool {\bfseries has\+Output} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a1f3a93cc4cc1846e4745062ef906cfba}\label{classglitch__object_a1f3a93cc4cc1846e4745062ef906cfba}} 
+virtual bool {\bfseries has\+View} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a8391d0e4c7600c4b1fc2347713326a2f}\label{classglitch__object_a8391d0e4c7600c4b1fc2347713326a2f}} 
+virtual bool {\bfseries is\+Fully\+Wired} (void) const =0
+\item 
+\mbox{\Hypertarget{classglitch__object_ac95635503fad6f88f13167f40c26361d}\label{classglitch__object_ac95635503fad6f88f13167f40c26361d}} 
+virtual bool {\bfseries is\+Mandatory} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_afc11153a42ffd8b794a5d9bff95960a6}\label{classglitch__object_afc11153a42ffd8b794a5d9bff95960a6}} 
+virtual bool {\bfseries should\+Print} (void) const =0
+\item 
+\mbox{\Hypertarget{classglitch__object_a45033d39c3e367acc48e8a348bbac6c3}\label{classglitch__object_a45033d39c3e367acc48e8a348bbac6c3}} 
+virtual \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$ {\bfseries clone} (QWidget $\ast$parent) const =0
+\item 
+\mbox{\Hypertarget{classglitch__object_a9b87b0c5742c894babe92b22911eab85}\label{classglitch__object_a9b87b0c5742c894babe92b22911eab85}} 
+virtual void {\bfseries add\+Actions} (QMenu \&menu)=0
+\item 
+\mbox{\Hypertarget{classglitch__object_a14bc6114b157ca90f6c6e1cdccf5e6af}\label{classglitch__object_a14bc6114b157ca90f6c6e1cdccf5e6af}} 
+virtual void {\bfseries hide\+Or\+Show\+Occupied} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_aa879064e7621d945c0dab1d26b83c917}\label{classglitch__object_aa879064e7621d945c0dab1d26b83c917}} 
+virtual void {\bfseries save} (const QSql\+Database \&db, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__object_a96833eb563da15faa7009c44e5474d3a}\label{classglitch__object_a96833eb563da15faa7009c44e5474d3a}} 
+virtual void {\bfseries set\+Name} (const QString \&n)
+\item 
+\mbox{\Hypertarget{classglitch__object_af0796100478244f963a3ae328d21c1d2}\label{classglitch__object_af0796100478244f963a3ae328d21c1d2}} 
+virtual void {\bfseries set\+Property} (const Properties property, const QVariant \&value)
+\item 
+\mbox{\Hypertarget{classglitch__object_a910b0929cb81485fcff8b7f58e1caf00}\label{classglitch__object_a910b0929cb81485fcff8b7f58e1caf00}} 
+virtual void {\bfseries simulate\+Delete} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a85a9cf5bcd5203ce77a5b2eaf59de1fd}\label{classglitch__object_a85a9cf5bcd5203ce77a5b2eaf59de1fd}} 
+void {\bfseries add\+Child} (const QPointF \&point, \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$object)
+\item 
+\mbox{\Hypertarget{classglitch__object_ab717bb576132df5e8a2885c7df83cf90}\label{classglitch__object_ab717bb576132df5e8a2885c7df83cf90}} 
+void {\bfseries after\+Paste} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_ae64b8d2c685e5409fbb1edd3ed6f4fb6}\label{classglitch__object_ae64b8d2c685e5409fbb1edd3ed6f4fb6}} 
+void {\bfseries move} (const QPoint \&point)
+\item 
+\mbox{\Hypertarget{classglitch__object_a3e24f2fe245b98c42ce3cc7b9ff6ac6b}\label{classglitch__object_a3e24f2fe245b98c42ce3cc7b9ff6ac6b}} 
+void {\bfseries move} (int x, int y)
+\item 
+\mbox{\Hypertarget{classglitch__object_a3a6455096f9a5e202cbfd5830b7553f8}\label{classglitch__object_a3a6455096f9a5e202cbfd5830b7553f8}} 
+void {\bfseries separate} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_ab3a2853c116675afd7cd5621ffee6ba7}\label{classglitch__object_ab3a2853c116675afd7cd5621ffee6ba7}} 
+void {\bfseries set\+Canvas\+Settings} (\mbox{\hyperlink{classglitch__canvas__settings}{glitch\+\_\+canvas\+\_\+settings}} $\ast$canvas\+Settings)
+\item 
+\mbox{\Hypertarget{classglitch__object_aa4547adad5fbd24e963ecedf6bec0490}\label{classglitch__object_aa4547adad5fbd24e963ecedf6bec0490}} 
+void {\bfseries set\+Original\+Position} (const QPointF \&point)
+\item 
+\mbox{\Hypertarget{classglitch__object_a7461248c85d7e703c08a6ea428b1734b}\label{classglitch__object_a7461248c85d7e703c08a6ea428b1734b}} 
+void {\bfseries set\+Properties} (const QString\+List \&list)
+\item 
+\mbox{\Hypertarget{classglitch__object_a6302b2439018da895a9c4a7eceaacc2c}\label{classglitch__object_a6302b2439018da895a9c4a7eceaacc2c}} 
+void {\bfseries set\+Property} (const char $\ast$name, const QVariant \&value)
+\item 
+\mbox{\Hypertarget{classglitch__object_ab1ad206e580c3fda6a51bb3cae9a6c8b}\label{classglitch__object_ab1ad206e580c3fda6a51bb3cae9a6c8b}} 
+void {\bfseries set\+Proxy} (const QPointer$<$ \mbox{\hyperlink{classglitch__proxy__widget}{glitch\+\_\+proxy\+\_\+widget}} $>$ \&proxy)
+\item 
+\mbox{\Hypertarget{classglitch__object_aadabbb56237db1051be6cc021bb845db}\label{classglitch__object_aadabbb56237db1051be6cc021bb845db}} 
+void {\bfseries set\+Size\+Before\+Font\+Change} (const QSize \&size)
+\item 
+\mbox{\Hypertarget{classglitch__object_ac8af799a4f89fba493c59514e6ffca36}\label{classglitch__object_ac8af799a4f89fba493c59514e6ffca36}} 
+void {\bfseries set\+Undo\+Stack} (QUndo\+Stack $\ast$undo\+Stack)
+\item 
+\mbox{\Hypertarget{classglitch__object_ac51a399fd69b43bc8931a551da5c754d}\label{classglitch__object_ac51a399fd69b43bc8931a551da5c754d}} 
+void {\bfseries set\+Wired\+Object} (\mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$object, \mbox{\hyperlink{classglitch__wire}{glitch\+\_\+wire}} $\ast$wire)
+\item 
+\mbox{\Hypertarget{classglitch__object_a0960566551b28bf29fcadcba453937a7}\label{classglitch__object_a0960566551b28bf29fcadcba453937a7}} 
+void {\bfseries show\+Edit\+Window} (void) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a6c048776db799fce5b83986856f29618}\label{classglitch__object_a6c048776db799fce5b83986856f29618}} 
+static \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$ {\bfseries create\+From\+Values} (const QMap$<$ QString, QVariant $>$ \&values, \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $\ast$parent\+Object, QString \&error, QWidget $\ast$parent)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a7629598cfacd8ea7c84f21b02c637c25}\label{classglitch__object_a7629598cfacd8ea7c84f21b02c637c25}} 
+virtual void {\bfseries slot\+Copy} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_af46ced5136f883288c1216489c6b295a}\label{classglitch__object_af46ced5136f883288c1216489c6b295a}} 
+virtual void {\bfseries slot\+Hide\+Or\+Show\+Occupied} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_adf165c4c65b525106aced04e2c616264}\label{classglitch__object_adf165c4c65b525106aced04e2c616264}} 
+void {\bfseries slot\+Select\+Border\+Color} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a2212f2e3847cac0ff021230ec7fb6f96}\label{classglitch__object_a2212f2e3847cac0ff021230ec7fb6f96}} 
+void {\bfseries slot\+Set\+Port\+Colors} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a45696aacc17b921b7e39721d76f9aeba}\label{classglitch__object_a45696aacc17b921b7e39721d76f9aeba}} 
+void {\bfseries slot\+Set\+Style\+Sheet} (void)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a7f9f571c78540e3eb63e61df4c991257}\label{classglitch__object_a7f9f571c78540e3eb63e61df4c991257}} 
+QTool\+Button $\ast$ {\bfseries context\+Menu\+Button} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a6d5fc8b0e8f953e96c48b79336b79417}\label{classglitch__object_a6d5fc8b0e8f953e96c48b79336b79417}} 
+\mbox{\hyperlink{classglitch__view}{glitch\+\_\+view}} $\ast$ {\bfseries find\+Nearest\+Glitch\+View} (QWidget $\ast$widget) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a5762982a863b6c6d75797c70e9d5d2f9}\label{classglitch__object_a5762982a863b6c6d75797c70e9d5d2f9}} 
+virtual QString\+List {\bfseries inputs} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a95c3b5dd3dfcf1db4ffd0425c9c0e3f7}\label{classglitch__object_a95c3b5dd3dfcf1db4ffd0425c9c0e3f7}} 
+virtual QString\+List {\bfseries outputs} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__object_a41dbdeb609b7904a56fbf4f0877c4e4f}\label{classglitch__object_a41dbdeb609b7904a56fbf4f0877c4e4f}} 
+virtual void {\bfseries create\+Actions} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_a943af83d4f46d3fd863baf105d5e4fff}\label{classglitch__object_a943af83d4f46d3fd863baf105d5e4fff}} 
+void {\bfseries add\+Default\+Actions} (QMenu \&menu)
+\item 
+\mbox{\Hypertarget{classglitch__object_a2e9a50c29e0fae5f2daf814f5e05d1f1}\label{classglitch__object_a2e9a50c29e0fae5f2daf814f5e05d1f1}} 
+void {\bfseries clone\+Wires} (const QHash$<$ qint64, QPointer$<$ \mbox{\hyperlink{classglitch__wire}{glitch\+\_\+wire}} $>$ $>$ \&wires)
+\item 
+\mbox{\Hypertarget{classglitch__object_a67f2564512d564f5d0a9610235d8908c}\label{classglitch__object_a67f2564512d564f5d0a9610235d8908c}} 
+void {\bfseries clone\+Wires} (const QList$<$ QPair$<$ QPointF, QPointF $>$ $>$ \&list)
+\item 
+\mbox{\Hypertarget{classglitch__object_a001d7c7f610f19d51602bef097d76857}\label{classglitch__object_a001d7c7f610f19d51602bef097d76857}} 
+void {\bfseries prepare\+Context\+Menu} (void)
+\item 
+\mbox{\Hypertarget{classglitch__object_abe67b1b1b700a41c4d6370cc33a2a57c}\label{classglitch__object_abe67b1b1b700a41c4d6370cc33a2a57c}} 
+void {\bfseries prepare\+Edit\+Signals} (const \mbox{\hyperlink{classglitch__view}{glitch\+\_\+view}} $\ast$parent\+View)
+\item 
+\mbox{\Hypertarget{classglitch__object_a5602c2e074a323a5b04d5fd792704c08}\label{classglitch__object_a5602c2e074a323a5b04d5fd792704c08}} 
+void {\bfseries save\+Properties} (const QMap$<$ QString, QVariant $>$ \&p, const QSql\+Database \&db, QString \&error)
+\item 
+\mbox{\Hypertarget{classglitch__object_a8db6bb7288bb8d433057c6c7a5809bfc}\label{classglitch__object_a8db6bb7288bb8d433057c6c7a5809bfc}} 
+void {\bfseries save\+Wires} (const QSql\+Database \&db, QString \&error)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__object_a84ab93023536ce7b059250efa356345e}\label{classglitch__object_a84ab93023536ce7b059250efa356345e}} 
+QHash$<$ Properties, QVariant $>$ {\bfseries m\+\_\+properties}
+\item 
+\mbox{\Hypertarget{classglitch__object_acb0a82b962508c1178ba7ea262207a3a}\label{classglitch__object_acb0a82b962508c1178ba7ea262207a3a}} 
+QHash$<$ qint64, QPointer$<$ \mbox{\hyperlink{classglitch__wire}{glitch\+\_\+wire}} $>$ $>$ {\bfseries m\+\_\+wires}
+\item 
+\mbox{\Hypertarget{classglitch__object_a8caf2a0377b69c946a75c0b192d49fdf}\label{classglitch__object_a8caf2a0377b69c946a75c0b192d49fdf}} 
+QList$<$ QPair$<$ QPointF, QPointF $>$ $>$ {\bfseries m\+\_\+copied\+Connections\+Positions}
+\item 
+\mbox{\Hypertarget{classglitch__object_aebaf29134d453cb5fee8056a6c81870b}\label{classglitch__object_aebaf29134d453cb5fee8056a6c81870b}} 
+QList$<$ QPointer$<$ \mbox{\hyperlink{classglitch__object}{glitch\+\_\+object}} $>$ $>$ {\bfseries m\+\_\+copied\+Children}
+\item 
+\mbox{\Hypertarget{classglitch__object_ac326e97011255129b30c557f52c1708b}\label{classglitch__object_ac326e97011255129b30c557f52c1708b}} 
+QMap$<$ Default\+Menu\+Actions, QAction $\ast$ $>$ {\bfseries m\+\_\+actions}
+\item 
+\mbox{\Hypertarget{classglitch__object_a8c33735069ab4888d1398d288122334b}\label{classglitch__object_a8c33735069ab4888d1398d288122334b}} 
+QPointF {\bfseries m\+\_\+original\+Position}
+\item 
+\mbox{\Hypertarget{classglitch__object_aef5b5fff8a6a2c4ecfec9dc53a7dcaf7}\label{classglitch__object_aef5b5fff8a6a2c4ecfec9dc53a7dcaf7}} 
+QPointer$<$ QUndo\+Stack $>$ {\bfseries m\+\_\+undo\+Stack}
+\item 
+\mbox{\Hypertarget{classglitch__object_a6f9bdffd7efefb7dcee0a6475694438e}\label{classglitch__object_a6f9bdffd7efefb7dcee0a6475694438e}} 
+QPointer$<$ QWidget $>$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classglitch__object_a6c5eecff5a8a76bacd7983b1b8c71a13}\label{classglitch__object_a6c5eecff5a8a76bacd7983b1b8c71a13}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__canvas__settings}{glitch\+\_\+canvas\+\_\+settings}} $>$ {\bfseries m\+\_\+canvas\+Settings}
+\item 
+\mbox{\Hypertarget{classglitch__object_ada7671513360e3e6f2d4c788754bd448}\label{classglitch__object_ada7671513360e3e6f2d4c788754bd448}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__object__edit__window}{glitch\+\_\+object\+\_\+edit\+\_\+window}} $>$ {\bfseries m\+\_\+edit\+Window}
+\item 
+\mbox{\Hypertarget{classglitch__object_a76e19a12f31dd02ab8eb4fbd40c454f8}\label{classglitch__object_a76e19a12f31dd02ab8eb4fbd40c454f8}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__object__view}{glitch\+\_\+object\+\_\+view}} $>$ {\bfseries m\+\_\+edit\+View}
+\item 
+\mbox{\Hypertarget{classglitch__object_a59a7cf1c121ec4ae7931dcf1ad235a29}\label{classglitch__object_a59a7cf1c121ec4ae7931dcf1ad235a29}} 
+QPointer$<$ \mbox{\hyperlink{classglitch__proxy__widget}{glitch\+\_\+proxy\+\_\+widget}} $>$ {\bfseries m\+\_\+proxy}
+\item 
+\mbox{\Hypertarget{classglitch__object_ae81b259e45fc7be1ccc1b47f8e534a84}\label{classglitch__object_ae81b259e45fc7be1ccc1b47f8e534a84}} 
+QString {\bfseries m\+\_\+type}
+\item 
+\mbox{\Hypertarget{classglitch__object_a7257937d2fb1753866ffb270034d8e95}\label{classglitch__object_a7257937d2fb1753866ffb270034d8e95}} 
+bool {\bfseries m\+\_\+draw\+Input\+Connector}
+\item 
+\mbox{\Hypertarget{classglitch__object_a20cde8c7aa2cef59c9d26c8726beb029}\label{classglitch__object_a20cde8c7aa2cef59c9d26c8726beb029}} 
+bool {\bfseries m\+\_\+draw\+Output\+Connector}
+\item 
+\mbox{\Hypertarget{classglitch__object_a72a7d275a2b0e2d1c495bfbec1d32cbc}\label{classglitch__object_a72a7d275a2b0e2d1c495bfbec1d32cbc}} 
+bool {\bfseries m\+\_\+occupied}
+\item 
+\mbox{\Hypertarget{classglitch__object_a5ce3cb0060765a10da508db02732f608}\label{classglitch__object_a5ce3cb0060765a10da508db02732f608}} 
+\mbox{\hyperlink{classglitch__floating__context__menu}{glitch\+\_\+floating\+\_\+context\+\_\+menu}} $\ast$ {\bfseries m\+\_\+context\+Menu}
+\item 
+\mbox{\Hypertarget{classglitch__object_a0e5e099021d296b304334a9c9c0170f8}\label{classglitch__object_a0e5e099021d296b304334a9c9c0170f8}} 
+qint64 {\bfseries m\+\_\+id}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static QRegular\+Expression {\bfseries s\+\_\+split\+Regular\+Expression}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classglitch__object_a4cc23f426b3ed06774cedf3df5a2bcb9}\label{classglitch__object_a4cc23f426b3ed06774cedf3df5a2bcb9}} 
+\index{glitch\_object@{glitch\_object}!s\_splitRegularExpression@{s\_splitRegularExpression}}
+\index{s\_splitRegularExpression@{s\_splitRegularExpression}!glitch\_object@{glitch\_object}}
+\doxysubsubsection{\texorpdfstring{s\_splitRegularExpression}{s\_splitRegularExpression}}
+{\footnotesize\ttfamily QRegular\+Expression glitch\+\_\+object\+::s\+\_\+split\+Regular\+Expression\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{  QRegularExpression(\textcolor{stringliteral}{"{}\&(?=([\string^\(\backslash\)"{}]*\(\backslash\)"{}[\string^\(\backslash\)"{}]*\(\backslash\)"{})*[\string^\(\backslash\)"{}]*\$)"{}})}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Source/glitch-\/object.\+h\item 
+Source/glitch-\/object.\+cc\end{DoxyCompactItemize}

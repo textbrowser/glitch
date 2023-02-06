@@ -1,0 +1,161 @@
+\hypertarget{classglitch__canvas__settings}{}\doxysection{glitch\+\_\+canvas\+\_\+settings Class Reference}
+\label{classglitch__canvas__settings}\index{glitch\_canvas\_settings@{glitch\_canvas\_settings}}
+
+
+Inheritance diagram for glitch\+\_\+canvas\+\_\+settings\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classglitch__canvas__settings__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for glitch\+\_\+canvas\+\_\+settings\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classglitch__canvas__settings__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ade6f20b95f3f789805459436838ed929}\label{classglitch__canvas__settings_ade6f20b95f3f789805459436838ed929}} 
+enum {\bfseries Settings} \{ \newline
+{\bfseries CANVAS\+\_\+\+BACKGROUND\+\_\+\+COLOR} = 0
+, {\bfseries CANVAS\+\_\+\+NAME}
+, {\bfseries DOTS\+\_\+\+GRIDS\+\_\+\+COLOR}
+, {\bfseries GENERATE\+\_\+\+PERIODICALLY}
+, \newline
+{\bfseries OUTPUT\+\_\+\+FILE}
+, {\bfseries PROJECT\+\_\+\+IDE}
+, {\bfseries REDO\+\_\+\+UNDO\+\_\+\+STACK\+\_\+\+SIZE}
+, {\bfseries SELECTION\+\_\+\+COLOR}
+, \newline
+{\bfseries SHOW\+\_\+\+CANVAS\+\_\+\+DOTS}
+, {\bfseries SHOW\+\_\+\+CANVAS\+\_\+\+GRIDS}
+, {\bfseries SHOW\+\_\+\+ORDER\+\_\+\+INDICATORS}
+, {\bfseries VIEW\+\_\+\+UPDATE\+\_\+\+MODE}
+, \newline
+{\bfseries WIRE\+\_\+\+COLOR}
+, {\bfseries WIRE\+\_\+\+TYPE}
+, {\bfseries WIRE\+\_\+\+WIDTH}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a464a441f61c464e37b89ece2cb5bc89c}\label{classglitch__canvas__settings_a464a441f61c464e37b89ece2cb5bc89c}} 
+void {\bfseries accepted} (const bool undo)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_aac46b6eb373a716593731e88f526c8c5}\label{classglitch__canvas__settings_aac46b6eb373a716593731e88f526c8c5}} 
+{\bfseries glitch\+\_\+canvas\+\_\+settings} (QWidget $\ast$parent)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a7c69124303637646ee07335ef3fc5ca3}\label{classglitch__canvas__settings_a7c69124303637646ee07335ef3fc5ca3}} 
+QColor {\bfseries canvas\+Background\+Color} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a2a6de6fc866504099d75a32e81a2c15a}\label{classglitch__canvas__settings_a2a6de6fc866504099d75a32e81a2c15a}} 
+QColor {\bfseries dots\+Grids\+Color} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ab0d5e61fac650d130c647787ff79f497}\label{classglitch__canvas__settings_ab0d5e61fac650d130c647787ff79f497}} 
+QColor {\bfseries selection\+Color} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a8cc03cf6171e56821c8a49ef5bcfc286}\label{classglitch__canvas__settings_a8cc03cf6171e56821c8a49ef5bcfc286}} 
+QColor {\bfseries wire\+Color} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a02a15a65c006da16d484fa52cbf9a0c4}\label{classglitch__canvas__settings_a02a15a65c006da16d484fa52cbf9a0c4}} 
+QGraphics\+View\+::\+Viewport\+Update\+Mode {\bfseries viewport\+Update\+Mode} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a6285a0f4f04955c7f1cf99c5bbe62b45}\label{classglitch__canvas__settings_a6285a0f4f04955c7f1cf99c5bbe62b45}} 
+QHash$<$ glitch\+\_\+canvas\+\_\+settings\+::\+Settings, QVariant $>$ {\bfseries settings} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a41728d23da4bf655db61a032be94ceb2}\label{classglitch__canvas__settings_a41728d23da4bf655db61a032be94ceb2}} 
+QString {\bfseries name} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_adcbd5c2761dc5e880af94190226fd57a}\label{classglitch__canvas__settings_adcbd5c2761dc5e880af94190226fd57a}} 
+QString {\bfseries output\+File} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ae9ca8d93f643ae8a245665cd9f6c09e0}\label{classglitch__canvas__settings_ae9ca8d93f643ae8a245665cd9f6c09e0}} 
+QString {\bfseries project\+IDE} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ab3eee2dcc4fc98f927ae1c608db32e50}\label{classglitch__canvas__settings_ab3eee2dcc4fc98f927ae1c608db32e50}} 
+QString {\bfseries wire\+Type} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a80f5a722d18e4edfac2b406571221064}\label{classglitch__canvas__settings_a80f5a722d18e4edfac2b406571221064}} 
+bool {\bfseries generate\+Periodically} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a77acf413ba93995f28aebce0648b7cd8}\label{classglitch__canvas__settings_a77acf413ba93995f28aebce0648b7cd8}} 
+bool {\bfseries save} (QString \&error) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a25ad46682a88bf009bf38a32ad1dc910}\label{classglitch__canvas__settings_a25ad46682a88bf009bf38a32ad1dc910}} 
+bool {\bfseries show\+Canvas\+Dots} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a571b33de71cdf4cedf9ab82859220e88}\label{classglitch__canvas__settings_a571b33de71cdf4cedf9ab82859220e88}} 
+bool {\bfseries show\+Canvas\+Grids} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a0f3613b41c99954bafeaf5311c177bec}\label{classglitch__canvas__settings_a0f3613b41c99954bafeaf5311c177bec}} 
+bool {\bfseries show\+Order\+Indicators} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a973fbeae4c7363e03558ee75dff56781}\label{classglitch__canvas__settings_a973fbeae4c7363e03558ee75dff56781}} 
+double {\bfseries wire\+Width} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a869e9211aefa0721a77a761a126c35cb}\label{classglitch__canvas__settings_a869e9211aefa0721a77a761a126c35cb}} 
+int {\bfseries redo\+Undo\+Stack\+Size} (void) const
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a6890f7b59a7acdc64bb2307cfc1aa233}\label{classglitch__canvas__settings_a6890f7b59a7acdc64bb2307cfc1aa233}} 
+void {\bfseries notify} (void)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_aefe134dd84d97d166610fe59cde4842e}\label{classglitch__canvas__settings_aefe134dd84d97d166610fe59cde4842e}} 
+void {\bfseries prepare} (void)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a117b5bf7398303f56c562f73b8dd2856}\label{classglitch__canvas__settings_a117b5bf7398303f56c562f73b8dd2856}} 
+void {\bfseries set\+File\+Name} (const QString \&file\+Name)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a5cb3041084b9eeb75e6b197de754fc1f}\label{classglitch__canvas__settings_a5cb3041084b9eeb75e6b197de754fc1f}} 
+void {\bfseries set\+Name} (const QString \&name)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a2356e50fe9ade7d6c644db9bdf38595e}\label{classglitch__canvas__settings_a2356e50fe9ade7d6c644db9bdf38595e}} 
+void {\bfseries set\+Output\+File} (const QString \&file\+Name)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a9237a38219fd75ac34bcfdcdcb4487d0}\label{classglitch__canvas__settings_a9237a38219fd75ac34bcfdcdcb4487d0}} 
+void {\bfseries set\+Output\+File\+Extension} (const QString \&extension)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a00ab52c36557c312a398071f3cd1585a}\label{classglitch__canvas__settings_a00ab52c36557c312a398071f3cd1585a}} 
+void {\bfseries set\+Project\+IDE} (const QString \&filename)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a26cb6dd1a07af51ef9a2df713ea842ec}\label{classglitch__canvas__settings_a26cb6dd1a07af51ef9a2df713ea842ec}} 
+void {\bfseries set\+Redo\+Undo\+Stack\+Size} (const int value)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_aded04512e965bbec545fdd897570b2a5}\label{classglitch__canvas__settings_aded04512e965bbec545fdd897570b2a5}} 
+void {\bfseries set\+Settings} (const QHash$<$ glitch\+\_\+canvas\+\_\+settings\+::\+Settings, QVariant $>$ \&hash)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a47e973a70b67cd7d645bdcb0ec30a1a1}\label{classglitch__canvas__settings_a47e973a70b67cd7d645bdcb0ec30a1a1}} 
+void {\bfseries set\+Show\+Canvas\+Dots} (const bool state)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ab35050f3322941303d2b538731baa4bd}\label{classglitch__canvas__settings_ab35050f3322941303d2b538731baa4bd}} 
+void {\bfseries set\+Show\+Canvas\+Grids} (const bool state)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a2cab2fb2bf0c6d1dc599e4710ac2a2ce}\label{classglitch__canvas__settings_a2cab2fb2bf0c6d1dc599e4710ac2a2ce}} 
+void {\bfseries set\+Show\+Order\+Indicators} (const bool state)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a13f832030f212788c237936715d3671e}\label{classglitch__canvas__settings_a13f832030f212788c237936715d3671e}} 
+void {\bfseries set\+Viewport\+Update\+Mode} (const QGraphics\+View\+::\+Viewport\+Update\+Mode mode)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_a6e73b13be3e31a407fe67890ec255092}\label{classglitch__canvas__settings_a6e73b13be3e31a407fe67890ec255092}} 
+void {\bfseries set\+Wire\+Type} (const QString \&string)
+\item 
+\mbox{\Hypertarget{classglitch__canvas__settings_ae75f820e720e41d39acb9e9175f7f919}\label{classglitch__canvas__settings_ae75f820e720e41d39acb9e9175f7f919}} 
+void {\bfseries set\+Wire\+Width} (const double value)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Source/glitch-\/canvas-\/settings.\+h\item 
+Source/glitch-\/canvas-\/settings.\+cc\end{DoxyCompactItemize}
