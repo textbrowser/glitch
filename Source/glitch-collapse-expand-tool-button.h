@@ -32,14 +32,15 @@
 #include <QPointer>
 #include <QScrollBar>
 #include <QToolButton>
-#include <QTreeView>
+#include <QTreeWidget>
+#include <QtDebug>
 
 class glitch_collapse_expand_tool_button: public QToolButton
 {
   Q_OBJECT
 
  public:
-  glitch_collapse_expand_tool_button(QTreeView *tree):QToolButton(tree)
+  glitch_collapse_expand_tool_button(QTreeWidget *tree):QToolButton(tree)
   {
     m_tree = tree;
 
@@ -59,6 +60,14 @@ class glitch_collapse_expand_tool_button: public QToolButton
 		      "QToolButton::menu-button {border: none;}");
 	setText(tr("+"));
 	setToolTip(tr("Collapse / Expand"));
+	connect(m_tree,
+		SIGNAL(itemCollapsed(QTreeWidgetItem *)),
+		this,
+		SLOT(slotItemCollapsedExpanded(void)));
+	connect(m_tree,
+		SIGNAL(itemExpanded(QTreeWidgetItem *)),
+		this,
+		SLOT(slotItemCollapsedExpanded(void)));
 	connect(m_tree->horizontalScrollBar(),
 		SIGNAL(valueChanged(int)),
 		this,
@@ -69,15 +78,31 @@ class glitch_collapse_expand_tool_button: public QToolButton
 		&glitch_collapse_expand_tool_button::slotCollapse);
       }
     else
-      setVisible(false);
+      {
+	qDebug() << "glitch_collapse_expand_tool_button::"
+	            "glitch_collapse_expand_tool_button(): m_tree is zero!";
+	setVisible(false);
+      }
   }
 
  private:
-  QPointer<QTreeView> m_tree;
+  QPointer<QTreeWidget> m_tree;
 
  private slots:
   void slotCollapse(void)
   {
+    if(m_tree)
+      {
+	disconnect(m_tree,
+		   SIGNAL(itemCollapsed(QTreeWidgetItem *)),
+		   this,
+		   SLOT(slotItemCollapsedExpanded(void)));
+	disconnect(m_tree,
+		   SIGNAL(itemExpanded(QTreeWidgetItem *)),
+		   this,
+		   SLOT(slotItemCollapsedExpanded(void)));
+      }
+
     if(isChecked())
       {
 	if(m_tree)
@@ -91,6 +116,41 @@ class glitch_collapse_expand_tool_button: public QToolButton
 	  m_tree->collapseAll();
 
 	setText(tr("+"));
+      }
+
+    if(m_tree)
+      {
+	connect(m_tree,
+		SIGNAL(itemCollapsed(QTreeWidgetItem *)),
+		this,
+		SLOT(slotItemCollapsedExpanded(void)));
+	connect(m_tree,
+		SIGNAL(itemExpanded(QTreeWidgetItem *)),
+		this,
+		SLOT(slotItemCollapsedExpanded(void)));
+      }
+  }
+
+  void slotItemCollapsedExpanded(void)
+  {
+    if(!m_tree)
+      return;
+
+    int expanded = 0;
+
+    for(int i = 0; i < m_tree->topLevelItemCount(); i++)
+      if(m_tree->topLevelItem(i) && m_tree->topLevelItem(i)->childCount() > 0)
+	expanded += m_tree->topLevelItem(i)->isExpanded() ? 1 : 0;
+
+    if(expanded == 0)
+      {
+	setChecked(false);
+	setText(tr("+"));
+      }
+    else
+      {
+	setChecked(true);
+	setText(tr("-"));
       }
   }
 

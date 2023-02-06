@@ -131,6 +131,7 @@ Completed Items
 - Integrate isFullyWired().
 - Intelligent beginMacro() / endMacro().
 - Intelligent select mode: select or wire by proximity.
+- Intelligent woody.
 - Languages option.
 - Limit SQL text retrieval via SUBSTR().
 - List of recent files.
@@ -248,7 +249,6 @@ Remaining Items
 - Draw and, not, or, etc. objects.
 - Generate source from terminal for testing results.
 - Generate view.
-- Intelligent woody.
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
