@@ -890,7 +890,7 @@ void glitch_view::generateSourceView(void)
       m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
     }
 
-  m_sourceView->setHtml(source().replace("\n", "<br>"));
+  m_sourceView->setPlainText(source());
   m_sourceView->showNormal();
   m_sourceView->activateWindow();
   m_sourceView->raise();

@@ -137,6 +137,11 @@ void glitch_documentation::setHtml(const QString &html)
   m_ui.text->setHtml(html);
 }
 
+void glitch_documentation::setPlainText(const QString &text)
+{
+  m_ui.text->setPlainText(text);
+}
+
 void glitch_documentation::show(void)
 {
   QMainWindow::showNormal();

@@ -46,6 +46,7 @@ class glitch_documentation: public QMainWindow
   ~glitch_documentation();
   void setAllowOpeningOfExternalLinks(const bool state);
   void setHtml(const QString &html);
+  void setPlainText(const QString &text);
 
  public slots:
   void show(void);
