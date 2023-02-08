@@ -759,7 +759,6 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
   if(m_isFunctionClone)
     return;
 
-  emit changed();
   emit returnTypeChanged
     (m_ui.return_type->currentText(), m_previousReturnType, this);
   m_previousReturnType = m_ui.return_type->currentText();
@@ -835,7 +834,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_parentView->consumeFunctionName(text);
 
       m_ui.label->setText(text);
-      emit changed();
       emit nameChanged(text, name, this);
     }
   else

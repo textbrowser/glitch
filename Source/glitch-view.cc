@@ -67,7 +67,6 @@ glitch_view::glitch_view
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->setName(name);
   m_canvasSettings->prepare();
-  m_changed = false;
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
   m_generateTimer.setInterval(1500);
@@ -356,7 +355,7 @@ bool glitch_view::containsFunction(const QString &name) const
 
 bool glitch_view::hasChanged(void) const
 {
-  return m_changed;
+  return !m_undoStack->isClean();
 }
 
 bool glitch_view::open(const QString &fileName, QString &error)
@@ -701,7 +700,6 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   if(ok)
     m_undoStack->setClean();
 
-  m_changed = !ok;
   QApplication::restoreOverrideCursor();
   return ok;
 }
@@ -986,7 +984,6 @@ void glitch_view::redo(void)
   if(m_undoStack->canRedo())
     {
       m_undoStack->redo();
-      m_changed = !m_undoStack->isClean();
       emit changed();
     }
 }
@@ -1168,8 +1165,6 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 
 void glitch_view::slotChanged(void)
 {
-  m_changed = true;
-
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
@@ -1325,7 +1320,6 @@ void glitch_view::slotSceneObjectDestroyed(QObject *object)
     m_userFunctions->deleteFunction
       (qobject_cast<glitch_object_function_arduino *> (object)->name());
 
-  m_changed = true;
   emit changed();
 }
 
@@ -1397,7 +1391,6 @@ void glitch_view::slotUndoStackChanged(void)
     m_generateTimer.start();
 
   adjustScrollBars();
-  m_changed = !m_undoStack->isClean();
   emit changed();
 }
 
@@ -1411,7 +1404,6 @@ void glitch_view::undo(void)
   if(m_undoStack->canUndo())
     {
       m_undoStack->undo();
-      m_changed = !m_undoStack->isClean();
       emit changed();
     }
 }

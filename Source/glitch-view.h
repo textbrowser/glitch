@@ -143,7 +143,6 @@ class glitch_view: public QWidget
   QTimer m_generateTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
-  bool m_changed;
   glitch_alignment *m_alignment;
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectTypes m_projectType;
