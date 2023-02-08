@@ -607,6 +607,9 @@ void glitch_object::addDefaultActions(QMenu &menu)
 void glitch_object::afterPaste(void)
 {
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  setWindowOpacity
+    (m_properties.value(Properties::TRANSPARENT).toBool() ?
+     s_windowOpacity : 1.0);
 }
 
 void glitch_object::cloneWires
@@ -1178,11 +1181,9 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::TRANSPARENT] =
 	    QVariant(string.trimmed()).toBool();
-
-	  if(m_properties.value(Properties::TRANSPARENT).toBool())
-	    setWindowOpacity(s_windowOpacity);
-	  else
-	    setWindowOpacity(1.0);
+	  setWindowOpacity
+	    (m_properties.value(Properties::TRANSPARENT).toBool() ?
+	     s_windowOpacity : 1.0);
 	}
     }
 
@@ -1239,11 +1240,7 @@ void glitch_object::setProperty(const Properties property,
 	  m_actions.value(DefaultMenuActions::TRANSPARENT)->setChecked
 	    (value.toBool());
 
-	if(value.toBool())
-	  setWindowOpacity(s_windowOpacity);
-	else
-	  setWindowOpacity(1.0);
-
+	setWindowOpacity(value.toBool() ? s_windowOpacity : 1.0);
 	break;
       }
     default:
