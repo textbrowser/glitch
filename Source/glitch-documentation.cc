@@ -139,6 +139,10 @@ void glitch_documentation::setHtml(const QString &html)
 
 void glitch_documentation::setPlainText(const QString &text)
 {
+  auto font(m_ui.text->font());
+
+  font.setFamily("Courier");
+  m_ui.text->setFont(font);
   m_ui.text->setPlainText(text);
 }
 
