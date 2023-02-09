@@ -386,20 +386,6 @@ void glitch_canvas_settings::accept(void)
       m_ui.name->setCursorPosition(0);
     }
 
-  if(!m_ui.output_file->text().trimmed().isEmpty())
-    {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
-      QFile(m_ui.output_file->text()).open(QIODevice::NewOnly);
-#else
-      QFile file(m_ui.output_file->text());
-
-      if(file.open(QIODevice::Append))
-	file.write("");
-
-      file.close();
-#endif
-    }
-
   notify();
   setResult(QDialog::Accepted);
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
@@ -856,7 +842,7 @@ void glitch_canvas_settings::slotTimerTimeout(void)
 {
   QFileInfo fileInfo(m_ui.output_file->text());
 
-  if(!fileInfo.isWritable())
+  if(!fileInfo.isWritable() && fileInfo.exists())
     {
       if(m_ui.output_file->text().trimmed().isEmpty())
 	m_ui.output_file_warning_label->setToolTip
