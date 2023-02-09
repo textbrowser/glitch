@@ -24,6 +24,16 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.02.10</p>
+<ul>
+<li>Arduino Documentation and Release Notes window titles.</li>
+<li>Corrected changed states of views. Function object revisions may cause multiple signals.</li>
+<li>Do not create a source file after a canvas's settings are applied.</li>
+<li>Intelligent tree collapse / expand.</li>
+<li>Object border color via context menu item.</li>
+<li>Set object opacity after a paste event.</li>
+<li>Source view. See Project -> Generate Source View.</li>
+</ul>
 <p>2023.02.05</p>
 <ul>
 <li>Floating context menu items are now sorted by name.</li>
