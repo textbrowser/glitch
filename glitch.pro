@@ -28,7 +28,25 @@ message("The QtPdf module was discovered!")
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
-macx {
+android {
+QMAKE_CXXFLAGS_RELEASE += -Wall \
+                          -Wcast-qual \
+                          -Wdouble-promotion \
+                          -Wenum-compare \
+                          -Wextra \
+                          -Wfloat-equal \
+                          -Wformat=2 \
+                          -Woverloaded-virtual \
+                          -Wpointer-arith \
+                          -Wstack-protector \
+                          -Wstrict-overflow=1 \
+                          -Wundef \
+                          -fPIE \
+                          -fstack-protector-all \
+                          -fwrapv \
+                          -pedantic \
+                          -std=c++11
+} else:macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
