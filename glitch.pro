@@ -46,6 +46,25 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -std=c++11
+} else:freebsd-* {
+QMAKE_CXXFLAGS_RELEASE += -Wall \
+                          -Wcast-align \
+                          -Wcast-qual \
+                          -Wdouble-promotion \
+                          -Werror \
+                          -Wextra \
+                          -Wformat=2 \
+                          -Woverloaded-virtual \
+                          -Wpointer-arith \
+                          -Wstack-protector \
+                          -Wstrict-overflow=5 \
+                          -Wundef \
+                          -Wzero-as-null-pointer-constant \
+                          -fPIE \
+                          -fstack-protector-all \
+                          -fwrapv \
+                          -pedantic \
+                          -std=c++11
 } else:macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
