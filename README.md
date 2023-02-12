@@ -1,6 +1,7 @@
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
+<li>Android, FreeBSD, Linux, Mac, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
