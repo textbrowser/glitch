@@ -198,10 +198,11 @@ class glitch_object: public QWidget
 
   bool showOrderIndicator(void) const
   {
-    return m_canvasSettings && m_canvasSettings->showOrderIndicators();
+    if(m_type.startsWith("decoration"))
+      return false;
+    else
+      return m_canvasSettings && m_canvasSettings->showOrderIndicators();
   }
-
-  qint64 id(void) const;
 
   glitch_floating_context_menu *contextMenu(void) const
   {
@@ -210,6 +211,7 @@ class glitch_object: public QWidget
 
   glitch_scene *editScene(void) const;
   glitch_scene *scene(void) const;
+  qint64 id(void) const;
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values,
      glitch_object *parentObject,

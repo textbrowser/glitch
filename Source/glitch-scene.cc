@@ -63,7 +63,6 @@
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object-arrow.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -403,6 +402,16 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 glitch_tools::Operations glitch_scene::toolsOperation(void) const
 {
   return m_toolsOperation;
+}
+
+int glitch_scene::objectOrder(glitch_proxy_widget *proxy) const
+{
+  if(!proxy)
+    return -1;
+
+  return std::distance
+    (m_objectsMap.begin(),
+     m_objectsMap.find(m_objectsHash.value(proxy), proxy));
 }
 
 void glitch_scene::addItem(QGraphicsItem *item)
@@ -1253,6 +1262,8 @@ void glitch_scene::purgeRedoUndoProxies(void)
 void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
 {
   if(!proxy || proxy->isMandatory())
+    return;
+  else if(proxy->object() && proxy->object()->type().startsWith("decoration"))
     return;
 
   auto point(m_objectsHash.value(proxy));

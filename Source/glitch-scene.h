@@ -42,8 +42,8 @@
 
 class QUndoStack;
 class glitch_object;
-class glitch_proxy_widget;
 class glitch_wire;
+class glitch_proxy_widget;
 
 class glitch_scene: public QGraphicsScene
 {
@@ -61,16 +61,7 @@ class glitch_scene: public QGraphicsScene
   bool areObjectsWired(glitch_object *object1, glitch_object *object2) const;
   glitch_proxy_widget *addObject(glitch_object *object);
   glitch_tools::Operations toolsOperation(void) const;
-
-  int objectOrder(glitch_proxy_widget *proxy) const
-  {
-    if(!proxy)
-      return -1;
-
-    return std::distance
-      (m_objectsMap.begin(),
-       m_objectsMap.find(m_objectsHash.value(proxy), proxy));
-  }
+  int objectOrder(glitch_proxy_widget *proxy) const;
 
   int selectedForWiringCount(void) const
   {
