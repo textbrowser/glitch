@@ -261,6 +261,7 @@ Remaining Items
 - Resize objects manually.
 - SQLite modes.
 - Splitter states and redo / undo.
+- Stack (z-values) widgets.
 - Tools:
   Compress selected objects
   Resize selected objects

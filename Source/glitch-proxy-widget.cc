@@ -210,9 +210,6 @@ void glitch_proxy_widget::paint
 
       if(m_object && m_object->type() == "decoration-arrow")
 	{
-	  painter->save();
-	  painter->fillRect(boundingRect(), QBrush(QColor(Qt::white)));
-	  painter->restore();
 	}
       else
 	{
