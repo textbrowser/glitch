@@ -308,6 +308,7 @@ void glitch_view_arduino::showStructures(void)
 void glitch_view_arduino::slotCanvasSettingsChanged(const bool undo)
 {
   glitch_view::slotCanvasSettingsChanged(undo);
+  m_arduinoStructures->setIconSize(m_canvasSettings->categoriesIconSize());
 }
 
 void glitch_view_arduino::slotFunctionAdded(const QString &name,

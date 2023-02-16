@@ -199,6 +199,12 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
   QMainWindow::resizeEvent(event);
 }
 
+void glitch_object_edit_window::setCategoriesIconSize(const QString &text)
+{
+  if(m_arduinoStructures)
+    m_arduinoStructures->setIconSize(text);
+}
+
 void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 {
   if(!widget || centralWidget())

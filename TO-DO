@@ -19,6 +19,7 @@ Completed Items
 - Allow setting of function names.
 - Android release.
 - Apply canvas settings.
+- Arduino icons.
 - Arithmetic and subtraction (-). Special parsing.
 - Arrays.
 - Assign new names to functions pasted on main canvases.
@@ -243,7 +244,6 @@ Remaining Items
   Close buttons
   Drag & drop (Completed)
   Icon
-- Arduino icons.
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.

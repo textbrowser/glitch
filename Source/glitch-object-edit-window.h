@@ -53,6 +53,7 @@ class glitch_object_edit_window: public QMainWindow
   QWidget *centralWidget(void) const;
   void prepareHeader(const QString &text);
   void prepareToolBar(const QList<QAction *> &actions);
+  void setCategoriesIconSize(const QString &text);
   void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
   void setToolBarVisible(const bool state);

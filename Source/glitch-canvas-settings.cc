@@ -184,6 +184,8 @@ settings(void) const
   hash[Settings::CANVAS_BACKGROUND_COLOR] =
     m_ui.background_color->text().remove('&').trimmed();
   hash[Settings::CANVAS_NAME] = m_ui.name->text().trimmed();
+  hash[Settings::CATEGORIES_ICON_SIZE] =
+    m_ui.categories_icon_size->currentText();
   hash[Settings::DOTS_GRIDS_COLOR] =
     m_ui.dots_grids_color->text().remove('&').trimmed();
   hash[Settings::GENERATE_PERIODICALLY] =
@@ -214,6 +216,11 @@ settings(void) const
   hash[Settings::WIRE_TYPE] = m_ui.wire_type->currentText();
   hash[Settings::WIRE_WIDTH] = m_ui.wire_width->value();
   return hash;
+}
+
+QString glitch_canvas_settings::categoriesIconSize(void) const
+{
+  return m_settings.value(Settings::CATEGORIES_ICON_SIZE).toString().trimmed();
 }
 
 QString glitch_canvas_settings::defaultName(void) const
@@ -269,6 +276,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.exec
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
+	   "categories_icon_size TEXT NOT NULL, "
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
@@ -296,6 +304,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
+	   "categories_icon_size, "
 	   "dots_grids_color, "
 	   "generate_periodically, "
 	   "name, "
@@ -311,8 +320,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
+	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
 
@@ -433,11 +443,13 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec("ALTER TABLE canvas_settings ADD categories_icon_size TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
+			   "SUBSTR(categories_icon_size, 1, 50), "
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
 			   "SUBSTR(name, 1, %1), "
@@ -461,6 +473,7 @@ void glitch_canvas_settings::prepare(void)
 	QColor dotsGridsColor;
 	QColor selectionColor;
 	QColor wireColor;
+	QString categoriesIconSize("");
 	QString name("");
 	QString outputFile("");
 	QString projectIDE("");
@@ -480,6 +493,8 @@ void glitch_canvas_settings::prepare(void)
 
 	    if(fieldName.contains("background_color"))
 	      color = QColor(record.value(i).toString().remove('&').trimmed());
+	    else if(fieldName.contains("categories_icon_size"))
+	      categoriesIconSize = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("dots_grids_color"))
 	      dotsGridsColor = QColor
 		(record.value(i).toString().remove('&').trimmed());
@@ -530,6 +545,12 @@ void glitch_canvas_settings::prepare(void)
 	m_ui.background_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").arg(color.name()));
 	m_ui.background_color->setText(color.name());
+	m_ui.categories_icon_size->setCurrentIndex
+	  (m_ui.categories_icon_size->findText(categoriesIconSize));
+
+	if(m_ui.categories_icon_size->currentIndex() < 0)
+	  m_ui.categories_icon_size->setCurrentIndex(0);
+
 	m_ui.dots_grids_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").
 	   arg(dotsGridsColor.name()));
@@ -585,6 +606,15 @@ void glitch_canvas_settings::prepare(void)
 
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_canvas_settings::setCategoriesIconSize(const QString &text)
+{
+  m_ui.categories_icon_size->setCurrentIndex
+    (m_ui.categories_icon_size->findText(text.trimmed()));
+
+  if(m_ui.categories_icon_size->currentIndex() < 0)
+    m_ui.categories_icon_size->setCurrentIndex(0);
 }
 
 void glitch_canvas_settings::setFileName(const QString &fileName)
@@ -662,6 +692,7 @@ void glitch_canvas_settings::setSettings
     (QString("QPushButton {background-color: %1}").
      arg(color.name(QColor::HexArgb)));
   m_ui.wire_color->setText(color.name(QColor::HexArgb));
+  setCategoriesIconSize(hash.value(Settings::CATEGORIES_ICON_SIZE).toString());
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setProjectIDE(hash.value(Settings::PROJECT_IDE).toString().trimmed());

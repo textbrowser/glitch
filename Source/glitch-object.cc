@@ -1407,6 +1407,7 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
   if(!m_canvasSettings || !m_editWindow)
     return;
 
+  m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
   m_editWindow->setWindowTitle
     (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
 }

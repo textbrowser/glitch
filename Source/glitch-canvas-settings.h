@@ -42,6 +42,7 @@ class glitch_canvas_settings: public QDialog
   {
     CANVAS_BACKGROUND_COLOR = 0,
     CANVAS_NAME,
+    CATEGORIES_ICON_SIZE,
     DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
     OUTPUT_FILE,
@@ -65,6 +66,7 @@ class glitch_canvas_settings: public QDialog
   QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
+  QString categoriesIconSize(void) const;
   QString name(void) const;
   QString outputFile(void) const;
   QString projectIDE(void) const;
@@ -79,6 +81,7 @@ class glitch_canvas_settings: public QDialog
   void notify(void);
   void prepare(void);
   void setFileName(const QString &fileName);
+  void setCategoriesIconSize(const QString &text);
   void setName(const QString &name);
   void setOutputFile(const QString &fileName);
   void setOutputFileExtension(const QString &extension);
