@@ -6,8 +6,23 @@
 	<file>Arduino/binary.png</file>
 	<file>Arduino/boolean.png</file>
 	<file>Arduino/compound.png</file>
+	<file>Arduino/constant.png</file>
+	<file>Arduino/convert.png</file>
+	<file>Arduino/decoration.png</file>
+	<file>Arduino/digital.png</file>
+	<file>Arduino/flow.png</file>
+	<file>Arduino/interrupt.png</file>
+	<file>Arduino/mathematics.png</file>
 	<file>Arduino/pulse.png</file>
+	<file>Arduino/random.png</file>
 	<file>Arduino/serial.png</file>
+	<file>Arduino/stream.png</file>
+	<file>Arduino/structure.png</file>
+	<file>Arduino/syntax.png</file>
+	<file>Arduino/time.png</file>
+	<file>Arduino/trigonometry.png</file>
+	<file>Arduino/utilities.png</file>
+	<file>Arduino/variable.png</file>
 	<file>Arduino/xor.png</file>
 	<file>Logo/glitch-arduino-logo.png</file>
 	<file>Logo/glitch-logo.png</file>

@@ -43,7 +43,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
-  m_ui.tree->setIconSize(QSize(32, 32));
+  m_ui.tree->setIconSize(QSize(48, 48));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();
   setWindowModality(Qt::NonModal);
@@ -242,6 +242,7 @@ void glitch_structures_arduino::prepareCategories(void)
 						    << "Other"
 						    << "false"
 						    << "true";
+  s_itemsForIcons["Constants"] = "constant.png";
   s_itemsForCategories["Conversions"] = QStringList() << "(unsigned int)"
 						      << "(unsigned long)"
 						      << "byte()"
@@ -250,16 +251,20 @@ void glitch_structures_arduino::prepareCategories(void)
 						      << "int()"
 						      << "long()"
 						      << "word()";
+  s_itemsForIcons["Conversions"] = "convert.png";
   s_itemsForCategories["Decorations"] =
     QStringList() << "horizontal arrow"
 		  << "horizontal arrow (left)"
 		  << "horizontal arrow (right)";
+  s_itemsForIcons["Decorations"] = "decoration.png";
   s_itemsForCategories["Digital I/O"] = QStringList() << "digitalRead()"
 						      << "digitalWrite()"
 						      << "pinMode()";
+  s_itemsForIcons["Digital I/O"] = "digital.png";
   s_itemsForCategories["External Interrupts"] =
     QStringList() << "attachInterrupt()"
 		  << "detachInterrupt()";
+  s_itemsForIcons["External Interrupts"] = "interrupt.png";
   s_itemsForCategories["Flow Control"] = QStringList() << "break"
 						       << "case"
 						       << "continue"
@@ -273,8 +278,10 @@ void glitch_structures_arduino::prepareCategories(void)
 						       << "return"
 						       << "switch"
 						       << "while";
+  s_itemsForIcons["Flow Control"] = "flow.png";
   s_itemsForCategories["Interrupts"] = QStringList() << "interrupts()"
 						     << "noInterrupts()";
+  s_itemsForIcons["Interrupts"] = "interrupt.png";
   s_itemsForCategories["Mathematics"] = QStringList() << "abs()"
 						      << "constrain()"
 						      << "map()"
@@ -283,8 +290,10 @@ void glitch_structures_arduino::prepareCategories(void)
 						      << "pow()"
 						      << "sq()"
 						      << "sqrt()";
+  s_itemsForIcons["Mathematics"] = "mathematics.png";
   s_itemsForCategories["Random"] = QStringList() << "random()"
 						 << "randomSeed()";
+  s_itemsForIcons["Random"] = "random.png";
   s_itemsForCategories["Serial"] = QStringList() << "Serial.available()"
 						 << "Serial.availableForWrite()"
 						 << "Serial.begin()"
@@ -304,6 +313,7 @@ void glitch_structures_arduino::prepareCategories(void)
 						 << "Serial.readStringUntil()"
 						 << "Serial.setTimeout()"
 						 << "Serial.write()";
+  s_itemsForIcons["Serial"] = "serial.png";
   s_itemsForCategories["Stream"] = QStringList() << "stream.available()"
 						 << "stream.find()"
 						 << "stream.findUntil()"
@@ -317,18 +327,24 @@ void glitch_structures_arduino::prepareCategories(void)
 						 << "stream.readString()"
 						 << "stream.readStringUntil()"
 						 << "stream.setTimeout()";
+  s_itemsForIcons["Stream"] = "stream.png";
   s_itemsForCategories["Structures"] = QStringList() << "block comment"
 						     << "function()";
+  s_itemsForIcons["Structures"] = "structure.png";
   s_itemsForCategories["Syntax"] = QStringList() << "#define"
 						 << "#include";
+  s_itemsForIcons["Syntax"] = "syntax.png";
   s_itemsForCategories["Time"] = QStringList() << "delay()"
 					       << "delayMicroseconds()"
 					       << "micros()"
 					       << "millis()";
+  s_itemsForIcons["Time"] = "time.png";
   s_itemsForCategories["Trigonometry"] = QStringList() << "cos()"
 						       << "sin()"
 						       << "tan()";
+  s_itemsForIcons["Trigonometry"] = "trigonometry.png";
   s_itemsForCategories["Utilities"] = QStringList() << "sizeof()";
+  s_itemsForIcons["Utilities"] = "utilities.png";
 
   QStringList arrays;
   auto list(variableTypes());
@@ -342,6 +358,7 @@ void glitch_structures_arduino::prepareCategories(void)
     }
 
   s_itemsForCategories["Variables"] = arrays;
+  s_itemsForIcons["Variables"] = "variable.png";
 
   QMapIterator<QString, QString> it(m_categoriesMap);
 
