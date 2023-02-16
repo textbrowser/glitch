@@ -1,5 +1,14 @@
 <RCC>
     <qresource prefix="/">
+	<file>Arduino/analog.png</file>
+	<file>Arduino/arithmetic.png</file>
+	<file>Arduino/ascii.png</file>
+	<file>Arduino/binary.png</file>
+	<file>Arduino/boolean.png</file>
+	<file>Arduino/compound.png</file>
+	<file>Arduino/pulse.png</file>
+	<file>Arduino/serial.png</file>
+	<file>Arduino/xor.png</file>
 	<file>Logo/glitch-arduino-logo.png</file>
 	<file>Logo/glitch-logo.png</file>
 	<file>bottom-align.png</file>

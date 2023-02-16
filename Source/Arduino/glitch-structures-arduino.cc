@@ -30,6 +30,7 @@
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-structures-arduino.h"
 
+QMap<QString, QString> glitch_structures_arduino::s_itemsForIcons;
 QMap<QString, QStringList> glitch_structures_arduino::s_itemsForCategories;
 QMap<QString, char> glitch_structures_arduino::s_structureNamesMap;
 QStringList glitch_structures_arduino::s_nonArrayVariableTypes;
@@ -42,6 +43,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
+  m_ui.tree->setIconSize(QSize(32, 32));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();
   setWindowModality(Qt::NonModal);
@@ -173,15 +175,18 @@ void glitch_structures_arduino::prepareCategories(void)
 						       << "shiftIn()"
 						       << "shiftOut()"
 						       << "tone()";
+  s_itemsForIcons["Advanced I/O"] = "pulse.png";
   s_itemsForCategories["Analog I/O"] = QStringList() << "analogRead()"
 						     << "analogReference()"
 						     << "analogWrite()";
+  s_itemsForIcons["Analog I/O"] = "analog.png";
   s_itemsForCategories["Arithmetic Operators"] =
     QStringList() << "addition (+)"
 		  << "division (/)"
 		  << "modulo (%)"
 		  << "multiplication (*)"
 		  << "subtraction (-)";
+  s_itemsForIcons["Arithmetic Operators"] = "arithmetic.png";
   s_itemsForCategories["Bits and Bytes"] = QStringList() << "bit()"
 							 << "bitClear()"
 							 << "bitRead()"
@@ -189,6 +194,7 @@ void glitch_structures_arduino::prepareCategories(void)
 							 << "bitWrite()"
 							 << "highByte()"
 							 << "lowByte()";
+  s_itemsForIcons["Bits and Bytes"] = "binary.png";
   s_itemsForCategories["Bitwise Operators"] =
     QStringList() << "and (&)"
 		  << "left shift (<<)"
@@ -196,9 +202,11 @@ void glitch_structures_arduino::prepareCategories(void)
 		  << "or (|)"
 		  << "right shift (>>)"
 		  << "xor (^)";
+  s_itemsForIcons["Bitwise Operators"] = "xor.png";
   s_itemsForCategories["Boolean Operators"] = QStringList() << "and (&&)"
 							    << "not (!)"
 							    << "or (||)";
+  s_itemsForIcons["Boolean Operators"] = "boolean.png";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"
 						     << "isAscii()"
@@ -212,6 +220,7 @@ void glitch_structures_arduino::prepareCategories(void)
 						     << "isSpace()"
 						     << "isUpperCase()"
 						     << "isWhitespace()";
+  s_itemsForIcons["Characters"] = "ascii.png";
   s_itemsForCategories["Compound Operators"] =
     QStringList() << "addition (+=)"
 		  << "bitwise and (&=)"
@@ -223,6 +232,7 @@ void glitch_structures_arduino::prepareCategories(void)
 		  << "modulo (%=)"
 		  << "multiplication (*=)"
 		  << "subtraction (-=)";
+  s_itemsForIcons["Compound Operators"] = "compound.png";
   s_itemsForCategories["Constants"] = QStringList() << "HIGH"
 						    << "INPUT"
 						    << "INPUT_PULLUP"
@@ -341,6 +351,9 @@ void glitch_structures_arduino::prepareCategories(void)
 
       auto item = new QTreeWidgetItem(m_ui.tree);
 
+      item->setIcon
+	(0,
+	 QIcon(QString(":/Arduino/%1").arg(s_itemsForIcons.value(it.key()))));
       item->setText(0, it.key());
       m_ui.tree->addTopLevelItem(item);
 

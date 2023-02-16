@@ -51,6 +51,7 @@ class glitch_structures_arduino: public QDialog
   QMap<QString, QString> m_categoriesMap;
   Ui_glitch_structures m_ui;
   glitch_collapse_expand_tool_button *m_collapse;
+  static QMap<QString, QString> s_itemsForIcons;
   static QMap<QString, QStringList> s_itemsForCategories;
   static QMap<QString, char> s_structureNamesMap;
   static QStringList s_nonArrayVariableTypes;
