@@ -657,7 +657,7 @@
          </widget>
          <widget class="QWidget" name="page_3">
           <attribute name="title">
-           <string>Source Preview</string>
+           <string>Source View</string>
           </attribute>
          </widget>
          <widget class="QWidget" name="page_4">
