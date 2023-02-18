@@ -122,6 +122,8 @@ class glitch_canvas_settings: public QDialog
   void slotSelectColor(void);
   void slotSelectOutputFile(void);
   void slotSelectProjectIDE(void);
+  void slotSpecialCopy(void);
+  void slotSpecialPaste(void);
   void slotTimerTimeout(void);
 
  signals:

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QClipboard>
 #include <QColorDialog>
 #include <QDir>
 #include <QFileDialog>
@@ -63,6 +64,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.selection_color->setStyleSheet
     ("QPushButton {background-color: lightgreen}");
   m_ui.selection_color->setText("lightgreen");
+  m_ui.special_copy->setIcon(QIcon::fromTheme("edit-copy"));
+  m_ui.special_paste->setIcon(QIcon::fromTheme("edit-paste"));
   m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
   m_ui.update_mode->setItemData
     (0,
@@ -134,6 +137,14 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  connect(m_ui.special_copy,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSpecialCopy);
+  connect(m_ui.special_paste,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSpecialPaste);
   connect(m_ui.wire_color,
 	  &QPushButton::clicked,
 	  this,
@@ -667,7 +678,8 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &l)
 
       item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.source_view_keywords->setItem(i, 0, item);
-      item = new QTableWidgetItem();
+      item = new QTableWidgetItem(QColor(Qt::black).name());
+      item->setBackground(QColor(item->text()));
       item->setFlags
 	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.source_view_keywords->setItem(i, 1, item);
@@ -889,6 +901,71 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
       m_ui.project_ide->setToolTip(m_ui.project_ide->text().trimmed());
       m_ui.project_ide->setCursorPosition(0);
     }
+}
+
+void glitch_canvas_settings::slotSpecialCopy(void)
+{
+  auto clipboard = QGuiApplication::clipboard();
+
+  if(!clipboard)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString string("");
+
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item1 = m_ui.source_view_keywords->item(i, 0);
+      auto item2 = m_ui.source_view_keywords->item(i, 1);
+
+      if(item1 && item2)
+	{
+	  string.append(item1->text());
+	  string.append(";");
+	  string.append(item2->text());
+	  string.append(",");
+	}
+    }
+
+  if(!string.isEmpty())
+    clipboard->setText("glitch-" + string.mid(0, string.length() - 1));
+
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_canvas_settings::slotSpecialPaste(void)
+{
+  auto clipboard = QGuiApplication::clipboard();
+
+  if(!clipboard || !clipboard->text().startsWith("glitch-"))
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMap<QString, QColor> map;
+
+  foreach(const auto &string, clipboard->text().mid(7).split(','))
+    {
+      auto list(string.split(';'));
+
+      if(list.size() == 2)
+	map[list.at(0)] = QColor(list.at(1));
+    }
+
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item1 = m_ui.source_view_keywords->item(i, 0);
+      auto item2 = m_ui.source_view_keywords->item(i, 1);
+
+      if(item1 && item2)
+	{
+	  item2->setBackground(map.value(item1->text()));
+	  item2->setText(map.value(item1->text()).name());
+	}
+    }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_canvas_settings::slotTimerTimeout(void)
