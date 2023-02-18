@@ -569,10 +569,10 @@
              <item>
               <widget class="QLabel" name="label_11">
                <property name="text">
-                <string>Project IDE</string>
+                <string>Project &amp;IDE</string>
                </property>
                <property name="buddy">
-                <cstring>output_file</cstring>
+                <cstring>project_ide</cstring>
                </property>
               </widget>
              </item>
@@ -660,6 +660,50 @@
            <string>Source View</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <item>
+              <spacer name="horizontalSpacer_10">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="special_copy">
+               <property name="text">
+                <string>Copy</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="special_paste">
+               <property name="text">
+                <string>Paste</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_12">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
            <item>
             <widget class="QTableWidget" name="source_view_keywords">
              <property name="alternatingRowColors">
@@ -796,6 +840,8 @@
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>
+  <tabstop>special_copy</tabstop>
+  <tabstop>special_paste</tabstop>
   <tabstop>source_view_keywords</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
  </tabstops>
