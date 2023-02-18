@@ -661,7 +661,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QTableWidget" name="source_view_table">
+            <widget class="QTableWidget" name="source_view_keywords">
              <property name="alternatingRowColors">
               <bool>true</bool>
              </property>
@@ -679,6 +679,9 @@
              </attribute>
              <attribute name="horizontalHeaderStretchLastSection">
               <bool>true</bool>
+             </attribute>
+             <attribute name="verticalHeaderVisible">
+              <bool>false</bool>
              </attribute>
              <column>
               <property name="text">
@@ -793,7 +796,7 @@
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>
-  <tabstop>source_view_table</tabstop>
+  <tabstop>source_view_keywords</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
  </tabstops>
  <resources>

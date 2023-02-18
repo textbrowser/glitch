@@ -59,6 +59,26 @@ QFrame *glitch_structures_arduino::frame(void) const
   return m_ui.frame;
 }
 
+QStringList glitch_structures_arduino::keywords(void)
+{
+  QMapIterator<QString, QStringList> it(s_itemsForCategories);
+  QStringList list;
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.key() == "Decorations")
+	continue;
+
+      for(int i = 0; i < it.value().size(); i++)
+	if(!it.value().at(i).startsWith("array"))
+	  list << it.value().at(i);
+    }
+
+  return list;
+}
+
 QStringList glitch_structures_arduino::nonArrayVariableTypes(void)
 {
   if(!s_nonArrayVariableTypes.isEmpty())
@@ -180,12 +200,11 @@ void glitch_structures_arduino::prepareCategories(void)
 						     << "analogReference()"
 						     << "analogWrite()";
   s_itemsForIcons["Analog I/O"] = "analog.png";
-  s_itemsForCategories["Arithmetic Operators"] =
-    QStringList() << "addition (+)"
-		  << "division (/)"
-		  << "modulo (%)"
-		  << "multiplication (*)"
-		  << "subtraction (-)";
+  s_itemsForCategories["Arithmetic Operators"] = QStringList() << "+"
+							       << "/"
+							       << "%"
+							       << "*"
+							       << "-";
   s_itemsForIcons["Arithmetic Operators"] = "arithmetic.png";
   s_itemsForCategories["Bits and Bytes"] = QStringList() << "bit()"
 							 << "bitClear()"
@@ -195,17 +214,16 @@ void glitch_structures_arduino::prepareCategories(void)
 							 << "highByte()"
 							 << "lowByte()";
   s_itemsForIcons["Bits and Bytes"] = "binary.png";
-  s_itemsForCategories["Bitwise Operators"] =
-    QStringList() << "and (&)"
-		  << "left shift (<<)"
-		  << "not (~)"
-		  << "or (|)"
-		  << "right shift (>>)"
-		  << "xor (^)";
+  s_itemsForCategories["Bitwise Operators"] = QStringList() << "&"
+							    << "<<"
+							    << "~"
+							    << "|"
+							    << ">>"
+							    << "^";
   s_itemsForIcons["Bitwise Operators"] = "xor.png";
-  s_itemsForCategories["Boolean Operators"] = QStringList() << "and (&&)"
-							    << "not (!)"
-							    << "or (||)";
+  s_itemsForCategories["Boolean Operators"] = QStringList() << "&&"
+							    << "!"
+							    << "||";
   s_itemsForIcons["Boolean Operators"] = "boolean.png";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"
@@ -221,17 +239,16 @@ void glitch_structures_arduino::prepareCategories(void)
 						     << "isUpperCase()"
 						     << "isWhitespace()";
   s_itemsForIcons["Characters"] = "ascii.png";
-  s_itemsForCategories["Compound Operators"] =
-    QStringList() << "addition (+=)"
-		  << "bitwise and (&=)"
-		  << "bitwise or (|=)"
-		  << "bitwise xor (^=)"
-		  << "decrement (--)"
-		  << "division (/=)"
-		  << "increment (++)"
-		  << "modulo (%=)"
-		  << "multiplication (*=)"
-		  << "subtraction (-=)";
+  s_itemsForCategories["Compound Operators"] = QStringList() << "+="
+							     << "&="
+							     << "|="
+							     << "^="
+							     << "--"
+							     << "/="
+							     << "++"
+							     << "%="
+							     << "*="
+							     << "-=";
   s_itemsForIcons["Compound Operators"] = "compound.png";
   s_itemsForCategories["Constants"] = QStringList() << "HIGH"
 						    << "INPUT"
@@ -385,6 +402,9 @@ void glitch_structures_arduino::prepareCategories(void)
 			 "-" +
 			 s_itemsForCategories.value(it.value()).at(i));
 	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
+
+	  if(item->text(0).contains("operator", Qt::CaseInsensitive))
+	    child->setTextAlignment(0, Qt::AlignCenter);
 	}
     }
 }

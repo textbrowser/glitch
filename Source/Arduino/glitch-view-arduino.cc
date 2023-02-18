@@ -50,6 +50,7 @@ glitch_view_arduino::glitch_view_arduino
   m_arduinoStructures = new glitch_structures_arduino(this);
   m_canvasSettings->setOutputFileExtension
     (glitch_view_arduino::projectOutputFileExtension());
+  m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);
@@ -135,6 +136,11 @@ QString glitch_view_arduino::source(void) const
   QApplication::restoreOverrideCursor();
 
   return string;
+}
+
+QStringList glitch_view_arduino::keywords(void) const
+{
+  return glitch_structures_arduino::keywords();
 }
 
 bool glitch_view_arduino::containsFunctionName(const QString &name) const

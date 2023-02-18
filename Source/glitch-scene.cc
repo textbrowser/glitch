@@ -180,14 +180,14 @@ bool glitch_scene::allowDrag
     return false;
   else
     {
-      auto text(t.trimmed().remove("glitch-"));
+      auto text(t.trimmed().remove("glitch-"));qDebug()<<text;
 
-      if(text.endsWith("(-)"))
-	text = "subtraction (-)";
-      else if(text.endsWith("(--)"))
-	text = "decrement (--)";
-      else if(text.endsWith("(-=)"))
-	text = "subtraction (-=)";
+      if(text.endsWith("---"))
+	text = "--";
+      else if(text.endsWith("--"))
+	text = "-";
+      else if(text.endsWith("-="))
+	text = "-=";
       else
 	text.remove(text.indexOf('-') + 1, text.lastIndexOf('-') - 7);
 

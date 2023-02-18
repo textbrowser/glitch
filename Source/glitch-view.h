@@ -91,6 +91,7 @@ class glitch_view: public QWidget
   qint64 nextId(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual QString source(void) const;
+  virtual QStringList keywords(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
   virtual void generateSourceFile(void) const;
   virtual void separate(void) = 0;

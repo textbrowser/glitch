@@ -654,6 +654,28 @@ void glitch_canvas_settings::setProjectIDE(const QString &fileName)
   m_ui.project_ide->setCursorPosition(0);
 }
 
+void glitch_canvas_settings::setProjectKeywords(const QStringList &l)
+{
+  auto list(l);
+
+  m_ui.source_view_keywords->setRowCount(list.size());
+  std::sort(list.begin(), list.end());
+
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item = new QTableWidgetItem(list.at(i));
+
+      item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+      m_ui.source_view_keywords->setItem(i, 0, item);
+      item = new QTableWidgetItem();
+      item->setFlags
+	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+      m_ui.source_view_keywords->setItem(i, 1, item);
+    }
+
+  m_ui.source_view_keywords->resizeColumnToContents(0);
+}
+
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 {
   m_ui.redo_undo_stack_size->setValue(value);
