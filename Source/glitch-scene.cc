@@ -180,7 +180,7 @@ bool glitch_scene::allowDrag
     return false;
   else
     {
-      auto text(t.trimmed().remove("glitch-"));qDebug()<<text;
+      auto text(t.trimmed().remove("glitch-"));
 
       if(text.endsWith("---"))
 	text = "--";
