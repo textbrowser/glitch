@@ -25,53 +25,31 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_documentation_h_
-#define _glitch_documentation_h_
+#ifndef _glitch_syntax_highlighter_
+#define _glitch_syntax_highlighter_
 
-#include "ui_glitch-documentation.h"
+#include <QRegularExpression>
+#include <QSyntaxHighlighter>
+#include <QTextCharFormat>
 
-#ifdef GLITCH_PDF_SUPPORTED
-class QPdfDocument;
-class QPdfView;
-#endif
-
-class glitch_documentation: public QMainWindow
+class glitch_syntax_highlighter: public QSyntaxHighlighter
 {
   Q_OBJECT
 
  public:
-  glitch_documentation(QWidget *parent);
-  glitch_documentation(const QString &fileName, QWidget *parent);
-  glitch_documentation(const QUrl &url, QWidget *parent);
-  ~glitch_documentation();
-
-  QTextDocument *document(void) const
-  {
-    return m_ui.text->document();
-  }
-
-  void setAllowOpeningOfExternalLinks(const bool state);
-  void setHtml(const QString &html);
-  void setPlainText(const QString &text);
-
- public slots:
-  void show(void);
+  glitch_syntax_highlighter(QTextDocument *document);
+  ~glitch_syntax_highlighter();
+  void setKeywordsColors(const QMap<QString, QColor> &map);
 
  private:
-  QPalette m_originalFindPalette;
-#ifdef GLITCH_PDF_SUPPORTED
-  QPdfDocument *m_pdfDocument;
-  QPdfView *m_pdfView;
-#endif
-  Ui_glitch_documentation m_ui;
-  bool m_openExternalLinks;
-  void connectSignals(void);
+  struct HighlightingRule
+  {
+    QRegularExpression pattern;
+    QTextCharFormat format;
+  };
 
- private slots:
-  void slotAnchorClicked(const QUrl &url);
-  void slotFind(void);
-  void slotFindText(void);
-  void slotPrint(void);
+  QVector<HighlightingRule> m_highlightingRules;
+  void highlightBlock(const QString &text);
 };
 
 #endif

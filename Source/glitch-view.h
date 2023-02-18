@@ -46,6 +46,7 @@ class glitch_graphicsview;
 class glitch_object;
 class glitch_object_start;
 class glitch_scene;
+class glitch_syntax_highlighter;
 class glitch_tools;
 class glitch_undo_command;
 class glitch_user_functions;
@@ -138,6 +139,7 @@ class glitch_view: public QWidget
   QPointer<QPushButton> m_tabButton;
   QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_tools> m_tools;
+  QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QSplitter *m_splitter;
   QString m_fileName;
   QTimer m_generateTimer;

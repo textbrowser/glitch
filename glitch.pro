@@ -203,6 +203,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-separated-diagram-window.h \
                   Source/glitch-structures-treewidget.h \
                   Source/glitch-style-sheet.h \
+                  Source/glitch-syntax-highlighter.h \
                   Source/glitch-swifty.h \
                   Source/glitch-tab.h \
                   Source/glitch-tab-tabbar.h \
@@ -232,6 +233,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-separated-diagram-window.cc \
                   Source/glitch-structures-treewidget.cc \
                   Source/glitch-style-sheet.cc \
+                  Source/glitch-syntax-highlighter.cc \
                   Source/glitch-tab.cc \
                   Source/glitch-tab-tabbar.cc \
                   Source/glitch-tools.cc \

@@ -25,53 +25,57 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_documentation_h_
-#define _glitch_documentation_h_
+#include "glitch-syntax-highlighter.h"
 
-#include "ui_glitch-documentation.h"
-
-#ifdef GLITCH_PDF_SUPPORTED
-class QPdfDocument;
-class QPdfView;
-#endif
-
-class glitch_documentation: public QMainWindow
+glitch_syntax_highlighter::glitch_syntax_highlighter(QTextDocument *document):
+  QSyntaxHighlighter(document)
 {
-  Q_OBJECT
+}
 
- public:
-  glitch_documentation(QWidget *parent);
-  glitch_documentation(const QString &fileName, QWidget *parent);
-  glitch_documentation(const QUrl &url, QWidget *parent);
-  ~glitch_documentation();
+glitch_syntax_highlighter::~glitch_syntax_highlighter()
+{
+}
 
-  QTextDocument *document(void) const
-  {
-    return m_ui.text->document();
-  }
+void glitch_syntax_highlighter::highlightBlock(const QString &text)
+{
+  foreach(const auto &rule, m_highlightingRules)
+    {
+      QRegularExpressionMatchIterator matchIterator
+	(rule.pattern.globalMatch(text));
 
-  void setAllowOpeningOfExternalLinks(const bool state);
-  void setHtml(const QString &html);
-  void setPlainText(const QString &text);
+      while(matchIterator.hasNext())
+	{
+	  QRegularExpressionMatch match(matchIterator.next());
 
- public slots:
-  void show(void);
+	  setFormat(match.capturedStart(), match.capturedLength(), rule.format);
+        }
+    }
+}
 
- private:
-  QPalette m_originalFindPalette;
-#ifdef GLITCH_PDF_SUPPORTED
-  QPdfDocument *m_pdfDocument;
-  QPdfView *m_pdfView;
-#endif
-  Ui_glitch_documentation m_ui;
-  bool m_openExternalLinks;
-  void connectSignals(void);
+void glitch_syntax_highlighter::setKeywordsColors
+(const QMap<QString, QColor> &map)
+{
+  HighlightingRule rule;
+  QMapIterator<QString, QColor> it(map);
+  QTextCharFormat format;
 
- private slots:
-  void slotAnchorClicked(const QUrl &url);
-  void slotFind(void);
-  void slotFindText(void);
-  void slotPrint(void);
-};
+  while(it.hasNext())
+    {
+      it.next();
+      format.setFontWeight(QFont::Bold);
+      format.setForeground(it.value());
+      rule.format = format;
+      rule.pattern = QRegularExpression
+	(QStringLiteral("\\b%1\\b").arg(it.key()),
+	 QRegularExpression::CaseInsensitiveOption);
+      m_highlightingRules.append(rule);
+    }
 
-#endif
+  format.setFontWeight(QFont::Normal);
+  format.setForeground(Qt::darkGreen);
+  rule.format = format;
+  rule.pattern = QRegularExpression(QStringLiteral("'.*'"));
+  m_highlightingRules.append(rule);
+  rule.pattern = QRegularExpression(QStringLiteral("\".*\""));
+  m_highlightingRules.append(rule);
+}

@@ -48,6 +48,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-syntax-highlighter.h"
 #include "glitch-tools.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -886,6 +887,8 @@ void glitch_view::generateSourceView(void)
     {
       m_sourceView = new glitch_documentation(this);
       m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
+      m_sourceViewSyntaxHighlighter = new glitch_syntax_highlighter
+	(m_sourceView->document());
     }
 
   m_sourceView->setPlainText(source());
