@@ -702,6 +702,7 @@ void glitch_object::createActions(void)
       auto action = new QAction(tr("Floating Context Menu..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::CONTEXT_MENU));
+      action->setIcon(QIcon(":/context-menu.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,
