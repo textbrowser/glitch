@@ -927,10 +927,11 @@ void glitch_ui::prepareFonts(void)
   foreach(auto widget, QApplication::allWidgets())
     if(widget)
       {
-	font.setBold(widget->font().bold());
-	widget->setFont(font);
+	auto f(font);
+
+	f.setBold(widget->font().bold());
+	widget->setFont(f);
 	widget->updateGeometry();
-	font.setBold(false);
       }
 
   QApplication::restoreOverrideCursor();
