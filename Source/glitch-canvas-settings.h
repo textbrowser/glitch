@@ -28,10 +28,101 @@
 #ifndef _glitch_canvas_settings_h_
 #define _glitch_canvas_settings_h_
 
+#include <QColorDialog>
 #include <QGraphicsView>
+#include <QStyledItemDelegate>
 #include <QTimer>
 
 #include "ui_glitch-canvas-settings.h"
+
+class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
+{
+  Q_OBJECT
+
+ public:
+  glitch_canvas_settings_item_delegate(QObject *parent):
+    QStyledItemDelegate(parent)
+  {
+  }
+
+  QWidget *createEditor(QWidget *parent,
+			const QStyleOptionViewItem &option,
+			const QModelIndex &index) const
+  {
+    switch(index.column())
+      {
+      case 1:
+	{
+	  auto pushButton = new QPushButton(parent);
+
+	  connect(pushButton,
+		  SIGNAL(clicked(void)),
+		  this,
+		  SLOT(slotSelectColor(void))
+#ifdef Q_OS_MACOS
+		  , Qt::QueuedConnection
+#endif
+		  );
+	  m_index = index;
+	  pushButton->setText(index.data().toString().trimmed());
+	  return pushButton;
+	}
+      default:
+	{
+	  break;
+	}
+      }
+
+    return QStyledItemDelegate::createEditor(parent, option, index);
+  }
+
+ private:
+  void setModelData(QWidget *editor,
+		    QAbstractItemModel *model,
+		    const QModelIndex &index) const
+  {
+    auto pushButton = qobject_cast<QPushButton *> (editor);
+
+    if(model && pushButton)
+      {
+	pushButton->setText(model->data(index).toString().trimmed());
+	return;
+      }
+
+    QStyledItemDelegate::setModelData(editor, model, index);
+  }
+
+  mutable QModelIndex m_index;
+
+ private slots:
+  void slotSelectColor(void)
+  {
+    auto pushButton = qobject_cast<QPushButton *> (sender());
+
+    if(!pushButton)
+      return;
+
+    QColorDialog dialog(pushButton);
+
+    dialog.setCurrentColor(QColor(pushButton->text().remove('&')));
+    dialog.setOptions(QColorDialog::DontUseNativeDialog);
+
+    if(dialog.exec() == QDialog::Accepted)
+      {
+	if(m_index.isValid() && m_index.model())
+	  const_cast<QAbstractItemModel *> (m_index.model())->setData
+	    (m_index, dialog.selectedColor().name());
+
+	pushButton->setText(dialog.selectedColor().name());
+
+	if(m_index.isValid())
+	  emit changed(dialog.selectedColor(), m_index.row());
+      }
+  }
+
+ signals:
+  void changed(const QColor &color, const int row);
+};
 
 class glitch_canvas_settings: public QDialog
 {
@@ -115,10 +206,12 @@ class glitch_canvas_settings: public QDialog
   QString m_outputFileExtension;
   QTimer m_timer;
   Ui_glitch_canvas_settings m_ui;
+  glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
 
  private slots:
   void accept(void);
+  void slotKeywordColorSelected(const QColor &color, const int row);
   void slotSelectColor(void);
   void slotSelectOutputFile(void);
   void slotSelectProjectIDE(void);

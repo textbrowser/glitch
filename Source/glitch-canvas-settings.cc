@@ -64,6 +64,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.selection_color->setStyleSheet
     ("QPushButton {background-color: lightgreen}");
   m_ui.selection_color->setText("lightgreen");
+  m_ui.source_view_keywords->setItemDelegateForColumn
+    (1, m_itemDelegate = new glitch_canvas_settings_item_delegate(this));
   m_ui.special_copy->setIcon(QIcon::fromTheme("edit-copy"));
   m_ui.special_paste->setIcon(QIcon::fromTheme("edit-paste"));
   m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
@@ -113,6 +115,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QTimer::timeout,
 	  this,
 	  &glitch_canvas_settings::slotTimerTimeout);
+  connect(m_itemDelegate,
+	  SIGNAL(changed(const QColor &, const int)),
+	  this,
+	  SLOT(slotKeywordColorSelected(const QColor &, const int)));
   connect(m_ui.background_color,
 	  &QPushButton::clicked,
 	  this,
@@ -811,6 +817,15 @@ void glitch_canvas_settings::setWireType(const QString &string)
 void glitch_canvas_settings::setWireWidth(const double value)
 {
   m_ui.wire_width->setValue(value);
+}
+
+void glitch_canvas_settings::slotKeywordColorSelected
+(const QColor &color, const int row)
+{
+  auto item = m_ui.source_view_keywords->item(row, 1);
+
+  if(item)
+    item->setBackground(color);
 }
 
 void glitch_canvas_settings::slotSelectColor(void)
