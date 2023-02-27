@@ -291,6 +291,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.condition->setText(simplified(m_ui.condition->text()));
+  clone->m_ui.condition->setCursorPosition(0);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
@@ -358,6 +359,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (simplified(object->m_properties.value(Properties::CONDITION).toString()));
+  object->m_ui.condition->setCursorPosition(0);
   object->prepareEditWindowHeader();
   glitch_misc::highlight(object->m_ui.condition);
   return object;
@@ -576,6 +578,7 @@ void glitch_object_flow_control_arduino::setProperty
     case Properties::CONDITION:
       {
 	m_ui.condition->setText(simplified(value.toString()));
+	m_ui.condition->setCursorPosition(0);
 	glitch_misc::highlight(m_ui.condition);
 	prepareEditWindowHeader();
 	break;
@@ -597,6 +600,7 @@ void glitch_object_flow_control_arduino::setProperty
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
+  m_ui.condition->setCursorPosition(0);
   glitch_misc::highlight(m_ui.condition);
 
   if(!m_undoStack)

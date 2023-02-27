@@ -255,6 +255,7 @@ clone(QWidget *parent) const
   clone->m_properties = m_properties;
   clone->m_ui.array->setChecked(m_ui.array->isChecked());
   clone->m_ui.name->setText(m_ui.name->text().trimmed());
+  clone->m_ui.name->setCursorPosition(0);
   clone->m_ui.pointer_access->setCurrentIndex
     (m_ui.pointer_access->currentIndex());
   clone->m_ui.progmem->setChecked(m_ui.progmem->isChecked());
@@ -413,6 +414,7 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_NAME] = string.trimmed();
 	  m_ui.name->setText(string.trimmed());
+	  m_ui.name->setCursorPosition(0);
 	  setName(m_ui.name->text());
 	}
       else if(string.simplified().startsWith("variable_pointer_access = "))
@@ -483,6 +485,7 @@ void glitch_object_variable_arduino::setProperty
 	else
 	  m_ui.name->setText(value.toString().trimmed());
 
+	m_ui.name->setCursorPosition(0);
 	setName(m_ui.name->text());
 	break;
       }
@@ -570,6 +573,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
     return;
 
   lineEdit->setText(lineEdit->text().trimmed());
+  lineEdit->setCursorPosition(0);
   lineEdit->selectAll();
 
   if(!m_undoStack)

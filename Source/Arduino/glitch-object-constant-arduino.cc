@@ -71,7 +71,7 @@ glitch_object_constant_arduino::~glitch_object_constant_arduino()
 
 QString glitch_object_constant_arduino::code(void) const
 {
-  if(m_ui.constant->currentText() == tr("Other"))
+  if(m_constantType == ConstantTypes::OTHER)
     return m_ui.other->text().trimmed();
   else
     return m_ui.constant->currentText();
@@ -111,6 +111,7 @@ clone(QWidget *parent) const
   clone->m_ui.constant->setCurrentIndex(m_ui.constant->currentIndex());
   clone->m_ui.constant->blockSignals(false);
   clone->m_ui.other->setText(m_ui.other->text().trimmed());
+  clone->m_ui.other->setCursorPosition(0);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConstantType(m_ui.constant->currentText());
@@ -248,6 +249,7 @@ void glitch_object_constant_arduino::setProperties(const QStringList &list)
 	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::CONSTANT_OTHER] = string.trimmed();
 	  m_ui.other->setText(string.trimmed());
+	  m_ui.other->setCursorPosition(0);
 	}
     }
 
@@ -265,6 +267,7 @@ void glitch_object_constant_arduino::setProperty
     case Properties::CONSTANT_OTHER:
       {
 	m_ui.other->setText(value.toString().trimmed());
+	m_ui.other->setCursorPosition(0);
 	break;
       }
     default:
@@ -272,6 +275,43 @@ void glitch_object_constant_arduino::setProperty
 	break;
       }
     }
+}
+
+void glitch_object_constant_arduino::slotAdjustSize(void)
+{
+  auto before(size());
+
+  if(m_constantType == ConstantTypes::OTHER)
+    {
+      QFontMetrics fm(font());
+      auto width = 35 +
+	fm.boundingRect(m_ui.other->text().trimmed()).width() +
+	(m_ui.constant->isVisible() ? m_ui.constant->sizeHint().width() : 0);
+
+      resize(width, minimumHeight(sizeHint().height()));
+    }
+  else
+    resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+
+  if(before == this->size())
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(size(),
+	 before,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 Properties::SIZE,
+	 this);
+
+      undoCommand->setText
+	(tr("object size changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+
+  emit changed();
 }
 
 void glitch_object_constant_arduino::slotConstantChanged(void)

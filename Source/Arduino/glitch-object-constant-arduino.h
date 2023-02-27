@@ -73,6 +73,7 @@ class glitch_object_constant_arduino: public glitch_object
   void setProperty(const Properties property, const QVariant &value);
 
  private slots:
+  void slotAdjustSize(void);
   void slotConstantChanged(void);
   void slotOtherConstantChanged(void);
 };

@@ -153,6 +153,7 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
   if(!text.trimmed().isEmpty())
     {
       m_header->setText(text.trimmed());
+      m_header->setCursorPosition(0);
       m_header->setVisible(true);
       m_header->setReadOnly(false);
       glitch_misc::highlight(m_header);

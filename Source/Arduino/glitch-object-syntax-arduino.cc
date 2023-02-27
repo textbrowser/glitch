@@ -44,6 +44,7 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
     m_ui.text->setText("#include");
 
   m_properties[Properties::SYNTAX] = m_ui.text->text();
+  m_ui.text->setCursorPosition(0);
   setName(m_ui.text->text());
 }
 
@@ -94,6 +95,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.text->setText(m_ui.text->text().trimmed());
+  clone->m_ui.text->setCursorPosition(0);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -152,6 +154,7 @@ void glitch_object_syntax_arduino::setProperties
 	  string = string.mid(0, string.lastIndexOf('"'));
 	  m_properties[Properties::SYNTAX] = string.trimmed();
 	  m_ui.text->setText(string.trimmed());
+	  m_ui.text->setCursorPosition(0);
 	}
     }
 
@@ -168,6 +171,7 @@ void glitch_object_syntax_arduino::setProperty
     case Properties::SYNTAX:
       {
 	m_ui.text->setText(value.toString().trimmed());
+	m_ui.text->setCursorPosition(0);
 	setName(m_ui.text->text());
 	break;
       }
@@ -181,6 +185,7 @@ void glitch_object_syntax_arduino::setProperty
 void glitch_object_syntax_arduino::slotSyntaxChanged(void)
 {
   m_ui.text->setText(m_ui.text->text().trimmed());
+  m_ui.text->setCursorPosition(0);
   m_ui.text->selectAll();
 
   if(!m_undoStack)

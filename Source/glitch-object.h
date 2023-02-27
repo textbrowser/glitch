@@ -265,13 +265,12 @@ class glitch_object: public QWidget
   QMenu m_menu;
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
-  static int minimumHeight(const int height);
   bool event(QEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
+  virtual void slotAdjustSize(void);
   void slotActionTriggered(void);
-  void slotAdjustSize(void);
   void slotCanvasSettingsChanged(const bool state);
   void slotClearTemporaryContainers(void);
   void slotSetFont(void);
@@ -305,6 +304,7 @@ class glitch_object: public QWidget
   glitch_floating_context_menu *m_contextMenu;
   qint64 m_id;
   static QRegularExpression s_splitRegularExpression;
+  static int minimumHeight(const int height);
   QToolButton *contextMenuButton(void) const;
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
