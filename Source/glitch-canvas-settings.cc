@@ -359,6 +359,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "categories_icon_size, "
 	   "dots_grids_color, "
 	   "generate_periodically, "
+	   "keyword_colors, "
 	   "name, "
 	   "output_file, "
 	   "project_ide, "
@@ -372,11 +373,12 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
+	query.addBindValue(keywordColorsFromTable());
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -735,9 +737,9 @@ void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
 
 void glitch_canvas_settings::setProjectIDE(const QString &fileName)
 {
-  m_settings[Settings::PROJECT_IDE] = fileName;
-  m_ui.project_ide->setText(fileName);
-  m_ui.project_ide->setToolTip(fileName);
+  m_settings[Settings::PROJECT_IDE] = fileName.trimmed();
+  m_ui.project_ide->setText(fileName.trimmed());
+  m_ui.project_ide->setToolTip(m_ui.project_ide->text());
   m_ui.project_ide->setCursorPosition(0);
 }
 
@@ -802,10 +804,11 @@ void glitch_canvas_settings::setSettings
     (QString("QPushButton {background-color: %1}").
      arg(color.name(QColor::HexArgb)));
   m_ui.wire_color->setText(color.name(QColor::HexArgb));
+  prepareKeywordColors(hash.value(Settings::KEYWORD_COLORS).toString());
   setCategoriesIconSize(hash.value(Settings::CATEGORIES_ICON_SIZE).toString());
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
-  setProjectIDE(hash.value(Settings::PROJECT_IDE).toString().trimmed());
+  setProjectIDE(hash.value(Settings::PROJECT_IDE).toString());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
