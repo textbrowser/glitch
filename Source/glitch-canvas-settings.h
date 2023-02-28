@@ -136,6 +136,7 @@ class glitch_canvas_settings: public QDialog
     CATEGORIES_ICON_SIZE,
     DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
+    KEYWORD_COLORS,
     OUTPUT_FILE,
     PROJECT_IDE,
     REDO_UNDO_STACK_SIZE,
@@ -158,6 +159,7 @@ class glitch_canvas_settings: public QDialog
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
   QString categoriesIconSize(void) const;
+  QString keywordColors(void) const;
   QString name(void) const;
   QString outputFile(void) const;
   QString projectIDE(void) const;
@@ -171,7 +173,6 @@ class glitch_canvas_settings: public QDialog
   int redoUndoStackSize(void) const;
   void notify(void);
   void prepare(void);
-  void prepareKeywordColors(const QString &text);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
   void setName(const QString &name);
@@ -209,6 +210,8 @@ class glitch_canvas_settings: public QDialog
   Ui_glitch_canvas_settings m_ui;
   glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
+  QString keywordColorsFromTable(void) const;
+  void prepareKeywordColors(const QString &text);
 
  private slots:
   void accept(void);

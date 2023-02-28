@@ -208,6 +208,7 @@ settings(void) const
     m_ui.dots_grids_color->text().remove('&').trimmed();
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
+  hash[Settings::KEYWORD_COLORS] = keywordColorsFromTable().trimmed();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
@@ -247,6 +248,39 @@ QString glitch_canvas_settings::defaultName(void) const
     return "Arduino-Diagram";
   else
     return "Diagram";
+}
+
+QString glitch_canvas_settings::keywordColors(void) const
+{
+  return m_settings.value(Settings::KEYWORD_COLORS).toString().trimmed();
+}
+
+QString glitch_canvas_settings::keywordColorsFromTable(void) const
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QString string("");
+
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item1 = m_ui.source_view_keywords->item(i, 0);
+      auto item2 = m_ui.source_view_keywords->item(i, 1);
+
+      if(item1 && item2)
+	{
+	  string.append(item1->text());
+	  string.append(";");
+	  string.append(item2->text());
+	  string.append(",");
+	}
+    }
+
+  QApplication::restoreOverrideCursor();
+
+  if(!string.isEmpty())
+    return "glitch-" + string.mid(0, string.length() - 1);
+  else
+    return string;
 }
 
 QString glitch_canvas_settings::name(void) const
@@ -960,29 +994,13 @@ void glitch_canvas_settings::slotSpecialCopy(void)
 
   if(!clipboard)
     return;
-
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QString string("");
-
-  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+  else
     {
-      auto item1 = m_ui.source_view_keywords->item(i, 0);
-      auto item2 = m_ui.source_view_keywords->item(i, 1);
+      auto string(keywordColorsFromTable());
 
-      if(item1 && item2)
-	{
-	  string.append(item1->text());
-	  string.append(";");
-	  string.append(item2->text());
-	  string.append(",");
-	}
+      if(!string.isEmpty())
+	clipboard->setText(string);
     }
-
-  if(!string.isEmpty())
-    clipboard->setText("glitch-" + string.mid(0, string.length() - 1));
-
-  QApplication::restoreOverrideCursor();
 }
 
 void glitch_canvas_settings::slotSpecialPaste(void)
