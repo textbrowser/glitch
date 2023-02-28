@@ -171,6 +171,7 @@ class glitch_canvas_settings: public QDialog
   int redoUndoStackSize(void) const;
   void notify(void);
   void prepare(void);
+  void prepareKeywordColors(const QString &text);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
   void setName(const QString &name);

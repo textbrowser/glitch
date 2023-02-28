@@ -462,6 +462,7 @@ void glitch_canvas_settings::prepare(void)
 
 	query.setForwardOnly(true);
 	query.exec("ALTER TABLE canvas_settings ADD categories_icon_size TEXT");
+	query.exec("ALTER TABLE canvas_settings ADD keyword_colors TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
@@ -470,6 +471,7 @@ void glitch_canvas_settings::prepare(void)
 			   "SUBSTR(categories_icon_size, 1, 50), "
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
+			   "SUBSTR(keyword_colors, 1, 5000), "
 			   "SUBSTR(name, 1, %1), "
 			   "SUBSTR(output_file, 1, 5000), "
 			   "SUBSTR(project_ide, 1, 5000), "
@@ -492,6 +494,7 @@ void glitch_canvas_settings::prepare(void)
 	QColor selectionColor;
 	QColor wireColor;
 	QString categoriesIconSize("");
+	QString keywordColors("");
 	QString name("");
 	QString outputFile("");
 	QString projectIDE("");
@@ -518,6 +521,8 @@ void glitch_canvas_settings::prepare(void)
 		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("generate_periodically"))
 	      generatePeriodically = record.value(i).toBool();
+	    else if(fieldName.contains("keyword_colors"))
+	      keywordColors = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("output_file"))
@@ -614,6 +619,7 @@ void glitch_canvas_settings::prepare(void)
 	    (m_ui.wire_type->findText(tr("Curve")));
 
 	m_settings = settings();
+	prepareKeywordColors(keywordColors);
 	setResult(QDialog::Accepted);
 	setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
 	emit accepted(false);
@@ -623,6 +629,35 @@ void glitch_canvas_settings::prepare(void)
   }
 
   glitch_common::discardDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_canvas_settings::prepareKeywordColors(const QString &text)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMap<QString, QColor> map;
+
+  foreach(const auto &string, text.mid(7).split(','))
+    {
+      auto list(string.split(';'));
+
+      if(list.size() == 2)
+	map[list.at(0)] = QColor(list.at(1));
+    }
+
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item1 = m_ui.source_view_keywords->item(i, 0);
+      auto item2 = m_ui.source_view_keywords->item(i, 1);
+
+      if(item1 && item2)
+	{
+	  item2->setBackground(map.value(item1->text()));
+	  item2->setText(map.value(item1->text()).name());
+	}
+    }
+
   QApplication::restoreOverrideCursor();
 }
 
@@ -957,31 +992,7 @@ void glitch_canvas_settings::slotSpecialPaste(void)
   if(!clipboard || !clipboard->text().startsWith("glitch-"))
     return;
 
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  QMap<QString, QColor> map;
-
-  foreach(const auto &string, clipboard->text().mid(7).split(','))
-    {
-      auto list(string.split(';'));
-
-      if(list.size() == 2)
-	map[list.at(0)] = QColor(list.at(1));
-    }
-
-  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
-    {
-      auto item1 = m_ui.source_view_keywords->item(i, 0);
-      auto item2 = m_ui.source_view_keywords->item(i, 1);
-
-      if(item1 && item2)
-	{
-	  item2->setBackground(map.value(item1->text()));
-	  item2->setText(map.value(item1->text()).name());
-	}
-    }
-
-  QApplication::restoreOverrideCursor();
+  prepareKeywordColors(clipboard->text());
 }
 
 void glitch_canvas_settings::slotTimerTimeout(void)
