@@ -331,6 +331,7 @@ INSTALLS = documentation1 \
            qtlibraries
 }
 
+android {
 DISTFILES += \
     android/AndroidManifest.xml \
     android/build.gradle \
@@ -340,5 +341,5 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml
-
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+}
