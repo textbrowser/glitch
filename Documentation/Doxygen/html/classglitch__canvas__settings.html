@@ -94,22 +94,25 @@ Public Types</h2></td></tr>
 <tr class="memitem:ade6f20b95f3f789805459436838ed929"><td class="memItemLeft" align="right" valign="top"><a id="ade6f20b95f3f789805459436838ed929"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Settings</b> { <br />
 &#160;&#160;<b>CANVAS_BACKGROUND_COLOR</b> = 0
 , <b>CANVAS_NAME</b>
+, <b>CATEGORIES_ICON_SIZE</b>
 , <b>DOTS_GRIDS_COLOR</b>
-, <b>GENERATE_PERIODICALLY</b>
 , <br />
-&#160;&#160;<b>OUTPUT_FILE</b>
+&#160;&#160;<b>GENERATE_PERIODICALLY</b>
+, <b>KEYWORD_COLORS</b>
+, <b>OUTPUT_FILE</b>
 , <b>PROJECT_IDE</b>
-, <b>REDO_UNDO_STACK_SIZE</b>
+, <br />
+&#160;&#160;<b>REDO_UNDO_STACK_SIZE</b>
 , <b>SELECTION_COLOR</b>
-, <br />
-&#160;&#160;<b>SHOW_CANVAS_DOTS</b>
+, <b>SHOW_CANVAS_DOTS</b>
 , <b>SHOW_CANVAS_GRIDS</b>
-, <b>SHOW_ORDER_INDICATORS</b>
-, <b>VIEW_UPDATE_MODE</b>
 , <br />
-&#160;&#160;<b>WIRE_COLOR</b>
+&#160;&#160;<b>SHOW_ORDER_INDICATORS</b>
+, <b>VIEW_UPDATE_MODE</b>
+, <b>WIRE_COLOR</b>
 , <b>WIRE_TYPE</b>
-, <b>WIRE_WIDTH</b>
+, <br />
+&#160;&#160;<b>WIRE_WIDTH</b>
 <br />
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,6 +146,15 @@ QGraphicsView::ViewportUpdateMode&#160;</td><td class="memItemRight" valign="bot
 <tr class="memitem:a6285a0f4f04955c7f1cf99c5bbe62b45"><td class="memItemLeft" align="right" valign="top"><a id="a6285a0f4f04955c7f1cf99c5bbe62b45"></a>
 QHash&lt; glitch_canvas_settings::Settings, QVariant &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>settings</b> (void) const</td></tr>
 <tr class="separator:a6285a0f4f04955c7f1cf99c5bbe62b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38da7097cc92c7a781e2e4895e950d8"><td class="memItemLeft" align="right" valign="top"><a id="ae38da7097cc92c7a781e2e4895e950d8"></a>
+QMap&lt; QString, QColor &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>keywordColorsAsMap</b> (void) const</td></tr>
+<tr class="separator:ae38da7097cc92c7a781e2e4895e950d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af69a32e32487a4368bf502818e3a07fe"><td class="memItemLeft" align="right" valign="top"><a id="af69a32e32487a4368bf502818e3a07fe"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>categoriesIconSize</b> (void) const</td></tr>
+<tr class="separator:af69a32e32487a4368bf502818e3a07fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35960f5b248d66865096516ff9c28c12"><td class="memItemLeft" align="right" valign="top"><a id="a35960f5b248d66865096516ff9c28c12"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>keywordColorsAsString</b> (void) const</td></tr>
+<tr class="separator:a35960f5b248d66865096516ff9c28c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41728d23da4bf655db61a032be94ceb2"><td class="memItemLeft" align="right" valign="top"><a id="a41728d23da4bf655db61a032be94ceb2"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:a41728d23da4bf655db61a032be94ceb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,6 +197,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>prepare</b> (void)</t
 <tr class="memitem:a117b5bf7398303f56c562f73b8dd2856"><td class="memItemLeft" align="right" valign="top"><a id="a117b5bf7398303f56c562f73b8dd2856"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setFileName</b> (const QString &amp;fileName)</td></tr>
 <tr class="separator:a117b5bf7398303f56c562f73b8dd2856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff02e4c179ed1df0c48f8dd555e415f"><td class="memItemLeft" align="right" valign="top"><a id="a7ff02e4c179ed1df0c48f8dd555e415f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setCategoriesIconSize</b> (const QString &amp;text)</td></tr>
+<tr class="separator:a7ff02e4c179ed1df0c48f8dd555e415f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cb3041084b9eeb75e6b197de754fc1f"><td class="memItemLeft" align="right" valign="top"><a id="a5cb3041084b9eeb75e6b197de754fc1f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const QString &amp;name)</td></tr>
 <tr class="separator:a5cb3041084b9eeb75e6b197de754fc1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -197,6 +212,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutputFileExtensio
 <tr class="memitem:a00ab52c36557c312a398071f3cd1585a"><td class="memItemLeft" align="right" valign="top"><a id="a00ab52c36557c312a398071f3cd1585a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setProjectIDE</b> (const QString &amp;filename)</td></tr>
 <tr class="separator:a00ab52c36557c312a398071f3cd1585a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc6422860e211f4215754918e200ab8"><td class="memItemLeft" align="right" valign="top"><a id="a5dc6422860e211f4215754918e200ab8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setProjectKeywords</b> (const QStringList &amp;l)</td></tr>
+<tr class="separator:a5dc6422860e211f4215754918e200ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memItemLeft" align="right" valign="top"><a id="a26cb6dd1a07af51ef9a2df713ea842ec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setRedoUndoStackSize</b> (const int value)</td></tr>
 <tr class="separator:a26cb6dd1a07af51ef9a2df713ea842ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
