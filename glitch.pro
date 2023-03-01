@@ -1,6 +1,6 @@
 include(Source/glitch-arduino.pro)
 
-dmg.commands = hdiutil create Glitch.d.dmg -srcfolder Glitch.d
+dmg.commands = make install && hdiutil create Glitch.d.dmg -srcfolder Glitch.d
 doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name '*~' -exec rm {} \\;
 
