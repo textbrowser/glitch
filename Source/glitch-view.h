@@ -139,8 +139,8 @@ class glitch_view: public QWidget
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
   QPointer<glitch_documentation> m_sourceView;
-  QPointer<glitch_tools> m_tools;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
+  QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
   QString m_fileName;
   QTimer m_generateTimer;
