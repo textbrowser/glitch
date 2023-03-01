@@ -34,6 +34,7 @@
 #include <QPrintDialog>
 #include <QPrinter>
 #include <QPushButton>
+#include <QScrollBar>
 #include <QtDebug>
 
 #include "glitch-documentation.h"
@@ -140,10 +141,20 @@ void glitch_documentation::setHtml(const QString &html)
 void glitch_documentation::setPlainText(const QString &text)
 {
   auto font(m_ui.text->font());
+  auto h = m_ui.text->horizontalScrollBar() ?
+    m_ui.text->horizontalScrollBar()->value() : 0;
+  auto v = m_ui.text->verticalScrollBar() ?
+    m_ui.text->verticalScrollBar()->value() : 0;
 
   font.setFamily("Courier 10 Pitch");
   m_ui.text->setFont(font);
   m_ui.text->setPlainText(text);
+
+  if(m_ui.text->horizontalScrollBar())
+    m_ui.text->horizontalScrollBar()->setValue(h);
+
+  if(m_ui.text->verticalScrollBar())
+    m_ui.text->verticalScrollBar()->setValue(v);
 }
 
 void glitch_documentation::show(void)

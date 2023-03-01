@@ -94,6 +94,7 @@ Completed Items
   that resides in the redo / undo stack. Re-wire objects on undo events.
 - Do not delete function duplicates if one duplicate is removed.
 - Do not discover parent functions for copied functions.
+- Do not display order values for decorative objects.
 - Do not save children of flow control objects if those objects
   do not support children.
 - Documentation.
@@ -182,6 +183,7 @@ Completed Items
 - Resize objects? Yes, option included.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
+- Retain scroll bar positions in Source View.
 - Review lengthy tool tips.
 - Save As.
 - Save button on tab.
@@ -248,7 +250,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Do not display order values for decorative objects.
 - Draw and, not, or, etc. objects.
 - Generate source from terminal for testing results.
 - Keywords (function names, variable names, etc.).
@@ -259,7 +260,6 @@ Remaining Items
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
 - Resize objects manually.
-- Retain scroll bar positions in Source View.
 - SQLite modes.
 - Splitter states and redo / undo.
 - Stack (z-values) widgets.
