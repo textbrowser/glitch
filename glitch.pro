@@ -1,5 +1,6 @@
 include(Source/glitch-arduino.pro)
 
+dmg.commands = hdiutil create Glitch.d.dmg -srcfolder Glitch.d
 doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name '*~' -exec rm {} \\;
 
@@ -137,7 +138,12 @@ QMAKE_DISTCLEAN     += -r .qmake* \
                        -r html \
                        -r latex \
                        -r temp
-QMAKE_EXTRA_TARGETS = doxygen purge
+
+macx {
+QMAKE_EXTRA_TARGETS += dmg
+}
+
+QMAKE_EXTRA_TARGETS += doxygen purge
 QMAKE_STRIP	    = echo
 
 macx {
@@ -252,22 +258,20 @@ TEMPLATE	= app
 # Installation Procedures
 
 macx {
-chown.extra		= chown -Rh root:wheel /Applications/Glitch.d
-chown.path		= /Applications/Glitch.d
-documentation1.extra	= cp ./Documentation/*.1 /Applications/Glitch.d/Documentation/.
-documentation1.path	= /Applications/Glitch.d/Documentation
-documentation2.extra    = cp ./Documentation/*.pdf /Applications/Glitch.d/Documentation/.
-documentation2.path     = /Applications/Glitch.d/Documentation
-documentation3.extra	= cp ./TO-DO /Applications/Glitch.d/Documentation/.
-documentation3.path	= /Applications/Glitch.d/Documentation
-documentation4.extra	= cp -r ./Documentation/Arduino /Applications/Glitch.d/Documentation/.
-documentation4.path	= /Applications/Glitch.d/Documentation
-glitch.extra	        = cp -r ./Glitch.app /Applications/Glitch.d/.
-glitch.path		= /Applications/Glitch.d
-macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt /Applications/Glitch.d/Glitch.app -executable=/Applications/Glitch.d/Glitch.app/Contents/MacOS/Glitch
+documentation1.extra	= cp ./Documentation/*.1 Glitch.d/Documentation/.
+documentation1.path	= Glitch.d/Documentation
+documentation2.extra    = cp ./Documentation/*.pdf Glitch.d/Documentation/.
+documentation2.path     = Glitch.d/Documentation
+documentation3.extra	= cp ./TO-DO Glitch.d/Documentation/.
+documentation3.path	= Glitch.d/Documentation
+documentation4.extra	= cp -r ./Documentation/Arduino Glitch.d/Documentation/.
+documentation4.path	= Glitch.d/Documentation
+glitch.extra	        = cp -r ./Glitch.app Glitch.d/.
+glitch.path		= Glitch.d
+macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt Glitch.d/Glitch.app -executable=Glitch.d/Glitch.app/Contents/MacOS/Glitch
 macdeployqt.path	= Glitch.app
-preinstall.extra	= rm -fr /Applications/Glitch.d/Glitch.app
-preinstall.path		= /Applications/Glitch.d
+preinstall.extra	= rm -fr Glitch.d/Glitch.app
+preinstall.path		= Glitch.d
 
 INSTALLS = documentation1 \
            documentation2 \
@@ -275,8 +279,7 @@ INSTALLS = documentation1 \
            documentation4 \
            preinstall \
            glitch \
-           macdeployqt \
-           chown
+           macdeployqt
 }
 
 win32 {
