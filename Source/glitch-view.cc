@@ -1139,9 +1139,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 
   if(m_sourceView)
     {
-      m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
       m_sourceViewSyntaxHighlighter->setKeywordsColors
 	(m_canvasSettings->keywordColorsAsMap());
+      m_sourceView->setPlainText(source());
+      m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
     }
 
   if(m_tools)
@@ -1155,7 +1156,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
-  if(hash != m_settings && !hash.isEmpty())
+  if(!hash.isEmpty() && hash != m_settings)
     {
       if(undo)
 	{

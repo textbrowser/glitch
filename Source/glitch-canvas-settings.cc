@@ -677,8 +677,8 @@ void glitch_canvas_settings::prepare(void)
 	  m_ui.wire_type->setCurrentIndex
 	    (m_ui.wire_type->findText(tr("Curve")));
 
-	m_settings = settings();
-	prepareKeywordColors(keywordColors);
+	prepareKeywordColors(keywordColors); // Order (a) is important.
+	m_settings = settings(); // Order (b) is important.
 	setResult(QDialog::Accepted);
 	setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
 	emit accepted(false);
