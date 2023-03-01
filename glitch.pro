@@ -143,7 +143,7 @@ QMAKE_DISTCLEAN     += -r .qmake* \
                        -r temp
 
 macx {
-QMAKE_DISTCLEAN     += -r Glitch.d                       
+QMAKE_DISTCLEAN     += -r Glitch.d
 QMAKE_EXTRA_TARGETS += dmg
 }
 
@@ -259,6 +259,19 @@ PROJECTNAME	= Glitch
 TARGET		= Glitch
 TEMPLATE	= app
 
+android {
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle.properties \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml
+}
+
 # Installation Procedures
 
 macx {
@@ -329,17 +342,4 @@ INSTALLS = documentation1 \
            plugins4 \
            qt \
            qtlibraries
-}
-
-android {
-DISTFILES += \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 }
