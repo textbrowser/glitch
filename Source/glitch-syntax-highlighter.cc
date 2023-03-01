@@ -62,7 +62,7 @@ void glitch_syntax_highlighter::setKeywordsColors
   while(it.hasNext())
     {
       it.next();
-      format.setFontWeight(QFont::Bold);
+      format.setFontWeight(QFont::ExtraBold);
       format.setForeground(it.value());
       rule.format = format;
       rule.pattern = QRegularExpression
