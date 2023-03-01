@@ -24,6 +24,20 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.02.28</p>
+<ul>
+<li>Categories icons.</li>
+<li>Corrected buddies (mnemonics).</li>
+<li>Do not display order indicators for decorative widgets.</li>
+<li>Eliminated background color of arrow widget.</li>
+<li>Improved adjust-size of constant object.</li>
+<li>New colorful icons.</li>
+<li>Qt 5.15.8 for MacOS.</li>
+<li>Retain scrollbar values in Source View.</li>
+<li>Set cursor position to 0 after setText() for textfields.</li>
+<li>Source preview highlighting. See also Canvas Settings.</li>
+<li>The first Android release was available in 2023.02.10!</li>
+</ul>
 <p>2023.02.10</p>
 <ul>
 <li>Arduino Documentation and Release Notes window titles.</li>
