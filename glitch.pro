@@ -140,6 +140,7 @@ QMAKE_DISTCLEAN     += -r .qmake* \
                        -r temp
 
 macx {
+QMAKE_DISTCLEAN     += -r Glitch.d                       
 QMAKE_EXTRA_TARGETS += dmg
 }
 
