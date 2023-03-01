@@ -212,7 +212,7 @@ settings(void) const
     m_ui.dots_grids_color->text().remove('&').trimmed();
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
-  hash[Settings::KEYWORD_COLORS] = keywordColorsFromTable().trimmed();
+  hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
@@ -241,6 +241,25 @@ settings(void) const
   return hash;
 }
 
+QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QMap<QString, QColor> map;
+  auto text(m_settings.value(KEYWORD_COLORS).toString());
+
+  foreach(const auto &string, text.mid(7).split(','))
+    {
+      auto list(string.split(';'));
+
+      if(list.size() == 2)
+	map[list.at(0)] = QColor(list.at(1));
+    }
+
+  QApplication::restoreOverrideCursor();
+  return map;
+}
+
 QString glitch_canvas_settings::categoriesIconSize(void) const
 {
   return m_settings.value(Settings::CATEGORIES_ICON_SIZE).toString().trimmed();
@@ -254,12 +273,12 @@ QString glitch_canvas_settings::defaultName(void) const
     return "Diagram";
 }
 
-QString glitch_canvas_settings::keywordColors(void) const
+QString glitch_canvas_settings::keywordColorsAsString(void) const
 {
   return m_settings.value(Settings::KEYWORD_COLORS).toString().trimmed();
 }
 
-QString glitch_canvas_settings::keywordColorsFromTable(void) const
+QString glitch_canvas_settings::keywordColorsFromTableAsString(void) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -382,7 +401,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
-	query.addBindValue(keywordColorsFromTable());
+	query.addBindValue(keywordColorsFromTableAsString());
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -1017,7 +1036,7 @@ void glitch_canvas_settings::slotSpecialCopy(void)
     return;
   else
     {
-      auto string(keywordColorsFromTable());
+      auto string(keywordColorsFromTableAsString());
 
       if(!string.isEmpty())
 	clipboard->setText(string);

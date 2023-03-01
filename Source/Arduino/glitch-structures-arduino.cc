@@ -68,7 +68,15 @@ QStringList glitch_structures_arduino::keywords(void)
     {
       it.next();
 
-      if(it.key() == "Decorations")
+      /*
+      ** Please do not translate!
+      */
+
+      if(it.key() == "Decorations" ||
+	 it.key() == "Arithmetic Operators" ||
+	 it.key() == "Bitwise Operators" ||
+	 it.key() == "Boolean Operators" ||
+	 it.key() == "Compound Operators")
 	continue;
 
       for(int i = 0; i < it.value().size(); i++)

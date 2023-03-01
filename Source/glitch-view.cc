@@ -889,6 +889,8 @@ void glitch_view::generateSourceView(void)
       m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
       m_sourceViewSyntaxHighlighter = new glitch_syntax_highlighter
 	(m_sourceView->document());
+      m_sourceViewSyntaxHighlighter->setKeywordsColors
+	(m_canvasSettings->keywordColorsAsMap());
     }
 
   m_sourceView->setPlainText(source());
@@ -1136,7 +1138,11 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_settings = m_canvasSettings->settings();
 
   if(m_sourceView)
-    m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
+    {
+      m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
+      m_sourceViewSyntaxHighlighter->setKeywordsColors
+	(m_canvasSettings->keywordColorsAsMap());
+    }
 
   if(m_tools)
     m_tools->setWindowTitle

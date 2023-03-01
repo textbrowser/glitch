@@ -158,8 +158,9 @@ class glitch_canvas_settings: public QDialog
   QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;
   QHash<glitch_canvas_settings::Settings, QVariant> settings(void) const;
+  QMap<QString, QColor> keywordColorsAsMap(void) const;
   QString categoriesIconSize(void) const;
-  QString keywordColors(void) const;
+  QString keywordColorsAsString(void) const;
   QString name(void) const;
   QString outputFile(void) const;
   QString projectIDE(void) const;
@@ -210,7 +211,7 @@ class glitch_canvas_settings: public QDialog
   Ui_glitch_canvas_settings m_ui;
   glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
-  QString keywordColorsFromTable(void) const;
+  QString keywordColorsFromTableAsString(void) const;
   void prepareKeywordColors(const QString &text);
 
  private slots:
