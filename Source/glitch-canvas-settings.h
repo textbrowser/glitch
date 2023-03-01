@@ -216,6 +216,7 @@ class glitch_canvas_settings: public QDialog
  private slots:
   void accept(void);
   void slotKeywordColorSelected(const QColor &color, const int row);
+  void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);
   void slotSelectOutputFile(void);
   void slotSelectProjectIDE(void);

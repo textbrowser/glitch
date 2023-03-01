@@ -132,6 +132,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  connect(m_ui.reset_source_view_keywords,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotResetSourceViewKeywords);
   connect(m_ui.select_output_file,
 	  &QPushButton::clicked,
 	  this,
@@ -899,6 +903,20 @@ void glitch_canvas_settings::slotKeywordColorSelected
 
   if(item)
     item->setBackground(color);
+}
+
+void glitch_canvas_settings::slotResetSourceViewKeywords(void)
+{
+  for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
+    {
+      auto item = m_ui.source_view_keywords->item(i, 1);
+
+      if(item)
+	{
+	  item->setBackground(QColor(Qt::black));
+	  item->setText(item->background().color().name());
+	}
+    }
 }
 
 void glitch_canvas_settings::slotSelectColor(void)
