@@ -171,16 +171,16 @@ void glitch_object_view::mouseMoveEvent(QMouseEvent *event)
     {
       const int offset = 7;
 
-      if(event->pos().x() >= width() - 50)
+      if(event->pos().x() >= width() - 50 && horizontalScrollBar())
 	horizontalScrollBar()->setValue
 	  (horizontalScrollBar()->value() + offset);
-      else if(event->pos().x() - 50 < 0)
+      else if(event->pos().x() - 50 < 0 && horizontalScrollBar())
 	horizontalScrollBar()->setValue
 	  (horizontalScrollBar()->value() - offset);
 
-      if(event->pos().y() >= height() - 50)
+      if(event->pos().y() >= height() - 50 && verticalScrollBar())
 	verticalScrollBar()->setValue(verticalScrollBar()->value() + offset);
-      else if(event->pos().y() - 50 < 0)
+      else if(event->pos().y() - 50 < 0 && verticalScrollBar())
 	verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
     }
 }
