@@ -243,9 +243,9 @@ Remaining Items
 - Allow removal of wire by selection.
 - Android:
   Adding user functions
+  Application icon (Completed)
   Close buttons
   Drag & drop (Completed)
-  Icon
 - Combination boxes are obscured by view's margins. Pop out of the view!
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
