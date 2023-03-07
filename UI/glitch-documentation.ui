@@ -61,7 +61,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="next">
+        <widget class="QPushButton" name="next">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -71,13 +71,10 @@
          <property name="text">
           <string>&amp;Next</string>
          </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonTextBesideIcon</enum>
-         </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="previous">
+        <widget class="QPushButton" name="previous">
          <property name="minimumSize">
           <size>
            <width>100</width>
@@ -86,9 +83,6 @@
          </property>
          <property name="text">
           <string>&amp;Previous</string>
-         </property>
-         <property name="toolButtonStyle">
-          <enum>Qt::ToolButtonTextBesideIcon</enum>
          </property>
         </widget>
        </item>
@@ -116,7 +110,7 @@
      <x>0</x>
      <y>0</y>
      <width>650</width>
-     <height>30</height>
+     <height>34</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
