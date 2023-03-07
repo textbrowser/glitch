@@ -186,7 +186,7 @@ void glitch_documentation::slotFindText(void)
   QTextDocument::FindFlags options = 0;
 #endif
 
-  if(m_ui.previous == qobject_cast<QToolButton *> (sender()))
+  if(m_ui.previous == qobject_cast<QPushButton *> (sender()))
     options = QTextDocument::FindBackward;
 
   if(m_ui.find->text().isEmpty())
