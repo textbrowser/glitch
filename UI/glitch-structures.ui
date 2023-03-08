@@ -28,6 +28,16 @@
        <number>0</number>
       </property>
       <item>
+       <widget class="QLineEdit" name="find">
+        <property name="placeholderText">
+         <string>Find</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="glitch_structures_treewidget" name="tree">
         <property name="tabKeyNavigation">
          <bool>true</bool>
@@ -76,6 +86,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>find</tabstop>
   <tabstop>tree</tabstop>
  </tabstops>
  <resources>
