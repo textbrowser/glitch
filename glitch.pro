@@ -4,11 +4,12 @@ macx {
 dmg.commands = make install && hdiutil create Glitch.d.dmg -srcfolder Glitch.d
 }
 
+unix {
 doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name '*~' -exec rm {} \\;
+}
 
 CONFIG		+= qt release warn_on
-DEFINES		+= QT_DEPRECATED_WARNINGS
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport network sql widgets
@@ -147,7 +148,10 @@ QMAKE_DISTCLEAN     += -r Glitch.d
 QMAKE_EXTRA_TARGETS += dmg
 }
 
+unix {
 QMAKE_EXTRA_TARGETS += doxygen purge
+}
+
 QMAKE_STRIP	    = echo
 
 macx {
