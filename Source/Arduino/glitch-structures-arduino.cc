@@ -39,7 +39,16 @@ QStringList glitch_structures_arduino::s_variableTypes;
 glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   QDialog(parent)
 {
+  m_filterTimer.setSingleShot(true);
   m_ui.setupUi(this);
+  connect(&m_filterTimer, // Legacy connect(). Please do not replace!
+	  SIGNAL(timeout(void)),
+	  this,
+	  SLOT(slotFilter(void)));
+  connect(m_ui.filter,
+	  SIGNAL(textChanged(const QString &)),
+	  this,
+	  SLOT(slotFilter(const QString &)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
@@ -436,4 +445,14 @@ void glitch_structures_arduino::setIconSize(const QString &t)
     m_ui.tree->setIconSize(QSize(48, 48));
   else
     m_ui.tree->setIconSize(QSize(0, 0));
+}
+
+void glitch_structures_arduino::slotFilter(const QString &text)
+{
+  Q_UNUSED(text);
+  m_filterTimer.start(250);
+}
+
+void glitch_structures_arduino::slotFilter(void)
+{
 }

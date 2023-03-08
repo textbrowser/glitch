@@ -50,7 +50,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fstack-protector-all \
                           -fwrapv \
                           -pedantic \
-                          -std=c++11
+                          -std=c++17
 } else:freebsd-* {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
@@ -68,7 +68,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fstack-protector-all \
                           -fwrapv \
                           -pedantic \
-                          -std=c++11
+                          -std=c++17
 } else:macx {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
@@ -86,7 +86,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fstack-protector-all \
                           -fwrapv \
                           -pedantic \
-                          -std=c++11
+                          -std=c++17
 } else:win32 {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
@@ -107,7 +107,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -pie \
-                          -std=c++11
+                          -std=c++17
 } else {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-qual \
@@ -130,7 +130,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -pie \
-                          -std=c++11
+                          -std=c++17
 }
 
 greaterThan(QT_MAJOR_VERSION, 5) {
@@ -178,8 +178,7 @@ OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
 MOC_DIR     = temp/moc
 OBJECTS_DIR = temp/obj
 RCC_DIR     = temp/rcc
-RESOURCES   = Documentation/documentation.qrc \
-              Icons/icons.qrc
+RESOURCES   = Documentation/documentation.qrc Icons/icons.qrc
 UI_DIR      = temp/ui
 
 FORMS          += UI/glitch-canvas-settings.ui \
@@ -265,15 +264,14 @@ TEMPLATE	= app
 
 android {
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-DISTFILES += \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml
+DISTFILES += android/AndroidManifest.xml \
+             android/build.gradle \
+             android/gradle.properties \
+             android/gradle/wrapper/gradle-wrapper.jar \
+             android/gradle/wrapper/gradle-wrapper.properties \
+             android/gradlew \
+             android/gradlew.bat \
+             android/res/values/libs.xml
 }
 
 # Installation Procedures
@@ -289,7 +287,8 @@ documentation4.extra	= cp -r ./Documentation/Arduino Glitch.d/Documentation/.
 documentation4.path	= Glitch.d/Documentation
 glitch.extra	        = cp -r ./Glitch.app Glitch.d/.
 glitch.path		= Glitch.d
-macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt Glitch.d/Glitch.app -executable=Glitch.d/Glitch.app/Contents/MacOS/Glitch
+macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt Glitch.d/Glitch.app \
+                          -executable=Glitch.d/Glitch.app/Contents/MacOS/Glitch
 macdeployqt.path	= Glitch.app
 preinstall.extra	= rm -fr Glitch.d/Glitch.app
 preinstall.path		= Glitch.d
