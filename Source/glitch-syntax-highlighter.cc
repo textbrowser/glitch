@@ -65,9 +65,16 @@ void glitch_syntax_highlighter::setKeywordsColors
       format.setFontWeight(QFont::ExtraBold);
       format.setForeground(it.value());
       rule.format = format;
-      rule.pattern = QRegularExpression
-	(QStringLiteral("\\b%1\\b").arg(it.key()),
-	 QRegularExpression::CaseInsensitiveOption);
+
+      if(it.key().startsWith('#'))
+	rule.pattern = QRegularExpression
+	  (QStringLiteral("^%1\\b").arg(it.key()),
+	   QRegularExpression::CaseInsensitiveOption);
+      else
+	rule.pattern = QRegularExpression
+	  (QStringLiteral("\\b%1\\b").arg(it.key()),
+	   QRegularExpression::CaseInsensitiveOption);
+
       m_highlightingRules.append(rule);
     }
 
