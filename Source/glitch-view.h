@@ -116,6 +116,7 @@ class glitch_view: public QWidget
  public slots:
   void slotCopy(void);
   void slotSave(void);
+  void slotUnite(void);
 
  private:
   QList<glitch_wire *> m_delayedWires;
@@ -186,7 +187,6 @@ class glitch_view: public QWidget
   void slotShowUserFunctions(void) const;
   void slotShowWires(void);
   void slotUndoStackChanged(void);
-  void slotUnite(void);
 
  signals:
   void changed(void);

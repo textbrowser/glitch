@@ -90,6 +90,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotUndo);
+  connect(m_ui.action_Unite,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::unite);
   prepareIcons();
   slotPreferencesAccepted();
   statusBar(); // Create a status bar.
@@ -226,6 +230,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	 this,
 	 SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      disconnect(this,
+		 &glitch_separated_diagram_window::unite,
+		 m_view,
+		 &glitch_view::slotUnite);
     }
 
   m_view = qobject_cast<glitch_view *> (widget);
@@ -248,6 +256,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	      this,
 	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      connect(this,
+	      &glitch_separated_diagram_window::unite,
+	      m_view,
+	      &glitch_view::slotUnite);
       QMainWindow::setCentralWidget(m_view);
       prepareActionWidgets();
       prepareToolBar();

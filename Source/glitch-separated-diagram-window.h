@@ -78,6 +78,7 @@ class glitch_separated_diagram_window: public QMainWindow
  signals:
   void copy(glitch_view *view);
   void paste(glitch_view *view);
+  void unite(void);
 };
 
 #endif
