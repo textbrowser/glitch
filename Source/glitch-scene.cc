@@ -1007,7 +1007,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  auto view = views().value(0);
 
 	  if(view && view->viewport())
-	    view->viewport()->setCursor(Qt::ClosedHandCursor);
+	    view->viewport()->setCursor(Qt::DragMoveCursor);
 	}
     }
 

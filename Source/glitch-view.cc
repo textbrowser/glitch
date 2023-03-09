@@ -222,6 +222,18 @@ QAction *glitch_view::menuAction(void) const
   return m_menuAction;
 }
 
+QImage glitch_view::snap(void) const
+{
+  QImage image(m_scene->sceneRect().size().toSize(), QImage::Format_RGB32);
+  QPainter painter;
+
+  image.fill(Qt::white);
+  painter.begin(&image);
+  m_scene->render(&painter, QRectF(), m_scene->sceneRect());
+  painter.end();
+  return image;
+}
+
 QList<QAction *> glitch_view::alignmentActions(void) const
 {
   return m_alignment->actions();

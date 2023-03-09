@@ -69,6 +69,7 @@ class glitch_view: public QWidget
 	      QWidget *parent);
   virtual ~glitch_view();
   QAction *menuAction(void) const;
+  QImage snap(void) const;
   QList<QAction *> alignmentActions(void) const;
   QList<QAction *> defaultActions(void) const;
   QList<glitch_object *> objects(void) const;

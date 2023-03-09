@@ -25,9 +25,13 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDrag>
 #include <QMenu>
+#include <QMimeData>
+#include <QMouseEvent>
 #include <QTabWidget>
 #include <QToolButton>
+#include <QtDebug>
 
 #include "glitch-tab.h"
 #include "glitch-tab-tabbar.h"
@@ -130,6 +134,56 @@ preferredCloseButtonPositionOpposite(void) const
   return buttonPosition == QTabBar::LeftSide ?
     QTabBar::RightSide : QTabBar::LeftSide;
 #endif
+}
+
+void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
+{
+  if(!event)
+    return;
+
+  if(!(event->buttons() & Qt::LeftButton))
+    return;
+  else if((event->pos() - m_dragStartPosition).manhattanLength() <
+	  QApplication::startDragDistance())
+    return;
+
+  m_dragStartPosition = QPoint();
+
+  QImage image;
+
+  if(qobject_cast<QTabWidget *> (parentWidget()))
+    {
+      auto widget = qobject_cast<glitch_view *>
+	(qobject_cast<QTabWidget *> (parentWidget())->widget(currentIndex()));
+
+      if(widget)
+	{
+	  image = widget->snap();
+	  image = image.scaled
+	    (250,
+	     250,
+	     Qt::KeepAspectRatioByExpanding,
+	     Qt::SmoothTransformation);
+	}
+      else
+	return;
+    }
+  else
+    return;
+
+  auto drag = new QDrag(this);
+  auto mimeData = new QMimeData;
+
+  drag->setHotSpot(QPoint(5, 5));
+  drag->setPixmap(QPixmap::fromImage(image));
+  drag->setMimeData(mimeData);
+  drag->exec();
+}
+
+void glitch_tab_tabbar::mousePressEvent(QMouseEvent *event)
+{
+  if(event && event->button() == Qt::LeftButton)
+    m_dragStartPosition = event->pos();
 }
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)

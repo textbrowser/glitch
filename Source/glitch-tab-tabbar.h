@@ -40,7 +40,10 @@ class glitch_tab_tabbar: public QTabBar
   QTabBar::ButtonPosition preferredCloseButtonPositionOpposite(void) const;
 
  private:
+  QPoint m_dragStartPosition;
   QSize tabSizeHint(int index) const;
+  void mouseMoveEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event);
 
  private slots:
   void slotCustomContextMenuRequested(const QPoint &point);
