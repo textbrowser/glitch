@@ -251,6 +251,7 @@ Remaining Items
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
 - Draw and, not, or, etc. objects.
+- Font full-hinting option for the application font.
 - Generate source from terminal for testing results.
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
