@@ -455,4 +455,38 @@ void glitch_structures_arduino::slotFilter(const QString &text)
 
 void glitch_structures_arduino::slotFilter(void)
 {
+  auto text(m_ui.filter->text().trimmed());
+
+  for(int i = 0; i < m_ui.tree->topLevelItemCount(); i++)
+    {
+      auto child = m_ui.tree->topLevelItem(i);
+
+      if(!child)
+	continue;
+
+      if(child->text(0).contains(text, Qt::CaseInsensitive) || text.isEmpty())
+	child->setHidden(false);
+      else if(!text.isEmpty())
+	child->setHidden(true);
+
+      for(int j = 0; j < child->childCount(); j++)
+	{
+	  auto item = child->child(j);
+
+	  if(!item)
+	    continue;
+
+	  if(item->text(0).contains(text, Qt::CaseInsensitive) ||
+	     text.isEmpty())
+	    {
+	      if(!text.isEmpty())
+		child->setExpanded(true);
+
+	      child->setHidden(false);
+	      item->setHidden(false);
+	    }
+	  else if(!text.isEmpty())
+	    item->setHidden(true);
+	}
+    }
 }
