@@ -157,14 +157,8 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 	(qobject_cast<QTabWidget *> (parentWidget())->widget(currentIndex()));
 
       if(widget)
-	{
-	  image = widget->snap();
-	  image = image.scaled
-	    (250,
-	     250,
-	     Qt::KeepAspectRatioByExpanding,
-	     Qt::SmoothTransformation);
-	}
+	image = widget->snap().scaled
+	  (250, 250, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
       else
 	return;
     }
