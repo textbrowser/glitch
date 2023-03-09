@@ -236,6 +236,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotPageSelected(int)));
   connect(m_ui.tab,
+	  SIGNAL(separate(const int)),
+	  this,
+	  SLOT(slotSeparate(const int)));
+  connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
 	  SLOT(slotCloseDiagram(int)));
@@ -1871,6 +1875,11 @@ void glitch_ui::slotSelectionChanged(void)
       m_ui.action_Select_All->setEnabled(false);
       prepareStatusBar();
     }
+}
+
+void glitch_ui::slotSeparate(const int index)
+{
+  slotSeparate(qobject_cast<glitch_view *> (m_ui.tab->widget(index)));
 }
 
 void glitch_ui::slotSeparate(glitch_view *view)

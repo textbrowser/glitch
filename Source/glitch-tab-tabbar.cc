@@ -138,14 +138,14 @@ preferredCloseButtonPositionOpposite(void) const
 
 void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
-  if(!event)
-    return;
-
-  if(!(event->buttons() & Qt::LeftButton))
-    return;
-  else if((event->pos() - m_dragStartPosition).manhattanLength() <
-	  QApplication::startDragDistance())
-    return;
+  if(!event || !(event->buttons() & Qt::LeftButton))
+    {
+      QTabBar::mouseMoveEvent(event);
+      return;
+    }
+  else
+    {
+    }
 
   m_dragStartPosition = QPoint();
 
@@ -172,11 +172,14 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
   drag->setMimeData(mimeData);
   drag->setPixmap(QPixmap::fromImage(image));
   drag->exec();
+  emit separate(currentIndex());
 }
 
 void glitch_tab_tabbar::mousePressEvent(QMouseEvent *event)
 {
-  if(event && event->button() == Qt::LeftButton)
+  QTabBar::mousePressEvent(event);
+
+  if(event && (event->buttons() & Qt::LeftButton))
     m_dragStartPosition = event->pos();
 }
 

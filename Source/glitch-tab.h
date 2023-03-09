@@ -45,6 +45,9 @@ class glitch_tab: public QTabWidget
 
  private:
   glitch_tab_tabbar *m_tabBar;
+
+ signals:
+  void separate(const int index);
 };
 
 #endif

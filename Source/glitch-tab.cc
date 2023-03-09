@@ -35,6 +35,10 @@ glitch_tab::glitch_tab(QWidget *parent):QTabWidget(parent)
 {
   m_tabBar = new glitch_tab_tabbar(this);
   m_tabBar->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(m_tabBar,
+	  SIGNAL(separate(const int)),
+	  this,
+	  SIGNAL(separate(const int)));
   setStyleSheet("QTabWidget::tab-bar {"
 		"alignment: left;"
 		"}");

@@ -47,6 +47,9 @@ class glitch_tab_tabbar: public QTabBar
 
  private slots:
   void slotCustomContextMenuRequested(const QPoint &point);
+
+ signals:
+  void separate(const int index);
 };
 
 #endif
