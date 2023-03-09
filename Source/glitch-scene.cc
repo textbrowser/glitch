@@ -1002,7 +1002,6 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       if(moved)
 	{
-	  emit changed();
 	  emit sceneResized();
 
 	  auto view = views().value(0);
