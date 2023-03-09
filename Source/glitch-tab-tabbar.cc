@@ -175,8 +175,8 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
   auto mimeData = new QMimeData;
 
   drag->setHotSpot(QPoint(5, 5));
-  drag->setPixmap(QPixmap::fromImage(image));
   drag->setMimeData(mimeData);
+  drag->setPixmap(QPixmap::fromImage(image));
   drag->exec();
 }
 
