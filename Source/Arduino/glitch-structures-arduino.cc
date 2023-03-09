@@ -464,10 +464,7 @@ void glitch_structures_arduino::slotFilter(void)
       if(!child)
 	continue;
 
-      if(child->text(0).contains(text, Qt::CaseInsensitive) || text.isEmpty())
-	child->setHidden(false);
-      else if(!text.isEmpty())
-	child->setHidden(true);
+      child->setHidden(!text.isEmpty());
 
       for(int j = 0; j < child->childCount(); j++)
 	{
