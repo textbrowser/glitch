@@ -29,7 +29,7 @@
 #define _glitch_tab_tabbar_h_
 
 #include <QTabBar>
-
+#include <QDragEnterEvent>
 class glitch_tab_tabbar: public QTabBar
 {
   Q_OBJECT
@@ -47,7 +47,7 @@ class glitch_tab_tabbar: public QTabBar
   void slotCustomContextMenuRequested(const QPoint &point);
 
  signals:
-  void separate(const int index);
+  void separate(QWidget *widget);
 };
 
 #endif

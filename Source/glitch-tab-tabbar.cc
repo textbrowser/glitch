@@ -42,8 +42,7 @@ glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
   setDocumentMode(true);
   setElideMode(Qt::ElideRight);
   setExpanding(true);
-  setStyleSheet("QTabBar::tear {"
-		"border: none; image: none; width: 0px;}");
+  setStyleSheet("QTabBar::tear {border: none; image: none; width: 0px;}");
   setUsesScrollButtons(true);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -139,7 +138,8 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
   if(!(QGuiApplication::keyboardModifiers() & Qt::ShiftModifier) ||
      !(event) ||
-     !(event->buttons() & Qt::LeftButton))
+     !(event->buttons() & Qt::LeftButton) ||
+     !(qobject_cast<QTabWidget *> (parentWidget())))
     {
       QTabBar::mouseMoveEvent(event);
       return;
@@ -154,20 +154,28 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 
       if(widget)
 	image = widget->snap().scaled
-	  (250, 250, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+	  (200, 250, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
       else
-	return;
+	{
+	  QTabBar::mouseMoveEvent(event);
+	  return;
+	}
     }
   else
-    return;
+    {
+      QTabBar::mouseMoveEvent(event);
+      return;
+    }
 
   auto drag = new QDrag(this);
+  auto index = currentIndex();
+  auto widget = qobject_cast<QTabWidget *> (parentWidget())->widget(index);
 
-  drag->setHotSpot(QPoint(5, 5));
+  drag->setHotSpot(QPoint(25, 25));
   drag->setMimeData(new QMimeData());
   drag->setPixmap(QPixmap::fromImage(image));
   drag->exec();
-  emit separate(currentIndex());
+  emit separate(widget);
 }
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)

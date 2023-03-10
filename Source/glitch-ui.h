@@ -139,7 +139,7 @@ class glitch_ui: public QMainWindow
   void slotSelectAll(void);
   void slotSelectPage(void);
   void slotSelectionChanged(void);
-  void slotSeparate(const int index);
+  void slotSeparate(QWidget *widget);
   void slotSeparate(glitch_view *view);
   void slotShowAllStructures(void);
   void slotShowAllTools(void);
