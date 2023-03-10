@@ -31,7 +31,6 @@
 #include <QMouseEvent>
 #include <QTabWidget>
 #include <QToolButton>
-#include <QtDebug>
 
 #include "glitch-tab.h"
 #include "glitch-tab-tabbar.h"
@@ -138,16 +137,13 @@ preferredCloseButtonPositionOpposite(void) const
 
 void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
-  if(!event || !(event->buttons() & Qt::LeftButton))
+  if(!(QGuiApplication::keyboardModifiers() & Qt::ShiftModifier) ||
+     !(event) ||
+     !(event->buttons() & Qt::LeftButton))
     {
       QTabBar::mouseMoveEvent(event);
       return;
     }
-  else
-    {
-    }
-
-  m_dragStartPosition = QPoint();
 
   QImage image;
 
@@ -166,21 +162,12 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
     return;
 
   auto drag = new QDrag(this);
-  auto mimeData = new QMimeData;
 
   drag->setHotSpot(QPoint(5, 5));
-  drag->setMimeData(mimeData);
+  drag->setMimeData(new QMimeData());
   drag->setPixmap(QPixmap::fromImage(image));
   drag->exec();
   emit separate(currentIndex());
-}
-
-void glitch_tab_tabbar::mousePressEvent(QMouseEvent *event)
-{
-  QTabBar::mousePressEvent(event);
-
-  if(event && (event->buttons() & Qt::LeftButton))
-    m_dragStartPosition = event->pos();
 }
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)

@@ -1248,6 +1248,15 @@ void glitch_ui::setWindowTitle(glitch_view *view)
       else
 	QMainWindow::setWindowTitle(tr("Glitch: %1").arg(view->name()));
     }
+  else if(m_currentView)
+    {
+      if(m_currentView->hasChanged())
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1 (*)").arg(m_currentView->name()));
+      else
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1").arg(m_currentView->name()));
+    }
   else
     QMainWindow::setWindowTitle(tr("Glitch"));
 }

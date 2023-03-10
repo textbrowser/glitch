@@ -61,7 +61,7 @@ int glitch_tab::addTab
     return -1;
 
   auto index = QTabWidget::addTab(view, icon, label);
-  auto pushButton = new QPushButton(tr("Save"), this);
+  auto pushButton = new QPushButton(this);
 
   connect(pushButton,
 	  &QPushButton::clicked,
@@ -69,6 +69,10 @@ int glitch_tab::addTab
 	  &glitch_view::slotSave);
   m_tabBar->setTabButton
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
+  pushButton->setIcon(QIcon::fromTheme("document-save"));
+  pushButton->setMaximumHeight(32);
+  pushButton->setMaximumWidth(32);
+  pushButton->setToolTip(tr("Save"));
   view->setTabButton(pushButton);
   return index;
 }
