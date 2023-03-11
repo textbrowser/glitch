@@ -42,6 +42,7 @@ class glitch_documentation;
 class glitch_object;
 class glitch_preferences;
 class glitch_scene;
+class glitch_separated_diagram_window;
 class glitch_view;
 class glitch_view_arduino;
 class swifty;
@@ -73,6 +74,7 @@ class glitch_ui: public QMainWindow
  private:
   QList<QShortcut *> m_tabWidgetShortcuts;
   QMessageBox m_about;
+  QPointer<glitch_separated_diagram_window> m_separateWindow;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.

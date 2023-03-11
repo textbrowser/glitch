@@ -138,8 +138,7 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
   if(!(QGuiApplication::keyboardModifiers() & Qt::ShiftModifier) ||
      !(event) ||
-     !(event->buttons() & Qt::LeftButton) ||
-     !(qobject_cast<QTabWidget *> (parentWidget())))
+     !(event->buttons() & Qt::LeftButton))
     {
       QTabBar::mouseMoveEvent(event);
       return;
@@ -167,15 +166,19 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
       return;
     }
 
+  QPixmap pixmap(1, 1);
   auto drag = new QDrag(this);
   auto index = currentIndex();
   auto widget = qobject_cast<QTabWidget *> (parentWidget())->widget(index);
 
+  pixmap.fill();
+  drag->setDragCursor(pixmap, Qt::IgnoreAction);
   drag->setHotSpot(QPoint(25, 25));
   drag->setMimeData(new QMimeData());
   drag->setPixmap(QPixmap::fromImage(image));
+  emit separate(widget); // Create an invisible separated window.
   drag->exec();
-  emit separate(widget);
+  emit separate(nullptr); // Show the separated window.
 }
 
 void glitch_tab_tabbar::slotCustomContextMenuRequested(const QPoint &point)

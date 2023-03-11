@@ -1894,7 +1894,13 @@ void glitch_ui::slotSeparate(QWidget *widget)
 void glitch_ui::slotSeparate(glitch_view *view)
 {
   if(!view)
-    return;
+    {
+      if(m_separateWindow)
+	m_separateWindow->show();
+
+      m_separateWindow = nullptr;
+      return;
+    }
 
   m_ui.tab->removeTab(m_ui.tab->indexOf(view));
 
@@ -1922,7 +1928,11 @@ void glitch_ui::slotSeparate(glitch_view *view)
   else
     window->setWindowTitle(tr("Glitch: %1").arg(view->name()));
 
-  window->show();
+  if(qobject_cast<QTabWidget *> (sender()))
+    m_separateWindow = window;
+  else
+    window->show();
+
   prepareActionWidgets();
   prepareStatusBar();
   prepareTabShortcuts();
