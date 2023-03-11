@@ -70,8 +70,12 @@ int glitch_tab::addTab
   m_tabBar->setTabButton
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
   pushButton->setIcon(QIcon::fromTheme("document-save"));
-  pushButton->setMaximumHeight(32);
-  pushButton->setMaximumWidth(32);
+
+  if(pushButton->icon().isNull())
+    pushButton->setText(tr("Save"));
+  else
+    pushButton->setMaximumWidth(32);
+
   pushButton->setToolTip(tr("Save"));
   view->setTabButton(pushButton);
   return index;
