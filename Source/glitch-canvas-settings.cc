@@ -354,6 +354,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "categories_icon_size TEXT NOT NULL, "
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
+	   "keyword_colors TEXT, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
 	   "project_ide TEXT, "
