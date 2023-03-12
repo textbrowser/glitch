@@ -370,7 +370,7 @@ void glitch_proxy_widget::paint
 			(QApplication::instance());
 
 		      if(instance &&
-			 instance->keyboardModifiers() & Qt::ShiftModifier)
+			 instance->keyboardModifiers() & Qt::ControlModifier)
 			{
 			  QIcon icon(":clear.png");
 

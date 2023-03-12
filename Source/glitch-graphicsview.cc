@@ -89,7 +89,7 @@ void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
 
   if(event &&
      event->button() == Qt::LeftButton &&
-     event->modifiers() & Qt::ShiftModifier &&
+     event->modifiers() & Qt::ControlModifier &&
      scene())
     if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
       emit customContextMenuRequested

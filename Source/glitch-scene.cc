@@ -842,8 +842,8 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto moved = false;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = views().value(0);
-	int pixels = (QGuiApplication::keyboardModifiers() & Qt::ShiftModifier)
-	  ? 50 : 1;
+	int pixels = (QGuiApplication::keyboardModifiers() &
+		      Qt::ControlModifier) ? 50 : 1;
 
 	if(view)
 	  {
@@ -936,15 +936,9 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	      }
 	  }
 
-	if(began)
-	  {
-	    if(m_undoStack)
-	      m_undoStack->endMacro();
+	if(began && m_undoStack)
+	  m_undoStack->endMacro();
 
-	    emit changed();
-	  }
-
-	if(moved)
 	  emit sceneResized();
 
 	if(view)
@@ -1056,7 +1050,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 			(QApplication::instance());
 
 		      if(instance &&
-			 instance->keyboardModifiers() & Qt::ShiftModifier)
+			 instance->keyboardModifiers() & Qt::ControlModifier)
 			{
 			  wireDisconnectObjects(event->scenePos(), proxy);
 			  goto done_label;
