@@ -166,13 +166,13 @@ class glitch_canvas_settings: public QDialog
   QString projectIDE(void) const;
   QString wireType(void) const;
   bool generatePeriodically(void) const;
+  bool notify(void);
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
   bool showOrderIndicators(void) const;
   double wireWidth(void) const;
   int redoUndoStackSize(void) const;
-  void notify(void);
   void prepare(void);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);

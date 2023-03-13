@@ -249,8 +249,8 @@ void glitch_view_arduino::generateSource(QTextStream &stream) const
 	       << endl
 	       << endl;
 #else
-      << Qt::endl
-	   << Qt::endl;
+               << Qt::endl
+	       << Qt::endl;
 #endif
     }
 
@@ -265,9 +265,8 @@ void glitch_view_arduino::generateSource(QTextStream &stream) const
 
 void glitch_view_arduino::generateSourceFile(void) const
 {
-  if(m_canvasSettings->outputFile().trimmed().isEmpty())
+  if(m_canvasSettings->notify())
     {
-      m_canvasSettings->notify();
       m_canvasSettings->show();
       return;
     }

@@ -46,7 +46,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   QDialog(parent)
 {
   m_outputFileExtension = "";
-  m_timer.start(2500);
+  m_timer.start(1500);
   m_ui.setupUi(this);
   glitch_misc::sortCombinationBox(m_ui.update_mode);
   glitch_misc::sortCombinationBox(m_ui.wire_type);
@@ -331,6 +331,29 @@ bool glitch_canvas_settings::generatePeriodically(void) const
   return m_settings.value(Settings::GENERATE_PERIODICALLY).toBool();
 }
 
+bool glitch_canvas_settings::notify(void)
+{
+  /*
+  ** Please do not issue notify() from this class!
+  */
+
+  auto notify = false;
+
+  if(m_ui.output_file->text().trimmed().isEmpty())
+    {
+      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
+      notify = true;
+    }
+
+  if(m_ui.project_ide->text().trimmed().isEmpty())
+    {
+      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
+      notify = true;
+    }
+
+  return notify;
+}
+
 bool glitch_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -474,29 +497,9 @@ void glitch_canvas_settings::accept(void)
       m_ui.name->setCursorPosition(0);
     }
 
-  notify();
   setResult(QDialog::Accepted);
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
   emit accepted(true);
-}
-
-void glitch_canvas_settings::notify(void)
-{
-  if(m_ui.output_file->text().trimmed().isEmpty())
-    {
-      m_ui.output_file_warning_label->setVisible(true);
-      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
-    }
-  else
-    m_ui.output_file_warning_label->setVisible(false);
-
-  if(m_ui.project_ide->text().trimmed().isEmpty())
-    {
-      m_ui.project_ide_warning_label->setVisible(true);
-      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
-    }
-  else
-    m_ui.project_ide_warning_label->setVisible(false);
 }
 
 void glitch_canvas_settings::prepare(void)
@@ -800,8 +803,9 @@ void glitch_canvas_settings::setRedoUndoStackSize(const int value)
 void glitch_canvas_settings::setSettings
 (const QHash<glitch_canvas_settings::Settings, QVariant> &hash)
 {
-  QColor color(hash.value(Settings::CANVAS_BACKGROUND_COLOR).
-	       toString().remove('&').trimmed());
+  QColor color
+    (hash.value(Settings::CANVAS_BACKGROUND_COLOR).toString().remove('&').
+     trimmed());
 
   m_settings = hash;
   m_ui.background_color->setStyleSheet
@@ -838,12 +842,11 @@ void glitch_canvas_settings::setSettings
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
   setShowOrderIndicators(hash.value(Settings::SHOW_ORDER_INDICATORS).toBool());
   setViewportUpdateMode
-    (QGraphicsView::ViewportUpdateMode(hash.value(Settings::
-						  VIEW_UPDATE_MODE).toInt()));
+    (QGraphicsView::
+     ViewportUpdateMode(hash.value(Settings::VIEW_UPDATE_MODE).toInt()));
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(name()));
   setWireType(hash.value(Settings::WIRE_TYPE).toString());
   setWireWidth(hash.value(Settings::WIRE_WIDTH).toDouble());
-  notify();
   emit accepted(false);
 }
 
