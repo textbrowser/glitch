@@ -141,6 +141,10 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   canvasBrush.setColor(transparentColor);
   painter.setBrush(canvasBrush);
   painter.setPen(Qt::NoPen);
+  painter.setRenderHints(QPainter::Antialiasing |
+			 QPainter::SmoothPixmapTransform |
+			 QPainter::TextAntialiasing,
+			 true);
   painter.save();
   painter.drawConvexPolygon(block, 4);
   painter.restore();
