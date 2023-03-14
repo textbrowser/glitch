@@ -47,7 +47,7 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
 glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_color = QColor(Qt::blue);
+  m_color = QColor(70, 130, 180);
   m_type = "decoration-arrow";
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, false);
@@ -261,7 +261,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_arrow = Arrows::LEFT_RIGHT;
-  m_color = QColor(Qt::blue);
+  m_color = QColor(70, 130, 180);
   m_properties[Properties::ARROW_COLOR] = m_color;
 
   for(int i = 0; i < list.size(); i++)
@@ -281,7 +281,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 	  m_color = QColor(string.trimmed());
 
 	  if(!m_color.isValid())
-	    m_color = QColor(Qt::blue);
+	    m_color = QColor(70, 130, 180);
 
 	  m_properties[Properties::ARROW_COLOR] = m_color;
 	}
