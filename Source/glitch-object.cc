@@ -676,6 +676,9 @@ void glitch_object::createActions(void)
 	      this,
 	      &glitch_object::slotSelectBorderColor);
       m_actions[DefaultMenuActions::BORDER_COLOR] = action;
+
+      if(m_type == "decoration-arrow")
+	action->setEnabled(false);
     }
 
   if(!m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))

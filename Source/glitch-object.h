@@ -146,6 +146,12 @@ class glitch_object: public QWidget
   }
 
   QList<glitch_object *> objects(void) const;
+
+  QPainterPath path(void) const
+  {
+    return m_path;
+  }
+
   QPointF scenePos(void) const;
 
   QPointer<glitch_canvas_settings> canvasSettings(void) const
@@ -290,6 +296,7 @@ class glitch_object: public QWidget
   QList<QPair<QPointF, QPointF> > m_copiedConnectionsPositions; // Cloning.
   QList<QPointer<glitch_object> > m_copiedChildren; // Cloning.
   QMap<DefaultMenuActions, QAction *> m_actions;
+  QPainterPath m_path;
   QPointF m_originalPosition; // Wiring pasted objects.
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
