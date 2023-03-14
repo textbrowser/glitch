@@ -4,7 +4,6 @@ FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
                   UI/Arduino/glitch-object-bits-and-bytes-arduino.ui \
                   UI/Arduino/glitch-object-bitwise-operator-arduino.ui \
                   UI/Arduino/glitch-object-block-comment-arduino.ui \
-                  UI/Arduino/glitch-object-boolean-operator-arduino.ui \
                   UI/Arduino/glitch-object-characters-arduino.ui \
                   UI/Arduino/glitch-object-compound-operator-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \

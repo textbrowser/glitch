@@ -29,7 +29,6 @@
 #define _glitch_object_boolean_operator_arduino_h_
 
 #include "glitch-object.h"
-#include "ui_glitch-object-boolean-operator-arduino.h"
 
 class glitch_object_boolean_operator_arduino: public glitch_object
 {
@@ -46,6 +45,12 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   glitch_object_boolean_operator_arduino(const QString &operatorType,
 					 QWidget *parent);
   ~glitch_object_boolean_operator_arduino();
+
+  QSize sizeHint(void) const
+  {
+    return QSize(50, 50);
+  }
+
   QString code(void) const;
   QString booleanOperator(void) const;
   bool hasInput(void) const;
@@ -63,13 +68,11 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   glitch_object_boolean_operator_arduino(QWidget *parent);
   glitch_object_boolean_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
-  Ui_glitch_object_boolean_operator_arduino m_ui;
+  QColor m_color;
+  void paintEvent(QPaintEvent *event);
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotBooleanOperatorChanged(void);
 };
 
 #endif

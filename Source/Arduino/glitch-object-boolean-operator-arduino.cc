@@ -41,26 +41,20 @@ glitch_object_boolean_operator_arduino
   glitch_object_boolean_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
-  m_properties[Properties::BOOLEAN_OPERATOR] =
-    m_ui.boolean_operator->currentText();
 }
 
 glitch_object_boolean_operator_arduino::
 glitch_object_boolean_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_color = QColor(230, 230, 250);
   m_operatorType = OperatorTypes::NOT_OPERATOR;
   m_type = "arduino-booleanoperator";
-  m_ui.setupUi(this);
-  m_ui.boolean_operator->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.boolean_operator,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotBooleanOperatorChanged(void)));
   prepareContextMenu();
+  resize(50, 50);
+  setAttribute(Qt::WA_OpaquePaintEvent, false);
   setOperatorType(m_operatorType);
-  m_properties[Properties::BOOLEAN_OPERATOR] =
-    m_ui.boolean_operator->currentText();
+  setStyleSheet("background-color: transparent;");
 }
 
 glitch_object_boolean_operator_arduino::
@@ -68,10 +62,23 @@ glitch_object_boolean_operator_arduino::
 {
 }
 
-QString glitch_object_boolean_operator_arduino::
-booleanOperator(void) const
+QString glitch_object_boolean_operator_arduino::booleanOperator(void) const
 {
-  return m_ui.boolean_operator->currentText();
+  switch(m_operatorType)
+    {
+    case OperatorTypes::AND_OPERATOR:
+      {
+	return "&&";
+      }
+    case OperatorTypes::OR_OPERATOR:
+      {
+	return "||";
+      }
+    default:
+      {
+	return "!";
+      }
+    }
 }
 
 QString glitch_object_boolean_operator_arduino::code(void) const
@@ -92,8 +99,7 @@ QString glitch_object_boolean_operator_arduino::code(void) const
 	    string.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      string.append
-		(QString(" %1 ").arg(m_ui.boolean_operator->currentText()));
+	      string.append(QString(" %1 ").arg(booleanOperator()));
 	  }
 
 	string = string.trimmed();
@@ -140,9 +146,12 @@ glitch_object_boolean_operator_arduino::clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
+  clone->m_color = m_color;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
+  clone->setAttribute
+    (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
   clone->setCanvasSettings(m_canvasSettings);
   clone->setOperatorType(m_operatorType);
   clone->setStyleSheet(styleSheet());
@@ -163,12 +172,78 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_properties[Properties::TRANSPARENT] = true;
   return object;
 }
 
 void glitch_object_boolean_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
+}
+
+void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
+{
+  Q_UNUSED(event);
+
+  QPainter painter(this);
+  auto brush(QBrush(m_color, Qt::SolidPattern));
+  auto color(brush.color());
+
+  color.setAlpha(255);
+  brush.setColor(color);
+  painter.setBrush(brush);
+  painter.setPen(Qt::NoPen);
+  painter.setRenderHints(QPainter::Antialiasing |
+			 QPainter::SmoothPixmapTransform |
+			 QPainter::TextAntialiasing,
+			 true);
+
+  switch(m_operatorType)
+    {
+    case OperatorTypes::AND_OPERATOR:
+      {
+	if(m_path.isEmpty())
+	  {
+	    QPolygonF polygon;
+
+	    polygon << QPointF(size().width() / 2.0, 0.0)
+		    << QPointF(0.0, 0.0)
+		    << QPointF(0.0, static_cast<qreal> (size().height()))
+		    << QPointF(size().width() / 2.0,
+			       static_cast<qreal> (size().height()));
+	    m_path.addPolygon(polygon);
+	    m_path.moveTo
+	      (size().width() / 2.0, static_cast<qreal> (size().height()));
+	    m_path.arcTo(rect(), -90.0, 180.0);
+	  }
+
+	break;
+      }
+    case OperatorTypes::OR_OPERATOR:
+      {
+	break;
+      }
+    default:
+      {
+	if(m_path.isEmpty())
+	  {
+	    QPolygonF polygon;
+
+	    polygon << QPointF(0.0, 0.0)
+		    << QPointF(static_cast<qreal> (size().width()),
+			       size().height() / 2.0)
+		    << QPointF(0.0, static_cast<qreal> (size().height()))
+		    << QPointF(0.0, 0.0);
+	    m_path.addPolygon(polygon);
+	  }
+
+	break;
+      }
+    }
+
+  painter.drawPath(m_path);
 }
 
 void glitch_object_boolean_operator_arduino::save
@@ -181,7 +256,7 @@ void glitch_object_boolean_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["boolean_operator"] = m_ui.boolean_operator->currentText();
+  properties["boolean_operator"] = booleanOperator();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -200,36 +275,15 @@ void glitch_object_boolean_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
-  m_ui.boolean_operator->blockSignals(true);
-
-  switch(m_operatorType)
-    {
-    case OperatorTypes::AND_OPERATOR:
-      {
-	m_ui.boolean_operator->setCurrentIndex(1);
-	break;
-      }
-    case OperatorTypes::OR_OPERATOR:
-      {
-	m_ui.boolean_operator->setCurrentIndex(2);
-	break;
-      }
-    default:
-      {
-	m_ui.boolean_operator->setCurrentIndex(0);
-	break;
-      }
-    }
-
-  m_ui.boolean_operator->blockSignals(false);
-  setName(m_ui.boolean_operator->currentText());
+  setName(booleanOperator());
 }
 
 void glitch_object_boolean_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::BOOLEAN_OPERATOR] = "!";
+
+  QString value("!");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -239,11 +293,11 @@ void glitch_object_boolean_operator_arduino::setProperties
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::BOOLEAN_OPERATOR] = string.trimmed();
+	  value = string.trimmed();
 	}
     }
 
-  setOperatorType(m_properties.value(Properties::BOOLEAN_OPERATOR).toString());
+  setOperatorType(value);
 }
 
 void glitch_object_boolean_operator_arduino::setProperty
@@ -255,10 +309,6 @@ void glitch_object_boolean_operator_arduino::setProperty
     {
     case Properties::BOOLEAN_OPERATOR:
       {
-	m_ui.boolean_operator->blockSignals(true);
-	m_ui.boolean_operator->setCurrentIndex
-	  (m_ui.boolean_operator->findText(value.toString()));
-	m_ui.boolean_operator->blockSignals(false);
 	setOperatorType(value.toString());
 	break;
       }
@@ -267,28 +317,4 @@ void glitch_object_boolean_operator_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_boolean_operator_arduino::slotBooleanOperatorChanged
-(void)
-{
-  setOperatorType(m_ui.boolean_operator->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.boolean_operator->currentText(),
-     m_properties.value(Properties::BOOLEAN_OPERATOR).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::BOOLEAN_OPERATOR,
-     this);
-
-  m_properties[Properties::BOOLEAN_OPERATOR] =
-    m_ui.boolean_operator->currentText();
-  undoCommand->setText
-    (tr("boolean operator changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }

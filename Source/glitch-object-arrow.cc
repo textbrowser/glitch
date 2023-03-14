@@ -89,6 +89,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
+  object->m_properties[Properties::TRANSPARENT] = true;
   return object;
 }
 

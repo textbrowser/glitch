@@ -205,8 +205,28 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
-      if(m_object && m_object->type() == "decoration-arrow")
-	{
+      if(m_object && (m_object->type() == "arduino-booleanoperator" ||
+		      m_object->type() == "decoration-arrow"))
+       	{
+	  if(!m_object->path().isEmpty())
+	    {
+	      /*
+	      ** Draw a border.
+	      */
+
+	      QPen pen;
+
+	      pen.setColor(m_object->borderColor());
+	      pen.setJoinStyle(Qt::RoundJoin);
+	      pen.setStyle(Qt::SolidLine);
+	      pen.setWidthF
+		(scene() ? (scene()->backgroundBrush().color() ==
+			    QColor(Qt::white) ? 2.5 : 3.5) : 3.5);
+	      painter->save();
+	      painter->setPen(pen);
+	      painter->drawPath(m_object->path());
+	      painter->restore();
+	    }
 	}
       else
 	{

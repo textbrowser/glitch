@@ -100,6 +100,7 @@ Completed Items
 - Documentation.
 - Dots and grids.
 - Dragging an item onto a diagram and scroll bars.
+- Draw and, not, or, etc. objects.
 - Draw disconnect symbols.
 - Draw input and output connectors.
 - Edit window icons.
@@ -250,7 +251,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Draw and, not, or, etc. objects.
 - Font full-hinting option for the application font.
 - Generate source from terminal for testing results.
 - Keywords (function names, variable names, etc.).
