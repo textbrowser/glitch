@@ -227,13 +227,12 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	if(m_path.isEmpty())
 	  {
 	    m_path.moveTo(0.0, 0.0);
-	    m_path.quadTo(QPointF(20.0, h / 2.0), QPointF(0.0, h));
-	    m_path.moveTo(0.0, 0.0);
 	    m_path.quadTo(QPointF(w / 2.0, 0), QPointF(w, h / 2.0));
-	    m_path.moveTo(0.0, h);
-	    m_path.quadTo(QPointF(w / 2.0, h), QPointF(w, h / 2.0));
+	    m_path.quadTo(QPointF(w / 2.0, h), QPointF(0.0, h));
+	    m_path.quadTo(QPointF(20.0, h / 2.0), QPointF(0.0, 0.0));
 	  }
 
+	painter.fillPath(m_path, brush);
 	break;
       }
     default:
