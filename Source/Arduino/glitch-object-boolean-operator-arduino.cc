@@ -190,6 +190,8 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   auto brush(QBrush(m_color, Qt::SolidPattern));
   auto color(brush.color());
+  auto h = static_cast<qreal> (height());
+  auto w = static_cast<qreal> (width());
 
   color.setAlpha(255);
   brush.setColor(color);
@@ -208,14 +210,12 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	  {
 	    QPolygonF polygon;
 
-	    polygon << QPointF(size().width() / 2.0, 0.0)
+	    polygon << QPointF(w / 2.0, 0.0)
 		    << QPointF(0.0, 0.0)
-		    << QPointF(0.0, static_cast<qreal> (size().height()))
-		    << QPointF(size().width() / 2.0,
-			       static_cast<qreal> (size().height()));
+		    << QPointF(0.0, h)
+		    << QPointF(w / 2.0, h);
 	    m_path.addPolygon(polygon);
-	    m_path.moveTo
-	      (size().width() / 2.0, static_cast<qreal> (size().height()));
+	    m_path.moveTo(h / 2.0, h);
 	    m_path.arcTo(rect(), -90.0, 180.0);
 	  }
 
@@ -223,6 +223,16 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
       }
     case OperatorTypes::OR_OPERATOR:
       {
+	if(m_path.isEmpty())
+	  {
+	    m_path.moveTo(0.0, 0.0);
+	    m_path.quadTo(QPointF(10.0, h / 2.0), QPointF(0.0, h));
+	    m_path.moveTo(0.0, 0.0);
+	    m_path.quadTo(QPointF(w / 2.0, 0), QPointF(w, h / 2.0));
+	    m_path.moveTo(0.0, h);
+	    m_path.quadTo(QPointF(w / 2.0, h), QPointF(w, h / 2.0));
+	  }
+
 	break;
       }
     default:
@@ -232,9 +242,8 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	    QPolygonF polygon;
 
 	    polygon << QPointF(0.0, 0.0)
-		    << QPointF(static_cast<qreal> (size().width()),
-			       size().height() / 2.0)
-		    << QPointF(0.0, static_cast<qreal> (size().height()))
+		    << QPointF(w, h / 2.0)
+		    << QPointF(0.0, h)
 		    << QPointF(0.0, 0.0);
 	    m_path.addPolygon(polygon);
 	  }
@@ -243,7 +252,7 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
       }
     }
 
-  painter.drawPath(m_path);
+  painter.fillPath(m_path, brush);
 }
 
 void glitch_object_boolean_operator_arduino::save
