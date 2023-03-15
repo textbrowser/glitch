@@ -219,6 +219,7 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	    m_path.arcTo(rect(), -90.0, 180.0);
 	  }
 
+	painter.fillPath(m_path, brush);
 	break;
       }
     case OperatorTypes::OR_OPERATOR:
@@ -226,7 +227,7 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	if(m_path.isEmpty())
 	  {
 	    m_path.moveTo(0.0, 0.0);
-	    m_path.quadTo(QPointF(10.0, h / 2.0), QPointF(0.0, h));
+	    m_path.quadTo(QPointF(20.0, h / 2.0), QPointF(0.0, h));
 	    m_path.moveTo(0.0, 0.0);
 	    m_path.quadTo(QPointF(w / 2.0, 0), QPointF(w, h / 2.0));
 	    m_path.moveTo(0.0, h);
@@ -248,11 +249,10 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	    m_path.addPolygon(polygon);
 	  }
 
+	painter.fillPath(m_path, brush);
 	break;
       }
     }
-
-  painter.fillPath(m_path, brush);
 }
 
 void glitch_object_boolean_operator_arduino::save
