@@ -314,6 +314,9 @@ void glitch_proxy_widget::paint
 
       if(m_object)
 	{
+	  auto canDisconnectInput = false;
+	  auto canDisconnectOuput = false;
+
 	  if(m_object->hasInput())
 	    {
 	      /*
@@ -328,7 +331,7 @@ void glitch_proxy_widget::paint
 			      10.0,
 			      10.0);
 
-	      if(m_object->isInputWired())
+	      if((canDisconnectInput = m_object->isInputWired()))
 		painter->fillPath
 		  (path, m_object->portColor(glitch_object::PortColors::
 					     INPUT_CONNECTED));
@@ -352,7 +355,7 @@ void glitch_proxy_widget::paint
 			      10.0,
 			      10.0);
 
-	      if(m_object->isOutputWired())
+	      if((canDisconnectOuput = m_object->isOutputWired()))
 		painter->fillPath
 		  (path, m_object->portColor(glitch_object::PortColors::
 					     OUTPUT_CONNECTED));
@@ -366,20 +369,27 @@ void glitch_proxy_widget::paint
 	     (m_hoveredSection == Sections::RIGHT && m_object->hasOutput()))
 	    {
 	      QPainterPath path;
+	      auto canDisconnect = true;
 	      auto operation = m_scene ?
 		m_scene->toolsOperation() : glitch_tools::Operations::XYZ;
 	      auto rect(this->rect());
 
 	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
-		path.addEllipse(rect.topLeft().x() - size().height() / 2.0,
-				rect.topLeft().y(),
-				size().height(),
-				size().height());
+		{
+		  canDisconnect = canDisconnectInput;
+		  path.addEllipse(rect.topLeft().x() - size().height() / 2.0,
+				  rect.topLeft().y(),
+				  size().height(),
+				  size().height());
+		}
 	      else
-		path.addEllipse(rect.topRight().x() - size().height() / 2.0,
-				rect.topRight().y(),
-				size().height(),
-				size().height());
+		{
+		  canDisconnect = canDisconnectOuput;
+		  path.addEllipse(rect.topRight().x() - size().height() / 2.0,
+				  rect.topRight().y(),
+				  size().height(),
+				  size().height());
+		}
 
 	      if(operation == glitch_tools::Operations::INTELLIGENT ||
 		 operation == glitch_tools::Operations::WIRE_DISCONNECT)
@@ -392,18 +402,28 @@ void glitch_proxy_widget::paint
 		      if(instance &&
 			 instance->keyboardModifiers() & Qt::ControlModifier)
 			{
+			  if(canDisconnect)
+			    {
+			      QIcon icon(":clear.png");
+
+			      icon.paint(painter, path.boundingRect().toRect());
+			      return;
+			    }
+			  else
+			    return;
+			}
+		    }
+		  else
+		    {
+		      if(canDisconnect)
+			{
 			  QIcon icon(":clear.png");
 
 			  icon.paint(painter, path.boundingRect().toRect());
 			  return;
 			}
-		    }
-		  else
-		    {
-		      QIcon icon(":clear.png");
-
-		      icon.paint(painter, path.boundingRect().toRect());
-		      return;
+		      else
+			return;
 		    }
 		}
 
