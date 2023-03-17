@@ -1896,7 +1896,10 @@ void glitch_ui::slotSeparate(glitch_view *view)
   if(!view)
     {
       if(m_separateWindow)
-	m_separateWindow->show();
+	{
+	  m_separateWindow->move(QCursor::pos() + QPoint(10, 10));
+	  m_separateWindow->show();
+	}
 
       m_separateWindow = nullptr;
       return;
