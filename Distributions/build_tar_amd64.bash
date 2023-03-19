@@ -11,7 +11,10 @@ fi
 make distclean 2>/dev/null
 mkdir -p ./glitch/Documentation
 mkdir -p ./glitch/Lib
-qmake -o Makefile glitch.pro && make -j $(nproc)
+qmake -o Makefile glitch.pro
+lupdate glitch.pro
+lrelease glitch.pro
+make -j $(nproc)
 cp -p ./Documentation/*.1 ./glitch/Documentation/.
 cp -p ./Glitch ./glitch/.
 cp -p ./Icons/Logo/glitch-logo.png ./glitch/.
