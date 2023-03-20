@@ -30,9 +30,8 @@
 
 #include <QPointer>
 
+#include "glitch-object.h"
 #include "ui_glitch-floating-context-menu.h"
-
-class glitch_object;
 
 class glitch_floating_context_menu: public QDialog
 {
@@ -45,14 +44,22 @@ class glitch_floating_context_menu: public QDialog
   void setIdentifier(const qint64 id);
   void setObject(glitch_object *object);
   void setName(const QString &n);
+  void setProperty
+    (const glitch_object::Properties property, const QVariant &value);
 
  public slots:
   void slotActionChanged(void);
   void slotObjectChanged(void);
+  void slotZValueChanged(qreal value);
 
  private:
+  QPointer<QDoubleSpinBox> m_zValue;
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
+
+ signals:
+  void propertyChanged
+    (const glitch_object::Properties property, const QVariant &value);
 };
 
 #endif

@@ -94,6 +94,12 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
 {
   installEventFilter(new glitch_font_filter(this));
   m_contextMenu = new glitch_floating_context_menu(parent);
+  connect(m_contextMenu,
+	  SIGNAL(propertyChanged(const glitch_object::Properties,
+				 const QVariant &)),
+	  this,
+	  SLOT(slotPropertyChanged(const glitch_object::Properties,
+				   const QVariant &)));
   m_contextMenu->setObject(this);
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
@@ -1003,7 +1009,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::TOOL_BAR_VISIBLE).toBool();
   properties["transparent"] = m_properties.value
     (Properties::TRANSPARENT).toBool();
-  properties["z_value"] = m_proxy->zValue();
+  properties["z_value"] = m_proxy ? m_proxy->zValue() : 0.0;
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -1190,6 +1196,15 @@ void glitch_object::setProperties(const QStringList &list)
 	    (m_properties.value(Properties::TRANSPARENT).toBool() ?
 	     s_windowOpacity : 1.0);
 	}
+      else if(string.simplified().startsWith("z_value = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_contextMenu->setProperty(Properties::Z_VALUE, string);
+
+	  if(m_proxy)
+	    m_proxy->setZValue(QVariant(string).toReal());
+	}
     }
 
   createActions();
@@ -1246,6 +1261,15 @@ void glitch_object::setProperty(const Properties property,
 	    (value.toBool());
 
 	setWindowOpacity(value.toBool() ? s_windowOpacity : 1.0);
+	break;
+      }
+    case Properties::Z_VALUE:
+      {
+	m_contextMenu->setProperty(property, value);
+
+	if(m_proxy)
+	  m_proxy->setZValue(value.toReal());
+
 	break;
       }
     default:
@@ -1337,7 +1361,7 @@ void glitch_object::slotActionTriggered(void)
 
   if(action->isCheckable())
     {
-      auto property = Properties::XYZ_PROPERTY;
+      auto property = Properties::Z_Z_Z_PROPERTY;
 
       switch(DefaultMenuActions(action->data().toInt()))
 	{
@@ -1456,9 +1480,35 @@ void glitch_object::slotLockPosition(void)
 }
 
 void glitch_object::slotPropertyChanged
+(const Properties property, const QVariant &value)
+{
+  if(property != Properties::Z_Z_Z_PROPERTY)
+    {
+      auto before = m_properties.value(property);
+
+      m_properties[property] = value;
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (value,
+	     before,
+	     glitch_undo_command::PROPERTY_CHANGED,
+	     property,
+	     this);
+
+	  undoCommand->setText
+	    (tr("object property changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+    }
+}
+
+void glitch_object::slotPropertyChanged
 (const QString &property, const QVariant &value)
 {
-  auto p = Properties::XYZ_PROPERTY;
+  auto p = Properties::Z_Z_Z_PROPERTY;
 
   if(property == "border_color")
     p = Properties::BORDER_COLOR;
@@ -1467,23 +1517,7 @@ void glitch_object::slotPropertyChanged
   else if(property == "tool_bar_visible")
     p = Properties::TOOL_BAR_VISIBLE;
 
-  if(p != Properties::XYZ_PROPERTY)
-    {
-      auto before = m_properties.value(p);
-
-      m_properties[p] = value;
-
-      if(m_undoStack)
-	{
-	  auto undoCommand = new glitch_undo_command
-	    (value, before, glitch_undo_command::PROPERTY_CHANGED, p, this);
-
-	  undoCommand->setText
-	    (tr("object property changed (%1, %2)").
-	     arg(scenePos().x()).arg(scenePos().y()));
-	  m_undoStack->push(undoCommand);
-	}
-    }
+  slotPropertyChanged(p, value);
 }
 
 void glitch_object::slotSelectBorderColor(void)

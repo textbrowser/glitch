@@ -47,7 +47,7 @@ glitch_undo_command::glitch_undo_command
 
   m_canvasSettings = canvasSettings;
   m_previousCanvasSettings = previousCanvasSettings;
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_type = type;
 }
 
@@ -62,7 +62,7 @@ glitch_undo_command::glitch_undo_command
     m_currentPosition = proxy->scenePos();
 
   m_previousPosition = previousPosition;
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
@@ -103,7 +103,7 @@ glitch_undo_command::glitch_undo_command
       }
     }
 
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_type = type;
   m_userFunctions = userFunctions;
 }
@@ -146,7 +146,7 @@ glitch_undo_command::glitch_undo_command
 
   m_object = object;
   m_previousString = previousString;
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_type = type;
 }
 
@@ -171,7 +171,7 @@ glitch_undo_command::glitch_undo_command
  glitch_scene *scene,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_proxy = proxy;
   m_scene = scene;
   m_type = type;
@@ -183,7 +183,7 @@ glitch_undo_command::glitch_undo_command
  glitch_wire *wire,
  QUndoCommand *parent):QUndoCommand(parent)
 {
-  m_property = glitch_object::Properties::XYZ_PROPERTY;
+  m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;
   m_scene = scene;
   m_type = type;
   m_wire = wire;

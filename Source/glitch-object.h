@@ -122,7 +122,8 @@ class glitch_object: public QWidget
     VARIABLE_PROGMEM,
     VARIABLE_QUALIFIER,
     VARIABLE_TYPE,
-    XYZ_PROPERTY
+    Z_VALUE,
+    Z_Z_Z_PROPERTY
   };
 
   glitch_object(QWidget *parent);
@@ -282,6 +283,8 @@ class glitch_object: public QWidget
   void slotSetFont(void);
   void slotSimulateDelete(void);
   void slotLockPosition(void);
+  void slotPropertyChanged
+    (const glitch_object::Properties property, const QVariant &value);
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
   void slotWireDestroyed(void);

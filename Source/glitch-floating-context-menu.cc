@@ -31,7 +31,6 @@
 #include <QShortcut>
 
 #include "glitch-floating-context-menu.h"
-#include "glitch-object.h"
 
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
@@ -82,16 +81,22 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	  if(it.key() == "z-value")
 	    {
 	      auto frame = new QFrame(this);
-	      auto layout = new QHBoxLayout(this);
-	      auto spinBox = new QSpinBox(this);
+	      auto layout = new QHBoxLayout();
+	      auto spinBox = new QDoubleSpinBox(this);
 
+	      connect(spinBox,
+		      SIGNAL(valueChanged(qreal)),
+		      this,
+		      SLOT(slotZValueChanged(qreal)));
 	      delete frame->layout();
 	      frame->setLayout(layout);
 	      layout->addWidget(new QLabel(tr("Z-Value"), this));
 	      layout->addWidget(spinBox);
 	      layout->addStretch();
+	      m_zValue = spinBox;
+	      spinBox->setDecimals(2);
 	      spinBox->setMinimumWidth(150);
-	      spinBox->setRange(-100000000L, 100000000L);
+	      spinBox->setRange(-100000000.0, 100000000.0);
 	      spinBox->setToolTip
 		(QString("[%1, %2]").
 		 arg(spinBox->minimum()).arg(spinBox->maximum()));
@@ -177,6 +182,25 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
     }
 }
 
+void glitch_floating_context_menu::setProperty
+(const glitch_object::Properties property, const QVariant &value)
+{
+  switch(property)
+    {
+    case glitch_object::Properties::Z_VALUE:
+      {
+	if(m_zValue)
+	  m_zValue->setValue(value.toReal());
+
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
 void glitch_floating_context_menu::slotActionChanged(void)
 {
   auto action = qobject_cast<QAction *> (sender());
@@ -208,4 +232,9 @@ void glitch_floating_context_menu::slotObjectChanged(void)
 	(tr("Size: %1, %2").
 	 arg(m_object->size().width()).arg(m_object->size().height()));
     }
+}
+
+void glitch_floating_context_menu::slotZValueChanged(qreal value)
+{
+  emit propertyChanged(glitch_object::Properties::Z_VALUE, value);
 }

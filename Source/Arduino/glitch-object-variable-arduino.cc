@@ -541,7 +541,7 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
   if(!comboBox)
     return;
 
-  auto property = glitch_object::Properties::XYZ_PROPERTY;
+  auto property = glitch_object::Properties::Z_Z_Z_PROPERTY;
 
   if(comboBox == m_ui.pointer_access)
     property = glitch_object::Properties::VARIABLE_POINTER_ACCESS;
