@@ -1200,10 +1200,10 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_contextMenu->setProperty(Properties::Z_VALUE, string);
-
-	  if(m_proxy)
-	    m_proxy->setZValue(QVariant(string).toReal());
+	  m_properties[Properties::Z_VALUE] =
+	    QVariant(string.trimmed()).toReal();
+	  m_contextMenu->setProperty
+	    (Properties::Z_VALUE, m_properties.value(Properties::Z_VALUE));
 	}
     }
 
@@ -1292,9 +1292,12 @@ void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
   m_proxy = proxy;
 
   if(m_proxy)
-    m_proxy->setFlag
-      (QGraphicsItem::ItemIsMovable,
-       !m_properties.value(Properties::POSITION_LOCKED).toBool());
+    {
+      m_proxy->setFlag
+	(QGraphicsItem::ItemIsMovable,
+	 !m_properties.value(Properties::POSITION_LOCKED).toBool());
+      m_proxy->setZValue(m_properties.value(Properties::Z_VALUE).toReal());
+    }
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)
