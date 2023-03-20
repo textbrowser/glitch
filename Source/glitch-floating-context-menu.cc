@@ -36,6 +36,17 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_zValue = new QDoubleSpinBox(this);
+  m_zValue->setDecimals(1);
+  m_zValue->setMinimumWidth(150);
+  m_zValue->setRange
+    (glitch_common::s_minimumZValue, glitch_common::s_maximumZValue);
+  m_zValue->setToolTip
+    (QString("[%1, %2]").arg(m_zValue->minimum()).arg(m_zValue->maximum()));
+  connect(m_zValue,
+	  SIGNAL(valueChanged(qreal)),
+	  this,
+	  SLOT(slotZValueChanged(qreal)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -57,7 +68,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
     {
       m_ui.frame->layout()->removeWidget(widget);
 
-      if(widget)
+      if(m_zValue != widget && widget)
 	widget->deleteLater();
     }
 
@@ -82,24 +93,12 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	    {
 	      auto frame = new QFrame(this);
 	      auto layout = new QHBoxLayout();
-	      auto spinBox = new QDoubleSpinBox(this);
 
-	      connect(spinBox,
-		      SIGNAL(valueChanged(qreal)),
-		      this,
-		      SLOT(slotZValueChanged(qreal)));
 	      delete frame->layout();
 	      frame->setLayout(layout);
 	      layout->addWidget(new QLabel(tr("Z-Value"), this));
-	      layout->addWidget(spinBox);
+	      layout->addWidget(m_zValue);
 	      layout->addStretch();
-	      m_zValue = spinBox;
-	      spinBox->setDecimals(2);
-	      spinBox->setMinimumWidth(150);
-	      spinBox->setRange(-100000000.0, 100000000.0);
-	      spinBox->setToolTip
-		(QString("[%1, %2]").
-		 arg(spinBox->minimum()).arg(spinBox->maximum()));
 	      m_ui.frame->layout()->addWidget(frame);
 	    }
 
@@ -189,9 +188,16 @@ void glitch_floating_context_menu::setProperty
     {
     case glitch_object::Properties::Z_VALUE:
       {
-	if(m_zValue)
-	  m_zValue->setValue(value.toReal());
-
+	disconnect(m_zValue,
+		   SIGNAL(valueChanged(qreal)),
+		   this,
+		   SLOT(slotZValueChanged(qreal)));
+	m_zValue->setValue(value.toReal());
+	m_zValue->selectAll();
+	connect(m_zValue,
+		SIGNAL(valueChanged(qreal)),
+		this,
+		SLOT(slotZValueChanged(qreal)));
 	break;
       }
     default:

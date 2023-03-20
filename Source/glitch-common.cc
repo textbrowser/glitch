@@ -30,6 +30,8 @@
 
 QChar glitch_common::s_indentationCharacter = ' ';
 qint64 glitch_common::s_dbId = 0;
+qreal glitch_common::s_maximumZValue = 100000000.0;
+qreal glitch_common::s_minimumZValue = -100000000.0;
 
 QSqlDatabase glitch_common::sqliteDatabase(void)
 {

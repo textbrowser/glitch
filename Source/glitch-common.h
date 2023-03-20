@@ -40,6 +40,8 @@ class glitch_common
   };
 
   static QChar s_indentationCharacter;
+  static qreal s_maximumZValue;
+  static qreal s_minimumZValue;
   static QSqlDatabase sqliteDatabase(void);
   static QString projectTypeToString(const ProjectTypes projectType);
   static void discardDatabase(const QString &connectionName);

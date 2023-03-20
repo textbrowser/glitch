@@ -118,6 +118,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = false;
   m_properties[Properties::TRANSPARENT] = true;
+  m_properties[Properties::Z_VALUE] = 0.0;
 
   {
     auto view = qobject_cast<glitch_object_view *> (parent);
@@ -1009,7 +1010,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::TOOL_BAR_VISIBLE).toBool();
   properties["transparent"] = m_properties.value
     (Properties::TRANSPARENT).toBool();
-  properties["z_value"] = m_proxy ? m_proxy->zValue() : 0.0;
+  properties["z_value"] = m_properties.value(Properties::Z_VALUE).toReal();
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);
@@ -1200,10 +1201,10 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
+	  m_contextMenu->setProperty
+	    (Properties::Z_VALUE, QVariant(string.trimmed()).toReal());
 	  m_properties[Properties::Z_VALUE] =
 	    QVariant(string.trimmed()).toReal();
-	  m_contextMenu->setProperty
-	    (Properties::Z_VALUE, m_properties.value(Properties::Z_VALUE));
 	}
     }
 

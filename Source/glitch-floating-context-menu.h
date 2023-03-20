@@ -53,7 +53,7 @@ class glitch_floating_context_menu: public QDialog
   void slotZValueChanged(qreal value);
 
  private:
-  QPointer<QDoubleSpinBox> m_zValue;
+  QDoubleSpinBox *m_zValue;
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
 

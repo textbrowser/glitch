@@ -41,7 +41,7 @@ glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
   m_wireWidth = s_penWidth;
   setCacheMode(QGraphicsItem::NoCache);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
-  setZValue(-1);
+  setZValue(glitch_common::s_minimumZValue - static_cast<qreal> (1));
 }
 
 glitch_wire::~glitch_wire()
