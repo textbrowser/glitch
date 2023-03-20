@@ -68,6 +68,8 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
     if(action)
       map[action->text().remove('&')] = action;
 
+  map["z-value"] = nullptr;
+
   QMapIterator<QString, QAction *> it(map);
   int i = 0;
 
@@ -76,7 +78,28 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
       it.next();
 
       if(!it.value())
-	continue;
+	{
+	  if(it.key() == "z-value")
+	    {
+	      auto frame = new QFrame(this);
+	      auto layout = new QHBoxLayout(this);
+	      auto spinBox = new QSpinBox(this);
+
+	      delete frame->layout();
+	      frame->setLayout(layout);
+	      layout->addWidget(new QLabel(tr("Z-Value"), this));
+	      layout->addWidget(spinBox);
+	      layout->addStretch();
+	      spinBox->setMinimumWidth(150);
+	      spinBox->setRange(-100000000L, 100000000L);
+	      spinBox->setToolTip
+		(QString("[%1, %2]").
+		 arg(spinBox->minimum()).arg(spinBox->maximum()));
+	      m_ui.frame->layout()->addWidget(frame);
+	    }
+
+	  continue;
+	}
 
       if(it.value()->isCheckable())
 	{

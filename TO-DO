@@ -251,6 +251,10 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
+- Find Objects:
+  Copy context-menu action
+  Delete context-menu action
+  Edit context-menu action
 - Font full-hinting option for the application font.
 - Generate source from terminal for testing results.
 - Keywords (function names, variable names, etc.).
