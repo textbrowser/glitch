@@ -1003,6 +1003,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::TOOL_BAR_VISIBLE).toBool();
   properties["transparent"] = m_properties.value
     (Properties::TRANSPARENT).toBool();
+  properties["z_value"] = m_proxy->zValue();
 
   QMapIterator<QString, QVariant> it(properties);
   QSqlQuery query(db);

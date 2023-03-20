@@ -48,7 +48,7 @@
           <item>
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Connect, disconnect, or select. To disconnect, press and hold the Shift key and then click the desired object to disconnect.</string>
+             <string>Connect, disconnect, or select. To disconnect, press and hold the Control key and then click the desired object to disconnect.</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
