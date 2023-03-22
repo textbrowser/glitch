@@ -131,6 +131,9 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	continue;
       else
 	{
+	  if(it.key().startsWith(tr("Floating Context Menu")))
+	    continue;
+
 	  auto pushButton = new QPushButton(this);
 
 	  it.value()->setProperty("index", i++);
