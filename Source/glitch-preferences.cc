@@ -79,6 +79,13 @@ void glitch_preferences::processSettings(void)
     m_ui.display_application_font->setText
       (QApplication::font().toString().trimmed());
 
+  m_ui.font_hinting->setCurrentIndex
+    (m_ui.font_hinting->
+     findText(settings.value("preferences/font_hinting").toString().trimmed()));
+
+  if(m_ui.font_hinting->currentIndex() < 0)
+    m_ui.font_hinting->setCurrentIndex(0); // Default
+
   auto language(settings.value("preferences/language").toString().trimmed());
 
   for(int i = 0; i < m_ui.display_language->count(); i++)
@@ -105,6 +112,8 @@ void glitch_preferences::slotApply(void)
   settings.setValue
     ("preferences/application_font",
      m_ui.display_application_font->text().remove('&'));
+  settings.setValue
+    ("preferences/font_hinting", m_ui.font_hinting->currentText());
   settings.setValue
     ("preferences/language", m_ui.display_language->currentData().toString());
   settings.setValue
