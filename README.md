@@ -9,6 +9,7 @@
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
+<li>Graphical lightweight interactive tool and compiler hybrid.</li>
 <li>Infinite diagrams.</li>
 <li>Modern C++.</li>
 <li>Object alignment tools.</li>
