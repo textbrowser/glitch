@@ -111,6 +111,7 @@ Completed Items
 - Find objects.
 - Flow-control objects and edit views (break does not have a view).
 - Flow-control syntax colors.
+- Font hinting option for the application font.
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
 - Function clones.
@@ -256,7 +257,6 @@ Remaining Items
   Copy context-menu action
   Delete context-menu action
   Edit context-menu action
-- Font full-hinting option for the application font.
 - Generate source from terminal for testing results.
 - Keywords (function names, variable names, etc.).
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
