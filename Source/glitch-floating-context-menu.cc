@@ -36,7 +36,6 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
-  m_zValue = nullptr;
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -94,8 +93,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		 glitch_common::s_maximumZValue);
 	      m_zValue->setToolTip
 		(QString("[%1, %2]").
-		 arg(m_zValue->minimum()).
-		 arg(m_zValue->maximum()));
+		 arg(m_zValue->minimum()).arg(m_zValue->maximum()));
 	      m_zValue->setValue(property("z-value").toReal());
 	      connect(m_zValue,
 		      SIGNAL(valueChanged(qreal)),
