@@ -264,6 +264,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setTabsClosable(true);
   m_ui.toolBar->setIconSize(QSize(24, 24));
   prepareActionWidgets();
+  prepareFonts();
   prepareIcons();
   prepareRecentFiles();
   prepareToolBar();
@@ -917,12 +918,21 @@ void glitch_ui::prepareFonts(void)
 
   QFont font;
   QSettings settings;
-  auto string
+  auto string1
     (settings.value("preferences/application_font").
      toString().remove('&').trimmed());
+  auto string2
+    (settings.value("preferences/font_hinting").toString().trimmed());
 
-  if(!string.isEmpty() && !font.fromString(string))
+  if(!string1.isEmpty() && !font.fromString(string1))
     font = QApplication::font();
+
+  if(string2 == tr("Full"))
+    font.setHintingPreference(QFont::PreferFullHinting);
+  else if(string2 == tr("None"))
+    font.setHintingPreference(QFont::PreferNoHinting);
+  else
+    font.setHintingPreference(QFont::PreferDefaultHinting);
 
   font.setStyleStrategy
     (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
@@ -1183,7 +1193,6 @@ void glitch_ui::restoreSettings(void)
   m_ui.action_View_Tools->setChecked
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
-  prepareFonts();
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
