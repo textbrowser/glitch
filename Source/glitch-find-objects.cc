@@ -104,6 +104,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 		SLOT(close(void)));
   setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   setWindowModality(Qt::NonModal);
+  QTimer::singleShot(100, this, SLOT(slotFind(void)));
 }
 
 glitch_find_objects::~glitch_find_objects()

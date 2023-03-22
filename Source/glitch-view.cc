@@ -60,7 +60,7 @@ glitch_view::glitch_view
 (const QString &fileName,
  const QString &name,
  const glitch_common::ProjectTypes projectType,
- QWidget *parent):QWidget(parent)
+ QWidget *parent):QWidget(parent), m_scene(nullptr)
 {
   m_ui.setupUi(this);
   m_alignment = new glitch_alignment(this);
@@ -254,10 +254,7 @@ QList<glitch_object *> glitch_view::objects(void) const
 
 QList<glitch_object *> glitch_view::selectedObjects(void) const
 {
-  if(m_scene)
-    return m_scene->selectedObjects();
-  else
-    return QList<glitch_object *> ();
+  return m_scene->selectedObjects();
 }
 
 QMenu *glitch_view::defaultContextMenu(void)
