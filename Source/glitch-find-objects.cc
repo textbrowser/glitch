@@ -26,6 +26,7 @@
 */
 
 #include <QShortcut>
+#include <QStatusBar>
 
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-find-objects.h"
@@ -81,6 +82,7 @@ class glitch_find_objects_position_item: public QTreeWidgetItem
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {
+  m_count = 0;
   m_ui.setupUi(this);
   connect(m_ui.close,
 	  &QPushButton::clicked,
@@ -94,6 +96,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 	  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 	  this,
 	  SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
+  layout()->addWidget(m_statusBar = new QStatusBar(this));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
@@ -125,6 +128,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->type());
+	m_count += 1;
 	find(item, child);
       }
 }
@@ -132,6 +136,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
 void glitch_find_objects::find(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  m_count = 0;
   m_ui.tree->clear();
 
   if(m_view)
@@ -146,6 +151,7 @@ void glitch_find_objects::find(void)
 	    item->setText
 	      (static_cast<int> (Columns::Position), object->position());
 	    item->setText(static_cast<int> (Columns::Type), object->type());
+	    m_count += 1;
 	    m_ui.tree->addTopLevelItem(item);
 	    find(item, object);
 	  }
@@ -156,6 +162,7 @@ void glitch_find_objects::find(void)
   else
     m_ui.tree->collapseAll();
 
+  m_statusBar->showMessage(tr("%1 object(s).").arg(m_count));
   m_ui.tree->resizeColumnToContents(0);
   QApplication::restoreOverrideCursor();
 }
