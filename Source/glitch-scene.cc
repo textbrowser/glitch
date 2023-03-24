@@ -832,6 +832,12 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
   switch(event->key())
     {
+    case Qt::Key_Backspace:
+    case Qt::Key_Delete:
+      {
+	deleteItems();
+	break;
+      }
     case Qt::Key_Down:
     case Qt::Key_Left:
     case Qt::Key_Right:
