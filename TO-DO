@@ -126,6 +126,7 @@ Completed Items
 - Generate view.
 - Group delete.
 - Hide alignment options.
+- Keywords (function names, variable names, etc.). Highlight errors.
 - Horizontal arrow object for decorating:
   Color
   Show both, left, or right arrows
@@ -259,7 +260,6 @@ Remaining Items
   Delete context-menu action
   Edit context-menu action
 - Generate source from terminal for testing results.
-- Keywords (function names, variable names, etc.). Highlight errors.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

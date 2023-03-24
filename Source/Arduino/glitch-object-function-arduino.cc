@@ -815,6 +815,14 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       if(m_ui.label->text() == text)
 	return;
 
+      if(glitch_structures_arduino::isReserved(text))
+	{
+	  glitch_misc::showErrorDialog
+	    (tr("The function name %1 is a reserved keyword. "
+		"Please select another name.").arg(text), m_parent);
+	  goto restart_label;
+	}
+
       if(m_parentView && m_parentView->containsFunctionName(text))
 	{
 	  glitch_misc::showErrorDialog

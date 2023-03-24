@@ -181,7 +181,7 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
 bool glitch_structures_arduino::isReserved(const QString &t)
 {
   QMapIterator<QString, QStringList> it(s_itemsForCategories);
-  auto text(t.trimmed());
+  auto text(QString(t).remove('(').remove(')').trimmed());
 
   while(it.hasNext())
     {
