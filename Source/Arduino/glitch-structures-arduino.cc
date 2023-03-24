@@ -178,6 +178,37 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
   return false;
 }
 
+bool glitch_structures_arduino::isReserved(const QString &t)
+{
+  QMapIterator<QString, QStringList> it(s_itemsForCategories);
+  auto text(t.trimmed());
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      /*
+      ** Please do not translate!
+      */
+
+      if(it.key() == "Decorations")
+	continue;
+
+      for(int i = 0; i < it.value().size(); i++)
+	if(it.value().at(i) == text)
+	  return true;
+    }
+
+  if(text == "const" ||
+     text == "loop" ||
+     text == "setup" ||
+     text == "static" ||
+     text == "volatile")
+    return true;
+
+  return false;
+}
+
 void glitch_structures_arduino::prepareCategories(void)
 {
   /*

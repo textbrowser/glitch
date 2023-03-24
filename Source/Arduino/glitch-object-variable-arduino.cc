@@ -44,6 +44,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 
   string.remove("glitch-arduino-variables-");
   m_ui.array->setChecked(string.contains("array"));
+  m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
   m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove("array ")));
   m_properties[Properties::VARIABLE_ARRAY] = m_ui.array->isChecked();
   m_properties[Properties::VARIABLE_NAME] = "";
@@ -58,6 +59,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
+  m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
   m_ui.qualifier->installEventFilter(new glitch_scroll_filter(this));
   m_ui.pointer_access->installEventFilter(new glitch_scroll_filter(this));
 
@@ -264,6 +266,7 @@ clone(QWidget *parent) const
   clone->compressWidget
     (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   clone->connectSignals(true);
+  clone->prepareHighlights();
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setName(clone->name());
@@ -366,6 +369,17 @@ void glitch_object_variable_arduino::connectSignals(const bool state)
     }
 }
 
+void glitch_object_variable_arduino::prepareHighlights(void)
+{
+  auto text(m_ui.name->text());
+
+  if(glitch_structures_arduino::isReserved(text) ||
+     text.contains(QRegularExpression("^[a-zA-Z_$][a-zA-Z_$0-9]*$")) == false)
+    m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
+  else
+    m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
+}
+
 void glitch_object_variable_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -415,6 +429,7 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 	  m_properties[Properties::VARIABLE_NAME] = string.trimmed();
 	  m_ui.name->setText(string.trimmed());
 	  m_ui.name->setCursorPosition(0);
+	  prepareHighlights();
 	  setName(m_ui.name->text());
 	}
       else if(string.simplified().startsWith("variable_pointer_access = "))
@@ -486,6 +501,7 @@ void glitch_object_variable_arduino::setProperty
 	  m_ui.name->setText(value.toString().trimmed());
 
 	m_ui.name->setCursorPosition(0);
+	prepareHighlights();
 	setName(m_ui.name->text());
 	break;
       }
@@ -575,6 +591,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
   lineEdit->setText(lineEdit->text().trimmed());
   lineEdit->setCursorPosition(0);
   lineEdit->selectAll();
+  prepareHighlights();
 
   if(!m_undoStack)
     return;

@@ -47,6 +47,7 @@ class glitch_structures_arduino: public QDialog
   static QStringList nonArrayVariableTypes(void);
   static QStringList variableTypes(void);
   static bool containsStructure(const QString &structureName);
+  static bool isReserved(const QString &t);
   void setIconSize(const QString &t);
 
  private:
