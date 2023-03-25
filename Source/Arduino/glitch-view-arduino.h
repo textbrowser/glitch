@@ -28,8 +28,11 @@
 #ifndef _glitch_view_arduino_h_
 #define _glitch_view_arduino_h_
 
+#include <QListWidget>
+
 #include "glitch-view.h"
 
+class QListWidget;
 class glitch_object_loop_arduino;
 class glitch_object_setup_arduino;
 class glitch_structures_arduino;
@@ -61,6 +64,7 @@ class glitch_view_arduino: public glitch_view
   void unite(void);
 
  private:
+  QListWidget *m_dockedWidgetPropertyEditors;
   QMap<QString, char> m_functionNames;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;

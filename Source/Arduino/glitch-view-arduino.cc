@@ -51,6 +51,7 @@ glitch_view_arduino::glitch_view_arduino
   m_canvasSettings->setOutputFileExtension
     (glitch_view_arduino::projectOutputFileExtension());
   m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());
+  m_dockedWidgetPropertyEditors = new QListWidget(this);
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);
@@ -96,8 +97,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SLOT(slotSilentSave(void)));
   m_splitter->addWidget(m_arduinoStructures->frame());
   m_splitter->addWidget(m_view);
+  m_splitter->addWidget(m_dockedWidgetPropertyEditors);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
+  m_splitter->setStretchFactor(2, 0);
 }
 
 glitch_view_arduino::~glitch_view_arduino()
