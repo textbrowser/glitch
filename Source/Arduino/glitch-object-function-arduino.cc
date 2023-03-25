@@ -83,7 +83,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 	      &QTimer::timeout,
 	      this,
 	      &glitch_object_function_arduino::slotFindParentFunctionTimeout);
-      m_findParentFunctionTimer.start(100);
+      m_findParentFunctionTimer.start(10);
     }
 
   m_editView = nullptr;
@@ -101,6 +101,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.return_type->setEnabled(false);
   m_ui.return_type->setToolTip
     (tr("Return type is disabled on function clone."));
+  hideOrShowOccupied();
   prepareContextMenu();
 }
 
@@ -137,7 +138,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
 	     &QTimer::timeout,
 	     this,
 	     &glitch_object_function_arduino::slotFindParentFunctionTimeout);
-	  m_findParentFunctionTimer.start(100);
+	  m_findParentFunctionTimer.start(10);
 	}
 
       m_editView = nullptr;
@@ -152,6 +153,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.return_type->setEnabled(false);
       m_ui.return_type->setToolTip
 	(tr("Return type is disabled on function clone."));
+      hideOrShowOccupied();
       prepareContextMenu();
     }
 }
@@ -516,6 +518,16 @@ void glitch_object_function_arduino::hideOrShowOccupied(void)
   auto scene = editScene();
 
   if(!scene)
+    {
+      /*
+      ** A function clone.
+      */
+
+      if(m_parentFunction)
+	scene = m_parentFunction->editScene();
+    }
+
+  if(!scene)
     return;
 
   m_occupied = !scene->objects().isEmpty();
@@ -632,7 +644,7 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	       this,
 	       &glitch_object_function_arduino::slotFindParentFunctionTimeout,
 	       Qt::UniqueConnection);
-	    m_findParentFunctionTimer.start(100);
+	    m_findParentFunctionTimer.start(10);
 	  }
 
 	m_ui.return_type->setEnabled(!m_isFunctionClone);
@@ -736,6 +748,7 @@ void glitch_object_function_arduino::slotFindParentFunctionTimeout(void)
 	      Qt::UniqueConnection);
       m_findParentFunctionTimer.stop();
       m_undoStack = m_parentFunction->m_undoStack;
+      hideOrShowOccupied();
       slotParentFunctionChanged();
     }
 }

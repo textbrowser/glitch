@@ -217,6 +217,7 @@ Completed Items
 - The name of the display in settings should be separate from the file name.
 - Tools Bar?
 - Transparent widgets, if system allows it.
+- Underline function clone name if parent function has members.
 - Undo macros for group actions.
 - Unite separated windows.
 - Variable (combination boxes) functions.
