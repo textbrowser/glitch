@@ -79,6 +79,9 @@ void glitch_preferences::processSettings(void)
     m_ui.display_application_font->setText
       (QApplication::font().toString().trimmed());
 
+  m_ui.docked_widget_property_editors->setChecked
+    (settings.value("preferences/docked_widget_property_editors", false).
+     toBool());
   m_ui.font_hinting->setCurrentIndex
     (m_ui.font_hinting->
      findText(settings.value("preferences/font_hinting").toString().trimmed()));
@@ -112,6 +115,9 @@ void glitch_preferences::slotApply(void)
   settings.setValue
     ("preferences/application_font",
      m_ui.display_application_font->text().remove('&'));
+  settings.setValue
+    ("preferences/docked_widget_property_editors",
+     m_ui.docked_widget_property_editors->isChecked());
   settings.setValue
     ("preferences/font_hinting", m_ui.font_hinting->currentText());
   settings.setValue
