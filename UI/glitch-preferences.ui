@@ -31,8 +31,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>488</width>
-        <height>494</height>
+        <width>476</width>
+        <height>486</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -120,6 +120,13 @@
             </layout>
            </item>
            <item>
+            <widget class="QCheckBox" name="docked_widget_property_editors">
+             <property name="text">
+              <string>Docked Widget Property Editors</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label">
@@ -200,6 +207,7 @@
   <tabstop>tab</tabstop>
   <tabstop>display_application_font</tabstop>
   <tabstop>font_hinting</tabstop>
+  <tabstop>docked_widget_property_editors</tabstop>
   <tabstop>display_language</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
  </tabstops>
