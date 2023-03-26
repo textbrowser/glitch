@@ -52,6 +52,7 @@ glitch_view_arduino::glitch_view_arduino
     (glitch_view_arduino::projectOutputFileExtension());
   m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());
   m_dockedWidgetPropertyEditors = new QListWidget(this);
+  m_dockedWidgetPropertyEditors->setVisible(false);
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);
@@ -101,6 +102,7 @@ glitch_view_arduino::glitch_view_arduino
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);
+  slotPreferencesAccepted();
 }
 
 glitch_view_arduino::~glitch_view_arduino()
@@ -329,6 +331,11 @@ void glitch_view_arduino::slotFunctionAdded(const QString &name,
 void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 {
   removeFunctionName(name);
+}
+
+void glitch_view_arduino::slotPreferencesAccepted(void)
+{
+  m_dockedWidgetPropertyEditors->setVisible(true);
 }
 
 void glitch_view_arduino::slotShowStructures(void)

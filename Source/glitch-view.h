@@ -115,6 +115,7 @@ class glitch_view: public QWidget
   void undo(void);
 
  public slots:
+  virtual void slotPreferencesAccepted(void);
   void slotCopy(void);
   void slotSave(void);
   void slotUnite(void);

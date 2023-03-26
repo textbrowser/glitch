@@ -1281,6 +1281,10 @@ void glitch_view::slotPaste(void)
   emit paste(this);
 }
 
+void glitch_view::slotPreferencesAccepted(void)
+{
+}
+
 void glitch_view::slotResizeScene(void)
 {
   setSceneRect(m_view->size());

@@ -63,6 +63,9 @@ class glitch_view_arduino: public glitch_view
   void showStructures(void);
   void unite(void);
 
+ public slots:
+  void slotPreferencesAccepted(void);
+
  private:
   QListWidget *m_dockedWidgetPropertyEditors;
   QMap<QString, char> m_functionNames;

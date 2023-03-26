@@ -409,6 +409,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
        glitch_common::ProjectTypes::ArduinoProject,
        this);
 
+  connect(m_preferences,
+	  &glitch_preferences::accept,
+	  view,
+	  &glitch_view::slotPreferencesAccepted);
   connect(view,
 	  &glitch_view_arduino::changed,
 	  this,
@@ -2029,6 +2033,7 @@ void glitch_ui::slotShowFullScreenMode(void)
 
 void glitch_ui::slotShowPreferences(void)
 {
+  m_preferences->resize(600, m_preferences->sizeHint().height());
   m_preferences->show();
 }
 
