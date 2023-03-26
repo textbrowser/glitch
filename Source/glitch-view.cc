@@ -144,6 +144,10 @@ glitch_view::glitch_view
 	  SLOT(slotSceneObjectDestroyed(QObject *)),
 	  Qt::QueuedConnection);
   connect(m_scene,
+	  SIGNAL(dockPropertyEditor(QWidget *)),
+	  this,
+	  SLOT(slotDockPropertyEditor(QWidget *)));
+  connect(m_scene,
 	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
 	  SLOT(slotFunctionAdded(const QString &, const bool)));
@@ -1222,6 +1226,12 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
     return;
 
   menu->exec(mapToGlobal(point));
+}
+
+void glitch_view::slotDockPropertyEditor(QWidget *widget)
+{
+  if(!widget)
+    return;
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)

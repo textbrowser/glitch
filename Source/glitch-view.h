@@ -170,7 +170,7 @@ class glitch_view: public QWidget
   virtual void slotShowStructures(void) = 0;
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
-  void slotGenerate(void);
+  void slotDockPropertyEditor(QWidget *widget);
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotFunctionNameChanged(const QString &after,
@@ -179,6 +179,7 @@ class glitch_view: public QWidget
   void slotFunctionReturnTypeChanged(const QString &after,
 				     const QString &before,
 				     glitch_object *object);
+  void slotGenerate(void);
   void slotPaste(void);
   void slotResizeScene(void);
   void slotSaveAs(void);

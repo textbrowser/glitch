@@ -317,6 +317,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  SIGNAL(destroyed(QObject *)),
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
   connect(object,
+	  SIGNAL(dockPropertyEditor(QWidget *)),
+	  this,
+	  SIGNAL(dockPropertyEditor(QWidget *)),
+	  Qt::UniqueConnection);
+  connect(object,
 	  &glitch_object::saveSignal,
 	  this,
 	  &glitch_scene::saveSignal,
