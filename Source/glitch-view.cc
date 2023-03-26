@@ -32,6 +32,7 @@
 #include <QMenu>
 #include <QProcess>
 #include <QResizeEvent>
+#include <QSettings>
 #include <QScrollBar>
 #include <QSplitter>
 #include <QSqlError>
@@ -76,12 +77,12 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors->setAlternatingRowColors(true);
   m_dockedWidgetPropertyEditors->setColumnCount(1);
   m_dockedWidgetPropertyEditors->setCornerButtonEnabled(false);
+  m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
+    (QStringList() << tr("Widget Property Editors"));
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_dockedWidgetPropertyEditors->setSelectionMode
     (QAbstractItemView::SingleSelection);
   m_dockedWidgetPropertyEditors->setSortingEnabled(false);
-  m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
-    (QStringList() << tr("Widget Property Editors"));
   m_dockedWidgetPropertyEditors->setVisible(false);
   m_dockedWidgetPropertyEditors->verticalHeader()->setVisible(false);
   m_fileName = fileName;
@@ -1233,18 +1234,15 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
 
 void glitch_view::slotDockPropertyEditor(QWidget *widget)
 {
-  if(!widget)
-    return;
-
   auto menu = qobject_cast<glitch_floating_context_menu *> (widget);
 
-  if(!menu || !menu->frame())
+  if(!menu)
     return;
 
   auto found = false;
 
   for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
-    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu->frame())
+    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu)
       {
 	found = true;
 	m_dockedWidgetPropertyEditors->scrollToItem
@@ -1256,13 +1254,15 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
     {
       auto item = new QTableWidgetItem();
 
+      menu->docked(true);
       m_dockedWidgetPropertyEditors->setRowCount
 	(m_dockedWidgetPropertyEditors->rowCount() + 1);
       m_dockedWidgetPropertyEditors->setCellWidget
-	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu->frame());
+	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu);
       m_dockedWidgetPropertyEditors->setItem
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, item);
-      m_dockedWidgetPropertyEditors->resizeRowsToContents();
+      m_dockedWidgetPropertyEditors->setRowHeight
+	(m_dockedWidgetPropertyEditors->rowCount() - 1, 550);
       m_dockedWidgetPropertyEditors->scrollToBottom();
     }
 }
@@ -1339,6 +1339,23 @@ void glitch_view::slotPaste(void)
 
 void glitch_view::slotPreferencesAccepted(void)
 {
+  QSettings settings;
+  auto state = settings.value
+    ("preferenes/docked_widget_property_editors").toBool();
+
+  if(state)
+    {
+      for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
+	{
+	  auto widget = m_dockedWidgetPropertyEditors->cellWidget(i, 0);
+
+	  if(widget)
+	    {
+	    }
+	}
+
+      m_dockedWidgetPropertyEditors->setRowCount(0);
+    }
 }
 
 void glitch_view::slotResizeScene(void)

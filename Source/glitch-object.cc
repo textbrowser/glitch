@@ -1643,7 +1643,6 @@ void glitch_object::slotShowContextMenu(void)
   m_menu.clear();
   addActions(m_menu);
   m_contextMenu->addActions(m_actions.values());
-  m_contextMenu->resize(400, 650);
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
 
@@ -1652,7 +1651,10 @@ void glitch_object::slotShowContextMenu(void)
   if(settings.value("preferences/docked_widget_property_editors").toBool())
     emit dockPropertyEditor(m_contextMenu);
   else
-    m_contextMenu->show();
+    {
+      m_contextMenu->resize(400, 650);
+      m_contextMenu->show();
+    }
 }
 
 void glitch_object::slotSimulateDelete(void)

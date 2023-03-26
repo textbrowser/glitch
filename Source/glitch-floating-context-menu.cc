@@ -35,10 +35,10 @@
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
+  m_shortcut = new QShortcut(tr("Ctrl+W"),
+			     this,
+			     SLOT(close(void)));
   m_ui.setupUi(this);
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
   resize(sizeHint());
   setWindowModality(Qt::NonModal);
 }
@@ -47,11 +47,6 @@ glitch_floating_context_menu::~glitch_floating_context_menu()
 {
   if(m_object)
     disconnect(m_object, nullptr, this, nullptr);
-}
-
-QFrame *glitch_floating_context_menu::frame(void) const
-{
-  return m_ui.frame;
 }
 
 void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
@@ -166,6 +161,12 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
     }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_floating_context_menu::docked(const bool state)
+{
+  m_shortcut->setEnabled(!state);
+  m_ui.buttonBox->setVisible(!state);
 }
 
 void glitch_floating_context_menu::setIdentifier(const qint64 id)
