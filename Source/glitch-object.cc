@@ -27,6 +27,7 @@
 
 #include <QColorDialog>
 #include <QScrollBar>
+#include <QSettings>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QtDebug>
@@ -1645,7 +1646,13 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->resize(400, 650);
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
-  m_contextMenu->show();
+
+  QSettings settings;
+
+  if(settings.value("preferences/docked_widget_property_editors").toBool())
+    emit dockPropertyEditor(m_contextMenu);
+  else
+    m_contextMenu->show();
 }
 
 void glitch_object::slotSimulateDelete(void)

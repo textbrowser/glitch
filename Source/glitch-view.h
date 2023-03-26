@@ -146,6 +146,7 @@ class glitch_view: public QWidget
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
   QString m_fileName;
+  QTableWidget *m_dockedWidgetPropertyEditors;
   QTimer m_generateTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;

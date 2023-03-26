@@ -28,8 +28,6 @@
 #ifndef _glitch_view_arduino_h_
 #define _glitch_view_arduino_h_
 
-#include <QTableWidget>
-
 #include "glitch-view.h"
 
 class glitch_object_loop_arduino;
@@ -66,7 +64,6 @@ class glitch_view_arduino: public glitch_view
   void slotPreferencesAccepted(void);
 
  private:
-  QTableWidget *m_dockedWidgetPropertyEditors;
   QMap<QString, char> m_functionNames;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;

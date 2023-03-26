@@ -52,18 +52,6 @@ glitch_view_arduino::glitch_view_arduino
   m_canvasSettings->setOutputFileExtension
     (glitch_view_arduino::projectOutputFileExtension());
   m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());
-  m_dockedWidgetPropertyEditors = new QTableWidget(this);
-  m_dockedWidgetPropertyEditors->horizontalHeader()->setStretchLastSection
-    (true);
-  m_dockedWidgetPropertyEditors->setAlternatingRowColors(true);
-  m_dockedWidgetPropertyEditors->setColumnCount(1);
-  m_dockedWidgetPropertyEditors->setCornerButtonEnabled(false);
-  m_dockedWidgetPropertyEditors->setSelectionMode
-    (QAbstractItemView::SingleSelection);
-  m_dockedWidgetPropertyEditors->setSortingEnabled(false);
-  m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
-    (QStringList() << tr("Widget Property Editors"));
-  m_dockedWidgetPropertyEditors->setVisible(false);
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
   m_setupObject = new glitch_object_setup_arduino(this);

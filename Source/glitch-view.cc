@@ -36,6 +36,7 @@
 #include <QSplitter>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QTableWidget>
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
@@ -68,6 +69,18 @@ glitch_view::glitch_view
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->setName(name);
   m_canvasSettings->prepare();
+  m_dockedWidgetPropertyEditors = new QTableWidget(this);
+  m_dockedWidgetPropertyEditors->horizontalHeader()->setStretchLastSection
+    (true);
+  m_dockedWidgetPropertyEditors->setAlternatingRowColors(true);
+  m_dockedWidgetPropertyEditors->setColumnCount(1);
+  m_dockedWidgetPropertyEditors->setCornerButtonEnabled(false);
+  m_dockedWidgetPropertyEditors->setSelectionMode
+    (QAbstractItemView::SingleSelection);
+  m_dockedWidgetPropertyEditors->setSortingEnabled(false);
+  m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
+    (QStringList() << tr("Widget Property Editors"));
+  m_dockedWidgetPropertyEditors->setVisible(false);
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
   m_generateTimer.setInterval(1500);
