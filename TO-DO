@@ -261,13 +261,14 @@ Remaining Items
   Delete context-menu action
   Edit context-menu action
 - Generate source from terminal for testing results.
-- SPI, USB, Wire (https://www.arduino.cc/reference/en).
+- Lock color (similar to selection color).
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
 - Resize objects manually.
+- SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Splitter states and redo / undo.
 - Tools:
