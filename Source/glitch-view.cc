@@ -42,6 +42,7 @@
 #include "glitch-alignment.h"
 #include "glitch-documentation.h"
 #include "glitch-find-objects.h"
+#include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
@@ -75,12 +76,14 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors->setAlternatingRowColors(true);
   m_dockedWidgetPropertyEditors->setColumnCount(1);
   m_dockedWidgetPropertyEditors->setCornerButtonEnabled(false);
+  m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_dockedWidgetPropertyEditors->setSelectionMode
     (QAbstractItemView::SingleSelection);
   m_dockedWidgetPropertyEditors->setSortingEnabled(false);
   m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
     (QStringList() << tr("Widget Property Editors"));
   m_dockedWidgetPropertyEditors->setVisible(false);
+  m_dockedWidgetPropertyEditors->verticalHeader()->setVisible(false);
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
   m_generateTimer.setInterval(1500);
@@ -1232,6 +1235,36 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
 {
   if(!widget)
     return;
+
+  auto menu = qobject_cast<glitch_floating_context_menu *> (widget);
+
+  if(!menu || !menu->frame())
+    return;
+
+  auto found = false;
+
+  for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
+    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu->frame())
+      {
+	found = true;
+	m_dockedWidgetPropertyEditors->scrollToItem
+	  (m_dockedWidgetPropertyEditors->item(i, 0));
+	break;
+      }
+
+  if(!found)
+    {
+      auto item = new QTableWidgetItem();
+
+      m_dockedWidgetPropertyEditors->setRowCount
+	(m_dockedWidgetPropertyEditors->rowCount() + 1);
+      m_dockedWidgetPropertyEditors->setCellWidget
+	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu->frame());
+      m_dockedWidgetPropertyEditors->setItem
+	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, item);
+      m_dockedWidgetPropertyEditors->resizeRowsToContents();
+      m_dockedWidgetPropertyEditors->scrollToBottom();
+    }
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)

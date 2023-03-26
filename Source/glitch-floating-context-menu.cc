@@ -49,12 +49,23 @@ glitch_floating_context_menu::~glitch_floating_context_menu()
     disconnect(m_object, nullptr, this, nullptr);
 }
 
+QFrame *glitch_floating_context_menu::frame(void) const
+{
+  return m_ui.frame;
+}
+
 void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   foreach(auto widget, m_ui.frame->findChildren<QWidget *> ())
     {
+      if(m_ui.object_id == widget ||
+	 m_ui.object_name == widget ||
+	 m_ui.position == widget ||
+	 m_ui.size == widget)
+	continue;
+
       m_ui.frame->layout()->removeWidget(widget);
 
       if(widget)
@@ -87,10 +98,11 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	      frame->setLayout(layout);
 	      m_zValue = new QDoubleSpinBox(this);
 	      m_zValue->setDecimals(1);
-	      m_zValue->setMinimumWidth(150);
 	      m_zValue->setRange
 		(glitch_common::s_minimumZValue,
 		 glitch_common::s_maximumZValue);
+	      m_zValue->setSizePolicy
+		(QSizePolicy::Minimum, QSizePolicy::Fixed);
 	      m_zValue->setToolTip
 		(QString("[%1, %2]").
 		 arg(m_zValue->minimum()).arg(m_zValue->maximum()));
