@@ -1353,19 +1353,21 @@ void glitch_view::slotPreferencesAccepted(void)
 {
   QSettings settings;
   auto state = settings.value
-    ("preferenes/docked_widget_property_editors", true).toBool();
+    ("preferences/docked_widget_property_editors", true).toBool();
 
   if(state)
     {
+      foreach(auto menu, findChildren<glitch_floating_context_menu *> ())
+	if(menu)
+	  slotDockPropertyEditor(menu);
     }
   else
     {
-      m_dockedWidgetPropertyEditors->setRowCount(0);
-
       for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
 	if(m_dockedWidgetPropertyEditorsObjects.at(i))
 	  m_dockedWidgetPropertyEditorsObjects.at(i)->slotShowContextMenu();
 
+      m_dockedWidgetPropertyEditors->setRowCount(0);
       m_dockedWidgetPropertyEditorsObjects.clear();
     }
 }
