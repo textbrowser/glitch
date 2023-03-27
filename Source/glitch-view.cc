@@ -80,9 +80,13 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
     (QStringList() << tr("Widget Property Editors"));
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
+  m_dockedWidgetPropertyEditors->setSelectionBehavior
+    (QAbstractItemView::SelectRows);
   m_dockedWidgetPropertyEditors->setSelectionMode
     (QAbstractItemView::SingleSelection);
   m_dockedWidgetPropertyEditors->setSortingEnabled(false);
+  m_dockedWidgetPropertyEditors->setVerticalScrollMode
+    (QAbstractItemView::ScrollPerPixel);
   m_dockedWidgetPropertyEditors->setVisible(false);
   m_dockedWidgetPropertyEditors->verticalHeader()->setVisible(false);
   m_fileName = fileName;
@@ -1241,29 +1245,30 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
 
   auto found = false;
 
-  for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
-    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu->frame())
+  for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
+    if(m_dockedWidgetPropertyEditorsObjects.at(i) == menu->object())
       {
 	found = true;
 	m_dockedWidgetPropertyEditors->scrollToItem
 	  (m_dockedWidgetPropertyEditors->item(i, 0));
+	m_dockedWidgetPropertyEditors->selectRow(i);
 	break;
       }
 
   if(!found)
     {
-      auto item = new QTableWidgetItem();
-
       m_dockedWidgetPropertyEditors->setRowCount
 	(m_dockedWidgetPropertyEditors->rowCount() + 1);
       m_dockedWidgetPropertyEditors->setCellWidget
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu->frame());
       m_dockedWidgetPropertyEditors->setItem
-	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, item);
+	(m_dockedWidgetPropertyEditors->rowCount() - 1,
+	 0,
+	 new QTableWidgetItem());
       m_dockedWidgetPropertyEditors->setRowHeight
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 550);
       m_dockedWidgetPropertyEditors->scrollToBottom();
-      m_dockedWidgetPropertyEditorsOjects << menu->object();
+      m_dockedWidgetPropertyEditorsObjects << menu->object();
       menu->deleteLater();
     }
 }
@@ -1349,11 +1354,13 @@ void glitch_view::slotPreferencesAccepted(void)
     }
   else
     {
-      /*
-      ** Open docked property editors?
-      */
-
       m_dockedWidgetPropertyEditors->setRowCount(0);
+
+      for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
+	if(m_dockedWidgetPropertyEditorsObjects.at(i))
+	  m_dockedWidgetPropertyEditorsObjects.at(i)->slotShowContextMenu();
+
+      m_dockedWidgetPropertyEditorsObjects.clear();
     }
 }
 
