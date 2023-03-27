@@ -1671,7 +1671,8 @@ void glitch_object::slotShowContextMenu(void)
 
   QSettings settings;
 
-  if(settings.value("preferences/docked_widget_property_editors").toBool())
+  if(settings.value("preferences/docked_widget_property_editors", true).
+     toBool())
     emit dockPropertyEditor(m_contextMenu);
   else
     {

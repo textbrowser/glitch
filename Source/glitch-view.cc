@@ -87,7 +87,7 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors->setSortingEnabled(false);
   m_dockedWidgetPropertyEditors->setVerticalScrollMode
     (QAbstractItemView::ScrollPerPixel);
-  m_dockedWidgetPropertyEditors->setVisible(false);
+  m_dockedWidgetPropertyEditors->setVisible(true);
   m_dockedWidgetPropertyEditors->verticalHeader()->setVisible(false);
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
@@ -1353,7 +1353,7 @@ void glitch_view::slotPreferencesAccepted(void)
 {
   QSettings settings;
   auto state = settings.value
-    ("preferenes/docked_widget_property_editors").toBool();
+    ("preferenes/docked_widget_property_editors", true).toBool();
 
   if(state)
     {

@@ -80,7 +80,7 @@ void glitch_preferences::processSettings(void)
       (QApplication::font().toString().trimmed());
 
   m_ui.docked_widget_property_editors->setChecked
-    (settings.value("preferences/docked_widget_property_editors", false).
+    (settings.value("preferences/docked_widget_property_editors", true).
      toBool());
   m_ui.font_hinting->setCurrentIndex
     (m_ui.font_hinting->
