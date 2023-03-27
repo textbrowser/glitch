@@ -1257,6 +1257,10 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
 
   if(!found)
     {
+      connect(menu->object(),
+	      &glitch_object::simulateDeleteSignal,
+	      this,
+	      &glitch_view::slotSimulateDelete);
       m_dockedWidgetPropertyEditors->setRowCount
 	(m_dockedWidgetPropertyEditors->rowCount() + 1);
       m_dockedWidgetPropertyEditors->setCellWidget
@@ -1268,6 +1272,8 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
       m_dockedWidgetPropertyEditors->setRowHeight
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 550);
       m_dockedWidgetPropertyEditors->scrollToBottom();
+      m_dockedWidgetPropertyEditors->selectRow
+	(m_dockedWidgetPropertyEditors->rowCount() - 1);
       m_dockedWidgetPropertyEditorsObjects << menu->object();
       menu->deleteLater();
     }
@@ -1379,6 +1385,21 @@ void glitch_view::slotSave(void)
        this);
   else
     emit saved();
+}
+
+void glitch_view::slotSimulateDelete(void)
+{
+  auto object = qobject_cast<glitch_object *> (sender());
+
+  if(!object)
+    return;
+
+  for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
+    if(m_dockedWidgetPropertyEditorsObjects.at(i) == object)
+      {
+	m_dockedWidgetPropertyEditors->removeRow(i);
+	m_dockedWidgetPropertyEditorsObjects.removeAt(i);
+      }
 }
 
 void glitch_view::slotSaveAs(void)
