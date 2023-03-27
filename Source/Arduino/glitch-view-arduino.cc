@@ -334,6 +334,8 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 
 void glitch_view_arduino::slotPreferencesAccepted(void)
 {
+  glitch_view::slotPreferencesAccepted();
+
   QSettings settings;
   auto state = settings.value
     ("preferences/docked_widget_property_editors",false).toBool();

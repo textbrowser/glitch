@@ -94,14 +94,6 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   QWidget(nullptr), m_id(id)
 {
   installEventFilter(new glitch_font_filter(this));
-  m_contextMenu = new glitch_floating_context_menu(parent);
-  connect(m_contextMenu,
-	  SIGNAL(propertyChanged(const glitch_object::Properties,
-				 const QVariant &)),
-	  this,
-	  SLOT(slotPropertyChanged(const glitch_object::Properties,
-				   const QVariant &)));
-  m_contextMenu->setObject(this);
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
   m_occupied = false;
@@ -125,13 +117,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
     auto view = qobject_cast<glitch_object_view *> (parent);
 
     if(view)
-      {
-	connect(view,
-		&glitch_object_view::closed,
-		m_contextMenu,
-		&glitch_floating_context_menu::close);
-	setUndoStack(view->scene()->undoStack());
-      }
+      setUndoStack(view->scene()->undoStack());
   }
 
   {
@@ -175,7 +161,8 @@ glitch_object::~glitch_object()
   if(m_canvasSettings)
     disconnect(m_canvasSettings, nullptr, this, nullptr);
 
-  m_contextMenu->deleteLater();
+  if(m_contextMenu)
+    m_contextMenu->deleteLater();
 
   if(m_editView)
     m_editView->deleteLater();
@@ -1097,7 +1084,9 @@ void glitch_object::setName(const QString &n)
 
   if(!name.isEmpty())
     {
-      m_contextMenu->setName(name);
+      if(m_contextMenu)
+	m_contextMenu->setName(name);
+
       m_properties[Properties::NAME] = name;
     }
 }
@@ -1202,8 +1191,11 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_contextMenu->setProperty
-	    (Properties::Z_VALUE, QVariant(string.trimmed()).toReal());
+
+	  if(m_contextMenu)
+	    m_contextMenu->setProperty
+	      (Properties::Z_VALUE, QVariant(string.trimmed()).toReal());
+
 	  m_properties[Properties::Z_VALUE] =
 	    QVariant(string.trimmed()).toReal();
 	}
@@ -1267,7 +1259,8 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::Z_VALUE:
       {
-	m_contextMenu->setProperty(property, value);
+	if(m_contextMenu)
+	  m_contextMenu->setProperty(property, value);
 
 	if(m_proxy)
 	  m_proxy->setZValue(value.toReal());
@@ -1341,11 +1334,14 @@ void glitch_object::showEditWindow(void) const
 
 void glitch_object::simulateDelete(void)
 {
+  if(m_contextMenu)
+    {
 #ifdef Q_OS_ANDROID
-  m_contextMenu->hide();
+      m_contextMenu->hide();
 #else
-  m_contextMenu->close();
+      m_contextMenu->close();
 #endif
+    }
 
   if(m_editWindow)
 #ifdef Q_OS_ANDROID
@@ -1642,9 +1638,36 @@ void glitch_object::slotShowContextMenu(void)
 {
   m_menu.clear();
   addActions(m_menu);
+
+  if(!m_contextMenu)
+    {
+      m_contextMenu = new glitch_floating_context_menu(m_parent);
+      m_contextMenu->setObject(this);
+      connect(m_contextMenu,
+	      SIGNAL(propertyChanged(const glitch_object::Properties,
+				     const QVariant &)),
+	      this,
+	      SLOT(slotPropertyChanged(const glitch_object::Properties,
+				       const QVariant &)));
+      connect(m_proxy,
+	      &glitch_proxy_widget::changed,
+	      m_contextMenu,
+	      &glitch_floating_context_menu::slotObjectChanged);
+
+      auto view = qobject_cast<glitch_object_view *> (m_parent);
+
+      if(view)
+	connect(view,
+		&glitch_object_view::closed,
+		m_contextMenu,
+		&glitch_floating_context_menu::close);
+    }
+
   m_contextMenu->addActions(m_actions.values());
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
+  m_contextMenu->setProperty
+    (Properties::Z_VALUE, m_properties.value(Properties::Z_VALUE));
 
   QSettings settings;
 

@@ -211,11 +211,6 @@ class glitch_object: public QWidget
       return m_canvasSettings && m_canvasSettings->showOrderIndicators();
   }
 
-  glitch_floating_context_menu *contextMenu(void) const
-  {
-    return m_contextMenu;
-  }
-
   glitch_scene *editScene(void) const;
   glitch_scene *scene(void) const;
   qint64 id(void) const;
@@ -268,6 +263,9 @@ class glitch_object: public QWidget
   void setWiredObject(glitch_object *object, glitch_wire *wire);
   void showEditWindow(void) const;
 
+ public slots:
+  void slotShowContextMenu(void);
+
  private:
   QMenu m_menu;
   QSize m_sizeBeforeFontChange;
@@ -286,7 +284,6 @@ class glitch_object: public QWidget
   void slotPropertyChanged
     (const glitch_object::Properties property, const QVariant &value);
   void slotPropertyChanged(const QString &property, const QVariant &value);
-  void slotShowContextMenu(void);
   void slotWireDestroyed(void);
   void slotWireObjects(void);
 
@@ -304,6 +301,7 @@ class glitch_object: public QWidget
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
   QPointer<glitch_canvas_settings> m_canvasSettings;
+  QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_proxy_widget> m_proxy;
@@ -311,7 +309,6 @@ class glitch_object: public QWidget
   bool m_drawInputConnector;
   bool m_drawOutputConnector;
   bool m_occupied;
-  glitch_floating_context_menu *m_contextMenu;
   qint64 m_id;
   static QRegularExpression s_splitRegularExpression;
   static int minimumHeight(const int height);

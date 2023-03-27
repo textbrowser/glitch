@@ -1236,13 +1236,13 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
 {
   auto menu = qobject_cast<glitch_floating_context_menu *> (widget);
 
-  if(!menu)
+  if(!menu || !menu->frame() || !menu->object())
     return;
 
   auto found = false;
 
   for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
-    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu)
+    if(m_dockedWidgetPropertyEditors->cellWidget(i, 0) == menu->frame())
       {
 	found = true;
 	m_dockedWidgetPropertyEditors->scrollToItem
@@ -1254,16 +1254,17 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
     {
       auto item = new QTableWidgetItem();
 
-      menu->docked(true);
       m_dockedWidgetPropertyEditors->setRowCount
 	(m_dockedWidgetPropertyEditors->rowCount() + 1);
       m_dockedWidgetPropertyEditors->setCellWidget
-	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu);
+	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu->frame());
       m_dockedWidgetPropertyEditors->setItem
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, item);
       m_dockedWidgetPropertyEditors->setRowHeight
 	(m_dockedWidgetPropertyEditors->rowCount() - 1, 550);
       m_dockedWidgetPropertyEditors->scrollToBottom();
+      m_dockedWidgetPropertyEditorsOjects << menu->object();
+      menu->deleteLater();
     }
 }
 
@@ -1345,14 +1346,12 @@ void glitch_view::slotPreferencesAccepted(void)
 
   if(state)
     {
-      for(int i = 0; i < m_dockedWidgetPropertyEditors->rowCount(); i++)
-	{
-	  auto widget = m_dockedWidgetPropertyEditors->cellWidget(i, 0);
-
-	  if(widget)
-	    {
-	    }
-	}
+    }
+  else
+    {
+      /*
+      ** Open docked property editors?
+      */
 
       m_dockedWidgetPropertyEditors->setRowCount(0);
     }

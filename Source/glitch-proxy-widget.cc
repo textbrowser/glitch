@@ -573,18 +573,5 @@ void glitch_proxy_widget::setPos(const QPointF &point)
 void glitch_proxy_widget::setWidget(QWidget *widget)
 {
   QGraphicsProxyWidget::setWidget(widget);
-
-  if(m_object)
-    disconnect(this,
-	       &glitch_proxy_widget::changed,
-	       m_object->contextMenu(),
-	       &glitch_floating_context_menu::slotObjectChanged);
-
   m_object = qobject_cast<glitch_object *> (widget);
-
-  if(m_object)
-    connect(this,
-	    &glitch_proxy_widget::changed,
-	    m_object->contextMenu(),
-	    &glitch_floating_context_menu::slotObjectChanged);
 }
