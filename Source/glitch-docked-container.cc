@@ -96,42 +96,41 @@ void glitch_docked_container::add(QWidget *widget)
 
 void glitch_docked_container::detach(void)
 {
-  for(int i = m_model->rowCount() - 1; i >= 0; i--)
-    {
-      if(m_model->item(i, 0))
-	{
-	  auto index(m_model->item(i, 0)->index());
+  QList<QWidget *> list;
 
-	  if(index.isValid())
-	    {
-	      auto widget = m_ui.view->indexWidget(index);
+  for(int i = 0; i < m_model->rowCount(); i++)
+    if(m_model->item(i, 0))
+      {
+	auto index(m_model->item(i, 0)->index());
 
-	      if(widget)
-		{
-		  foreach(auto shortcut, widget->findChildren<QShortcut *> ())
-		    if(shortcut)
-		      shortcut->setEnabled(true);
+	if(index.isValid())
+	  {
+	    auto menu = qobject_cast<glitch_floating_context_menu *>
+	      (m_ui.view->indexWidget(index));
 
-		  auto menu = qobject_cast<glitch_floating_context_menu *>
-		    (widget);
+	    if(menu && menu->object())
+	      list << menu->object();
+	  }
+      }
 
-		  if(menu && menu->object())
-		    {
-		      auto event = new QMouseEvent
-			(QEvent::MouseButtonDblClick,
-			 QPoint(),
-			 Qt::NoButton,
-			 Qt::NoButton,
-			 Qt::NoModifier);
+  m_model->removeRows(0, m_model->rowCount());
 
-		      QApplication::postEvent(menu->object(), event);
-		    }
-		}
-	    }
-	}
+  foreach(auto object, list)
+    if(object)
+      {
+	foreach(auto shortcut, object->findChildren<QShortcut *> ())
+	  if(shortcut)
+	    shortcut->setEnabled(true);
 
-      m_model->removeRow(i);
-    }
+	auto event = new QMouseEvent
+	  (QEvent::MouseButtonDblClick,
+	   QPoint(),
+	   Qt::NoButton,
+	   Qt::NoButton,
+	   Qt::NoModifier);
+
+	QApplication::postEvent(object, event);
+      }
 
   m_timer.stop();
 }
