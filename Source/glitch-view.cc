@@ -42,6 +42,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
 #include "glitch-documentation.h"
+#include "glitch-docked-container.h"
 #include "glitch-find-objects.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
@@ -71,24 +72,8 @@ glitch_view::glitch_view
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->setName(name);
   m_canvasSettings->prepare();
-  m_dockedWidgetPropertyEditors = new QTableWidget(this);
-  m_dockedWidgetPropertyEditors->horizontalHeader()->setStretchLastSection
-    (true);
-  m_dockedWidgetPropertyEditors->setAlternatingRowColors(true);
-  m_dockedWidgetPropertyEditors->setColumnCount(1);
-  m_dockedWidgetPropertyEditors->setCornerButtonEnabled(false);
-  m_dockedWidgetPropertyEditors->setHorizontalHeaderLabels
-    (QStringList() << tr("Widget Property Editors"));
+  m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
-  m_dockedWidgetPropertyEditors->setSelectionBehavior
-    (QAbstractItemView::SelectRows);
-  m_dockedWidgetPropertyEditors->setSelectionMode
-    (QAbstractItemView::SingleSelection);
-  m_dockedWidgetPropertyEditors->setSortingEnabled(false);
-  m_dockedWidgetPropertyEditors->setVerticalScrollMode
-    (QAbstractItemView::ScrollPerPixel);
-  m_dockedWidgetPropertyEditors->setVisible(true);
-  m_dockedWidgetPropertyEditors->verticalHeader()->setVisible(false);
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
   m_generateTimer.setInterval(1500);
@@ -1238,45 +1223,8 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
 
 void glitch_view::slotDockPropertyEditor(QWidget *widget)
 {
-  auto menu = qobject_cast<glitch_floating_context_menu *> (widget);
-
-  if(!menu || !menu->frame() || !menu->object())
-    return;
-
-  auto found = false;
-
-  for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
-    if(m_dockedWidgetPropertyEditorsObjects.at(i) == menu->object())
-      {
-	found = true;
-	m_dockedWidgetPropertyEditors->scrollToItem
-	  (m_dockedWidgetPropertyEditors->item(i, 0));
-	m_dockedWidgetPropertyEditors->selectRow(i);
-	break;
-      }
-
-  if(!found)
-    {
-      connect(menu->object(),
-	      &glitch_object::simulateDeleteSignal,
-	      this,
-	      &glitch_view::slotSimulateDelete);
-      m_dockedWidgetPropertyEditors->setRowCount
-	(m_dockedWidgetPropertyEditors->rowCount() + 1);
-      m_dockedWidgetPropertyEditors->setCellWidget
-	(m_dockedWidgetPropertyEditors->rowCount() - 1, 0, menu->frame());
-      m_dockedWidgetPropertyEditors->setItem
-	(m_dockedWidgetPropertyEditors->rowCount() - 1,
-	 0,
-	 new QTableWidgetItem());
-      m_dockedWidgetPropertyEditors->setRowHeight
-	(m_dockedWidgetPropertyEditors->rowCount() - 1, 550);
-      m_dockedWidgetPropertyEditors->scrollToBottom();
-      m_dockedWidgetPropertyEditors->selectRow
-	(m_dockedWidgetPropertyEditors->rowCount() - 1);
-      m_dockedWidgetPropertyEditorsObjects << menu->object();
-      menu->deleteLater();
-    }
+  m_dockedWidgetPropertyEditors->add
+    (qobject_cast<glitch_floating_context_menu *> (widget));
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
@@ -1362,14 +1310,7 @@ void glitch_view::slotPreferencesAccepted(void)
 	  slotDockPropertyEditor(menu);
     }
   else
-    {
-      for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
-	if(m_dockedWidgetPropertyEditorsObjects.at(i))
-	  m_dockedWidgetPropertyEditorsObjects.at(i)->slotShowContextMenu();
-
-      m_dockedWidgetPropertyEditors->setRowCount(0);
-      m_dockedWidgetPropertyEditorsObjects.clear();
-    }
+    m_dockedWidgetPropertyEditors->detach();
 }
 
 void glitch_view::slotResizeScene(void)
@@ -1395,13 +1336,6 @@ void glitch_view::slotSimulateDelete(void)
 
   if(!object)
     return;
-
-  for(int i = 0; i < m_dockedWidgetPropertyEditorsObjects.size(); i++)
-    if(m_dockedWidgetPropertyEditorsObjects.at(i) == object)
-      {
-	m_dockedWidgetPropertyEditors->removeRow(i);
-	m_dockedWidgetPropertyEditorsObjects.removeAt(i);
-      }
 }
 
 void glitch_view::slotSaveAs(void)

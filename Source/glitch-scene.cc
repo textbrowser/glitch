@@ -840,7 +840,9 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Backspace:
     case Qt::Key_Delete:
       {
-	deleteItems();
+	if(QGuiApplication::keyboardModifiers() & Qt::AltModifier)
+	  deleteItems();
+
 	break;
       }
     case Qt::Key_Down:

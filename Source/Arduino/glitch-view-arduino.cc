@@ -33,6 +33,7 @@
 
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-docked-container.h"
 #include "glitch-graphicsview.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-setup-arduino.h"
