@@ -98,6 +98,7 @@ Completed Items
 - Do not save children of flow control objects if those objects
   do not support children.
 - Documentation.
+- Docked floating context menus.
 - Dots and grids.
 - Dragging an item onto a diagram and scroll bars.
 - Draw and, not, or, etc. objects.
@@ -255,7 +256,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Docked floating context menus.
 - Find Objects:
   Copy context-menu action
   Delete context-menu action
