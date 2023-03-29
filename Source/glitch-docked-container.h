@@ -28,8 +28,6 @@
 #ifndef _glitch_docked_container_h_
 #define _glitch_docked_container_h_
 
-#include <QTimer>
-
 #include "ui_glitch-docked-container.h"
 
 class QStandardItemModel;
@@ -46,11 +44,10 @@ class glitch_docked_container: public QWidget
 
  private:
   QStandardItemModel *m_model;
-  QTimer m_timer;
   Ui_glitch_docked_container m_ui;
 
  private slots:
-  void slotTimerTimeout(void);
+  void slotWidgetClosed(void);
 };
 
 #endif

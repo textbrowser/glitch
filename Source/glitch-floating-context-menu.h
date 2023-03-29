@@ -41,11 +41,6 @@ class glitch_floating_context_menu: public QDialog
   glitch_floating_context_menu(QWidget *parent);
   ~glitch_floating_context_menu();
 
-  QFrame *frame(void) const
-  {
-    return m_ui.frame;
-  }
-
   QPointer<glitch_object> object(void) const
   {
     return m_object;
@@ -67,8 +62,10 @@ class glitch_floating_context_menu: public QDialog
   QPointer<QDoubleSpinBox> m_zValue;
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
+  void closeEvent(QCloseEvent *event);
 
  signals:
+  void closed(void);
   void propertyChanged
     (const glitch_object::Properties property, const QVariant &value);
 };

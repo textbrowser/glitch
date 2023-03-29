@@ -39,15 +39,10 @@ glitch_docked_container::glitch_docked_container(QWidget *parent):
     (QStringList() << tr("Widget Property Editors"));
   m_ui.setupUi(this);
   m_ui.view->setModel(m_model);
-  connect(&m_timer,
-	  &QTimer::timeout,
-	  this,
-	  &glitch_docked_container::slotTimerTimeout);
 }
 
 glitch_docked_container::~glitch_docked_container()
 {
-  m_timer.stop();
 }
 
 void glitch_docked_container::add(QWidget *widget)
@@ -88,10 +83,14 @@ void glitch_docked_container::add(QWidget *widget)
       m_ui.view->scrollTo(item->index(), QAbstractItemView::PositionAtTop);
       m_ui.view->selectRow(item->row());
       m_ui.view->setIndexWidget(item->index(), widget);
-    }
 
-  if(!m_timer.isActive())
-    m_timer.start(1500);
+      if(qobject_cast<glitch_floating_context_menu *> (widget))
+	connect(qobject_cast<glitch_floating_context_menu *> (widget),
+		&glitch_floating_context_menu::closed,
+		this,
+		&glitch_docked_container::slotWidgetClosed,
+		Qt::UniqueConnection);
+    }
 }
 
 void glitch_docked_container::detach(void)
@@ -131,11 +130,9 @@ void glitch_docked_container::detach(void)
 
 	QApplication::postEvent(object, event);
       }
-
-  m_timer.stop();
 }
 
-void glitch_docked_container::slotTimerTimeout(void)
+void glitch_docked_container::slotWidgetClosed(void)
 {
   for(int i = m_model->rowCount() - 1; i >= 0; i--)
     if(m_model->item(i, 0))
@@ -150,7 +147,4 @@ void glitch_docked_container::slotTimerTimeout(void)
 	      m_model->removeRow(i);
 	  }
       }
-
-  if(m_model->rowCount() == 0)
-    m_timer.stop();
 }

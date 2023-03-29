@@ -166,6 +166,12 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_floating_context_menu::closeEvent(QCloseEvent *event)
+{
+  QDialog::closeEvent(event);
+  emit closed();
+}
+
 void glitch_floating_context_menu::setIdentifier(const qint64 id)
 {
   m_ui.object_id->setText(tr("Identifier: %1").arg(id));

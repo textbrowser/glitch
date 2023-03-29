@@ -1306,7 +1306,7 @@ void glitch_view::slotPreferencesAccepted(void)
   if(state)
     {
       foreach(auto menu, findChildren<glitch_floating_context_menu *> ())
-	if(menu)
+	if(menu && menu->isVisible())
 	  slotDockPropertyEditor(menu);
     }
   else
