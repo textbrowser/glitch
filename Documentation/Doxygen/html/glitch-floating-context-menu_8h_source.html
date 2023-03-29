@@ -101,33 +101,48 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;QPointer&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;ui_glitch-floating-context-menu.h&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">class </span><a class="code" href="classglitch__object.html">glitch_object</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classglitch__floating__context__menu.html">   37</a></span>&#160;<span class="keyword">class </span><a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>: <span class="keyword">public</span> QDialog</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  Q_OBJECT</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>(QWidget *parent);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  ~<a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> addActions(<span class="keyword">const</span> QList&lt;QAction *&gt; &amp;actions);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> setIdentifier(<span class="keyword">const</span> qint64 <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> setObject(<a class="code" href="classglitch__object.html">glitch_object</a> *<span class="keywordtype">object</span>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;n);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;glitch-object.h&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;ui_glitch-floating-context-menu.h&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classglitch__floating__context__menu.html">   36</a></span>&#160;<span class="keyword">class </span><a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>: <span class="keyword">public</span> QDialog</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  Q_OBJECT</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>(QWidget *parent);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  ~<a class="code" href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  QPointer&lt;glitch_object&gt; object(<span class="keywordtype">void</span>)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> m_object;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; <span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">void</span> slotActionChanged(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> slotObjectChanged(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  Ui_glitch_floating_context_menu m_ui;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassglitch__floating__context__menu_html"><div class="ttname"><a href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a></div><div class="ttdef"><b>Definition:</b> glitch-floating-context-menu.h:38</div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">void</span> addActions(<span class="keyword">const</span> QList&lt;QAction *&gt; &amp;actions);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">void</span> setIdentifier(<span class="keyword">const</span> qint64 <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> setObject(<a class="code" href="classglitch__object.html">glitch_object</a> *<span class="keywordtype">object</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;n);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> setProperty</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    (<span class="keyword">const</span> glitch_object::Properties property, <span class="keyword">const</span> QVariant &amp;value);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; <span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> slotActionChanged(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> slotObjectChanged(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> slotZValueChanged(qreal value);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  QPointer&lt;QDoubleSpinBox&gt; m_zValue;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  Ui_glitch_floating_context_menu m_ui;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> closeEvent(QCloseEvent *event);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; signals:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> closed(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> propertyChanged</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    (<span class="keyword">const</span> glitch_object::Properties property, <span class="keyword">const</span> QVariant &amp;value);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassglitch__floating__context__menu_html"><div class="ttname"><a href="classglitch__floating__context__menu.html">glitch_floating_context_menu</a></div><div class="ttdef"><b>Definition:</b> glitch-floating-context-menu.h:37</div></div>
 <div class="ttc" id="aclassglitch__object_html"><div class="ttname"><a href="classglitch__object.html">glitch_object</a></div><div class="ttdef"><b>Definition:</b> glitch-object.h:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

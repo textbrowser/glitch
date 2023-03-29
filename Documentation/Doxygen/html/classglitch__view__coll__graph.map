@@ -1,13 +1,15 @@
 <map id="glitch_view" name="glitch_view">
-<area shape="rect" id="node1" title=" " alt="" coords="525,155,621,182"/>
-<area shape="rect" id="node2" title=" " alt="" coords="30,21,109,47"/>
-<area shape="rect" id="node9" href="$classglitch__alignment.html" title=" " alt="" coords="203,54,333,81"/>
-<area shape="rect" id="node3" href="$classglitch__user__functions.html" title=" " alt="" coords="188,105,348,131"/>
-<area shape="rect" id="node4" title=" " alt="" coords="32,155,107,182"/>
-<area shape="rect" id="node5" href="$classglitch__canvas__settings.html" title=" " alt="" coords="183,155,353,182"/>
-<area shape="rect" id="node6" href="$classglitch__find__objects.html" title=" " alt="" coords="197,206,339,233"/>
-<area shape="rect" id="node7" href="$classglitch__graphicsview.html" title=" " alt="" coords="193,257,343,283"/>
-<area shape="rect" id="node8" title=" " alt="" coords="9,257,130,283"/>
-<area shape="rect" id="node10" href="$classglitch__scene.html" title=" " alt="" coords="217,307,319,334"/>
-<area shape="rect" id="node11" title=" " alt="" coords="5,307,133,334"/>
+<area shape="rect" id="node1" title=" " alt="" coords="627,197,723,224"/>
+<area shape="rect" id="node2" title=" " alt="" coords="30,72,109,98"/>
+<area shape="rect" id="node3" href="$classglitch__docked__container.html" title=" " alt="" coords="183,72,361,98"/>
+<area shape="rect" id="node11" href="$classglitch__alignment.html" title=" " alt="" coords="207,122,337,149"/>
+<area shape="rect" id="node4" href="$classglitch__user__functions.html" title=" " alt="" coords="192,173,352,200"/>
+<area shape="rect" id="node5" title=" " alt="" coords="32,200,107,226"/>
+<area shape="rect" id="node6" href="$classglitch__canvas__settings.html" title=" " alt="" coords="187,224,357,250"/>
+<area shape="rect" id="node7" href="$classglitch__find__objects.html" title=" " alt="" coords="201,274,343,301"/>
+<area shape="rect" id="node8" title=" " alt="" coords="11,274,127,301"/>
+<area shape="rect" id="node9" href="$classglitch__graphicsview.html" title=" " alt="" coords="197,325,347,352"/>
+<area shape="rect" id="node10" title=" " alt="" coords="9,325,130,352"/>
+<area shape="rect" id="node12" href="$classglitch__scene.html" title=" " alt="" coords="221,376,323,402"/>
+<area shape="rect" id="node13" title=" " alt="" coords="5,376,133,402"/>
 </map>
