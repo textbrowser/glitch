@@ -262,6 +262,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
+  m_ui.toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.toolBar->setIconSize(QSize(24, 24));
   prepareActionWidgets();
   prepareFonts();

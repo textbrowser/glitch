@@ -41,6 +41,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_statusBarTimer.start(500);
   m_ui.setupUi(this);
+  m_ui.toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.toolBar->setIconSize(QSize(24, 24));
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
