@@ -95,6 +95,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::unite);
+  menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   slotPreferencesAccepted();
   statusBar(); // Create a status bar.

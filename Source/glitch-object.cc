@@ -109,7 +109,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
     "-" +
     QColor(118, 134, 146).name();  // Output Disconnected
   m_properties[Properties::POSITION_LOCKED] = false;
-  m_properties[Properties::TOOL_BAR_VISIBLE] = false;
+  m_properties[Properties::TOOL_BAR_VISIBLE] = true;
   m_properties[Properties::TRANSPARENT] = true;
   m_properties[Properties::Z_VALUE] = 0.0;
 

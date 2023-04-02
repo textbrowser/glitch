@@ -264,6 +264,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setTabsClosable(true);
   m_ui.toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.toolBar->setIconSize(QSize(24, 24));
+  menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareFonts();
   prepareIcons();
