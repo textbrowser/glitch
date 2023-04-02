@@ -2,3 +2,4 @@
 Distributions/build*
 Documentation/ReleaseNotes.html
 Source/glitch-version.h
+android/AndroidManifest.xml
