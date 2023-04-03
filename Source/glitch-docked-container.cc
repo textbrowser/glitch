@@ -121,12 +121,22 @@ void glitch_docked_container::detach(void)
 	  if(shortcut)
 	    shortcut->setEnabled(true);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
 	auto event = new QMouseEvent
 	  (QEvent::MouseButtonDblClick,
-	   QPoint(),
+	   QPointF(),
+	   QPointF(),
 	   Qt::NoButton,
 	   Qt::NoButton,
 	   Qt::NoModifier);
+#else
+	auto event = new QMouseEvent
+	  (QEvent::MouseButtonDblClick,
+	   QPointF(),
+	   Qt::NoButton,
+	   Qt::NoButton,
+	   Qt::NoModifier);
+#endif
 
 	QApplication::postEvent(object, event);
       }

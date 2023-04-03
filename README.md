@@ -15,13 +15,14 @@
 <li>Object alignment tools.</li>
 <li>Optionally-transparent widgets if provided by local systems.</li>
 <li>PowerPC!</li>
-<li>Qt 5 LTS and Qt 6 LTS.</li>
+<li>Qt 5.15 LTS.</li>
 <li>Qt 5.5.1 (PowerPC)!</li>
+<li>Qt 6.2 LTS.</li>
+<li>Qt 6.5 LTS.</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Sparc!</li>
-<li>Unlimited diagrams.</li>
 </ul>
 
 ![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)

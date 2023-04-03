@@ -33,6 +33,7 @@
 
 class QComboBox;
 class QLineEdit;
+class QWidget;
 
 class glitch_misc
 {

@@ -1872,7 +1872,11 @@ void glitch_ui::slotSelectPage(void)
   if(!action)
     return;
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_ui.tab->setCurrentWidget(qobject_cast<QWidget *> (action->parent()));
+#else
   m_ui.tab->setCurrentWidget(action->parentWidget());
+#endif
   setWindowTitle(qobject_cast<glitch_view *> (m_ui.tab->currentWidget()));
 }
 

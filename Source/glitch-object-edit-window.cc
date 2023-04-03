@@ -48,37 +48,77 @@ glitch_object_edit_window::glitch_object_edit_window
 
   auto menu = menuBar()->addMenu(tr("&File"));
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["save"] =
+    menu->addAction
+    (tr("&Save Current Diagram"), tr("Ctrl+S"), this, SIGNAL(saveSignal(void)));
+#else
   m_actions["save"] =
     menu->addAction
     (tr("&Save Current Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
+#endif
   menu->addSeparator();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["close"] =
+    menu->addAction(tr("&Close"), tr("Ctrl+W"), this, SLOT(close(void)));
+#else
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
+#endif
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
 	  &QMenu::aboutToShow,
 	  this,
 	  &glitch_object_edit_window::slotAboutToShowEditMenu);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["undo"] =
+    menu->addAction(tr("Undo"), tr("Ctrl+Z"), this, SIGNAL(undo(void)));
+  m_actions["redo"] =
+    menu->addAction(tr("Redo"), tr("Ctrl+Shift+Z"), this, SIGNAL(redo(void)));
+#else
   m_actions["undo"] =
     menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"));
   m_actions["redo"] =
     menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"));
+#endif
   menu->addSeparator();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["copy"] =
+    menu->addAction(tr("&Copy"), tr("Ctrl+C"), this, SIGNAL(copy(void)));
+  m_actions["paste"] =
+    menu->addAction(tr("Paste"), tr("Ctrl+V"), this, SIGNAL(paste(void)));
+#else
   m_actions["copy"] =
     menu->addAction(tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"));
   m_actions["paste"] =
     menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"));
+#endif
   menu->addSeparator();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["delete"] =
+    menu->addAction(tr("&Delete"), tr("Del"), this, SIGNAL(deleteSignal(void)));
+  m_actions["select all"] = menu->addAction
+    (tr("Select &All"), tr("Ctrl+A"), this, SIGNAL(selectAll(void)));
+#else
   m_actions["delete"] =
     menu->addAction(tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
+#endif
   menu = menuBar()->addMenu(tr("&View"));
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["screen mode"] = menu->addAction
+    (tr("&Full Screen"),
+     tr("F11"),
+     this,
+     SLOT(slotShowFullScreenMode(void)));
+#else
   m_actions["screen mode"] = menu->addAction
     (tr("&Full Screen"),
      this,
      SLOT(slotShowFullScreenMode(void)),
      tr("F11"));
+#endif
   menu->addSeparator();
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
