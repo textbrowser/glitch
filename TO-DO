@@ -105,6 +105,7 @@ Completed Items
 - Draw disconnect symbols.
 - Draw input and output connectors.
 - Edit window icons.
+- Enable categories icons for new diagrams.
 - Error dialog.
 - Exiting does not require closing of pages.
 - Filter mouse scrolling on combination boxes. Prevent accidental changes.
@@ -256,7 +257,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Enable icons.
 - Find Objects:
   Copy context-menu action
   Delete context-menu action
