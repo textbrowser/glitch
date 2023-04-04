@@ -1,6 +1,7 @@
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
+<li>Android, FreeBSD, Linux, Mac, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
@@ -8,22 +9,55 @@
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
+<li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and <b>c</b>ompiler <b>h</b>ybrid.
 <li>Infinite diagrams.</li>
 <li>Modern C++.</li>
 <li>Object alignment tools.</li>
 <li>Optionally-transparent widgets if provided by local systems.</li>
 <li>PowerPC!</li>
-<li>Qt 5 LTS and Qt 6 LTS.</li>
+<li>Qt 5.15 LTS.</li>
 <li>Qt 5.5.1 (PowerPC)!</li>
+<li>Qt 6.2 LTS.</li>
+<li>Qt 6.5 LTS.</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Sparc!</li>
-<li>Unlimited diagrams.</li>
 </ul>
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.04.04</p>
+<ul>
+<li>A function name may not represent a reserved word.</li>
+<li>Added Edit -> Unite menu action to separated window.</li>
+<li>Added filter utility to Arduino structures widget.</li>
+<li>Android and Qt 6.2 LTS.</li>
+<li>Application font hinting. Please see Glitch Preferences.</li>
+<li>C++17 is the new C++ standard.</li>
+<li>Corrected syntax highlighting of #define and #include.</li>
+<li>Delete selected items via Backspace and Delete keys if the Alt modifier key is also pressed.</li>
+<li>Denote the number of objects in Find Objects status bar.</li>
+<li>Disable Border Color property for arrow object.</li>
+<li>Disable a diagram's tool bar's context menu.</li>
+<li>Display categories icons for new diagrams.</li>
+<li>Do not display a disconnect symbol over a disconnected port.</li>
+<li>Docked widget property editors. Please see Glitch Preferences.</li>
+<li>Enabled sorting of Canvas Settings -> Source View -> table.</li>
+<li>Highlight an invalid variable name after editing completes.</li>
+<li>Native drawing of boolean operators.</li>
+<li>New initial color for arrow object.</li>
+<li>Removed QPainter::HighQualityAntialiasing render hint.</li>
+<li>Replaced Shift modifier with Control modifier: disconnect wires, move objects via arrow keys.</li>
+<li>SQLite database of new diagram was missing keyword_colors field.</li>
+<li>Sensible notification of undefined source file.</li>
+<li>Separate pages via Control and drag.</li>
+<li>Show tool bars for new diagrams.</li>
+<li>Stack widgets. New z-value property.</li>
+<li>Super render hints for arrow object.</li>
+<li>The main window's title will be incorrect if a non-current diagram is saved.</li>
+<li>Underline function clone name if parent function has members.</li>
+</ul>
 <p>2023.02.28</p>
 <ul>
 <li>Categories icons.</li>
