@@ -36,7 +36,6 @@ QMAKE_CXXFLAGS_RELEASE -= -O2
 android {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-qual \
-                          -Wdouble-promotion \
                           -Wenum-compare \
                           -Wextra \
                           -Wfloat-equal \
