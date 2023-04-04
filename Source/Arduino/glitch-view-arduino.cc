@@ -347,7 +347,7 @@ void glitch_view_arduino::slotPreferencesAccepted(void)
 
   QSettings settings;
   auto state = settings.value
-    ("preferences/docked_widget_property_editors",false).toBool();
+    ("preferences/docked_widget_property_editors", true).toBool();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
 }
