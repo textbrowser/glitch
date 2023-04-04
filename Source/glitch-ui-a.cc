@@ -262,8 +262,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
-  m_ui.toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
-  m_ui.toolBar->setIconSize(QSize(24, 24));
+  m_ui.alignment_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.alignment_toolbar->setIconSize(QSize(24, 24));
+  m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.file_toolbar->setIconSize(QSize(24, 24));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareFonts();
@@ -1186,10 +1188,10 @@ void glitch_ui::prepareTabShortcuts(void)
 
 void glitch_ui::prepareToolBar(void)
 {
-  m_ui.toolBar->clear();
+  m_ui.alignment_toolbar->clear();
 
   if(m_currentView)
-    m_ui.toolBar->addActions(m_currentView->alignmentActions());
+    m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
 }
 
 void glitch_ui::restoreSettings(void)
@@ -1198,7 +1200,7 @@ void glitch_ui::restoreSettings(void)
 
   m_ui.action_View_Tools->setChecked
     (settings.value("main_window/view_tools", true).toBool());
-  m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
+  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tools->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
@@ -2244,5 +2246,5 @@ void glitch_ui::slotViewTools(void)
 
   settings.setValue
     ("main_window/view_tools", m_ui.action_View_Tools->isChecked());
-  m_ui.toolBar->setVisible(m_ui.action_View_Tools->isChecked());
+  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tools->isChecked());
 }

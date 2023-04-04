@@ -635,7 +635,7 @@ void glitch_canvas_settings::prepare(void)
 	  (m_ui.categories_icon_size->findText(categoriesIconSize));
 
 	if(m_ui.categories_icon_size->currentIndex() < 0)
-	  m_ui.categories_icon_size->setCurrentIndex(0);
+	  m_ui.categories_icon_size->setCurrentIndex(1); // 24x24
 
 	m_ui.dots_grids_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").
@@ -730,7 +730,7 @@ void glitch_canvas_settings::setCategoriesIconSize(const QString &text)
     (m_ui.categories_icon_size->findText(text.trimmed()));
 
   if(m_ui.categories_icon_size->currentIndex() < 0)
-    m_ui.categories_icon_size->setCurrentIndex(0);
+    m_ui.categories_icon_size->setCurrentIndex(1); // 24x24
 }
 
 void glitch_canvas_settings::setFileName(const QString &fileName)

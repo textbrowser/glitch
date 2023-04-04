@@ -52,7 +52,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
-  m_ui.tree->setIconSize(QSize(0, 0));
+  m_ui.tree->setIconSize(QSize(24, 24));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   prepareCategories();
   setWindowModality(Qt::NonModal);
@@ -475,7 +475,7 @@ void glitch_structures_arduino::setIconSize(const QString &t)
   else if(text == "48x48")
     m_ui.tree->setIconSize(QSize(48, 48));
   else
-    m_ui.tree->setIconSize(QSize(0, 0));
+    m_ui.tree->setIconSize(QSize(24, 24));
 }
 
 void glitch_structures_arduino::slotFilter(const QString &text)
