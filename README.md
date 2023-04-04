@@ -1,6 +1,5 @@
 <h3><b>Summary of Glitch</b></h3>
 
-<ul>
 <li>Android, FreeBSD, Linux, Mac, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
@@ -23,7 +22,6 @@
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Sparc!</li>
-</ul>
 
 <h3><b>Release Notes</b></h3>
 
