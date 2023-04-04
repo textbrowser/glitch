@@ -100,7 +100,7 @@ class glitch_ui: public QMainWindow
   void prepareRedoUndoActions(void);
   void prepareStatusBar(void);
   void prepareTabShortcuts(void);
-  void prepareToolBar(void);
+  void prepareToolBars(void);
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);
   void saveSettings(void);
@@ -162,7 +162,7 @@ class glitch_ui: public QMainWindow
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
   void slotUnite(glitch_view *view);
-  void slotViewTools(void);
+  void slotViewToolBars(void);
 
  public slots:
   void show(void);

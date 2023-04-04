@@ -151,7 +151,7 @@
     </property>
     <addaction name="action_Full_Screen"/>
     <addaction name="separator"/>
-    <addaction name="action_View_Tools"/>
+    <addaction name="action_View_Tool_Bars"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -207,6 +207,9 @@
    </property>
    <property name="text">
     <string>&amp;Arduino...</string>
+   </property>
+   <property name="toolTip">
+    <string>New Arduino Diagram</string>
    </property>
   </action>
   <action name="action_Save_Current_Diagram">
@@ -332,7 +335,7 @@
     <string>&amp;About...</string>
    </property>
   </action>
-  <action name="action_View_Tools">
+  <action name="action_View_Tool_Bars">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -340,7 +343,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Tools Tool Bar</string>
+    <string>&amp;Tool Bars</string>
    </property>
   </action>
   <action name="action_Release_Notes">

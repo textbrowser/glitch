@@ -223,10 +223,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowUserFunctions);
-  connect(m_ui.action_View_Tools,
+  connect(m_ui.action_View_Tool_Bars,
 	  &QAction::triggered,
 	  this,
-	  &glitch_ui::slotViewTools);
+	  &glitch_ui::slotViewToolBars);
   connect(m_ui.menu_Tabs,
 	  &QMenu::aboutToShow,
 	  this,
@@ -271,7 +271,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareFonts();
   prepareIcons();
   prepareRecentFiles();
-  prepareToolBar();
+  prepareToolBars();
   slotPreferencesAccepted();
 }
 
@@ -1186,21 +1186,25 @@ void glitch_ui::prepareTabShortcuts(void)
     }
 }
 
-void glitch_ui::prepareToolBar(void)
+void glitch_ui::prepareToolBars(void)
 {
   m_ui.alignment_toolbar->clear();
 
   if(m_currentView)
     m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
+
+  if(m_ui.file_toolbar->actions().isEmpty())
+    m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
 }
 
 void glitch_ui::restoreSettings(void)
 {
   QSettings settings;
 
-  m_ui.action_View_Tools->setChecked
+  m_ui.action_View_Tool_Bars->setChecked
     (settings.value("main_window/view_tools", true).toBool());
-  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tools->isChecked());
+  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
@@ -1747,7 +1751,7 @@ void glitch_ui::slotPageSelected(int index)
   m_currentView = qobject_cast<glitch_view *> (m_ui.tab->widget(index));
   prepareActionWidgets();
   prepareStatusBar();
-  prepareToolBar();
+  prepareToolBars();
   setTabText(m_currentView);
   setWindowTitle(m_currentView);
 }
@@ -2240,11 +2244,12 @@ void glitch_ui::slotUnite(glitch_view *view)
   window->deleteLater();
 }
 
-void glitch_ui::slotViewTools(void)
+void glitch_ui::slotViewToolBars(void)
 {
   QSettings settings;
 
   settings.setValue
-    ("main_window/view_tools", m_ui.action_View_Tools->isChecked());
-  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tools->isChecked());
+    ("main_window/view_tools", m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }

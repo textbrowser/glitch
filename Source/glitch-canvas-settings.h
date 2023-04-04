@@ -105,7 +105,6 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
     QColorDialog dialog(pushButton);
 
     dialog.setCurrentColor(QColor(pushButton->text().remove('&')));
-    dialog.setOptions(QColorDialog::DontUseNativeDialog);
 
     if(dialog.exec() == QDialog::Accepted)
       {
