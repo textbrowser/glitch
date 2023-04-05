@@ -1188,7 +1188,10 @@ void glitch_ui::prepareToolBars(void)
     m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
 
   if(m_ui.file_toolbar->actions().isEmpty())
-    m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
+    {
+      m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
+      m_ui.file_toolbar->addAction(m_ui.action_Open_Diagram);
+    }
 }
 
 void glitch_ui::restoreSettings(void)
