@@ -120,6 +120,7 @@ class glitch_ui: public QMainWindow
   void slotCopy(glitch_view *view);
   void slotCopy(void);
   void slotDelayedOpenDiagrams(void);
+  void slotDelayedToolBarPreparation(void);
   void slotDelete(void);
   void slotFind(void);
   void slotForgetRecentDiagram(void);

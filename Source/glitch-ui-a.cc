@@ -1182,10 +1182,7 @@ void glitch_ui::prepareTabShortcuts(void)
 
 void glitch_ui::prepareToolBars(void)
 {
-  m_ui.alignment_toolbar->clear();
-
-  if(m_currentView)
-    m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
+  QTimer::singleShot(100, this, &glitch_ui::slotDelayedToolBarPreparation);
 
   if(m_ui.file_toolbar->actions().isEmpty())
     {
@@ -1504,6 +1501,14 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
       prepareActionWidgets();
       prepareRecentFiles();
     }
+}
+
+void glitch_ui::slotDelayedToolBarPreparation(void)
+{
+  m_ui.alignment_toolbar->clear();
+
+  if(m_currentView)
+    m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
 }
 
 void glitch_ui::slotDelete(void)
