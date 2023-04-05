@@ -44,7 +44,6 @@
 #include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-preferences.h"
-#include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-swifty.h"
@@ -1028,6 +1027,8 @@ void glitch_ui::prepareRecentFiles(void)
 		  query.exec();
 		}
 	    }
+
+	query.exec("VACUUM");
       }
 
     db.close();
@@ -1039,20 +1040,13 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto action = new glitch_recent_diagram
-	(list.at(i), m_ui.menu_Recent_Diagrams);
+      auto action = m_ui.menu_Recent_Diagrams->addAction(list.at(i));
 
-      action->pushButton()->addAction(action);
       action->setProperty("file_name", list.at(i));
       connect(action,
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotOpenRecentDiagram);
-      connect(action->pushButton(),
-	      &QPushButton::clicked,
-	      this,
-	      &glitch_ui::slotForgetRecentDiagram);
-      m_ui.menu_Recent_Diagrams->addAction(action);
     }
 
   if(!list.isEmpty())
