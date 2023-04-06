@@ -654,6 +654,7 @@ void glitch_object::createActions(void)
 
       action->setData(static_cast<int> (DefaultMenuActions::ADJUST_SIZE));
       action->setEnabled(!isMandatory());
+      action->setToolTip(tr("Resize the widget to its preferred size."));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -685,6 +686,7 @@ void glitch_object::createActions(void)
 	(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
       action->setData(static_cast<int> (DefaultMenuActions::COMPRESS_WIDGET));
       action->setEnabled(!isMandatory());
+      action->setToolTip(tr("Hide most of the widget's children."));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -749,6 +751,7 @@ void glitch_object::createActions(void)
 	(m_properties.value(Properties::POSITION_LOCKED).toBool());
       action->setData(static_cast<int> (DefaultMenuActions::LOCK_POSITION));
       action->setEnabled(!isMandatory());
+      action->setToolTip(tr("Lock the widget's position."));
       connect(action,
 	      &QAction::triggered,
 	      this,
