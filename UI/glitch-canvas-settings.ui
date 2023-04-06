@@ -31,8 +31,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>488</width>
-        <height>594</height>
+        <width>467</width>
+        <height>624</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -188,6 +188,40 @@
              </item>
              <item>
               <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <item>
+              <widget class="QLabel" name="label_14">
+               <property name="text">
+                <string>&amp;Lock Color</string>
+               </property>
+               <property name="buddy">
+                <cstring>lock_color</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="lock_color">
+               <property name="text">
+                <string notr="true"/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_13">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -848,6 +882,7 @@
   <tabstop>name</tabstop>
   <tabstop>categories_icon_size</tabstop>
   <tabstop>dots_grids_color</tabstop>
+  <tabstop>lock_color</tabstop>
   <tabstop>selection_color</tabstop>
   <tabstop>show_canvas_dots</tabstop>
   <tabstop>show_canvas_grids</tabstop>

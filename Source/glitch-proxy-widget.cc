@@ -55,6 +55,14 @@ glitch_proxy_widget::~glitch_proxy_widget()
 {
 }
 
+QColor glitch_proxy_widget::lockColor(void) const
+{
+  if(m_object && m_object->canvasSettings())
+    return m_object->canvasSettings()->lockColor();
+  else
+    return QColor("orange");
+}
+
 QColor glitch_proxy_widget::selectionColor(void) const
 {
   if(m_object && m_object->canvasSettings())
@@ -267,7 +275,7 @@ void glitch_proxy_widget::paint
 	  if(isMovable())
 	    pen.setColor(selectionColor());
 	  else
-	    pen.setColor(QColor("orange"));
+	    pen.setColor(lockColor());
 
 	  pen.setJoinStyle(Qt::RoundJoin);
 	  pen.setStyle(Qt::SolidLine);

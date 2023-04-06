@@ -54,6 +54,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.background_color->setText(QColor(Qt::white).name());
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
+  m_ui.lock_color->setStyleSheet("QPushButton {background-color: orange}");
+  m_ui.lock_color->setText("orange");
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_ide->setText("/usr/bin/arduino");
@@ -132,6 +134,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  connect(m_ui.lock_color,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotSelectColor);
   connect(m_ui.reset_source_view_keywords,
 	  &QPushButton::clicked,
 	  this,
@@ -179,6 +185,12 @@ QColor glitch_canvas_settings::dotsGridsColor(void) const
 		toString().remove('&').trimmed());
 }
 
+QColor glitch_canvas_settings::lockColor(void) const
+{
+  return QColor
+    (m_settings.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
+}
+
 QColor glitch_canvas_settings::selectionColor(void) const
 {
   return QColor(m_settings.value(Settings::SELECTION_COLOR).
@@ -213,6 +225,7 @@ settings(void) const
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
+  hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
   hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
@@ -378,6 +391,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "keyword_colors TEXT, "
+	   "lock_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
 	   "project_ide TEXT, "
@@ -407,6 +421,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color, "
 	   "generate_periodically, "
 	   "keyword_colors, "
+	   "lock_color, "
 	   "name, "
 	   "output_file, "
 	   "project_ide, "
@@ -420,12 +435,13 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
 	query.addBindValue(keywordColorsFromTableAsString());
+	query.addBindValue(m_ui.lock_color->text().remove('&'));
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -526,6 +542,7 @@ void glitch_canvas_settings::prepare(void)
 	query.setForwardOnly(true);
 	query.exec("ALTER TABLE canvas_settings ADD categories_icon_size TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD keyword_colors TEXT");
+	query.exec("ALTER TABLE canvas_settings ADD lock_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
@@ -535,6 +552,7 @@ void glitch_canvas_settings::prepare(void)
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
 			   "SUBSTR(keyword_colors, 1, 5000), "
+			   "SUBSTR(lock_color, 1, 50), "
 			   "SUBSTR(name, 1, %1), "
 			   "SUBSTR(output_file, 1, 5000), "
 			   "SUBSTR(project_ide, 1, 5000), "
@@ -554,6 +572,7 @@ void glitch_canvas_settings::prepare(void)
 
 	QColor color;
 	QColor dotsGridsColor;
+	QColor lockColor;
 	QColor selectionColor;
 	QColor wireColor;
 	QString categoriesIconSize("");
@@ -586,6 +605,9 @@ void glitch_canvas_settings::prepare(void)
 	      generatePeriodically = record.value(i).toBool();
 	    else if(fieldName.contains("keyword_colors"))
 	      keywordColors = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("lock_color"))
+	      lockColor = QColor
+		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("output_file"))
@@ -622,6 +644,9 @@ void glitch_canvas_settings::prepare(void)
 	if(!dotsGridsColor.isValid())
 	  dotsGridsColor = QColor(Qt::white);
 
+	if(!lockColor.isValid())
+	  lockColor = QColor("orange");
+
 	if(name.isEmpty())
 	  name = defaultName();
 
@@ -642,6 +667,10 @@ void glitch_canvas_settings::prepare(void)
 	   arg(dotsGridsColor.name()));
 	m_ui.dots_grids_color->setText(dotsGridsColor.name());
 	m_ui.generate_periodically->setChecked(generatePeriodically);
+	m_ui.lock_color->setStyleSheet
+	  (QString("QPushButton {background-color: %1}").
+	   arg(lockColor.name(QColor::HexArgb)));
+	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
 	m_ui.output_file->setText(outputFile);
@@ -821,6 +850,12 @@ void glitch_canvas_settings::setSettings
   m_ui.dots_grids_color->setText(color.name());
   m_ui.generate_periodically->setChecked
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
+  color = QColor
+    (hash.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
+  m_ui.lock_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").
+     arg(color.name(QColor::HexArgb)));
+  m_ui.lock_color->setText(color.name(QColor::HexArgb));
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
   color = QColor
@@ -970,7 +1005,9 @@ void glitch_canvas_settings::slotSelectColor(void)
       QApplication::processEvents();
 
       QColor color(dialog.selectedColor());
-      auto format = button == m_ui.selection_color || m_ui.wire_color ?
+      auto format = (button == m_ui.lock_color ||
+		     button == m_ui.selection_color ||
+		     button == m_ui.wire_color) ?
 	QColor::HexArgb : QColor::HexRgb;
 
       button->setStyleSheet

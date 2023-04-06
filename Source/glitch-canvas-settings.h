@@ -136,6 +136,7 @@ class glitch_canvas_settings: public QDialog
     DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
     KEYWORD_COLORS,
+    LOCK_COLOR,
     OUTPUT_FILE,
     PROJECT_IDE,
     REDO_UNDO_STACK_SIZE,
@@ -153,6 +154,7 @@ class glitch_canvas_settings: public QDialog
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
   QColor dotsGridsColor(void) const;
+  QColor lockColor(void) const;
   QColor selectionColor(void) const;
   QColor wireColor(void) const;
   QGraphicsView::ViewportUpdateMode viewportUpdateMode(void) const;

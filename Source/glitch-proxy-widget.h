@@ -82,6 +82,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   QPointer<glitch_object> m_object;
   QPointer<glitch_scene> m_scene;
   Sections m_hoveredSection;
+  QColor lockColor(void) const;
   QColor selectionColor(void) const;
   bool isWired(void) const;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

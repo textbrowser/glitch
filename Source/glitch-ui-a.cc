@@ -263,6 +263,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setTabsClosable(true);
   m_ui.alignment_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.alignment_toolbar->setIconSize(QSize(24, 24));
+  m_ui.edit_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.edit_toolbar->setIconSize(QSize(24, 24));
   m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -1184,6 +1186,12 @@ void glitch_ui::prepareToolBars(void)
 {
   QTimer::singleShot(100, this, &glitch_ui::slotDelayedToolBarPreparation);
 
+  if(m_ui.edit_toolbar->actions().isEmpty())
+    {
+      m_ui.edit_toolbar->addAction(m_ui.action_Canvas_Settings);
+      m_ui.edit_toolbar->addAction(m_ui.action_Find);
+    }
+
   if(m_ui.file_toolbar->actions().isEmpty())
     {
       m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
@@ -1198,6 +1206,7 @@ void glitch_ui::restoreSettings(void)
   m_ui.action_View_Tool_Bars->setChecked
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
@@ -2253,5 +2262,6 @@ void glitch_ui::slotViewToolBars(void)
   settings.setValue
     ("main_window/view_tools", m_ui.action_View_Tool_Bars->isChecked());
   m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }
