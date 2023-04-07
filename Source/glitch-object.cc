@@ -860,6 +860,11 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
 	      m_editView,
 	      &glitch_object_view::slotPaste,
 	      Qt::UniqueConnection);
+      connect(m_editView->scene(),
+	      SIGNAL(dockPropertyEditor(QWidget *)),
+	      m_editWindow,
+	      SLOT(slotDockPropertyEditor(QWidget *)),
+	      Qt::UniqueConnection);
       connect(m_editWindow,
 	      &glitch_object_edit_window::closed,
 	      m_editView,
@@ -943,11 +948,20 @@ void glitch_object::prepareEditSignals(const glitch_view *parentView)
     }
 
   if(m_editWindow)
-    connect(m_editWindow,
-	    SIGNAL(propertyChanged(const QString &, const QVariant &)),
-	    this,
-	    SLOT(slotPropertyChanged(const QString &, const QVariant &)),
-	    Qt::UniqueConnection);
+    {
+      connect(m_editWindow,
+	      SIGNAL(propertyChanged(const QString &, const QVariant &)),
+	      this,
+	      SLOT(slotPropertyChanged(const QString &, const QVariant &)),
+	      Qt::UniqueConnection);
+
+      if(parentView)
+	connect(parentView,
+		&glitch_view::preferencesAccepted,
+		m_editWindow,
+		&glitch_object_edit_window::slotPreferencesAccepted,
+		Qt::UniqueConnection);
+    }
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)

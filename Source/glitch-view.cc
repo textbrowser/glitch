@@ -1305,12 +1305,14 @@ void glitch_view::slotPreferencesAccepted(void)
 
   if(state)
     {
-      foreach(auto menu, findChildren<glitch_floating_context_menu *> ())
-	if(menu && menu->isVisible())
-	  slotDockPropertyEditor(menu);
+      foreach(auto object, m_scene->objects())
+	if(object)
+	  slotDockPropertyEditor(object->menu());
     }
   else
     m_dockedWidgetPropertyEditors->detach();
+
+  emit preferencesAccepted();
 }
 
 void glitch_view::slotResizeScene(void)

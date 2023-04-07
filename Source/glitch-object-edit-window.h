@@ -38,6 +38,7 @@
 class QLineEdit;
 class QSplitter;
 class QUndoStack;
+class glitch_docked_container;
 class glitch_object_view;
 class glitch_structures_arduino;
 
@@ -59,6 +60,9 @@ class glitch_object_edit_window: public QMainWindow
   void setToolBarVisible(const bool state);
   void setUndoStack(QUndoStack *undoStack);
 
+ public slots:
+  void slotPreferencesAccepted(void);
+
  private:
   QLineEdit *m_header;
   QMap<QString, QAction *> m_actions;
@@ -69,6 +73,7 @@ class glitch_object_edit_window: public QMainWindow
   QSplitter *m_splitter;
   QToolBar *m_toolBar;
   glitch_common::ProjectTypes m_projectType;
+  glitch_docked_container *m_dockedWidgetPropertyEditors;
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void prepareIcons(void);
@@ -77,6 +82,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private slots:
   void slotAboutToShowEditMenu(void);
+  void slotDockPropertyEditor(QWidget *widget);
   void slotShowFullScreenMode(void);
   void slotSplitterMoved(void);
   void slotViewTools(void);

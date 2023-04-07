@@ -28,11 +28,14 @@
 #include <QLineEdit>
 #include <QMenuBar>
 #include <QResizeEvent>
+#include <QSettings>
 #include <QSplitter>
 #include <QTimer>
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-docked-container.h"
+#include "glitch-floating-context-menu.h"
 #include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -131,6 +134,8 @@ glitch_object_edit_window::glitch_object_edit_window
 	  &QAction::triggered,
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
+  m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
+  m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
@@ -288,6 +293,8 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 
   frame->layout()->setContentsMargins(9, 9, 9, 9);
   frame->layout()->setSpacing(5);
+  m_splitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
   QMainWindow::setCentralWidget(frame);
 }
 
@@ -410,6 +417,31 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)
+{
+  m_dockedWidgetPropertyEditors->add
+    (qobject_cast<glitch_floating_context_menu *> (widget));
+}
+
+void glitch_object_edit_window::slotPreferencesAccepted(void)
+{
+  QSettings settings;
+  auto state = settings.value
+    ("preferences/docked_widget_property_editors", true).toBool();
+
+  if(state)
+    {
+      foreach(auto menu, findChildren<glitch_floating_context_menu *> ())
+	if(menu && menu->isVisible())
+	  slotDockPropertyEditor(menu);
+    }
+  else
+    m_dockedWidgetPropertyEditors->detach();
+
+  m_dockedWidgetPropertyEditors->setVisible(state);
+
 }
 
 void glitch_object_edit_window::slotShowFullScreenMode(void)

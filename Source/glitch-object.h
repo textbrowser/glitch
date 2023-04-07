@@ -160,6 +160,11 @@ class glitch_object: public QWidget
     return m_canvasSettings;
   }
 
+  QPointer<glitch_floating_context_menu> menu(void) const
+  {
+    return m_contextMenu;
+  }
+
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
 
