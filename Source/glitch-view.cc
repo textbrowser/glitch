@@ -1306,7 +1306,7 @@ void glitch_view::slotPreferencesAccepted(void)
   if(state)
     {
       foreach(auto object, m_scene->objects())
-	if(object)
+	if(object && object->menu() && object->menu()->isVisible())
 	  slotDockPropertyEditor(object->menu());
     }
   else

@@ -431,11 +431,11 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
   auto state = settings.value
     ("preferences/docked_widget_property_editors", true).toBool();
 
-  if(state)
+  if(m_editView && state)
     {
-      foreach(auto menu, findChildren<glitch_floating_context_menu *> ())
-	if(menu && menu->isVisible())
-	  slotDockPropertyEditor(menu);
+      foreach(auto object, m_editView->scene()->objects())
+	if(object && object->menu() && object->menu()->isVisible())
+	  slotDockPropertyEditor(object->menu());
     }
   else
     m_dockedWidgetPropertyEditors->detach();
