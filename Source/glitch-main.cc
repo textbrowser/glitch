@@ -36,7 +36,7 @@
 
 #include <iostream>
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include "CocoaInitializer.h"
 #endif
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
   dir.mkdir(glitch_misc::homePath());
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   /*
   ** Eliminate pool errors on OS X.
   */
