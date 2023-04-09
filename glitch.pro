@@ -212,6 +212,8 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-port-colors.h \
                   Source/glitch-preferences.h \
                   Source/glitch-proxy-widget.h \
+                  Source/glitch-resize-widget.h \
+                  Source/glitch-resize-widget-rectangle.h \
                   Source/glitch-scene.h \
                   Source/glitch-scroll-filter.h \
                   Source/glitch-separated-diagram-window.h \
@@ -244,6 +246,8 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-port-colors.cc \
                   Source/glitch-preferences.cc \
                   Source/glitch-proxy-widget.cc \
+                  Source/glitch-resize-widget.cc \
+                  Source/glitch-resize-widget-rectangle.cc \
                   Source/glitch-scene.cc \
                   Source/glitch-separated-diagram-window.cc \
                   Source/glitch-structures-treewidget.cc \

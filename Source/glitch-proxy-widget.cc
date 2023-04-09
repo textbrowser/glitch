@@ -38,6 +38,7 @@
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
+#include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-tools.h"
 
@@ -48,6 +49,7 @@ glitch_proxy_widget::glitch_proxy_widget
   QGraphicsProxyWidget(parent, wFlags)
 {
   m_hoveredSection = Sections::XYZ;
+  m_resizeWidget = new glitch_resize_widget(this);
   setCacheMode(QGraphicsItem::NoCache);
 }
 
@@ -74,6 +76,27 @@ QColor glitch_proxy_widget::selectionColor(void) const
 QPointer<glitch_object> glitch_proxy_widget::object(void) const
 {
   return m_object;
+}
+
+QVariant glitch_proxy_widget::itemChange
+(GraphicsItemChange change, const QVariant &value)
+{
+  if(change == QGraphicsItem::ItemSelectedChange)
+    {
+      foreach(auto item, childItems())
+	if(item)
+	  item->setVisible(value.toBool());
+
+      if(isMandatory())
+	m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
+      else
+	m_resizeWidget->showEdgeRectanglesForLockedPosition
+	  (value.toBool(), m_object->positionLocked());
+
+      return value;
+    }
+
+  return QGraphicsProxyWidget::itemChange(change, value);
 }
 
 bool glitch_proxy_widget::isMandatory(void) const
@@ -119,6 +142,11 @@ void glitch_proxy_widget::contextMenuEvent
     }
   else
     QGraphicsProxyWidget::contextMenuEvent(event);
+}
+
+void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
+{
+  emit geometryChangedSignal(previousRect);
 }
 
 void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

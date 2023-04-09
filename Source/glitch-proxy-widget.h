@@ -34,6 +34,7 @@
 #include "glitch-scene.h"
 
 class glitch_object;
+class glitch_resize_widget;
 
 class glitch_proxy_widget: public QGraphicsProxyWidget
 {
@@ -75,6 +76,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
     return Type;
   }
 
+  void geometryChanged(const QRectF &previousRect);
   void setPos(const QPointF &point);
   void setWidget(QWidget *widget);
 
@@ -82,8 +84,10 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   QPointer<glitch_object> m_object;
   QPointer<glitch_scene> m_scene;
   Sections m_hoveredSection;
+  glitch_resize_widget *m_resizeWidget;
   QColor lockColor(void) const;
   QColor selectionColor(void) const;
+  QVariant itemChange(GraphicsItemChange change, const QVariant &value);
   bool isWired(void) const;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
@@ -97,6 +101,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 
  signals:
   void changed(void);
+  void geometryChangedSignal(const QRectF &previousRect);
 };
 
 #endif
