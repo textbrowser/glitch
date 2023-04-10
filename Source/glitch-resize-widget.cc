@@ -31,6 +31,7 @@
 #include <QWidget>
 #include <QtDebug>
 
+#include "glitch-proxy-widget.h"
 #include "glitch-resize-widget.h"
 #include "glitch-resize-widget-rectangle.h"
 #include "glitch-scene.h"
@@ -38,7 +39,7 @@
 glitch_resize_widget::glitch_resize_widget(QGraphicsItem *parent):
   QGraphicsItem(parent)
 {
-  m_parent = parent;
+  m_parent = qgraphicsitem_cast<glitch_proxy_widget *> (parent);
 
   if(!m_parent)
     qDebug() << "glitch_resize_widget::"
@@ -70,27 +71,16 @@ void glitch_resize_widget::paint
   if(m_rectanges.isEmpty())
     return;
 
-  QBrush brush((QColor(Qt::blue))); // (( -> CLANG
-
-  if(m_parent)
-    {
-      auto scene = qobject_cast<glitch_scene *> (m_parent->scene());
-
-      if(scene)
-	brush.setColor(QColor(255 - scene->backgroundBrush().color().red(),
-			      255 - scene->backgroundBrush().color().green(),
-			      255 - scene->backgroundBrush().color().blue()));
-    }
-
   QHashIterator<glitch_resize_widget_rectangle::RectangleLocations,
 		glitch_resize_widget_rectangle *> it(m_rectanges);
+  auto color(m_parent->selectionColor());
 
   while(it.hasNext())
     {
       it.next();
 
       if(it.value())
-	it.value()->setBrush(brush);
+	it.value()->setBrush(color);
     }
 }
 
@@ -159,20 +149,9 @@ void glitch_resize_widget::prepareRectangles(void)
   else if(!m_rectanges.isEmpty())
     return;
 
-  QBrush brush((QColor(Qt::blue))); // (( -> CLANG
-
-  if(m_parent)
-    {
-      auto scene = qobject_cast<glitch_scene *> (m_parent->scene());
-
-      if(scene)
-	brush.setColor(QColor(255 - scene->backgroundBrush().color().red(),
-			      255 - scene->backgroundBrush().color().green(),
-			      255 - scene->backgroundBrush().color().blue()));
-    }
-
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
   QPen pen;
+  auto color(m_parent->selectionColor());
 
   list << glitch_resize_widget_rectangle::BottomCenter
        << glitch_resize_widget_rectangle::BottomLeft
@@ -188,7 +167,7 @@ void glitch_resize_widget::prepareRectangles(void)
     {
       auto rectangle = new glitch_resize_widget_rectangle(m_parent, list.at(i));
 
-      rectangle->setBrush(brush);
+      rectangle->setBrush(color);
       rectangle->setPen(pen);
       rectangle->setVisible(false);
       m_rectanges[list.at(i)] = rectangle;

@@ -32,6 +32,8 @@
 
 #include "glitch-resize-widget-rectangle.h"
 
+class glitch_proxy_widget;
+
 class glitch_resize_widget: public QGraphicsItem
 {
  public:
@@ -47,9 +49,9 @@ class glitch_resize_widget: public QGraphicsItem
 					   const bool state);
 
  private:
-  QGraphicsItem *m_parent;
   QHash<glitch_resize_widget_rectangle::RectangleLocations,
         glitch_resize_widget_rectangle *> m_rectanges;
+  glitch_proxy_widget *m_parent;
   void prepareRectangles(void);
 };
 

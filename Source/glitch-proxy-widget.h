@@ -56,6 +56,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   glitch_proxy_widget(QGraphicsItem *parent = nullptr,
 		      Qt::WindowFlags wFlags = Qt::WindowFlags());
   ~glitch_proxy_widget();
+  QColor selectionColor(void) const;
   QPointer<glitch_object> object(void) const;
   Sections hoveredSection(void) const;
   bool isMandatory(void) const;
@@ -85,8 +86,6 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   QPointer<glitch_scene> m_scene;
   Sections m_hoveredSection;
   glitch_resize_widget *m_resizeWidget;
-  QColor lockColor(void) const;
-  QColor selectionColor(void) const;
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
   bool isWired(void) const;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

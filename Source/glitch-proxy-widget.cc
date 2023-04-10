@@ -57,20 +57,19 @@ glitch_proxy_widget::~glitch_proxy_widget()
 {
 }
 
-QColor glitch_proxy_widget::lockColor(void) const
-{
-  if(m_object && m_object->canvasSettings())
-    return m_object->canvasSettings()->lockColor();
-  else
-    return QColor("orange");
-}
-
 QColor glitch_proxy_widget::selectionColor(void) const
 {
   if(m_object && m_object->canvasSettings())
-    return m_object->canvasSettings()->selectionColor();
-  else
+    {
+      if(!isMovable())
+	return m_object->canvasSettings()->lockColor();
+      else 
+	return m_object->canvasSettings()->selectionColor();
+    }
+  else if(isMovable())
     return QColor("lightgreen");
+  else
+    return QColor("orange");
 }
 
 QPointer<glitch_object> glitch_proxy_widget::object(void) const
@@ -81,7 +80,21 @@ QPointer<glitch_object> glitch_proxy_widget::object(void) const
 QVariant glitch_proxy_widget::itemChange
 (GraphicsItemChange change, const QVariant &value)
 {
-  if(change == QGraphicsItem::ItemSelectedChange)
+  if(change == QGraphicsItem::ItemFlagsChange && m_object)
+    {
+      foreach(auto item, childItems())
+	if(item)
+	  item->setVisible(isSelected());
+
+      if(isMandatory())
+	m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
+      else
+	m_resizeWidget->showEdgeRectanglesForLockedPosition
+	  (isSelected(), m_object->positionLocked());
+
+      return value;
+    }
+  else if(change == QGraphicsItem::ItemSelectedChange && m_object)
     {
       foreach(auto item, childItems())
 	if(item)
@@ -298,16 +311,12 @@ void glitch_proxy_widget::paint
 	  */
 
 	  QPen pen;
-	  const qreal offset = 10.0;
+	  const qreal offset = 0.0;
 
-	  if(isMovable())
-	    pen.setColor(selectionColor());
-	  else
-	    pen.setColor(lockColor());
-
+	  pen.setColor(selectionColor());
 	  pen.setJoinStyle(Qt::RoundJoin);
 	  pen.setStyle(Qt::SolidLine);
-	  pen.setWidthF(5.0);
+	  pen.setWidthF(2.5);
 	  painter->save();
 	  painter->setPen(pen);
 	  painter->drawRect
