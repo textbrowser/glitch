@@ -186,6 +186,7 @@ Completed Items
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
 - Reset object order on delete / redo / undo.
+- Resize objects manually.
 - Resize objects? Yes, option included.
 - Retain Tools Bar position.
 - Retain loop(), setup () style sheets.
@@ -268,7 +269,6 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
-- Resize objects manually.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Splitter states and redo / undo.
