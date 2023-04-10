@@ -25,7 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
 
@@ -168,15 +167,16 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case BottomLeft:
       {
-	if(event->pos().y() > 0)
-	  rectangle.setHeight(event->pos().y());
-
-	if(parent->minimumHeight() >= rectangle.height())
+	if(event->scenePos().x() < 0 ||
+	   parent->minimumHeight() >= rectangle.height())
 	  /*
 	  ** Do not move the widget.
 	  */
 
 	  return;
+
+	if(event->pos().y() > 0)
+	  rectangle.setHeight(event->pos().y());
 
 	if(!m_parentLocked)
 	  rectangle.setX(event->pos().x());
@@ -267,7 +267,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setX(event->pos().x());
 
-        if(parent->minimumWidth() >= rectangle.width())
+        if(event->scenePos().x() < 0 ||
+	   parent->minimumWidth() >= rectangle.width())
 	  /*
 	  ** Do not move the widget.
 	  */
@@ -335,7 +336,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setY(event->pos().y());
 
-	if(parent->minimumHeight() >= rectangle.height())
+	if(event->scenePos().y() < 0 ||
+	   parent->minimumHeight() >= rectangle.height())
 	  /*
 	  ** Do not move the widget.
 	  */
@@ -371,7 +373,9 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setX(event->pos().x());
 
-	if(parent->minimumWidth() >= rectangle.width())
+	if(event->scenePos().x() < 0 ||
+	   event->scenePos().y() < 0 ||
+	   parent->minimumWidth() >= rectangle.width())
 	  /*
 	  ** Do not move the widget.
 	  */
@@ -421,7 +425,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(!m_parentLocked)
 	  rectangle.setY(event->pos().y());
 
-	if(parent->minimumHeight() >= rectangle.height())
+	if(event->scenePos().y() < 0 ||
+	   parent->minimumHeight() >= rectangle.height())
 	  /*
 	  ** Do not move the widget.
 	  */
