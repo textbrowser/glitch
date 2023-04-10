@@ -328,6 +328,10 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  &glitch_scene::saveSignal,
 	  Qt::UniqueConnection);
   connect(proxy,
+	  SIGNAL(geometryChangedSignal(const QRectF &)),
+	  this,
+	  SLOT(slotProxyGeometryChanged(const QRectF &)));
+  connect(proxy,
 	  &glitch_proxy_widget::changed,
 	  this,
 	  &glitch_scene::slotProxyChanged);
@@ -1497,6 +1501,29 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 void glitch_scene::slotProxyChanged(void)
 {
   recordProxyOrder(qobject_cast<glitch_proxy_widget *> (sender()));
+}
+
+void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
+{
+  auto proxy = qobject_cast<glitch_proxy_widget *> (sender());
+
+  if(!proxy || previousRect == proxy->geometry())
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(proxy->geometry(),
+	 previousRect,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_object::Properties::GEOMETRY,
+	 proxy->object());
+
+      undoCommand->setText
+	(tr("object geometry changed (%1, %2)").
+	 arg(proxy->scenePos().x()).arg(proxy->scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
 }
 
 void glitch_scene::slotToolsOperationChanged

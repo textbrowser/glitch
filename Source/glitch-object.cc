@@ -1237,6 +1237,13 @@ void glitch_object::setProperty(const Properties property,
 	compressWidget(value.toBool());
 	break;
       }
+    case Properties::GEOMETRY:
+      {
+	if(m_proxy)
+	  m_proxy->setGeometry(value.toRectF());
+
+	break;
+      }
     case Properties::POSITION_LOCKED:
       {
 	if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))

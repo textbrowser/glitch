@@ -127,6 +127,7 @@ class glitch_scene: public QGraphicsScene
 				     glitch_object *object);
   void slotObjectDeletedViaContextMenu(void);
   void slotProxyChanged(void);
+  void slotProxyGeometryChanged(const QRectF &previousRect);
 
  signals:
   void changed(void);
