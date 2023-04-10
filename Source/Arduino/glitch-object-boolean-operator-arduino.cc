@@ -215,7 +215,6 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 		    << QPointF(0.0, h)
 		    << QPointF(w / 2.0, h);
 	    m_path.addPolygon(polygon);
-	    m_path.moveTo(h / 2.0, h);
 	    m_path.arcTo(rect(), -90.0, 180.0);
 	  }
 
