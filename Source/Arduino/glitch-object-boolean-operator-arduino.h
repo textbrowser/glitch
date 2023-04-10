@@ -46,9 +46,14 @@ class glitch_object_boolean_operator_arduino: public glitch_object
 					 QWidget *parent);
   ~glitch_object_boolean_operator_arduino();
 
-  QSize sizeHint(void) const
+  QSize minimumSizeHint(void) const
   {
     return QSize(50, 50);
+  }
+
+  QSize sizeHint(void) const
+  {
+    return minimumSizeHint();
   }
 
   QString code(void) const;
@@ -61,6 +66,7 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   static glitch_object_boolean_operator_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
+  void resizeEvent(QResizeEvent *event);
   void save(const QSqlDatabase &db, QString &error);
   void setOperatorType(const QString &operatorType);
 

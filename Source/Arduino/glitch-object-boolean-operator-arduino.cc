@@ -190,8 +190,8 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   auto brush(QBrush(m_color, Qt::SolidPattern));
   auto color(brush.color());
-  auto h = static_cast<qreal> (height());
-  auto w = static_cast<qreal> (width());
+  const auto h = static_cast<qreal> (size().height());
+  const auto w = static_cast<qreal> (size().width());
 
   color.setAlpha(255);
   brush.setColor(color);
@@ -252,6 +252,12 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 	break;
       }
     }
+}
+
+void glitch_object_boolean_operator_arduino::resizeEvent(QResizeEvent *event)
+{
+  glitch_object::resizeEvent(event);
+  m_path.clear();
 }
 
 void glitch_object_boolean_operator_arduino::save
