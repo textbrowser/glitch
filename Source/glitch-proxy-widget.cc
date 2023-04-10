@@ -609,6 +609,24 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
     m_hoveredSection = Sections::XYZ;
 }
 
+void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
+{
+  QGraphicsProxyWidget::resizeEvent(event);
+
+  if(m_object)
+    {
+      foreach(auto item, childItems())
+	if(item)
+	  item->setVisible(isSelected());
+
+      if(isMandatory())
+	m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
+      else
+	m_resizeWidget->showEdgeRectanglesForLockedPosition
+	  (isSelected(), m_object->positionLocked());
+    }
+}
+
 void glitch_proxy_widget::setPos(const QPointF &point)
 {
   QGraphicsProxyWidget::setPos(point);

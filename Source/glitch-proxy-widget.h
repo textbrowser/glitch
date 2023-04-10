@@ -97,6 +97,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
   void prepareHoverSection(QGraphicsSceneHoverEvent *event);
+  void resizeEvent(QGraphicsSceneResizeEvent *event);
 
  signals:
   void changed(void);
