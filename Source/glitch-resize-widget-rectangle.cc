@@ -167,6 +167,9 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case BottomLeft:
       {
+	if(event->pos().y() > 0)
+	  rectangle.setHeight(event->pos().y());
+
 	if(event->scenePos().x() < 0 ||
 	   parent->minimumHeight() >= rectangle.height())
 	  /*
@@ -174,9 +177,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  */
 
 	  return;
-
-	if(event->pos().y() > 0)
-	  rectangle.setHeight(event->pos().y());
 
 	if(!m_parentLocked)
 	  rectangle.setX(event->pos().x());
