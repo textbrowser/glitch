@@ -63,6 +63,7 @@
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object-arrow.h"
+#include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -1032,6 +1033,13 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
   if(event)
     {
       auto item = itemAt(event->scenePos(), QTransform());
+
+      if(qgraphicsitem_cast<glitch_resize_widget_rectangle *> (item))
+	/*
+	** We need to be able to interact with the resize rectangles!
+	*/
+
+	goto done_label;
 
       if(!qgraphicsitem_cast<glitch_wire *> (item) && item)
 	{

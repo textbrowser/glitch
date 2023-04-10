@@ -125,7 +125,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     }
 
   QList<glitch_resize_widget_rectangle *> list;
-  QRectF rectangle(parent->boundingRect());
+  auto rectangle(parent->boundingRect());
 
   switch(m_location)
     {
