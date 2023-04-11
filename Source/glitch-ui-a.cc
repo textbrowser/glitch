@@ -1795,11 +1795,7 @@ void glitch_ui::slotPreferencesAccepted(void)
 
 void glitch_ui::slotQuit(void)
 {
-#ifdef Q_OS_ANDROID
-  hide();
-#else
   close();
-#endif
 }
 
 void glitch_ui::slotRedo(void)

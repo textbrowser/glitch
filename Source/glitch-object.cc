@@ -1366,20 +1366,10 @@ void glitch_object::showEditWindow(void) const
 void glitch_object::simulateDelete(void)
 {
   if(m_contextMenu)
-    {
-#ifdef Q_OS_ANDROID
-      m_contextMenu->hide();
-#else
-      m_contextMenu->close();
-#endif
-    }
+    m_contextMenu->close();
 
   if(m_editWindow)
-#ifdef Q_OS_ANDROID
-    m_editWindow->hide();
-#else
     m_editWindow->close();
-#endif
 
   emit simulateDeleteSignal();
 }
