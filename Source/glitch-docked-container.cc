@@ -153,8 +153,12 @@ void glitch_docked_container::slotWidgetClosed(void)
 	  {
 	    auto widget = m_ui.view->indexWidget(index);
 
-	    if(widget && widget->isVisible() == false)
+	    if(sender() == widget)
 	      m_model->removeRow(i);
 	  }
+	else
+	  m_model->removeRow(i);
       }
+    else
+      m_model->removeRow(i);
 }
