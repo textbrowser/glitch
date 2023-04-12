@@ -256,7 +256,7 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
 void glitch_object_boolean_operator_arduino::resizeEvent(QResizeEvent *event)
 {
   glitch_object::resizeEvent(event);
-  m_path.clear();
+  m_path = QPainterPath();
 }
 
 void glitch_object_boolean_operator_arduino::save
