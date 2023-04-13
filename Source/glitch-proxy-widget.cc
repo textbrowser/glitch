@@ -63,7 +63,7 @@ QColor glitch_proxy_widget::selectionColor(void) const
     {
       if(!isMovable())
 	return m_object->canvasSettings()->lockColor();
-      else 
+      else
 	return m_object->canvasSettings()->selectionColor();
     }
   else if(isMovable())
@@ -330,7 +330,7 @@ void glitch_proxy_widget::paint
 	  ** Draw the object's order.
 	  */
 
-	  QFontMetrics fontMetrics(painter->font());
+	  QFontMetricsF fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
 	  auto font(painter->font());
@@ -340,8 +340,7 @@ void glitch_proxy_widget::paint
 	  path.addRect
 	    (point.x() - 15.0,
 	     point.y() - 25.0,
-	     30.0 +
-	     static_cast<qreal> (fontMetrics.boundingRect(order).width()),
+	     30.0 + fontMetrics.boundingRect(order).width(),
 	     30.0);
 	  pen.setColor(Qt::blue);
 	  pen.setWidthF(1.0);

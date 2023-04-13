@@ -295,6 +295,8 @@ void glitch_object_boolean_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::TRANSPARENT] = false;
 
   QString value("!");
 

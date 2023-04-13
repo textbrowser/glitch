@@ -1,5 +1,4 @@
-FORMS          += UI/Arduino/glitch-object-advanced-io-arduino.ui \
-                  UI/Arduino/glitch-object-analog-io-arduino.ui \
+FORMS          += UI/Arduino/glitch-object-analog-io-arduino.ui \
                   UI/Arduino/glitch-object-arithmetic-operator-arduino.ui \
                   UI/Arduino/glitch-object-bits-and-bytes-arduino.ui \
                   UI/Arduino/glitch-object-bitwise-operator-arduino.ui \
@@ -43,6 +42,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-random-arduino.h \
                   Source/Arduino/glitch-object-setup-arduino.h \
                   Source/Arduino/glitch-object-serial-arduino.h \
+                  Source/Arduino/glitch-object-simple-text-arduino.h \
                   Source/Arduino/glitch-object-stream-arduino.h \
                   Source/Arduino/glitch-object-syntax-arduino.h \
                   Source/Arduino/glitch-object-time-arduino.h \
@@ -71,6 +71,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-random-arduino.cc \
                   Source/Arduino/glitch-object-serial-arduino.cc \
                   Source/Arduino/glitch-object-setup-arduino.cc \
+                  Source/Arduino/glitch-object-simple-text-arduino.cc \
                   Source/Arduino/glitch-object-stream-arduino.cc \
                   Source/Arduino/glitch-object-syntax-arduino.cc \
                   Source/Arduino/glitch-object-time-arduino.cc \
