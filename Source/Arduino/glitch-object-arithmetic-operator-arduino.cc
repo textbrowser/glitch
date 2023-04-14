@@ -26,8 +26,6 @@
 */
 
 #include "glitch-object-arithmetic-operator-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_arithmetic_operator_arduino::
 glitch_object_arithmetic_operator_arduino
@@ -41,22 +39,15 @@ glitch_object_arithmetic_operator_arduino
   glitch_object_arithmetic_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
-  m_properties[Properties::ARITHMETIC_OPERATOR] =
-    m_ui.arithmetic_operator->currentText();
+  m_properties[Properties::ARITHMETIC_OPERATOR] = m_text;
 }
 
 glitch_object_arithmetic_operator_arduino::
 glitch_object_arithmetic_operator_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_operatorType = OperatorTypes::ADDITION_OPERATOR;
   m_type = "arduino-arithmeticoperator";
-  m_ui.setupUi(this);
-  m_ui.arithmetic_operator->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.arithmetic_operator,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotArithmeticOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
 }
@@ -69,7 +60,7 @@ glitch_object_arithmetic_operator_arduino::
 QString glitch_object_arithmetic_operator_arduino::
 arithmeticOperator(void) const
 {
-  return m_ui.arithmetic_operator->currentText();
+  return m_text;
 }
 
 QString glitch_object_arithmetic_operator_arduino::code(void) const
@@ -86,8 +77,7 @@ QString glitch_object_arithmetic_operator_arduino::code(void) const
 	    string.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      string.append
-		(QString(" %1 ").arg(m_ui.arithmetic_operator->currentText()));
+	      string.append(QString(" %1 ").arg(m_text));
 	  }
 
 	string = string.trimmed();
@@ -132,6 +122,7 @@ glitch_object_arithmetic_operator_arduino::clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setOperatorType(m_operatorType);
@@ -170,7 +161,7 @@ void glitch_object_arithmetic_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["arithmetic_operator"] = m_ui.arithmetic_operator->currentText();
+  properties["arithmetic_operator"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -195,50 +186,42 @@ void glitch_object_arithmetic_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
-  m_ui.arithmetic_operator->blockSignals(true);
 
   switch(m_operatorType)
     {
     case OperatorTypes::ADDITION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("+"));
+	m_text = "+";
 	break;
       }
     case OperatorTypes::DIVISION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("/"));
+	m_text = "/";
 	break;
       }
     case OperatorTypes::MULTIPLICATION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("*"));
+	m_text = "*";
 	break;
       }
     case OperatorTypes::REMAINDER_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("%"));
+	m_text = "%";
 	break;
       }
     case OperatorTypes::SUBTRACTION_OPERATOR:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("-"));
+	m_text = "-";
 	break;
       }
     default:
       {
-	m_ui.arithmetic_operator->setCurrentIndex
-	  (m_ui.arithmetic_operator->findText("+"));
+	m_text = "+";
 	break;
       }
     }
 
-  m_ui.arithmetic_operator->blockSignals(false);
-  setName(m_ui.arithmetic_operator->currentText());
+  setName(m_text);
 }
 
 void glitch_object_arithmetic_operator_arduino::setProperties
@@ -246,6 +229,8 @@ void glitch_object_arithmetic_operator_arduino::setProperties
 {
   glitch_object::setProperties(list);
   m_properties[Properties::ARITHMETIC_OPERATOR] = "+";
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -280,28 +265,4 @@ void glitch_object_arithmetic_operator_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_arithmetic_operator_arduino::slotArithmeticOperatorChanged
-(void)
-{
-  setOperatorType(m_ui.arithmetic_operator->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.arithmetic_operator->currentText(),
-     m_properties.value(Properties::ARITHMETIC_OPERATOR).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::ARITHMETIC_OPERATOR,
-     this);
-
-  m_properties[Properties::ARITHMETIC_OPERATOR] =
-    m_ui.arithmetic_operator->currentText();
-  undoCommand->setText
-    (tr("arithmetic operator changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }

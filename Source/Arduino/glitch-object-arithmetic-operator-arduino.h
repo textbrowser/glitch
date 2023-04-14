@@ -28,10 +28,10 @@
 #ifndef _glitch_object_arithmetic_operator_arduino_h_
 #define _glitch_object_arithmetic_operator_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-arithmetic-operator-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_arithmetic_operator_arduino: public glitch_object
+class glitch_object_arithmetic_operator_arduino:
+  public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
@@ -48,6 +48,12 @@ class glitch_object_arithmetic_operator_arduino: public glitch_object
   glitch_object_arithmetic_operator_arduino(const QString &operatorType,
 					    QWidget *parent);
   ~glitch_object_arithmetic_operator_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(50, 50);
+  }
+
   QString code(void) const;
   QString arithmeticOperator(void) const;
   bool hasInput(void) const;
@@ -65,13 +71,9 @@ class glitch_object_arithmetic_operator_arduino: public glitch_object
   glitch_object_arithmetic_operator_arduino(QWidget *parent);
   glitch_object_arithmetic_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
-  Ui_glitch_object_arithmetic_operator_arduino m_ui;
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotArithmeticOperatorChanged(void);
 };
 
 #endif
