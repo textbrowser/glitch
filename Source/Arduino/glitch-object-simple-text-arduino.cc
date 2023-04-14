@@ -43,7 +43,6 @@ glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_color = QColor(230, 230, 250);
-  resize(sizeHint());
   setAttribute(Qt::WA_OpaquePaintEvent, false);
   setStyleSheet("background-color: transparent;");
 }
