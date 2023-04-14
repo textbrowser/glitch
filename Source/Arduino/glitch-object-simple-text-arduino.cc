@@ -73,7 +73,7 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
 			 true);
 
   if(m_path.isEmpty())
-    m_path.addRect(rect());
+    m_path.addRoundedRect(rect(), 5.0, 5.0);
 
   painter.drawPath(m_path);
   painter.drawText(rect(), Qt::AlignCenter, m_text);
