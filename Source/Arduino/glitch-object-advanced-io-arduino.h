@@ -88,7 +88,6 @@ class glitch_object_advanced_io_arduino:
   glitch_object_advanced_io_arduino *clone(QWidget *parent) const;
   static glitch_object_advanced_io_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:

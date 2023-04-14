@@ -48,6 +48,13 @@ class glitch_object_simple_text_arduino: public glitch_object
     return minimumSizeHint();
   }
 
+  virtual void addActions(QMenu &menu)
+  {
+    addDefaultActions(menu);
+    m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+    m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
+  }
+
   void resizeEvent(QResizeEvent *event);
 
  protected:

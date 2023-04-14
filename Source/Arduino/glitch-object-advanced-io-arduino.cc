@@ -253,13 +253,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_advanced_io_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
-  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
-}
-
 void glitch_object_advanced_io_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -279,7 +272,7 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
   glitch_object::setProperties(list);
   m_properties[Properties::ADVANCED_IO_TYPE] = "noTone()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = false;
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {

@@ -266,6 +266,7 @@ Remaining Items
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
+- Remove QGraphicsProxyWidget from as many structures as possible.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
