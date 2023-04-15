@@ -28,16 +28,22 @@
 #ifndef _glitch_object_bits_and_bytes_arduino_h_
 #define _glitch_object_bits_and_bytes_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-bits-and-bytes-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_bits_and_bytes_arduino: public glitch_object
+class glitch_object_bits_and_bytes_arduino:
+  public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
  public:
   glitch_object_bits_and_bytes_arduino(const QString &babType, QWidget *parent);
   ~glitch_object_bits_and_bytes_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(150, 50);
+  }
+
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
@@ -63,7 +69,6 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
 
   glitch_object_bits_and_bytes_arduino(const qint64 id, QWidget *parent);
   Type m_babType;
-  Ui_glitch_object_bits_and_bytes_arduino m_ui;
 
   QString typeToString(void) const
   {
@@ -126,9 +131,6 @@ class glitch_object_bits_and_bytes_arduino: public glitch_object
 
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotFunctionChanged(void);
 };
 
 #endif
