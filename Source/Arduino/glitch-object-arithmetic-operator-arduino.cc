@@ -146,11 +146,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_arithmetic_operator_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_arithmetic_operator_arduino::save
 (const QSqlDatabase &db, QString &error)
 {

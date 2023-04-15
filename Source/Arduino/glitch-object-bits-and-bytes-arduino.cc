@@ -243,11 +243,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_bits_and_bytes_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_bits_and_bytes_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
