@@ -149,6 +149,7 @@ glitch_object_edit_window::glitch_object_edit_window
   addToolBar(m_toolBar);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
+  resize(600, 600);
   setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());
 }
 
@@ -286,12 +287,15 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
       m_splitter->addWidget(widget);
       m_splitter->setStretchFactor(0, 0);
       m_splitter->setStretchFactor(1, 1);
-      frame->layout()->addWidget(m_splitter);
     }
   else
-    frame->layout()->addWidget(widget);
+    {
+      m_splitter->addWidget(widget);
+      m_splitter->setStretchFactor(0, 1);
+    }
 
-  frame->layout()->setContentsMargins(9, 9, 9, 9);
+  frame->layout()->addWidget(m_splitter);
+  frame->layout()->setContentsMargins(5, 5, 5, 5);
   frame->layout()->setSpacing(5);
   m_splitter->addWidget(m_dockedWidgetPropertyEditors);
   m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
