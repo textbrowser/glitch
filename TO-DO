@@ -266,10 +266,10 @@ Remaining Items
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
-- Remove QGraphicsProxyWidget from as many structures as possible.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows.
+- Replace-with context menus for Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Splitter states and redo / undo.
@@ -278,4 +278,5 @@ Remaining Items
   Resize selected objects
 - Warn of recursive functions?
 - Widgets for decorations.
-- Windows and GDI objects.
+- Windows and GDI objects. Remove QGraphicsProxyWidget from as many
+  structures as possible.
