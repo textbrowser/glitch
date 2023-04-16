@@ -6,7 +6,6 @@ FORMS          += UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-flow-control-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
                   UI/Arduino/glitch-object-interrupts-arduino.ui \
-                  UI/Arduino/glitch-object-loop-arduino.ui \
                   UI/Arduino/glitch-object-mathematics-arduino.ui \
                   UI/Arduino/glitch-object-random-arduino.ui \
                   UI/Arduino/glitch-object-serial-arduino.ui \

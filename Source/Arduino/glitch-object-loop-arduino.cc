@@ -39,7 +39,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 }
 
 glitch_object_loop_arduino::glitch_object_loop_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
@@ -55,16 +55,18 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: loop()"));
   m_editWindow->resize(800, 600);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = true;
+  m_properties[Properties::TRANSPARENT] = true;
+  m_text = "loop()";
   m_type = "arduino-loop";
-  m_ui.setupUi(this);
   connect(m_editView,
 	  &glitch_object_view::changed,
 	  this,
 	  &glitch_object_loop_arduino::changed);
   prepareContextMenu();
   prepareEditSignals(findNearestGlitchView(parent));
-  setName(m_ui.label->text());
+  setName(m_text);
 }
 
 glitch_object_loop_arduino::~glitch_object_loop_arduino()
@@ -159,6 +161,8 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
   else
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
+  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
   addDefaultActions(menu);
 }
 
@@ -171,10 +175,10 @@ void glitch_object_loop_arduino::hideOrShowOccupied(void)
 
   m_occupied = !scene->objects().isEmpty();
 
-  auto font(m_ui.label->font());
+  auto font(this->font());
 
   font.setUnderline(m_occupied);
-  m_ui.label->setFont(font);
+  setFont(font);
 }
 
 void glitch_object_loop_arduino::save(const QSqlDatabase &db, QString &error)
