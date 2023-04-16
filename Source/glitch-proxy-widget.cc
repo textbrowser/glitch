@@ -614,6 +614,8 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
   if(m_object)
     {
+      emit changed();
+
       foreach(auto item, childItems())
 	if(item)
 	  item->setVisible(isSelected());
@@ -629,7 +631,9 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
 void glitch_proxy_widget::setPos(const QPointF &point)
 {
   QGraphicsProxyWidget::setPos(point);
-  emit changed();
+
+  if(m_object)
+    emit changed();
 }
 
 void glitch_proxy_widget::setWidget(QWidget *widget)
