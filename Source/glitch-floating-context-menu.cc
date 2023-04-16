@@ -31,6 +31,7 @@
 #include <QShortcut>
 
 #include "glitch-floating-context-menu.h"
+#include "glitch-scroll-filter.h"
 
 glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
@@ -95,6 +96,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	      delete frame->layout();
 	      frame->setLayout(layout);
 	      m_zValue = new QDoubleSpinBox(this);
+	      m_zValue->installEventFilter(new glitch_scroll_filter(this));
 	      m_zValue->setDecimals(1);
 	      m_zValue->setRange
 		(glitch_common::s_minimumZValue,
