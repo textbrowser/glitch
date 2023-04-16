@@ -1,5 +1,4 @@
-FORMS          += UI/Arduino/glitch-object-bitwise-operator-arduino.ui \
-                  UI/Arduino/glitch-object-block-comment-arduino.ui \
+FORMS          += UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-characters-arduino.ui \
                   UI/Arduino/glitch-object-compound-operator-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \

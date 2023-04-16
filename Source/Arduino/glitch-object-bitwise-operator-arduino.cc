@@ -26,8 +26,6 @@
 */
 
 #include "glitch-object-bitwise-operator-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_bitwise_operator_arduino::
 glitch_object_bitwise_operator_arduino
@@ -41,26 +39,18 @@ glitch_object_bitwise_operator_arduino
   glitch_object_bitwise_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
-  m_properties[Properties::BITWISE_OPERATOR] =
-    m_ui.bitwise_operator->currentText();
+  m_properties[Properties::BITWISE_OPERATOR] = m_text;
 }
 
 glitch_object_bitwise_operator_arduino::
 glitch_object_bitwise_operator_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-bitwiseoperator";
-  m_ui.setupUi(this);
-  m_ui.bitwise_operator->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.bitwise_operator,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotBitwiseOperatorChanged(void)));
   prepareContextMenu();
   setOperatorType(m_operatorType);
-  m_properties[Properties::BITWISE_OPERATOR] =
-    m_ui.bitwise_operator->currentText();
+  m_properties[Properties::BITWISE_OPERATOR] = m_text;
 }
 
 glitch_object_bitwise_operator_arduino::
@@ -71,7 +61,7 @@ glitch_object_bitwise_operator_arduino::
 QString glitch_object_bitwise_operator_arduino::
 bitwiseOperator(void) const
 {
-  return m_ui.bitwise_operator->currentText();
+  return m_text;
 }
 
 QString glitch_object_bitwise_operator_arduino::code(void) const
@@ -92,8 +82,7 @@ QString glitch_object_bitwise_operator_arduino::code(void) const
 	    string.append(QString("(%1)").arg(list.at(i)));
 
 	    if(i != list.size() - 1)
-	      string.append
-		(QString(" %1 ").arg(m_ui.bitwise_operator->currentText()));
+	      string.append(QString(" %1 ").arg(m_text));
 	  }
 
 	string = string.trimmed();
@@ -142,6 +131,7 @@ glitch_object_bitwise_operator_arduino::clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setOperatorType(m_operatorType);
@@ -166,11 +156,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_bitwise_operator_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_bitwise_operator_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -181,7 +166,7 @@ void glitch_object_bitwise_operator_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["bitwise_operator"] = m_ui.bitwise_operator->currentText();
+  properties["bitwise_operator"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -208,49 +193,47 @@ void glitch_object_bitwise_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
   m_operatorType = operatorType;
-  m_ui.bitwise_operator->blockSignals(true);
 
   switch(m_operatorType)
     {
     case OperatorTypes::AND_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(0);
+	m_text = "&";
 	break;
       }
     case OperatorTypes::LEFT_SHIFT_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(1);
+	m_text = "<<";
 	break;
       }
     case OperatorTypes::NOT_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(5);
+	m_text = "~";
 	break;
       }
     case OperatorTypes::OR_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(4);
+	m_text = "|";
 	break;
       }
     case OperatorTypes::RIGHT_SHIFT_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(2);
+	m_text = ">>";
 	break;
       }
     case OperatorTypes::XOR_OPERATOR:
       {
-	m_ui.bitwise_operator->setCurrentIndex(3);
+	m_text = "^";
 	break;
       }
     default:
       {
-	m_ui.bitwise_operator->setCurrentIndex(0);
+	m_text = "&";
 	break;
       }
     }
 
-  m_ui.bitwise_operator->blockSignals(false);
-  setName(m_ui.bitwise_operator->currentText());
+  setName(m_text);
 }
 
 void glitch_object_bitwise_operator_arduino::setProperties
@@ -258,6 +241,8 @@ void glitch_object_bitwise_operator_arduino::setProperties
 {
   glitch_object::setProperties(list);
   m_properties[Properties::BITWISE_OPERATOR] = "&";
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -283,10 +268,7 @@ void glitch_object_bitwise_operator_arduino::setProperty
     {
     case Properties::BITWISE_OPERATOR:
       {
-	m_ui.bitwise_operator->blockSignals(true);
-	m_ui.bitwise_operator->setCurrentIndex
-	  (m_ui.bitwise_operator->findText(value.toString()));
-	m_ui.bitwise_operator->blockSignals(false);
+	m_text = value.toString();
 	setOperatorType(value.toString());
 	break;
       }
@@ -295,28 +277,4 @@ void glitch_object_bitwise_operator_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_bitwise_operator_arduino::slotBitwiseOperatorChanged
-(void)
-{
-  setOperatorType(m_ui.bitwise_operator->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.bitwise_operator->currentText(),
-     m_properties.value(Properties::BITWISE_OPERATOR).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::BITWISE_OPERATOR,
-     this);
-
-  m_properties[Properties::BITWISE_OPERATOR] =
-    m_ui.bitwise_operator->currentText();
-  undoCommand->setText
-    (tr("bitwise operator changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }
