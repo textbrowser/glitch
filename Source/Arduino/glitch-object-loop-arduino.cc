@@ -161,9 +161,9 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
   else
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
+  addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
-  addDefaultActions(menu);
 }
 
 void glitch_object_loop_arduino::hideOrShowOccupied(void)

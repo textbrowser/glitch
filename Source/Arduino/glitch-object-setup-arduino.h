@@ -28,16 +28,21 @@
 #ifndef _glitch_object_setup_arduino_h_
 #define _glitch_object_setup_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-setup-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_setup_arduino: public glitch_object
+class glitch_object_setup_arduino: public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
  public:
   glitch_object_setup_arduino(QWidget *parent);
   ~glitch_object_setup_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(115, 50);
+  }
+
   QString code(void) const;
   bool hasView(void) const;
   bool isFullyWired(void) const;
@@ -50,7 +55,6 @@ class glitch_object_setup_arduino: public glitch_object
 
  private:
   glitch_object_setup_arduino(const qint64 id, QWidget *parent);
-  Ui_glitch_object_setup_arduino m_ui;
 
  private slots:
   void slotCopy(void);

@@ -9,7 +9,6 @@ FORMS          += UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-mathematics-arduino.ui \
                   UI/Arduino/glitch-object-random-arduino.ui \
                   UI/Arduino/glitch-object-serial-arduino.ui \
-                  UI/Arduino/glitch-object-setup-arduino.ui \
                   UI/Arduino/glitch-object-stream-arduino.ui \
                   UI/Arduino/glitch-object-syntax-arduino.ui \
                   UI/Arduino/glitch-object-time-arduino.ui \
