@@ -260,6 +260,7 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
+- Disable style-sheets for natively-drawn widgets.
 - Find Objects:
   Copy context-menu action
   Delete context-menu action
