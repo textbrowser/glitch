@@ -238,6 +238,8 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
 
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 {
+  QMainWindow::resizeEvent(event);
+
   if(event)
     {
       auto view = qobject_cast<glitch_object_view *> (centralWidget());
@@ -246,7 +248,9 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 	view->setSceneRect(event->size());
     }
 
-  QMainWindow::resizeEvent(event);
+  if(m_object)
+    m_object->setProperty
+      (glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
 }
 
 void glitch_object_edit_window::setCategoriesIconSize(const QString &text)

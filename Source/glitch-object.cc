@@ -961,6 +961,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 		m_editWindow,
 		&glitch_object_edit_window::slotPreferencesAccepted,
 		Qt::UniqueConnection);
+
+      m_editWindow->restoreGeometry
+	(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).toByteArray());
+      m_editWindow->restoreState
+	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
     }
 }
 
@@ -1003,8 +1008,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
-  properties["edit_window_geometry"] = m_editWindow ?
-    m_editWindow->saveGeometry().toBase64() : QByteArray().toBase64();
+  properties["edit_window_geometry"] = m_properties.value
+    (Properties::EDIT_WINDOW_GEOMETRY).toByteArray().toBase64();
   properties["edit_window_state"] = m_editWindow ?
     m_editWindow->saveState().toBase64() : QByteArray().toBase64();
   properties["port_colors"] = m_properties.value
