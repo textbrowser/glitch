@@ -198,7 +198,7 @@ void glitch_object_setup_arduino::slotCopy(void)
 void glitch_object_setup_arduino::slotEdit(void)
 {
   glitch_object::showEditWindow();
-  m_editWindow->setToolBarVisible
+  m_editWindow->setToolBarVisible // Recorded in the window's state.
     (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
 }
 
