@@ -145,6 +145,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_toolBar->setIconSize(QSize(24, 24));
+  m_toolBar->setObjectName("tools_tool_bar");
   m_toolBar->setVisible(true);
   addToolBar(m_toolBar);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);

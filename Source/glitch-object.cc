@@ -1003,6 +1003,10 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
+  properties["edit_window_geometry"] = m_editWindow ?
+    m_editWindow->saveGeometry().toBase64() : QByteArray().toBase64();
+  properties["edit_window_state"] = m_editWindow ?
+    m_editWindow->saveState().toBase64() : QByteArray().toBase64();
   properties["port_colors"] = m_properties.value
     (Properties::PORT_COLORS).toString();
   properties["position_locked"] = m_properties.value
@@ -1134,6 +1138,20 @@ void glitch_object::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
+	}
+      else if(string.simplified().startsWith("edit_window_geometry = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::EDIT_WINDOW_GEOMETRY] =
+	    QByteArray::fromBase64(string.trimmed().toLatin1());
+	}
+      else if(string.simplified().startsWith("edit_window_state = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::EDIT_WINDOW_STATE] =
+	    QByteArray::fromBase64(string.trimmed().toLatin1());
 	}
       else if(string.simplified().startsWith("name = "))
 	{
@@ -1360,7 +1378,15 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 void glitch_object::showEditWindow(void) const
 {
   if(m_editWindow)
-    m_editWindow->show();
+    {
+      m_editWindow->restoreGeometry
+	(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).toByteArray());
+      m_editWindow->restoreState
+	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
+      m_editWindow->show();
+      m_editWindow->activateWindow();
+      m_editWindow->raise();
+    }
 }
 
 void glitch_object::simulateDelete(void)

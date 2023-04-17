@@ -189,6 +189,7 @@ Completed Items
 - Resize objects manually.
 - Resize objects? Yes, option included.
 - Retain Tools Bar position.
+- Retain edit window geometry and state.
 - Retain loop(), setup () style sheets.
 - Retain scroll bar positions in Source View.
 - Review lengthy tool tips.
