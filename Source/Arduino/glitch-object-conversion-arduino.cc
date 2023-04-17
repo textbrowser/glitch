@@ -26,8 +26,6 @@
 */
 
 #include "glitch-object-conversion-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
 (QWidget *parent):glitch_object_conversion_arduino(1, parent)
@@ -40,23 +38,17 @@ glitch_object_conversion_arduino
   glitch_object_conversion_arduino(1, parent)
 {
   setConversionType(conversionType);
-  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
+  m_properties[Properties::CONVERSION] = m_text;
 }
 
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_conversionType = ConversionTypes::UNSIGNED_INT;
   m_type = "arduino-conversion";
-  m_ui.setupUi(this);
-  m_ui.conversion->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.conversion,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotConversionChanged(void)));
   prepareContextMenu();
   setConversionType(m_conversionType);
-  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
+  m_properties[Properties::CONVERSION] = m_text;
 }
 
 glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
@@ -70,13 +62,12 @@ QString glitch_object_conversion_arduino::code(void) const
     case ConversionTypes::UNSIGNED_INT:
     case ConversionTypes::UNSIGNED_LONG:
       {
-	return QString("%1 (%2)").
-	  arg(m_ui.conversion->currentText()).arg(inputs().value(0));
+	return QString("%1 (%2)").arg(m_text).arg(inputs().value(0));
       }
     default:
       {
 	return QString("%1(%2)").
-	  arg(m_ui.conversion->currentText().remove("()")).
+	  arg(QString(m_text).remove("()")).
 	  arg(inputs().value(0));
       }
     }
@@ -129,6 +120,7 @@ glitch_object_conversion_arduino *glitch_object_conversion_arduino::clone
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConversionType(m_conversionType);
@@ -152,11 +144,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_conversion_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_conversion_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -167,7 +154,7 @@ void glitch_object_conversion_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["conversion"] = m_ui.conversion->currentText();
+  properties["conversion"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -175,56 +162,52 @@ void glitch_object_conversion_arduino::setConversionType
 (const ConversionTypes conversionType)
 {
   m_conversionType = conversionType;
-  m_ui.conversion->blockSignals(true);
 
   switch(m_conversionType)
     {
     case ConversionTypes::BYTE:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("byte()"));
+	m_text = "byte()";
 	break;
       }
     case ConversionTypes::CHAR:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("char()"));
+	m_text = "char()";
 	break;
       }
     case ConversionTypes::FLOAT:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("float()"));
+	m_text = "float()";
 	break;
       }
     case ConversionTypes::INT:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("int()"));
+	m_text = "int()";
 	break;
       }
     case ConversionTypes::LONG:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("long()"));
+	m_text = "long()";
 	break;
       }
     case ConversionTypes::UNSIGNED_LONG:
       {
-	m_ui.conversion->setCurrentIndex
-	  (m_ui.conversion->findText("(unsigned long)"));
+	m_text = "(unsigned long)";
 	break;
       }
     case ConversionTypes::WORD:
       {
-	m_ui.conversion->setCurrentIndex(m_ui.conversion->findText("word()"));
+	m_text = "word()";
 	break;
       }
     default:
       {
-	m_ui.conversion->setCurrentIndex
-	  (m_ui.conversion->findText("(unsigned int)"));
+	m_text = "(unsigned int)";
 	break;
       }
     }
 
-  m_ui.conversion->blockSignals(false);
-  setName(m_ui.conversion->currentText());
+  setName(m_text);
 }
 
 void glitch_object_conversion_arduino::setConversionType(const QString &ct)
@@ -254,7 +237,9 @@ void glitch_object_conversion_arduino::setConversionType(const QString &ct)
 void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::CONVERSION] = "(unsigned int)";
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -280,10 +265,7 @@ void glitch_object_conversion_arduino::setProperty
     {
     case Properties::CONVERSION:
       {
-	m_ui.conversion->blockSignals(true);
-	m_ui.conversion->setCurrentIndex
-	  (m_ui.conversion->findText(value.toString()));
-	m_ui.conversion->blockSignals(false);
+	m_text = value.toString();
 	setConversionType(value.toString());
 	break;
       }
@@ -292,25 +274,4 @@ void glitch_object_conversion_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_conversion_arduino::slotConversionChanged(void)
-{
-  setConversionType(m_ui.conversion->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.conversion->currentText(),
-     m_properties.value(Properties::CONVERSION).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::CONVERSION,
-     this);
-
-  m_properties[Properties::CONVERSION] = m_ui.conversion->currentText();
-  undoCommand->setText
-    (tr("conversion changed (%1, %2)").arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }

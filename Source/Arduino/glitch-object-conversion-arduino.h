@@ -28,10 +28,10 @@
 #ifndef _glitch_object_conversion_arduino_h_
 #define _glitch_object_conversion_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-conversion-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_conversion_arduino: public glitch_object
+class glitch_object_conversion_arduino:
+  public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
@@ -51,6 +51,12 @@ class glitch_object_conversion_arduino: public glitch_object
   glitch_object_conversion_arduino(const QString &conversionType,
 				   QWidget *parent);
   ~glitch_object_conversion_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(150, 50);
+  }
+
   QString code(void) const;
   QString conversion(void) const;
   bool hasInput(void) const;
@@ -60,7 +66,6 @@ class glitch_object_conversion_arduino: public glitch_object
   glitch_object_conversion_arduino *clone(QWidget *parent) const;
   static glitch_object_conversion_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
   void setConversionType(const QString &ct);
 
@@ -68,13 +73,9 @@ class glitch_object_conversion_arduino: public glitch_object
   glitch_object_conversion_arduino(QWidget *parent);
   glitch_object_conversion_arduino(const qint64 id, QWidget *parent);
   ConversionTypes m_conversionType;
-  Ui_glitch_object_conversion_arduino m_ui;
   void setConversionType(const ConversionTypes conversionType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotConversionChanged(void);
 };
 
 #endif
