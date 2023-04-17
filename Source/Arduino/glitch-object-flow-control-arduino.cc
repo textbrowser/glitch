@@ -62,12 +62,12 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
+  m_editWindow->resize(800, 600);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: flow control"));
-  m_editWindow->resize(800, 600);
   m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
@@ -85,7 +85,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  this,
 	  SLOT(slotFlowControlTypeChanged(void)));
   prepareContextMenu();
-  prepareEditSignals(findNearestGlitchView(parent));
+  prepareEditObjects(findNearestGlitchView(parent));
   setName(m_ui.flow_control_type->currentText());
 }
 
@@ -644,11 +644,9 @@ void glitch_object_flow_control_arduino::slotEdit(void)
       }
     }
 
-  m_editWindow->setToolBarVisible
+  glitch_object::showEditWindow();
+  m_editWindow->setToolBarVisible // Recorded in the window's state.
     (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
-  m_editWindow->showNormal();
-  m_editWindow->activateWindow();
-  m_editWindow->raise();
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)

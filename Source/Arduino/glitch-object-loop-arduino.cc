@@ -65,7 +65,7 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 	  this,
 	  &glitch_object_loop_arduino::changed);
   prepareContextMenu();
-  prepareEditSignals(findNearestGlitchView(parent));
+  prepareEditObjects(findNearestGlitchView(parent));
   setName(m_text);
 }
 

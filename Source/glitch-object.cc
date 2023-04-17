@@ -851,7 +851,7 @@ void glitch_object::prepareContextMenu(void)
     }
 }
 
-void glitch_object::prepareEditSignals(const glitch_view *parentView)
+void glitch_object::prepareEditObjects(const glitch_view *parentView)
 {
   if(m_editView && m_editWindow)
     {

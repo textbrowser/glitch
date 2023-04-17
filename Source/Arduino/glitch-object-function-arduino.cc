@@ -345,11 +345,11 @@ clone(QWidget *parent) const
 	(glitch_common::ProjectTypes::ArduinoProject, clone, parent);
       clone->m_editWindow->prepareToolBar
 	(clone->m_editView->alignmentActions());
+      clone->m_editWindow->resize(800, 600);
       clone->m_editWindow->setCentralWidget(clone->m_editView);
       clone->m_editWindow->setEditView(clone->m_editView);
       clone->m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
       clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
-      clone->m_editWindow->resize(800, 600);
       clone->m_isFunctionClone = false;
       clone->m_parentView = qobject_cast<glitch_view_arduino *>
 	(clone->findNearestGlitchView(parent));
@@ -368,7 +368,7 @@ clone(QWidget *parent) const
 	      SLOT(slotReturnTypeChanged(void)));
       clone->m_previousReturnType = clone->m_ui.return_type->currentText();
       clone->prepareContextMenu();
-      clone->prepareEditSignals(clone->findNearestGlitchView(parent));
+      clone->prepareEditObjects(clone->findNearestGlitchView(parent));
 
       foreach(auto object, m_copiedChildren)
 	{
@@ -555,13 +555,13 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
   m_editWindow->prepareToolBar(m_editView->alignmentActions());
+  m_editWindow->resize(800, 600);
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle
     (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
-  m_editWindow->resize(800, 600);
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.return_type->addItems
@@ -579,7 +579,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  Qt::UniqueConnection);
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareEditSignals(findNearestGlitchView(parent));
+  prepareEditObjects(findNearestGlitchView(parent));
 }
 
 void glitch_object_function_arduino::save
@@ -717,11 +717,9 @@ void glitch_object_function_arduino::slotEdit(void)
 {
   if(m_editWindow && !m_isFunctionClone)
     {
-      m_editWindow->setToolBarVisible
+      glitch_object::showEditWindow();
+      m_editWindow->setToolBarVisible // Recorded in the window's state.
 	(m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
-      m_editWindow->showNormal();
-      m_editWindow->activateWindow();
-      m_editWindow->raise();
       return;
     }
 

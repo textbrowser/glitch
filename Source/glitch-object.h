@@ -329,7 +329,7 @@ class glitch_object: public QWidget
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);
   void prepareContextMenu(void);
-  void prepareEditSignals(const glitch_view *parentView);
+  void prepareEditObjects(const glitch_view *parentView);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);
