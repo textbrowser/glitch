@@ -231,15 +231,21 @@ class glitch_object: public QWidget
   virtual QString name(void) const;
   virtual QStringList parameters(void) const;
   virtual bool canResize(void) const;
-  virtual void compressWidget(const bool state);
   virtual bool hasInput(void) const;
   virtual bool hasOutput(void) const;
   virtual bool hasView(void) const;
   virtual bool isFullyWired(void) const = 0; // Are all inputs wired?
   virtual bool isMandatory(void) const;
+
+  virtual bool isNativelyDrawn(void) const
+  {
+    return false;
+  }
+
   virtual bool shouldPrint(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
+  virtual void compressWidget(const bool state);
   virtual void hideOrShowOccupied(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);

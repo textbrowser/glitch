@@ -38,6 +38,11 @@ class glitch_object_simple_text_arduino: public glitch_object
   glitch_object_simple_text_arduino(const QString &text, QWidget *parent);
   virtual ~glitch_object_simple_text_arduino();
 
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   virtual QSize minimumSizeHint(void) const
   {
     return QSize(250, 50);

@@ -58,6 +58,11 @@ class glitch_object_arrow: public glitch_object
     return true;
   }
 
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   bool shouldPrint(void) const
   {
     return false;
