@@ -1349,9 +1349,7 @@ void glitch_view::slotSaveAs(void)
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setNameFilter("Glitch Files (*.db)");
   dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
-#ifdef Q_OS_ANDROID
   dialog.setOption(QFileDialog::DontUseNativeDialog);
-#endif
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
 

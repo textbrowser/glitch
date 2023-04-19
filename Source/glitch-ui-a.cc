@@ -1669,9 +1669,7 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setNameFilters(QStringList() << tr("Arduino Diagrams (*.db)"));
-#ifdef Q_OS_ANDROID
   dialog.setOption(QFileDialog::DontUseNativeDialog);
-#endif
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Open Diagram"));
   QApplication::processEvents();
@@ -1842,9 +1840,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
       dialog.setFileMode(QFileDialog::AnyFile);
       dialog.setNameFilter("Glitch Files (*.db)");
       dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
-#ifdef Q_OS_ANDROID
       dialog.setOption(QFileDialog::DontUseNativeDialog);
-#endif
       dialog.setWindowIcon(windowIcon());
       QApplication::processEvents();
 

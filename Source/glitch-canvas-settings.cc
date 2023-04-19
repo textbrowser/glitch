@@ -1036,9 +1036,7 @@ void glitch_canvas_settings::slotSelectOutputFile(void)
 
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
-#ifdef Q_OS_ANDROID
   dialog.setOption(QFileDialog::DontUseNativeDialog);
-#endif
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Ouput File"));
   QApplication::processEvents();
@@ -1062,9 +1060,7 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
   dialog.setDirectory(QStorageInfo::root().displayName());
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
-#ifdef Q_OS_ANDROID
   dialog.setOption(QFileDialog::DontUseNativeDialog);
-#endif
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Project IDE"));
   QApplication::processEvents();

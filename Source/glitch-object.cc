@@ -780,6 +780,7 @@ void glitch_object::createActions(void)
       auto action = new QAction(tr("&Set Style Sheet..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::SET_STYLE_SHEET));
+      action->setEnabled(!isNativelyDrawn());
       connect(action,
 	      &QAction::triggered,
 	      this,

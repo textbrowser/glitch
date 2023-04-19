@@ -61,6 +61,12 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   bool hasInput(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
+
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   bool shouldPrint(void) const;
   glitch_object_boolean_operator_arduino *clone(QWidget *parent) const;
   static glitch_object_boolean_operator_arduino *createFromValues
