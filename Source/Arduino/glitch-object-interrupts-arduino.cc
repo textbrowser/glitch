@@ -26,39 +26,23 @@
 */
 
 #include "glitch-object-interrupts-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
 (const QString &interruptsType, QWidget *parent):
   glitch_object_interrupts_arduino(1, parent)
 {
   m_interruptsType = stringToInterruptsType(interruptsType);
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex
-    (m_ui.function->
-     findText(QString("%1()").arg(interruptsTypeToString(m_interruptsType))));
-  m_ui.function->blockSignals(false);
-  m_properties[Properties::INTERRUPTS_TYPE] = m_ui.function->currentText();
-  setName(m_ui.function->currentText());
+  m_text = QString("%1()").arg(interruptsTypeToString(m_interruptsType));
+  m_properties[Properties::INTERRUPTS_TYPE] = m_text;
+  setName(m_text);
 }
 
 glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_type = "arduino-interrupts";
-  m_ui.setupUi(this);
-  m_ui.function->addItems(QStringList() << "attachInterrupt()"
-			                << "detachInterrupt()"
-			                << "interrupts()"
-			                << "noInterrupts()");
-  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.function,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.function->currentText());
+  setName(m_text);
 }
 
 glitch_object_interrupts_arduino::~glitch_object_interrupts_arduino()
@@ -148,9 +132,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_interruptsType = m_interruptsType;
-  clone->m_ui.function->blockSignals(true);
-  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
-  clone->m_ui.function->blockSignals(false);
+  clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -174,11 +156,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_interrupts_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_interrupts_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -189,14 +166,16 @@ void glitch_object_interrupts_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["interrupts_type"] = m_ui.function->currentText();
+  properties["interrupts_type"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_interrupts_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::INTERRUPTS_TYPE] = "attachInterrupt()";
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -214,11 +193,7 @@ void glitch_object_interrupts_arduino::setProperties(const QStringList &list)
 
   m_interruptsType = stringToInterruptsType
     (m_properties.value(Properties::INTERRUPTS_TYPE).toString());
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex
-    (m_ui.function->
-     findText(m_properties.value(Properties::INTERRUPTS_TYPE).toString()));
-  m_ui.function->blockSignals(false);
+  m_text = m_properties.value(Properties::INTERRUPTS_TYPE).toString();
   setName(m_properties.value(Properties::INTERRUPTS_TYPE).toString());
 }
 
@@ -232,11 +207,8 @@ void glitch_object_interrupts_arduino::setProperty
     case Properties::INTERRUPTS_TYPE:
       {
 	m_interruptsType = stringToInterruptsType(value.toString());
-	m_ui.function->blockSignals(true);
-	m_ui.function->setCurrentIndex
-	  (m_ui.function->findText(value.toString()));
-	m_ui.function->blockSignals(false);
-	setName(m_ui.function->currentText());
+	m_text = value.toString();
+	setName(m_text);
 	break;
       }
     default:
@@ -244,26 +216,4 @@ void glitch_object_interrupts_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_interrupts_arduino::slotFunctionChanged(void)
-{
-  m_interruptsType = stringToInterruptsType(m_ui.function->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.function->currentText(),
-     m_properties.value(Properties::INTERRUPTS_TYPE).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::INTERRUPTS_TYPE,
-     this);
-
-  m_properties[Properties::INTERRUPTS_TYPE] = m_ui.function->currentText();
-  undoCommand->setText
-    (tr("interrupts function changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }

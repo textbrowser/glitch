@@ -28,10 +28,10 @@
 #ifndef _glitch_object_interrupts_arduino_h_
 #define _glitch_object_interrupts_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-interrupts-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_interrupts_arduino: public glitch_object
+class glitch_object_interrupts_arduino:
+  public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
@@ -39,6 +39,12 @@ class glitch_object_interrupts_arduino: public glitch_object
   glitch_object_interrupts_arduino
     (const QString &interruptsType, QWidget *parent);
   ~glitch_object_interrupts_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(150, 50);
+  }
+
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
@@ -47,7 +53,6 @@ class glitch_object_interrupts_arduino: public glitch_object
   glitch_object_interrupts_arduino *clone(QWidget *parent) const;
   static glitch_object_interrupts_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:
@@ -61,7 +66,6 @@ class glitch_object_interrupts_arduino: public glitch_object
 
   glitch_object_interrupts_arduino(const qint64 id, QWidget *parent);
   Type m_interruptsType;
-  Ui_glitch_object_interrupts_arduino m_ui;
 
   QString interruptsTypeToString(const Type type) const
   {
@@ -108,9 +112,6 @@ class glitch_object_interrupts_arduino: public glitch_object
 
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotFunctionChanged(void);
 };
 
 #endif
