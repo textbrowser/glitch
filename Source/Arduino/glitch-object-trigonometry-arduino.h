@@ -28,10 +28,10 @@
 #ifndef _glitch_object_trigonometry_arduino_h_
 #define _glitch_object_trigonometry_arduino_h_
 
-#include "glitch-object.h"
-#include "ui_glitch-object-trigonometry-arduino.h"
+#include "glitch-object-simple-text-arduino.h"
 
-class glitch_object_trigonometry_arduino: public glitch_object
+class glitch_object_trigonometry_arduino:
+  public glitch_object_simple_text_arduino
 {
   Q_OBJECT
 
@@ -39,6 +39,12 @@ class glitch_object_trigonometry_arduino: public glitch_object
   glitch_object_trigonometry_arduino
     (const QString &trigonometryType, QWidget *parent);
   ~glitch_object_trigonometry_arduino();
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(100, 50);
+  }
+
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
@@ -47,7 +53,6 @@ class glitch_object_trigonometry_arduino: public glitch_object
   glitch_object_trigonometry_arduino *clone(QWidget *parent) const;
   static glitch_object_trigonometry_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
-  void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:
@@ -60,7 +65,6 @@ class glitch_object_trigonometry_arduino: public glitch_object
 
   glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
   Types m_trigonometryType;
-  Ui_glitch_object_trigonometry_arduino m_ui;
 
   QString trigonometryTypeToString(void) const
   {
@@ -101,9 +105,6 @@ class glitch_object_trigonometry_arduino: public glitch_object
 
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotFunctionChanged(void);
 };
 
 #endif
