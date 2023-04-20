@@ -54,8 +54,8 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
       }
     }
 
+  m_properties[Properties::DIGITAL_IO_TYPE] = string;
   m_text = string;
-  m_properties[Properties::DIGITAL_IO_TYPE] = m_text;
   setName(m_text);
 }
 

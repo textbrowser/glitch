@@ -59,8 +59,8 @@ glitch_object_trigonometry_arduino::glitch_object_trigonometry_arduino
       }
     }
 
+  m_properties[Properties::TRIGONOMETRY_TYPE] = string;
   m_text = string;
-  m_properties[Properties::TRIGONOMETRY_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -135,8 +135,8 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_trigonometryType = m_trigonometryType;
   clone->m_text = m_text;
+  clone->m_trigonometryType = m_trigonometryType;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());

@@ -26,8 +26,6 @@
 */
 
 #include "glitch-object-time-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_time_arduino::glitch_object_time_arduino
 (const QString &timeType, QWidget *parent):glitch_object_time_arduino(1, parent)
@@ -65,29 +63,17 @@ glitch_object_time_arduino::glitch_object_time_arduino
       }
     }
 
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex(m_ui.function->findText(string));
-  m_ui.function->blockSignals(false);
-  m_properties[Properties::TIME_TYPE] = m_ui.function->currentText();
-  setName(m_ui.function->currentText());
+  m_properties[Properties::TIME_TYPE] = string;
+  m_text = string;
+  setName(m_text);
 }
 
 glitch_object_time_arduino::glitch_object_time_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_type = "arduino-time";
-  m_ui.setupUi(this);
-  m_ui.function->addItems(QStringList() << "delay()"
-			                << "delayMicroseconds()"
-			                << "micros()"
-			                << "millis()");
-  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.function,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.function->currentText());
+  setName(m_text);
 }
 
 glitch_object_time_arduino::~glitch_object_time_arduino()
@@ -173,10 +159,8 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_text = m_text;
   clone->m_timeType = m_timeType;
-  clone->m_ui.function->blockSignals(true);
-  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
-  clone->m_ui.function->blockSignals(false);
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -200,11 +184,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_time_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_time_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -215,14 +194,16 @@ void glitch_object_time_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["time_type"] = m_ui.function->currentText();
+  properties["time_type"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_time_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::TIME_TYPE] = "delay()";
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -246,13 +227,9 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
 	}
     }
 
+  m_text = m_properties.value(Properties::TIME_TYPE).toString();
   m_timeType = stringToTimeType
     (m_properties.value(Properties::TIME_TYPE).toString());
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex
-    (m_ui.function->
-     findText(m_properties.value(Properties::TIME_TYPE).toString()));
-  m_ui.function->blockSignals(false);
   setName(m_properties.value(Properties::TIME_TYPE).toString());
 }
 
@@ -265,12 +242,9 @@ void glitch_object_time_arduino::setProperty
     {
     case Properties::TIME_TYPE:
       {
+	m_text = value.toString();
 	m_timeType = stringToTimeType(value.toString());
-	m_ui.function->blockSignals(true);
-	m_ui.function->setCurrentIndex
-	  (m_ui.function->findText(value.toString()));
-	m_ui.function->blockSignals(false);
-	setName(m_ui.function->currentText());
+	setName(m_text);
 	break;
       }
     default:
@@ -278,26 +252,4 @@ void glitch_object_time_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_time_arduino::slotFunctionChanged(void)
-{
-  m_timeType = stringToTimeType(m_ui.function->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.function->currentText(),
-     m_properties.value(Properties::TIME_TYPE).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::TIME_TYPE,
-     this);
-
-  m_properties[Properties::TIME_TYPE] = m_ui.function->currentText();
-  undoCommand->setText
-    (tr("time function changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }
