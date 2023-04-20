@@ -274,6 +274,7 @@ Remaining Items
 - Replace-with context menus for natively-drawn Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
+- Shell.
 - Splitter states and redo / undo.
 - Tools:
   Compress selected objects
