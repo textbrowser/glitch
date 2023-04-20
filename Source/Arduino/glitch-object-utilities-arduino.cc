@@ -37,22 +37,21 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
     {
     default:
       {
-	m_ui.label->setText("sizeof()");
+	m_text = "sizeof()";
 	break;
       }
     }
 
-  m_properties[Properties::UTILITIES_TYPE] = m_ui.label->text();
-  setName(m_ui.label->text());
+  m_properties[Properties::UTILITIES_TYPE] = m_text;
+  setName(m_text);
 }
 
 glitch_object_utilities_arduino::glitch_object_utilities_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_type = "arduino-utilities";
-  m_ui.setupUi(this);
   prepareContextMenu();
-  setName(m_ui.label->text());
+  setName(m_text);
 }
 
 glitch_object_utilities_arduino::~glitch_object_utilities_arduino()
@@ -106,8 +105,8 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->m_text = m_text;
   clone->m_utilitiesType = m_utilitiesType;
-  clone->m_ui.label->setText(m_ui.label->text());
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -126,16 +125,11 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ui.label->setText
-    (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
+  object->m_text = object->m_properties.value
+    (Properties::UTILITIES_TYPE).toString();
   object->m_utilitiesType = stringToUtilitiesType
     (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
   return object;
-}
-
-void glitch_object_utilities_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
 }
 
 void glitch_object_utilities_arduino::save
@@ -148,13 +142,15 @@ void glitch_object_utilities_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["utilities_type"] = m_ui.label->text().trimmed();
+  properties["utilities_type"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::TRANSPARENT] = true;
   m_properties[Properties::UTILITIES_TYPE] = "sizeof()";
 
   for(int i = 0; i < list.size(); i++)

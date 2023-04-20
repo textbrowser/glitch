@@ -10,7 +10,6 @@ FORMS          += UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-syntax-arduino.ui \
                   UI/Arduino/glitch-object-time-arduino.ui \
                   UI/Arduino/glitch-object-trigonometry-arduino.ui \
-                  UI/Arduino/glitch-object-utilities-arduino.ui \
                   UI/Arduino/glitch-object-variable-arduino.ui
 HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-analog-io-arduino.h \

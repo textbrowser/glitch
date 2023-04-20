@@ -83,6 +83,7 @@ Completed Items
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
 - Disable redo / undo of line-edit widgets? No.
+- Disable style sheets for natively-drawn widgets.
 - Discover a function clone's correct parent function after opening a data file.
 - Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
@@ -260,7 +261,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Disable style-sheets for natively-drawn widgets.
 - Find Objects:
   Copy context-menu action
   Delete context-menu action
