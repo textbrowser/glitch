@@ -25,7 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QGraphicsProxyWidget>
 #include <QPen>
 #include <QWidget>
 #include <QtDebug>
