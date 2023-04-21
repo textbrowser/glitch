@@ -35,6 +35,7 @@
 
 class glitch_object;
 class glitch_resize_widget;
+class glitch_resize_widget_rectangle;
 
 class glitch_proxy_widget: public QGraphicsProxyWidget
 {
@@ -57,6 +58,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 		      Qt::WindowFlags wFlags = Qt::WindowFlags());
   ~glitch_proxy_widget();
   QColor selectionColor(void) const;
+  QList<glitch_resize_widget_rectangle *> resizeRectangles(void) const;
   QPointer<glitch_object> object(void) const;
   Sections hoveredSection(void) const;
   bool isMandatory(void) const;

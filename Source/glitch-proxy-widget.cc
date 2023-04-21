@@ -72,6 +72,22 @@ QColor glitch_proxy_widget::selectionColor(void) const
     return QColor("orange");
 }
 
+QList<glitch_resize_widget_rectangle *> glitch_proxy_widget::
+resizeRectangles(void) const
+{
+  QList<glitch_resize_widget_rectangle *> list;
+
+  foreach(auto item, childItems())
+    {
+      auto r = qgraphicsitem_cast<glitch_resize_widget_rectangle *> (item);
+
+      if(r)
+	list << r;
+    }
+
+  return list;
+}
+
 QPointer<glitch_object> glitch_proxy_widget::object(void) const
 {
   return m_object;
@@ -82,7 +98,7 @@ QVariant glitch_proxy_widget::itemChange
 {
   if(change == QGraphicsItem::ItemFlagsChange && m_object)
     {
-      foreach(auto item, childItems())
+      foreach(auto item, resizeRectangles())
 	if(item)
 	  item->setVisible(isSelected());
 
@@ -96,7 +112,7 @@ QVariant glitch_proxy_widget::itemChange
     }
   else if(change == QGraphicsItem::ItemSelectedChange && m_object)
     {
-      foreach(auto item, childItems())
+      foreach(auto item, resizeRectangles())
 	if(item)
 	  item->setVisible(value.toBool());
 
@@ -616,7 +632,7 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
     {
       emit changed();
 
-      foreach(auto item, childItems())
+      foreach(auto item, resizeRectangles())
 	if(item)
 	  item->setVisible(isSelected());
 
