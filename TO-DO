@@ -114,6 +114,7 @@ Completed Items
 - Find objects.
 - Flow-control objects and edit views (break does not have a view).
 - Flow-control syntax colors.
+- Focused combination boxes and resize requests malfunction.
 - Font hinting option for the application font.
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
@@ -234,6 +235,7 @@ Completed Items
 - Warn of faulty home directory: read and write permissions.
 - Warn of missing SQLite driver.
 - Warn on diagram overwrite during initialization.
+- Widgets for decorations.
 - Wire color setting.
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
@@ -281,6 +283,5 @@ Remaining Items
   Compress selected objects
   Resize selected objects
 - Warn of recursive functions?
-- Widgets for decorations.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible.
