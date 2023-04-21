@@ -257,54 +257,42 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
           return;
 
-	foreach(auto item, parent->childItems())
+	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    auto i = qgraphicsitem_cast<glitch_resize_widget_rectangle *>
-	      (item);
-
-	    if(i)
-	      {
-		if(i->location() == BottomCenter)
-		  list.append(i);
-		else if(i->location() == BottomRight)
-		  list.append(i);
-		else if(i->location() == CenterRight)
-		  list.append(i);
-		else if(i->location() == TopCenter)
-		  list.append(i);
-		else if(i->location() == TopRight)
-		  list.append(i);
-	      }
+	    if(item->location() == BottomCenter)
+	      list.append(item);
+	    else if(item->location() == BottomRight)
+	      list.append(item);
+	    else if(item->location() == CenterRight)
+	      list.append(item);
+	    else if(item->location() == TopCenter)
+	      list.append(item);
+	    else if(item->location() == TopRight)
+	      list.append(item);
 	  }
 
 	break;
       }
     case CenterRight:
       {
-	foreach(auto item, parent->childItems())
+	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    auto i = qgraphicsitem_cast<glitch_resize_widget_rectangle *>
-	      (item);
-
-	    if(i)
-	      {
-		if(i->location() == BottomCenter)
-		  list.append(i);
-		else if(i->location() == BottomRight)
-		  list.append(i);
-		else if(i->location() == CenterRight)
-		  list.append(i);
-		else if(i->location() == TopCenter)
-		  list.append(i);
-		else if(i->location() == TopRight)
-		  list.append(i);
-	      }
+	    if(item->location() == BottomCenter)
+	      list.append(item);
+	    else if(item->location() == BottomRight)
+	      list.append(item);
+	    else if(item->location() == CenterRight)
+	      list.append(item);
+	    else if(item->location() == TopCenter)
+	      list.append(item);
+	    else if(item->location() == TopRight)
+	      list.append(item);
 	  }
 
 	auto d = -event->lastPos().x() + event->pos().x();
@@ -326,27 +314,21 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	  return;
 
-	foreach(auto item, parent->childItems())
+	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    auto i = qgraphicsitem_cast<glitch_resize_widget_rectangle *>
-	      (item);
-
-	    if(i)
-	      {
-		if(i->location() == BottomCenter)
-		  list.append(i);
-		else if(i->location() == BottomLeft)
-		  list.append(i);
-		else if(i->location() == BottomRight)
-		  list.append(i);
-		else if(i->location() == CenterLeft)
-		  list.append(i);
-		else if(i->location() == CenterRight)
-		  list.append(i);
-	      }
+	    if(item->location() == BottomCenter)
+	      list.append(item);
+	    else if(item->location() == BottomLeft)
+	      list.append(item);
+	    else if(item->location() == BottomRight)
+	      list.append(item);
+	    else if(item->location() == CenterLeft)
+	      list.append(item);
+	    else if(item->location() == CenterRight)
+	      list.append(item);
 	  }
 
 	break;
@@ -373,31 +355,25 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	  return;
 
-	foreach(auto item, parent->childItems())
+	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    auto i = qgraphicsitem_cast<glitch_resize_widget_rectangle *>
-	      (item);
-
-	    if(i)
-	      {
-		if(i->location() == BottomCenter)
-		  list.append(i);
-		else if(i->location() == BottomLeft)
-		  list.append(i);
-		else if(i->location() == BottomRight)
-		  list.append(i);
-		else if(i->location() == CenterLeft)
-		  list.append(i);
-		else if(i->location() == CenterRight)
-		  list.append(i);
-		else if(i->location() == TopCenter)
-		  list.append(i);
-		else if(i->location() == TopRight)
-		  list.append(i);
-	      }
+	    if(item->location() == BottomCenter)
+	      list.append(item);
+	    else if(item->location() == BottomLeft)
+	      list.append(item);
+	    else if(item->location() == BottomRight)
+	      list.append(item);
+	    else if(item->location() == CenterLeft)
+	      list.append(item);
+	    else if(item->location() == CenterRight)
+	      list.append(item);
+	    else if(item->location() == TopCenter)
+	      list.append(item);
+	    else if(item->location() == TopRight)
+	      list.append(item);
 	  }
 
 	break;
@@ -415,31 +391,25 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	  return;
 
-	foreach(auto item, parent->childItems())
+	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    auto i = qgraphicsitem_cast<glitch_resize_widget_rectangle *>
-	      (item);
-
-	    if(i)
-	      {
-		if(i->location() == BottomCenter)
-		  list.append(i);
-		else if(i->location() == BottomLeft)
-		  list.append(i);
-		else if(i->location() == BottomRight)
-		  list.append(i);
-		else if(i->location() == CenterLeft)
-		  list.append(i);
-		else if(i->location() == CenterRight)
-		  list.append(i);
-		else if(i->location() == TopCenter)
-		  list.append(i);
-		else if(i->location() == TopRight)
-		  list.append(i);
-	      }
+	    if(item->location() == BottomCenter)
+	      list.append(item);
+	    else if(item->location() == BottomLeft)
+	      list.append(item);
+	    else if(item->location() == BottomRight)
+	      list.append(item);
+	    else if(item->location() == CenterLeft)
+	      list.append(item);
+	    else if(item->location() == CenterRight)
+	      list.append(item);
+	    else if(item->location() == TopCenter)
+	      list.append(item);
+	    else if(item->location() == TopRight)
+	      list.append(item);
 	  }
 
 	auto d = -event->lastPos().x() + event->pos().x();
