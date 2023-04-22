@@ -380,6 +380,7 @@ void glitch_separated_diagram_window::slotSaveDiagram(void)
     }
 
   prepareActionWidgets();
+  slotPageSaved();
 }
 
 void glitch_separated_diagram_window::slotSelectAll(void)
