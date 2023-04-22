@@ -26,54 +26,23 @@
 */
 
 #include "glitch-object-serial-arduino.h"
-#include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_serial_arduino::glitch_object_serial_arduino
 (const QString &serialType, QWidget *parent):
   glitch_object_serial_arduino(1, parent)
 {
   m_serialType = stringToSerialType(serialType);
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex
-    (m_ui.function->
-     findText(QString("Serial.%1()").arg(serialTypeToString(m_serialType))));
-  m_ui.function->blockSignals(false);
-  m_properties[Properties::SERIAL_TYPE] = m_ui.function->currentText();
-  setName(m_ui.function->currentText());
+  m_text = QString("Serial.%1()").arg(serialTypeToString(m_serialType));
+  m_properties[Properties::SERIAL_TYPE] = m_text;
+  setName(m_text);
 }
 
 glitch_object_serial_arduino::glitch_object_serial_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_type = "arduino-serial";
-  m_ui.setupUi(this);
-  m_ui.function->addItems(QStringList() << "Serial.available()"
-			                << "Serial.availableForWrite()"
-			                << "Serial.begin()"
-			                << "Serial.end()"
-			                << "Serial.find()"
-			                << "Serial.findUntil()"
-			                << "Serial.flush()"
-			                << "Serial.parseFloat()"
-			                << "Serial.parseInt()"
-			                << "Serial.peek()"
-			                << "Serial.print()"
-			                << "Serial.println()"
-			                << "Serial.read()"
-			                << "Serial.readBytes()"
-			                << "Serial.readBytesUntil()"
-			                << "Serial.readString()"
-			                << "Serial.readStringUntil()"
-			                << "Serial.setTimeout()"
-			                << "Serial.write()");
-  m_ui.function->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_ui.function,
-	  SIGNAL(currentIndexChanged(int)),
-	  this,
-	  SLOT(slotFunctionChanged(void)));
   prepareContextMenu();
-  setName(m_ui.function->currentText());
+  setName(m_text);
 }
 
 glitch_object_serial_arduino::~glitch_object_serial_arduino()
@@ -343,9 +312,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_serialType = m_serialType;
-  clone->m_ui.function->blockSignals(true);
-  clone->m_ui.function->setCurrentIndex(m_ui.function->currentIndex());
-  clone->m_ui.function->blockSignals(false);
+  clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -369,11 +336,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_serial_arduino::addActions(QMenu &menu)
-{
-  addDefaultActions(menu);
-}
-
 void glitch_object_serial_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -384,14 +346,16 @@ void glitch_object_serial_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["serial_type"] = m_ui.function->currentText();
+  properties["serial_type"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_serial_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::SERIAL_TYPE] = "Serial.available()";
+  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -409,11 +373,7 @@ void glitch_object_serial_arduino::setProperties(const QStringList &list)
 
   m_serialType = stringToSerialType
     (m_properties.value(Properties::SERIAL_TYPE).toString());
-  m_ui.function->blockSignals(true);
-  m_ui.function->setCurrentIndex
-    (m_ui.function->
-     findText(m_properties.value(Properties::SERIAL_TYPE).toString()));
-  m_ui.function->blockSignals(false);
+  m_text = m_properties.value(Properties::SERIAL_TYPE).toString();
   setName(m_properties.value(Properties::SERIAL_TYPE).toString());
 }
 
@@ -427,11 +387,8 @@ void glitch_object_serial_arduino::setProperty
     case Properties::SERIAL_TYPE:
       {
 	m_serialType = stringToSerialType(value.toString());
-	m_ui.function->blockSignals(true);
-	m_ui.function->setCurrentIndex
-	  (m_ui.function->findText(value.toString()));
-	m_ui.function->blockSignals(false);
-	setName(m_ui.function->currentText());
+	m_text = value.toString();
+	setName(m_text);
 	break;
       }
     default:
@@ -439,26 +396,4 @@ void glitch_object_serial_arduino::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_serial_arduino::slotFunctionChanged(void)
-{
-  m_serialType = stringToSerialType(m_ui.function->currentText());
-
-  if(!m_undoStack)
-    return;
-
-  auto undoCommand = new glitch_undo_command
-    (m_ui.function->currentText(),
-     m_properties.value(Properties::SERIAL_TYPE).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
-     Properties::SERIAL_TYPE,
-     this);
-
-  m_properties[Properties::SERIAL_TYPE] = m_ui.function->currentText();
-  undoCommand->setText
-    (tr("serial function changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
-  emit changed();
 }

@@ -3,7 +3,6 @@ FORMS          += UI/Arduino/glitch-object-block-comment-arduino.ui \
                   UI/Arduino/glitch-object-constant-arduino.ui \
                   UI/Arduino/glitch-object-flow-control-arduino.ui \
                   UI/Arduino/glitch-object-function-arduino.ui \
-                  UI/Arduino/glitch-object-serial-arduino.ui \
                   UI/Arduino/glitch-object-syntax-arduino.ui \
                   UI/Arduino/glitch-object-variable-arduino.ui
 HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
