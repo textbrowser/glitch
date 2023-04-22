@@ -1,5 +1,6 @@
 <map id="glitch_object_loop_arduino" name="glitch_object_loop_arduino">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,145,196"/>
-<area shape="rect" id="node2" href="$classglitch__object.html" title=" " alt="" coords="23,80,128,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="36,5,115,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="13,244,153,285"/>
+<area shape="rect" id="node2" href="$classglitch__object__simple__text__arduino.html" title=" " alt="" coords="5,155,161,196"/>
+<area shape="rect" id="node3" href="$classglitch__object.html" title=" " alt="" coords="31,80,136,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="44,5,123,32"/>
 </map>
