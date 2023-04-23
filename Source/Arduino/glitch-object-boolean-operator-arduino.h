@@ -80,7 +80,6 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   glitch_object_boolean_operator_arduino(QWidget *parent);
   glitch_object_boolean_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
-  QColor m_color;
   void paintEvent(QPaintEvent *event);
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);

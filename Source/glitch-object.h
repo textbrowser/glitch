@@ -57,7 +57,8 @@ class glitch_object: public QWidget
   {
     ADJUST_SIZE = 1,
     ARROW_OBJECT_COLOR = 100,
-    BORDER_COLOR = 200,
+    BACKGROUND_COLOR = 200,
+    BORDER_COLOR = 300,
     COMPRESS_WIDGET = 2,
     CONTEXT_MENU = 3,
     COPY = 0,
@@ -83,7 +84,7 @@ class glitch_object: public QWidget
     ADVANCED_IO_TYPE = 0,
     ANALOG_IO_TYPE,
     ARITHMETIC_OPERATOR,
-    ARROW_COLOR,
+    BACKGROUND_COLOR,
     BITS_AND_BYTES_TYPE,
     BITWISE_OPERATOR,
     BOOLEAN_OPERATOR,
@@ -344,6 +345,7 @@ class glitch_object: public QWidget
  protected slots:
   virtual void slotCopy(void);
   virtual void slotHideOrShowOccupied(void);
+  virtual void slotSelectColor(void);
   void slotSelectBorderColor(void);
   void slotSetPortColors(void);
   void slotSetStyleSheet(void);

@@ -47,8 +47,8 @@ glitch_object_boolean_operator_arduino::
 glitch_object_boolean_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_color = QColor(230, 230, 250);
   m_operatorType = OperatorTypes::NOT_OPERATOR;
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_type = "arduino-booleanoperator";
   prepareContextMenu();
   resize(50, 50);
@@ -146,7 +146,6 @@ glitch_object_boolean_operator_arduino::clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
-  clone->m_color = m_color;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
@@ -188,7 +187,9 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
   Q_UNUSED(event);
 
   QPainter painter(this);
-  auto brush(QBrush(m_color, Qt::SolidPattern));
+  auto brush
+    (QBrush(m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> (),
+	    Qt::SolidPattern));
   auto color(brush.color());
   const auto h = static_cast<qreal> (size().height());
   const auto w = static_cast<qreal> (size().width());

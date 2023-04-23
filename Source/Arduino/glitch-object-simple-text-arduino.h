@@ -68,7 +68,6 @@ class glitch_object_simple_text_arduino: public glitch_object
 
  private:
   glitch_object_simple_text_arduino(QWidget *parent);
-  QColor m_color;
   void paintEvent(QPaintEvent *event);
 };
 

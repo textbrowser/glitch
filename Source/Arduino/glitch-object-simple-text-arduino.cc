@@ -42,7 +42,7 @@ glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_color = QColor(230, 230, 250);
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   setAttribute(Qt::WA_OpaquePaintEvent, false);
   setStyleSheet("background-color: transparent;");
 }
@@ -56,7 +56,9 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   Q_UNUSED(event);
 
   QPainter painter(this);
-  auto brush(QBrush(m_color, Qt::SolidPattern));
+  auto brush
+    (QBrush(m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> (),
+	    Qt::SolidPattern));
   auto color(brush.color());
   auto font(this->font());
 

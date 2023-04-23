@@ -40,14 +40,12 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
     m_arrow = Arrows::RIGHT;
   else
     m_arrow = Arrows::LEFT_RIGHT;
-
-  m_properties[Properties::ARROW_COLOR] = m_color;
 }
 
 glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_color = QColor(70, 130, 180);
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180);
   m_type = "decoration-arrow";
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, false);
@@ -64,7 +62,6 @@ glitch_object_arrow *glitch_object_arrow::clone(QWidget *parent) const
   auto clone = new glitch_object_arrow(arrowToString(), parent);
 
   clone->m_arrow = m_arrow;
-  clone->m_color = m_color;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->resize(size());
@@ -162,7 +159,9 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	  QPointF(width + xi, (1.0 - linePercentOfHeight) * sizeHeight),
 	  QPointF(xi, (1.0 - linePercentOfHeight) * sizeHeight)
 	};
-      auto brush(QBrush(m_color, fillPattern));
+      auto brush
+	(QBrush(m_properties.value(Properties::BACKGROUND_COLOR).
+		value<QColor> (), fillPattern));
       auto color(brush.color());
 
       color.setAlpha(255);
@@ -194,7 +193,9 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight),
 	  QPointF(0.0, sizeHeight)
 	};
-      auto brush(QBrush(m_color, fillPattern));
+      auto brush
+	(QBrush(m_properties.value(Properties::BACKGROUND_COLOR).
+		value<QColor> (), fillPattern));
       auto color(brush.color());
 
       painter.setBrush(canvasBrush);
@@ -226,7 +227,9 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 	  QPointF(sizeWidth, sizeHeight),
 	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, sizeHeight)
 	};
-      auto brush(QBrush(m_color, fillPattern));
+      auto brush
+	(QBrush(m_properties.value(Properties::BACKGROUND_COLOR).
+		value<QColor> (), fillPattern));
       auto color(brush.color());
 
       painter.setBrush(canvasBrush);
@@ -254,7 +257,8 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
   QMap<QString, QVariant> properties;
 
   properties["arrows"] = arrowToString();
-  properties["color"] = m_color.name(QColor::HexArgb);
+  properties["color"] = m_properties.value(Properties::BACKGROUND_COLOR).
+    value<QColor> ().name(QColor::HexArgb);
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -262,8 +266,7 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_arrow = Arrows::LEFT_RIGHT;
-  m_color = QColor(70, 130, 180);
-  m_properties[Properties::ARROW_COLOR] = m_color;
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180);
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -279,12 +282,13 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_color = QColor(string.trimmed());
 
-	  if(!m_color.isValid())
-	    m_color = QColor(70, 130, 180);
+	  auto color(QColor(string.trimmed()));
 
-	  m_properties[Properties::ARROW_COLOR] = m_color;
+	  if(!color.isValid())
+	    color = QColor(70, 130, 180);
+
+	  m_properties[Properties::BACKGROUND_COLOR] = color;
 	}
     }
 
@@ -298,9 +302,9 @@ void glitch_object_arrow::setProperty
 
   switch(property)
     {
-    case Properties::ARROW_COLOR:
+    case Properties::BACKGROUND_COLOR:
       {
-	m_color = QColor(value.toString());
+	m_properties[Properties::BACKGROUND_COLOR] = QColor(value.toString());
 	break;
       }
     default:
@@ -314,7 +318,8 @@ void glitch_object_arrow::slotSelectColor(void)
 {
   QColorDialog dialog(m_parent);
 
-  dialog.setCurrentColor(m_color);
+  dialog.setCurrentColor
+    (m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ());
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
@@ -322,15 +327,16 @@ void glitch_object_arrow::slotSelectColor(void)
   if(dialog.exec() == QDialog::Accepted)
     {
       QApplication::processEvents();
-      m_color = dialog.selectedColor();
+
+      auto color(dialog.selectedColor());
 
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
-	    (m_color.name(QColor::HexArgb),
-	     m_properties.value(Properties::ARROW_COLOR),
+	    (color.name(QColor::HexArgb),
+	     m_properties.value(Properties::BACKGROUND_COLOR),
 	     glitch_undo_command::PROPERTY_CHANGED,
-	     Properties::ARROW_COLOR,
+	     Properties::BACKGROUND_COLOR,
 	     this);
 
 	  undoCommand->setText

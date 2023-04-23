@@ -98,6 +98,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_drawOutputConnector = false;
   m_occupied = false;
   m_parent = parent;
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::PORT_COLORS] =
@@ -662,6 +663,21 @@ void glitch_object::createActions(void)
       m_actions[DefaultMenuActions::ADJUST_SIZE] = action;
     }
 
+  if(!m_actions.contains(DefaultMenuActions::BACKGROUND_COLOR))
+    {
+      auto action = new QAction(tr("Background Color..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotSelectColor);
+      m_actions[DefaultMenuActions::BACKGROUND_COLOR] = action;
+
+      if(!isNativelyDrawn())
+	action->setEnabled(false);
+    }
+
   if(!m_actions.contains(DefaultMenuActions::BORDER_COLOR))
     {
       auto action = new QAction(tr("Border Color..."), this);
@@ -1005,6 +1021,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   auto properties(p);
 
+  properties["background_color"] = m_properties.value
+    (Properties::BACKGROUND_COLOR).toString();
   properties["border_color"] = m_properties.value
     (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
@@ -1124,7 +1142,13 @@ void glitch_object::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("border_color = "))
+      if(string.simplified().startsWith("background_color = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::BACKGROUND_COLOR] = QColor(string.trimmed());
+	}
+      else if(string.simplified().startsWith("border_color = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
@@ -1564,7 +1588,9 @@ void glitch_object::slotPropertyChanged
 {
   auto p = Properties::Z_Z_Z_PROPERTY;
 
-  if(property == "border_color")
+  if(property == "background_color")
+    p = Properties::BACKGROUND_COLOR;
+  else if(property == "border_color")
     p = Properties::BORDER_COLOR;
   else if(property == "compressed_widget")
     p = Properties::COMPRESSED_WIDGET;
@@ -1572,6 +1598,41 @@ void glitch_object::slotPropertyChanged
     p = Properties::TOOL_BAR_VISIBLE;
 
   slotPropertyChanged(p, value);
+}
+
+void glitch_object::slotSelectColor(void)
+{
+  QColorDialog dialog(m_parent);
+
+  dialog.setCurrentColor
+    (m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ());
+  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
+  dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+
+      auto color(dialog.selectedColor());
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (color.name(QColor::HexArgb),
+	     m_properties.value(Properties::BACKGROUND_COLOR),
+	     glitch_undo_command::PROPERTY_CHANGED,
+	     Properties::BACKGROUND_COLOR,
+	     this);
+
+	  undoCommand->setText
+	    (tr("background color changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+    }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_object::slotSelectBorderColor(void)

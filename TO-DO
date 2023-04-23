@@ -218,6 +218,7 @@ Completed Items
 - Single redo / undo stack per diagram.
 - Sort structures for languages.
 - Split properties via special regular expression.
+- Splitter states and redo / undo. Not necessary.
 - Stack (z-values) widgets.
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
@@ -278,7 +279,6 @@ Remaining Items
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - SQLite modes.
 - Shell.
-- Splitter states and redo / undo.
 - Tools:
   Compress selected objects
   Resize selected objects
