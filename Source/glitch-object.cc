@@ -591,8 +591,9 @@ void glitch_object::addDefaultActions(QMenu &menu)
       it.next();
       menu.addAction(it.value());
 
-      if((DefaultMenuActions::CONTEXT_MENU == it.key() ||
-	  DefaultMenuActions::DELETE == it.key()) &&
+      if((DefaultMenuActions::FLOATING_CONTEXT_MENU == it.key() ||
+	  DefaultMenuActions::LOCK_POSITION == it.key() ||
+	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())
 	menu.addSeparator();
     }
@@ -711,19 +712,6 @@ void glitch_object::createActions(void)
     m_actions[DefaultMenuActions::COMPRESS_WIDGET]->
       setChecked(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 
-  if(!m_actions.contains(DefaultMenuActions::CONTEXT_MENU))
-    {
-      auto action = new QAction(tr("Floating Context Menu..."), this);
-
-      action->setData(static_cast<int> (DefaultMenuActions::CONTEXT_MENU));
-      action->setIcon(QIcon(":/context-menu.png"));
-      connect(action,
-	      &QAction::triggered,
-	      this,
-	      &glitch_object::slotShowContextMenu);
-      m_actions[DefaultMenuActions::CONTEXT_MENU] = action;
-    }
-
   if(!m_actions.contains(DefaultMenuActions::COPY))
     {
       QAction *action = nullptr;
@@ -754,6 +742,20 @@ void glitch_object::createActions(void)
 	      this,
 	      &glitch_object::deletedViaContextMenu);
       m_actions[DefaultMenuActions::DELETE] = action;
+    }
+
+  if(!m_actions.contains(DefaultMenuActions::FLOATING_CONTEXT_MENU))
+    {
+      auto action = new QAction(tr("Floating Context Menu..."), this);
+
+      action->setData
+	(static_cast<int> (DefaultMenuActions::FLOATING_CONTEXT_MENU));
+      action->setIcon(QIcon(":/context-menu.png"));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotShowContextMenu);
+      m_actions[DefaultMenuActions::FLOATING_CONTEXT_MENU] = action;
     }
 
   if(!m_actions.contains(DefaultMenuActions::FONT_COLOR))
