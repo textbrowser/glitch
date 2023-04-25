@@ -116,6 +116,7 @@ Completed Items
 - Flow-control objects and edit views (break does not have a view).
 - Flow-control syntax colors.
 - Focused combination boxes and resize requests malfunction.
+- Font color for natively-drawn widget.
 - Font hinting option for the application font.
 - Full-screen and normal-screen modes.
 - Function clones should have redo / undo stack of parent function.
@@ -269,7 +270,6 @@ Remaining Items
   Copy context-menu action
   Delete context-menu action
   Edit context-menu action
-- Font color for natively-drawn widget.
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

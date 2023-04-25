@@ -147,7 +147,7 @@ void glitch_object_setup_arduino::addActions(QMenu &menu)
 {
   if(!m_actions.contains(DefaultMenuActions::EDIT))
     {
-      auto action = new QAction(tr("&Edit..."), this);
+      auto action = new QAction(tr("&Edit setup()..."), this);
 
       action->setIcon(QIcon::fromTheme("document-edit"));
       connect(action,

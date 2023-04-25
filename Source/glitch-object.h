@@ -55,20 +55,21 @@ class glitch_object: public QWidget
 
   enum class DefaultMenuActions
   {
-    ADJUST_SIZE = 1,
-    ARROW_OBJECT_COLOR = 100,
-    BACKGROUND_COLOR = 200,
-    BORDER_COLOR = 300,
-    COMPRESS_WIDGET = 2,
-    CONTEXT_MENU = 3,
-    COPY = 0,
-    DELETE = 4,
-    EDIT = 5,
-    LOCK_POSITION = 6,
-    PORT_COLORS = 8,
-    SET_FUNCTION_NAME = 7,
-    SET_STYLE_SHEET = 9,
-    TRANSPARENT = 10
+    ADJUST_SIZE = 0,
+    ARROW_OBJECT_COLOR,
+    BACKGROUND_COLOR,
+    BORDER_COLOR,
+    COMPRESS_WIDGET,
+    CONTEXT_MENU,
+    COPY,
+    DELETE,
+    EDIT,
+    FONT_COLOR,
+    LOCK_POSITION,
+    PORT_COLORS,
+    SET_FUNCTION_NAME,
+    SET_STYLE_SHEET,
+    TRANSPARENT
   };
 
   enum class PortColors
@@ -102,6 +103,7 @@ class glitch_object: public QWidget
     EDIT_WINDOW_GEOMETRY,
     EDIT_WINDOW_STATE,
     FLOW_CONTROL_TYPE,
+    FONT_COLOR,
     GEOMETRY,
     INTERRUPTS_TYPE,
     LOGICAL_OPERATOR,

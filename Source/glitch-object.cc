@@ -101,6 +101,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
     "-" +
@@ -590,11 +591,8 @@ void glitch_object::addDefaultActions(QMenu &menu)
       it.next();
       menu.addAction(it.value());
 
-      if((DefaultMenuActions::COPY == it.key() ||
-	  DefaultMenuActions::DELETE == it.key() ||
-	  DefaultMenuActions::LOCK_POSITION == it.key() ||
-	  DefaultMenuActions::SET_FUNCTION_NAME == it.key() ||
-	  DefaultMenuActions::TRANSPARENT == it.key()) &&
+      if((DefaultMenuActions::CONTEXT_MENU == it.key() ||
+	  DefaultMenuActions::DELETE == it.key()) &&
 	 it.hasNext())
 	menu.addSeparator();
     }
@@ -756,6 +754,23 @@ void glitch_object::createActions(void)
 	      this,
 	      &glitch_object::deletedViaContextMenu);
       m_actions[DefaultMenuActions::DELETE] = action;
+    }
+
+  if(!m_actions.contains(DefaultMenuActions::FONT_COLOR))
+    {
+      auto action = new QAction(tr("Font Color..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::FONT_COLOR));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotSelectColor);
+      m_actions[DefaultMenuActions::FONT_COLOR] = action;
+
+      if(!isNativelyDrawn() ||
+	 m_type == "decoration-arrow" ||
+	 m_type == "arduino-booleanoperator")
+	action->setEnabled(false);
     }
 
   if(!m_actions.contains(DefaultMenuActions::LOCK_POSITION))
@@ -1031,6 +1046,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::EDIT_WINDOW_GEOMETRY).toByteArray().toBase64();
   properties["edit_window_state"] = m_editWindow ?
     m_editWindow->saveState().toBase64() : QByteArray().toBase64();
+  properties["font_color"] = m_properties.value
+    (Properties::FONT_COLOR).toString();
   properties["port_colors"] = m_properties.value
     (Properties::PORT_COLORS).toString();
   properties["position_locked"] = m_properties.value
@@ -1182,6 +1199,12 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::EDIT_WINDOW_STATE] =
 	    QByteArray::fromBase64(string.trimmed().toLatin1());
+	}
+      else if(string.simplified().startsWith("font_color = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::FONT_COLOR] = QColor(string.trimmed());
 	}
       else if(string.simplified().startsWith("name = "))
 	{
@@ -1594,6 +1617,8 @@ void glitch_object::slotPropertyChanged
     p = Properties::BORDER_COLOR;
   else if(property == "compressed_widget")
     p = Properties::COMPRESSED_WIDGET;
+  else if(property == "font_color")
+    p = Properties::FONT_COLOR;
   else if(property == "tool_bar_visible")
     p = Properties::TOOL_BAR_VISIBLE;
 
@@ -1602,10 +1627,26 @@ void glitch_object::slotPropertyChanged
 
 void glitch_object::slotSelectColor(void)
 {
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  QColor color;
+  auto property = Properties::BACKGROUND_COLOR;
+
+  if(static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR) ==
+     static_cast<int> (action->data().toInt()))
+    color = m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ();
+  else
+    {
+      color = m_properties.value(Properties::FONT_COLOR).value<QColor> ();
+      property = Properties::FONT_COLOR;
+    }
+
   QColorDialog dialog(m_parent);
 
-  dialog.setCurrentColor
-    (m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ());
+  dialog.setCurrentColor(color);
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
@@ -1620,13 +1661,13 @@ void glitch_object::slotSelectColor(void)
 	{
 	  auto undoCommand = new glitch_undo_command
 	    (color.name(QColor::HexArgb),
-	     m_properties.value(Properties::BACKGROUND_COLOR),
+	     m_properties.value(property),
 	     glitch_undo_command::PROPERTY_CHANGED,
-	     Properties::BACKGROUND_COLOR,
+	     property,
 	     this);
 
 	  undoCommand->setText
-	    (tr("background color changed (%1, %2)").
+	    (tr("color property changed (%1, %2)").
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
