@@ -92,19 +92,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_arrow::addActions(QMenu &menu)
 {
-  if(!m_actions.contains(DefaultMenuActions::ARROW_OBJECT_COLOR))
-    {
-      auto action = new QAction(tr("Select Color..."), this);
-
-      action->setData
-	(static_cast<int> (DefaultMenuActions::ARROW_OBJECT_COLOR));
-      connect(action,
-	      &QAction::triggered,
-	      this,
-	      &glitch_object_arrow::slotSelectColor);
-      m_actions[DefaultMenuActions::ARROW_OBJECT_COLOR] = action;
-    }
-
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
@@ -257,8 +244,6 @@ void glitch_object_arrow::save(const QSqlDatabase &db, QString &error)
   QMap<QString, QVariant> properties;
 
   properties["arrows"] = arrowToString();
-  properties["color"] = m_properties.value(Properties::BACKGROUND_COLOR).
-    value<QColor> ().name(QColor::HexArgb);
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -266,7 +251,6 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_arrow = Arrows::LEFT_RIGHT;
-  m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180);
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -277,18 +261,6 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_arrow = stringToArrow(string);
-	}
-      else if(string.simplified().startsWith("color = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-
-	  auto color(QColor(string.trimmed()));
-
-	  if(!color.isValid())
-	    color = QColor(70, 130, 180);
-
-	  m_properties[Properties::BACKGROUND_COLOR] = color;
 	}
     }
 

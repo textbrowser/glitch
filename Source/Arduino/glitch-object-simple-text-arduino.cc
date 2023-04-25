@@ -66,8 +66,8 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   brush.setColor(color);
   font.setBold(true);
   painter.setBrush(brush);
-  painter.setPen(QColor(Qt::black));
   painter.setFont(font);
+  painter.setPen(m_properties.value(Properties::FONT_COLOR).value<QColor> ());
   painter.setRenderHints(QPainter::Antialiasing |
 			 QPainter::SmoothPixmapTransform |
 			 QPainter::TextAntialiasing,

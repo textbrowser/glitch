@@ -67,8 +67,7 @@ class glitch_object: public QWidget
     ** Style.
     */
 
-    ARROW_OBJECT_COLOR = 1000,
-    BACKGROUND_COLOR,
+    BACKGROUND_COLOR = 1000,
     BORDER_COLOR,
     FONT_COLOR,
     PORT_COLORS,
