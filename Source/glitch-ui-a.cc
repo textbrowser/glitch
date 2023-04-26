@@ -67,6 +67,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setText
     (tr("<html>"
 	"<b>Glitch Version %1</b><br><br>"
+	"<b>G</b>raphical <b>L</b>ightweight <b>I</b>nteractive "
+	"<b>T</b>ool and <b>C</b>ompiler <b>H</b>ybrid<br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
 	"Develop through block diagrams.<br><br>"
 	"Software for and from the margins.<br><br>"
@@ -2114,6 +2116,8 @@ void glitch_ui::slotSwifty(void)
     (tr("<html>"
 	"<b>Glitch Version %1</b><br>"
 	"The official version is <b>%2</b>.<br><br>"
+	"<b>G</b>raphical <b>L</b>ightweight <b>I</b>nteractive "
+	"<b>T</b>ool and <b>C</b>ompiler <b>H</b>ybrid<br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
 	"Develop through block diagrams.<br><br>"
 	"Software for and from the margins.<br><br>"
