@@ -14,10 +14,8 @@
 <li>Object alignment tools.</li>
 <li>Optionally-transparent widgets if provided by local systems.</li>
 <li>PowerPC!</li>
-<li>Qt 5.15 LTS.</li>
 <li>Qt 5.5.1 (PowerPC)!</li>
-<li>Qt 6.2 LTS.</li>
-<li>Qt 6.5 LTS.</li>
+<li>Qt LTS.</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
@@ -25,6 +23,34 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.04.30</p>
+<ul>
+<li>Added New Diagram -> Arduino tool bar action.</li>
+<li>Background color property for natively-drawn widget.</li>
+<li>Corrected default value of setting
+preferences/docked_widget_property_editors.</li>
+<li>Corrected pointer comparison in
+glitch_canvas_settings::slotSelectColor().</li>
+<li>Dock property editors of children of editable objects.</li>
+<li>Edit tool bar.</li>
+<li>Enable native dialogs and menus. File dialogs are excluded.</li>
+<li>Font color property for natively-drawn widget.</li>
+<li>Lock color. Please see Canvas Settings -> Canvas.</li>
+<li>Manually resize objects!</li>
+<li>Native drawing of many Arduino structures.</li>
+<li>Pi-64 (aarch64) for Debian. A package will not be created.</li>
+<li>Properties tool tips.</li>
+<li>Q_OS_MAC is deprecated. Replaced with Q_OS_MACOS.</li>
+<li>Qt 6.5 LTS compliant!</li>
+<li>Replaced color property with background color for arrow
+object.</li>
+<li>Retain an edit window's geometry and state upon save event.</li>
+<li>Save state of a separated canvas is not reflected in the window's
+title.</li>
+<li>Simplified Recent Diagrams menu; native menus.</li>
+<li>Smoother preparation of tool bars through delayed painting.</li>
+<li>Vacuum glitch_recent_files.db after processing.</li>
+</ul>
 <p>2023.04.04</p>
 <ul>
 <li>A function name may not represent a reserved word.</li>
@@ -34,7 +60,8 @@
 <li>Application font hinting. Please see Glitch Preferences.</li>
 <li>C++17 is the new C++ standard.</li>
 <li>Corrected syntax highlighting of #define and #include.</li>
-<li>Delete selected items via Backspace and Delete keys if the Alt modifier key is also pressed.</li>
+<li>Delete selected items via Backspace and Delete keys if the Alt
+modifier key is also pressed.</li>
 <li>Denote the number of objects in Find Objects status bar.</li>
 <li>Disable Border Color property for arrow object.</li>
 <li>Disable a diagram's tool bar's context menu.</li>
@@ -46,14 +73,16 @@
 <li>Native drawing of boolean operators.</li>
 <li>New initial color for arrow object.</li>
 <li>Removed QPainter::HighQualityAntialiasing render hint.</li>
-<li>Replaced Shift modifier with Control modifier: disconnect wires, move objects via arrow keys.</li>
+<li>Replaced Shift modifier with Control modifier: disconnect wires,
+move objects via arrow keys.</li>
 <li>SQLite database of new diagram was missing keyword_colors field.</li>
 <li>Sensible notification of undefined source file.</li>
 <li>Separate pages via Control and drag.</li>
 <li>Show tool bars for new diagrams.</li>
 <li>Stack widgets. New z-value property.</li>
 <li>Super render hints for arrow object.</li>
-<li>The main window's title will be incorrect if a non-current diagram is saved.</li>
+<li>The main window's title will be incorrect if a non-current diagram
+is saved.</li>
 <li>Underline function clone name if parent function has members.</li>
 </ul>
 <p>2023.02.28</p>
@@ -73,7 +102,8 @@
 <p>2023.02.10</p>
 <ul>
 <li>Arduino Documentation and Release Notes window titles.</li>
-<li>Corrected changed states of views. Function object revisions may cause multiple signals.</li>
+<li>Corrected changed states of views. Function object revisions may cause
+multiple signals.</li>
 <li>Do not create a source file after a canvas's settings are applied.</li>
 <li>Intelligent tree collapse / expand.</li>
 <li>Object border color via context menu item.</li>
@@ -88,9 +118,11 @@
 </ul>
 <p>2023.01.15</p>
 <ul>
-<li>Copy Object context menu item will not require that the object be selected.</li>
+<li>Copy Object context menu item will not require that the object be
+selected.</li>
 <li>Download official version information and display it in About.</li>
-<li>Enable Set Port Colors menu item if the parent widget has input or output.</li>
+<li>Enable Set Port Colors menu item if the parent widget has input or
+output.</li>
 <li>Include diagram name in Find Objects.</li>
 <li>Save option from object views.</li>
 <li>Show object floating menu via context menu action.</li>
@@ -105,14 +137,17 @@
 <li>Object input and output port colors.</li>
 <li>Open the Arduino IDE even if the output file is not defined.</li>
 <li>Optionally synchronize Find Objects with parent diagram.</li>
-<li>QKeyEvent::modifiers() is not reliable. Replaced with QGuiApplication::keyboardModifiers().</li>
+<li>QKeyEvent::modifiers() is not reliable. Replaced with
+QGuiApplication::keyboardModifiers().</li>
 <li>Scroll-on-selection in diagrams.</li>
-<li>Select a widget if its combination box is clicked on by the left mouse button.</li>
+<li>Select a widget if its combination box is clicked on by the left mouse
+button.</li>
 <li>Simplified flow-control conditional text.</li>
 </ul>
 <p>2022.11.30</p>
 <ul>
-<li>Detect clean states of redo / undo stacks and adjust states of parent diagrams.</li>
+<li>Detect clean states of redo / undo stacks and adjust states of parent
+diagrams.</li>
 <li>Project IDE. Please see Project menu.</li>
 <li>Renamed Generate menu to Project.</li>
 <li>Special copying of loop() and setup() contents.</li>
@@ -132,7 +167,8 @@
 <li>Copy correct locations of function clones.</li>
 <li>New selection color canvas property.</li>
 <li>Optimization level three.</li>
-<li>Prevent artificial redo / undo stack entries caused by copying and pasting of objects.</li>
+<li>Prevent artificial redo / undo stack entries caused by copying and
+pasting of objects.</li>
 </ul>
 <p>2022.11.15</p>
 <ul>
