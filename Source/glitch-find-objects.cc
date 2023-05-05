@@ -124,7 +124,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
 	item->setObject(child);
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
-	item->setText(static_cast<int> (Columns::Type), child->type());
+	item->setText(static_cast<int> (Columns::Type), child->objectType());
 	m_count += 1;
 	find(item, child);
       }
@@ -147,7 +147,8 @@ void glitch_find_objects::find(void)
 	    item->setText(static_cast<int> (Columns::Object), object->name());
 	    item->setText
 	      (static_cast<int> (Columns::Position), object->position());
-	    item->setText(static_cast<int> (Columns::Type), object->type());
+	    item->setText
+	      (static_cast<int> (Columns::Type), object->objectType());
 	    m_count += 1;
 	    m_ui.tree->addTopLevelItem(item);
 	    find(item, object);

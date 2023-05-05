@@ -273,8 +273,8 @@ void glitch_proxy_widget::paint
 			      QPainter::TextAntialiasing,
 			      true);
 
-      if(m_object && (m_object->type() == "arduino-booleanoperator" ||
-		      m_object->type() == "decoration-arrow"))
+      if(m_object && (m_object->objectType() == "arduino-booleanoperator" ||
+		      m_object->objectType() == "decoration-arrow"))
        	{
 	  if(!m_object->path().isEmpty())
 	    {

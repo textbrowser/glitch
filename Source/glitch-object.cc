@@ -204,7 +204,7 @@ QString glitch_object::name(void) const
   return m_properties.value(Properties::NAME).toString();
 }
 
-QString glitch_object::type(void) const
+QString glitch_object::objectType(void) const
 {
   return m_type;
 }

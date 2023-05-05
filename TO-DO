@@ -197,6 +197,7 @@ Completed Items
 - Retain loop(), setup () style sheets.
 - Retain scroll bar positions in Source View.
 - Review lengthy tool tips.
+- SQLite modes. Not necessary.
 - Save As.
 - Save button on tab.
 - Save canvas settings.
@@ -278,7 +279,6 @@ Remaining Items
   are numerous windows.
 - Replace-with context menus for natively-drawn Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
-- SQLite modes.
 - Shell.
 - Tools:
   Compress selected objects

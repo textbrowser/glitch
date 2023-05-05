@@ -1281,7 +1281,8 @@ void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
 {
   if(!proxy || proxy->isMandatory())
     return;
-  else if(proxy->object() && proxy->object()->type().startsWith("decoration"))
+  else if(proxy->object() &&
+	  proxy->object()->objectType().startsWith("decoration"))
     return;
 
   auto point(m_objectsHash.value(proxy));
@@ -1429,7 +1430,8 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
 void glitch_scene::slotFunctionDeleted(const QString &name)
 {
   foreach(auto object, objects())
-    if(object && object->name() == name && object->type().contains("function"))
+    if(object && object->name() == name &&
+       object->objectType().contains("function"))
       {
 	if(m_undoStack)
 	  {
