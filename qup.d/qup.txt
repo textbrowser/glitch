@@ -1,0 +1,25 @@
+# Qup definitions file.
+# https://github.com/textbrowser/qup
+
+[General]
+
+file = ReleaseNotes.html
+file = TO-DO
+file_destination = Documentation
+
+[Linux]
+
+executable:amd64 = Glitch_amd64
+executable:armhf = Glitch_armhf
+executable:powerpc = Glitch_powerpc
+local_executable = Glitch
+
+[MacOS]
+
+executable = Glitch.app.zip
+local_executable = Glitch.app
+
+[Windows]
+
+executable = Glitch.exe
+local_executable = Glitch.exe
