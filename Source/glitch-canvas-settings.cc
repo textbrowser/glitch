@@ -357,11 +357,16 @@ bool glitch_canvas_settings::notify(void)
       m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
       notify = true;
     }
-
-  if(m_ui.project_ide->text().trimmed().isEmpty())
+  else
     {
-      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
-      notify = true;
+      QFileInfo fileInfo(m_ui.output_file->text());
+
+      if((!fileInfo.absoluteDir().exists()) ||
+	 (!fileInfo.isWritable() && fileInfo.exists()))
+	{
+	  m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
+	  notify = true;
+	}
     }
 
   return notify;
