@@ -279,6 +279,7 @@ Remaining Items
   are numerous windows.
 - Replace-with context menus for natively-drawn Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
+- Scroll a view if an item is moved via arrow keys.
 - Shell.
 - Tools:
   Compress selected objects
