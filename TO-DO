@@ -229,6 +229,9 @@ Completed Items
 - Style sheets. User input is not validated.
 - The name of the display in settings should be separate from the file name.
 - Tools Bar?
+- Tools:
+  Compress selected objects
+  Resize selected objects
 - Transparent widgets, if system allows it.
 - Underline function clone name if parent function has members.
 - Undo macros for group actions.
@@ -282,9 +285,6 @@ Remaining Items
 - Replace-with context menus for natively-drawn Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Shell.
-- Tools:
-  Compress selected objects
-  Resize selected objects
 - Warn of recursive functions?
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with

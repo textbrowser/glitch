@@ -296,7 +296,14 @@ class glitch_object: public QWidget
   void setWiredObject(glitch_object *object, glitch_wire *wire);
   void showEditWindow(void) const;
 
+  void triggerAction(const DefaultMenuActions action)
+  {
+    if(m_actions.value(action, nullptr))
+      m_actions.value(action)->trigger();
+  }
+
  public slots:
+  virtual void slotAdjustSize(void);
   void slotShowContextMenu(void);
 
  private:
@@ -307,7 +314,6 @@ class glitch_object: public QWidget
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
-  virtual void slotAdjustSize(void);
   void slotActionTriggered(void);
   void slotCanvasSettingsChanged(const bool state);
   void slotClearTemporaryContainers(void);

@@ -178,6 +178,14 @@ glitch_view::glitch_view
 	  this,
 	  &glitch_view::selectionChanged);
   connect(m_tools,
+	  &glitch_tools::adjustSize,
+	  m_scene,
+	  &glitch_scene::slotSelectedWidgetsAdjustSize);
+  connect(m_tools,
+	  &glitch_tools::compress,
+	  m_scene,
+	  &glitch_scene::slotSelectedWidgetsCompress);
+  connect(m_tools,
 	  SIGNAL(operation(const glitch_tools::Operations)),
 	  m_scene,
 	  SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));

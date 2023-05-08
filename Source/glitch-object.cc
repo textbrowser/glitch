@@ -1470,6 +1470,12 @@ void glitch_object::slotActionTriggered(void)
 	{
 	case DefaultMenuActions::COMPRESS_WIDGET:
 	  {
+	    if(m_actions.value(DefaultMenuActions::
+			       COMPRESS_WIDGET, nullptr) &&
+	       m_actions.value(DefaultMenuActions::
+			       COMPRESS_WIDGET)->isEnabled() == false)
+	      return;
+
 	    property = Properties::COMPRESSED_WIDGET;
 	    break;
 	  }
@@ -1507,6 +1513,10 @@ void glitch_object::slotActionTriggered(void)
 
 void glitch_object::slotAdjustSize(void)
 {
+  if(m_actions.value(DefaultMenuActions::ADJUST_SIZE, nullptr) &&
+     m_actions.value(DefaultMenuActions::ADJUST_SIZE)->isEnabled() == false)
+    return;
+
   auto before(size());
 
   resize(sizeHint().width(), minimumHeight(sizeHint().height()));

@@ -380,7 +380,7 @@ void glitch_object_flow_control_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::EDIT, nullptr))
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   addDefaultActions(menu);
@@ -525,7 +525,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
       m_ui.condition->setVisible(false);
     }
 
-  if(m_actions.value(DefaultMenuActions::EDIT))
+  if(m_actions.value(DefaultMenuActions::EDIT, nullptr))
     m_actions.value(DefaultMenuActions::EDIT)->setEnabled(enabled);
 
   m_ui.flow_control_type->blockSignals(true);

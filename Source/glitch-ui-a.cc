@@ -54,6 +54,7 @@
 
 QFont glitch_ui::s_defaultApplicationFont;
 QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
+QPointer<glitch_scene> glitch_ui::s_focusedScene = nullptr;
 QSet<glitch_object *> glitch_ui::s_copiedObjectsSet;
 QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
