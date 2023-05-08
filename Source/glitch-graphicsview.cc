@@ -66,21 +66,7 @@ void glitch_graphicsview::mouseMoveEvent(QMouseEvent *event)
   QGraphicsView::mouseMoveEvent(event);
 
   if(event && event->buttons() == Qt::LeftButton)
-    {
-      const int offset = 7;
-
-      if(event->pos().x() >= width() - 50)
-	horizontalScrollBar()->setValue
-	  (horizontalScrollBar()->value() + offset);
-      else if(event->pos().x() - 50 < 0)
-	horizontalScrollBar()->setValue
-	  (horizontalScrollBar()->value() - offset);
-
-      if(event->pos().y() >= height() - 50)
-	verticalScrollBar()->setValue(verticalScrollBar()->value() + offset);
-      else if(event->pos().y() - 50 < 0)
-	verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
-    }
+    scroll(event->pos());
 }
 
 void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
@@ -94,4 +80,19 @@ void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
     if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
       emit customContextMenuRequested
 	(event ? mapToParent(event->pos()) : QPoint());
+}
+
+void glitch_graphicsview::scroll(const QPoint &point)
+{
+  const int offset = 25;
+
+  if(point.x() >= width() - 50)
+    horizontalScrollBar()->setValue(horizontalScrollBar()->value() + offset);
+  else if(point.x() - 50 < 0)
+    horizontalScrollBar()->setValue(horizontalScrollBar()->value() - offset);
+
+  if(point.y() >= height() - 50)
+    verticalScrollBar()->setValue(verticalScrollBar()->value() + offset);
+  else if(point.y() - 50 < 0)
+    verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
 }

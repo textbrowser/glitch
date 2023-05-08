@@ -855,11 +855,10 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
       {
-	QPoint point;
 	auto began = false;
 	auto moved = false;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
-	auto view = views().value(0);
+	auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
 	int pixels = (QGuiApplication::keyboardModifiers() &
 		      Qt::ControlModifier) ? 50 : 1;
 
@@ -871,6 +870,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	foreach(auto i, selectedItems())
 	  {
+	    QPoint point;
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
 	    if(!proxy)
@@ -951,13 +951,16 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 		    m_undoStack->push(undoCommand);
 		  }
+
+		if(view)
+		  view->scroll(point);
 	      }
 	  }
 
 	if(began && m_undoStack)
 	  m_undoStack->endMacro();
 
-	  emit sceneResized();
+	emit sceneResized();
 
 	if(view)
 	  view->setViewportUpdateMode(updateMode);

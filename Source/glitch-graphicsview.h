@@ -37,6 +37,7 @@ class glitch_graphicsview: public QGraphicsView
  public:
   glitch_graphicsview(QWidget *parent);
   bool containsFunction(const QString &name) const;
+  void scroll(const QPoint &point);
 
  protected:
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
