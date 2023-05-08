@@ -526,61 +526,6 @@
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLabel" name="output_file_warning_label">
-               <property name="font">
-                <font>
-                 <pointsize>25</pointsize>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>Please complete the Output File field!</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QWidget {color: #ff612f;}</string>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&amp;#9888;&lt;/html&gt;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>&amp;Output File</string>
-               </property>
-               <property name="buddy">
-                <cstring>output_file</cstring>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="output_file">
-               <property name="maxLength">
-                <number>5000</number>
-               </property>
-               <property name="placeholderText">
-                <string>Output File</string>
-               </property>
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="select_output_file">
-               <property name="text">
-                <string>Select</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
               <widget class="QLabel" name="project_ide_warning_label">
@@ -892,8 +837,6 @@
   <tabstop>wire_type</tabstop>
   <tabstop>wire_width</tabstop>
   <tabstop>generate_periodically</tabstop>
-  <tabstop>output_file</tabstop>
-  <tabstop>select_output_file</tabstop>
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>

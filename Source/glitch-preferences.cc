@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QFileDialog>
 #include <QFontDialog>
 #include <QPushButton>
 #include <QSettings>
@@ -42,8 +43,13 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::slotSelectFont);
+  connect(m_ui.select_output_directory,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_preferences::slotSelectOutputDirectory);
   m_ui.display_application_font->setText
     (QApplication::font().toString().trimmed());
+  m_ui.output_directory->setText(QDir::homePath());
   prepareLanguages();
   processSettings();
   setWindowModality(Qt::ApplicationModal);
@@ -106,6 +112,9 @@ void glitch_preferences::processSettings(void)
 
   m_ui.display_tear_off_menus->setChecked
     (settings.value("preferences/tear_off_menus", true).toBool());
+  m_ui.output_directory->setText
+    (settings.
+     value("preferences/output_directory", QDir::homePath()).toString());
 }
 
 void glitch_preferences::slotApply(void)
@@ -122,6 +131,8 @@ void glitch_preferences::slotApply(void)
     ("preferences/font_hinting", m_ui.font_hinting->currentText());
   settings.setValue
     ("preferences/language", m_ui.display_language->currentData().toString());
+  settings.setValue
+    ("preferences/output_directory", m_ui.output_directory->text());
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   emit accept();
@@ -148,4 +159,26 @@ void glitch_preferences::slotSelectFont(void)
     }
   else
     QApplication::processEvents();
+}
+
+void glitch_preferences::slotSelectOutputDirectory(void)
+{
+  QFileDialog dialog(this);
+
+  dialog.setAcceptMode(QFileDialog::AcceptOpen);
+  dialog.setDirectory(m_ui.output_directory->text());
+  dialog.setFileMode(QFileDialog::Directory);
+  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
+  dialog.setOption(QFileDialog::DontUseNativeDialog);
+  dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(tr("Glitch: Select Output Directory"));
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      m_ui.output_directory->setText(dialog.selectedFiles().value(0));
+      m_ui.output_directory->setToolTip(m_ui.output_directory->text());
+      m_ui.output_directory->setCursorPosition(0);
+    }
 }

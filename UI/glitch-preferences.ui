@@ -163,6 +163,40 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Output &amp;Directory</string>
+               </property>
+               <property name="buddy">
+                <cstring>output_directory</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="output_directory">
+               <property name="maxLength">
+                <number>5000</number>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Output Directory</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_output_directory">
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QCheckBox" name="display_tear_off_menus">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, some menus will reside in their own windows.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -215,6 +249,8 @@
   <tabstop>font_hinting</tabstop>
   <tabstop>docked_widget_property_editors</tabstop>
   <tabstop>display_language</tabstop>
+  <tabstop>output_directory</tabstop>
+  <tabstop>select_output_directory</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
  </tabstops>
  <resources>

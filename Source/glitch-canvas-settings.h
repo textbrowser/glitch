@@ -137,7 +137,6 @@ class glitch_canvas_settings: public QDialog
     GENERATE_PERIODICALLY,
     KEYWORD_COLORS,
     LOCK_COLOR,
-    OUTPUT_FILE,
     PROJECT_IDE,
     REDO_UNDO_STACK_SIZE,
     SELECTION_COLOR,
@@ -178,7 +177,6 @@ class glitch_canvas_settings: public QDialog
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
   void setName(const QString &name);
-  void setOutputFile(const QString &fileName);
   void setOutputFileExtension(const QString &extension);
   void setProjectIDE(const QString &filename);
   void setProjectKeywords(const QStringList &l);
@@ -220,7 +218,6 @@ class glitch_canvas_settings: public QDialog
   void slotKeywordColorSelected(const QColor &color, const int row);
   void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);
-  void slotSelectOutputFile(void);
   void slotSelectProjectIDE(void);
   void slotSpecialCopy(void);
   void slotSpecialPaste(void);

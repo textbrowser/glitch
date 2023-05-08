@@ -29,6 +29,7 @@
 #include <QColorDialog>
 #include <QDir>
 #include <QFileDialog>
+#include <QSettings>
 #include <QShortcut>
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -57,12 +58,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.lock_color->setStyleSheet("QPushButton {background-color: orange}");
   m_ui.lock_color->setText("orange");
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
-  m_ui.output_file_warning_label->setVisible(false);
   m_ui.project_ide->setText("/usr/bin/arduino");
   m_ui.project_ide->setCursorPosition(0);
   m_ui.project_ide_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
-  m_ui.select_output_file->setIcon(QIcon::fromTheme("document-open"));
   m_ui.select_project_ide->setIcon(QIcon::fromTheme("document-open"));
   m_ui.selection_color->setStyleSheet
     ("QPushButton {background-color: lightgreen}");
@@ -142,10 +141,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotResetSourceViewKeywords);
-  connect(m_ui.select_output_file,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_canvas_settings::slotSelectOutputFile);
   connect(m_ui.select_project_ide,
 	  &QPushButton::clicked,
 	  this,
@@ -226,7 +221,6 @@ settings(void) const
     m_ui.generate_periodically->isChecked();
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
-  hash[Settings::OUTPUT_FILE] = m_ui.output_file->text();
   hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SELECTION_COLOR] =
@@ -326,7 +320,12 @@ QString glitch_canvas_settings::name(void) const
 
 QString glitch_canvas_settings::outputFile(void) const
 {
-  return m_settings.value(Settings::OUTPUT_FILE).toString();
+  QSettings settings;
+
+  return settings.value("preferences/output_directory").toString().trimmed() +
+    QDir::separator() +
+    name() +
+    m_outputFileExtension;
 }
 
 QString glitch_canvas_settings::projectIDE(void) const
@@ -350,26 +349,7 @@ bool glitch_canvas_settings::notify(void)
   ** Please do not issue notify() from this class!
   */
 
-  auto notify = false;
-
-  if(m_ui.output_file->text().trimmed().isEmpty())
-    {
-      m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
-      notify = true;
-    }
-  else
-    {
-      QFileInfo fileInfo(m_ui.output_file->text());
-
-      if((!fileInfo.absoluteDir().exists()) ||
-	 (!fileInfo.isWritable() && fileInfo.exists()))
-	{
-	  m_ui.tab->setCurrentIndex(static_cast<int> (Pages::Project));
-	  notify = true;
-	}
-    }
-
-  return notify;
+  return false;
 }
 
 bool glitch_canvas_settings::save(QString &error) const
@@ -454,7 +434,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  name = defaultName();
 
 	query.addBindValue(name);
-	query.addBindValue(m_ui.output_file->text());
+	query.addBindValue("");
 	query.addBindValue(m_ui.project_ide->text());
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
@@ -583,7 +563,6 @@ void glitch_canvas_settings::prepare(void)
 	QString categoriesIconSize("");
 	QString keywordColors("");
 	QString name("");
-	QString outputFile("");
 	QString projectIDE("");
 	QString projectType("");
 	QString updateMode("");
@@ -615,8 +594,6 @@ void glitch_canvas_settings::prepare(void)
 		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
-	    else if(fieldName.contains("output_file"))
-	      outputFile = record.value(i).toString();
 	    else if(fieldName.contains("project_ide"))
 	      projectIDE = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_type"))
@@ -678,9 +655,6 @@ void glitch_canvas_settings::prepare(void)
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
-	m_ui.output_file->setText(outputFile);
-	m_ui.output_file->setToolTip(m_ui.output_file->text());
-	m_ui.output_file->setCursorPosition(0);
 	m_ui.project_ide->setText(projectIDE);
 	m_ui.project_ide->setToolTip(m_ui.project_ide->text());
 	m_ui.project_ide->setCursorPosition(0);
@@ -783,14 +757,6 @@ void glitch_canvas_settings::setName(const QString &name)
   m_ui.name->setCursorPosition(0);
 }
 
-void glitch_canvas_settings::setOutputFile(const QString &fileName)
-{
-  m_settings[Settings::OUTPUT_FILE] = fileName;
-  m_ui.output_file->setText(fileName);
-  m_ui.output_file->setToolTip(fileName);
-  m_ui.output_file->setCursorPosition(0);
-}
-
 void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
 {
   m_outputFileExtension = extension;
@@ -878,7 +844,6 @@ void glitch_canvas_settings::setSettings
   prepareKeywordColors(hash.value(Settings::KEYWORD_COLORS).toString());
   setCategoriesIconSize(hash.value(Settings::CATEGORIES_ICON_SIZE).toString());
   setName(hash.value(Settings::CANVAS_NAME).toString());
-  setOutputFile(hash.value(Settings::OUTPUT_FILE).toString());
   setProjectIDE(hash.value(Settings::PROJECT_IDE).toString());
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
@@ -1024,41 +989,9 @@ void glitch_canvas_settings::slotSelectColor(void)
     QApplication::processEvents();
 }
 
-void glitch_canvas_settings::slotSelectOutputFile(void)
-{
-  QFileDialog dialog(this);
-  QFileInfo fileInfo(m_ui.output_file->text());
-
-  dialog.selectFile(m_ui.name->text() + m_outputFileExtension);
-  dialog.setAcceptMode(QFileDialog::AcceptOpen);
-
-  if(fileInfo.isWritable())
-    dialog.setDirectory(fileInfo.dir());
-  else
-    dialog.setDirectory
-      (QStandardPaths::
-       standardLocations(QStandardPaths::DesktopLocation).value(0));
-
-  dialog.setFileMode(QFileDialog::AnyFile);
-  dialog.setLabelText(QFileDialog::Accept, tr("Select"));
-  dialog.setOption(QFileDialog::DontUseNativeDialog);
-  dialog.setWindowIcon(windowIcon());
-  dialog.setWindowTitle(tr("Glitch: Select Ouput File"));
-  QApplication::processEvents();
-
-  if(dialog.exec() == QDialog::Accepted)
-    {
-      QApplication::processEvents();
-      m_ui.output_file->setText(dialog.selectedFiles().value(0));
-      m_ui.output_file->setToolTip(m_ui.output_file->text());
-      m_ui.output_file->setCursorPosition(0);
-    }
-}
-
 void glitch_canvas_settings::slotSelectProjectIDE(void)
 {
   QFileDialog dialog(this);
-  QFileInfo fileInfo(m_ui.project_ide->text().trimmed());
 
   dialog.selectFile(m_ui.project_ide->text().trimmed());
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
@@ -1106,27 +1039,7 @@ void glitch_canvas_settings::slotSpecialPaste(void)
 
 void glitch_canvas_settings::slotTimerTimeout(void)
 {
-  QFileInfo fileInfo(m_ui.output_file->text());
-
-  if(!fileInfo.isWritable() && fileInfo.exists())
-    {
-      if(m_ui.output_file->text().trimmed().isEmpty())
-	m_ui.output_file_warning_label->setToolTip
-	  (tr("The output file is not writable."));
-      else
-	m_ui.output_file_warning_label->setToolTip
-	  (tr("<html>The output file %1 is not writable.</html>").
-	   arg(fileInfo.absoluteFilePath()));
-
-      m_ui.output_file_warning_label->setVisible(true);
-    }
-  else
-    {
-      m_ui.output_file_warning_label->setToolTip("");
-      m_ui.output_file_warning_label->setVisible(false);
-    }
-
-  fileInfo = QFileInfo(m_ui.project_ide->text());
+  QFileInfo fileInfo(m_ui.project_ide->text());
 
   if(!fileInfo.isExecutable())
     {
