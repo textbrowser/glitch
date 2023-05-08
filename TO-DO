@@ -30,6 +30,8 @@ Completed Items
 - Close all edit windows on simulated delete.
 - Close edit windows via Control + W.
 - Close floating context menu of newly-created object upon delete.
+- Combination boxes are obscured by view's margins. Scroll to see all
+  options
 - Command-line help.
 - Comment block and directional arrows.
 - Comment widget and redo / undo stack is empty, however, the canvas remains
@@ -268,7 +270,6 @@ Remaining Items
   Application icon (Completed)
   Close buttons (Completed)
   Drag & drop (Completed)
-- Combination boxes are obscured by view's margins. Pop out of the view!
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
