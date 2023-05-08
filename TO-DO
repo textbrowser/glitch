@@ -166,6 +166,7 @@ Completed Items
   Functional!
 - Percolate redo / undo of functions through child views.
 - Periodically-generated source and redo / undo.
+- Portable output location.
 - PowerPC (QOverload()).
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
@@ -273,7 +274,6 @@ Remaining Items
   Edit context-menu action
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
-- Portable output location.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - Reopen child windows after undo of delete. Probably not pleasant if there
