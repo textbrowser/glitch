@@ -287,4 +287,5 @@ Remaining Items
   Resize selected objects
 - Warn of recursive functions?
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
-  structures as possible.
+  structures as possible. Replace QWidget in glitch_object with
+  QGraphicsWidget.
