@@ -29,6 +29,7 @@
 
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-find-objects.h"
+#include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
 #include "glitch-view.h"
 
@@ -92,12 +93,17 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 	  this,
 	  &glitch_find_objects::slotFind);
   connect(m_ui.tree,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+  connect(m_ui.tree,
 	  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 	  this,
 	  SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
   m_ui.close->setIcon(QIcon::fromTheme("window-close"));
   m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
+  m_ui.tree->setContextMenuPolicy(Qt::CustomContextMenu);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   m_view = qobject_cast<glitch_view *> (parent);
   new QShortcut(tr("Ctrl+W"),
@@ -163,6 +169,22 @@ void glitch_find_objects::find(void)
   m_ui.tree->resizeColumnToContents(0);
   statusBar()->showMessage(tr("%1 object(s).").arg(m_count));
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_find_objects::slotCustomContextMenuRequested(const QPoint &point)
+{
+  auto item = static_cast<glitch_find_objects_position_item *>
+    (m_ui.tree->itemAt(point));
+
+  if(item && item->object())
+    {
+      QMenu menu;
+
+      item->object()->addActions(menu);
+
+      if(!menu.actions().isEmpty())
+	menu.exec(mapToGlobal(point));
+    }
 }
 
 void glitch_find_objects::slotFind(void)

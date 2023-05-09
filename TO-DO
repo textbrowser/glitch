@@ -113,8 +113,12 @@ Completed Items
 - Error dialog.
 - Exiting does not require closing of pages.
 - Filter mouse scrolling on combination boxes. Prevent accidental changes.
+- Find Objects:
+  Copy context-menu action
+  Delete context-menu action
 - Find and take me to your leader (scroll-to, show edit view).
 - Find objects.
+  Edit context-menu action
 - Flow-control objects and edit views (break does not have a view).
 - Flow-control syntax colors.
 - Focused combination boxes and resize requests malfunction.
@@ -273,10 +277,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
-- Find Objects:
-  Copy context-menu action
-  Delete context-menu action
-  Edit context-menu action
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

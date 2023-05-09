@@ -64,6 +64,7 @@ class glitch_find_objects: public QMainWindow
   void find(void);
 
  private slots:
+  void slotCustomContextMenuRequested(const QPoint &point);
   void slotFind(void);
   void slotItemDoubleClicked(QTreeWidgetItem *i, int column);
 };
