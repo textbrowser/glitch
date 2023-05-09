@@ -1935,7 +1935,9 @@ void glitch_ui::slotSeparate(glitch_view *view)
       if(m_separateWindow)
 	{
 	  m_separateWindow->move(QCursor::pos() + QPoint(10, 10));
-	  m_separateWindow->show();
+	  m_separateWindow->showNormal();
+	  m_separateWindow->activateWindow();
+	  m_separateWindow->raise();
 	}
 
       m_separateWindow = nullptr;
@@ -2057,7 +2059,7 @@ void glitch_ui::slotShowFullScreenMode(void)
 
 void glitch_ui::slotShowPreferences(void)
 {
-  m_preferences->resize(600, m_preferences->sizeHint().height());
+  m_preferences->resize(650, m_preferences->sizeHint().height());
   m_preferences->show();
 }
 

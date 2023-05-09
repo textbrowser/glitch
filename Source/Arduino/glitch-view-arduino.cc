@@ -280,7 +280,9 @@ void glitch_view_arduino::generateSourceFile(void) const
 {
   if(m_canvasSettings->notify())
     {
-      m_canvasSettings->show();
+      m_canvasSettings->showNormal();
+      m_canvasSettings->activateWindow();
+      m_canvasSettings->raise();
       return;
     }
 

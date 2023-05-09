@@ -1434,11 +1434,16 @@ void glitch_object::showEditWindow(void) const
 {
   if(m_editWindow)
     {
-      m_editWindow->restoreGeometry
-	(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).toByteArray());
-      m_editWindow->restoreState
-	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
-      m_editWindow->show();
+      if(!m_editWindow->isVisible())
+	{
+	  m_editWindow->restoreGeometry
+	    (m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
+	     toByteArray());
+	  m_editWindow->restoreState
+	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
+	}
+
+      m_editWindow->showNormal();
       m_editWindow->activateWindow();
       m_editWindow->raise();
     }
@@ -1846,7 +1851,9 @@ void glitch_object::slotShowContextMenu(void)
   else
     {
       m_contextMenu->resize(400, 650);
-      m_contextMenu->show();
+      m_contextMenu->showNormal();
+      m_contextMenu->activateWindow();
+      m_contextMenu->raise();
     }
 }
 

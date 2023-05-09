@@ -194,6 +194,8 @@ Completed Items
 - Remove functions from User Functions on redo / undo.
 - Remove logical operator as it duplicates boolean operator.
 - Remove missing diagram files.
+- Reopen child windows after undo of delete. Probably not pleasant if there
+  are numerous windows. Not necessary
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
 - Reset object order on delete / redo / undo.
@@ -281,8 +283,6 @@ Remaining Items
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
-- Reopen child windows after undo of delete. Probably not pleasant if there
-  are numerous windows.
 - Replace-with context menus for natively-drawn Arduino structures.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Shell.
