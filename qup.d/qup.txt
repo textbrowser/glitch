@@ -3,6 +3,7 @@
 
 [General]
 
+file = Glitch.pdf
 file = ReleaseNotes.html
 file = TO-DO
 file_destination = Documentation
