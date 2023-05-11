@@ -112,6 +112,19 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 glitch_object_characters_arduino::glitch_object_characters_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "isAlpha()"
+		  << "isAlphaNumeric()"
+		  << "isAscii()"
+		  << "isControl()"
+		  << "isDigit()"
+		  << "isGraph()"
+		  << "isHexadecimalDigit()"
+		  << "isLowerCase()"
+		  << "isPrintable()"
+		  << "isPunct()"
+		  << "isSpace()"
+		  << "isUpperCase()"
+		  << "isWhitespace()";
   m_type = "arduino-characters";
   m_properties[Properties::CHARACTERS_TYPE] = m_text;
   prepareContextMenu();
