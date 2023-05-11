@@ -83,7 +83,12 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
 void glitch_object_simple_text_arduino::preparePromotionMenu(QMenu *menu)
 {
   if(!menu || !menu->actions().isEmpty() || m_functionsList.isEmpty())
-    return;
+    {
+      if(menu)
+	menu->setEnabled(m_functionsList.size() > 0);
+
+      return;
+    }
 
   for(int i = 0; i < m_functionsList.size(); i++)
     {
