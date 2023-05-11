@@ -45,6 +45,14 @@ glitch_object_conversion_arduino::glitch_object_conversion_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_conversionType = ConversionTypes::UNSIGNED_INT;
+  m_functionsList << "(unsigned int)"
+		  << "(unsigned long)"
+		  << "byte()"
+		  << "char()"
+		  << "float()"
+		  << "int()"
+		  << "long()"
+		  << "word()";
   m_type = "arduino-conversion";
   prepareContextMenu();
   setConversionType(m_conversionType);

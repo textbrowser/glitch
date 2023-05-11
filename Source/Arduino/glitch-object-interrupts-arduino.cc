@@ -40,6 +40,10 @@ glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
 glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "attachInterrupt()"
+		  << "detachInterrupt()"
+		  << "interrupts()"
+		  << "noInterrupts()";
   m_type = "arduino-interrupts";
   prepareContextMenu();
   setName(m_text);

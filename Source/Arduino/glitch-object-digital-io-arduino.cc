@@ -62,6 +62,7 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "digitalRead()" << "digitalWrite()" << "pinMode()";
   m_type = "arduino-digitalio";
   prepareContextMenu();
   setName(m_text);
