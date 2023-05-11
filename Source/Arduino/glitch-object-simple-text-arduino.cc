@@ -85,8 +85,6 @@ void glitch_object_simple_text_arduino::preparePromotionMenu(QMenu *menu)
   if(!menu || !menu->actions().isEmpty() || m_functionsList.isEmpty())
     return;
 
-  menu->addSeparator();
-
   for(int i = 0; i < m_functionsList.size(); i++)
     {
       auto action = new QAction

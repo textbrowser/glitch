@@ -58,6 +58,7 @@ class glitch_object_simple_text_arduino: public glitch_object
     addDefaultActions(menu);
     m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
     m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
+    menu.addSeparator();
     preparePromotionMenu(menu.addMenu(tr("Promotion")));
   }
 

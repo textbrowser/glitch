@@ -591,7 +591,8 @@ void glitch_object::addDefaultActions(QMenu &menu)
       it.next();
       menu.addAction(it.value());
 
-      if((DefaultMenuActions::FLOATING_CONTEXT_MENU == it.key() ||
+      if((DefaultMenuActions::DELETE == it.key() ||
+	  DefaultMenuActions::EDIT == it.key() ||
 	  DefaultMenuActions::LOCK_POSITION == it.key() ||
 	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())
