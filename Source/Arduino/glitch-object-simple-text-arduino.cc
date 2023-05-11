@@ -80,8 +80,32 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   painter.drawText(rect(), Qt::AlignCenter, m_text);
 }
 
+void glitch_object_simple_text_arduino::preparePromotionMenu(QMenu *menu)
+{
+  if(!menu || !menu->actions().isEmpty() || m_functionsList.isEmpty())
+    return;
+
+  menu->addSeparator();
+
+  for(int i = 0; i < m_functionsList.size(); i++)
+    {
+      auto action = new QAction
+	(QString(m_functionsList.at(i)).replace('&', "&&"), this);
+
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_simple_text_arduino::slotPromoted);
+      menu->addAction(action);
+    }
+}
+
 void glitch_object_simple_text_arduino::resizeEvent(QResizeEvent *event)
 {
   glitch_object::resizeEvent(event);
   m_path = QPainterPath();
+}
+
+void glitch_object_simple_text_arduino::slotPromoted(void)
+{
 }

@@ -84,6 +84,13 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "bit()"
+		  << "bitClear()"
+		  << "bitRead()"
+		  << "bitSet()"
+		  << "bitWrite()"
+		  << "highByte()"
+		  << "lowByte()";
   m_type = "arduino-bitsandbytes";
   prepareContextMenu();
   setName(m_text);

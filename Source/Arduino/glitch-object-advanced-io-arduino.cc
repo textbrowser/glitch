@@ -80,6 +80,12 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
 (const qint64 id, QWidget *parent):
   glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "noTone()"
+		  << "pulseIn()"
+		  << "pulseInLong()"
+		  << "shiftIn()"
+		  << "shiftOut()"
+		  << "tone()";
   m_type = "arduino-advancedio";
   prepareContextMenu();
   setName(m_text);

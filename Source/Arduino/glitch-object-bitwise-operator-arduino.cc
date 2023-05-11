@@ -46,6 +46,7 @@ glitch_object_bitwise_operator_arduino::
 glitch_object_bitwise_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "&" << "^" << "<<" << ">>" << "|" << "~";
   m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-bitwiseoperator";
   prepareContextMenu();

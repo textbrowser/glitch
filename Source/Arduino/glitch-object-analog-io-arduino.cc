@@ -59,6 +59,7 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "analogRead()" << "analogReference()" << "analogWrite()";
   m_type = "arduino-analogio";
   prepareContextMenu();
   setName(m_text);

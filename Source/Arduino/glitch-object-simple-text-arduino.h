@@ -58,17 +58,23 @@ class glitch_object_simple_text_arduino: public glitch_object
     addDefaultActions(menu);
     m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
     m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
+    preparePromotionMenu(menu.addMenu(tr("Promotion")));
   }
 
   void resizeEvent(QResizeEvent *event);
 
  protected:
   QString m_text;
+  QStringList m_functionsList;
   glitch_object_simple_text_arduino(const qint64 id, QWidget *parent);
 
  private:
   glitch_object_simple_text_arduino(QWidget *parent);
   void paintEvent(QPaintEvent *event);
+  void preparePromotionMenu(QMenu *menu);
+
+ private slots:
+  void slotPromoted(void);
 };
 
 #endif
