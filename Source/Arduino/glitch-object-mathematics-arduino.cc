@@ -42,6 +42,14 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "abs()"
+		  << "constrain()"
+		  << "map()"
+		  << "max()"
+		  << "min()"
+		  << "pow()"
+		  << "sq()"
+		  << "sqrt()";
   m_type = "arduino-mathematics";
   prepareContextMenu();
   setName(m_text);
