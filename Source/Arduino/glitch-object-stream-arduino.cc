@@ -40,6 +40,18 @@ glitch_object_stream_arduino::glitch_object_stream_arduino
 glitch_object_stream_arduino::glitch_object_stream_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "stream.available()"
+		  << "stream.find()"
+		  << "stream.findUntil()"
+		  << "stream.flush()"
+		  << "stream.parseFloat()"
+		  << "stream.parseInt()"
+		  << "stream.peek()"
+		  << "stream.read()"
+		  << "stream.readBytes()"
+		  << "stream.readBytesUntil()"
+		  << "stream.readString()"
+		  << "stream.readStringUntil()";
   m_type = "arduino-stream";
   prepareContextMenu();
   setName(m_text);
