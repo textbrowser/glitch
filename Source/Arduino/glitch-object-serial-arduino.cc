@@ -40,6 +40,25 @@ glitch_object_serial_arduino::glitch_object_serial_arduino
 glitch_object_serial_arduino::glitch_object_serial_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "Serial.available()"
+		  << "Serial.availableForWrite()"
+		  << "Serial.begin()"
+		  << "Serial.end()"
+		  << "Serial.find()"
+		  << "Serial.findUntil()"
+		  << "Serial.flush()"
+		  << "Serial.parseFloat()"
+		  << "Serial.parseInt()"
+		  << "Serial.peek()"
+		  << "Serial.print()"
+		  << "Serial.println()"
+		  << "Serial.read()"
+		  << "Serial.readBytes()"
+		  << "Serial.readBytesUntil()"
+		  << "Serial.readString()"
+		  << "Serial.readStringUntil()"
+		  << "Serial.setTimeout()"
+		  << "Serial.write()";
   m_type = "arduino-serial";
   prepareContextMenu();
   setName(m_text);
