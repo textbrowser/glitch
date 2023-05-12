@@ -54,6 +54,8 @@ glitch_object_random_arduino::glitch_object_random_arduino
 glitch_object_random_arduino::glitch_object_random_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "random()"
+		  << "randomSeed()";
   m_type = "arduino-random";
   prepareContextMenu();
   setName(m_text);
