@@ -71,6 +71,10 @@ glitch_object_time_arduino::glitch_object_time_arduino
 glitch_object_time_arduino::glitch_object_time_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_functionsList << "delay()"
+		  << "delayMicroseconds()"
+		  << "micros()"
+		  << "millis()";
   m_type = "arduino-time";
   prepareContextMenu();
   setName(m_text);
