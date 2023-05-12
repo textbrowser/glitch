@@ -26,6 +26,7 @@
 */
 
 #include "glitch-object-simple-text-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 (QWidget *parent):glitch_object_simple_text_arduino(1, parent)
@@ -110,6 +111,34 @@ void glitch_object_simple_text_arduino::resizeEvent(QResizeEvent *event)
   m_path = QPainterPath();
 }
 
+void glitch_object_simple_text_arduino::setProperty(const Properties property,
+						    const QVariant &value)
+{
+  glitch_object::setProperty(property, value);
+  m_text = value.toString().trimmed();
+}
+
 void glitch_object_simple_text_arduino::slotPromoted(void)
 {
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(action->text(),
+	 m_text,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 Properties::Z_Z_Z_PROPERTY,
+	 this);
+
+      undoCommand->setText
+	(tr("item function changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_text = action->text();
 }

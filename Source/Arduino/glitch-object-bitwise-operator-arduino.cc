@@ -263,7 +263,7 @@ void glitch_object_bitwise_operator_arduino::setProperties
 void glitch_object_bitwise_operator_arduino::setProperty
 (const Properties property, const QVariant &value)
 {
-  glitch_object::setProperty(property, value);
+  glitch_object_simple_text_arduino::setProperty(property, value);
 
   switch(property)
     {

@@ -68,6 +68,7 @@ class glitch_object_simple_text_arduino: public glitch_object
   QString m_text;
   QStringList m_functionsList;
   glitch_object_simple_text_arduino(const qint64 id, QWidget *parent);
+  virtual void setProperty(const Properties property, const QVariant &value);
 
  private:
   glitch_object_simple_text_arduino(QWidget *parent);

@@ -222,7 +222,7 @@ void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 void glitch_object_analog_io_arduino::setProperty
 (const Properties property, const QVariant &value)
 {
-  glitch_object::setProperty(property, value);
+  glitch_object_simple_text_arduino::setProperty(property, value);
 
   switch(property)
     {
