@@ -281,6 +281,7 @@ Remaining Items
 - Complete SipHash diagram.
 - Copy wires of cloned functions if necessary.
 - Custom shortcuts.
+- Drag multiple items.
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

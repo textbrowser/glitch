@@ -111,11 +111,17 @@ void glitch_object_simple_text_arduino::resizeEvent(QResizeEvent *event)
   m_path = QPainterPath();
 }
 
+void glitch_object_simple_text_arduino::setName(const QString &n)
+{
+  glitch_object::setName(n);
+  m_text = n.trimmed();
+}
+
 void glitch_object_simple_text_arduino::setProperty(const Properties property,
 						    const QVariant &value)
 {
   glitch_object::setProperty(property, value);
-  m_text = value.toString().trimmed();
+  setName(value.toString());
 }
 
 void glitch_object_simple_text_arduino::slotPromoted(void)

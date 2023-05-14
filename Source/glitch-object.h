@@ -49,7 +49,7 @@ class glitch_object: public QWidget
  public:
   enum Limits
   {
-    NAME_MAXIMUM_LENGTH = 64 // An estimate. May be longer or shorter.
+    NAME_MAXIMUM_LENGTH = 128 // An estimate. May be longer or shorter.
   };
 
   enum class DefaultMenuActions

@@ -63,6 +63,7 @@ class glitch_object_simple_text_arduino: public glitch_object
   }
 
   void resizeEvent(QResizeEvent *event);
+  void setName(const QString &n);
 
  protected:
   QString m_text;
