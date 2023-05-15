@@ -89,7 +89,10 @@ QStringList glitch_structures_arduino::keywords(void)
 	continue;
 
       for(int i = 0; i < it.value().size(); i++)
-	if(!it.value().at(i).startsWith("array"))
+	if(!it.value().at(i).startsWith("Other") &&
+	   !it.value().at(i).startsWith("array") &&
+	   !it.value().at(i).startsWith("block comment") &&
+	   !it.value().at(i).startsWith("function()"))
 	  list << it.value().at(i);
     }
 

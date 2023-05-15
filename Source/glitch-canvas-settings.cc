@@ -775,7 +775,6 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &l)
   auto list(l);
 
   m_ui.source_view_keywords->setRowCount(list.size());
-  m_ui.source_view_keywords->setSortingEnabled(false);
   std::sort(list.begin(), list.end());
 
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
@@ -792,8 +791,6 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &l)
     }
 
   m_ui.source_view_keywords->resizeColumnToContents(0);
-  m_ui.source_view_keywords->setSortingEnabled(true);
-  m_ui.source_view_keywords->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)

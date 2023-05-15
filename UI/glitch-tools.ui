@@ -226,12 +226,20 @@
                <property name="text">
                 <string>Adjust Size</string>
                </property>
+               <property name="icon">
+                <iconset resource="../Icons/icons.qrc">
+                 <normaloff>:/adjust-size.png</normaloff>:/adjust-size.png</iconset>
+               </property>
               </widget>
              </item>
              <item row="1" column="0">
               <widget class="QPushButton" name="compress">
                <property name="text">
                 <string>Compress</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../Icons/icons.qrc">
+                 <normaloff>:/compress.png</normaloff>:/compress.png</iconset>
                </property>
               </widget>
              </item>
