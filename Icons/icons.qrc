@@ -26,6 +26,7 @@
 	<file>Arduino/xor.png</file>
 	<file>Logo/glitch-arduino-logo.png</file>
 	<file>Logo/glitch-logo.png</file>
+	<file>adjust-size.png</file>
 	<file>bottom-align.png</file>
 	<file>clear.png</file>
 	<file>compress.png</file>
@@ -33,7 +34,6 @@
 	<file>horizontal-center-align.png</file>
 	<file>horizontal-stack.png</file>
 	<file>left-align.png</file>
-	<file>resize.png</file>
 	<file>right-align.png</file>
 	<file>tools.png</file>
 	<file>top-align.png</file>

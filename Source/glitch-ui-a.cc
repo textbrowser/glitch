@@ -261,18 +261,16 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 #endif
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
-  m_ui.alignment_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
-  m_ui.alignment_toolbar->setIconSize(QSize(24, 24));
   m_ui.edit_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.edit_toolbar->setIconSize(QSize(24, 24));
   m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
   m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
-  m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
-  m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
+  m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.tools_toolbar->setIconSize(QSize(24, 24));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareFonts();
@@ -1203,25 +1201,6 @@ void glitch_ui::prepareToolBars(void)
       m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
       m_ui.file_toolbar->addAction(m_ui.action_Open_Diagram);
     }
-
-  if(m_ui.miscellaneous_toolbar->actions().isEmpty())
-    {
-      auto menu = new QMenu(this);
-      auto toolButton = new QToolButton(this);
-
-      menu->addAction(tr("Adjust Size(s)"));
-      menu->addAction(tr("Compress Widget(s)"));
-      toolButton->setArrowType(Qt::NoArrow);
-      toolButton->setIcon(QIcon(":/tools.png"));
-      toolButton->setMenu(menu);
-      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
-      toolButton->setToolTip(tr("Miscellaneous Tools"));
-      connect(toolButton,
-	      &QToolButton::clicked,
-	      toolButton,
-	      &QToolButton::showMenu);
-      m_ui.miscellaneous_toolbar->addWidget(toolButton);
-    }
 }
 
 void glitch_ui::restoreSettings(void)
@@ -1230,9 +1209,9 @@ void glitch_ui::restoreSettings(void)
 
   m_ui.action_View_Tool_Bars->setChecked
     (settings.value("main_window/view_tools", true).toBool());
-  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
@@ -1539,10 +1518,29 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 
 void glitch_ui::slotDelayedToolBarPreparation(void)
 {
-  m_ui.alignment_toolbar->clear();
+  m_ui.tools_toolbar->clear();
 
   if(m_currentView)
-    m_ui.alignment_toolbar->addActions(m_currentView->alignmentActions());
+    {
+      m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
+      m_ui.tools_toolbar->addSeparator();
+
+      auto menu = new QMenu(this);
+      auto toolButton = new QToolButton(this);
+
+      menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+      menu->addAction(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+      toolButton->setArrowType(Qt::NoArrow);
+      toolButton->setIcon(QIcon(":/tools.png"));
+      toolButton->setMenu(menu);
+      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+      toolButton->setToolTip(tr("Miscellaneous Tools"));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
+      m_ui.tools_toolbar->addWidget(toolButton);
+    }
 }
 
 void glitch_ui::slotDelete(void)
@@ -2288,7 +2286,7 @@ void glitch_ui::slotViewToolBars(void)
 
   settings.setValue
     ("main_window/view_tools", m_ui.action_View_Tool_Bars->isChecked());
-  m_ui.alignment_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }

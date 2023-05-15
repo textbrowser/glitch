@@ -240,8 +240,8 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
   auto menu = new QMenu(this);
   auto toolButton = new QToolButton(this);
 
-  menu->addAction(tr("Adjust Size(s)"));
-  menu->addAction(tr("Compress Widget(s)"));
+  menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+  menu->addAction(QIcon(":/compress.png"), tr("Compress Widget(s)"));
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setIcon(QIcon(":/tools.png"));
   toolButton->setMenu(menu);
