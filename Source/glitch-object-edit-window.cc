@@ -31,6 +31,7 @@
 #include <QSettings>
 #include <QSplitter>
 #include <QTimer>
+#include <QToolButton>
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
@@ -234,6 +235,23 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
 {
   m_toolBar->clear();
   m_toolBar->addActions(actions);
+  m_toolBar->addSeparator();
+
+  auto menu = new QMenu(this);
+  auto toolButton = new QToolButton(this);
+
+  menu->addAction(tr("Adjust Size(s)"));
+  menu->addAction(tr("Compress Widget(s)"));
+  toolButton->setArrowType(Qt::NoArrow);
+  toolButton->setIcon(QIcon(":/tools.png"));
+  toolButton->setMenu(menu);
+  toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+  toolButton->setToolTip(tr("Miscellaneous Tools"));
+  connect(toolButton,
+	  &QToolButton::clicked,
+	  toolButton,
+	  &QToolButton::showMenu);
+  m_toolBar->addWidget(toolButton);
 }
 
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)

@@ -35,6 +35,7 @@
 #include <QSettings>
 #include <QShortcut>
 #include <QSqlQuery>
+#include <QToolButton>
 #include <QWidgetAction>
 
 #include "Arduino/glitch-object-function-arduino.h"
@@ -260,16 +261,18 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 #endif
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
-  m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
-  m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
-  m_ui.tab->setMovable(true);
-  m_ui.tab->setTabsClosable(true);
   m_ui.alignment_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.alignment_toolbar->setIconSize(QSize(24, 24));
   m_ui.edit_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.edit_toolbar->setIconSize(QSize(24, 24));
   m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
+  m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
+  m_ui.tab->setMovable(true);
+  m_ui.tab->setTabsClosable(true);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareFonts();
@@ -1199,6 +1202,25 @@ void glitch_ui::prepareToolBars(void)
     {
       m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
       m_ui.file_toolbar->addAction(m_ui.action_Open_Diagram);
+    }
+
+  if(m_ui.miscellaneous_toolbar->actions().isEmpty())
+    {
+      auto menu = new QMenu(this);
+      auto toolButton = new QToolButton(this);
+
+      menu->addAction(tr("Adjust Size(s)"));
+      menu->addAction(tr("Compress Widget(s)"));
+      toolButton->setArrowType(Qt::NoArrow);
+      toolButton->setIcon(QIcon(":/tools.png"));
+      toolButton->setMenu(menu);
+      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+      toolButton->setToolTip(tr("Miscellaneous Tools"));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
+      m_ui.miscellaneous_toolbar->addWidget(toolButton);
     }
 }
 
