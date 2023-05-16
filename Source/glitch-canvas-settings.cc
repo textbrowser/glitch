@@ -117,10 +117,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QTimer::timeout,
 	  this,
 	  &glitch_canvas_settings::slotTimerTimeout);
-  connect(m_itemDelegate,
-	  SIGNAL(changed(const QColor &, const int)),
-	  this,
-	  SLOT(slotKeywordColorSelected(const QColor &, const int)));
   connect(m_ui.background_color,
 	  &QPushButton::clicked,
 	  this,
@@ -726,7 +722,8 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 
       if(item1 && item2)
 	{
-	  item2->setBackground(map.value(item1->text()));
+	  item2->setData
+	    (Qt::DecorationRole, map.value(item1->text()));
 	  item2->setText(map.value(item1->text()).name());
 	}
     }
@@ -785,7 +782,7 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
       item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.source_view_keywords->setItem(i, 0, item);
       item = new QTableWidgetItem(QColor(Qt::black).name());
-      item->setBackground(QColor(item->text()));
+      item->setData(Qt::DecorationRole, QColor(item->text()));
       item->setFlags
 	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.source_view_keywords->setItem(i, 1, item);
@@ -927,15 +924,6 @@ void glitch_canvas_settings::setWireWidth(const double value)
   m_ui.wire_width->setValue(value);
 }
 
-void glitch_canvas_settings::slotKeywordColorSelected
-(const QColor &color, const int row)
-{
-  auto item = m_ui.source_view_keywords->item(row, 1);
-
-  if(item)
-    item->setBackground(color);
-}
-
 void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 {
   m_ui.source_view_keywords->setSortingEnabled(false);
@@ -946,8 +934,8 @@ void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 
       if(item)
 	{
-	  item->setBackground(QColor(Qt::black));
-	  item->setText(item->background().color().name());
+	  item->setData(Qt::DecorationRole, QColor(Qt::black));
+	  item->setText(QColor(Qt::black).name());
 	}
     }
 

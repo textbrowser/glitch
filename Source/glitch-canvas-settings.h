@@ -109,18 +109,31 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
     if(dialog.exec() == QDialog::Accepted)
       {
 	if(m_index.isValid() && m_index.model())
-	  const_cast<QAbstractItemModel *> (m_index.model())->setData
-	    (m_index, dialog.selectedColor().name());
+	  {
+	    auto sortingEnabled = false;
+	    auto table = qobject_cast<QTableWidget *>
+	      (m_index.model()->parent());
+
+	    if(table)
+	      {
+		sortingEnabled = table->isSortingEnabled();
+		table->setSortingEnabled(false);
+	      }
+
+	    const_cast<QAbstractItemModel *> (m_index.model())->setData
+	      (m_index, dialog.selectedColor(), Qt::DecorationRole);
+	    const_cast<QAbstractItemModel *> (m_index.model())->setData
+	      (m_index, dialog.selectedColor().name());
+
+	    if(table)
+	      table->setSortingEnabled(sortingEnabled);
+	  }
 
 	pushButton->setText(dialog.selectedColor().name());
-
-	if(m_index.isValid())
-	  emit changed(dialog.selectedColor(), m_index.row());
+	emit commitData(pushButton);
+	emit closeEditor(pushButton); // Order is crucial.
       }
   }
-
- signals:
-  void changed(const QColor &color, const int row);
 };
 
 class glitch_canvas_settings: public QDialog
@@ -215,7 +228,6 @@ class glitch_canvas_settings: public QDialog
 
  private slots:
   void accept(void);
-  void slotKeywordColorSelected(const QColor &color, const int row);
   void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);
   void slotSelectProjectIDE(void);
