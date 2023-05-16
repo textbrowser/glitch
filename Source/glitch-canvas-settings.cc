@@ -717,6 +717,8 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 	map[list.at(0)] = QColor(list.at(1));
     }
 
+  m_ui.source_view_keywords->setSortingEnabled(false);
+
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
     {
       auto item1 = m_ui.source_view_keywords->item(i, 0);
@@ -729,6 +731,7 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 	}
     }
 
+  m_ui.source_view_keywords->setSortingEnabled(true);
   QApplication::restoreOverrideCursor();
 }
 
@@ -935,6 +938,8 @@ void glitch_canvas_settings::slotKeywordColorSelected
 
 void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 {
+  m_ui.source_view_keywords->setSortingEnabled(false);
+
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
     {
       auto item = m_ui.source_view_keywords->item(i, 1);
@@ -945,6 +950,8 @@ void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 	  item->setText(item->background().color().name());
 	}
     }
+
+  m_ui.source_view_keywords->setSortingEnabled(true);
 }
 
 void glitch_canvas_settings::slotSelectColor(void)
