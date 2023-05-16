@@ -59,7 +59,7 @@ class glitch_object_simple_text_arduino: public glitch_object
     m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
     m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
     menu.addSeparator();
-    preparePromotionMenu(menu.addMenu(tr("Promotion")));
+    prepareTransformationMenu(menu.addMenu(tr("Transform")));
   }
 
   void resizeEvent(QResizeEvent *event);
@@ -74,10 +74,10 @@ class glitch_object_simple_text_arduino: public glitch_object
  private:
   glitch_object_simple_text_arduino(QWidget *parent);
   void paintEvent(QPaintEvent *event);
-  void preparePromotionMenu(QMenu *menu);
+  void prepareTransformationMenu(QMenu *menu);
 
  private slots:
-  void slotPromoted(void);
+  void slotTransformed(void);
 };
 
 #endif

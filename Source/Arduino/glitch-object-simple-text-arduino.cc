@@ -81,7 +81,7 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   painter.drawText(rect(), Qt::AlignCenter, m_text);
 }
 
-void glitch_object_simple_text_arduino::preparePromotionMenu(QMenu *menu)
+void glitch_object_simple_text_arduino::prepareTransformationMenu(QMenu *menu)
 {
   if(!menu || !menu->actions().isEmpty() || m_functionsList.isEmpty())
     {
@@ -100,7 +100,7 @@ void glitch_object_simple_text_arduino::preparePromotionMenu(QMenu *menu)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_simple_text_arduino::slotPromoted);
+	      &glitch_object_simple_text_arduino::slotTransformed);
       menu->addAction(action);
     }
 }
@@ -124,7 +124,7 @@ void glitch_object_simple_text_arduino::setProperty(const Properties property,
   setName(value.toString());
 }
 
-void glitch_object_simple_text_arduino::slotPromoted(void)
+void glitch_object_simple_text_arduino::slotTransformed(void)
 {
   auto action = qobject_cast<QAction *> (sender());
 
@@ -141,7 +141,7 @@ void glitch_object_simple_text_arduino::slotPromoted(void)
 	 this);
 
       undoCommand->setText
-	(tr("item function changed (%1, %2)").
+	(tr("item transformed (%1, %2)").
 	 arg(scenePos().x()).arg(scenePos().y()));
       m_undoStack->push(undoCommand);
     }

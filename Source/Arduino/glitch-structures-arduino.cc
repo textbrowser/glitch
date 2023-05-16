@@ -96,11 +96,13 @@ QStringList glitch_structures_arduino::keywords(void)
 	  list << it.value().at(i);
     }
 
+  /*
+  ** Please do not translate!
+  */
+
   list << "const"
        << "static"
        << "volatile";
-
-  std::sort(list.begin(), list.end());
   return list;
 }
 

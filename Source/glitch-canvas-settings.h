@@ -179,7 +179,7 @@ class glitch_canvas_settings: public QDialog
   void setName(const QString &name);
   void setOutputFileExtension(const QString &extension);
   void setProjectIDE(const QString &filename);
-  void setProjectKeywords(const QStringList &l);
+  void setProjectKeywords(const QStringList &list);
   void setRedoUndoStackSize(const int value);
   void setSettings
     (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
