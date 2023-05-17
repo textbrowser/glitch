@@ -156,12 +156,12 @@ QPointer&lt; <a class="el" href="classglitch__object__view.html">glitch_object_v
 <tr class="memitem:a99d97f6c4722933f04921037500128e3 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a99d97f6c4722933f04921037500128e3"></a>
 QPointer&lt; <a class="el" href="classglitch__proxy__widget.html">glitch_proxy_widget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>proxy</b> (void) const</td></tr>
 <tr class="separator:a99d97f6c4722933f04921037500128e3 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5bef61107b74fbb67cad7bca15cb61f inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="af5bef61107b74fbb67cad7bca15cb61f"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>objectType</b> (void) const</td></tr>
+<tr class="separator:af5bef61107b74fbb67cad7bca15cb61f inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43593c584919b2bbfee5fc5be682dcb6 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a43593c584919b2bbfee5fc5be682dcb6"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>position</b> (void) const</td></tr>
 <tr class="separator:a43593c584919b2bbfee5fc5be682dcb6 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b2cf0a8c2bf37652f1d0bf1c032ca63 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a2b2cf0a8c2bf37652f1d0bf1c032ca63"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> (void) const</td></tr>
-<tr class="separator:a2b2cf0a8c2bf37652f1d0bf1c032ca63 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb5be86fac0e7eefc12d318218eb9d91 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="afb5be86fac0e7eefc12d318218eb9d91"></a>
 QVariant&#160;</td><td class="memItemRight" valign="bottom"><b>property</b> (const Properties property) const</td></tr>
 <tr class="separator:afb5be86fac0e7eefc12d318218eb9d91 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -267,6 +267,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setWiredObject</b> (<
 <tr class="memitem:a0960566551b28bf29fcadcba453937a7 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a0960566551b28bf29fcadcba453937a7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>showEditWindow</b> (void) const</td></tr>
 <tr class="separator:a0960566551b28bf29fcadcba453937a7 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4995cce9460e1faf28d8e73870b1d437 inherit pub_methods_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a4995cce9460e1faf28d8e73870b1d437"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>triggerAction</b> (const DefaultMenuActions action)</td></tr>
+<tr class="separator:a4995cce9460e1faf28d8e73870b1d437 inherit pub_methods_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -281,7 +284,7 @@ static <a class="el" href="classglitch__object.html">glitch_object</a> *&#160;</
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
-<tr class="memitem:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="afac278be7866f3dd0cf2c16cce1c2a59"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Limits</b> { <b>NAME_MAXIMUM_LENGTH</b> = 64
+<tr class="memitem:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="afac278be7866f3dd0cf2c16cce1c2a59"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Limits</b> { <b>NAME_MAXIMUM_LENGTH</b> = 128
  }</td></tr>
 <tr class="separator:afac278be7866f3dd0cf2c16cce1c2a59 inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="aaa4a1adbfd4de13fd131ce1bda2dcd1c"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DefaultMenuActions</b> { <br />
@@ -375,6 +378,9 @@ Additional Inherited Members</h2></td></tr>
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_slots_classglitch__object"><td colspan="2" onclick="javascript:toggleInherit('pub_slots_classglitch__object')"><img src="closed.png" alt="-"/>&#160;Public Slots inherited from <a class="el" href="classglitch__object.html">glitch_object</a></td></tr>
+<tr class="memitem:a7f4ac90fd8664f206357f17df3ec88f0 inherit pub_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7f4ac90fd8664f206357f17df3ec88f0"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotAdjustSize</b> (void)</td></tr>
+<tr class="separator:a7f4ac90fd8664f206357f17df3ec88f0 inherit pub_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbddb625e966a61f42406d21242a2a45 inherit pub_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="adbddb625e966a61f42406d21242a2a45"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotShowContextMenu</b> (void)</td></tr>
 <tr class="separator:adbddb625e966a61f42406d21242a2a45 inherit pub_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
