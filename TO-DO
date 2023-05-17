@@ -104,6 +104,7 @@ Completed Items
 - Documentation.
 - Docked floating context menus.
 - Dots and grids.
+- Drag multiple items.
 - Dragging an item onto a diagram and scroll bars.
 - Draw and, not, or, etc. objects.
 - Draw disconnect symbols.
@@ -279,16 +280,15 @@ Remaining Items
   Close buttons (Completed)
   Drag & drop (Completed)
 - Complete SipHash diagram.
-- Copy wires of cloned functions if necessary.
+- Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
-- Drag multiple items.
 - Generate source from terminal for testing results.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Shell.
-- Warn of recursive functions?
+- Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.

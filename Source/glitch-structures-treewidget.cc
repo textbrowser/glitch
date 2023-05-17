@@ -30,14 +30,13 @@
 
 #include "glitch-structures-treewidget.h"
 
-glitch_structures_treewidget::
-glitch_structures_treewidget(QWidget *parent):QTreeWidget(parent)
+glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
+  QTreeWidget(parent)
 {
   m_projectType = glitch_common::ProjectTypes::XYZProject;
 }
 
-glitch_structures_treewidget::
-~glitch_structures_treewidget()
+glitch_structures_treewidget::~glitch_structures_treewidget()
 {
 }
 
@@ -47,20 +46,20 @@ void glitch_structures_treewidget::setProjectType
   m_projectType = projectType;
 }
 
-void glitch_structures_treewidget::startDrag
-(Qt::DropActions supportedActions)
+void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
 {
   Q_UNUSED(supportedActions);
 
-  auto item = selectedItems().value(0);
+  foreach(auto item, selectedItems())
+    {
+      if(!item)
+	continue;
 
-  if(!item)
-    return;
+      auto drag = new QDrag(this);
+      auto mimeData = new QMimeData();
 
-  auto drag = new QDrag(this);
-  auto mimeData = new QMimeData();
-
-  mimeData->setText(item->data(0, Qt::UserRole).toString());
-  drag->setMimeData(mimeData);
-  drag->exec(Qt::CopyAction);
+      mimeData->setText(item->data(0, Qt::UserRole).toString());
+      drag->setMimeData(mimeData);
+      drag->exec(Qt::CopyAction);
+    }
 }
