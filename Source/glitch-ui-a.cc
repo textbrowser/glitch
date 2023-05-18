@@ -1525,11 +1525,23 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
       m_ui.tools_toolbar->addSeparator();
 
+      QAction *action1 = nullptr;
+      QAction *action2 = nullptr;
       auto menu = new QMenu(this);
       auto toolButton = new QToolButton(this);
 
-      menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
-      menu->addAction(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+      action1 = menu->addAction
+	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+      action2 = menu->addAction
+	(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+      connect(action1,
+	      &QAction::triggered,
+	      this,
+	      &glitch_ui::slotAdjustSizesTool);
+      connect(action2,
+	      &QAction::triggered,
+	      this,
+	      &glitch_ui::slotCompressWidgetsTool);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);

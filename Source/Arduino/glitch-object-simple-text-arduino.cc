@@ -121,7 +121,9 @@ void glitch_object_simple_text_arduino::setProperty(const Properties property,
 						    const QVariant &value)
 {
   glitch_object::setProperty(property, value);
-  setName(value.toString());
+
+  if(property == Properties::Z_Z_Z_PROPERTY)
+    setName(value.toString());
 }
 
 void glitch_object_simple_text_arduino::slotTransformed(void)

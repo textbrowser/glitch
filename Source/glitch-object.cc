@@ -1477,7 +1477,7 @@ void glitch_object::slotActionTriggered(void)
 	case DefaultMenuActions::COMPRESS_WIDGET:
 	  {
 	    if(m_actions.value(DefaultMenuActions::
-			       COMPRESS_WIDGET, nullptr) &&
+			       COMPRESS_WIDGET, nullptr) == nullptr ||
 	       m_actions.value(DefaultMenuActions::
 			       COMPRESS_WIDGET)->isEnabled() == false)
 	      return;

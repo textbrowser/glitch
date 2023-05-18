@@ -112,11 +112,13 @@ class glitch_ui: public QMainWindow
  private slots:
   void slotAbout(void);
   void slotAboutToShowTabsMenu(void);
+  void slotAdjustSizesTool(void);
   void slotArduinoViewDestroyed(void);
   void slotClearCopiedWidgetsBuffer(void);
   void slotClearRecentFiles(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
+  void slotCompressWidgetsTool(void);
   void slotCopy(QGraphicsView *view);
   void slotCopy(glitch_view *view);
   void slotCopy(void);

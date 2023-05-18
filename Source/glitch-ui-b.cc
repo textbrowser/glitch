@@ -25,4 +25,17 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-scene.h"
 #include "glitch-ui.h"
+
+void glitch_ui::slotAdjustSizesTool(void)
+{
+  if(s_focusedScene)
+    s_focusedScene->slotSelectedWidgetsAdjustSize();
+}
+
+void glitch_ui::slotCompressWidgetsTool(void)
+{
+  if(s_focusedScene)
+    s_focusedScene->slotSelectedWidgetsCompress();
+}
