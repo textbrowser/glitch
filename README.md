@@ -23,6 +23,27 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.05.20</p>
+<ul>
+<li>Activate minimized windows if necessary.</li>
+<li>An object's context menu is now accessible via Find Objects.
+Simply ignite a context menu over the desired object in Find
+Objects.</li>
+<li>Arduino IDE is optional. Do not prevent file generation.</li>
+<li>Corrected color sorting in Canvas Settings -> Source View.</li>
+<li>If necessary, highlight required variable name on creation.</li>
+<li>Multiple objects may now be dragged onto a diagram.</li>
+<li>New tools: Adjust Size, Compress.</li>
+<li>Object transformation. For example, noTone() -> tone()
+via context menu.</li>
+<li>Portable output files. New Glitch Preferences setting.</li>
+<li>PowerPC Debian release!</li>
+<li>Removed Other, block comment, and function() from
+Arduino keywords.</li>
+<li>Removed redundant sorting from
+Canvas Settings -> Source View.</li>
+<li>Scroll a view if an object is moved via keyboard arrow keys.</li>
+</ul>
 <p>2023.04.30</p>
 <ul>
 <li>Added New Diagram -> Arduino tool bar action.</li>
