@@ -35,7 +35,7 @@ cp -pr ./Documentation/Arduino ./usr/local/glitch/Documentation/.
 mkdir -p glitch-debian/usr/local
 cp -pr ./DEBIAN-PI-AARCH64 glitch-debian/DEBIAN
 cp -r ./usr/local/glitch glitch-debian/usr/local/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2023.04.30_aarch64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2023.05.20_aarch64.deb
 rm -fr ./usr
 rm -fr glitch-debian
 make distclean
