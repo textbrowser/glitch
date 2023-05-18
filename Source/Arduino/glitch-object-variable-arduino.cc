@@ -37,14 +37,14 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 }
 
 glitch_object_variable_arduino::glitch_object_variable_arduino
-(const QString &variableType,
- QWidget *parent):glitch_object_variable_arduino(1, parent)
+(const QString &variableType, QWidget *parent):
+  glitch_object_variable_arduino(1, parent)
 {
   auto string(variableType);
 
   string.remove("glitch-arduino-variables-");
   m_ui.array->setChecked(string.contains("array"));
-  m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
+  m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
   m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove("array ")));
   m_properties[Properties::VARIABLE_ARRAY] = m_ui.array->isChecked();
   m_properties[Properties::VARIABLE_NAME] = "";
@@ -59,7 +59,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
 {
   m_type = "arduino-variable";
   m_ui.setupUi(this);
-  m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
+  m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
   m_ui.qualifier->installEventFilter(new glitch_scroll_filter(this));
   m_ui.pointer_access->installEventFilter(new glitch_scroll_filter(this));
 
@@ -70,6 +70,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.type->addItems(list);
   m_ui.type->installEventFilter(new glitch_scroll_filter(this));
   prepareContextMenu();
+  prepareHighlights();
   setName(m_type);
   connectSignals(true);
 }
