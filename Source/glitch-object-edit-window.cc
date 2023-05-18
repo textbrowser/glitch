@@ -459,19 +459,13 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 void glitch_object_edit_window::slotAdjustSizesTool(void)
 {
   if(m_editView && m_editView->scene())
-    glitch_ui::s_focusedScene = m_editView->scene();
-
-  if(glitch_ui::s_focusedScene)
-    glitch_ui::s_focusedScene->slotSelectedWidgetsAdjustSize();
+    m_editView->scene()->slotSelectedWidgetsAdjustSize();
 }
 
 void glitch_object_edit_window::slotCompressWidgetsTool(void)
 {
   if(m_editView && m_editView->scene())
-    glitch_ui::s_focusedScene = m_editView->scene();
-
-  if(glitch_ui::s_focusedScene)
-    glitch_ui::s_focusedScene->slotSelectedWidgetsCompress();
+    m_editView->scene()->slotSelectedWidgetsCompress();
 }
 
 void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)

@@ -1031,8 +1031,6 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  glitch_ui::s_focusedScene = this;
-
   if(m_toolsOperation == glitch_tools::Operations::SELECT)
     {
       m_lastScenePos = QPointF();
@@ -1535,23 +1533,16 @@ void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
 
 void glitch_scene::slotSelectedWidgetsAdjustSize(void)
 {
-  if(glitch_ui::s_focusedScene)
-    {
-      foreach(auto object, glitch_ui::s_focusedScene->selectedObjects())
-	if(object)
-	  object->slotAdjustSize();
-    }
+  foreach(auto object, selectedObjects())
+    if(object)
+      object->slotAdjustSize();
 }
 
 void glitch_scene::slotSelectedWidgetsCompress(void)
 {
-  if(glitch_ui::s_focusedScene)
-    {
-      foreach(auto object, glitch_ui::s_focusedScene->selectedObjects())
-	if(object)
-	  object->triggerAction
-	    (glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
-    }
+  foreach(auto object, selectedObjects())
+    if(object)
+      object->triggerAction(glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
 }
 
 void glitch_scene::slotToolsOperationChanged

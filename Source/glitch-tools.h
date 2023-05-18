@@ -55,8 +55,6 @@ class glitch_tools: public QDialog
   void slotOperationChanged(void);
 
  signals:
-  void adjustSize(void);
-  void compress(void);
   void operation(const glitch_tools::Operations operation);
 };
 

@@ -207,72 +207,6 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page">
-          <attribute name="title">
-           <string>Widgets</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>A scene may be selected by clicking it.</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="gridLayout">
-             <item row="0" column="0">
-              <widget class="QPushButton" name="adjust_size">
-               <property name="text">
-                <string>Adjust Size</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../Icons/icons.qrc">
-                 <normaloff>:/adjust-size.png</normaloff>:/adjust-size.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="compress">
-               <property name="text">
-                <string>Compress</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../Icons/icons.qrc">
-                 <normaloff>:/compress.png</normaloff>:/compress.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
         </widget>
        </item>
       </layout>
@@ -312,8 +246,6 @@
   <tabstop>select</tabstop>
   <tabstop>wire_connect</tabstop>
   <tabstop>wire_disconnect</tabstop>
-  <tabstop>adjust_size</tabstop>
-  <tabstop>compress</tabstop>
   <tabstop>close</tabstop>
  </tabstops>
  <resources>
