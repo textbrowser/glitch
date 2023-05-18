@@ -237,11 +237,21 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
   m_toolBar->addActions(actions);
   m_toolBar->addSeparator();
 
+  QAction *action1 = nullptr;
+  QAction *action2 = nullptr;
   auto menu = new QMenu(this);
   auto toolButton = new QToolButton(this);
 
-  menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
-  menu->addAction(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+  action1 = menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+  action2 = menu->addAction(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+  connect(action1,
+	  &QAction::triggered,
+	  this,
+	  &glitch_object_edit_window::slotAdjustSizesTool);
+  connect(action2,
+	  &QAction::triggered,
+	  this,
+	  &glitch_object_edit_window::slotCompressWidgetsTool);
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setIcon(QIcon(":/tools.png"));
   toolButton->setMenu(menu);
@@ -444,6 +454,24 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotAdjustSizesTool(void)
+{
+  if(m_editView && m_editView->scene())
+    glitch_ui::s_focusedScene = m_editView->scene();
+
+  if(glitch_ui::s_focusedScene)
+    glitch_ui::s_focusedScene->slotSelectedWidgetsAdjustSize();
+}
+
+void glitch_object_edit_window::slotCompressWidgetsTool(void)
+{
+  if(m_editView && m_editView->scene())
+    glitch_ui::s_focusedScene = m_editView->scene();
+
+  if(glitch_ui::s_focusedScene)
+    glitch_ui::s_focusedScene->slotSelectedWidgetsCompress();
 }
 
 void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)

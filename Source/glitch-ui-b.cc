@@ -27,15 +27,22 @@
 
 #include "glitch-scene.h"
 #include "glitch-ui.h"
+#include "glitch-view.h"
 
 void glitch_ui::slotAdjustSizesTool(void)
 {
+  if(m_currentView && m_currentView->scene())
+    s_focusedScene = m_currentView->scene();
+
   if(s_focusedScene)
     s_focusedScene->slotSelectedWidgetsAdjustSize();
 }
 
 void glitch_ui::slotCompressWidgetsTool(void)
 {
+  if(m_currentView && m_currentView->scene())
+    s_focusedScene = m_currentView->scene();
+
   if(s_focusedScene)
     s_focusedScene->slotSelectedWidgetsCompress();
 }
