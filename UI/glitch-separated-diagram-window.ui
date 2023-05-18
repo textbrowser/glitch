@@ -72,7 +72,7 @@
    <addaction name="menu_Generate"/>
    <addaction name="menu_Windows"/>
   </widget>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="tools_toolbar">
    <property name="windowTitle">
     <string>Glitch: Tool Bar</string>
    </property>

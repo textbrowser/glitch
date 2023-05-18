@@ -29,6 +29,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QShortcut>
+#include <QToolButton>
 
 #include "glitch-misc.h"
 #include "glitch-scene.h"
@@ -41,8 +42,8 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_statusBarTimer.start(500);
   m_ui.setupUi(this);
-  m_ui.toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
-  m_ui.toolBar->setIconSize(QSize(24, 24));
+  m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.tools_toolbar->setIconSize(QSize(24, 24));
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -201,11 +202,43 @@ void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 
 void glitch_separated_diagram_window::prepareToolBar(void)
 {
-  m_ui.toolBar->clear();
+  m_ui.tools_toolbar->clear();
 
   if(m_view)
-    for(int i = 0; i < m_view->alignmentActions().size(); i++)
-      m_ui.toolBar->addAction(m_view->alignmentActions().at(i));
+    {
+      for(int i = 0; i < m_view->alignmentActions().size(); i++)
+	m_ui.tools_toolbar->addAction(m_view->alignmentActions().at(i));
+
+      m_ui.tools_toolbar->addSeparator();
+
+      QAction *action1 = nullptr;
+      QAction *action2 = nullptr;
+      auto menu = new QMenu(this);
+      auto toolButton = new QToolButton(this);
+
+      action1 = menu->addAction
+	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+      action2 = menu->addAction
+	(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+      connect(action1,
+	      &QAction::triggered,
+	      this,
+	      &glitch_separated_diagram_window::slotAdjustSizesTool);
+      connect(action2,
+	      &QAction::triggered,
+	      this,
+	      &glitch_separated_diagram_window::slotCompressWidgetsTool);
+      toolButton->setArrowType(Qt::NoArrow);
+      toolButton->setIcon(QIcon(":/tools.png"));
+      toolButton->setMenu(menu);
+      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+      toolButton->setToolTip(tr("Miscellaneous Tools"));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
+      m_ui.tools_toolbar->addWidget(toolButton);
+    }
 }
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
@@ -267,6 +300,18 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       prepareToolBar();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
+}
+
+void glitch_separated_diagram_window::slotAdjustSizesTool(void)
+{
+  if(m_view && m_view->scene())
+    m_view->scene()->slotSelectedWidgetsAdjustSize();
+}
+
+void glitch_separated_diagram_window::slotCompressWidgetsTool(void)
+{
+  if(m_view && m_view->scene())
+    m_view->scene()->slotSelectedWidgetsCompress();
 }
 
 void glitch_separated_diagram_window::slotCopy(void)
