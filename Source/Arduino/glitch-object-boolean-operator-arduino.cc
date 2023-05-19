@@ -171,7 +171,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_properties[Properties::TRANSPARENT] = true;
   return object;
 }
 
@@ -179,7 +178,6 @@ void glitch_object_boolean_operator_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
-  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
 }
 
 void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
@@ -297,7 +295,6 @@ void glitch_object_boolean_operator_arduino::setProperties
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = false;
 
   QString value("!");
 

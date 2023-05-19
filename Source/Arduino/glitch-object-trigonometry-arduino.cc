@@ -179,7 +179,6 @@ void glitch_object_trigonometry_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = true;
   m_properties[Properties::TRIGONOMETRY_TYPE] = "cos()";
 
   for(int i = 0; i < list.size(); i++)

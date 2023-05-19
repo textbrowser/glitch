@@ -298,7 +298,15 @@ class glitch_object: public QWidget
 
   void triggerAction(const DefaultMenuActions action)
   {
-    if(m_actions.value(action, nullptr))
+    if(!m_actions.value(action, nullptr))
+      /*
+      ** Let's adapt!
+      */
+
+      createActions();
+
+    if(m_actions.value(action, nullptr) &&
+       m_actions.value(action)->isEnabled())
       m_actions.value(action)->trigger();
   }
 
@@ -355,10 +363,10 @@ class glitch_object: public QWidget
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
   virtual QStringList outputs(void) const;
-  virtual void createActions(void);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);
+  void createActions(void);
   void prepareContextMenu(void);
   void prepareEditObjects(const glitch_view *parentView);
   void saveProperties(const QMap<QString, QVariant> &p,

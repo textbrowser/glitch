@@ -226,7 +226,6 @@ void glitch_object_arithmetic_operator_arduino::setProperties
   glitch_object::setProperties(list);
   m_properties[Properties::ARITHMETIC_OPERATOR] = "+";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {

@@ -150,7 +150,6 @@ void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = true;
   m_properties[Properties::UTILITIES_TYPE] = "sizeof()";
 
   for(int i = 0; i < list.size(); i++)

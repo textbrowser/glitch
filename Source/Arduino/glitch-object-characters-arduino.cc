@@ -222,7 +222,6 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
   glitch_object::setProperties(list);
   m_properties[Properties::CHARACTERS_TYPE] = "isAlpha()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {

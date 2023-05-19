@@ -56,6 +56,7 @@ class glitch_object_simple_text_arduino: public glitch_object
   virtual void addActions(QMenu &menu)
   {
     addDefaultActions(menu);
+    m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
     menu.addSeparator();
     prepareTransformationMenu(menu.addMenu(tr("Transform")));
   }
@@ -67,14 +68,6 @@ class glitch_object_simple_text_arduino: public glitch_object
   QString m_text;
   QStringList m_functionsList;
   glitch_object_simple_text_arduino(const qint64 id, QWidget *parent);
-
-  virtual void createActions(void)
-  {
-    glitch_object::createActions();
-    m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
-    m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
-  }
-
   virtual void setProperty(const Properties property, const QVariant &value);
 
  private:

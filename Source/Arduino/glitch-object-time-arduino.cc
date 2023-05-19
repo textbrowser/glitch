@@ -207,7 +207,6 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::TIME_TYPE] = "delay()";
-  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {

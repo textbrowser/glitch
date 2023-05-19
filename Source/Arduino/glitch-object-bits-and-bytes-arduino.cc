@@ -270,7 +270,6 @@ void glitch_object_bits_and_bytes_arduino::setProperties
   glitch_object::setProperties(list);
   m_properties[Properties::BITS_AND_BYTES_TYPE] = "bit()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {

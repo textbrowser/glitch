@@ -247,7 +247,6 @@ void glitch_object_conversion_arduino::setProperties(const QStringList &list)
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::CONVERSION] = "(unsigned int)";
-  m_properties[Properties::TRANSPARENT] = true;
 
   for(int i = 0; i < list.size(); i++)
     {
