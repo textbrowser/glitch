@@ -71,8 +71,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"<b>G</b>raphical <b>L</b>ightweight <b>I</b>nteractive "
 	"<b>T</b>ool and <b>C</b>ompiler <b>H</b>ybrid<br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
-	"Develop through block diagrams.<br><br>"
+	"Develop through block diagrams.<br>"
 	"Software for and from the margins.<br><br>"
+	"Made with love by textbrowser.<br><br>"
 	"Architecture: %2.<br>"
 	"Product: %3.<br>"
 	"Qt version %4 (runtime version %5).<br><br>"
@@ -1532,7 +1533,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
       action2 = menu->addAction
-	(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+	(QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
       connect(action1,
 	      &QAction::triggered,
 	      this,
@@ -1821,7 +1822,7 @@ void glitch_ui::slotPaste(void)
 void glitch_ui::slotPreferencesAccepted(void)
 {
   QSettings settings;
-  auto state = settings.value("preferences/tear_off_menus").toBool();
+  auto state = settings.value("preferences/tear_off_menus", true).toBool();
 
   m_ui.menu_Edit->setTearOffEnabled(state);
   m_ui.menu_Windows->setTearOffEnabled(state);
@@ -2153,8 +2154,9 @@ void glitch_ui::slotSwifty(void)
 	"<b>G</b>raphical <b>L</b>ightweight <b>I</b>nteractive "
 	"<b>T</b>ool and <b>C</b>ompiler <b>H</b>ybrid<br><br>"
 	"Glitch is a visual compiler and designer for Arduino.<br>"
-	"Develop through block diagrams.<br><br>"
+	"Develop through block diagrams.<br>"
 	"Software for and from the margins.<br><br>"
+	"Made with love by textbrowser.<br><br>"
 	"Architecture: %3.<br>"
 	"Product: %4.<br>"
 	"Qt version %5 (runtime version %6).<br><br>"

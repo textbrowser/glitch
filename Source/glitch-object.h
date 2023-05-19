@@ -255,12 +255,6 @@ class glitch_object: public QWidget
   virtual bool hasView(void) const;
   virtual bool isFullyWired(void) const = 0; // Are all inputs wired?
   virtual bool isMandatory(void) const;
-
-  virtual bool isNativelyDrawn(void) const
-  {
-    return false;
-  }
-
   virtual bool shouldPrint(void) const = 0;
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
@@ -363,6 +357,13 @@ class glitch_object: public QWidget
   glitch_view *findNearestGlitchView(QWidget *widget) const;
   virtual QStringList inputs(void) const;
   virtual QStringList outputs(void) const;
+  virtual bool isActionAllowed(const DefaultMenuActions action) const;
+
+  virtual bool isNativelyDrawn(void) const
+  {
+    return false;
+  }
+
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);

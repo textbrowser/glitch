@@ -383,6 +383,14 @@ bool glitch_object::hasView(void) const
   return false;
 }
 
+bool glitch_object::isActionAllowed(const DefaultMenuActions action) const
+{
+  if(action == DefaultMenuActions::COMPRESS_WIDGET)
+    return !isMandatory();
+  else
+    return true;
+}
+
 bool glitch_object::isMandatory(void) const
 {
   return false;
@@ -697,7 +705,7 @@ void glitch_object::createActions(void)
       action->setChecked
 	(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
       action->setData(static_cast<int> (DefaultMenuActions::COMPRESS_WIDGET));
-      action->setEnabled(!isMandatory());
+      action->setEnabled(isActionAllowed(DefaultMenuActions::COMPRESS_WIDGET));
       action->setToolTip(tr("Hide most of the widget's children."));
       connect(action,
 	      &QAction::triggered,

@@ -61,12 +61,6 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   bool hasInput(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
-
-  bool isNativelyDrawn(void) const
-  {
-    return true;
-  }
-
   bool shouldPrint(void) const;
   glitch_object_boolean_operator_arduino *clone(QWidget *parent) const;
   static glitch_object_boolean_operator_arduino *createFromValues
@@ -80,6 +74,20 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   glitch_object_boolean_operator_arduino(QWidget *parent);
   glitch_object_boolean_operator_arduino(const qint64 id, QWidget *parent);
   OperatorTypes m_operatorType;
+
+  bool isActionAllowed(const DefaultMenuActions action) const
+  {
+    if(action == DefaultMenuActions::COMPRESS_WIDGET)
+      return false;
+    else
+      return glitch_object::isActionAllowed(action);
+  }
+
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   void paintEvent(QPaintEvent *event);
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);

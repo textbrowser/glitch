@@ -38,11 +38,6 @@ class glitch_object_simple_text_arduino: public glitch_object
   glitch_object_simple_text_arduino(const QString &text, QWidget *parent);
   virtual ~glitch_object_simple_text_arduino();
 
-  bool isNativelyDrawn(void) const
-  {
-    return true;
-  }
-
   virtual QSize minimumSizeHint(void) const
   {
     return QSize(250, 50);
@@ -68,6 +63,20 @@ class glitch_object_simple_text_arduino: public glitch_object
   QString m_text;
   QStringList m_functionsList;
   glitch_object_simple_text_arduino(const qint64 id, QWidget *parent);
+
+  bool isActionAllowed(const DefaultMenuActions action) const
+  {
+    if(action == DefaultMenuActions::COMPRESS_WIDGET)
+      return false;
+    else
+      return glitch_object::isActionAllowed(action);
+  }
+
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   virtual void setProperty(const Properties property, const QVariant &value);
 
  private:

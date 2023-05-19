@@ -219,7 +219,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
       action2 = menu->addAction
-	(QIcon(":/compress.png"), tr("Compress Widget(s)"));
+	(QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
       connect(action1,
 	      &QAction::triggered,
 	      this,
