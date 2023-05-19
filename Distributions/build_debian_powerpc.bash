@@ -33,7 +33,7 @@ cp -pr ./Documentation/Arduino ./usr/local/glitch/Documentation/.
 # Preparing Glitch-x.deb:
 
 mkdir -p glitch-debian/usr/local
-cp -pr ./DEBIAN glitch-debian/.
+cp -pr ./DEBIAN-POWERPC glitch-debian/DEBIAN
 cp -r ./usr/local/glitch glitch-debian/usr/local/.
 fakeroot dpkg-deb --build glitch-debian Glitch-2023.05.20_powerpc.deb
 rm -fr ./usr
