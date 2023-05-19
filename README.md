@@ -31,8 +31,10 @@ Simply ignite a context menu over the desired object in Find
 Objects.</li>
 <li>Arduino IDE is optional. Do not prevent file generation.</li>
 <li>Corrected color sorting in Canvas Settings -> Source View.</li>
+<li>Corrected tear-off-menus default INI value.</li>
 <li>If necessary, highlight required variable name on creation.</li>
 <li>Multiple objects may now be dragged onto a diagram.</li>
+<li>Natively-drawn widgets may now be optionally transparent.</li>
 <li>New tools: Adjust Size, Compress.</li>
 <li>Object transformation. For example, noTone() -> tone()
 via context menu.</li>
