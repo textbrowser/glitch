@@ -668,14 +668,12 @@ void glitch_object::createActions(void)
       auto action = new QAction(tr("Background Color..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR));
+      action->setEnabled(isNativelyDrawn());
       connect(action,
 	      &QAction::triggered,
 	      this,
 	      &glitch_object::slotSelectColor);
       m_actions[DefaultMenuActions::BACKGROUND_COLOR] = action;
-
-      if(!isNativelyDrawn())
-	action->setEnabled(false);
     }
 
   if(!m_actions.contains(DefaultMenuActions::BORDER_COLOR))
@@ -683,14 +681,12 @@ void glitch_object::createActions(void)
       auto action = new QAction(tr("Border Color..."), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::BORDER_COLOR));
+      action->setEnabled(m_type != "decoration-arrow");
       connect(action,
 	      &QAction::triggered,
 	      this,
 	      &glitch_object::slotSelectBorderColor);
       m_actions[DefaultMenuActions::BORDER_COLOR] = action;
-
-      if(m_type == "decoration-arrow")
-	action->setEnabled(false);
     }
 
   if(!m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))
