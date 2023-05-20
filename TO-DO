@@ -148,6 +148,7 @@ Completed Items
 - Identifiers are incorrect for function children.
 - Include Arduino language reference in binary.
 - Include Examples in Debian distributions.
+- Include Examples in MacOS distribution.
 - Indicate wire input / output.
 - Inspect coordinates upon opening of diagrams. Adjust.
 - Integrate isFullyWired().
@@ -286,7 +287,6 @@ Remaining Items
 - Custom shortcuts.
 - Generate source from terminal for testing results.
 - Improve detection of invalid variable names.
-- Include Examples in MacOS distribution.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
