@@ -22,6 +22,7 @@ Completed Items
 - Arduino icons.
 - Arithmetic and subtraction (-). Special parsing.
 - Arrays.
+- Arrow object is sometimes distorted.
 - Assign new names to functions pasted on main canvases.
 - Attach Structures to canvas page. Android and others.
 - Background color for natively-drawn widget.
@@ -279,7 +280,6 @@ Remaining Items
   Application icon (Completed)
   Close buttons (Completed)
   Drag & drop (Completed)
-- Arrow object is sometimes distorted.
 - Complete SipHash diagram.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
