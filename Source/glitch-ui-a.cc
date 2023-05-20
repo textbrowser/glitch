@@ -1097,22 +1097,22 @@ void glitch_ui::prepareStatusBar(void)
       {
       case glitch_tools::Operations::INTELLIGENT:
 	{
-	  showStatsuBarMessage(tr("Intelligent Mode"));
+	  showStatsuBarMessage(tr("Connections Mode: Intelligent"));
 	  break;
 	}
       case glitch_tools::Operations::SELECT:
 	{
-	  showStatsuBarMessage(tr("Select Mode"));
+	  showStatsuBarMessage(tr("Connections Mode: Select"));
 	  break;
 	}
       case glitch_tools::Operations::WIRE_CONNECT:
 	{
-	  showStatsuBarMessage(tr("Wire (Connect) Mode"));
+	  showStatsuBarMessage(tr("Connections Mode: Wire (Connect)"));
 	  break;
 	}
       default:
 	{
-	  showStatsuBarMessage(tr("Wire (Disconnect) Mode"));
+	  showStatsuBarMessage(tr("Connections Mode: Wire (Disconnect)"));
 	  break;
 	}
       }
@@ -2240,22 +2240,22 @@ void glitch_ui::slotToolsOperationChanged
     {
     case glitch_tools::Operations::INTELLIGENT:
       {
-	showStatsuBarMessage(tr("Intelligent Mode"));
+	showStatsuBarMessage(tr("Connections Mode: Intelligent"));
 	break;
       }
     case glitch_tools::Operations::SELECT:
       {
-	showStatsuBarMessage(tr("Select Mode"));
+	showStatsuBarMessage(tr("Connections Mode: Select"));
 	break;
       }
     case glitch_tools::Operations::WIRE_CONNECT:
       {
-	showStatsuBarMessage(tr("Wire (Connect) Mode"));
+	showStatsuBarMessage(tr("Connections Mode: Wire (Connect)"));
 	break;
       }
     default:
       {
-	showStatsuBarMessage(tr("Wire (Disconnect) Mode"));
+	showStatsuBarMessage(tr("Connections Mode: Wire (Disconnect)"));
 	break;
       }
     }
