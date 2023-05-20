@@ -292,6 +292,8 @@ documentation3.extra	= cp ./TO-DO Glitch.d/Documentation/.
 documentation3.path	= Glitch.d/Documentation
 documentation4.extra	= cp -r ./Documentation/Arduino Glitch.d/Documentation/.
 documentation4.path	= Glitch.d/Documentation
+examples.extra          = cp -r ./Examples Glitch.d/.
+examples.path           = Glitch.d/Examples
 glitch.extra	        = cp -r ./Glitch.app Glitch.d/.
 glitch.path		= Glitch.d
 macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt Glitch.d/Glitch.app \
@@ -304,6 +306,7 @@ INSTALLS = documentation1 \
            documentation2 \
            documentation3 \
            documentation4 \
+           examples \
            preinstall \
            glitch \
            macdeployqt
