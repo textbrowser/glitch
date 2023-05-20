@@ -288,6 +288,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Shell.
+- Snap-to-visible-grid.
 - Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
