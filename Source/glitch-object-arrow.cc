@@ -86,7 +86,6 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_properties[Properties::TRANSPARENT] = true;
   return object;
 }
 
@@ -94,7 +93,6 @@ void glitch_object_arrow::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
-  m_actions.value(DefaultMenuActions::TRANSPARENT)->setEnabled(false);
 }
 
 void glitch_object_arrow::paintEvent(QPaintEvent *event)
