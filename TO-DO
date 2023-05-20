@@ -285,6 +285,8 @@ Remaining Items
 - Custom shortcuts.
 - Generate source from terminal for testing results.
 - Improve detection of invalid variable names.
+- Include Examples in Debian distributions.
+- Include Examples in MacOS distribution.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
