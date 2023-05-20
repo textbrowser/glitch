@@ -116,7 +116,8 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
     };
   const qreal arrowPercentOfWidth = 0.10;
   const qreal linePercentOfHeight = 0.30;
-  const qreal x0 = arrowPercentOfWidth * sizeWidth;
+  const qreal x0 = (m_arrow == Arrows::LEFT || m_arrow == Arrows::LEFT_RIGHT) ?
+    arrowPercentOfWidth * sizeWidth : 0.0;
   qreal xi = x0;
 
   transparentColor = canvasBrush.color();
@@ -131,7 +132,13 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   painter.save();
   painter.drawConvexPolygon(block, 4);
   painter.restore();
-  widths.enqueue((1.0 - 2.0 * arrowPercentOfWidth) * sizeWidth);
+
+  if(m_arrow == Arrows::LEFT)
+    widths.enqueue(sizeWidth);
+  else if(m_arrow == Arrows::RIGHT)
+    widths.enqueue((1.0 - arrowPercentOfWidth) * sizeWidth);
+  else
+    widths.enqueue((1.0 - 2.0 * arrowPercentOfWidth) * sizeWidth);
 
   do
     {
@@ -157,9 +164,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
       painter.restore();
       widths.enqueue(width);
       xi += width;
-
-      if(sizeHeight <= xi)
-	break;
+      break;
     }
   while(true);
 
