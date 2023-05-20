@@ -29,6 +29,7 @@ cp -p ./Glitch ./usr/local/glitch/.
 cp -p ./Icons/Logo/glitch-logo.png ./usr/local/glitch/.
 cp -p ./glitch.sh ./usr/local/glitch/.
 cp -pr ./Documentation/Arduino ./usr/local/glitch/Documentation/.
+cp -pr ./Examples ./usr/local/glitch/.
 
 # Preparing Glitch-x.deb:
 

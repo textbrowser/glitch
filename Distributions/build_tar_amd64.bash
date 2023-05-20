@@ -20,6 +20,7 @@ cp -p ./Glitch ./glitch/.
 cp -p ./Icons/Logo/glitch-logo.png ./glitch/.
 cp -p ./glitch.sh ./glitch/.
 cp -pr ./Documentation/Arduino ./glitch/Documentation/.
+cp -pr ./Examples ./usr/local/glitch/.
 
 # Prepare a tar bundle.
 
