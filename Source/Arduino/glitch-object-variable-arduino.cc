@@ -374,11 +374,12 @@ void glitch_object_variable_arduino::prepareHighlights(void)
 {
   auto text(m_ui.name->text());
 
-  if(glitch_structures_arduino::isReserved(text) ||
-     text.contains(QRegularExpression("^[a-zA-Z_$][a-zA-Z_$0-9]*$")) == false)
+  if(glitch_structures_arduino::isReserved(text))
     m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
-  else
+  else if(text.remove(QRegularExpression("^[a-zA-Z_][a-zA-Z0-9_]*$")).isEmpty())
     m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
+  else
+    m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
 }
 
 void glitch_object_variable_arduino::save
@@ -497,7 +498,7 @@ void glitch_object_variable_arduino::setProperty
     case Properties::VARIABLE_NAME:
       {
 	if(value.toString().trimmed().isEmpty())
-	  m_ui.name->setText(tr("arduino-variable"));
+	  m_ui.name->setText(tr("arduino_variable"));
 	else
 	  m_ui.name->setText(value.toString().trimmed());
 

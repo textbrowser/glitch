@@ -146,6 +146,7 @@ Completed Items
   Show both, left, or right arrows
 - Icons and themes.
 - Identifiers are incorrect for function children.
+- Improve detection of invalid variable names.
 - Include Arduino language reference in binary.
 - Include Examples in Debian distributions.
 - Include Examples in MacOS distribution.
@@ -286,7 +287,6 @@ Remaining Items
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Generate source from terminal for testing results.
-- Improve detection of invalid variable names.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
