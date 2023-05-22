@@ -401,6 +401,16 @@ void glitch_object_variable_arduino::save
   glitch_object::saveProperties(properties, db, error);
 }
 
+void glitch_object_variable_arduino::setName(const QString &n)
+{
+  auto name(n.trimmed());
+
+  if(name.isEmpty())
+    name = "arduino_variable";
+
+  glitch_object::setName(name);
+}
+
 void glitch_object_variable_arduino::setProperties(const QStringList &list)
 {
   connectSignals(false);

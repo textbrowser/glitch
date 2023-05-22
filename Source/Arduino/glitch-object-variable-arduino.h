@@ -56,6 +56,7 @@ class glitch_object_variable_arduino: public glitch_object
   void compressWidget(const bool state);
   void connectSignals(const bool state);
   void prepareHighlights(void);
+  void setName(const QString &n);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
 
