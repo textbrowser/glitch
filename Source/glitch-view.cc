@@ -1129,11 +1129,14 @@ void glitch_view::showTools(void)
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
     }
 
+  m_tools->setOperation
+    (glitch_tools::Operations(property("tools-operation").toInt()));
   m_tools->setWindowTitle
     (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();
+  setProperty("tools-operation", QVariant());
 }
 
 void glitch_view::showUserFunctions(void) const

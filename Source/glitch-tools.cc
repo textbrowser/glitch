@@ -68,6 +68,33 @@ glitch_tools::Operations glitch_tools::operation(void) const
     return Operations::WIRE_DISCONNECT;
 }
 
+void glitch_tools::setOperation(const Operations operation)
+{
+  switch(operation)
+    {
+    case Operations::SELECT:
+      {
+	m_ui.select->setChecked(true);
+	break;
+      }
+    case Operations::WIRE_CONNECT:
+      {
+	m_ui.wire_connect->setChecked(true);
+	break;
+      }
+    case Operations::WIRE_DISCONNECT:
+      {
+	m_ui.wire_disconnect->setChecked(true);
+	break;
+      }
+    default:
+      {
+	m_ui.intelligent->setChecked(true);
+	break;
+      }
+    }
+}
+
 void glitch_tools::slotOperationChanged(void)
 {
   if(m_ui.intelligent == sender())

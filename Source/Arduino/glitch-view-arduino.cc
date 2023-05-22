@@ -312,6 +312,7 @@ void glitch_view_arduino::separate(void)
 
   if(m_tools && m_tools->isVisible())
     {
+      setProperty("tools-operation", m_tools->operation());
       m_tools->deleteLater();
       QTimer::singleShot(500, this, &glitch_view_arduino::slotShowTools);
     }
