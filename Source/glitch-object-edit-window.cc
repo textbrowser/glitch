@@ -256,7 +256,16 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setIcon(QIcon(":/tools.png"));
   toolButton->setMenu(menu);
+#ifdef Q_OS_MACOS
+#else
   toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+#endif
+#ifdef Q_OS_MACOS
+  toolButton->setStyleSheet
+    ("QToolButton {border: none;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#endif
   toolButton->setToolTip(tr("Miscellaneous Tools"));
   connect(toolButton,
 	  &QToolButton::clicked,
