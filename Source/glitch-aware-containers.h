@@ -44,8 +44,8 @@ class glitch_aware_container_object: public QObject
   void inserted(void);
 };
 
-template<typename T, typename U>
-class glitch_aware_multi_map: public QMultiMap<T, U>,
+template<typename K, typename V>
+class glitch_aware_multi_map: public QMultiMap<K, V>,
 			      public glitch_aware_container_object
 {
  public:
@@ -55,13 +55,13 @@ class glitch_aware_multi_map: public QMultiMap<T, U>,
 
   void clear(void)
   {
-    QMultiMap<T, U>::clear();
+    QMultiMap<K, V>::clear();
     emit cleared();
   }
 
-  void insert(const T &key, const U &value)
+  void insert(const K &key, const V &value)
   {
-    QMultiMap<T, U>::insert(key, value);
+    QMultiMap<K, V>::insert(key, value);
     emit inserted();
   }
 };
