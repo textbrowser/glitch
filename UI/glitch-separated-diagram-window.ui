@@ -60,6 +60,7 @@
      <string>&amp;Generate</string>
     </property>
     <addaction name="action_Generate_Source"/>
+    <addaction name="action_Generate_Source_View"/>
    </widget>
    <widget class="QMenu" name="menu_Windows">
     <property name="title">
@@ -168,6 +169,11 @@
   <action name="action_Unite">
    <property name="text">
     <string>&amp;Unite</string>
+   </property>
+  </action>
+  <action name="action_Generate_Source_View">
+   <property name="text">
+    <string>Source View...</string>
    </property>
   </action>
  </widget>

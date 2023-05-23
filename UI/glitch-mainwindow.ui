@@ -92,8 +92,8 @@
      <string>&amp;Windows</string>
     </property>
     <addaction name="action_Diagram_Context_Menu"/>
-    <addaction name="action_User_Functions"/>
     <addaction name="action_Tools"/>
+    <addaction name="action_User_Functions"/>
     <addaction name="separator"/>
     <addaction name="action_Glitch_Preferences"/>
    </widget>
