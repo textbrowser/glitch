@@ -54,10 +54,11 @@
 #include "ui_glitch-errors-dialog.h"
 
 QFont glitch_ui::s_defaultApplicationFont;
-QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::s_copiedObjects;
 QSet<glitch_object *> glitch_ui::s_copiedObjectsSet;
 QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
+glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
+glitch_ui::s_copiedObjects;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
@@ -110,6 +111,20 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QTimer::timeout,
 	  this,
 	  &glitch_ui::slotStatusBarTimerTimeout);
+  connect
+    (&s_copiedObjects,
+     &glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >::
+     cleared,
+     this,
+     &glitch_ui::slotCopiedObjectsChanged,
+     Qt::QueuedConnection);
+  connect
+    (&s_copiedObjects,
+     &glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >::
+     inserted,
+     this,
+     &glitch_ui::slotCopiedObjectsChanged,
+     Qt::QueuedConnection);
   connect(m_preferences,
 	  &glitch_preferences::accept,
 	  this,
@@ -282,12 +297,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 
 glitch_ui::~glitch_ui()
 {
-}
-
-QMultiMap<QPair<int, int>, QPointer<glitch_object> > glitch_ui::
-copiedObjects(void)
-{
-  return s_copiedObjects;
 }
 
 bool glitch_ui::openDiagram(const QString &fileName, QString &error)
@@ -512,6 +521,7 @@ void glitch_ui::clearCopiedObjects(void)
       it.remove();
     }
 
+  s_copiedObjects.clear();
   s_copiedObjectsSet.clear();
   QApplication::restoreOverrideCursor();
 }
@@ -1448,6 +1458,12 @@ void glitch_ui::slotCloseDiagram(int index)
 void glitch_ui::slotCloseDiagram(void)
 {
   slotCloseDiagram(m_ui.tab->currentIndex());
+}
+
+void glitch_ui::slotCopiedObjectsChanged(void)
+{
+  m_ui.action_Clear_Copied_Widgets_Buffer->setEnabled
+    (!s_copiedObjects.isEmpty());
 }
 
 void glitch_ui::slotCopy(QGraphicsView *view)

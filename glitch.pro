@@ -197,6 +197,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
+                  Source/glitch-aware-containers.h \
                   Source/glitch-canvas-settings.h \
                   Source/glitch-collapse-expand-tool-button.h \
                   Source/glitch-documentation.h \

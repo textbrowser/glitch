@@ -172,6 +172,7 @@ Completed Items
 - Other constants.
 - Page shortcut (Alt-1, etc.).
 - Pass undo stack from top-level view to child views.
+- Paste function's state in canvas floating menu is incorrect.
 - Paste in child views. Redo / undo.
 - Pasting multiple objects does not respect their original relative positions.
   Functional!

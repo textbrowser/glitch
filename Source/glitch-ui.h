@@ -32,6 +32,7 @@
 #include <QPointer>
 #include <QTimer>
 
+#include "glitch-aware-containers.h"
 #include "glitch-tools.h"
 #include "ui_glitch-mainwindow.h"
 
@@ -61,11 +62,11 @@ class glitch_ui: public QMainWindow
   glitch_ui(void);
   ~glitch_ui();
   static QFont s_defaultApplicationFont;
-  static QMultiMap<QPair<int, int>, QPointer<glitch_object> >
-     copiedObjects(void);
   static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;
+  static glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
+    s_copiedObjects;
   static void copy(QGraphicsView *view, const bool selected = true);
   static void copy(glitch_object *object);
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
@@ -82,7 +83,6 @@ class glitch_ui: public QMainWindow
   glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;
-  static QMultiMap<QPair<int, int>, QPointer<glitch_object> > s_copiedObjects;
   swifty *m_swifty;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
@@ -117,6 +117,7 @@ class glitch_ui: public QMainWindow
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
   void slotCompressWidgetsTool(void);
+  void slotCopiedObjectsChanged(void);
   void slotCopy(QGraphicsView *view);
   void slotCopy(glitch_view *view);
   void slotCopy(void);

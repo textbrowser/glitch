@@ -148,7 +148,7 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
     {
       m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
-      m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+      m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
     }
@@ -321,12 +321,12 @@ void glitch_separated_diagram_window::slotCompressWidgetsTool(void)
 void glitch_separated_diagram_window::slotCopy(void)
 {
   emit copy(m_view);
-  m_ui.action_Paste->setEnabled(!glitch_ui::copiedObjects().empty());
+  m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.empty());
 
   if(statusBar())
     {
       statusBar()->showMessage
-	(tr("%1 widget(s) copied.").arg(glitch_ui::copiedObjects().size()),
+	(tr("%1 widget(s) copied.").arg(glitch_ui::s_copiedObjects.size()),
 	 5000);
       statusBar()->repaint();
     }

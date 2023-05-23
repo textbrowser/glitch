@@ -110,6 +110,20 @@ glitch_view::glitch_view
   m_view->setScene(m_scene);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  connect
+    (&glitch_ui::s_copiedObjects,
+     &glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >::
+     cleared,
+     this,
+     &glitch_view::slotCopiedObjectsChanged,
+     Qt::QueuedConnection);
+  connect
+    (&glitch_ui::s_copiedObjects,
+     &glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >::
+     inserted,
+     this,
+     &glitch_view::slotCopiedObjectsChanged,
+     Qt::QueuedConnection);
   connect(&m_generateTimer,
 	  &QTimer::timeout,
 	  this,
@@ -282,10 +296,10 @@ QMenu *glitch_view::defaultContextMenu(void)
   else
     m_contextMenu->clear();
 
-  auto action = m_contextMenu->addAction
+  auto action = m_pasteAction = m_contextMenu->addAction
     (tr("Paste"), this, SLOT(slotPaste(void)));
 
-  action->setEnabled(!glitch_ui::copiedObjects().isEmpty());
+  action->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
   action->setIcon(QIcon::fromTheme("edit-paste"));
   m_contextMenu->addSeparator();
   action = m_saveDiagramAction = m_contextMenu->addAction
@@ -1199,6 +1213,12 @@ void glitch_view::slotChanged(void)
 
   setSceneRect(m_view->size());
   emit changed();
+}
+
+void glitch_view::slotCopiedObjectsChanged(void)
+{
+  if(m_pasteAction)
+    m_pasteAction->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
 }
 
 void glitch_view::slotCopy(void)

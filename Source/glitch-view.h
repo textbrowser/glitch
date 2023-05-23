@@ -133,6 +133,7 @@ class glitch_view: public QWidget
   void prepareDefaultActions(void);
 
  private slots:
+  void slotCopiedObjectsChanged(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  protected:
@@ -140,6 +141,7 @@ class glitch_view: public QWidget
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;
   QList<QAction *> m_defaultActions;
   QMap<QString, QVariant> m_properties;
+  QPointer<QAction> m_pasteAction;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
