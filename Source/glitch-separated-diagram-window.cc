@@ -68,6 +68,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotGenerateSource);
+  connect(m_ui.action_Generate_Source_View,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotGenerateSourceView);
   connect(m_ui.action_Delete,
 	  &QAction::triggered,
 	  this,
@@ -366,6 +370,12 @@ void glitch_separated_diagram_window::slotGenerateSource(void)
 	  statusBar()->repaint();
 	}
     }
+}
+
+void glitch_separated_diagram_window::slotGenerateSourceView(void)
+{
+  if(m_view)
+    m_view->generateSourceView();
 }
 
 void glitch_separated_diagram_window::slotPageChanged(void)
