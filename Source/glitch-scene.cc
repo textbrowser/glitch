@@ -819,6 +819,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	      else
 		addItem(proxy);
 
+	      object->resize(object->sizeHint());
 	      proxy->setPos(event->scenePos());
 	      emit changed();
 	    }
