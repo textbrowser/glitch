@@ -148,6 +148,7 @@ class glitch_canvas_settings: public QDialog
     CATEGORIES_ICON_SIZE,
     DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
+    GENERATE_SOURCE_VIEW_PERIODICALLY,
     KEYWORD_COLORS,
     LOCK_COLOR,
     PROJECT_IDE,
@@ -179,6 +180,7 @@ class glitch_canvas_settings: public QDialog
   QString projectIDE(void) const;
   QString wireType(void) const;
   bool generatePeriodically(void) const;
+  bool generateSourceViewPeriodically(void) const;
   bool notify(void);
   bool save(QString &error) const;
   bool showCanvasDots(void) const;

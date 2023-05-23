@@ -103,7 +103,7 @@ class glitch_view: public QWidget
   void deleteItems(void);
   void endMacro(void);
   void find(void) const;
-  void generateSourceView(void);
+  void generateSourceView(const bool raise = true);
   void launchProjectIDE(void) const;
   void push(glitch_undo_command *undoCommand);
   void redo(void);
@@ -150,6 +150,7 @@ class glitch_view: public QWidget
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
   QString m_fileName;
+  QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
@@ -184,6 +185,7 @@ class glitch_view: public QWidget
 				     const QString &before,
 				     glitch_object *object);
   void slotGenerate(void);
+  void slotGenerateSourceView(void);
   void slotPaste(void);
   void slotResizeScene(void);
   void slotSaveAs(void);

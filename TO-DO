@@ -295,6 +295,8 @@ Remaining Items
 - Qt 6.5 LTS for Windows.
 - Reopen (or reparent) child windows after a separation event.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
+- Show expected parameters of Arduino functions. Tool tips or minimal
+  floating dialogs.
 - Snap-to-visible-grid.
 - Warn of recursive functions.
 - Windows 10, 11, etc. Deprecate Windows 7.

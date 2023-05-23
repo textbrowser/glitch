@@ -215,6 +215,8 @@ settings(void) const
     m_ui.dots_grids_color->text().remove('&').trimmed();
   hash[Settings::GENERATE_PERIODICALLY] =
     m_ui.generate_periodically->isChecked();
+  hash[Settings::GENERATE_SOURCE_VIEW_PERIODICALLY] =
+    m_ui.generate_source_view_periodically->isChecked();
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
   hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
@@ -339,6 +341,12 @@ bool glitch_canvas_settings::generatePeriodically(void) const
   return m_settings.value(Settings::GENERATE_PERIODICALLY).toBool();
 }
 
+bool glitch_canvas_settings::generateSourceViewPeriodically(void) const
+{
+  return m_settings.value
+    (Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool();
+}
+
 bool glitch_canvas_settings::notify(void)
 {
   /*
@@ -371,6 +379,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "categories_icon_size TEXT NOT NULL, "
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
+	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
@@ -401,6 +410,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "categories_icon_size, "
 	   "dots_grids_color, "
 	   "generate_periodically, "
+	   "generate_source_view_periodically, "
 	   "keyword_colors, "
 	   "lock_color, "
 	   "name, "
@@ -416,11 +426,14 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
-	   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "VALUES "
+	   "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
 	query.addBindValue(m_ui.generate_periodically->isChecked());
+	query.addBindValue
+	  (m_ui.generate_source_view_periodically->isChecked());
 	query.addBindValue(keywordColorsFromTableAsString());
 	query.addBindValue(m_ui.lock_color->text().remove('&'));
 
@@ -522,6 +535,8 @@ void glitch_canvas_settings::prepare(void)
 
 	query.setForwardOnly(true);
 	query.exec("ALTER TABLE canvas_settings ADD categories_icon_size TEXT");
+	query.exec("ALTER TABLE canvas_settings ADD "
+		   "generate_source_view_periodically INTEGER");
 	query.exec("ALTER TABLE canvas_settings ADD keyword_colors TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD lock_color TEXT");
 	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
@@ -532,6 +547,7 @@ void glitch_canvas_settings::prepare(void)
 			   "SUBSTR(categories_icon_size, 1, 50), "
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
+			   "generate_source_view_periodically, "
 			   "SUBSTR(keyword_colors, 1, 5000), "
 			   "SUBSTR(lock_color, 1, 50), "
 			   "SUBSTR(name, 1, %1), "
@@ -564,6 +580,7 @@ void glitch_canvas_settings::prepare(void)
 	QString updateMode("");
 	QString wireType("");
 	auto generatePeriodically = false;
+	auto generateSourceViewPeriodically = false;
 	auto record(query.record());
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
@@ -583,6 +600,8 @@ void glitch_canvas_settings::prepare(void)
 		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("generate_periodically"))
 	      generatePeriodically = record.value(i).toBool();
+	    else if(fieldName.contains("generate_source_view_periodically"))
+	      generateSourceViewPeriodically = record.value(i).toBool();
 	    else if(fieldName.contains("keyword_colors"))
 	      keywordColors = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("lock_color"))
@@ -645,6 +664,8 @@ void glitch_canvas_settings::prepare(void)
 	   arg(dotsGridsColor.name()));
 	m_ui.dots_grids_color->setText(dotsGridsColor.name());
 	m_ui.generate_periodically->setChecked(generatePeriodically);
+	m_ui.generate_source_view_periodically->setChecked
+	  (generateSourceViewPeriodically);
 	m_ui.lock_color->setStyleSheet
 	  (QString("QPushButton {background-color: %1}").
 	   arg(lockColor.name(QColor::HexArgb)));
@@ -818,6 +839,8 @@ void glitch_canvas_settings::setSettings
   m_ui.dots_grids_color->setText(color.name());
   m_ui.generate_periodically->setChecked
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
+  m_ui.generate_source_view_periodically->setChecked
+    (hash.value(Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool());
   color = QColor
     (hash.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
   m_ui.lock_color->setStyleSheet

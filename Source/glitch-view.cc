@@ -76,6 +76,8 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_fileName = fileName;
   m_findObjects = new glitch_find_objects(this);
+  m_generateSourceViewTimer.setInterval(250);
+  m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
   m_menuAction = new QAction
@@ -124,6 +126,10 @@ glitch_view::glitch_view
      this,
      &glitch_view::slotCopiedObjectsChanged,
      Qt::QueuedConnection);
+  connect(&m_generateSourceViewTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_view::slotGenerateSourceView);
   connect(&m_generateTimer,
 	  &QTimer::timeout,
 	  this,
@@ -911,7 +917,7 @@ void glitch_view::generateSourceFile(void) const
 {
 }
 
-void glitch_view::generateSourceView(void)
+void glitch_view::generateSourceView(const bool raise)
 {
   if(!m_sourceView)
     {
@@ -924,9 +930,13 @@ void glitch_view::generateSourceView(void)
     }
 
   m_sourceView->setPlainText(source());
-  m_sourceView->showNormal();
-  m_sourceView->activateWindow();
-  m_sourceView->raise();
+
+  if(raise)
+    {
+      m_sourceView->showNormal();
+      m_sourceView->activateWindow();
+      m_sourceView->raise();
+    }
 }
 
 void glitch_view::launchProjectIDE(void) const
@@ -1211,6 +1221,9 @@ void glitch_view::slotChanged(void)
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
+  if(m_canvasSettings->generateSourceViewPeriodically())
+    m_generateSourceViewTimer.start();
+
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -1313,6 +1326,11 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
 void glitch_view::slotGenerate(void)
 {
   generateSourceFile();
+}
+
+void glitch_view::slotGenerateSourceView(void)
+{
+  generateSourceView(false);
 }
 
 void glitch_view::slotPaste(void)

@@ -521,7 +521,7 @@
               <string>Generate the code shortly after a change is made.</string>
              </property>
              <property name="text">
-              <string>&amp;Generate Periodically</string>
+              <string>&amp;Generate Output File Periodically</string>
              </property>
             </widget>
            </item>
@@ -642,6 +642,16 @@
            <string>Source View</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QCheckBox" name="generate_source_view_periodically">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate the code shortly after a change is made. Please activate the source panel separately.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>&amp;Generate Source View Periodically</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
@@ -840,6 +850,7 @@
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>
+  <tabstop>generate_source_view_periodically</tabstop>
   <tabstop>special_copy</tabstop>
   <tabstop>special_paste</tabstop>
   <tabstop>reset_source_view_keywords</tabstop>
