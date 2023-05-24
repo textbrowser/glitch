@@ -285,6 +285,7 @@ Remaining Items
   Close buttons (Completed)
   Drag & drop (Completed)
 - Complete SipHash diagram.
+- Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Docked User Functions.
