@@ -1029,7 +1029,7 @@ void glitch_view::redo(void)
   if(m_undoStack->canRedo())
     {
       m_undoStack->redo();
-      emit changed();
+      slotChanged();
     }
 }
 
@@ -1490,6 +1490,9 @@ void glitch_view::slotUndoStackChanged(void)
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
+  if(m_canvasSettings->generateSourceViewPeriodically())
+    m_generateSourceViewTimer.start();
+
   adjustScrollBars();
   emit changed();
 }
@@ -1504,6 +1507,6 @@ void glitch_view::undo(void)
   if(m_undoStack->canUndo())
     {
       m_undoStack->undo();
-      emit changed();
+      slotChanged();
     }
 }
