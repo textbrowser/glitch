@@ -40,7 +40,7 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
 
   QSize minimumSizeHint(void) const
   {
-    return QSize(150, 50);
+    return QSize(180, 50);
   }
 
   QString code(void) const;
@@ -57,6 +57,7 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
   enum Type
   {
     READ = 0,
+    READ_RESOLUTION,
     REFERENCE,
     WRITE
   };
@@ -68,6 +69,10 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
   {
     switch(m_ioType)
       {
+      case Type::READ_RESOLUTION:
+	{
+	  return "readResolution";
+	}
       case Type::REFERENCE:
 	{
 	  return "reference";
@@ -87,7 +92,9 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
   {
     auto string(s.toLower());
 
-    if(string.contains("reference"))
+    if(string.contains("readresolution"))
+      return Type::READ_RESOLUTION;
+    else if(string.contains("reference"))
       return Type::REFERENCE;
     else if(string.contains("write"))
       return Type::WRITE;

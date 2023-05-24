@@ -254,9 +254,11 @@ void glitch_structures_arduino::prepareCategories(void)
 						       << "shiftOut()"
 						       << "tone()";
   s_itemsForIcons["Advanced I/O"] = "pulse.png";
-  s_itemsForCategories["Analog I/O"] = QStringList() << "analogRead()"
-						     << "analogReference()"
-						     << "analogWrite()";
+  s_itemsForCategories["Analog I/O"] =
+    QStringList() << "analogRead()"
+		  << "analogReadResolution()"
+		  << "analogReference()"
+		  << "analogWrite()";
   s_itemsForIcons["Analog I/O"] = "analog.png";
   s_itemsForCategories["Arithmetic Operators"] = QStringList() << "+"
 							       << "/"

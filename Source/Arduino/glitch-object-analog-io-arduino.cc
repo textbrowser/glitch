@@ -35,6 +35,11 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 
   switch(m_ioType)
     {
+    case Type::READ_RESOLUTION:
+      {
+	m_text = "analogReadResolution()";
+	break;
+      }
     case Type::REFERENCE:
       {
 	m_text = "analogReference()";
@@ -59,7 +64,10 @@ glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 glitch_object_analog_io_arduino::glitch_object_analog_io_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
-  m_functionsList << "analogRead()" << "analogReference()" << "analogWrite()";
+  m_functionsList << "analogRead()"
+		  << "analogReadResolution()"
+		  << "analogReference()"
+		  << "analogWrite()";
   m_type = "arduino-analogio";
   prepareContextMenu();
   setName(m_text);
@@ -73,6 +81,10 @@ QString glitch_object_analog_io_arduino::code(void) const
 {
   switch(m_ioType)
     {
+    case Type::READ_RESOLUTION:
+      {
+	return QString("analogReadResolution(%1);").arg(inputs().value(0));
+      }
     case Type::REFERENCE:
       {
 	return QString("analogReference(%1);").arg(inputs().value(0));
@@ -107,6 +119,10 @@ bool glitch_object_analog_io_arduino::isFullyWired(void) const
 {
   switch(m_ioType)
     {
+    case Type::READ_RESOLUTION:
+      {
+	return inputs().size() >= 1;
+      }
     case Type::REFERENCE:
       {
 	return inputs().size() >= 1;
@@ -126,6 +142,7 @@ bool glitch_object_analog_io_arduino::shouldPrint(void) const
 {
   switch(m_ioType)
     {
+    case Type::READ_RESOLUTION:
     case Type::REFERENCE:
     case Type::WRITE:
       {
@@ -201,7 +218,9 @@ void glitch_object_analog_io_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 
-	  if(string.contains("reference"))
+	  if(string.contains("readresolution"))
+	    string = "analogReadResolution()";
+	  else if(string.contains("reference"))
 	    string = "analogReference()";
 	  else if(string.contains("write"))
 	    string = "analogWrite()";
