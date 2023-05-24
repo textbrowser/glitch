@@ -490,13 +490,14 @@ void glitch_proxy_widget::paint
 		    }
 		}
 
-	      if(m_hoveredSection == Sections::LEFT &&
-		 m_object->hasInput() &&
-		 m_object->isFullyWired())
+	      if((m_hoveredSection == Sections::LEFT &&
+		  m_object->hasInput() &&
+		  m_object->isFullyWired()) ||
+		 (m_scene && m_scene->objectToBeWired(m_object->proxy())))
 		return;
 
 	      /*
-	      ** Draw input or output selection indicators.
+	      ** Draw an input or an output selection indicator.
 	      */
 
 	      painter->fillPath(path, QColor(255, 192, 203, 225));
@@ -523,25 +524,21 @@ void glitch_proxy_widget::paint
 
 	      painter->restore();
 
-	      if(operation == glitch_tools::Operations::INTELLIGENT ||
-		 operation == glitch_tools::Operations::WIRE_CONNECT)
-		{
-		  /*
-		  ** Draw wiring order text.
-		  */
+	      /*
+	      ** Draw wiring order text.
+	      */
 
-		  auto font(painter->font());
+	      auto font(painter->font());
 
-		  font.setBold(true);
-		  font.setPointSizeF(25.0);
-		  pen.setColor(Qt::white);
-		  painter->setFont(font);
-		  painter->setPen(pen);
-		  painter->drawText
-		    (path.boundingRect(),
-		     Qt::AlignCenter,
-		     QString::number(m_scene->selectedForWiringCount() + 1));
-		}
+	      font.setBold(true);
+	      font.setPointSizeF(25.0);
+	      pen.setColor(Qt::white);
+	      painter->setFont(font);
+	      painter->setPen(pen);
+	      painter->drawText
+		(path.boundingRect(),
+		 Qt::AlignCenter,
+		 QString::number(m_scene->selectedForWiringCount() + 1));
 	    }
 	}
     }

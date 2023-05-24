@@ -42,8 +42,8 @@
 
 class QUndoStack;
 class glitch_object;
-class glitch_wire;
 class glitch_proxy_widget;
+class glitch_wire;
 
 class glitch_scene: public QGraphicsScene
 {
@@ -59,6 +59,7 @@ class glitch_scene: public QGraphicsScene
   QPointer<glitch_canvas_settings> canvasSettings(void) const;
   QSet<glitch_wire *> wires(void) const;
   bool areObjectsWired(glitch_object *object1, glitch_object *object2) const;
+  bool objectToBeWired(glitch_proxy_widget *proxy) const;
   glitch_proxy_widget *addObject(glitch_object *object);
   glitch_tools::Operations toolsOperation(void) const;
   int objectOrder(glitch_proxy_widget *proxy) const;

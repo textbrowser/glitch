@@ -285,6 +285,21 @@ bool glitch_scene::areObjectsWired
   return false;
 }
 
+bool glitch_scene::objectToBeWired(glitch_proxy_widget *proxy) const
+{
+  QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value().data() == proxy)
+	return true;
+    }
+
+  return false;
+}
+
 glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 {
   if(!object || object->proxy() || object->scene() == this)
