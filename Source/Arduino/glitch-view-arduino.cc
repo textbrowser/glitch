@@ -278,14 +278,6 @@ void glitch_view_arduino::generateSource(QTextStream &stream) const
 
 void glitch_view_arduino::generateSourceFile(void) const
 {
-  if(m_canvasSettings->notify())
-    {
-      m_canvasSettings->showNormal();
-      m_canvasSettings->activateWindow();
-      m_canvasSettings->raise();
-      return;
-    }
-
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   glitch_view::generateSourceFile();
 

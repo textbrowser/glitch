@@ -163,6 +163,13 @@ class glitch_canvas_settings: public QDialog
     WIRE_WIDTH
   };
 
+  enum class Pages
+  {
+    Canvas = 0,
+    Project = 1,
+    UndoStack
+  };
+
   glitch_canvas_settings(QWidget *parent);
   ~glitch_canvas_settings();
   QColor canvasBackgroundColor(void) const;
@@ -181,7 +188,6 @@ class glitch_canvas_settings: public QDialog
   QString wireType(void) const;
   bool generatePeriodically(void) const;
   bool generateSourceViewPeriodically(void) const;
-  bool notify(void);
   bool save(QString &error) const;
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
@@ -204,18 +210,12 @@ class glitch_canvas_settings: public QDialog
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
   void setWireType(const QString &string);
   void setWireWidth(const double value);
+  void showPage(const Pages page);
 
  private:
   enum class Limits
   {
     NAME_MAXIMUM_LENGTH = 100
-  };
-
-  enum class Pages
-  {
-    Canvas = 0,
-    Project = 1,
-    UndoStack
   };
 
   QHash<glitch_canvas_settings::Settings, QVariant> m_settings;

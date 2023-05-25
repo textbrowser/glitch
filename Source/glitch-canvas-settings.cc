@@ -347,15 +347,6 @@ bool glitch_canvas_settings::generateSourceViewPeriodically(void) const
     (Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool();
 }
 
-bool glitch_canvas_settings::notify(void)
-{
-  /*
-  ** Please do not issue notify() from this class!
-  */
-
-  return false;
-}
-
 bool glitch_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -945,6 +936,11 @@ void glitch_canvas_settings::setWireType(const QString &string)
 void glitch_canvas_settings::setWireWidth(const double value)
 {
   m_ui.wire_width->setValue(value);
+}
+
+void glitch_canvas_settings::showPage(const Pages page)
+{
+  m_ui.tab->setCurrentIndex(static_cast<int> (page));
 }
 
 void glitch_canvas_settings::slotResetSourceViewKeywords(void)

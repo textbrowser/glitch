@@ -951,6 +951,11 @@ void glitch_view::launchProjectIDE(void) const
       else
 	QProcess::startDetached(program, QStringList());
     }
+  else
+    {
+      m_canvasSettings->showPage(glitch_canvas_settings::Pages::Project);
+      showCanvasSettings();
+    }
 }
 
 void glitch_view::prepareDatabaseTables(void) const
