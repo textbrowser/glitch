@@ -969,7 +969,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 		  }
 
 		if(view)
-		  view->scroll(point);
+		  view->ensureVisible(proxy);
 	      }
 	  }
 
