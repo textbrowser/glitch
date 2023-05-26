@@ -290,6 +290,7 @@ Remaining Items
 - Custom shortcuts.
 - Docked User Functions.
 - Generate source from terminal for testing results.
+- Generate to clipboard buffer.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

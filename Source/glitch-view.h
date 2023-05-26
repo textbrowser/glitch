@@ -102,7 +102,7 @@ class glitch_view: public QWidget
   void beginMacro(const QString &text);
   void deleteItems(void);
   void endMacro(void);
-  void find(void) const;
+  void find(void);
   void generateSourceView(const bool raise = true);
   void launchProjectIDE(void) const;
   void push(glitch_undo_command *undoCommand);
@@ -119,6 +119,7 @@ class glitch_view: public QWidget
   virtual void slotPreferencesAccepted(void);
   void slotCopy(void);
   void slotSave(void);
+  void slotShowFind(void);
   void slotSimulateDelete(void);
   void slotUnite(void);
 
@@ -146,6 +147,7 @@ class glitch_view: public QWidget
   QPointer<QMenu> m_contextMenu;
   QPointer<QPushButton> m_tabButton;
   QPointer<glitch_documentation> m_sourceView;
+  QPointer<glitch_find_objects> m_findObjects;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
@@ -158,7 +160,6 @@ class glitch_view: public QWidget
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
-  glitch_find_objects *m_findObjects;
   glitch_graphicsview *m_view;
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;
@@ -166,6 +167,7 @@ class glitch_view: public QWidget
   virtual void generateSource(QTextStream &stream) const;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
+  void reparent(void);
   void resizeEvent(QResizeEvent *event);
   void saveProperties(void);
   void setSceneRect(const QSize &size);

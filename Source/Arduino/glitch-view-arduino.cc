@@ -34,6 +34,7 @@
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"
 #include "glitch-docked-container.h"
+#include "glitch-find-objects.h"
 #include "glitch-graphicsview.h"
 #include "glitch-object-loop-arduino.h"
 #include "glitch-object-setup-arduino.h"
@@ -302,16 +303,11 @@ void glitch_view_arduino::separate(void)
 {
   defaultContextMenu()->deleteLater();
 
-  if(m_tools && m_tools->isVisible())
-    {
-      setProperty("tools-operation", m_tools->operation());
-      m_tools->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowTools);
-    }
-
   foreach(auto w, scene()->orderedObjects())
     if(w)
       w->separate();
+
+  reparent();
 }
 
 void glitch_view_arduino::showStructures(void)
@@ -361,10 +357,5 @@ void glitch_view_arduino::slotSilentSave(void)
 void glitch_view_arduino::unite(void)
 {
   defaultContextMenu()->deleteLater();
-
-  if(m_tools && m_tools->isVisible())
-    {
-      m_tools->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view_arduino::slotShowTools);
-    }
+  reparent();
 }

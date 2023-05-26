@@ -75,7 +75,6 @@ glitch_view::glitch_view
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_fileName = fileName;
-  m_findObjects = new glitch_find_objects(this);
   m_generateSourceViewTimer.setInterval(250);
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
@@ -225,10 +224,6 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
-  connect(this,
-	  &glitch_view::changed,
-	  m_findObjects,
-	  &glitch_find_objects::slotSynchronize);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -885,8 +880,17 @@ void glitch_view::endMacro(void)
   m_undoStack->endMacro();
 }
 
-void glitch_view::find(void) const
+void glitch_view::find(void)
 {
+  if(!m_findObjects)
+    {
+      m_findObjects = new glitch_find_objects(this);
+      connect(this,
+	      &glitch_view::changed,
+	      m_findObjects,
+	      &glitch_find_objects::slotSynchronize);
+    }
+
   m_findObjects->setWindowTitle
     (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
   m_findObjects->showNormal();
@@ -1038,6 +1042,21 @@ void glitch_view::redo(void)
     }
 }
 
+void glitch_view::reparent(void)
+{
+  if(m_findObjects && m_findObjects->isVisible())
+    {
+      m_findObjects->deleteLater();
+      QTimer::singleShot(500, this, &glitch_view::slotShowFind);
+    }
+
+  if(m_tools && m_tools->isVisible())
+    {
+      m_tools->deleteLater();
+      QTimer::singleShot(500, this, &glitch_view::slotShowTools);
+    }
+}
+
 void glitch_view::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
@@ -1177,8 +1196,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   auto hash(m_settings);
 
-  m_findObjects->setWindowTitle
-    (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
+  if(m_findObjects)
+    m_findObjects->setWindowTitle
+      (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
+
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
@@ -1441,6 +1462,11 @@ void glitch_view::slotSeparate(void)
 void glitch_view::slotShowCanvasSettings(void)
 {
   showCanvasSettings();
+}
+
+void glitch_view::slotShowFind(void)
+{
+  find();
 }
 
 void glitch_view::slotShowTools(void)
