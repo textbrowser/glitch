@@ -1221,7 +1221,8 @@ void glitch_ui::restoreSettings(void)
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
-  m_ui.tools_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
   restoreState(settings.value("main_window/state").toByteArray());
 }
@@ -1535,6 +1536,8 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 void glitch_ui::slotDelayedToolBarPreparation(void)
 {
   m_ui.tools_toolbar->clear();
+  m_ui.tools_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
 
   if(m_currentView)
     {
@@ -2326,5 +2329,6 @@ void glitch_ui::slotViewToolBars(void)
     ("main_window/view_tools", m_ui.action_View_Tool_Bars->isChecked());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
-  m_ui.tools_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
 }
