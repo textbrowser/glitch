@@ -101,6 +101,8 @@ QStringList glitch_structures_arduino::keywords(void)
   */
 
   list << "const"
+       << "loop()"
+       << "setup()"
        << "static"
        << "volatile";
   return list;
