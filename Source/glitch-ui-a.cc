@@ -1541,9 +1541,6 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 
   if(m_currentView)
     {
-      m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
-      m_ui.tools_toolbar->addSeparator();
-
       QAction *action1 = nullptr;
       QAction *action2 = nullptr;
       auto menu = new QMenu(this);
@@ -1579,6 +1576,8 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
+      m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
+      m_ui.tools_toolbar->addSeparator();
       m_ui.tools_toolbar->addWidget(toolButton);
     }
 }
