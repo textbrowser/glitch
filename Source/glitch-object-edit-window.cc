@@ -152,7 +152,7 @@ glitch_object_edit_window::glitch_object_edit_window
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   resize(800, 600);
-  setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | windowFlags());
+  setWindowFlags(Qt::Dialog | windowFlags());
 }
 
 QWidget *glitch_object_edit_window::centralWidget(void) const

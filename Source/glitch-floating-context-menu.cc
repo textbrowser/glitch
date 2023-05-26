@@ -43,7 +43,6 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
 	  SLOT(deleteLater(void)));
   new QShortcut(tr("Ctrl+W"), this, SLOT(close(void)));
   resize(sizeHint());
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   setWindowModality(Qt::NonModal);
 }
 

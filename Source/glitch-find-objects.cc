@@ -109,7 +109,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
+  setWindowFlags(Qt::Dialog | windowFlags());
   QTimer::singleShot(100, this, SLOT(slotFind(void)));
 }
 
