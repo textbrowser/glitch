@@ -262,6 +262,18 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
 	map[list.at(0)] = QColor(list.at(1));
     }
 
+  if(m_ui.project_type->currentText() == tr("Arduino") && map.isEmpty())
+    {
+      QHashIterator<QString, QColor> it
+	(glitch_structures_arduino::defaultColors());
+
+      while(it.hasNext())
+	{
+	  it.next();
+	  map[it.key()] = it.value();
+	}
+    }
+
   QApplication::restoreOverrideCursor();
   return map;
 }
