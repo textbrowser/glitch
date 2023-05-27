@@ -2038,6 +2038,8 @@ void glitch_ui::slotSeparate(glitch_view *view)
   prepareStatusBar();
   prepareTabShortcuts();
   setWindowTitle(nullptr);
+  window->activateWindow();
+  window->raise();
 }
 
 void glitch_ui::slotShowAllStructures(void)
