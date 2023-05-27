@@ -726,6 +726,18 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 	map[list.at(0)] = QColor(list.at(1));
     }
 
+  if(m_ui.project_type->currentText() == tr("Arduino") && map.isEmpty())
+    {
+      QHashIterator<QString, QColor> it
+	(glitch_structures_arduino::defaultColors());
+
+      while(it.hasNext())
+	{
+	  it.next();
+	  map[it.key()] = it.value();
+	}
+    }
+
   m_ui.source_view_keywords->setSortingEnabled(false);
 
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
@@ -785,6 +797,11 @@ void glitch_canvas_settings::setProjectIDE(const QString &fileName)
 
 void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
 {
+  QHash<QString, QColor> colors;
+
+  if(m_ui.project_type->currentText() == tr("Arduino"))
+    colors = glitch_structures_arduino::defaultColors();
+
   m_ui.source_view_keywords->setRowCount(list.size());
   m_ui.source_view_keywords->setSortingEnabled(false);
 
@@ -798,6 +815,13 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
       item->setData(Qt::DecorationRole, QColor(item->text()));
       item->setFlags
 	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+
+      if(colors.contains(list.at(i)))
+	{
+	  item->setData(Qt::DecorationRole, colors.value(list.at(i)));
+	  item->setText(colors.value(list.at(i)).name());
+	}
+
       m_ui.source_view_keywords->setItem(i, 1, item);
     }
 
