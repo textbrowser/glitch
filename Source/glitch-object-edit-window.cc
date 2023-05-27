@@ -136,6 +136,8 @@ glitch_object_edit_window::glitch_object_edit_window
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
+  m_dockedWidgetPropertyEditors->resize
+    (m_dockedWidgetPropertyEditors->sizeHint());
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);

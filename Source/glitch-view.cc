@@ -73,6 +73,8 @@ glitch_view::glitch_view
   m_canvasSettings->setName(name);
   m_canvasSettings->prepare();
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
+  m_dockedWidgetPropertyEditors->resize
+    (m_dockedWidgetPropertyEditors->sizeHint());
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_fileName = fileName;
   m_generateSourceViewTimer.setInterval(250);
