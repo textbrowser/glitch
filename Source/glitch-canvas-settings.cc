@@ -38,6 +38,7 @@
 #include <QStandardPaths>
 #include <QStorageInfo>
 
+#include "Arduino/glitch-structures-arduino.h"
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
 #include "glitch-misc.h"
@@ -945,16 +946,30 @@ void glitch_canvas_settings::showPage(const Pages page)
 
 void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 {
+  QHash<QString, QColor> colors;
+
+  if(m_ui.project_type->currentText() == tr("Arduino"))
+    colors = glitch_structures_arduino::defaultColors();
+
   m_ui.source_view_keywords->setSortingEnabled(false);
 
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
     {
-      auto item = m_ui.source_view_keywords->item(i, 1);
+      auto item1 = m_ui.source_view_keywords->item(i, 0);
+      auto item2 = m_ui.source_view_keywords->item(i, 1);
 
-      if(item)
+      if(item1 && item2)
 	{
-	  item->setData(Qt::DecorationRole, QColor(Qt::black));
-	  item->setText(QColor(Qt::black).name());
+	  if(colors.contains(item1->text()))
+	    {
+	      item2->setData(Qt::DecorationRole, colors.value(item1->text()));
+	      item2->setText(colors.value(item1->text()).name());
+	    }
+	  else
+	    {
+	      item2->setData(Qt::DecorationRole, QColor(Qt::black));
+	      item2->setText(QColor(Qt::black).name());
+	    }
 	}
     }
 

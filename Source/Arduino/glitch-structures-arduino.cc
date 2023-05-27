@@ -68,6 +68,19 @@ QFrame *glitch_structures_arduino::frame(void) const
   return m_ui.frame;
 }
 
+QHash<QString, QColor> glitch_structures_arduino::defaultColors(void)
+{
+  QHash<QString, QColor> hash;
+
+  foreach(const auto &i, keywords())
+    if(i.endsWith("()"))
+      hash[i] = QColor("#cc6600");
+    else
+      hash[i] = QColor("#024f8b");
+
+  return hash;
+}
+
 QStringList glitch_structures_arduino::keywords(void)
 {
   QMapIterator<QString, QStringList> it(s_itemsForCategories);
