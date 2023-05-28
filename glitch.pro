@@ -203,6 +203,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-documentation.h \
                   Source/glitch-docked-container.h \
                   Source/glitch-find-objects.h \
+                  Source/glitch-find-objects-position-item.h \
                   Source/glitch-floating-context-menu.h \
                   Source/glitch-font-filter.h \
                   Source/glitch-graphicsview.h \

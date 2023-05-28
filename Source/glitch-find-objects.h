@@ -45,8 +45,9 @@ class glitch_find_objects: public QMainWindow
   enum class Columns
   {
     Object = 0,
-    Position,
-    Type
+    Position = 1,
+    Type = 2,
+    TypeTotal = 3
   };
 
   glitch_find_objects(QWidget *parent);
@@ -56,6 +57,7 @@ class glitch_find_objects: public QMainWindow
   void slotSynchronize(void);
 
  private:
+  QHash<QString, int> m_typeTotals;
   QPointer<glitch_view> m_view;
   Ui_glitch_find_objects m_ui;
   glitch_collapse_expand_tool_button *m_collapse;
@@ -67,6 +69,9 @@ class glitch_find_objects: public QMainWindow
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFind(void);
   void slotItemDoubleClicked(QTreeWidgetItem *i, int column);
+
+ signals:
+  void setTotals(const QHash<QString, int> &totals);
 };
 
 #endif

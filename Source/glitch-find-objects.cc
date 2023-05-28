@@ -29,56 +29,10 @@
 
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-find-objects.h"
+#include "glitch-find-objects-position-item.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
 #include "glitch-view.h"
-
-class glitch_find_objects_position_item: public QTreeWidgetItem
-{
- public:
-  glitch_find_objects_position_item(QTreeWidget *parent):QTreeWidgetItem(parent)
-  {
-  }
-
-  glitch_find_objects_position_item(QTreeWidgetItem *parent):
-    QTreeWidgetItem(parent)
-  {
-  }
-
-  QPointer<glitch_object> object(void) const
-  {
-    return m_object;
-  }
-
-  bool operator<(const QTreeWidgetItem &other) const
-  {
-    auto i = treeWidget()->sortColumn();
-
-    if(i == static_cast<int> (glitch_find_objects::Columns::Object) ||
-       i == static_cast<int> (glitch_find_objects::Columns::Type))
-      return other.text(i) > text(i);
-    else
-      {
-	auto list1
-	  (other.text(i).remove(' ').remove('(').remove(')').split(','));
-	auto list2(text(i).remove(' ').remove('(').remove(')').split(','));
-	auto x1 = list1.value(0).toInt();
-	auto x2 = list2.value(0).toInt();
-	auto y1 = list1.value(1).toInt();
-	auto y2 = list2.value(1).toInt();
-
-	return !(x1 < x2 || (x1 == x2 && y1 < y2));
-      }
-  }
-
-  void setObject(glitch_object *object)
-  {
-    m_object = object;
-  }
-
- private:
-  QPointer<glitch_object> m_object;
-};
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 {
@@ -127,11 +81,17 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
       {
 	auto item = new glitch_find_objects_position_item(i);
 
+	connect(this,
+		SIGNAL(setTotals(const QHash<QString, int> &)),
+		item,
+		SLOT(slotSetTotals(const QHash<QString, int> &)));
 	item->setObject(child);
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->objectType());
 	m_count += 1;
+	m_typeTotals[child->objectType()] = m_typeTotals.value
+	  (child->objectType(), 0) + 1;
 	find(item, child);
       }
 }
@@ -140,6 +100,7 @@ void glitch_find_objects::find(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_count = 0;
+  m_typeTotals.clear();
   m_ui.tree->clear();
 
   if(m_view)
@@ -149,6 +110,10 @@ void glitch_find_objects::find(void)
 	  {
 	    auto item = new glitch_find_objects_position_item(m_ui.tree);
 
+	    connect(this,
+		    SIGNAL(setTotals(const QHash<QString, int> &)),
+		    item,
+		    SLOT(slotSetTotals(const QHash<QString, int> &)));
 	    item->setObject(object);
 	    item->setText(static_cast<int> (Columns::Object), object->name());
 	    item->setText
@@ -156,9 +121,13 @@ void glitch_find_objects::find(void)
 	    item->setText
 	      (static_cast<int> (Columns::Type), object->objectType());
 	    m_count += 1;
+	    m_typeTotals[object->objectType()] =
+	      m_typeTotals.value(object->objectType(), 0) + 1;
 	    m_ui.tree->addTopLevelItem(item);
 	    find(item, object);
 	  }
+
+      emit setTotals(m_typeTotals);
     }
 
   if(m_collapse->isChecked())
@@ -212,10 +181,10 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
       proxy->ensureVisible();
       proxy->setSelected(true);
 
-      if(item->parent())
+      if(static_cast<QTreeWidgetItem *> (item)->parent())
 	{
 	  item = static_cast<glitch_find_objects_position_item *>
-	    (item->parent());
+	    (static_cast<QTreeWidgetItem *> (item)->parent());
 
 	  if(item && item->object())
 	    item->object()->showEditWindow();

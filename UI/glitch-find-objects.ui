@@ -83,6 +83,11 @@
         <string>Type</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Type Total</string>
+       </property>
+      </column>
      </widget>
     </item>
     <item>
