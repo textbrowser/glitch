@@ -310,10 +310,6 @@ void glitch_view_arduino::separate(void)
   reparent();
 }
 
-void glitch_view_arduino::showStructures(void)
-{
-}
-
 void glitch_view_arduino::slotCanvasSettingsChanged(const bool undo)
 {
   glitch_view::slotCanvasSettingsChanged(undo);
@@ -341,11 +337,6 @@ void glitch_view_arduino::slotPreferencesAccepted(void)
     ("preferences/docked_widget_property_editors", true).toBool();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
-}
-
-void glitch_view_arduino::slotShowStructures(void)
-{
-  showStructures();
 }
 
 void glitch_view_arduino::slotSilentSave(void)

@@ -679,7 +679,6 @@ void glitch_ui::parseCommandLineArguments(void)
 
   QString errors("");
   auto list(QApplication::arguments());
-  auto showArduinoStructures = false;
   auto showTools = false;
 
   for(int i = 1; i < list.size(); i++)
@@ -710,8 +709,7 @@ void glitch_ui::parseCommandLineArguments(void)
 	else
 	  m_delayedDiagrams << list.value(i);
       }
-    else if(list.at(i) == "--show-arduino-structures" ||
-	    list.at(i) == "--show-tools" ||
+    else if(list.at(i) == "--show-tools" ||
 	    list.at(i) == "--version")
       {
       }
@@ -721,15 +719,7 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
 
   for(int i = 1; i < list.size(); i++)
-    if(list.at(i) == "--show-arduino-structures")
-      {
-	if(!showArduinoStructures)
-	  {
-	    QTimer::singleShot(1500, this, &glitch_ui::slotShowAllStructures);
-	    showArduinoStructures = true;
-	  }
-      }
-    else if(list.at(i) == "--show-tools")
+    if(list.at(i) == "--show-tools")
       {
 	if(!showTools)
 	  {
@@ -2042,17 +2032,6 @@ void glitch_ui::slotSeparate(glitch_view *view)
   window->raise();
 }
 
-void glitch_ui::slotShowAllStructures(void)
-{
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  foreach(auto view, findChildren<glitch_view *> ())
-    if(view)
-      view->showStructures();
-
-  QApplication::restoreOverrideCursor();
-}
-
 void glitch_ui::slotShowAllTools(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -2142,14 +2121,6 @@ void glitch_ui::slotShowReleaseNotes(void)
   m_releaseNotes->showNormal();
   m_releaseNotes->activateWindow();
   m_releaseNotes->raise();
-}
-
-void glitch_ui::slotShowStructures(void)
-{
-  auto view = qobject_cast<glitch_view *> (m_ui.tab->currentWidget());
-
-  if(view)
-    view->showStructures();
 }
 
 void glitch_ui::slotShowTools(void)

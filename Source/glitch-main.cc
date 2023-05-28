@@ -55,7 +55,6 @@ int main(int argc, char *argv[])
 	std::cout << "--help" << std::endl;
 	std::cout << "--new-arduino-diagram diagram-name" << std::endl;
 	std::cout << "--open-arduino-diagram absolute-file-name" << std::endl;
-	std::cout << "--show-arduino-structures" << std::endl;
 	std::cout << "--show-tools" << std::endl;
 	std::cout << "--version" << std::endl;
 	return EXIT_SUCCESS;
