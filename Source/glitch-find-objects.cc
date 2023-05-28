@@ -127,7 +127,8 @@ void glitch_find_objects::find(void)
 	    find(item, object);
 	  }
 
-      emit setTotals(m_typeTotals);
+      if(!m_typeTotals.isEmpty())
+	emit setTotals(m_typeTotals);
     }
 
   if(m_collapse->isChecked())
