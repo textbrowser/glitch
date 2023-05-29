@@ -1533,21 +1533,31 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
     {
       QAction *action1 = nullptr;
       QAction *action2 = nullptr;
+      QAction *action3 = nullptr;
       auto menu = new QMenu(this);
       auto toolButton = new QToolButton(this);
 
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+      action1->setData("adjust-sizes");
       action2 = menu->addAction
 	(QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
+      action2->setData("compress-widgets");
+      action3 = menu->addAction
+	(QIcon(":/pin.png"), tr("(Un)lock Position(s)"));
+      action3->setData("lock-positions");
       connect(action1,
 	      &QAction::triggered,
 	      this,
-	      &glitch_ui::slotAdjustSizesTool);
+	      &glitch_ui::slotSpecialTools);
       connect(action2,
 	      &QAction::triggered,
 	      this,
-	      &glitch_ui::slotCompressWidgetsTool);
+	      &glitch_ui::slotSpecialTools);
+      connect(action3,
+	      &QAction::triggered,
+	      this,
+	      &glitch_ui::slotSpecialTools);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);

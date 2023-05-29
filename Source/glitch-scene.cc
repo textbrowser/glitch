@@ -1561,6 +1561,13 @@ void glitch_scene::slotSelectedWidgetsCompress(void)
       object->triggerAction(glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
 }
 
+void glitch_scene::slotSelectedWidgetsLock(void)
+{
+  foreach(auto object, selectedObjects())
+    if(object)
+      object->triggerAction(glitch_object::DefaultMenuActions::LOCK_POSITION);
+}
+
 void glitch_scene::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {

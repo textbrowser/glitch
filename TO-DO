@@ -295,7 +295,9 @@ Remaining Items
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Qt 6.5 LTS for Windows.
-- Reopen (or reparent) child windows after a separation event.
+- Reopen (or reparent) child windows after a separation event:
+  Find Objects (Completed)
+  Tools (Completed)
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.

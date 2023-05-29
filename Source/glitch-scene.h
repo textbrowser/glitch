@@ -117,6 +117,7 @@ class glitch_scene: public QGraphicsScene
  public slots:
   void slotSelectedWidgetsAdjustSize(void);
   void slotSelectedWidgetsCompress(void);
+  void slotSelectedWidgetsLock(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
  private slots:

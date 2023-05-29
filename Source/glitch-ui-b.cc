@@ -29,14 +29,22 @@
 #include "glitch-ui.h"
 #include "glitch-view.h"
 
-void glitch_ui::slotAdjustSizesTool(void)
+void glitch_ui::slotSpecialTools(void)
 {
-  if(m_currentView && m_currentView->scene())
-    m_currentView->scene()->slotSelectedWidgetsAdjustSize();
-}
+  auto action = qobject_cast<QAction *> (sender());
 
-void glitch_ui::slotCompressWidgetsTool(void)
-{
-  if(m_currentView && m_currentView->scene())
+  if(!action)
+    return;
+
+  if(!m_currentView || !m_currentView->scene())
+    return;
+
+  auto type(action->data().toString());
+
+  if(type == "adjust-sizes")
+    m_currentView->scene()->slotSelectedWidgetsAdjustSize();
+  else if(type == "compress-widgets")
     m_currentView->scene()->slotSelectedWidgetsCompress();
+  else if(type == "lock-positions")
+    m_currentView->scene()->slotSelectedWidgetsLock();
 }
