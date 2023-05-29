@@ -241,20 +241,30 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
 
   QAction *action1 = nullptr;
   QAction *action2 = nullptr;
+  QAction *action3 = nullptr;
   auto menu = new QMenu(this);
   auto toolButton = new QToolButton(this);
 
   action1 = menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+  action1->setData("adjust-sizes");
   action2 = menu->addAction
     (QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
+  action2->setData("compress-widgets");
+  action3 = menu->addAction
+    (QIcon(":/pin.png"), tr("(Un)lock Position(s)"));
+  action3->setData("lock-positions");
   connect(action1,
 	  &QAction::triggered,
 	  this,
-	  &glitch_object_edit_window::slotAdjustSizesTool);
+	  &glitch_object_edit_window::slotSpecialTools);
   connect(action2,
 	  &QAction::triggered,
 	  this,
-	  &glitch_object_edit_window::slotCompressWidgetsTool);
+	  &glitch_object_edit_window::slotSpecialTools);
+  connect(action3,
+	  &QAction::triggered,
+	  this,
+	  &glitch_object_edit_window::slotSpecialTools);
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setIcon(QIcon(":/tools.png"));
   toolButton->setMenu(menu);
@@ -468,18 +478,6 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
        arg(m_editView->scene()->selectedItems().size()));
 }
 
-void glitch_object_edit_window::slotAdjustSizesTool(void)
-{
-  if(m_editView && m_editView->scene())
-    m_editView->scene()->slotSelectedWidgetsAdjustSize();
-}
-
-void glitch_object_edit_window::slotCompressWidgetsTool(void)
-{
-  if(m_editView && m_editView->scene())
-    m_editView->scene()->slotSelectedWidgetsCompress();
-}
-
 void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)
 {
   m_dockedWidgetPropertyEditors->add
@@ -517,6 +515,26 @@ void glitch_object_edit_window::slotShowFullScreenMode(void)
       m_actions.value("screen mode")->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_object_edit_window::slotSpecialTools(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  if(!m_editView || !m_editView->scene())
+    return;
+
+  auto type(action->data().toString());
+
+  if(type == "adjust-sizes")
+    m_editView->scene()->slotSelectedWidgetsAdjustSize();
+  else if(type == "compress-widgets")
+    m_editView->scene()->slotSelectedWidgetsCompress();
+  else if(type == "lock-positions")
+    m_editView->scene()->slotSelectedWidgetsLock();
 }
 
 void glitch_object_edit_window::slotSplitterMoved(void)
