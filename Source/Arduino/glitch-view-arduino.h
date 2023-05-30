@@ -54,7 +54,6 @@ class glitch_view_arduino: public glitch_view
   glitch_object_loop_arduino *loopObject(void) const;
   glitch_object_setup_arduino *setupObject(void) const;
   void consumeFunctionName(const QString &name);
-  void generateSourceFile(void) const;
   void removeFunctionName(const QString &name);
   void separate(void);
   void unite(void);
@@ -68,6 +67,8 @@ class glitch_view_arduino: public glitch_view
   glitch_object_setup_arduino *m_setupObject;
   glitch_structures_arduino *m_arduinoStructures;
   void generateSource(QTextStream &stream) const;
+  void generateSourceClipboard(void) const;
+  void generateSourceFile(void) const;
 
  private slots:
   void slotCanvasSettingsChanged(const bool undo);

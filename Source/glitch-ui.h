@@ -109,6 +109,7 @@ class glitch_ui: public QMainWindow
 
  private slots:
   void slotAbout(void);
+  void slotAboutToShowProjectMenu(void);
   void slotAboutToShowTabsMenu(void);
   void slotArduinoViewDestroyed(void);
   void slotClearCopiedWidgetsBuffer(void);
@@ -125,6 +126,7 @@ class glitch_ui: public QMainWindow
   void slotFind(void);
   void slotForgetRecentDiagram(void);
   void slotGenerateSource(void);
+  void slotGenerateSourceClipboard(void);
   void slotGenerateSourceView(void);
   void slotNewArduinoDiagram(void);
   void slotOpenDiagram(void);

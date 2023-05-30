@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QClipboard>
 #include <QFile>
 #include <QSettings>
 #include <QSplitter>
@@ -275,6 +276,14 @@ void glitch_view_arduino::generateSource(QTextStream &stream) const
 	 << Qt::endl
 #endif
 	 << m_setupObject->code();
+}
+
+void glitch_view_arduino::generateSourceClipboard(void) const
+{
+  auto clipboard = QApplication::clipboard();
+
+  if(clipboard)
+    clipboard->setText(source());
 }
 
 void glitch_view_arduino::generateSourceFile(void) const

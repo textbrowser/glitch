@@ -181,6 +181,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotGenerateSource);
+  connect(m_ui.action_Generate_Source_Clipboard,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotGenerateSourceClipboard);
   connect(m_ui.action_Generate_Source_View,
 	  &QAction::triggered,
 	  this,
@@ -245,6 +249,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotViewToolBars);
+  connect(m_ui.menu_Project,
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_ui::slotAboutToShowProjectMenu);
   connect(m_ui.menu_Tabs,
 	  &QMenu::aboutToShow,
 	  this,
@@ -890,6 +898,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Diagram_Context_Menu->setEnabled(false);
       m_ui.action_Find->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
+      m_ui.action_Generate_Source_Clipboard->setEnabled(false);
       m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
@@ -911,6 +920,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
+      m_ui.action_Generate_Source_Clipboard->setEnabled(m_currentView);
       m_ui.action_Generate_Source_View->setEnabled(m_currentView);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Save_Current_Diagram->setEnabled(m_currentView);

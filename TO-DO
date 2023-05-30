@@ -137,6 +137,7 @@ Completed Items
   a defined function. All duplicate instances should be duplicates of a single
   definition.
 - Generate periodically.
+- Generate to clipboard buffer.
 - Generate view.
 - Group delete.
 - Hide alignment options.
@@ -290,7 +291,6 @@ Remaining Items
 - Custom shortcuts.
 - Docked User Functions.
 - Generate source from terminal for testing results.
-- Generate to clipboard buffer.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

@@ -29,6 +29,17 @@
 #include "glitch-ui.h"
 #include "glitch-view.h"
 
+void glitch_ui::slotAboutToShowProjectMenu(void)
+{
+  m_ui.action_Generate_Source_Clipboard->setEnabled(QApplication::clipboard());
+}
+
+void glitch_ui::slotGenerateSourceClipboard(void)
+{
+  if(m_currentView)
+    m_currentView->generateSourceClipboard();
+}
+
 void glitch_ui::slotSpecialTools(void)
 {
   auto action = qobject_cast<QAction *> (sender());

@@ -95,6 +95,7 @@ class glitch_view: public QWidget
   virtual QString source(void) const;
   virtual QStringList keywords(void) const = 0;
   virtual bool open(const QString &fileName, QString &error);
+  virtual void generateSourceClipboard(void) const;
   virtual void generateSourceFile(void) const;
   virtual void separate(void) = 0;
   virtual void unite(void) = 0;

@@ -919,6 +919,10 @@ void glitch_view::generateSource(QTextStream &stream) const
     ;
 }
 
+void glitch_view::generateSourceClipboard(void) const
+{
+}
+
 void glitch_view::generateSourceFile(void) const
 {
 }

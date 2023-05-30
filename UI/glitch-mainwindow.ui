@@ -128,8 +128,10 @@
     <property name="title">
      <string>&amp;Project</string>
     </property>
+    <addaction name="action_Generate_Source_Clipboard"/>
     <addaction name="action_Generate_Source"/>
     <addaction name="action_Generate_Source_View"/>
+    <addaction name="separator"/>
     <addaction name="action_Show_Project_IDE"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
@@ -314,7 +316,7 @@
   </action>
   <action name="action_Generate_Source">
    <property name="text">
-    <string>&amp;Generate Source</string>
+    <string>&amp;Generate Source (File)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>
@@ -385,6 +387,11 @@
   <action name="action_Generate_Source_View">
    <property name="text">
     <string>Generate Source View...</string>
+   </property>
+  </action>
+  <action name="action_Generate_Source_Clipboard">
+   <property name="text">
+    <string>Generate Source (Clipboard)</string>
    </property>
   </action>
  </widget>
