@@ -217,21 +217,31 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 
       QAction *action1 = nullptr;
       QAction *action2 = nullptr;
+      QAction *action3 = nullptr;
       auto menu = new QMenu(this);
       auto toolButton = new QToolButton(this);
 
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
+      action1->setData("adjust-sizes");
       action2 = menu->addAction
 	(QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
+      action2->setData("compress-widgets");
+      action3 = menu->addAction
+	(QIcon(":/pin.png"), tr("(Un)lock Position(s)"));
+      action3->setData("lock-positions");
       connect(action1,
 	      &QAction::triggered,
 	      this,
-	      &glitch_separated_diagram_window::slotAdjustSizesTool);
+	      &glitch_separated_diagram_window::slotSpecialTools);
       connect(action2,
 	      &QAction::triggered,
 	      this,
-	      &glitch_separated_diagram_window::slotCompressWidgetsTool);
+	      &glitch_separated_diagram_window::slotSpecialTools);
+      connect(action3,
+	      &QAction::triggered,
+	      this,
+	      &glitch_separated_diagram_window::slotSpecialTools);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);
@@ -313,18 +323,6 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       prepareToolBar();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
-}
-
-void glitch_separated_diagram_window::slotAdjustSizesTool(void)
-{
-  if(m_view && m_view->scene())
-    m_view->scene()->slotSelectedWidgetsAdjustSize();
-}
-
-void glitch_separated_diagram_window::slotCompressWidgetsTool(void)
-{
-  if(m_view && m_view->scene())
-    m_view->scene()->slotSelectedWidgetsCompress();
 }
 
 void glitch_separated_diagram_window::slotCopy(void)
@@ -471,6 +469,26 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
     }
+}
+
+void glitch_separated_diagram_window::slotSpecialTools(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  if(!m_view || !m_view->scene())
+    return;
+
+  auto type(action->data().toString());
+
+  if(type == "adjust-sizes")
+    m_view->scene()->slotSelectedWidgetsAdjustSize();
+  else if(type == "compress-widgets")
+    m_view->scene()->slotSelectedWidgetsCompress();
+  else if(type == "lock-positions")
+    m_view->scene()->slotSelectedWidgetsLock();
 }
 
 void glitch_separated_diagram_window::slotStatusBarTimerTimeout(void)

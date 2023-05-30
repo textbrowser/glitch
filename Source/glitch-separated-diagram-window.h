@@ -59,8 +59,6 @@ class glitch_separated_diagram_window: public QMainWindow
   void prepareToolBar(void);
 
  private slots:
-  void slotAdjustSizesTool(void);
-  void slotCompressWidgetsTool(void);
   void slotCopy(void);
   void slotDelete(void);
   void slotFind(void);
@@ -74,6 +72,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotSelectAll(void);
   void slotSelectionChanged(void);
   void slotShowContextMenu(void);
+  void slotSpecialTools(void);
   void slotStatusBarTimerTimeout(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
