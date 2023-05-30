@@ -59,6 +59,7 @@
     <property name="title">
      <string>&amp;Generate</string>
     </property>
+    <addaction name="action_Generate_Source_Clipboard"/>
     <addaction name="action_Generate_Source"/>
     <addaction name="action_Generate_Source_View"/>
    </widget>
@@ -142,7 +143,7 @@
   </action>
   <action name="action_Generate_Source">
    <property name="text">
-    <string>&amp;Source</string>
+    <string>&amp;Source (File)</string>
    </property>
   </action>
   <action name="action_Context_Menu">
@@ -174,6 +175,11 @@
   <action name="action_Generate_Source_View">
    <property name="text">
     <string>Source View...</string>
+   </property>
+  </action>
+  <action name="action_Generate_Source_Clipboard">
+   <property name="text">
+    <string>Source (Clipboard)</string>
    </property>
   </action>
  </widget>

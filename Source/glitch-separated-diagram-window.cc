@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QClipboard>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QSettings>
@@ -68,6 +69,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotGenerateSource);
+  connect(m_ui.action_Generate_Source_Clipboard,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotGenerateSourceClipboard);
   connect(m_ui.action_Generate_Source_View,
 	  &QAction::triggered,
 	  this,
@@ -376,6 +381,17 @@ void glitch_separated_diagram_window::slotGenerateSource(void)
 	  statusBar()->showMessage("");
 	  statusBar()->repaint();
 	}
+    }
+}
+
+void glitch_separated_diagram_window::slotGenerateSourceClipboard(void)
+{
+  if(m_view)
+    {
+      auto clipboard = QApplication::clipboard();
+
+      if(clipboard)
+	clipboard->setText(m_view->source());
     }
 }
 
