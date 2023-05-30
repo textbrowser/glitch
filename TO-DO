@@ -302,6 +302,7 @@ Remaining Items
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
 - Snap-to-visible-grid.
+- Unique widget colors.
 - Warn of recursive functions.
 - Windows 10, 11, etc. Deprecate Windows 7.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
