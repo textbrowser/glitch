@@ -105,7 +105,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
      QUrl::fromUserInput("https://raw.githubusercontent.com/"
 			 "textbrowser/glitch/master/Source/glitch-version.h"),
      this);
-  m_swifty->download();
   m_ui.setupUi(this);
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
@@ -274,6 +273,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+  m_swifty->download();
 #ifndef GLITCH_PDF_SUPPORTED
   m_ui.action_Arduino_Documentation->setEnabled(false);
 #endif
