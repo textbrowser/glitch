@@ -52,7 +52,7 @@ class glitch_object_advanced_io_arduino:
 
   QStringList parameters(void) const
   {
-    switch(m_ioType)
+    switch(stringToIOType(m_text))
       {
       case Type::NO_TONE:
       default:
@@ -102,11 +102,10 @@ class glitch_object_advanced_io_arduino:
   };
 
   glitch_object_advanced_io_arduino(const qint64 id, QWidget *parent);
-  Type m_ioType;
 
   QString ioTypeToString(void) const
   {
-    switch(m_ioType)
+    switch(stringToIOType(m_text))
       {
       case Type::NO_TONE:
 	{

@@ -31,9 +31,7 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
 (const QString &ioType, QWidget *parent):
   glitch_object_advanced_io_arduino(1, parent)
 {
-  m_ioType = stringToIOType(ioType);
-
-  switch(m_ioType)
+  switch(stringToIOType(ioType))
     {
     case Type::NO_TONE:
       {
@@ -97,7 +95,7 @@ glitch_object_advanced_io_arduino::~glitch_object_advanced_io_arduino()
 
 QString glitch_object_advanced_io_arduino::code(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::PULSE_IN:
       {
@@ -164,9 +162,11 @@ bool glitch_object_advanced_io_arduino::hasInput(void) const
 
 bool glitch_object_advanced_io_arduino::hasOutput(void) const
 {
-  if(m_ioType == Type::PULSE_IN ||
-     m_ioType == Type::PULSE_IN_LONG ||
-     m_ioType == Type::SHIFT_IN)
+  auto ioType = stringToIOType(m_text);
+
+  if(ioType == Type::PULSE_IN ||
+     ioType == Type::PULSE_IN_LONG ||
+     ioType == Type::SHIFT_IN)
     return true;
   else
     return false;
@@ -174,7 +174,7 @@ bool glitch_object_advanced_io_arduino::hasOutput(void) const
 
 bool glitch_object_advanced_io_arduino::isFullyWired(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::PULSE_IN:
       {
@@ -205,7 +205,7 @@ bool glitch_object_advanced_io_arduino::isFullyWired(void) const
 
 bool glitch_object_advanced_io_arduino::shouldPrint(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::PULSE_IN:
     case Type::PULSE_IN_LONG:
@@ -232,7 +232,6 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
-  clone->m_ioType = m_ioType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
@@ -254,8 +253,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ioType = stringToIOType
-    (object->m_properties.value(Properties::ADVANCED_IO_TYPE).toString());
   return object;
 }
 
@@ -307,8 +304,6 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 	}
     }
 
-  m_ioType = stringToIOType
-    (m_properties.value(Properties::ADVANCED_IO_TYPE).toString());
   m_text = m_properties.value(Properties::ADVANCED_IO_TYPE).toString();
   setName(m_properties.value(Properties::ADVANCED_IO_TYPE).toString());
 }
@@ -322,7 +317,6 @@ void glitch_object_advanced_io_arduino::setProperty
     {
     case Properties::ADVANCED_IO_TYPE:
       {
-	m_ioType = stringToIOType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;
