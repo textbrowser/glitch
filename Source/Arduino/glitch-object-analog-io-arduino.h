@@ -63,11 +63,10 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
   };
 
   glitch_object_analog_io_arduino(const qint64 id, QWidget *parent);
-  Type m_ioType;
 
   QString ioTypeToString(void) const
   {
-    switch(m_ioType)
+    switch(stringToIOType(m_text))
       {
       case Type::READ_RESOLUTION:
 	{
