@@ -69,7 +69,6 @@ class glitch_object_mathematics_arduino:
   };
 
   glitch_object_mathematics_arduino(const qint64 id, QWidget *parent);
-  Type m_mathematicsType;
 
   QString mathematicsTypeToString(const Type type) const
   {

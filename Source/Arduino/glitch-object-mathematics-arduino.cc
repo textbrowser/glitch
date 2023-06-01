@@ -33,8 +33,8 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 (const QString &mathematicsType, QWidget *parent):
   glitch_object_mathematics_arduino(1, parent)
 {
-  m_mathematicsType = stringToMathematicsType(mathematicsType);
-  m_text = QString("%1()").arg(mathematicsTypeToString(m_mathematicsType));
+  m_text = QString("%1()").arg
+    (mathematicsTypeToString(stringToMathematicsType(mathematicsType)));
   m_properties[Properties::MATHEMATICS_TYPE] = m_text;
   setName(m_text);
 }
@@ -61,7 +61,7 @@ glitch_object_mathematics_arduino::~glitch_object_mathematics_arduino()
 
 QString glitch_object_mathematics_arduino::code(void) const
 {
-  switch(m_mathematicsType)
+  switch(stringToMathematicsType(m_text))
     {
     case Type::ABS:
       {
@@ -128,7 +128,7 @@ bool glitch_object_mathematics_arduino::hasOutput(void) const
 
 bool glitch_object_mathematics_arduino::isFullyWired(void) const
 {
-  switch(m_mathematicsType)
+  switch(stringToMathematicsType(m_text))
     {
     case Type::ABS:
       {
@@ -177,14 +177,12 @@ bool glitch_object_mathematics_arduino::shouldPrint(void) const
 glitch_object_mathematics_arduino *glitch_object_mathematics_arduino::
 clone(QWidget *parent) const
 {
-  auto clone = new glitch_object_mathematics_arduino
-    (mathematicsTypeToString(m_mathematicsType), parent);
+  auto clone = new glitch_object_mathematics_arduino(m_text, parent);
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_mathematicsType = m_mathematicsType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -204,8 +202,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_mathematicsType = stringToMathematicsType
-    (object->m_properties.value(Properties::MATHEMATICS_TYPE).toString());
   return object;
 }
 
@@ -243,8 +239,6 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 	}
     }
 
-  m_mathematicsType = stringToMathematicsType
-    (m_properties.value(Properties::MATHEMATICS_TYPE).toString());
   m_text = m_properties.value(Properties::MATHEMATICS_TYPE).toString();
   setName(m_properties.value(Properties::MATHEMATICS_TYPE).toString());
 }
@@ -258,7 +252,6 @@ void glitch_object_mathematics_arduino::setProperty
     {
     case Properties::MATHEMATICS_TYPE:
       {
-	m_mathematicsType = stringToMathematicsType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;
