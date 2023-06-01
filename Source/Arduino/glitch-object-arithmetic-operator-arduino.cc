@@ -47,10 +47,9 @@ glitch_object_arithmetic_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_functionsList << "-" << "*" << "/" << "%" << "+";
-  m_operatorType = OperatorTypes::ADDITION_OPERATOR;
   m_type = "arduino-arithmeticoperator";
   prepareContextMenu();
-  setOperatorType(m_operatorType);
+  setOperatorType(OperatorTypes::ADDITION_OPERATOR);
 }
 
 glitch_object_arithmetic_operator_arduino::
@@ -66,26 +65,20 @@ arithmeticOperator(void) const
 
 QString glitch_object_arithmetic_operator_arduino::code(void) const
 {
-  switch(m_operatorType)
+  QString string("(");
+  auto list(inputs());
+
+  for(int i = 0; i < list.size(); i++)
     {
-    default:
-      {
-	QString string("(");
-	auto list(inputs());
+      string.append(QString("(%1)").arg(list.at(i)));
 
-	for(int i = 0; i < list.size(); i++)
-	  {
-	    string.append(QString("(%1)").arg(list.at(i)));
-
-	    if(i != list.size() - 1)
-	      string.append(QString(" %1 ").arg(m_text));
-	  }
-
-	string = string.trimmed();
-	string.append(")");
-	return string;
-      }
+      if(i != list.size() - 1)
+	string.append(QString(" %1 ").arg(m_text));
     }
+
+  string = string.trimmed();
+  string.append(")");
+  return string;
 }
 
 bool glitch_object_arithmetic_operator_arduino::hasInput(void) const
@@ -100,13 +93,7 @@ bool glitch_object_arithmetic_operator_arduino::hasOutput(void) const
 
 bool glitch_object_arithmetic_operator_arduino::isFullyWired(void) const
 {
-  switch(m_operatorType)
-    {
-    default:
-      {
-	return false;
-      }
-    }
+  return false;
 }
 
 bool glitch_object_arithmetic_operator_arduino::shouldPrint(void) const
@@ -126,7 +113,7 @@ glitch_object_arithmetic_operator_arduino::clone(QWidget *parent) const
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
-  clone->setOperatorType(m_operatorType);
+  clone->setOperatorType(m_text);
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -181,9 +168,7 @@ void glitch_object_arithmetic_operator_arduino::setOperatorType
 void glitch_object_arithmetic_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
-  m_operatorType = operatorType;
-
-  switch(m_operatorType)
+  switch(operatorType)
     {
     case OperatorTypes::ADDITION_OPERATOR:
       {
