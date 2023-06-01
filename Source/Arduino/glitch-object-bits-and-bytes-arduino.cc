@@ -75,7 +75,6 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
       }
     }
 
-  m_properties[Properties::BITS_AND_BYTES_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -265,8 +264,9 @@ void glitch_object_bits_and_bytes_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::BITS_AND_BYTES_TYPE] = "bit()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+
+  QString function("bit()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -292,12 +292,13 @@ void glitch_object_bits_and_bytes_arduino::setProperties
 	  else
 	    string = "bit()";
 
-	  m_properties[Properties::BITS_AND_BYTES_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_text = m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString();
-  setName(m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_bits_and_bytes_arduino::setProperty

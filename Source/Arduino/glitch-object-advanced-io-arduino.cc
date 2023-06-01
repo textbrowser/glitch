@@ -70,7 +70,6 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
       }
     }
 
-  m_properties[Properties::ADVANCED_IO_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -273,8 +272,9 @@ void glitch_object_advanced_io_arduino::save
 void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::ADVANCED_IO_TYPE] = "noTone()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+
+  QString function("noTone()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -300,12 +300,13 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "noTone()";
 
-	  m_properties[Properties::ADVANCED_IO_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_text = m_properties.value(Properties::ADVANCED_IO_TYPE).toString();
-  setName(m_properties.value(Properties::ADVANCED_IO_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_advanced_io_arduino::setProperty

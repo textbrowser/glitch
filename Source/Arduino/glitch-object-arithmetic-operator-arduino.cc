@@ -39,7 +39,6 @@ glitch_object_arithmetic_operator_arduino
   glitch_object_arithmetic_operator_arduino(1, parent)
 {
   setOperatorType(operatorType);
-  m_properties[Properties::ARITHMETIC_OPERATOR] = m_text;
 }
 
 glitch_object_arithmetic_operator_arduino::
@@ -209,8 +208,9 @@ void glitch_object_arithmetic_operator_arduino::setProperties
 (const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::ARITHMETIC_OPERATOR] = "+";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+
+  QString function("+");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -220,12 +220,12 @@ void glitch_object_arithmetic_operator_arduino::setProperties
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::ARITHMETIC_OPERATOR] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  setOperatorType
-    (m_properties.value(Properties::ARITHMETIC_OPERATOR).toString());
+  setOperatorType(function);
 }
 
 void glitch_object_arithmetic_operator_arduino::setProperty
@@ -237,7 +237,8 @@ void glitch_object_arithmetic_operator_arduino::setProperty
     {
     case Properties::ARITHMETIC_OPERATOR:
       {
-	setOperatorType(value.toString());
+	m_text = value.toString();
+	setOperatorType(m_text);
 	break;
       }
     default:

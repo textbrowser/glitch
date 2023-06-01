@@ -35,7 +35,6 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 {
   m_text = QString("%1()").arg
     (mathematicsTypeToString(stringToMathematicsType(mathematicsType)));
-  m_properties[Properties::MATHEMATICS_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -223,7 +222,8 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::MATHEMATICS_TYPE] = "abs()";
+
+  QString function("abs()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -235,12 +235,13 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  string = mathematicsTypeToString(stringToMathematicsType(string));
 	  string = QString("%1()").arg(string);
-	  m_properties[Properties::MATHEMATICS_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_text = m_properties.value(Properties::MATHEMATICS_TYPE).toString();
-  setName(m_properties.value(Properties::MATHEMATICS_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_mathematics_arduino::setProperty
