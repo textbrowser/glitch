@@ -31,9 +31,7 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 (const QString &babType, QWidget *parent):
   glitch_object_bits_and_bytes_arduino(1, parent)
 {
-  m_babType = stringToType(babType);
-
-  switch(m_babType)
+  switch(stringToType(babType))
     {
     case BIT:
       {
@@ -102,7 +100,7 @@ glitch_object_bits_and_bytes_arduino::~glitch_object_bits_and_bytes_arduino()
 
 QString glitch_object_bits_and_bytes_arduino::code(void) const
 {
-  switch(m_babType)
+  switch(stringToType(m_text))
     {
     case Type::BIT:
       {
@@ -155,7 +153,9 @@ bool glitch_object_bits_and_bytes_arduino::hasInput(void) const
 
 bool glitch_object_bits_and_bytes_arduino::hasOutput(void) const
 {
-  if(m_babType == Type::BIT_SET || m_babType == Type::BIT_WRITE)
+  auto babType = stringToType(m_text);
+
+  if(babType == Type::BIT_SET || babType == Type::BIT_WRITE)
     return false;
   else
     return true;
@@ -163,7 +163,7 @@ bool glitch_object_bits_and_bytes_arduino::hasOutput(void) const
 
 bool glitch_object_bits_and_bytes_arduino::isFullyWired(void) const
 {
-  switch(m_babType)
+  switch(stringToType(m_text))
     {
     case Type::BIT:
       {
@@ -202,7 +202,7 @@ bool glitch_object_bits_and_bytes_arduino::isFullyWired(void) const
 
 bool glitch_object_bits_and_bytes_arduino::shouldPrint(void) const
 {
-  switch(m_babType)
+  switch(stringToType(m_text))
     {
     case Type::BIT_SET:
     case Type::BIT_WRITE:
@@ -223,7 +223,6 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
-  clone->m_babType = m_babType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
@@ -245,8 +244,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_babType = stringToType
-    (object->m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
   return object;
 }
 
@@ -299,8 +296,6 @@ void glitch_object_bits_and_bytes_arduino::setProperties
 	}
     }
 
-  m_babType = stringToType
-    (m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
   m_text = m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString();
   setName(m_properties.value(Properties::BITS_AND_BYTES_TYPE).toString());
 }
@@ -314,7 +309,6 @@ void glitch_object_bits_and_bytes_arduino::setProperty
     {
     case Properties::BITS_AND_BYTES_TYPE:
       {
-	m_babType = stringToType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;

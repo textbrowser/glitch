@@ -70,7 +70,6 @@ class glitch_object_bitwise_operator_arduino:
  private:
   glitch_object_bitwise_operator_arduino(QWidget *parent);
   glitch_object_bitwise_operator_arduino(const qint64 id, QWidget *parent);
-  OperatorTypes m_operatorType;
   void setOperatorType(const OperatorTypes operatorType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);

@@ -67,11 +67,10 @@ class glitch_object_bits_and_bytes_arduino:
   };
 
   glitch_object_bits_and_bytes_arduino(const qint64 id, QWidget *parent);
-  Type m_babType;
 
   QString typeToString(void) const
   {
-    switch(m_babType)
+    switch(stringToType(m_text))
       {
       case Type::BIT:
 	{

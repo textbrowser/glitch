@@ -47,10 +47,9 @@ glitch_object_bitwise_operator_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
   m_functionsList << "&" << "^" << "<<" << ">>" << "|" << "~";
-  m_operatorType = OperatorTypes::AND_OPERATOR;
   m_type = "arduino-bitwiseoperator";
   prepareContextMenu();
-  setOperatorType(m_operatorType);
+  setOperatorType(m_text);
   m_properties[Properties::BITWISE_OPERATOR] = m_text;
 }
 
@@ -59,37 +58,31 @@ glitch_object_bitwise_operator_arduino::
 {
 }
 
-QString glitch_object_bitwise_operator_arduino::
-bitwiseOperator(void) const
+QString glitch_object_bitwise_operator_arduino::bitwiseOperator(void) const
 {
   return m_text;
 }
 
 QString glitch_object_bitwise_operator_arduino::code(void) const
 {
-  switch(m_operatorType)
+  if(m_text == "~")
+    return QString("~(%1)").arg(inputs().value(0));
+  else
     {
-    case OperatorTypes::NOT_OPERATOR:
-      {
-	return QString("~(%1)").arg(inputs().value(0));
-      }
-    default:
-      {
-	QString string("(");
-	auto list(inputs());
+      QString string("(");
+      auto list(inputs());
 
-	for(int i = 0; i < list.size(); i++)
-	  {
-	    string.append(QString("(%1)").arg(list.at(i)));
+      for(int i = 0; i < list.size(); i++)
+	{
+	  string.append(QString("(%1)").arg(list.at(i)));
 
-	    if(i != list.size() - 1)
-	      string.append(QString(" %1 ").arg(m_text));
-	  }
+	  if(i != list.size() - 1)
+	    string.append(QString(" %1 ").arg(m_text));
+	}
 
-	string = string.trimmed();
-	string.append(")");
-	return string;
-      }
+      string = string.trimmed();
+      string.append(")");
+      return string;
     }
 }
 
@@ -105,17 +98,10 @@ bool glitch_object_bitwise_operator_arduino::hasOutput(void) const
 
 bool glitch_object_bitwise_operator_arduino::isFullyWired(void) const
 {
-  switch(m_operatorType)
-    {
-    case OperatorTypes::NOT_OPERATOR:
-      {
-	return inputs().size() >= 1;
-      }
-    default:
-      {
-	return false;
-      }
-    }
+  if(m_text == "~")
+    return inputs().size() >= 1;
+  else
+    return false;
 }
 
 bool glitch_object_bitwise_operator_arduino::shouldPrint(void) const
@@ -135,7 +121,7 @@ glitch_object_bitwise_operator_arduino::clone(QWidget *parent) const
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
-  clone->setOperatorType(m_operatorType);
+  clone->setOperatorType(m_text);
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -193,9 +179,7 @@ void glitch_object_bitwise_operator_arduino::setOperatorType
 void glitch_object_bitwise_operator_arduino::setOperatorType
 (const OperatorTypes operatorType)
 {
-  m_operatorType = operatorType;
-
-  switch(m_operatorType)
+  switch(operatorType)
     {
     case OperatorTypes::AND_OPERATOR:
       {
