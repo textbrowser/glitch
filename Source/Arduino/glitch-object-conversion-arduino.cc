@@ -38,7 +38,6 @@ glitch_object_conversion_arduino
   glitch_object_conversion_arduino(1, parent)
 {
   setConversionType(conversionType);
-  m_properties[Properties::CONVERSION] = m_text;
 }
 
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
@@ -56,7 +55,6 @@ glitch_object_conversion_arduino::glitch_object_conversion_arduino
   m_type = "arduino-conversion";
   prepareContextMenu();
   setConversionType(m_conversionType);
-  m_properties[Properties::CONVERSION] = m_text;
 }
 
 glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
@@ -246,7 +244,8 @@ void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::CONVERSION] = "(unsigned int)";
+
+  QString function("(unsigned int)");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -256,11 +255,13 @@ void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::CONVERSION] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  setConversionType(m_properties.value(Properties::CONVERSION).toString());
+  m_text = function;
+  setConversionType(m_text);
 }
 
 void glitch_object_conversion_arduino::setProperty
