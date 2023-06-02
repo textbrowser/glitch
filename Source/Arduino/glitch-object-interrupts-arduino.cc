@@ -31,9 +31,8 @@ glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
 (const QString &interruptsType, QWidget *parent):
   glitch_object_interrupts_arduino(1, parent)
 {
-  m_interruptsType = stringToInterruptsType(interruptsType);
-  m_text = QString("%1()").arg(interruptsTypeToString(m_interruptsType));
-  m_properties[Properties::INTERRUPTS_TYPE] = m_text;
+  m_text = QString("%1()").arg
+    (interruptsTypeToString(stringToInterruptsType(interruptsType)));
   setName(m_text);
 }
 
@@ -55,7 +54,7 @@ glitch_object_interrupts_arduino::~glitch_object_interrupts_arduino()
 
 QString glitch_object_interrupts_arduino::code(void) const
 {
-  switch(m_interruptsType)
+  switch(stringToInterruptsType(m_text))
     {
     case Type::ATTACH_INTERRUPT:
     default:
@@ -82,7 +81,7 @@ QString glitch_object_interrupts_arduino::code(void) const
 
 bool glitch_object_interrupts_arduino::hasInput(void) const
 {
-  switch(m_interruptsType)
+  switch(stringToInterruptsType(m_text))
     {
     case Type::ATTACH_INTERRUPT:
     case Type::DETACH_INTERRUPT:
@@ -103,7 +102,7 @@ bool glitch_object_interrupts_arduino::hasOutput(void) const
 
 bool glitch_object_interrupts_arduino::isFullyWired(void) const
 {
-  switch(m_interruptsType)
+  switch(stringToInterruptsType(m_text))
     {
     case Type::ATTACH_INTERRUPT:
       {
@@ -129,13 +128,12 @@ glitch_object_interrupts_arduino *glitch_object_interrupts_arduino::
 clone(QWidget *parent) const
 {
   auto clone = new glitch_object_interrupts_arduino
-    (interruptsTypeToString(m_interruptsType), parent);
+    (interruptsTypeToString(stringToInterruptsType(m_text)), parent);
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_interruptsType = m_interruptsType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -155,8 +153,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_interruptsType = stringToInterruptsType
-    (object->m_properties.value(Properties::INTERRUPTS_TYPE).toString());
   return object;
 }
 
@@ -178,7 +174,8 @@ void glitch_object_interrupts_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::INTERRUPTS_TYPE] = "attachInterrupt()";
+
+  QString function("attachInterrupt()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -190,14 +187,13 @@ void glitch_object_interrupts_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  string = interruptsTypeToString(stringToInterruptsType(string));
 	  string = QString("%1()").arg(string);
-	  m_properties[Properties::INTERRUPTS_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_interruptsType = stringToInterruptsType
-    (m_properties.value(Properties::INTERRUPTS_TYPE).toString());
-  m_text = m_properties.value(Properties::INTERRUPTS_TYPE).toString();
-  setName(m_properties.value(Properties::INTERRUPTS_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_interrupts_arduino::setProperty
@@ -209,7 +205,6 @@ void glitch_object_interrupts_arduino::setProperty
     {
     case Properties::INTERRUPTS_TYPE:
       {
-	m_interruptsType = stringToInterruptsType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;

@@ -65,7 +65,6 @@ class glitch_object_interrupts_arduino:
   };
 
   glitch_object_interrupts_arduino(const qint64 id, QWidget *parent);
-  Type m_interruptsType;
 
   QString interruptsTypeToString(const Type type) const
   {
