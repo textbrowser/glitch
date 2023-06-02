@@ -31,11 +31,9 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 (const QString &charactersType, QWidget *parent):
   glitch_object_characters_arduino(1, parent)
 {
-  m_charactersType = stringToCharactersType(charactersType);
-
   QString string("");
 
-  switch(m_charactersType)
+  switch(stringToCharactersType(charactersType))
     {
     case Type::IS_ALPHA_NUMERIC:
       {
@@ -104,7 +102,6 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
       }
     }
 
-  m_properties[Properties::CHARACTERS_TYPE] = string;
   m_text = string;
   setName(m_text);
 }
@@ -126,7 +123,6 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 		  << "isUpperCase()"
 		  << "isWhitespace()";
   m_type = "arduino-characters";
-  m_properties[Properties::CHARACTERS_TYPE] = m_text;
   prepareContextMenu();
   setName(m_text);
 }
@@ -154,13 +150,7 @@ bool glitch_object_characters_arduino::hasOutput(void) const
 
 bool glitch_object_characters_arduino::isFullyWired(void) const
 {
-  switch(m_charactersType)
-    {
-    default:
-      {
-	return inputs().size() >= 1;
-      }
-    }
+  return inputs().size() >= 1;
 }
 
 bool glitch_object_characters_arduino::shouldPrint(void) const
@@ -178,7 +168,6 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_charactersType = m_charactersType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -198,8 +187,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_charactersType = stringToCharactersType
-    (object->m_properties.value(Properties::CHARACTERS_TYPE).toString());
   return object;
 }
 
@@ -220,8 +207,9 @@ void glitch_object_characters_arduino::save
 void glitch_object_characters_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::CHARACTERS_TYPE] = "isAlpha()";
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+
+  QString function("isAlpha()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -259,14 +247,13 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "isAlpha()";
 
-	  m_properties[Properties::CHARACTERS_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_charactersType = stringToCharactersType
-    (m_properties.value(Properties::CHARACTERS_TYPE).toString());
-  m_text = m_properties.value(Properties::CHARACTERS_TYPE).toString();
-  setName(m_properties.value(Properties::CHARACTERS_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_characters_arduino::setProperty
@@ -278,7 +265,6 @@ void glitch_object_characters_arduino::setProperty
     {
     case Properties::CHARACTERS_TYPE:
       {
-	m_charactersType = stringToCharactersType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;

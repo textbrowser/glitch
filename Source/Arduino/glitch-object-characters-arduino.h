@@ -74,11 +74,10 @@ class glitch_object_characters_arduino:
   };
 
   glitch_object_characters_arduino(const qint64 id, QWidget *parent);
-  Type m_charactersType;
 
   QString charactersTypeToString(void) const
   {
-    switch(m_charactersType)
+    switch(stringToCharactersType(m_text))
       {
       case Type::IS_ALPHA_NUMERIC:
 	{
