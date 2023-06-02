@@ -43,7 +43,6 @@ glitch_object_conversion_arduino
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
-  m_conversionType = ConversionTypes::UNSIGNED_INT;
   m_functionsList << "(unsigned int)"
 		  << "(unsigned long)"
 		  << "byte()"
@@ -54,7 +53,7 @@ glitch_object_conversion_arduino::glitch_object_conversion_arduino
 		  << "word()";
   m_type = "arduino-conversion";
   prepareContextMenu();
-  setConversionType(m_conversionType);
+  setConversionType(ConversionTypes::UNSIGNED_INT);
 }
 
 glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
@@ -63,20 +62,12 @@ glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
 
 QString glitch_object_conversion_arduino::code(void) const
 {
-  switch(m_conversionType)
-    {
-    case ConversionTypes::UNSIGNED_INT:
-    case ConversionTypes::UNSIGNED_LONG:
-      {
-	return QString("%1 (%2)").arg(m_text).arg(inputs().value(0));
-      }
-    default:
-      {
-	return QString("%1(%2)").
-	  arg(QString(m_text).remove("()")).
-	  arg(inputs().value(0));
-      }
-    }
+  if(m_text == "(unsigned int)" || m_text == "(unsigned long)")
+    return QString("%1 (%2)").arg(m_text).arg(inputs().value(0));
+  else
+    return QString("%1(%2)").
+      arg(QString(m_text).remove("()")).
+      arg(inputs().value(0));
 }
 
 bool glitch_object_conversion_arduino::hasInput(void) const
@@ -86,35 +77,17 @@ bool glitch_object_conversion_arduino::hasInput(void) const
 
 bool glitch_object_conversion_arduino::hasOutput(void) const
 {
-  switch(m_conversionType)
-    {
-    default:
-      {
-	return true;
-      }
-    }
+  return true;
 }
 
 bool glitch_object_conversion_arduino::isFullyWired(void) const
 {
-  switch(m_conversionType)
-    {
-    default:
-      {
-	return inputs().size() >= 1;
-      }
-    }
+  return inputs().size() >= 1;
 }
 
 bool glitch_object_conversion_arduino::shouldPrint(void) const
 {
-  switch(m_conversionType)
-    {
-    default:
-      {
-	return false;
-      }
-    }
+  return false;
 }
 
 glitch_object_conversion_arduino *glitch_object_conversion_arduino::clone
@@ -129,7 +102,7 @@ glitch_object_conversion_arduino *glitch_object_conversion_arduino::clone
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
-  clone->setConversionType(m_conversionType);
+  clone->setConversionType(m_text);
   clone->setStyleSheet(styleSheet());
   return clone;
 }
@@ -167,9 +140,7 @@ void glitch_object_conversion_arduino::save
 void glitch_object_conversion_arduino::setConversionType
 (const ConversionTypes conversionType)
 {
-  m_conversionType = conversionType;
-
-  switch(m_conversionType)
+  switch(conversionType)
     {
     case ConversionTypes::BYTE:
       {
@@ -274,7 +245,7 @@ void glitch_object_conversion_arduino::setProperty
     case Properties::CONVERSION:
       {
 	m_text = value.toString();
-	setConversionType(value.toString());
+	setConversionType(m_text);
 	break;
       }
     default:

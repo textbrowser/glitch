@@ -72,7 +72,6 @@ class glitch_object_conversion_arduino:
  private:
   glitch_object_conversion_arduino(QWidget *parent);
   glitch_object_conversion_arduino(const qint64 id, QWidget *parent);
-  ConversionTypes m_conversionType;
   void setConversionType(const ConversionTypes conversionType);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);

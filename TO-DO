@@ -290,6 +290,7 @@ Remaining Items
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Docked User Functions.
+- Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Interactive shell.
 - Nested flow-control scenes.
