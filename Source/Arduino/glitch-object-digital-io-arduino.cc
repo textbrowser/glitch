@@ -31,11 +31,9 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
 (const QString &ioType, QWidget *parent):
   glitch_object_digital_io_arduino(1, parent)
 {
-  m_ioType = stringToIOType(ioType);
-
   QString string("");
 
-  switch(m_ioType)
+  switch(stringToIOType(ioType))
     {
     case Type::READ:
       {
@@ -54,7 +52,6 @@ glitch_object_digital_io_arduino::glitch_object_digital_io_arduino
       }
     }
 
-  m_properties[Properties::DIGITAL_IO_TYPE] = string;
   m_text = string;
   setName(m_text);
 }
@@ -74,7 +71,7 @@ glitch_object_digital_io_arduino::~glitch_object_digital_io_arduino()
 
 QString glitch_object_digital_io_arduino::code(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::READ:
       {
@@ -102,7 +99,7 @@ bool glitch_object_digital_io_arduino::hasInput(void) const
 
 bool glitch_object_digital_io_arduino::hasOutput(void) const
 {
-  if(m_ioType == Type::READ)
+  if(stringToIOType(m_text) == Type::READ)
     return true;
   else
     return false;
@@ -110,7 +107,7 @@ bool glitch_object_digital_io_arduino::hasOutput(void) const
 
 bool glitch_object_digital_io_arduino::isFullyWired(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::READ:
       {
@@ -129,7 +126,7 @@ bool glitch_object_digital_io_arduino::isFullyWired(void) const
 
 bool glitch_object_digital_io_arduino::shouldPrint(void) const
 {
-  switch(m_ioType)
+  switch(stringToIOType(m_text))
     {
     case Type::PIN_MODE:
     case Type::WRITE:
@@ -150,7 +147,6 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
-  clone->m_ioType = m_ioType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
@@ -172,8 +168,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ioType = stringToIOType
-    (object->m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
   return object;
 }
 
@@ -195,7 +189,8 @@ void glitch_object_digital_io_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::DIGITAL_IO_TYPE] = "digitalRead()";
+
+  QString function("digitalRead()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -213,14 +208,12 @@ void glitch_object_digital_io_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "digitalRead()";
 
-	  m_properties[Properties::DIGITAL_IO_TYPE] = string.trimmed();
+	  function = string.trimmed();
 	}
     }
 
-  m_ioType = stringToIOType
-    (m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
-  m_text = m_properties.value(Properties::DIGITAL_IO_TYPE).toString();
-  setName(m_properties.value(Properties::DIGITAL_IO_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_digital_io_arduino::setProperty
@@ -232,7 +225,6 @@ void glitch_object_digital_io_arduino::setProperty
     {
     case Properties::DIGITAL_IO_TYPE:
       {
-	m_ioType = stringToIOType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;
