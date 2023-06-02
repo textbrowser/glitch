@@ -667,6 +667,10 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
     }
 
   painter->fillRect(rect, backgroundBrush());
+
+  if(backgroundBrush().color() == m_dotsGridsColor)
+    return;
+
   painter->setBrushOrigin(0, 0);
 
   if(m_showCanvasDots)
