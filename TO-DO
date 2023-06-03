@@ -300,6 +300,7 @@ Remaining Items
 - Reopen (or reparent) child windows after a separation event:
   Find Objects (Completed)
   Tools (Completed)
+- Retain Find Objects selection after an action.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
