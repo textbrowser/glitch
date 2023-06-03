@@ -100,7 +100,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
       }
 }
 
-void glitch_find_objects::find(void)
+void glitch_find_objects::find(const QList<qint64> &ids)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_count = 0;
@@ -119,6 +119,7 @@ void glitch_find_objects::find(void)
 		    item,
 		    SLOT(slotSetTotals(const QHash<QString, int> &)));
 	    item->setObject(object);
+	    item->setSelected(ids.contains(object->id()));
 	    item->setText(static_cast<int> (Columns::Object), object->name());
 	    item->setText
 	      (static_cast<int> (Columns::Position), object->position());
@@ -163,7 +164,7 @@ void glitch_find_objects::slotCustomContextMenuRequested(const QPoint &point)
 
 void glitch_find_objects::slotFind(void)
 {
-  find();
+  find(QList<qint64> ());
 }
 
 void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
@@ -202,12 +203,27 @@ void glitch_find_objects::slotSynchronize(void)
   if(!m_ui.synchronize->isChecked())
     return;
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QList<qint64> ids;
+  auto list(m_ui.tree->selectedItems());
   auto value1 = m_ui.tree->horizontalScrollBar() ?
     m_ui.tree->horizontalScrollBar()->value() : -1;
   auto value2 = m_ui.tree->verticalScrollBar() ?
     m_ui.tree->verticalScrollBar()->value() : -1;
 
-  find();
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto item = static_cast<glitch_find_objects_position_item *>
+	(list.at(i));
+
+      if(item && item->object())
+	ids << item->object()->id();
+    }
+
+  QApplication::restoreOverrideCursor();
+
+  find(ids);
 
   if(value1 >= 0)
     m_ui.tree->horizontalScrollBar()->setValue(value1);
