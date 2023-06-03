@@ -75,7 +75,8 @@ glitch_find_objects::~glitch_find_objects()
 {
 }
 
-void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
+void glitch_find_objects::find
+(QTreeWidgetItem *i, const QSet<qint64> &ids, glitch_object *object)
 {
   if(!i || !object)
     return;
@@ -90,13 +91,14 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
 		item,
 		SLOT(slotSetTotals(const QHash<QString, int> &)));
 	item->setObject(child);
+	item->setSelected(ids.contains(child->id()));
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->objectType());
 	m_count += 1;
 	m_typeTotals[child->objectType()] = m_typeTotals.value
 	  (child->objectType(), 0) + 1;
-	find(item, child);
+	find(item, ids, child);
       }
 }
 
@@ -129,7 +131,7 @@ void glitch_find_objects::find(const QSet<qint64> &ids)
 	    m_typeTotals[object->objectType()] =
 	      m_typeTotals.value(object->objectType(), 0) + 1;
 	    m_ui.tree->addTopLevelItem(item);
-	    find(item, object);
+	    find(item, ids, object);
 	  }
 
       if(!m_typeTotals.isEmpty())

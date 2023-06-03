@@ -62,7 +62,7 @@ class glitch_find_objects: public QMainWindow
   Ui_glitch_find_objects m_ui;
   glitch_collapse_expand_tool_button *m_collapse;
   int m_count;
-  void find(QTreeWidgetItem *i, glitch_object *object);
+  void find(QTreeWidgetItem *i, const QSet<qint64> &ids, glitch_object *object);
   void find(const QSet<qint64> &ids);
 
  private slots:
