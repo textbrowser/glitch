@@ -31,11 +31,9 @@ glitch_object_trigonometry_arduino::glitch_object_trigonometry_arduino
 (const QString &trigonometryType, QWidget *parent):
   glitch_object_trigonometry_arduino(1, parent)
 {
-  m_trigonometryType = stringToTrigonometryType(trigonometryType);
-
   QString string("");
 
-  switch(m_trigonometryType)
+  switch(stringToTrigonometryType(trigonometryType))
     {
     case Types::COS:
       {
@@ -59,7 +57,6 @@ glitch_object_trigonometry_arduino::glitch_object_trigonometry_arduino
       }
     }
 
-  m_properties[Properties::TRIGONOMETRY_TYPE] = string;
   m_text = string;
   setName(m_text);
 }
@@ -79,7 +76,7 @@ glitch_object_trigonometry_arduino::~glitch_object_trigonometry_arduino()
 
 QString glitch_object_trigonometry_arduino::code(void) const
 {
-  switch(m_trigonometryType)
+  switch(stringToTrigonometryType(m_text))
     {
     case Types::COS:
       {
@@ -112,13 +109,7 @@ bool glitch_object_trigonometry_arduino::hasOutput(void) const
 
 bool glitch_object_trigonometry_arduino::isFullyWired(void) const
 {
-  switch(m_trigonometryType)
-    {
-    default:
-      {
-	return inputs().size() >= 1;
-      }
-    }
+  return inputs().size() >= 1;
 }
 
 bool glitch_object_trigonometry_arduino::shouldPrint(void) const
@@ -137,7 +128,6 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
-  clone->m_trigonometryType = m_trigonometryType;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -156,8 +146,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_trigonometryType = stringToTrigonometryType
-    (object->m_properties.value(Properties::TRIGONOMETRY_TYPE).toString());
   return object;
 }
 
@@ -179,7 +167,8 @@ void glitch_object_trigonometry_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TRIGONOMETRY_TYPE] = "cos()";
+
+  QString function("cos()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -197,14 +186,13 @@ void glitch_object_trigonometry_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "cos()";
 
-	  m_properties[Properties::TRIGONOMETRY_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_text = m_properties.value(Properties::TRIGONOMETRY_TYPE).toString();
-  m_trigonometryType = stringToTrigonometryType
-    (m_properties.value(Properties::TRIGONOMETRY_TYPE).toString());
-  setName(m_properties.value(Properties::TRIGONOMETRY_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_trigonometry_arduino::setProperty
@@ -217,7 +205,6 @@ void glitch_object_trigonometry_arduino::setProperty
     case Properties::TRIGONOMETRY_TYPE:
       {
 	m_text = value.toString();
-	m_trigonometryType = stringToTrigonometryType(value.toString());
 	setName(m_text);
 	break;
       }

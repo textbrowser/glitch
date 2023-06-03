@@ -64,11 +64,10 @@ class glitch_object_trigonometry_arduino:
   };
 
   glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
-  Types m_trigonometryType;
 
   QString trigonometryTypeToString(void) const
   {
-    switch(m_trigonometryType)
+    switch(stringToTrigonometryType(m_text))
       {
       case Types::COS:
 	{

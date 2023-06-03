@@ -31,9 +31,7 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
 (const QString &utilitiesType, QWidget *parent):
   glitch_object_utilities_arduino(1, parent)
 {
-  m_utilitiesType = stringToUtilitiesType(utilitiesType);
-
-  switch(m_utilitiesType)
+  switch(stringToUtilitiesType(utilitiesType))
     {
     default:
       {
@@ -42,7 +40,6 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
       }
     }
 
-  m_properties[Properties::UTILITIES_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -60,13 +57,7 @@ glitch_object_utilities_arduino::~glitch_object_utilities_arduino()
 
 QString glitch_object_utilities_arduino::code(void) const
 {
-  switch(m_utilitiesType)
-    {
-    default:
-      {
-	return QString("sizeof(%1);").arg(inputs().value(0));
-      }
-    }
+  return QString("sizeof(%1);").arg(inputs().value(0));
 }
 
 bool glitch_object_utilities_arduino::hasInput(void) const
@@ -81,13 +72,7 @@ bool glitch_object_utilities_arduino::hasOutput(void) const
 
 bool glitch_object_utilities_arduino::isFullyWired(void) const
 {
-  switch(m_utilitiesType)
-    {
-    default:
-      {
-	return inputs().size() >= 1;
-      }
-    }
+  return inputs().size() >= 1;
 }
 
 bool glitch_object_utilities_arduino::shouldPrint(void) const
@@ -106,7 +91,6 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
-  clone->m_utilitiesType = m_utilitiesType;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -125,10 +109,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_text = object->m_properties.value
-    (Properties::UTILITIES_TYPE).toString();
-  object->m_utilitiesType = stringToUtilitiesType
-    (object->m_properties.value(Properties::UTILITIES_TYPE).toString());
   return object;
 }
 
@@ -150,7 +130,8 @@ void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::UTILITIES_TYPE] = "sizeof()";
+
+  QString function("sizeof()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -166,9 +147,11 @@ void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "sizeof()";
 
-	  m_properties[Properties::UTILITIES_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  setName(m_properties.value(Properties::UTILITIES_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }

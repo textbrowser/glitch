@@ -61,11 +61,10 @@ class glitch_object_utilities_arduino: public glitch_object_simple_text_arduino
   };
 
   glitch_object_utilities_arduino(const qint64 id, QWidget *parent);
-  Type m_utilitiesType;
 
   QString utilitiesTypeToString(void) const
   {
-    switch(m_utilitiesType)
+    switch(stringToUtilitiesType(m_text))
       {
       case Type::SIZEOF:
 	{
