@@ -63,11 +63,10 @@ class glitch_object_time_arduino: public glitch_object_simple_text_arduino
   };
 
   glitch_object_time_arduino(const qint64 id, QWidget *parent);
-  Type m_timeType;
 
   QString timeTypeToString(void) const
   {
-    switch(m_timeType)
+    switch(stringToTimeType(m_text))
       {
       case Type::DELAY:
 	{

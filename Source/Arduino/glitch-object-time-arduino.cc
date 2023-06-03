@@ -30,11 +30,9 @@
 glitch_object_time_arduino::glitch_object_time_arduino
 (const QString &timeType, QWidget *parent):glitch_object_time_arduino(1, parent)
 {
-  m_timeType = stringToTimeType(timeType);
-
   QString string("");
 
-  switch(m_timeType)
+  switch(stringToTimeType(timeType))
     {
     case Type::DELAY:
       {
@@ -63,7 +61,6 @@ glitch_object_time_arduino::glitch_object_time_arduino
       }
     }
 
-  m_properties[Properties::TIME_TYPE] = string;
   m_text = string;
   setName(m_text);
 }
@@ -86,7 +83,7 @@ glitch_object_time_arduino::~glitch_object_time_arduino()
 
 QString glitch_object_time_arduino::code(void) const
 {
-  switch(m_timeType)
+  switch(stringToTimeType(m_text))
     {
     case Type::DELAY:
       {
@@ -113,7 +110,9 @@ QString glitch_object_time_arduino::code(void) const
 
 bool glitch_object_time_arduino::hasInput(void) const
 {
-  if(m_timeType == Type::DELAY || m_timeType == Type::DELAY_MICROSECONDS)
+  auto timeType = stringToTimeType(m_text);
+
+  if(timeType == Type::DELAY || timeType == Type::DELAY_MICROSECONDS)
     return true;
   else
     return false;
@@ -121,7 +120,9 @@ bool glitch_object_time_arduino::hasInput(void) const
 
 bool glitch_object_time_arduino::hasOutput(void) const
 {
-  if(m_timeType == Type::MICROS || m_timeType == Type::MILLIS)
+  auto timeType = stringToTimeType(m_text);
+
+  if(timeType == Type::MICROS || timeType == Type::MILLIS)
     return true;
   else
     return false;
@@ -129,7 +130,7 @@ bool glitch_object_time_arduino::hasOutput(void) const
 
 bool glitch_object_time_arduino::isFullyWired(void) const
 {
-  switch(m_timeType)
+  switch(stringToTimeType(m_text))
     {
     case Type::DELAY:
       {
@@ -148,7 +149,9 @@ bool glitch_object_time_arduino::isFullyWired(void) const
 
 bool glitch_object_time_arduino::shouldPrint(void) const
 {
-  if(m_timeType == Type::DELAY || m_timeType == Type::DELAY_MICROSECONDS)
+  auto timeType = stringToTimeType(m_text);
+
+  if(timeType == Type::DELAY || timeType == Type::DELAY_MICROSECONDS)
     return true;
   else
     return false;
@@ -164,7 +167,6 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_text = m_text;
-  clone->m_timeType = m_timeType;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
@@ -183,8 +185,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_timeType = stringToTimeType
-    (object->m_properties.value(Properties::TIME_TYPE).toString());
   return object;
 }
 
@@ -206,7 +206,8 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::TIME_TYPE] = "delay()";
+
+  QString function("delay()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -226,14 +227,13 @@ void glitch_object_time_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "delay()";
 
-	  m_properties[Properties::TIME_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_text = m_properties.value(Properties::TIME_TYPE).toString();
-  m_timeType = stringToTimeType
-    (m_properties.value(Properties::TIME_TYPE).toString());
-  setName(m_properties.value(Properties::TIME_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_time_arduino::setProperty
@@ -246,7 +246,6 @@ void glitch_object_time_arduino::setProperty
     case Properties::TIME_TYPE:
       {
 	m_text = value.toString();
-	m_timeType = stringToTimeType(value.toString());
 	setName(m_text);
 	break;
       }
