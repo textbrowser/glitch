@@ -31,9 +31,8 @@ glitch_object_serial_arduino::glitch_object_serial_arduino
 (const QString &serialType, QWidget *parent):
   glitch_object_serial_arduino(1, parent)
 {
-  m_serialType = stringToSerialType(serialType);
-  m_text = QString("Serial.%1()").arg(serialTypeToString(m_serialType));
-  m_properties[Properties::SERIAL_TYPE] = m_text;
+  m_text = QString("Serial.%1()").arg
+    (serialTypeToString(stringToSerialType(serialType)));
   setName(m_text);
 }
 
@@ -70,7 +69,7 @@ glitch_object_serial_arduino::~glitch_object_serial_arduino()
 
 QString glitch_object_serial_arduino::code(void) const
 {
-  switch(m_serialType)
+  switch(stringToSerialType(m_text))
     {
     case Type::AVAILABLE:
       {
@@ -203,7 +202,7 @@ QString glitch_object_serial_arduino::code(void) const
 
 bool glitch_object_serial_arduino::hasInput(void) const
 {
-  switch(m_serialType)
+  switch(stringToSerialType(m_text))
     {
     case Type::BEGIN:
     case Type::FIND:
@@ -229,7 +228,7 @@ bool glitch_object_serial_arduino::hasInput(void) const
 
 bool glitch_object_serial_arduino::hasOutput(void) const
 {
-  switch(m_serialType)
+  switch(stringToSerialType(m_text))
     {
     case Type::AVAILABLE:
     case Type::AVAILABLE_FOR_WRITE:
@@ -258,7 +257,7 @@ bool glitch_object_serial_arduino::hasOutput(void) const
 
 bool glitch_object_serial_arduino::isFullyWired(void) const
 {
-  switch(m_serialType)
+  switch(stringToSerialType(m_text))
     {
     case Type::BEGIN:
       {
@@ -324,13 +323,12 @@ glitch_object_serial_arduino *glitch_object_serial_arduino::
 clone(QWidget *parent) const
 {
   auto clone = new glitch_object_serial_arduino
-    (serialTypeToString(m_serialType), parent);
+    (serialTypeToString(stringToSerialType(m_text)), parent);
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_serialType = m_serialType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -350,8 +348,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_serialType = stringToSerialType
-    (object->m_properties.value(Properties::SERIAL_TYPE).toString());
   return object;
 }
 
@@ -373,7 +369,8 @@ void glitch_object_serial_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::SERIAL_TYPE] = "Serial.available()";
+
+  QString function("Serial.available()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -385,14 +382,13 @@ void glitch_object_serial_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  string = serialTypeToString(stringToSerialType(string));
 	  string = QString("Serial.%1()").arg(string);
-	  m_properties[Properties::SERIAL_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_serialType = stringToSerialType
-    (m_properties.value(Properties::SERIAL_TYPE).toString());
-  m_text = m_properties.value(Properties::SERIAL_TYPE).toString();
-  setName(m_properties.value(Properties::SERIAL_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_serial_arduino::setProperty
@@ -404,7 +400,6 @@ void glitch_object_serial_arduino::setProperty
     {
     case Properties::SERIAL_TYPE:
       {
-	m_serialType = stringToSerialType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;

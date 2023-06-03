@@ -31,9 +31,7 @@ glitch_object_random_arduino::glitch_object_random_arduino
 (const QString &randomType, QWidget *parent):
   glitch_object_random_arduino(1, parent)
 {
-  m_randomType = stringToRandomType(randomType);
-
-  switch(m_randomType)
+  switch(stringToRandomType(randomType))
     {
     case Type::RANDOM_SEED:
       {
@@ -47,7 +45,6 @@ glitch_object_random_arduino::glitch_object_random_arduino
       }
     }
 
-  m_properties[Properties::RANDOM_TYPE] = m_text;
   setName(m_text);
 }
 
@@ -67,7 +64,7 @@ glitch_object_random_arduino::~glitch_object_random_arduino()
 
 QString glitch_object_random_arduino::code(void) const
 {
-  switch(m_randomType)
+  switch(stringToRandomType(m_text))
     {
     case Type::RANDOM:
       {
@@ -92,7 +89,7 @@ bool glitch_object_random_arduino::hasInput(void) const
 
 bool glitch_object_random_arduino::hasOutput(void) const
 {
-  if(m_randomType == Type::RANDOM)
+  if(stringToRandomType(m_text) == Type::RANDOM)
     return true;
   else
     return false;
@@ -100,7 +97,7 @@ bool glitch_object_random_arduino::hasOutput(void) const
 
 bool glitch_object_random_arduino::isFullyWired(void) const
 {
-  switch(m_randomType)
+  switch(stringToRandomType(m_text))
     {
     case Type::RANDOM:
       {
@@ -115,7 +112,7 @@ bool glitch_object_random_arduino::isFullyWired(void) const
 
 bool glitch_object_random_arduino::shouldPrint(void) const
 {
-  if(m_randomType == Type::RANDOM_SEED)
+  if(stringToRandomType(m_text) == Type::RANDOM_SEED)
     return true;
   else
     return false;
@@ -130,7 +127,6 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_randomType = m_randomType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -150,8 +146,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_randomType = stringToRandomType
-    (object->m_properties.value(Properties::RANDOM_TYPE).toString());
   return object;
 }
 
@@ -173,7 +167,8 @@ void glitch_object_random_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::RANDOM_TYPE] = "random()";
+
+  QString function("random()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -189,14 +184,13 @@ void glitch_object_random_arduino::setProperties(const QStringList &list)
 	  else
 	    string = "random()";
 
-	  m_properties[Properties::RANDOM_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_randomType = stringToRandomType
-    (m_properties.value(Properties::RANDOM_TYPE).toString());
-  m_text = m_properties.value(Properties::RANDOM_TYPE).toString();
-  setName(m_properties.value(Properties::RANDOM_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_random_arduino::setProperty
@@ -208,7 +202,6 @@ void glitch_object_random_arduino::setProperty
     {
     case Properties::RANDOM_TYPE:
       {
-	m_randomType = stringToRandomType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;

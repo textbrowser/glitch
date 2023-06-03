@@ -61,11 +61,10 @@ class glitch_object_random_arduino: public glitch_object_simple_text_arduino
   };
 
   glitch_object_random_arduino(const qint64 id, QWidget *parent);
-  Type m_randomType;
 
   QString randomTypeToString(void) const
   {
-    switch(m_randomType)
+    switch(stringToRandomType(m_text))
       {
       case Type::RANDOM_SEED:
 	{
