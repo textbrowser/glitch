@@ -72,7 +72,6 @@ class glitch_object_stream_arduino: public glitch_object_simple_text_arduino
   };
 
   glitch_object_stream_arduino(const qint64 id, QWidget *parent);
-  Type m_streamType;
 
   QString streamTypeToString(const Type type) const
   {

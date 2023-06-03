@@ -31,9 +31,8 @@ glitch_object_stream_arduino::glitch_object_stream_arduino
 (const QString &streamType, QWidget *parent):
   glitch_object_stream_arduino(1, parent)
 {
-  m_streamType = stringToStreamType(streamType);
-  m_text = QString("stream.%1()").arg(streamTypeToString(m_streamType));
-  m_properties[Properties::STREAM_TYPE] = m_text;
+  m_text = QString("stream.%1()").arg
+    (streamTypeToString(stringToStreamType(streamType)));
   setName(m_text);
 }
 
@@ -63,7 +62,7 @@ glitch_object_stream_arduino::~glitch_object_stream_arduino()
 
 QString glitch_object_stream_arduino::code(void) const
 {
-  switch(m_streamType)
+  switch(stringToStreamType(m_text))
     {
     case Type::AVAILABLE:
       {
@@ -152,7 +151,7 @@ QString glitch_object_stream_arduino::code(void) const
 
 bool glitch_object_stream_arduino::hasInput(void) const
 {
-  switch(m_streamType)
+  switch(stringToStreamType(m_text))
     {
     case Type::FIND:
     case Type::FIND_UNTIL:
@@ -174,7 +173,7 @@ bool glitch_object_stream_arduino::hasInput(void) const
 
 bool glitch_object_stream_arduino::hasOutput(void) const
 {
-  switch(m_streamType)
+  switch(stringToStreamType(m_text))
     {
     case Type::AVAILABLE:
     case Type::FIND:
@@ -199,7 +198,7 @@ bool glitch_object_stream_arduino::hasOutput(void) const
 
 bool glitch_object_stream_arduino::isFullyWired(void) const
 {
-  switch(m_streamType)
+  switch(stringToStreamType(m_text))
     {
     case Type::FIND:
       {
@@ -249,13 +248,12 @@ glitch_object_stream_arduino *glitch_object_stream_arduino::
 clone(QWidget *parent) const
 {
   auto clone = new glitch_object_stream_arduino
-    (streamTypeToString(m_streamType), parent);
+    (streamTypeToString(stringToStreamType(m_text)), parent);
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_streamType = m_streamType;
   clone->m_text = m_text;
   clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
@@ -275,8 +273,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(values.value("properties").toString().split('&'));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_streamType = stringToStreamType
-    (object->m_properties.value(Properties::STREAM_TYPE).toString());
   return object;
 }
 
@@ -298,7 +294,8 @@ void glitch_object_stream_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::STREAM_TYPE] = "stream.available()";
+
+  QString function("stream.available()");
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -310,14 +307,13 @@ void glitch_object_stream_arduino::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  string = streamTypeToString(stringToStreamType(string));
 	  string = QString("stream.%1()").arg(string);
-	  m_properties[Properties::STREAM_TYPE] = string.trimmed();
+	  function = string.trimmed();
+	  break;
 	}
     }
 
-  m_streamType = stringToStreamType
-    (m_properties.value(Properties::STREAM_TYPE).toString());
-  m_text = m_properties.value(Properties::STREAM_TYPE).toString();
-  setName(m_properties.value(Properties::STREAM_TYPE).toString());
+  m_text = function;
+  setName(m_text);
 }
 
 void glitch_object_stream_arduino::setProperty
@@ -329,7 +325,6 @@ void glitch_object_stream_arduino::setProperty
     {
     case Properties::STREAM_TYPE:
       {
-	m_streamType = stringToStreamType(value.toString());
 	m_text = value.toString();
 	setName(m_text);
 	break;
