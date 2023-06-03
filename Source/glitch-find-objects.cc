@@ -46,6 +46,10 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::slotFind);
+  connect(m_ui.synchronize,
+	  &QCheckBox::clicked,
+	  this,
+	  &glitch_find_objects::slotSynchronize);
   connect(m_ui.tree,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
