@@ -100,7 +100,7 @@ void glitch_find_objects::find(QTreeWidgetItem *i, glitch_object *object)
       }
 }
 
-void glitch_find_objects::find(const QList<qint64> &ids)
+void glitch_find_objects::find(const QSet<qint64> &ids)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_count = 0;
@@ -205,7 +205,7 @@ void glitch_find_objects::slotSynchronize(void)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QList<qint64> ids;
+  QSet<qint64> ids;
   auto list(m_ui.tree->selectedItems());
   auto value1 = m_ui.tree->horizontalScrollBar() ?
     m_ui.tree->horizontalScrollBar()->value() : -1;

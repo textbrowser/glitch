@@ -63,7 +63,7 @@ class glitch_find_objects: public QMainWindow
   glitch_collapse_expand_tool_button *m_collapse;
   int m_count;
   void find(QTreeWidgetItem *i, glitch_object *object);
-  void find(const QList<qint64> &ids);
+  void find(const QSet<qint64> &ids);
 
  private slots:
   void slotCustomContextMenuRequested(const QPoint &point);
