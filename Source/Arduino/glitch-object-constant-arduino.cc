@@ -145,7 +145,10 @@ void glitch_object_constant_arduino::compressWidget(const bool state)
   glitch_object::compressWidget(state);
 
   if(m_constantType == ConstantTypes::OTHER)
-    m_ui.constant->setVisible(!state);
+      m_ui.constant->setVisible(!state);
+
+  adjustSize();
+  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 }
 
 void glitch_object_constant_arduino::save

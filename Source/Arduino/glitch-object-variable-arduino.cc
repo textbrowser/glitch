@@ -304,6 +304,8 @@ void glitch_object_variable_arduino::compressWidget(const bool state)
   m_ui.progmem->setVisible(!state);
   m_ui.qualifier->setVisible(!state);
   m_ui.type->setVisible(!state);
+  adjustSize();
+  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 }
 
 void glitch_object_variable_arduino::connectSignals(const bool state)

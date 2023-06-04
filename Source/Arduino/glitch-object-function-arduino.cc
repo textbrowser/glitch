@@ -511,6 +511,8 @@ void glitch_object_function_arduino::compressWidget(const bool state)
 {
   glitch_object::compressWidget(state);
   m_ui.return_type->setVisible(!state);
+  adjustSize();
+  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 }
 
 void glitch_object_function_arduino::hideOrShowOccupied(void)

@@ -233,6 +233,9 @@ void glitch_object_compound_operator_arduino::compressWidget(const bool state)
   else
     m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
 			 m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
+
+  QApplication::processEvents();
+  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 }
 
 void glitch_object_compound_operator_arduino::save
