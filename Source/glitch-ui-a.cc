@@ -290,6 +290,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
   m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -1222,6 +1224,8 @@ void glitch_ui::restoreSettings(void)
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   restoreGeometry(settings.value("main_window/geometry").toByteArray());
@@ -1542,12 +1546,39 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 
   if(m_currentView)
     {
-      QAction *action1 = nullptr;
-      QAction *action2 = nullptr;
-      QAction *action3 = nullptr;
+      /*
+      ** Miscellaneous.
+      */
+
       auto menu = new QMenu(this);
       auto toolButton = new QToolButton(this);
 
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
+      glitch_tools::populateMenu(menu, this);
+      toolButton->setArrowType(Qt::NoArrow);
+      toolButton->setIcon(QIcon(":/wire.png"));
+      toolButton->setMenu(menu);
+#ifdef Q_OS_MACOS
+#else
+      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+#endif
+#ifdef Q_OS_MACOS
+      toolButton->setStyleSheet
+	("QToolButton {border: none;}"
+	 "QToolButton::menu-button {border: none;}"
+	 "QToolButton::menu-indicator {image: none;}");
+#endif
+      toolButton->setToolTip(tr("Connection Tools"));
+      m_ui.miscellaneous_toolbar->addWidget(toolButton);
+
+      QAction *action1 = nullptr;
+      QAction *action2 = nullptr;
+      QAction *action3 = nullptr;
+
+      menu = new QMenu(this);
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
       action1->setData("adjust-sizes");
@@ -1569,6 +1600,11 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotSpecialTools);
+      toolButton = new QToolButton(this);
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);
@@ -1583,13 +1619,13 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 "QToolButton::menu-indicator {image: none;}");
 #endif
       toolButton->setToolTip(tr("Miscellaneous Tools"));
-      connect(toolButton,
-	      &QToolButton::clicked,
-	      toolButton,
-	      &QToolButton::showMenu);
+      m_ui.miscellaneous_toolbar->addWidget(toolButton);
+
+      /*
+      ** Tools.
+      */
+
       m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
-      m_ui.tools_toolbar->addSeparator();
-      m_ui.tools_toolbar->addWidget(toolButton);
     }
 }
 
@@ -2322,6 +2358,8 @@ void glitch_ui::slotViewToolBars(void)
     ("main_window/view_tools", m_ui.action_View_Tool_Bars->isChecked());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
 }

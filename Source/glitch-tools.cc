@@ -69,15 +69,16 @@ glitch_tools::Operations glitch_tools::operation(void) const
     return Operations::WIRE_DISCONNECT;
 }
 
-void glitch_tools::populateMenu(QMenu *menu, QObject *parent) const
+void glitch_tools::populateMenu(QMenu *menu, QObject *parent)
 {
   if(!menu)
     return;
 
+  QStringList data;
   QStringList list;
   auto group = new QActionGroup(parent);
-  auto m = menu->addMenu(tr("Connections"));
 
+  data << "intelligent" << "select" << "wire-connect" << "wire-disconnect";
   list << tr("Intelligent")
        << tr("Select")
        << tr("Wire (Connect)")
@@ -85,9 +86,10 @@ void glitch_tools::populateMenu(QMenu *menu, QObject *parent) const
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto action = m->addAction(list.at(i));
+      auto action = menu->addAction(list.at(i));
 
       action->setCheckable(true);
+      action->setData(data.at(i));
       group->addAction(action);
     }
 }

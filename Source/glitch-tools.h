@@ -47,7 +47,7 @@ class glitch_tools: public QDialog
   glitch_tools(QWidget *parent);
   ~glitch_tools();
   Operations operation(void) const;
-  void populateMenu(QMenu *menu, QObject *parent) const;
+  static void populateMenu(QMenu *menu, QObject *parent);
   void setOperation(const Operations operation);
 
  private:
