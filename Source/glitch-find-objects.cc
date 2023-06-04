@@ -166,7 +166,7 @@ void glitch_find_objects::slotCustomContextMenuRequested(const QPoint &point)
 
 void glitch_find_objects::slotFind(void)
 {
-  find(QList<qint64> ());
+  find(QSet<qint64> ());
 }
 
 void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
