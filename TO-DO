@@ -303,6 +303,7 @@ Remaining Items
   Find Objects (Completed)
   Tools (Completed)
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
+- Set Floating Context Menu widget colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
 - Snap-to-visible-grid.
