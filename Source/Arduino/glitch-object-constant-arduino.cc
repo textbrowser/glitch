@@ -69,6 +69,21 @@ glitch_object_constant_arduino::~glitch_object_constant_arduino()
 {
 }
 
+QSize glitch_object_constant_arduino::preferredSize(void) const
+{
+  if(m_constantType == ConstantTypes::OTHER)
+    {
+      QFontMetrics fm(font());
+      auto width = 35 +
+	fm.boundingRect(m_ui.other->text().trimmed()).width() +
+	(m_ui.constant->isVisible() ? m_ui.constant->sizeHint().width() : 0);
+
+      return QSize(width, minimumHeight(sizeHint().height()));
+    }
+  else
+    return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
+}
+
 QString glitch_object_constant_arduino::code(void) const
 {
   if(m_constantType == ConstantTypes::OTHER)
@@ -148,7 +163,7 @@ void glitch_object_constant_arduino::compressWidget(const bool state)
       m_ui.constant->setVisible(!state);
 
   adjustSize();
-  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+  resize(preferredSize());
 }
 
 void glitch_object_constant_arduino::save
@@ -284,17 +299,7 @@ void glitch_object_constant_arduino::slotAdjustSize(void)
 {
   auto before(size());
 
-  if(m_constantType == ConstantTypes::OTHER)
-    {
-      QFontMetrics fm(font());
-      auto width = 35 +
-	fm.boundingRect(m_ui.other->text().trimmed()).width() +
-	(m_ui.constant->isVisible() ? m_ui.constant->sizeHint().width() : 0);
-
-      resize(width, minimumHeight(sizeHint().height()));
-    }
-  else
-    resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+  resize(preferredSize());
 
   if(before == this->size())
     return;
