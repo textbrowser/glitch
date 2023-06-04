@@ -76,6 +76,7 @@ class glitch_wire: public QGraphicsObject
   double m_wireWidth;
   QPainterPath shape(void) const;
   QRectF boundingRect(void) const;
+  void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);

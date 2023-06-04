@@ -71,6 +71,16 @@ QRectF glitch_wire::boundingRect(void) const
   return m_boundingRect;
 }
 
+void glitch_wire::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+  QGraphicsObject::mousePressEvent(event);
+
+  auto scene = qobject_cast<glitch_scene *> (this->scene());
+
+  if(scene)
+    scene->disconnectWireIfNecessary(this);
+}
+
 void glitch_wire::paint
 (QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
 {

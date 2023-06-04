@@ -626,6 +626,41 @@ void glitch_scene::deleteItems(void)
     emit changed();
 }
 
+void glitch_scene::disconnectWireIfNecessary(glitch_wire *wire)
+{
+  if(!wire)
+    return;
+
+  auto state = false;
+
+  if(m_toolsOperation == glitch_tools::Operations::INTELLIGENT)
+    {
+      auto instance = qobject_cast<QGuiApplication *>
+	(QApplication::instance());
+
+      if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
+	state = true;
+    }
+  else if(m_toolsOperation == glitch_tools::Operations::WIRE_DISCONNECT)
+    state = true;
+
+  if(!state)
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(glitch_undo_command::WIRE_DELETED, this, wire);
+
+      undoCommand->setText(tr("widgets disconnected"));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    wire->deleteLater();
+
+  emit changed();
+}
+
 void glitch_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
