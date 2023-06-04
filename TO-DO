@@ -16,6 +16,7 @@ Completed Items
 - Alignment tool should be a child of the view's window.
 - Allow opening of multiple files.
 - Allow removal of individual items from Recent Diagrams.
+- Allow removal of wire by click.
 - Allow setting of function names.
 - Android release.
 - Apply canvas settings.
@@ -280,7 +281,6 @@ Completed Items
 
 Remaining Items
 
-- Allow removal of wire by selection.
 - Android:
   Adding user functions via drag
   Application icon (Completed)
@@ -290,6 +290,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
+- Display Tools modes in menu and / or status bar.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.

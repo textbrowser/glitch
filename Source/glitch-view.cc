@@ -94,7 +94,6 @@ glitch_view::glitch_view
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
   m_splitter = new QSplitter(this);
-  m_tools = new glitch_tools(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setProjectType(m_projectType);
@@ -198,18 +197,6 @@ glitch_view::glitch_view
 	  &glitch_scene::selectionChanged,
 	  this,
 	  &glitch_view::selectionChanged);
-  connect(m_tools,
-	  SIGNAL(operation(const glitch_tools::Operations)),
-	  m_scene,
-	  SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
-  connect(m_tools,
-	  SIGNAL(operation(const glitch_tools::Operations)),
-	  this,
-	  SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
-  connect(m_tools,
-	  SIGNAL(operation(const glitch_tools::Operations)),
-	  this,
-	  SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
   connect(m_undoStack,
 	  SIGNAL(indexChanged(int)),
 	  this,
@@ -1190,7 +1177,6 @@ void glitch_view::showTools(void)
   m_tools->showNormal();
   m_tools->activateWindow();
   m_tools->raise();
-  setProperty("tools-operation", QVariant());
 }
 
 void glitch_view::showUserFunctions(void) const
@@ -1519,7 +1505,7 @@ void glitch_view::slotShowWires(void)
 void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
-  Q_UNUSED(operation);
+  setProperty("tools-operation", operation);
 }
 
 void glitch_view::slotUndoStackChanged(void)
