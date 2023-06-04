@@ -555,6 +555,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	    mb.setWindowIcon(windowIcon());
 	    mb.setWindowModality(Qt::ApplicationModal);
 	    mb.setWindowTitle(tr("Glitch: Confirmation"));
+	    m_ui.tab->setCurrentWidget(view);
 
 	    if(mb.exec() == QMessageBox::Yes)
 	      {
