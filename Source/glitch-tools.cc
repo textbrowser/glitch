@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QActionGroup>
+#include <QMenu>
 #include <QShortcut>
 
 #include "glitch-tools.h"
@@ -65,6 +67,29 @@ glitch_tools::Operations glitch_tools::operation(void) const
     return Operations::WIRE_CONNECT;
   else
     return Operations::WIRE_DISCONNECT;
+}
+
+void glitch_tools::populateMenu(QMenu *menu, QObject *parent) const
+{
+  if(!menu)
+    return;
+
+  QStringList list;
+  auto group = new QActionGroup(parent);
+  auto m = menu->addMenu(tr("Connections"));
+
+  list << tr("Intelligent")
+       << tr("Select")
+       << tr("Wire (Connect)")
+       << tr("Wire (Disconnect)");
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto action = m->addAction(list.at(i));
+
+      action->setCheckable(true);
+      group->addAction(action);
+    }
 }
 
 void glitch_tools::setOperation(const Operations operation)
