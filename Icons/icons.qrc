@@ -31,11 +31,14 @@
 	<file>clear.png</file>
 	<file>compress.png</file>
 	<file>context-menu.png</file>
+	<file>find.png</file>
 	<file>horizontal-center-align.png</file>
 	<file>horizontal-stack.png</file>
 	<file>left-align.png</file>
+	<file>open.png</file>
 	<file>pin.png</file>
 	<file>right-align.png</file>
+	<file>settings.png</file>
 	<file>tools.png</file>
 	<file>top-align.png</file>
 	<file>vertical-center-align.png</file>
