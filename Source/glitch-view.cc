@@ -859,6 +859,28 @@ void glitch_view::createParentFromValues
     }
 }
 
+void glitch_view::createTools(void)
+{
+  if(!m_tools)
+    {
+      m_tools = new glitch_tools(this);
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      m_scene,
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      this,
+	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
+      connect(m_tools,
+	      SIGNAL(operation(const glitch_tools::Operations)),
+	      this,
+	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
+      m_tools->setOperation
+	(glitch_tools::Operations(property("tools-operation").toInt()));
+    }
+}
+
 void glitch_view::deleteItems(void)
 {
   m_scene->deleteItems();
@@ -955,6 +977,14 @@ void glitch_view::launchProjectIDE(void) const
     }
 }
 
+void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
+{
+  createTools();
+
+  if(m_tools)
+    m_tools->populateMenu(menu, parent);
+}
+
 void glitch_view::prepareDatabaseTables(void) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1037,17 +1067,6 @@ void glitch_view::redo(void)
 
 void glitch_view::reparent(void)
 {
-  if(m_findObjects && m_findObjects->isVisible())
-    {
-      m_findObjects->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view::slotShowFind);
-    }
-
-  if(m_tools && m_tools->isVisible())
-    {
-      m_tools->deleteLater();
-      QTimer::singleShot(500, this, &glitch_view::slotShowTools);
-    }
 }
 
 void glitch_view::resizeEvent(QResizeEvent *event)
@@ -1153,30 +1172,16 @@ void glitch_view::showCanvasSettings(void) const
 
 void glitch_view::showTools(void)
 {
-  if(!m_tools)
-    {
-      m_tools = new glitch_tools(this);
-      connect(m_tools,
-	      SIGNAL(operation(const glitch_tools::Operations)),
-	      m_scene,
-	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
-      connect(m_tools,
-	      SIGNAL(operation(const glitch_tools::Operations)),
-	      this,
-	      SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
-      connect(m_tools,
-	      SIGNAL(operation(const glitch_tools::Operations)),
-	      this,
-	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)));
-    }
+  createTools();
 
-  m_tools->setOperation
-    (glitch_tools::Operations(property("tools-operation").toInt()));
-  m_tools->setWindowTitle
-    (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
-  m_tools->showNormal();
-  m_tools->activateWindow();
-  m_tools->raise();
+  if(m_tools)
+    {
+      m_tools->setWindowTitle
+	(tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
+      m_tools->showNormal();
+      m_tools->activateWindow();
+      m_tools->raise();
+    }
 }
 
 void glitch_view::showUserFunctions(void) const

@@ -1540,6 +1540,9 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 
 void glitch_ui::slotDelayedToolBarPreparation(void)
 {
+  m_ui.miscellaneous_toolbar->clear();
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->clear();
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
@@ -1557,7 +1560,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
-      glitch_tools::populateMenu(menu, this);
+      m_currentView->populateToolsMenu(menu, this);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/wire.png"));
       toolButton->setMenu(menu);
@@ -1620,13 +1623,14 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 #endif
       toolButton->setToolTip(tr("Miscellaneous Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
-
-      /*
-      ** Tools.
-      */
-
-      m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
     }
+
+  if(m_currentView)
+    /*
+    ** Tools.
+    */
+
+    m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
 }
 
 void glitch_ui::slotDelete(void)

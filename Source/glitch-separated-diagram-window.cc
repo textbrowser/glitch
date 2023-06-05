@@ -43,6 +43,8 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_statusBarTimer.start(500);
   m_ui.setupUi(this);
+  m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.tools_toolbar->setIconSize(QSize(24, 24));
   connect(&m_statusBarTimer,
@@ -211,21 +213,44 @@ void glitch_separated_diagram_window::prepareRedoUndoActions(void)
 
 void glitch_separated_diagram_window::prepareToolBar(void)
 {
+  m_ui.miscellaneous_toolbar->clear();
   m_ui.tools_toolbar->clear();
 
   if(m_view)
     {
-      for(int i = 0; i < m_view->alignmentActions().size(); i++)
-	m_ui.tools_toolbar->addAction(m_view->alignmentActions().at(i));
+      /*
+      ** Miscellaneous.
+      */
 
-      m_ui.tools_toolbar->addSeparator();
+      auto menu = new QMenu(this);
+      auto toolButton = new QToolButton(this);
+
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      toolButton,
+	      &QToolButton::showMenu);
+      m_view->populateToolsMenu(menu, this);
+      toolButton->setArrowType(Qt::NoArrow);
+      toolButton->setIcon(QIcon(":/wire.png"));
+      toolButton->setMenu(menu);
+#ifdef Q_OS_MACOS
+#else
+      toolButton->setPopupMode(QToolButton::MenuButtonPopup);
+#endif
+#ifdef Q_OS_MACOS
+      toolButton->setStyleSheet
+	("QToolButton {border: none;}"
+	 "QToolButton::menu-button {border: none;}"
+	 "QToolButton::menu-indicator {image: none;}");
+#endif
+      toolButton->setToolTip(tr("Connection Tools"));
+      m_ui.miscellaneous_toolbar->addWidget(toolButton);
 
       QAction *action1 = nullptr;
       QAction *action2 = nullptr;
       QAction *action3 = nullptr;
-      auto menu = new QMenu(this);
-      auto toolButton = new QToolButton(this);
 
+      menu = new QMenu(this);
       action1 = menu->addAction
 	(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
       action1->setData("adjust-sizes");
@@ -247,6 +272,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	      &QAction::triggered,
 	      this,
 	      &glitch_separated_diagram_window::slotSpecialTools);
+      toolButton = new QToolButton(this);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);
@@ -265,8 +291,15 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
-      m_ui.tools_toolbar->addWidget(toolButton);
+      m_ui.miscellaneous_toolbar->addWidget(toolButton);
     }
+
+  if(m_view)
+    /*
+    ** Tools.
+    */
+
+    m_ui.tools_toolbar->addActions(m_view->alignmentActions());
 }
 
 void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)

@@ -90,6 +90,7 @@ Completed Items
 - Disable redo / undo of line-edit widgets? No.
 - Disable style sheets for natively-drawn widgets.
 - Discover a function clone's correct parent function after opening a data file.
+- Display Tools modes in menu and / or status bar.
 - Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
 - Display tool mode in status bar.
@@ -290,7 +291,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
-- Display Tools modes in menu and / or status bar.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
@@ -299,9 +299,7 @@ Remaining Items
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Qt 6.5 LTS for Windows.
-- Reopen (or reparent) child windows after a separation event:
-  Find Objects (Completed)
-  Tools (Completed)
+- Replace theme icons with true icons.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Set Floating Context Menu widget colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal

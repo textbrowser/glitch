@@ -105,6 +105,7 @@ class glitch_view: public QWidget
   void find(void);
   void generateSourceView(const bool raise = true);
   void launchProjectIDE(void) const;
+  void populateToolsMenu(QMenu *menu, QWidget *parent);
   void push(glitch_undo_command *undoCommand);
   void redo(void);
   void save(void);
@@ -167,6 +168,7 @@ class glitch_view: public QWidget
   virtual void generateSource(QTextStream &stream) const;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
+  void createTools(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
   void saveProperties(void);

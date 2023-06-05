@@ -47,13 +47,14 @@ class glitch_tools: public QDialog
   glitch_tools(QWidget *parent);
   ~glitch_tools();
   Operations operation(void) const;
-  static void populateMenu(QMenu *menu, QObject *parent);
+  void populateMenu(QMenu *menu, QObject *parent);
   void setOperation(const Operations operation);
 
  private:
   Ui_glitch_tools m_ui;
 
  private slots:
+  void slotAboutToShowConnectionsMenu(void);
   void slotOperationChanged(void);
 
  signals:

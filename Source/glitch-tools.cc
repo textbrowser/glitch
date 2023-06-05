@@ -71,26 +71,61 @@ glitch_tools::Operations glitch_tools::operation(void) const
 
 void glitch_tools::populateMenu(QMenu *menu, QObject *parent)
 {
-  if(!menu)
+  if(!menu || !parent)
     return;
 
-  QStringList data;
   QStringList list;
   auto group = new QActionGroup(parent);
 
-  data << "intelligent" << "select" << "wire-connect" << "wire-disconnect";
-  list << tr("Intelligent")
-       << tr("Select")
+  connect(menu,
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_tools::slotAboutToShowConnectionsMenu);
+  list << tr("Intelligent (Connect / Disconnect / Select)")
+       << tr("Select Widgets")
        << tr("Wire (Connect)")
        << tr("Wire (Disconnect)");
+  menu->clear();
 
   for(int i = 0; i < list.size(); i++)
     {
       auto action = menu->addAction(list.at(i));
 
       action->setCheckable(true);
-      action->setData(data.at(i));
       group->addAction(action);
+
+      if(i == 0)
+	{
+	  connect(action,
+		  &QAction::triggered,
+		  m_ui.intelligent,
+		  &QRadioButton::click);
+	  action->setChecked(m_ui.intelligent->isChecked());
+	}
+      else if(i == 1)
+	{
+	  connect(action,
+		  &QAction::triggered,
+		  m_ui.select,
+		  &QRadioButton::click);
+	  action->setChecked(m_ui.select->isChecked());
+	}
+      else if(i == 2)
+	{
+	  connect(action,
+		  &QAction::triggered,
+		  m_ui.wire_connect,
+		  &QRadioButton::click);
+	  action->setChecked(m_ui.wire_connect->isChecked());
+	}
+      else
+	{
+	  connect(action,
+		  &QAction::triggered,
+		  m_ui.wire_disconnect,
+		  &QRadioButton::click);
+	  action->setChecked(m_ui.wire_disconnect->isChecked());
+	}
     }
 }
 
@@ -119,6 +154,33 @@ void glitch_tools::setOperation(const Operations operation)
 	break;
       }
     }
+}
+
+void glitch_tools::slotAboutToShowConnectionsMenu(void)
+{
+  auto menu = qobject_cast<QMenu *> (sender());
+
+  if(!menu)
+    return;
+
+  foreach(auto action, menu->actions())
+    if(action)
+      {
+	auto string(action->text());
+
+	action->blockSignals(true);
+
+	if(string == tr("Intelligent (Connect / Disconnect / Select)"))
+	  action->setChecked(m_ui.intelligent->isChecked());
+	else if(string == tr("Select Widgets"))
+	  action->setChecked(m_ui.select->isChecked());
+	else if(string == tr("Wire (Connect)"))
+	  action->setChecked(m_ui.wire_connect->isChecked());
+	else
+	  action->setChecked(m_ui.wire_disconnect->isChecked());
+
+	action->blockSignals(false);
+      }
 }
 
 void glitch_tools::slotOperationChanged(void)
