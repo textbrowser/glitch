@@ -473,7 +473,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
     {
       auto action = new QAction(tr("&Edit..."), this);
 
-      action->setIcon(QIcon::fromTheme("document-edit"));
+      action->setIcon(QIcon(":/document-edit.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,

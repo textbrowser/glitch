@@ -372,7 +372,7 @@ void glitch_object_flow_control_arduino::addActions(QMenu &menu)
       auto action = new QAction(tr("&Edit..."), this);
 
       action->setEnabled(editable());
-      action->setIcon(QIcon::fromTheme("document-edit"));
+      action->setIcon(QIcon(":/document-edit.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,

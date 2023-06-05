@@ -301,7 +301,7 @@ Remaining Items
 - Qt 6.5 LTS for Windows.
 - Replace theme icons with true icons.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
-- Set Floating Context Menu widget colors.
+- Set Floating Context Menu widgets colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
 - Snap-to-visible-grid.

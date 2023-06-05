@@ -150,7 +150,7 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
     {
       auto action = new QAction(tr("&Edit loop()..."), this);
 
-      action->setIcon(QIcon::fromTheme("document-edit"));
+      action->setIcon(QIcon(":/document-edit.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,
