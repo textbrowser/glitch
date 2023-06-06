@@ -348,7 +348,7 @@ clone(QWidget *parent) const
       clone->m_editWindow->resize(800, 600);
       clone->m_editWindow->setCentralWidget(clone->m_editView);
       clone->m_editWindow->setEditView(clone->m_editView);
-      clone->m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+      clone->m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
       clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
       clone->m_isFunctionClone = false;
       clone->m_parentView = qobject_cast<glitch_view_arduino *>
@@ -561,7 +561,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle
     (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
   m_isFunctionClone = false;
@@ -787,7 +787,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
   dialog.setLabelText(tr("Set Function Name"));
   dialog.setTextEchoMode(QLineEdit::Normal); // A line edit!
   dialog.setTextValue(m_ui.label->text());
-  dialog.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  dialog.setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   dialog.setWindowTitle(tr("Glitch: Set Function Name"));
 
   auto lineEdit = dialog.findChild<QLineEdit *> ();

@@ -467,7 +467,7 @@ void glitch_proxy_widget::paint
 			{
 			  if(canDisconnect)
 			    {
-			      QIcon icon(":clear.png");
+			      QIcon icon(":/clear.png");
 
 			      icon.paint(painter, path.boundingRect().toRect());
 			      return;
@@ -480,7 +480,7 @@ void glitch_proxy_widget::paint
 		    {
 		      if(canDisconnect)
 			{
-			  QIcon icon(":clear.png");
+			  QIcon icon(":/clear.png");
 
 			  icon.paint(painter, path.boundingRect().toRect());
 			  return;

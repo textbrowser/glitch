@@ -37,7 +37,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	{
 	case 0:
 	  {
-	    action->setIcon(QIcon(":bottom-align.png"));
+	    action->setIcon(QIcon(":/bottom-align.png"));
 	    action->setToolTip(tr("Bottom Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -47,7 +47,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 1:
 	  {
-	    action->setIcon(QIcon(":top-align.png"));
+	    action->setIcon(QIcon(":/top-align.png"));
 	    action->setToolTip(tr("Top Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -57,7 +57,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 2:
 	  {
-	    action->setIcon(QIcon(":horizontal-center-align.png"));
+	    action->setIcon(QIcon(":/horizontal-center-align.png"));
 	    action->setToolTip(tr("Horizontal Center Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -67,7 +67,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 3:
 	  {
-	    action->setIcon(QIcon(":vertical-center-align.png"));
+	    action->setIcon(QIcon(":/vertical-center-align.png"));
 	    action->setToolTip(tr("Vertical Center Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -77,7 +77,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 4:
 	  {
-	    action->setIcon(QIcon(":left-align.png"));
+	    action->setIcon(QIcon(":/left-align.png"));
 	    action->setToolTip(tr("Left Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -87,7 +87,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 5:
 	  {
-	    action->setIcon(QIcon(":right-align.png"));
+	    action->setIcon(QIcon(":/right-align.png"));
 	    action->setToolTip(tr("Right Align"));
 	    connect(action,
 		    &QAction::triggered,
@@ -97,7 +97,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 6:
 	  {
-	    action->setIcon(QIcon(":horizontal-stack.png"));
+	    action->setIcon(QIcon(":/horizontal-stack.png"));
 	    action->setToolTip(tr("Horizontal Stack"));
 	    connect(action,
 		    &QAction::triggered,
@@ -107,7 +107,7 @@ glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 	  }
 	case 7:
 	  {
-	    action->setIcon(QIcon(":vertical-stack.png"));
+	    action->setIcon(QIcon(":/vertical-stack.png"));
 	    action->setToolTip(tr("Vertical Stack"));
 	    connect(action,
 		    &QAction::triggered,

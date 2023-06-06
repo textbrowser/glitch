@@ -53,7 +53,7 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: setup()"));
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = true;
@@ -149,7 +149,7 @@ void glitch_object_setup_arduino::addActions(QMenu &menu)
     {
       auto action = new QAction(tr("&Edit setup()..."), this);
 
-      action->setIcon(QIcon(":/document-edit"));
+      action->setIcon(QIcon(":/document-edit.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,
