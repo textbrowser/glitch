@@ -66,10 +66,10 @@ glitch_documentation::glitch_documentation
   m_ui.setupUi(this);
   m_ui.action_Close->setIcon(QIcon(":/close.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
-  m_ui.action_Print->setIcon(QIcon::fromTheme("document-print"));
+  m_ui.action_Print->setIcon(QIcon(":/print.png"));
   m_ui.find->setPlaceholderText(tr("Find"));
-  m_ui.next->setIcon(QIcon::fromTheme("go-next"));
-  m_ui.previous->setIcon(QIcon::fromTheme("go-previous"));
+  m_ui.next->setIcon(QIcon(":/next.png"));
+  m_ui.previous->setIcon(QIcon(":/previous.png"));
 
   if(fileName.toLower().trimmed().endsWith(".html"))
     m_ui.text->setSource(QUrl(fileName));

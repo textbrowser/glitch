@@ -979,30 +979,27 @@ void glitch_ui::prepareFonts(void)
 
 void glitch_ui::prepareIcons(void)
 {
-  m_ui.action_About->setIcon(QIcon::fromTheme("help-about"));
+  m_ui.action_About->setIcon(QIcon(":/about.png"));
   m_ui.action_Arduino_Documentation->setIcon
     (QIcon(":/Logo/glitch-arduino-logo.png"));
   m_ui.action_Canvas_Settings->setIcon(QIcon(":/settings.png"));
-  m_ui.action_Clear_Copied_Widgets_Buffer->setIcon
-    (QIcon::fromTheme("edit-clear"));
-  m_ui.action_Close_Diagram->setIcon(QIcon::fromTheme("window-close"));
-  m_ui.action_Copy->setIcon(QIcon::fromTheme("edit-copy"));
-  m_ui.action_Delete->setIcon(QIcon::fromTheme("edit-delete"));
+  m_ui.action_Clear_Copied_Widgets_Buffer->setIcon(QIcon(":/clear.png"));
+  m_ui.action_Close_Diagram->setIcon(QIcon(":/close.png"));
+  m_ui.action_Copy->setIcon(QIcon(":/copy.png"));
+  m_ui.action_Delete->setIcon(QIcon(":/delete.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
-  m_ui.action_Full_Screen->setIcon(QIcon::fromTheme("view-fullscreen"));
-  m_ui.action_Glitch_Preferences->setIcon
-    (QIcon::fromTheme("preferences-system"));
+  m_ui.action_Full_Screen->setIcon(QIcon(":/fullscreen.png"));
+  m_ui.action_Glitch_Preferences->setIcon(QIcon(":/settings.png"));
   m_ui.action_Open_Diagram->setIcon(QIcon(":/open.png"));
-  m_ui.action_Paste->setIcon(QIcon::fromTheme("edit-paste"));
-  m_ui.action_Quit->setIcon(QIcon::fromTheme("application-exit"));
-  m_ui.action_Redo->setIcon(QIcon::fromTheme("edit-redo"));
-  m_ui.action_Save_Current_Diagram->setIcon(QIcon::fromTheme("document-save"));
-  m_ui.action_Save_Current_Diagram_As->setIcon
-    (QIcon::fromTheme("document-save-as"));
-  m_ui.action_Select_All->setIcon(QIcon::fromTheme("edit-select-all"));
-  m_ui.action_Undo->setIcon(QIcon::fromTheme("edit-undo"));
-  m_ui.menu_New_Diagram->setIcon(QIcon::fromTheme("document-new"));
-  m_ui.menu_Recent_Diagrams->setIcon(QIcon::fromTheme("document-open-recent"));
+  m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
+  m_ui.action_Quit->setIcon(QIcon(":/quit.png"));
+  m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
+  m_ui.action_Save_Current_Diagram->setIcon(QIcon(":/save.png"));
+  m_ui.action_Save_Current_Diagram_As->setIcon(QIcon(":/save-as.png"));
+  m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
+  m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
+  m_ui.menu_New_Diagram->setIcon(QIcon(":/new-document.png"));
+  m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/open-recent.png"));
 }
 
 void glitch_ui::prepareRecentFiles(void)
@@ -1073,7 +1070,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   m_ui.menu_Recent_Diagrams->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)))->setIcon
-    (QIcon::fromTheme("edit-clear"));
+    (QIcon(":/clear.png"));
   QApplication::restoreOverrideCursor();
 }
 

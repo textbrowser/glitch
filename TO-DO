@@ -207,6 +207,7 @@ Completed Items
   are numerous windows. Not necessary
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
+- Replace theme icons with true icons.
 - Replace-with context menus for natively-drawn Arduino structures. Object
   promotion.
 - Reset object order on delete / redo / undo.
@@ -287,6 +288,7 @@ Remaining Items
   Application icon (Completed)
   Close buttons (Completed)
   Drag & drop (Completed)
+- Canvas printing!
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy wires of cloned functions, if necessary.
@@ -299,7 +301,6 @@ Remaining Items
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Qt 6.5 LTS for Windows.
-- Replace theme icons with true icons.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Set Floating Context Menu widgets colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
