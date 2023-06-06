@@ -129,7 +129,7 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
       setUndoStack(view->scene()->undoStack());
   }
 
-  if(isMandatory() == false && m_id <= 1)
+  if(m_id <= 1 && m_type != "arduino-loop" && m_type != "arduino-setup")
     {
       auto p = parent;
 
