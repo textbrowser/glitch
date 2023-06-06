@@ -999,7 +999,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.menu_New_Diagram->setIcon(QIcon(":/new-document.png"));
-  m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/open-recent.png"));
+  m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/recent.png"));
 }
 
 void glitch_ui::prepareRecentFiles(void)
