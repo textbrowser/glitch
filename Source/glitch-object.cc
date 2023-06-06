@@ -129,26 +129,29 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
       setUndoStack(view->scene()->undoStack());
   }
 
-  auto p = parent;
-
-  do
+  if(isMandatory() == false && m_id <= 1)
     {
-      if(!p)
-	break;
+      auto p = parent;
 
-      auto view = qobject_cast<glitch_view *> (p);
-
-      if(view)
+      do
 	{
-	  if(m_id <= 1)
-	    m_id = view->nextId();
+	  if(!p)
+	    break;
 
-	  break;
+	  auto view = qobject_cast<glitch_view *> (p);
+
+	  if(view)
+	    {
+	      if(m_id <= 1)
+		m_id = view->nextId();
+
+	      break;
+	    }
+
+	  p = p->parentWidget();
 	}
-
-      p = p->parentWidget();
+      while(true);
     }
-  while(true);
 
   setFont(glitch_ui::s_defaultApplicationFont);
   setWindowOpacity(s_windowOpacity);
