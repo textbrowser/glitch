@@ -539,14 +539,6 @@ void glitch_canvas_settings::prepare(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
-	query.exec("ALTER TABLE canvas_settings ADD categories_icon_size TEXT");
-	query.exec("ALTER TABLE canvas_settings ADD "
-		   "generate_source_view_periodically INTEGER");
-	query.exec("ALTER TABLE canvas_settings ADD keyword_colors TEXT");
-	query.exec("ALTER TABLE canvas_settings ADD lock_color TEXT");
-	query.exec("ALTER TABLE canvas_settings ADD project_ide TEXT");
-	query.exec("ALTER TABLE canvas_settings ADD selection_color TEXT");
-	query.exec("ALTER TABLE canvas_settings ADD wire_width REAL");
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
 			   "SUBSTR(categories_icon_size, 1, 50), "
