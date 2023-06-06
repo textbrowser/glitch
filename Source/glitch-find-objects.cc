@@ -59,8 +59,8 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 	  this,
 	  SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
-  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
-  m_ui.find->setIcon(QIcon::fromTheme("edit-find"));
+  m_ui.close->setIcon(QIcon(":/close.png"));
+  m_ui.find->setIcon(QIcon(":/find.png"));
   m_ui.tree->setContextMenuPolicy(Qt::CustomContextMenu);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   m_view = qobject_cast<glitch_view *> (parent);

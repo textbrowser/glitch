@@ -38,7 +38,7 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_tools::close);
-  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.close->setIcon(QIcon(":/close.png"));
 
   foreach(auto widget, findChildren<QRadioButton *> ())
     if(widget)
