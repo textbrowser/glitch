@@ -228,8 +228,8 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("paste")->setIcon(QIcon(":/paste.png"));
   m_actions.value("redo")->setIcon(QIcon(":/redo.png"));
   m_actions.value("save")->setIcon(QIcon(":/save.png"));
-  m_actions.value("screen mode")->setIcon(QIcon::fromTheme("view-fullscreen"));
-  m_actions.value("select all")->setIcon(QIcon::fromTheme("edit-select-all"));
+  m_actions.value("screen mode")->setIcon(QIcon(":/fullscreen.png"));
+  m_actions.value("select all")->setIcon(QIcon(":/select-all.png"));
   m_actions.value("undo")->setIcon(QIcon(":/undo.png"));
 }
 

@@ -63,14 +63,15 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.project_ide->setCursorPosition(0);
   m_ui.project_ide_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
-  m_ui.select_project_ide->setIcon(QIcon::fromTheme("document-open"));
+  m_ui.reset_source_view_keywords->setIcon(QIcon(":/reset.png"));
+  m_ui.select_project_ide->setIcon(QIcon(":/open.png"));
   m_ui.selection_color->setStyleSheet
     ("QPushButton {background-color: lightgreen}");
   m_ui.selection_color->setText("lightgreen");
   m_ui.source_view_keywords->setItemDelegateForColumn
     (1, m_itemDelegate = new glitch_canvas_settings_item_delegate(this));
-  m_ui.special_copy->setIcon(QIcon::fromTheme("edit-copy"));
-  m_ui.special_paste->setIcon(QIcon::fromTheme("edit-paste"));
+  m_ui.special_copy->setIcon(QIcon(":/copy.png"));
+  m_ui.special_paste->setIcon(QIcon(":/paste.png"));
   m_ui.update_mode->setCurrentIndex(m_ui.update_mode->findText(tr("Full")));
   m_ui.update_mode->setItemData
     (0,
