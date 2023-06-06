@@ -222,8 +222,8 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
 
 void glitch_object_edit_window::prepareIcons(void)
 {
-  m_actions.value("close")->setIcon(QIcon::fromTheme("window-close"));
-  m_actions.value("copy")->setIcon(QIcon::fromTheme("edit-copy"));
+  m_actions.value("close")->setIcon(QIcon(":/close.png"));
+  m_actions.value("copy")->setIcon(QIcon(":/copy.png"));
   m_actions.value("delete")->setIcon(QIcon::fromTheme("edit-delete"));
   m_actions.value("paste")->setIcon(QIcon::fromTheme("edit-paste"));
   m_actions.value("redo")->setIcon(QIcon::fromTheme("edit-redo"));
