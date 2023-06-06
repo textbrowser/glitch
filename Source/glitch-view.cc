@@ -290,15 +290,15 @@ QMenu *glitch_view::defaultContextMenu(void)
     (tr("Paste"), this, SLOT(slotPaste(void)));
 
   action->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
-  action->setIcon(QIcon::fromTheme("edit-paste"));
+  action->setIcon(QIcon(":/paste.png"));
   m_contextMenu->addSeparator();
   action = m_saveDiagramAction = m_contextMenu->addAction
     (tr("&Save"), this, SLOT(slotSave(void)));
-  action->setIcon(QIcon::fromTheme("document-save"));
+  action->setIcon(QIcon(":/save.png"));
   m_contextMenu->addAction(tr("Save &As..."),
 			   this,
 			   SLOT(slotSaveAs(void)))->
-    setIcon(QIcon::fromTheme("document-save-as"));
+    setIcon(QIcon(":/save-as.png"));
   m_contextMenu->addSeparator();
   m_contextMenu->addAction(tr("Tools..."),
 			   this,
@@ -326,7 +326,7 @@ QMenu *glitch_view::defaultContextMenu(void)
   m_contextMenu->addAction(tr("Show Canvas &Settings..."),
 			   this,
 			   SLOT(slotShowCanvasSettings(void)))->
-    setIcon(QIcon::fromTheme("preferences-system"));
+    setIcon(QIcon(":/settings.png"));
   m_contextMenu->addSeparator();
   m_contextMenu->addAction(tr("&User Functions..."),
 			   this,

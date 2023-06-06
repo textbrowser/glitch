@@ -64,8 +64,8 @@ glitch_documentation::glitch_documentation
     }
 #endif
   m_ui.setupUi(this);
-  m_ui.action_Close->setIcon(QIcon::fromTheme("window-close"));
-  m_ui.action_Find->setIcon(QIcon::fromTheme("edit-find"));
+  m_ui.action_Close->setIcon(QIcon(":/close.png"));
+  m_ui.action_Find->setIcon(QIcon(":/find.png"));
   m_ui.action_Print->setIcon(QIcon::fromTheme("document-print"));
   m_ui.find->setPlaceholderText(tr("Find"));
   m_ui.next->setIcon(QIcon::fromTheme("go-next"));
