@@ -224,13 +224,13 @@ void glitch_object_edit_window::prepareIcons(void)
 {
   m_actions.value("close")->setIcon(QIcon(":/close.png"));
   m_actions.value("copy")->setIcon(QIcon(":/copy.png"));
-  m_actions.value("delete")->setIcon(QIcon::fromTheme("edit-delete"));
-  m_actions.value("paste")->setIcon(QIcon::fromTheme("edit-paste"));
-  m_actions.value("redo")->setIcon(QIcon::fromTheme("edit-redo"));
-  m_actions.value("save")->setIcon(QIcon::fromTheme("document-save"));
+  m_actions.value("delete")->setIcon(QIcon(":/delete.png"));
+  m_actions.value("paste")->setIcon(QIcon(":/paste.png"));
+  m_actions.value("redo")->setIcon(QIcon(":/redo.png"));
+  m_actions.value("save")->setIcon(QIcon(":/save.png"));
   m_actions.value("screen mode")->setIcon(QIcon::fromTheme("view-fullscreen"));
   m_actions.value("select all")->setIcon(QIcon::fromTheme("edit-select-all"));
-  m_actions.value("undo")->setIcon(QIcon::fromTheme("edit-undo"));
+  m_actions.value("undo")->setIcon(QIcon(":/undo.png"));
 }
 
 void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
