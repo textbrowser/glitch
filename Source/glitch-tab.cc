@@ -69,7 +69,7 @@ int glitch_tab::addTab
 	  &glitch_view::slotSave);
   m_tabBar->setTabButton
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
-  pushButton->setIcon(QIcon::fromTheme("document-save"));
+  pushButton->setIcon(QIcon(":/save.png"));
 
   if(pushButton->icon().isNull())
     pushButton->setText(tr("Save"));

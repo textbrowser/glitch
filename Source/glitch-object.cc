@@ -727,7 +727,7 @@ void glitch_object::createActions(void)
 	action = new QAction(tr("Copy Object"), this);
 
       action->setData(static_cast<int> (DefaultMenuActions::COPY));
-      action->setIcon(QIcon::fromTheme("edit-copy"));
+      action->setIcon(QIcon(":/copy.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -741,7 +741,7 @@ void glitch_object::createActions(void)
 
       action->setData(static_cast<int> (DefaultMenuActions::DELETE));
       action->setEnabled(!isMandatory());
-      action->setIcon(QIcon::fromTheme("edit-delete"));
+      action->setIcon(QIcon(":/delete.png"));
       connect(action,
 	      &QAction::triggered,
 	      this,
