@@ -73,9 +73,8 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 {
   if(m_constantType == ConstantTypes::OTHER)
     {
-      QFontMetrics fm(font());
       auto width = 35 +
-	fm.boundingRect(m_ui.other->text().trimmed()).width() +
+	10 * m_ui.other->text().trimmed().length() +
 	(m_ui.constant->isVisible() ? m_ui.constant->sizeHint().width() : 0);
 
       return QSize(width, minimumHeight(sizeHint().height()));
