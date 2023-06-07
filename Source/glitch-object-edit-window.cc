@@ -239,32 +239,37 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
   m_toolBar->addActions(actions);
   m_toolBar->addSeparator();
 
-  QAction *action1 = nullptr;
-  QAction *action2 = nullptr;
-  QAction *action3 = nullptr;
+  QList<QIcon> icons;
+  QStringList data;
+  QStringList texts;
   auto menu = new QMenu(this);
+
+  icons << QIcon(":/adjust-size.png")
+	<< QIcon(":/compress.png")
+	<< QIcon(":/disconnect.png")
+	<< QIcon(":/pin.png");
+  texts << tr("Adjust Size(s)")
+	<< tr("(De)compress Widget(s)")
+	<< tr("Disconnect Widget(s)")
+	<< tr("(Un)lock Position(s)");
+  data << "adjust-sizes"
+       << "compress-widgets"
+       << "disconnect-widgets"
+       << "lock-positions";
+
+  for(int i = 0; i < data.size(); i++)
+    {
+      auto action = menu->addAction(icons.at(i), texts.at(i));
+
+      action->setData(data.at(i));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_edit_window::slotSpecialTools);
+    }
+
   auto toolButton = new QToolButton(this);
 
-  action1 = menu->addAction(QIcon(":/adjust-size.png"), tr("Adjust Size(s)"));
-  action1->setData("adjust-sizes");
-  action2 = menu->addAction
-    (QIcon(":/compress.png"), tr("(De)compress Widget(s)"));
-  action2->setData("compress-widgets");
-  action3 = menu->addAction
-    (QIcon(":/pin.png"), tr("(Un)lock Position(s)"));
-  action3->setData("lock-positions");
-  connect(action1,
-	  &QAction::triggered,
-	  this,
-	  &glitch_object_edit_window::slotSpecialTools);
-  connect(action2,
-	  &QAction::triggered,
-	  this,
-	  &glitch_object_edit_window::slotSpecialTools);
-  connect(action3,
-	  &QAction::triggered,
-	  this,
-	  &glitch_object_edit_window::slotSpecialTools);
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setIcon(QIcon(":/tools.png"));
   toolButton->setMenu(menu);
@@ -533,6 +538,8 @@ void glitch_object_edit_window::slotSpecialTools(void)
     m_editView->scene()->slotSelectedWidgetsAdjustSize();
   else if(type == "compress-widgets")
     m_editView->scene()->slotSelectedWidgetsCompress();
+  else if(type == "disconnect-widgets")
+    m_editView->scene()->slotSelectedWidgetsDisconnect();
   else if(type == "lock-positions")
     m_editView->scene()->slotSelectedWidgetsLock();
 }
