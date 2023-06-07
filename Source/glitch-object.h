@@ -150,6 +150,7 @@ class glitch_object: public QWidget
   };
 
   glitch_object(QWidget *parent);
+  glitch_object(const QString &type, const qint64 id, QWidget *parent);
   glitch_object(const qint64 id, QWidget *parent);
 
   QColor borderColor(void) const

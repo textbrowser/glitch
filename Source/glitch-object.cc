@@ -86,12 +86,13 @@ inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
       o2->scene()->objectOrder(o2->proxy());
 }
 
-glitch_object::glitch_object(QWidget *parent):glitch_object(1, parent)
+glitch_object::glitch_object(QWidget *parent):glitch_object("", 1, parent)
 {
 }
 
-glitch_object::glitch_object(const qint64 id, QWidget *parent):
-  QWidget(nullptr), m_id(id)
+glitch_object::
+glitch_object(const QString &type, const qint64 id, QWidget *parent):
+  QWidget(nullptr), m_type(type), m_id(id)
 {
   installEventFilter(new glitch_font_filter(this));
   m_drawInputConnector = false;
@@ -155,6 +156,11 @@ glitch_object::glitch_object(const qint64 id, QWidget *parent):
 
   setFont(glitch_ui::s_defaultApplicationFont);
   setWindowOpacity(s_windowOpacity);
+}
+
+glitch_object::glitch_object(const qint64 id, QWidget *parent):
+  glitch_object("", id, parent)
+{
 }
 
 glitch_object::~glitch_object()
