@@ -31,7 +31,8 @@
 
 void glitch_ui::slotAboutToShowProjectMenu(void)
 {
-  m_ui.action_Generate_Source_Clipboard->setEnabled(QApplication::clipboard());
+  m_ui.action_Generate_Source_Clipboard->setEnabled
+    (QApplication::clipboard() && m_currentView);
 }
 
 void glitch_ui::slotGenerateSourceClipboard(void)
