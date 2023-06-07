@@ -62,6 +62,8 @@ class glitch_object_simple_text_arduino: public glitch_object
  protected:
   QString m_text;
   QStringList m_functionsList;
+  glitch_object_simple_text_arduino
+    (const QString &type, const qint64 id, QWidget *parent);
   glitch_object_simple_text_arduino(const qint64 id, QWidget *parent);
 
   bool isActionAllowed(const DefaultMenuActions action) const

@@ -41,11 +41,17 @@ glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 }
 
 glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
-(const qint64 id, QWidget *parent):glitch_object(id, parent)
+(const QString &type, const qint64 id, QWidget *parent):
+  glitch_object(type, id, parent)
 {
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   setAttribute(Qt::WA_OpaquePaintEvent, false);
   setStyleSheet("background-color: transparent;");
+}
+
+glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
+(const qint64 id, QWidget *parent):glitch_object("", id, parent)
+{
 }
 
 glitch_object_simple_text_arduino::~glitch_object_simple_text_arduino()

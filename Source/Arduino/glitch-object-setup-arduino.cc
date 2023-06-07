@@ -39,7 +39,8 @@ glitch_object_setup_arduino::glitch_object_setup_arduino
 }
 
 glitch_object_setup_arduino::glitch_object_setup_arduino
-(const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
+(const qint64 id, QWidget *parent):
+  glitch_object_simple_text_arduino("arduino-setup", id, parent)
 {
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
