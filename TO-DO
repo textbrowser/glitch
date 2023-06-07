@@ -294,6 +294,7 @@ Remaining Items
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Docked User Functions.
+- Double-click to edit for editable widgets.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Insert between widgets option.
@@ -305,6 +306,7 @@ Remaining Items
 - Set Floating Context Menu widgets colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
+- Show tooltip preview of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.

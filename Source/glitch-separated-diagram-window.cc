@@ -43,6 +43,9 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
   m_statusBarTimer.start(500);
   m_ui.setupUi(this);
+  m_ui.action_Generate_Source->setEnabled(false);
+  m_ui.action_Generate_Source_Clipboard->setEnabled(false);
+  m_ui.action_Generate_Source_View->setEnabled(false);
   m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -155,6 +158,10 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
     {
       m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
+      m_ui.action_Generate_Source->setEnabled(true);
+      m_ui.action_Generate_Source_Clipboard->setEnabled
+	(QApplication::clipboard());
+      m_ui.action_Generate_Source_View->setEnabled(true);
       m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
@@ -163,6 +170,9 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
     {
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Generate_Source->setEnabled(false);
+      m_ui.action_Generate_Source_Clipboard->setEnabled(false);
+      m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
@@ -357,10 +367,11 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      m_view,
 	      &glitch_view::slotUnite);
       QMainWindow::setCentralWidget(m_view);
-      prepareActionWidgets();
-      prepareToolBar();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
+
+  prepareToolBar();
+  prepareActionWidgets();
 }
 
 void glitch_separated_diagram_window::slotCopy(void)
