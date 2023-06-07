@@ -107,6 +107,7 @@ Completed Items
 - Documentation.
 - Docked floating context menus.
 - Dots and grids.
+- Double-click to edit for editable widgets.
 - Drag multiple items.
 - Dragging an item onto a diagram and scroll bars.
 - Draw and, not, or, etc. objects.
@@ -294,9 +295,9 @@ Remaining Items
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Docked User Functions.
-- Double-click to edit for editable widgets.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
+- Group disconnect tool.
 - Insert between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
@@ -310,6 +311,7 @@ Remaining Items
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.
+- Widget fonts.
 - Windows 10, 11, etc. Deprecate Windows 7.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with

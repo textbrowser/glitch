@@ -860,7 +860,11 @@ void glitch_object::hideOrShowOccupied(void)
 void glitch_object::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QWidget::mouseDoubleClickEvent(event);
-  slotShowContextMenu();
+
+  if(m_editView)
+    showEditWindow();
+  else
+    slotShowContextMenu();
 }
 
 void glitch_object::move(const QPoint &point)
