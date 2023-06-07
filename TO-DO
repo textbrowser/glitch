@@ -143,6 +143,7 @@ Completed Items
 - Generate to clipboard buffer.
 - Generate view.
 - Group delete.
+- Group disconnect tool.
 - Hide alignment options.
 - Keywords (function names, variable names, etc.). Highlight errors.
 - Horizontal arrow object for decorating:
@@ -297,7 +298,6 @@ Remaining Items
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
-- Group disconnect tool.
 - Insert between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.

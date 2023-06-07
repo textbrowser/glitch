@@ -1604,6 +1604,13 @@ void glitch_scene::slotSelectedWidgetsCompress(void)
       object->triggerAction(glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
 }
 
+void glitch_scene::slotSelectedWidgetsDisconnect(void)
+{
+  foreach(auto object, selectedObjects())
+    if(object && object->proxy())
+      wireDisconnectObjects(object->proxy());
+}
+
 void glitch_scene::slotSelectedWidgetsLock(void)
 {
   foreach(auto object, selectedObjects())
@@ -1765,6 +1772,62 @@ void glitch_scene::wireDisconnectObjects
 	p = wire->leftProxy();
 
       if(p == proxy)
+	{
+	  if(m_undoStack)
+	    {
+	      if(!began)
+		{
+		  began = true;
+		  m_undoStack->beginMacro(tr("widget(s) disconnected"));
+		}
+
+	      auto undoCommand = new glitch_undo_command
+		(glitch_undo_command::WIRE_DELETED, this, wire);
+
+	      m_undoStack->push(undoCommand);
+	      state = true;
+	    }
+	  else
+	    {
+	      it.remove();
+	      state = true;
+	      wire->deleteLater();
+	    }
+	}
+    }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
+
+  QApplication::restoreOverrideCursor();
+
+  if(state)
+    emit changed();
+}
+
+void glitch_scene::wireDisconnectObjects(glitch_proxy_widget *proxy)
+{
+  if(!proxy)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  auto began = false;
+  auto state = false;
+
+  QMutableSetIterator<glitch_wire *> it(m_wires);
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire)
+	{
+	  it.remove();
+	  continue;
+	}
+
+      if(proxy == wire->leftProxy() || proxy == wire->rightProxy())
 	{
 	  if(m_undoStack)
 	    {

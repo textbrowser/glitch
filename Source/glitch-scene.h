@@ -114,10 +114,12 @@ class glitch_scene: public QGraphicsScene
   void undo(void);
   void wireConnectObjects(glitch_proxy_widget *proxy);
   void wireDisconnectObjects(const QPointF &point, glitch_proxy_widget *proxy);
+  void wireDisconnectObjects(glitch_proxy_widget *proxy);
 
  public slots:
   void slotSelectedWidgetsAdjustSize(void);
   void slotSelectedWidgetsCompress(void);
+  void slotSelectedWidgetsDisconnect(void);
   void slotSelectedWidgetsLock(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
 
