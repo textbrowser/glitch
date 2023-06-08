@@ -26,6 +26,7 @@
 */
 
 #include <QColorDialog>
+#include <QFontDialog>
 #include <QScrollBar>
 #include <QSettings>
 #include <QSqlError>
@@ -102,6 +103,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::FONT] = glitch_ui::s_defaultApplicationFont;
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
@@ -772,6 +774,18 @@ void glitch_object::createActions(void)
       m_actions[DefaultMenuActions::FLOATING_CONTEXT_MENU] = action;
     }
 
+  if(!m_actions.contains(DefaultMenuActions::FONT))
+    {
+      auto action = new QAction(tr("Font..."), this);
+
+      action->setData(static_cast<int> (DefaultMenuActions::FONT));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotSelectFont);
+      m_actions[DefaultMenuActions::FONT] = action;
+    }
+
   if(!m_actions.contains(DefaultMenuActions::FONT_COLOR))
     {
       auto action = new QAction(tr("Font Color..."), this);
@@ -1066,6 +1080,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::EDIT_WINDOW_GEOMETRY).toByteArray().toBase64();
   properties["edit_window_state"] = m_editWindow ?
     m_editWindow->saveState().toBase64() : QByteArray().toBase64();
+  properties["font"] = m_properties.value(Properties::FONT).toString();
   properties["font_color"] = m_properties.value
     (Properties::FONT_COLOR).toString();
   properties["port_colors"] = m_properties.value
@@ -1220,6 +1235,21 @@ void glitch_object::setProperties(const QStringList &list)
 	  m_properties[Properties::EDIT_WINDOW_STATE] =
 	    QByteArray::fromBase64(string.trimmed().toLatin1());
 	}
+      else if(string.simplified().startsWith("font = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+
+	  QFont font;
+
+	  if(string.isEmpty() || !font.fromString(string))
+	    m_properties[Properties::FONT] =
+	      glitch_ui::s_defaultApplicationFont;
+	  else
+	    m_properties[Properties::FONT] = font;
+
+	  setFont(m_properties.value(Properties::FONT).value<QFont> ());
+	}
       else if(string.simplified().startsWith("font_color = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
@@ -1335,6 +1365,11 @@ void glitch_object::setProperty(const Properties property,
 	    (DefaultMenuActions::COMPRESS_WIDGET)->setChecked(value.toBool());
 
 	compressWidget(value.toBool());
+	break;
+      }
+    case Properties::FONT:
+      {
+	setFont(value.value<QFont> ());
 	break;
       }
     case Properties::GEOMETRY:
@@ -1663,6 +1698,8 @@ void glitch_object::slotPropertyChanged
     p = Properties::BORDER_COLOR;
   else if(property == "compressed_widget")
     p = Properties::COMPRESSED_WIDGET;
+  else if(property == "font")
+    p = Properties::FONT;
   else if(property == "font_color")
     p = Properties::FONT_COLOR;
   else if(property == "tool_bar_visible")
@@ -1750,12 +1787,30 @@ void glitch_object::slotSelectBorderColor(void)
     QApplication::processEvents();
 }
 
+void glitch_object::slotSelectFont(void)
+{
+  QFontDialog dialog(m_parent);
+
+  dialog.setCurrentFont(m_properties.value(Properties::FONT).value<QFont> ());
+  dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(tr("Glitch: Select Widget Font"));
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      slotPropertyChanged("font", dialog.selectedFont());
+    }
+  else
+    QApplication::processEvents();
+}
+
 void glitch_object::slotSetFont(void)
 {
   foreach(auto widget, findChildren<QWidget *> ())
     if(widget)
       {
-	auto font(glitch_ui::s_defaultApplicationFont);
+	auto font(m_properties.value(Properties::FONT).value<QFont> ());
 
 	font.setBold(widget->font().bold());
 	widget->setFont(font);

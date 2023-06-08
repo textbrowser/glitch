@@ -144,10 +144,10 @@ void glitch_preferences::slotSelectFont(void)
   QFontDialog dialog(this);
   auto string(m_ui.display_application_font->text());
 
-  if(!string.isEmpty() && font.fromString(string.remove('&')))
-    dialog.setCurrentFont(font);
-  else
+  if(string.isEmpty() && !font.fromString(string.remove('&')))
     dialog.setCurrentFont(QApplication::font());
+  else
+    dialog.setCurrentFont(font);
 
   QApplication::processEvents();
 

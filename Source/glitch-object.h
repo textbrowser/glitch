@@ -68,6 +68,7 @@ class glitch_object: public QWidget
 
     BACKGROUND_COLOR = 1000,
     BORDER_COLOR,
+    FONT,
     FONT_COLOR,
     PORT_COLORS,
     SET_STYLE_SHEET,
@@ -120,6 +121,7 @@ class glitch_object: public QWidget
     EDIT_WINDOW_GEOMETRY,
     EDIT_WINDOW_STATE,
     FLOW_CONTROL_TYPE,
+    FONT,
     FONT_COLOR,
     GEOMETRY,
     INTERRUPTS_TYPE,
@@ -381,6 +383,7 @@ class glitch_object: public QWidget
   virtual void slotHideOrShowOccupied(void);
   virtual void slotSelectColor(void);
   void slotSelectBorderColor(void);
+  void slotSelectFont(void);
   void slotSetPortColors(void);
   void slotSetStyleSheet(void);
 

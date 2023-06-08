@@ -298,7 +298,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tools_toolbar->setIconSize(QSize(24, 24));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
-  prepareFonts();
   prepareIcons();
   prepareRecentFiles();
   prepareToolBars();
@@ -950,7 +949,7 @@ void glitch_ui::prepareFonts(void)
   auto string2
     (settings.value("preferences/font_hinting").toString().trimmed());
 
-  if(!string1.isEmpty() && !font.fromString(string1))
+  if(string1.isEmpty() || !font.fromString(string1))
     font = QApplication::font();
 
   if(string2 == tr("Full"))

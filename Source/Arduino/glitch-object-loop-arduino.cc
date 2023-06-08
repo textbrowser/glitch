@@ -175,7 +175,7 @@ void glitch_object_loop_arduino::hideOrShowOccupied(void)
 
   m_occupied = !scene->objects().isEmpty();
 
-  auto font(this->font());
+  auto font(m_properties.value(Properties::FONT).value<QFont> ());
 
   font.setUnderline(m_occupied);
   setFont(font);

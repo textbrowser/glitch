@@ -67,7 +67,7 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
     (QBrush(m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> (),
 	    Qt::SolidPattern));
   auto color(brush.color());
-  auto font(this->font());
+  auto font(m_properties.value(Properties::FONT).value<QFont> ());
 
   color.setAlpha(255);
   brush.setColor(color);
