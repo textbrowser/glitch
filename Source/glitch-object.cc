@@ -1668,15 +1668,20 @@ void glitch_object::slotSelectColor(void)
     return;
 
   QColor color;
+  QString title("");
   auto property = Properties::BACKGROUND_COLOR;
 
   if(static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR) ==
      static_cast<int> (action->data().toInt()))
-    color = m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ();
+    {
+      color = m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ();
+      title = tr("Glitch: Select Widget Background Color");
+    }
   else
     {
       color = m_properties.value(Properties::FONT_COLOR).value<QColor> ();
       property = Properties::FONT_COLOR;
+      title = tr("Glitch: Select Widget Font Color");
     }
 
   QColorDialog dialog(m_parent);
@@ -1684,6 +1689,7 @@ void glitch_object::slotSelectColor(void)
   dialog.setCurrentColor(color);
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(title);
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -1719,6 +1725,7 @@ void glitch_object::slotSelectBorderColor(void)
     (QColor(m_properties.value(Properties::BORDER_COLOR).toString()));
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(tr("Glitch: Select Widget Border Color"));
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
