@@ -158,6 +158,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		  &QAction::triggered);
 	  pushButton->setEnabled(it.value()->isEnabled());
 	  pushButton->setIcon(it.value()->icon());
+	  pushButton->setProperty("property", it.value()->data());
 	  pushButton->setText(it.value()->text());
 	  pushButton->setToolTip(it.value()->toolTip());
 	  m_ui.frame->layout()->addWidget(pushButton);
@@ -165,6 +166,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
     }
 
   QApplication::restoreOverrideCursor();
+  setPushButtonColors();
 }
 
 void glitch_floating_context_menu::closeEvent(QCloseEvent *event)
@@ -207,8 +209,16 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
 void glitch_floating_context_menu::setProperty
 (const glitch_object::Properties property, const QVariant &value)
 {
+
   switch(property)
     {
+    case glitch_object::Properties::BACKGROUND_COLOR:
+    case glitch_object::Properties::BORDER_COLOR:
+    case glitch_object::Properties::FONT_COLOR:
+      {
+	setPushButtonColors();
+	break;
+      }
     case glitch_object::Properties::Z_VALUE:
       {
 	QObject::setProperty("z-value", value);
@@ -234,6 +244,61 @@ void glitch_floating_context_menu::setProperty
 	break;
       }
     }
+}
+
+void glitch_floating_context_menu::setPushButtonColors(void)
+{
+  if(!m_object)
+    return;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto pushButton, findChildren<QPushButton *> ())
+    if(pushButton && pushButton->isEnabled())
+      {
+	QColor color;
+	auto property = glitch_object::DefaultMenuActions
+	  (pushButton->property("property").toInt());
+
+	switch(property)
+	  {
+	  case glitch_object::DefaultMenuActions::BACKGROUND_COLOR:
+	    {
+	      color = m_object->properties().
+		value(glitch_object::Properties::BACKGROUND_COLOR).
+		value<QColor> ();
+	      break;
+	    }
+	  case glitch_object::DefaultMenuActions::BORDER_COLOR:
+	    {
+	      color = m_object->properties().
+		value(glitch_object::Properties::BORDER_COLOR).
+		value<QColor> ();
+	      break;
+	    }
+	  case glitch_object::DefaultMenuActions::FONT_COLOR:
+	    {
+	      color = m_object->properties().
+		value(glitch_object::Properties::FONT_COLOR).
+		value<QColor> ();
+	      break;
+	    }
+	  default:
+	    {
+	      break;
+	    }
+	  }
+
+	if(color.isValid())
+	  {
+	    QPixmap pixmap(16, 16);
+
+	    pixmap.fill(color);
+	    pushButton->setIcon(pixmap);
+	  }
+      }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_floating_context_menu::slotActionChanged(void)

@@ -63,6 +63,7 @@ class glitch_floating_context_menu: public QDialog
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
   void closeEvent(QCloseEvent *event);
+  void setPushButtonColors(void);
 
  signals:
   void closed(void);

@@ -1319,6 +1319,15 @@ void glitch_object::setProperty(const Properties property,
 
   switch(property)
     {
+    case glitch_object::Properties::BACKGROUND_COLOR:
+    case glitch_object::Properties::BORDER_COLOR:
+    case glitch_object::Properties::FONT_COLOR:
+      {
+	if(m_contextMenu)
+	  m_contextMenu->setProperty(property, value);
+
+	break;
+      }
     case Properties::COMPRESSED_WIDGET:
       {
 	if(m_actions.contains(DefaultMenuActions::COMPRESS_WIDGET))
@@ -1529,9 +1538,9 @@ void glitch_object::slotActionTriggered(void)
 	}
       else
 	m_properties[property] = !m_properties.value(property).toBool();
-    }
 
-  emit changed();
+      emit changed();
+    }
 }
 
 void glitch_object::slotAdjustSize(void)
@@ -1638,6 +1647,8 @@ void glitch_object::slotPropertyChanged
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
+
+      emit changed();
     }
 }
 
@@ -1712,6 +1723,8 @@ void glitch_object::slotSelectColor(void)
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
+
+      emit changed();
     }
   else
     QApplication::processEvents();

@@ -237,6 +237,7 @@ Completed Items
 - Separate database objects when opening an existing diagram.
 - Separated window and full-screen mode.
 - Separated window: context menu, generate source, save.
+- Set Floating Context Menu widgets colors.
 - Set child window titles to parent diagram name.
 - Set focus on plain-text-edit during mouse-press event. Discover the
   "viewport" widget.
@@ -304,7 +305,6 @@ Remaining Items
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Qt 6.5 LTS for Windows.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
-- Set Floating Context Menu widgets colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
 - Show tooltip source of editable widgets.
