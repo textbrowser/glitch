@@ -50,6 +50,7 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
   m_ui.display_application_font->setText
     (QApplication::font().toString().trimmed());
   m_ui.output_directory->setText(QDir::homePath());
+  m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
   prepareLanguages();
   processSettings();
   setWindowModality(Qt::ApplicationModal);

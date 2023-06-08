@@ -297,6 +297,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
+- Display context cursor as mouse hovers over a port.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
