@@ -536,6 +536,7 @@ void glitch_object_function_arduino::hideOrShowOccupied(void)
 
   auto font(m_properties.value(Properties::FONT).value<QFont> ());
 
+  font.setBold(true);
   font.setUnderline(m_occupied);
   m_ui.label->setFont(font);
 }

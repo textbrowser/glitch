@@ -397,6 +397,7 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 
   auto font(m_properties.value(Properties::FONT).value<QFont> ());
 
+  font.setBold(true);
   font.setUnderline(m_occupied);
   m_ui.flow_control_type->setFont(font);
 }
