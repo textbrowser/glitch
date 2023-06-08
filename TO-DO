@@ -307,7 +307,7 @@ Remaining Items
 - Set Floating Context Menu widgets colors.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
-- Show tooltip preview of editable widgets.
+- Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.

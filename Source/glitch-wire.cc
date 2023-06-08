@@ -73,7 +73,7 @@ QRectF glitch_wire::boundingRect(void) const
 
 void glitch_wire::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-  QGraphicsObject::mousePressEvent(event);
+  Q_UNUSED(event);
 
   auto scene = qobject_cast<glitch_scene *> (this->scene());
 
