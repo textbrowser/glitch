@@ -103,10 +103,21 @@ void glitch_port_colors::slotSelectColor(void)
     return;
 
   QColorDialog dialog(this);
+  QString title("");
+
+  if(button == m_ui.input_connected)
+    title = tr("Glitch: Select Widget Connected Input Color");
+  else if(button == m_ui.input_disconnected)
+    title = tr("Glitch: Select Widget Disconnected Input Color");
+  else if(button == m_ui.output_connected)
+    title = tr("Glitch: Select Widget Connected Output Color");
+  else
+    title = tr("Glitch: Select Widget Disconnected Output Color");
 
   dialog.setCurrentColor(QColor(button->text().remove('&')));
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
+  dialog.setWindowTitle(title);
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
