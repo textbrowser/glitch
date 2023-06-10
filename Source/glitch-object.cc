@@ -1248,7 +1248,7 @@ void glitch_object::setProperties(const QStringList &list)
 	  else
 	    m_properties[Properties::FONT] = font;
 
-	  setFont(m_properties.value(Properties::FONT).value<QFont> ());
+	  hideOrShowOccupied();
 	}
       else if(string.simplified().startsWith("font_color = "))
 	{
@@ -1369,7 +1369,7 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::FONT:
       {
-	setFont(value.value<QFont> ());
+	hideOrShowOccupied();
 	break;
       }
     case Properties::GEOMETRY:
@@ -1634,6 +1634,7 @@ void glitch_object::slotCopy(void)
 
 void glitch_object::slotHideOrShowOccupied(void)
 {
+  setFont(m_properties.value(Properties::FONT).value<QFont> ());
 }
 
 void glitch_object::slotLockPosition(void)

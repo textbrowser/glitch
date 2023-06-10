@@ -72,6 +72,7 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   color.setAlpha(255);
   brush.setColor(color);
   font.setBold(true);
+  font.setUnderline(m_occupied);
   painter.setBrush(brush);
   painter.setFont(font);
   painter.setPen(m_properties.value(Properties::FONT_COLOR).value<QColor> ());

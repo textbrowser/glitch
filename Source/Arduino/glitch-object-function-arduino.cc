@@ -517,6 +517,8 @@ void glitch_object_function_arduino::compressWidget(const bool state)
 
 void glitch_object_function_arduino::hideOrShowOccupied(void)
 {
+  glitch_object::hideOrShowOccupied();
+
   auto scene = editScene();
 
   if(!scene)

@@ -168,6 +168,8 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
 
 void glitch_object_loop_arduino::hideOrShowOccupied(void)
 {
+  glitch_object_simple_text_arduino::hideOrShowOccupied();
+
   auto scene = editScene();
 
   if(!scene)
