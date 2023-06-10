@@ -295,6 +295,7 @@ Remaining Items
 - Canvas printing!
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
+- Copy functions from User Functions dialog.
 - Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
