@@ -181,7 +181,10 @@ void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
 void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverEnterEvent(event);
-  prepareHoverSection(event);
+
+  if(event)
+    prepareHoverSection(event->scenePos());
+
   update();
 }
 
@@ -195,7 +198,10 @@ void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverMoveEvent(event);
-  prepareHoverSection(event);
+
+  if(event)
+    prepareHoverSection(event->scenePos());
+
   update();
 }
 
@@ -544,13 +550,12 @@ void glitch_proxy_widget::paint
     }
 }
 
-void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
+void glitch_proxy_widget::prepareHoverSection(const QPointF &point)
 {
   if(!m_scene)
     m_scene = qobject_cast<glitch_scene *> (scene());
 
-  if(event &&
-     m_scene &&
+  if(m_scene &&
      m_scene->toolsOperation() != glitch_tools::Operations::SELECT)
     {
       if(m_scene->toolsOperation() == glitch_tools::Operations::INTELLIGENT)
@@ -560,10 +565,8 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
 	  */
 
 	  auto distance = qSqrt
-	    (qPow(event->scenePos().x() - pos().x(),
-		  2.0) +
-	     qPow(event->scenePos().y() - pos().y() - size().height() / 2.0,
-		  2.0));
+	    (qPow(point.x() - pos().x(), 2.0) +
+	     qPow(point.y() - pos().y() - size().height() / 2.0, 2.0));
 
 	  if(distance <= s_intelligentDistance)
 	    {
@@ -576,10 +579,8 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
 	    }
 
 	  distance = qSqrt
-	    (qPow(event->scenePos().x() - pos().x() - size().width(),
-		  2.0) +
-	     qPow(event->scenePos().y() - pos().y() - size().height() / 2.0,
-		  2.0));
+	    (qPow(point.x() - pos().x() - size().width(), 2.0) +
+	     qPow(point.y() - pos().y() - size().height() / 2.0, 2.0));
 
 	  if(distance <= s_intelligentDistance)
 	    {
@@ -596,19 +597,11 @@ void glitch_proxy_widget::prepareHoverSection(QGraphicsSceneHoverEvent *event)
 	}
       else
 	{
-	  auto distance1 = qSqrt(qPow(event->scenePos().x() -
-				      pos().x(),
+	  auto distance1 = qSqrt(qPow(point.x() - pos().x(), 2.0) +
+				 qPow(point.y() - pos().y(), 2.0));
+	  auto distance2 = qSqrt(qPow(point.x() - pos().x() - size().width(),
 				      2.0) +
-				 qPow(event->scenePos().y() -
-				      pos().y(),
-				      2.0));
-	  auto distance2 = qSqrt(qPow(event->scenePos().x() -
-				      pos().x() -
-				      size().width(),
-				      2.0) +
-				 qPow(event->scenePos().y() -
-				      pos().y() -
-				      size().height(),
+				 qPow(point.y() - pos().y() - size().height(),
 				      2.0));
 
 	  if(distance1 < distance2)

@@ -285,6 +285,50 @@ bool glitch_scene::areObjectsWired
   return false;
 }
 
+bool glitch_scene::event(QEvent *event)
+{
+#ifndef GLITCH_FUTURE
+  if(event)
+    switch(event->type())
+      {
+      case QEvent::GraphicsSceneMouseMove:
+	{
+	  auto e = static_cast<QGraphicsSceneMouseEvent *> (event);
+
+	  if(e && e->buttons() == Qt::NoButton)
+	    {
+	      QRectF rect(e->scenePos(), QSizeF(20.0, 20.0));
+
+	      rect.moveCenter(e->scenePos());
+
+	      auto items(this->items(rect));
+
+	      foreach(auto item, items)
+		{
+		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *>
+		    (item);
+
+		  if(proxy)
+		    {
+		      proxy->prepareHoverSection(e->scenePos());
+		      proxy->update();
+		      break;
+		    }
+		}
+	    }
+
+	  break;
+	}
+      default:
+	{
+	  break;
+	}
+      }
+#endif
+
+  return QGraphicsScene::event(event);
+}
+
 bool glitch_scene::objectToBeWired(glitch_proxy_widget *proxy) const
 {
   QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);

@@ -80,6 +80,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   }
 
   void geometryChanged(const QRectF &previousRect);
+  void prepareHoverSection(const QPointF &point);
   void setPos(const QPointF &point);
   void setWidget(QWidget *widget);
 
@@ -98,7 +99,6 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *opt,
 	     QWidget *widget);
-  void prepareHoverSection(QGraphicsSceneHoverEvent *event);
   void resizeEvent(QGraphicsSceneResizeEvent *event);
 
  signals:

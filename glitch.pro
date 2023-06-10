@@ -10,6 +10,7 @@ purge.commands = find . -name '*~' -exec rm {} \\;
 }
 
 CONFIG		+= qt release warn_on
+DEFINES         += GLITCH_FUTURE
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui printsupport network sql widgets

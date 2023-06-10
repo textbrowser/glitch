@@ -99,6 +99,7 @@ class glitch_scene: public QGraphicsScene
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
+  bool event(QEvent *event);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
