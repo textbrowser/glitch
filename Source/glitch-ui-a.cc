@@ -106,6 +106,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 			 "textbrowser/glitch/master/Source/glitch-version.h"),
      this);
   m_ui.setupUi(this);
+  new QShortcut(tr("Ctrl+W"), &m_about, SLOT(close(void)));
+  new QShortcut(tr("Ctrl+W"), m_preferences, SLOT(reject(void)));
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -2159,6 +2161,7 @@ void glitch_ui::slotShowFullScreenMode(void)
 
 void glitch_ui::slotShowPreferences(void)
 {
+  m_preferences->processSettings();
   m_preferences->resize(650, m_preferences->sizeHint().height());
   m_preferences->show();
 }

@@ -37,11 +37,11 @@ class glitch_preferences: public QDialog
  public:
   glitch_preferences(QWidget *parent);
   ~glitch_preferences();
+  void processSettings(void);
 
  private:
   Ui_glitch_preferences m_ui;
   void prepareLanguages(void);
-  void processSettings(void);
 
  private slots:
   void slotApply(void);
