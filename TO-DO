@@ -302,7 +302,7 @@ Remaining Items
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
-- Insert between widgets option.
+- Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.

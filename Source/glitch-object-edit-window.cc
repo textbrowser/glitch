@@ -154,7 +154,6 @@ glitch_object_edit_window::glitch_object_edit_window
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   resize(800, 600);
-  setWindowFlags(Qt::Dialog | windowFlags());
 }
 
 QWidget *glitch_object_edit_window::centralWidget(void) const
@@ -196,6 +195,10 @@ bool glitch_object_edit_window::event(QEvent *event)
 
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
+  if(m_object)
+    m_object->setProperty
+      (glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
+
   QMainWindow::closeEvent(event);
   emit closed();
 }
