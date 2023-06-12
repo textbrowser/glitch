@@ -515,6 +515,10 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
 	  action->setCheckable(true);
 	  action->setChecked(i == m_ui.return_type->currentText());
+	  connect(action,
+		  &QAction::triggered,
+		  this,
+		  &glitch_object_function_arduino::slotReturnTypeChanged);
 	  group->addAction(action);
 	  m->addAction(action);
 	}
@@ -797,7 +801,8 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
   if(m_isFunctionClone)
     return;
 
-  if(m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE, nullptr))
+  if(m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE, nullptr) &&
+     m_ui.return_type == sender())
     {
       auto menu = m_actions.value
 	(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu();
@@ -807,9 +812,37 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 	  foreach(auto action, menu->actions())
 	    if(action && action->text() == m_ui.return_type->currentText())
 	      {
+		disconnect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_function_arduino::slotReturnTypeChanged);
 		action->setChecked(true);
+		connect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_function_arduino::slotReturnTypeChanged);
 		break;
 	      }
+	}
+    }
+  else
+    {
+      auto action = qobject_cast<QAction *> (sender());
+
+      if(action)
+	{
+	  disconnect(m_ui.return_type,
+		     SIGNAL(currentIndexChanged(int)),
+		     this,
+		     SLOT(slotReturnTypeChanged(void)));
+	  m_ui.return_type->setCurrentIndex
+	    (m_ui.return_type->findText(action->text()));
+	  connect(m_ui.return_type,
+		  SIGNAL(currentIndexChanged(int)),
+		  this,
+		  SLOT(slotReturnTypeChanged(void)));
 	}
     }
 
