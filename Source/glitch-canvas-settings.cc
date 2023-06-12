@@ -392,7 +392,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_ide TEXT, "
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
-	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 500, "
+	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 1500, "
 	   "selection_color TEXT NOT NULL, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
