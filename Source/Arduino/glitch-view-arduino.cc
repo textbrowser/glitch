@@ -57,8 +57,10 @@ glitch_view_arduino::glitch_view_arduino
   m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());
   m_loopObject = new glitch_object_loop_arduino(this);
   m_loopObject->setCanvasSettings(m_canvasSettings);
+  m_loopObject->setUndoStack(m_undoStack);
   m_setupObject = new glitch_object_setup_arduino(this);
   m_setupObject->setCanvasSettings(m_canvasSettings);
+  m_setupObject->setUndoStack(m_undoStack);
 
   glitch_proxy_widget *proxy = nullptr;
 

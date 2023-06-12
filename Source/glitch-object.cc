@@ -1635,7 +1635,7 @@ void glitch_object::slotCopy(void)
 
 void glitch_object::slotHideOrShowOccupied(void)
 {
-  setFont(m_properties.value(Properties::FONT).value<QFont> ());
+  hideOrShowOccupied();
 }
 
 void glitch_object::slotLockPosition(void)
