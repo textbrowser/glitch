@@ -612,6 +612,7 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
       if((DefaultMenuActions::DELETE == it.key() ||
 	  DefaultMenuActions::EDIT == it.key() ||
+	  DefaultMenuActions::FLOATING_CONTEXT_MENU == it.key() ||
 	  DefaultMenuActions::LOCK_POSITION == it.key() ||
 	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())

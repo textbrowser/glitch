@@ -492,7 +492,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_NAME))
     {
-      auto action = new QAction(tr("Set Function &Name..."), this);
+      auto action = new QAction(tr("Function &Name..."), this);
 
       connect(action,
 	      &QAction::triggered,
@@ -503,6 +503,28 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
     }
   else
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
+
+  if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE))
+    {
+      auto group = new QActionGroup(m_parent);
+      auto m = new QMenu(tr("Function &Return Type..."), m_parent);
+
+      foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
+	{
+	  auto action = new QAction(i, m);
+
+	  action->setCheckable(true);
+	  action->setChecked(i == m_ui.return_type->currentText());
+	  group->addAction(action);
+	  m->addAction(action);
+	}
+
+      m_actions[DefaultMenuActions::SET_FUNCTION_RETURN_TYPE] = m->menuAction();
+      menu.addMenu(m);
+    }
+  else
+    menu.addMenu
+      (m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu());
 
   addDefaultActions(menu);
 }

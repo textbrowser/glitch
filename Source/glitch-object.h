@@ -87,7 +87,8 @@ class glitch_object: public QWidget
     ** Miscellaneous.
     */
 
-    SET_FUNCTION_NAME = 3000
+    SET_FUNCTION_NAME = 3000,
+    SET_FUNCTION_RETURN_TYPE = 4000
   };
 
   enum class PortColors
