@@ -301,6 +301,7 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
+- Function return type via context menu.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
 - Interactive shell.

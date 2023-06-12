@@ -507,7 +507,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE))
     {
       auto group = new QActionGroup(m_parent);
-      auto m = new QMenu(tr("Function &Return Type..."), m_parent);
+      auto m = new QMenu(tr("Function &Return Type"), m_parent);
 
       foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
 	{
@@ -796,6 +796,22 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 {
   if(m_isFunctionClone)
     return;
+
+  if(m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE, nullptr))
+    {
+      auto menu = m_actions.value
+	(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu();
+
+      if(menu)
+	{
+	  foreach(auto action, menu->actions())
+	    if(action && action->text() == m_ui.return_type->currentText())
+	      {
+		action->setChecked(true);
+		break;
+	      }
+	}
+    }
 
   emit returnTypeChanged
     (m_ui.return_type->currentText(), m_previousReturnType, this);
