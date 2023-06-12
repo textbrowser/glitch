@@ -155,20 +155,11 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		  &glitch_floating_context_menu::slotActionChanged);
 	  connect(pushButton,
 		  &QPushButton::clicked,
-		  it.value(),
-		  &QAction::triggered);
-
-	  if(it.value()->menu())
-	    {
-	      connect(pushButton,
-		      &QPushButton::clicked,
-		      pushButton,
-		      &QPushButton::showMenu);
-	      pushButton->setMenu(it.value()->menu());
-	    }
+		  it.value(),		  &QAction::triggered);
 
 	  pushButton->setEnabled(it.value()->isEnabled());
 	  pushButton->setIcon(it.value()->icon());
+	  pushButton->setMenu(it.value()->menu());
 	  pushButton->setProperty("property", it.value()->data());
 	  pushButton->setText(it.value()->text());
 	  pushButton->setToolTip(it.value()->toolTip());
