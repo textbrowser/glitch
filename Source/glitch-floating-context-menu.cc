@@ -29,6 +29,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QShortcut>
+#include <QtDebug>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-scroll-filter.h"
@@ -156,6 +157,16 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		  &QPushButton::clicked,
 		  it.value(),
 		  &QAction::triggered);
+
+	  if(it.value()->menu())
+	    {
+	      connect(pushButton,
+		      &QPushButton::clicked,
+		      pushButton,
+		      &QPushButton::showMenu);
+	      pushButton->setMenu(it.value()->menu());
+	    }
+
 	  pushButton->setEnabled(it.value()->isEnabled());
 	  pushButton->setIcon(it.value()->icon());
 	  pushButton->setProperty("property", it.value()->data());
