@@ -1,5 +1,5 @@
 /*
-** Copyright (c) 2004 - 10^10^10, Alexis Megas.
+** Copyright (c) 2015 - 10^10^10, Alexis Megas.
 ** All rights reserved.
 **
 ** Redistribution and use in source and binary forms, with or without
