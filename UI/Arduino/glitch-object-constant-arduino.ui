@@ -88,7 +88,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="other">
+    <widget class="glitch_object_lineedit" name="other">
      <property name="text">
       <string notr="true"/>
      </property>
@@ -99,6 +99,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glitch_object_lineedit</class>
+   <extends>QLineEdit</extends>
+   <header>glitch-object-lineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>constant</tabstop>
   <tabstop>other</tabstop>
