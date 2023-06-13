@@ -109,6 +109,8 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
 
   QHash<QString, QColor> colors;
 
+  colors["#define"] = QColor(128, 0, 128);
+  colors["#include"] = QColor(128, 0, 128);
   colors["bool"] = QColor(0, 100, 0);
   colors["boolean"] = QColor(0, 100, 0);
   colors["byte"] = QColor(0, 100, 0);
@@ -143,15 +145,22 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
       format.setFontStyleStrategy(QFont::PreferAntialias);
       format.setFontWeight(QFont::Normal);
 
-      if(colors.contains(list.at(i)))
-	format.setForeground(colors.value(list.at(i)));
+      auto string(list.at(i));
+
+      if(colors.contains('#' + list.at(i)))
+	{
+	  format.setForeground(colors.value('#' + list.at(i)));
+	  string.prepend("#");
+	}
+      else if(colors.contains(string))
+	format.setForeground(colors.value(string));
       else
 	format.setForeground(QColor(Qt::blue));
 
       ranges[i].format = format;
-      ranges[i].length = list.at(i).length();
-      ranges[i].start = index = lineEdit->text().indexOf(list.at(i), index);
-      index += list.at(i).length();
+      ranges[i].length = string.length();
+      ranges[i].start = index = lineEdit->text().indexOf(string, index);
+      index += string.length();
     }
 
   QList<QInputMethodEvent::Attribute> attributes;
@@ -164,8 +173,11 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
        ranges[i].format);
 
   QInputMethodEvent event(QString(), attributes);
+  auto state = lineEdit->isReadOnly();
 
+  lineEdit->setReadOnly(false);
   QCoreApplication::sendEvent(lineEdit, &event);
+  lineEdit->setReadOnly(state);
 }
 
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
