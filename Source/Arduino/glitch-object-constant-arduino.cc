@@ -342,6 +342,7 @@ void glitch_object_constant_arduino::slotConstantChanged(void)
 void glitch_object_constant_arduino::slotOtherConstantChanged(void)
 {
   m_ui.other->setText(m_ui.other->text().trimmed());
+  m_ui.other->setCursorPosition(0);
 
   if(!m_undoStack)
     return;

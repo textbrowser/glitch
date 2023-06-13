@@ -186,7 +186,6 @@ void glitch_object_syntax_arduino::slotSyntaxChanged(void)
 {
   m_ui.text->setText(m_ui.text->text().trimmed());
   m_ui.text->setCursorPosition(0);
-  m_ui.text->selectAll();
 
   if(!m_undoStack)
     return;

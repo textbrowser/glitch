@@ -600,7 +600,6 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
 
   lineEdit->setText(lineEdit->text().trimmed());
   lineEdit->setCursorPosition(0);
-  lineEdit->selectAll();
   prepareHighlights();
 
   if(!m_undoStack)
