@@ -1106,7 +1106,8 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  auto object = qobject_cast<glitch_object *> (proxy->widget());
 
 	  if(object && (object->mouseOverScrollBar(event->scenePos()) ||
-			qobject_cast<QLineEdit *> (object->focusWidget())))
+			qobject_cast<QLineEdit *> (object->focusWidget()) ||
+			qobject_cast<QPlainTextEdit *> (object->focusWidget())))
 	    continue;
 
 	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
