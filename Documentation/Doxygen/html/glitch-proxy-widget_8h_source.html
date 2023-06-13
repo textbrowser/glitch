@@ -151,25 +151,25 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> geometryChanged(<span class="keyword">const</span> QRectF &amp;previousRect);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">void</span> setPos(<span class="keyword">const</span> QPointF &amp;point);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> setWidget(QWidget *widget);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  QPointer&lt;glitch_scene&gt; m_scene;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  Sections m_hoveredSection;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <a class="code" href="classglitch__resize__widget.html">glitch_resize_widget</a> *m_resizeWidget;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  QVariant itemChange(GraphicsItemChange change, <span class="keyword">const</span> QVariant &amp;value);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">bool</span> isWired(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">void</span> contextMenuEvent(QGraphicsSceneContextMenuEvent *event);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> hoverEnterEvent(QGraphicsSceneHoverEvent *event);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> hoverLeaveEvent(QGraphicsSceneHoverEvent *event);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">void</span> hoverMoveEvent(QGraphicsSceneHoverEvent *event);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordtype">void</span> mousePressEvent(QGraphicsSceneMouseEvent *event);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordtype">void</span> paint(QPainter *painter,</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;         <span class="keyword">const</span> QStyleOptionGraphicsItem *opt,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         QWidget *widget);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">void</span> prepareHoverSection(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">void</span> prepareHoverSection(<span class="keyword">const</span> QPointF &amp;point);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">void</span> setPos(<span class="keyword">const</span> QPointF &amp;point);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordtype">void</span> setWidget(QWidget *widget);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  QPointer&lt;glitch_scene&gt; m_scene;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  Sections m_hoveredSection;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="classglitch__resize__widget.html">glitch_resize_widget</a> *m_resizeWidget;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  QVariant itemChange(GraphicsItemChange change, <span class="keyword">const</span> QVariant &amp;value);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">bool</span> isWired(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> contextMenuEvent(QGraphicsSceneContextMenuEvent *event);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> hoverEnterEvent(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">void</span> hoverLeaveEvent(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordtype">void</span> hoverMoveEvent(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordtype">void</span> mousePressEvent(QGraphicsSceneMouseEvent *event);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">void</span> paint(QPainter *painter,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;         <span class="keyword">const</span> QStyleOptionGraphicsItem *opt,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;         QWidget *widget);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">void</span> resizeEvent(QGraphicsSceneResizeEvent *event);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; signals:</div>

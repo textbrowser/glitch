@@ -64,6 +64,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classglitch__find__objects-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -92,8 +93,9 @@ Collaboration diagram for glitch_find_objects:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a399e3193fcba57909159a7e7b208c234"><td class="memItemLeft" align="right" valign="top"><a id="a399e3193fcba57909159a7e7b208c234"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Columns</b> { <b>Object</b> = 0
-, <b>Position</b>
-, <b>Type</b>
+, <b>Position</b> = 1
+, <b>Type</b> = 2
+, <b>TypeTotal</b> = 3
  }</td></tr>
 <tr class="separator:a399e3193fcba57909159a7e7b208c234"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -102,6 +104,12 @@ Public Slots</h2></td></tr>
 <tr class="memitem:aa36674d8e77af581686c36d9a76b6e90"><td class="memItemLeft" align="right" valign="top"><a id="aa36674d8e77af581686c36d9a76b6e90"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSynchronize</b> (void)</td></tr>
 <tr class="separator:aa36674d8e77af581686c36d9a76b6e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:ad8174048b63604a272ccb494f6c2d1e7"><td class="memItemLeft" align="right" valign="top"><a id="ad8174048b63604a272ccb494f6c2d1e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setTotals</b> (const QHash&lt; QString, int &gt; &amp;totals)</td></tr>
+<tr class="separator:ad8174048b63604a272ccb494f6c2d1e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>

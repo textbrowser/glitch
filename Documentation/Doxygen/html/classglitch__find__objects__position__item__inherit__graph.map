@@ -1,4 +1,5 @@
 <map id="glitch_find_objects_position_item" name="glitch_find_objects_position_item">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,148,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="9,5,144,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="35,80,178,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node3" title=" " alt="" coords="105,5,239,32"/>
 </map>

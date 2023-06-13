@@ -98,24 +98,30 @@ Public Types</h2></td></tr>
 , <b>DOTS_GRIDS_COLOR</b>
 , <br />
 &#160;&#160;<b>GENERATE_PERIODICALLY</b>
+, <b>GENERATE_SOURCE_VIEW_PERIODICALLY</b>
 , <b>KEYWORD_COLORS</b>
 , <b>LOCK_COLOR</b>
-, <b>PROJECT_IDE</b>
 , <br />
-&#160;&#160;<b>REDO_UNDO_STACK_SIZE</b>
+&#160;&#160;<b>PROJECT_IDE</b>
+, <b>REDO_UNDO_STACK_SIZE</b>
 , <b>SELECTION_COLOR</b>
 , <b>SHOW_CANVAS_DOTS</b>
-, <b>SHOW_CANVAS_GRIDS</b>
 , <br />
-&#160;&#160;<b>SHOW_ORDER_INDICATORS</b>
+&#160;&#160;<b>SHOW_CANVAS_GRIDS</b>
+, <b>SHOW_ORDER_INDICATORS</b>
 , <b>VIEW_UPDATE_MODE</b>
 , <b>WIRE_COLOR</b>
-, <b>WIRE_TYPE</b>
 , <br />
-&#160;&#160;<b>WIRE_WIDTH</b>
+&#160;&#160;<b>WIRE_TYPE</b>
+, <b>WIRE_WIDTH</b>
 <br />
  }</td></tr>
 <tr class="separator:ade6f20b95f3f789805459436838ed929"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6e95731efc05c8ea3439951bec8cdc"><td class="memItemLeft" align="right" valign="top"><a id="abb6e95731efc05c8ea3439951bec8cdc"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>Pages</b> { <b>Canvas</b> = 0
+, <b>Project</b> = 1
+, <b>UndoStack</b>
+ }</td></tr>
+<tr class="separator:abb6e95731efc05c8ea3439951bec8cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
@@ -173,9 +179,9 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><b>wireType</b> (void
 <tr class="memitem:a80f5a722d18e4edfac2b406571221064"><td class="memItemLeft" align="right" valign="top"><a id="a80f5a722d18e4edfac2b406571221064"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>generatePeriodically</b> (void) const</td></tr>
 <tr class="separator:a80f5a722d18e4edfac2b406571221064"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a2c02fc01c04db9f77793849d67b9a9"><td class="memItemLeft" align="right" valign="top"><a id="a8a2c02fc01c04db9f77793849d67b9a9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>notify</b> (void)</td></tr>
-<tr class="separator:a8a2c02fc01c04db9f77793849d67b9a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8ce56809ccacbad8e79e1741bc786ab"><td class="memItemLeft" align="right" valign="top"><a id="ae8ce56809ccacbad8e79e1741bc786ab"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>generateSourceViewPeriodically</b> (void) const</td></tr>
+<tr class="separator:ae8ce56809ccacbad8e79e1741bc786ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77acf413ba93995f28aebce0648b7cd8"><td class="memItemLeft" align="right" valign="top"><a id="a77acf413ba93995f28aebce0648b7cd8"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (QString &amp;error) const</td></tr>
 <tr class="separator:a77acf413ba93995f28aebce0648b7cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -239,6 +245,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setWireType</b> (cons
 <tr class="memitem:ae75f820e720e41d39acb9e9175f7f919"><td class="memItemLeft" align="right" valign="top"><a id="ae75f820e720e41d39acb9e9175f7f919"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWireWidth</b> (const double value)</td></tr>
 <tr class="separator:ae75f820e720e41d39acb9e9175f7f919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688c938289c378288d95e72370b0bd0f"><td class="memItemLeft" align="right" valign="top"><a id="a688c938289c378288d95e72370b0bd0f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showPage</b> (const Pages page)</td></tr>
+<tr class="separator:a688c938289c378288d95e72370b0bd0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="glitch-canvas-settings_8h_source.html">glitch-canvas-settings.h</a></li>
