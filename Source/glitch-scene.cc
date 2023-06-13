@@ -1105,10 +1105,28 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  auto object = qobject_cast<glitch_object *> (proxy->widget());
 
-	  if(object && (object->mouseOverScrollBar(event->scenePos()) ||
-			qobject_cast<QLineEdit *> (object->focusWidget()) ||
-			qobject_cast<QPlainTextEdit *> (object->focusWidget())))
-	    continue;
+	  if(object)
+	    {
+	      if(object->mouseOverScrollBar(event->scenePos()))
+		continue;
+	      else
+		{
+		  {
+		    auto w = qobject_cast<QLineEdit *> (object->focusWidget());
+
+		    if(w && w->isReadOnly() == false)
+		      continue;
+		  }
+
+		  {
+		    auto w = qobject_cast<QPlainTextEdit *>
+		      (object->focusWidget());
+
+		    if(w && w->isReadOnly() == false)
+		      continue;
+		  }
+		}
+	    }
 
 	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 

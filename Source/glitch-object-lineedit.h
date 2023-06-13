@@ -54,6 +54,7 @@ class glitch_object_lineedit: public QLineEdit
   {
     QApplication::restoreOverrideCursor();
     QLineEdit::leaveEvent(event);
+    deselect();
     setReadOnly(true);
   }
 
@@ -62,6 +63,22 @@ class glitch_object_lineedit: public QLineEdit
     QApplication::setOverrideCursor(QCursor(Qt::IBeamCursor));
     QLineEdit::mouseDoubleClickEvent(event);
     setReadOnly(false);
+  }
+
+  void mouseMoveEvent(QMouseEvent *event)
+  {
+    if(isReadOnly())
+      return;
+    else
+      QLineEdit::mouseMoveEvent(event);
+  }
+
+  void mousePressEvent(QMouseEvent *event)
+  {
+    if(isReadOnly())
+      return;
+    else
+      QLineEdit::mousePressEvent(event);
   }
 
  private slots:
