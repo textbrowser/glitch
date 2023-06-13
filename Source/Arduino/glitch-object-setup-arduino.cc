@@ -34,7 +34,8 @@
 #include "glitch-view.h"
 
 glitch_object_setup_arduino::glitch_object_setup_arduino
-(QWidget *parent):glitch_object_setup_arduino(1, parent)
+(QWidget *parent):glitch_object_setup_arduino
+		  (static_cast<qint64> (Limits::ARDUINO_SETUP_ID), parent)
 {
 }
 

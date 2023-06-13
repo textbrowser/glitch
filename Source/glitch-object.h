@@ -47,11 +47,6 @@ class glitch_object: public QWidget
   Q_OBJECT
 
  public:
-  enum Limits
-  {
-    NAME_MAXIMUM_LENGTH = 128 // An estimate. May be longer or shorter.
-  };
-
   enum class DefaultMenuActions
   {
     /*
@@ -89,6 +84,13 @@ class glitch_object: public QWidget
 
     SET_FUNCTION_NAME = 3000,
     SET_FUNCTION_RETURN_TYPE = 4000
+  };
+
+  enum class Limits
+  {
+    ARDUINO_LOOP_ID = 1,
+    ARDUINO_SETUP_ID = 2,
+    NAME_MAXIMUM_LENGTH = 128 // An estimate. May be longer or shorter.
   };
 
   enum class PortColors
