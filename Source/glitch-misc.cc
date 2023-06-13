@@ -31,6 +31,7 @@
 #include <QIcon>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QScopedArrayPointer>
 #include <QTextLayout>
 
 #include "glitch-misc.h"
@@ -129,12 +130,12 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
   colors["while"] = QColor(255, 0, 255);
   colors["word"] = QColor(0, 100, 0);
 
+  QScopedArrayPointer<QTextLayout::FormatRange> ranges;
   QTextCharFormat format;
-  QTextLayout::FormatRange *ranges = nullptr;
   auto list(lineEdit->text().split(QRegularExpression("\\W+")));
   int index = 0;
 
-  ranges = new QTextLayout::FormatRange[list.size()];
+  ranges.reset(new QTextLayout::FormatRange[list.size()]);
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -165,7 +166,6 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
   QInputMethodEvent event(QString(), attributes);
 
   QCoreApplication::sendEvent(lineEdit, &event);
-  delete []ranges;
 }
 
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)

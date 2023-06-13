@@ -602,6 +602,7 @@ void glitch_object::addChild(const QPointF &point, glitch_object *object)
 void glitch_object::addDefaultActions(QMenu &menu)
 {
   createActions();
+  menu.addSection(m_type);
 
   QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
 
