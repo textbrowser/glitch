@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>650</width>
     <height>500</height>
    </rect>
   </property>
@@ -93,6 +93,13 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QLineEdit" name="search">
+        <property name="placeholderText">
+         <string>Search</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -132,6 +139,13 @@
    <header>glitch-structures-treewidget.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>synchronize</tabstop>
+  <tabstop>tree</tabstop>
+  <tabstop>search</tabstop>
+  <tabstop>find</tabstop>
+  <tabstop>close</tabstop>
+ </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
