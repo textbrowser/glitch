@@ -29,11 +29,14 @@
 #define _glitch_find_objects_h_
 
 #include <QPointer>
+#include <QTimer>
+#include <QVector>
 
 #include "ui_glitch-find-objects.h"
 
 class QTreeWidgetItem;
 class glitch_collapse_expand_tool_button;
+class glitch_find_objects_position_item;
 class glitch_object;
 class glitch_view;
 
@@ -59,9 +62,10 @@ class glitch_find_objects: public QMainWindow
  private:
   QHash<QString, int> m_typeTotals;
   QPointer<glitch_view> m_view;
+  QVector<glitch_find_objects_position_item *> m_items;
+  QTimer m_searchTimer;
   Ui_glitch_find_objects m_ui;
   glitch_collapse_expand_tool_button *m_collapse;
-  int m_count;
   void find(QTreeWidgetItem *i, const QSet<qint64> &ids, glitch_object *object);
   void find(const QSet<qint64> &ids);
 
@@ -69,6 +73,7 @@ class glitch_find_objects: public QMainWindow
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotFind(void);
   void slotItemDoubleClicked(QTreeWidgetItem *i, int column);
+  void slotSearch(void);
 
  signals:
   void setTotals(const QHash<QString, int> &totals);

@@ -34,10 +34,13 @@
 #include "glitch-object.h"
 #include "glitch-view.h"
 
-glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
+glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
 {
-  m_count = 0;
   m_ui.setupUi(this);
+  connect(&m_searchTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_find_objects::slotSearch);
   connect(m_ui.close,
 	  &QPushButton::clicked,
 	  this,
@@ -46,6 +49,10 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::slotFind);
+  connect(m_ui.search,
+	  SIGNAL(textEdited(const QString &)),
+	  &m_searchTimer,
+	  SLOT(start(void)));
   connect(m_ui.synchronize,
 	  &QCheckBox::clicked,
 	  this,
@@ -58,12 +65,21 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 	  this,
 	  SLOT(slotItemDoubleClicked(QTreeWidgetItem *, int)));
+  connect(parent,
+	  SIGNAL(destroyed(void)),
+	  this,
+	  SLOT(deleteLater(void)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
+  m_searchTimer.setInterval(10);
+  m_searchTimer.setSingleShot(true);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.find->setIcon(QIcon(":/find.png"));
   m_ui.tree->setContextMenuPolicy(Qt::CustomContextMenu);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   m_view = qobject_cast<glitch_view *> (parent);
+  new QShortcut(tr("Ctrl+F"),
+		m_ui.search,
+		SLOT(setFocus(void)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
@@ -95,7 +111,7 @@ void glitch_find_objects::find
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->objectType());
-	m_count += 1;
+	m_items << item;
 	m_typeTotals[child->objectType()] = m_typeTotals.value
 	  (child->objectType(), 0) + 1;
 	find(item, ids, child);
@@ -105,7 +121,7 @@ void glitch_find_objects::find
 void glitch_find_objects::find(const QSet<qint64> &ids)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  m_count = 0;
+  m_items.clear();
   m_typeTotals.clear();
   m_ui.tree->clear();
 
@@ -127,7 +143,7 @@ void glitch_find_objects::find(const QSet<qint64> &ids)
 	      (static_cast<int> (Columns::Position), object->position());
 	    item->setText
 	      (static_cast<int> (Columns::Type), object->objectType());
-	    m_count += 1;
+	    m_items << item;
 	    m_typeTotals[object->objectType()] =
 	      m_typeTotals.value(object->objectType(), 0) + 1;
 	    m_ui.tree->addTopLevelItem(item);
@@ -144,7 +160,7 @@ void glitch_find_objects::find(const QSet<qint64> &ids)
     m_ui.tree->collapseAll();
 
   m_ui.tree->resizeColumnToContents(0);
-  statusBar()->showMessage(tr("%1 object(s).").arg(m_count));
+  slotSearch();
   QApplication::restoreOverrideCursor();
 }
 
@@ -198,6 +214,62 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 	    item->object()->showEditWindow();
 	}
     }
+}
+
+void glitch_find_objects::slotSearch(void)
+{
+  auto count = 0;
+  auto text(m_ui.search->text().trimmed());
+
+  if(text.isEmpty())
+    {
+      /*
+      ** Show all items.
+      */
+
+      foreach(auto item, m_items)
+	if(item)
+	  {
+	    count += 1;
+	    item->setHidden(false);
+	  }
+    }
+  else
+    {
+      int i = 0;
+
+      foreach(auto item, m_items)
+	if(item)
+	  {
+	    auto found = false;
+
+	    for(i = 0; i < item->columnCount(); i++)
+	      if(item->text(i).contains(text, Qt::CaseInsensitive))
+		{
+		  count += 1;
+		  found = true;
+		  break;
+		}
+
+	    if(found)
+	      {
+		item->setHidden(false);
+
+		auto parent = static_cast<QTreeWidgetItem *> (item)->parent();
+
+		while(parent)
+		  {
+		    parent->setExpanded(true);
+		    parent->setHidden(false);
+		    parent = parent->parent();
+		  }
+	      }
+	    else
+	      item->setHidden(true);
+	  }
+    }
+
+  statusBar()->showMessage(tr("%1 object(s).").arg(count));
 }
 
 void glitch_find_objects::slotSynchronize(void)

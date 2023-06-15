@@ -121,6 +121,7 @@ Completed Items
 - Find Objects:
   Copy context-menu action
   Delete context-menu action
+  Search field
 - Find and take me to your leader (scroll-to, show edit view).
 - Find objects.
   Edit context-menu action
@@ -289,7 +290,7 @@ Completed Items
 Remaining Items
 
 - Android:
-  Adding user functions via drag
+  Adding user functions via drag (Incomplete)
   Application icon (Completed)
   Close buttons (Completed)
   Drag & drop (Completed)
@@ -302,7 +303,6 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
-- Find Objects: search field.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
 - Interactive shell.
