@@ -59,8 +59,14 @@ int glitch_tab::addTab
 {
   if(!view)
     return -1;
+  else if(indexOf(view) >= 0)
+    return indexOf(view);
 
   auto index = QTabWidget::addTab(view, icon, label);
+
+  if(index < 0)
+    return index;
+
   auto pushButton = new QPushButton(this);
 
   connect(pushButton,
