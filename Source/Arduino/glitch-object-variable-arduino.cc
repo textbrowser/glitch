@@ -79,6 +79,18 @@ glitch_object_variable_arduino::~glitch_object_variable_arduino()
 {
 }
 
+QSize glitch_object_variable_arduino::preferredSize(void) const
+{
+  if(m_properties.value(Properties::COMPRESSED_WIDGET).toBool())
+    {
+      auto width = 35 + 10 * m_ui.name->text().trimmed().length();
+
+      return QSize(width, minimumHeight(sizeHint().height()));
+    }
+  else
+    return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
+}
+
 QString glitch_object_variable_arduino::code(void) const
 {
   QString assignment("=");
@@ -305,7 +317,7 @@ void glitch_object_variable_arduino::compressWidget(const bool state)
   m_ui.qualifier->setVisible(!state);
   m_ui.type->setVisible(!state);
   adjustSize();
-  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+  resize(preferredSize());
 }
 
 void glitch_object_variable_arduino::connectSignals(const bool state)
@@ -555,6 +567,33 @@ void glitch_object_variable_arduino::setProperty
 	break;
       }
     }
+}
+
+void glitch_object_variable_arduino::slotAdjustSize(void)
+{
+  auto before(size());
+
+  resize(preferredSize());
+
+  if(before == this->size())
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(size(),
+	 before,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 Properties::SIZE,
+	 this);
+
+      undoCommand->setText
+	(tr("object size changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+
+  emit changed();
 }
 
 void glitch_object_variable_arduino::slotComboBoxChanged(void)

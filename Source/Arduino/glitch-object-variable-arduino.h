@@ -52,6 +52,7 @@ class glitch_object_variable_arduino: public glitch_object
  private:
   glitch_object_variable_arduino(QWidget *parent);
   glitch_object_variable_arduino(const qint64 id, QWidget *parent);
+  QSize preferredSize(void) const;
   Ui_glitch_object_variable_arduino m_ui;
   void compressWidget(const bool state);
   void connectSignals(const bool state);
@@ -61,6 +62,7 @@ class glitch_object_variable_arduino: public glitch_object
   void setProperty(const Properties property, const QVariant &value);
 
  private slots:
+  void slotAdjustSize(void);
   void slotComboBoxChanged(void);
   void slotLineEditSet(void);
   void slotToolButtonChecked(void);
