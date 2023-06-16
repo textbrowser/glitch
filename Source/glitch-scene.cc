@@ -405,10 +405,19 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   object->setCanvasSettings(m_canvasSettings);
   object->setProxy(proxy);
   object->setUndoStack(m_undoStack);
+
+  /*
+  ** Eliminate MacOS error (outside any known screen, using primary screen).
+  */
+
+#ifndef Q_OS_MACOS
   object->setVisible(false);
+#endif
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
+#ifndef Q_OS_MACOS
   QTimer::singleShot(50, object, &glitch_object::show);
+#endif
   emit changed();
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
