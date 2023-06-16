@@ -376,6 +376,7 @@ class glitch_object: public QWidget
   void createActions(void);
   void prepareContextMenu(void);
   void prepareEditObjects(const glitch_view *parentView);
+  void prepareFont(void);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);

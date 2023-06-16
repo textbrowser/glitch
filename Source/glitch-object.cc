@@ -1037,6 +1037,15 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
     }
 }
 
+void glitch_object::prepareFont(void)
+{
+  foreach(auto widget, findChildren<QWidget *> ())
+    if(widget)
+      widget->setFont(m_properties.value(Properties::FONT).value<QFont> ());
+
+  hideOrShowOccupied();
+}
+
 void glitch_object::save(const QSqlDatabase &db, QString &error)
 {
   QSqlQuery query(db);
@@ -1250,7 +1259,7 @@ void glitch_object::setProperties(const QStringList &list)
 	  else
 	    m_properties[Properties::FONT] = font;
 
-	  hideOrShowOccupied();
+	  prepareFont();
 	}
       else if(string.simplified().startsWith("font_color = "))
 	{
@@ -1371,7 +1380,7 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::FONT:
       {
-	hideOrShowOccupied();
+	prepareFont();
 	break;
       }
     case Properties::GEOMETRY:
