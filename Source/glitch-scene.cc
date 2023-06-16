@@ -985,11 +985,23 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(!object)
 	      continue;
 
-	    if(qobject_cast<QLineEdit *> (object->focusWidget()) ||
-	       qobject_cast<QPlainTextEdit *> (object->focusWidget()))
+	    if(qobject_cast<QLineEdit *> (object->focusWidget()))
 	      {
-		QGraphicsScene::keyPressEvent(event);
-		continue;
+		if(qobject_cast<QLineEdit *> (object->focusWidget())->
+		   isReadOnly() == false)
+		  {
+		    QGraphicsScene::keyPressEvent(event);
+		    continue;
+		  }
+	      }
+	    else if(qobject_cast<QPlainTextEdit *> (object->focusWidget()))
+	      {
+		if(qobject_cast<QPlainTextEdit *> (object->focusWidget())->
+		   isReadOnly() == false)
+		  {
+		    QGraphicsScene::keyPressEvent(event);
+		    continue;
+		  }
 	      }
 
 	    if(!proxy->isMovable())
