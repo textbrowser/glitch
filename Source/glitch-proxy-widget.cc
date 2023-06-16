@@ -50,7 +50,7 @@ glitch_proxy_widget::glitch_proxy_widget
 {
   m_hoveredSection = Sections::XYZ;
   m_resizeWidget = new glitch_resize_widget(this);
-  setAttribute(Qt::WA_OpaquePaintEvent, true); // We paint!
+  setAttribute(Qt::WA_OpaquePaintEvent, true); // We paint pixels!
   setCacheMode(QGraphicsItem::NoCache);
 }
 
