@@ -1072,7 +1072,11 @@ void glitch_view::reparent(void)
 void glitch_view::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
-  setSceneRect(m_view->size());
+
+  if(m_view->isVisible())
+    setSceneRect(m_view->size());
+  else
+    setSceneRect(size());
 }
 
 void glitch_view::save(void)
