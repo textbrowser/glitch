@@ -69,16 +69,16 @@ class glitch_object_lineedit: public QLineEdit
   {
     if(isReadOnly())
       return;
-    else
-      QLineEdit::mouseMoveEvent(event);
+
+    QLineEdit::mouseMoveEvent(event);
   }
 
   void mousePressEvent(QMouseEvent *event)
   {
     if(isReadOnly())
       return;
-    else
-      QLineEdit::mousePressEvent(event);
+
+    QLineEdit::mousePressEvent(event);
   }
 
  private slots:
