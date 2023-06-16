@@ -310,6 +310,7 @@ Remaining Items
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Promote comment widget (see glitch_object_lineedit).
 - Qt 6.5 LTS for Windows.
+- Resize after a font is difficult because of redo / undo.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.

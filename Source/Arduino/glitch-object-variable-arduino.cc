@@ -470,7 +470,7 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 	    m_ui.pointer_access->setCurrentIndex
 	      (m_ui.pointer_access->findText(""));
 	}
-      if(string.simplified().startsWith("variable_progmem = "))
+      else if(string.simplified().startsWith("variable_progmem = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
