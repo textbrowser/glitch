@@ -66,6 +66,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     (QPixmap(":/Logo/glitch-logo.png").scaled(QSize(256, 256),
 					      Qt::KeepAspectRatio,
 					      Qt::SmoothTransformation));
+  m_about.setStandardButtons(QMessageBox::Close);
   m_about.setText
     (tr("<html>"
 	"<b>Glitch Version %1</b><br><br>"

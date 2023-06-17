@@ -286,6 +286,8 @@ QMenu *glitch_view::defaultContextMenu(void)
   else
     m_contextMenu->clear();
 
+  m_contextMenu->addSection(tr("glitch-view"));
+
   auto action = m_pasteAction = m_contextMenu->addAction
     (tr("Paste"), this, SLOT(slotPaste(void)));
 
