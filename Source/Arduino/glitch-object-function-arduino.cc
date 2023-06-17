@@ -477,7 +477,8 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_function_arduino::slotEdit);
+	      &glitch_object_function_arduino::slotEdit,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
@@ -497,7 +498,8 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_function_arduino::slotSetFunctionName);
+	      &glitch_object_function_arduino::slotSetFunctionName,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::SET_FUNCTION_NAME] = action;
       menu.addAction(action);
     }
@@ -518,7 +520,8 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 	  connect(action,
 		  &QAction::triggered,
 		  this,
-		  &glitch_object_function_arduino::slotReturnTypeChanged);
+		  &glitch_object_function_arduino::slotReturnTypeChanged,
+		  Qt::QueuedConnection);
 	  group->addAction(action);
 	  m->addAction(action);
 	}
@@ -822,7 +825,8 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 		  (action,
 		   &QAction::triggered,
 		   this,
-		   &glitch_object_function_arduino::slotReturnTypeChanged);
+		   &glitch_object_function_arduino::slotReturnTypeChanged,
+		   Qt::QueuedConnection);
 		break;
 	      }
 	}

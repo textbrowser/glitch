@@ -95,7 +95,7 @@ void glitch_docked_container::add(QWidget *widget)
 
 void glitch_docked_container::detach(void)
 {
-  QList<QWidget *> list;
+  QList<glitch_object *> list;
 
   for(int i = 0; i < m_model->rowCount(); i++)
     if(m_model->item(i, 0))
@@ -121,24 +121,8 @@ void glitch_docked_container::detach(void)
 	  if(shortcut)
 	    shortcut->setEnabled(true);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
-	auto event = new QMouseEvent
-	  (QEvent::MouseButtonDblClick,
-	   QPointF(),
-	   QPointF(),
-	   Qt::NoButton,
-	   Qt::NoButton,
-	   Qt::NoModifier);
-#else
-	auto event = new QMouseEvent
-	  (QEvent::MouseButtonDblClick,
-	   QPointF(),
-	   Qt::NoButton,
-	   Qt::NoButton,
-	   Qt::NoModifier);
-#endif
-
-	QApplication::postEvent(object, event);
+	object->triggerAction
+	  (glitch_object::DefaultMenuActions::FLOATING_CONTEXT_MENU);
       }
 }
 

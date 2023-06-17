@@ -680,7 +680,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotAdjustSize);
+	      &glitch_object::slotAdjustSize,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::ADJUST_SIZE] = action;
     }
 
@@ -693,7 +694,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSelectColor);
+	      &glitch_object::slotSelectColor,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::BACKGROUND_COLOR] = action;
     }
 
@@ -706,7 +708,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSelectBorderColor);
+	      &glitch_object::slotSelectBorderColor,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::BORDER_COLOR] = action;
     }
 
@@ -723,7 +726,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotActionTriggered);
+	      &glitch_object::slotActionTriggered,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::COMPRESS_WIDGET] = action;
     }
   else
@@ -744,7 +748,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotCopy);
+	      &glitch_object::slotCopy,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::COPY] = action;
     }
 
@@ -758,7 +763,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::deletedViaContextMenu);
+	      &glitch_object::deletedViaContextMenu,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::DELETE] = action;
     }
 
@@ -772,7 +778,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotShowContextMenu);
+	      &glitch_object::slotShowContextMenu,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::FLOATING_CONTEXT_MENU] = action;
     }
 
@@ -784,7 +791,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSelectFont);
+	      &glitch_object::slotSelectFont,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::FONT] = action;
     }
 
@@ -796,7 +804,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSelectColor);
+	      &glitch_object::slotSelectColor,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::FONT_COLOR] = action;
 
       if(!isNativelyDrawn() ||
@@ -818,7 +827,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotLockPosition);
+	      &glitch_object::slotLockPosition,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::LOCK_POSITION] = action;
     }
   else
@@ -834,7 +844,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSetPortColors);
+	      &glitch_object::slotSetPortColors,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::PORT_COLORS] = action;
     }
 
@@ -847,7 +858,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSetStyleSheet);
+	      &glitch_object::slotSetStyleSheet,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
     }
 
@@ -861,7 +873,8 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotActionTriggered);
+	      &glitch_object::slotActionTriggered,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::TRANSPARENT] = action;
     }
   else

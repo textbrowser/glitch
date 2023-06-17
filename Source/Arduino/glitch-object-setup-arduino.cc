@@ -155,7 +155,8 @@ void glitch_object_setup_arduino::addActions(QMenu &menu)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_setup_arduino::slotEdit);
+	      &glitch_object_setup_arduino::slotEdit,
+	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
