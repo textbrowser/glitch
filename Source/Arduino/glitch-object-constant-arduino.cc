@@ -130,6 +130,8 @@ clone(QWidget *parent) const
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConstantType(m_ui.constant->currentText());
   clone->setStyleSheet(styleSheet());
+  clone->compressWidget
+    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   return clone;
 }
 

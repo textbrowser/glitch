@@ -623,7 +623,6 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
 void glitch_object::afterPaste(void)
 {
-  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   prepareFont();
   setWindowOpacity
     (m_properties.value(Properties::TRANSPARENT).toBool() ?
