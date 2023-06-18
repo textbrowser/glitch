@@ -75,6 +75,21 @@ glitch_object_compound_operator_arduino::
 {
 }
 
+QSize glitch_object_compound_operator_arduino::preferredSize(void) const
+{
+  if(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
+     m_operatorType == OperatorTypes::INCREMENT_OPERATOR)
+    {
+      auto width = 35 +
+	10 * m_ui.compound_operator->currentText().trimmed().length() +
+	(m_ui.pre->isVisible() ? m_ui.pre->sizeHint().width() : 0);
+
+      return QSize(width, minimumHeight(sizeHint().height()));
+    }
+  else
+    return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
+}
+
 QString glitch_object_compound_operator_arduino::
 compoundOperator(void) const
 {
@@ -195,10 +210,12 @@ glitch_object_compound_operator_arduino::clone(QWidget *parent) const
   clone->m_ui.pre->blockSignals(true);
   clone->m_ui.pre->setChecked(m_ui.pre->isChecked());
   clone->m_ui.pre->blockSignals(false);
-  clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setOperatorType(m_operatorType);
   clone->setStyleSheet(styleSheet());
+  clone->compressWidget
+    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  clone->resize(size());
   return clone;
 }
 
@@ -234,8 +251,8 @@ void glitch_object_compound_operator_arduino::compressWidget(const bool state)
     m_ui.pre->setVisible(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
 			 m_operatorType == OperatorTypes::INCREMENT_OPERATOR);
 
-  QApplication::processEvents();
-  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+  adjustSize();
+  resize(preferredSize());
 }
 
 void glitch_object_compound_operator_arduino::save
@@ -429,6 +446,33 @@ void glitch_object_compound_operator_arduino::setProperty
 	break;
       }
     }
+}
+
+void glitch_object_compound_operator_arduino::slotAdjustSize(void)
+{
+  auto before(size());
+
+  resize(preferredSize());
+
+  if(before == this->size())
+    return;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(size(),
+	 before,
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 Properties::SIZE,
+	 this);
+
+      undoCommand->setText
+	(tr("object size changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+
+  emit changed();
 }
 
 void glitch_object_compound_operator_arduino::slotCompoundOperatorChanged

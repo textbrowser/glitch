@@ -306,10 +306,12 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
+  clone->compressWidget
+    (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  clone->resize(size());
 
   if(m_copiedChildren.isEmpty() && m_editView)
     /*

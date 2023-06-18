@@ -126,12 +126,12 @@ clone(QWidget *parent) const
   clone->m_ui.constant->blockSignals(false);
   clone->m_ui.other->setText(m_ui.other->text().trimmed());
   clone->m_ui.other->setCursorPosition(0);
-  clone->resize(size());
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConstantType(m_ui.constant->currentText());
   clone->setStyleSheet(styleSheet());
   clone->compressWidget
     (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  clone->resize(size());
   return clone;
 }
 
