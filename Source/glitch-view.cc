@@ -753,7 +753,7 @@ glitch_tools::Operations glitch_view::toolsOperation(void) const
 qint64 glitch_view::nextId(void) const
 {
   QString connectionName("");
-  qint64 id = 0;
+  auto id = static_cast<qint64> (glitch_object::Limits::MINIMUM_ID);
 
   {
     auto db(glitch_common::sqliteDatabase());
@@ -765,7 +765,9 @@ qint64 glitch_view::nextId(void) const
       {
 	QSqlQuery query(db);
 
-	if(query.exec("INSERT INTO sequence VALUES (NULL)"))
+	if(query.exec(QString("INSERT INTO sequence SELECT "
+			      "COALESCE(MAX(value), %1) + 1 FROM sequence").
+		      arg(id)))
 	  {
 	    auto variant(query.lastInsertId());
 

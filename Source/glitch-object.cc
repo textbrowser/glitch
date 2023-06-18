@@ -145,7 +145,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
 
 	  if(view)
 	    {
-	      if(m_id <= 1)
+	      if(m_id <= static_cast<int> (Limits::MINIMUM_ID))
 		m_id = view->nextId();
 
 	      break;

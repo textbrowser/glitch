@@ -90,6 +90,7 @@ class glitch_object: public QWidget
   {
     ARDUINO_LOOP_ID = 1,
     ARDUINO_SETUP_ID = 2,
+    MINIMUM_ID = 5, // Must be greater than ARDUINO_SETUP_ID.
     NAME_MAXIMUM_LENGTH = 128 // An estimate. May be longer or shorter.
   };
 
