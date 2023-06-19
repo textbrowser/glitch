@@ -1227,7 +1227,10 @@ void glitch_ui::restoreSettings(void)
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
-  restoreGeometry(settings.value("main_window/geometry").toByteArray());
+
+  if(!restoreGeometry(settings.value("main_window/geometry").toByteArray()))
+    showMaximized();
+
   restoreState(settings.value("main_window/state").toByteArray());
 }
 
