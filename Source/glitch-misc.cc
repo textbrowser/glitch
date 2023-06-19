@@ -27,11 +27,13 @@
 
 #include <QApplication>
 #include <QComboBox>
+#include <QDesktopWidget>
 #include <QDir>
 #include <QIcon>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QScopedArrayPointer>
+#include <QScreen>
 #include <QTextLayout>
 
 #include "glitch-misc.h"
@@ -100,6 +102,90 @@ bool glitch_misc::sameAncestors(const QObject *object1, const QObject *object2)
   while(parent2);
 
   return parent1 == parent2;
+}
+
+void glitch_misc::centerWindow(QWidget *parent, QWidget *window)
+{
+  /*
+  ** Adapted from qdialog.cpp.
+  */
+
+  if(!window)
+    return;
+
+  QPoint p(0, 0);
+  auto w = parent;
+  int extrah = 0;
+  int extraw = 0;
+
+  if(w)
+    w = w->window();
+
+  QRect desk;
+
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  int scrn = 0;
+
+  if(w)
+    scrn = QApplication::desktop()->screenNumber(w);
+  else
+    scrn = QApplication::desktop()->screenNumber(window);
+
+  desk = QGuiApplication::screens().value(scrn) ?
+    QGuiApplication::screens().value(scrn)->geometry() : QRect();
+#else
+  auto screen = QGuiApplication::screenAt(window->pos());
+
+  if(screen)
+    desk = screen->geometry();
+#endif
+  auto list(QApplication::topLevelWidgets());
+
+  for(int i = 0; (extrah == 0 || extraw == 0) && i < list.size(); i++)
+    {
+      auto current = list.at(i);
+
+      if(current && current->isVisible())
+	{
+	  auto frameh = current->geometry().y() - current->y();
+	  auto framew = current->geometry().x() - current->x();
+
+	  extrah = qMax(extrah, frameh);
+	  extraw = qMax(extraw, framew);
+        }
+    }
+
+  if(extrah == 0 || extrah >= 40 || extraw == 0 || extraw >= 10)
+    {
+      extrah = 40;
+      extraw = 10;
+    }
+
+  if(w)
+    {
+      auto pp(w->mapToGlobal(QPoint(0, 0)));
+
+      p = QPoint(pp.x() + w->width() / 2, pp.y() + w->height() / 2);
+    }
+  else
+    p = QPoint(desk.x() + desk.width() / 2, desk.y() + desk.height() / 2);
+
+  p = QPoint(p.x() - window->width() / 2 - extraw,
+	     p.y() - window->height() / 2 - extrah);
+
+  if(p.x() + extraw + window->width() > desk.x() + desk.width())
+    p.setX(desk.x() + desk.width() - window->width() - extraw);
+
+  if(p.x() < desk.x())
+    p.setX(desk.x());
+
+  if(p.y() + extrah + window->height() > desk.y() + desk.height())
+    p.setY(desk.y() + desk.height() - window->height() - extrah);
+
+  if(p.y() < desk.y())
+    p.setY(desk.y());
+
+  window->move(p);
 }
 
 void glitch_misc::highlight(QLineEdit *lineEdit)

@@ -41,6 +41,7 @@ class glitch_misc
   static QPointF dbPointToPointF(const QString &text);
   static QString homePath(void);
   static bool sameAncestors(const QObject *object1, const QObject *object2);
+  static void centerWindow(QWidget *parent, QWidget *window);
   static void highlight(QLineEdit *lineEdit);
   static void showErrorDialog(const QString &text, QWidget *parent);
   static void sortCombinationBox(QComboBox *comboBox);

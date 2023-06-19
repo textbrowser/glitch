@@ -62,6 +62,7 @@
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-font-filter.h"
+#include "glitch-misc.h"
 #include "glitch-object-arrow.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -1043,8 +1044,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 		&glitch_object_edit_window::slotPreferencesAccepted,
 		Qt::UniqueConnection);
 
-      m_editWindow->restoreGeometry
-	(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).toByteArray());
+      if(!m_editWindow->
+	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
+			 toByteArray()))
+	glitch_misc::centerWindow(m_parent, m_editWindow);
+
       m_editWindow->restoreState
 	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
     }
