@@ -645,6 +645,9 @@ void glitch_proxy_widget::setPos(const QPointF &point)
 
 void glitch_proxy_widget::setWidget(QWidget *widget)
 {
+  if(!widget || m_object)
+    return;
+
   QGraphicsProxyWidget::setWidget(widget);
   m_object = qobject_cast<glitch_object *> (widget);
 }

@@ -84,6 +84,5 @@ int glitch_tab::addTab
     pushButton->setMaximumWidth(32);
 
   pushButton->setToolTip(tr("Save"));
-  view->setTabButton(pushButton);
   return index;
 }

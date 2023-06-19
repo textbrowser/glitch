@@ -110,7 +110,6 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
-  void setTabButton(QPushButton *pushButton);
   void showCanvasSettings(void) const;
   void showTools(void);
   void showUserFunctions(void) const;
@@ -146,7 +145,6 @@ class glitch_view: public QWidget
   QPointer<QAction> m_pasteAction;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
-  QPointer<QPushButton> m_tabButton;
   QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_find_objects> m_findObjects;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;

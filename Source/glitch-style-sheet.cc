@@ -53,7 +53,9 @@ void glitch_style_sheet::setWidget(QWidget *widget)
 {
   m_ui.buttonBox->setEnabled(widget != nullptr);
   m_ui.preview->setEnabled(widget != nullptr);
-  m_widget = widget;
+
+  if(!m_widget)
+    m_widget = widget;
 
   if(m_widget)
     {

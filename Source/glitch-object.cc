@@ -1154,19 +1154,14 @@ void glitch_object::separate(void)
 
 void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
-  if(m_canvasSettings)
-    disconnect(m_canvasSettings,
-	       SIGNAL(accepted(const bool)),
-	       this,
-	       SLOT(slotCanvasSettingsChanged(const bool)));
+  if(!canvasSettings || m_canvasSettings)
+    return;
 
   m_canvasSettings = canvasSettings;
-
-  if(m_canvasSettings)
-    connect(m_canvasSettings,
-	    SIGNAL(accepted(const bool)),
-	    this,
-	    SLOT(slotCanvasSettingsChanged(const bool)));
+  connect(m_canvasSettings,
+	  SIGNAL(accepted(const bool)),
+	  this,
+	  SLOT(slotCanvasSettingsChanged(const bool)));
 
   auto scene = editScene();
 
@@ -1444,22 +1439,22 @@ void glitch_object::setProperty(const char *name, const QVariant &value)
 
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 {
+  if(!proxy || m_proxy)
+    return;
+
   m_proxy = proxy;
 
-  if(m_proxy)
-    {
-      if(m_contextMenu)
-	connect(m_proxy,
-		&glitch_proxy_widget::changed,
-		m_contextMenu,
-		&glitch_floating_context_menu::slotObjectChanged,
-		Qt::UniqueConnection);
+  if(m_contextMenu)
+    connect(m_proxy,
+	    &glitch_proxy_widget::changed,
+	    m_contextMenu,
+	    &glitch_floating_context_menu::slotObjectChanged,
+	    Qt::UniqueConnection);
 
-      m_proxy->setFlag
-	(QGraphicsItem::ItemIsMovable,
-	 !m_properties.value(Properties::POSITION_LOCKED).toBool());
-      m_proxy->setZValue(m_properties.value(Properties::Z_VALUE).toReal());
-    }
+  m_proxy->setFlag
+    (QGraphicsItem::ItemIsMovable,
+     !m_properties.value(Properties::POSITION_LOCKED).toBool());
+  m_proxy->setZValue(m_properties.value(Properties::Z_VALUE).toReal());
 }
 
 void glitch_object::setUndoStack(QUndoStack *undoStack)

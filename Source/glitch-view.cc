@@ -1168,11 +1168,6 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->height() - 2 * m_view->frameWidth())));
 }
 
-void glitch_view::setTabButton(QPushButton *pushButton)
-{
-  m_tabButton = pushButton;
-}
-
 void glitch_view::showCanvasSettings(void) const
 {
   m_canvasSettings->setSettings(m_settings);
