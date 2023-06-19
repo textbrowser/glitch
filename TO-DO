@@ -74,6 +74,7 @@ Completed Items
 - Copy Object should result in a copied object even if the object is not
   selected.
 - Copy children!
+- Copy wires of cloned functions, if necessary.
 - Copy wires. Very difficult.
 - Custom input and output port colors.
 - Define databases.
@@ -299,7 +300,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog.
-- Copy wires of cloned functions, if necessary.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.

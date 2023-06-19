@@ -217,6 +217,9 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
       if(!error.isEmpty())
 	break;
     }
+
+  if(error.isEmpty())
+    m_scene->saveWires(db, error);
 }
 
 void glitch_object_view::setSceneRect(const QSize &size)

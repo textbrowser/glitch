@@ -381,7 +381,6 @@ class glitch_object: public QWidget
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,
 		      QString &error);
-  void saveWires(const QSqlDatabase &db, QString &error);
 
  protected slots:
   virtual void slotCopy(void);

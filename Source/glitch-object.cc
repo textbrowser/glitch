@@ -1087,9 +1087,6 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
   if(error.isEmpty())
     saveProperties(QMap<QString, QVariant> (), db, error);
-
-  if(error.isEmpty())
-    saveWires(db, error);
 }
 
 void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
@@ -1149,30 +1146,6 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 
   if(query.lastError().isValid())
     error = query.lastError().text();
-}
-
-void glitch_object::saveWires(const QSqlDatabase &db, QString &error)
-{
-  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
-  QSqlQuery query(db);
-
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(!it.value() || !it.value()->scene())
-	continue;
-
-      query.prepare
-	("INSERT OR REPLACE INTO wires (object_input_oid, object_output_oid) "
-	 "VALUES (?, ?)");
-      query.addBindValue(it.key());
-      query.addBindValue(m_id);
-      query.exec();
-
-      if(error.isEmpty() && query.lastError().isValid())
-	error = query.lastError().text();
-    }
 }
 
 void glitch_object::separate(void)
@@ -1509,7 +1482,7 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 
 void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 {
-  if(!object || !wire || m_id == object->id())
+  if(!object || !wire || m_id == object->id() || object == this)
     return;
 
   connect(wire,
@@ -2046,6 +2019,7 @@ void glitch_object::slotWireObjects(void)
 		  wire,
 		  SLOT(slotUpdate(const QList<QRectF> &)));
 	  object1->setWiredObject(object2, wire);
+	  object2->setWiredObject(object1, wire);
 	  scene->addItem(wire);
 	  wire->setBoundingRect(scene->sceneRect());
 	  wire->setColor

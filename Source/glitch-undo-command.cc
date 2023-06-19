@@ -427,9 +427,14 @@ void glitch_undo_command::undo(void)
 	  {
 	    if(m_wire->leftProxy() &&
 	       m_wire->leftProxy()->object() &&
-	       m_wire->rightProxy())
-	      m_wire->leftProxy()->object()->setWiredObject
-		(m_wire->rightProxy()->object(), m_wire);
+	       m_wire->rightProxy() &&
+	       m_wire->rightProxy()->object())
+	      {
+		m_wire->leftProxy()->object()->setWiredObject
+		  (m_wire->rightProxy()->object(), m_wire);
+		m_wire->rightProxy()->object()->setWiredObject
+		  (m_wire->leftProxy()->object(), m_wire);
+	      }
 
 	    m_scene->addItem(m_wire);
 	    m_scene->update();

@@ -575,6 +575,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      SLOT(slotUpdate(const QList<QRectF> &)));
 		      m_delayedWires << wire;
 		      object1->scene()->addItem(wire);
+		      object1->setWiredObject(object2, wire);
 		      object2->setWiredObject(object1, wire);
 		      wire->setBoundingRect(object1->scene()->sceneRect());
 		      wire->setColor(m_canvasSettings->wireColor());
@@ -709,6 +710,8 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 		break;
 	      }
 	  }
+
+	m_scene->saveWires(db, error);
       }
     else
       error = db.lastError().text();

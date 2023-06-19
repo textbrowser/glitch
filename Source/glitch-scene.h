@@ -75,6 +75,7 @@ class glitch_scene: public QGraphicsScene
   void disconnectWireIfNecessary(glitch_wire *wire);
   void purgeRedoUndoProxies(void);
   void removeItem(QGraphicsItem *item);
+  void saveWires(const QSqlDatabase &db, QString &error);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setDotsGridsColor(const QColor &color);
   void setMainScene(const bool state);

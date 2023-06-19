@@ -29,6 +29,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
 #include <QMimeData>
+#include <QSqlError>
+#include <QSqlQuery>
 #include <QTableWidget>
 #include <QUndoStack>
 #include <QtDebug>
@@ -1492,6 +1494,37 @@ void glitch_scene::removeItem(QGraphicsItem *item)
     m_wires.remove(wire);
 }
 
+void glitch_scene::saveWires(const QSqlDatabase &db, QString &error)
+{
+  QSetIterator<glitch_wire *> it(m_wires);
+  QSqlQuery query(db);
+
+  while(it.hasNext())
+    {
+      auto wire = it.next();
+
+      if(!wire ||
+	 !wire->leftProxy() ||
+	 !wire->leftProxy()->object() ||
+	 !wire->leftProxy()->scene() ||
+	 !wire->rightProxy() ||
+	 !wire->rightProxy()->object() ||
+	 !wire->rightProxy()->scene() ||
+	 !wire->scene())
+	continue;
+
+      query.prepare
+	("INSERT OR REPLACE INTO wires (object_input_oid, object_output_oid) "
+	 "VALUES (?, ?)");
+      query.addBindValue(wire->rightProxy()->object()->id());
+      query.addBindValue(wire->leftProxy()->object()->id());
+      query.exec();
+
+      if(error.isEmpty() && query.lastError().isValid())
+	error = query.lastError().text();
+    }
+}
+
 void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
   if(!canvasSettings || m_canvasSettings)
@@ -1805,6 +1838,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  else
 	    addItem(wire);
 
+	  object1->setWiredObject(object2, wire);
 	  object2->setWiredObject(object1, wire);
 	  wire->setBoundingRect(sceneRect());
 
