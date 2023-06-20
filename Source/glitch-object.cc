@@ -1154,14 +1154,23 @@ void glitch_object::separate(void)
 
 void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
-  if(!canvasSettings || m_canvasSettings)
-    return;
+  /*
+  ** Overwrite the container after a paste event.
+  */
+
+  if(m_canvasSettings)
+    disconnect(m_canvasSettings,
+	       SIGNAL(accepted(const bool)),
+	       this,
+	       SLOT(slotCanvasSettingsChanged(const bool)));
 
   m_canvasSettings = canvasSettings;
-  connect(m_canvasSettings,
-	  SIGNAL(accepted(const bool)),
-	  this,
-	  SLOT(slotCanvasSettingsChanged(const bool)));
+
+  if(m_canvasSettings)
+    connect(m_canvasSettings,
+	    SIGNAL(accepted(const bool)),
+	    this,
+	    SLOT(slotCanvasSettingsChanged(const bool)));
 
   auto scene = editScene();
 
