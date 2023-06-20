@@ -596,7 +596,7 @@ void glitch_object::addChild
   if(m_editView)
     m_editView->artificialDrop(point, object, ok);
 
-  if(object && object->editView() && ok)
+  if(ok)
     connect(this,
 	    &glitch_object::simulateDeleteSignal,
 	    object,

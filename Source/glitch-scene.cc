@@ -551,15 +551,11 @@ void glitch_scene::artificialDrop
       proxy->setPos(point);
     }
   else
-    {
-      object->deleteLater();
-      object = nullptr;
-      ok = false;
-    }
+    ok = false;
 
   blocker.unblock();
 
-  if(glitch_ui::s_copiedObjectsSet.contains(object) && object && ok)
+  if(glitch_ui::s_copiedObjectsSet.contains(object) && ok)
     connect(this,
 	    SIGNAL(wireObjects(void)),
 	    object,

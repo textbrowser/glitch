@@ -388,6 +388,12 @@ clone(QWidget *parent) const
 	      child->setCanvasSettings(m_canvasSettings);
 	      clone->addChild
 		(object->property("position").toPoint(), child, ok);
+
+	      if(!ok)
+		{
+		  glitch_ui::s_copiedObjectsSet.remove(child);
+		  child->deleteLater();
+		}
 	    }
 	}
 

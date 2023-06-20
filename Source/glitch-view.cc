@@ -515,8 +515,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      (glitch_misc::dbPointToPointF(point), child, ok);
 			    object->hideOrShowOccupied();
 
-			    if(child && ok)
+			    if(ok)
 			      objects[child->id()] = child;
+			    else
+			      {
+				ids.remove(child->id());
+				child->deleteLater();
+			      }
 			  }
 		      }
 		  }
@@ -869,8 +874,13 @@ void glitch_view::createParentFromValues
       object->addChild(glitch_misc::dbPointToPointF(point), child, ok);
       object->hideOrShowOccupied();
 
-      if(child && ok)
+      if(ok)
 	parents[oid] = child;
+      else
+	{
+	  ids.remove(child->id());
+	  child->deleteLater();
+	}
     }
 }
 
