@@ -507,12 +507,16 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 			if(child)
 			  {
+			    auto ok = true;
+
 			    child->setCanvasSettings(m_canvasSettings);
 			    ids[child->id()] = 0;
 			    object->addChild
-			      (glitch_misc::dbPointToPointF(point), child);
+			      (glitch_misc::dbPointToPointF(point), child, ok);
 			    object->hideOrShowOccupied();
-			    objects[child->id()] = child;
+
+			    if(child && ok)
+			      objects[child->id()] = child;
 			  }
 		      }
 		  }
@@ -858,11 +862,15 @@ void glitch_view::createParentFromValues
 
   if(child)
     {
+      auto ok = true;
+
       child->setCanvasSettings(m_canvasSettings);
       ids[child->id()] = 0;
-      object->addChild(glitch_misc::dbPointToPointF(point), child);
+      object->addChild(glitch_misc::dbPointToPointF(point), child, ok);
       object->hideOrShowOccupied();
-      parents[oid] = child;
+
+      if(child && ok)
+	parents[oid] = child;
     }
 }
 

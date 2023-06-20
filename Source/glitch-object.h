@@ -272,7 +272,7 @@ class glitch_object: public QWidget
   virtual void setProperty(const Properties property, const QVariant &value);
   virtual void simulateDelete(void);
   virtual ~glitch_object();
-  void addChild(const QPointF &point, glitch_object *object);
+  void addChild(const QPointF &point, glitch_object *object, bool &ok);
   void afterPaste(void);
   void move(const QPoint &point);
   void move(int x, int y);

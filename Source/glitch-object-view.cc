@@ -122,9 +122,9 @@ void glitch_object_view::adjustScrollBars(void)
 }
 
 void glitch_object_view::artificialDrop
-(const QPointF &point, glitch_object *object)
+(const QPointF &point, glitch_object *object, bool &ok)
 {
-  m_scene->artificialDrop(point, object);
+  m_scene->artificialDrop(point, object, ok);
   adjustScrollBars();
 }
 

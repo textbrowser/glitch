@@ -584,20 +584,24 @@ qint64 glitch_object::id(void) const
   return m_id;
 }
 
-void glitch_object::addChild(const QPointF &point, glitch_object *object)
+void glitch_object::addChild
+(const QPointF &point, glitch_object *object, bool &ok)
 {
   if(!object)
-    return;
+    {
+      ok = false;
+      return;
+    }
 
-  if(object->editView())
+  if(m_editView)
+    m_editView->artificialDrop(point, object, ok);
+
+  if(object && object->editView() && ok)
     connect(this,
 	    &glitch_object::simulateDeleteSignal,
 	    object,
 	    &glitch_object::slotSimulateDelete,
 	    Qt::UniqueConnection);
-
-  if(m_editView)
-    m_editView->artificialDrop(point, object);
 }
 
 void glitch_object::addDefaultActions(QMenu &menu)

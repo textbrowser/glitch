@@ -533,10 +533,14 @@ void glitch_scene::addItem(QGraphicsItem *item)
     QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
 }
 
-void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
+void glitch_scene::artificialDrop
+(const QPointF &point, glitch_object *object, bool &ok)
 {
   if(!object)
-    return;
+    {
+      ok = false;
+      return;
+    }
 
   QSignalBlocker blocker(this); // Are we creating from a database?
   auto proxy = addObject(object);
@@ -547,11 +551,15 @@ void glitch_scene::artificialDrop(const QPointF &point, glitch_object *object)
       proxy->setPos(point);
     }
   else
-    object->deleteLater();
+    {
+      object->deleteLater();
+      object = nullptr;
+      ok = false;
+    }
 
   blocker.unblock();
 
-  if(glitch_ui::s_copiedObjectsSet.contains(object))
+  if(glitch_ui::s_copiedObjectsSet.contains(object) && object && ok)
     connect(this,
 	    SIGNAL(wireObjects(void)),
 	    object,
@@ -1527,8 +1535,14 @@ void glitch_scene::saveWires(const QSqlDatabase &db, QString &error)
 
 void glitch_scene::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 {
-  if(!canvasSettings || m_canvasSettings)
+  if(!canvasSettings)
     return;
+
+  if(m_canvasSettings)
+    disconnect(m_canvasSettings,
+	       SIGNAL(accepted(const bool)),
+	       this,
+	       SLOT(slotCanvasSettingsChanged(const bool)));
 
   m_canvasSettings = canvasSettings;
 

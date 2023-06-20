@@ -329,11 +329,14 @@ clone(QWidget *parent) const
 
 	  if(child)
 	    {
+	      auto ok = true;
+
 	      glitch_ui::s_copiedObjectsSet << child;
 	      child->compressWidget
 		(child->property(Properties::COMPRESSED_WIDGET).toBool());
 	      child->setCanvasSettings(m_canvasSettings);
-	      clone->addChild(object->property("position").toPoint(), child);
+	      clone->addChild
+		(object->property("position").toPoint(), child, ok);
 	    }
 	}
 
