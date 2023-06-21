@@ -37,20 +37,20 @@
         <widget class="QFrame" name="frame">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QLabel" name="object_name">
+           <widget class="QLineEdit" name="object_name">
             <property name="font">
              <font>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
-            <property name="text">
-             <string/>
+            <property name="frame">
+             <bool>false</bool>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
             </property>
-            <property name="wordWrap">
+            <property name="readOnly">
              <bool>true</bool>
             </property>
            </widget>
@@ -117,6 +117,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>object_name</tabstop>
+ </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>

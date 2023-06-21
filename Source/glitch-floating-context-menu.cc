@@ -187,7 +187,10 @@ void glitch_floating_context_menu::setName(const QString &n)
   auto name(n.trimmed());
 
   if(!name.isEmpty())
-    m_ui.object_name->setText(name);
+    {
+      m_ui.object_name->setText(name);
+      m_ui.object_name->setCursorPosition(0);
+    }
 }
 
 void glitch_floating_context_menu::setObject(glitch_object *object)
