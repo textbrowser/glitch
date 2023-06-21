@@ -190,6 +190,7 @@ void glitch_floating_context_menu::setName(const QString &n)
     {
       m_ui.object_name->setText(name);
       m_ui.object_name->setCursorPosition(0);
+      m_ui.object_name->setToolTip(m_ui.object_name->text());
     }
 }
 
