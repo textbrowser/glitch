@@ -27,7 +27,9 @@
 
 #include <QApplication>
 #include <QComboBox>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <QDesktopWidget>
+#endif
 #include <QDir>
 #include <QIcon>
 #include <QLineEdit>
