@@ -102,7 +102,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_ui.return_type->setEnabled(false);
   m_ui.return_type->setToolTip
     (tr("Return type is disabled on function clone."));
-  hideOrShowOccupied();
+  glitch_object_function_arduino::hideOrShowOccupied();
   prepareContextMenu();
 }
 
@@ -154,7 +154,7 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_ui.return_type->setEnabled(false);
       m_ui.return_type->setToolTip
 	(tr("Return type is disabled on function clone."));
-      hideOrShowOccupied();
+      glitch_object_function_arduino::hideOrShowOccupied();
       prepareContextMenu();
     }
 }

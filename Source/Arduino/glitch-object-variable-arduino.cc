@@ -71,7 +71,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.type->installEventFilter(new glitch_scroll_filter(this));
   prepareContextMenu();
   prepareHighlights();
-  setName(m_type);
+  glitch_object_variable_arduino::setName(m_type);
   connectSignals(true);
 }
 
