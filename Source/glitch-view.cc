@@ -1400,6 +1400,7 @@ void glitch_view::slotPreferencesAccepted(void)
   else
     m_dockedWidgetPropertyEditors->detach();
 
+  m_dockedWidgetPropertyEditors->setVisible(state);
   emit preferencesAccepted();
 }
 

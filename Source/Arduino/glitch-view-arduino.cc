@@ -339,17 +339,6 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
   removeFunctionName(name);
 }
 
-void glitch_view_arduino::slotPreferencesAccepted(void)
-{
-  glitch_view::slotPreferencesAccepted();
-
-  QSettings settings;
-  auto state = settings.value
-    ("preferences/docked_widget_property_editors", true).toBool();
-
-  m_dockedWidgetPropertyEditors->setVisible(state);
-}
-
 void glitch_view_arduino::slotSilentSave(void)
 {
   m_properties["splitter_state"] = m_splitter->saveState();

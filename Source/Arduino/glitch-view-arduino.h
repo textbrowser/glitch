@@ -58,9 +58,6 @@ class glitch_view_arduino: public glitch_view
   void separate(void);
   void unite(void);
 
- public slots:
-  void slotPreferencesAccepted(void);
-
  private:
   QMap<QString, char> m_functionNames;
   glitch_object_loop_arduino *m_loopObject;
