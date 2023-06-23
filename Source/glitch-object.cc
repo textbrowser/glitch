@@ -31,7 +31,6 @@
 #include <QSettings>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QtDebug>
 
 #include "Arduino/glitch-object-advanced-io-arduino.h"
 #include "Arduino/glitch-object-analog-io-arduino.h"

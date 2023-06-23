@@ -32,6 +32,7 @@
 #include <QPointer>
 #include <QSqlDatabase>
 #include <QWidget>
+#include <QtDebug>
 
 #include "glitch-proxy-widget.h"
 

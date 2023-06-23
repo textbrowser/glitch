@@ -192,27 +192,27 @@ void glitch_object_constant_arduino::setConstantType
   if(c.endsWith("false"))
     c = "false";
   else if(c.endsWith("input"))
-    c = "input";
+    c = "INPUT";
   else if(c.endsWith("input_pullup"))
-    c = "input_pullup";
+    c = "INPUT_PULLUP";
   else if(c.endsWith("led_builtin"))
-    c = "led_builtin";
+    c = "LED_BUILTIN";
   else if(c.endsWith("low"))
-    c = "low";
+    c = "LOW";
   else if(c.endsWith("other"))
     {
-      c = "other";
+      c = "Other";
       m_ui.other->setVisible(true);
     }
   else if(c.endsWith("output"))
-    c = "output";
+    c = "OUTPUT";
   else if(c.endsWith("true"))
     c = "true";
   else
-    c = "high";
+    c = "HIGH";
 
   m_ui.constant->blockSignals(true);
-  m_ui.constant->setCurrentIndex(m_ui.constant->findText(c, Qt::MatchEndsWith));
+  m_ui.constant->setCurrentIndex(m_ui.constant->findText(c));
 
   if(m_ui.constant->currentIndex() < 0)
     m_ui.constant->setCurrentIndex(0);
