@@ -266,6 +266,7 @@ void glitch_object_constant_arduino::setProperties(const QStringList &list)
   setConstantType(m_properties.value(Properties::CONSTANT_TYPE).toString());
   setName(m_ui.other->text());
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
+  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_constant_arduino::setProperty

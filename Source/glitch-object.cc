@@ -1307,6 +1307,7 @@ void glitch_object::setProperties(const QStringList &list)
 				      500)));
 	      size.setWidth(qBound(50, list.value(0).trimmed().toInt(), 500));
 	      resize(size);
+	      setProperty("temporary-size", size);
 	    }
 	}
       else if(string.simplified().startsWith("structures_view_splitter_state"))

@@ -503,6 +503,7 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   connectSignals(true);
+  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_variable_arduino::setProperty

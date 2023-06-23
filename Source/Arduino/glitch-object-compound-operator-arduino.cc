@@ -416,6 +416,7 @@ void glitch_object_compound_operator_arduino::setProperties
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   setOperatorType(m_properties.value(Properties::COMPOUND_OPERATOR).toString());
+  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_compound_operator_arduino::setProperty
