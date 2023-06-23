@@ -77,7 +77,7 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 	10 * m_ui.other->text().trimmed().length() +
 	(m_ui.constant->isVisible() ? m_ui.constant->sizeHint().width() : 0);
 
-      return QSize(width, minimumHeight(sizeHint().height()));
+      return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
     }
   else
     return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
