@@ -327,7 +327,7 @@
   </action>
   <action name="action_Generate_Source">
    <property name="text">
-    <string>&amp;Generate Source (File)</string>
+    <string>&amp;Generate Source File</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+G</string>

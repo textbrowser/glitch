@@ -36,19 +36,6 @@ class glitch_object_constant_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  enum ConstantTypes
-  {
-    FALSE = 0,
-    HIGH,
-    INPUT,
-    INPUT_PULLUP,
-    LED_BUILTIN,
-    LOW,
-    OTHER,
-    OUTPUT,
-    TRUE
-  };
-
   glitch_object_constant_arduino(const QString &constantType, QWidget *parent);
   ~glitch_object_constant_arduino();
   QString code(void) const;
@@ -66,10 +53,10 @@ class glitch_object_constant_arduino: public glitch_object
  private:
   glitch_object_constant_arduino(QWidget *parent);
   glitch_object_constant_arduino(const qint64 id, QWidget *parent);
-  ConstantTypes m_constantType;
   QSize preferredSize(void) const;
   Ui_glitch_object_constant_arduino m_ui;
   void compressWidget(const bool state);
+  void setName(const QString &n);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
 

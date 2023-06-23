@@ -46,10 +46,10 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
 glitch_object_constant_arduino::glitch_object_constant_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_constantType = ConstantTypes::HIGH;
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   m_ui.constant->installEventFilter(new glitch_scroll_filter(this));
+  m_ui.constant->setCurrentIndex(0);
   m_ui.other->setVisible(false);
   connect(m_ui.constant,
 	  SIGNAL(currentIndexChanged(int)),
@@ -62,7 +62,7 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_properties[Properties::CONSTANT_OTHER] = "";
   m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
   prepareContextMenu();
-  setName(m_type);
+  glitch_object_constant_arduino::setName(m_type);
 }
 
 glitch_object_constant_arduino::~glitch_object_constant_arduino()
@@ -71,7 +71,7 @@ glitch_object_constant_arduino::~glitch_object_constant_arduino()
 
 QSize glitch_object_constant_arduino::preferredSize(void) const
 {
-  if(m_constantType == ConstantTypes::OTHER)
+  if(m_ui.constant->currentText() == tr("Other"))
     {
       auto width = 35 +
 	10 * m_ui.other->text().trimmed().length() +
@@ -85,7 +85,7 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 
 QString glitch_object_constant_arduino::code(void) const
 {
-  if(m_constantType == ConstantTypes::OTHER)
+  if(m_ui.constant->currentText() == tr("Other"))
     return m_ui.other->text().trimmed();
   else
     return m_ui.constant->currentText();
@@ -118,7 +118,6 @@ clone(QWidget *parent) const
 
   clone->cloneWires(m_copiedConnectionsPositions);
   clone->cloneWires(m_wires);
-  clone->m_constantType = m_constantType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->m_ui.constant->blockSignals(true);
@@ -128,6 +127,7 @@ clone(QWidget *parent) const
   clone->m_ui.other->setCursorPosition(0);
   clone->setCanvasSettings(m_canvasSettings);
   clone->setConstantType(m_ui.constant->currentText());
+  clone->setName(m_ui.other->text().trimmed());
   clone->setStyleSheet(styleSheet());
   clone->compressWidget
     (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
@@ -160,7 +160,7 @@ void glitch_object_constant_arduino::compressWidget(const bool state)
 {
   glitch_object::compressWidget(state);
 
-  if(m_constantType == ConstantTypes::OTHER)
+  if(m_ui.constant->currentText() == tr("Other"))
     m_ui.constant->setVisible(!state);
 
   adjustSize();
@@ -190,51 +190,26 @@ void glitch_object_constant_arduino::setConstantType
   auto c(constantType.toLower().trimmed());
 
   if(c.endsWith("false"))
-    {
-      c = "false";
-      m_constantType = ConstantTypes::FALSE;
-    }
+    c = "false";
   else if(c.endsWith("input"))
-    {
-      c = "input";
-      m_constantType = ConstantTypes::INPUT;
-    }
+    c = "input";
   else if(c.endsWith("input_pullup"))
-    {
-      c = "input_pullup";
-      m_constantType = ConstantTypes::INPUT_PULLUP;
-    }
+    c = "input_pullup";
   else if(c.endsWith("led_builtin"))
-    {
-      c = "led_builtin";
-      m_constantType = ConstantTypes::LED_BUILTIN;
-    }
+    c = "led_builtin";
   else if(c.endsWith("low"))
-    {
-      c = "low";
-      m_constantType = ConstantTypes::LOW;
-    }
+    c = "low";
   else if(c.endsWith("other"))
     {
       c = "other";
-      m_constantType = ConstantTypes::OTHER;
       m_ui.other->setVisible(true);
     }
   else if(c.endsWith("output"))
-    {
-      c = "output";
-      m_constantType = ConstantTypes::OUTPUT;
-    }
+    c = "output";
   else if(c.endsWith("true"))
-    {
-      c = "true";
-      m_constantType = ConstantTypes::TRUE;
-    }
+    c = "true";
   else
-    {
-      c = "high";
-      m_constantType = ConstantTypes::HIGH;
-    }
+    c = "high";
 
   m_ui.constant->blockSignals(true);
   m_ui.constant->setCurrentIndex(m_ui.constant->findText(c, Qt::MatchEndsWith));
@@ -243,6 +218,22 @@ void glitch_object_constant_arduino::setConstantType
     m_ui.constant->setCurrentIndex(0);
 
   m_ui.constant->blockSignals(false);
+  setName(m_ui.other->text());
+}
+
+void glitch_object_constant_arduino::setName(const QString &n)
+{
+  if(m_ui.constant->currentText() == tr("Other"))
+    {
+      auto name(n.trimmed());
+
+      if(name.isEmpty())
+	name = m_type;
+
+      glitch_object::setName(name);
+    }
+  else
+    glitch_object::setName(m_ui.constant->currentText());
 }
 
 void glitch_object_constant_arduino::setProperties(const QStringList &list)
@@ -273,6 +264,7 @@ void glitch_object_constant_arduino::setProperties(const QStringList &list)
     }
 
   setConstantType(m_properties.value(Properties::CONSTANT_TYPE).toString());
+  setName(m_ui.other->text());
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
 
@@ -287,6 +279,7 @@ void glitch_object_constant_arduino::setProperty
       {
 	m_ui.other->setText(value.toString().trimmed());
 	m_ui.other->setCursorPosition(0);
+	setName(m_ui.other->text());
 	break;
       }
     default:
