@@ -85,7 +85,7 @@ QSize glitch_object_variable_arduino::preferredSize(void) const
     {
       auto width = 35 + 10 * m_ui.name->text().trimmed().length();
 
-      return QSize(width, minimumHeight(sizeHint().height()));
+      return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
     }
   else
     return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));

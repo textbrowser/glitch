@@ -84,7 +84,7 @@ QSize glitch_object_compound_operator_arduino::preferredSize(void) const
 	10 * m_ui.compound_operator->currentText().trimmed().length() +
 	(m_ui.pre->isVisible() ? m_ui.pre->sizeHint().width() : 0);
 
-      return QSize(width, minimumHeight(sizeHint().height()));
+      return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
     }
   else
     return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
