@@ -168,8 +168,9 @@ QWidget *glitch_object_edit_window::centralWidget(void) const
   */
 
   for(int i = 0; i < frame->layout()->count(); i++)
-    if(qobject_cast
-       <glitch_object_view *> (frame->layout()->itemAt(i)->widget()))
+    if(frame->layout()->itemAt(i) &&
+       qobject_cast<glitch_object_view *> (frame->layout()->itemAt(i)->
+					   widget()))
       return frame->layout()->itemAt(i)->widget();
 
   return nullptr;
