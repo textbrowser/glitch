@@ -274,6 +274,7 @@ Completed Items
 - Warn on diagram overwrite during initialization.
 - Widget fonts.
 - Widgets for decorations.
+- Windows 10, 11, etc. Deprecate Windows 7.
 - Wire color setting.
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
@@ -309,7 +310,7 @@ Remaining Items
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
-- Qt 6.5 LTS for Windows.
+- Qt 6.5.1 LTS for Windows.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
@@ -319,7 +320,6 @@ Remaining Items
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.
-- Windows 10, 11, etc. Deprecate Windows 7.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
