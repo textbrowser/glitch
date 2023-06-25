@@ -27,6 +27,7 @@
 
 #include <QColorDialog>
 #include <QFontDialog>
+#include <QScreen>
 #include <QScrollBar>
 #include <QSettings>
 #include <QSqlError>
@@ -103,6 +104,8 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
+  m_properties[Properties::EDIT_WINDOW_GEOMETRY] = QByteArray().toBase64();
+  m_properties[Properties::EDIT_WINDOW_STATE] = QByteArray().toBase64();
   m_properties[Properties::FONT] = glitch_ui::s_defaultApplicationFont;
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::PORT_COLORS] =
@@ -1050,7 +1053,13 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
       if(!m_editWindow->
 	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
 			 toByteArray()))
-	glitch_misc::centerWindow(m_parent, m_editWindow);
+	{
+	  m_editWindow->resize
+	    (m_editWindow->screen() ?
+	     m_editWindow->screen()->availableGeometry().size() / 1.5 :
+	     QSize(800, 600));
+	  glitch_misc::centerWindow(m_parent, m_editWindow);
+	}
 
       m_editWindow->restoreState
 	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
@@ -1104,8 +1113,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
-  properties["edit_window_geometry"] = m_properties.value
-    (Properties::EDIT_WINDOW_GEOMETRY).toByteArray().toBase64();
+  properties["edit_window_geometry"] = m_editWindow ?
+    m_editWindow->saveGeometry().toBase64() : QByteArray().toBase64();
   properties["edit_window_state"] = m_editWindow ?
     m_editWindow->saveState().toBase64() : QByteArray().toBase64();
   properties["font"] = m_properties.value(Properties::FONT).toString();
@@ -1507,9 +1516,18 @@ void glitch_object::showEditWindow(void) const
     {
       if(!m_editWindow->isVisible())
 	{
-	  m_editWindow->restoreGeometry
-	    (m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
-	     toByteArray());
+	  if(!m_editWindow->
+	     restoreGeometry(m_properties.
+			     value(Properties::EDIT_WINDOW_GEOMETRY).
+			     toByteArray()))
+	    {
+	      m_editWindow->resize
+		(m_editWindow->screen() ?
+		 m_editWindow->screen()->availableGeometry().size() / 1.5 :
+		 QSize(800, 600));
+	      glitch_misc::centerWindow(m_parent, m_editWindow);
+	    }
+
 	  m_editWindow->restoreState
 	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
 	}

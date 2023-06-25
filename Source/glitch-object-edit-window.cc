@@ -196,10 +196,6 @@ bool glitch_object_edit_window::event(QEvent *event)
 
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
-  if(m_object)
-    m_object->setProperty
-      (glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
-
   QMainWindow::closeEvent(event);
   emit closed();
 }
@@ -306,10 +302,6 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
       if(view)
 	view->setSceneRect(event->size());
     }
-
-  if(m_object)
-    m_object->setProperty
-      (glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
 }
 
 void glitch_object_edit_window::setCategoriesIconSize(const QString &text)
