@@ -28,6 +28,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QFileDialog>
+#include <QFontDialog>
 #include <QMainWindow>
 #include <QMenu>
 #include <QProcess>
@@ -697,9 +698,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	    goto done_label;
 	  }
 
-	auto list(m_scene->items());
-
-	foreach(auto i, list)
+	foreach(auto i, m_scene->items())
 	  {
 	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1157,9 +1156,7 @@ void glitch_view::selectAll(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto list(m_scene->items());
-
-  foreach(auto i, list)
+  foreach(auto i, m_scene->items())
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1312,6 +1309,24 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
 
 void glitch_view::slotFonts(void)
 {
+  QFontDialog dialog(this);
+
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+      foreach(auto object, m_scene->objects())
+	if(object)
+	  {
+	  }
+
+      QApplication::restoreOverrideCursor();
+    }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
