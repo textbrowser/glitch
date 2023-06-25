@@ -264,14 +264,17 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       icons << QIcon(":/adjust-size.png")
 	    << QIcon(":/compress.png")
 	    << QIcon(":/disconnect.png")
+	    << QIcon(":/font.png")
 	    << QIcon(":/pin.png");
       texts << tr("Adjust Size(s)")
 	    << tr("(De)compress Widget(s)")
 	    << tr("Disconnect Widget(s)")
+	    << tr("Fonts...")
 	    << tr("(Un)lock Position(s)");
       data << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"
+	   << "fonts"
 	   << "lock-positions";
 
       for(int i = 0; i < data.size(); i++)
@@ -552,6 +555,8 @@ void glitch_separated_diagram_window::slotSpecialTools(void)
     m_view->scene()->slotSelectedWidgetsCompress();
   else if(type == "disconnect-widgets")
     m_view->scene()->slotSelectedWidgetsDisconnect();
+  else if(type == "fonts")
+    m_view->slotFonts();
   else if(type == "lock-positions")
     m_view->scene()->slotSelectedWidgetsLock();
 }

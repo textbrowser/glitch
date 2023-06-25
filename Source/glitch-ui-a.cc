@@ -1587,14 +1587,17 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       icons << QIcon(":/adjust-size.png")
 	    << QIcon(":/compress.png")
 	    << QIcon(":/disconnect.png")
+	    << QIcon(":/font.png")
 	    << QIcon(":/pin.png");
       texts << tr("Adjust Size(s)")
 	    << tr("(De)compress Widget(s)")
 	    << tr("Disconnect Widget(s)")
+	    << tr("Fonts...")
 	    << tr("(Un)lock Position(s)");
       data << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"
+	   << "fonts"
 	   << "lock-positions";
 
       for(int i = 0; i < data.size(); i++)

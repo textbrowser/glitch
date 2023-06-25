@@ -1310,6 +1310,10 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
     (qobject_cast<glitch_floating_context_menu *> (widget));
 }
 
+void glitch_view::slotFonts(void)
+{
+}
+
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
 {
   if(!isClone)
