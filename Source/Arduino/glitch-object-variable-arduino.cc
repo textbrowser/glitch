@@ -391,7 +391,7 @@ void glitch_object_variable_arduino::prepareHighlights(void)
   if(glitch_structures_arduino::isReserved(text) || text.isEmpty())
     m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
   else if(text.remove(QRegularExpression("^[a-zA-Z_][a-zA-Z0-9_]*$")).isEmpty())
-    m_ui.name->setStyleSheet("QLineEdit {background-color: white;}");
+    m_ui.name->setStyleSheet("");
   else
     m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
 }
