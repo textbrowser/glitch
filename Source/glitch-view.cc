@@ -1318,9 +1318,22 @@ void glitch_view::slotFonts(void)
       QApplication::processEvents();
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+      auto began = false;
+
       foreach(auto object, m_scene->objects())
 	if(object)
-	  object->slotPropertyChanged("font", dialog.selectedFont());
+	  {
+	    if(!began && m_undoStack)
+	      {
+		began = true;
+		m_undoStack->beginMacro(tr("widgets fonts"));
+	      }
+
+	    object->slotPropertyChanged("font", dialog.selectedFont());
+	  }
+
+      if(began && m_undoStack)
+	m_undoStack->endMacro();
 
       QApplication::restoreOverrideCursor();
     }

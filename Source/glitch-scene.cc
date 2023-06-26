@@ -1723,9 +1723,22 @@ void glitch_scene::slotSelectedWidgetsAdjustSize(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto began = false;
+
   foreach(auto object, selectedObjects())
     if(object)
-      object->slotAdjustSize();
+      {
+	if(!began && m_undoStack)
+	  {
+	    began = true;
+	    m_undoStack->beginMacro(tr("widget(s) size(s) adjusted"));
+	  }
+
+	object->slotAdjustSize();
+      }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 }
@@ -1734,9 +1747,22 @@ void glitch_scene::slotSelectedWidgetsCompress(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto began = false;
+
   foreach(auto object, selectedObjects())
     if(object)
-      object->triggerAction(glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
+      {
+	if(!began && m_undoStack)
+	  {
+	    began = true;
+	    m_undoStack->beginMacro(tr("widget(s) (de)compressed"));
+	  }
+
+	object->slotCompress();
+      }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 }
@@ -1745,9 +1771,22 @@ void glitch_scene::slotSelectedWidgetsDisconnect(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto began = false;
+
   foreach(auto object, selectedObjects())
     if(object && object->proxy())
-      wireDisconnectObjects(object->proxy());
+      {
+	if(!began && m_undoStack)
+	  {
+	    began = true;
+	    m_undoStack->beginMacro(tr("widget(s) disconnected"));
+	  }
+
+	wireDisconnectObjects(object->proxy());
+      }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 }
@@ -1756,9 +1795,22 @@ void glitch_scene::slotSelectedWidgetsLock(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto began = false;
+
   foreach(auto object, selectedObjects())
     if(object)
-      object->triggerAction(glitch_object::DefaultMenuActions::LOCK_POSITION);
+      {
+	if(!began && m_undoStack)
+	  {
+	    began = true;
+	    m_undoStack->beginMacro(tr("widget(s) (un)locked"));
+	  }
+
+	object->slotLockPosition();
+      }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
 }

@@ -733,7 +733,7 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotActionTriggered,
+	      &glitch_object::slotCompress,
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::COMPRESS_WIDGET] = action;
     }
@@ -1654,6 +1654,34 @@ void glitch_object::slotClearTemporaryContainers(void)
   m_originalPosition = QPointF();
 }
 
+void glitch_object::slotCompress(void)
+{
+  if(m_actions.value(DefaultMenuActions::COMPRESS_WIDGET, nullptr) == nullptr ||
+     m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->isEnabled() == false)
+    return;
+
+  auto property = Properties::COMPRESSED_WIDGET;
+
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(!m_properties.value(property).toBool(),
+	 m_properties.value(property),
+	 glitch_undo_command::PROPERTY_CHANGED,
+	 property,
+	 this);
+
+      undoCommand->setText
+	(tr("item (de)compressed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = !m_properties.value(property).toBool();
+
+  emit changed();
+}
+
 void glitch_object::slotCopy(void)
 {
   glitch_ui::copy(this);
@@ -1666,6 +1694,10 @@ void glitch_object::slotHideOrShowOccupied(void)
 
 void glitch_object::slotLockPosition(void)
 {
+  if(m_actions.value(DefaultMenuActions::LOCK_POSITION, nullptr) == nullptr ||
+     m_actions.value(DefaultMenuActions::LOCK_POSITION)->isEnabled() == false)
+    return;
+
   if(m_undoStack)
     {
       auto undoCommand = new glitch_undo_command

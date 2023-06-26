@@ -300,6 +300,11 @@ class glitch_object: public QWidget
 
   void triggerAction(const DefaultMenuActions action)
   {
+    /*
+    ** Be careful calling this method within a beginMacro() and
+    ** endMacro() block for QueuedConnection connections.
+    */
+
     if(!m_actions.value(action, nullptr))
       /*
       ** Let's adapt!
@@ -314,6 +319,8 @@ class glitch_object: public QWidget
 
  public slots:
   virtual void slotAdjustSize(void);
+  void slotCompress(void);
+  void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
 
@@ -330,7 +337,6 @@ class glitch_object: public QWidget
   void slotClearTemporaryContainers(void);
   void slotSetFont(void);
   void slotSimulateDelete(void);
-  void slotLockPosition(void);
   void slotPropertyChanged
     (const glitch_object::Properties property, const QVariant &value);
   void slotWireDestroyed(void);
