@@ -316,7 +316,7 @@ QMenu *glitch_view::defaultContextMenu(void)
   else
     action->setEnabled(true);
 
-  action = m_contextMenu->addAction(tr("&Unite"),
+  action = m_contextMenu->addAction(tr("&Unite Canvas"),
 				    this,
 				    SLOT(slotUnite(void)));
 

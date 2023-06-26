@@ -106,7 +106,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotUndo);
-  connect(m_ui.action_Unite,
+  connect(m_ui.action_Unite_Canvas,
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::unite);

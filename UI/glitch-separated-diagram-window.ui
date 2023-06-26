@@ -45,7 +45,7 @@
     <addaction name="separator"/>
     <addaction name="action_Find"/>
     <addaction name="separator"/>
-    <addaction name="action_Unite"/>
+    <addaction name="action_Unite_Canvas"/>
    </widget>
    <widget class="QMenu" name="menu_File">
     <property name="title">
@@ -178,9 +178,9 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="action_Unite">
+  <action name="action_Unite_Canvas">
    <property name="text">
-    <string>&amp;Unite</string>
+    <string>&amp;Unite Canvas</string>
    </property>
   </action>
   <action name="action_Generate_Source_View">
