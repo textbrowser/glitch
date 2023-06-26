@@ -310,7 +310,7 @@ Remaining Items
 - Interactive shell.
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
-- QSerialPort.
+- QSerialPort for direct communications with Arduino boards.
 - Qt 6.5.1 LTS for Windows.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
