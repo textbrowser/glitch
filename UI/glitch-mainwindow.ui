@@ -124,7 +124,7 @@
     <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
     <addaction name="separator"/>
-    <addaction name="action_Separate_Current_Diagram"/>
+    <addaction name="action_Separate_Current_Canvas"/>
    </widget>
    <widget class="QMenu" name="menu_Project">
     <property name="title">
@@ -407,9 +407,9 @@
     <string>Generate Source (Clipboard)</string>
    </property>
   </action>
-  <action name="action_Separate_Current_Diagram">
+  <action name="action_Separate_Current_Canvas">
    <property name="text">
-    <string>&amp;Separate Current Diagram...</string>
+    <string>&amp;Separate Current Canvas...</string>
    </property>
   </action>
  </widget>
