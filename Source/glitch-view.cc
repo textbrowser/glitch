@@ -1320,8 +1320,7 @@ void glitch_view::slotFonts(void)
 
       foreach(auto object, m_scene->objects())
 	if(object)
-	  {
-	  }
+	  object->slotPropertyChanged("font", dialog.selectedFont());
 
       QApplication::restoreOverrideCursor();
     }

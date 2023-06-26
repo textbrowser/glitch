@@ -266,11 +266,11 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	    << QIcon(":/disconnect.png")
 	    << QIcon(":/font.png")
 	    << QIcon(":/pin.png");
-      texts << tr("Adjust Size(s)")
-	    << tr("(De)compress Widget(s)")
-	    << tr("Disconnect Widget(s)")
-	    << tr("Fonts...")
-	    << tr("(Un)lock Position(s)");
+      texts << tr("Adjust Size(s) (Selected Widget(s))")
+	    << tr("(De)compress Selected Widget(s)")
+	    << tr("Disconnect Selected Widget(s)")
+	    << tr("Fonts (All Widgets)...")
+	    << tr("(Un)lock Position(s) (Selected Widget(s))");
       data << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"

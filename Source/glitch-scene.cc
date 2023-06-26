@@ -1721,30 +1721,46 @@ void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
 
 void glitch_scene::slotSelectedWidgetsAdjustSize(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   foreach(auto object, selectedObjects())
     if(object)
       object->slotAdjustSize();
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotSelectedWidgetsCompress(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   foreach(auto object, selectedObjects())
     if(object)
       object->triggerAction(glitch_object::DefaultMenuActions::COMPRESS_WIDGET);
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotSelectedWidgetsDisconnect(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   foreach(auto object, selectedObjects())
     if(object && object->proxy())
       wireDisconnectObjects(object->proxy());
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotSelectedWidgetsLock(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   foreach(auto object, selectedObjects())
     if(object)
       object->triggerAction(glitch_object::DefaultMenuActions::LOCK_POSITION);
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_scene::slotToolsOperationChanged

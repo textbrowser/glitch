@@ -314,6 +314,7 @@ class glitch_object: public QWidget
 
  public slots:
   virtual void slotAdjustSize(void);
+  void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
 
  private:
@@ -332,7 +333,6 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
   void slotPropertyChanged
     (const glitch_object::Properties property, const QVariant &value);
-  void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotWireDestroyed(void);
   void slotWireObjects(void);
 
