@@ -123,6 +123,8 @@
     <addaction name="action_Find"/>
     <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
+    <addaction name="separator"/>
+    <addaction name="action_Separate_Current_Diagram"/>
    </widget>
    <widget class="QMenu" name="menu_Project">
     <property name="title">
@@ -403,6 +405,11 @@
   <action name="action_Generate_Source_Clipboard">
    <property name="text">
     <string>Generate Source (Clipboard)</string>
+   </property>
+  </action>
+  <action name="action_Separate_Current_Diagram">
+   <property name="text">
+    <string>&amp;Separate Current Diagram...</string>
    </property>
   </action>
  </widget>

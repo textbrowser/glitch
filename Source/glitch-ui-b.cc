@@ -41,6 +41,11 @@ void glitch_ui::slotGenerateSourceClipboard(void)
     m_currentView->generateSourceClipboard();
 }
 
+void glitch_ui::slotSeparate(void)
+{
+  slotSeparate(m_currentView);
+}
+
 void glitch_ui::slotSpecialTools(void)
 {
   auto action = qobject_cast<QAction *> (sender());

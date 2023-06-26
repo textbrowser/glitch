@@ -207,6 +207,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotPaste(void)));
+  connect(m_ui.action_Separate_Current_Diagram,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSeparate(void)));
   connect(m_ui.action_Show_Project_IDE,
 	  &QAction::triggered,
 	  this,
@@ -909,6 +913,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
+      m_ui.action_Separate_Current_Diagram->setEnabled(false);
       m_ui.action_Show_Project_IDE->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
@@ -932,6 +937,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 0);
+      m_ui.action_Separate_Current_Diagram->setEnabled(m_currentView);
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
