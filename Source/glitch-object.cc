@@ -27,7 +27,7 @@
 
 #include <QColorDialog>
 #if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
-#include <QDesktop>
+#include <QDesktopWidget>
 #endif
 #include <QFontDialog>
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
