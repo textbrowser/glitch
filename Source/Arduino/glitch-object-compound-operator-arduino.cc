@@ -358,8 +358,12 @@ void glitch_object_compound_operator_arduino::setOperatorType
 }
 
 void glitch_object_compound_operator_arduino::setOperatorType
-(const QString &operatorType)
+(const QString &op)
 {
+  auto operatorType(op);
+
+  operatorType.remove("glitch-arduino-compound operators-");
+
   if(operatorType.contains("%="))
     setOperatorType(OperatorTypes::MODULO_OPERATOR);
   else if(operatorType.contains("&="))

@@ -76,6 +76,7 @@ Completed Items
 - Copy children!
 - Copy wires of cloned functions, if necessary.
 - Copy wires. Very difficult.
+- Correct drag & drop of -= operator.
 - Custom input and output port colors.
 - Define databases.
 - Define input parameters from connected objects. Order is also important.
@@ -301,7 +302,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog.
-- Correct drag & drop of -= operator.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.
