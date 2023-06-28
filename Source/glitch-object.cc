@@ -26,8 +26,13 @@
 */
 
 #include <QColorDialog>
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+#include <QDesktop>
+#endif
 #include <QFontDialog>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 #include <QScreen>
+#endif
 #include <QScrollBar>
 #include <QSettings>
 #include <QSqlError>
@@ -1054,10 +1059,21 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
 			 toByteArray()))
 	{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	  m_editWindow->resize
 	    (m_editWindow->screen() ?
 	     m_editWindow->screen()->availableGeometry().size() / 1.5 :
 	     QSize(800, 600));
+#else
+	  auto desktop = QApplication::desktop();
+
+	  if(desktop)
+	    {
+	      auto rect(desktop->availableGeometry(m_editWindow));
+
+	      m_editWindow->resize(rect.size() / 1.5);
+	    }
+#endif
 	  glitch_misc::centerWindow(m_parent, m_editWindow);
 	}
 
@@ -1521,10 +1537,21 @@ void glitch_object::showEditWindow(void) const
 			     value(Properties::EDIT_WINDOW_GEOMETRY).
 			     toByteArray()))
 	    {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	      m_editWindow->resize
 		(m_editWindow->screen() ?
 		 m_editWindow->screen()->availableGeometry().size() / 1.5 :
 		 QSize(800, 600));
+#else
+	      auto desktop = QApplication::desktop();
+
+	      if(desktop)
+		{
+		  auto rect(desktop->availableGeometry(m_editWindow));
+
+		  m_editWindow->resize(rect.size() / 1.5);
+		}
+#endif
 	      glitch_misc::centerWindow(m_parent, m_editWindow);
 	    }
 
