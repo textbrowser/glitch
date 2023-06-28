@@ -301,6 +301,7 @@ Remaining Items
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog.
+- Correct drag & drop of -= operator.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.
