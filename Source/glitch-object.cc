@@ -1065,14 +1065,10 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	     m_editWindow->screen()->availableGeometry().size() / 1.5 :
 	     QSize(800, 600));
 #else
-	  auto desktop = QApplication::desktop();
-
-	  if(desktop)
-	    {
-	      auto rect(desktop->availableGeometry(m_editWindow));
-
-	      m_editWindow->resize(rect.size() / 1.5);
-	    }
+	  m_editWindow->resize
+	    (QApplication::desktop() ?
+	     QApplication::desktop()->availableGeometry(m_editWindow) / 1.5 :
+	     QSize(800, 600));
 #endif
 	  glitch_misc::centerWindow(m_parent, m_editWindow);
 	}
@@ -1543,14 +1539,11 @@ void glitch_object::showEditWindow(void) const
 		 m_editWindow->screen()->availableGeometry().size() / 1.5 :
 		 QSize(800, 600));
 #else
-	      auto desktop = QApplication::desktop();
-
-	      if(desktop)
-		{
-		  auto rect(desktop->availableGeometry(m_editWindow));
-
-		  m_editWindow->resize(rect.size() / 1.5);
-		}
+	      m_editWindow->resize
+		(QApplication::desktop() ?
+		 QApplication::desktop()->availableGeometry(m_editWindow) /
+		 1.5 :
+		 QSize(800, 600));
 #endif
 	      glitch_misc::centerWindow(m_parent, m_editWindow);
 	    }
