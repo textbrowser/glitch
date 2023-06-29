@@ -23,6 +23,107 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.06.30</p>
+<ul>
+<li>A widget may be deleted in glitch_scene::artificialDrop() because
+  of an addObject() failure. Improved the logic of
+  artificialDrop().</li>
+<li>Added Generate -> Source View to separated canvases.</li>
+<li>Added Tools to tool bars.</li>
+<li>Added analogReadResolution().</li>
+<li>Adjust the size of a widget after it's been compressed or
+  decompressed.</li>
+<li>All distributions now include the Examples directory.</li>
+<li>Allow selecting of text in widgets housing text fields.</li>
+<li>Arrow object may or may not be transparent; corrected action
+  availability.</li>
+<li>Attempt to prepare a widget's edit window's geometry.</li>
+<li>Center an edit window if restoreGeometry() fails.</li>
+<li>Copying wired function clones is now complete!</li>
+<li>Corrected MacOS Qt warning: outside any known screen, using
+  primary screen.</li>
+<li>Corrected adding of compound operator -= via drag & drop.</li>
+<li>Corrected derelict 'else' in glitch_object_variable_arduino::
+  setProperties().</li>
+<li>Corrected drawing of arrow object. Large arrows are
+  distorted.</li>
+<li>Corrected state of Clear Copied Widgets Buffer in the main
+  window.</li>
+<li>Corrected state of Paste function in canvas floating menu.</li>
+<li>Corrected widget transformations. Function types were
+  incomplete.</li>
+<li>Decreased the number of instructions in glitch_object():
+  retrieve a new identifier for only a new widget.</li>
+<li>Default Arduino syntax colors for new diagrams.</li>
+<li>Denote widget type in context menu.</li>
+<li>Display a constant's value as its name.</li>
+<li>Display the Canvas Settings dialog if the IDE is
+  not accessible after a Show Project IDE request.</li>
+<li>Do not draw dots and grids if their colors match the
+  brush color of their parent canvas. Fewer instructions!</li>
+<li>Double-click events will open context menus or edit windows.</li>
+<li>Emit changed() signal in glitch_object::slotPropertyChanged(),
+  glitch_object::slotSelectColor() if necessary.</li>
+<li>File Tool Bar now precedes the Tool Bar. New Glitch instances.</li>
+<li>Find Objects now includes a search field.</li>
+<li>Functions added via User Functions are mislabeled (toLower()).
+  Corrected!</li>
+<li>Generate source and copy it into the clipboard buffer.</li>
+<li>Glitch will be shown in a maximized window for flawed or new
+  instances.</li>
+<li>Group operations will now create grouped redo / undo commands.</li>
+<li>Highlight syntax widget text.</li>
+<li>Improved detection of invalid variable names.</li>
+<li>Initialize Docked Widget Properties Editor's size.</li>
+<li>Native icons.</li>
+<li>New Canvas Settings option: Source View -> Generate Source
+  View Periodically.</li>
+<li>New Edit -> Separate Current Canvas.</li>
+<li>New Find Objects column: Type Total.</li>
+<li>New default redo / undo stack size of 1500.</li>
+<li>New icons added to several widgets.</li>
+<li>New layout in Glitch Preferences.</li>
+<li>New tool: (Un)lock Position(s) (Selected Widget(s)).</li>
+<li>New tool: Disconnect Selected Widget(s).</li>
+<li>New tool: Fonts (All Widgets).</li>
+<li>Non-empty Arduino variable names.</li>
+<li>Qt 5.15.10 for MacOS.</li>
+<li>Qt 6.5.1 LTS for Android.</li>
+<li>Qt 6.5.1 LTS for Windows. Windows 7 has been removed.</li>
+<li>Raise newly-separated diagrams.</li>
+<li>Record absolute file paths for recent files.</li>
+<li>Reinitialize Glitch Preferences on show event. That is,
+  discard revisions which have not been committed.</li>
+<li>Removed --show-arduino-structures as it's deprecated.</li>
+<li>Removed Qt::WindowStaysOnTopHint.</li>
+<li>Removed legacy SQLite statements.</li>
+<li>Removed virtual methods from constructors.</li>
+<li>Render property colors in floating context menus through
+  manufactured icons!</li>
+<li>Repaint a wire whenever its parent scene is updated.</li>
+<li>Replaced QLabel Object Name widget with QLineEdit in
+  Floating Context Menu panel.</li>
+<li>Resize widgets upon drop events.</li>
+<li>Retain Find Objects selection after a synchronization event.</li>
+<li>Retain Tools mode before the Tools window is displayed.</li>
+<li>Saving newly-created diagrams was incomplete because of
+  invalid object identifiers. For example, a widget attached to
+  an editable widget would not be saved.</li>
+<li>Set function return type via context menu.</li>
+<li>Simplified block comments: /*\nText\n*/.</li>
+<li>Synchronize the contents of Find Objects if the synchronization
+  widget is activated.</li>
+<li>The Tools value does not retain the proper setting after a
+  separated canvas is united.</li>
+<li>Widget font.</li>
+<li>Widget input fields have been replaced with special widgets
+  so that double-click events are now required to interact
+  with the field text. The new widgets provide more natural widget
+  manipulation.</li>
+<li>Windows x86-64 only.</li>
+<li>Wired objects may now be disconnected via wire clicks.</li>
+<li>loop and setup are Arduino keywords.</li>
+</ul>
 <p>2023.05.20</p>
 <ul>
 <li>Activate minimized windows if necessary.</li>
