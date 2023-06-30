@@ -1729,7 +1729,6 @@ void glitch_ui::slotNewArduinoDiagram(void)
   QLabel *label = nullptr;
   QString name("");
 
- restart_label:
   dialog.setLabelText
     (tr("Please specify a project name. "
 	"A database file having the provided name will be created in "
@@ -1775,7 +1774,8 @@ void glitch_ui::slotNewArduinoDiagram(void)
       if(mb.exec() != QMessageBox::Yes)
 	{
 	  QApplication::processEvents();
-	  goto restart_label;
+	  QTimer::singleShot(250, this, &glitch_ui::slotNewArduinoDiagram);
+	  return;
 	}
 
       QApplication::processEvents();
