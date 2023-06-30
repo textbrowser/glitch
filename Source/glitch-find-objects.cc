@@ -41,10 +41,17 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
 	  &QTimer::timeout,
 	  this,
 	  &glitch_find_objects::slotSearch);
+#ifdef Q_OS_ANDROID
+  connect(m_ui.close,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_find_objects::hide);
+#else
   connect(m_ui.close,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_find_objects::close);
+#endif
   connect(m_ui.find,
 	  &QPushButton::clicked,
 	  this,
@@ -77,12 +84,14 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
   m_ui.tree->setContextMenuPolicy(Qt::CustomContextMenu);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   m_view = qobject_cast<glitch_view *> (parent);
+#ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+F"),
 		m_ui.search,
 		SLOT(setFocus(void)));
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+#endif
   setWindowFlags(Qt::Dialog | windowFlags());
   QTimer::singleShot(100, this, SLOT(slotFind(void)));
 }
