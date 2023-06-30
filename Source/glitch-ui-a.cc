@@ -2262,7 +2262,10 @@ void glitch_ui::slotTabMoved(int from, int to)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.menu_Tabs->clear();
 
-  auto group = new QActionGroup(m_ui.menu_Tabs);
+  auto group = m_ui.menu_Tabs->findChild<QActionGroup *> ();
+
+  if(!group)
+    group = new QActionGroup(m_ui.menu_Tabs);
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
