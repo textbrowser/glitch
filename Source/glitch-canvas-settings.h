@@ -230,6 +230,15 @@ class glitch_canvas_settings: public QDialog
 
  private slots:
   void accept(void);
+
+#ifdef Q_OS_ANDROID
+  void reject(void)
+  {
+    hide();
+    setResult(QDialog::Rejected);
+  }
+#endif
+
   void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);
   void slotSelectProjectIDE(void);
