@@ -284,6 +284,8 @@ DISTFILES += android/AndroidManifest.xml \
              android/gradlew \
              android/gradlew.bat \
              android/res/values/libs.xml
+
+android: include(/home/saturn/Android/Sdk/android_openssl/openssl.pri)
 }
 
 # Installation Procedures
