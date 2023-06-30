@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QActionGroup>
 #include <QCloseEvent>
 #include <QDir>
 #include <QElapsedTimer>
@@ -2261,23 +2262,24 @@ void glitch_ui::slotTabMoved(int from, int to)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.menu_Tabs->clear();
 
+  auto group = new QActionGroup(m_ui.menu_Tabs);
+
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
       auto view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
 
       if(view)
 	{
-	  QFont font;
 	  auto action = view->menuAction();
 
-	  font = action->font();
+	  action->setCheckable(true);
 
 	  if(i == m_ui.tab->currentIndex())
-	    font.setBold(true);
+	    action->setChecked(true);
 	  else
-	    font.setBold(false);
+	    action->setChecked(false);
 
-	  action->setFont(font);
+	  group->addAction(action);
 	  m_ui.menu_Tabs->addAction(action);
 	}
     }
