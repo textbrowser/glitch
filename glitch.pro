@@ -46,7 +46,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wstack-protector \
                           -Wstrict-overflow=1 \
                           -Wundef \
-                          -fPIE \
+                          -fPIC \
                           -fstack-protector-all \
                           -fwrapv \
                           -pedantic \
