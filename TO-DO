@@ -298,9 +298,10 @@ Remaining Items
   Adding user functions via drag (Incomplete)
   Application icon (Completed)
   Close buttons (Completed)
+  Context menus (Incomplete)
   Display widget property editors via double-click (Incomplete)
   Drag & drop (Completed)
-  Proper window hiding via hide() (Incomplete)
+  Proper window hiding via hide() (Completed)
 - Canvas printing!
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
