@@ -1055,6 +1055,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 		&glitch_object_edit_window::slotPreferencesAccepted,
 		Qt::UniqueConnection);
 
+#ifndef Q_OS_ANDROID
       if(!m_editWindow->
 	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
 			 toByteArray()))
@@ -1072,6 +1073,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 #endif
 	  glitch_misc::centerWindow(m_parent, m_editWindow);
 	}
+#endif
 
       m_editWindow->restoreState
 	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
@@ -1528,6 +1530,7 @@ void glitch_object::showEditWindow(void) const
     {
       if(!m_editWindow->isVisible())
 	{
+#ifndef Q_OS_ANDROID
 	  if(!m_editWindow->
 	     restoreGeometry(m_properties.
 			     value(Properties::EDIT_WINDOW_GEOMETRY).
@@ -1547,12 +1550,17 @@ void glitch_object::showEditWindow(void) const
 #endif
 	      glitch_misc::centerWindow(m_parent, m_editWindow);
 	    }
+#endif
 
 	  m_editWindow->restoreState
 	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
 	}
 
+#ifdef Q_OS_ANDROID
+      m_editWindow->showMaximized();
+#else
       m_editWindow->showNormal();
+#endif
       m_editWindow->activateWindow();
       m_editWindow->raise();
     }
@@ -1560,11 +1568,19 @@ void glitch_object::showEditWindow(void) const
 
 void glitch_object::simulateDelete(void)
 {
+#ifdef Q_OS_ANDROID
+  if(m_contextMenu)
+    m_contextMenu->hide();
+
+  if(m_editWindow)
+    m_editWindow->hide();
+#else
   if(m_contextMenu)
     m_contextMenu->close();
 
   if(m_editWindow)
     m_editWindow->close();
+#endif
 
   emit simulateDeleteSignal();
 }
@@ -2004,10 +2020,17 @@ void glitch_object::slotShowContextMenu(void)
       auto view = qobject_cast<glitch_object_view *> (m_parent);
 
       if(view)
+#ifdef Q_OS_ANDROID
+	connect(view,
+		&glitch_object_view::closed,
+		m_contextMenu,
+		&glitch_floating_context_menu::hide);
+#else
 	connect(view,
 		&glitch_object_view::closed,
 		m_contextMenu,
 		&glitch_floating_context_menu::close);
+#endif
     }
 
   m_contextMenu->addActions(m_actions.values());

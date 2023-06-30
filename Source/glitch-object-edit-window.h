@@ -76,6 +76,7 @@ class glitch_object_edit_window: public QMainWindow
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
+  void hideEvent(QHideEvent *event);
   void prepareIcons(void);
   void resizeEvent(QResizeEvent *event);
   void showEvent(QShowEvent *event);

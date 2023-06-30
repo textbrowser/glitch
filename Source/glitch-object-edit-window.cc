@@ -63,11 +63,21 @@ glitch_object_edit_window::glitch_object_edit_window
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#ifdef Q_OS_ANDROID
+  m_actions["close"] =
+    menu->addAction(tr("&Close"), this, SLOT(hide(void)));
+#else
   m_actions["close"] =
     menu->addAction(tr("&Close"), tr("Ctrl+W"), this, SLOT(close(void)));
+#endif
+#else
+#ifdef Q_OS_ANDROID
+  m_actions["close"] =
+    menu->addAction(tr("&Close"), this, SLOT(hide(void)));
 #else
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
+#endif
 #endif
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
@@ -197,6 +207,12 @@ bool glitch_object_edit_window::event(QEvent *event)
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
   QMainWindow::closeEvent(event);
+  emit closed();
+}
+
+void glitch_object_edit_window::hideEvent(QHideEvent *event)
+{
+  QMainWindow::hideEvent(event);
   emit closed();
 }
 
