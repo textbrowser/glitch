@@ -75,10 +75,17 @@ glitch_documentation::glitch_documentation
     m_ui.text->setSource(QUrl(fileName));
 
   m_originalFindPalette = m_ui.find->palette();
+#ifdef Q_OS_ANDROID
+  connect(m_ui.action_Close,
+	  &QAction::triggered,
+	  this,
+	  &glitch_documentation::hide);
+#else
   connect(m_ui.action_Close,
 	  &QAction::triggered,
 	  this,
 	  &glitch_documentation::close);
+#endif
   connect(m_ui.action_Find,
 	  &QAction::triggered,
 	  this,

@@ -44,6 +44,14 @@ class glitch_preferences: public QDialog
   void prepareLanguages(void);
 
  private slots:
+#ifdef Q_OS_ANDROID
+  void reject(void)
+  {
+    hide();
+    setResult(QDialog::Rejected);
+  }
+#endif
+
   void slotApply(void);
   void slotSelectFont(void);
   void slotSelectOutputDirectory(void);

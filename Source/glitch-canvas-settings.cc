@@ -112,9 +112,11 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 			      arg(m_ui.wire_width->minimum()).
 			      arg(m_ui.wire_width->maximum()));
   m_settings = settings();
+#ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+#endif
   connect(&m_timer,
 	  &QTimer::timeout,
 	  this,

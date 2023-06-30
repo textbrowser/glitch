@@ -2194,7 +2194,11 @@ void glitch_ui::slotShowReleaseNotes(void)
       m_releaseNotes->setWindowTitle(tr("Glitch: Release Notes"));
     }
 
+#ifdef Q_OS_ANDROID
+  m_releaseNotes->showMaximized();
+#else
   m_releaseNotes->showNormal();
+#endif
   m_releaseNotes->activateWindow();
   m_releaseNotes->raise();
 }
