@@ -2,5 +2,5 @@
 :: Windows only.
 
 @echo "Launching Glitch."
-start "Glitch" Glitch.exe -platform windows:darkmode=2
+start "Glitch" Glitch.exe -style fusion
 exit
