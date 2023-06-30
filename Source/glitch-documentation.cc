@@ -67,6 +67,7 @@ glitch_documentation::glitch_documentation
   m_ui.action_Close->setIcon(QIcon(":/close.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
   m_ui.action_Print->setIcon(QIcon(":/print.png"));
+  m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.find->setPlaceholderText(tr("Find"));
   m_ui.next->setIcon(QIcon(":/next.png"));
   m_ui.previous->setIcon(QIcon(":/previous.png"));
@@ -94,6 +95,17 @@ glitch_documentation::glitch_documentation
           &QAction::triggered,
           this,
           &glitch_documentation::slotPrint);
+#ifdef Q_OS_ANDROID
+  connect(m_ui.close,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_documentation::hide);
+#else
+  connect(m_ui.close,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_documentation::close);
+#endif
   connect(m_ui.find,
 	  &QLineEdit::returnPressed,
 	  this,
