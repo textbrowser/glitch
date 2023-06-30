@@ -27,17 +27,26 @@
 
 #include <QActionGroup>
 #include <QMenu>
+#ifndef Q_OS_ANDROID
 #include <QShortcut>
+#endif
 
 #include "glitch-tools.h"
 
 glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+#ifdef Q_OS_ANDROID
+  connect(m_ui.close,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_tools::hide);
+#else
   connect(m_ui.close,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_tools::close);
+#endif
   m_ui.close->setIcon(QIcon(":/close.png"));
 
   foreach(auto widget, findChildren<QRadioButton *> ())
@@ -47,9 +56,11 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 	      this,
 	      &glitch_tools::slotOperationChanged);
 
+#ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+W"),
 		this,
 		SLOT(close(void)));
+#endif
   setWindowModality(Qt::NonModal);
 }
 

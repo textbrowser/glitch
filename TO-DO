@@ -195,6 +195,7 @@ Completed Items
 - Private Arduino constructors (QWidget), (qint64, QWidget).
 - Promote comment widget (see glitch_object_lineedit).
 - Proper indentation of generated source.
+- Qt 6.5.1 LTS for Windows.
 - Raise currently-selected function via z-value. This will allow the
   function's combination box to float above other widgets.
 - Recreating functions and unique names.
@@ -305,6 +306,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog.
 - Custom shortcuts.
+- Dark mode on Windows.
 - Display context cursor as mouse hovers over a port.
 - Docked User Functions.
 - Ethernet class. Include required header file too.
@@ -314,7 +316,6 @@ Remaining Items
 - Nested flow-control scenes.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - QSerialPort for direct communications with Arduino boards.
-- Qt 6.5.1 LTS for Windows.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).

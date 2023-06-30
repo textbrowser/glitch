@@ -25,7 +25,10 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QCoreApplication>
+#ifndef Q_OS_ANDROID
 #include <QShortcut>
+#endif
 
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-find-objects.h"
