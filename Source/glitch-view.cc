@@ -1566,7 +1566,7 @@ void glitch_view::slotShowWires(void)
 void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
-  setProperty("tools-operation", operation);
+  setProperty("tools-operation", static_cast<int> (operation));
 }
 
 void glitch_view::slotUndoStackChanged(void)

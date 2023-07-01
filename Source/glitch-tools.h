@@ -35,7 +35,7 @@ class glitch_tools: public QDialog
   Q_OBJECT
 
  public:
-  enum Operations
+  enum class Operations
   {
     INTELLIGENT = 0,
     SELECT,
