@@ -141,7 +141,14 @@ class glitch_canvas_settings: public QDialog
   Q_OBJECT
 
  public:
-  enum Settings
+  enum class Pages
+  {
+    Canvas = 0,
+    Project = 1,
+    UndoStack
+  };
+
+  enum class Settings
   {
     CANVAS_BACKGROUND_COLOR = 0,
     CANVAS_NAME,
@@ -161,13 +168,6 @@ class glitch_canvas_settings: public QDialog
     WIRE_COLOR,
     WIRE_TYPE,
     WIRE_WIDTH
-  };
-
-  enum class Pages
-  {
-    Canvas = 0,
-    Project = 1,
-    UndoStack
   };
 
   glitch_canvas_settings(QWidget *parent);
@@ -249,5 +249,10 @@ class glitch_canvas_settings: public QDialog
  signals:
   void accepted(const bool undo);
 };
+
+inline uint qHash(const glitch_canvas_settings::Settings &key, uint seed)
+{
+  return ::qHash(static_cast<uint> (key), seed);
+}
 
 #endif

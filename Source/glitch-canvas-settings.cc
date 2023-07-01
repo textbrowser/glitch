@@ -255,7 +255,7 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QMap<QString, QColor> map;
-  auto text(m_settings.value(KEYWORD_COLORS).toString());
+  auto text(m_settings.value(Settings::KEYWORD_COLORS).toString());
 
   foreach(const auto &string, text.mid(7).split(','))
     {
