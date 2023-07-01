@@ -89,14 +89,14 @@ void glitch_resize_widget::positionEdgeRectangles(void)
   auto rectangle(m_parent ? m_parent->boundingRect() : boundingRect());
   auto squareSize = glitch_resize_widget_rectangle::SQUARE_SIZE;
 
-  list << glitch_resize_widget_rectangle::BottomCenter
-       << glitch_resize_widget_rectangle::BottomLeft
-       << glitch_resize_widget_rectangle::BottomRight
-       << glitch_resize_widget_rectangle::CenterLeft
-       << glitch_resize_widget_rectangle::CenterRight
-       << glitch_resize_widget_rectangle::TopCenter
-       << glitch_resize_widget_rectangle::TopLeft
-       << glitch_resize_widget_rectangle::TopRight;
+  list << glitch_resize_widget_rectangle::RectangleLocations::BottomCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomRight
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterRight
+       << glitch_resize_widget_rectangle::RectangleLocations::TopCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::TopLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::TopRight;
   rectangles << QRectF(rectangle.x() + rectangle.width() / 2 - squareSize / 2,
 		       rectangle.y() + rectangle.height() + 1,
                        squareSize,
@@ -151,14 +151,14 @@ void glitch_resize_widget::prepareRectangles(void)
   QPen pen;
   auto color(m_parent->selectionColor());
 
-  list << glitch_resize_widget_rectangle::BottomCenter
-       << glitch_resize_widget_rectangle::BottomLeft
-       << glitch_resize_widget_rectangle::BottomRight
-       << glitch_resize_widget_rectangle::CenterLeft
-       << glitch_resize_widget_rectangle::CenterRight
-       << glitch_resize_widget_rectangle::TopCenter
-       << glitch_resize_widget_rectangle::TopLeft
-       << glitch_resize_widget_rectangle::TopRight;
+  list << glitch_resize_widget_rectangle::RectangleLocations::BottomCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomRight
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterRight
+       << glitch_resize_widget_rectangle::RectangleLocations::TopCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::TopLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::TopRight;
   pen.setWidthF(0.001);
 
   for(int i = 0; i < list.size(); i++)
@@ -199,14 +199,14 @@ void glitch_resize_widget::showEdgeRectanglesForLockedPosition
 
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
 
-  list << glitch_resize_widget_rectangle::BottomCenter
-       << glitch_resize_widget_rectangle::BottomLeft
-       << glitch_resize_widget_rectangle::BottomRight
-       << glitch_resize_widget_rectangle::CenterLeft
-       << glitch_resize_widget_rectangle::CenterRight
-       << glitch_resize_widget_rectangle::TopCenter
-       << glitch_resize_widget_rectangle::TopLeft
-       << glitch_resize_widget_rectangle::TopRight;
+  list << glitch_resize_widget_rectangle::RectangleLocations::BottomCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::BottomRight
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::CenterRight
+       << glitch_resize_widget_rectangle::RectangleLocations::TopCenter
+       << glitch_resize_widget_rectangle::RectangleLocations::TopLeft
+       << glitch_resize_widget_rectangle::RectangleLocations::TopRight;
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -215,11 +215,11 @@ void glitch_resize_widget::showEdgeRectanglesForLockedPosition
       if(rectangle)
 	switch(list.at(i))
 	  {
-	  case glitch_resize_widget_rectangle::BottomCenter:
-	  case glitch_resize_widget_rectangle::BottomLeft:
-	  case glitch_resize_widget_rectangle::BottomRight:
-	  case glitch_resize_widget_rectangle::CenterRight:
-	  case glitch_resize_widget_rectangle::TopRight:
+	  case glitch_resize_widget_rectangle::RectangleLocations::BottomCenter:
+	  case glitch_resize_widget_rectangle::RectangleLocations::BottomLeft:
+	  case glitch_resize_widget_rectangle::RectangleLocations::BottomRight:
+	  case glitch_resize_widget_rectangle::RectangleLocations::CenterRight:
+	  case glitch_resize_widget_rectangle::RectangleLocations::TopRight:
 	    {
 	      rectangle->setParentLocked(state);
 	      rectangle->setVisible(isParentSelected);

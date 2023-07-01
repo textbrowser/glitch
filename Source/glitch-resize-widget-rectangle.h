@@ -33,7 +33,7 @@
 class glitch_resize_widget_rectangle: public QGraphicsRectItem
 {
  public:
-  enum RectangleLocations
+  enum class RectangleLocations
   {
     BottomCenter = 0,
     BottomLeft,
@@ -62,5 +62,11 @@ class glitch_resize_widget_rectangle: public QGraphicsRectItem
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
+
+inline uint qHash
+(const glitch_resize_widget_rectangle::RectangleLocations &key, uint seed)
+{
+  return ::qHash(static_cast<uint> (key), seed);
+}
 
 #endif

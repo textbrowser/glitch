@@ -57,18 +57,18 @@ void glitch_resize_widget_rectangle::hoverEnterEvent
 {
   switch(m_location)
     {
-    case BottomCenter:
-    case TopCenter:
+    case RectangleLocations::BottomCenter:
+    case RectangleLocations::TopCenter:
       {
 	setCursor(Qt::SizeVerCursor);
 	break;
       }
-    case BottomLeft:
-    case TopRight:
+    case RectangleLocations::BottomLeft:
+    case RectangleLocations::TopRight:
       {
 	if(m_parentLocked)
 	  {
-	    if(m_location == BottomLeft)
+	    if(m_location == RectangleLocations::BottomLeft)
 	      setCursor(Qt::SizeVerCursor);
 	    else
 	      setCursor(Qt::SizeHorCursor);
@@ -78,14 +78,14 @@ void glitch_resize_widget_rectangle::hoverEnterEvent
 
 	break;
       }
-    case BottomRight:
-    case TopLeft:
+    case RectangleLocations::BottomRight:
+    case RectangleLocations::TopLeft:
       {
 	setCursor(Qt::SizeFDiagCursor);
 	break;
       }
-    case CenterLeft:
-    case CenterRight:
+    case RectangleLocations::CenterLeft:
+    case RectangleLocations::CenterRight:
       {
 	setCursor(Qt::SizeHorCursor);
 	break;
@@ -128,7 +128,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
   switch(m_location)
     {
-    case BottomCenter:
+    case RectangleLocations::BottomCenter:
       {
 	if(event->pos().y() > 0)
 	  rectangle.setHeight(event->pos().y());
@@ -145,21 +145,21 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
 	  }
 
 	break;
       }
-    case BottomLeft:
+    case RectangleLocations::BottomLeft:
       {
 	if(event->pos().y() > 0)
 	  rectangle.setHeight(event->pos().y());
@@ -187,25 +187,25 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
 	break;
       }
-    case BottomRight:
+    case RectangleLocations::BottomRight:
       {
 	if(event->pos().y() > 0)
 	  rectangle.setHeight(event->pos().y());
@@ -222,19 +222,19 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
@@ -245,7 +245,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	break;
       }
-    case CenterLeft:
+    case RectangleLocations::CenterLeft:
       {
 	rectangle.setX(event->pos().x());
 
@@ -262,36 +262,36 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
 	break;
       }
-    case CenterRight:
+    case RectangleLocations::CenterRight:
       {
 	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
@@ -302,7 +302,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	break;
       }
-    case TopCenter:
+    case RectangleLocations::TopCenter:
       {
 	rectangle.setY(event->pos().y());
 
@@ -319,21 +319,21 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
 	  }
 
 	break;
       }
-    case TopLeft:
+    case RectangleLocations::TopLeft:
       {
 	rectangle.setX(event->pos().x());
 
@@ -360,25 +360,25 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
 	break;
       }
-    case TopRight:
+    case RectangleLocations::TopRight:
       {
 	if(!m_parentLocked)
 	  rectangle.setY(event->pos().y());
@@ -396,19 +396,19 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == BottomCenter)
+	    if(item->location() == RectangleLocations::BottomCenter)
 	      list.append(item);
-	    else if(item->location() == BottomLeft)
+	    else if(item->location() == RectangleLocations::BottomLeft)
 	      list.append(item);
-	    else if(item->location() == BottomRight)
+	    else if(item->location() == RectangleLocations::BottomRight)
 	      list.append(item);
-	    else if(item->location() == CenterLeft)
+	    else if(item->location() == RectangleLocations::CenterLeft)
 	      list.append(item);
-	    else if(item->location() == CenterRight)
+	    else if(item->location() == RectangleLocations::CenterRight)
 	      list.append(item);
-	    else if(item->location() == TopCenter)
+	    else if(item->location() == RectangleLocations::TopCenter)
 	      list.append(item);
-	    else if(item->location() == TopRight)
+	    else if(item->location() == RectangleLocations::TopRight)
 	      list.append(item);
 	  }
 
@@ -428,49 +428,49 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
   parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 
   for(int i = 0; i < list.size(); i++)
-    if(list.at(i)->location() == BottomCenter)
+    if(list.at(i)->location() == RectangleLocations::BottomCenter)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() + rectangle.width() / 2 - SQUARE_SIZE / 2,
 		list.at(i)->y() + rectangle.height() + 1,
                 SQUARE_SIZE,
 		SQUARE_SIZE));
-    else if(list.at(i)->location() == BottomLeft)
+    else if(list.at(i)->location() == RectangleLocations::BottomLeft)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
 		list.at(i)->y() + rectangle.height() + 1,
                 SQUARE_SIZE,
 		SQUARE_SIZE));
-    else if(list.at(i)->location() == BottomRight)
+    else if(list.at(i)->location() == RectangleLocations::BottomRight)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() + rectangle.width() + 1,
 		list.at(i)->y() + rectangle.height() + 1,
                 SQUARE_SIZE,
 		SQUARE_SIZE));
-    else if(list.at(i)->location() == CenterLeft)
+    else if(list.at(i)->location() == RectangleLocations::CenterLeft)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
 		list.at(i)->y() + rectangle.height() / 2 - SQUARE_SIZE / 2,
 		SQUARE_SIZE,
 		SQUARE_SIZE));
-    else if(list.at(i)->location() == CenterRight)
+    else if(list.at(i)->location() == RectangleLocations::CenterRight)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() + rectangle.width() + 1,
 		list.at(i)->y() + rectangle.height() / 2 - SQUARE_SIZE / 2,
 		SQUARE_SIZE,
 		SQUARE_SIZE));
-    else if(list.at(i)->location() == TopCenter)
+    else if(list.at(i)->location() == RectangleLocations::TopCenter)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() + rectangle.width() / 2 - SQUARE_SIZE / 2,
 		list.at(i)->y() - SQUARE_SIZE - 1,
                 SQUARE_SIZE,
                 SQUARE_SIZE));
-    else if(list.at(i)->location() == TopLeft)
+    else if(list.at(i)->location() == RectangleLocations::TopLeft)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
 		list.at(i)->y() - SQUARE_SIZE - 1,
                 SQUARE_SIZE,
                 SQUARE_SIZE));
-    else if(list.at(i)->location() == TopRight)
+    else if(list.at(i)->location() == RectangleLocations::TopRight)
       list.at(i)->setRect
 	(QRectF(list.at(i)->x() + rectangle.width() + 1,
 		list.at(i)->y() - SQUARE_SIZE - 1,
