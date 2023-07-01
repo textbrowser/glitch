@@ -36,7 +36,7 @@ class glitch_object_bitwise_operator_arduino:
   Q_OBJECT
 
  public:
-  enum OperatorTypes
+  enum class OperatorTypes
   {
     AND_OPERATOR = 0,
     LEFT_SHIFT_OPERATOR,

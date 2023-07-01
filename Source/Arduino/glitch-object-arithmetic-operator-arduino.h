@@ -36,7 +36,7 @@ class glitch_object_arithmetic_operator_arduino:
   Q_OBJECT
 
  public:
-  enum OperatorTypes
+  enum class OperatorTypes
   {
     ADDITION_OPERATOR = 0,
     DIVISION_OPERATOR,

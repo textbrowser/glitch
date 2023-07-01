@@ -56,7 +56,7 @@ class glitch_object_characters_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     IS_ALPHA = 0,
     IS_ALPHA_NUMERIC,

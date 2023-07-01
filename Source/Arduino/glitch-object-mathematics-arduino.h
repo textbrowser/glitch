@@ -56,7 +56,7 @@ class glitch_object_mathematics_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     ABS = 0,
     CONSTRAIN,

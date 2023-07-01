@@ -54,7 +54,7 @@ class glitch_object_random_arduino: public glitch_object_simple_text_arduino
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     RANDOM = 0,
     RANDOM_SEED

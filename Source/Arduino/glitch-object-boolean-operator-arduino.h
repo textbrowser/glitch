@@ -35,7 +35,7 @@ class glitch_object_boolean_operator_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  enum OperatorTypes
+  enum class OperatorTypes
   {
     AND_OPERATOR = 0,
     NOT_OPERATOR,

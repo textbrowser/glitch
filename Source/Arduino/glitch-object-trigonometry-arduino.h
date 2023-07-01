@@ -56,7 +56,7 @@ class glitch_object_trigonometry_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Types
+  enum class Types
   {
     COS = 0,
     SIN,

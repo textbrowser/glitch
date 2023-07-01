@@ -55,7 +55,7 @@ class glitch_object_digital_io_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     PIN_MODE = 0,
     READ,

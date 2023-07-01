@@ -36,7 +36,7 @@ class glitch_object_compound_operator_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  enum OperatorTypes
+  enum class OperatorTypes
   {
     ADDITION_OPERATOR = 0,
     BITWISE_AND_OPERATOR,

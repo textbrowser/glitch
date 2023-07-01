@@ -54,7 +54,7 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     READ = 0,
     READ_RESOLUTION,

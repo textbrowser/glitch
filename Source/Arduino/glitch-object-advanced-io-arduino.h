@@ -91,7 +91,7 @@ class glitch_object_advanced_io_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     NO_TONE = 0,
     PULSE_IN,

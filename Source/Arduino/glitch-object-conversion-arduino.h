@@ -36,7 +36,7 @@ class glitch_object_conversion_arduino:
   Q_OBJECT
 
  public:
-  enum ConversionTypes
+  enum class ConversionTypes
   {
     BYTE = 0,
     CHAR,

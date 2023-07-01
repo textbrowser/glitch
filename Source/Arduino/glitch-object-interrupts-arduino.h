@@ -56,7 +56,7 @@ class glitch_object_interrupts_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     ATTACH_INTERRUPT = 0,
     DETACH_INTERRUPT,

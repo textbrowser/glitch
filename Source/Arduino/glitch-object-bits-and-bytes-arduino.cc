@@ -33,37 +33,37 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
 {
   switch(stringToType(babType))
     {
-    case BIT:
+    case Type::BIT:
       {
 	m_text = "bit()";
 	break;
       }
-    case BIT_CLEAR:
+    case Type::BIT_CLEAR:
       {
 	m_text = "bitClear()";
 	break;
       }
-    case BIT_READ:
+    case Type::BIT_READ:
       {
 	m_text = "bitRead()";
 	break;
       }
-    case BIT_SET:
+    case Type::BIT_SET:
       {
 	m_text = "bitSet()";
 	break;
       }
-    case BIT_WRITE:
+    case Type::BIT_WRITE:
       {
 	m_text = "bitWrite()";
 	break;
       }
-    case HIGH_BYTE:
+    case Type::HIGH_BYTE:
       {
 	m_text = "highByte()";
 	break;
       }
-    case LOW_BYTE:
+    case Type::LOW_BYTE:
       {
 	m_text = "lowByte()";
 	break;

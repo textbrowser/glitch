@@ -55,7 +55,7 @@ class glitch_object_bits_and_bytes_arduino:
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     BIT = 0,
     BIT_CLEAR,

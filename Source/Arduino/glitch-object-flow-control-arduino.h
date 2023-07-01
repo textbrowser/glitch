@@ -36,7 +36,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   Q_OBJECT
 
  public:
-  enum FlowControlTypes
+  enum class FlowControlTypes
   {
     BREAK = 0,
     CASE,

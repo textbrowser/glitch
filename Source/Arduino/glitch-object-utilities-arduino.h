@@ -55,7 +55,7 @@ class glitch_object_utilities_arduino: public glitch_object_simple_text_arduino
   void save(const QSqlDatabase &db, QString &error);
 
  private:
-  enum Type
+  enum class Type
   {
     SIZEOF = 0
   };
