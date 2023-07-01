@@ -52,7 +52,7 @@ class glitch_ui: public QMainWindow
   Q_OBJECT
 
  public:
-  enum Limits
+  enum class Limits
   {
     FILE_NAME_MAXIMUM_LENGTH = 2500,
     NAME_MAXIMUM_LENGTH = 100,

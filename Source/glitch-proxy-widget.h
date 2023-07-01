@@ -47,7 +47,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
     Type = QGraphicsProxyWidget::UserType + 1
   };
 
-  enum Sections
+  enum class Sections
   {
     LEFT = 0,
     RIGHT,
