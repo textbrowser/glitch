@@ -145,7 +145,7 @@ void glitch_object_simple_text_arduino::slotTransformed(void)
       auto undoCommand = new glitch_undo_command
 	(action->text(),
 	 m_text,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::Z_Z_Z_PROPERTY,
 	 this);
 

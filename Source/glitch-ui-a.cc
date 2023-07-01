@@ -839,7 +839,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 		}
 
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED, proxy, scene);
+		(glitch_undo_command::Types::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
 	      proxy->setPos(point);
@@ -877,7 +877,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 		}
 
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_ADDED, proxy, scene);
+		(glitch_undo_command::Types::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
 	      proxy->setPos(p);

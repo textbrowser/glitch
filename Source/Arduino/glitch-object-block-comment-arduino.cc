@@ -184,7 +184,7 @@ void glitch_object_block_comment_arduino::slotTextChanged(void)
   auto undoCommand = new glitch_undo_command
     (m_ui.comment->toPlainText(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 

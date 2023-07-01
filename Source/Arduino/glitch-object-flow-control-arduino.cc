@@ -625,7 +625,7 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
   auto undoCommand = new glitch_undo_command
     (m_ui.condition->text(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 
@@ -668,7 +668,7 @@ void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
 
   auto undoCommand = new glitch_undo_command
     (m_properties.value(Properties::FLOW_CONTROL_TYPE).toString(),
-     glitch_undo_command::FLOW_CONTROL_TYPE_CHANGED,
+     glitch_undo_command::Types::FLOW_CONTROL_TYPE_CHANGED,
      this);
 
   m_properties[Properties::FLOW_CONTROL_TYPE] =

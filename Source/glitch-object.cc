@@ -1625,7 +1625,7 @@ void glitch_object::slotActionTriggered(void)
 	  auto undoCommand = new glitch_undo_command
 	    (!m_properties.value(property).toBool(),
 	     m_properties.value(property),
-	     glitch_undo_command::PROPERTY_CHANGED,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
 	     property,
 	     this);
 
@@ -1659,7 +1659,7 @@ void glitch_object::slotAdjustSize(void)
       auto undoCommand = new glitch_undo_command
 	(size(),
 	 before,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::SIZE,
 	 this);
 
@@ -1703,7 +1703,7 @@ void glitch_object::slotCompress(void)
       auto undoCommand = new glitch_undo_command
 	(!m_properties.value(property).toBool(),
 	 m_properties.value(property),
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 property,
 	 this);
 
@@ -1739,7 +1739,7 @@ void glitch_object::slotLockPosition(void)
       auto undoCommand = new glitch_undo_command
 	(!m_properties.value(Properties::POSITION_LOCKED).toBool(),
 	 m_properties.value(Properties::POSITION_LOCKED),
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::POSITION_LOCKED,
 	 this);
 
@@ -1769,7 +1769,7 @@ void glitch_object::slotPropertyChanged
 	  auto undoCommand = new glitch_undo_command
 	    (value,
 	     before,
-	     glitch_undo_command::PROPERTY_CHANGED,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
 	     property,
 	     this);
 
@@ -1847,7 +1847,7 @@ void glitch_object::slotSelectColor(void)
 	  auto undoCommand = new glitch_undo_command
 	    (color.name(QColor::HexArgb),
 	     m_properties.value(property),
-	     glitch_undo_command::PROPERTY_CHANGED,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
 	     property,
 	     this);
 
@@ -1941,7 +1941,7 @@ void glitch_object::slotSetPortColors(void)
 	  auto undoCommand = new glitch_undo_command
 	    (m_properties.value(Properties::PORT_COLORS),
 	     before,
-	     glitch_undo_command::PROPERTY_CHANGED,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
 	     Properties::PORT_COLORS,
 	     this);
 
@@ -1973,7 +1973,7 @@ void glitch_object::slotSetStyleSheet(void)
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
-	    (string, glitch_undo_command::STYLESHEET_CHANGED, this);
+	    (string, glitch_undo_command::Types::STYLESHEET_CHANGED, this);
 
 	  undoCommand->setText
 	    (tr("stylesheet changed (%1, %2)").

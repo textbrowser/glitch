@@ -259,7 +259,7 @@ class glitch_alignment: public QWidget
 
 	      auto undoCommand = new glitch_undo_command
 		(QPointF(point),
-		 glitch_undo_command::ITEM_MOVED,
+		 glitch_undo_command::Types::ITEM_MOVED,
 		 proxy,
 		 view->scene());
 
@@ -374,7 +374,7 @@ class glitch_alignment: public QWidget
 
 	      auto undoCommand = new glitch_undo_command
 		(QPointF(point),
-		 glitch_undo_command::ITEM_MOVED,
+		 glitch_undo_command::Types::ITEM_MOVED,
 		 widget->proxy(),
 		 view->scene());
 

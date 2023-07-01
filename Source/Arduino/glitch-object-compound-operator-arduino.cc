@@ -467,7 +467,7 @@ void glitch_object_compound_operator_arduino::slotAdjustSize(void)
       auto undoCommand = new glitch_undo_command
 	(size(),
 	 before,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::SIZE,
 	 this);
 
@@ -491,7 +491,7 @@ void glitch_object_compound_operator_arduino::slotCompoundOperatorChanged
   auto undoCommand = new glitch_undo_command
     (m_ui.compound_operator->currentText(),
      m_properties.value(Properties::COMPOUND_OPERATOR).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      Properties::COMPOUND_OPERATOR,
      this);
 
@@ -512,7 +512,7 @@ void glitch_object_compound_operator_arduino::slotPreToggled(bool state)
   auto undoCommand = new glitch_undo_command
     (state,
      m_properties.value(Properties::COMPOUND_OPERATOR_PRE).toString(),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      Properties::COMPOUND_OPERATOR_PRE,
      this);
 

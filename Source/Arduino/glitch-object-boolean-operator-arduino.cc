@@ -27,7 +27,6 @@
 
 #include "glitch-object-boolean-operator-arduino.h"
 #include "glitch-scroll-filter.h"
-#include "glitch-undo-command.h"
 
 glitch_object_boolean_operator_arduino::
 glitch_object_boolean_operator_arduino

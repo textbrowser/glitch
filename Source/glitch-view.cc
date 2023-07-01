@@ -1249,7 +1249,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 	{
 	  auto undoCommand = new glitch_undo_command
 	    (hash,
-	     glitch_undo_command::CANVAS_SETTINGS_CHANGED,
+	     glitch_undo_command::Types::CANVAS_SETTINGS_CHANGED,
 	     m_canvasSettings);
 
 	  undoCommand->setText(tr("canvas settings changed"));
@@ -1361,7 +1361,7 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
 
   auto undoCommand = new glitch_undo_command
     (before,
-     glitch_undo_command::FUNCTION_RENAMED,
+     glitch_undo_command::Types::FUNCTION_RENAMED,
      object,
      m_userFunctions);
 
@@ -1385,7 +1385,7 @@ void glitch_view::slotFunctionReturnTypeChanged(const QString &after,
 
   auto undoCommand = new glitch_undo_command
     (before,
-     glitch_undo_command::FUNCTION_RETURN_TYPE_CHANGED,
+     glitch_undo_command::Types::FUNCTION_RETURN_TYPE_CHANGED,
      object,
      m_userFunctions);
 

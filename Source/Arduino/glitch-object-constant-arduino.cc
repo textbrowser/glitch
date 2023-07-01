@@ -304,7 +304,7 @@ void glitch_object_constant_arduino::slotAdjustSize(void)
       auto undoCommand = new glitch_undo_command
 	(size(),
 	 before,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::SIZE,
 	 this);
 
@@ -324,7 +324,7 @@ void glitch_object_constant_arduino::slotConstantChanged(void)
 
   auto undoCommand = new glitch_undo_command
     (m_properties.value(Properties::CONSTANT_TYPE).toString(),
-     glitch_undo_command::CONSTANT_TYPE_CHANGED,
+     glitch_undo_command::Types::CONSTANT_TYPE_CHANGED,
      this);
 
   m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
@@ -351,7 +351,7 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
   auto undoCommand = new glitch_undo_command
     (m_ui.other->text(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 

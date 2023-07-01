@@ -310,7 +310,7 @@ void glitch_object_arrow::slotSelectColor(void)
 	  auto undoCommand = new glitch_undo_command
 	    (color.name(QColor::HexArgb),
 	     m_properties.value(Properties::BACKGROUND_COLOR),
-	     glitch_undo_command::PROPERTY_CHANGED,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
 	     Properties::BACKGROUND_COLOR,
 	     this);
 

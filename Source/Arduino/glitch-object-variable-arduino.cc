@@ -584,7 +584,7 @@ void glitch_object_variable_arduino::slotAdjustSize(void)
       auto undoCommand = new glitch_undo_command
 	(size(),
 	 before,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 Properties::SIZE,
 	 this);
 
@@ -619,7 +619,7 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
   auto undoCommand = new glitch_undo_command
     (comboBox->currentText(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 
@@ -653,7 +653,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
   auto undoCommand = new glitch_undo_command
     (lineEdit->text(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 
@@ -684,7 +684,7 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
   auto undoCommand = new glitch_undo_command
     (toolButton->isChecked(),
      m_properties.value(property),
-     glitch_undo_command::PROPERTY_CHANGED,
+     glitch_undo_command::Types::PROPERTY_CHANGED,
      property,
      this);
 

@@ -42,7 +42,7 @@ class glitch_wire;
 class glitch_undo_command: public QUndoCommand
 {
  public:
-  enum Types
+  enum class Types
   {
     CANVAS_SETTINGS_CHANGED = 0,
     CONSTANT_TYPE_CHANGED,

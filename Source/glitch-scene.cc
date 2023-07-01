@@ -597,7 +597,7 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 	  if(m_undoStack)
 	    {
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::ITEM_DELETED, proxy, this);
+		(glitch_undo_command::Types::ITEM_DELETED, proxy, this);
 
 	      undoCommand->setText(tr("function clone deleted"));
 	      m_undoStack->push(undoCommand);
@@ -665,7 +665,7 @@ void glitch_scene::deleteItems(void)
 	    }
 
 	  auto undoCommand = new glitch_undo_command
-	    (glitch_undo_command::ITEM_DELETED, proxy, this);
+	    (glitch_undo_command::Types::ITEM_DELETED, proxy, this);
 
 	  m_undoStack->push(undoCommand);
 	}
@@ -709,7 +709,7 @@ void glitch_scene::disconnectWireIfNecessary(glitch_wire *wire)
   if(m_undoStack)
     {
       auto undoCommand = new glitch_undo_command
-	(glitch_undo_command::WIRE_DELETED, this, wire);
+	(glitch_undo_command::Types::WIRE_DELETED, this, wire);
 
       undoCommand->setText(tr("widgets disconnected"));
       m_undoStack->push(undoCommand);
@@ -927,7 +927,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	      if(m_undoStack)
 		{
 		  auto undoCommand = new glitch_undo_command
-		    (glitch_undo_command::ITEM_ADDED, proxy, this);
+		    (glitch_undo_command::Types::ITEM_ADDED, proxy, this);
 
 		  undoCommand->setText
 		    (tr("item added (%1, %2)").
@@ -1076,7 +1076,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 		  {
 		    auto undoCommand = new glitch_undo_command
 		      (previousPosition,
-		       glitch_undo_command::ITEM_MOVED,
+		       glitch_undo_command::Types::ITEM_MOVED,
 		       proxy,
 		       this);
 
@@ -1374,7 +1374,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 	  auto undoCommand = new glitch_undo_command
 	    (movedPoint.first,
-	     glitch_undo_command::ITEM_MOVED,
+	     glitch_undo_command::Types::ITEM_MOVED,
 	     movedPoint.second,
 	     this);
 
@@ -1627,7 +1627,7 @@ void glitch_scene::slotFunctionDeleted(const QString &name)
 	if(m_undoStack)
 	  {
 	    auto undoCommand = new glitch_undo_command
-	      (glitch_undo_command::ITEM_DELETED, object->proxy(), this);
+	      (glitch_undo_command::Types::ITEM_DELETED, object->proxy(), this);
 
 	    undoCommand->setText(tr("function clone deleted"));
 	    m_undoStack->push(undoCommand);
@@ -1680,7 +1680,7 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
 	}
 
       auto undoCommand = new glitch_undo_command
-	(glitch_undo_command::ITEM_DELETED, object->proxy(), this);
+	(glitch_undo_command::Types::ITEM_DELETED, object->proxy(), this);
 
       m_undoStack->push(undoCommand);
       m_undoStack->endMacro();
@@ -1708,7 +1708,7 @@ void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
       auto undoCommand = new glitch_undo_command
 	(proxy->geometry(),
 	 previousRect,
-	 glitch_undo_command::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 glitch_object::Properties::GEOMETRY,
 	 proxy->object());
 
@@ -1908,7 +1908,7 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 	  if(m_undoStack)
 	    {
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::WIRE_ADDED, this, wire);
+		(glitch_undo_command::Types::WIRE_ADDED, this, wire);
 
 	      undoCommand->setText(tr("objects connected"));
 	      m_undoStack->push(undoCommand);
@@ -1980,7 +1980,7 @@ void glitch_scene::wireDisconnectObjects
 		}
 
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::WIRE_DELETED, this, wire);
+		(glitch_undo_command::Types::WIRE_DELETED, this, wire);
 
 	      m_undoStack->push(undoCommand);
 	      state = true;
@@ -2036,7 +2036,7 @@ void glitch_scene::wireDisconnectObjects(glitch_proxy_widget *proxy)
 		}
 
 	      auto undoCommand = new glitch_undo_command
-		(glitch_undo_command::WIRE_DELETED, this, wire);
+		(glitch_undo_command::Types::WIRE_DELETED, this, wire);
 
 	      m_undoStack->push(undoCommand);
 	      state = true;
