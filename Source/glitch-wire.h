@@ -43,7 +43,7 @@ class glitch_wire: public QGraphicsObject
     Type = QGraphicsObject::UserType + 2
   };
 
-  enum WireTypes
+  enum class WireTypes
   {
     CURVE = 0,
     LINE

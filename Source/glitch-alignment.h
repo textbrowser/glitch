@@ -63,7 +63,7 @@ class glitch_alignment: public QWidget
   QList<QAction *> actions(void) const;
 
  private:
-  enum AlignmentTypes
+  enum class AlignmentTypes
   {
     ALIGN_BOTTOM = 0,
     ALIGN_CENTER_HORIZONTAL,
@@ -73,7 +73,7 @@ class glitch_alignment: public QWidget
     ALIGN_TOP
   };
 
-  enum StackTypes
+  enum class StackTypes
   {
     HORIZONTAL_STACK = 0,
     VERTICAL_STACK
