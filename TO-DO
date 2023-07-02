@@ -312,6 +312,7 @@ Remaining Items
 - Docked User Functions.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
+- Include Examples with Android.
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
