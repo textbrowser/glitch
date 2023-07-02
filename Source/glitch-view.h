@@ -120,6 +120,7 @@ class glitch_view: public QWidget
   void slotCopy(void);
   void slotFonts(void);
   void slotSave(void);
+  void slotSelectedWidgetsProperties(void);
   void slotShowFind(void);
   void slotSimulateDelete(void);
   void slotUnite(void);

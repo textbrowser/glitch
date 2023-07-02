@@ -1507,6 +1507,10 @@ void glitch_view::slotSceneResized(void)
   adjustScrollBars();
 }
 
+void glitch_view::slotSelectedWidgetsProperties(void)
+{
+}
+
 void glitch_view::slotSeparate(void)
 {
   emit separate(this);
