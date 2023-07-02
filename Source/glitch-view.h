@@ -60,6 +60,7 @@ class glitch_view: public QWidget
  public:
   enum class Limits
   {
+    OPEN_WIDGETS_PROPERTIES_PROMPT = 10,
     PROPERTIES_MAXIMUM_LENGTH = 50000,
     STYLESHEET_MAXIMUM_LENGTH = 10000
   };

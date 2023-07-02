@@ -1604,7 +1604,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	    << tr("Disconnect Selected Widget(s)")
 	    << tr("Fonts (All Widgets)...")
 	    << tr("(Un)lock Position(s) (Selected Widget(s))")
-	    << tr("Widget(s) Properties...");
+	    << tr("Widget(s) Properties (Selected Widget(s))...");
       data << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"

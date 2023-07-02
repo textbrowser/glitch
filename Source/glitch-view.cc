@@ -31,6 +31,7 @@
 #include <QFontDialog>
 #include <QMainWindow>
 #include <QMenu>
+#include <QMessageBox>
 #include <QProcess>
 #include <QResizeEvent>
 #include <QSettings>
@@ -1509,6 +1510,31 @@ void glitch_view::slotSceneResized(void)
 
 void glitch_view::slotSelectedWidgetsProperties(void)
 {
+  auto objects(selectedObjects());
+
+  if(objects.isEmpty())
+    return;
+
+  if(objects.size() >=
+     static_cast<int> (Limits::OPEN_WIDGETS_PROPERTIES_PROMPT))
+    {
+      QMessageBox mb(this);
+
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText
+	(tr("Are you sure that you wish to open %1 property editor(s)?").
+	 arg(objects.size()));
+      mb.setWindowIcon(windowIcon());
+      mb.setWindowModality(Qt::ApplicationModal);
+      mb.setWindowTitle(tr("Glitch: Confirmation"));
+
+      if(mb.exec() == QMessageBox::Yes)
+	{
+	  QApplication::processEvents();
+	  return;
+	}
+    }
 }
 
 void glitch_view::slotSeparate(void)
