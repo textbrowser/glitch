@@ -375,7 +375,6 @@ bool glitch_object::event(QEvent *event)
       {
       case QEvent::ApplicationFontChange:
 	{
-	  QTimer::singleShot(25, this, &glitch_object::slotSetFont);
 	  return true;
 	}
       default:
