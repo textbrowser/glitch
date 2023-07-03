@@ -1592,25 +1592,25 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       QStringList data;
       QStringList texts;
 
-      menu = new QMenu(this);
-      icons << QIcon(":/adjust-size.png")
-	    << QIcon(":/compress.png")
-	    << QIcon(":/disconnect.png")
-	    << QIcon(":/font.png")
-	    << QIcon(":/pin.png")
-	    << QIcon(":/widget-properties.png");
-      texts << tr("Adjust Size(s) (Selected Widget(s))")
-	    << tr("(De)compress Selected Widget(s)")
-	    << tr("Disconnect Selected Widget(s)")
-	    << tr("Fonts (All Widgets)...")
-	    << tr("(Un)lock Position(s) (Selected Widget(s))")
-	    << tr("Widget(s) Properties (Selected Widget(s))...");
       data << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"
 	   << "fonts"
 	   << "lock-positions"
 	   << "widget-properties";
+      icons << QIcon(":/adjust-size.png")
+	    << QIcon(":/compress.png")
+	    << QIcon(":/disconnect.png")
+	    << QIcon(":/font.png")
+	    << QIcon(":/pin.png")
+	    << QIcon(":/widget-properties.png");
+      menu = new QMenu(this);
+      texts << tr("Adjust Size(s) (Selected Widget(s))")
+	    << tr("(De)compress Selected Widget(s)")
+	    << tr("Disconnect Selected Widget(s)")
+	    << tr("Fonts (All Widgets)...")
+	    << tr("(Un)lock Position(s) (Selected Widget(s))")
+	    << tr("Widget(s) Properties (Selected Widget(s))...");
 
       for(int i = 0; i < data.size(); i++)
 	{

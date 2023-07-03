@@ -260,18 +260,21 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
   QStringList texts;
   auto menu = new QMenu(this);
 
-  icons << QIcon(":/adjust-size.png")
-	<< QIcon(":/compress.png")
-	<< QIcon(":/disconnect.png")
-	<< QIcon(":/pin.png");
-  texts << tr("Adjust Size(s)")
-	<< tr("(De)compress Widget(s)")
-	<< tr("Disconnect Widget(s)")
-	<< tr("(Un)lock Position(s)");
   data << "adjust-sizes"
        << "compress-widgets"
        << "disconnect-widgets"
-       << "lock-positions";
+       << "lock-positions"
+       << "widget-properties";
+  icons << QIcon(":/adjust-size.png")
+	<< QIcon(":/compress.png")
+	<< QIcon(":/disconnect.png")
+	<< QIcon(":/pin.png")
+	<< QIcon(":/widget-properties.png");
+  texts << tr("Adjust Size(s) (Selected Widget(s))")
+	<< tr("(De)compress Selected Widget(s)")
+	<< tr("Disconnect Selected Widget(s)")
+	<< tr("(Un)lock Position(s) (Selected Widget(s))")
+	<< tr("Widget(s) Properties (Selected Widget(s))...");
 
   for(int i = 0; i < data.size(); i++)
     {
@@ -554,6 +557,8 @@ void glitch_object_edit_window::slotSpecialTools(void)
     m_editView->scene()->slotSelectedWidgetsDisconnect();
   else if(type == "lock-positions")
     m_editView->scene()->slotSelectedWidgetsLock();
+  else if(type == "widget-properties")
+    m_editView->slotSelectedWidgetsProperties();
 }
 
 void glitch_object_edit_window::slotSplitterMoved(void)

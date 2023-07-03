@@ -302,6 +302,10 @@ void glitch_object_view::slotSelectAll(void)
     }
 }
 
+void glitch_object_view::slotSelectedWidgetsProperties(void)
+{
+}
+
 void glitch_object_view::slotUndo(void)
 {
   if(m_undoStack && m_undoStack->canUndo())

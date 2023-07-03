@@ -68,6 +68,7 @@ class glitch_object_view: public QGraphicsView
   void slotParentWindowClosed(void);
   void slotRedo(void);
   void slotSelectAll(void);
+  void slotSelectedWidgetsProperties(void);
   void slotUndo(void);
 
  protected:
