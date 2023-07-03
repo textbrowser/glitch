@@ -1529,12 +1529,20 @@ void glitch_view::slotSelectedWidgetsProperties(void)
       mb.setWindowModality(Qt::ApplicationModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
 
-      if(mb.exec() == QMessageBox::Yes)
+      if(mb.exec() == QMessageBox::No)
 	{
 	  QApplication::processEvents();
 	  return;
 	}
     }
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto object, objects)
+    if(object)
+      object->slotShowContextMenu();
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_view::slotSeparate(void)
