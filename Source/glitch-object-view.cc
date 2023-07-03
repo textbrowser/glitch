@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMessageBox>
 #include <QScrollBar>
 #include <QSqlError>
 #include <QTimer>
@@ -304,6 +305,39 @@ void glitch_object_view::slotSelectAll(void)
 
 void glitch_object_view::slotSelectedWidgetsProperties(void)
 {
+  auto objects(m_scene->selectedObjects());
+
+  if(objects.isEmpty())
+    return;
+
+  if(objects.size() >=
+     static_cast<int> (glitch_view::Limits::OPEN_WIDGETS_PROPERTIES_PROMPT))
+    {
+      QMessageBox mb(this);
+
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText
+	(tr("Are you sure that you wish to open %1 property editor(s)?").
+	 arg(objects.size()));
+      mb.setWindowIcon(windowIcon());
+      mb.setWindowModality(Qt::ApplicationModal);
+      mb.setWindowTitle(tr("Glitch: Confirmation"));
+
+      if(mb.exec() == QMessageBox::No)
+	{
+	  QApplication::processEvents();
+	  return;
+	}
+    }
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto object, objects)
+    if(object)
+      object->slotShowContextMenu();
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_object_view::slotUndo(void)
