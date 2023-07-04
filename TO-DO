@@ -302,6 +302,7 @@ Remaining Items
   Display widget property editors via double-click (Incomplete)
   Drag & drop (Completed)
   Proper window hiding via hide() (Completed)
+  Tools button (Incomplete)
 - Canvas printing!
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.

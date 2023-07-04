@@ -37,12 +37,6 @@ class glitch_object_random_arduino: public glitch_object_simple_text_arduino
  public:
   glitch_object_random_arduino(const QString &randomType, QWidget *parent);
   ~glitch_object_random_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(125, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

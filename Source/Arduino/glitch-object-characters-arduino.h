@@ -39,12 +39,6 @@ class glitch_object_characters_arduino:
   glitch_object_characters_arduino
     (const QString &charactersType, QWidget *parent);
   ~glitch_object_characters_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(175, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

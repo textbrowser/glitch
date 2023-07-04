@@ -39,12 +39,6 @@ class glitch_object_trigonometry_arduino:
   glitch_object_trigonometry_arduino
     (const QString &trigonometryType, QWidget *parent);
   ~glitch_object_trigonometry_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(100, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

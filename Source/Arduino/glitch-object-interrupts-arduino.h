@@ -39,12 +39,6 @@ class glitch_object_interrupts_arduino:
   glitch_object_interrupts_arduino
     (const QString &interruptsType, QWidget *parent);
   ~glitch_object_interrupts_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(150, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

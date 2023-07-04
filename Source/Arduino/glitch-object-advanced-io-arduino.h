@@ -39,11 +39,6 @@ class glitch_object_advanced_io_arduino:
   glitch_object_advanced_io_arduino(const QString &ioType, QWidget *parent);
   ~glitch_object_advanced_io_arduino();
 
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(150, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

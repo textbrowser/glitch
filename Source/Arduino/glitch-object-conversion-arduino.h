@@ -51,12 +51,6 @@ class glitch_object_conversion_arduino:
   glitch_object_conversion_arduino(const QString &conversionType,
 				   QWidget *parent);
   ~glitch_object_conversion_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(150, 50);
-  }
-
   QString code(void) const;
   QString conversion(void) const;
   bool hasInput(void) const;

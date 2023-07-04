@@ -38,12 +38,6 @@ class glitch_object_bits_and_bytes_arduino:
  public:
   glitch_object_bits_and_bytes_arduino(const QString &babType, QWidget *parent);
   ~glitch_object_bits_and_bytes_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(150, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

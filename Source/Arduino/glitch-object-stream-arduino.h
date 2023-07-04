@@ -37,12 +37,6 @@ class glitch_object_stream_arduino: public glitch_object_simple_text_arduino
  public:
   glitch_object_stream_arduino(const QString &streamType, QWidget *parent);
   ~glitch_object_stream_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(200, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

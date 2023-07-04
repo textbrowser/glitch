@@ -37,12 +37,6 @@ class glitch_object_time_arduino: public glitch_object_simple_text_arduino
  public:
   glitch_object_time_arduino(const QString &timeType, QWidget *parent);
   ~glitch_object_time_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(175, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

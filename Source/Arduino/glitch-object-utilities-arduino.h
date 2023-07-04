@@ -38,12 +38,6 @@ class glitch_object_utilities_arduino: public glitch_object_simple_text_arduino
   glitch_object_utilities_arduino
     (const QString &utilitiesType, QWidget *parent);
   ~glitch_object_utilities_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(100, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

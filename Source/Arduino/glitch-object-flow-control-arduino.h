@@ -56,6 +56,17 @@ class glitch_object_flow_control_arduino: public glitch_object
   glitch_object_flow_control_arduino
     (const QString &flowControlType, QWidget *parent);
   ~glitch_object_flow_control_arduino();
+
+  QSize sizeHint(void) const
+  {
+    QFontMetrics fontMetrics(font());
+    auto w = 35 + 5 * qRound
+      (fontMetrics.boundingRect(m_ui.condition->text().trimmed()).width() /
+       5.0);
+
+    return QSize(w, qMax(50, fontMetrics.height()));
+  }
+
   QString code(void) const;
   QString flowControlType(void) const;
   bool hasInput(void) const;

@@ -37,12 +37,6 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
  public:
   glitch_object_serial_arduino(const QString &serialType, QWidget *parent);
   ~glitch_object_serial_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(200, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

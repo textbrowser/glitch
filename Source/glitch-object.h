@@ -254,6 +254,12 @@ class glitch_object: public QWidget
      glitch_object *parentObject,
      QString &error,
      QWidget *parent);
+
+  virtual QSize sizeHint(void) const
+  {
+    return QWidget::sizeHint();
+  }
+
   virtual QString code(void) const = 0;
   virtual QString name(void) const;
   virtual QStringList parameters(void) const;

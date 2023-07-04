@@ -37,12 +37,6 @@ class glitch_object_loop_arduino: public glitch_object_simple_text_arduino
  public:
   glitch_object_loop_arduino(QWidget *parent);
   ~glitch_object_loop_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(115, 50);
-  }
-
   QString code(void) const;
   bool hasView(void) const;
   bool isFullyWired(void) const;

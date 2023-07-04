@@ -40,7 +40,10 @@ class glitch_object_simple_text_arduino: public glitch_object
 
   virtual QSize minimumSizeHint(void) const
   {
-    return QSize(250, 50);
+    QFontMetrics fontMetrics(font());
+    auto w = 35 + 5 * qRound(fontMetrics.boundingRect(m_text).width() / 5.0);
+
+    return QSize(w, qMax(50, fontMetrics.height()));
   }
 
   virtual QSize sizeHint(void) const

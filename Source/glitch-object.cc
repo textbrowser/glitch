@@ -1086,6 +1086,7 @@ void glitch_object::prepareFont(void)
       widget->setFont(m_properties.value(Properties::FONT).value<QFont> ());
 
   hideOrShowOccupied();
+  setFont(m_properties.value(Properties::FONT).value<QFont> ());
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)
@@ -1918,6 +1919,7 @@ void glitch_object::slotSetFont(void)
     resize(m_sizeBeforeFontChange);
 
   hideOrShowOccupied();
+  setFont(m_properties.value(Properties::FONT).value<QFont> ());
 }
 
 void glitch_object::slotSetPortColors(void)

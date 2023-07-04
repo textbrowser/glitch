@@ -39,12 +39,6 @@ class glitch_object_mathematics_arduino:
   glitch_object_mathematics_arduino
     (const QString &mathematicsType, QWidget *parent);
   ~glitch_object_mathematics_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(100, 50);
-  }
-
   QString code(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;

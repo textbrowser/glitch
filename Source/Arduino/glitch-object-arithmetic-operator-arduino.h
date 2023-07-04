@@ -48,12 +48,6 @@ class glitch_object_arithmetic_operator_arduino:
   glitch_object_arithmetic_operator_arduino(const QString &operatorType,
 					    QWidget *parent);
   ~glitch_object_arithmetic_operator_arduino();
-
-  QSize minimumSizeHint(void) const
-  {
-    return QSize(50, 50);
-  }
-
   QString code(void) const;
   QString arithmeticOperator(void) const;
   bool hasInput(void) const;
