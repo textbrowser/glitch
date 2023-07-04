@@ -52,6 +52,7 @@ class glitch_scene: public QGraphicsScene
  public:
   glitch_scene(const glitch_common::ProjectTypes projectType, QObject *parent);
   ~glitch_scene();
+  QList<glitch_object *> allObjects(void) const;
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> orderedObjects(void) const;
   QList<glitch_object *> selectedObjects(void) const;

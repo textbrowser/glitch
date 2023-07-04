@@ -103,6 +103,13 @@ glitch_scene::~glitch_scene()
     disconnect(m_canvasSettings, nullptr, this, nullptr);
 }
 
+QList<glitch_object *> glitch_scene::allObjects(void) const
+{
+  QList<glitch_object *> widgets;
+
+  return widgets;
+}
+
 QList<glitch_object *> glitch_scene::objects(void) const
 {
   QList<glitch_object *> widgets;

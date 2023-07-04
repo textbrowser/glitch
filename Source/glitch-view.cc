@@ -1321,7 +1321,7 @@ void glitch_view::slotFonts(void)
 
       auto began = false;
 
-      foreach(auto object, m_scene->objects())
+      foreach(auto object, m_scene->allObjects())
 	if(object)
 	  {
 	    if(!began && m_undoStack)

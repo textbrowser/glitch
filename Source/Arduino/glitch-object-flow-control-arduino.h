@@ -60,11 +60,16 @@ class glitch_object_flow_control_arduino: public glitch_object
   QSize sizeHint(void) const
   {
     QFontMetrics fontMetrics(font());
-    auto w = 35 + 5 * qRound
-      (fontMetrics.boundingRect(m_ui.condition->text().trimmed()).width() /
+    auto w1 = 5 * qRound
+      (m_ui.condition->isVisible() ? (fontMetrics.
+				      boundingRect(m_ui.condition->text().
+						   trimmed()).width() / 5.0) :
+       0.0);
+    auto w2 = 5 * qRound
+      (fontMetrics.boundingRect(m_ui.flow_control_type->currentText()).width() /
        5.0);
 
-    return QSize(w, qMax(50, fontMetrics.height()));
+    return QSize(35 + w1 + w2, qMax(50, fontMetrics.height()));
   }
 
   QString code(void) const;
