@@ -70,7 +70,7 @@ class glitch_object_flow_control_arduino: public glitch_object
       (fontMetrics.boundingRect(m_ui.flow_control_type->currentText()).width() /
        5.0);
 
-    return QSize(35 + w1 + w2, qMax(50, fontMetrics.height()));
+    return QSize(s_widthTweak + w1 + w2, qMax(50, fontMetrics.height()));
   }
 
   QString code(void) const;

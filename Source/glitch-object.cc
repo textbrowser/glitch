@@ -82,6 +82,7 @@
 
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+int glitch_object::s_widthTweak = 50;
 static qreal s_windowOpacity = 0.85;
 
 inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
