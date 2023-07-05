@@ -107,6 +107,15 @@ QList<glitch_object *> glitch_scene::allObjects(void) const
 {
   QList<glitch_object *> widgets;
 
+  foreach(auto object1, objects())
+    if(object1)
+      {
+	widgets << object1;
+
+	foreach(auto object2, object1->allObjects())
+	  widgets << object2;
+      }
+
   return widgets;
 }
 

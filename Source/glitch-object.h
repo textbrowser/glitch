@@ -177,6 +177,7 @@ class glitch_object: public QWidget
     return m_properties;
   }
 
+  QList<glitch_object *> allObjects(void) const;
   QList<glitch_object *> objects(void) const;
 
   QPainterPath path(void) const
@@ -335,6 +336,7 @@ class glitch_object: public QWidget
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
   bool event(QEvent *event);
+  void allObjectsImplementation(QList<glitch_object *> &list) const;
   void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:

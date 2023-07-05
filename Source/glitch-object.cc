@@ -192,6 +192,16 @@ glitch_object::~glitch_object()
     m_editWindow->deleteLater();
 }
 
+QList<glitch_object *> glitch_object::allObjects(void) const
+{
+  QList<glitch_object *> list;
+
+  if(m_editView)
+    allObjectsImplementation(list);
+
+  return list;
+}
+
 QList<glitch_object *> glitch_object::objects(void) const
 {
   if(m_editView)
@@ -629,6 +639,19 @@ void glitch_object::addDefaultActions(QMenu &menu)
 	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())
 	menu.addSeparator();
+    }
+}
+
+void glitch_object::allObjectsImplementation(QList<glitch_object *> &list) const
+{
+  if(m_editView)
+    {
+      foreach(auto object, m_editView->objects())
+	if(object)
+	  {
+	    list << object;
+	    object->allObjectsImplementation(list);
+	  }
     }
 }
 
