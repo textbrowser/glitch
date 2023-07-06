@@ -375,9 +375,9 @@ class glitch_object: public QWidget
   qint64 m_id;
   static QRegularExpression s_splitRegularExpression;
   static int s_widthTweak;
-  static int minimumHeight(const int height);
   QToolButton *contextMenuButton(void) const;
   glitch_view *findNearestGlitchView(QWidget *widget) const;
+  int minimumHeight(const int height) const;
 
   virtual QSize preferredSize(void) const
   {
