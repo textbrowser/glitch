@@ -58,7 +58,9 @@ void glitch_ui::slotSpecialTools(void)
 
   auto type(action->data().toString());
 
-  if(type == "adjust-sizes")
+  if(type == "adjust-all-sizes")
+    m_currentView->slotAllWidgetsAdjustSize();
+  else if(type == "adjust-sizes")
     m_currentView->scene()->slotSelectedWidgetsAdjustSize();
   else if(type == "compress-widgets")
     m_currentView->scene()->slotSelectedWidgetsCompress();

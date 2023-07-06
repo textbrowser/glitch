@@ -1211,6 +1211,30 @@ void glitch_view::showUserFunctions(void) const
   slotShowUserFunctions();
 }
 
+void glitch_view::slotAllWidgetsAdjustSize(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  auto began = false;
+
+  foreach(auto object, m_scene->allObjects())
+    if(object)
+      {
+	if(!began && m_undoStack)
+	  {
+	    began = true;
+	    m_undoStack->beginMacro(tr("widgets sizes"));
+	  }
+
+	object->slotAdjustSize();
+      }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view::slotCanvasSettingsChanged(const bool undo)
 {
   auto hash(m_settings);

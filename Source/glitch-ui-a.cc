@@ -1592,20 +1592,23 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       QStringList data;
       QStringList texts;
 
-      data << "adjust-sizes"
+      data << "adjust-all-sizes"
+	   << "adjust-sizes"
 	   << "compress-widgets"
 	   << "disconnect-widgets"
 	   << "fonts"
 	   << "lock-positions"
 	   << "widget-properties";
       icons << QIcon(":/adjust-size.png")
+	    << QIcon(":/adjust-size.png")
 	    << QIcon(":/compress.png")
 	    << QIcon(":/disconnect.png")
 	    << QIcon(":/font.png")
 	    << QIcon(":/pin.png")
 	    << QIcon(":/widget-properties.png");
       menu = new QMenu(this);
-      texts << tr("Adjust Size(s) (Selected Widget(s))")
+      texts << tr("Adjust Size(s) (All Widgets)")
+	    << tr("Adjust Size(s) (Selected Widget(s))")
 	    << tr("(De)compress Selected Widget(s)")
 	    << tr("Disconnect Selected Widget(s)")
 	    << tr("Fonts (All Widgets)...")
