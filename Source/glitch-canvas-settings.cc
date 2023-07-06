@@ -581,10 +581,10 @@ void glitch_canvas_settings::prepare(void)
 	auto generatePeriodically = false;
 	auto generateSourceViewPeriodically = false;
 	auto record(query.record());
+	auto redoUndoStackSize = 0;
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
 	auto showOrderIndicators = true;
-	int redoUndoStackSize = 0;
 
 	for(int i = 0; i < record.count(); i++)
 	  {

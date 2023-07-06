@@ -84,7 +84,7 @@ void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
 
 void glitch_graphicsview::scroll(const QPoint &point)
 {
-  const int offset = 25;
+  const auto offset = 25;
 
   if(point.x() >= width() - 50)
     horizontalScrollBar()->setValue(horizontalScrollBar()->value() + offset);

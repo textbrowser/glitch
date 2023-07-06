@@ -81,19 +81,20 @@ QSize glitch_object_compound_operator_arduino::preferredSize(void) const
      m_operatorType == OperatorTypes::INCREMENT_OPERATOR)
     {
       QFontMetrics fontMetrics(font());
-      auto width = 5 * qRound
+      auto width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.compound_operator->
 				  currentText().trimmed()).width() /
 	 5.0) +
 	(m_ui.pre->isVisible() ?
-	 5 * qRound(fontMetrics.boundingRect(m_ui.pre->text().trimmed()).
-		    width() / 5.0) : 0) +
+	 5 * qCeil(fontMetrics.boundingRect(m_ui.pre->text().trimmed()).
+		   width() / 5.0) : 0) +
 	s_widthTweak;
 
       return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
     }
   else
-    return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
+    return QSize(5 * qCeil(sizeHint().width() / 5.0),
+		 minimumHeight(sizeHint().height()));
 }
 
 QString glitch_object_compound_operator_arduino::

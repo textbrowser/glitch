@@ -145,7 +145,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	   << ")";
 
   QObject *w = nullptr;
-  int level = 0;
+  auto level = 0;
 
   if(scene())
     w = scene()->parent();
@@ -209,7 +209,7 @@ QString glitch_object_flow_control_arduino::flowControlType(void) const
 QString glitch_object_flow_control_arduino::simplified(const QString &text)
 {
   QString string("");
-  int state = 0;
+  auto state = 0;
 
   for(int i = 0; i < text.length(); i++)
     if(state == 0)

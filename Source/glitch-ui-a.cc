@@ -2300,8 +2300,8 @@ void glitch_ui::slotTabWidgetShortcutActivated(void)
   if(!shortcut)
     return;
 
+  auto index = -1;
   auto key(shortcut->key());
-  int index = -1;
 
   for(auto i = Qt::Key_1; i <= Qt::Key_9; i = Qt::Key(i + 1))
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))

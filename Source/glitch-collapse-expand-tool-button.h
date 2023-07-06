@@ -136,7 +136,7 @@ class glitch_collapse_expand_tool_button: public QToolButton
     if(!m_tree)
       return;
 
-    int expanded = 0;
+    auto expanded = 0;
 
     for(int i = 0; i < m_tree->topLevelItemCount(); i++)
       if(m_tree->topLevelItem(i) && m_tree->topLevelItem(i)->childCount() > 0)

@@ -167,7 +167,7 @@ void glitch_object_view::mouseMoveEvent(QMouseEvent *event)
 
   if(event && event->buttons() == Qt::LeftButton)
     {
-      const int offset = 7;
+      const auto offset = 7;
 
       if(event->pos().x() >= width() - 50 && horizontalScrollBar())
 	horizontalScrollBar()->setValue

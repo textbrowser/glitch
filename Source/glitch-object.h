@@ -33,6 +33,7 @@
 #include <QSqlDatabase>
 #include <QWidget>
 #include <QtDebug>
+#include <QtMath>
 
 #include "glitch-proxy-widget.h"
 
@@ -337,7 +338,6 @@ class glitch_object: public QWidget
   static qint64 s_id;
   bool event(QEvent *event);
   void allObjectsImplementation(QList<glitch_object *> &list) const;
-  void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotActionTriggered(void);
@@ -393,6 +393,7 @@ class glitch_object: public QWidget
     return false;
   }
 
+  virtual void mouseDoubleClickEvent(QMouseEvent *event);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);

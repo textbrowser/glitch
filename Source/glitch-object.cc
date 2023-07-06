@@ -82,7 +82,7 @@
 
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-int glitch_object::s_widthTweak = 50;
+int glitch_object::s_widthTweak = 50; // Multiple of 5 please!
 static qreal s_windowOpacity = 0.85;
 
 inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
@@ -590,7 +590,8 @@ glitch_view *glitch_object::findNearestGlitchView(QWidget *widget) const
 
 int glitch_object::minimumHeight(int height) const
 {
-  return qMax(10 * qRound(height / 10.0), minimumSizeHint().height());
+  return qMax(10 * qCeil(height / 10.0),
+	      10 * qCeil(minimumSizeHint().height() / 10.0));
 }
 
 qint64 glitch_object::id(void) const
@@ -1346,14 +1347,13 @@ void glitch_object::setProperties(const QStringList &list)
 	      auto list(string.split(','));
 
 	      size.setHeight
-		(minimumHeight(qMax(25, list.value(1).trimmed().toInt())));
+		(minimumHeight(qMax(50, list.value(1).trimmed().toInt())));
 
 	      /*
 	      ** Must be at least minimumSizeHint().width() wide.
 	      */
 
-	      size.setWidth(qMax(list.value(0).trimmed().toInt(),
-				 minimumSizeHint().width()));
+	      size.setWidth(qMax(50, list.value(0).trimmed().toInt()));
 	      resize(size);
 	      setProperty("temporary-size", size);
 	    }
@@ -1674,7 +1674,8 @@ void glitch_object::slotAdjustSize(void)
 
   auto before(size());
 
-  resize(sizeHint().width(), minimumHeight(sizeHint().height()));
+  resize
+    (5 * qCeil(sizeHint().width() / 5.0), minimumHeight(sizeHint().height()));
 
   if(before == this->size())
     return;

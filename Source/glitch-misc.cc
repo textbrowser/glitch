@@ -116,9 +116,9 @@ void glitch_misc::centerWindow(QWidget *parent, QWidget *window)
     return;
 
   QPoint p(0, 0);
+  auto extrah = 0;
+  auto extraw = 0;
   auto w = parent;
-  int extrah = 0;
-  int extraw = 0;
 
   if(w)
     w = w->window();
@@ -126,12 +126,10 @@ void glitch_misc::centerWindow(QWidget *parent, QWidget *window)
   QRect desk;
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-  int scrn = 0;
+  auto scrn = QApplication::desktop()->screenNumber(window);
 
   if(w)
     scrn = QApplication::desktop()->screenNumber(w);
-  else
-    scrn = QApplication::desktop()->screenNumber(window);
 
   desk = QGuiApplication::screens().value(scrn) ?
     QGuiApplication::screens().value(scrn)->geometry() : QRect();
@@ -222,8 +220,8 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
 
   QScopedArrayPointer<QTextLayout::FormatRange> ranges;
   QTextCharFormat format;
+  auto index = 0;
   auto list(lineEdit->text().split(QRegularExpression("\\W+")));
-  int index = 0;
 
   ranges.reset(new QTextLayout::FormatRange[list.size()]);
 

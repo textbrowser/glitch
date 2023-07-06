@@ -97,8 +97,8 @@ class glitch_alignment: public QWidget
 
     QPair<int, int> maxP;
     QPair<int, int> minP;
-    int x = 0;
-    int y = 0;
+    auto x = 0;
+    auto y = 0;
 
     switch(alignmentType)
       {
@@ -328,7 +328,7 @@ class glitch_alignment: public QWidget
       std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
 
     auto began = false;
-    int coordinate = 0;
+    auto coordinate = 0;
 
     if(stackType == StackTypes::HORIZONTAL_STACK)
       coordinate = list2.at(0)->pos().x();

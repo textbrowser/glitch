@@ -74,7 +74,7 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 
   if(tabPosition == QTabWidget::East || tabPosition == QTabWidget::West)
     {
-      int preferredTabHeight = 175;
+      auto preferredTabHeight = 175;
 
       if(parentWidget() &&
 	 count() * rect().height() < parentWidget()->size().height())
@@ -90,11 +90,11 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
   else
     {
 #ifdef Q_OS_MACOS
-      int preferred = 250;
+      auto preferred = 250;
 #else
-      int preferred = 250;
+      auto preferred = 250;
 #endif
-      int preferredTabWidth = 0;
+      auto preferredTabWidth = 0;
 
       if(parentWidget() &&
 	 count() * rect().width() < parentWidget()->size().width())

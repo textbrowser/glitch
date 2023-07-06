@@ -84,7 +84,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
   map["z-value"] = nullptr;
 
   QMapIterator<QString, QAction *> it(map);
-  int i = 0;
+  auto i = 0;
 
   while(it.hasNext())
     {

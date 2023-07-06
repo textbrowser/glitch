@@ -248,7 +248,7 @@ void glitch_find_objects::slotSearch(void)
     }
   else
     {
-      int i = 0;
+      auto i = 0;
 
       foreach(auto item, m_items)
 	if(item)

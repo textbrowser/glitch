@@ -992,10 +992,10 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
       {
 	auto began = false;
 	auto moved = false;
+	auto pixels = (QGuiApplication::keyboardModifiers() &
+		       Qt::ControlModifier) ? 50 : 1;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
-	int pixels = (QGuiApplication::keyboardModifiers() &
-		      Qt::ControlModifier) ? 50 : 1;
 
 	if(view)
 	  {

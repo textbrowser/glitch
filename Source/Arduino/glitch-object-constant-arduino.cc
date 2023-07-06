@@ -74,17 +74,18 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
   if(m_ui.constant->currentText() == tr("Other"))
     {
       QFontMetrics fontMetrics(font());
-      auto width = 5 * qRound
+      auto width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.other->text().trimmed()).width() / 5.0) +
 	(m_ui.constant->isVisible() ?
-	 5 * qRound(fontMetrics.boundingRect(m_ui.constant->currentText().
-					     trimmed()).width() / 5.0) : 0) +
+	 5 * qCeil(fontMetrics.boundingRect(m_ui.constant->currentText().
+					    trimmed()).width() / 5.0) : 0) +
 	s_widthTweak;
 
       return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
     }
   else
-    return QSize(sizeHint().width(), minimumHeight(sizeHint().height()));
+    return QSize(5 * qCeil(sizeHint().width() / 5.0),
+		 minimumHeight(sizeHint().height()));
 }
 
 QString glitch_object_constant_arduino::code(void) const
