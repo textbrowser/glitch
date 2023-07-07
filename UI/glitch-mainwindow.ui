@@ -81,6 +81,7 @@
     <addaction name="separator"/>
     <addaction name="action_Save_Current_Diagram"/>
     <addaction name="action_Save_Current_Diagram_As"/>
+    <addaction name="action_Save_As_PNG"/>
     <addaction name="separator"/>
     <addaction name="action_Quit"/>
    </widget>
@@ -410,6 +411,11 @@
   <action name="action_Separate_Current_Canvas">
    <property name="text">
     <string>&amp;Separate Current Canvas...</string>
+   </property>
+  </action>
+  <action name="action_Save_As_PNG">
+   <property name="text">
+    <string>Save As PNG...</string>
    </property>
   </action>
  </widget>

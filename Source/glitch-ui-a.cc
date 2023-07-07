@@ -1005,6 +1005,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
   m_ui.action_Quit->setIcon(QIcon(":/quit.png"));
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
+  m_ui.action_Save_As_PNG->setIcon(QIcon(":/png.png"));
   m_ui.action_Save_Current_Diagram->setIcon(QIcon(":/save.png"));
   m_ui.action_Save_Current_Diagram_As->setIcon(QIcon(":/save-as.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
@@ -2313,7 +2314,7 @@ void glitch_ui::slotTabWidgetShortcutActivated(void)
     if(key.matches(QKeySequence(Qt::AltModifier | i)))
 #endif
       {
-	index = static_cast<int> (-Qt::Key_1 + i);
+	index = -Qt::Key_1 + i;
 	break;
       }
 

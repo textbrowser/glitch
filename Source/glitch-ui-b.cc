@@ -41,6 +41,10 @@ void glitch_ui::slotGenerateSourceClipboard(void)
     m_currentView->generateSourceClipboard();
 }
 
+void glitch_ui::slotSaveAsPNG(void)
+{
+}
+
 void glitch_ui::slotSeparate(void)
 {
   slotSeparate(m_currentView);

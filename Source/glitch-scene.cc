@@ -796,10 +796,8 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
       painter->setPen(pen);
 
       QVector<QPointF> points;
-      auto left = static_cast<qreal> (rect.left()) -
-	(static_cast<int> (rect.left()) % 20);
-      auto top = static_cast<qreal> (rect.top()) -
-	(static_cast<int> (rect.top()) % 20);
+      auto left = rect.left() - static_cast<int> (rect.left()) % 20;
+      auto top = rect.top() - static_cast<int> (rect.top()) % 20;
       const qreal step = 20.0;
 
       for(auto x = left; std::isless(x, rect.right()); x += step)

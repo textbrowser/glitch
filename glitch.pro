@@ -121,6 +121,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wlogical-op \
                           -Wno-class-memaccess \
                           -Wno-deprecated-copy \
+                          -Wold-style-cast \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
                           -Wstack-protector \

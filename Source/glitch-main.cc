@@ -116,5 +116,5 @@ int main(int argc, char *argv[])
   activity.callMethod<void> ("finishAndRemoveTask");
 #endif
 #endif
-  return static_cast<int> (rc);
+  return rc;
 }

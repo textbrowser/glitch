@@ -1347,13 +1347,13 @@ void glitch_object::setProperties(const QStringList &list)
 	      auto list(string.split(','));
 
 	      size.setHeight
-		(minimumHeight(qMax(50, list.value(1).trimmed().toInt())));
+		(minimumHeight(qMax(25, list.value(1).trimmed().toInt())));
 
 	      /*
 	      ** Must be at least minimumSizeHint().width() wide.
 	      */
 
-	      size.setWidth(qMax(50, list.value(0).trimmed().toInt()));
+	      size.setWidth(qMax(25, list.value(0).trimmed().toInt()));
 	      resize(size);
 	      setProperty("temporary-size", size);
 	    }
@@ -1841,8 +1841,8 @@ void glitch_object::slotSelectColor(void)
   QString title("");
   auto property = Properties::BACKGROUND_COLOR;
 
-  if(static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR) ==
-     static_cast<int> (action->data().toInt()))
+  if(action->data().toInt() ==
+     static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR))
     {
       color = m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ();
       title = tr("Glitch: Select Widget Background Color");

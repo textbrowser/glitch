@@ -28,6 +28,7 @@ Completed Items
 - Attach Structures to canvas page. Android and others.
 - Background color for natively-drawn widget.
 - Canvas background color redo / undo.
+- Canvas printing! Save as PNG instead.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close all edit windows on simulated delete.
 - Close edit windows via Control + W.
@@ -303,7 +304,6 @@ Remaining Items
   Drag & drop (Completed)
   Proper window hiding via hide() (Completed)
   Tools button (Incomplete)
-- Canvas printing!
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog.
