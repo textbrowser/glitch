@@ -25,6 +25,9 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QFileDialog>
+
+#include "glitch-misc.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
@@ -43,6 +46,32 @@ void glitch_ui::slotGenerateSourceClipboard(void)
 
 void glitch_ui::slotSaveAsPNG(void)
 {
+  if(!m_currentView)
+    return;
+
+  QFileDialog dialog(this, tr("Glitch: Save Current Diagram As PNG"));
+
+  dialog.setAcceptMode(QFileDialog::AcceptSave);
+  dialog.setDirectory(QDir::homePath());
+  dialog.setFileMode(QFileDialog::Directory);
+  dialog.setNameFilter("PNG Files (*.png)");
+  dialog.setOption(QFileDialog::DontConfirmOverwrite, true);
+  dialog.setOption(QFileDialog::DontUseNativeDialog);
+  dialog.setWindowIcon(windowIcon());
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+      foreach(auto object, m_currentView->scene()->allObjects())
+	if(object)
+	  {
+	  }
+
+      QApplication::restoreOverrideCursor();
+    }
 }
 
 void glitch_ui::slotSeparate(void)

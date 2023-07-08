@@ -230,6 +230,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowReleaseNotes);
+  connect(m_ui.action_Save_As_PNG,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotSaveAsPNG);
   connect(m_ui.action_Save_Current_Diagram,
 	  &QAction::triggered,
 	  this,
