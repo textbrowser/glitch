@@ -913,6 +913,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Generate_Source_Clipboard->setEnabled(false);
       m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
+      m_ui.action_Save_As_PNG->setEnabled(false);
       m_ui.action_Save_Current_Diagram->setEnabled(false);
       m_ui.action_Save_Current_Diagram_As->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
@@ -936,6 +937,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Generate_Source_Clipboard->setEnabled(m_currentView);
       m_ui.action_Generate_Source_View->setEnabled(m_currentView);
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
+      m_ui.action_Save_As_PNG->setEnabled(m_currentView);
       m_ui.action_Save_Current_Diagram->setEnabled(m_currentView);
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
