@@ -193,6 +193,30 @@ glitch_object::~glitch_object()
     m_editWindow->deleteLater();
 }
 
+QImage glitch_object::image(void) const
+{
+  if(m_editView)
+    {
+      QImage image
+	(m_editView->scene()->itemsBoundingRect().size().toSize(),
+	 QImage::Format_RGB32);
+
+      if(image.isNull())
+	return image;
+
+      QPainter painter(&image);
+
+      image.fill(Qt::white);
+      m_editView->scene()->render
+	(&painter,
+	 QRectF(),
+	 m_editView->scene()->itemsBoundingRect());
+      return image;
+    }
+  else
+    return QImage();
+}
+
 QList<glitch_object *> glitch_object::allObjects(void) const
 {
   QList<glitch_object *> list;

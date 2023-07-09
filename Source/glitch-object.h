@@ -178,6 +178,7 @@ class glitch_object: public QWidget
     return m_properties;
   }
 
+  QImage image(void) const;
   QList<glitch_object *> allObjects(void) const;
   QList<glitch_object *> objects(void) const;
 

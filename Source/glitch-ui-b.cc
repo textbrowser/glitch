@@ -27,7 +27,7 @@
 
 #include <QFileDialog>
 
-#include "glitch-misc.h"
+#include "glitch-object.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
@@ -65,9 +65,27 @@ void glitch_ui::slotSaveAsPNG(void)
       QApplication::processEvents();
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+      auto i = 0;
+
       foreach(auto object, m_currentView->scene()->allObjects())
 	if(object)
 	  {
+	    auto image(object->image());
+
+	    if(image.isNull() == false)
+	      {
+		auto fileName(dialog.selectedFiles().value(0));
+
+		fileName.append(QDir::separator());
+		fileName.append(m_currentView->name().replace(' ', '_'));
+		fileName.append("_");
+		fileName.append(object->objectType());
+		fileName.append("_");
+		fileName.append(QString::number(i));
+		fileName.append(".png");
+		i += 1;
+		image.save(fileName, "PNG", 100);
+	      }
 	  }
 
       QApplication::restoreOverrideCursor();
