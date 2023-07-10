@@ -17,6 +17,11 @@ then
 
     exec ./Glitch "$@"
     exit $?
+elif [ -r /opt/glitch/Glitch ] && [ -x /opt/glitch/Glitch ]
+then
+    echo "Launching an official Glitch."
+    cd /opt/glitch && exec ./Glitch "$@"
+    exit $?
 elif [ -r /usr/local/glitch/Glitch ] && [ -x /usr/local/glitch/Glitch ]
 then
     echo "Launching an official Glitch."

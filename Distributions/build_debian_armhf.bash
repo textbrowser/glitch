@@ -16,27 +16,27 @@ if [ ! -r glitch.pro ]; then
     exit 1
 fi
 
-# Preparing ./usr/local/glitch:
+# Preparing ./opt/glitch:
 
 make distclean 2>/dev/null
-mkdir -p ./usr/local/glitch/Documentation
+mkdir -p ./opt/glitch/Documentation
 qmake -o Makefile glitch.pro
 lupdate glitch.pro
 lrelease glitch.pro
 make -j $(nproc)
-cp -p ./Documentation/*.1 ./usr/local/glitch/Documentation/.
-cp -p ./Glitch ./usr/local/glitch/.
-cp -p ./Icons/Logo/glitch-logo.png ./usr/local/glitch/.
-cp -p ./glitch.sh ./usr/local/glitch/.
-cp -pr ./Documentation/Arduino ./usr/local/glitch/Documentation/.
-cp -pr ./Examples ./usr/local/glitch/.
+cp -p ./Documentation/*.1 ./opt/glitch/Documentation/.
+cp -p ./Glitch ./opt/glitch/.
+cp -p ./Icons/Logo/glitch-logo.png ./opt/glitch/.
+cp -p ./glitch.sh ./opt/glitch/.
+cp -pr ./Documentation/Arduino ./opt/glitch/Documentation/.
+cp -pr ./Examples ./opt/glitch/.
 
 # Preparing Glitch-x.deb:
 
-mkdir -p glitch-debian/usr/local
+mkdir -p glitch-debian/opt
 cp -pr ./DEBIAN-PI glitch-debian/DEBIAN
-cp -r ./usr/local/glitch glitch-debian/usr/local/.
+cp -r ./opt/glitch glitch-debian/opt/.
 fakeroot dpkg-deb --build glitch-debian Glitch-2023.06.30_armhf.deb
-rm -fr ./usr
+rm -fr ./opt
 rm -fr glitch-debian
 make distclean
