@@ -1220,8 +1220,18 @@ void glitch_ui::prepareToolBars(void)
 
   if(m_ui.edit_toolbar->actions().isEmpty())
     {
-      m_ui.edit_toolbar->addAction(m_ui.action_Canvas_Settings);
+      m_ui.edit_toolbar->addAction(m_ui.action_Undo);
+      m_ui.edit_toolbar->addAction(m_ui.action_Redo);
+      m_ui.edit_toolbar->addSeparator();
+      m_ui.edit_toolbar->addAction(m_ui.action_Copy);
+      m_ui.edit_toolbar->addAction(m_ui.action_Paste);
+      m_ui.edit_toolbar->addSeparator();
+      m_ui.edit_toolbar->addAction(m_ui.action_Delete);
+      m_ui.edit_toolbar->addAction(m_ui.action_Select_All);
+      m_ui.edit_toolbar->addSeparator();
       m_ui.edit_toolbar->addAction(m_ui.action_Find);
+      m_ui.edit_toolbar->addSeparator();
+      m_ui.edit_toolbar->addAction(m_ui.action_Canvas_Settings);
     }
 
   if(m_ui.file_toolbar->actions().isEmpty())
