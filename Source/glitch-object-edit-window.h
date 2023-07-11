@@ -71,6 +71,7 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
   QSplitter *m_splitter;
+  QToolBar *m_editToolBar;
   QToolBar *m_fileToolBar;
   QToolBar *m_miscellaneousToolBar;
   QToolBar *m_toolsToolBar;

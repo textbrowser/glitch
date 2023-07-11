@@ -149,6 +149,11 @@ glitch_object_edit_window::glitch_object_edit_window
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
+  m_editToolBar = new QToolBar(tr("Edit Tool Bar"), this);
+  m_editToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_editToolBar->setIconSize(QSize(24, 24));
+  m_editToolBar->setObjectName("edit_tool_bar");
+  m_editToolBar->setVisible(true);
   m_fileToolBar = new QToolBar(tr("File Tool Bar"), this);
   m_fileToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_fileToolBar->setIconSize(QSize(24, 24));
@@ -171,6 +176,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_toolsToolBar->setObjectName("tools_tool_bar");
   m_toolsToolBar->setVisible(true);
   addToolBar(m_fileToolBar);
+  addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
   addToolBar(m_miscellaneousToolBar);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -263,6 +269,15 @@ void glitch_object_edit_window::prepareIcons(void)
 
 void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
 {
+  m_editToolBar->clear();
+  m_editToolBar->addAction(m_actions.value("undo"));
+  m_editToolBar->addAction(m_actions.value("redo"));
+  m_editToolBar->addSeparator();
+  m_editToolBar->addAction(m_actions.value("copy"));
+  m_editToolBar->addAction(m_actions.value("paste"));
+  m_editToolBar->addSeparator();
+  m_editToolBar->addAction(m_actions.value("delete"));
+  m_editToolBar->addAction(m_actions.value("select all"));
   m_fileToolBar->clear();
   m_fileToolBar->addAction(m_actions.value("save"));
   m_fileToolBar->addSeparator();
@@ -434,6 +449,7 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 void glitch_object_edit_window::setToolBarVisible(const bool state)
 {
   m_actions.value("tools")->setChecked(state);
+  m_editView->setVisible(state);
   m_fileToolBar->setVisible(state);
   m_miscellaneousToolBar->setVisible(state);
   m_toolsToolBar->setVisible(state);
@@ -589,6 +605,7 @@ void glitch_object_edit_window::slotSplitterMoved(void)
 
 void glitch_object_edit_window::slotViewTools(void)
 {
+  m_editToolBar->setVisible(m_actions.value("tools")->isChecked());
   m_fileToolBar->setVisible(m_actions.value("tools")->isChecked());
   m_miscellaneousToolBar->setVisible(m_actions.value("tools")->isChecked());
   m_toolsToolBar->setVisible(m_actions.value("tools")->isChecked());
