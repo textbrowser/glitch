@@ -55,11 +55,11 @@ glitch_object_edit_window::glitch_object_edit_window
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
   m_actions["save"] =
     menu->addAction
-    (tr("&Save Current Diagram"), tr("Ctrl+S"), this, SIGNAL(saveSignal(void)));
+    (tr("&Save Diagram"), tr("Ctrl+S"), this, SIGNAL(saveSignal(void)));
 #else
   m_actions["save"] =
     menu->addAction
-    (tr("&Save Current Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
+    (tr("&Save Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
