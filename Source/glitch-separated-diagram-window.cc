@@ -237,6 +237,9 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       m_ui.edit_toolbar->addAction(m_ui.action_Find);
     }
 
+  if(m_ui.file_toolbar->actions().isEmpty())
+    m_ui.file_toolbar->addAction(m_ui.action_Save_Diagram);
+
   m_ui.miscellaneous_toolbar->clear();
   m_ui.tools_toolbar->clear();
 

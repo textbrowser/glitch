@@ -1238,6 +1238,7 @@ void glitch_ui::prepareToolBars(void)
     {
       m_ui.file_toolbar->addAction(m_ui.action_New_Arduino);
       m_ui.file_toolbar->addAction(m_ui.action_Open_Diagram);
+      m_ui.file_toolbar->addAction(m_ui.action_Save_Current_Diagram);
     }
 }
 
