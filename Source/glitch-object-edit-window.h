@@ -53,7 +53,7 @@ class glitch_object_edit_window: public QMainWindow
   ~glitch_object_edit_window();
   QWidget *centralWidget(void) const;
   void prepareHeader(const QString &text);
-  void prepareToolBar(const QList<QAction *> &actions);
+  void prepareToolBars(const QList<QAction *> &actions);
   void setCategoriesIconSize(const QString &text);
   void setCentralWidget(QWidget *widget);
   void setEditView(glitch_object_view *view);
@@ -71,7 +71,9 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
   QSplitter *m_splitter;
-  QToolBar *m_toolBar;
+  QToolBar *m_fileToolBar;
+  QToolBar *m_miscellaneousToolBar;
+  QToolBar *m_toolsToolBar;
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   bool event(QEvent *event);

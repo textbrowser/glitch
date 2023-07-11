@@ -54,7 +54,7 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QTimer::timeout,
 	  this,
 	  &glitch_separated_diagram_window::slotStatusBarTimerTimeout);
-  connect(m_ui.action_Close,
+  connect(m_ui.action_Close_Diagram,
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::close);
@@ -183,7 +183,7 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 
 void glitch_separated_diagram_window::prepareIcons(void)
 {
-  m_ui.action_Close->setIcon(QIcon(":/close.png"));
+  m_ui.action_Close_Diagram->setIcon(QIcon(":/close.png"));
   m_ui.action_Copy->setIcon(QIcon(":/copy.png"));
   m_ui.action_Delete->setIcon(QIcon(":/delete.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
@@ -238,7 +238,11 @@ void glitch_separated_diagram_window::prepareToolBar(void)
     }
 
   if(m_ui.file_toolbar->actions().isEmpty())
-    m_ui.file_toolbar->addAction(m_ui.action_Save_Diagram);
+    {
+      m_ui.file_toolbar->addAction(m_ui.action_Save_Diagram);
+      m_ui.file_toolbar->addSeparator();
+      m_ui.file_toolbar->addAction(m_ui.action_Close_Diagram);
+    }
 
   m_ui.miscellaneous_toolbar->clear();
   m_ui.tools_toolbar->clear();

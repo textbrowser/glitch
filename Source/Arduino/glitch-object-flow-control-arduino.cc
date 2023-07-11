@@ -61,7 +61,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
      this);
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->prepareToolBar(m_editView->alignmentActions());
+  m_editWindow->prepareToolBars(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);

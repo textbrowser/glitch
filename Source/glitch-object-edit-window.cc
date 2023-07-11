@@ -149,18 +149,30 @@ glitch_object_edit_window::glitch_object_edit_window
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
+  m_fileToolBar = new QToolBar(tr("File Tool Bar"), this);
+  m_fileToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_fileToolBar->setIconSize(QSize(24, 24));
+  m_fileToolBar->setObjectName("file_tool_bar");
+  m_fileToolBar->setVisible(true);
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
+  m_miscellaneousToolBar = new QToolBar(tr("Miscellaneous Tool Bar"), this);
+  m_miscellaneousToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_miscellaneousToolBar->setIconSize(QSize(24, 24));
+  m_miscellaneousToolBar->setObjectName("miscellaneous_tool_bar");
+  m_miscellaneousToolBar->setVisible(true);
   m_object = object;
   m_projectType = projectType;
   m_splitter = nullptr;
-  m_toolBar = new QToolBar(tr("Tools Tool Bar"), this);
-  m_toolBar->setContextMenuPolicy(Qt::PreventContextMenu);
-  m_toolBar->setIconSize(QSize(24, 24));
-  m_toolBar->setObjectName("tools_tool_bar");
-  m_toolBar->setVisible(true);
-  addToolBar(m_toolBar);
+  m_toolsToolBar = new QToolBar(tr("Tools Tool Bar"), this);
+  m_toolsToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_toolsToolBar->setIconSize(QSize(24, 24));
+  m_toolsToolBar->setObjectName("tools_tool_bar");
+  m_toolsToolBar->setVisible(true);
+  addToolBar(m_fileToolBar);
+  addToolBar(m_toolsToolBar);
+  addToolBar(m_miscellaneousToolBar);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   resize(800, 600);
@@ -249,11 +261,15 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("undo")->setIcon(QIcon(":/undo.png"));
 }
 
-void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
+void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
 {
-  m_toolBar->clear();
-  m_toolBar->addActions(actions);
-  m_toolBar->addSeparator();
+  m_fileToolBar->clear();
+  m_fileToolBar->addAction(m_actions.value("save"));
+  m_fileToolBar->addSeparator();
+  m_fileToolBar->addAction(m_actions.value("close"));
+  m_miscellaneousToolBar->clear();
+  m_toolsToolBar->clear();
+  m_toolsToolBar->addActions(actions);
 
   QList<QIcon> icons;
   QStringList data;
@@ -307,7 +323,7 @@ void glitch_object_edit_window::prepareToolBar(const QList<QAction *> &actions)
 	  &QToolButton::clicked,
 	  toolButton,
 	  &QToolButton::showMenu);
-  m_toolBar->addWidget(toolButton);
+  m_miscellaneousToolBar->addWidget(toolButton);
 }
 
 void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
@@ -418,7 +434,9 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 void glitch_object_edit_window::setToolBarVisible(const bool state)
 {
   m_actions.value("tools")->setChecked(state);
-  m_toolBar->setVisible(state);
+  m_fileToolBar->setVisible(state);
+  m_miscellaneousToolBar->setVisible(state);
+  m_toolsToolBar->setVisible(state);
 }
 
 void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
@@ -571,7 +589,9 @@ void glitch_object_edit_window::slotSplitterMoved(void)
 
 void glitch_object_edit_window::slotViewTools(void)
 {
-  m_toolBar->setVisible(m_actions.value("tools")->isChecked());
+  m_fileToolBar->setVisible(m_actions.value("tools")->isChecked());
+  m_miscellaneousToolBar->setVisible(m_actions.value("tools")->isChecked());
+  m_toolsToolBar->setVisible(m_actions.value("tools")->isChecked());
   emit propertyChanged
     ("tool_bar_visible", m_actions.value("tools")->isChecked());
 }
