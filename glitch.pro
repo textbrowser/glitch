@@ -294,7 +294,7 @@ android: include(/home/saturn/Android/Sdk/android_openssl/openssl.pri)
 android {
 examples.depends += FORCE
 examples.files   = Examples/Arduino/*.db
-examples.path    = $ANDROID_PACKAGE_SOURCE_DIR/assets/Examples/Arduino
+examples.path    = /assets/Examples
 
 INSTALLS += examples
 }

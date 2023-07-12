@@ -650,6 +650,9 @@
              <property name="text">
               <string>&amp;Generate Source View Periodically</string>
              </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item>
