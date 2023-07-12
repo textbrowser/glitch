@@ -1006,6 +1006,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Delete->setIcon(QIcon(":/delete.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
   m_ui.action_Full_Screen->setIcon(QIcon(":/fullscreen.png"));
+  m_ui.action_Generate_Source_View->setIcon(QIcon(":/source.png"));
   m_ui.action_Glitch_Preferences->setIcon(QIcon(":/settings.png"));
   m_ui.action_Open_Diagram->setIcon(QIcon(":/open.png"));
   m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
