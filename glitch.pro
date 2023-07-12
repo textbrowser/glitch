@@ -291,6 +291,14 @@ android: include(/home/saturn/Android/Sdk/android_openssl/openssl.pri)
 
 # Installation Procedures
 
+android {
+examples.depends += FORCE
+examples.files   = Examples/Arduino/*.db
+examples.path    = $ANDROID_PACKAGE_SOURCE_DIR/assets/Examples/Arduino
+
+INSTALLS += examples
+}
+
 macx {
 documentation1.extra	= cp ./Documentation/*.1 Glitch.d/Documentation/.
 documentation1.path	= Glitch.d/Documentation

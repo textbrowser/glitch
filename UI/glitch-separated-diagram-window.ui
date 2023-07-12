@@ -85,9 +85,9 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QToolBar" name="tools_toolbar">
+  <widget class="QToolBar" name="edit_toolbar">
    <property name="windowTitle">
-    <string>Glitch: Tool Bar</string>
+    <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -96,9 +96,9 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QToolBar" name="edit_toolbar">
+  <widget class="QToolBar" name="tools_toolbar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Glitch: Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
