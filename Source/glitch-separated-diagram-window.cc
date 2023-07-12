@@ -187,6 +187,7 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Copy->setIcon(QIcon(":/copy.png"));
   m_ui.action_Delete->setIcon(QIcon(":/delete.png"));
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
+  m_ui.action_Generate_Source_View->setIcon(QIcon(":/source.png"));
   m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
   m_ui.action_Save_Diagram->setIcon(QIcon(":/save.png"));
