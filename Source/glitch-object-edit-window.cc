@@ -554,7 +554,6 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
     m_dockedWidgetPropertyEditors->detach();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
-
 }
 
 void glitch_object_edit_window::slotShowFullScreenMode(void)
