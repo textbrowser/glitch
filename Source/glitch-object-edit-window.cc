@@ -449,7 +449,7 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 void glitch_object_edit_window::setToolBarVisible(const bool state)
 {
   m_actions.value("tools")->setChecked(state);
-  m_editView->setVisible(state);
+  m_editToolBar->setVisible(state);
   m_fileToolBar->setVisible(state);
   m_miscellaneousToolBar->setVisible(state);
   m_toolsToolBar->setVisible(state);
