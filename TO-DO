@@ -306,7 +306,7 @@ Remaining Items
   Tools button (Incomplete)
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
-- Copy functions from User Functions dialog.
+- Copy functions from User Functions dialog. Or, dock User Functions.
 - Custom shortcuts.
 - Dark mode on Windows.
 - Display context cursor as mouse hovers over a port.
