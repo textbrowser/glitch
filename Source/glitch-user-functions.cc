@@ -91,6 +91,8 @@ void glitch_user_functions::addFunction(const QString &name)
 	(Qt::ItemIsDragEnabled | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.functions->setRowCount(m_ui.functions->rowCount() + 1);
       m_ui.functions->setItem(m_ui.functions->rowCount() - 1, 0, item);
+      m_ui.functions->sortByColumn
+	(0, m_ui.functions->horizontalHeader()->sortIndicatorOrder());
     }
 
   QApplication::restoreOverrideCursor();
@@ -123,7 +125,8 @@ void glitch_user_functions::renameFunction(const QString &before,
 	break;
       }
 
-  m_ui.functions->sortByColumn(0, Qt::AscendingOrder);
+  m_ui.functions->sortByColumn
+    (0, m_ui.functions->horizontalHeader()->sortIndicatorOrder());
   QApplication::restoreOverrideCursor();
 }
 
