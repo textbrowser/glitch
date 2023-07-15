@@ -321,6 +321,7 @@ Remaining Items
 - QSerialPort for direct communications with Arduino boards.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
+- Return pointers.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
