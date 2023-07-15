@@ -65,6 +65,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotGenerateSource(void);
   void slotGenerateSourceClipboard(void);
   void slotGenerateSourceView(void);
+  void slotHideTearOffMenu(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotPaste(void);
@@ -73,6 +74,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotSelectAll(void);
   void slotSelectionChanged(void);
   void slotShowContextMenu(void);
+  void slotShowTearOffMenu(void);
   void slotSpecialTools(void);
   void slotStatusBarTimerTimeout(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);

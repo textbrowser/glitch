@@ -303,7 +303,7 @@ Remaining Items
   Display widget property editors via double-click (Incomplete)
   Drag & drop (Completed)
   Proper window hiding via hide() (Completed)
-  Tools button (Incomplete)
+  Tools button (Completed)
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Copy functions from User Functions dialog. Or, dock User Functions.

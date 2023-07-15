@@ -257,10 +257,21 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       auto menu = new QMenu(this);
       auto toolButton = new QToolButton(this);
 
+#ifdef Q_OS_ANDROID
+      connect(menu,
+	      SIGNAL(triggered(QAction *)),
+	      this,
+	      SLOT(slotHideTearOffMenu(void)));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      this,
+	      &glitch_separated_diagram_window::slotShowTearOffMenu);
+#else
       connect(toolButton,
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
+#endif
       m_view->populateToolsMenu(menu, this);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/wire.png"));
@@ -328,10 +339,21 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	 "QToolButton::menu-indicator {image: none;}");
 #endif
       toolButton->setToolTip(tr("Miscellaneous Tools"));
+#ifdef Q_OS_ANDROID
+      connect(menu,
+	      SIGNAL(triggered(QAction *)),
+	      this,
+	      SLOT(slotHideTearOffMenu(void)));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      this,
+	      &glitch_separated_diagram_window::slotShowTearOffMenu);
+#else
       connect(toolButton,
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
+#endif
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
     }
 
@@ -476,6 +498,24 @@ void glitch_separated_diagram_window::slotGenerateSourceView(void)
     m_view->generateSourceView();
 }
 
+void glitch_separated_diagram_window::slotHideTearOffMenu(void)
+{
+  auto menu = qobject_cast<QMenu *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(menu)
+    menu->hideTearOffMenu();
+#else
+  if(menu)
+    menu->hide();
+#endif
+#else
+  if(menu)
+    menu->hide();
+#endif
+}
+
 void glitch_separated_diagram_window::slotPageChanged(void)
 {
   if(m_view)
@@ -560,6 +600,24 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
     }
+}
+
+void glitch_separated_diagram_window::slotShowTearOffMenu(void)
+{
+  auto toolButton = qobject_cast<QToolButton *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(toolButton && toolButton->menu())
+    toolButton->menu()->showTearOffMenu();
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
 }
 
 void glitch_separated_diagram_window::slotSpecialTools(void)

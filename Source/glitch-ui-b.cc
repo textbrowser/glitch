@@ -26,6 +26,7 @@
 */
 
 #include <QFileDialog>
+#include <QToolButton>
 
 #include "glitch-object.h"
 #include "glitch-scene.h"
@@ -42,6 +43,24 @@ void glitch_ui::slotGenerateSourceClipboard(void)
 {
   if(m_currentView)
     m_currentView->generateSourceClipboard();
+}
+
+void glitch_ui::slotHideTearOffMenu(void)
+{
+  auto menu = qobject_cast<QMenu *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(menu)
+    menu->hideTearOffMenu();
+#else
+  if(menu)
+    menu->hide();
+#endif
+#else
+  if(menu)
+    menu->hide();
+#endif
 }
 
 void glitch_ui::slotSaveAsPNG(void)
@@ -95,6 +114,24 @@ void glitch_ui::slotSaveAsPNG(void)
 void glitch_ui::slotSeparate(void)
 {
   slotSeparate(m_currentView);
+}
+
+void glitch_ui::slotShowTearOffMenu(void)
+{
+  auto toolButton = qobject_cast<QToolButton *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(toolButton && toolButton->menu())
+    toolButton->menu()->showTearOffMenu();
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
 }
 
 void glitch_ui::slotSpecialTools(void)

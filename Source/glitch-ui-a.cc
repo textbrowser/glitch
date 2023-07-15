@@ -1586,13 +1586,24 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       ** Miscellaneous.
       */
 
-      auto menu = new QMenu(this);
-      auto toolButton = new QToolButton(this);
+      auto menu = new QMenu(m_currentView);
+      auto toolButton = new QToolButton(m_currentView);
 
+#ifdef Q_OS_ANDROID
+      connect(menu,
+	      SIGNAL(triggered(QAction *)),
+	      this,
+	      SLOT(slotHideTearOffMenu(void)));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      this,
+	      &glitch_ui::slotShowTearOffMenu);
+#else
       connect(toolButton,
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
+#endif
       m_currentView->populateToolsMenu(menu, this);
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/wire.png"));
@@ -1648,11 +1659,22 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 		  &glitch_ui::slotSpecialTools);
 	}
 
-      toolButton = new QToolButton(this);
+      toolButton = new QToolButton(m_currentView);
+#ifdef Q_OS_ANDROID
+      connect(menu,
+	      SIGNAL(triggered(QAction *)),
+	      this,
+	      SLOT(slotHideTearOffMenu(void)));
+      connect(toolButton,
+	      &QToolButton::clicked,
+	      this,
+	      &glitch_ui::slotShowTearOffMenu);
+#else
       connect(toolButton,
 	      &QToolButton::clicked,
 	      toolButton,
 	      &QToolButton::showMenu);
+#endif
       toolButton->setArrowType(Qt::NoArrow);
       toolButton->setIcon(QIcon(":/tools.png"));
       toolButton->setMenu(menu);
