@@ -334,10 +334,21 @@ void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
      "QToolButton::menu-indicator {image: none;}");
 #endif
   toolButton->setToolTip(tr("Miscellaneous Tools"));
+#ifdef Q_OS_ANDROID
+  connect(menu,
+	  SIGNAL(triggered(QAction *)),
+	  this,
+	  SLOT(slotHideTearOffMenu(void)));
+  connect(toolButton,
+	  &QToolButton::clicked,
+	  this,
+	  &glitch_object_edit_window::slotShowTearOffMenu);
+#else
   connect(toolButton,
 	  &QToolButton::clicked,
 	  toolButton,
 	  &QToolButton::showMenu);
+#endif
   m_miscellaneousToolBar->addWidget(toolButton);
 }
 
@@ -538,6 +549,24 @@ void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)
     (qobject_cast<glitch_floating_context_menu *> (widget));
 }
 
+void glitch_object_edit_window::slotHideTearOffMenu(void)
+{
+  auto menu = qobject_cast<QMenu *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(menu)
+    menu->hideTearOffMenu();
+#else
+  if(menu)
+    menu->hide();
+#endif
+#else
+  if(menu)
+    menu->hide();
+#endif
+}
+
 void glitch_object_edit_window::slotPreferencesAccepted(void)
 {
   QSettings settings;
@@ -568,6 +597,24 @@ void glitch_object_edit_window::slotShowFullScreenMode(void)
       m_actions.value("screen mode")->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_object_edit_window::slotShowTearOffMenu(void)
+{
+  auto toolButton = qobject_cast<QToolButton *> (sender());
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
+#ifdef Q_OS_ANDROID
+  if(toolButton && toolButton->menu())
+    toolButton->menu()->showTearOffMenu();
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
+#else
+  if(toolButton)
+    toolButton->showMenu();
+#endif
 }
 
 void glitch_object_edit_window::slotSpecialTools(void)
