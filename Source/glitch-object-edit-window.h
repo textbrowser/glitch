@@ -41,6 +41,7 @@ class QUndoStack;
 class glitch_docked_container;
 class glitch_object_view;
 class glitch_structures_arduino;
+class glitch_user_functions;
 
 class glitch_object_edit_window: public QMainWindow
 {
@@ -70,6 +71,7 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<glitch_object> m_object;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
+  QSplitter *m_leftSplitter;
   QSplitter *m_splitter;
   QToolBar *m_editToolBar;
   QToolBar *m_fileToolBar;
@@ -77,6 +79,7 @@ class glitch_object_edit_window: public QMainWindow
   QToolBar *m_toolsToolBar;
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
+  glitch_user_functions *m_userFunctions;
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void hideEvent(QHideEvent *event);

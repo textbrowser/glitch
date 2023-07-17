@@ -42,6 +42,7 @@
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
+#include "glitch-user-functions.h"
 
 glitch_object_edit_window::glitch_object_edit_window
 (const glitch_common::ProjectTypes projectType,
@@ -162,6 +163,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
+  m_leftSplitter = nullptr;
   m_miscellaneousToolBar = new QToolBar(tr("Miscellaneous Tool Bar"), this);
   m_miscellaneousToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_miscellaneousToolBar->setIconSize(QSize(24, 24));
@@ -175,6 +177,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_toolsToolBar->setIconSize(QSize(24, 24));
   m_toolsToolBar->setObjectName("tools_tool_bar");
   m_toolsToolBar->setVisible(true);
+  m_userFunctions = new glitch_user_functions(this);
   addToolBar(m_fileToolBar);
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
