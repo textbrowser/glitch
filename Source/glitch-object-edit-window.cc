@@ -518,6 +518,13 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 {
   QMainWindow::showEvent(event);
 
+  if(m_leftSplitter)
+    m_leftSplitter->restoreState
+      (m_object ?
+       m_object->property(glitch_object::Properties::
+			  STRUCTURES_VIEW_LEFT_SPLITTER_STATE).toByteArray() :
+       QByteArray());
+
   if(m_splitter)
     m_splitter->restoreState
       (m_object ?
@@ -664,10 +671,18 @@ void glitch_object_edit_window::slotSplitterMoved(void)
 {
   auto splitter = qobject_cast<QSplitter *> (sender());
 
-  if(m_object && splitter)
-    m_object->setProperty
-      (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
-       splitter->saveState());
+  if(m_object)
+    {
+      if(m_leftSplitter == splitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
+	   splitter->saveState());
+
+      if(m_splitter == splitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
+	   splitter->saveState());
+    }
 }
 
 void glitch_object_edit_window::slotViewTools(void)

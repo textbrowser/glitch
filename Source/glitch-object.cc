@@ -1189,6 +1189,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::POSITION_LOCKED).toBool();
   properties["size"] = QString("(%1, %2)").
     arg(size().width()).arg(size().height());
+  properties["structures_view_left_splitter_state"] = m_properties.value
+    (Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE).toByteArray().toBase64();
   properties["structures_view_splitter_state"] = m_properties.value
     (Properties::STRUCTURES_VIEW_SPLITTER_STATE).toByteArray().toBase64();
   properties["tool_bar_visible"] = m_properties.value
@@ -1385,6 +1387,14 @@ void glitch_object::setProperties(const QStringList &list)
 	      setProperty("temporary-size", size);
 	    }
 	}
+      else if(string.simplified().
+	      startsWith("structures_view_left_splitter_state"))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE] =
+	    QByteArray::fromBase64(string.trimmed().toLatin1());
+	}
       else if(string.simplified().startsWith("structures_view_splitter_state"))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
@@ -1479,6 +1489,7 @@ void glitch_object::setProperty(const Properties property,
 	resize(value.toSize());
 	break;
       }
+    case Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE:
     case Properties::STRUCTURES_VIEW_SPLITTER_STATE:
       {
 	emit changed();
