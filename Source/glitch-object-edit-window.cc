@@ -171,7 +171,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_miscellaneousToolBar->setVisible(true);
   m_object = object;
   m_projectType = projectType;
-  m_splitter = nullptr;
+  m_splitter = new QSplitter(this);
   m_toolsToolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolsToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_toolsToolBar->setIconSize(QSize(24, 24));
@@ -182,6 +182,10 @@ glitch_object_edit_window::glitch_object_edit_window
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
   addToolBar(m_miscellaneousToolBar);
+  connect(m_splitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSplitterMoved(void)));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   resize(800, 600);
@@ -388,8 +392,8 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
      m_projectType == glitch_common::ProjectTypes::ArduinoProject)
     {
       m_arduinoStructures = new glitch_structures_arduino(this);
-      m_splitter = new QSplitter(this);
-      connect(m_splitter,
+      m_leftSplitter = new QSplitter(Qt::Vertical, this);
+      connect(m_leftSplitter,
 	      SIGNAL(splitterMoved(int, int)),
 	      this,
 	      SLOT(slotSplitterMoved(void)));
@@ -403,15 +407,21 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 
   if(m_arduinoStructures)
     {
-      m_splitter->addWidget(m_arduinoStructures->frame());
+      m_leftSplitter->addWidget(m_arduinoStructures->frame());
+      m_leftSplitter->addWidget(m_userFunctions->frame());
+      m_leftSplitter->setStretchFactor(0, 1);
+      m_leftSplitter->setStretchFactor(1, 0);
+      m_splitter->addWidget(m_leftSplitter);
       m_splitter->addWidget(widget);
       m_splitter->setStretchFactor(0, 0);
       m_splitter->setStretchFactor(1, 1);
     }
   else
     {
+      m_splitter->addWidget(m_userFunctions->frame());
       m_splitter->addWidget(widget);
-      m_splitter->setStretchFactor(0, 1);
+      m_splitter->setStretchFactor(0, 0);
+      m_splitter->setStretchFactor(1, 1);
     }
 
   frame->layout()->addWidget(m_splitter);
@@ -646,10 +656,12 @@ void glitch_object_edit_window::slotSpecialTools(void)
 
 void glitch_object_edit_window::slotSplitterMoved(void)
 {
-  if(m_object)
+  auto splitter = qobject_cast<QSplitter *> (sender());
+
+  if(m_object && splitter)
     m_object->setProperty
       (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
-       m_splitter->saveState());
+       splitter->saveState());
 }
 
 void glitch_object_edit_window::slotViewTools(void)

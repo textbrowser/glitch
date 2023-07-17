@@ -61,6 +61,11 @@ glitch_user_functions::~glitch_user_functions()
 {
 }
 
+QFrame *glitch_user_functions::frame(void) const
+{
+  return m_ui.frame;
+}
+
 bool glitch_user_functions::contains(const QString &name) const
 {
   return !m_ui.functions->findItems(name, Qt::MatchExactly).isEmpty();
