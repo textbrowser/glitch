@@ -31,7 +31,7 @@
 #include <QMimeData>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QTableWidget>
+#include <QTableView>
 #include <QUndoStack>
 #include <QtDebug>
 
@@ -248,15 +248,15 @@ bool glitch_scene::allowDrag
 	      }
 	    }
 
-	  auto tableWidget = qobject_cast<QTableWidget *> (event->source());
+	  auto tableView = qobject_cast<QTableView *> (event->source());
 
-	  if(glitch_misc::sameAncestors(tableWidget, this))
+	  if(glitch_misc::sameAncestors(tableView, this))
 	    {
-	      auto item = tableWidget->currentItem();
+	      auto index = tableView->currentIndex();
 
-	      if(item)
+	      if(index.isValid())
 		{
-		  auto text(item->data(Qt::UserRole).toString().toLower());
+		  auto text(index.data(Qt::UserRole + 1).toString().toLower());
 
 		  if(text == "glitch-user-function")
 		    {

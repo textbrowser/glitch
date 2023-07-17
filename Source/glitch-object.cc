@@ -1094,11 +1094,14 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	      Qt::UniqueConnection);
 
       if(parentView)
-	connect(parentView,
-		&glitch_view::preferencesAccepted,
-		m_editWindow,
-		&glitch_object_edit_window::slotPreferencesAccepted,
-		Qt::UniqueConnection);
+	{
+	  connect(parentView,
+		  &glitch_view::preferencesAccepted,
+		  m_editWindow,
+		  &glitch_object_edit_window::slotPreferencesAccepted,
+		  Qt::UniqueConnection);
+	  m_editWindow->setUserFunctionsModel(parentView->userFunctionsModel());
+	}
 
 #ifndef Q_OS_ANDROID
       if(!m_editWindow->

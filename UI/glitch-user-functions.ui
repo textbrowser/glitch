@@ -38,7 +38,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="glitch_user_functions_tablewidget" name="functions">
+       <widget class="glitch_user_functions_tableview" name="functions">
         <property name="dragEnabled">
          <bool>true</bool>
         </property>
@@ -66,11 +66,6 @@
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
         </attribute>
-        <column>
-         <property name="text">
-          <string>Function Name</string>
-         </property>
-        </column>
        </widget>
       </item>
      </layout>
@@ -104,9 +99,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>glitch_user_functions_tablewidget</class>
-   <extends>QTableWidget</extends>
-   <header>glitch-user-functions-tablewidget.h</header>
+   <class>glitch_user_functions_tableview</class>
+   <extends>QTableView</extends>
+   <header>glitch-user-functions-tableview.h</header>
   </customwidget>
  </customwidgets>
  <resources>

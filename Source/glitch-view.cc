@@ -98,7 +98,11 @@ glitch_view::glitch_view
   m_splitter = new QSplitter(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
+  m_userFunctions->setModel
+    (m_userFunctionsModel = new QStandardItemModel(this));
   m_userFunctions->setProjectType(m_projectType);
+  m_userFunctionsModel->setHorizontalHeaderLabels
+    (QStringList() << tr("Function Name"));
   m_view = new glitch_graphicsview(this);
   m_view->setAlignment(Qt::AlignLeft | Qt::AlignTop);
   m_view->setCacheMode(QGraphicsView::CacheNone);
@@ -336,6 +340,11 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   this,
 			   SLOT(slotShowUserFunctions(void)));
   return m_contextMenu;
+}
+
+QStandardItemModel *glitch_view::userFunctionsModel(void) const
+{
+  return m_userFunctionsModel;
 }
 
 QString glitch_view::name(void) const

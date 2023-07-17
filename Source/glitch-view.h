@@ -38,6 +38,7 @@
 #include "ui_glitch-view.h"
 
 class QSplitter;
+class QStandardItemModel;
 class QTreeWidgetItem;
 class glitch_alignment;
 class glitch_documentation;
@@ -77,6 +78,7 @@ class glitch_view: public QWidget
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
+  QStandardItemModel *userFunctionsModel(void) const;
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;
@@ -154,6 +156,7 @@ class glitch_view: public QWidget
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
+  QStandardItemModel *m_userFunctionsModel;
   QString m_fileName;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;

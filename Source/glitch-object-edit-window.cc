@@ -178,6 +178,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_toolsToolBar->setObjectName("tools_tool_bar");
   m_toolsToolBar->setVisible(true);
   m_userFunctions = new glitch_user_functions(this);
+  m_userFunctions->setProjectType(m_projectType);
   addToolBar(m_fileToolBar);
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
@@ -506,6 +507,11 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 	      this,
 	      SLOT(slotAboutToShowEditMenu(void)));
     }
+}
+
+void glitch_object_edit_window::setUserFunctionsModel(QStandardItemModel *model)
+{
+  m_userFunctions->setModel(model);
 }
 
 void glitch_object_edit_window::showEvent(QShowEvent *event)

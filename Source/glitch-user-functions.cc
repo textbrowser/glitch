@@ -68,20 +68,23 @@ QFrame *glitch_user_functions::frame(void) const
 
 bool glitch_user_functions::contains(const QString &name) const
 {
-  return !m_ui.functions->findItems(name, Qt::MatchExactly).isEmpty();
+  if(m_model)
+    return !m_model->findItems(name, Qt::MatchExactly).isEmpty();
+  else
+    return false;
 }
 
 void glitch_user_functions::addFunction(const QString &name)
 {
-  if(name.trimmed().isEmpty())
+  if(m_model == nullptr || name.trimmed().isEmpty())
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto found = false;
 
-  for(int i = 0; i < m_ui.functions->rowCount(); i++)
-    if(m_ui.functions->item(i, 0) && m_ui.functions->item(i, 0)->text() == name)
+  for(int i = 0; i < m_model->rowCount(); i++)
+    if(m_model->item(i, 0) && m_model->item(i, 0)->text() == name)
       {
 	found = true;
 	break;
@@ -89,13 +92,13 @@ void glitch_user_functions::addFunction(const QString &name)
 
   if(!found)
     {
-      auto item = new QTableWidgetItem(name);
+      auto item = new QStandardItem(name);
 
-      item->setData(Qt::UserRole, "glitch-user-function");
+      item->setData("glitch-user-function");
       item->setFlags
 	(Qt::ItemIsDragEnabled | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-      m_ui.functions->setRowCount(m_ui.functions->rowCount() + 1);
-      m_ui.functions->setItem(m_ui.functions->rowCount() - 1, 0, item);
+      m_model->setRowCount(m_model->rowCount() + 1);
+      m_model->setItem(m_model->rowCount() - 1, 0, item);
       m_ui.functions->sortByColumn
 	(0, m_ui.functions->horizontalHeader()->sortIndicatorOrder());
     }
@@ -105,12 +108,15 @@ void glitch_user_functions::addFunction(const QString &name)
 
 void glitch_user_functions::deleteFunction(const QString &name)
 {
+  if(!m_model)
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  for(int i = 0; i < m_ui.functions->rowCount(); i++)
-    if(m_ui.functions->item(i, 0) && m_ui.functions->item(i, 0)->text() == name)
+  for(int i = 0; i < m_model->rowCount(); i++)
+    if(m_model->item(i, 0) && m_model->item(i, 0)->text() == name)
       {
-	m_ui.functions->removeRow(i);
+	m_model->removeRow(i);
 	break;
       }
 
@@ -120,19 +126,30 @@ void glitch_user_functions::deleteFunction(const QString &name)
 void glitch_user_functions::renameFunction(const QString &before,
 					   const QString &after)
 {
+  if(!m_model)
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  for(int i = 0; i < m_ui.functions->rowCount(); i++)
-    if(m_ui.functions->item(i, 0) &&
-       m_ui.functions->item(i, 0)->text() == before)
+  for(int i = 0; i < m_model->rowCount(); i++)
+    if(m_model->item(i, 0) && m_model->item(i, 0)->text() == before)
       {
-	m_ui.functions->item(i, 0)->setText(after);
+	m_model->item(i, 0)->setText(after);
 	break;
       }
 
   m_ui.functions->sortByColumn
     (0, m_ui.functions->horizontalHeader()->sortIndicatorOrder());
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_user_functions::setModel(QStandardItemModel *model)
+{
+  if(model && m_model == nullptr)
+    {
+      m_model = model;
+      m_ui.functions->setModel(m_model);
+    }
 }
 
 void glitch_user_functions::setProjectType
