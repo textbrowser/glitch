@@ -71,6 +71,7 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
     }
 
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
@@ -86,7 +87,6 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
   m_type = "arduino-advancedio";
   prepareContextMenu();
   setName(m_text);
-  setToolTip(description());
 }
 
 glitch_object_advanced_io_arduino::~glitch_object_advanced_io_arduino()
@@ -321,7 +321,7 @@ void glitch_object_advanced_io_arduino::setProperty
     case Properties::ADVANCED_IO_TYPE:
       {
 	m_text = value.toString();
-	setName(m_text);qDebug()<<description();
+	setName(m_text);
 	break;
       }
     default:
@@ -329,4 +329,6 @@ void glitch_object_advanced_io_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

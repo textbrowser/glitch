@@ -160,7 +160,8 @@ QStringList glitch_structures_arduino::variableTypes(void)
   if(!s_variableTypes.isEmpty())
     return s_variableTypes;
 
-  s_variableTypes << "String"
+  s_variableTypes << "BitOrder"
+		  << "String"
 		  << "array"
 		  << "bool"
 		  << "boolean"
@@ -170,9 +171,11 @@ QStringList glitch_structures_arduino::variableTypes(void)
 		  << "float"
 		  << "int"
 		  << "long"
+		  << "pin_size_t"
 		  << "short"
 		  << "size_t"
 		  << "string"
+		  << "uint8_t"
 		  << "unsigned char"
 		  << "unsigned int"
 		  << "unsigned long"

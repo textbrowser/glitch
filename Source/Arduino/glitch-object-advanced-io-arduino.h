@@ -52,33 +52,35 @@ class glitch_object_advanced_io_arduino:
       case Type::NO_TONE:
       default:
 	{
-	  return "<html><b>void</b> noTone(int pin)</html>";
+	  return "<b>void</b> noTone(uint8_t pin)";
 	}
       case Type::PULSE_IN:
 	{
-	  return "<html><b>unsigned long</b> "
-	    "pulseIn(int pin, int value, int timeout)</html>";
+	  return "<b>unsigned long</b> pulseIn"
+	    "(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L)";
 	}
       case Type::PULSE_IN_LONG:
 	{
-	  return "<html><b>unsigned long</b> "
-	    "pulseInLong(int pin, int value, int timeout)</html>";
+	  return "<b>unsigned long</b> pulseInLong"
+	    "(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L)";
 	}
       case Type::SHIFT_IN:
 	{
-     	  return "<html><b>byte</b> "
-	    "shiftIn(int dataPin, int clockPin, int bitOrder)</html>";
+	  return "<b>uint8_t</b> shiftIn"
+	    "(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)";
 	}
       case Type::SHIFT_OUT:
 	{
-     	  return "<html><b>void</b> "
-	    "shiftOut(int dataPin, int clockPin, int bitOrder, int value)"
-	    "</html>";
+	  return "<b>void</b> shiftOut"
+	    "(pin_size_t dataPin, "
+	    "pin_size_t clockPin, "
+	    "BitOrder bitOrder, "
+	    "uint8_t val)";
 	}
       case Type::TONE:
 	{
-	  return "<html><b>void</b> "
-	    "tone(int pin, int frequency, int duration)</html>";
+	  return "<b>void</b> tone"
+	    "(uint8_t pin, unsigned int frequency, unsigned long duration = 0)";
 	}
       }
   }
