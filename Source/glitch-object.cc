@@ -253,6 +253,11 @@ QPointer<glitch_proxy_widget> glitch_object::proxy(void) const
   return m_proxy;
 }
 
+QString glitch_object::description(void) const
+{
+  return "";
+}
+
 QString glitch_object::name(void) const
 {
   return m_properties.value(Properties::NAME).toString();

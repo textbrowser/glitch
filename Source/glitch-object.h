@@ -202,6 +202,7 @@ class glitch_object: public QWidget
 
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
+  QString description(void) const;
   QString objectType(void) const;
 
   QString position(void) const
