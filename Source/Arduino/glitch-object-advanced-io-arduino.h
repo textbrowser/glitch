@@ -52,26 +52,26 @@ class glitch_object_advanced_io_arduino:
       case Type::NO_TONE:
       default:
 	{
-	  return "<b>void</b> noTone(uint8_t pin)";
+	  return "void noTone(uint8_t pin)";
 	}
       case Type::PULSE_IN:
 	{
-	  return "<b>unsigned long</b> pulseIn"
+	  return "unsigned long pulseIn"
 	    "(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L)";
 	}
       case Type::PULSE_IN_LONG:
 	{
-	  return "<b>unsigned long</b> pulseInLong"
+	  return "unsigned long pulseInLong"
 	    "(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L)";
 	}
       case Type::SHIFT_IN:
 	{
-	  return "<b>uint8_t</b> shiftIn"
+	  return "uint8_t shiftIn"
 	    "(pin_size_t dataPin, pin_size_t clockPin, BitOrder bitOrder)";
 	}
       case Type::SHIFT_OUT:
 	{
-	  return "<b>void</b> shiftOut"
+	  return "void shiftOut"
 	    "(pin_size_t dataPin, "
 	    "pin_size_t clockPin, "
 	    "BitOrder bitOrder, "
@@ -79,7 +79,7 @@ class glitch_object_advanced_io_arduino:
 	}
       case Type::TONE:
 	{
-	  return "<b>void</b> tone"
+	  return "void tone"
 	    "(uint8_t pin, unsigned int frequency, unsigned long duration = 0)";
 	}
       }
