@@ -45,6 +45,44 @@ class glitch_object_advanced_io_arduino:
   bool isFullyWired(void) const;
   bool shouldPrint(void) const;
 
+  QString description(void) const
+  {
+    switch(stringToIOType(m_text))
+      {
+      case Type::NO_TONE:
+      default:
+	{
+	  return "<html><b>void</b> noTone(int pin)</html>";
+	}
+      case Type::PULSE_IN:
+	{
+	  return "<html><b>unsigned long</b> "
+	    "pulseIn(int pin, int value, int timeout)</html>";
+	}
+      case Type::PULSE_IN_LONG:
+	{
+	  return "<html><b>unsigned long</b> "
+	    "pulseInLong(int pin, int value, int timeout)</html>";
+	}
+      case Type::SHIFT_IN:
+	{
+     	  return "<html><b>byte</b> "
+	    "shiftIn(int dataPin, int clockPin, int bitOrder)</html>";
+	}
+      case Type::SHIFT_OUT:
+	{
+     	  return "<html><b>void</b> "
+	    "shiftOut(int dataPin, int clockPin, int bitOrder, int value)"
+	    "</html>";
+	}
+      case Type::TONE:
+	{
+	  return "<html><b>void</b> "
+	    "tone(int pin, int frequency, int duration)</html>";
+	}
+      }
+  }
+
   QStringList parameters(void) const
   {
     switch(stringToIOType(m_text))

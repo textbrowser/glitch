@@ -202,7 +202,6 @@ class glitch_object: public QWidget
 
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
-  QString description(void) const;
   QString objectType(void) const;
 
   QString position(void) const
@@ -266,6 +265,7 @@ class glitch_object: public QWidget
   }
 
   virtual QString code(void) const = 0;
+  virtual QString description(void) const;
   virtual QString name(void) const;
   virtual QStringList parameters(void) const;
   virtual bool canResize(void) const;

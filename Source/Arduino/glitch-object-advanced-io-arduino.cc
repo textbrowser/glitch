@@ -86,6 +86,7 @@ glitch_object_advanced_io_arduino::glitch_object_advanced_io_arduino
   m_type = "arduino-advancedio";
   prepareContextMenu();
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_advanced_io_arduino::~glitch_object_advanced_io_arduino()
@@ -307,6 +308,7 @@ void glitch_object_advanced_io_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_advanced_io_arduino::setProperty
@@ -319,7 +321,7 @@ void glitch_object_advanced_io_arduino::setProperty
     case Properties::ADVANCED_IO_TYPE:
       {
 	m_text = value.toString();
-	setName(m_text);
+	setName(m_text);qDebug()<<description();
 	break;
       }
     default:
