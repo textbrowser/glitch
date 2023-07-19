@@ -58,6 +58,29 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
 
   glitch_object_analog_io_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToIOType(m_text))
+      {
+      case Type::READ_RESOLUTION:
+	{
+	  return "void analogWriteResolution(int bits)";
+	}
+      case Type::REFERENCE:
+	{
+	  return "void analogReference(uint8_t mode)";
+	}
+      case Type::WRITE:
+	{
+	  return "void analogWrite(pin_size_t pinNumber, int value)";
+	}
+      default:
+	{
+	  return "int analogRead(pin_size_t pinNumber)";
+	}
+      }
+  }
+
   QString ioTypeToString(void) const
   {
     switch(stringToIOType(m_text))
