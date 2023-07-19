@@ -64,7 +64,7 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
       {
       case Type::READ_RESOLUTION:
 	{
-	  return "void analogWriteResolution(int bits)";
+	  return "void analogReadResolution(int bits)";
 	}
       case Type::REFERENCE:
 	{
