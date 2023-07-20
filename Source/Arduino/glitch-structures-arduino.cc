@@ -176,6 +176,7 @@ QStringList glitch_structures_arduino::variableTypes(void)
 		  << "size_t"
 		  << "string"
 		  << "uint8_t"
+		  << "uint16_t"
 		  << "unsigned char"
 		  << "unsigned int"
 		  << "unsigned long"
