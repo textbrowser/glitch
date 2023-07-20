@@ -38,6 +38,7 @@ glitch_object_conversion_arduino
   glitch_object_conversion_arduino(1, parent)
 {
   setConversionType(conversionType);
+  setToolTip(description());
 }
 
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
@@ -68,6 +69,28 @@ QString glitch_object_conversion_arduino::code(void) const
     return QString("%1(%2)").
       arg(QString(m_text).remove("()")).
       arg(inputs().value(0));
+}
+
+QString glitch_object_conversion_arduino::description(void) const
+{
+  if(m_text == "(unsigned int)")
+    return "(unsigned int) x";
+  else if(m_text == "(unsigned long)")
+    return "(unsigned long) x";
+  else if(m_text == "byte()")
+    return "byte byte(x)";
+  else if(m_text == "char()")
+    return "char char(x)";
+  else if(m_text == "float()")
+    return "float float(x)";
+  else if(m_text == "int()")
+    return "int int(x)";
+  else if(m_text == "long()")
+    return "long long(x)";
+  else if(m_text == "word()")
+    return "uint16_t word(byte h, byte l) / uint16_t word(uint16_t w)";
+  else
+    return "";
 }
 
 bool glitch_object_conversion_arduino::hasInput(void) const
@@ -233,6 +256,7 @@ void glitch_object_conversion_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setConversionType(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_conversion_arduino::setProperty
@@ -253,4 +277,6 @@ void glitch_object_conversion_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

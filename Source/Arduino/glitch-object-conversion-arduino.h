@@ -53,6 +53,7 @@ class glitch_object_conversion_arduino:
   ~glitch_object_conversion_arduino();
   QString code(void) const;
   QString conversion(void) const;
+  QString description(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;
