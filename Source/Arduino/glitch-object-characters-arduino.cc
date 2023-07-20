@@ -104,6 +104,7 @@ glitch_object_characters_arduino::glitch_object_characters_arduino
 
   m_text = string;
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_characters_arduino::glitch_object_characters_arduino
@@ -254,6 +255,7 @@ void glitch_object_characters_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_characters_arduino::setProperty
@@ -274,4 +276,6 @@ void glitch_object_characters_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

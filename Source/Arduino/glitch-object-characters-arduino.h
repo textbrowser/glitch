@@ -128,6 +128,65 @@ class glitch_object_characters_arduino:
       }
   }
 
+  QString description(void) const
+  {
+    switch(stringToCharactersType(m_text))
+      {
+      case Type::IS_ALPHA_NUMERIC:
+	{
+	  return "bool isAlphaNumeric(int c)";
+	}
+      case Type::IS_ASCII:
+	{
+	  return "bool isAscii(int c)";
+	}
+      case Type::IS_CONTROL:
+	{
+	  return "bool isControl(int c)";
+	}
+      case Type::IS_DIGIT:
+	{
+	  return "bool isDigit(int c)";
+	}
+      case Type::IS_GRAPH:
+	{
+	  return "bool isGraph(int c)";
+	}
+      case Type::IS_HEXADECIMAL_DIGIT:
+	{
+	  return "bool isHexadecimalDigit(int c)";
+	}
+      case Type::IS_LOWER_CASE:
+	{
+	  return "bool isLowerCase(int c)";
+	}
+      case Type::IS_PRINTABLE:
+	{
+	  return "bool isPrintable(int c) ";
+	}
+      case Type::IS_PUNCT:
+	{
+	  return "bool isPunct(int c)";
+	}
+      case Type::IS_SPACE:
+	{
+	  return "bool isSpace(int c)";
+	}
+      case Type::IS_UPPER_CASE:
+	{
+	  return "bool isUpperCase(int c)";
+	}
+      case Type::IS_WHITESPACE:
+	{
+	  return "bool isWhitespace(int c)";
+	}
+      default:
+	{
+	  return "bool isAlpha(int c)";
+	}
+      }
+  }
+
   static Type stringToCharactersType(const QString &s)
   {
     auto string(s.toLower());
