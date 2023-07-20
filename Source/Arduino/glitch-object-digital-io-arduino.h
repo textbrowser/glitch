@@ -58,6 +58,25 @@ class glitch_object_digital_io_arduino:
 
   glitch_object_digital_io_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToIOType(m_text))
+      {
+      case Type::READ:
+	{
+	  return "PinStatus digitalRead(pin_size_t pinNumber)";
+	}
+      case Type::WRITE:
+	{
+	  return "void digitalWrite(pin_size_t pinNumber, PinStatus status)";
+	}
+      default:
+	{
+	  return "void pinMode(pin_size_t pinNumber, PinMode pinMode)";
+	}
+      }
+  }
+
   QString ioTypeToString(void) const
   {
     switch(stringToIOType(m_text))

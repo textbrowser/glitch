@@ -161,6 +161,7 @@ QStringList glitch_structures_arduino::variableTypes(void)
     return s_variableTypes;
 
   s_variableTypes << "BitOrder"
+		  << "PinStatus"
 		  << "String"
 		  << "array"
 		  << "bool"
