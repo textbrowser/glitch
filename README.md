@@ -1,3 +1,6 @@
+Glitch is a graphical lightweight interactive tool and compiler hybrid.
+Generate Arduino software via beautiful graphical diagrams (blueprints).
+
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
