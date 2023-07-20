@@ -317,6 +317,7 @@ Remaining Items
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
+- Periodic backup.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - QSerialPort for direct communications with Arduino boards.
 - Replace comment widget with a text graphics item.
