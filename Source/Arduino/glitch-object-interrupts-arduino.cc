@@ -34,6 +34,7 @@ glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
   m_text = QString("%1()").arg
     (interruptsTypeToString(stringToInterruptsType(interruptsType)));
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_interrupts_arduino::glitch_object_interrupts_arduino
@@ -194,6 +195,7 @@ void glitch_object_interrupts_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_interrupts_arduino::setProperty
@@ -214,4 +216,6 @@ void glitch_object_interrupts_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

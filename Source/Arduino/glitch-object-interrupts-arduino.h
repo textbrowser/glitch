@@ -60,6 +60,33 @@ class glitch_object_interrupts_arduino:
 
   glitch_object_interrupts_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToInterruptsType(m_text))
+      {
+      case Type::ATTACH_INTERRUPT:
+      default:
+	{
+	  return "void attachInterrupt"
+	    "(pin_size_t interruptNumber, "
+	    "voidFuncPtr callback, "
+	    "PinStatus mode)";
+	}
+      case Type::DETACH_INTERRUPT:
+	{
+	  return "void detachInterrupt(pin_size_t interruptNumber)";
+	}
+      case Type::INTERRUPTS:
+	{
+	  return "void interrupts(void)";
+	}
+      case Type::NO_INTERRUPTS:
+	{
+	  return "void noInterrupts(void)";
+	}
+      }
+  }
+
   QString interruptsTypeToString(const Type type) const
   {
     switch(type)
