@@ -41,7 +41,7 @@
 glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
-  m_statusBarTimer.start(500);
+  m_statusBarTimer.setInterval(500);
   m_ui.setupUi(this);
   m_ui.action_Generate_Source->setEnabled(false);
   m_ui.action_Generate_Source_Clipboard->setEnabled(false);
@@ -395,6 +395,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 &glitch_view::slotUnite);
     }
 
+  m_statusBarTimer.stop();
   m_view = qobject_cast<glitch_view *> (widget);
 
   if(m_view)
@@ -420,6 +421,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      m_view,
 	      &glitch_view::slotUnite);
       QMainWindow::setCentralWidget(m_view);
+      m_statusBarTimer.start();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
 
@@ -648,9 +650,9 @@ void glitch_separated_diagram_window::slotSpecialTools(void)
 
 void glitch_separated_diagram_window::slotStatusBarTimerTimeout(void)
 {
-  if(statusBar() &&
-     statusBar()->currentMessage().trimmed().isEmpty() &&
-     m_view)
+  if(m_view &&
+     statusBar() &&
+     statusBar()->currentMessage().trimmed().isEmpty())
     slotToolsOperationChanged(m_view->toolsOperation());
 }
 
