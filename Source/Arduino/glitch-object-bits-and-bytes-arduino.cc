@@ -76,6 +76,7 @@ glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
     }
 
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_bits_and_bytes_arduino::glitch_object_bits_and_bytes_arduino
@@ -299,6 +300,7 @@ void glitch_object_bits_and_bytes_arduino::setProperties
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_bits_and_bytes_arduino::setProperty
@@ -319,4 +321,6 @@ void glitch_object_bits_and_bytes_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

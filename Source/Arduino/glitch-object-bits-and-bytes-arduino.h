@@ -62,6 +62,42 @@ class glitch_object_bits_and_bytes_arduino:
 
   glitch_object_bits_and_bytes_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToType(m_text))
+      {
+      case Type::BIT:
+      default:
+	{
+	  return "T bit(T a)";
+	}
+      case Type::BIT_CLEAR:
+	{
+	  return "T bitClear(T value, T bit)";
+	}
+      case Type::BIT_READ:
+	{
+	  return "T bitRead(T value, T bit)";
+	}
+      case Type::BIT_SET:
+	{
+	  return "void bitSet(T value, T bit)";
+	}
+      case Type::BIT_WRITE:
+	{
+	  return "void bitWrite(T value, T bit, T bitValue)";
+	}
+      case Type::HIGH_BYTE:
+	{
+	  return "byte highByte(T a)";
+	}
+      case Type::LOW_BYTE:
+	{
+	  return "byte lowByte(T a)";
+	}
+      }
+  }
+
   QString typeToString(void) const
   {
     switch(stringToType(m_text))
