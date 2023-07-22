@@ -519,6 +519,12 @@ void glitch_canvas_settings::accept(void)
   emit accepted(true);
 }
 
+void glitch_canvas_settings::closeEvent(QCloseEvent *event)
+{
+  QDialog::closeEvent(event);
+  m_timer.stop();
+}
+
 void glitch_canvas_settings::prepare(void)
 {
   QFileInfo fileInfo(m_fileName);
@@ -968,6 +974,12 @@ void glitch_canvas_settings::setWireType(const QString &string)
 void glitch_canvas_settings::setWireWidth(const double value)
 {
   m_ui.wire_width->setValue(value);
+}
+
+void glitch_canvas_settings::showEvent(QShowEvent *event)
+{
+  QDialog::showEvent(event);
+  m_timer.start();
 }
 
 void glitch_canvas_settings::showPage(const Pages page)

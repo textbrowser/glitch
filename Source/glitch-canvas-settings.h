@@ -226,7 +226,9 @@ class glitch_canvas_settings: public QDialog
   glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
   QString keywordColorsFromTableAsString(void) const;
+  void closeEvent(QCloseEvent *event);
   void prepareKeywordColors(const QString &text);
+  void showEvent(QShowEvent *event);
 
  private slots:
   void accept(void);

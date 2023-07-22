@@ -35,6 +35,7 @@ glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
   m_text = QString("%1()").arg
     (mathematicsTypeToString(stringToMathematicsType(mathematicsType)));
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
@@ -241,6 +242,7 @@ void glitch_object_mathematics_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_mathematics_arduino::setProperty
@@ -261,4 +263,6 @@ void glitch_object_mathematics_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }

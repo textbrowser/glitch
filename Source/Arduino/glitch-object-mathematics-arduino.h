@@ -64,6 +64,47 @@ class glitch_object_mathematics_arduino:
 
   glitch_object_mathematics_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToMathematicsType(m_text))
+      {
+      case Type::ABS:
+      default:
+	{
+	  return "T abs(T x)";
+	}
+      case Type::CONSTRAIN:
+	{
+	  return "T constrain(T amt, T low, T high)";
+	}
+      case Type::MAP:
+	{
+	  return "long map"
+	    "(long x, long in_min, long in_max, long out_min, long out_max)";
+	}
+      case Type::MAX:
+	{
+	  return "T max(T a, T b)";
+	}
+      case Type::MIN:
+	{
+	  return "T min(T a, T b)";
+	}
+      case Type::POW:
+	{
+	  return "double pow(float base, float exponent)";
+	}
+      case Type::SQ:
+	{
+	  return "double sq(T x)";
+	}
+      case Type::SQRT:
+	{
+	  return "double sqrt(T x)";
+	}
+      }
+  }
+
   QString mathematicsTypeToString(const Type type) const
   {
     switch(type)
