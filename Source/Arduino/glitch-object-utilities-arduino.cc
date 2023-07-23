@@ -41,6 +41,7 @@ glitch_object_utilities_arduino::glitch_object_utilities_arduino
     }
 
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_utilities_arduino::glitch_object_utilities_arduino
@@ -154,4 +155,5 @@ void glitch_object_utilities_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }

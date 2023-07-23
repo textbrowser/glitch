@@ -56,6 +56,18 @@ class glitch_object_utilities_arduino: public glitch_object_simple_text_arduino
 
   glitch_object_utilities_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToUtilitiesType(m_text))
+      {
+      case Type::SIZEOF:
+      default:
+	{
+	  return "size_t sizeof(T a)";
+	}
+      }
+  }
+
   QString utilitiesTypeToString(void) const
   {
     switch(stringToUtilitiesType(m_text))
