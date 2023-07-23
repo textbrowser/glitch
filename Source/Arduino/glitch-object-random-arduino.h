@@ -56,6 +56,21 @@ class glitch_object_random_arduino: public glitch_object_simple_text_arduino
 
   glitch_object_random_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToRandomType(m_text))
+      {
+      case Type::RANDOM_SEED:
+	{
+	  return "void randomSeed(unsigned long seed)";
+	}
+      default:
+	{
+	  return "long random(long max) / long random(long min, long max)";
+	}
+      }
+  }
+
   QString randomTypeToString(void) const
   {
     switch(stringToRandomType(m_text))

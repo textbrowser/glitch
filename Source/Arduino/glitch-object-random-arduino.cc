@@ -46,6 +46,7 @@ glitch_object_random_arduino::glitch_object_random_arduino
     }
 
   setName(m_text);
+  setToolTip(description());
 }
 
 glitch_object_random_arduino::glitch_object_random_arduino
@@ -191,6 +192,7 @@ void glitch_object_random_arduino::setProperties(const QStringList &list)
 
   m_text = function;
   setName(m_text);
+  setToolTip(description());
 }
 
 void glitch_object_random_arduino::setProperty
@@ -211,4 +213,6 @@ void glitch_object_random_arduino::setProperty
 	break;
       }
     }
+
+  setToolTip(description());
 }
