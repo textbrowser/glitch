@@ -59,6 +59,26 @@ class glitch_object_trigonometry_arduino:
 
   glitch_object_trigonometry_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToTrigonometryType(m_text))
+      {
+      case Types::COS:
+      default:
+	{
+	  return "double cos(float rad)";
+	}
+      case Types::SIN:
+	{
+	  return "double sin(float rad)";
+	}
+      case Types::TAN:
+	{
+	  return "double tan(float rad)";
+	}
+      }
+  }
+
   QString trigonometryTypeToString(void) const
   {
     switch(stringToTrigonometryType(m_text))
