@@ -58,6 +58,30 @@ class glitch_object_time_arduino: public glitch_object_simple_text_arduino
 
   glitch_object_time_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    switch(stringToTimeType(m_text))
+      {
+      case Type::DELAY:
+      default:
+	{
+	  return "void delay(unsigned long ms)";
+	}
+      case Type::DELAY_MICROSECONDS:
+	{
+	  return "void delayMicroseconds(unsigned int us)";
+	}
+      case Type::MICROS:
+	{
+	  return "unsigned long micros(void)";
+	}
+      case Type::MILLIS:
+	{
+	  return "unsigned long millis(void)";
+	}
+      }
+  }
+
   QString timeTypeToString(void) const
   {
     switch(stringToTimeType(m_text))

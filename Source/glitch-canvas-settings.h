@@ -237,6 +237,7 @@ class glitch_canvas_settings: public QDialog
   void reject(void)
   {
     hide();
+    m_timer.stop();
     setResult(QDialog::Rejected);
   }
 #endif
