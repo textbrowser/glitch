@@ -258,7 +258,6 @@ void glitch_structures_arduino::prepareCategories(void)
   m_categoriesMap[tr("Mathematics")] = "Mathematics";
   m_categoriesMap[tr("Random")] = "Random";
   m_categoriesMap[tr("Serial")] = "Serial";
-  m_categoriesMap[tr("Stream")] = "Stream";
   m_categoriesMap[tr("Structures")] = "Structures";
   m_categoriesMap[tr("Syntax")] = "Syntax";
   m_categoriesMap[tr("Time")] = "Time";
@@ -411,20 +410,6 @@ void glitch_structures_arduino::prepareCategories(void)
 						 << "Serial.setTimeout()"
 						 << "Serial.write()";
   s_itemsForIcons["Serial"] = "serial.png";
-  s_itemsForCategories["Stream"] = QStringList() << "stream.available()"
-						 << "stream.find()"
-						 << "stream.findUntil()"
-						 << "stream.flush()"
-						 << "stream.parseFloat()"
-						 << "stream.parseInt()"
-						 << "stream.peek()"
-						 << "stream.read()"
-						 << "stream.readBytes()"
-						 << "stream.readBytesUntil()"
-						 << "stream.readString()"
-						 << "stream.readStringUntil()"
-						 << "stream.setTimeout()";
-  s_itemsForIcons["Stream"] = "stream.png";
   s_itemsForCategories["Structures"] = QStringList() << "block comment"
 						     << "function()";
   s_itemsForIcons["Structures"] = "structure.png";
