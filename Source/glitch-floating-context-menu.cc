@@ -184,7 +184,9 @@ void glitch_floating_context_menu::closeEvent(QCloseEvent *event)
 void glitch_floating_context_menu::hideEvent(QHideEvent *event)
 {
   QDialog::hideEvent(event);
-  emit closed();
+
+  if(!isVisible()) // Minimized window?
+    emit closed();
 }
 
 void glitch_floating_context_menu::setIdentifier(const qint64 id)

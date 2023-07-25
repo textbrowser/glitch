@@ -239,7 +239,9 @@ void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 void glitch_object_edit_window::hideEvent(QHideEvent *event)
 {
   QMainWindow::hideEvent(event);
-  emit closed();
+
+  if(!isVisible()) // Minimized window?
+    emit closed();
 }
 
 void glitch_object_edit_window::prepareHeader(const QString &text)
