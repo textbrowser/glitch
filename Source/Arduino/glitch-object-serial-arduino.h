@@ -73,6 +73,11 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 
   glitch_object_serial_arduino(const qint64 id, QWidget *parent);
 
+  QString description(void) const
+  {
+    return "";
+  }
+
   QString serialTypeToString(const Type type) const
   {
     switch(type)
