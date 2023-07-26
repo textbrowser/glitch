@@ -75,7 +75,88 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 
   QString description(void) const
   {
-    return "";
+    switch(stringToSerialType(m_text))
+      {
+      case Type::AVAILABLE:
+      default:
+	{
+	  return "int available(void)";
+	}
+      case Type::AVAILABLE_FOR_WRITE:
+	{
+	  return "int availableForWrite(void)";
+	}
+      case Type::BEGIN:
+	{
+	  return "void begin(unsigned long baudrate) / "
+	    "begin(unsigned long baudrate, uint16_t config)";
+	}
+      case Type::END:
+	{
+	  return "void end(void)";
+	}
+      case Type::FIND:
+	{
+	  return "bool find(const char *target) / "
+	    "bool find(const char *target, size_t length)";
+	}
+      case Type::FIND_UNTIL:
+	{
+	  return "findUntil";
+	}
+      case Type::FLUSH:
+	{
+	  return "flush";
+	}
+      case Type::PARSE_FLOAT:
+	{
+	  return "parseFloat";
+	}
+      case Type::PARSE_INT:
+	{
+	  return "parseInt";
+	}
+      case Type::PEEK:
+	{
+	  return "peek";
+	}
+      case Type::PRINT:
+	{
+	  return "print";
+	}
+      case Type::PRINTLN:
+	{
+	  return "println";
+	}
+      case Type::READ:
+	{
+	  return "read";
+	}
+      case Type::READ_BYTES:
+	{
+	  return "readBytes";
+	}
+      case Type::READ_BYTES_UNTIL:
+	{
+	  return "readBytesUntil";
+	}
+      case Type::READ_STRING:
+	{
+	  return "readString";
+	}
+      case Type::READ_STRING_UNTIL:
+	{
+	  return "readStringUntil";
+	}
+      case Type::SET_TIMEOUT:
+	{
+	  return "setTimeout";
+	}
+      case Type::WRITE:
+	{
+	  return "write";
+	}
+      }
   }
 
   QString serialTypeToString(const Type type) const
