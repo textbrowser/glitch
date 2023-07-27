@@ -89,7 +89,7 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
       case Type::BEGIN:
 	{
 	  return "void begin(unsigned long baudrate) / "
-	    "begin(unsigned long baudrate, uint16_t config)";
+	    "void begin(unsigned long baudrate, uint16_t config)";
 	}
       case Type::END:
 	{
@@ -102,19 +102,21 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 	}
       case Type::FIND_UNTIL:
 	{
-	  return "findUntil";
+	  return "bool findUntil(const char *target, const char *terminator)";
 	}
       case Type::FLUSH:
 	{
-	  return "flush";
+	  return "void flush(void)";
 	}
       case Type::PARSE_FLOAT:
 	{
-	  return "parseFloat";
+	  return "float parseFloat(LookaheadMode lookahead = SKIP_ALL, "
+	    "char ignore = NO_IGNORE_CHAR)";
 	}
       case Type::PARSE_INT:
 	{
-	  return "parseInt";
+	  return "long parseInt(LookaheadMode lookahead = SKIP_ALL, "
+	    "char ignore = NO_IGNORE_CHAR)";
 	}
       case Type::PEEK:
 	{
