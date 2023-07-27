@@ -132,11 +132,12 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 	}
       case Type::READ:
 	{
-	  return "read";
+	  return "int read(void)";
 	}
       case Type::READ_BYTES:
 	{
-	  return "readBytes";
+	  return "size_t readBytes(char *buffer, size_t length) / "
+	    "size_t readBytes(uint8_t *buffer, size_t length)";
 	}
       case Type::READ_BYTES_UNTIL:
 	{
