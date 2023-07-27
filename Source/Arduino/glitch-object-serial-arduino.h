@@ -120,15 +120,15 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 	}
       case Type::PEEK:
 	{
-	  return "peek";
+	  return "int read(void)";
 	}
       case Type::PRINT:
 	{
-	  return "print";
+	  return "size_t print(T val, int format)";
 	}
       case Type::PRINTLN:
 	{
-	  return "println";
+	  return "size_t println(T val, int format)";
 	}
       case Type::READ:
 	{
