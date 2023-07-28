@@ -28,10 +28,41 @@
 #include <QFileDialog>
 #include <QToolButton>
 
+#include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
+
+#ifdef Q_OS_ANDROID
+void glitch_ui::copyExamplesForAndroid(void)
+{
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+
+  QDir dir(glitch_misc::homePath());
+
+  dir.mkdir("Examples");
+  dir = QDir("assets:/Examples");
+
+  foreach(const auto &str, dir.entryList())
+    if(!QFileInfo(glitch_misc::homePath() +
+		  QDir::separator() +
+		  "Examples" +
+		  QDir::separator() +
+		  str).exists())
+      {
+	QFile file(dir.absolutePath() + QDir::separator() + str);
+
+	Q_UNUSED(file.copy(glitch_misc::homePath() +
+			   QDir::separator() +
+			   "Examples" +
+			   QDir::separator() +
+			   str));
+      }
+
+  QApplication::restoreOverrideCursor();
+}
+#endif
 
 void glitch_ui::slotAboutToShowProjectMenu(void)
 {

@@ -160,6 +160,7 @@ Completed Items
 - Identifiers are incorrect for function children.
 - Improve detection of invalid variable names.
 - Include Arduino language reference in binary.
+- Include Examples with Android.
 - Include Examples in Debian distributions.
 - Include Examples in MacOS distribution.
 - Indicate wire input / output.
@@ -315,7 +316,6 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
-- Include Examples with Android.
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.

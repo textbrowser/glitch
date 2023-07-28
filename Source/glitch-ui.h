@@ -91,6 +91,9 @@ class glitch_ui: public QMainWindow
 					 const bool fromFile);
   static void clearCopiedObjects(void);
   void closeEvent(QCloseEvent *event);
+#ifdef Q_OS_ANDROID
+  void copyExamplesForAndroid(void);
+#endif
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void prepareFonts(void);

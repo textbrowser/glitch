@@ -287,6 +287,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+#ifdef Q_OS_ANDROID
+  copyExamplesForAndroid();
+#endif
   m_swifty->download();
 #ifndef GLITCH_PDF_SUPPORTED
   m_ui.action_Arduino_Documentation->setEnabled(false);
