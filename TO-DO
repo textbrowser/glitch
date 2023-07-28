@@ -252,6 +252,8 @@ Completed Items
   "viewport" widget.
 - Shadow copies of loop() and setup().
 - Shortcuts in object views.
+- Show expected parameters of Arduino functions. Tool tips or minimal
+  floating dialogs.
 - Show object coordinates in redo / undo text.
 - Single redo / undo stack per diagram.
 - Sort structures for languages.
@@ -324,8 +326,6 @@ Remaining Items
 - Resize after a font is difficult because of redo / undo.
 - Return pointers.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
-- Show expected parameters of Arduino functions. Tool tips or minimal
-  floating dialogs.
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.

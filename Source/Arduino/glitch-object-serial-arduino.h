@@ -141,23 +141,28 @@ class glitch_object_serial_arduino: public glitch_object_simple_text_arduino
 	}
       case Type::READ_BYTES_UNTIL:
 	{
-	  return "readBytesUntil";
+	  return "size_t readBytesUntil(char terminator, char *buffer, "
+	    "size_t length) / "
+	    "size_t readBytesUntil(char terminator, uint8_t *buffer, "
+	    "size_t length)";
 	}
       case Type::READ_STRING:
 	{
-	  return "readString";
+	  return "String readString(void)";
 	}
       case Type::READ_STRING_UNTIL:
 	{
-	  return "readStringUntil";
+	  return "String readStringUntil(char terminator)";
 	}
       case Type::SET_TIMEOUT:
 	{
-	  return "setTimeout";
+	  return "void setTimeout(unsigned long timeout)";
 	}
       case Type::WRITE:
 	{
-	  return "write";
+	  return "size_t write(const char *str) / "
+	    "size_t write(const uint8_t *buffer, size_t size) / "
+	    "size_t write(uint8_t val)";
 	}
       }
   }
