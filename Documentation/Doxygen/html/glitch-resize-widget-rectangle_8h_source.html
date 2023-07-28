@@ -104,7 +104,7 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classglitch__resize__widget__rectangle.html">   33</a></span>&#160;<span class="keyword">class </span><a class="code" href="classglitch__resize__widget__rectangle.html">glitch_resize_widget_rectangle</a>: <span class="keyword">public</span> QGraphicsRectItem</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">enum</span> RectangleLocations</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">enum class</span> RectangleLocations</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    BottomCenter = 0,</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    BottomLeft,</div>
@@ -134,7 +134,13 @@ $(function() {
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> mouseReleaseEvent(QGraphicsSceneMouseEvent *event);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">inline</span> uint qHash</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;(<span class="keyword">const</span> glitch_resize_widget_rectangle::RectangleLocations &amp;key, uint seed)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__resize__widget__rectangle_html"><div class="ttname"><a href="classglitch__resize__widget__rectangle.html">glitch_resize_widget_rectangle</a></div><div class="ttdef"><b>Definition:</b> glitch-resize-widget-rectangle.h:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
