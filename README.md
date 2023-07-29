@@ -23,6 +23,41 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.07.30</p>
+<ul>
+<li>Android: new close buttons, properly close windows
+  (hide() instead of close()), showMaximized() instead of
+  showNormal(), tools menus (menus are shown in separate
+  windows).</li>
+<li>Attached descriptive tool tips to objects.</li>
+<li>Darkmode for Windows.</li>
+<li>Double-clicking a function clone will now launch the function's
+  edit window.</li>
+<li>Edit menu items are now present in the tool bar.</li>
+<li>File menu items are now present in the main window's tool bar.</li>
+<li>Font tool will now cover all widgets of a diagram.</li>
+<li>Generate Source View Periodically is now enabled for new
+  diagrams.</li>
+<li>Intelligent timers preserve resources.</li>
+<li>Linux-like distributions: /usr/local -> /opt.</li>
+<li>New Arduino variable types: BitOrder, PinStatus, pin_size_t,
+  uint8_t, uint16_t.</li>
+<li>New minimum-size-hint methods.</li>
+<li>New tool: Adjust Size(s) (All Widgets).</li>
+<li>New tool: Widget(s) Properties (Selected Widget(s)).</li>
+<li>New widget sizes. Please resize existing widgets!</li>
+<li>Properly sort User Functions whenever a function is added or
+  renamed.</li>
+<li>Qt 6.5.2 LTS for Android.</li>
+<li>Qt 6.5.2 LTS for Windows.</li>
+<li>Removed Stream object as this is an abstract, base class.</li>
+<li>Saving a diagram as PNG image(s).</li>
+<li>Scoped C++ enumerators.</li>
+<li>Special method for installing Examples on Android.</li>
+<li>User Functions are now docked in edit windows.</li>
+<li>Widgets now ignore the application-level font. Widgets provide
+  custom fonts.</li>
+</ul>
 <p>2023.06.30</p>
 <ul>
 <li>A widget may be deleted in glitch_scene::artificialDrop() because
