@@ -1117,8 +1117,8 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 #else
 	  m_editWindow->resize
 	    (QApplication::desktop() ?
-	     QApplication::desktop()->availableGeometry(m_editWindow) / 1.5 :
-	     QSize(800, 600));
+	     QApplication::desktop()->
+	     availableGeometry(m_editWindow).size() / 1.5 : QSize(800, 600));
 #endif
 	  glitch_misc::centerWindow(m_parent, m_editWindow);
 	}
@@ -1610,8 +1610,8 @@ void glitch_object::showEditWindow(void) const
 #else
 	      m_editWindow->resize
 		(QApplication::desktop() ?
-		 QApplication::desktop()->availableGeometry(m_editWindow) /
-		 1.5 :
+		 QApplication::desktop()->
+		 availableGeometry(m_editWindow).size() / 1.5 :
 		 QSize(800, 600));
 #endif
 	      glitch_misc::centerWindow(m_parent, m_editWindow);
