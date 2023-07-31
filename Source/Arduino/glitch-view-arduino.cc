@@ -82,6 +82,10 @@ glitch_view_arduino::glitch_view_arduino
   m_scene->addItem(proxy);
   m_setupObject->setProxy(proxy);
   proxy->setPos(QPointF(m_loopObject->width() + 45.0, 15.0));
+  connect(m_leftSplitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSilentSave(void)));
   connect(m_loopObject,
 	  &glitch_object_loop_arduino::changed,
 	  this,
