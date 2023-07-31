@@ -1632,8 +1632,9 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
 void glitch_scene::slotFunctionDeleted(const QString &name)
 {
   foreach(auto object, objects())
-    if(object && object->name() == name &&
-       object->objectType().contains("function"))
+    if(object &&
+       object->name() == name &&
+       object->objectType() == "arduino-function")
       {
 	if(m_undoStack)
 	  {
@@ -1648,8 +1649,6 @@ void glitch_scene::slotFunctionDeleted(const QString &name)
 	    removeItem(object->proxy());
 	    object->deleteLater();
 	  }
-
-	break;
       }
 }
 
