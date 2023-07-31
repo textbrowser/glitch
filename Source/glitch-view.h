@@ -40,6 +40,7 @@
 class QSplitter;
 class QTreeWidgetItem;
 class glitch_alignment;
+class glitch_canvas_preview;
 class glitch_documentation;
 class glitch_docked_container;
 class glitch_find_objects;
@@ -156,6 +157,7 @@ class glitch_view: public QWidget
   QPointer<glitch_find_objects> m_findObjects;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
+  QSplitter *m_leftSplitter;
   QSplitter *m_splitter;
   QString m_fileName;
   QTimer m_generateSourceViewTimer;
@@ -163,6 +165,7 @@ class glitch_view: public QWidget
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   glitch_alignment *m_alignment;
+  glitch_canvas_preview *m_canvasPreview;
   glitch_canvas_settings *m_canvasSettings;
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;

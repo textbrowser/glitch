@@ -43,6 +43,7 @@
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-canvas-preview.h"
 #include "glitch-documentation.h"
 #include "glitch-docked-container.h"
 #include "glitch-find-objects.h"
@@ -70,6 +71,8 @@ glitch_view::glitch_view
 {
   m_ui.setupUi(this);
   m_alignment = new glitch_alignment(this);
+  m_canvasPreview = new glitch_canvas_preview(this);
+  m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->setFileName(fileName);
   m_canvasSettings->setName(name);
@@ -83,10 +86,10 @@ glitch_view::glitch_view
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
+  m_leftSplitter = new QSplitter(Qt::Vertical, this);
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
-  m_scene = new glitch_scene(m_projectType, this);
   m_scene->setBackgroundBrush(QColor(Qt::white));
   m_scene->setCanvasSettings(m_canvasSettings);
   m_scene->setDotsGridsColor(Qt::white);

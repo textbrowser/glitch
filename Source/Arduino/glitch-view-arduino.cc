@@ -35,6 +35,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
 #include "glitch-find-objects.h"
 #include "glitch-graphicsview.h"
@@ -109,9 +110,13 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
 	  SLOT(slotSilentSave(void)));
+  m_leftSplitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_leftSplitter->addWidget(m_canvasPreview);
+  m_leftSplitter->setStretchFactor(0, 1);
+  m_leftSplitter->setStretchFactor(1, 0);
   m_splitter->addWidget(m_arduinoStructures->frame());
   m_splitter->addWidget(m_view);
-  m_splitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_splitter->addWidget(m_leftSplitter);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);

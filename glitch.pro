@@ -200,6 +200,7 @@ FORMS          += UI/glitch-canvas-settings.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-aware-containers.h \
+                  Source/glitch-canvas-preview.h \
                   Source/glitch-canvas-settings.h \
                   Source/glitch-collapse-expand-tool-button.h \
                   Source/glitch-documentation.h \
@@ -237,6 +238,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-view.h \
                   Source/glitch-wire.h
 SOURCES	       += Source/glitch-alignment.cc \
+                  Source/glitch-canvas-preview.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
                   Source/glitch-documentation.cc \
