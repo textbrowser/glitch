@@ -361,6 +361,7 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 
 void glitch_view_arduino::slotSilentSave(void)
 {
+  m_properties["left_splitter_state"] = m_leftSplitter->saveState();
   m_properties["splitter_state"] = m_splitter->saveState();
   saveProperties();
 }

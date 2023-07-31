@@ -554,7 +554,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	      {
 		auto string(list.at(i));
 
-		if(string.startsWith("splitter_state"))
+		if(string.startsWith("left_splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["left_splitter_state"] = QByteArray::fromBase64
+		      (string.toLatin1());
+		  }
+		else if(string.startsWith("splitter_state"))
 		  {
 		    string = string.mid(string.indexOf('=') + 1);
 		    string.remove("\"");
@@ -563,6 +570,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 	      }
 
+	    m_leftSplitter->restoreState
+	      (m_properties.value("left_splitter_state").toByteArray());
 	    m_splitter->restoreState
 	      (m_properties.value("splitter_state").toByteArray());
 	  }
