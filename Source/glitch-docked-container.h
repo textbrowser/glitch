@@ -30,7 +30,7 @@
 
 #include "ui_glitch-docked-container.h"
 
-class QStandardItemModel;
+class glitch_user_functions_model;
 
 class glitch_docked_container: public QWidget
 {
@@ -43,8 +43,8 @@ class glitch_docked_container: public QWidget
   void detach(void);
 
  private:
-  QStandardItemModel *m_model;
   Ui_glitch_docked_container m_ui;
+  glitch_user_functions_model *m_model;
 
  private slots:
   void slotWidgetClosed(void);

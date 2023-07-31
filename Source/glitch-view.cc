@@ -99,7 +99,7 @@ glitch_view::glitch_view
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setModel
-    (m_userFunctionsModel = new QStandardItemModel(this));
+    (m_userFunctionsModel = new glitch_user_functions_model(this));
   m_userFunctions->setProjectType(m_projectType);
   m_userFunctionsModel->setHorizontalHeaderLabels
     (QStringList() << tr("Function Name"));
@@ -340,11 +340,6 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   this,
 			   SLOT(slotShowUserFunctions(void)));
   return m_contextMenu;
-}
-
-QStandardItemModel *glitch_view::userFunctionsModel(void) const
-{
-  return m_userFunctionsModel;
 }
 
 QString glitch_view::name(void) const
@@ -769,6 +764,11 @@ glitch_tools::Operations glitch_view::toolsOperation(void) const
     return m_tools->operation();
   else
     return glitch_tools::Operations::INTELLIGENT;
+}
+
+glitch_user_functions_model *glitch_view::userFunctionsModel(void) const
+{
+  return m_userFunctionsModel;
 }
 
 qint64 glitch_view::nextId(void) const

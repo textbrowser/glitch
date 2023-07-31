@@ -37,12 +37,12 @@
 
 class QLineEdit;
 class QSplitter;
-class QStandardItemModel;
 class QUndoStack;
 class glitch_docked_container;
 class glitch_object_view;
 class glitch_structures_arduino;
 class glitch_user_functions;
+class glitch_user_functions_model;
 
 class glitch_object_edit_window: public QMainWindow
 {
@@ -61,7 +61,7 @@ class glitch_object_edit_window: public QMainWindow
   void setEditView(glitch_object_view *view);
   void setToolBarVisible(const bool state);
   void setUndoStack(QUndoStack *undoStack);
-  void setUserFunctionsModel(QStandardItemModel *model);
+  void setUserFunctionsModel(glitch_user_functions_model *model);
 
  public slots:
   void slotPreferencesAccepted(void);

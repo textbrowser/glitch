@@ -46,6 +46,10 @@ glitch_user_functions::glitch_user_functions(QWidget *parent):QDialog(parent)
 	  this,
 	  &glitch_user_functions::close);
 #endif
+  connect(m_ui.functions,
+	  SIGNAL(doubleClicked(const QModelIndex &)),
+	  this,
+	  SLOT(slotDoubleClicked(const QModelIndex &)));
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.functions->horizontalHeader()->setSortIndicator(0, Qt::AscendingOrder);
   m_ui.functions->horizontalHeader()->setSortIndicatorShown(true);
@@ -143,7 +147,7 @@ void glitch_user_functions::renameFunction(const QString &before,
   QApplication::restoreOverrideCursor();
 }
 
-void glitch_user_functions::setModel(QStandardItemModel *model)
+void glitch_user_functions::setModel(glitch_user_functions_model *model)
 {
   if(model && m_model == nullptr)
     {
@@ -156,4 +160,10 @@ void glitch_user_functions::setProjectType
 (const glitch_common::ProjectTypes projectType)
 {
   m_ui.functions->setProjectType(projectType);
+}
+
+void glitch_user_functions::slotDoubleClicked(const QModelIndex &index)
+{
+  if(m_model)
+    m_model->openFunction(index);
 }

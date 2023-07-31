@@ -511,7 +511,8 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
     }
 }
 
-void glitch_object_edit_window::setUserFunctionsModel(QStandardItemModel *model)
+void glitch_object_edit_window::setUserFunctionsModel
+(glitch_user_functions_model *model)
 {
   m_userFunctions->setModel(model);
 }

@@ -318,13 +318,14 @@ Remaining Items
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
 - Interactive shell.
+- Miniture view.
 - Nested flow-control scenes.
 - Periodic backup.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - QSerialPort for direct communications with Arduino boards.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
-- Return pointers.
+- Return pointers for functions.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.

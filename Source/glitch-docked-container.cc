@@ -26,15 +26,15 @@
 */
 
 #include <QShortcut>
-#include <QStandardItemModel>
 
 #include "glitch-docked-container.h"
 #include "glitch-floating-context-menu.h"
+#include "glitch-user-functions-model.h"
 
 glitch_docked_container::glitch_docked_container(QWidget *parent):
   QWidget(parent)
 {
-  m_model = new QStandardItemModel(this);
+  m_model = new glitch_user_functions_model(this);
   m_model->setHorizontalHeaderLabels
     (QStringList() << tr("Widget Property Editors"));
   m_ui.setupUi(this);

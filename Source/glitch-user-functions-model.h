@@ -25,35 +25,25 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_user_functions_h_
-#define _glitch_user_functions_h_
+#ifndef _glitch_user_functions_model_h_
+#define _glitch_user_functions_model_h_
 
 #include <QPointer>
+#include <QStandardItemModel>
 
-#include "glitch-user-functions-model.h"
-#include "ui_glitch-user-functions.h"
+class glitch_view;
 
-class glitch_user_functions: public QDialog
+class glitch_user_functions_model: public QStandardItemModel
 {
   Q_OBJECT
 
  public:
-  glitch_user_functions(QWidget *parent);
-  ~glitch_user_functions();
-  QFrame *frame(void) const;
-  bool contains(const QString &name) const;
-  void addFunction(const QString &name);
-  void deleteFunction(const QString &name);
-  void renameFunction(const QString &before, const QString &after);
-  void setModel(glitch_user_functions_model *model);
-  void setProjectType(const glitch_common::ProjectTypes projectType);
+  glitch_user_functions_model(QObject *parent);
+  ~glitch_user_functions_model();
+  void openFunction(const QModelIndex &index);
 
  private:
-  QPointer<glitch_user_functions_model> m_model;
-  Ui_glitch_user_functions m_ui;
-
- private slots:
-  void slotDoubleClicked(const QModelIndex &index);
+  QPointer<glitch_view> m_view;
 };
 
 #endif

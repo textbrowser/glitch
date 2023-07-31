@@ -32,6 +32,7 @@
 #include <QSqlQuery>
 #include <QTextStream>
 
+#include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-alignment.h"
 #include "glitch-docked-container.h"
@@ -303,6 +304,20 @@ void glitch_view_arduino::generateSourceFile(void) const
     }
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_view_arduino::openFunction(const QString &name) const
+{
+  foreach(auto w, scene()->objects())
+    {
+      auto f = qobject_cast<glitch_object_function_arduino *> (w);
+
+      if(f && f->name() == name)
+	{
+	  f->showEditWindow();
+	  break;
+	}
+    }
 }
 
 void glitch_view_arduino::removeFunctionName(const QString &name)

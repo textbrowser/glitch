@@ -1759,6 +1759,9 @@ void glitch_object::slotClearTemporaryContainers(void)
 
 void glitch_object::slotCompress(void)
 {
+  if(m_actions.value(DefaultMenuActions::COMPRESS_WIDGET, nullptr) == nullptr)
+    createActions();
+
   if(m_actions.value(DefaultMenuActions::COMPRESS_WIDGET, nullptr) == nullptr ||
      m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->isEnabled() == false)
     return;
@@ -1797,6 +1800,9 @@ void glitch_object::slotHideOrShowOccupied(void)
 
 void glitch_object::slotLockPosition(void)
 {
+  if(m_actions.value(DefaultMenuActions::LOCK_POSITION, nullptr) == nullptr)
+     createActions();
+
   if(m_actions.value(DefaultMenuActions::LOCK_POSITION, nullptr) == nullptr ||
      m_actions.value(DefaultMenuActions::LOCK_POSITION)->isEnabled() == false)
     return;

@@ -38,7 +38,6 @@
 #include "ui_glitch-view.h"
 
 class QSplitter;
-class QStandardItemModel;
 class QTreeWidgetItem;
 class glitch_alignment;
 class glitch_documentation;
@@ -52,6 +51,7 @@ class glitch_syntax_highlighter;
 class glitch_tools;
 class glitch_undo_command;
 class glitch_user_functions;
+class glitch_user_functions_model;
 class glitch_wire;
 
 class glitch_view: public QWidget
@@ -78,7 +78,6 @@ class glitch_view: public QWidget
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
-  QStandardItemModel *userFunctionsModel(void) const;
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;
@@ -93,6 +92,7 @@ class glitch_view: public QWidget
   glitch_graphicsview *view(void) const;
   glitch_scene *scene(void) const;
   glitch_tools::Operations toolsOperation(void) const;
+  glitch_user_functions_model *userFunctionsModel(void) const;
   qint64 nextId(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual QString source(void) const;
@@ -100,6 +100,7 @@ class glitch_view: public QWidget
   virtual bool open(const QString &fileName, QString &error);
   virtual void generateSourceClipboard(void) const;
   virtual void generateSourceFile(void) const;
+  virtual void openFunction(const QString &name) const = 0;
   virtual void separate(void) = 0;
   virtual void unite(void) = 0;
   void beginMacro(const QString &text);
@@ -156,7 +157,6 @@ class glitch_view: public QWidget
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
   QSplitter *m_splitter;
-  QStandardItemModel *m_userFunctionsModel;
   QString m_fileName;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
@@ -169,6 +169,7 @@ class glitch_view: public QWidget
   glitch_graphicsview *m_view;
   glitch_scene *m_scene;
   glitch_user_functions *m_userFunctions;
+  glitch_user_functions_model *m_userFunctionsModel;
   bool saveImplementation(const QString &fileName, QString &error);
   virtual void generateSource(QTextStream &stream) const;
   void adjustScrollBars(void);

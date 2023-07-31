@@ -25,35 +25,23 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_user_functions_h_
-#define _glitch_user_functions_h_
-
-#include <QPointer>
-
 #include "glitch-user-functions-model.h"
-#include "ui_glitch-user-functions.h"
+#include "glitch-view.h"
 
-class glitch_user_functions: public QDialog
+glitch_user_functions_model::glitch_user_functions_model
+(QObject *parent):QStandardItemModel(parent)
 {
-  Q_OBJECT
+  m_view = qobject_cast<glitch_view *> (parent);
+}
 
- public:
-  glitch_user_functions(QWidget *parent);
-  ~glitch_user_functions();
-  QFrame *frame(void) const;
-  bool contains(const QString &name) const;
-  void addFunction(const QString &name);
-  void deleteFunction(const QString &name);
-  void renameFunction(const QString &before, const QString &after);
-  void setModel(glitch_user_functions_model *model);
-  void setProjectType(const glitch_common::ProjectTypes projectType);
+glitch_user_functions_model::~glitch_user_functions_model()
+{
+}
 
- private:
-  QPointer<glitch_user_functions_model> m_model;
-  Ui_glitch_user_functions m_ui;
+void glitch_user_functions_model::openFunction(const QModelIndex &index)
+{
+  if(!index.isValid() || !m_view)
+    return;
 
- private slots:
-  void slotDoubleClicked(const QModelIndex &index);
-};
-
-#endif
+  m_view->openFunction(index.data().toString());
+}
