@@ -36,6 +36,15 @@ glitch_canvas_preview::~glitch_canvas_preview()
 {
 }
 
+void glitch_canvas_preview::resizeEvent(QResizeEvent *event)
+{
+  QWidget::resizeEvent(event);
+  m_ui.view->fitInView
+    (QRectF(QPointF(0.0, 0.0), 2.5 * QSizeF(size())),
+     Qt::KeepAspectRatioByExpanding);
+  m_ui.view->centerOn(QPointF(0.0, 0.0));
+}
+
 void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 {
   if(scene)
@@ -45,9 +54,6 @@ void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 	      this,
 	      SLOT(slotSceneRectChanged(const QRectF &)),
 	      Qt::UniqueConnection);
-      m_ui.view->fitInView
-	(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
-      m_ui.view->centerOn(QPointF(0.0, 0.0));
       m_ui.view->setScene(scene);
     }
 }
@@ -55,6 +61,4 @@ void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 void glitch_canvas_preview::slotSceneRectChanged(const QRectF &rect)
 {
   Q_UNUSED(rect);
-  m_ui.view->fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
-  m_ui.view->centerOn(QPointF(0.0, 0.0));
 }

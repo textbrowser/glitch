@@ -41,6 +41,7 @@ class glitch_canvas_preview: public QWidget
 
  private:
   Ui_glitch_canvas_preview m_ui;
+  void resizeEvent(QResizeEvent *event);
 
  private slots:
   void slotSceneRectChanged(const QRectF &rect);
