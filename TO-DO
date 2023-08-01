@@ -80,6 +80,7 @@ Completed Items
 - Copy wires. Very difficult.
 - Correct drag & drop of -= operator.
 - Custom input and output port colors.
+- Dark mode on Windows. Fusion.
 - Define databases.
 - Define input parameters from connected objects. Order is also important.
 - Delegate object constructors.
@@ -313,7 +314,6 @@ Remaining Items
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
-- Dark mode on Windows.
 - Display context cursor as mouse hovers over a port.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
