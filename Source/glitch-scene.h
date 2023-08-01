@@ -75,6 +75,7 @@ class glitch_scene: public QGraphicsScene
   void deleteItems(void);
   void disconnectWireIfNecessary(glitch_wire *wire);
   void purgeRedoUndoProxies(void);
+  void redo(void);
   void removeItem(QGraphicsItem *item);
   void saveWires(const QSqlDatabase &db, QString &error);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
@@ -83,6 +84,7 @@ class glitch_scene: public QGraphicsScene
   void setShowCanvasDots(const bool state);
   void setShowCanvasGrids(const bool state);
   void setUndoStack(QUndoStack *undoStack);
+  void undo(void);
 
  private:
   QColor m_dotsGridsColor;
@@ -113,8 +115,6 @@ class glitch_scene: public QGraphicsScene
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
   void recordProxyOrder(glitch_proxy_widget *proxy);
-  void redo(void);
-  void undo(void);
   void wireConnectObjects(glitch_proxy_widget *proxy);
   void wireDisconnectObjects(const QPointF &point, glitch_proxy_widget *proxy);
   void wireDisconnectObjects(glitch_proxy_widget *proxy);

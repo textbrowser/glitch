@@ -82,10 +82,6 @@ glitch_view_arduino::glitch_view_arduino
   m_scene->addItem(proxy);
   m_setupObject->setProxy(proxy);
   proxy->setPos(QPointF(m_loopObject->width() + 45.0, 15.0));
-  connect(m_leftSplitter,
-	  SIGNAL(splitterMoved(int, int)),
-	  this,
-	  SLOT(slotSilentSave(void)));
   connect(m_loopObject,
 	  &glitch_object_loop_arduino::changed,
 	  this,
@@ -94,6 +90,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(dockPropertyEditor(QWidget *)),
 	  this,
 	  SLOT(slotDockPropertyEditor(QWidget *)));
+  connect(m_rightSplitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSilentSave(void)));
   connect(m_scene,
 	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
@@ -114,13 +114,13 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
 	  SLOT(slotSilentSave(void)));
-  m_leftSplitter->addWidget(m_dockedWidgetPropertyEditors);
-  m_leftSplitter->addWidget(m_canvasPreview);
-  m_leftSplitter->setStretchFactor(0, 1);
-  m_leftSplitter->setStretchFactor(1, 0);
+  m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_rightSplitter->addWidget(m_canvasPreview);
+  m_rightSplitter->setStretchFactor(0, 1);
+  m_rightSplitter->setStretchFactor(1, 0);
   m_splitter->addWidget(m_arduinoStructures->frame());
   m_splitter->addWidget(m_view);
-  m_splitter->addWidget(m_leftSplitter);
+  m_splitter->addWidget(m_rightSplitter);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);
@@ -365,7 +365,7 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 
 void glitch_view_arduino::slotSilentSave(void)
 {
-  m_properties["left_splitter_state"] = m_leftSplitter->saveState();
+  m_properties["right_splitter_state"] = m_rightSplitter->saveState();
   m_properties["splitter_state"] = m_splitter->saveState();
   saveProperties();
 }

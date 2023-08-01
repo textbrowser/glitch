@@ -56,14 +56,14 @@ void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 	      this,
 	      SLOT(slotSceneRectChanged(const QRectF &)),
 	      Qt::UniqueConnection);
-      fitInView(QRectF(QPointF(0.0, 0.0), scene->sceneRect().size() / 4.0),
-		Qt::KeepAspectRatioByExpanding);
+      fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
       centerOn(QPointF(0.0, 0.0));
     }
 }
 
 void glitch_canvas_preview::slotSceneRectChanged(const QRectF &rect)
 {
-  fitInView(QRectF(QPointF(0.0, 0.0), rect.size() / 4.0),
-	    Qt::KeepAspectRatioByExpanding);
+  Q_UNUSED(rect);
+  fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
+  centerOn(QPointF(0.0, 0.0));
 }

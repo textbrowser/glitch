@@ -157,7 +157,7 @@ class glitch_view: public QWidget
   QPointer<glitch_find_objects> m_findObjects;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
-  QSplitter *m_leftSplitter;
+  QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
   QString m_fileName;
   QTimer m_generateSourceViewTimer;

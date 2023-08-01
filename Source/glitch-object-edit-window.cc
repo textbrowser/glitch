@@ -35,6 +35,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-misc.h"
@@ -146,6 +147,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  &QAction::triggered,
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
+  m_canvasPreview = new glitch_canvas_preview(this);
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
@@ -171,6 +173,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_miscellaneousToolBar->setVisible(true);
   m_object = object;
   m_projectType = projectType;
+  m_rightSplitter = new QSplitter(Qt::Vertical, this);
   m_splitter = new QSplitter(this);
   m_toolsToolBar = new QToolBar(tr("Tools Tool Bar"), this);
   m_toolsToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -183,6 +186,10 @@ glitch_object_edit_window::glitch_object_edit_window
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
   addToolBar(m_miscellaneousToolBar);
+  connect(m_rightSplitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSplitterMoved(void)));
   connect(m_splitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
@@ -430,7 +437,11 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
   frame->layout()->addWidget(m_splitter);
   frame->layout()->setContentsMargins(5, 5, 5, 5);
   frame->layout()->setSpacing(5);
-  m_splitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
+  m_rightSplitter->addWidget(m_canvasPreview);
+  m_rightSplitter->setStretchFactor(0, 1);
+  m_rightSplitter->setStretchFactor(1, 0);
+  m_splitter->addWidget(m_rightSplitter);
   m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
   QMainWindow::setCentralWidget(frame);
 }
@@ -470,6 +481,7 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 	      &glitch_scene::selectionChanged,
 	      this,
 	      &glitch_object_edit_window::slotAboutToShowEditMenu);
+      m_canvasPreview->setScene(m_editView->scene());
     }
 }
 
@@ -526,6 +538,13 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       (m_object ?
        m_object->property(glitch_object::Properties::
 			  STRUCTURES_VIEW_LEFT_SPLITTER_STATE).toByteArray() :
+       QByteArray());
+
+  if(m_rightSplitter)
+    m_rightSplitter->restoreState
+      (m_object ?
+       m_object->property(glitch_object::Properties::
+			  STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).toByteArray() :
        QByteArray());
 
   if(m_splitter)
@@ -679,6 +698,11 @@ void glitch_object_edit_window::slotSplitterMoved(void)
       if(m_leftSplitter == splitter)
 	m_object->setProperty
 	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
+	   splitter->saveState());
+
+      if(m_rightSplitter == splitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_RIGHT_SPLITTER_STATE,
 	   splitter->saveState());
 
       if(m_splitter == splitter)

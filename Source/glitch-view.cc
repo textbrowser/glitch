@@ -86,10 +86,10 @@ glitch_view::glitch_view
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
-  m_leftSplitter = new QSplitter(Qt::Vertical, this);
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
+  m_rightSplitter = new QSplitter(Qt::Vertical, this);
   m_scene->setBackgroundBrush(QColor(Qt::white));
   m_scene->setCanvasSettings(m_canvasSettings);
   m_scene->setDotsGridsColor(Qt::white);
@@ -554,12 +554,12 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	      {
 		auto string(list.at(i));
 
-		if(string.startsWith("left_splitter_state"))
+		if(string.startsWith("right_splitter_state"))
 		  {
 		    string = string.mid(string.indexOf('=') + 1);
 		    string.remove("\"");
-		    m_properties["left_splitter_state"] = QByteArray::fromBase64
-		      (string.toLatin1());
+		    m_properties["right_splitter_state"] =
+		      QByteArray::fromBase64(string.toLatin1());
 		  }
 		else if(string.startsWith("splitter_state"))
 		  {
@@ -570,8 +570,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 	      }
 
-	    m_leftSplitter->restoreState
-	      (m_properties.value("left_splitter_state").toByteArray());
+	    m_rightSplitter->restoreState
+	      (m_properties.value("right_splitter_state").toByteArray());
 	    m_splitter->restoreState
 	      (m_properties.value("splitter_state").toByteArray());
 	  }
@@ -1104,11 +1104,7 @@ void glitch_view::push(glitch_undo_command *undoCommand)
 
 void glitch_view::redo(void)
 {
-  if(m_undoStack->canRedo())
-    {
-      m_undoStack->redo();
-      slotChanged();
-    }
+  m_scene->redo();
 }
 
 void glitch_view::reparent(void)
@@ -1671,9 +1667,5 @@ void glitch_view::slotUnite(void)
 
 void glitch_view::undo(void)
 {
-  if(m_undoStack->canUndo())
-    {
-      m_undoStack->undo();
-      slotChanged();
-    }
+  m_scene->undo();
 }
