@@ -351,3 +351,7 @@ pasting of objects.</li>
 <ul>
 <li>Initial release!</li>
 </ul>
+<p>2004.09.25</p>
+<ul>
+<li>An idea is born.</li>
+</ul>
