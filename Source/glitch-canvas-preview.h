@@ -28,9 +28,9 @@
 #ifndef _glitch_canvas_preview_h_
 #define _glitch_canvas_preview_h_
 
-#include <QGraphicsView>
+#include "ui_glitch-canvas-preview.h"
 
-class glitch_canvas_preview: public QGraphicsView
+class glitch_canvas_preview: public QWidget
 {
   Q_OBJECT
 
@@ -38,6 +38,9 @@ class glitch_canvas_preview: public QGraphicsView
   glitch_canvas_preview(QWidget *parent);
   ~glitch_canvas_preview();
   void setScene(QGraphicsScene *scene);
+
+ private:
+  Ui_glitch_canvas_preview m_ui;
 
  private slots:
   void slotSceneRectChanged(const QRectF &rect);

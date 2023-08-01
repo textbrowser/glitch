@@ -27,18 +27,9 @@
 
 #include "glitch-canvas-preview.h"
 
-glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):
-  QGraphicsView(parent)
+glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 {
-  setAlignment(Qt::AlignLeft | Qt::AlignTop);
-  setCacheMode(QGraphicsView::CacheNone);
-  setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  setInteractive(false);
-  setRenderHints(QPainter::Antialiasing |
-		 QPainter::SmoothPixmapTransform |
-		 QPainter::TextAntialiasing);
-  setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-  setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+  m_ui.setupUi(this);
 }
 
 glitch_canvas_preview::~glitch_canvas_preview()
@@ -47,8 +38,6 @@ glitch_canvas_preview::~glitch_canvas_preview()
 
 void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 {
-  QGraphicsView::setScene(scene);
-
   if(scene)
     {
       connect(scene,
@@ -56,14 +45,16 @@ void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 	      this,
 	      SLOT(slotSceneRectChanged(const QRectF &)),
 	      Qt::UniqueConnection);
-      fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
-      centerOn(QPointF(0.0, 0.0));
+      m_ui.view->fitInView
+	(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
+      m_ui.view->centerOn(QPointF(0.0, 0.0));
+      m_ui.view->setScene(scene);
     }
 }
 
 void glitch_canvas_preview::slotSceneRectChanged(const QRectF &rect)
 {
   Q_UNUSED(rect);
-  fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
-  centerOn(QPointF(0.0, 0.0));
+  m_ui.view->fitInView(0.0, 0.0, 350.0, 350.0, Qt::KeepAspectRatioByExpanding);
+  m_ui.view->centerOn(QPointF(0.0, 0.0));
 }

@@ -183,7 +183,8 @@ RCC_DIR     = temp/rcc
 RESOURCES   = Documentation/documentation.qrc Icons/icons.qrc
 UI_DIR      = temp/ui
 
-FORMS          += UI/glitch-canvas-settings.ui \
+FORMS          += UI/glitch-canvas-preview.ui \
+                  UI/glitch-canvas-settings.ui \
                   UI/glitch-documentation.ui \
                   UI/glitch-docked-container.ui \
                   UI/glitch-errors-dialog.ui \
