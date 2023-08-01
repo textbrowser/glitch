@@ -48,17 +48,5 @@ void glitch_canvas_preview::resizeEvent(QResizeEvent *event)
 void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 {
   if(scene)
-    {
-      connect(scene,
-	      SIGNAL(sceneRectChanged(const QRectF &)),
-	      this,
-	      SLOT(slotSceneRectChanged(const QRectF &)),
-	      Qt::UniqueConnection);
-      m_ui.view->setScene(scene);
-    }
-}
-
-void glitch_canvas_preview::slotSceneRectChanged(const QRectF &rect)
-{
-  Q_UNUSED(rect);
+    m_ui.view->setScene(scene);
 }
