@@ -199,6 +199,14 @@ glitch_object_edit_window::glitch_object_edit_window
   resize(800, 600);
 }
 
+QString glitch_object_edit_window::objectName(void) const
+{
+  if(m_object)
+    return m_object->name();
+  else
+    return tr("None");
+}
+
 QWidget *glitch_object_edit_window::centralWidget(void) const
 {
   auto frame = qobject_cast<QFrame *> (QMainWindow::centralWidget());

@@ -183,7 +183,7 @@ void glitch_find_objects::slotCustomContextMenuRequested(const QPoint &point)
 
   if(item && item->object())
     {
-      QMenu menu;
+      QMenu menu(this);
 
       item->object()->addActions(menu);
 

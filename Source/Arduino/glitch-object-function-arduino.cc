@@ -628,8 +628,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 
 void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
 {
-  Q_UNUSED(event);
-  slotEdit();
+  glitch_object::mouseDoubleClickEvent(event);
 }
 
 void glitch_object_function_arduino::save

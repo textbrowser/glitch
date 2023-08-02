@@ -948,10 +948,10 @@ void glitch_object::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QWidget::mouseDoubleClickEvent(event);
 
-  if(m_editView)
-    showEditWindow();
-  else
-    slotShowContextMenu();
+  QMenu menu;
+
+  addActions(menu);
+  menu.exec(QCursor::pos());
 }
 
 void glitch_object::move(const QPoint &point)

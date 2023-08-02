@@ -54,6 +54,7 @@ class glitch_object_edit_window: public QMainWindow
 			    glitch_object *object,
 			    QWidget *parent);
   ~glitch_object_edit_window();
+  QString objectName(void) const;
   QWidget *centralWidget(void) const;
   void prepareHeader(const QString &text);
   void prepareToolBars(const QList<QAction *> &actions);
