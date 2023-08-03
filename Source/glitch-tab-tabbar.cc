@@ -136,6 +136,11 @@ preferredCloseButtonPositionOpposite(void) const
 
 void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
+#ifdef Q_OS_ANDROID
+  QTabBar::mouseMoveEvent(event);
+  return;
+#endif
+
   if(!(QGuiApplication::keyboardModifiers() & Qt::ControlModifier) ||
      !(event) ||
      !(event->buttons() & Qt::LeftButton))

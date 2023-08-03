@@ -315,6 +315,7 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   this,
 			   SLOT(slotShowTools(void)));
   m_contextMenu->addSeparator();
+#ifndef Q_OS_ANDROID
   action = m_contextMenu->addAction(tr("Se&parate Canvas..."),
 				    this,
 				    SLOT(slotSeparate(void)));
@@ -334,6 +335,7 @@ QMenu *glitch_view::defaultContextMenu(void)
     action->setEnabled(false);
 
   m_contextMenu->addSeparator();
+#endif
   m_contextMenu->addAction(tr("Show Canvas &Settings..."),
 			   this,
 			   SLOT(slotShowCanvasSettings(void)))->

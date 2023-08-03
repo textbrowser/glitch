@@ -949,7 +949,13 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
 	(m_currentView && m_currentView->scene()->items().size() > 0);
+#ifdef Q_OS_ANDROID
+      m_ui.action_Separate_Current_Canvas->setEnabled(false);
+      m_ui.action_Separate_Current_Canvas->setText
+	(tr("Separate Current Canvas (Android)");
+#else
       m_ui.action_Separate_Current_Canvas->setEnabled(m_currentView);
+#endif
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
