@@ -600,6 +600,11 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      SIGNAL(changed(const QList<QRectF> &)),
 			      wire,
 			      SLOT(slotUpdate(const QList<QRectF> &)));
+		      connect(wire,
+			      &glitch_wire::disconnectWireIfNecessary,
+			      object1->scene(),
+			      &glitch_scene::slotDisconnectWireIfNecessary,
+			      Qt::QueuedConnection);
 		      m_delayedWires << wire;
 		      object1->scene()->addItem(wire);
 		      object1->setWiredObject(object2, wire);

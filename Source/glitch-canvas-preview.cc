@@ -40,7 +40,7 @@ void glitch_canvas_preview::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
   m_ui.view->fitInView
-    (QRectF(QPointF(0.0, 0.0), (isVisible() ? 2.5 : 1.0) * QSizeF(size())),
+    (QRectF(QPointF(0.0, 0.0), (isVisible() ? 2.5 : 0.5) * QSizeF(size())),
      Qt::KeepAspectRatioByExpanding);
   m_ui.view->centerOn(QPointF(0.0, 0.0));
 }

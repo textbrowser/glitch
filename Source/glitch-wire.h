@@ -83,6 +83,9 @@ class glitch_wire: public QGraphicsObject
 
  private slots:
   void slotUpdate(const QList<QRectF> &region);
+
+ signals:
+  void disconnectWireIfNecessary(void);
 };
 
 #endif

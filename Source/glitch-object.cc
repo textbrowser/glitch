@@ -2204,6 +2204,11 @@ void glitch_object::slotWireObjects(void)
 		  SIGNAL(changed(const QList<QRectF> &)),
 		  wire,
 		  SLOT(slotUpdate(const QList<QRectF> &)));
+	  connect(wire,
+		  &glitch_wire::disconnectWireIfNecessary,
+		  scene,
+		  &glitch_scene::slotDisconnectWireIfNecessary,
+		  Qt::QueuedConnection);
 	  object1->setWiredObject(object2, wire);
 	  object2->setWiredObject(object1, wire);
 	  scene->addItem(wire);

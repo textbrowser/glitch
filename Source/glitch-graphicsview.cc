@@ -61,25 +61,22 @@ void glitch_graphicsview::leaveEvent(QEvent *event)
   emit mouseLeaveEvent();
 }
 
+void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  QGraphicsView::mouseDoubleClickEvent(event);
+
+  if(event && scene())
+    if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
+      emit customContextMenuRequested
+	(event ? mapToParent(event->pos()) : QPoint());
+}
+
 void glitch_graphicsview::mouseMoveEvent(QMouseEvent *event)
 {
   QGraphicsView::mouseMoveEvent(event);
 
   if(event && event->buttons() == Qt::LeftButton)
     scroll(event->pos());
-}
-
-void glitch_graphicsview::mousePressEvent(QMouseEvent *event)
-{
-  QGraphicsView::mousePressEvent(event);
-
-  if(event &&
-     event->button() == Qt::LeftButton &&
-     event->modifiers() & Qt::ControlModifier &&
-     scene())
-    if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
-      emit customContextMenuRequested
-	(event ? mapToParent(event->pos()) : QPoint());
 }
 
 void glitch_graphicsview::scroll(const QPoint &point)

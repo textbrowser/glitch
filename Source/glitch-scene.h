@@ -73,7 +73,6 @@ class glitch_scene: public QGraphicsScene
   void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object, bool &ok);
   void deleteItems(void);
-  void disconnectWireIfNecessary(glitch_wire *wire);
   void purgeRedoUndoProxies(void);
   void redo(void);
   void removeItem(QGraphicsItem *item);
@@ -106,6 +105,7 @@ class glitch_scene: public QGraphicsScene
   bool event(QEvent *event);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
+  void disconnectWireIfNecessary(glitch_wire *wire);
   void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
   void dragMoveEvent(QGraphicsSceneDragDropEvent *event);
   void drawBackground(QPainter *painter, const QRectF &rect);
@@ -120,6 +120,7 @@ class glitch_scene: public QGraphicsScene
   void wireDisconnectObjects(glitch_proxy_widget *proxy);
 
  public slots:
+  void slotDisconnectWireIfNecessary(void);
   void slotSelectedWidgetsAdjustSize(void);
   void slotSelectedWidgetsCompress(void);
   void slotSelectedWidgetsDisconnect(void);

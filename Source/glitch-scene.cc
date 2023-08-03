@@ -1352,10 +1352,10 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		}
 	    }
 	}
-      else if(m_toolsOperation == glitch_tools::Operations::SELECT)
+      else
 	clearSelection();
     }
-  else if(m_toolsOperation == glitch_tools::Operations::SELECT)
+  else
     clearSelection();
 
  done_label:
@@ -1627,6 +1627,11 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
   setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   update();
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_scene::slotDisconnectWireIfNecessary(void)
+{
+  disconnectWireIfNecessary(qobject_cast<glitch_wire *> (sender()));
 }
 
 void glitch_scene::slotFunctionDeleted(const QString &name)
@@ -1911,6 +1916,11 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
 		  SIGNAL(changed(const QList<QRectF> &)),
 		  wire,
 		  SLOT(slotUpdate(const QList<QRectF> &)));
+	  connect(wire,
+		  &glitch_wire::disconnectWireIfNecessary,
+		  this,
+		  &glitch_scene::slotDisconnectWireIfNecessary,
+		  Qt::QueuedConnection);
 
 	  if(m_undoStack)
 	    {
