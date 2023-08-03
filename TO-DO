@@ -19,6 +19,15 @@ Completed Items
 - Allow removal of wire by click.
 - Allow setting of function names.
 - Android release.
+- Android:
+  Adding user functions via drag (Completed)
+  Application icon (Completed)
+  Close buttons (Completed)
+  Context menus (Completed)
+  Display widget property editors via double-click (Completed)
+  Drag & drop (Completed)
+  Proper window hiding via hide() (Completed)
+  Tools button (Completed)
 - Apply canvas settings.
 - Arduino icons.
 - Arithmetic and subtraction (-). Special parsing.
@@ -302,15 +311,6 @@ Completed Items
 
 Remaining Items
 
-- Android:
-  Adding user functions via drag (Completed)
-  Application icon (Completed)
-  Close buttons (Completed)
-  Context menus (Incomplete)
-  Display widget property editors via double-click (Incomplete)
-  Drag & drop (Completed)
-  Proper window hiding via hide() (Completed)
-  Tools button (Completed)
 - Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
