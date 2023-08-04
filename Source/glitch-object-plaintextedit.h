@@ -57,7 +57,7 @@ class glitch_object_plaintextedit: public QPlainTextEdit
     else
       QApplication::setOverrideCursor(QCursor(Qt::IBeamCursor));
 
-    QPlainTextEdit::leaveEvent(event);
+    QPlainTextEdit::enterEvent(event);
   }
 
   void leaveEvent(QEvent *event)
