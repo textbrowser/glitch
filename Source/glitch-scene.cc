@@ -64,6 +64,7 @@
 #include "glitch-graphicsview.h"
 #include "glitch-misc.h"
 #include "glitch-object-arrow.h"
+#include "glitch-object-view.h"
 #include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
@@ -100,6 +101,16 @@ glitch_scene::~glitch_scene()
 {
   if(m_canvasSettings)
     disconnect(m_canvasSettings, nullptr, this, nullptr);
+}
+
+QGraphicsView *glitch_scene::primaryView(void) const
+{
+  foreach(auto view, views())
+    if(qobject_cast<glitch_graphicsview *> (view) ||
+       qobject_cast<glitch_object_view *> (view))
+      return view;
+
+  return nullptr;
 }
 
 QList<glitch_object *> glitch_scene::allObjects(void) const
@@ -482,9 +493,9 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
       ** If the function does not exist, it is not a clone.
       */
 
-      auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
+      auto view = qobject_cast<glitch_graphicsview *> (primaryView());
 
-      if(view && !view->containsFunction(function->name()))
+      if(view && view->containsFunction(function->name()) == false)
 	emit functionAdded(function->name(), false);
       else
 	emit functionAdded(function->name(), function->isClone());
@@ -859,7 +870,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
       if(allowDrag(event, text))
 	{
-	  auto view = views().value(0);
+	  auto view = primaryView();
 
 	  if(text.startsWith("glitch-arduino-advanced i/o-"))
 	    object = new glitch_object_advanced_io_arduino(text, view);
@@ -990,7 +1001,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto pixels = (QGuiApplication::keyboardModifiers() &
 		       Qt::ControlModifier) ? 50 : 1;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
-	auto view = qobject_cast<glitch_graphicsview *> (views().value(0));
+	auto view = primaryView();
 
 	if(view)
 	  {
@@ -1132,7 +1143,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
+      auto cursorChanged = false;
       auto moved = false;
+      auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
 
       foreach(auto i, selectedItems())
 	{
@@ -1171,6 +1184,12 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(point.x() < 0 || point.y() < 0)
 	    continue;
 
+	  if(!cursorChanged && viewport)
+	    {
+	      cursorChanged = true;
+	      viewport->setCursor(Qt::DragMoveCursor);
+	    }
+
 	  moved = true;
 	  proxy->setPos(point);
 	}
@@ -1178,14 +1197,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
       m_lastScenePos = event->scenePos();
 
       if(moved)
-	{
-	  emit sceneResized();
-
-	  auto view = views().value(0);
-
-	  if(view && view->viewport())
-	    view->viewport()->setCursor(Qt::DragMoveCursor);
-	}
+	emit sceneResized();
     }
 
   QGraphicsScene::mouseMoveEvent(event);
@@ -1403,7 +1415,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
   m_movedPoints.clear();
 
-  auto view = views().value(0);
+  auto view = primaryView();
 
   if(view && view->viewport())
     {

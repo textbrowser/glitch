@@ -41,6 +41,7 @@
 #include "glitch-tools.h"
 
 class QUndoStack;
+class glitch_graphicsview;
 class glitch_object;
 class glitch_proxy_widget;
 class glitch_wire;
@@ -101,6 +102,7 @@ class glitch_scene: public QGraphicsScene
   bool m_showCanvasGrids;
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
+  QGraphicsView *primaryView(void) const;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
   bool event(QEvent *event);
   void bringToFront(glitch_proxy_widget *proxy);

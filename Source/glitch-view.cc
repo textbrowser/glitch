@@ -1336,7 +1336,14 @@ void glitch_view::slotCopy(void)
       auto scene = qobject_cast<glitch_scene *> (sender());
 
       if(scene)
-	emit copy(qobject_cast<QGraphicsView *> (scene->views().value(0)));
+	{
+	  foreach(auto view, scene->views())
+	    if(m_view == view)
+	      {
+		emit copy(view);
+		break;
+	      }
+	}
     }
 }
 
