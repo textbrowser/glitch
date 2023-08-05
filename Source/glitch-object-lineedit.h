@@ -60,6 +60,7 @@ class glitch_object_lineedit: public QLineEdit
 
   void mouseDoubleClickEvent(QMouseEvent *event)
   {
+    QApplication::restoreOverrideCursor();
     QApplication::setOverrideCursor(QCursor(Qt::IBeamCursor));
     QLineEdit::mouseDoubleClickEvent(event);
     setReadOnly(false);

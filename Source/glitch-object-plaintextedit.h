@@ -69,6 +69,7 @@ class glitch_object_plaintextedit: public QPlainTextEdit
 
   void mouseDoubleClickEvent(QMouseEvent *event)
   {
+    QApplication::restoreOverrideCursor();
     QApplication::setOverrideCursor(QCursor(Qt::IBeamCursor));
     QPlainTextEdit::mouseDoubleClickEvent(event);
     setReadOnly(false);
