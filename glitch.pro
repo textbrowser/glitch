@@ -215,7 +215,6 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object-arrow.h \
                   Source/glitch-object-edit-window.h \
                   Source/glitch-object-lineedit.h \
-                  Source/glitch-object-plaintextedit.h \
                   Source/glitch-object-view.h \
                   Source/glitch-port-colors.h \
                   Source/glitch-preferences.h \

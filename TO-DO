@@ -317,6 +317,7 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
+- Hide resize helpers on widget drag move.
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.

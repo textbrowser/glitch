@@ -7,30 +7,27 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>100</height>
+    <height>113</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>5</number>
-   </property>
    <property name="leftMargin">
-    <number>5</number>
+    <number>15</number>
    </property>
    <property name="topMargin">
-    <number>5</number>
+    <number>15</number>
    </property>
    <property name="rightMargin">
-    <number>5</number>
+    <number>15</number>
    </property>
    <property name="bottomMargin">
-    <number>5</number>
+    <number>15</number>
    </property>
    <item>
-    <widget class="glitch_object_plaintextedit" name="comment">
+    <widget class="QPlainTextEdit" name="comment">
      <property name="toolTip">
       <string>Comment</string>
      </property>
@@ -44,13 +41,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>glitch_object_plaintextedit</class>
-   <extends>QPlainTextEdit</extends>
-   <header>glitch-object-plaintextedit.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>comment</tabstop>
  </tabstops>
