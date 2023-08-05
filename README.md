@@ -1,6 +1,6 @@
 <h3><b>Summary of Glitch</b></h3>
 
-<li>Android, FreeBSD, Linux, Mac, Windows, etc.</li>
+<li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
@@ -122,7 +122,7 @@
 <li>New tool: Disconnect Selected Widget(s).</li>
 <li>New tool: Fonts (All Widgets).</li>
 <li>Non-empty Arduino variable names.</li>
-<li>Qt 5.15.10 for MacOS.</li>
+<li>Qt 5.15.10 LTS for MacOS.</li>
 <li>Qt 6.5.1 LTS for Android.</li>
 <li>Qt 6.5.1 LTS for Windows. Windows 7 has been removed.</li>
 <li>Raise newly-separated diagrams.</li>
@@ -252,7 +252,7 @@ is saved.</li>
 <li>Eliminated background color of arrow widget.</li>
 <li>Improved adjust-size of constant object.</li>
 <li>New colorful icons.</li>
-<li>Qt 5.15.8 for MacOS.</li>
+<li>Qt 5.15.8 LTS for MacOS.</li>
 <li>Retain scrollbar values in Source View.</li>
 <li>Set cursor position to 0 after setText() for textfields.</li>
 <li>Source preview highlighting. See also Canvas Settings.</li>
@@ -344,7 +344,7 @@ pasting of objects.</li>
 <li>Minimum widget heights.</li>
 <li>Precise object names (context menus, find).</li>
 <li>Prevent pasting of object beyond scene boundary.</li>
-<li>Qt 5.15.7 for MacOS.</li>
+<li>Qt 5.15.7 LTS for MacOS.</li>
 <li>Removed logical operator as it duplicates boolean operator.</li>
 </ul>
 <p>2022.11.05</p>
