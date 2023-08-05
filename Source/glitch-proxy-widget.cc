@@ -651,3 +651,10 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
   QGraphicsProxyWidget::setWidget(widget);
   m_object = qobject_cast<glitch_object *> (widget);
 }
+
+void glitch_proxy_widget::showResizeHelpers(const bool state)
+{
+  foreach(auto item, resizeRectangles())
+    if(item)
+      item->setVisible(state);
+}

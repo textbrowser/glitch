@@ -83,6 +83,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void prepareHoverSection(const QPointF &point);
   void setPos(const QPointF &point);
   void setWidget(QWidget *widget);
+  void showResizeHelpers(const bool state);
 
  private:
   QPointer<glitch_object> m_object;

@@ -1192,6 +1192,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  moved = true;
 	  proxy->setPos(point);
+	  proxy->showResizeHelpers(false);
 	}
 
       m_lastScenePos = event->scenePos();
@@ -1402,6 +1403,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	     this);
 
 	  m_undoStack->push(undoCommand);
+	  movedPoint.second->showResizeHelpers(true);
 	}
 
       m_movedPoints.clear();
