@@ -30,10 +30,16 @@
 glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
+  m_ui.view->setInteractive(true);
 }
 
 glitch_canvas_preview::~glitch_canvas_preview()
 {
+}
+
+void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  QWidget::mouseDoubleClickEvent(event);
 }
 
 void glitch_canvas_preview::resizeEvent(QResizeEvent *event)

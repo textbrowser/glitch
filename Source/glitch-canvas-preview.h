@@ -41,6 +41,7 @@ class glitch_canvas_preview: public QWidget
 
  private:
   Ui_glitch_canvas_preview m_ui;
+  void mouseDoubleClickEvent(QMouseEvent *event);
   void resizeEvent(QResizeEvent *event);
 };
 
