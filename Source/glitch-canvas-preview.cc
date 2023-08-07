@@ -27,6 +27,8 @@
 
 #include "glitch-canvas-preview.h"
 
+#include <QMouseEvent>
+
 glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
@@ -40,6 +42,11 @@ glitch_canvas_preview::~glitch_canvas_preview()
 void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QWidget::mouseDoubleClickEvent(event);
+
+  if(m_ui.view->scene())
+    foreach(auto view, m_ui.view->scene()->views())
+      if(m_ui.view != view)
+	view->centerOn(event->pos());
 }
 
 void glitch_canvas_preview::resizeEvent(QResizeEvent *event)
