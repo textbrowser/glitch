@@ -1085,7 +1085,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
       auto action = m_ui.menu_Recent_Diagrams->addAction(list.at(i));
 
       action->setProperty("file_name", list.at(i));

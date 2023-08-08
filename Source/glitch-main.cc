@@ -74,6 +74,10 @@ int main(int argc, char *argv[])
   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 #endif
 #endif
+#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
+#else
+  QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
+#endif
 
   QApplication qapplication(argc, argv);
   auto font(qapplication.font());
