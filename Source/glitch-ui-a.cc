@@ -46,6 +46,7 @@
 #include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-preferences.h"
+#include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-swifty.h"
@@ -1084,6 +1085,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
+#ifdef Q_OS_ANDROID
       auto action = m_ui.menu_Recent_Diagrams->addAction(list.at(i));
 
       action->setProperty("file_name", list.at(i));
@@ -1091,6 +1093,22 @@ void glitch_ui::prepareRecentFiles(void)
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotOpenRecentDiagram);
+#else
+      auto action = new glitch_recent_diagram
+	(list.at(i), m_ui.menu_Recent_Diagrams);
+
+      action->setProperty("file_name", list.at(i));
+      connect(action,
+	      &glitch_recent_diagram::clicked,
+	      this,
+	      &glitch_ui::slotForgetRecentDiagram);
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_ui::slotOpenRecentDiagram,
+	      Qt::QueuedConnection); // Prevent OS X fault.
+      m_ui.menu_Recent_Diagrams->addAction(action);
+#endif
     }
 
   if(!list.isEmpty())
@@ -1731,9 +1749,9 @@ void glitch_ui::slotFind(void)
 
 void glitch_ui::slotForgetRecentDiagram(void)
 {
-  auto pushButton = qobject_cast<QPushButton *> (sender());
+  auto action = qobject_cast<QWidgetAction *> (sender());
 
-  if(!pushButton)
+  if(!action)
     return;
 
   QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -1751,11 +1769,10 @@ void glitch_ui::slotForgetRecentDiagram(void)
 	QSqlQuery query(db);
 
 	query.prepare("DELETE FROM glitch_recent_files WHERE file_name = ?");
-	query.addBindValue(pushButton->property("file_name").toString());
+	query.addBindValue(action->property("file_name").toString());
 
 	if(query.exec())
-	  m_ui.menu_Recent_Diagrams->removeAction
-	    (pushButton->actions().value(0));
+	  m_ui.menu_Recent_Diagrams->removeAction(action);
       }
 
     db.close();
