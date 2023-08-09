@@ -27,6 +27,7 @@
 
 #include <QDesktopServices>
 #include <QDir>
+#include <QFontDatabase>
 #ifdef GLITCH_PDF_SUPPORTED
 #include <QPdfDocument>
 #include <QPdfView>
@@ -165,7 +166,17 @@ void glitch_documentation::setPlainText(const QString &text)
   auto v = m_ui.text->verticalScrollBar() ?
     m_ui.text->verticalScrollBar()->value() : 0;
 
-  font.setFamily("Courier 10 Pitch");
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+  foreach(const auto &str, QFontDatabase::families())
+#else
+  foreach(const auto &str, QFontDatabase().families())
+#endif
+    if(str.toLower().contains("courier"))
+      {
+	font.setFamily(str);
+	break;
+      }
+
   m_ui.text->setFont(font);
   m_ui.text->setPlainText(text);
 
