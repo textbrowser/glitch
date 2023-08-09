@@ -323,6 +323,7 @@ Remaining Items
 - Nested flow-control scenes.
 - Periodic backup.
 - Prevent pasting of non-clone functions onto non-main diagrams.
+- Print preview. Avoid Android.
 - QSerialPort for direct communications with Arduino boards.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
