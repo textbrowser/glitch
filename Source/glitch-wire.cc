@@ -71,11 +71,6 @@ QRectF glitch_wire::boundingRect(void) const
   return m_boundingRect;
 }
 
-void glitch_wire::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-  QGraphicsObject::mouseDoubleClickEvent(event);
-}
-
 void glitch_wire::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   QGraphicsObject::mousePressEvent(event);
@@ -88,9 +83,10 @@ void glitch_wire::paint
   Q_UNUSED(opt);
   Q_UNUSED(widget);
 
-  if(!m_leftProxy || !m_rightProxy)
-    return;
-  else if(!m_leftProxy->scene() || !m_rightProxy->scene())
+  if(!m_leftProxy ||
+     !m_leftProxy->scene() ||
+     !m_rightProxy ||
+     !m_rightProxy->scene())
     return;
 
   if(painter)
