@@ -71,6 +71,11 @@ QRectF glitch_wire::boundingRect(void) const
   return m_boundingRect;
 }
 
+void glitch_wire::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+  QGraphicsObject::mouseDoubleClickEvent(event);
+}
+
 void glitch_wire::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   QGraphicsObject::mousePressEvent(event);
