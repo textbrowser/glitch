@@ -30,6 +30,7 @@
 
 #include "glitch-graphicsview.h"
 #include "glitch-view.h"
+#include "glitch-wire.h"
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
@@ -66,9 +67,13 @@ void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
   QGraphicsView::mouseDoubleClickEvent(event);
 
   if(event && scene())
-    if(!scene()->itemAt(QPointF(event->pos()), QTransform()))
-      emit customContextMenuRequested
-	(event ? mapToParent(event->pos()) : QPoint());
+    {
+      auto item = scene()->itemAt(QPointF(event->pos()), QTransform());
+
+      if(!item || qgraphicsitem_cast<glitch_wire *> (item))
+	emit customContextMenuRequested
+	  (event ? mapToParent(event->pos()) : QPoint());
+    }
 }
 
 void glitch_graphicsview::mouseMoveEvent(QMouseEvent *event)
