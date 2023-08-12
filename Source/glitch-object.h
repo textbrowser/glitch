@@ -339,6 +339,7 @@ class glitch_object: public QWidget
   QMenu m_menu;
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
+  QFont preferredFont(const QFont &font) const;
   bool event(QEvent *event);
   void allObjectsImplementation(QList<glitch_object *> &list) const;
 

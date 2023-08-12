@@ -191,6 +191,7 @@ Completed Items
 - Multiple inputs or single input? Single!
 - Object border color.
 - Object numbers should be sequenced.
+- Option: override diagram fonts.
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
 - Order: top-bottom followed by left-right.
@@ -321,7 +322,6 @@ Remaining Items
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
-- Option: override diagram fonts.
 - Periodic backup.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Print preview. Avoid Android.

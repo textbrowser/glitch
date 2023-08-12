@@ -64,7 +64,7 @@ class glitch_recent_diagram: public QWidgetAction
     m_layout->addWidget(m_pushButton);
     m_layout->addWidget(m_label);
     m_widget->setStyleSheet
-      (QString("QWidget:hover {background: %1; color: %2;}").
+      (QString("QLabel:hover {background: %1; color: %2;}").
        arg(m_widget->palette().color(QPalette::Highlight).name()).
        arg(m_widget->palette().color(QPalette::HighlightedText).name()));
     setDefaultWidget(m_widget);

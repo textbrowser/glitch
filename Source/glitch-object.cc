@@ -111,7 +111,8 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::EDIT_WINDOW_GEOMETRY] = QByteArray().toBase64();
   m_properties[Properties::EDIT_WINDOW_STATE] = QByteArray().toBase64();
-  m_properties[Properties::FONT] = glitch_ui::s_defaultApplicationFont;
+  m_properties[Properties::FONT] = preferredFont
+    (glitch_ui::s_defaultApplicationFont);
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
@@ -164,7 +165,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
       while(true);
     }
 
-  setFont(glitch_ui::s_defaultApplicationFont);
+  setFont(preferredFont(glitch_ui::s_defaultApplicationFont));
   setWindowOpacity(s_windowOpacity);
 }
 
@@ -190,6 +191,26 @@ glitch_object::~glitch_object()
 
   if(m_editWindow)
     m_editWindow->deleteLater();
+}
+
+QFont glitch_object::preferredFont(const QFont &font) const
+{
+  QSettings settings;
+
+  if(settings.value("preferences/override_widget_fonts", true).toBool())
+    {
+      QFont f;
+      auto string
+	(settings.value("preferences/application_font").toString().
+	 remove('&').trimmed());
+
+      if(string.isEmpty() || !f.fromString(string))
+	f = QApplication::font();
+
+      return f;
+    }
+  else
+    return font;
 }
 
 QImage glitch_object::image(void) const
@@ -1328,10 +1349,10 @@ void glitch_object::setProperties(const QStringList &list)
 	  QFont font;
 
 	  if(string.isEmpty() || !font.fromString(string))
-	    m_properties[Properties::FONT] =
-	      glitch_ui::s_defaultApplicationFont;
+	    m_properties[Properties::FONT] = preferredFont
+	      (glitch_ui::s_defaultApplicationFont);
 	  else
-	    m_properties[Properties::FONT] = font;
+	    m_properties[Properties::FONT] = preferredFont(font);
 
 	  prepareFont();
 	}
