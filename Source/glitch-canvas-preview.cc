@@ -44,9 +44,11 @@ void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
   QWidget::mouseDoubleClickEvent(event);
 
   if(m_ui.view->scene())
-    foreach(auto view, m_ui.view->scene()->views())
-      if(m_ui.view != view)
-	view->centerOn(m_ui.view->mapToScene(event->pos()));
+    {
+      foreach(auto view, m_ui.view->scene()->views())
+	if(m_ui.view != view)
+	  view->centerOn(m_ui.view->mapToScene(event->pos()));
+    }
 }
 
 void glitch_canvas_preview::resizeEvent(QResizeEvent *event)

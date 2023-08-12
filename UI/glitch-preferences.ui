@@ -213,6 +213,19 @@
             </layout>
            </item>
            <item>
+            <widget class="QCheckBox" name="override_widget_fonts">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, a widget's font property will be set to the Application Font.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Override Widget Fonts</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="display_tear_off_menus">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, some menus will reside in their own windows.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -267,6 +280,7 @@
   <tabstop>display_language</tabstop>
   <tabstop>output_directory</tabstop>
   <tabstop>select_output_directory</tabstop>
+  <tabstop>override_widget_fonts</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
  </tabstops>
  <resources>
