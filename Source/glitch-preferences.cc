@@ -116,6 +116,8 @@ void glitch_preferences::processSettings(void)
   m_ui.output_directory->setText
     (settings.
      value("preferences/output_directory", QDir::homePath()).toString());
+  m_ui.override_widget_fonts->setChecked
+    (settings.value("preferences/override_widget_fonts", true).toBool());
 }
 
 void glitch_preferences::slotApply(void)
@@ -134,6 +136,9 @@ void glitch_preferences::slotApply(void)
     ("preferences/language", m_ui.display_language->currentData().toString());
   settings.setValue
     ("preferences/output_directory", m_ui.output_directory->text());
+  settings.setValue
+    ("preferences/override_widget_fonts",
+     m_ui.override_widget_fonts->isChecked());
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   emit accept();
