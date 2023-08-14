@@ -953,7 +953,7 @@ void glitch_ui::prepareActionWidgets(void)
 #ifdef Q_OS_ANDROID
       m_ui.action_Separate_Current_Canvas->setEnabled(false);
       m_ui.action_Separate_Current_Canvas->setText
-	(tr("Separate Current Canvas (Android)");
+	(tr("Separate Current Canvas (Android)"));
 #else
       m_ui.action_Separate_Current_Canvas->setEnabled(m_currentView);
 #endif
