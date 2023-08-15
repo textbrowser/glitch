@@ -114,10 +114,19 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::unite);
+  connect(m_ui.action_Zoom_In,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotZoom);
+  connect(m_ui.action_Zoom_Out,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotZoom);
+  connect(m_ui.action_Zoom_Reset,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotZoom);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
-  new QShortcut(tr("Ctrl+-"), this, SLOT(slotZoom(void)));
-  new QShortcut(tr("Ctrl+0"), this, SLOT(slotZoom(void)));
-  new QShortcut(tr("Ctrl+="), this, SLOT(slotZoom(void)));
   prepareIcons();
   slotPreferencesAccepted();
   statusBar(); // Create a status bar.
@@ -689,4 +698,19 @@ void glitch_separated_diagram_window::slotUndo(void)
       prepareRedoUndoActions();
       slotPageChanged();
     }
+}
+
+void glitch_separated_diagram_window::slotZoom(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action || !m_view)
+    return;
+
+  if(action == m_ui.action_Zoom_In)
+    m_view->zoom(1);
+  else if(action == m_ui.action_Zoom_Out)
+    m_view->zoom(-1);
+  else
+    m_view->zoom(0);
 }
