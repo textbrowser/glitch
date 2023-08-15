@@ -50,18 +50,21 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Diagram objects retain their respective fonts.</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
               <string>Application Font</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Diagram objects retain their respective fonts unless Override Widget Fonts is active.</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
