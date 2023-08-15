@@ -46,6 +46,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
   m_ui.action_Generate_Source->setEnabled(false);
   m_ui.action_Generate_Source_Clipboard->setEnabled(false);
   m_ui.action_Generate_Source_View->setEnabled(false);
+  m_ui.edit_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.edit_toolbar->setIconSize(QSize(24, 24));
+  m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.file_toolbar->setIconSize(QSize(24, 24));
   m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -111,6 +115,9 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  this,
 	  &glitch_separated_diagram_window::unite);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
+  new QShortcut(tr("Ctrl+-"), this, SLOT(slotZoom(void)));
+  new QShortcut(tr("Ctrl+0"), this, SLOT(slotZoom(void)));
+  new QShortcut(tr("Ctrl+="), this, SLOT(slotZoom(void)));
   prepareIcons();
   slotPreferencesAccepted();
   statusBar(); // Create a status bar.
