@@ -102,6 +102,9 @@ class glitch_object_edit_window: public QMainWindow
   void slotSpecialTools(void);
   void slotSplitterMoved(void);
   void slotViewTools(void);
+  void slotZoomIn(void);
+  void slotZoomOut(void);
+  void slotZoomReset(void);
 
  signals:
   void closed(void);

@@ -98,3 +98,29 @@ void glitch_graphicsview::scroll(const QPoint &point)
   else if(point.y() - 50 < 0)
     verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
 }
+
+void glitch_graphicsview::zoom(const int direction)
+{
+  const qreal factor = 1.25;
+
+  if(direction < 0) // Zoom Out
+    {
+      QTransform transform;
+
+      transform.scale(factor, factor);
+
+      if(transform.isInvertible())
+	setTransform(this->transform() * transform.inverted());
+    }
+  else if(direction > 0) // Zoom In
+    {
+      QTransform transform;
+
+      transform.scale(factor, factor);
+      setTransform(this->transform() * transform);
+    }
+  else
+    setTransform(QTransform());
+
+  centerOn(0.0, 0.0);
+}

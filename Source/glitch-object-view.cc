@@ -348,3 +348,29 @@ void glitch_object_view::slotUndo(void)
       adjustScrollBars();
     }
 }
+
+void glitch_object_view::zoom(const int direction)
+{
+  const qreal factor = 1.25;
+
+  if(direction < 0) // Zoom Out
+    {
+      QTransform transform;
+
+      transform.scale(factor, factor);
+
+      if(transform.isInvertible())
+	setTransform(this->transform() * transform.inverted());
+    }
+  else if(direction > 0) // Zoom In
+    {
+      QTransform transform;
+
+      transform.scale(factor, factor);
+      setTransform(this->transform() * transform);
+    }
+  else
+    setTransform(QTransform());
+
+  centerOn(0.0, 0.0);
+}

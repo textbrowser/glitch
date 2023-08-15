@@ -1686,26 +1686,5 @@ void glitch_view::undo(void)
 
 void glitch_view::zoom(const int direction)
 {
-  const qreal factor = 1.25;
-
-  if(direction < 0) // Zoom Out
-    {
-      QTransform transform;
-
-      transform.scale(factor, factor);
-
-      if(transform.isInvertible())
-	m_view->setTransform(m_view->transform() * transform.inverted());
-    }
-  else if(direction > 0) // Zoom In
-    {
-      QTransform transform;
-
-      transform.scale(factor, factor);
-      m_view->setTransform(m_view->transform() * transform);
-    }
-  else
-    m_view->setTransform(QTransform());
-
-  m_view->centerOn(0.0, 0.0);
+  m_view->zoom(direction);
 }

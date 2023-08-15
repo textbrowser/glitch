@@ -139,6 +139,40 @@ glitch_object_edit_window::glitch_object_edit_window
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
   m_actions["tools"]->setChecked(true);
+  menu->addSeparator();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+  m_actions["zoom_in"] = menu->addAction
+    (tr("Zoom &In"),
+     tr("Ctrl+="),
+     this,
+     SLOT(slotZoomIn(void)));
+  m_actions["zoom_out"] = menu->addAction
+    (tr("Zoom &Out"),
+     tr("Ctrl+-"),
+     this,
+     SLOT(slotZoomOut(void)));
+  m_actions["zoom_reset"] = menu->addAction
+    (tr("Zoom &Reset"),
+     tr("Ctrl+0"),
+     this,
+     SLOT(slotZoomReset(void)));
+#else
+  m_actions["zoom_in"] = menu->addAction
+    (tr("Zoom &In"),
+     this,
+     SLOT(slotZoomIn(void)),
+     tr("Ctrl+="));
+  m_actions["zoom_out"] = menu->addAction
+    (tr("Zoom &Out"),
+     this,
+     SLOT(slotZoomOut(void)),
+     tr("Ctrl+-"));
+  m_actions["zoom_reset"] = menu->addAction
+    (tr("Zoom &Reset"),
+     this,
+     SLOT(slotZoomReset(void)),
+     tr("Ctrl+0"));
+#endif
   connect(m_actions.value("copy"),
 	  &QAction::triggered,
 	  this,
@@ -728,4 +762,22 @@ void glitch_object_edit_window::slotViewTools(void)
   m_toolsToolBar->setVisible(m_actions.value("tools")->isChecked());
   emit propertyChanged
     ("tool_bar_visible", m_actions.value("tools")->isChecked());
+}
+
+void glitch_object_edit_window::slotZoomIn(void)
+{
+  if(m_editView)
+    m_editView->zoom(1);
+}
+
+void glitch_object_edit_window::slotZoomOut(void)
+{
+  if(m_editView)
+    m_editView->zoom(-1);
+}
+
+void glitch_object_edit_window::slotZoomReset(void)
+{
+  if(m_editView)
+    m_editView->zoom(0);
 }

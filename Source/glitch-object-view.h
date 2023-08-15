@@ -61,6 +61,7 @@ class glitch_object_view: public QGraphicsView
   void save(const QSqlDatabase &db, QString &error);
   void setSceneRect(const QSize &size);
   void setUndoStack(QUndoStack *undoStack);
+  void zoom(const int direction);
 
  public slots:
   void slotDelete(void);
