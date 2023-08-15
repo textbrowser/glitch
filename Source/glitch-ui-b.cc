@@ -192,3 +192,19 @@ void glitch_ui::slotSpecialTools(void)
   else if(type == "widget-properties")
     m_currentView->slotSelectedWidgetsProperties();
 }
+
+void glitch_ui::slotZoom(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action || !m_currentView)
+    return;
+
+  if(action == m_ui.action_Zoom_In)
+    m_currentView->zoom(1);
+  else if(action == m_ui.action_Zoom_Out)
+    m_currentView->zoom(-1);
+  else
+    m_currentView->zoom(0);
+
+}

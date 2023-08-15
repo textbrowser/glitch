@@ -151,9 +151,19 @@
     <property name="title">
      <string>&amp;View</string>
     </property>
+    <widget class="QMenu" name="menu_Zoom">
+     <property name="title">
+      <string>&amp;Zoom</string>
+     </property>
+     <addaction name="action_Zoom_In"/>
+     <addaction name="action_Zoom_Out"/>
+     <addaction name="action_Zoom_Reset"/>
+    </widget>
     <addaction name="action_Full_Screen"/>
     <addaction name="separator"/>
     <addaction name="action_View_Tool_Bars"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Zoom"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -416,6 +426,30 @@
   <action name="action_Save_As_PNG">
    <property name="text">
     <string>Save As PNG...</string>
+   </property>
+  </action>
+  <action name="action_Zoom_In">
+   <property name="text">
+    <string>&amp;In</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+=</string>
+   </property>
+  </action>
+  <action name="action_Zoom_Out">
+   <property name="text">
+    <string>&amp;Out</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="action_Zoom_Reset">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+0</string>
    </property>
   </action>
  </widget>

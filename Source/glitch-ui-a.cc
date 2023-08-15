@@ -263,6 +263,18 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotViewToolBars);
+  connect(m_ui.action_Zoom_In,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotZoom);
+  connect(m_ui.action_Zoom_Out,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotZoom);
+  connect(m_ui.action_Zoom_Reset,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotZoom);
   connect(m_ui.menu_Project,
 	  &QMenu::aboutToShow,
 	  this,
@@ -929,6 +941,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
+      m_ui.menu_Zoom->setEnabled(false);
     }
   else
     {
@@ -960,6 +973,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
+      m_ui.menu_Zoom->setEnabled(m_currentView);
     }
 
   prepareRedoUndoActions();

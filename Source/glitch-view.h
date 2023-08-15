@@ -119,6 +119,7 @@ class glitch_view: public QWidget
   void showTools(void);
   void showUserFunctions(void) const;
   void undo(void);
+  void zoom(const int direction);
 
  public slots:
   void slotAllWidgetsAdjustSize(void);
