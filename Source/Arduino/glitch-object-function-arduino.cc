@@ -519,8 +519,21 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE))
     {
+      QAction *action = nullptr;
       auto group = new QActionGroup(m_parent);
       auto m = new QMenu(tr("Function &Return Type"), m_parent);
+
+      action = new QAction(tr("Pointer"), m);
+      action->setCheckable(true);
+      action->setChecked
+	(m_properties.value(Properties::FUNCTION_RETURN_POINTER).toBool());
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_function_arduino::slotReturnTypeChanged,
+	      Qt::QueuedConnection);
+      m->addAction(action);
+      m->addSeparator();
 
       foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
 	{
@@ -643,6 +656,8 @@ void glitch_object_function_arduino::save
 
   properties["clone"] = m_isFunctionClone;
   properties["name"] = m_ui.label->text().trimmed();
+  properties["return_pointer"] = m_properties.value
+    (Properties::FUNCTION_RETURN_POINTER).toBool();
   properties["return_type"] = m_ui.return_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 
@@ -725,6 +740,19 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 	m_ui.label->setText(string);
       }
+    else if(list.at(i).startsWith("return_pointer = "))
+      {
+	if(!m_isFunctionClone)
+	  {
+	    auto string(list.at(i).mid(17));
+
+	    string.remove("\"");
+	    m_properties[Properties::FUNCTION_RETURN_POINTER] =
+	      QVariant(string).toBool();
+	  }
+	else
+	  slotParentFunctionChanged();
+      }
     else if(list.at(i).startsWith("return_type = "))
       {
 	if(!m_isFunctionClone)
@@ -744,6 +772,31 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 
 void glitch_object_function_arduino::setReturnType(const QString &returnType)
 {
+  auto menu = m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE) ?
+    m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu() :
+    nullptr;
+
+  if(menu)
+    {
+      foreach(auto action, menu->actions())
+	if(action && action->text() == returnType)
+	  {
+	    disconnect
+	      (action,
+	       &QAction::triggered,
+	       this,
+	       &glitch_object_function_arduino::slotReturnTypeChanged);
+	    action->setChecked(true);
+	    connect
+	      (action,
+	       &QAction::triggered,
+	       this,
+	       &glitch_object_function_arduino::slotReturnTypeChanged,
+	       Qt::QueuedConnection);
+	    break;
+	  }
+    }
+
   auto index = m_ui.return_type->findText(returnType);
 
   m_ui.return_type->blockSignals(true);
