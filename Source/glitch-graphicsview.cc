@@ -27,6 +27,7 @@
 
 #include <QMouseEvent>
 #include <QScrollBar>
+#include <QSettings>
 
 #include "glitch-graphicsview.h"
 #include "glitch-view.h"
@@ -101,7 +102,9 @@ void glitch_graphicsview::scroll(const QPoint &point)
 
 void glitch_graphicsview::zoom(const int direction)
 {
-  const qreal factor = 1.25;
+  QSettings settings;
+  const auto factor = qBound
+    (1.05, settings.value("preferences/zoom_factor", 1.25).toReal(), 1.75);
 
   if(direction < 0) // Zoom Out
     {

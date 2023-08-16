@@ -27,6 +27,7 @@
 
 #include <QMessageBox>
 #include <QScrollBar>
+#include <QSettings>
 #include <QSqlError>
 #include <QTimer>
 
@@ -351,7 +352,9 @@ void glitch_object_view::slotUndo(void)
 
 void glitch_object_view::zoom(const int direction)
 {
-  const qreal factor = 1.25;
+  QSettings settings;
+  const auto factor = qBound
+    (1.05, settings.value("preferences/zoom_factor", 1.25).toReal(), 1.75);
 
   if(direction < 0) // Zoom Out
     {
