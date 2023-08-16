@@ -51,6 +51,9 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
     (QApplication::font().toString().trimmed());
   m_ui.output_directory->setText(QDir::homePath());
   m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
+  m_ui.zoom_factor->setToolTip
+    (tr("[%1, %2]").
+     arg(m_ui.zoom_factor->minimum()).arg(m_ui.zoom_factor->maximum()));
   prepareLanguages();
   processSettings();
   setWindowModality(Qt::ApplicationModal);
@@ -118,6 +121,8 @@ void glitch_preferences::processSettings(void)
      value("preferences/output_directory", QDir::homePath()).toString());
   m_ui.override_widget_fonts->setChecked
     (settings.value("preferences/override_widget_fonts", true).toBool());
+  m_ui.zoom_factor->setValue
+    (settings.value("preferences/zoom_factor", 1.25).toDouble());
 }
 
 void glitch_preferences::slotApply(void)
@@ -141,6 +146,7 @@ void glitch_preferences::slotApply(void)
      m_ui.override_widget_fonts->isChecked());
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
+  settings.setValue("preferences/zoom_factor", m_ui.zoom_factor->value());
   emit accept();
 }
 
