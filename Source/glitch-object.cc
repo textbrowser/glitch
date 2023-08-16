@@ -1407,7 +1407,9 @@ void glitch_object::setProperties(const QStringList &list)
 	      ** Must be at least minimumSizeHint().width() wide.
 	      */
 
-	      size.setWidth(qMax(25, list.value(0).trimmed().toInt()));
+	      size.setWidth
+		(qMax(list.value(0).trimmed().toInt(),
+		      minimumSizeHint().width()));
 	      resize(size);
 	      setProperty("temporary-size", size);
 	    }
