@@ -129,6 +129,7 @@ class glitch_object: public QWidget
     FLOW_CONTROL_TYPE,
     FONT,
     FONT_COLOR,
+    FUNCTION_POINTER_RETURN,
     GEOMETRY,
     INTERRUPTS_TYPE,
     LOGICAL_OPERATOR,

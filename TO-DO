@@ -307,6 +307,7 @@ Completed Items
 - Wiring beyond the scene. Issue prepareGeometryChange() before preparing
   the bounding rectangle. Not necessary. Approximate the bounding rectangle.
 - Wiring: curves and / or poly-lines options.
+- Zoom features.
 - glitch_canvas_settings::settings(). Not needed.
 - prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
@@ -337,4 +338,3 @@ Remaining Items
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
-- Zoom features.
