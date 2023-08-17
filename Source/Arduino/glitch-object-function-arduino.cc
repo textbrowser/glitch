@@ -94,6 +94,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
   m_parentView = nullptr;
   m_type = "arduino-function";
   m_ui.setupUi(this);
+  m_ui.asterisk->setEnabled(false);
+  m_ui.asterisk->setToolTip(tr("Disabled on function clone."));
   m_ui.label->setText
     (name.mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
   m_ui.return_type->addItems
@@ -148,6 +150,8 @@ glitch_object_function_arduino::glitch_object_function_arduino
       m_isFunctionClone = true;
       m_parentView = nullptr;
       m_type = "arduino-function";
+      m_ui.asterisk->setEnabled(false);
+      m_ui.asterisk->setToolTip(tr("Disabled on function clone."));
       m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
@@ -202,9 +206,7 @@ QString glitch_object_function_arduino::code(void) const
       if(!m_editView)
 	return "";
 
-      QString asterisk
-	(m_properties.value(Properties::FUNCTION_RETURN_POINTER).
-	 toBool() ? "*" : "");
+      QString asterisk(m_ui.asterisk->isChecked() ? "*" : "");
       QString code("");
       QTextStream stream(&code);
 
@@ -360,6 +362,8 @@ clone(QWidget *parent) const
       clone->m_parentView = qobject_cast<glitch_view_arduino *>
 	(clone->findNearestGlitchView(parent));
       clone->m_type = "arduino-function";
+      clone->m_ui.asterisk->setEnabled(true);
+      clone->m_ui.asterisk->setToolTip("");
       clone->m_ui.return_type->addItems
 	(glitch_structures_arduino::nonArrayVariableTypes());
       clone->m_ui.return_type->setEnabled(true);
@@ -368,10 +372,15 @@ clone(QWidget *parent) const
 	      &glitch_object_view::changed,
 	      clone,
 	      &glitch_object_function_arduino::changed);
+      connect(clone->m_ui.asterisk,
+	      SIGNAL(stateChanged(int)),
+	      clone,
+	      SLOT(slotAsteriskChanged(void)));
       connect(clone->m_ui.return_type,
 	      SIGNAL(currentIndexChanged(int)),
 	      clone,
 	      SLOT(slotReturnTypeChanged(void)));
+      clone->m_previousAsterisk = clone->m_ui.asterisk->isChecked();
       clone->m_previousReturnType = clone->m_ui.return_type->currentText();
       clone->prepareContextMenu();
       clone->prepareEditObjects(clone->findNearestGlitchView(parent));
@@ -529,8 +538,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 
       action = new QAction(tr("Pointer"), m);
       action->setCheckable(true);
-      action->setChecked
-	(m_properties.value(Properties::FUNCTION_RETURN_POINTER).toBool());
+      action->setChecked(m_ui.asterisk->isChecked());
       action->setProperty("pointer", true);
       connect(action,
 	      &QAction::triggered,
@@ -539,6 +547,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 	      Qt::QueuedConnection);
       m->addAction(action);
       m->addSeparator();
+      m->setStyleSheet("QMenu {menu-scrollable: 1;}");
 
       foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
 	{
@@ -568,6 +577,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 void glitch_object_function_arduino::compressWidget(const bool state)
 {
   glitch_object::compressWidget(state);
+  m_ui.asterisk->setVisible(!state);
   m_ui.return_type->setVisible(!state);
   adjustSize();
   resize(sizeHint().width(), minimumHeight(sizeHint().height()));
@@ -634,11 +644,17 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  this,
 	  &glitch_object_function_arduino::changed,
 	  Qt::UniqueConnection);
+  connect(m_ui.asterisk,
+	  SIGNAL(stateChanged(int)),
+	  this,
+	  SLOT(slotAsteriskChanged(void)),
+	  Qt::UniqueConnection);
   connect(m_ui.return_type,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
 	  SLOT(slotReturnTypeChanged(void)),
 	  Qt::UniqueConnection);
+  m_previousAsterisk = m_ui.asterisk->isChecked();
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
   prepareEditObjects(findNearestGlitchView(parent));
@@ -661,8 +677,7 @@ void glitch_object_function_arduino::save
 
   properties["clone"] = m_isFunctionClone;
   properties["name"] = m_ui.label->text().trimmed();
-  properties["return_pointer"] = m_properties.value
-    (Properties::FUNCTION_RETURN_POINTER).toBool();
+  properties["return_pointer"] = m_ui.asterisk->isChecked() ? "*" : "";
   properties["return_type"] = m_ui.return_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 
@@ -716,6 +731,13 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	    m_findParentFunctionTimer.start(10);
 	  }
 
+	m_ui.asterisk->setEnabled(!m_isFunctionClone);
+
+	if(!m_ui.asterisk->isEnabled())
+	  m_ui.asterisk->setToolTip(tr("Disabled on function clone."));
+	else
+	  m_ui.asterisk->setToolTip("");
+
 	m_ui.return_type->setEnabled(!m_isFunctionClone);
 
 	if(!m_ui.return_type->isEnabled())
@@ -752,8 +774,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	    auto string(list.at(i).mid(17));
 
 	    string.remove("\"");
-	    m_properties[Properties::FUNCTION_RETURN_POINTER] =
-	      QVariant(string).toBool();
+	    m_previousAsterisk = string.contains('*');
+	    m_ui.asterisk->setChecked(m_previousAsterisk);
 	  }
 	else
 	  slotParentFunctionChanged();
@@ -820,6 +842,12 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 void glitch_object_function_arduino::simulateDelete(void)
 {
   glitch_object::simulateDelete();
+}
+
+void glitch_object_function_arduino::slotAsteriskChanged(void)
+{
+  if(m_isFunctionClone)
+    return;
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -913,8 +941,17 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
       if(action)
 	{
 	  if(action->property("pointer").toBool() == true)
-	    m_properties[Properties::FUNCTION_RETURN_POINTER] =
-	      action->isChecked();
+	    {
+	      disconnect(m_ui.asterisk,
+			 SIGNAL(stateChanged(int)),
+			 this,
+			 SLOT(slotAsteriskChanged(void)));
+	      m_ui.asterisk->setChecked(action->isChecked());
+	      connect(m_ui.asterisk,
+		      SIGNAL(stateChanged(int)),
+		      this,
+		      SLOT(slotAsteriskChanged(void)));
+	    }
 	  else
 	    {
 	      disconnect(m_ui.return_type,

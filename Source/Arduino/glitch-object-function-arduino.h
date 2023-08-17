@@ -77,6 +77,7 @@ class glitch_object_function_arduino: public glitch_object
   Ui_glitch_object_function_arduino m_ui;
   bool m_initialized;
   bool m_isFunctionClone;
+  bool m_previousAsterisk;
   glitch_object_function_arduino *findParentFunction(void) const;
   void compressWidget(const bool state);
   void hideOrShowOccupied(void);
@@ -86,6 +87,7 @@ class glitch_object_function_arduino: public glitch_object
   void simulateDelete(void);
 
  private slots:
+  void slotAsteriskChanged(void);
   void slotEdit(void);
   void slotFindParentFunctionTimeout(void);
   void slotHideOrShowOccupied(void);

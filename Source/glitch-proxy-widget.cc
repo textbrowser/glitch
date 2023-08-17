@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QGraphicsSceneContextMenuEvent>
 #include <QLineEdit>
@@ -222,6 +223,15 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
     return;
 
   if(!m_object)
+    {
+      QGraphicsProxyWidget::mousePressEvent(event);
+      return;
+    }
+
+  auto checkBox = qobject_cast<QCheckBox *>
+    (m_object->childAt(event->pos().toPoint()));
+
+  if(checkBox)
     {
       QGraphicsProxyWidget::mousePressEvent(event);
       return;

@@ -49,6 +49,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="asterisk">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QComboBox" name="return_type">
      <property name="toolTip">
       <string>Return Type</string>
@@ -66,6 +76,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>asterisk</tabstop>
+  <tabstop>return_type</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Icons/icons.qrc"/>
  </resources>
