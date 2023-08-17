@@ -202,11 +202,15 @@ QString glitch_object_function_arduino::code(void) const
       if(!m_editView)
 	return "";
 
+      QString asterisk
+	(m_properties.value(Properties::FUNCTION_RETURN_POINTER).
+	 toBool() ? "*" : "");
       QString code("");
       QTextStream stream(&code);
 
       stream << m_ui.return_type->currentText()
 	     << " "
+	     << asterisk
 	     << m_ui.label->text().remove("()")
 	     << "(";
 
@@ -527,6 +531,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       action->setCheckable(true);
       action->setChecked
 	(m_properties.value(Properties::FUNCTION_RETURN_POINTER).toBool());
+      action->setProperty("pointer", true);
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -907,16 +912,22 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 
       if(action)
 	{
-	  disconnect(m_ui.return_type,
-		     SIGNAL(currentIndexChanged(int)),
-		     this,
-		     SLOT(slotReturnTypeChanged(void)));
-	  m_ui.return_type->setCurrentIndex
-	    (m_ui.return_type->findText(action->text()));
-	  connect(m_ui.return_type,
-		  SIGNAL(currentIndexChanged(int)),
-		  this,
-		  SLOT(slotReturnTypeChanged(void)));
+	  if(action->property("pointer").toBool() == true)
+	    m_properties[Properties::FUNCTION_RETURN_POINTER] =
+	      action->isChecked();
+	  else
+	    {
+	      disconnect(m_ui.return_type,
+			 SIGNAL(currentIndexChanged(int)),
+			 this,
+			 SLOT(slotReturnTypeChanged(void)));
+	      m_ui.return_type->setCurrentIndex
+		(m_ui.return_type->findText(action->text()));
+	      connect(m_ui.return_type,
+		      SIGNAL(currentIndexChanged(int)),
+		      this,
+		      SLOT(slotReturnTypeChanged(void)));
+	    }
 	}
     }
 
