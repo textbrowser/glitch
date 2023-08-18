@@ -188,7 +188,7 @@ void glitch_find_objects::slotCustomContextMenuRequested(const QPoint &point)
       item->object()->addActions(menu);
 
       if(!menu.actions().isEmpty())
-	menu.exec(mapToGlobal(point));
+	menu.exec(QCursor::pos());
     }
 }
 
