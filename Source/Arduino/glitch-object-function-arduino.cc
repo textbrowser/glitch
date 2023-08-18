@@ -905,13 +905,13 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
 		  (action,
 		   &QAction::triggered,
 		   this,
-		   &glitch_object_function_arduino::slotReturnTypeChanged);
+		   &glitch_object_function_arduino::slotAsteriskChanged);
 		action->setChecked(m_ui.asterisk->isChecked());
 		connect
 		  (action,
 		   &QAction::triggered,
 		   this,
-		   &glitch_object_function_arduino::slotReturnTypeChanged,
+		   &glitch_object_function_arduino::slotAsteriskChanged,
 		   Qt::QueuedConnection);
 		break;
 	      }
