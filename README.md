@@ -52,7 +52,7 @@
 <li>Show context menu on widget double-click event.</li>
 <li>Simplified block comment widget.</li>
 <li>Support returning pointers in functions.</li>
-<li>Zoom feature: View -> Zoom.</li>
+<li>Zoom feature: View -> Zoom. See Windows -> Glitch Preferences.</li>
 </ul>
 <p>2023.07.30</p>
 <ul>
