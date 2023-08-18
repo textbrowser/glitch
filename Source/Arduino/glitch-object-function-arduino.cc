@@ -718,6 +718,7 @@ void glitch_object_function_arduino::setIsPointer(const bool state)
 	  }
     }
 
+  m_previousAsterisk = state;
   m_ui.asterisk->blockSignals(true);
   m_ui.asterisk->setChecked(state);
   m_ui.asterisk->blockSignals(false);
@@ -864,6 +865,8 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 	    break;
 	  }
     }
+
+  m_previousReturnType = returnType;
 
   auto index = m_ui.return_type->findText(returnType);
 
