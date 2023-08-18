@@ -194,6 +194,9 @@ class glitch_view: public QWidget
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,
 			       glitch_object *object);
+  void slotFunctionReturnPointerChanged(const bool after,
+					const bool before,
+					glitch_object *object);
   void slotFunctionReturnTypeChanged(const QString &after,
 				     const QString &before,
 				     glitch_object *object);

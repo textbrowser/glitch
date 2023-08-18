@@ -87,6 +87,17 @@ glitch_undo_command::glitch_undo_command
 	m_previousFunctionName = previousFunctionValue;
 	break;
       }
+    case Types::FUNCTION_RETURN_POINTER_CHANGED:
+      {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  m_currentFunctionReturnPointer =
+	    qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    isPointer();
+
+	m_previousFunctionReturnPointer =
+	  QVariant(previousFunctionValue).toBool();
+	break;
+      }
     case Types::FUNCTION_RETURN_TYPE_CHANGED:
       {
 	if(qobject_cast<glitch_object_function_arduino *> (m_object))
@@ -231,6 +242,14 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::FUNCTION_RETURN_POINTER_CHANGED:
+      {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    setIsPointer(m_currentFunctionReturnPointer);
+
+	break;
+      }
     case Types::FUNCTION_RETURN_TYPE_CHANGED:
       {
 	if(qobject_cast<glitch_object_function_arduino *> (m_object))
@@ -351,6 +370,14 @@ void glitch_undo_command::undo(void)
 	    m_userFunctions->addFunction(m_previousFunctionName);
 	    m_userFunctions->deleteFunction(m_currentFunctionName);
 	  }
+
+	break;
+      }
+    case Types::FUNCTION_RETURN_POINTER_CHANGED:
+      {
+	if(qobject_cast<glitch_object_function_arduino *> (m_object))
+	  qobject_cast<glitch_object_function_arduino *> (m_object)->
+	    setIsPointer(m_previousFunctionReturnPointer);
 
 	break;
       }

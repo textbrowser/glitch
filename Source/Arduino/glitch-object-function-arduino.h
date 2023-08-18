@@ -53,6 +53,7 @@ class glitch_object_function_arduino: public glitch_object
   bool hasView(void) const;
   bool isClone(void) const;
   bool isFullyWired(void) const;
+  bool isPointer(void) const;
   bool shouldPrint(void) const;
   glitch_object_function_arduino *clone(QWidget *parent) const;
   static glitch_object_function_arduino *createFromValues
@@ -62,6 +63,7 @@ class glitch_object_function_arduino: public glitch_object
      QWidget *parent);
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
+  void setIsPointer(const bool state);
   void setName(const QString &name);
   void setReturnType(const QString &returnType);
 
@@ -99,6 +101,9 @@ class glitch_object_function_arduino: public glitch_object
   void nameChanged(const QString &after,
 		   const QString &before,
 		   glitch_object *object);
+  void returnPointerChanged(const bool after,
+			    const bool before,
+			    glitch_object *object);
   void returnTypeChanged(const QString &after,
 			 const QString &before,
 			 glitch_object *object);

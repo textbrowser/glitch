@@ -135,6 +135,9 @@ class glitch_scene: public QGraphicsScene
   void slotFunctionNameChanged(const QString &after,
 			       const QString &before,
 			       glitch_object *object);
+  void slotFunctionReturnPointerChanged(const bool after,
+					const bool before,
+					glitch_object *object);
   void slotFunctionReturnTypeChanged(const QString &after,
 				     const QString &before,
 				     glitch_object *object);
@@ -151,6 +154,9 @@ class glitch_scene: public QGraphicsScene
   void functionNameChanged(const QString &after,
 			   const QString &before,
 			   glitch_object *object);
+  void functionReturnPointerChanged(const bool after,
+				    const bool before,
+				    glitch_object *object);
   void functionReturnTypeChanged(const QString &after,
 				 const QString &before,
 				 glitch_object *object);

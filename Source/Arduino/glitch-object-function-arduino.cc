@@ -299,6 +299,11 @@ bool glitch_object_function_arduino::isFullyWired(void) const
   return false;
 }
 
+bool glitch_object_function_arduino::isPointer(void) const
+{
+  return m_ui.asterisk->isChecked();
+}
+
 bool glitch_object_function_arduino::shouldPrint(void) const
 {
   return m_ui.return_type->currentText() == "void" || outputs().isEmpty();
@@ -314,6 +319,7 @@ clone(QWidget *parent) const
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
   clone->setCanvasSettings(m_canvasSettings);
+  clone->setIsPointer(m_ui.asterisk->isChecked());
   clone->setReturnType(m_ui.return_type->currentText());
   clone->setStyleSheet(styleSheet());
   clone->compressWidget
@@ -543,7 +549,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_function_arduino::slotReturnTypeChanged,
+	      &glitch_object_function_arduino::slotAsteriskChanged,
 	      Qt::QueuedConnection);
       m->addAction(action);
       m->addSeparator();
@@ -685,6 +691,41 @@ void glitch_object_function_arduino::save
     m_editView->save(db, error);
 }
 
+void glitch_object_function_arduino::setIsPointer(const bool state)
+{
+  auto menu = m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE) ?
+    m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu() :
+    nullptr;
+
+  if(menu)
+    {
+      foreach(auto action, menu->actions())
+	if(action && action->property("pointer").toBool())
+	  {
+	    disconnect
+	      (action,
+	       &QAction::triggered,
+	       this,
+	       &glitch_object_function_arduino::slotAsteriskChanged);
+	    action->setChecked(state);
+	    connect
+	      (action,
+	       &QAction::triggered,
+	       this,
+	       &glitch_object_function_arduino::slotAsteriskChanged,
+	       Qt::QueuedConnection);
+	    break;
+	  }
+    }
+
+  m_ui.asterisk->blockSignals(true);
+  m_ui.asterisk->setChecked(state);
+  m_ui.asterisk->blockSignals(false);
+
+  if(!m_isFunctionClone)
+    emit changed();
+}
+
 void glitch_object_function_arduino::setName(const QString &name)
 {
   glitch_object::setName(name);
@@ -774,8 +815,8 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	    auto string(list.at(i).mid(17));
 
 	    string.remove("\"");
-	    m_previousAsterisk = string.contains('*');
-	    m_ui.asterisk->setChecked(m_previousAsterisk);
+	    setIsPointer(string.contains('*'));
+	    m_previousAsterisk = m_ui.asterisk->isChecked();
 	  }
 	else
 	  slotParentFunctionChanged();
@@ -848,6 +889,55 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
 {
   if(m_isFunctionClone)
     return;
+
+  if(m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE, nullptr) &&
+     m_ui.asterisk == sender())
+    {
+      auto menu = m_actions.value
+	(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu();
+
+      if(menu)
+	{
+	  foreach(auto action, menu->actions())
+	    if(action && action->property("pointer").toBool())
+	      {
+		disconnect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_function_arduino::slotReturnTypeChanged);
+		action->setChecked(m_ui.asterisk->isChecked());
+		connect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_function_arduino::slotReturnTypeChanged,
+		   Qt::QueuedConnection);
+		break;
+	      }
+	}
+    }
+  else
+    {
+      auto action = qobject_cast<QAction *> (sender());
+
+      if(action && action->property("pointer").toBool())
+	{
+	  disconnect(m_ui.asterisk,
+		     SIGNAL(stateChanged(int)),
+		     this,
+		     SLOT(slotAsteriskChanged(void)));
+	  m_ui.asterisk->setChecked(action->isChecked());
+	  connect(m_ui.asterisk,
+		  SIGNAL(stateChanged(int)),
+		  this,
+		  SLOT(slotAsteriskChanged(void)));
+	}
+    }
+
+  emit returnPointerChanged
+    (m_ui.asterisk->isChecked(), m_previousAsterisk, this);
+  m_previousAsterisk = m_ui.asterisk->isChecked();
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -899,6 +989,7 @@ void glitch_object_function_arduino::slotParentFunctionChanged(void)
     return;
 
   glitch_object_function_arduino::setName(m_parentFunction->name());
+  setIsPointer(m_parentFunction->isPointer());
   setReturnType(m_parentFunction->returnType());
 }
 
@@ -940,31 +1031,16 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
 
       if(action)
 	{
-	  if(action->property("pointer").toBool() == true)
-	    {
-	      disconnect(m_ui.asterisk,
-			 SIGNAL(stateChanged(int)),
-			 this,
-			 SLOT(slotAsteriskChanged(void)));
-	      m_ui.asterisk->setChecked(action->isChecked());
-	      connect(m_ui.asterisk,
-		      SIGNAL(stateChanged(int)),
-		      this,
-		      SLOT(slotAsteriskChanged(void)));
-	    }
-	  else
-	    {
-	      disconnect(m_ui.return_type,
-			 SIGNAL(currentIndexChanged(int)),
-			 this,
-			 SLOT(slotReturnTypeChanged(void)));
-	      m_ui.return_type->setCurrentIndex
-		(m_ui.return_type->findText(action->text()));
-	      connect(m_ui.return_type,
-		      SIGNAL(currentIndexChanged(int)),
-		      this,
-		      SLOT(slotReturnTypeChanged(void)));
-	    }
+	  disconnect(m_ui.return_type,
+		     SIGNAL(currentIndexChanged(int)),
+		     this,
+		     SLOT(slotReturnTypeChanged(void)));
+	  m_ui.return_type->setCurrentIndex
+	    (m_ui.return_type->findText(action->text()));
+	  connect(m_ui.return_type,
+		  SIGNAL(currentIndexChanged(int)),
+		  this,
+		  SLOT(slotReturnTypeChanged(void)));
 	}
     }
 

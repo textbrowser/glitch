@@ -186,6 +186,14 @@ glitch_view::glitch_view
 				       const QString &,
 				       glitch_object *)));
   connect(m_scene,
+	  SIGNAL(functionReturnPointerChanged(const bool,
+					      const bool,
+					      glitch_object *)),
+	  this,
+	  SLOT(slotFunctionReturnPointerChanged(const bool,
+						const bool,
+						glitch_object *)));
+  connect(m_scene,
 	  SIGNAL(functionReturnTypeChanged(const QString &,
 					   const QString &,
 					   glitch_object *)),
@@ -1431,6 +1439,30 @@ void glitch_view::slotFunctionNameChanged(const QString &after,
        arg(object->scenePos().y()));
   else
     undoCommand->setText(tr("function renamed"));
+
+  m_undoStack->push(undoCommand);
+  emit changed();
+}
+
+void glitch_view::slotFunctionReturnPointerChanged(const bool after,
+						   const bool before,
+						   glitch_object *object)
+{
+  Q_UNUSED(after);
+
+  auto undoCommand = new glitch_undo_command
+    (QVariant(before).toString(),
+     glitch_undo_command::Types::FUNCTION_RETURN_POINTER_CHANGED,
+     object,
+     m_userFunctions);
+
+  if(object)
+    undoCommand->setText
+      (tr("function return pointer changed (%1, %2)").
+       arg(object->scenePos().x()).
+       arg(object->scenePos().y()));
+  else
+    undoCommand->setText(tr("function return pointer changed"));
 
   m_undoStack->push(undoCommand);
   emit changed();

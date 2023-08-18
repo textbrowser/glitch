@@ -471,6 +471,24 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 					   glitch_object *)),
 	      Qt::UniqueConnection);
       connect(function,
+	      SIGNAL(returnPointerChanged(const bool,
+					  const bool,
+					  glitch_object *)),
+	      this,
+	      SIGNAL(functionReturnPointerChanged(const bool,
+						  const bool,
+						  glitch_object *)),
+	      Qt::UniqueConnection);
+      connect(function,
+	      SIGNAL(returnPointerChanged(const bool,
+					  const bool,
+					  glitch_object *)),
+	      this,
+	      SLOT(slotFunctionReturnPointerChanged(const bool,
+						    const bool,
+						    glitch_object *)),
+	      Qt::UniqueConnection);
+      connect(function,
 	      SIGNAL(returnTypeChanged(const QString &,
 				       const QString &,
 				       glitch_object *)),
@@ -1674,6 +1692,15 @@ void glitch_scene::slotFunctionDeleted(const QString &name)
 void glitch_scene::slotFunctionNameChanged(const QString &after,
 					   const QString &before,
 					   glitch_object *object)
+{
+  Q_UNUSED(after);
+  Q_UNUSED(before);
+  Q_UNUSED(object);
+}
+
+void glitch_scene::slotFunctionReturnPointerChanged(const bool after,
+						    const bool before,
+						    glitch_object *object)
 {
   Q_UNUSED(after);
   Q_UNUSED(before);

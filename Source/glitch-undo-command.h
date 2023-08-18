@@ -48,6 +48,7 @@ class glitch_undo_command: public QUndoCommand
     CONSTANT_TYPE_CHANGED,
     FLOW_CONTROL_TYPE_CHANGED,
     FUNCTION_RENAMED,
+    FUNCTION_RETURN_POINTER_CHANGED,
     FUNCTION_RETURN_TYPE_CHANGED,
     ITEM_ADDED,
     ITEM_DELETED,
@@ -116,6 +117,8 @@ class glitch_undo_command: public QUndoCommand
   QVariant m_currentProperty;
   QVariant m_previousProperty;
   Types m_type;
+  bool m_currentFunctionReturnPointer;
+  bool m_previousFunctionReturnPointer;
   glitch_object::Properties m_property;
 };
 
