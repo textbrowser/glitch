@@ -69,11 +69,11 @@ void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
 
   if(event && scene())
     {
-      auto item = scene()->itemAt(QPointF(event->pos()), QTransform());
+      auto item = scene()->itemAt
+	(QPointF(mapToScene(event->pos())), QTransform());
 
       if(!item || qgraphicsitem_cast<glitch_wire *> (item))
-	emit customContextMenuRequested
-	  (event ? mapToParent(event->pos()) : QPoint());
+	emit customContextMenuRequested(mapToParent(event->pos()));
     }
 }
 
