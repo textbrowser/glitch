@@ -69,11 +69,14 @@ void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
 
   if(event && scene())
     {
-      auto item = scene()->itemAt
-	(QPointF(mapToScene(event->pos())), QTransform());
+      auto item = scene()->itemAt(mapToScene(event->pos()), QTransform());
 
       if(!item || qgraphicsitem_cast<glitch_wire *> (item))
-	emit customContextMenuRequested(mapToParent(event->pos()));
+	/*
+	** The slot issues mapToGlobal().
+	*/
+
+	emit customContextMenuRequested(event->globalPos());
     }
 }
 

@@ -1354,7 +1354,10 @@ void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
   if(!menu)
     return;
 
-  menu->exec(mapToGlobal(point));
+  if(sender() == this)
+    menu->exec(mapToGlobal(point));
+  else
+    menu->exec(point);
 }
 
 void glitch_view::slotDockPropertyEditor(QWidget *widget)
