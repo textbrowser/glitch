@@ -89,17 +89,20 @@ Collaboration diagram for glitch_view:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglitch__view__coll__graph.png" border="0" usemap="#aglitch__view_coll__map" alt="Collaboration graph"/></div>
 <map name="aglitch__view_coll__map" id="aglitch__view_coll__map">
-<area shape="rect" title=" " alt="" coords="627,164,723,191"/>
-<area shape="rect" title=" " alt="" coords="30,63,109,90"/>
-<area shape="rect" href="classglitch__docked__container.html" title=" " alt="" coords="183,63,361,90"/>
-<area shape="rect" href="classglitch__alignment.html" title=" " alt="" coords="207,114,337,140"/>
-<area shape="rect" href="classglitch__user__functions.html" title=" " alt="" coords="192,164,352,191"/>
-<area shape="rect" title=" " alt="" coords="32,191,107,218"/>
-<area shape="rect" href="classglitch__canvas__settings.html" title=" " alt="" coords="187,215,357,242"/>
-<area shape="rect" href="classglitch__graphicsview.html" title=" " alt="" coords="197,266,347,292"/>
-<area shape="rect" title=" " alt="" coords="9,266,130,292"/>
-<area shape="rect" href="classglitch__scene.html" title=" " alt="" coords="221,316,323,343"/>
-<area shape="rect" title=" " alt="" coords="5,316,133,343"/>
+<area shape="rect" title=" " alt="" coords="659,226,755,252"/>
+<area shape="rect" title=" " alt="" coords="46,95,125,122"/>
+<area shape="rect" href="classglitch__docked__container.html" title=" " alt="" coords="215,74,393,100"/>
+<area shape="rect" href="classglitch__canvas__preview.html" title=" " alt="" coords="219,124,389,151"/>
+<area shape="rect" href="classglitch__alignment.html" title=" " alt="" coords="239,175,369,202"/>
+<area shape="rect" href="classglitch__user__functions.html" title=" " alt="" coords="224,226,384,252"/>
+<area shape="rect" title=" " alt="" coords="48,255,123,282"/>
+<area shape="rect" href="classglitch__canvas__settings.html" title=" " alt="" coords="219,276,389,303"/>
+<area shape="rect" href="classglitch__graphicsview.html" title=" " alt="" coords="229,327,379,354"/>
+<area shape="rect" title=" " alt="" coords="25,327,146,354"/>
+<area shape="rect" href="classglitch__user__functions__model.html" title=" " alt="" coords="224,378,384,420"/>
+<area shape="rect" title=" " alt="" coords="5,386,165,412"/>
+<area shape="rect" href="classglitch__scene.html" title=" " alt="" coords="253,444,355,471"/>
+<area shape="rect" title=" " alt="" coords="21,444,149,471"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -203,9 +206,6 @@ QList&lt; <a class="el" href="classglitch__object.html">glitch_object</a> * &gt;
 <tr class="memitem:a0654e752708d87046e51ed4c23dbf148"><td class="memItemLeft" align="right" valign="top"><a id="a0654e752708d87046e51ed4c23dbf148"></a>
 QMenu *&#160;</td><td class="memItemRight" valign="bottom"><b>defaultContextMenu</b> (void)</td></tr>
 <tr class="separator:a0654e752708d87046e51ed4c23dbf148"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83d5613964f2e756ff2b8c87641876e3"><td class="memItemLeft" align="right" valign="top"><a id="a83d5613964f2e756ff2b8c87641876e3"></a>
-QStandardItemModel *&#160;</td><td class="memItemRight" valign="bottom"><b>userFunctionsModel</b> (void) const</td></tr>
-<tr class="separator:a83d5613964f2e756ff2b8c87641876e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29f6fc2457b9e9f90401ad5c0b9e9486"><td class="memItemLeft" align="right" valign="top"><a id="a29f6fc2457b9e9f90401ad5c0b9e9486"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> (void) const</td></tr>
 <tr class="separator:a29f6fc2457b9e9f90401ad5c0b9e9486"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,6 +248,9 @@ glitch_common::ProjectTypes&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:ab99e60dd146b64a4635c425d272a5f17"><td class="memItemLeft" align="right" valign="top"><a id="ab99e60dd146b64a4635c425d272a5f17"></a>
 glitch_tools::Operations&#160;</td><td class="memItemRight" valign="bottom"><b>toolsOperation</b> (void) const</td></tr>
 <tr class="separator:ab99e60dd146b64a4635c425d272a5f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af569b61c576dea57f2a4c2dfa3c34bea"><td class="memItemLeft" align="right" valign="top"><a id="af569b61c576dea57f2a4c2dfa3c34bea"></a>
+<a class="el" href="classglitch__user__functions__model.html">glitch_user_functions_model</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>userFunctionsModel</b> (void) const</td></tr>
+<tr class="separator:af569b61c576dea57f2a4c2dfa3c34bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a012fb77862a4ea416db7aafd861eed30"><td class="memItemLeft" align="right" valign="top"><a id="a012fb77862a4ea416db7aafd861eed30"></a>
 qint64&#160;</td><td class="memItemRight" valign="bottom"><b>nextId</b> (void) const</td></tr>
 <tr class="separator:a012fb77862a4ea416db7aafd861eed30"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,6 +272,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSourc
 <tr class="memitem:abcf6959546685c507965773c568aab07"><td class="memItemLeft" align="right" valign="top"><a id="abcf6959546685c507965773c568aab07"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>generateSourceFile</b> (void) const</td></tr>
 <tr class="separator:abcf6959546685c507965773c568aab07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef357c63c9002333982549e904480053"><td class="memItemLeft" align="right" valign="top"><a id="aef357c63c9002333982549e904480053"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>openFunction</b> (const QString &amp;name) const =0</td></tr>
+<tr class="separator:aef357c63c9002333982549e904480053"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea94839806c8b9c0b9d0b7e3b2e06582"><td class="memItemLeft" align="right" valign="top"><a id="aea94839806c8b9c0b9d0b7e3b2e06582"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>separate</b> (void)=0</td></tr>
 <tr class="separator:aea94839806c8b9c0b9d0b7e3b2e06582"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,6 +326,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>showUserFunctions</b>
 <tr class="memitem:a621ab7a795f176ffc7f4ba94d14c3142"><td class="memItemLeft" align="right" valign="top"><a id="a621ab7a795f176ffc7f4ba94d14c3142"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>undo</b> (void)</td></tr>
 <tr class="separator:a621ab7a795f176ffc7f4ba94d14c3142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaba0a80940b69ddc6cfcaee2f7cad574"><td class="memItemLeft" align="right" valign="top"><a id="aaba0a80940b69ddc6cfcaee2f7cad574"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>zoom</b> (const int direction)</td></tr>
+<tr class="separator:aaba0a80940b69ddc6cfcaee2f7cad574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-slots"></a>
 Protected Slots</h2></td></tr>
@@ -344,6 +353,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>slotFunctionDeleted</
 <tr class="memitem:a99af0963d33f59e22b16ce858829f749"><td class="memItemLeft" align="right" valign="top"><a id="a99af0963d33f59e22b16ce858829f749"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotFunctionNameChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a99af0963d33f59e22b16ce858829f749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772b827192f265b75246185bcbbf284a"><td class="memItemLeft" align="right" valign="top"><a id="a772b827192f265b75246185bcbbf284a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotFunctionReturnPointerChanged</b> (const bool after, const bool before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
+<tr class="separator:a772b827192f265b75246185bcbbf284a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17d3bac32fbe017a4fdeadff4ca41b73"><td class="memItemLeft" align="right" valign="top"><a id="a17d3bac32fbe017a4fdeadff4ca41b73"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotFunctionReturnTypeChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a17d3bac32fbe017a4fdeadff4ca41b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -452,12 +464,12 @@ QPointer&lt; <a class="el" href="classglitch__syntax__highlighter.html">glitch_s
 <tr class="memitem:a7aff0daa2bcce12c78d609b5999e6200"><td class="memItemLeft" align="right" valign="top"><a id="a7aff0daa2bcce12c78d609b5999e6200"></a>
 QPointer&lt; <a class="el" href="classglitch__tools.html">glitch_tools</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tools</b></td></tr>
 <tr class="separator:a7aff0daa2bcce12c78d609b5999e6200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1cb559004ea0c79f178ab9f39f97f13"><td class="memItemLeft" align="right" valign="top"><a id="ad1cb559004ea0c79f178ab9f39f97f13"></a>
+QSplitter *&#160;</td><td class="memItemRight" valign="bottom"><b>m_rightSplitter</b></td></tr>
+<tr class="separator:ad1cb559004ea0c79f178ab9f39f97f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3c13663a08ed72ea0b765ee8a2e098e"><td class="memItemLeft" align="right" valign="top"><a id="aa3c13663a08ed72ea0b765ee8a2e098e"></a>
 QSplitter *&#160;</td><td class="memItemRight" valign="bottom"><b>m_splitter</b></td></tr>
 <tr class="separator:aa3c13663a08ed72ea0b765ee8a2e098e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae074a71e80a75a7f2c8bf5382b0ef458"><td class="memItemLeft" align="right" valign="top"><a id="ae074a71e80a75a7f2c8bf5382b0ef458"></a>
-QStandardItemModel *&#160;</td><td class="memItemRight" valign="bottom"><b>m_userFunctionsModel</b></td></tr>
-<tr class="separator:ae074a71e80a75a7f2c8bf5382b0ef458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a69e11f1bca7f48d8fbf86b99d71650"><td class="memItemLeft" align="right" valign="top"><a id="a1a69e11f1bca7f48d8fbf86b99d71650"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><b>m_fileName</b></td></tr>
 <tr class="separator:a1a69e11f1bca7f48d8fbf86b99d71650"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -476,6 +488,9 @@ Ui_glitch_view&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b></t
 <tr class="memitem:a924877c4a5a988295bf28308c2fa5336"><td class="memItemLeft" align="right" valign="top"><a id="a924877c4a5a988295bf28308c2fa5336"></a>
 <a class="el" href="classglitch__alignment.html">glitch_alignment</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_alignment</b></td></tr>
 <tr class="separator:a924877c4a5a988295bf28308c2fa5336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b553bb7b05d83b097baf0668beb099"><td class="memItemLeft" align="right" valign="top"><a id="a42b553bb7b05d83b097baf0668beb099"></a>
+<a class="el" href="classglitch__canvas__preview.html">glitch_canvas_preview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_canvasPreview</b></td></tr>
+<tr class="separator:a42b553bb7b05d83b097baf0668beb099"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af20bd17919f60ec4a7ccef37061c532f"><td class="memItemLeft" align="right" valign="top"><a id="af20bd17919f60ec4a7ccef37061c532f"></a>
 <a class="el" href="classglitch__canvas__settings.html">glitch_canvas_settings</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_canvasSettings</b></td></tr>
 <tr class="separator:af20bd17919f60ec4a7ccef37061c532f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -494,6 +509,9 @@ glitch_common::ProjectTypes&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:a5cfccc909acfb62baccdbf05fac03399"><td class="memItemLeft" align="right" valign="top"><a id="a5cfccc909acfb62baccdbf05fac03399"></a>
 <a class="el" href="classglitch__user__functions.html">glitch_user_functions</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_userFunctions</b></td></tr>
 <tr class="separator:a5cfccc909acfb62baccdbf05fac03399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44218109ab798a991992af1c6553328f"><td class="memItemLeft" align="right" valign="top"><a id="a44218109ab798a991992af1c6553328f"></a>
+<a class="el" href="classglitch__user__functions__model.html">glitch_user_functions_model</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_userFunctionsModel</b></td></tr>
+<tr class="separator:a44218109ab798a991992af1c6553328f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="glitch-view_8h_source.html">glitch-view.h</a></li>

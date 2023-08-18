@@ -91,6 +91,9 @@ Collaboration diagram for glitch_scene:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Public Slots</h2></td></tr>
+<tr class="memitem:afbbcb7647b8186bed3f0da2e8fc5850f"><td class="memItemLeft" align="right" valign="top"><a id="afbbcb7647b8186bed3f0da2e8fc5850f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotDisconnectWireIfNecessary</b> (void)</td></tr>
+<tr class="separator:afbbcb7647b8186bed3f0da2e8fc5850f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5eeb011d23cbb046ad519c4e637915f0"><td class="memItemLeft" align="right" valign="top"><a id="a5eeb011d23cbb046ad519c4e637915f0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSelectedWidgetsAdjustSize</b> (void)</td></tr>
 <tr class="separator:a5eeb011d23cbb046ad519c4e637915f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +130,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>functionDeleted</b> (
 <tr class="memitem:a89861ac9c73de8516e06cb4be2119f9f"><td class="memItemLeft" align="right" valign="top"><a id="a89861ac9c73de8516e06cb4be2119f9f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>functionNameChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a89861ac9c73de8516e06cb4be2119f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0eb396ac990e56b059619851b06a502"><td class="memItemLeft" align="right" valign="top"><a id="af0eb396ac990e56b059619851b06a502"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>functionReturnPointerChanged</b> (const bool after, const bool before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
+<tr class="separator:af0eb396ac990e56b059619851b06a502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ce5107bc9177e88d11cf7e1b04cf35b"><td class="memItemLeft" align="right" valign="top"><a id="a5ce5107bc9177e88d11cf7e1b04cf35b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>functionReturnTypeChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a5ce5107bc9177e88d11cf7e1b04cf35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,12 +202,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>artificialDrop</b> (c
 <tr class="memitem:acc89f45890120c19d167fa3718a00fd2"><td class="memItemLeft" align="right" valign="top"><a id="acc89f45890120c19d167fa3718a00fd2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteItems</b> (void)</td></tr>
 <tr class="separator:acc89f45890120c19d167fa3718a00fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af61f59555ff982404385da19f52566d7"><td class="memItemLeft" align="right" valign="top"><a id="af61f59555ff982404385da19f52566d7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnectWireIfNecessary</b> (<a class="el" href="classglitch__wire.html">glitch_wire</a> *wire)</td></tr>
-<tr class="separator:af61f59555ff982404385da19f52566d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9437afae3189601e1c0327f911db9b73"><td class="memItemLeft" align="right" valign="top"><a id="a9437afae3189601e1c0327f911db9b73"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>purgeRedoUndoProxies</b> (void)</td></tr>
 <tr class="separator:a9437afae3189601e1c0327f911db9b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5165eddd3879d1948998308edbb1e7df"><td class="memItemLeft" align="right" valign="top"><a id="a5165eddd3879d1948998308edbb1e7df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>redo</b> (void)</td></tr>
+<tr class="separator:a5165eddd3879d1948998308edbb1e7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a894b56027fb64d208556e7339f4339ff"><td class="memItemLeft" align="right" valign="top"><a id="a894b56027fb64d208556e7339f4339ff"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeItem</b> (QGraphicsItem *item)</td></tr>
 <tr class="separator:a894b56027fb64d208556e7339f4339ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -226,6 +232,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setShowCanvasGrids</b
 <tr class="memitem:a3a421645b052783d369c725063a78046"><td class="memItemLeft" align="right" valign="top"><a id="a3a421645b052783d369c725063a78046"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setUndoStack</b> (QUndoStack *undoStack)</td></tr>
 <tr class="separator:a3a421645b052783d369c725063a78046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae868dcbe9e958099c6ad7162918f447a"><td class="memItemLeft" align="right" valign="top"><a id="ae868dcbe9e958099c6ad7162918f447a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>undo</b> (void)</td></tr>
+<tr class="separator:ae868dcbe9e958099c6ad7162918f447a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Source/<a class="el" href="glitch-scene_8h_source.html">glitch-scene.h</a></li>

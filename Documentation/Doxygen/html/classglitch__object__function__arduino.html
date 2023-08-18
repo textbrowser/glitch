@@ -96,6 +96,9 @@ Signals</h2></td></tr>
 <tr class="memitem:af6c8221a7d96a5ac55a9ea96de1a0628"><td class="memItemLeft" align="right" valign="top"><a id="af6c8221a7d96a5ac55a9ea96de1a0628"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>nameChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:af6c8221a7d96a5ac55a9ea96de1a0628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0098c7b797a3a3c8280dd9a3b63c666c"><td class="memItemLeft" align="right" valign="top"><a id="a0098c7b797a3a3c8280dd9a3b63c666c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>returnPointerChanged</b> (const bool after, const bool before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
+<tr class="separator:a0098c7b797a3a3c8280dd9a3b63c666c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a164c550fdf900c3bf35d27709daaed7a"><td class="memItemLeft" align="right" valign="top"><a id="a164c550fdf900c3bf35d27709daaed7a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>returnTypeChanged</b> (const QString &amp;after, const QString &amp;before, <a class="el" href="classglitch__object.html">glitch_object</a> *object)</td></tr>
 <tr class="separator:a164c550fdf900c3bf35d27709daaed7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +157,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isClone</b> (void) co
 <tr class="memitem:aa7a4548299c2f9e17d99800bb76ff78f"><td class="memItemLeft" align="right" valign="top"><a id="aa7a4548299c2f9e17d99800bb76ff78f"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isFullyWired</b> (void) const</td></tr>
 <tr class="separator:aa7a4548299c2f9e17d99800bb76ff78f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc3b25620bb6524e975d7576714e53ba"><td class="memItemLeft" align="right" valign="top"><a id="adc3b25620bb6524e975d7576714e53ba"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isPointer</b> (void) const</td></tr>
+<tr class="separator:adc3b25620bb6524e975d7576714e53ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74da6c7a840f32ba2d391129bab48be6"><td class="memItemLeft" align="right" valign="top"><a id="a74da6c7a840f32ba2d391129bab48be6"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>shouldPrint</b> (void) const</td></tr>
 <tr class="separator:a74da6c7a840f32ba2d391129bab48be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +172,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>addActions</b> (QMenu
 <tr class="memitem:abff644358952960f044c5b4f062f51f5"><td class="memItemLeft" align="right" valign="top"><a id="abff644358952960f044c5b4f062f51f5"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>save</b> (const QSqlDatabase &amp;db, QString &amp;error)</td></tr>
 <tr class="separator:abff644358952960f044c5b4f062f51f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071f535da1dc5fc4d0e7926948619237"><td class="memItemLeft" align="right" valign="top"><a id="a071f535da1dc5fc4d0e7926948619237"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setIsPointer</b> (const bool state)</td></tr>
+<tr class="separator:a071f535da1dc5fc4d0e7926948619237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8359f2a52fc50a34976adb5ac655356"><td class="memItemLeft" align="right" valign="top"><a id="af8359f2a52fc50a34976adb5ac655356"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setName</b> (const QString &amp;name)</td></tr>
 <tr class="separator:af8359f2a52fc50a34976adb5ac655356"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -415,25 +424,26 @@ Additional Inherited Members</h2></td></tr>
 , <br />
 &#160;&#160;<b>SIZE</b>
 , <b>STRUCTURES_VIEW_LEFT_SPLITTER_STATE</b>
+, <b>STRUCTURES_VIEW_RIGHT_SPLITTER_STATE</b>
 , <b>STRUCTURES_VIEW_SPLITTER_STATE</b>
-, <b>SYNTAX</b>
 , <br />
-&#160;&#160;<b>TIME_TYPE</b>
+&#160;&#160;<b>SYNTAX</b>
+, <b>TIME_TYPE</b>
 , <b>TOOL_BAR_VISIBLE</b>
 , <b>TRANSPARENT</b>
-, <b>TRIGONOMETRY_TYPE</b>
 , <br />
-&#160;&#160;<b>UTILITIES_TYPE</b>
+&#160;&#160;<b>TRIGONOMETRY_TYPE</b>
+, <b>UTILITIES_TYPE</b>
 , <b>VARIABLE_ARRAY</b>
 , <b>VARIABLE_NAME</b>
-, <b>VARIABLE_POINTER_ACCESS</b>
 , <br />
-&#160;&#160;<b>VARIABLE_PROGMEM</b>
+&#160;&#160;<b>VARIABLE_POINTER_ACCESS</b>
+, <b>VARIABLE_PROGMEM</b>
 , <b>VARIABLE_QUALIFIER</b>
 , <b>VARIABLE_TYPE</b>
-, <b>Z_VALUE</b>
 , <br />
-&#160;&#160;<b>Z_Z_Z_PROPERTY</b>
+&#160;&#160;<b>Z_VALUE</b>
+, <b>Z_Z_Z_PROPERTY</b>
 <br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
