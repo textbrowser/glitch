@@ -23,6 +23,37 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.08.19</p>
+<ul>
+<li>Corrected abnormal termination caused by redo / undo delete of
+  nested functions.</li>
+<li>Corrected move and resize cursors.</li>
+<li>Corrected redo / undo of function return type set through context
+  menu.</li>
+<li>Create actions for special tools. If the actions are not created,
+  special functions such as group locking will fail.</li>
+<li>Disable diagram separation on Android.</li>
+<li>Double-clicking on an empty portion of a canvas will
+  display the diagram's context menu.</li>
+<li>Hide a widget's resize helpers whenever the widget is
+  dragged.</li>
+<li>Improved mouse interaction in proximity of wires.</li>
+<li>Improved positioning of context menus. A menu's top-left-corner
+  position should be the cursor's position.</li>
+<li>Interactive scene previews. Double-clicking on a scene
+  will place the major theme into view.</li>
+<li>New Glitch preference: Override Widget Fonts.</li>
+<li>Nicer Recent Diagrams for non-Android and non-MacOS.</li>
+<li>Open function edit windows via double-click on docked
+  function views.</li>
+<li>Set a minimum width when restoring a widget from its
+  database.</li>
+<li>Set icon sizes on separated window tool bars.</li>
+<li>Show context menu on widget double-click event.</li>
+<li>Simplified block comment widget.</li>
+<li>Support returning pointers in functions.</li>
+<li>Zoom feature: View -> Zoom.</li>
+</ul>
 <p>2023.07.30</p>
 <ul>
 <li>Android: new close buttons, properly close windows
