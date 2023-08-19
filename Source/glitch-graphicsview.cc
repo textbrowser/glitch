@@ -76,7 +76,11 @@ void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
 	** The slot issues mapToGlobal().
 	*/
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+	emit customContextMenuRequested(event->globalPosition().toPoint());
+#else
 	emit customContextMenuRequested(event->globalPos());
+#endif
     }
 }
 
