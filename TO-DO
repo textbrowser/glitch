@@ -338,3 +338,4 @@ Remaining Items
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
+- Windows distclean.
