@@ -24,7 +24,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 <li>Rich redo / undo stack.</li>
 </ul>
 
-![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
-![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-2.png)
-![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-3.png)
-![alt text](https://github.com/textbrowser/glitch/blob/master/Images/glitch-4.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-2.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-3.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-4.png)
