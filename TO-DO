@@ -320,6 +320,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
+- Display serial port errors.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
