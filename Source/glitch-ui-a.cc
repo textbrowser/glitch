@@ -211,14 +211,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotPaste(void)));
-  connect(m_ui.action_Separate_Current_Canvas,
-	  SIGNAL(triggered(void)),
-	  this,
-	  SLOT(slotSeparate(void)));
-  connect(m_ui.action_Show_Project_IDE,
-	  &QAction::triggered,
-	  this,
-	  &glitch_ui::slotShowProjectIDE);
   connect(m_ui.action_Quit,
 	  &QAction::triggered,
 	  this,
@@ -247,6 +239,18 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotSelectAll);
+  connect(m_ui.action_Separate_Current_Canvas,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSeparate(void)));
+  connect(m_ui.action_Serial_Port_Window,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowSerialPortWindow);
+  connect(m_ui.action_Show_Project_IDE,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowProjectIDE);
   connect(m_ui.action_Tools,
 	  &QAction::triggered,
 	  this,
@@ -318,6 +322,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 #endif
   m_ui.action_Paste->setEnabled(false);
   m_ui.action_Select_All->setEnabled(false);
+#ifndef GLITCH_SERIAL_PORT_SUPPORTED
+  m_ui.action_Serial_Port_Window->setEnabled(false);
+#endif
   m_ui.edit_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.edit_toolbar->setIconSize(QSize(24, 24));
   m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);

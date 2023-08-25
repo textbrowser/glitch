@@ -97,6 +97,8 @@
     <addaction name="action_User_Functions"/>
     <addaction name="separator"/>
     <addaction name="action_Glitch_Preferences"/>
+    <addaction name="separator"/>
+    <addaction name="action_Serial_Port_Window"/>
    </widget>
    <widget class="QMenu" name="menu_Tabs">
     <property name="title">
@@ -450,6 +452,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
+   </property>
+  </action>
+  <action name="action_Serial_Port_Window">
+   <property name="text">
+    <string>Serial Port Window...</string>
    </property>
   </action>
  </widget>

@@ -32,6 +32,7 @@
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
+#include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
 
@@ -183,6 +184,14 @@ void glitch_ui::slotSaveAsPNG(void)
 void glitch_ui::slotSeparate(void)
 {
   slotSeparate(m_currentView);
+}
+
+void glitch_ui::slotShowSerialPortWindow(void)
+{
+  if(!m_serialPortWindow)
+    m_serialPortWindow = new glitch_serial_port_window(this);
+
+  m_serialPortWindow->show();
 }
 
 void glitch_ui::slotShowTearOffMenu(void)

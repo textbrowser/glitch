@@ -43,6 +43,7 @@ class glitch_documentation;
 class glitch_object;
 class glitch_preferences;
 class glitch_separated_diagram_window;
+class glitch_serial_port_window;
 class glitch_view;
 class glitch_view_arduino;
 class swifty;
@@ -83,6 +84,7 @@ class glitch_ui: public QMainWindow
   glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;
+  glitch_serial_port_window *m_serialPortWindow;
   swifty *m_swifty;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
@@ -161,6 +163,7 @@ class glitch_ui: public QMainWindow
   void slotShowPreferences(void);
   void slotShowProjectIDE(void);
   void slotShowReleaseNotes(void);
+  void slotShowSerialPortWindow(void);
   void slotShowTearOffMenu(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);

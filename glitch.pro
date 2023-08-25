@@ -31,6 +31,12 @@ message("The QtPdf module was discovered!")
 }
 }
 
+qtHaveModule(serialport) {
+DEFINES         += GLITCH_SERIAL_PORT_SUPPORTED
+QT              += serialport
+message("The QtSerialPort module was discovered!")
+}
+
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CXXFLAGS_RELEASE -= -O2
 
@@ -193,7 +199,8 @@ FORMS          += UI/glitch-canvas-preview.ui \
                   UI/glitch-mainwindow.ui \
                   UI/glitch-port-colors.ui \
                   UI/glitch-preferences.ui \
-		  UI/glitch-separated-diagram-window.ui \
+                  UI/glitch-separated-diagram-window.ui \
+                  UI/glitch-serial-port-window.ui \
                   UI/glitch-structures.ui \
                   UI/glitch-style-sheet.ui \
                   UI/glitch-tools.ui \
@@ -225,6 +232,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-scene.h \
                   Source/glitch-scroll-filter.h \
                   Source/glitch-separated-diagram-window.h \
+                  Source/glitch-serial-port-window.h \
                   Source/glitch-structures-treewidget.h \
                   Source/glitch-style-sheet.h \
                   Source/glitch-syntax-highlighter.h \
@@ -260,6 +268,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-resize-widget-rectangle.cc \
                   Source/glitch-scene.cc \
                   Source/glitch-separated-diagram-window.cc \
+                  Source/glitch-serial-port-window.cc \
                   Source/glitch-structures-treewidget.cc \
                   Source/glitch-style-sheet.cc \
                   Source/glitch-syntax-highlighter.cc \
