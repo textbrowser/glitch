@@ -212,6 +212,7 @@ Completed Items
 - Private Arduino constructors (QWidget), (qint64, QWidget).
 - Promote comment widget (see glitch_object_lineedit).
 - Proper indentation of generated source.
+- QSerialPort for direct communications with Arduino boards.
 - Qt 6.5.1 LTS for Windows.
 - Raise currently-selected function via z-value. This will allow the
   function's combination box to float above other widgets.
@@ -327,7 +328,6 @@ Remaining Items
 - Periodic backup.
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Print preview. Avoid Android.
-- QSerialPort for direct communications with Arduino boards.
 - Replace comment widget with a text graphics item.
 - Resize after a font is difficult because of redo / undo.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).

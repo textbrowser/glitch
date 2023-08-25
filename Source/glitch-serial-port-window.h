@@ -52,6 +52,7 @@ class glitch_serial_port_window: public QDialog
   void slotConnect(void);
   void slotDisconnect(void);
   void slotReadyRead(void);
+  void slotSend(void);
 };
 
 #endif

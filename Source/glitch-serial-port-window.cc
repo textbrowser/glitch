@@ -49,6 +49,10 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_serial_port_window::slotDisconnect);
+  connect(m_ui.send,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_serial_port_window::slotSend);
 
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
   foreach(const auto &port, QSerialPortInfo::availablePorts())
@@ -218,6 +222,17 @@ void glitch_serial_port_window::slotReadyRead(void)
 		}
 	    }
 	}
+    }
+#endif
+}
+
+void glitch_serial_port_window::slotSend(void)
+{
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  if(m_serialPort)
+    {
+      m_serialPort->write(m_ui.command->toPlainText().toLatin1());
+      m_serialPort->flush();
     }
 #endif
 }
