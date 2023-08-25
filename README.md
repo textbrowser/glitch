@@ -23,6 +23,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
+<li>Serial port reader and writer.</li>
 </ul>
 
 ![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
