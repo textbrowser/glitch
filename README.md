@@ -10,6 +10,7 @@
 <li>Extensible with other frameworks.</li>
 <li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and <b>c</b>ompiler <b>h</b>ybrid.
 <li>Infinite diagrams.</li>
+<li>Mindful drawing.</li>
 <li>Modern C++.</li>
 <li>Object alignment tools.</li>
 <li>Optionally-transparent widgets if provided by local systems.</li>
@@ -19,6 +20,7 @@
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
+<li>Serial port reader and writer.</li>
 <li>Sparc!</li>
 
 <h3><b>Release Notes</b></h3>
