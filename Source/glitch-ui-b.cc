@@ -191,7 +191,9 @@ void glitch_ui::slotShowSerialPortWindow(void)
   if(!m_serialPortWindow)
     m_serialPortWindow = new glitch_serial_port_window(this);
 
-  m_serialPortWindow->show();
+  m_serialPortWindow->showNormal();
+  m_serialPortWindow->activateWindow();
+  m_serialPortWindow->raise();
 }
 
 void glitch_ui::slotShowTearOffMenu(void)
