@@ -82,6 +82,16 @@ class glitch_recent_diagram: public QWidgetAction
     m_widget->deleteLater();
   }
 
+  QLabel *label(void) const
+  {
+    return m_label;
+  }
+
+  QString fileName(void) const
+  {
+    return m_fileName;
+  }
+
  private:
   QHBoxLayout *m_layout;
   QLabel *m_label;

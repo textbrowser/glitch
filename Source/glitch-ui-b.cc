@@ -30,6 +30,7 @@
 
 #include "glitch-misc.h"
 #include "glitch-object.h"
+#include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
@@ -68,6 +69,43 @@ void glitch_ui::slotAboutToShowProjectMenu(void)
 {
   m_ui.action_Generate_Source_Clipboard->setEnabled
     (QApplication::clipboard() && m_currentView);
+}
+
+void glitch_ui::slotAboutToShowRecentDiagrams(void)
+{
+#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
+  return;
+#endif
+
+  for(int i = 0; i < m_ui.menu_Recent_Diagrams->actions().size(); i++)
+    {
+      auto action = qobject_cast<glitch_recent_diagram *>
+	(m_ui.menu_Recent_Diagrams->actions().at(i));
+
+      if(!action)
+	continue;
+
+      if(action->label())
+	{
+	  QFileInfo fileInfo(action->fileName());
+
+	  if(!fileInfo.exists() || !fileInfo.isReadable())
+	    {
+	      action->label()->setStyleSheet
+		("QLabel {color: rgb(240, 128, 128);}");
+
+	      if(!fileInfo.exists())
+		action->label()->setToolTip(tr("File does not exist."));
+	      else
+		action->label()->setToolTip(tr("File is not readable."));
+	    }
+	  else
+	    {
+	      action->label()->setStyleSheet("");
+	      action->label()->setToolTip("");
+	    }
+	}
+    }
 }
 
 void glitch_ui::slotGenerateSourceClipboard(void)

@@ -279,6 +279,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QMenu::aboutToShow,
 	  this,
 	  &glitch_ui::slotAboutToShowProjectMenu);
+  connect(m_ui.menu_Recent_Diagrams,
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_ui::slotAboutToShowRecentDiagrams);
   connect(m_ui.menu_Tabs,
 	  &QMenu::aboutToShow,
 	  this,
@@ -1074,20 +1078,8 @@ void glitch_ui::prepareRecentFiles(void)
 	    {
 	      QFileInfo fileInfo(query.value(0).toString());
 
-	      if(fileInfo.exists())
-		list << fileInfo.absoluteFilePath();
-	      else
-		{
-		  QSqlQuery query(db);
-
-		  query.prepare
-		    ("DELETE FROM glitch_recent_files WHERE file_name = ?");
-		  query.addBindValue(fileInfo.absoluteFilePath());
-		  query.exec();
-		}
+	      list << fileInfo.absoluteFilePath();
 	    }
-
-	query.exec("VACUUM");
       }
 
     db.close();
