@@ -36,7 +36,7 @@ cp -pr ./Examples ./opt/glitch/.
 mkdir -p glitch-debian/opt
 cp -pr ./DEBIAN-PI glitch-debian/DEBIAN
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2023.08.19_armhf.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2023.09.10_armhf.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
