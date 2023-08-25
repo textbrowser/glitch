@@ -16,6 +16,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 <li>Extensible with other frameworks.</li>
 <li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and <b>c</b>ompiler <b>h</b>ybrid.</li>
 <li>Infinite diagrams.</li>
+<li>Mindful drawing.</li>
 <li>Modern C++.</li>
 <li>Qt 5.5.1 (PowerPC)!</li>
 <li>Qt LTS.</li>
