@@ -216,17 +216,9 @@ void glitch_serial_port_window::slotDiscoverDevices(void)
   foreach(const auto &port, QSerialPortInfo::availablePorts())
     map[port.portName()] = 0;
 
-  QMapIterator<QString, char> it(map);
-  int i = -1;
-
-  while(it.hasNext())
-    {
-      i += 1;
-      it.next();
-
-      if(m_ui.port_name->findText(it.key()) == -1)
-	m_ui.port_name->insertItem(i, it.key());
-    }
+  /*
+  ** Remove absent devices.
+  */
 
   for(int i = m_ui.port_name->count() - 1; i >= 0; i--)
     if(!map.contains(m_ui.port_name->itemText(i)))
@@ -241,8 +233,33 @@ void glitch_serial_port_window::slotDiscoverDevices(void)
 	m_ui.port_name->removeItem(i);
       }
 
+  /*
+  ** Insert new devices.
+  */
+
+  QMapIterator<QString, char> it(map);
+  int i = -1;
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto index = m_ui.port_name->findText(it.key());
+
+      if(index == -1)
+	{
+	  i += 1;
+	  m_ui.port_name->insertItem(i, it.key());
+	}
+      else
+	i = index;
+    }
+
   if(m_ui.port_name->count() == 0)
-    m_ui.port_name->addItem("/dev/null"); // Do not translate.
+    {
+      m_ui.port_name->addItem("/dev/null"); // Do not translate.
+      m_ui.port_name->setCurrentIndex(0);
+    }
 #endif
 }
 
