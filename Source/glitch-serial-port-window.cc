@@ -37,6 +37,10 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(&m_timer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_serial_port_window::slotDiscoverDevices);
   connect(m_ui.clear,
 	  &QPushButton::clicked,
 	  m_ui.communications,
@@ -55,17 +59,33 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 	  &glitch_serial_port_window::slotSend);
 
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
-  foreach(const auto &port, QSerialPortInfo::availablePorts())
-    m_ui.port_name->addItem(port.portName());
-
   m_serialPort = nullptr;
+  m_timer.start(2500);
   m_ui.disconnect->setEnabled(false);
   m_ui.send->setEnabled(false);
+  slotDiscoverDevices();
 #endif
 }
 
 glitch_serial_port_window::~glitch_serial_port_window()
 {
+  m_timer.stop();
+}
+
+void glitch_serial_port_window::closeEvent(QCloseEvent *event)
+{
+  QDialog::closeEvent(event);
+  m_timer.stop();
+}
+
+void glitch_serial_port_window::showEvent(QShowEvent *event)
+{
+  QDialog::showEvent(event);
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  m_timer.start();
+#else
+  m_timer.stop();
+#endif
 }
 
 void glitch_serial_port_window::slotConnect(void)
@@ -185,6 +205,44 @@ void glitch_serial_port_window::slotDisconnect(void)
   m_ui.connect->setEnabled(true);
   m_ui.disconnect->setEnabled(false);
   m_ui.send->setEnabled(false);
+#endif
+}
+
+void glitch_serial_port_window::slotDiscoverDevices(void)
+{
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  QMap<QString, char> map;
+
+  foreach(const auto &port, QSerialPortInfo::availablePorts())
+    map[port.portName()] = 0;
+
+  QMapIterator<QString, char> it(map);
+  int i = -1;
+
+  while(it.hasNext())
+    {
+      i += 1;
+      it.next();
+
+      if(m_ui.port_name->findText(it.key()) == -1)
+	m_ui.port_name->insertItem(i, it.key());
+    }
+
+  for(int i = m_ui.port_name->count() - 1; i >= 0; i--)
+    if(!map.contains(m_ui.port_name->itemText(i)))
+      {
+	if(m_serialPort &&
+	   m_serialPort->portName() == m_ui.port_name->itemText(i))
+	  {
+	    m_ui.port_name->setCurrentIndex(0);
+	    slotDisconnect();
+	  }
+
+	m_ui.port_name->removeItem(i);
+      }
+
+  if(m_ui.port_name->count() == 0)
+    m_ui.port_name->addItem("/dev/null"); // Do not translate.
 #endif
 }
 
