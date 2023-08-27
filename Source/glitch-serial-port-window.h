@@ -28,13 +28,11 @@
 #ifndef _glitch_serial_port_window_h_
 #define _glitch_serial_port_window_h_
 
-#include <QTimer>
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+#include <QSerialPort>
+#endif
 
 #include "ui_glitch-serial-port-window.h"
-
-#ifdef GLITCH_SERIAL_PORT_SUPPORTED
-class QSerialPort;
-#endif
 
 class glitch_serial_port_window: public QDialog
 {
@@ -45,19 +43,17 @@ class glitch_serial_port_window: public QDialog
   ~glitch_serial_port_window();
 
  private:
-#ifdef GLITCH_SERIAL_PORT_SUPPORTED
-  QSerialPort *m_serialPort;
-#endif
-  QTimer m_timer;
   Ui_glitch_serial_port_window m_ui;
-  void closeEvent(QCloseEvent *event);
-  void showEvent(QShowEvent *event);
+  void discoverDevices(void);
 
  private slots:
   void slotConnect(void);
   void slotDisconnect(void);
-  void slotDiscoverDevices(void);
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  void slotErrorOccurred(QSerialPort::SerialPortError error);
+#endif
   void slotReadyRead(void);
+  void slotRefresh(void);
   void slotSend(void);
 };
 
