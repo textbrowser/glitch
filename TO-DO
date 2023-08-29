@@ -48,6 +48,7 @@ Completed Items
 - Comment block and directional arrows.
 - Comment widget and redo / undo stack is empty, however, the canvas remains
   in a modified state.
+- Complete SipHash diagram.
 - Completed Categories
   Advanced I/O
   Analog I/O
@@ -316,11 +317,11 @@ Completed Items
 
 Remaining Items
 
-- Complete SipHash diagram.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Display serial port errors.
+- Drag and copy.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
