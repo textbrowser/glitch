@@ -427,19 +427,7 @@ void glitch_structures_arduino::prepareCategories(void)
   s_itemsForIcons["Trigonometry"] = "trigonometry.png";
   s_itemsForCategories["Utilities"] = QStringList() << "sizeof()";
   s_itemsForIcons["Utilities"] = "utilities.png";
-
-  QStringList arrays;
-  auto list(variableTypes());
-
-  list.removeOne("array");
-
-  foreach(const auto &i, list)
-    {
-      arrays << "array " + i;
-      arrays << i;
-    }
-
-  s_itemsForCategories["Variables"] = arrays;
+  s_itemsForCategories["Variables"] = nonArrayVariableTypes();
   s_itemsForIcons["Variables"] = "variable.png";
 
   QMapIterator<QString, QString> it(m_categoriesMap);

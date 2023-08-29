@@ -45,7 +45,8 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   string.remove("glitch-arduino-variables-");
   m_ui.array->setChecked(string.contains("array"));
   m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
-  m_ui.type->setCurrentIndex(m_ui.type->findText(string.remove("array ")));
+  m_ui.type->setCurrentIndex
+    (m_ui.type->findText(string.remove("array "), Qt::MatchFixedString));
   m_properties[Properties::VARIABLE_ARRAY] = m_ui.array->isChecked();
   m_properties[Properties::VARIABLE_NAME] = "";
   m_properties[Properties::VARIABLE_POINTER_ACCESS] = "";
@@ -62,12 +63,7 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
   m_ui.qualifier->installEventFilter(new glitch_scroll_filter(this));
   m_ui.pointer_access->installEventFilter(new glitch_scroll_filter(this));
-
-  auto list(glitch_structures_arduino::variableTypes());
-
-  list.prepend("");
-  list.removeAll("array");
-  m_ui.type->addItems(list);
+  m_ui.type->addItems(glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.type->installEventFilter(new glitch_scroll_filter(this));
   prepareContextMenu();
   prepareHighlights();
@@ -498,7 +494,8 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::VARIABLE_TYPE] = string.trimmed();
-	  m_ui.type->setCurrentIndex(m_ui.type->findText(string.trimmed()));
+	  m_ui.type->setCurrentIndex
+	    (m_ui.type->findText(string.trimmed(), Qt::MatchFixedString));
 
 	  if(m_ui.type->currentIndex() < 0)
 	    m_ui.type->setCurrentIndex(0);
@@ -559,7 +556,8 @@ void glitch_object_variable_arduino::setProperty
       {
 	m_ui.type->blockSignals(true);
 	m_ui.type->setCurrentIndex
-	  (m_ui.type->findText(value.toString().trimmed()));
+	  (m_ui.type->
+	   findText(value.toString().trimmed(), Qt::MatchFixedString));
 
 	if(m_ui.type->currentIndex() < 0)
 	  m_ui.type->setCurrentIndex(0);
