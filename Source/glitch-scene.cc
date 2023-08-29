@@ -1161,11 +1161,22 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
+      QList<QGraphicsItem *> list;
+      auto instance = qobject_cast<QGuiApplication *>
+	(QApplication::instance());
+
+      if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
+	{
+	  list = selectedItems();
+	}
+      else
+	list = selectedItems();
+
       auto cursorChanged = false;
       auto moved = false;
       auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
 
-      foreach(auto i, selectedItems())
+      foreach(auto i, list)
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
