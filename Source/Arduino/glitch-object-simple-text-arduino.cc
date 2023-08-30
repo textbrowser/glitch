@@ -77,6 +77,9 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   painter.setFont(font);
   painter.setPen(m_properties.value(Properties::FONT_COLOR).value<QColor> ());
   painter.setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+			 QPainter::LosslessImageRendering |
+#endif
 			 QPainter::SmoothPixmapTransform |
 			 QPainter::TextAntialiasing,
 			 true);

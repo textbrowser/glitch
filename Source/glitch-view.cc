@@ -115,6 +115,9 @@ glitch_view::glitch_view
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
   m_view->setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+			 QPainter::LosslessImageRendering |
+#endif
 			 QPainter::SmoothPixmapTransform |
 			 QPainter::TextAntialiasing);
   m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);

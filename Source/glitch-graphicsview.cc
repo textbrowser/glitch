@@ -35,6 +35,12 @@
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
+  setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+		 QPainter::LosslessImageRendering |
+#endif
+		 QPainter::SmoothPixmapTransform |
+		 QPainter::TextAntialiasing);
 }
 
 bool glitch_graphicsview::containsFunction(const QString &name) const

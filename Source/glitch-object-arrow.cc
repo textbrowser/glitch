@@ -126,6 +126,9 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   painter.setBrush(canvasBrush);
   painter.setPen(Qt::NoPen);
   painter.setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+			 QPainter::LosslessImageRendering |
+#endif
 			 QPainter::SmoothPixmapTransform |
 			 QPainter::TextAntialiasing,
 			 true);
