@@ -39,6 +39,16 @@ glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 #endif
 			    QPainter::SmoothPixmapTransform |
 			    QPainter::TextAntialiasing);
+
+  QTransform transform;
+  const qreal factor = 1.25;
+
+  transform.scale(factor, factor);
+
+  if(transform.isInvertible())
+    m_ui.view->setTransform(m_ui.view->transform() * transform.inverted());
+
+  m_ui.view->centerOn(QPointF(0.0, 0.0));
 }
 
 glitch_canvas_preview::~glitch_canvas_preview()
@@ -55,15 +65,6 @@ void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
 	if(m_ui.view != view)
 	  view->centerOn(m_ui.view->mapToScene(event->pos()));
     }
-}
-
-void glitch_canvas_preview::resizeEvent(QResizeEvent *event)
-{
-  QWidget::resizeEvent(event);
-  m_ui.view->fitInView
-    (QRectF(QPointF(0.0, 0.0), (isVisible() ? 2.5 : 0.5) * QSizeF(size())),
-     Qt::KeepAspectRatioByExpanding);
-  m_ui.view->centerOn(QPointF(0.0, 0.0));
 }
 
 void glitch_canvas_preview::setScene(QGraphicsScene *scene)
