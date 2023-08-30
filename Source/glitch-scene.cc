@@ -1161,22 +1161,20 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
-      QList<QGraphicsItem *> list;
       auto instance = qobject_cast<QGuiApplication *>
 	(QApplication::instance());
 
       if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
 	{
-	  list = selectedItems();
+	  emit copy();
+	  return;
 	}
-      else
-	list = selectedItems();
 
       auto cursorChanged = false;
       auto moved = false;
       auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
 
-      foreach(auto i, list)
+      foreach(auto i, selectedItems())
 	{
 	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
@@ -1367,18 +1365,17 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  if(event->modifiers() & Qt::ControlModifier)
-	    {
-	      m_lastScenePos = event->scenePos();
-	      parent->setSelected(!parent->isSelected());
-	    }
+	    m_lastScenePos = event->scenePos();
 	  else
 	    {
 	      if(!parent->isSelected())
 		clearSelection();
 
 	      m_lastScenePos = event->scenePos();
-	      parent->setSelected(true);
 	    }
+
+	  parent->setData(0, parent->isSelected());
+	  parent->setSelected(true);
 
 	  if(!m_lastScenePos.isNull())
 	    {
@@ -1408,6 +1405,33 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
+
+  if(event->modifiers() & Qt::ControlModifier)
+    {
+      auto item = itemAt(event->scenePos(), QTransform());
+
+      if(!qgraphicsitem_cast<glitch_wire *> (item) && item)
+	{
+	  auto parent = item->parentItem();
+
+	  if(!parent)
+	    parent = item;
+
+	  if(!parent)
+	    {
+	      QGraphicsScene::mouseReleaseEvent(event);
+	      return;
+	    }
+
+	  m_movedPoints.clear();
+
+	  if(parent->data(0).toBool())
+	    parent->setSelected(!parent->isSelected());
+
+	  QGraphicsScene::mouseReleaseEvent(event);
+	  return;
+	}
+    }
 
   if(!m_movedPoints.isEmpty() && m_undoStack)
     {
