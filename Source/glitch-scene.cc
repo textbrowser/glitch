@@ -1374,7 +1374,9 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	      m_lastScenePos = event->scenePos();
 	    }
 
-	  parent->setData(0, parent->isSelected());
+	  parent->setData
+	    (static_cast<int> (ItemProperties::WasSelected),
+	     parent->isSelected());
 	  parent->setSelected(true);
 
 	  if(!m_lastScenePos.isNull())
@@ -1425,7 +1427,8 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 	  m_movedPoints.clear();
 
-	  if(parent->data(0).toBool())
+	  if(parent->data(static_cast<int> (ItemProperties::WasSelected)).
+	     toBool())
 	    parent->setSelected(!parent->isSelected());
 
 	  QGraphicsScene::mouseReleaseEvent(event);

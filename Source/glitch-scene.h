@@ -87,6 +87,11 @@ class glitch_scene: public QGraphicsScene
   void undo(void);
 
  private:
+  enum class ItemProperties
+  {
+    WasSelected = 0
+  };
+
   QColor m_dotsGridsColor;
   QHash<QString, QPointer<glitch_proxy_widget> > m_objectsToWire;
   QHash<glitch_proxy_widget *, glitch_point> m_objectsHash; // For ordering.

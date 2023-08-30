@@ -108,6 +108,7 @@ Completed Items
 - Display Tools modes in menu and / or status bar.
 - Display condition / label in flow control's edit window.
 - Display main() function. Fixed position? Yes.
+- Display serial port errors.
 - Display tool mode in status bar.
 - Do not align, stack, etc. unless coordinates would change.
 - Do not allow drag-and-drop operations for unaffiliated functions.
@@ -320,7 +321,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Display serial port errors.
 - Drag and copy.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.

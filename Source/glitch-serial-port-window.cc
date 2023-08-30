@@ -252,6 +252,14 @@ void glitch_serial_port_window::slotDisconnect(void)
 void glitch_serial_port_window::slotErrorOccurred
 (QSerialPort::SerialPortError error)
 {
+  auto serialPort = qobject_cast<QSerialPort *> (sender());
+
+  if(serialPort)
+    m_ui.last_error->setText
+      (QString("%1: %2").
+       arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+       arg(serialPort->errorString().toUpper()));
+
   switch(error)
     {
     case QSerialPort::DeviceNotFoundError:
