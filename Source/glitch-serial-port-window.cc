@@ -25,10 +25,11 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QScrollBar>
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
+#include <QDateTime>
 #include <QSerialPortInfo>
 #endif
+#include <QShortcut>
 
 #include "glitch-serial-port-window.h"
 
@@ -38,8 +39,8 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
   m_ui.setupUi(this);
   connect(m_ui.clear,
 	  &QPushButton::clicked,
-	  m_ui.communications,
-	  &QPlainTextEdit::clear);
+	  this,
+	  &glitch_serial_port_window::slotClear);
   connect(m_ui.connect,
 	  &QPushButton::clicked,
 	  this,
@@ -56,6 +57,9 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_serial_port_window::slotSend);
+#ifndef Q_OS_ANDROID
+  new QShortcut(tr("Ctrl+W"), this, SLOT(close(void)));
+#endif
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
   discoverDevices();
   m_ui.disconnect->setEnabled(false);
@@ -101,6 +105,11 @@ void glitch_serial_port_window::discoverDevices(void)
 
   QApplication::restoreOverrideCursor();
 #endif
+}
+
+void glitch_serial_port_window::slotClear(void)
+{
+  m_ui.communications->clear();
 }
 
 void glitch_serial_port_window::slotConnect(void)
@@ -272,33 +281,24 @@ void glitch_serial_port_window::slotReadyRead(void)
 
   if(serialPort)
     {
-      auto scrollBar = m_ui.communications->verticalScrollBar();
-
       while(serialPort->bytesAvailable() > 0)
 	{
+	  QByteArray bytes;
+
 	  if(serialPort->canReadLine())
-	    {
-	      auto bytes(serialPort->readLine());
-
-	      if(!bytes.isEmpty())
-		{
-		  m_ui.communications->insertPlainText(bytes);
-
-		  if(scrollBar)
-		    scrollBar->setValue(scrollBar->maximum());
-		}
-	    }
+	    bytes = serialPort->readLine();
 	  else
+	    bytes = serialPort->readAll();
+
+	  if(!bytes.isEmpty())
 	    {
-	      auto bytes(serialPort->readAll());
+	      QString string("");
 
-	      if(!bytes.isEmpty())
-		{
-		  m_ui.communications->insertPlainText(bytes);
-
-		  if(scrollBar)
-		    scrollBar->setValue(scrollBar->maximum());
-		}
+	      string.append
+		(QString("<b>%1:</b> ").
+		 arg(QDateTime::currentDateTime().toString(Qt::ISODate)));
+	      string.append(bytes);
+	      m_ui.communications->append(string);
 	    }
 	}
     }

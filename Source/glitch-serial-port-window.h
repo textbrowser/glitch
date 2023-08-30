@@ -47,6 +47,7 @@ class glitch_serial_port_window: public QDialog
   void discoverDevices(void);
 
  private slots:
+  void slotClear(void);
   void slotConnect(void);
   void slotDisconnect(void);
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
