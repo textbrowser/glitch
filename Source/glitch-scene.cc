@@ -1208,7 +1208,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
-	  if(point.x() < 0 || point.y() < 0)
+	  if(point == proxy->pos() || point.x() < 0 || point.y() < 0)
 	    continue;
 
 	  if(!cursorChanged && viewport)
