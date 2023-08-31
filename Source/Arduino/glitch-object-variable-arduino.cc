@@ -65,7 +65,9 @@ glitch_object_variable_arduino::glitch_object_variable_arduino
   m_ui.name->setStyleSheet("QLineEdit {background-color: #ffc0cb;}");
   m_ui.qualifier->installEventFilter(new glitch_scroll_filter(this));
   m_ui.pointer_access->installEventFilter(new glitch_scroll_filter(this));
-  m_ui.type->addItems(glitch_structures_arduino::nonArrayVariableTypes());
+  m_ui.type->addItems
+    (QStringList() << ""
+                   << glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.type->installEventFilter(new glitch_scroll_filter(this));
   prepareContextMenu();
   prepareHighlights();
@@ -310,11 +312,13 @@ void glitch_object_variable_arduino::addActions(QMenu &menu)
   if(!m_actions.contains(DefaultMenuActions::SET_VARIABLE_TYPE))
     {
       auto group = new QActionGroup(m_parent);
+      auto list(glitch_structures_arduino::nonArrayVariableTypes());
       auto m = new QMenu(tr("Variable Type"), m_parent);
 
+      list.prepend("");
       m->setStyleSheet("QMenu {menu-scrollable: 1;}");
 
-      foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
+      foreach(const auto &i, list)
 	{
 	  auto action = new QAction(i, m);
 
