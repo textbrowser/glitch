@@ -336,7 +336,8 @@ QString glitch_canvas_settings::outputFile(void) const
 {
   QSettings settings;
 
-  return settings.value("preferences/output_directory").toString().trimmed() +
+  return settings.value("preferences/output_directory", QDir::homePath()).
+    toString().trimmed() +
     QDir::separator() +
     name() +
     m_outputFileExtension;
