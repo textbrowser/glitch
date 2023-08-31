@@ -1360,6 +1360,9 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		clearSelection();
 
 	      event->setButton(Qt::LeftButton);
+	      parent->setData
+		(static_cast<int> (ItemProperties::WasSelected),
+		 parent->isSelected());
 	      parent->setSelected(true);
 	      goto done_label;
 	    }
