@@ -85,7 +85,8 @@ class glitch_object: public QWidget
     */
 
     SET_FUNCTION_NAME = 3000,
-    SET_FUNCTION_RETURN_TYPE = 4000
+    SET_FUNCTION_RETURN_TYPE = 4000,
+    SET_VARIABLE_TYPE = 5000
   };
 
   enum class Limits

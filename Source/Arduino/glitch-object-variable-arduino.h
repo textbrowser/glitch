@@ -66,6 +66,7 @@ class glitch_object_variable_arduino: public glitch_object
   void slotComboBoxChanged(void);
   void slotLineEditSet(void);
   void slotToolButtonChecked(void);
+  void slotVariableTypeActionTriggered(void);
 };
 
 #endif

@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QActionGroup>
+
 #include "glitch-object-compound-operator-arduino.h"
 #include "glitch-object-variable-arduino.h"
 #include "glitch-scroll-filter.h"
@@ -305,6 +307,36 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_variable_arduino::addActions(QMenu &menu)
 {
+  if(!m_actions.contains(DefaultMenuActions::SET_VARIABLE_TYPE))
+    {
+      auto group = new QActionGroup(m_parent);
+      auto m = new QMenu(tr("Variable Type"), m_parent);
+
+      m->setStyleSheet("QMenu {menu-scrollable: 1;}");
+
+      foreach(const auto &i, glitch_structures_arduino::nonArrayVariableTypes())
+	{
+	  auto action = new QAction(i, m);
+
+	  action->setCheckable(true);
+	  action->setChecked(i == m_ui.type->currentText());
+	  connect
+	    (action,
+	     &QAction::triggered,
+	     this,
+	     &glitch_object_variable_arduino::slotVariableTypeActionTriggered,
+	     Qt::QueuedConnection);
+	  group->addAction(action);
+	  m->addAction(action);
+	}
+
+      m_actions[DefaultMenuActions::SET_VARIABLE_TYPE] = m->menuAction();
+      menu.addMenu(m);
+    }
+  else
+    menu.addMenu
+      (m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE)->menu());
+
   addDefaultActions(menu);
 }
 
@@ -554,6 +586,33 @@ void glitch_object_variable_arduino::setProperty
       }
     case Properties::VARIABLE_TYPE:
       {
+	auto menu = m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE) ?
+	  m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE)->menu() :
+	  nullptr;
+
+	if(menu)
+	  {
+	    foreach(auto action, menu->actions())
+	      if(action && action->text() == value.toString())
+		{
+		  disconnect
+		    (action,
+		     &QAction::triggered,
+		     this,
+		     &glitch_object_variable_arduino::
+		     slotVariableTypeActionTriggered);
+		  action->setChecked(true);
+		  connect
+		    (action,
+		     &QAction::triggered,
+		     this,
+		     &glitch_object_variable_arduino::
+		     slotVariableTypeActionTriggered,
+		     Qt::QueuedConnection);
+		  break;
+		}
+	  }
+
 	m_ui.type->blockSignals(true);
 	m_ui.type->setCurrentIndex
 	  (m_ui.type->
@@ -603,6 +662,34 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
 {
   if(!m_undoStack)
     return;
+
+  if(m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE, nullptr) &&
+     m_ui.type == sender())
+    {
+      auto menu = m_actions.value
+	(DefaultMenuActions::SET_VARIABLE_TYPE)->menu();
+
+      if(menu)
+	{
+	  foreach(auto action, menu->actions())
+	    if(action && action->text() == m_ui.type->currentText())
+	      {
+		disconnect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_variable_arduino::slotComboBoxChanged);
+		action->setChecked(true);
+		connect
+		  (action,
+		   &QAction::triggered,
+		   this,
+		   &glitch_object_variable_arduino::slotComboBoxChanged,
+		   Qt::QueuedConnection);
+		break;
+	      }
+	}
+    }
 
   auto comboBox = qobject_cast<QComboBox *> (sender());
 
@@ -696,4 +783,17 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
      arg(scenePos().x()).arg(scenePos().y()));
   m_undoStack->push(undoCommand);
   emit changed();
+}
+
+void glitch_object_variable_arduino::slotVariableTypeActionTriggered(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  auto index = m_ui.type->findText(action->text());
+
+  if(index >= 0)
+    m_ui.type->setCurrentIndex(index);
 }
