@@ -115,6 +115,8 @@ void glitch_serial_port_window::slotClear(void)
 void glitch_serial_port_window::slotConnect(void)
 {
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+
   auto serialPort = findChild<QSerialPort *> ();
 
   if(serialPort)
@@ -131,6 +133,7 @@ void glitch_serial_port_window::slotConnect(void)
 
   if(!serialPort->open(QIODevice::ReadWrite))
     {
+      QApplication::restoreOverrideCursor();
       slotDisconnect();
       return;
     }
@@ -227,6 +230,7 @@ void glitch_serial_port_window::slotConnect(void)
   m_ui.disconnect->setEnabled(true);
   m_ui.send->setEnabled(true);
   m_ui.serial_port->setText(serialPort->portName());
+  QApplication::restoreOverrideCursor();
 #endif
 }
 
@@ -255,10 +259,13 @@ void glitch_serial_port_window::slotErrorOccurred
   auto serialPort = qobject_cast<QSerialPort *> (sender());
 
   if(serialPort)
-    m_ui.last_error->setText
-      (QString("%1: %2").
-       arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
-       arg(serialPort->errorString().toUpper()));
+    {
+      m_ui.last_error->setText
+	(QString("%1: %2").
+	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+	 arg(serialPort->errorString().toUpper()));
+      m_ui.last_error->setCursorPosition(0);
+    }
 
   switch(error)
     {
