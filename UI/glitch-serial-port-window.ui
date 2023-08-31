@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>748</height>
+    <width>700</width>
+    <height>725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,12 +80,6 @@
                </item>
                <item>
                 <widget class="QPushButton" name="refresh">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
                  <property name="text">
                   <string>Refresh</string>
                  </property>

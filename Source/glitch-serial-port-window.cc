@@ -36,6 +36,7 @@
 glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
   QDialog(parent)
 {
+  m_packetsReceived = 0;
   m_ui.setupUi(this);
   connect(m_ui.clear,
 	  &QPushButton::clicked,
@@ -245,6 +246,7 @@ void glitch_serial_port_window::slotDisconnect(void)
       serialPort->deleteLater();
     }
 
+  m_packetsReceived = 0;
   m_ui.connect->setEnabled(true);
   m_ui.disconnect->setEnabled(false);
   m_ui.send->setEnabled(false);
@@ -309,9 +311,12 @@ void glitch_serial_port_window::slotReadyRead(void)
 	    {
 	      QString string("");
 
+	      m_packetsReceived += 1;
 	      string.append
-		(QString("<b>%1:</b> ").
-		 arg(QDateTime::currentDateTime().toString(Qt::ISODate)));
+		(QString("%1:<b>%2</b>:%3: ").
+		 arg(serialPort->portName()).
+		 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+		 arg(QString::number(m_packetsReceived)));
 	      string.append(bytes);
 	      m_ui.communications->append(string);
 	    }
