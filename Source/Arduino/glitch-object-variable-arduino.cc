@@ -792,7 +792,7 @@ void glitch_object_variable_arduino::slotVariableTypeActionTriggered(void)
   if(!action)
     return;
 
-  auto index = m_ui.type->findText(action->text());
+  auto index = m_ui.type->findText(action->text(), Qt::MatchFixedString);
 
   if(index >= 0)
     m_ui.type->setCurrentIndex(index);
