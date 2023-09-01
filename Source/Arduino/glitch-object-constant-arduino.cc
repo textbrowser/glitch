@@ -76,7 +76,7 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
       QFontMetrics fontMetrics(font());
       auto width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.other->text().trimmed()).width() / 5.0) +
-	(m_ui.constant->isVisible() ?
+	(compressed() == false ?
 	 5 * qCeil(fontMetrics.boundingRect(m_ui.constant->currentText().
 					    trimmed()).width() / 5.0) : 0) +
 	s_widthTweak;
@@ -273,7 +273,6 @@ void glitch_object_constant_arduino::setProperties(const QStringList &list)
   setConstantType(m_properties.value(Properties::CONSTANT_TYPE).toString());
   setName(m_ui.other->text());
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
-  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_constant_arduino::setProperty

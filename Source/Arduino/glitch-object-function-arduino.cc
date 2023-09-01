@@ -835,8 +835,6 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	else
 	  slotParentFunctionChanged();
       }
-
-  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_function_arduino::setReturnType(const QString &returnType)

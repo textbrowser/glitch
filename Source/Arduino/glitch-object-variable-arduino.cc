@@ -88,7 +88,9 @@ QSize glitch_object_variable_arduino::preferredSize(void) const
 	(fontMetrics.boundingRect(m_ui.name->text().trimmed()).width() / 5.0) +
 	s_widthTweak;
 
-      return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
+      return QSize
+	(qMax(5 * qCeil(minimumSizeHint().width() / 5.0), width),
+	 minimumHeight(sizeHint().height()));
     }
   else
     return QSize(5 * qCeil(sizeHint().width() / 5.0),
@@ -540,7 +542,6 @@ void glitch_object_variable_arduino::setProperties(const QStringList &list)
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   connectSignals(true);
-  resize(property("temporary-size").toSize());
 }
 
 void glitch_object_variable_arduino::setProperty
