@@ -364,6 +364,7 @@ void glitch_structures_arduino::prepareCategories(void)
   s_itemsForCategories["Flow Control"] = QStringList() << "break"
 						       << "case"
 						       << "continue"
+						       << "default"
 						       << "do while"
 						       << "else"
 						       << "else if"

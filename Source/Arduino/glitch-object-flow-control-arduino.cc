@@ -119,6 +119,8 @@ QString glitch_object_flow_control_arduino::code(void) const
     stream << "case "
 	   << m_ui.condition->text().trimmed()
 	   << ":";
+  else if(m_ui.flow_control_type->currentText() == "default")
+    stream << "default:";
   else if(m_ui.flow_control_type->currentText() == "do while")
     stream << "do";
   else if(m_ui.flow_control_type->currentText() == "else")
@@ -436,6 +438,7 @@ void glitch_object_flow_control_arduino::save
 
   if(error.isEmpty() && m_editView)
     if(m_flowControlType == FlowControlTypes::CASE ||
+       m_flowControlType == FlowControlTypes::DEFAULT ||
        m_flowControlType == FlowControlTypes::DO_WHILE ||
        m_flowControlType == FlowControlTypes::ELSE ||
        m_flowControlType == FlowControlTypes::ELSE_IF ||
@@ -470,6 +473,11 @@ void glitch_object_flow_control_arduino::setFlowControlType
       enabled = false;
       m_editWindow->setVisible(false);
       m_flowControlType = FlowControlTypes::CONTINUE;
+      m_ui.condition->setVisible(false);
+    }
+  else if(f == "default")
+    {
+      m_flowControlType = FlowControlTypes::DEFAULT;
       m_ui.condition->setVisible(false);
     }
   else if(f == "do while")

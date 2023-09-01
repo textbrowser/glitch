@@ -41,6 +41,7 @@ class glitch_object_flow_control_arduino: public glitch_object
     BREAK = 0,
     CASE,
     CONTINUE,
+    DEFAULT,
     DO_WHILE,
     ELSE,
     ELSE_IF,
