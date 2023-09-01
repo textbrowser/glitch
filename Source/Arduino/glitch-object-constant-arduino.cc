@@ -81,7 +81,9 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 					    trimmed()).width() / 5.0) : 0) +
 	s_widthTweak;
 
-      return QSize(qMax(50, width), minimumHeight(sizeHint().height()));
+      return QSize
+	(qMax(5 * qCeil(minimumSizeHint().width() / 5.0), width),
+	 minimumHeight(sizeHint().height()));
     }
   else
     return QSize(5 * qCeil(sizeHint().width() / 5.0),

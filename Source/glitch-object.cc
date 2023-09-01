@@ -1409,7 +1409,7 @@ void glitch_object::setProperties(const QStringList &list)
 
 	      size.setWidth
 		(qMax(list.value(0).trimmed().toInt(),
-		      minimumSizeHint().width()));
+		      preferredSize().width()));
 	      resize(size);
 	      setProperty("temporary-size", size);
 	    }
