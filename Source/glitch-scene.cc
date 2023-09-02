@@ -35,8 +35,6 @@
 #include <QUndoStack>
 #include <QtDebug>
 
-#include <cmath>
-
 #include "Arduino/glitch-object-advanced-io-arduino.h"
 #include "Arduino/glitch-object-analog-io-arduino.h"
 #include "Arduino/glitch-object-arithmetic-operator-arduino.h"
