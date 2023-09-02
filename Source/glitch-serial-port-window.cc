@@ -263,9 +263,10 @@ void glitch_serial_port_window::slotErrorOccurred
   if(serialPort)
     {
       m_ui.last_error->setText
-	(QString("%1: %2").
+	(QString("%1:%2:%3").
+	 arg(serialPort->portName()).
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
-	 arg(serialPort->errorString().toUpper()));
+	 arg(serialPort->errorString().trimmed().toUpper()));
       m_ui.last_error->setCursorPosition(0);
     }
 
