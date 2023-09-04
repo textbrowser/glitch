@@ -92,7 +92,7 @@ void glitch_serial_port_window::discoverDevices(void)
 
   if(serialPort)
     {
-      if(m_ui.port_name->findText(portName) == -1)
+      if(!serialPort->isOpen() || m_ui.port_name->findText(portName) == -1)
 	slotDisconnect();
     }
   else
@@ -263,10 +263,11 @@ void glitch_serial_port_window::slotErrorOccurred
   if(serialPort)
     {
       m_ui.last_error->setText
-	(QString("%1:%2:%3").
+	(QString("%1:%2:%3 (%4)").
 	 arg(serialPort->portName()).
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
-	 arg(serialPort->errorString().trimmed().toUpper()));
+	 arg(serialPort->errorString().trimmed().toUpper()).
+	 arg(error));
       m_ui.last_error->setCursorPosition(0);
     }
 
@@ -286,6 +287,9 @@ void glitch_serial_port_window::slotErrorOccurred
       }
     default:
       {
+	if(serialPort && serialPort->isOpen() == false)
+	  slotDisconnect();
+
 	break;
       }
     }
