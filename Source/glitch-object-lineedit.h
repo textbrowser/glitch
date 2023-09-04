@@ -55,6 +55,7 @@ class glitch_object_lineedit: public QLineEdit
     QApplication::restoreOverrideCursor();
     QLineEdit::leaveEvent(event);
     deselect();
+    emit editingFinished();
     setReadOnly(true);
   }
 
@@ -86,7 +87,6 @@ class glitch_object_lineedit: public QLineEdit
   void slotReturnPressed(void)
   {
     QApplication::restoreOverrideCursor();
-    setReadOnly(true);
   }
 };
 
