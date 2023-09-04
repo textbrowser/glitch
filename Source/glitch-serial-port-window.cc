@@ -58,6 +58,7 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_serial_port_window::slotSend);
+  m_ui.clear->setIcon(QIcon(":/clear.png"));
 #ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+W"), this, SLOT(close(void)));
 #endif
@@ -318,7 +319,9 @@ void glitch_serial_port_window::slotReadyRead(void)
 
 	      m_packetsReceived += 1;
 	      string.append
-		(QString("%1:<b>%2</b>:%3: ").
+		(QString("<font color='#33a532'>%1</font>:"
+			 "<b>%2</b>:"
+			 "<font color='#00238b'>%3</font>: ").
 		 arg(serialPort->portName()).
 		 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
 		 arg(QString::number(m_packetsReceived)));
