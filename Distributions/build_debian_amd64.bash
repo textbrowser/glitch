@@ -34,7 +34,7 @@ cp -pr ./Examples ./opt/glitch/.
 # Preparing Glitch-x.deb:
 
 mkdir -p glitch-debian/opt
-cp -pr ./DEBIAN glitch-debian/.
+cp -pr ./Distributions/DEBIAN glitch-debian/.
 cp -r ./opt/glitch glitch-debian/opt/.
 fakeroot dpkg-deb --build glitch-debian Glitch-2023.09.10_amd64.deb
 rm -fr ./opt

@@ -374,7 +374,7 @@ qtlibraries.files   = $$[QT_INSTALL_BINS]\\Qt6Core.dll \
                       $$[QT_INSTALL_BINS]\\libstdc++-6.dll \
                       $$[QT_INSTALL_BINS]\\libwinpthread-1.dll
 qtlibraries.path    = release\\.
-shell.files         = glitch-darkmode.bat
+shell.files         = Distributions\\glitch-darkmode.bat
 shell.path          = release\\.
 
 INSTALLS = documentation1 \

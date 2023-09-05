@@ -1,4 +1,4 @@
-*/control
+Distributions/*/control
 Distributions/build*
 Documentation/ReleaseNotes.html
 Source/glitch-version.h
