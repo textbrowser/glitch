@@ -230,7 +230,7 @@
   </action>
   <action name="action_Quit">
    <property name="text">
-    <string>Exit Software</string>
+    <string>Exit Glitch</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>

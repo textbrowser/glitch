@@ -30,6 +30,7 @@
 #include <QSerialPortInfo>
 #endif
 #include <QShortcut>
+#include <QTimer>
 
 #include "glitch-serial-port-window.h"
 
@@ -94,7 +95,7 @@ void glitch_serial_port_window::discoverDevices(void)
   if(serialPort)
     {
       if(!serialPort->isOpen() || m_ui.port_name->findText(portName) == -1)
-	slotDisconnect();
+	QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
     }
   else
     m_ui.port_name->setCurrentIndex(0);
@@ -136,7 +137,7 @@ void glitch_serial_port_window::slotConnect(void)
   if(!serialPort->open(QIODevice::ReadWrite))
     {
       QApplication::restoreOverrideCursor();
-      slotDisconnect();
+      QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
       return;
     }
 
@@ -288,8 +289,14 @@ void glitch_serial_port_window::slotErrorOccurred
       }
     default:
       {
-	if(serialPort && serialPort->isOpen() == false)
-	  slotDisconnect();
+	if(serialPort)
+	  {
+	    auto error(serialPort->errorString().toLower());
+
+	    if(error.contains(tr("broken pipe")) ||
+	       serialPort->isOpen() == false)
+	      QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
+	  }
 
 	break;
       }
