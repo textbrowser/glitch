@@ -63,6 +63,7 @@ class glitch_ui: public QMainWindow
   glitch_ui(void);
   ~glitch_ui();
   static QFont s_defaultApplicationFont;
+  static QPointer<QMainWindow> s_mainWindow;
   static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;

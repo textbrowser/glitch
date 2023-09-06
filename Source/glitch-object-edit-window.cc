@@ -230,7 +230,9 @@ glitch_object_edit_window::glitch_object_edit_window
 	  SLOT(slotSplitterMoved(void)));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
-  resize(800, 600);
+#ifndef Q_OS_ANDROID
+  resize(0.85 * glitch_ui::s_mainWindow->size());
+#endif
 }
 
 QString glitch_object_edit_window::objectName(void) const

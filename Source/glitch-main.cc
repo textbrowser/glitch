@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	std::cout << "--open-arduino-diagram absolute-file-name" << std::endl;
 	std::cout << "--show-tools" << std::endl;
 	std::cout << "--version" << std::endl;
-	return EXIT_SUCCESS;
+	return static_cast<int> (EXIT_SUCCESS);
       }
     else if(strcmp(argv[i], "--version") == 0)
       {
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 		  << GLITCH_VERSION_STRING
 		  << "."
 		  << std::endl;
-	return EXIT_SUCCESS;
+	return static_cast<int> (EXIT_SUCCESS);
       }
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
@@ -107,11 +107,17 @@ int main(int argc, char *argv[])
                      glitch_misc::homePath());
   glitch_ui::s_defaultApplicationFont = font;
 
-  glitch_ui ui;
+  int rc = 0;
 
-  ui.show();
+  {
+    glitch_ui ui;
 
-  auto rc = qapplication.exec();
+#ifndef Q_OS_ANDROID
+    glitch_ui::s_mainWindow = &ui;
+#endif
+    ui.show();
+    rc = static_cast<int> (qapplication.exec());
+  }
 
 #ifdef Q_OS_ANDROID
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 1, 0))

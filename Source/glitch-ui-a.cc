@@ -56,6 +56,7 @@
 #include "ui_glitch-errors-dialog.h"
 
 QFont glitch_ui::s_defaultApplicationFont;
+QPointer<QMainWindow> glitch_ui::s_mainWindow;
 QSet<glitch_object *> glitch_ui::s_copiedObjectsSet;
 QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
