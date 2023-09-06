@@ -82,7 +82,7 @@ glitch_view::glitch_view
     (m_dockedWidgetPropertyEditors->sizeHint());
   m_dockedWidgetPropertyEditors->setMinimumWidth(250);
   m_fileName = fileName;
-  m_generateSourceViewTimer.setInterval(250);
+  m_generateSourceViewTimer.setInterval(1500);
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
