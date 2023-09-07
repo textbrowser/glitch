@@ -340,6 +340,26 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
+      if(isMandatory() && opt && (opt->state & QStyle::State_Selected))
+	{
+	  /*
+	  ** Draw a selection rectangle.
+	  */
+
+	  QPen pen;
+	  const qreal offset = 0.0;
+
+	  pen.setColor(selectionColor());
+	  pen.setJoinStyle(Qt::RoundJoin);
+	  pen.setStyle(Qt::SolidLine);
+	  pen.setWidthF(2.5);
+	  painter->save();
+	  painter->setPen(pen);
+	  painter->drawRect
+	    (boundingRect().adjusted(-offset, -offset, offset, offset));
+	  painter->restore();
+	}
+
       if(!isMandatory() && m_object && m_object->showOrderIndicator())
 	{
 	  /*

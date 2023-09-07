@@ -331,7 +331,7 @@ Remaining Items
 - Prevent pasting of non-clone functions onto non-main diagrams.
 - Print preview. Avoid Android.
 - Replace comment widget with a text graphics item.
-- Resize after a font is difficult because of redo / undo.
+- Resizing after a font is difficult because of redo / undo.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
