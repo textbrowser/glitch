@@ -121,6 +121,7 @@ class glitch_scene: public QGraphicsScene
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+  void prepareBackgroundForMove(const bool state);
   void recordProxyOrder(glitch_proxy_widget *proxy);
   void wireConnectObjects(glitch_proxy_widget *proxy);
   void wireDisconnectObjects(const QPointF &point, glitch_proxy_widget *proxy);

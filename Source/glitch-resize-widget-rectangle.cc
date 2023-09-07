@@ -31,7 +31,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-resize-widget-rectangle.h"
 
-qreal glitch_resize_widget_rectangle::SQUARE_SIZE = 10.0;
+qreal glitch_resize_widget_rectangle::SQUARE_SIZE = 7.5;
 
 glitch_resize_widget_rectangle::glitch_resize_widget_rectangle
 (QGraphicsItem *parent, const RectangleLocations location):

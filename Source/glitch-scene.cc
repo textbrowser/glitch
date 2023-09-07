@@ -1160,6 +1160,8 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
   if(event && !m_lastScenePos.isNull())
     {
+      prepareBackgroundForMove(true);
+
       auto instance = qobject_cast<QGuiApplication *>
 	(QApplication::instance());
 
@@ -1234,6 +1236,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
       m_lastScenePos = QPointF();
       m_movedPoints.clear();
+      prepareBackgroundForMove(false);
     }
 
   if(event)
@@ -1270,6 +1273,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 		      m_lastScenePos = QPointF();
 		      m_movedPoints.clear();
+		      prepareBackgroundForMove(false);
 		    }
 		  else
 		    {
@@ -1426,6 +1430,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  m_movedPoints.clear();
+	  prepareBackgroundForMove(false);
 
 	  if(parent->data(static_cast<int> (ItemProperties::WasSelected)).
 	     toBool())
@@ -1472,6 +1477,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
   m_movedPoints.clear();
+  prepareBackgroundForMove(false);
 
   auto view = primaryView();
 
@@ -1486,6 +1492,11 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
   QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void glitch_scene::prepareBackgroundForMove(const bool state)
+{
+  Q_UNUSED(state);
 }
 
 void glitch_scene::purgeRedoUndoProxies(void)

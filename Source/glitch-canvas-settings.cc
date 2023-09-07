@@ -56,8 +56,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.background_color->setText(QColor(Qt::white).name());
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
-  m_ui.lock_color->setStyleSheet("QPushButton {background-color: orange}");
-  m_ui.lock_color->setText("orange");
+  m_ui.lock_color->setStyleSheet
+    (QString("QPushButton {background-color: %1}").
+     arg(QColor(231, 84, 128).name()));
+  m_ui.lock_color->setText(QColor(231, 84, 128).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_ide->setText("/usr/bin/arduino");
   m_ui.project_ide->setCursorPosition(0);
@@ -66,8 +68,9 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.reset_source_view_keywords->setIcon(QIcon(":/reset.png"));
   m_ui.select_project_ide->setIcon(QIcon(":/open.png"));
   m_ui.selection_color->setStyleSheet
-    ("QPushButton {background-color: lightgreen}");
-  m_ui.selection_color->setText("lightgreen");
+    (QString("QPushButton {background-color: %1}").
+     arg(QColor(0, 0, 139).name()));
+  m_ui.selection_color->setText(QColor(0, 0, 139).name());
   m_ui.source_view_keywords->setItemDelegateForColumn
     (1, m_itemDelegate = new glitch_canvas_settings_item_delegate(this));
   m_ui.special_copy->setIcon(QIcon(":/copy.png"));

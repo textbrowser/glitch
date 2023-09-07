@@ -69,9 +69,9 @@ QColor glitch_proxy_widget::selectionColor(void) const
 	return m_object->canvasSettings()->selectionColor();
     }
   else if(isMovable())
-    return QColor("lightgreen");
+    return QColor(0, 0, 139);
   else
-    return QColor("orange");
+    return QColor(231, 84, 128);
 }
 
 QList<glitch_resize_widget_rectangle *> glitch_proxy_widget::
@@ -337,26 +337,6 @@ void glitch_proxy_widget::paint
 	  painter->save();
 	  painter->setPen(pen);
 	  painter->drawRoundedRect(boundingRect(), 5.0, 5.0);
-	  painter->restore();
-	}
-
-      if(opt && (opt->state & QStyle::State_Selected))
-	{
-	  /*
-	  ** Draw a selection rectangle.
-	  */
-
-	  QPen pen;
-	  const qreal offset = 0.0;
-
-	  pen.setColor(selectionColor());
-	  pen.setJoinStyle(Qt::RoundJoin);
-	  pen.setStyle(Qt::SolidLine);
-	  pen.setWidthF(2.5);
-	  painter->save();
-	  painter->setPen(pen);
-	  painter->drawRect
-	    (boundingRect().adjusted(-offset, -offset, offset, offset));
 	  painter->restore();
 	}
 
