@@ -1165,8 +1165,6 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
 	{
-	  emit copy();
-	  return;
 	}
 
       auto cursorChanged = false;

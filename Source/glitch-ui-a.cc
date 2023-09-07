@@ -425,10 +425,11 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	{
 	  QElapsedTimer timer;
 
-	  setUpdatesEnabled(false);
 	  timer.start();
 
 	  auto view = newArduinoDiagram(fileName, name, true);
+
+	  setUpdatesEnabled(false);
 
 	  if((ok = view->open(fileName, error)))
 	    saveRecentFile(fileName);
