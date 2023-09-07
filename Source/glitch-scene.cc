@@ -76,14 +76,15 @@ inline static qreal round(const qreal s, const qreal value)
   if(!(step < 0.0 || step > 0.0))
     step = 25.0;
 
-  auto tmp = static_cast<int> (value + step / 2.0);
+  auto tmp = static_cast<int> (step / 2.0 + value);
 
   tmp -= tmp % static_cast<int> (step);
   return static_cast<qreal> (tmp);
 }
 
-glitch_scene::glitch_scene(const glitch_common::ProjectTypes projectType,
-			   QObject *parent):QGraphicsScene(parent)
+glitch_scene::glitch_scene
+(const glitch_common::ProjectTypes projectType, QObject *parent):
+  QGraphicsScene(parent)
 {
   m_dotsGridsColor = Qt::white;
   m_mainScene = false;
