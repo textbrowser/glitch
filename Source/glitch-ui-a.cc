@@ -595,7 +595,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	    mb.setIcon(QMessageBox::Question);
 	    mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
 	    mb.setText
-	      (tr("At least one display has not been saved. Are you sure that "
+	      (tr("At least one diagram has not been saved. Are you sure that "
 		  "you wish to exit Glitch?"));
 	    mb.setWindowIcon(windowIcon());
 	    mb.setWindowModality(Qt::ApplicationModal);
@@ -1512,7 +1512,7 @@ void glitch_ui::slotCloseDiagram(int index)
 	  mb.setIcon(QMessageBox::Question);
 	  mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
 	  mb.setText
-	    (tr("The current view has been modified. Are you sure that "
+	    (tr("The current diagram has been modified. Are you sure that "
 		"you wish to close it?"));
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::ApplicationModal);
@@ -1528,11 +1528,15 @@ void glitch_ui::slotCloseDiagram(int index)
 	}
 
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+      m_ui.miscellaneous_toolbar->setVisible(false);
+      m_ui.tab->removeTab(index);
+      m_ui.tools_toolbar->setVisible(false);
       view->deleteLater();
       QApplication::restoreOverrideCursor();
     }
+  else
+    m_ui.tab->removeTab(index);
 
-  m_ui.tab->removeTab(index);
   prepareActionWidgets();
   prepareStatusBar();
   prepareTabShortcuts();
