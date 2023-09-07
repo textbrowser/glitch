@@ -30,6 +30,7 @@ cp -p ./Icons/Logo/glitch-logo.png ./opt/glitch/.
 cp -p ./glitch.sh ./opt/glitch/.
 cp -pr ./Documentation/Arduino ./opt/glitch/Documentation/.
 cp -pr ./Examples ./opt/glitch/.
+rm -fr ./opt/glitch/Documentation/Doxygen
 
 # Preparing Glitch-x.deb:
 
