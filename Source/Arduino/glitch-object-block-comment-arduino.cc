@@ -59,7 +59,7 @@ QPlainTextEdit *glitch_object_block_comment_arduino::plainTextEdit(void) const
 
 QString glitch_object_block_comment_arduino::code(void) const
 {
-  return "/*\n" + m_ui.comment->toPlainText() + "\n*/";
+  return "/* " + m_ui.comment->toPlainText() + " */";
 }
 
 bool glitch_object_block_comment_arduino::isFullyWired(void) const

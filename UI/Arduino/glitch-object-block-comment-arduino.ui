@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>115</height>
+    <height>100</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,6 +28,12 @@
    </property>
    <item>
     <widget class="QPlainTextEdit" name="comment">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="toolTip">
       <string>Comment</string>
      </property>
