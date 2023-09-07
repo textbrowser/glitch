@@ -399,6 +399,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  &glitch_proxy_widget::deleteLater,
 	  Qt::QueuedConnection);
   connect(object,
+	  &glitch_object::saveSignal,
+	  this,
+	  &glitch_scene::saveSignal,
+	  Qt::UniqueConnection);
+  connect(object,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SIGNAL(destroyed(QObject *)),
@@ -408,19 +413,14 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  this,
 	  SIGNAL(dockPropertyEditor(QWidget *)),
 	  Qt::UniqueConnection);
-  connect(object,
-	  &glitch_object::saveSignal,
-	  this,
-	  &glitch_scene::saveSignal,
-	  Qt::UniqueConnection);
-  connect(proxy,
-	  SIGNAL(geometryChangedSignal(const QRectF &)),
-	  this,
-	  SLOT(slotProxyGeometryChanged(const QRectF &)));
   connect(proxy,
 	  &glitch_proxy_widget::changed,
 	  this,
 	  &glitch_scene::slotProxyChanged);
+  connect(proxy,
+	  SIGNAL(geometryChangedSignal(const QRectF &)),
+	  this,
+	  SLOT(slotProxyGeometryChanged(const QRectF &)));
 
   if(object->editScene())
     connect(this,
