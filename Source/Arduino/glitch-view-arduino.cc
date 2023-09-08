@@ -161,7 +161,6 @@ QString glitch_view_arduino::source(void) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   generateSource(stream);
   QApplication::restoreOverrideCursor();
-
   return string;
 }
 
