@@ -41,6 +41,11 @@ glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 #endif
 		 QPainter::SmoothPixmapTransform |
 		 QPainter::TextAntialiasing);
+#ifdef Q_OS_MACOS
+  // qt.pointer.dispatch: skipping QEventPoint()
+
+  viewport()->setAttribute(Qt::WA_AcceptTouchEvents, false);
+#endif
 }
 
 bool glitch_graphicsview::containsFunction(const QString &name) const
