@@ -248,6 +248,8 @@ glitch_view::~glitch_view()
 	     SIGNAL(indexChanged(int)),
 	     this,
 	     SLOT(slotUndoStackChanged(void)));
+  m_generateSourceViewTimer.stop();
+  m_generateTimer.stop();
   m_scene->purgeRedoUndoProxies();
 }
 
