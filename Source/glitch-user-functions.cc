@@ -149,7 +149,7 @@ void glitch_user_functions::renameFunction(const QString &before,
 
 void glitch_user_functions::setModel(glitch_user_functions_model *model)
 {
-  if(model && m_model == nullptr)
+  if(m_model == nullptr && model)
     {
       m_model = model;
       m_ui.functions->setModel(m_model);
