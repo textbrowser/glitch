@@ -544,22 +544,25 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
 
-  if(!m_redoUndoProxies.contains(proxy) && proxy)
-    m_redoUndoProxies[proxy] = 0;
+  if(proxy)
+    {
+      if(!m_redoUndoProxies.contains(proxy))
+	m_redoUndoProxies[proxy] = 0;
 
-  if(proxy && proxy->object() && proxy->object()->editScene())
-    connect(this,
-	    &glitch_scene::functionDeleted,
-	    proxy->object()->editScene(),
-	    &glitch_scene::slotFunctionDeleted,
-	    Qt::UniqueConnection);
+      if(qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
+	emit functionAdded
+	  (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
+	   name(),
+	   qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
+	   isClone());
 
-  if(proxy && qobject_cast<glitch_object_function_arduino *> (proxy->widget()))
-    emit functionAdded
-      (qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
-       name(),
-       qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
-       isClone());
+      if(proxy->object() && proxy->object()->editScene())
+	connect(this,
+		&glitch_scene::functionDeleted,
+		proxy->object()->editScene(),
+		&glitch_scene::slotFunctionDeleted,
+		Qt::UniqueConnection);
+    }
 
   recordProxyOrder(proxy);
 

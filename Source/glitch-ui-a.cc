@@ -429,12 +429,16 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  auto view = newArduinoDiagram(fileName, name, true);
 
-	  setUpdatesEnabled(false);
+	  if(view)
+	    {
+	      setUpdatesEnabled(false);
 
-	  if((ok = view->open(fileName, error)))
-	    saveRecentFile(fileName);
+	      if((ok = view->open(fileName, error)))
+		saveRecentFile(fileName);
 
-	  setUpdatesEnabled(true);
+	      setUpdatesEnabled(true);
+	    }
+
 	  showStatsuBarMessage
 	    (tr("%1 opened in %2 second(s).").
 	     arg(fileName).arg(timer.elapsed() / 1000.0),
