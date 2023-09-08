@@ -79,7 +79,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
-                          -Wdouble-promotion \
                           -Wenum-compare \
                           -Wextra \
                           -Wformat=2 \
