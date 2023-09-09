@@ -146,9 +146,9 @@ QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
 QMAKE_DISTCLEAN     += -r .qmake* \
+                       -r Temporary \
                        -r html \
-                       -r latex \
-                       -r temp
+                       -r latex
 
 macx {
 QMAKE_DISTCLEAN     += -r Glitch.d
@@ -182,11 +182,11 @@ OBJECTIVE_HEADERS += Source/CocoaInitializer.h
 OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
 }
 
-MOC_DIR     = temp/moc
-OBJECTS_DIR = temp/obj
-RCC_DIR     = temp/rcc
+MOC_DIR     = Temporary/moc
+OBJECTS_DIR = Temporary/obj
+RCC_DIR     = Temporary/rcc
 RESOURCES   = Documentation/documentation.qrc Icons/icons.qrc
-UI_DIR      = temp/ui
+UI_DIR      = Temporary/ui
 
 FORMS          += UI/glitch-canvas-preview.ui \
                   UI/glitch-canvas-settings.ui \
