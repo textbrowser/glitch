@@ -1691,7 +1691,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	    << QIcon(":/font.png")
 	    << QIcon(":/pin.png")
 	    << QIcon(":/widget-properties.png");
-      menu = new QMenu(this);
+      menu = new QMenu(m_currentView);
       texts << tr("Adjust Size(s) (All Widgets)")
 	    << tr("Adjust Size(s) (Selected Widget(s))")
 	    << tr("(De)compress Selected Widget(s)")

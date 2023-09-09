@@ -73,6 +73,10 @@ int glitch_tab::addTab
 	  &QPushButton::clicked,
 	  view,
 	  &glitch_view::slotSave);
+  connect(view,
+	  SIGNAL(destroyed(void)),
+	  pushButton,
+	  SLOT(deleteLater(void)));
   m_tabBar->setTabButton
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
   pushButton->setFlat(true);
