@@ -60,7 +60,6 @@
 <li>Simplified selection border of selected objects.</li>
 <li>Write comments on single lines.</li>
 </ul>
-
 <p>2023.08.19</p>
 <ul>
 <li>Corrected abnormal termination caused by redo / undo delete of
