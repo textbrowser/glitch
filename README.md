@@ -25,6 +25,42 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.09.10</p>
+<ul>
+<li>Added QPainter::LosslessImageRendering where supported. Requires
+  Qt 5.13 and newer.</li>
+<li>Added context menu item to variable object for setting the
+  variable's type.</li>
+<li>Added default keyword to Arduino flow control object.</li>
+<li>Clearer rendering of diagram previews.</li>
+<li>Destroy a tab's save push-button whenever its diagram is
+  destroyed. Otherwise, resources will not be released.</li>
+<li>Disable WA_AcceptTouchEvents on MacOS. Resolves
+  qt.pointer.dispatch: skipping QEventPoint() warning.</li>
+<li>Display a diagram's tab before loading it.</li>
+<li>Display only non-array types in Variables category.</li>
+<li>Do not register a redo / undo if a widget is moved to its
+  current position.</li>
+<li>Emit editingFinished() in
+  glitch_object_lineedit::leaveEvent().</li>
+<li>Highlight problematic Recent Diagrams entries on non-Android and
+  non-MacOS.</li>
+<li>Increased generate-source-view timer interval to 1.5 seconds.</li>
+<li>Initialize the output_directory INI setting to the operator's
+  home directory. If the setting is not initialized, a source
+  file cannot be generated.</li>
+<li>New lock and selection colors.</li>
+<li>New minimum height for comment object.</li>
+<li>New sizeHint() implementation for flow-control object.</li>
+<li>Partially completed SipHash example. Cryptography in Arduino
+  through Glitch!</li>
+<li>Resize edit windows to 85% of the main window's size. New
+  windows only.</li>
+<li>Serial Port Window. Please see Windows menu.</li>
+<li>Simplified selection border of selected objects.</li>
+<li>Write comments on single lines.</li>
+</ul>
+
 <p>2023.08.19</p>
 <ul>
 <li>Corrected abnormal termination caused by redo / undo delete of
