@@ -54,7 +54,6 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->setIconSize(QSize(24, 24));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
-  prepareCategories();
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
 }
@@ -236,6 +235,9 @@ bool glitch_structures_arduino::isReserved(const QString &t)
 
 void glitch_structures_arduino::prepareCategories(void)
 {
+  if(m_categoriesMap.size() > 0)
+    return;
+
   /*
   ** https://www.arduino.cc/en/Reference/HomePage
   */

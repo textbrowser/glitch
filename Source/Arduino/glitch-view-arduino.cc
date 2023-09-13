@@ -54,6 +54,7 @@ glitch_view_arduino::glitch_view_arduino
 {
   Q_UNUSED(fromFile);
   m_arduinoStructures = new glitch_structures_arduino(this);
+  m_arduinoStructures->prepareCategories();
   m_canvasSettings->setOutputFileExtension
     (glitch_view_arduino::projectOutputFileExtension());
   m_canvasSettings->setProjectKeywords(glitch_structures_arduino::keywords());

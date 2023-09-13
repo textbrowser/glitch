@@ -49,6 +49,7 @@ class glitch_structures_arduino: public QDialog
   static QStringList variableTypes(void);
   static bool containsStructure(const QString &structureName);
   static bool isReserved(const QString &t);
+  void prepareCategories(void);
   void setIconSize(const QString &t);
 
  private:
@@ -62,7 +63,6 @@ class glitch_structures_arduino: public QDialog
   static QStringList s_nonArrayVariableTypes;
   static QStringList s_variableTypes;
   static QStringList structureNames(void);
-  void prepareCategories(void);
 
  private slots:
   void slotFilter(const QString &text);

@@ -54,6 +54,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wundef \
                           -fPIC \
                           -fstack-protector-all \
+                          -funroll-loops \
                           -fwrapv \
                           -pedantic \
                           -std=c++17
@@ -72,6 +73,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wundef \
                           -fPIE \
                           -fstack-protector-all \
+                          -funroll-loops \
                           -fwrapv \
                           -pedantic \
                           -std=c++17
@@ -89,6 +91,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wundef \
                           -fPIE \
                           -fstack-protector-all \
+                          -funroll-loops \
                           -fwrapv \
                           -pedantic \
                           -std=c++17
@@ -110,6 +113,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wstrict-overflow=1 \
                           -Wundef \
                           -fPIE \
+                          -funroll-loops \
                           -fwrapv \
                           -pedantic \
                           -pie \
@@ -134,6 +138,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wundef \
                           -fPIE \
                           -fstack-protector-all \
+                          -funroll-loops \
                           -fwrapv \
                           -pedantic \
                           -pie \

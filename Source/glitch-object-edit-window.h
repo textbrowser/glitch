@@ -55,7 +55,6 @@ class glitch_object_edit_window: public QMainWindow
 			    QWidget *parent);
   ~glitch_object_edit_window();
   QString objectName(void) const;
-  QWidget *centralWidget(void) const;
   void prepareHeader(const QString &text);
   void prepareToolBars(const QList<QAction *> &actions);
   void setCategoriesIconSize(const QString &text);
@@ -72,6 +71,7 @@ class glitch_object_edit_window: public QMainWindow
   QLineEdit *m_header;
   QMap<QString, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
+  QPointer<QWidget> m_centralWidget;
   QPointer<glitch_object> m_object;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;

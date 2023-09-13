@@ -229,7 +229,6 @@ glitch_object_edit_window::glitch_object_edit_window
 	  this,
 	  SLOT(slotSplitterMoved(void)));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
-  prepareIcons();
 #ifndef Q_OS_ANDROID
   resize(0.85 * glitch_ui::s_mainWindow->size());
 #endif
@@ -241,26 +240,6 @@ QString glitch_object_edit_window::objectName(void) const
     return m_object->name();
   else
     return tr("None");
-}
-
-QWidget *glitch_object_edit_window::centralWidget(void) const
-{
-  auto frame = qobject_cast<QFrame *> (QMainWindow::centralWidget());
-
-  if(!frame || !frame->layout())
-    return nullptr;
-
-  /*
-  ** Discover the glitch_object_view child.
-  */
-
-  for(int i = 0; i < frame->layout()->count(); i++)
-    if(frame->layout()->itemAt(i) &&
-       qobject_cast<glitch_object_view *> (frame->layout()->itemAt(i)->
-					   widget()))
-      return frame->layout()->itemAt(i)->widget();
-
-  return nullptr;
 }
 
 glitch_object_edit_window::~glitch_object_edit_window()
@@ -276,7 +255,7 @@ bool glitch_object_edit_window::event(QEvent *event)
 {
   if(event && event->type() == QEvent::Show)
     QTimer::singleShot
-      (1500, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
+      (150, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
 
   return QMainWindow::event(event);
 }
@@ -419,7 +398,7 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
 
   if(event)
     {
-      auto view = qobject_cast<glitch_object_view *> (centralWidget());
+      auto view = qobject_cast<glitch_object_view *> (m_centralWidget);
 
       if(view)
 	view->setSceneRect(event->size());
@@ -434,60 +413,16 @@ void glitch_object_edit_window::setCategoriesIconSize(const QString &text)
 
 void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 {
-  if(!widget || centralWidget())
+  if(!widget || m_centralWidget)
     {
-      if(centralWidget())
+      if(m_centralWidget)
 	qDebug() << tr("Error! A central widget is already assigned!");
 
       return;
     }
 
-  if(m_arduinoStructures == nullptr &&
-     m_projectType == glitch_common::ProjectTypes::ArduinoProject)
-    {
-      m_arduinoStructures = new glitch_structures_arduino(this);
-      m_leftSplitter = new QSplitter(Qt::Vertical, this);
-      connect(m_leftSplitter,
-	      SIGNAL(splitterMoved(int, int)),
-	      this,
-	      SLOT(slotSplitterMoved(void)));
-    }
-
-  auto frame = new QFrame(this);
-
-  delete frame->layout();
-  frame->setLayout(new QVBoxLayout());
-  frame->layout()->addWidget(m_header);
-
-  if(m_arduinoStructures)
-    {
-      m_leftSplitter->addWidget(m_arduinoStructures->frame());
-      m_leftSplitter->addWidget(m_userFunctions->frame());
-      m_leftSplitter->setStretchFactor(0, 1);
-      m_leftSplitter->setStretchFactor(1, 0);
-      m_splitter->addWidget(m_leftSplitter);
-      m_splitter->addWidget(widget);
-      m_splitter->setStretchFactor(0, 0);
-      m_splitter->setStretchFactor(1, 1);
-    }
-  else
-    {
-      m_splitter->addWidget(m_userFunctions->frame());
-      m_splitter->addWidget(widget);
-      m_splitter->setStretchFactor(0, 0);
-      m_splitter->setStretchFactor(1, 1);
-    }
-
-  frame->layout()->addWidget(m_splitter);
-  frame->layout()->setContentsMargins(5, 5, 5, 5);
-  frame->layout()->setSpacing(5);
-  m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
-  m_rightSplitter->addWidget(m_canvasPreview);
-  m_rightSplitter->setStretchFactor(0, 1);
-  m_rightSplitter->setStretchFactor(1, 0);
-  m_splitter->addWidget(m_rightSplitter);
-  m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
-  QMainWindow::setCentralWidget(frame);
+  m_centralWidget = widget;
+  m_centralWidget->setParent(this);
 }
 
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
@@ -577,6 +512,59 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 {
   QMainWindow::showEvent(event);
 
+  if(!centralWidget())
+    {
+      prepareIcons();
+
+      if(m_arduinoStructures == nullptr &&
+	 m_projectType == glitch_common::ProjectTypes::ArduinoProject)
+	{
+	  m_arduinoStructures = new glitch_structures_arduino(this);
+	  m_arduinoStructures->prepareCategories();
+	  m_leftSplitter = new QSplitter(Qt::Vertical, this);
+	  connect(m_leftSplitter,
+		  SIGNAL(splitterMoved(int, int)),
+		  this,
+		  SLOT(slotSplitterMoved(void)));
+	}
+
+      auto frame = new QFrame(this);
+
+      delete frame->layout();
+      frame->setLayout(new QVBoxLayout());
+      frame->layout()->addWidget(m_header);
+
+      if(m_arduinoStructures)
+	{
+	  m_leftSplitter->addWidget(m_arduinoStructures->frame());
+	  m_leftSplitter->addWidget(m_userFunctions->frame());
+	  m_leftSplitter->setStretchFactor(0, 1);
+	  m_leftSplitter->setStretchFactor(1, 0);
+	  m_splitter->addWidget(m_leftSplitter);
+	  m_splitter->addWidget(m_centralWidget);
+	  m_splitter->setStretchFactor(0, 0);
+	  m_splitter->setStretchFactor(1, 1);
+	}
+      else
+	{
+	  m_splitter->addWidget(m_userFunctions->frame());
+	  m_splitter->addWidget(m_centralWidget);
+	  m_splitter->setStretchFactor(0, 0);
+	  m_splitter->setStretchFactor(1, 1);
+	}
+
+      frame->layout()->addWidget(m_splitter);
+      frame->layout()->setContentsMargins(5, 5, 5, 5);
+      frame->layout()->setSpacing(5);
+      m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
+      m_rightSplitter->addWidget(m_canvasPreview);
+      m_rightSplitter->setStretchFactor(0, 1);
+      m_rightSplitter->setStretchFactor(1, 0);
+      m_splitter->addWidget(m_rightSplitter);
+      m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
+      QMainWindow::setCentralWidget(frame);
+    }
+
   if(m_leftSplitter)
     m_leftSplitter->restoreState
       (m_object ?
@@ -598,7 +586,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 			  STRUCTURES_VIEW_SPLITTER_STATE).toByteArray() :
        QByteArray());
 
-  auto view = qobject_cast<glitch_object_view *> (centralWidget());
+  auto view = qobject_cast<glitch_object_view *> (m_centralWidget);
 
   if(view)
     view->setSceneRect(size());
