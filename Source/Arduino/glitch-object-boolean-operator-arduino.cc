@@ -51,7 +51,7 @@ glitch_object_boolean_operator_arduino
   m_type = "arduino-booleanoperator";
   prepareContextMenu();
   resize(50, 50);
-  setAttribute(Qt::WA_OpaquePaintEvent, false);
+  setAttribute(Qt::WA_OpaquePaintEvent, true);
   setOperatorType(m_operatorType);
   setStyleSheet("background-color: transparent;");
 }

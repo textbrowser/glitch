@@ -48,7 +48,7 @@ glitch_object_arrow::glitch_object_arrow
   m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180);
   m_type = "decoration-arrow";
   resize(100, 30);
-  setAttribute(Qt::WA_OpaquePaintEvent, false);
+  setAttribute(Qt::WA_OpaquePaintEvent, true);
   setName("decoration-arrow");
   setStyleSheet("background-color: transparent;");
 }

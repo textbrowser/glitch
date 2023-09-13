@@ -45,7 +45,7 @@ glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
   glitch_object(type, id, parent)
 {
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
-  setAttribute(Qt::WA_OpaquePaintEvent, false);
+  setAttribute(Qt::WA_OpaquePaintEvent, true);
   setStyleSheet("background-color: transparent;");
 }
 
