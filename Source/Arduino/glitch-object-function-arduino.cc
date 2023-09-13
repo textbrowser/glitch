@@ -633,11 +633,9 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->prepareToolBars(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle
     (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
   m_isFunctionClone = false;

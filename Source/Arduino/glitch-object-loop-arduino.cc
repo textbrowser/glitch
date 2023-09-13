@@ -50,11 +50,9 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
      this);
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->prepareToolBars(m_editView->alignmentActions());
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   m_editWindow->setWindowTitle(tr("Glitch: loop()"));
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = true;
