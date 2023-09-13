@@ -507,13 +507,7 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 void glitch_object_edit_window::setUserFunctionsModel
 (glitch_user_functions_model *model)
 {
-  if(!m_userFunctions)
-    {
-      m_userFunctions = new glitch_user_functions(this);
-      m_userFunctions->setProjectType(m_projectType);
-    }
-
-  m_userFunctions->setModel(model);
+  m_userFunctionsModel = model;
 }
 
 void glitch_object_edit_window::showEvent(QShowEvent *event)
@@ -547,6 +541,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	  if(!m_userFunctions)
 	    {
 	      m_userFunctions = new glitch_user_functions(this);
+	      m_userFunctions->setModel(m_userFunctionsModel);
 	      m_userFunctions->setProjectType(m_projectType);
 	    }
 
@@ -564,6 +559,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	  if(!m_userFunctions)
 	    {
 	      m_userFunctions = new glitch_user_functions(this);
+	      m_userFunctions->setModel(m_userFunctionsModel);
 	      m_userFunctions->setProjectType(m_projectType);
 	    }
 
