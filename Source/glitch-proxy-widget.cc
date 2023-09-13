@@ -50,7 +50,7 @@ glitch_proxy_widget::glitch_proxy_widget
   QGraphicsProxyWidget(parent, wFlags)
 {
   m_hoveredSection = Sections::XYZ;
-  m_resizeWidget = new glitch_resize_widget(this);
+  m_resizeWidget = nullptr;
   setAttribute(Qt::WA_OpaquePaintEvent, true); // We paint pixels!
   setCacheMode(QGraphicsItem::NoCache);
 }
@@ -98,7 +98,9 @@ QPointer<glitch_object> glitch_proxy_widget::object(void) const
 QVariant glitch_proxy_widget::itemChange
 (GraphicsItemChange change, const QVariant &value)
 {
-  if(change == QGraphicsItem::ItemFlagsChange && m_object)
+  if(change == QGraphicsItem::ItemFlagsChange &&
+     m_object &&
+     m_resizeWidget)
     {
       foreach(auto item, resizeRectangles())
 	if(item)
@@ -112,7 +114,9 @@ QVariant glitch_proxy_widget::itemChange
 
       return value;
     }
-  else if(change == QGraphicsItem::ItemSelectedChange && m_object)
+  else if(change == QGraphicsItem::ItemSelectedChange &&
+	  m_object &&
+	  m_resizeWidget)
     {
       foreach(auto item, resizeRectangles())
 	if(item)
@@ -632,7 +636,7 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
 {
   QGraphicsProxyWidget::resizeEvent(event);
 
-  if(m_object)
+  if(m_object && m_resizeWidget)
     {
       emit changed();
 
@@ -663,6 +667,7 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
 
   QGraphicsProxyWidget::setWidget(widget);
   m_object = qobject_cast<glitch_object *> (widget);
+  m_resizeWidget = new glitch_resize_widget(this);
 }
 
 void glitch_proxy_widget::showResizeHelpers(const bool state)
