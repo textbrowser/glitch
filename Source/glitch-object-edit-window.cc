@@ -214,8 +214,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_toolsToolBar->setIconSize(QSize(24, 24));
   m_toolsToolBar->setObjectName("tools_tool_bar");
   m_toolsToolBar->setVisible(true);
-  m_userFunctions = new glitch_user_functions(this);
-  m_userFunctions->setProjectType(m_projectType);
+  m_userFunctions = nullptr;
   addToolBar(m_fileToolBar);
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
@@ -309,6 +308,9 @@ void glitch_object_edit_window::prepareIcons(void)
 
 void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
 {
+  if(!m_editToolBar->actions().isEmpty())
+    return;
+
   m_editToolBar->clear();
   m_editToolBar->addAction(m_actions.value("undo"));
   m_editToolBar->addAction(m_actions.value("redo"));
@@ -505,6 +507,12 @@ void glitch_object_edit_window::setUndoStack(QUndoStack *undoStack)
 void glitch_object_edit_window::setUserFunctionsModel
 (glitch_user_functions_model *model)
 {
+  if(!m_userFunctions)
+    {
+      m_userFunctions = new glitch_user_functions(this);
+      m_userFunctions->setProjectType(m_projectType);
+    }
+
   m_userFunctions->setModel(model);
 }
 
@@ -536,6 +544,12 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 
       if(m_arduinoStructures)
 	{
+	  if(!m_userFunctions)
+	    {
+	      m_userFunctions = new glitch_user_functions(this);
+	      m_userFunctions->setProjectType(m_projectType);
+	    }
+
 	  m_leftSplitter->addWidget(m_arduinoStructures->frame());
 	  m_leftSplitter->addWidget(m_userFunctions->frame());
 	  m_leftSplitter->setStretchFactor(0, 1);
@@ -547,6 +561,12 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	}
       else
 	{
+	  if(!m_userFunctions)
+	    {
+	      m_userFunctions = new glitch_user_functions(this);
+	      m_userFunctions->setProjectType(m_projectType);
+	    }
+
 	  m_splitter->addWidget(m_userFunctions->frame());
 	  m_splitter->addWidget(m_centralWidget);
 	  m_splitter->setStretchFactor(0, 0);

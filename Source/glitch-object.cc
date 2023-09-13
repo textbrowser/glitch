@@ -1610,8 +1610,11 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 
 void glitch_object::showEditWindow(void) const
 {
-  if(m_editWindow)
+  if(m_editView && m_editWindow)
     {
+      m_editWindow->prepareToolBars(m_editView->alignmentActions());
+      m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
+
       if(!m_editWindow->isVisible())
 	{
 #ifndef Q_OS_ANDROID
