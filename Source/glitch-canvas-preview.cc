@@ -32,7 +32,6 @@
 glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
-  m_ui.view->setInteractive(true);
   m_ui.view->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
 			    QPainter::LosslessImageRendering |

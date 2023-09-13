@@ -29,101 +29,6 @@
 
 glitch_alignment::glitch_alignment(QWidget *parent):QWidget(parent)
 {
-  for(int i = 0; i < 8; i++)
-    {
-      auto action = new QAction(this);
-
-      switch(i)
-	{
-	case 0:
-	  {
-	    action->setIcon(QIcon(":/bottom-align.png"));
-	    action->setToolTip(tr("Bottom Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 1:
-	  {
-	    action->setIcon(QIcon(":/top-align.png"));
-	    action->setToolTip(tr("Top Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 2:
-	  {
-	    action->setIcon(QIcon(":/horizontal-center-align.png"));
-	    action->setToolTip(tr("Horizontal Center Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 3:
-	  {
-	    action->setIcon(QIcon(":/vertical-center-align.png"));
-	    action->setToolTip(tr("Vertical Center Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 4:
-	  {
-	    action->setIcon(QIcon(":/left-align.png"));
-	    action->setToolTip(tr("Left Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 5:
-	  {
-	    action->setIcon(QIcon(":/right-align.png"));
-	    action->setToolTip(tr("Right Align"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotAlign);
-	    break;
-	  }
-	case 6:
-	  {
-	    action->setIcon(QIcon(":/horizontal-stack.png"));
-	    action->setToolTip(tr("Horizontal Stack"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotStack);
-	    break;
-	  }
-	case 7:
-	  {
-	    action->setIcon(QIcon(":/vertical-stack.png"));
-	    action->setToolTip(tr("Vertical Stack"));
-	    connect(action,
-		    &QAction::triggered,
-		    this,
-		    &glitch_alignment::slotStack);
-	    break;
-	  }
-	default:
-	  {
-	    break;
-	  }
-	}
-
-      m_actions << action;
-    }
-
   /*
   ** Hide the widget. Otherwise, it will interfere with the view's scene.
   */
@@ -136,8 +41,104 @@ glitch_alignment::~glitch_alignment()
 {
 }
 
-QList<QAction *> glitch_alignment::actions(void) const
+QList<QAction *> glitch_alignment::actions(void)
 {
+  if(m_actions.isEmpty())
+    for(int i = 0; i < 8; i++)
+      {
+	auto action = new QAction(this);
+
+	switch(i)
+	  {
+	  case 0:
+	    {
+	      action->setIcon(QIcon(":/bottom-align.png"));
+	      action->setToolTip(tr("Bottom Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 1:
+	    {
+	      action->setIcon(QIcon(":/top-align.png"));
+	      action->setToolTip(tr("Top Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 2:
+	    {
+	      action->setIcon(QIcon(":/horizontal-center-align.png"));
+	      action->setToolTip(tr("Horizontal Center Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 3:
+	    {
+	      action->setIcon(QIcon(":/vertical-center-align.png"));
+	      action->setToolTip(tr("Vertical Center Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 4:
+	    {
+	      action->setIcon(QIcon(":/left-align.png"));
+	      action->setToolTip(tr("Left Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 5:
+	    {
+	      action->setIcon(QIcon(":/right-align.png"));
+	      action->setToolTip(tr("Right Align"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotAlign);
+	      break;
+	    }
+	  case 6:
+	    {
+	      action->setIcon(QIcon(":/horizontal-stack.png"));
+	      action->setToolTip(tr("Horizontal Stack"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotStack);
+	      break;
+	    }
+	  case 7:
+	    {
+	      action->setIcon(QIcon(":/vertical-stack.png"));
+	      action->setToolTip(tr("Vertical Stack"));
+	      connect(action,
+		      &QAction::triggered,
+		      this,
+		      &glitch_alignment::slotStack);
+	      break;
+	    }
+	  default:
+	    {
+	      break;
+	    }
+	  }
+
+	m_actions << action;
+      }
+
   return m_actions;
 }
 

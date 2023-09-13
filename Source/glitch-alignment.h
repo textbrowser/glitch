@@ -60,7 +60,7 @@ class glitch_alignment: public QWidget
  public:
   glitch_alignment(QWidget *parent);
   ~glitch_alignment();
-  QList<QAction *> actions(void) const;
+  QList<QAction *> actions(void);
 
  private:
   enum class AlignmentTypes
