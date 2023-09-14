@@ -384,7 +384,7 @@ void glitch_serial_port_window::slotSend(void)
 
   if(serialPort)
     {
-      serialPort->write(m_ui.command->toPlainText().toLatin1());
+      serialPort->write(m_ui.command->toPlainText().toUtf8());
       serialPort->flush();
     }
 #endif
