@@ -54,7 +54,7 @@ glitch_object_edit_window::glitch_object_edit_window
 
   auto menu = menuBar()->addMenu(tr("&File"));
 
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["save"] =
     menu->addAction
     (tr("&Save Diagram"), tr("Ctrl+S"), this, SIGNAL(saveSignal(void)));
@@ -64,7 +64,7 @@ glitch_object_edit_window::glitch_object_edit_window
     (tr("&Save Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
 #endif
   menu->addSeparator();
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
 #ifdef Q_OS_ANDROID
   m_actions["close"] =
     menu->addAction(tr("&Close"), this, SLOT(hide(void)));
@@ -86,7 +86,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  &QMenu::aboutToShow,
 	  this,
 	  &glitch_object_edit_window::slotAboutToShowEditMenu);
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["undo"] =
     menu->addAction(tr("Undo"), tr("Ctrl+Z"), this, SIGNAL(undo(void)));
   m_actions["redo"] =
@@ -98,7 +98,7 @@ glitch_object_edit_window::glitch_object_edit_window
     menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"));
 #endif
   menu->addSeparator();
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["copy"] =
     menu->addAction(tr("&Copy"), tr("Ctrl+C"), this, SIGNAL(copy(void)));
   m_actions["paste"] =
@@ -110,7 +110,7 @@ glitch_object_edit_window::glitch_object_edit_window
     menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"));
 #endif
   menu->addSeparator();
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["delete"] =
     menu->addAction(tr("&Delete"), tr("Del"), this, SIGNAL(deleteSignal(void)));
   m_actions["select all"] = menu->addAction
@@ -122,7 +122,7 @@ glitch_object_edit_window::glitch_object_edit_window
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
 #endif
   menu = menuBar()->addMenu(tr("&View"));
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["screen mode"] = menu->addAction
     (tr("&Full Screen"),
      tr("F11"),
@@ -140,7 +140,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_actions["tools"]->setCheckable(true);
   m_actions["tools"]->setChecked(true);
   menu->addSeparator();
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["zoom_in"] = menu->addAction
     (tr("Zoom &In"),
      tr("Ctrl+="),
