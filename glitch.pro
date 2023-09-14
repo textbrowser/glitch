@@ -372,6 +372,7 @@ qtlibraries.files   = $$[QT_INSTALL_BINS]\\Qt6Core.dll \
                       $$[QT_INSTALL_BINS]\\Qt6Network.dll \
                       $$[QT_INSTALL_BINS]\\Qt6Pdf.dll \
                       $$[QT_INSTALL_BINS]\\Qt6PrintSupport.dll \
+		      $$[QT_INSTALL_BINS]\\Qt6SerialPort.dll \
                       $$[QT_INSTALL_BINS]\\Qt6Sql.dll \
                       $$[QT_INSTALL_BINS]\\Qt6Widgets.dll \
                       $$[QT_INSTALL_BINS]\\libgcc_s_seh-1.dll \
