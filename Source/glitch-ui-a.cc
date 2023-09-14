@@ -49,6 +49,7 @@
 #include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-serial-port-window.h"
 #include "glitch-swifty.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -620,6 +621,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	  }
     }
 
+  m_serialPortWindow ? m_serialPortWindow->close() : (0);
   saveSettings();
   QMainWindow::closeEvent(event);
   QApplication::exit();

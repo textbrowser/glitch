@@ -29,6 +29,7 @@
 #include <QDateTime>
 #include <QSerialPortInfo>
 #endif
+#include <QSettings>
 #include <QShortcut>
 #include <QTimer>
 
@@ -68,10 +69,26 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
   m_ui.disconnect->setEnabled(false);
   m_ui.send->setEnabled(false);
 #endif
+  m_ui.splitter_1->setStretchFactor(0, 0);
+  m_ui.splitter_1->setStretchFactor(1, 1);
+  m_ui.splitter_2->setStretchFactor(0, 0);
+  m_ui.splitter_2->setStretchFactor(1, 1);
 }
 
 glitch_serial_port_window::~glitch_serial_port_window()
 {
+}
+
+void glitch_serial_port_window::closeEvent(QCloseEvent *event)
+{
+  QSettings settings;
+
+  settings.setValue("serial_port_window/geometry", saveGeometry());
+  settings.setValue
+    ("serial_port_window/splitter_1", m_ui.splitter_1->saveState());
+  settings.setValue
+    ("serial_port_window/splitter_2", m_ui.splitter_2->saveState());
+  QDialog::closeEvent(event);
 }
 
 void glitch_serial_port_window::discoverDevices(void)
@@ -108,6 +125,19 @@ void glitch_serial_port_window::discoverDevices(void)
 
   QApplication::restoreOverrideCursor();
 #endif
+}
+
+void glitch_serial_port_window::showEvent(QShowEvent *event)
+{
+  QDialog::showEvent(event);
+
+  QSettings settings;
+
+  m_ui.splitter_1->restoreState
+    (settings.value("serial_port_window/splitter_1").toByteArray());
+  m_ui.splitter_2->restoreState
+    (settings.value("serial_port_window/splitter_2").toByteArray());
+  restoreGeometry(settings.value("serial_port_window/geometry").toByteArray());
 }
 
 void glitch_serial_port_window::slotClear(void)
