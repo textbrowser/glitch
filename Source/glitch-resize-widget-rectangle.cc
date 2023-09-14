@@ -130,10 +130,10 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     {
     case RectangleLocations::BottomCenter:
       {
-	if(event->pos().y() > 0)
-	  rectangle.setHeight(event->pos().y());
+	rectangle.setHeight(event->pos().y());
+	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
 
-	if(parent->minimumHeight() >= rectangle.height())
+	if(parent->minimumHeight() > rectangle.height())
 	  /*
 	  ** Do not move the widget.
 	  */
@@ -167,10 +167,10 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomLeft:
       {
-	if(event->pos().y() > 0)
+	if(event->pos().y() > 0.0)
 	  rectangle.setHeight(event->pos().y());
 
-	if(event->scenePos().x() < 0 ||
+	if(event->scenePos().x() < 0.0 ||
 	   parent->minimumHeight() > rectangle.height())
 	  /*
 	  ** Do not move the widget.
@@ -217,7 +217,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomRight:
       {
-	if(event->pos().y() > 0)
+	if(event->pos().y() > 0.0)
 	  rectangle.setHeight(event->pos().y());
 
 	if(parent->minimumHeight() >= rectangle.height())
@@ -254,7 +254,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	auto d = -event->lastPos().x() + event->pos().x();
 
-	if(d + rectangle.width() > 0)
+	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
 	break;
@@ -263,7 +263,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setX(event->pos().x());
 
-        if(event->scenePos().x() < 0 ||
+        if(event->scenePos().x() < 0.0 ||
 	   parent->minimumWidth() >= rectangle.width())
 	  /*
 	  ** Do not move the widget.
@@ -311,7 +311,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	auto d = -event->lastPos().x() + event->pos().x();
 
-	if(d + rectangle.width() > 0)
+	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
 	break;
@@ -351,8 +351,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setX(event->pos().x());
 
-	if(event->scenePos().x() < 0 ||
-	   event->scenePos().y() < 0 ||
+	if(event->scenePos().x() < 0.0 ||
+	   event->scenePos().y() < 0.0 ||
 	   parent->minimumWidth() >= rectangle.width())
 	  /*
 	  ** Do not move the widget.
@@ -397,7 +397,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(!m_parentLocked)
 	  rectangle.setY(event->pos().y());
 
-	if(event->scenePos().y() < 0 ||
+	if(event->scenePos().y() < 0.0 ||
 	   parent->minimumHeight() > rectangle.height())
 	  /*
 	  ** Do not move the widget.
@@ -428,7 +428,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	auto d = -event->lastPos().x() + event->pos().x();
 
-	if(d + rectangle.width() > 0)
+	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
 	break;
