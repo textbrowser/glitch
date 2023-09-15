@@ -31,7 +31,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-resize-widget-rectangle.h"
 
-qreal glitch_resize_widget_rectangle::SQUARE_SIZE = 6.5;
+qreal glitch_resize_widget_rectangle::SQUARE_SIZE = 8.0;
 
 glitch_resize_widget_rectangle::glitch_resize_widget_rectangle
 (QGraphicsItem *parent, const RectangleLocations location):
@@ -163,6 +163,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      }
 	  }
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::BottomLeft:
@@ -213,6 +214,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      }
 	  }
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::BottomRight:
@@ -257,6 +259,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::CenterLeft:
@@ -288,6 +291,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      list.append(item);
 	  }
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::CenterRight:
@@ -314,19 +318,16 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::TopCenter:
       {
-	rectangle.setY(event->pos().y());
+	rectangle = parent->mapToScene(rectangle).boundingRect();
+	rectangle.setY(qMax(0.0, event->scenePos().y()));
 
-	if(event->scenePos().y() < 0 ||
-	   parent->minimumHeight() >= rectangle.height())
-	  /*
-	  ** Do not move the widget.
-	  */
-
-	  return;
+	if(parent->minimumHeight() > rectangle.height())
+	  rectangle.setY(m_lastRect.y());
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -345,6 +346,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      list.append(item);
 	  }
 
+	parent->setGeometry(rectangle);
 	break;
       }
     case RectangleLocations::TopLeft:
@@ -390,6 +392,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      list.append(item);
 	  }
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     case RectangleLocations::TopRight:
@@ -431,15 +434,15 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(d + rectangle.width() > 0.0)
 	  rectangle.setWidth(d + rectangle.width());
 
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     default:
       {
+	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     }
-
-  parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 
   for(int i = 0; i < list.size(); i++)
     if(list.at(i)->location() == RectangleLocations::BottomCenter)
