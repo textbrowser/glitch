@@ -279,16 +279,22 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == RectangleLocations::BottomCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopRight)
-	      list.append(item);
+	    switch(item->location())
+	      {
+	      case RectangleLocations::BottomCenter:
+	      case RectangleLocations::BottomRight:
+	      case RectangleLocations::CenterRight:
+	      case RectangleLocations::TopCenter:
+	      case RectangleLocations::TopRight:
+		{
+		  list.append(item);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
 	  }
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
@@ -301,16 +307,22 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == RectangleLocations::BottomCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopRight)
-	      list.append(item);
+	    switch(item->location())
+	      {
+	      case RectangleLocations::BottomCenter:
+	      case RectangleLocations::BottomRight:
+	      case RectangleLocations::CenterRight:
+	      case RectangleLocations::TopCenter:
+	      case RectangleLocations::TopRight:
+		{
+		  list.append(item);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
 	  }
 
 	auto d = -event->lastPos().x() + event->pos().x();
@@ -334,16 +346,22 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == RectangleLocations::BottomCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterRight)
-	      list.append(item);
+	    switch(item->location())
+	      {
+	      case RectangleLocations::BottomCenter:
+	      case RectangleLocations::BottomLeft:
+	      case RectangleLocations::BottomRight:
+	      case RectangleLocations::CenterLeft:
+	      case RectangleLocations::CenterRight:
+		{
+		  list.append(item);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
 	  }
 
 	parent->setGeometry(rectangle);
@@ -376,20 +394,24 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == RectangleLocations::BottomCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopRight)
-	      list.append(item);
+	    switch(item->location())
+	      {
+	      case RectangleLocations::BottomCenter:
+	      case RectangleLocations::BottomLeft:
+	      case RectangleLocations::BottomRight:
+	      case RectangleLocations::CenterLeft:
+	      case RectangleLocations::CenterRight:
+	      case RectangleLocations::TopCenter:
+	      case RectangleLocations::TopRight:
+		{
+		  list.append(item);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
 	  }
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
@@ -413,20 +435,24 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    if(!item)
 	      continue;
 
-	    if(item->location() == RectangleLocations::BottomCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::BottomRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterLeft)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::CenterRight)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopCenter)
-	      list.append(item);
-	    else if(item->location() == RectangleLocations::TopRight)
-	      list.append(item);
+	    switch(item->location())
+	      {
+	      case RectangleLocations::BottomCenter:
+	      case RectangleLocations::BottomLeft:
+	      case RectangleLocations::BottomRight:
+	      case RectangleLocations::CenterLeft:
+	      case RectangleLocations::CenterRight:
+	      case RectangleLocations::TopCenter:
+	      case RectangleLocations::TopRight:
+		{
+		  list.append(item);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
 	  }
 
 	auto d = -event->lastPos().x() + event->pos().x();
