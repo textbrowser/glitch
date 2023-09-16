@@ -77,17 +77,10 @@ QColor glitch_proxy_widget::selectionColor(void) const
 QList<glitch_resize_widget_rectangle *> glitch_proxy_widget::
 resizeRectangles(void) const
 {
-  QList<glitch_resize_widget_rectangle *> list;
-
-  foreach(auto item, childItems())
-    {
-      auto r = qgraphicsitem_cast<glitch_resize_widget_rectangle *> (item);
-
-      if(r)
-	list << r;
-    }
-
-  return list;
+  if(m_resizeWidget)
+    return m_resizeWidget->rectangles();
+  else
+    return QList<glitch_resize_widget_rectangle *> ();
 }
 
 QPointer<glitch_object> glitch_proxy_widget::object(void) const

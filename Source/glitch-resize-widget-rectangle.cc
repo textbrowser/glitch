@@ -213,15 +213,16 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomRight:
       {
-	if(event->pos().y() > 0.0)
-	  rectangle.setHeight(event->pos().y());
+	rectangle.setHeight(event->pos().y());
+	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
+	rectangle.setWidth(event->pos().x());
+	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
-	if(parent->minimumHeight() >= rectangle.height())
-	  /*
-	  ** Do not move the widget.
-	  */
+	if(parent->minimumHeight() > rectangle.height())
+	  rectangle.setY(m_lastRect.y());
 
-	  return;
+	if(parent->minimumWidth() > rectangle.width())
+	  rectangle.setX(m_lastRect.x());
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -247,11 +248,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 		}
 	      }
 	  }
-
-	auto d = -event->lastPos().x() + event->pos().x();
-
-	if(d + rectangle.width() > 0.0)
-	  rectangle.setWidth(d + rectangle.width());
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;

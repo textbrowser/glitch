@@ -49,6 +49,12 @@ glitch_resize_widget::~glitch_resize_widget()
 {
 }
 
+QList<glitch_resize_widget_rectangle *> glitch_resize_widget::
+rectangles(void) const
+{
+  return m_rectangles.values();
+}
+
 QRectF glitch_resize_widget::boundingRect(void) const
 {
   auto rectangle(childrenBoundingRect());
@@ -66,11 +72,11 @@ void glitch_resize_widget::paint
   Q_UNUSED(painter);
   Q_UNUSED(widget);
 
-  if(m_rectanges.isEmpty())
+  if(m_rectangles.isEmpty())
     return;
 
   QHashIterator<glitch_resize_widget_rectangle::RectangleLocations,
-		glitch_resize_widget_rectangle *> it(m_rectanges);
+		glitch_resize_widget_rectangle *> it(m_rectangles);
   auto color(m_parent->selectionColor());
 
   while(it.hasNext())
@@ -133,7 +139,7 @@ void glitch_resize_widget::positionEdgeRectangles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto rectangle = m_rectanges.value(list.at(i));
+      auto rectangle = m_rectangles.value(list.at(i));
 
       if(rectangle)
 	rectangle->setRect(rectangles.value(i));
@@ -144,7 +150,7 @@ void glitch_resize_widget::prepareRectangles(void)
 {
   if(!m_parent)
     return;
-  else if(!m_rectanges.isEmpty())
+  else if(!m_rectangles.isEmpty())
     return;
 
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
@@ -168,7 +174,7 @@ void glitch_resize_widget::prepareRectangles(void)
       rectangle->setBrush(color);
       rectangle->setPen(pen);
       rectangle->setVisible(false);
-      m_rectanges[list.at(i)] = rectangle;
+      m_rectangles[list.at(i)] = rectangle;
     }
 }
 
@@ -177,7 +183,7 @@ void glitch_resize_widget::showEdgeRectangles(const bool state)
   positionEdgeRectangles();
 
   QHashIterator<glitch_resize_widget_rectangle::RectangleLocations,
-		glitch_resize_widget_rectangle *> it(m_rectanges);
+		glitch_resize_widget_rectangle *> it(m_rectangles);
   auto isParentSelected = true;
 
   if(parentItem())
@@ -210,7 +216,7 @@ void glitch_resize_widget::showEdgeRectanglesForLockedPosition
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto rectangle = m_rectanges.value(list.at(i));
+      auto rectangle = m_rectangles.value(list.at(i));
 
       if(rectangle)
 	switch(list.at(i))

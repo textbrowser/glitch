@@ -39,6 +39,7 @@ class glitch_resize_widget: public QGraphicsItem
  public:
   glitch_resize_widget(QGraphicsItem *parent);
   ~glitch_resize_widget();
+  QList<glitch_resize_widget_rectangle *> rectangles(void) const;
   QRectF boundingRect(void) const;
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *option,
@@ -50,7 +51,7 @@ class glitch_resize_widget: public QGraphicsItem
 
  private:
   QHash<glitch_resize_widget_rectangle::RectangleLocations,
-        glitch_resize_widget_rectangle *> m_rectanges;
+        glitch_resize_widget_rectangle *> m_rectangles;
   glitch_proxy_widget *m_parent;
   void prepareRectangles(void);
 };
