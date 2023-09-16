@@ -168,26 +168,20 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomLeft:
       {
-	if(event->pos().y() > 0.0)
-	  rectangle.setHeight(event->pos().y());
-
-	if(event->scenePos().x() < 0.0 ||
-	   parent->minimumHeight() > rectangle.height())
-	  /*
-	  ** Do not move the widget.
-	  */
-
-	  return;
+	rectangle = parent->mapToScene(rectangle).boundingRect();
+	rectangle.setHeight(event->pos().y());
+	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
 
 	if(!m_parentLocked)
-	  rectangle.setX(event->pos().x());
+	  {
+	    rectangle.setX(qMax(0.0, event->scenePos().x()));
 
-	if(parent->minimumWidth() > rectangle.width())
-	  /*
-	  ** Do not move the widget.
-	  */
+	    if(parent->minimumWidth() > rectangle.width())
+	      rectangle.setX(m_lastRect.x());
+	  }
 
-	  return;
+	if(parent->minimumHeight() > rectangle.height())
+	  rectangle.setY(m_lastRect.y());
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -214,7 +208,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      }
 	  }
 
-	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
+	parent->setGeometry(rectangle);
 	break;
       }
     case RectangleLocations::BottomRight:
@@ -298,6 +292,16 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::CenterRight:
       {
+	rectangle.setWidth(event->pos().x());
+	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
+
+	if(parent->minimumWidth() > rectangle.width())
+	  /*
+	  ** Do not move the widget.
+	  */
+
+	  return;
+
 	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
@@ -320,11 +324,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 		}
 	      }
 	  }
-
-	auto d = -event->lastPos().x() + event->pos().x();
-
-	if(d + rectangle.width() > 0.0)
-	  rectangle.setWidth(d + rectangle.width());
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
