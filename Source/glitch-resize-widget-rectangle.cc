@@ -360,25 +360,15 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::TopLeft:
       {
-	rectangle.setX(event->pos().x());
+	rectangle = parent->mapToScene(rectangle).boundingRect();
+	rectangle.setX(qMax(0.0, event->scenePos().x()));
+	rectangle.setY(qMax(0.0, event->scenePos().y()));
 
-	if(event->scenePos().x() < 0.0 ||
-	   event->scenePos().y() < 0.0 ||
-	   parent->minimumWidth() >= rectangle.width())
-	  /*
-	  ** Do not move the widget.
-	  */
+	if(parent->minimumHeight() > rectangle.height())
+	  rectangle.setY(m_lastRect.y());
 
-	  return;
-
-	rectangle.setY(event->pos().y());
-
-	if(parent->minimumHeight() >= rectangle.height())
-	  /*
-	  ** Do not move the widget.
-	  */
-
-	  return;
+        if(parent->minimumWidth() > rectangle.width())
+	  rectangle.setX(m_lastRect.x());
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -405,21 +395,25 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      }
 	  }
 
-	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
+	parent->setGeometry(rectangle);
 	break;
       }
     case RectangleLocations::TopRight:
       {
+	rectangle = parent->mapToScene(rectangle).boundingRect();
+	rectangle.setWidth(event->pos().x());
+	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
+
 	if(!m_parentLocked)
-	  rectangle.setY(event->pos().y());
+	  {
+	    rectangle.setY(qMax(0.0, event->scenePos().y()));
 
-	if(event->scenePos().y() < 0.0 ||
-	   parent->minimumHeight() > rectangle.height())
-	  /*
-	  ** Do not move the widget.
-	  */
+	    if(parent->minimumHeight() > rectangle.height())
+	      rectangle.setY(m_lastRect.y());
+	  }
 
-	  return;
+	if(parent->minimumWidth() > rectangle.width())
+	  rectangle.setX(m_lastRect.x());
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -446,17 +440,11 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	      }
 	  }
 
-	auto d = -event->lastPos().x() + event->pos().x();
-
-	if(d + rectangle.width() > 0.0)
-	  rectangle.setWidth(d + rectangle.width());
-
-	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
+	parent->setGeometry(rectangle);
 	break;
       }
     default:
       {
-	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
     }
