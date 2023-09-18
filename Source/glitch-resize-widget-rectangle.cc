@@ -136,7 +136,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       return;
     }
 
-  QList<glitch_resize_widget_rectangle *> list;
   auto rectangle(parent->boundingRect());
 
   switch(m_location)
@@ -153,29 +152,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  */
 
 	  return;
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
@@ -201,32 +177,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  rectangle.setY(m_lastRect.y());
 
 	rectangle.setY(o * qCeil(rectangle.y() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -247,32 +197,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	rectangle.setX(o * qCeil(rectangle.x() / o));
 	rectangle.setY(o * qCeil(rectangle.y() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
@@ -285,30 +209,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  rectangle.setX(m_lastRect.x());
 
 	rectangle.setX(o * qCeil(rectangle.x() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -325,29 +225,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	  return;
 
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
@@ -360,30 +237,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  rectangle.setY(m_lastRect.y());
 
 	rectangle.setY(o * qCeil(rectangle.y() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -401,32 +254,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	rectangle.setX(o * qCeil(rectangle.x() / o));
 	rectangle.setY(o * qCeil(rectangle.y() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -451,32 +278,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  rectangle.setX(m_lastRect.x());
 
 	rectangle.setX(o * qCeil(rectangle.x() / o));
-
-	foreach(auto item, parent->resizeRectangles())
-	  {
-	    if(!item)
-	      continue;
-
-	    switch(item->location())
-	      {
-	      case RectangleLocations::BottomCenter:
-	      case RectangleLocations::BottomLeft:
-	      case RectangleLocations::BottomRight:
-	      case RectangleLocations::CenterLeft:
-	      case RectangleLocations::CenterRight:
-	      case RectangleLocations::TopCenter:
-	      case RectangleLocations::TopRight:
-		{
-		  list.append(item);
-		  break;
-		}
-	      default:
-		{
-		  break;
-		}
-	      }
-	  }
-
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -487,87 +288,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     }
 
   m_lastPress = event->scenePos();
-
-  for(int i = 0; i < list.size(); i++)
-    switch(list.at(i)->location())
-      {
-      case RectangleLocations::BottomCenter:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() + rectangle.width() / 2 - SQUARE_SIZE / 2,
-		    list.at(i)->y() + rectangle.height() + 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::BottomLeft:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
-		    list.at(i)->y() + rectangle.height() + 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::BottomRight:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() + rectangle.width() + 1,
-		    list.at(i)->y() + rectangle.height() + 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::CenterLeft:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
-		    list.at(i)->y() + rectangle.height() / 2 - SQUARE_SIZE / 2,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::CenterRight:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() + rectangle.width() + 1,
-		    list.at(i)->y() + rectangle.height() / 2 - SQUARE_SIZE / 2,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::TopCenter:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() + rectangle.width() / 2 - SQUARE_SIZE / 2,
-		    list.at(i)->y() - SQUARE_SIZE - 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::TopLeft:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() - SQUARE_SIZE - 1,
-		    list.at(i)->y() - SQUARE_SIZE - 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      case RectangleLocations::TopRight:
-	{
-	  list.at(i)->setRect
-	    (QRectF(list.at(i)->x() + rectangle.width() + 1,
-		    list.at(i)->y() - SQUARE_SIZE - 1,
-		    SQUARE_SIZE,
-		    SQUARE_SIZE));
-	  break;
-	}
-      default:
-	{
-	  break;
-	}
-      }
 }
 
 void glitch_resize_widget_rectangle::mousePressEvent
