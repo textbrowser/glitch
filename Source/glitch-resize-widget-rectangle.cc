@@ -27,10 +27,12 @@
 
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
+#include <QtMath>
 
 #include "glitch-proxy-widget.h"
 #include "glitch-resize-widget-rectangle.h"
 
+qreal glitch_resize_widget_rectangle::MINIMUM_DISTANCE_FOR_RESIZE = 10.0;
 qreal glitch_resize_widget_rectangle::SQUARE_SIZE = 8.0;
 
 glitch_resize_widget_rectangle::glitch_resize_widget_rectangle
@@ -115,7 +117,18 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       return;
     }
 
+  auto distance = qPow
+    (qPow(event->scenePos().x() - m_lastPress.x(), 2) +
+     qPow(event->scenePos().y() - m_lastPress.y(), 2), 0.5);
+
+  if(MINIMUM_DISTANCE_FOR_RESIZE >= distance)
+    {
+      QGraphicsRectItem::mouseMoveEvent(event);
+      return;
+    }
+
   auto parent = qgraphicsitem_cast<glitch_proxy_widget *> (parentItem());
+  const auto o = MINIMUM_DISTANCE_FOR_RESIZE;
 
   if(!parent)
     {
@@ -132,6 +145,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
+	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  /*
@@ -171,6 +185,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle = parent->mapToScene(rectangle).boundingRect();
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
+	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 
 	if(!m_parentLocked)
 	  {
@@ -178,10 +193,14 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	    if(parent->minimumWidth() > rectangle.width())
 	      rectangle.setX(m_lastRect.x());
+
+	    rectangle.setX(o * qCeil(rectangle.x() / o));
 	  }
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
+
+	rectangle.setY(o * qCeil(rectangle.y() / o));
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -215,14 +234,19 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
+	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
+	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
 
 	if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(m_lastRect.x());
+
+	rectangle.setX(o * qCeil(rectangle.x() / o));
+	rectangle.setY(o * qCeil(rectangle.y() / o));
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -260,6 +284,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
         if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(m_lastRect.x());
 
+	rectangle.setX(o * qCeil(rectangle.x() / o));
+
 	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
@@ -290,6 +316,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
+	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(parent->minimumWidth() > rectangle.width())
 	  /*
@@ -332,6 +359,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
 
+	rectangle.setY(o * qCeil(rectangle.y() / o));
+
 	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
@@ -370,6 +399,9 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
         if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(m_lastRect.x());
 
+	rectangle.setX(o * qCeil(rectangle.x() / o));
+	rectangle.setY(o * qCeil(rectangle.y() / o));
+
 	foreach(auto item, parent->resizeRectangles())
 	  {
 	    if(!item)
@@ -403,6 +435,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle = parent->mapToScene(rectangle).boundingRect();
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
+	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(!m_parentLocked)
 	  {
@@ -410,10 +443,14 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	    if(parent->minimumHeight() > rectangle.height())
 	      rectangle.setY(m_lastRect.y());
+
+	    rectangle.setY(o * qCeil(rectangle.y() / o));
 	  }
 
 	if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(m_lastRect.x());
+
+	rectangle.setX(o * qCeil(rectangle.x() / o));
 
 	foreach(auto item, parent->resizeRectangles())
 	  {
@@ -448,6 +485,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	break;
       }
     }
+
+  m_lastPress = event->scenePos();
 
   for(int i = 0; i < list.size(); i++)
     switch(list.at(i)->location())
@@ -534,7 +573,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 void glitch_resize_widget_rectangle::mousePressEvent
 (QGraphicsSceneMouseEvent *event)
 {
-  Q_UNUSED(event);
+  if(event)
+    m_lastPress = event->scenePos();
 
   auto parent = qgraphicsitem_cast<glitch_proxy_widget *> (parentItem());
 
