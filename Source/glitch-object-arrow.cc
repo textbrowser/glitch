@@ -104,7 +104,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   QQueue<qreal> widths;
   auto canvasBrush(m_proxy && m_proxy->scene() ?
 		   m_proxy->scene()->backgroundBrush() : QBrush(Qt::white));
-  const Qt::BrushStyle fillPattern = Qt::SolidPattern;
+  const auto fillPattern = Qt::SolidPattern;
   const auto sizeHeight = static_cast<qreal> (size().height());
   const auto sizeWidth = static_cast<qreal> (size().width());
   QPointF block[4] =
