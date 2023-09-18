@@ -323,6 +323,7 @@ Remaining Items
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Drag and copy.
+- Editable geometry in context menu.
 - Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
