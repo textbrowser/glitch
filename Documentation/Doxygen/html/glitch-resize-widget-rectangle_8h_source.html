@@ -124,23 +124,25 @@ $(function() {
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keyword">static</span> qreal SQUARE_SIZE;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  QRectF m_lastRect;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  RectangleLocations m_location;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">bool</span> m_parentLocked;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> hoverEnterEvent(QGraphicsSceneHoverEvent *event);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> hoverLeaveEvent(QGraphicsSceneHoverEvent *event);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> mouseMoveEvent(QGraphicsSceneMouseEvent *event);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> mousePressEvent(QGraphicsSceneMouseEvent *event);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> mouseReleaseEvent(QGraphicsSceneMouseEvent *event);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">inline</span> uint qHash</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;(<span class="keyword">const</span> glitch_resize_widget_rectangle::RectangleLocations &amp;key, uint seed)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  QPointF m_lastPress;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  QRectF m_lastRect;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  RectangleLocations m_location;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">bool</span> m_parentLocked;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">static</span> qreal MINIMUM_DISTANCE_FOR_RESIZE;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> hoverEnterEvent(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> hoverLeaveEvent(QGraphicsSceneHoverEvent *event);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> mouseMoveEvent(QGraphicsSceneMouseEvent *event);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> mousePressEvent(QGraphicsSceneMouseEvent *event);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> mouseReleaseEvent(QGraphicsSceneMouseEvent *event);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">inline</span> uint qHash</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;(<span class="keyword">const</span> glitch_resize_widget_rectangle::RectangleLocations &amp;key, uint seed)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__resize__widget__rectangle_html"><div class="ttname"><a href="classglitch__resize__widget__rectangle.html">glitch_resize_widget_rectangle</a></div><div class="ttdef"><b>Definition:</b> glitch-resize-widget-rectangle.h:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
