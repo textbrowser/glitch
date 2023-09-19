@@ -128,7 +128,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     }
 
   auto parent = qgraphicsitem_cast<glitch_proxy_widget *> (parentItem());
-  const auto o = MINIMUM_DISTANCE_FOR_RESIZE;
 
   if(!parent)
     {
@@ -144,7 +143,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
-	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  /*
@@ -161,22 +159,18 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle = parent->mapToScene(rectangle).boundingRect();
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
-	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 
 	if(!m_parentLocked)
 	  {
 	    rectangle.setX(qMax(0.0, event->scenePos().x()));
 
 	    if(parent->minimumWidth() > rectangle.width())
-	      rectangle.setX(m_lastRect.x());
-
-	    rectangle.setX(o * qCeil(rectangle.x() / o));
+	      rectangle.setX(-parent->minimumWidth() + rectangle.right());
 	  }
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
 
-	rectangle.setY(o * qCeil(rectangle.y() / o));
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -184,19 +178,15 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setHeight(event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
-	rectangle.setHeight(o * qFloor(rectangle.height() / o));
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
-	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
 
 	if(parent->minimumWidth() > rectangle.width())
-	  rectangle.setX(m_lastRect.x());
+	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
 
-	rectangle.setX(o * qCeil(rectangle.x() / o));
-	rectangle.setY(o * qCeil(rectangle.y() / o));
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
       }
@@ -206,9 +196,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle.setX(qMax(0.0, event->scenePos().x()));
 
         if(parent->minimumWidth() > rectangle.width())
-	  rectangle.setX(m_lastRect.x());
+	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
 
-	rectangle.setX(o * qCeil(rectangle.x() / o));
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -216,7 +205,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       {
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
-	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(parent->minimumWidth() > rectangle.width())
 	  /*
@@ -236,7 +224,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(m_lastRect.y());
 
-	rectangle.setY(o * qCeil(rectangle.y() / o));
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -250,10 +237,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  rectangle.setY(m_lastRect.y());
 
         if(parent->minimumWidth() > rectangle.width())
-	  rectangle.setX(m_lastRect.x());
+	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
 
-	rectangle.setX(o * qCeil(rectangle.x() / o));
-	rectangle.setY(o * qCeil(rectangle.y() / o));
 	parent->setGeometry(rectangle);
 	break;
       }
@@ -262,7 +247,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle = parent->mapToScene(rectangle).boundingRect();
 	rectangle.setWidth(event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
-	rectangle.setWidth(o * qFloor(rectangle.width() / o));
 
 	if(!m_parentLocked)
 	  {
@@ -270,14 +254,11 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 
 	    if(parent->minimumHeight() > rectangle.height())
 	      rectangle.setY(m_lastRect.y());
-
-	    rectangle.setY(o * qCeil(rectangle.y() / o));
 	  }
 
 	if(parent->minimumWidth() > rectangle.width())
-	  rectangle.setX(m_lastRect.x());
+      	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
 
-	rectangle.setX(o * qCeil(rectangle.x() / o));
 	parent->setGeometry(rectangle);
 	break;
       }
