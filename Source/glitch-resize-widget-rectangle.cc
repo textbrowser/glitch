@@ -169,7 +169,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	  }
 
 	if(parent->minimumHeight() > rectangle.height())
-	  rectangle.setY(m_lastRect.y());
+	  rectangle.setY(-parent->minimumHeight() + rectangle.top());
 
 	parent->setGeometry(rectangle);
 	break;
@@ -182,10 +182,10 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
 	if(parent->minimumHeight() > rectangle.height())
-	  rectangle.setY(m_lastRect.y());
+	  rectangle.setY(-parent->minimumHeight() + rectangle.top());
 
 	if(parent->minimumWidth() > rectangle.width())
-	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
+	  rectangle.setX(-parent->minimumWidth() + rectangle.left());
 
 	parent->setGeometry(parent->mapToScene(rectangle).boundingRect());
 	break;
@@ -222,7 +222,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle.setY(qMax(0.0, event->scenePos().y()));
 
 	if(parent->minimumHeight() > rectangle.height())
-	  rectangle.setY(m_lastRect.y());
+	  rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
 
 	parent->setGeometry(rectangle);
 	break;
@@ -234,7 +234,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	rectangle.setY(qMax(0.0, event->scenePos().y()));
 
 	if(parent->minimumHeight() > rectangle.height())
-	  rectangle.setY(m_lastRect.y());
+	  rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
 
         if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
@@ -253,11 +253,11 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
 	    rectangle.setY(qMax(0.0, event->scenePos().y()));
 
 	    if(parent->minimumHeight() > rectangle.height())
-	      rectangle.setY(m_lastRect.y());
+	      rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
 	  }
 
 	if(parent->minimumWidth() > rectangle.width())
-      	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
+	  rectangle.setX(-parent->minimumWidth() + rectangle.left());
 
 	parent->setGeometry(rectangle);
 	break;
