@@ -121,7 +121,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     (qPow(event->scenePos().x() - m_lastPress.x(), 2) +
      qPow(event->scenePos().y() - m_lastPress.y(), 2), 0.5);
 
-  if(MINIMUM_DISTANCE_FOR_RESIZE >= distance)
+  if(1.5 * MINIMUM_DISTANCE_FOR_RESIZE >= distance)
     {
       QGraphicsRectItem::mouseMoveEvent(event);
       return;
