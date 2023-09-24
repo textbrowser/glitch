@@ -25,6 +25,19 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.09.25</p>
+<ul>
+<li>Bouncy-less object resizing.</li>
+<li>New Serial Port Window layout.</li>
+<li>New show-serial-port-window terminal option.</li>
+<li>Object resize optimizations: object caches, switch statements.</li>
+<li>Prepared the project file for FreeBSD and Qt 6.</li>
+<li>Removed duplicate instructions in widget resizing.</li>
+<li>Retain Serial Port Window geometry and layout.</li>
+<li>Source-only release. Adopting an LTS-release format.</li>
+<li>Variable spelling: m_rectanges -> m_rectangles.</li>
+<li>Write serial port data as UTF-8 instead of Latin.</li>
+</ul>
 <p>2023.09.10</p>
 <ul>
 <li>Added QPainter::LosslessImageRendering where supported. Requires
