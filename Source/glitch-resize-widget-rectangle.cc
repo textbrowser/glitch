@@ -261,6 +261,24 @@ void glitch_resize_widget_rectangle::mousePressEvent
 (QGraphicsSceneMouseEvent *event)
 {
   Q_UNUSED(event);
+
+  auto parent = qgraphicsitem_cast<glitch_proxy_widget *> (parentItem());
+
+  if(parent)
+    m_lastRect = parent->geometry();
+}
+
+void glitch_resize_widget_rectangle::mouseReleaseEvent
+(QGraphicsSceneMouseEvent *event)
+{
+  QGraphicsRectItem::mouseReleaseEvent(event);
+
+  auto parent = qgraphicsitem_cast<glitch_proxy_widget *> (parentItem());
+
+  if(parent)
+    parent->geometryChanged(m_lastRect);
+
+  m_lastRect = QRectF();
 }
 
 void glitch_resize_widget_rectangle::setParentLocked(const bool parentLocked)

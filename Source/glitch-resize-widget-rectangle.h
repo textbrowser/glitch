@@ -53,12 +53,14 @@ class glitch_resize_widget_rectangle: public QGraphicsRectItem
   static qreal SQUARE_SIZE;
 
  private:
+  QRectF m_lastRect;
   RectangleLocations m_location;
   bool m_parentLocked;
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
 
 inline uint qHash
