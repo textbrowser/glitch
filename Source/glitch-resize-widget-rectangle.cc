@@ -27,6 +27,7 @@
 
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
+#include <QtMath>
 
 #include "glitch-proxy-widget.h"
 #include "glitch-resize-widget-rectangle.h"
@@ -124,6 +125,7 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     }
 
   auto rectangle(parent->boundingRect());
+  const auto diagonal = qCeil(SQUARE_SIZE * qPow(2.0, 0.5));
 
   switch(m_location)
     {
@@ -145,12 +147,12 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     case RectangleLocations::BottomLeft:
       {
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setHeight(event->pos().y() - rect().height());
+	rectangle.setHeight(-diagonal + event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
 
 	if(!m_parentLocked)
 	  {
-	    rectangle.setX(qMax(0.0, event->scenePos().x() + rect().width()));
+	    rectangle.setX(qMax(0.0, diagonal + event->scenePos().x()));
 
 	    if(parent->minimumWidth() > rectangle.width())
 	      rectangle.setX(-parent->minimumWidth() + rectangle.right());
@@ -164,9 +166,9 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomRight:
       {
-	rectangle.setHeight(event->pos().y() - rect().height());
+	rectangle.setHeight(-diagonal + event->pos().y());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
-	rectangle.setWidth(event->pos().x() - rect().width());
+	rectangle.setWidth(-diagonal + event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
 	if(parent->minimumHeight() > rectangle.height())
@@ -218,8 +220,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     case RectangleLocations::TopLeft:
       {
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setX(qMax(0.0, event->scenePos().x() + rect().width()));
-	rectangle.setY(qMax(0.0, event->scenePos().y() + rect().width()));
+	rectangle.setX(qMax(0.0, diagonal + event->scenePos().x()));
+	rectangle.setY(qMax(0.0, diagonal + event->scenePos().y()));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
@@ -233,12 +235,12 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
     case RectangleLocations::TopRight:
       {
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setWidth(event->pos().x() - rect().width());
+	rectangle.setWidth(-diagonal + event->pos().x());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
 	if(!m_parentLocked)
 	  {
-	    rectangle.setY(qMax(0.0, event->scenePos().y() + rect().height()));
+	    rectangle.setY(qMax(0.0, diagonal + event->scenePos().y()));
 
 	    if(parent->minimumHeight() > rectangle.height())
 	      rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
