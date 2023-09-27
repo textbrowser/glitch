@@ -132,6 +132,7 @@ class glitch_object: public QWidget
     FONT_COLOR,
     GEOMETRY,
     INTERRUPTS_TYPE,
+    LIBRARY_FUNCTION_TYPE,
     LOGICAL_OPERATOR,
     MATHEMATICS_TYPE,
     NAME,

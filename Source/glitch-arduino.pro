@@ -20,6 +20,7 @@ HEADERS	       += Source/Arduino/glitch-object-advanced-io-arduino.h \
                   Source/Arduino/glitch-object-flow-control-arduino.h \
                   Source/Arduino/glitch-object-function-arduino.h \
                   Source/Arduino/glitch-object-interrupts-arduino.h \
+                  Source/Arduino/glitch-object-library-function-arduino.h \
                   Source/Arduino/glitch-object-loop-arduino.h \
                   Source/Arduino/glitch-object-mathematics-arduino.h \
                   Source/Arduino/glitch-object-random-arduino.h \
@@ -48,6 +49,7 @@ SOURCES	       += Source/Arduino/glitch-object-advanced-io-arduino.cc \
                   Source/Arduino/glitch-object-flow-control-arduino.cc \
                   Source/Arduino/glitch-object-function-arduino.cc \
                   Source/Arduino/glitch-object-interrupts-arduino.cc \
+                  Source/Arduino/glitch-object-library-function-arduino.cc \
                   Source/Arduino/glitch-object-loop-arduino.cc \
                   Source/Arduino/glitch-object-mathematics-arduino.cc \
                   Source/Arduino/glitch-object-random-arduino.cc \

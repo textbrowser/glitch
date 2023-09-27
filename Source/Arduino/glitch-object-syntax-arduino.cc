@@ -27,7 +27,6 @@
 
 #include "glitch-misc.h"
 #include "glitch-object-syntax-arduino.h"
-#include "glitch-scroll-filter.h"
 #include "glitch-undo-command.h"
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino

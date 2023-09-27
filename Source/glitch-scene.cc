@@ -50,6 +50,7 @@
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "Arduino/glitch-object-interrupts-arduino.h"
+#include "Arduino/glitch-object-library-function-arduino.h"
 #include "Arduino/glitch-object-mathematics-arduino.h"
 #include "Arduino/glitch-object-random-arduino.h"
 #include "Arduino/glitch-object-serial-arduino.h"
@@ -905,10 +906,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	  else if(text.startsWith("glitch-arduino-boolean operators"))
 	    object = new glitch_object_boolean_operator_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-catalog-u8g2"))
-	    {
-	      object = new glitch_object_function_arduino(view);
-	      object->setName("U8G2");
-	    }
+	    object = new glitch_object_library_function_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-characters"))
 	    object = new glitch_object_characters_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-compound operators"))

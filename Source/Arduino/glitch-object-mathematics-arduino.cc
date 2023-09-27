@@ -26,7 +26,6 @@
 */
 
 #include "glitch-object-mathematics-arduino.h"
-#include "glitch-scroll-filter.h"
 
 glitch_object_mathematics_arduino::glitch_object_mathematics_arduino
 (const QString &mathematicsType, QWidget *parent):
