@@ -31,7 +31,7 @@ glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const QString &functionType, QWidget *parent):
   glitch_object_library_function_arduino(1, parent)
 {
-  m_text = QString("%1()").arg(functionType);
+  m_text = QString("%1").arg(functionType);
   setName(m_text);
   setToolTip(description());
 }
@@ -52,7 +52,24 @@ glitch_object_library_function_arduino::
 
 QString glitch_object_library_function_arduino::code(void) const
 {
-  return "";
+  QString code("");
+
+  code.append(QString(m_text).remove("()"));
+  code.append("(");
+
+  auto list(inputs());
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      code.append(list.at(i));
+
+      if(i != list.size() - 1)
+	code.append(", ");
+    }
+
+  code = code.trimmed();
+  code.append(");");
+  return code;
 }
 
 bool glitch_object_library_function_arduino::hasInput(void) const
@@ -136,7 +153,7 @@ void glitch_object_library_function_arduino::setProperties
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
-	  string = QString("%1()").arg(string);
+	  string = QString("%1").arg(string);
 	  function = string.trimmed();
 	  break;
 	}
