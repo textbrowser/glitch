@@ -904,6 +904,11 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_bitwise_operator_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-boolean operators"))
 	    object = new glitch_object_boolean_operator_arduino(text, view);
+	  else if(text.startsWith("glitch-arduino-catalog-u8g2"))
+	    {
+	      object = new glitch_object_function_arduino(view);
+	      object->setName("U8G2");
+	    }
 	  else if(text.startsWith("glitch-arduino-characters"))
 	    object = new glitch_object_characters_arduino(text, view);
 	  else if(text.startsWith("glitch-arduino-compound operators"))

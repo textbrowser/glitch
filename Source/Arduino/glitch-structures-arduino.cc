@@ -307,7 +307,7 @@ void glitch_structures_arduino::prepareCategories(void)
 							    << "!"
 							    << "||";
   s_itemsForIcons["Boolean Operators"] = "boolean.png";
-  s_itemsForCategories["Catalog"] = QStringList() << "u8g2";
+  s_itemsForCategories["Catalog"] = QStringList() << "U8G2";
   s_itemsForIcons["Catalog"] = "catalog.png";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"
