@@ -25,7 +25,12 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QInputDialog>
+
+#include "glitch-misc.h"
 #include "glitch-object-library-function-arduino.h"
+#include "glitch-structures-arduino.h"
+#include "glitch-undo-command.h"
 
 glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const QString &functionType, QWidget *parent):
@@ -88,7 +93,7 @@ bool glitch_object_library_function_arduino::isFullyWired(void) const
 
 bool glitch_object_library_function_arduino::shouldPrint(void) const
 {
-  return false;
+  return true;
 }
 
 glitch_object_library_function_arduino *glitch_object_library_function_arduino::
@@ -187,4 +192,78 @@ void glitch_object_library_function_arduino::setProperty
 
 void glitch_object_library_function_arduino::slotSetFunctionName(void)
 {
+  QInputDialog dialog(m_parent);
+
+  dialog.setLabelText(tr("Set Function Name"));
+  dialog.setTextEchoMode(QLineEdit::Normal); // A line edit!
+  dialog.setTextValue(m_text);
+  dialog.setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
+  dialog.setWindowTitle(tr("Glitch: Set Function Name"));
+
+  auto lineEdit = dialog.findChild<QLineEdit *> ();
+
+  if(lineEdit)
+    {
+      lineEdit->selectAll();
+      lineEdit->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
+      lineEdit->setValidator
+
+	/*
+	** A mandatory letter or underscore followed by an optional word. Allow
+	** trailing parentheses.
+	*/
+
+	(new QRegularExpressionValidator
+	 (QRegularExpression("[A-Za-z_][\\.\\w]*\\(\\)"), &dialog));
+    }
+  else
+    qDebug() << tr("glitch_object_library_function_arduino::"
+		   "slotSetFunctionName(): "
+		   "QInputDialog does not have a textfield! Cannot set "
+		   "an input validator.");
+
+ restart_label:
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+
+      auto text(dialog.textValue().remove("(").remove(")").trimmed());
+
+      if(text.isEmpty())
+	return;
+      else
+	text += "()";
+
+      if(m_text == text)
+	return;
+
+      if(glitch_structures_arduino::isReserved(text))
+	{
+	  glitch_misc::showErrorDialog
+	    (tr("The function name %1 is a reserved keyword. "
+		"Please select another name.").arg(text), m_parent);
+	  goto restart_label;
+	}
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (text,
+	     m_text,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
+	     Properties::Z_Z_Z_PROPERTY,
+	     this);
+
+	  undoCommand->setText
+	    (tr("item transformed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+      else
+	m_text = text;
+    }
+  else
+    QApplication::processEvents();
 }
