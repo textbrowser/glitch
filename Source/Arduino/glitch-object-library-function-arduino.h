@@ -47,12 +47,25 @@ class glitch_object_library_function_arduino:
   glitch_object_library_function_arduino *clone(QWidget *parent) const;
   static glitch_object_library_function_arduino *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
+
+  void addActions(QMenu &menu)
+  {
+    addDefaultActions(menu);
+    m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+    menu.addSeparator();
+    menu.addAction
+      (tr("Function &Name..."), this, SLOT(slotSetFunctionName(void)));
+  }
+
   void save(const QSqlDatabase &db, QString &error);
 
  private:
   glitch_object_library_function_arduino(const qint64 id, QWidget *parent);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
+
+ private slots:
+  void slotSetFunctionName(void);
 };
 
 #endif

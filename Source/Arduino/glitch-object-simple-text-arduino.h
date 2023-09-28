@@ -84,12 +84,12 @@ class glitch_object_simple_text_arduino: public glitch_object
     return true;
   }
 
+  virtual void prepareTransformationMenu(QMenu *menu);
   virtual void setProperty(const Properties property, const QVariant &value);
 
  private:
   glitch_object_simple_text_arduino(QWidget *parent);
   void paintEvent(QPaintEvent *event);
-  void prepareTransformationMenu(QMenu *menu);
 
  private slots:
   void slotTransformed(void);

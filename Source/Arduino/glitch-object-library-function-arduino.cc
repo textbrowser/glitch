@@ -31,7 +31,7 @@ glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const QString &functionType, QWidget *parent):
   glitch_object_library_function_arduino(1, parent)
 {
-  m_text = QString("%1").arg(functionType);
+  m_text = QString("%1()").arg(functionType);
   setName(m_text);
   setToolTip(description());
 }
@@ -39,7 +39,6 @@ glitch_object_library_function_arduino::glitch_object_library_function_arduino
 glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
-  m_functionsList << "clear()";
   m_type = "arduino-library-function";
   prepareContextMenu();
   setName(m_text);
@@ -184,4 +183,8 @@ void glitch_object_library_function_arduino::setProperty
     }
 
   setToolTip(description());
+}
+
+void glitch_object_library_function_arduino::slotSetFunctionName(void)
+{
 }
