@@ -1729,9 +1729,12 @@ void glitch_object::slotAdjustSize(void)
     return;
 
   auto before(size());
+  auto width = 5 * qCeil(sizeHint().width() / 5.0);
 
-  resize
-    (5 * qCeil(sizeHint().width() / 5.0), minimumHeight(sizeHint().height()));
+  if(m_proxy && m_proxy->minimumWidth() < width)
+    resize(m_proxy->minimumWidth(), minimumHeight(sizeHint().height()));
+  else
+    resize(width, minimumHeight(sizeHint().height()));
 
   if(before == this->size())
     return;
