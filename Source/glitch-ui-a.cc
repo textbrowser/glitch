@@ -1853,6 +1853,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
   dialog.setTextValue("Arduino-Diagram");
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Arduino Project Name"));
+  dialog.resize(450, dialog.sizeHint().height());
 
   if((label = dialog.findChild<QLabel *> ()))
     label->setWordWrap(true);
