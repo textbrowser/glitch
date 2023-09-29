@@ -137,6 +137,10 @@ void glitch_object_library_function_arduino::save
 
   QMap<QString, QVariant> properties;
 
+  properties["library_function_has_input"] = m_properties.value
+    (Properties::LIBRARY_FUNCTION_HAS_INPUT).toBool();
+  properties["library_function_has_output"] = m_properties.value
+    (Properties::LIBRARY_FUNCTION_HAS_OUTPUT).toBool();
   properties["library_function_type"] = m_text;
   glitch_object::saveProperties(properties, db, error);
 }
@@ -188,6 +192,11 @@ void glitch_object_library_function_arduino::setProperty
 
   switch(property)
     {
+    case Properties::LIBRARY_FUNCTION_HAS_INPUT:
+    case Properties::LIBRARY_FUNCTION_HAS_OUTPUT:
+      {
+	break;
+      }
     case Properties::LIBRARY_FUNCTION_TYPE:
       {
 	m_text = value.toString();

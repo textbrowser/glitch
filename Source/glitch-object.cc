@@ -1496,6 +1496,22 @@ void glitch_object::setProperty(const Properties property,
 
 	break;
       }
+    case Properties::LIBRARY_FUNCTION_HAS_INPUT:
+      {
+	if(m_actions.contains(DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT))
+	  m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT)->
+	    setChecked(value.toBool());
+
+	break;
+      }
+    case Properties::LIBRARY_FUNCTION_HAS_OUTPUT:
+      {
+	if(m_actions.contains(DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT))
+	  m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT)->
+	    setChecked(value.toBool());
+
+	break;
+      }
     case Properties::POSITION_LOCKED:
       {
 	if(m_actions.contains(DefaultMenuActions::LOCK_POSITION))
