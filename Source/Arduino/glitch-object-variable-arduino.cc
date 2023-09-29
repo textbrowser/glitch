@@ -339,7 +339,7 @@ void glitch_object_variable_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::SET_VARIABLE_TYPE] = m->menuAction();
       menu.addMenu(m);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE, nullptr))
     menu.addMenu
       (m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE)->menu());
 

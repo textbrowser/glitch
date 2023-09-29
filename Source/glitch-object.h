@@ -84,9 +84,11 @@ class glitch_object: public QWidget
     ** Miscellaneous.
     */
 
-    SET_FUNCTION_NAME = 3000,
-    SET_FUNCTION_RETURN_TYPE = 4000,
-    SET_VARIABLE_TYPE = 5000
+    LIBRARY_FUNCTION_HAS_INPUT = 3000,
+    LIBRARY_FUNCTION_HAS_OUTPUT = 3005,
+    SET_FUNCTION_NAME = 4000,
+    SET_FUNCTION_RETURN_TYPE = 5000,
+    SET_VARIABLE_TYPE = 6000
   };
 
   enum class Limits
@@ -334,6 +336,7 @@ class glitch_object: public QWidget
 
  public slots:
   virtual void slotAdjustSize(void);
+  void slotActionTriggered(void);
   void slotCompress(void);
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
@@ -348,7 +351,6 @@ class glitch_object: public QWidget
   void allObjectsImplementation(QList<glitch_object *> &list) const;
 
  private slots:
-  void slotActionTriggered(void);
   void slotCanvasSettingsChanged(const bool state);
   void slotClearTemporaryContainers(void);
   void slotSetFont(void);

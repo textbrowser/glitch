@@ -55,6 +55,51 @@ class glitch_object_library_function_arduino:
     menu.addSeparator();
     menu.addAction
       (tr("Function &Name..."), this, SLOT(slotSetFunctionName(void)));
+
+    if(!m_actions.contains(DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT))
+      {
+	auto action = new QAction(tr("Has Input(s)"), this);
+
+	action->setCheckable(true);
+	action->setChecked
+	  (m_properties.value(Properties::LIBRARY_FUNCTION_HAS_INPUT).toBool());
+	action->setData
+	  (static_cast<int> (DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT));
+	connect(action,
+		&QAction::triggered,
+		this,
+		&glitch_object::slotActionTriggered,
+		Qt::QueuedConnection);
+	m_actions[DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT] = action;
+	menu.addAction(action);
+      }
+    else if(m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT,
+			    nullptr))
+      menu.addAction
+	(m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT));
+
+    if(!m_actions.contains(DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT))
+      {
+	auto action = new QAction(tr("Has Output"), this);
+
+	action->setCheckable(true);
+	action->setChecked
+	  (m_properties.
+	   value(Properties::LIBRARY_FUNCTION_HAS_OUTPUT).toBool());
+	action->setData
+	  (static_cast<int> (DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT));
+	connect(action,
+		&QAction::triggered,
+		this,
+		&glitch_object::slotActionTriggered,
+		Qt::QueuedConnection);
+	m_actions[DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT] = action;
+	menu.addAction(action);
+      }
+    else if(m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT,
+			    nullptr))
+      menu.addAction
+	(m_actions.value(DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT));
   }
 
   void save(const QSqlDatabase &db, QString &error);

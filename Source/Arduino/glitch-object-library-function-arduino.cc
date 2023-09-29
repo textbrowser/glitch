@@ -88,12 +88,12 @@ bool glitch_object_library_function_arduino::hasOutput(void) const
 
 bool glitch_object_library_function_arduino::isFullyWired(void) const
 {
-  return false;
+  return !m_properties.value(Properties::LIBRARY_FUNCTION_HAS_INPUT).toBool();
 }
 
 bool glitch_object_library_function_arduino::shouldPrint(void) const
 {
-  return true;
+  return outputs().isEmpty();
 }
 
 glitch_object_library_function_arduino *glitch_object_library_function_arduino::

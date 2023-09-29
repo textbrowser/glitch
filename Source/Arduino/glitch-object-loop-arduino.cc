@@ -158,7 +158,7 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::EDIT, nullptr))
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   addDefaultActions(menu);

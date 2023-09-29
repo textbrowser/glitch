@@ -1690,6 +1690,16 @@ void glitch_object::slotActionTriggered(void)
 	    property = Properties::COMPRESSED_WIDGET;
 	    break;
 	  }
+	case DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT:
+	  {
+	    property = Properties::LIBRARY_FUNCTION_HAS_INPUT;
+	    break;
+	  }
+	case DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT:
+	  {
+	    property = Properties::LIBRARY_FUNCTION_HAS_OUTPUT;
+	    break;
+	  }
 	case DefaultMenuActions::TRANSPARENT:
 	  {
 	    property = Properties::TRANSPARENT;
