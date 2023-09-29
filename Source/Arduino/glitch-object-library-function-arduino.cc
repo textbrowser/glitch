@@ -78,12 +78,12 @@ QString glitch_object_library_function_arduino::code(void) const
 
 bool glitch_object_library_function_arduino::hasInput(void) const
 {
-  return true;
+  return m_properties.value(Properties::LIBRARY_FUNCTION_HAS_INPUT).toBool();
 }
 
 bool glitch_object_library_function_arduino::hasOutput(void) const
 {
-  return true;
+  return m_properties.value(Properties::LIBRARY_FUNCTION_HAS_OUTPUT).toBool();
 }
 
 bool glitch_object_library_function_arduino::isFullyWired(void) const
@@ -153,13 +153,26 @@ void glitch_object_library_function_arduino::setProperties
     {
       auto string(list.at(i));
 
-      if(string.simplified().startsWith("library_function_type = "))
+      if(string.simplified().startsWith("library_function_has_input = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string.remove("\"");
+	  m_properties[Properties::LIBRARY_FUNCTION_HAS_INPUT] =
+	    QVariant(string).toBool();
+	}
+      else if(string.simplified().startsWith("library_function_has_output = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string.remove("\"");
+	  m_properties[Properties::LIBRARY_FUNCTION_HAS_OUTPUT] =
+	    QVariant(string).toBool();
+	}
+      else if(string.simplified().startsWith("library_function_type = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
 	  string = QString("%1").arg(string);
 	  function = string.trimmed();
-	  break;
 	}
     }
 
