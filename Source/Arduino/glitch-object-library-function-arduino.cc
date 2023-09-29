@@ -159,17 +159,17 @@ void glitch_object_library_function_arduino::setProperties
 
       if(string.simplified().startsWith("library_function_has_input = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::LIBRARY_FUNCTION_HAS_INPUT] =
-	    QVariant(string).toBool();
+	    QVariant(string.trimmed()).toBool();
 	}
       else if(string.simplified().startsWith("library_function_has_output = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::LIBRARY_FUNCTION_HAS_OUTPUT] =
-	    QVariant(string).toBool();
+	    QVariant(string.trimmed()).toBool();
 	}
       else if(string.simplified().startsWith("library_function_type = "))
 	{
