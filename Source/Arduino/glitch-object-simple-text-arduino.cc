@@ -159,4 +159,7 @@ void glitch_object_simple_text_arduino::slotTransformed(void)
     }
   else
     m_text = action->text();
+
+  if(m_proxy)
+    m_proxy->updateGeometry();
 }

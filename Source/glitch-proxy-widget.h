@@ -85,6 +85,11 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void setWidget(QWidget *widget);
   void showResizeHelpers(const bool state);
 
+  void updateGeometry(void)
+  {
+    QGraphicsProxyWidget::updateGeometry();
+  }
+
  private:
   QPointer<glitch_object> m_object;
   QPointer<glitch_scene> m_scene;

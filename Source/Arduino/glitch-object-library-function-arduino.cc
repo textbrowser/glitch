@@ -286,6 +286,9 @@ void glitch_object_library_function_arduino::slotSetFunctionName(void)
 	}
       else
 	m_text = text;
+
+      if(m_proxy)
+	m_proxy->updateGeometry();
     }
   else
     QApplication::processEvents();
