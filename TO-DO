@@ -133,6 +133,7 @@ Completed Items
 - Edit window icons.
 - Enable categories icons for new diagrams.
 - Error dialog.
+- Ethernet class. Include required header file too. See Catalog category.
 - Exiting does not require closing of pages.
 - Filter mouse scrolling on combination boxes. Prevent accidental changes.
 - Find Objects:
@@ -249,6 +250,8 @@ Completed Items
 - Retain scroll bar positions in Source View.
 - Return pointers for functions.
 - Review lengthy tool tips.
+- SPI, USB, Wire (https://www.arduino.cc/reference/en). See Catalog
+  category.
 - SQLite modes. Not necessary.
 - Save As.
 - Save button on tab.
@@ -324,7 +327,6 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Drag and copy.
 - Editable geometry in context menu.
-- Ethernet class. Include required header file too.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
 - Interactive shell.
@@ -334,7 +336,6 @@ Remaining Items
 - Print preview. Avoid Android.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- SPI, USB, Wire (https://www.arduino.cc/reference/en).
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.
