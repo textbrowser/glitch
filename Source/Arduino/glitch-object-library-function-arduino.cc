@@ -193,8 +193,13 @@ void glitch_object_library_function_arduino::setProperty
   switch(property)
     {
     case Properties::LIBRARY_FUNCTION_HAS_INPUT:
+      {
+	disconnectInputs();
+	break;
+      }
     case Properties::LIBRARY_FUNCTION_HAS_OUTPUT:
       {
+	disconnectOutputs();
 	break;
       }
     case Properties::LIBRARY_FUNCTION_TYPE:

@@ -960,6 +960,14 @@ void glitch_object::createActions(void)
       (m_properties.value(Properties::TRANSPARENT).toBool());
 }
 
+void glitch_object::disconnectInputs(void)
+{
+}
+
+void glitch_object::disconnectOutputs(void)
+{
+}
+
 void glitch_object::hideOrShowOccupied(void)
 {
 }

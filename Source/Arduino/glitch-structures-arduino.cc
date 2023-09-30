@@ -215,7 +215,7 @@ bool glitch_structures_arduino::isReserved(const QString &t)
       ** Please do not translate!
       */
 
-      if(it.key() == "Decorations")
+      if(it.key() == "Catalog" || it.key() == "Decorations")
 	continue;
 
       for(int i = 0; i < it.value().size(); i++)
@@ -307,7 +307,7 @@ void glitch_structures_arduino::prepareCategories(void)
 							    << "!"
 							    << "||";
   s_itemsForIcons["Boolean Operators"] = "boolean.png";
-  s_itemsForCategories["Catalog"] = QStringList() << "U8G2";
+  s_itemsForCategories["Catalog"] = QStringList() << "method";
   s_itemsForIcons["Catalog"] = "catalog.png";
   s_itemsForCategories["Characters"] = QStringList() << "isAlpha()"
 						     << "isAlphaNumeric()"

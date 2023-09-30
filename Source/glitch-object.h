@@ -414,6 +414,8 @@ class glitch_object: public QWidget
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);
   void createActions(void);
+  void disconnectInputs(void);
+  void disconnectOutputs(void);
   void prepareContextMenu(void);
   void prepareEditObjects(const glitch_view *parentView);
   void prepareFont(void);
