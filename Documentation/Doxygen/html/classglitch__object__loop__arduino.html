@@ -318,10 +318,12 @@ Additional Inherited Members</h2></td></tr>
 , <br />
 &#160;&#160;<b>EDIT</b>
 , <b>FLOATING_CONTEXT_MENU</b>
-, <b>SET_FUNCTION_NAME</b> = 3000
-, <b>SET_FUNCTION_RETURN_TYPE</b> = 4000
+, <b>LIBRARY_FUNCTION_HAS_INPUT</b> = 3000
+, <b>LIBRARY_FUNCTION_HAS_OUTPUT</b> = 3005
 , <br />
-&#160;&#160;<b>SET_VARIABLE_TYPE</b> = 5000
+&#160;&#160;<b>SET_FUNCTION_NAME</b> = 4000
+, <b>SET_FUNCTION_RETURN_TYPE</b> = 5000
+, <b>SET_VARIABLE_TYPE</b> = 6000
 <br />
  }</td></tr>
 <tr class="separator:aaa4a1adbfd4de13fd131ce1bda2dcd1c inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -369,38 +371,41 @@ Additional Inherited Members</h2></td></tr>
 , <b>GEOMETRY</b>
 , <br />
 &#160;&#160;<b>INTERRUPTS_TYPE</b>
+, <b>LIBRARY_FUNCTION_HAS_INPUT</b>
+, <b>LIBRARY_FUNCTION_HAS_OUTPUT</b>
 , <b>LIBRARY_FUNCTION_TYPE</b>
-, <b>LOGICAL_OPERATOR</b>
+, <br />
+&#160;&#160;<b>LOGICAL_OPERATOR</b>
 , <b>MATHEMATICS_TYPE</b>
-, <br />
-&#160;&#160;<b>NAME</b>
+, <b>NAME</b>
 , <b>PORT_COLORS</b>
-, <b>POSITION_LOCKED</b>
+, <br />
+&#160;&#160;<b>POSITION_LOCKED</b>
 , <b>RANDOM_TYPE</b>
-, <br />
-&#160;&#160;<b>SERIAL_TYPE</b>
+, <b>SERIAL_TYPE</b>
 , <b>SIZE</b>
-, <b>STRUCTURES_VIEW_LEFT_SPLITTER_STATE</b>
+, <br />
+&#160;&#160;<b>STRUCTURES_VIEW_LEFT_SPLITTER_STATE</b>
 , <b>STRUCTURES_VIEW_RIGHT_SPLITTER_STATE</b>
-, <br />
-&#160;&#160;<b>STRUCTURES_VIEW_SPLITTER_STATE</b>
+, <b>STRUCTURES_VIEW_SPLITTER_STATE</b>
 , <b>SYNTAX</b>
-, <b>TIME_TYPE</b>
+, <br />
+&#160;&#160;<b>TIME_TYPE</b>
 , <b>TOOL_BAR_VISIBLE</b>
-, <br />
-&#160;&#160;<b>TRANSPARENT</b>
+, <b>TRANSPARENT</b>
 , <b>TRIGONOMETRY_TYPE</b>
-, <b>UTILITIES_TYPE</b>
+, <br />
+&#160;&#160;<b>UTILITIES_TYPE</b>
 , <b>VARIABLE_ARRAY</b>
-, <br />
-&#160;&#160;<b>VARIABLE_NAME</b>
+, <b>VARIABLE_NAME</b>
 , <b>VARIABLE_POINTER_ACCESS</b>
-, <b>VARIABLE_PROGMEM</b>
-, <b>VARIABLE_QUALIFIER</b>
 , <br />
-&#160;&#160;<b>VARIABLE_TYPE</b>
+&#160;&#160;<b>VARIABLE_PROGMEM</b>
+, <b>VARIABLE_QUALIFIER</b>
+, <b>VARIABLE_TYPE</b>
 , <b>Z_VALUE</b>
-, <b>Z_Z_Z_PROPERTY</b>
+, <br />
+&#160;&#160;<b>Z_Z_Z_PROPERTY</b>
 <br />
  }</td></tr>
 <tr class="separator:ad2728ee4f22086b4ae78940ac262885a inherit pub_types_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -408,6 +413,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a7f4ac90fd8664f206357f17df3ec88f0 inherit pub_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a7f4ac90fd8664f206357f17df3ec88f0"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>slotAdjustSize</b> (void)</td></tr>
 <tr class="separator:a7f4ac90fd8664f206357f17df3ec88f0 inherit pub_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4776b784ff44312d4ad4f0848219f3d4 inherit pub_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a4776b784ff44312d4ad4f0848219f3d4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotActionTriggered</b> (void)</td></tr>
+<tr class="separator:a4776b784ff44312d4ad4f0848219f3d4 inherit pub_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b56c76e6850014a80fc0619449616a inherit pub_slots_classglitch__object"><td class="memItemLeft" align="right" valign="top"><a id="a90b56c76e6850014a80fc0619449616a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotCompress</b> (void)</td></tr>
 <tr class="separator:a90b56c76e6850014a80fc0619449616a inherit pub_slots_classglitch__object"><td class="memSeparator" colspan="2">&#160;</td></tr>
