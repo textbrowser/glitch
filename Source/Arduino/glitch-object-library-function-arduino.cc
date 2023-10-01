@@ -180,6 +180,10 @@ void glitch_object_library_function_arduino::setProperties
 	}
     }
 
+  if(m_actions.value(DefaultMenuActions::PORT_COLORS, nullptr))
+    m_actions.value(DefaultMenuActions::PORT_COLORS)->setEnabled
+      (hasInput() || hasOutput());
+
   m_text = function;
   setName(m_text);
   setToolTip(description());
@@ -194,10 +198,18 @@ void glitch_object_library_function_arduino::setProperty
     {
     case Properties::LIBRARY_FUNCTION_HAS_INPUT:
       {
+	if(m_actions.value(DefaultMenuActions::PORT_COLORS, nullptr))
+	  m_actions.value(DefaultMenuActions::PORT_COLORS)->setEnabled
+	    (hasInput() || hasOutput());
+
 	break;
       }
     case Properties::LIBRARY_FUNCTION_HAS_OUTPUT:
       {
+	if(m_actions.value(DefaultMenuActions::PORT_COLORS, nullptr))
+	  m_actions.value(DefaultMenuActions::PORT_COLORS)->setEnabled
+	    (hasInput() || hasOutput());
+
 	break;
       }
     case Properties::LIBRARY_FUNCTION_TYPE:
