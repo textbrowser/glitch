@@ -161,7 +161,6 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		  &QPushButton::clicked,
 		  it.value(),
 		  &QAction::triggered);
-
 	  pushButton->setEnabled(it.value()->isEnabled());
 	  pushButton->setIcon(it.value()->icon());
 	  pushButton->setMenu(it.value()->menu());
