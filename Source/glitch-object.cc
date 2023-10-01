@@ -962,10 +962,56 @@ void glitch_object::createActions(void)
 
 void glitch_object::disconnectInputs(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto wire = it.value();
+
+      if(!wire)
+	continue;
+
+      if(m_proxy == wire->rightProxy() && m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (glitch_undo_command::Types::WIRE_DELETED, scene(), wire);
+
+	  m_undoStack->push(undoCommand);
+	}
+    }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_object::disconnectOutputs(void)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto wire = it.value();
+
+      if(!wire)
+	continue;
+
+      if(m_proxy == wire->leftProxy() && m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (glitch_undo_command::Types::WIRE_DELETED, scene(), wire);
+
+	  m_undoStack->push(undoCommand);
+	}
+    }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_object::hideOrShowOccupied(void)
@@ -1717,12 +1763,50 @@ void glitch_object::slotActionTriggered(void)
 	case DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT:
 	  {
 	    property = Properties::LIBRARY_FUNCTION_HAS_INPUT;
-	    break;
+
+	    if(m_undoStack)
+	      {
+		m_undoStack->beginMacro(tr("has-input toggled"));
+
+		auto undoCommand = new glitch_undo_command
+		  (!m_properties.value(property).toBool(),
+		   m_properties.value(property),
+		   glitch_undo_command::Types::PROPERTY_CHANGED,
+		   property,
+		   this);
+
+		m_undoStack->push(undoCommand);
+		disconnectInputs();
+		m_undoStack->endMacro();
+	      }
+	    else
+	      m_properties[property] = !m_properties.value(property).toBool();
+
+	    return;
 	  }
 	case DefaultMenuActions::LIBRARY_FUNCTION_HAS_OUTPUT:
 	  {
 	    property = Properties::LIBRARY_FUNCTION_HAS_OUTPUT;
-	    break;
+
+	    if(m_undoStack)
+	      {
+		m_undoStack->beginMacro(tr("has-output toggled"));
+
+		auto undoCommand = new glitch_undo_command
+		  (!m_properties.value(property).toBool(),
+		   m_properties.value(property),
+		   glitch_undo_command::Types::PROPERTY_CHANGED,
+		   property,
+		   this);
+
+		m_undoStack->push(undoCommand);
+		disconnectOutputs();
+		m_undoStack->endMacro();
+	      }
+	    else
+	      m_properties[property] = !m_properties.value(property).toBool();
+
+	    return;
 	  }
 	case DefaultMenuActions::TRANSPARENT:
 	  {
