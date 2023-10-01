@@ -173,7 +173,7 @@ void glitch_object_library_function_arduino::setProperties
 	}
       else if(string.simplified().startsWith("library_function_type = "))
 	{
-	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  string = QString("%1").arg(string);
 	  function = string.trimmed();
