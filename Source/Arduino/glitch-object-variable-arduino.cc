@@ -200,6 +200,10 @@ QString glitch_object_variable_arduino::code(void) const
 		    inputs.value(0) +
 		    "] " +
 		    progmem +
+		    " " +
+		    assignment +
+		    " " +
+		    inputs.value(1) +
 		    ";").trimmed();
 	  else
 	    {

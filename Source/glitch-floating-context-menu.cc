@@ -84,7 +84,6 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
   map["z-value"] = nullptr;
 
   QMapIterator<QString, QAction *> it(map);
-  auto i = 0;
 
   while(it.hasNext())
     {
@@ -130,6 +129,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 
 	  checkBox->setChecked(it.value()->isChecked());
 	  checkBox->setEnabled(it.value()->isEnabled());
+	  checkBox->setObjectName(it.value()->text().remove('&'));
 	  checkBox->setIcon(it.value()->icon());
 	  checkBox->setText(it.value()->text());
 	  checkBox->setToolTip(it.value()->toolTip());
@@ -152,7 +152,6 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 
 	  auto pushButton = new QPushButton(this);
 
-	  it.value()->setProperty("index", i++);
 	  connect(it.value(),
 		  &QAction::changed,
 		  this,
@@ -164,6 +163,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	  pushButton->setEnabled(it.value()->isEnabled());
 	  pushButton->setIcon(it.value()->icon());
 	  pushButton->setMenu(it.value()->menu());
+	  pushButton->setObjectName(it.value()->text().remove('&'));
 	  pushButton->setProperty("property", it.value()->data());
 	  pushButton->setText(it.value()->text());
 	  pushButton->setToolTip(it.value()->toolTip());
@@ -326,12 +326,7 @@ void glitch_floating_context_menu::slotActionChanged(void)
   if(!action)
     return;
 
-  auto item = m_ui.frame->layout()->itemAt(action->property("index").toInt());
-
-  if(!item)
-    return;
-
-  auto widget = item->widget();
+  auto widget = findChild<QWidget *> (action->text().remove('&'));
 
   if(!widget)
     return;
