@@ -44,6 +44,8 @@ glitch_object_library_function_arduino::glitch_object_library_function_arduino
 glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
+  m_properties[Properties::BACKGROUND_COLOR] = QColor(0, 71, 171);
+  m_properties[Properties::FONT_COLOR] = QColor(Qt::white);
   m_type = "arduino-library-function";
   prepareContextMenu();
   setName(m_text);
