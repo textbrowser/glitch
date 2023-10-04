@@ -430,7 +430,7 @@ bool glitch_object::event(QEvent *event)
       {
       case QEvent::ApplicationFontChange:
 	{
-	  QTimer::singleShot(50, this, SLOT(slotHideOrShowOccupied(void)));
+	  QTimer::singleShot(50, this, &glitch_object::slotHideOrShowOccupied);
 	  return true;
 	}
       default:
@@ -1440,20 +1440,11 @@ void glitch_object::setProperties(const QStringList &list)
 	      string = string.mid(string.indexOf('=') + 1).trimmed();
 	      string.remove('"').remove('(').remove(')');
 
-	      QSize size;
 	      auto list(string.split(','));
 
-	      size.setHeight
-		(minimumHeight(qMax(25, list.value(1).trimmed().toInt())));
-
-	      /*
-	      ** Must be at least minimumSizeHint().width() wide.
-	      */
-
-	      size.setWidth
-		(qMax(list.value(0).trimmed().toInt(),
-		      preferredSize().width()));
-	      resize(size);
+	      m_delayedSize = QSize(list.value(0).trimmed().toInt(),
+				    list.value(1).trimmed().toInt());
+	      QTimer::singleShot(50, this, &glitch_object::slotDelayedResize);
 	    }
 	}
       else if(string.simplified().
@@ -1927,6 +1918,25 @@ void glitch_object::slotCompress(void)
 void glitch_object::slotCopy(void)
 {
   glitch_ui::copy(this);
+}
+
+void glitch_object::slotDelayedResize(void)
+{
+  if(m_delayedSize.isValid())
+    {
+      auto size(m_delayedSize);
+
+      size.setHeight(minimumHeight(qMax(25, size.height())));
+
+      /*
+      ** Must be at least preferredSize().width() wide.
+      */
+
+      size.setWidth(qMax(preferredSize().width(), size.width()));
+      resize(size);
+    }
+
+  m_delayedSize = QSize();
 }
 
 void glitch_object::slotHideOrShowOccupied(void)

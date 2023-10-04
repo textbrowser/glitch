@@ -344,6 +344,7 @@ class glitch_object: public QWidget
 
  private:
   QMenu m_menu;
+  QSize m_delayedSize;
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
   QFont preferredFont(const QFont &font) const;
@@ -355,6 +356,7 @@ class glitch_object: public QWidget
  private slots:
   void slotCanvasSettingsChanged(const bool state);
   void slotClearTemporaryContainers(void);
+  void slotDelayedResize(void);
   void slotSetFont(void);
   void slotSimulateDelete(void);
   void slotPropertyChanged

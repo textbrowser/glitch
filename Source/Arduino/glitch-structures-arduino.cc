@@ -163,6 +163,7 @@ QStringList glitch_structures_arduino::variableTypes(void)
 		  << "PinStatus"
 		  << "String"
 		  << "array"
+		  << "auto"
 		  << "bool"
 		  << "boolean"
 		  << "byte"
