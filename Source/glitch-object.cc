@@ -77,6 +77,7 @@
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 int glitch_object::s_widthTweak = 50; // Multiple of 5 please!
+static qreal s_disableSourceOpacity = 0.35;
 static qreal s_windowOpacity = 0.85;
 
 inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
@@ -703,9 +704,7 @@ void glitch_object::allObjectsImplementation(QList<glitch_object *> &list) const
 void glitch_object::afterPaste(void)
 {
   prepareFont();
-  setWindowOpacity
-    (m_properties.value(Properties::TRANSPARENT).toBool() ?
-     s_windowOpacity : 1.0);
+  setOpacity();
 }
 
 void glitch_object::cloneWires
@@ -1362,6 +1361,16 @@ void glitch_object::setName(const QString &n)
     }
 }
 
+void glitch_object::setOpacity(void)
+{
+  if(m_properties.value(Properties::GENERATE_SOURCE).toBool() == false)
+    setWindowOpacity(s_disableSourceOpacity);
+  else if(m_properties.value(Properties::TRANSPARENT).toBool())
+    setWindowOpacity(s_windowOpacity);
+  else
+    setWindowOpacity(1.0);
+}
+
 void glitch_object::setProperties(const QStringList &list)
 {
   for(int i = 0; i < list.size(); i++)
@@ -1517,9 +1526,7 @@ void glitch_object::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::TRANSPARENT] =
 	    QVariant(string.trimmed()).toBool();
-	  setWindowOpacity
-	    (m_properties.value(Properties::TRANSPARENT).toBool() ?
-	     s_windowOpacity : 1.0);
+	  setOpacity();
 	}
       else if(string.simplified().startsWith("z_value = "))
 	{
@@ -1574,6 +1581,7 @@ void glitch_object::setProperty(const Properties property,
 	  m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked
 	    (value.toBool());
 
+	setOpacity();
 	break;
       }
     case Properties::GEOMETRY:
@@ -1635,7 +1643,7 @@ void glitch_object::setProperty(const Properties property,
 	  m_actions.value(DefaultMenuActions::TRANSPARENT)->setChecked
 	    (value.toBool());
 
-	setWindowOpacity(value.toBool() ? s_windowOpacity : 1.0);
+	setOpacity();
 	break;
       }
     case Properties::Z_VALUE:

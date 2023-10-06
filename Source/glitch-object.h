@@ -354,6 +354,7 @@ class glitch_object: public QWidget
   void allObjectsImplementation(QList<glitch_object *> &list) const;
   void disconnectInputs(void);
   void disconnectOutputs(void);
+  void setOpacity(void);
 
  private slots:
   void slotCanvasSettingsChanged(const bool state);
