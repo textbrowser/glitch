@@ -100,6 +100,9 @@ glitch_object_bits_and_bytes_arduino::~glitch_object_bits_and_bytes_arduino()
 
 QString glitch_object_bits_and_bytes_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToType(m_text))
     {
     case Type::BIT:

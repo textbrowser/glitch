@@ -59,6 +59,9 @@ glitch_object_mathematics_arduino::~glitch_object_mathematics_arduino()
 
 QString glitch_object_mathematics_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToMathematicsType(m_text))
     {
     case Type::ABS:

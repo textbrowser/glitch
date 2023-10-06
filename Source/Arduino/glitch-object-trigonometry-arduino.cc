@@ -77,6 +77,9 @@ glitch_object_trigonometry_arduino::~glitch_object_trigonometry_arduino()
 
 QString glitch_object_trigonometry_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToTrigonometryType(m_text))
     {
     case Types::COS:

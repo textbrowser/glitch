@@ -94,6 +94,9 @@ glitch_object_flow_control_arduino::~glitch_object_flow_control_arduino()
 
 QString glitch_object_flow_control_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   if(m_ui.flow_control_type->currentText() == "break")
     return "break;";
   else if(m_ui.flow_control_type->currentText() == "continue")

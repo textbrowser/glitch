@@ -63,6 +63,9 @@ glitch_object_conversion_arduino::~glitch_object_conversion_arduino()
 
 QString glitch_object_conversion_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   if(m_text == "(unsigned int)" || m_text == "(unsigned long)")
     return QString("%1 (%2)").arg(m_text).arg(inputs().value(0));
   else

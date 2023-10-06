@@ -109,6 +109,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::FONT] = preferredFont
     (glitch_ui::s_defaultApplicationFont);
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
+  m_properties[Properties::GENERATE_SOURCE] = true;
   m_properties[Properties::PORT_COLORS] =
     QColor(0, 80, 181).name() +    // Input Connected
     "-" +
@@ -892,6 +893,27 @@ void glitch_object::createActions(void)
 	action->setEnabled(false);
     }
 
+  if(!m_actions.contains(DefaultMenuActions::GENERATE_SOURCE))
+    {
+      auto action = new QAction(tr("&Generate Source"), this);
+
+      action->setCheckable(true);
+      action->setChecked
+	(m_properties.value(Properties::GENERATE_SOURCE).toBool());
+      action->setData(static_cast<int> (DefaultMenuActions::GENERATE_SOURCE));
+      action->setEnabled(!isMandatory());
+      action->setToolTip(tr("Generate source."));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotActionTriggered,
+	      Qt::QueuedConnection);
+      m_actions[DefaultMenuActions::GENERATE_SOURCE] = action;
+    }
+  else
+    m_actions[DefaultMenuActions::GENERATE_SOURCE]->
+      setChecked(m_properties.value(Properties::GENERATE_SOURCE).toBool());
+
   if(!m_actions.contains(DefaultMenuActions::LOCK_POSITION))
     {
       auto action = new QAction(tr("&Lock Position"), this);
@@ -1249,6 +1271,8 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
   properties["font"] = m_properties.value(Properties::FONT).toString();
   properties["font_color"] = m_properties.value
     (Properties::FONT_COLOR).toString();
+  properties["generate_source"] = m_properties.value
+    (Properties::GENERATE_SOURCE).toBool();
   properties["port_colors"] = m_properties.value
     (Properties::PORT_COLORS).toString();
   properties["position_locked"] = m_properties.value
@@ -1405,6 +1429,16 @@ void glitch_object::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::FONT_COLOR] = QColor(string.trimmed());
+	}
+      else if(string.simplified().startsWith("generate_source = "))
+	{
+	  if(!isMandatory())
+	    {
+	      string = string.mid(string.indexOf('=') + 1);
+	      string.remove("\"");
+	      m_properties[Properties::GENERATE_SOURCE] =
+		QVariant(string.trimmed()).toBool();
+	    }
 	}
       else if(string.simplified().startsWith("name = "))
 	{
@@ -1749,6 +1783,11 @@ void glitch_object::slotActionTriggered(void)
 	      return;
 
 	    property = Properties::COMPRESSED_WIDGET;
+	    break;
+	  }
+	case DefaultMenuActions::GENERATE_SOURCE:
+	  {
+	    property = Properties::GENERATE_SOURCE;
 	    break;
 	  }
 	case DefaultMenuActions::LIBRARY_FUNCTION_HAS_INPUT:

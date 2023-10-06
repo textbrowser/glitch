@@ -67,6 +67,9 @@ glitch_object_syntax_arduino::~glitch_object_syntax_arduino()
 
 QString glitch_object_syntax_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   return m_ui.text->text().trimmed();
 }
 

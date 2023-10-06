@@ -95,6 +95,9 @@ glitch_object_advanced_io_arduino::~glitch_object_advanced_io_arduino()
 
 QString glitch_object_advanced_io_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToIOType(m_text))
     {
     case Type::PULSE_IN:

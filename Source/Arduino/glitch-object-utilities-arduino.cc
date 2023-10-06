@@ -58,6 +58,9 @@ glitch_object_utilities_arduino::~glitch_object_utilities_arduino()
 
 QString glitch_object_utilities_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   return QString("sizeof(%1);").arg(inputs().value(0));
 }
 

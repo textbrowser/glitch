@@ -70,6 +70,9 @@ glitch_object_serial_arduino::~glitch_object_serial_arduino()
 
 QString glitch_object_serial_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToSerialType(m_text))
     {
     case Type::AVAILABLE:

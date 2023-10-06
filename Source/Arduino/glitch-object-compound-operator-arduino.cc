@@ -107,6 +107,9 @@ compoundOperator(void) const
 
 QString glitch_object_compound_operator_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(m_operatorType)
     {
     case OperatorTypes::DECREMENT_OPERATOR:

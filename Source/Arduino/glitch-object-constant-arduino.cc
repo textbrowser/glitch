@@ -92,6 +92,9 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 
 QString glitch_object_constant_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   if(m_ui.constant->currentText() == tr("Other"))
     return m_ui.other->text().trimmed();
   else

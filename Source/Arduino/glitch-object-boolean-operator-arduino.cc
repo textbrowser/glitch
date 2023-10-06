@@ -81,6 +81,9 @@ QString glitch_object_boolean_operator_arduino::booleanOperator(void) const
 
 QString glitch_object_boolean_operator_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(m_operatorType)
     {
     case OperatorTypes::NOT_OPERATOR:

@@ -72,6 +72,9 @@ glitch_object_digital_io_arduino::~glitch_object_digital_io_arduino()
 
 QString glitch_object_digital_io_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToIOType(m_text))
     {
     case Type::READ:

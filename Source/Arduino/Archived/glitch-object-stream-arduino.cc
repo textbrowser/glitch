@@ -62,6 +62,9 @@ glitch_object_stream_arduino::~glitch_object_stream_arduino()
 
 QString glitch_object_stream_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToStreamType(m_text))
     {
     case Type::AVAILABLE:

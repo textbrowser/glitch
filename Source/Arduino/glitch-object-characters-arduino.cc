@@ -134,6 +134,9 @@ glitch_object_characters_arduino::~glitch_object_characters_arduino()
 
 QString glitch_object_characters_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   return QString("%1(%2);").
     arg(charactersTypeToString()).
     arg(inputs().value(0));

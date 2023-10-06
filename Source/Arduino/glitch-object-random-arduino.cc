@@ -65,6 +65,9 @@ glitch_object_random_arduino::~glitch_object_random_arduino()
 
 QString glitch_object_random_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToRandomType(m_text))
     {
     case Type::RANDOM:

@@ -55,6 +55,9 @@ glitch_object_interrupts_arduino::~glitch_object_interrupts_arduino()
 
 QString glitch_object_interrupts_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToInterruptsType(m_text))
     {
     case Type::ATTACH_INTERRUPT:

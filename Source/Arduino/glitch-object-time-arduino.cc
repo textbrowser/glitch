@@ -84,6 +84,9 @@ glitch_object_time_arduino::~glitch_object_time_arduino()
 
 QString glitch_object_time_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   switch(stringToTimeType(m_text))
     {
     case Type::DELAY:

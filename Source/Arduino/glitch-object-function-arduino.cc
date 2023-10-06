@@ -180,6 +180,9 @@ parentFunction(void) const
 
 QString glitch_object_function_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   if(m_isFunctionClone)
     {
       QString code("");

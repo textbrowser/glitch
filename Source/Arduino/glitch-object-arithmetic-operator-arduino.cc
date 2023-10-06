@@ -64,6 +64,9 @@ arithmeticOperator(void) const
 
 QString glitch_object_arithmetic_operator_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   QString string("(");
   auto list(inputs());
 

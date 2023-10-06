@@ -99,6 +99,9 @@ QSize glitch_object_variable_arduino::preferredSize(void) const
 
 QString glitch_object_variable_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   QString assignment("=");
   auto array(m_ui.array->isChecked() ? QString("[]") : QString(""));
   auto inputs(this->inputs());

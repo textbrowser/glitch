@@ -58,6 +58,9 @@ glitch_object_library_function_arduino::
 
 QString glitch_object_library_function_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   QString code("");
 
   code.append(QString(m_text).remove("()"));

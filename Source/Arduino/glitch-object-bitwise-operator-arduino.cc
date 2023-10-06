@@ -63,6 +63,9 @@ QString glitch_object_bitwise_operator_arduino::bitwiseOperator(void) const
 
 QString glitch_object_bitwise_operator_arduino::code(void) const
 {
+  if(!property(Properties::GENERATE_SOURCE).toBool())
+    return "";
+
   if(m_text == "~")
     return QString("~(%1)").arg(inputs().value(0));
   else
