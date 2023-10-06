@@ -1280,6 +1280,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     m_findObjects->setWindowTitle
       (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
 
+  m_menuAction->setText(m_canvasSettings->name());
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
