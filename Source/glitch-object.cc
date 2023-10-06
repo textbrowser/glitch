@@ -809,7 +809,7 @@ void glitch_object::createActions(void)
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::COMPRESS_WIDGET] = action;
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::COMPRESS_WIDGET, nullptr))
     m_actions[DefaultMenuActions::COMPRESS_WIDGET]->
       setChecked(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 
@@ -910,7 +910,7 @@ void glitch_object::createActions(void)
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::GENERATE_SOURCE] = action;
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::GENERATE_SOURCE, nullptr))
     m_actions[DefaultMenuActions::GENERATE_SOURCE]->
       setChecked(m_properties.value(Properties::GENERATE_SOURCE).toBool());
 
@@ -931,7 +931,7 @@ void glitch_object::createActions(void)
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::LOCK_POSITION] = action;
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::LOCK_POSITION, nullptr))
     m_actions[DefaultMenuActions::LOCK_POSITION]->
       setChecked(m_properties.value(Properties::POSITION_LOCKED).toBool());
 
@@ -977,7 +977,7 @@ void glitch_object::createActions(void)
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::TRANSPARENT] = action;
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::TRANSPARENT, nullptr))
     m_actions[DefaultMenuActions::TRANSPARENT]->setChecked
       (m_properties.value(Properties::TRANSPARENT).toBool());
 }
@@ -1568,6 +1568,14 @@ void glitch_object::setProperty(const Properties property,
 	prepareFont();
 	break;
       }
+    case Properties::GENERATE_SOURCE:
+      {
+	if(m_actions.contains(DefaultMenuActions::GENERATE_SOURCE))
+	  m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked
+	    (value.toBool());
+
+	break;
+      }
     case Properties::GEOMETRY:
       {
 	if(m_proxy)
@@ -2056,6 +2064,8 @@ void glitch_object::slotPropertyChanged
     p = Properties::FONT;
   else if(property == "font_color")
     p = Properties::FONT_COLOR;
+  else if(property == "generate_source")
+    p = Properties::GENERATE_SOURCE;
   else if(property == "tool_bar_visible")
     p = Properties::TOOL_BAR_VISIBLE;
 
