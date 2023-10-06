@@ -461,7 +461,8 @@ bool glitch_object::hasView(void) const
 
 bool glitch_object::isActionAllowed(const DefaultMenuActions action) const
 {
-  if(action == DefaultMenuActions::COMPRESS_WIDGET)
+  if(action == DefaultMenuActions::COMPRESS_WIDGET ||
+     action == DefaultMenuActions::GENERATE_SOURCE)
     return !isMandatory();
   else
     return true;
@@ -1792,6 +1793,10 @@ void glitch_object::slotActionTriggered(void)
 	{
 	case DefaultMenuActions::COMPRESS_WIDGET:
 	  {
+	    if(m_actions.value(DefaultMenuActions::COMPRESS_WIDGET,
+			       nullptr) == nullptr)
+	      createActions();
+
 	    if(m_actions.value(DefaultMenuActions::
 			       COMPRESS_WIDGET, nullptr) == nullptr ||
 	       m_actions.value(DefaultMenuActions::
@@ -1803,6 +1808,16 @@ void glitch_object::slotActionTriggered(void)
 	  }
 	case DefaultMenuActions::GENERATE_SOURCE:
 	  {
+	    if(m_actions.value(DefaultMenuActions::GENERATE_SOURCE,
+			       nullptr) == nullptr)
+	      createActions();
+
+	    if(m_actions.value(DefaultMenuActions::
+			       GENERATE_SOURCE, nullptr) == nullptr ||
+	       m_actions.value(DefaultMenuActions::
+			       GENERATE_SOURCE)->isEnabled() == false)
+	      return;
+
 	    property = Properties::GENERATE_SOURCE;
 	    break;
 	  }
