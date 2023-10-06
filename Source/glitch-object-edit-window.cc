@@ -581,26 +581,30 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       QMainWindow::setCentralWidget(frame);
     }
 
-  if(m_leftSplitter)
-    m_leftSplitter->restoreState
-      (m_object ?
-       m_object->property(glitch_object::Properties::
-			  STRUCTURES_VIEW_LEFT_SPLITTER_STATE).toByteArray() :
-       QByteArray());
+  if(m_object)
+    {
+      if(m_leftSplitter)
+	m_leftSplitter->restoreState
+	  (m_object ?
+	   m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
+	   toByteArray() : QByteArray());
 
-  if(m_rightSplitter)
-    m_rightSplitter->restoreState
-      (m_object ?
-       m_object->property(glitch_object::Properties::
-			  STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).toByteArray() :
-       QByteArray());
+      if(m_rightSplitter)
+	m_rightSplitter->restoreState
+	  (m_object ?
+	   m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
+	   toByteArray() :
+	   QByteArray());
 
-  if(m_splitter)
-    m_splitter->restoreState
-      (m_object ?
-       m_object->property(glitch_object::Properties::
-			  STRUCTURES_VIEW_SPLITTER_STATE).toByteArray() :
-       QByteArray());
+      if(m_splitter)
+	m_splitter->restoreState
+	  (m_object ?
+	   m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_SPLITTER_STATE).toByteArray() :
+	   QByteArray());
+    }
 
   auto view = qobject_cast<glitch_object_view *> (m_centralWidget);
 
