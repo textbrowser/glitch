@@ -265,6 +265,21 @@ void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 
   if(m_object)
     {
+      if(m_leftSplitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
+	   m_leftSplitter->saveState());
+
+      if(m_rightSplitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_RIGHT_SPLITTER_STATE,
+	   m_rightSplitter->saveState());
+
+      if(m_splitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
+	   m_splitter->saveState());
+
       m_object->setProperty
 	(glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
       m_object->setProperty
