@@ -262,6 +262,15 @@ bool glitch_object_edit_window::event(QEvent *event)
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
   QMainWindow::closeEvent(event);
+
+  if(m_object)
+    {
+      m_object->setProperty
+	(glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
+      m_object->setProperty
+	(glitch_object::Properties::EDIT_WINDOW_STATE, saveState());
+    }
+
   emit closed();
 }
 
