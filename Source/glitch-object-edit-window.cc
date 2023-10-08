@@ -199,7 +199,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_header = new QLineEdit(this);
   m_header->setReadOnly(true);
   m_header->setVisible(false);
-  m_leftSplitter = nullptr;
+  m_leftSplitter = new QSplitter(Qt::Vertical, this);
   m_miscellaneousToolBar = new QToolBar(tr("Miscellaneous Tool Bar"), this);
   m_miscellaneousToolBar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_miscellaneousToolBar->setIconSize(QSize(24, 24));
@@ -265,27 +265,13 @@ void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 
   if(m_object)
     {
-      if(m_leftSplitter)
-	m_object->setProperty
-	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
-	   m_leftSplitter->saveState());
-
-      if(m_rightSplitter)
-	m_object->setProperty
-	  (glitch_object::Properties::STRUCTURES_VIEW_RIGHT_SPLITTER_STATE,
-	   m_rightSplitter->saveState());
-
-      if(m_splitter)
-	m_object->setProperty
-	  (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
-	   m_splitter->saveState());
-
       m_object->setProperty
 	(glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
       m_object->setProperty
 	(glitch_object::Properties::EDIT_WINDOW_STATE, saveState());
     }
 
+  saveSplittersStates();
   emit closed();
 }
 
@@ -431,6 +417,27 @@ void glitch_object_edit_window::resizeEvent(QResizeEvent *event)
     }
 }
 
+void glitch_object_edit_window::saveSplittersStates(void)
+{
+  if(m_object)
+    {
+      if(m_leftSplitter->count() > 0)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
+	   m_leftSplitter->saveState());
+
+      if(m_rightSplitter->count() > 0)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_RIGHT_SPLITTER_STATE,
+	   m_rightSplitter->saveState());
+
+      if(m_splitter->count() > 0)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_SPLITTER_STATE,
+	   m_splitter->saveState());
+    }
+}
+
 void glitch_object_edit_window::setCategoriesIconSize(const QString &text)
 {
   if(m_arduinoStructures)
@@ -547,7 +554,6 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	{
 	  m_arduinoStructures = new glitch_structures_arduino(this);
 	  m_arduinoStructures->prepareCategories();
-	  m_leftSplitter = new QSplitter(Qt::Vertical, this);
 	  connect(m_leftSplitter,
 		  SIGNAL(splitterMoved(int, int)),
 		  this,
@@ -607,37 +613,28 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 
   if(m_object)
     {
-      if(m_leftSplitter)
-	{
-	  auto bytes
-	    (m_object->property(glitch_object::Properties::
-				STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
-	     toByteArray());
+      auto bytes1
+	(m_object->property(glitch_object::Properties::
+			    STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
+	 toByteArray());
 
-	  if(!bytes.isEmpty())
-	    m_leftSplitter->restoreState(bytes);
-	}
+      if(!bytes1.isEmpty())
+	m_leftSplitter->restoreState(bytes1);
 
-      if(m_rightSplitter)
-	{
-	  auto bytes
-	    (m_object->property(glitch_object::Properties::
-				STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
-	     toByteArray());
+      auto bytes2
+	(m_object->property(glitch_object::Properties::
+			    STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
+	 toByteArray());
 
-	  if(!bytes.isEmpty())
-	    m_rightSplitter->restoreState(bytes);
-	}
+      if(!bytes2.isEmpty())
+	m_rightSplitter->restoreState(bytes2);
 
-      if(m_splitter)
-	{
-	  auto bytes
-	    (m_object->property(glitch_object::Properties::
-				STRUCTURES_VIEW_SPLITTER_STATE).toByteArray());
+      auto bytes3
+	(m_object->property(glitch_object::Properties::
+			    STRUCTURES_VIEW_SPLITTER_STATE).toByteArray());
 
-	  if(!bytes.isEmpty())
-	    m_splitter->restoreState(bytes);
-	}
+      if(!bytes3.isEmpty())
+	m_splitter->restoreState(bytes3);
     }
 
   auto view = qobject_cast<glitch_object_view *> (m_centralWidget);
