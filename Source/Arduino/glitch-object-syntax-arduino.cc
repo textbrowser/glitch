@@ -40,8 +40,10 @@ glitch_object_syntax_arduino::glitch_object_syntax_arduino
 {
   if(syntax.endsWith("#define"))
     m_ui.text->setText("#define");
-  else
+  else if(syntax.endsWith("#include"))
     m_ui.text->setText("#include");
+  else
+    m_ui.text->clear();
 
   m_properties[Properties::SYNTAX] = m_ui.text->text();
   m_ui.text->setCursorPosition(0);

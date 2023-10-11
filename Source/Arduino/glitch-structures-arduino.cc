@@ -421,7 +421,8 @@ void glitch_structures_arduino::prepareCategories(void)
 						     << "function()";
   s_itemsForIcons["Structures"] = "structure.png";
   s_itemsForCategories["Syntax"] = QStringList() << "#define"
-						 << "#include";
+						 << "#include"
+						 << "Other";
   s_itemsForIcons["Syntax"] = "syntax.png";
   s_itemsForCategories["Time"] = QStringList() << "delay()"
 					       << "delayMicroseconds()"
