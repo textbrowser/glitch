@@ -337,6 +337,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.file_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
   m_ui.menu_Recent_Diagrams->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
@@ -1473,9 +1474,6 @@ void glitch_ui::slotAbout(void)
 void glitch_ui::slotAboutToShowTabsMenu(void)
 {
   slotTabMoved(0, 0);
-
-  if(m_ui.menu_Tabs->actions().isEmpty())
-    m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
 }
 
 void glitch_ui::slotArduinoViewDestroyed(void)
@@ -2409,6 +2407,9 @@ void glitch_ui::slotTabMoved(int from, int to)
 	  m_ui.menu_Tabs->addAction(action);
 	}
     }
+
+  if(m_ui.menu_Tabs->actions().isEmpty())
+    m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
 
   QApplication::restoreOverrideCursor();
 }
