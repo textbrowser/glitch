@@ -550,6 +550,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
   prepareStatusBar();
   prepareTabShortcuts();
   setWindowTitle(view);
+  slotAboutToShowTabsMenu();
 
   if(!fromFile)
     view->save();
@@ -1559,6 +1560,7 @@ void glitch_ui::slotCloseDiagram(int index)
   prepareActionWidgets();
   prepareStatusBar();
   prepareTabShortcuts();
+  slotAboutToShowTabsMenu();
 }
 
 void glitch_ui::slotCloseDiagram(void)
@@ -2223,6 +2225,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   prepareStatusBar();
   prepareTabShortcuts();
   setWindowTitle(nullptr);
+  slotAboutToShowTabsMenu();
   window->activateWindow();
   window->raise();
 }
@@ -2500,6 +2503,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   prepareTabShortcuts();
   setTabText(view);
   setWindowTitle(view);
+  slotAboutToShowTabsMenu();
   view->unite();
   window->deleteLater();
 }
