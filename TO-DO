@@ -333,8 +333,9 @@ Remaining Items
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
+- Pasting of a function definition onto the main diagram should result
+  in a non-clone function.
 - Periodic backup.
-- Prevent pasting of non-clone functions onto non-main diagrams.
 - Print preview. Avoid Android.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
