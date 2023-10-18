@@ -128,69 +128,70 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  QString objectName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">void</span> prepareHeader(<span class="keyword">const</span> QString &amp;text);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">void</span> prepareToolBars(<span class="keyword">const</span> QList&lt;QAction *&gt; &amp;actions);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> setCategoriesIconSize(<span class="keyword">const</span> QString &amp;text);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> setCentralWidget(QWidget *widget);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> setEditView(<a class="code" href="classglitch__object__view.html">glitch_object_view</a> *view);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> setToolBarVisible(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> setUndoStack(QUndoStack *undoStack);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> setUserFunctionsModel(<a class="code" href="classglitch__user__functions__model.html">glitch_user_functions_model</a> *model);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; <span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordtype">void</span> slotPreferencesAccepted(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  QLineEdit *m_header;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  QMap&lt;QString, QAction *&gt; m_actions;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  QPointer&lt;QUndoStack&gt; m_undoStack;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  QPointer&lt;QWidget&gt; m_centralWidget;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  QPointer&lt;glitch_object_view&gt; m_editView;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  QPointer&lt;glitch_structures_arduino&gt; m_arduinoStructures;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  QPointer&lt;glitch_user_functions_model&gt; m_userFunctionsModel;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  QSplitter *m_leftSplitter;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  QSplitter *m_rightSplitter;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  QSplitter *m_splitter;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  QToolBar *m_editToolBar;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  QToolBar *m_fileToolBar;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  QToolBar *m_miscellaneousToolBar;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  QToolBar *m_toolsToolBar;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <a class="code" href="classglitch__canvas__preview.html">glitch_canvas_preview</a> *m_canvasPreview;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  glitch_common::ProjectTypes m_projectType;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <a class="code" href="classglitch__docked__container.html">glitch_docked_container</a> *m_dockedWidgetPropertyEditors;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="classglitch__user__functions.html">glitch_user_functions</a> *m_userFunctions;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="keywordtype">bool</span> event(QEvent *event);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordtype">void</span> closeEvent(QCloseEvent *event);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> hideEvent(QHideEvent *event);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">void</span> prepareIcons(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> resizeEvent(QResizeEvent *event);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> showEvent(QShowEvent *event);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; <span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordtype">void</span> slotAboutToShowEditMenu(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">void</span> slotDockPropertyEditor(QWidget *widget);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordtype">void</span> slotHideTearOffMenu(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">void</span> slotShowFullScreenMode(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">void</span> slotShowTearOffMenu(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">void</span> slotSpecialTools(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> slotSplitterMoved(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordtype">void</span> slotViewTools(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordtype">void</span> slotZoomIn(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">void</span> slotZoomOut(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordtype">void</span> slotZoomReset(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; signals:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordtype">void</span> closed(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">void</span> copy(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> deleteSignal(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordtype">void</span> paste(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordtype">void</span> propertyChanged(<span class="keyword">const</span> QString &amp;property, <span class="keyword">const</span> QVariant &amp;value);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordtype">void</span> redo(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">void</span> saveSignal(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordtype">void</span> selectAll(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordtype">void</span> undo(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;};</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">void</span> saveSplittersStates(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordtype">void</span> setCategoriesIconSize(<span class="keyword">const</span> QString &amp;text);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> setCentralWidget(QWidget *widget);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> setEditView(<a class="code" href="classglitch__object__view.html">glitch_object_view</a> *view);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">void</span> setToolBarVisible(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">void</span> setUndoStack(QUndoStack *undoStack);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">void</span> setUserFunctionsModel(<a class="code" href="classglitch__user__functions__model.html">glitch_user_functions_model</a> *model);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; <span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">void</span> slotPreferencesAccepted(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  QLineEdit *m_header;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  QMap&lt;QString, QAction *&gt; m_actions;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  QPointer&lt;QUndoStack&gt; m_undoStack;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  QPointer&lt;QWidget&gt; m_centralWidget;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  QPointer&lt;glitch_object&gt; m_object;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  QPointer&lt;glitch_object_view&gt; m_editView;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  QPointer&lt;glitch_structures_arduino&gt; m_arduinoStructures;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  QPointer&lt;glitch_user_functions_model&gt; m_userFunctionsModel;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  QSplitter *m_leftSplitter;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  QSplitter *m_rightSplitter;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  QSplitter *m_splitter;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  QToolBar *m_editToolBar;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  QToolBar *m_fileToolBar;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  QToolBar *m_miscellaneousToolBar;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  QToolBar *m_toolsToolBar;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <a class="code" href="classglitch__canvas__preview.html">glitch_canvas_preview</a> *m_canvasPreview;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  glitch_common::ProjectTypes m_projectType;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <a class="code" href="classglitch__docked__container.html">glitch_docked_container</a> *m_dockedWidgetPropertyEditors;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <a class="code" href="classglitch__user__functions.html">glitch_user_functions</a> *m_userFunctions;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordtype">bool</span> event(QEvent *event);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> closeEvent(QCloseEvent *event);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">void</span> hideEvent(QHideEvent *event);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">void</span> prepareIcons(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> resizeEvent(QResizeEvent *event);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">void</span> showEvent(QShowEvent *event);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; <span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordtype">void</span> slotAboutToShowEditMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordtype">void</span> slotDockPropertyEditor(QWidget *widget);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">void</span> slotHideTearOffMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">void</span> slotShowFullScreenMode(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">void</span> slotShowTearOffMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> slotSpecialTools(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordtype">void</span> slotSplitterMoved(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordtype">void</span> slotViewTools(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">void</span> slotZoomIn(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordtype">void</span> slotZoomOut(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keywordtype">void</span> slotZoomReset(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; signals:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">void</span> closed(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keywordtype">void</span> copy(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordtype">void</span> deleteSignal(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordtype">void</span> paste(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordtype">void</span> propertyChanged(<span class="keyword">const</span> QString &amp;property, <span class="keyword">const</span> QVariant &amp;value);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="keywordtype">void</span> redo(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordtype">void</span> saveSignal(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordtype">void</span> selectAll(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">void</span> undo(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;};</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__canvas__preview_html"><div class="ttname"><a href="classglitch__canvas__preview.html">glitch_canvas_preview</a></div><div class="ttdef"><b>Definition:</b> glitch-canvas-preview.h:34</div></div>
 <div class="ttc" id="aclassglitch__docked__container_html"><div class="ttname"><a href="classglitch__docked__container.html">glitch_docked_container</a></div><div class="ttdef"><b>Definition:</b> glitch-docked-container.h:36</div></div>
 <div class="ttc" id="aclassglitch__object__edit__window_html"><div class="ttname"><a href="classglitch__object__edit__window.html">glitch_object_edit_window</a></div><div class="ttdef"><b>Definition:</b> glitch-object-edit-window.h:49</div></div>
