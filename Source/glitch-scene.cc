@@ -1019,6 +1019,28 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
     case Qt::Key_Up:
       {
+	foreach(auto i, selectedItems())
+	  {
+	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+	    if(!proxy)
+	      continue;
+
+	    auto object = qobject_cast<glitch_object *> (proxy->widget());
+
+	    if(!object)
+	      continue;
+
+	    if(qobject_cast<QLineEdit *> (object->focusWidget()) &&
+	       qobject_cast<QLineEdit *> (object->focusWidget())->
+	       isReadOnly() == false)
+	      goto done_label;
+	    else if(qobject_cast<QPlainTextEdit *> (object->focusWidget()) &&
+		    qobject_cast<QPlainTextEdit *> (object->focusWidget())->
+		    isReadOnly() == false)
+	      goto done_label;
+	  }
+
 	auto began = false;
 	auto moved = false;
 	auto pixels = (QGuiApplication::keyboardModifiers() &
@@ -1042,29 +1064,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	    auto object = qobject_cast<glitch_object *> (proxy->widget());
 
-	    if(!object)
-	      continue;
-
-	    if(qobject_cast<QLineEdit *> (object->focusWidget()))
-	      {
-		if(qobject_cast<QLineEdit *> (object->focusWidget())->
-		   isReadOnly() == false)
-		  {
-		    QGraphicsScene::keyPressEvent(event);
-		    continue;
-		  }
-	      }
-	    else if(qobject_cast<QPlainTextEdit *> (object->focusWidget()))
-	      {
-		if(qobject_cast<QPlainTextEdit *> (object->focusWidget())->
-		   isReadOnly() == false)
-		  {
-		    QGraphicsScene::keyPressEvent(event);
-		    continue;
-		  }
-	      }
-
-	    if(!proxy->isMovable())
+	    if(!object || !proxy->isMovable())
 	      continue;
 
 	    point = object->pos();
@@ -1159,6 +1159,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
       }
     }
 
+ done_label:
   QGraphicsScene::keyPressEvent(event);
 }
 
