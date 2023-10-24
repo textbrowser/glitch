@@ -29,6 +29,7 @@
 #define _glitch_object_lineedit_h_
 
 #include <QApplication>
+#include <QKeyEvent>
 #include <QLineEdit>
 
 class glitch_object_lineedit: public QLineEdit
@@ -50,6 +51,38 @@ class glitch_object_lineedit: public QLineEdit
   }
 
  private:
+  void keyPressEvent(QKeyEvent *event)
+  {
+    if(!event)
+      {
+	QLineEdit::keyPressEvent(event);
+	return;
+      }
+
+    switch(event->key())
+      {
+      case Qt::Key_A:
+      case Qt::Key_C:
+      case Qt::Key_V:
+	{
+	  if(QGuiApplication::keyboardModifiers() & Qt::ControlModifier &&
+	     isReadOnly())
+	    {
+	      event->ignore();
+	      return;
+	    }
+
+	  break;
+	}
+      default:
+	{
+	  break;
+	}
+      }
+
+    QLineEdit::keyPressEvent(event);
+  }
+
   void leaveEvent(QEvent *event)
   {
     QApplication::restoreOverrideCursor();
