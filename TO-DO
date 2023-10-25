@@ -327,6 +327,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
+- Display floating zoom widgets.
 - Drag and copy.
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
