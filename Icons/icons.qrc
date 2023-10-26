@@ -68,5 +68,7 @@
 	<file>vertical-stack.png</file>
 	<file>widget-properties.png</file>
 	<file>wire.png</file>
+	<file>zoom-in.png</file>
+	<file>zoom-out.png</file>
     </qresource>
 </RCC>
