@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "The command sed may fail on MacOS."
+
 VERSION=$1
 
 if [ -z "$VERSION" ]; then
