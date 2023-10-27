@@ -1079,6 +1079,8 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Serial_Port_Window->setIcon(QIcon(":/Arduino/serial.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
+  m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
+  m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
   m_ui.menu_New_Diagram->setIcon(QIcon(":/new-document.png"));
   m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/recent.png"));
 }
