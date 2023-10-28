@@ -54,6 +54,8 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.tools_toolbar->setIconSize(QSize(24, 24));
+  m_ui.zoom_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.zoom_toolbar->setIconSize(QSize(24, 24));
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -209,6 +211,8 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Save_Diagram->setIcon(QIcon(":/save.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
+  m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
+  m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
 }
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
@@ -259,6 +263,12 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       m_ui.file_toolbar->addAction(m_ui.action_Save_Diagram);
       m_ui.file_toolbar->addSeparator();
       m_ui.file_toolbar->addAction(m_ui.action_Close_Diagram);
+    }
+
+  if(m_ui.zoom_toolbar->actions().isEmpty())
+    {
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_In);
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Out);
     }
 
   m_ui.miscellaneous_toolbar->clear();
@@ -441,7 +451,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       slotToolsOperationChanged(m_view->toolsOperation());
     }
 
-  prepareToolBar();
+  prepareToolBar(); // Order is important.
   prepareActionWidgets();
 }
 

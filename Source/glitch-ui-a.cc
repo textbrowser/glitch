@@ -345,6 +345,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.tab->setTabsClosable(true);
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.tools_toolbar->setIconSize(QSize(24, 24));
+  m_ui.zoom_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.zoom_toolbar->setIconSize(QSize(24, 24));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareIcons();
@@ -978,6 +980,8 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
+      m_ui.action_Zoom_In->setEnabled(false);
+      m_ui.action_Zoom_Out->setEnabled(false);
       m_ui.menu_Zoom->setEnabled(false);
     }
   else
@@ -1010,6 +1014,8 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
+      m_ui.action_Zoom_In->setEnabled(m_currentView);
+      m_ui.action_Zoom_Out->setEnabled(m_currentView);
       m_ui.menu_Zoom->setEnabled(m_currentView);
     }
 
@@ -1313,6 +1319,12 @@ void glitch_ui::prepareToolBars(void)
       m_ui.file_toolbar->addSeparator();
       m_ui.file_toolbar->addAction(m_ui.action_Quit);
     }
+
+  if(m_ui.zoom_toolbar->actions().isEmpty())
+    {
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_In);
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Out);
+    }
 }
 
 void glitch_ui::restoreSettings(void)
@@ -1327,6 +1339,7 @@ void glitch_ui::restoreSettings(void)
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 
   if(!restoreGeometry(settings.value("main_window/geometry").toByteArray()))
     showMaximized();
@@ -2522,4 +2535,5 @@ void glitch_ui::slotViewToolBars(void)
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }

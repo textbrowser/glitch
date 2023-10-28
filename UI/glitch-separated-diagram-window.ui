@@ -91,7 +91,7 @@
   </widget>
   <widget class="QToolBar" name="file_toolbar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Glitch: File Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -102,7 +102,7 @@
   </widget>
   <widget class="QToolBar" name="edit_toolbar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Glitch: Edit Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -113,7 +113,7 @@
   </widget>
   <widget class="QToolBar" name="tools_toolbar">
    <property name="windowTitle">
-    <string>Glitch: Tool Bar</string>
+    <string>Glitch: Alignment Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -124,7 +124,18 @@
   </widget>
   <widget class="QToolBar" name="miscellaneous_toolbar">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Glitch: Miscellaneous Tool Bar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="zoom_toolbar">
+   <property name="windowTitle">
+    <string>Glitch: Zoom Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -234,6 +245,9 @@
    <property name="text">
     <string>&amp;In</string>
    </property>
+   <property name="toolTip">
+    <string>Zoom In</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+=</string>
    </property>
@@ -241,6 +255,9 @@
   <action name="action_Zoom_Out">
    <property name="text">
     <string>&amp;Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom Out</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
