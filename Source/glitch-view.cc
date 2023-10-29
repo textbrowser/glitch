@@ -357,6 +357,8 @@ QMenu *glitch_view::defaultContextMenu(void)
   m_contextMenu->addAction(tr("&User Functions..."),
 			   this,
 			   SLOT(slotShowUserFunctions(void)));
+  m_contextMenu->addSeparator();
+  m_contextMenu->addAction(tr("Zoom Reset"), this, SLOT(slotZoomReset(void)));
   return m_contextMenu;
 }
 
@@ -1718,6 +1720,11 @@ void glitch_view::slotUndoStackChanged(void)
 void glitch_view::slotUnite(void)
 {
   emit unite(this);
+}
+
+void glitch_view::slotZoomReset(void)
+{
+  m_view->zoom(0);
 }
 
 void glitch_view::undo(void)

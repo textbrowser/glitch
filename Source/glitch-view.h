@@ -145,6 +145,7 @@ class glitch_view: public QWidget
  private slots:
   void slotCopiedObjectsChanged(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
+  void slotZoomReset(void);
 
  protected:
   QAction *m_menuAction;
