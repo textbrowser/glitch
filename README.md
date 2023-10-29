@@ -25,6 +25,35 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.10.30</p>
+<ul>
+<li>Adjust-size created shadows. Corrected!</li>
+<li>Added Other to Syntax category.</li>
+<li>Allow assigment of value during initialization of array
+  variable.</li>
+<li>Beautiful zoom tool bar.</li>
+<li>Comment-like object property: Generate Source. Objects will
+  appear transparent.</li>
+<li>Corrected spelling: macros() -> micros().</li>
+<li>Disable some keyboard events on read-only text-input fields.</li>
+<li>Improved recording of splitter states.</li>
+<li>Initialize the Tabs menu on MacOS.</li>
+<li>LTS release! See the bundles of love.</li>
+<li>New Arduino type: uint32_t.</li>
+<li>New Catalog category.</li>
+<li>New auto keyword as variable type.</li>
+<li>New input dialog sizes.</li>
+<li>New tool bar titles. Mostly invisible, however, present.</li>
+<li>Qt 6.5.3 LTS Android.</li>
+<li>Qt 6.5.3 LTS MacOS.</li>
+<li>Qt 6.5.3 LTS Windows.</li>
+<li>Removed bounces which are observable during resizing of compact
+  widgets.</li>
+<li>Save edit window states on close events.</li>
+<li>Synchronize diagram name with Tabs menu.</li>
+<li>The size property of a widget must be restored in a delayed
+  manner as some properties are prepared in derived classes.</li>
+</ul>
 <p>2023.09.25</p>
 <ul>
 <li>Bouncy-less object resizing.</li>
