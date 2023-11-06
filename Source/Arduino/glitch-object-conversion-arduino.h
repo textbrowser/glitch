@@ -43,6 +43,9 @@ class glitch_object_conversion_arduino:
     FLOAT,
     INT,
     LONG,
+    UINT8_T,
+    UINT16_T,
+    UINT32_T,
     UNSIGNED_INT,
     UNSIGNED_LONG,
     WORD

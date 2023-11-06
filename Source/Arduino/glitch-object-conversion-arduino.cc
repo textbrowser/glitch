@@ -44,7 +44,10 @@ glitch_object_conversion_arduino
 glitch_object_conversion_arduino::glitch_object_conversion_arduino
 (const qint64 id, QWidget *parent):glitch_object_simple_text_arduino(id, parent)
 {
-  m_functionsList << "(unsigned int)"
+  m_functionsList << "(uint8_t)"
+		  << "(uint16_t)"
+		  << "(uint32_t)"
+		  << "(unsigned int)"
 		  << "(unsigned long)"
 		  << "byte()"
 		  << "char()"
@@ -66,7 +69,11 @@ QString glitch_object_conversion_arduino::code(void) const
   if(!property(Properties::GENERATE_SOURCE).toBool())
     return "";
 
-  if(m_text == "(unsigned int)" || m_text == "(unsigned long)")
+  if(m_text == "(uint8_t)" ||
+     m_text == "(uint16_t)" ||
+     m_text == "(uint32_t)" ||
+     m_text == "(unsigned int)" ||
+     m_text == "(unsigned long)")
     return QString("%1 (%2)").arg(m_text).arg(inputs().value(0));
   else
     return QString("%1(%2)").
@@ -76,7 +83,13 @@ QString glitch_object_conversion_arduino::code(void) const
 
 QString glitch_object_conversion_arduino::description(void) const
 {
-  if(m_text == "(unsigned int)")
+  if(m_text == "(uint8_t)")
+    return "(uint8_t) x";
+  else if(m_text == "(uint16_t)")
+    return "(uint16_t) x";
+  else if(m_text == "(uint32_t)")
+    return "(uint32_t) x";
+  else if(m_text == "(unsigned int)")
     return "(unsigned int) x";
   else if(m_text == "(unsigned long)")
     return "(unsigned long) x";
@@ -193,6 +206,21 @@ void glitch_object_conversion_arduino::setConversionType
 	m_text = "long()";
 	break;
       }
+    case ConversionTypes::UINT8_T:
+      {
+	m_text = "(uint8_t)";
+	break;
+      }
+    case ConversionTypes::UINT16_T:
+      {
+	m_text = "(uint16_t)";
+	break;
+      }
+    case ConversionTypes::UINT32_T:
+      {
+	m_text = "(uint32_t)";
+	break;
+      }
     case ConversionTypes::UNSIGNED_LONG:
       {
 	m_text = "(unsigned long)";
@@ -217,7 +245,13 @@ void glitch_object_conversion_arduino::setConversionType(const QString &ct)
 {
   auto conversionType(ct.toLower());
 
-  if(conversionType.contains("(unsigned int)"))
+  if(conversionType.contains("(uint8_t)"))
+    setConversionType(ConversionTypes::UINT8_T);
+  else if(conversionType.contains("(uint16_t)"))
+    setConversionType(ConversionTypes::UINT16_T);
+  else if(conversionType.contains("(uint32_t)"))
+    setConversionType(ConversionTypes::UINT32_T);
+  else if(conversionType.contains("(unsigned int)"))
     setConversionType(ConversionTypes::UNSIGNED_INT);
   else if(conversionType.contains("(unsigned long)"))
     setConversionType(ConversionTypes::UNSIGNED_LONG);
