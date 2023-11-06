@@ -49,8 +49,8 @@ glitch_object_constant_arduino::glitch_object_constant_arduino
   m_type = "arduino-constant";
   m_ui.setupUi(this);
   m_ui.constant->installEventFilter(new glitch_scroll_filter(this));
-  m_ui.constant->setCurrentIndex(0);
-  m_ui.other->setVisible(false);
+  m_ui.constant->setCurrentIndex(m_ui.constant->findText(tr("Other")));
+  m_ui.other->setVisible(true);
   connect(m_ui.constant,
 	  SIGNAL(currentIndexChanged(int)),
 	  this,
@@ -201,6 +201,8 @@ void glitch_object_constant_arduino::setConstantType
 
   if(c.endsWith("false"))
     c = "false";
+  else if(c.endsWith("high"))
+    c = "HIGH";
   else if(c.endsWith("input"))
     c = "INPUT";
   else if(c.endsWith("input_pullup"))
@@ -209,23 +211,27 @@ void glitch_object_constant_arduino::setConstantType
     c = "LED_BUILTIN";
   else if(c.endsWith("low"))
     c = "LOW";
-  else if(c.endsWith("other"))
-    {
-      c = "Other";
-      m_ui.other->setVisible(true);
-    }
   else if(c.endsWith("output"))
     c = "OUTPUT";
   else if(c.endsWith("true"))
     c = "true";
   else
-    c = "HIGH";
+    {
+      c = "Other";
+
+      if(!constantType.toLower().trimmed().endsWith("other"))
+	m_ui.other->setText
+	  (QString(constantType).remove("glitch-arduino-constants-").
+	   toUpper());
+
+      m_ui.other->setVisible(true);
+    }
 
   m_ui.constant->blockSignals(true);
   m_ui.constant->setCurrentIndex(m_ui.constant->findText(c));
 
   if(m_ui.constant->currentIndex() < 0)
-    m_ui.constant->setCurrentIndex(0);
+    m_ui.constant->setCurrentIndex(m_ui.constant->findText(tr("Other")));
 
   m_ui.constant->blockSignals(false);
   setName(m_ui.other->text());
@@ -250,7 +256,7 @@ void glitch_object_constant_arduino::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
   m_properties[Properties::CONSTANT_OTHER] = "";
-  m_properties[Properties::CONSTANT_TYPE] = "high";
+  m_properties[Properties::CONSTANT_TYPE] = "other";
 
   for(int i = 0; i < list.size(); i++)
     {
