@@ -109,6 +109,7 @@ Completed Items
 - Discover a function clone's correct parent function after opening a data file.
 - Display Tools modes in menu and / or status bar.
 - Display condition / label in flow control's edit window.
+- Display floating zoom widgets. Action widgets instead.
 - Display main() function. Fixed position? Yes.
 - Display serial port errors.
 - Display tool mode in status bar.
@@ -327,7 +328,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Display floating zoom widgets.
 - Drag and copy.
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.

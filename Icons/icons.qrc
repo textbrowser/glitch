@@ -70,5 +70,6 @@
 	<file>wire.png</file>
 	<file>zoom-in.png</file>
 	<file>zoom-out.png</file>
+	<file>zoom-reset.png</file>
     </qresource>
 </RCC>

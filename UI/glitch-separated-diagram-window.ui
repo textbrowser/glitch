@@ -267,6 +267,9 @@
    <property name="text">
     <string>&amp;Reset</string>
    </property>
+   <property name="toolTip">
+    <string>Zoom Reset</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
    </property>

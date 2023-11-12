@@ -982,6 +982,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_User_Functions->setEnabled(false);
       m_ui.action_Zoom_In->setEnabled(false);
       m_ui.action_Zoom_Out->setEnabled(false);
+      m_ui.action_Zoom_Reset->setEnabled(false);
       m_ui.menu_Zoom->setEnabled(false);
     }
   else
@@ -1016,6 +1017,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_User_Functions->setEnabled(m_currentView);
       m_ui.action_Zoom_In->setEnabled(m_currentView);
       m_ui.action_Zoom_Out->setEnabled(m_currentView);
+      m_ui.action_Zoom_Reset->setEnabled(m_currentView);
       m_ui.menu_Zoom->setEnabled(m_currentView);
     }
 
@@ -1087,6 +1089,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
+  m_ui.action_Zoom_Reset->setIcon(QIcon(":/zoom-reset.png"));
   m_ui.menu_New_Diagram->setIcon(QIcon(":/new-document.png"));
   m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/recent.png"));
 }
@@ -1324,6 +1327,7 @@ void glitch_ui::prepareToolBars(void)
     {
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_In);
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Out);
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Reset);
     }
 }
 

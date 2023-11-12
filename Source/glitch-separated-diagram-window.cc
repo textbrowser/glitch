@@ -213,6 +213,7 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
+  m_ui.action_Zoom_Reset->setIcon(QIcon(":/zoom-reset.png"));
 }
 
 void glitch_separated_diagram_window::prepareRedoUndoActions(void)
@@ -269,6 +270,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
     {
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_In);
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Out);
+      m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Reset);
     }
 
   m_ui.miscellaneous_toolbar->clear();
