@@ -38,6 +38,16 @@ class glitch_object_syntax_arduino: public glitch_object
  public:
   glitch_object_syntax_arduino(const QString &syntax, QWidget *parent);
   ~glitch_object_syntax_arduino();
+
+  QSize sizeHint(void) const
+  {
+    QFontMetrics fontMetrics(font());
+    auto width = 5 * qCeil
+      (fontMetrics.boundingRect(m_ui.text->text().trimmed()).width() / 5.0);
+
+    return QSize(s_widthTweak + width, qMax(50, fontMetrics.height()));
+  }
+
   QString code(void) const;
   bool hasOutput(void) const;
   bool isFullyWired(void) const;

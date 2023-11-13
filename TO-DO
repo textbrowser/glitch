@@ -175,6 +175,7 @@ Completed Items
 - Icons and themes.
 - Identifiers are incorrect for function children.
 - Improve detection of invalid variable names.
+- Improve resizing of syntax widgets.
 - Include Arduino language reference in binary.
 - Include Examples with Android.
 - Include Examples in Debian distributions.
@@ -331,7 +332,6 @@ Remaining Items
 - Drag and copy.
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
-- Improve resizing of syntax widgets.
 - Insert-between widgets option.
 - Interactive shell.
 - Nested flow-control scenes.
