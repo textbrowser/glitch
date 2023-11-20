@@ -25,6 +25,13 @@
 
 <h3><b>Release Notes</b></h3>
 
+<p>2023.11.20</p>
+<ul>
+<li>Center edit windows with respect to the main window.</li>
+<li>Improved resizing of syntax object.</li>
+<li>New Arduino constants and conversions.</li>
+<li>Zoom Reset tool.</li>
+</ul>
 <p>2023.10.30</p>
 <ul>
 <li>Adjust-size created shadows. Corrected!</li>
