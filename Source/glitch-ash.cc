@@ -1,0 +1,296 @@
+/*
+** Copyright (c) 2015 - 10^10^10, Alexis Megas.
+** All rights reserved.
+**
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions
+** are met
+** 1. Redistributions of source code must retain the above copyright
+**    notice, this list of conditions and the following disclaimer.
+** 2. Redistributions in binary form must reproduce the above copyright
+**    notice, this list of conditions and the following disclaimer in the
+**    documentation and/or other materials provided with the distribution.
+** 3. The name of the author may not be used to endorse or promote products
+**    derived from Glitch without specific prior written permission.
+**
+** GLITCH IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+** IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+** OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+** IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+** INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+** NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#include <QKeyEvent>
+#include <QShortcut>
+
+#include "glitch-ash.h"
+#include "glitch-misc.h"
+
+QString glitch_ash_textedit::currentCommand(void) const
+{
+  auto cursor(textCursor());
+
+  cursor.movePosition(QTextCursor::StartOfLine);
+  cursor.movePosition
+    (QTextCursor::Right, QTextCursor::MoveAnchor, m_promptLength);
+  cursor.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
+
+  auto command(cursor.selectedText().trimmed());
+
+  cursor.clearSelection();
+  return command;
+}
+
+bool glitch_ash_textedit::handleBackspaceKey(void) const
+{
+  auto cursor(textCursor());
+
+  if(cursor.blockNumber() == m_promptBlockNumber &&
+     cursor.columnNumber() == m_promptLength)
+    return true;
+
+  return false;
+}
+
+void glitch_ash_textedit::displayPrompt(void)
+{
+  setTextColor(QColor(0, 0, 139));
+
+  auto cursor(textCursor());
+
+  cursor.insertText("> ");
+  cursor.movePosition(QTextCursor::EndOfLine);
+  setTextCursor(cursor);
+  m_promptBlockNumber = cursor.blockNumber();
+}
+
+void glitch_ash_textedit::handleDownKey(void)
+{
+  if(!m_history.isEmpty())
+    {
+      QString command(currentCommand());
+
+      do
+	{
+	  if(++m_historyIndex >= m_history.size())
+	    {
+	      m_historyIndex = m_history.size() - 1;
+	      break;
+	    }
+	}
+      while(command == m_history.value(m_historyIndex));
+
+      if(m_history.size() < m_historyIndex)
+	replaceCurrentCommand("");
+      else
+	replaceCurrentCommand(m_history.value(m_historyIndex));
+    }
+}
+
+void glitch_ash_textedit::handleReturnKey(void)
+{
+  auto command(currentCommand());
+
+  if(!command.isEmpty())
+    {
+      emit processCommand(command);
+      m_history << command;
+      m_historyIndex = m_history.size();
+    }
+
+  append("");
+  moveCursor(QTextCursor::End);
+  displayPrompt();
+}
+
+void glitch_ash_textedit::handleTabKey(void)
+{
+  QMapIterator<QString, QStringList> it(m_commands);
+  QStringList list;
+  auto command(currentCommand());
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(command.isEmpty() || it.key().startsWith(command))
+	list << it.key();
+    }
+
+  if(list.size() == 1)
+    replaceCurrentCommand(list.at(0) + " ");
+  else
+    {
+      moveCursor(QTextCursor::End);
+
+      for(int i = 0; i < list.size(); i++)
+	append(list.at(i));
+
+      append("");
+      displayPrompt();
+
+      if(!command.isEmpty() && !list.isEmpty())
+	replaceCurrentCommand(list.at(0));
+      else
+	replaceCurrentCommand(command);
+    }
+}
+
+void glitch_ash_textedit::handleUpKey(void)
+{
+  if(!m_history.isEmpty())
+    {
+      auto command(currentCommand());
+
+      do
+	{
+	  if(m_historyIndex)
+	    m_historyIndex -= 1;
+	  else
+	    break;
+	}
+      while(command == m_history.value(m_historyIndex));
+
+      replaceCurrentCommand(m_history.value(m_historyIndex));
+    }
+}
+
+void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
+{
+  if(!event)
+    {
+      QTextEdit::keyPressEvent(event);
+      return;
+    }
+
+  switch(event->key())
+    {
+    case Qt::Key_Backspace:
+      {
+	if(handleBackspaceKey())
+	  return;
+
+	break;
+      }
+    case Qt::Key_Down:
+      {
+	handleDownKey();
+	return;
+      }
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+      {
+	handleReturnKey();
+	return;
+      }
+    case Qt::Key_Left:
+      {
+	if(handleBackspaceKey())
+	  return;
+
+	break;
+      }
+    case Qt::Key_Tab:
+      {
+	handleTabKey();
+	return;
+      }
+    case Qt::Key_Up:
+      {
+	handleUpKey();
+	return;
+      }
+    }
+
+  QTextEdit::keyPressEvent(event);
+}
+
+void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
+{
+  auto cursor(textCursor());
+
+  cursor.movePosition(QTextCursor::StartOfLine);
+  cursor.movePosition
+    (QTextCursor::Right, QTextCursor::MoveAnchor, m_promptLength);
+  cursor.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
+  cursor.insertText(command);
+}
+
+glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
+{
+  m_ui.setupUi(this);
+  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.text->setCommands(m_commands);
+  m_ui.text->setCursorWidth(10);
+  m_ui.text->setUndoRedoEnabled(false);
+#ifndef Q_OS_ANDROID
+  connect(m_ui.close,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(close(void)));
+#else
+  connect(m_ui.close,
+	  SIGNAL(clicked(void)),
+	  this,
+	  SLOT(hide(void)));
+#endif
+  connect(m_ui.text,
+	  SIGNAL(processCommand(const QString &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &)));
+#ifndef Q_OS_ANDROID
+  new QShortcut
+    (
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+     QKeySequence(Qt::CTRL + Qt::Key_W),
+#else
+     QKeySequence(Qt::CTRL | Qt::Key_W),
+#endif
+     this,
+     SLOT(close(void)));
+#else
+  new QShortcut
+    (
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+     QKeySequence(Qt::CTRL + Qt::Key_W),
+#else
+     QKeySequence(Qt::CTRL | Qt::Key_W),
+#endif
+     this,
+     SLOT(hide(void)));
+#endif
+  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
+}
+
+glitch_ash::~glitch_ash()
+{
+}
+
+void glitch_ash::show(void)
+{
+  glitch_misc::centerWindow(parentWidget(), this);
+  QMainWindow::showNormal();
+  QMainWindow::activateWindow();
+  QMainWindow::raise();
+}
+
+void glitch_ash::slotCommandProcessed(const QString &results)
+{
+  if(results.trimmed().isEmpty())
+    return;
+
+  m_ui.text->append(results);
+}
+
+void glitch_ash::slotProcessCommand(const QString &command)
+{
+  if(command.trimmed().isEmpty())
+    return;
+
+  m_ui.text->append(QString("Command '%1' not found.").arg(command));
+}

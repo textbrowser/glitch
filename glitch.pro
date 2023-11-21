@@ -192,7 +192,8 @@ RCC_DIR     = Temporary/rcc
 RESOURCES   = Documentation/documentation.qrc Icons/icons.qrc
 UI_DIR      = Temporary/ui
 
-FORMS          += UI/glitch-canvas-preview.ui \
+FORMS          += UI/glitch-ash.ui \
+                  UI/glitch-canvas-preview.ui \
                   UI/glitch-canvas-settings.ui \
                   UI/glitch-documentation.ui \
                   UI/glitch-docked-container.ui \
@@ -210,6 +211,7 @@ FORMS          += UI/glitch-canvas-preview.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
+                  Source/glitch-ash.h \
                   Source/glitch-aware-containers.h \
                   Source/glitch-canvas-preview.h \
                   Source/glitch-canvas-settings.h \
@@ -250,6 +252,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-view.h \
                   Source/glitch-wire.h
 SOURCES	       += Source/glitch-alignment.cc \
+                  Source/glitch-ash.cc \
                   Source/glitch-canvas-preview.cc \
                   Source/glitch-canvas-settings.cc \
                   Source/glitch-common.cc \
