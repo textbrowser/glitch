@@ -31,6 +31,7 @@
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QMenu>
 #include <QPushButton>
 #include <QWidgetAction>
 
@@ -90,6 +91,38 @@ class glitch_recent_diagram: public QWidgetAction
   QString fileName(void) const
   {
     return m_fileName;
+  }
+
+  void highlight(const bool state)
+  {
+    auto menu = qobject_cast<QMenu *> (parentWidget());
+
+    if(!menu)
+      return;
+
+    foreach(auto action, menu->actions())
+      {
+	auto widget = qobject_cast <glitch_recent_diagram *> (action);
+
+	if(widget)
+	  widget->m_widget->setStyleSheet
+	    (QString("QWidget:hover {background: %1; color: %2;}").
+	     arg(widget->m_widget->
+		 palette().color(QPalette::Highlight).name()).
+	     arg(widget->m_widget->
+		 palette().color(QPalette::HighlightedText).name()));
+      }
+
+    if(state)
+      m_widget->setStyleSheet
+	(QString("QWidget {background: %1; color: %2;}").
+	 arg(m_widget->palette().color(QPalette::Highlight).name()).
+	 arg(m_widget->palette().color(QPalette::HighlightedText).name()));
+    else
+      m_widget->setStyleSheet
+	(QString("QWidget:hover {background: %1; color: %2;}").
+	 arg(m_widget->palette().color(QPalette::Highlight).name()).
+	 arg(m_widget->palette().color(QPalette::HighlightedText).name()));
   }
 
  private:

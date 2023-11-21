@@ -133,6 +133,22 @@ void glitch_ui::slotHideTearOffMenu(void)
 #endif
 }
 
+void glitch_ui::slotRecentDiagramHovered(QAction *action)
+{
+  foreach(auto action, m_ui.menu_Recent_Diagrams->actions())
+    {
+      auto widget = qobject_cast<glitch_recent_diagram *> (action);
+
+      if(widget)
+	widget->highlight(false);
+      }
+
+  auto widget = qobject_cast<glitch_recent_diagram *> (action);
+
+  if(widget)
+    widget->highlight(true);
+}
+
 void glitch_ui::slotSaveAsPNG(void)
 {
   if(!m_currentView)

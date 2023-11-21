@@ -294,6 +294,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QMenu::aboutToShow,
 	  this,
 	  &glitch_ui::slotAboutToShowRecentDiagrams);
+  connect(m_ui.menu_Recent_Diagrams,
+	  SIGNAL(hovered(QAction *)),
+	  this,
+	  SLOT(slotRecentDiagramHovered(QAction *)));
   connect(m_ui.menu_Tabs,
 	  &QMenu::aboutToShow,
 	  this,
