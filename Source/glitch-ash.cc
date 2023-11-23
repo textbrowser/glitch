@@ -224,20 +224,20 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
   m_ui.setupUi(this);
-  m_ui.close->setIcon(QIcon::fromTheme("window-close"));
+  m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
   m_ui.text->setCursorWidth(10);
   m_ui.text->setUndoRedoEnabled(false);
 #ifndef Q_OS_ANDROID
   connect(m_ui.close,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(close(void)));
+	  &glitch_ash::close);
 #else
   connect(m_ui.close,
-	  SIGNAL(clicked(void)),
+	  &QPushButton::clicked,
 	  this,
-	  SLOT(hide(void)));
+	  &glitch_ash::hide);
 #endif
   connect(m_ui.text,
 	  SIGNAL(processCommand(const QString &)),
