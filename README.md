@@ -8,6 +8,7 @@ align left-most objects.
 
 <ul>
 <li>ARM, PowerPC, Sparc, etc.</li>
+<li>ASH, or, a natural language shell.</li>
 <li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Arduino!</li>
