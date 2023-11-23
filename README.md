@@ -1,5 +1,8 @@
 Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
+Soon with a natural language processor! Glitch: connect objects (a, b)
+and (c, d). Glitch: create a new int variable at (a, b). Glitch: select and
+align left-most objects.
 
 <h3><b>Summary of Glitch</b></h3>
 
