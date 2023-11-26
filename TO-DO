@@ -334,7 +334,7 @@ Remaining Items
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
-- Interactive shell.
+- Interactive natural language shell.
 - Nested flow-control scenes.
 - Pasting of a function definition onto the main diagram should result
   in a non-clone function.

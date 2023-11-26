@@ -150,6 +150,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &swifty::same,
 	  this,
 	  &glitch_ui::slotSwifty);
+  connect(m_ui.action_ASH_A_Natural_Language_Shell,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowASH);
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
@@ -966,6 +970,7 @@ void glitch_ui::prepareActionWidgets(void)
   if(m_ui.tab->count() == 0)
     {
       m_statusBarTimer.stop();
+      m_ui.action_ASH_A_Natural_Language_Shell->setEnabled(false);
       m_ui.action_Canvas_Settings->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
@@ -992,6 +997,7 @@ void glitch_ui::prepareActionWidgets(void)
   else
     {
       m_statusBarTimer.start();
+      m_ui.action_ASH_A_Natural_Language_Shell->setEnabled(m_currentView);
       m_ui.action_Canvas_Settings->setEnabled(m_currentView);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled

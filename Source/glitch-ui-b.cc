@@ -28,6 +28,7 @@
 #include <QFileDialog>
 #include <QToolButton>
 
+#include "glitch-ash.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
@@ -141,7 +142,7 @@ void glitch_ui::slotRecentDiagramHovered(QAction *action)
 
       if(widget)
 	widget->highlight(false);
-      }
+    }
 
   auto widget = qobject_cast<glitch_recent_diagram *> (action);
 
@@ -200,6 +201,14 @@ void glitch_ui::slotSaveAsPNG(void)
 void glitch_ui::slotSeparate(void)
 {
   slotSeparate(m_currentView);
+}
+
+void glitch_ui::slotShowASH(void)
+{
+  if(!m_ash)
+    m_ash = new glitch_ash(this);
+
+  m_ash->show();
 }
 
 void glitch_ui::slotShowSerialPortWindow(void)
