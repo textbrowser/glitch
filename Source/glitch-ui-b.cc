@@ -206,7 +206,13 @@ void glitch_ui::slotSeparate(void)
 void glitch_ui::slotShowASH(void)
 {
   if(!m_ash)
-    m_ash = new glitch_ash(this);
+    {
+      m_ash = new glitch_ash(this);
+      connect(m_ash,
+	      SIGNAL(processCommand(const QString &)),
+	      this,
+	      SLOT(slotProcessCommand(const QString &)));
+    }
 
   m_ash->show();
 }

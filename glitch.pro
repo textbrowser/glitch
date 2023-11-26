@@ -282,6 +282,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-tab-tabbar.cc \
                   Source/glitch-tools.cc \
                   Source/glitch-ui-a.cc \
+                  Source/glitch-ui-ash.cc \
                   Source/glitch-ui-b.cc \
                   Source/glitch-undo-command.cc \
                   Source/glitch-user-functions.cc \
