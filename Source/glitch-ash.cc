@@ -223,6 +223,8 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
+  m_commands["clear"] = QStringList();
+  m_commands["help"] = QStringList();
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
@@ -292,5 +294,20 @@ void glitch_ash::slotProcessCommand(const QString &command)
   if(command.trimmed().isEmpty())
     return;
 
-  m_ui.text->append(QString("Command '%1' not found.").arg(command));
+  if(command == "clear")
+    m_ui.text->clear();
+  else if(command == "help")
+    {
+      QMapIterator<QString, QStringList> it(m_commands);
+
+      while(it.hasNext())
+	{
+	  it.next();
+	  m_ui.text->append(it.key());
+	}
+    }
+  else if(m_commands.contains(command))
+    emit processCommand(command);
+  else
+    m_ui.text->append(QString("Command '%1' not found.").arg(command));
 }
