@@ -116,6 +116,7 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
+  void showASH(QWidget *parent);
   void showCanvasSettings(void) const;
   void showTools(void);
   void showUserFunctions(void) const;

@@ -43,6 +43,7 @@
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-ash.h"
 #include "glitch-canvas-preview.h"
 #include "glitch-documentation.h"
 #include "glitch-docked-container.h"
@@ -1223,14 +1224,14 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->height() - 2 * m_view->frameWidth())));
 }
 
-void glitch_view::showASH(void)
+void glitch_view::showASH(QWidget *parent)
 {
   if(!m_ash)
     {
       m_ash = new glitch_ash(this);
       connect(m_ash,
 	      SIGNAL(processCommand(const QString &)),
-	      this,
+	      parent,
 	      SLOT(slotProcessCommand(const QString &)));
     }
 

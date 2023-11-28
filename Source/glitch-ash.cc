@@ -225,7 +225,7 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
   m_commands["clear"] = QStringList();
   m_commands["help"] = QStringList();
-  m_commands["display"] = QStringList("canvas-settings", "settings");
+  m_commands["display"] = QStringList() << "canvas-settings" << "settings";
   m_commands["show"] = m_commands.value("display");
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));

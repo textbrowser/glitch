@@ -28,7 +28,6 @@
 #include <QFileDialog>
 #include <QToolButton>
 
-#include "glitch-ash.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
@@ -205,6 +204,8 @@ void glitch_ui::slotSeparate(void)
 
 void glitch_ui::slotShowASH(void)
 {
+  if(m_currentView)
+    m_currentView->showASH(this);
 }
 
 void glitch_ui::slotShowSerialPortWindow(void)
