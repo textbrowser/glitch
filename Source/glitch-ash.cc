@@ -73,7 +73,7 @@ void glitch_ash_textedit::handleDownKey(void)
 {
   if(!m_history.isEmpty())
     {
-      QString command(currentCommand());
+      auto command(currentCommand());
 
       do
 	{
