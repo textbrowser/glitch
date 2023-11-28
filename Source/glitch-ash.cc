@@ -133,11 +133,7 @@ void glitch_ash_textedit::handleTabKey(void)
 
       append("");
       displayPrompt();
-
-      if(!command.isEmpty() && !list.isEmpty())
-	replaceCurrentCommand(list.at(0));
-      else
-	replaceCurrentCommand(command);
+      replaceCurrentCommand(command);
     }
 }
 
@@ -224,8 +220,9 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
   m_commands["clear"] = QStringList();
-  m_commands["help"] = QStringList();
+  m_commands["cls"] = QStringList();
   m_commands["display"] = QStringList() << "canvas-settings" << "settings";
+  m_commands["help"] = QStringList();
   m_commands["show"] = m_commands.value("display");
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
@@ -281,6 +278,7 @@ void glitch_ash::show(void)
   QMainWindow::showNormal();
   QMainWindow::activateWindow();
   QMainWindow::raise();
+  m_ui.text->setFocus();
 }
 
 void glitch_ash::slotCommandProcessed(const QString &results)
@@ -296,7 +294,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
   if(command.trimmed().isEmpty())
     return;
 
-  if(command == "clear")
+  if(command == "clear" || command == "cls")
     m_ui.text->clear();
   else if(command == "help")
     {

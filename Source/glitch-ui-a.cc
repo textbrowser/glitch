@@ -1075,6 +1075,7 @@ void glitch_ui::prepareFonts(void)
 
 void glitch_ui::prepareIcons(void)
 {
+  m_ui.action_ASH_A_Natural_Language_Shell->setIcon(QIcon(":/language.png"));
   m_ui.action_About->setIcon(QIcon(":/about.png"));
   m_ui.action_Arduino_Documentation->setIcon
     (QIcon(":/Logo/glitch-arduino-logo.png"));
