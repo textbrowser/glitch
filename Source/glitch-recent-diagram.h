@@ -95,7 +95,11 @@ class glitch_recent_diagram: public QWidgetAction
 
   void highlight(const bool state)
   {
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    auto menu = qobject_cast<QMenu *> (parent());
+#else
     auto menu = qobject_cast<QMenu *> (parentWidget());
+#endif
 
     if(!menu)
       return;
