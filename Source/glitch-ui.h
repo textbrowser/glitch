@@ -39,7 +39,6 @@
 class QGraphicsView;
 class QShortcut;
 class QUndoStack;
-class glitch_ash;
 class glitch_documentation;
 class glitch_object;
 class glitch_preferences;
@@ -77,7 +76,6 @@ class glitch_ui: public QMainWindow
  private:
   QList<QShortcut *> m_tabWidgetShortcuts;
   QMessageBox m_about;
-  QPointer<glitch_ash> m_ash;
   QPointer<glitch_separated_diagram_window> m_separateWindow;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;

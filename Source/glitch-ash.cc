@@ -225,6 +225,8 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
   m_commands["clear"] = QStringList();
   m_commands["help"] = QStringList();
+  m_commands["display"] = QStringList("canvas-settings", "settings");
+  m_commands["show"] = m_commands.value("display");
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
@@ -298,6 +300,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
     m_ui.text->clear();
   else if(command == "help")
     {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
       QMapIterator<QString, QStringList> it(m_commands);
 
       while(it.hasNext())
@@ -305,9 +309,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	  it.next();
 	  m_ui.text->append(it.key());
 	}
+
+      QApplication::restoreOverrideCursor();
     }
-  else if(m_commands.contains(command))
-    emit processCommand(command);
   else
-    m_ui.text->append(QString("Command '%1' not found.").arg(command));
+    emit processCommand(command);
 }

@@ -1223,6 +1223,20 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->height() - 2 * m_view->frameWidth())));
 }
 
+void glitch_view::showASH(void)
+{
+  if(!m_ash)
+    {
+      m_ash = new glitch_ash(this);
+      connect(m_ash,
+	      SIGNAL(processCommand(const QString &)),
+	      this,
+	      SLOT(slotProcessCommand(const QString &)));
+    }
+
+  m_ash->show();
+}
+
 void glitch_view::showCanvasSettings(void) const
 {
   m_canvasSettings->setSettings(m_settings);

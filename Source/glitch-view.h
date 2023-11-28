@@ -40,6 +40,7 @@
 class QSplitter;
 class QTreeWidgetItem;
 class glitch_alignment;
+class glitch_ash;
 class glitch_canvas_preview;
 class glitch_documentation;
 class glitch_docked_container;
@@ -155,6 +156,7 @@ class glitch_view: public QWidget
   QPointer<QAction> m_pasteAction;
   QPointer<QAction> m_saveDiagramAction;
   QPointer<QMenu> m_contextMenu;
+  QPointer<glitch_ash> m_ash;
   QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_find_objects> m_findObjects;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
