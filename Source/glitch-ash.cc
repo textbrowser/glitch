@@ -219,11 +219,11 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
-  m_commands["clear"] = QStringList();
-  m_commands["cls"] = QStringList();
-  m_commands["display"] = QStringList() << "canvas-settings" << "settings";
-  m_commands["help"] = QStringList();
-  m_commands["show"] = m_commands.value("display");
+  m_commands[tr("clear")] = QStringList();
+  m_commands[tr("cls")] = QStringList();
+  m_commands[tr("display")] = QStringList() << "canvas-settings" << "settings";
+  m_commands[tr("help")] = QStringList();
+  m_commands[tr("show")] = m_commands.value(tr("display"));
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
@@ -294,9 +294,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
   if(command.trimmed().isEmpty())
     return;
 
-  if(command == "clear" || command == "cls")
+  if(command == tr("clear") || command == tr("cls"))
     m_ui.text->clear();
-  else if(command == "help")
+  else if(command == tr("help"))
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
