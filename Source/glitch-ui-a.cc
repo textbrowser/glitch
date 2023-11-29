@@ -755,6 +755,7 @@ void glitch_ui::parseCommandLineArguments(void)
 
   QString errors("");
   auto list(QApplication::arguments());
+  auto showASH = false;
   auto showSerialPortWindow = false;
   auto showTools = false;
 
@@ -786,7 +787,8 @@ void glitch_ui::parseCommandLineArguments(void)
 	else
 	  m_delayedDiagrams << list.value(i);
       }
-    else if(list.at(i) == "--show-serial-port-window" ||
+    else if(list.at(i) == "--show-ash" ||
+	    list.at(i) == "--show-serial-port-window" ||
 	    list.at(i) == "--show-tools" ||
 	    list.at(i) == "--version")
       {
@@ -797,7 +799,15 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
 
   for(int i = 1; i < list.size(); i++)
-    if(list.at(i) == "--show-serial-port-window")
+    if(list.at(i) == "--show-ash")
+      {
+	if(!showASH)
+	  {
+	    QTimer::singleShot(1500, this, &glitch_ui::slotShowASH);
+	    showASH = true;
+	  }
+      }
+    else if(list.at(i) == "--show-serial-port-window")
       {
 	if(!showSerialPortWindow)
 	  {
