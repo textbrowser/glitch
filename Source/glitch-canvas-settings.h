@@ -253,7 +253,12 @@ class glitch_canvas_settings: public QDialog
   void accepted(const bool undo);
 };
 
-inline uint qHash(const glitch_canvas_settings::Settings &key, uint seed)
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+inline size_t
+#else
+inline uint
+#endif
+qHash(const glitch_canvas_settings::Settings &key, uint seed)
 {
   return ::qHash(static_cast<uint> (key), seed);
 }
