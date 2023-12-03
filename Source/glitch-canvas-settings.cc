@@ -30,7 +30,6 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
-#include <QShortcut>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -54,6 +53,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_misc::sortCombinationBox(m_ui.wire_type);
   m_ui.background_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.background_color->setText(QColor(Qt::white).name());
+  m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.lock_color->setStyleSheet
@@ -115,11 +115,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 			      arg(m_ui.wire_width->minimum()).
 			      arg(m_ui.wire_width->maximum()));
   m_settings = settings();
-#ifndef Q_OS_ANDROID
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
-#endif
   connect(&m_timer,
 	  &QTimer::timeout,
 	  this,
@@ -128,7 +123,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
-  connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
+  connect(m_ui.button_box->button(QDialogButtonBox::Apply),
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::accept);
