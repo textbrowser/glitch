@@ -118,7 +118,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.setupUi(this);
 #ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+W"), &m_about, SLOT(close(void)));
-  new QShortcut(tr("Ctrl+W"), m_preferences, SLOT(reject(void)));
 #endif
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,

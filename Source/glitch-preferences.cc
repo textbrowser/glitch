@@ -35,10 +35,15 @@
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
-  connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
+  m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
+  connect(m_ui.button_box->button(QDialogButtonBox::Apply),
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::slotApply);
+  connect(m_ui.button_box->button(QDialogButtonBox::Close),
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_preferences::reject);
   connect(m_ui.display_application_font,
 	  &QPushButton::clicked,
 	  this,

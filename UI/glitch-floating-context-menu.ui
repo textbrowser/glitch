@@ -106,7 +106,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <widget class="QDialogButtonBox" name="button_box">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -126,7 +126,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>button_box</sender>
    <signal>clicked(QAbstractButton*)</signal>
    <receiver>glitch_floating_context_menu</receiver>
    <slot>close()</slot>

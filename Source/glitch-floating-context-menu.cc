@@ -28,9 +28,6 @@
 #include <QAction>
 #include <QCheckBox>
 #include <QPushButton>
-#ifndef Q_OS_ANDROID
-#include <QShortcut>
-#endif
 #include <QtDebug>
 
 #include "glitch-floating-context-menu.h"
@@ -40,13 +37,11 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   connect(m_ui.frame,
 	  SIGNAL(destroyed(void)),
 	  this,
 	  SLOT(deleteLater(void)));
-#ifndef Q_OS_ANDROID
-  new QShortcut(tr("Ctrl+W"), this, SLOT(close(void)));
-#endif
   resize(sizeHint());
   setWindowModality(Qt::NonModal);
 }
