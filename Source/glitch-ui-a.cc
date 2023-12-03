@@ -116,9 +116,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 			 "textbrowser/glitch/master/Source/glitch-version.h"),
      this);
   m_ui.setupUi(this);
-#ifndef Q_OS_ANDROID
-  new QShortcut(tr("Ctrl+W"), &m_about, SLOT(close(void)));
-#endif
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -1505,6 +1502,12 @@ void glitch_ui::showStatsuBarMessage(const QString &text, const int timeout)
 
 void glitch_ui::slotAbout(void)
 {
+  connect(m_about.button(QMessageBox::Close),
+	  &QPushButton::clicked,
+	  &m_about,
+	  &QMessageBox::close,
+	  Qt::UniqueConnection);
+  m_about.button(QMessageBox::Close)->setShortcut(tr("Ctrl+W"));
   m_about.resize(m_about.sizeHint());
   m_about.showNormal();
   m_about.activateWindow();
