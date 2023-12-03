@@ -27,9 +27,6 @@
 
 #include <QActionGroup>
 #include <QMenu>
-#ifndef Q_OS_ANDROID
-#include <QShortcut>
-#endif
 
 #include "glitch-tools.h"
 
@@ -56,11 +53,6 @@ glitch_tools::glitch_tools(QWidget *parent):QDialog(parent)
 	      this,
 	      &glitch_tools::slotOperationChanged);
 
-#ifndef Q_OS_ANDROID
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
-#endif
   setWindowModality(Qt::NonModal);
 }
 

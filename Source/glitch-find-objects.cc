@@ -91,9 +91,6 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
   new QShortcut(tr("Ctrl+F"),
 		m_ui.search,
 		SLOT(setFocus(void)));
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
 #endif
   setWindowFlags(Qt::Dialog | windowFlags());
   QTimer::singleShot(100, this, SLOT(slotFind(void)));

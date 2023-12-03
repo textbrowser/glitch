@@ -26,7 +26,6 @@
 */
 
 #include <QKeyEvent>
-#include <QShortcut>
 
 #include "glitch-ash.h"
 #include "glitch-misc.h"
@@ -244,27 +243,6 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(processCommand(const QString &)),
 	  this,
 	  SLOT(slotProcessCommand(const QString &)));
-#ifndef Q_OS_ANDROID
-  new QShortcut
-    (
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-     QKeySequence(Qt::CTRL + Qt::Key_W),
-#else
-     QKeySequence(Qt::CTRL | Qt::Key_W),
-#endif
-     this,
-     SLOT(close(void)));
-#else
-  new QShortcut
-    (
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-     QKeySequence(Qt::CTRL + Qt::Key_W),
-#else
-     QKeySequence(Qt::CTRL | Qt::Key_W),
-#endif
-     this,
-     SLOT(hide(void)));
-#endif
   setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
 }
 
