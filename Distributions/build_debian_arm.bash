@@ -20,7 +20,13 @@ fi
 
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
-qmake -o Makefile glitch.pro
+
+if [ ! -z "$(which qmake)" ]; then
+    qmake -o Makefile glitch.pro
+else
+    qmake6 -o Makefile glitch.pro
+fi
+
 lupdate glitch.pro 2>/dev/null
 lrelease glitch.pro 2>/dev/null
 make -j $(nproc)
