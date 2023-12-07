@@ -34,10 +34,18 @@ rm -fr ./opt/glitch/Documentation/Doxygen
 
 # Preparing Glitch-x.deb:
 
+architecture="$(dpkg --print-architecture)"
+
 mkdir -p glitch-debian/opt
-cp -pr ./Distributions/DEBIAN-PI glitch-debian/DEBIAN
+
+if [ "$architecture" = "armhf" ]; then
+    cp -pr ./Distributions/DEBIAN-PI glitch-debian/DEBIAN
+else
+    cp -pr ./Distributions/DEBIAN-PI-ARM64 glitch-debian/DEBIAN
+fi
+
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2023.10.30_armhf.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2023.12.25_$(architecture).deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean

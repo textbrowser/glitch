@@ -37,7 +37,7 @@ rm -fr ./opt/glitch/Documentation/Doxygen
 mkdir -p glitch-debian/opt
 cp -pr ./Distributions/DEBIAN glitch-debian/.
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2023.10.30_amd64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2023.12.25_amd64.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
