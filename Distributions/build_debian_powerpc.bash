@@ -21,8 +21,8 @@ fi
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
 qmake -o Makefile glitch.pro
-lupdate glitch.pro
-lrelease glitch.pro
+lupdate glitch.pro 2>/dev/null
+lrelease glitch.pro 2>/dev/null
 make -j $(nproc)
 cp -p ./Documentation/*.1 ./opt/glitch/Documentation/.
 cp -p ./Glitch ./opt/glitch/.

@@ -21,8 +21,8 @@ fi
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
 qmake -o Makefile glitch.pro
-lupdate glitch.pro
-lrelease glitch.pro
+lupdate glitch.pro 2>/dev/null
+lrelease glitch.pro 2>/dev/null
 make -j $(nproc)
 cp -p ./Documentation/*.1 ./opt/glitch/Documentation/.
 cp -p ./Glitch ./opt/glitch/.
@@ -35,9 +35,9 @@ rm -fr ./opt/glitch/Documentation/Doxygen
 # Preparing Glitch-x.deb:
 
 mkdir -p glitch-debian/opt
-cp -pr ./Distributions/DEBIAN-PI-AARCH64 glitch-debian/DEBIAN
+cp -pr ./Distributions/DEBIAN-PI-ARM64 glitch-debian/DEBIAN
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2023.10.30_aarch64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2023.10.30_arm64.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
