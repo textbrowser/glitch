@@ -222,6 +222,7 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
     << tr("canvas")
     << tr("object");
   m_commands[tr("clear")] = QStringList();
+  m_commands[tr("close")] = QStringList();
   m_commands[tr("cls")] = QStringList();
   m_commands[tr("display")] = QStringList()
     << tr("canvas-settings")
@@ -279,6 +280,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
   if(command == tr("clear") || command == tr("cls"))
     m_ui.text->clear();
+  else if(command == tr("close"))
+    close();
   else if(command == tr("help"))
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -295,6 +298,13 @@ void glitch_ash::slotProcessCommand(const QString &command)
     }
   else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
     {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+      m_ui.text->append(command);
+
+      foreach(const auto &i, m_commands.value(command))
+	m_ui.text->append(" " + i);
+
+      QApplication::restoreOverrideCursor();
     }
   else
     emit processCommand(command);
