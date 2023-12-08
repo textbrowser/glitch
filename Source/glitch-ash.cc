@@ -218,9 +218,14 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
+  m_commands[tr("about")] = QStringList()
+    << tr("canvas")
+    << tr("object");
   m_commands[tr("clear")] = QStringList();
   m_commands[tr("cls")] = QStringList();
-  m_commands[tr("display")] = QStringList() << "canvas-settings" << "settings";
+  m_commands[tr("display")] = QStringList()
+    << tr("canvas-settings")
+    << tr("settings");
   m_commands[tr("help")] = QStringList();
   m_commands[tr("show")] = m_commands.value(tr("display"));
   m_ui.setupUi(this);
@@ -287,6 +292,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	}
 
       QApplication::restoreOverrideCursor();
+    }
+  else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
+    {
     }
   else
     emit processCommand(command);

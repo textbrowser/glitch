@@ -35,13 +35,14 @@ void glitch_ui::slotProcessCommand(const QString &command)
     {
       auto token(it.next());
 
-      if(token.startsWith("display") || token.startsWith("show"))
+      if(token.startsWith(tr("display")) ||
+	 token.startsWith(tr("show")))
 	{
 	  while(it.hasNext())
 	    {
 	      auto token(it.next());
 
-	      if(token == "canvas-settings")
+	      if(token == tr("canvas-settings"))
 		{
 		  slotShowCanvasSettings();
 		  break;
