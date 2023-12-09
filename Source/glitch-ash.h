@@ -48,13 +48,13 @@ class glitch_ash_textedit: public QTextEdit
     displayPrompt();
   }
 
-  void setCommands(const QMap<QString, QStringList> &commands)
+  void setCommands(const QMap<QString, QString> &commands)
   {
     m_commands = commands;
   }
 
  private:
-  QMap<QString, QStringList> m_commands;
+  QMap<QString, QString> m_commands;
   QStringList m_history;
   int m_historyIndex;
   int m_promptBlockNumber;
@@ -87,7 +87,7 @@ class glitch_ash: public QMainWindow
   void show(void);
 
  private:
-  QMap<QString, QStringList> m_commands;
+  QMap<QString, QString> m_commands;
   Ui_glitch_ash m_ui;
 
  private slots:

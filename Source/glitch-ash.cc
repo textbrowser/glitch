@@ -109,7 +109,7 @@ void glitch_ash_textedit::handleReturnKey(void)
 
 void glitch_ash_textedit::handleTabKey(void)
 {
-  QMapIterator<QString, QStringList> it(m_commands);
+  QMapIterator<QString, QString> it(m_commands);
   QStringList list;
   auto command(currentCommand());
 
@@ -218,16 +218,16 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
-  m_commands[tr("about")] = QStringList()
-    << tr("canvas")
-    << tr("object");
-  m_commands[tr("clear")] = QStringList();
-  m_commands[tr("close")] = QStringList();
-  m_commands[tr("cls")] = QStringList();
-  m_commands[tr("display")] = QStringList()
-    << tr("canvas-settings")
-    << tr("settings");
-  m_commands[tr("help")] = QStringList();
+  m_commands[tr("about")] = tr("canvas") +
+    " " +
+    tr("object");
+  m_commands[tr("clear")] = "";
+  m_commands[tr("close")] = "";
+  m_commands[tr("cls")] = "";
+  m_commands[tr("display")] = tr("canvas-settings") +
+    " " +
+    tr("settings");
+  m_commands[tr("help")] = "";
   m_commands[tr("show")] = m_commands.value(tr("display"));
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
@@ -286,7 +286,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-      QMapIterator<QString, QStringList> it(m_commands);
+      QMapIterator<QString, QString> it(m_commands);
 
       while(it.hasNext())
 	{
@@ -301,7 +301,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
       m_ui.text->append(command);
 
-      foreach(const auto &i, m_commands.value(command))
+      foreach(const auto &i, m_commands.value(command).split(' '))
 	m_ui.text->append(" " + i);
 
       QApplication::restoreOverrideCursor();
