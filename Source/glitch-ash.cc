@@ -39,7 +39,7 @@ QString glitch_ash_textedit::currentCommand(void) const
     (QTextCursor::Right, QTextCursor::MoveAnchor, m_promptLength);
   cursor.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
 
-  auto command(cursor.selectedText().trimmed());
+  auto command(cursor.selectedText().simplified().trimmed());
 
   cursor.clearSelection();
   return command;
@@ -218,15 +218,11 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 {
-  m_commands[tr("about")] = tr("canvas") +
-    " " +
-    tr("object");
+  m_commands[tr("about")] = "";
   m_commands[tr("clear")] = "";
   m_commands[tr("close")] = "";
   m_commands[tr("cls")] = "";
-  m_commands[tr("display")] = tr("canvas-settings") +
-    " " +
-    tr("settings");
+  m_commands[tr("display")] = "";
   m_commands[tr("help")] = "";
   m_commands[tr("show")] = m_commands.value(tr("display"));
   m_ui.setupUi(this);
