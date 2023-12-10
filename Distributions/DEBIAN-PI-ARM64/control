@@ -12,5 +12,5 @@ Priority: optional
 Section: Development
 Version: 2023.12.25
 Description: Glitch
- Welcome to Glitch on ARM64!
+ Welcome to Glitch on Pi64!
  Glitch is governed by a BSD license. Enjoy!
