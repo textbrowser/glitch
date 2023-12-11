@@ -756,7 +756,10 @@ void glitch_ui::parseCommandLineArguments(void)
   auto showTools = false;
 
   for(int i = 1; i < list.size(); i++)
-    if(list.at(i) == "--new-arduino-diagram")
+    if(list.at(i) == "--full-screen")
+      {
+      }
+    else if(list.at(i) == "--new-arduino-diagram")
       {
 	i += 1;
 
@@ -1444,7 +1447,11 @@ void glitch_ui::setWindowTitle(glitch_view *view)
 void glitch_ui::show(void)
 {
   restoreSettings();
-  QMainWindow::show();
+
+  if(QApplication::arguments().contains("--full-screen") == false)
+    QMainWindow::show();
+  else
+    QMainWindow::showFullScreen();
 
   /*
   ** Some desktop managers are strange.

@@ -52,11 +52,14 @@ int main(int argc, char *argv[])
     else if(strcmp(argv[i], "--help") == 0)
       {
 	std::cout << "Glitch [options]" << std::endl;
-	std::cout << "--help" << std::endl;
-	std::cout << "--new-arduino-diagram diagram-name" << std::endl;
-	std::cout << "--open-arduino-diagram absolute-file-name" << std::endl;
-	std::cout << "--show-tools" << std::endl;
-	std::cout << "--version" << std::endl;
+	std::cout << " --full-screen" << std::endl;
+	std::cout << " --help" << std::endl;
+	std::cout << " --new-arduino-diagram diagram-name" << std::endl;
+	std::cout << " --open-arduino-diagram absolute-file-name" << std::endl;
+	std::cout << " --show-ash" << std::endl;
+	std::cout << " --show-serial-port-window" << std::endl;
+	std::cout << " --show-tools" << std::endl;
+	std::cout << " --version" << std::endl;
 	return static_cast<int> (EXIT_SUCCESS);
       }
     else if(strcmp(argv[i], "--version") == 0)
