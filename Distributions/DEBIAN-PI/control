@@ -1,11 +1,12 @@
 Architecture: armhf
-Depends: libqt5core5a (>= 5.9.0),
-         libqt5gui5 (>= 5.9.0),
-	 libqt5network5 (>= 5.9.0),
-	 libqt5printsupport5 (>= 5.9.0),
-         libqt5sql5 (>= 5.9.0),
-         libqt5sql5-sqlite (>= 5.9.0),
-         libqt5widgets5 (>= 5.9.0)
+Depends: libqt5core5a (>= 5.15.0),
+         libqt5gui5 (>= 5.15.0),
+	 libqt5network5 (>= 5.15.0),
+	 libqt5printsupport5 (>= 5.15.0),
+	 libqt5serialport5 (>= 5.15.0),
+         libqt5sql5 (>= 5.15.0),
+         libqt5sql5-sqlite (>= 5.15.0),
+         libqt5widgets5 (>= 5.15.0)
 Maintainer: f83043e79dc03a0abfbcbc376879a97d66f2cacb@protonmail.ch
 Package: Glitch
 Priority: optional
