@@ -35,6 +35,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QShortcut>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QToolButton>
 #include <QWidgetAction>
@@ -403,23 +404,31 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 			      "FROM diagram").
 		      arg(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)).
 		      arg(static_cast<int> (Limits::TYPE_MAXIMUM_LENGTH))))
-	  if(query.next())
-	    {
-	      name = query.value(0).toString().trimmed();
-
-	      if(name.isEmpty())
-		name = fileInfo.fileName();
-
-	      type = query.value(1).toString().trimmed();
-	    }
-
-	if(name.isEmpty() || type != "ArduinoProject")
 	  {
-	    if(name.isEmpty())
-	      error = tr("Empty diagram name.");
-	    else
-	      error = tr("Expecting a diagram type of ArduinoProject.");
+	    if(query.next())
+	      {
+		name = query.value(0).toString().trimmed();
 
+		if(name.isEmpty())
+		  name = fileInfo.fileName();
+
+		type = query.value(1).toString().trimmed();
+	      }
+
+	    if(name.isEmpty() || type != "ArduinoProject")
+	      {
+		if(name.isEmpty())
+		  error = tr("Empty diagram name.");
+		else
+		  error = tr("Expecting a diagram type of ArduinoProject.");
+
+		ok = false;
+	      }
+	  }
+	else
+	  {
+	    error = tr("Unable (%1) to execute a database query.").arg
+	      (query.lastError().text().toLower().trimmed());
 	    ok = false;
 	  }
       }
