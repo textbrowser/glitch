@@ -91,6 +91,7 @@ class glitch_ash: public QMainWindow
   Ui_glitch_ash m_ui;
 
  private slots:
+  void slotCanvasNameChanged(const QString &name);
   void slotCommandProcessed(const QString &results);
   void slotProcessCommand(const QString &command);
 

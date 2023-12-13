@@ -219,6 +219,7 @@ class glitch_view: public QWidget
   void slotUndoStackChanged(void);
 
  signals:
+  void canvasNameChanged(const QString &name);
   void changed(void);
   void copy(QGraphicsView *view);
   void mouseEnterEvent(void);

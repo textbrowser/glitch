@@ -261,6 +261,14 @@ void glitch_ash::show(void)
   m_ui.text->setFocus();
 }
 
+void glitch_ash::slotCanvasNameChanged(const QString &name)
+{
+  if(name.trimmed().isEmpty())
+    return;
+
+  setWindowTitle(tr("Glitch: ASH (%1)").arg(name.trimmed()));
+}
+
 void glitch_ash::slotCommandProcessed(const QString &results)
 {
   if(results.trimmed().isEmpty())
