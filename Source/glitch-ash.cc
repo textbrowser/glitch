@@ -222,7 +222,9 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
   m_commands[tr("clear")] = "";
   m_commands[tr("close")] = "";
   m_commands[tr("cls")] = "";
-  m_commands[tr("display")] = "";
+  m_commands[tr("display")] = tr("canvas-settings") +
+    " " +
+    tr("settings");
   m_commands[tr("help")] = "";
   m_commands[tr("show")] = m_commands.value(tr("display"));
   m_ui.setupUi(this);

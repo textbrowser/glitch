@@ -26,18 +26,55 @@
 */
 
 #include "glitch-ui.h"
+#include "glitch-view.h"
+
+enum class States
+{
+  DisplayState = 0,
+  ZZZ
+};
 
 void glitch_ui::slotProcessCommand(const QString &command)
 {
   QListIterator<QString> it(command.split(' '));
+  States state = States::ZZZ;
 
   while(it.hasNext())
     {
       auto token(it.next());
 
+      if(state != States::ZZZ)
+	goto state_label;
+
       if(token.startsWith(tr("display")) ||
 	 token.startsWith(tr("show")))
 	{
+	  state = States::DisplayState;
+	  continue;
+	}
+
+    state_label:
+
+      switch(state)
+	{
+	case States::DisplayState:
+	  {
+	    state = States::ZZZ;
+
+	    if(token == tr("canvas-settings"))
+	      {
+		if(m_currentView)
+		  m_currentView->showCanvasSettings();
+	      }
+	    else if(token == tr("settings"))
+	      slotShowPreferences();
+
+	    break;
+	  }
+	default:
+	  {
+	    break;
+	  }
 	}
     }
 }
