@@ -28,7 +28,6 @@
 #ifndef _glitch_ash_h_
 #define _glitch_ash_h_
 
-#include <QMainWindow>
 #include <QTextEdit>
 
 class glitch_ash_textedit: public QTextEdit
@@ -75,7 +74,7 @@ class glitch_ash_textedit: public QTextEdit
 
 #include "ui_glitch-ash.h"
 
-class glitch_ash: public QMainWindow
+class glitch_ash: public QDialog
 {
   Q_OBJECT
 

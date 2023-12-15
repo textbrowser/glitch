@@ -216,7 +216,7 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
   cursor.insertText(command);
 }
 
-glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
+glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 {
   m_commands[tr("about")] = "";
   m_commands[tr("clear")] = "";
@@ -247,7 +247,6 @@ glitch_ash::glitch_ash(QWidget *parent):QMainWindow(parent)
 	  SIGNAL(processCommand(const QString &)),
 	  this,
 	  SLOT(slotProcessCommand(const QString &)));
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
 }
 
 glitch_ash::~glitch_ash()
@@ -257,9 +256,9 @@ glitch_ash::~glitch_ash()
 void glitch_ash::show(void)
 {
   glitch_misc::centerWindow(parentWidget(), this);
-  QMainWindow::showNormal();
-  QMainWindow::activateWindow();
-  QMainWindow::raise();
+  QDialog::showNormal();
+  QDialog::activateWindow();
+  QDialog::raise();
   m_ui.text->setFocus();
 }
 
