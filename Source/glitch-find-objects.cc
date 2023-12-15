@@ -92,7 +92,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
 		m_ui.search,
 		SLOT(setFocus(void)));
 #endif
-  setWindowFlags(Qt::Dialog | windowFlags());
+  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   QTimer::singleShot(100, this, SLOT(slotFind(void)));
 }
 
