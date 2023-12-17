@@ -37,7 +37,7 @@
 #include "glitch-object.h"
 #include "glitch-view.h"
 
-glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
+glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
   connect(&m_searchTimer,
@@ -92,7 +92,6 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QMainWindow(nullptr)
 		m_ui.search,
 		SLOT(setFocus(void)));
 #endif
-  setWindowFlags(Qt::WindowStaysOnTopHint | windowFlags());
   QTimer::singleShot(100, this, SLOT(slotFind(void)));
 }
 
@@ -277,8 +276,6 @@ void glitch_find_objects::slotSearch(void)
 	      item->setHidden(true);
 	  }
     }
-
-  statusBar()->showMessage(tr("%1 object(s).").arg(count));
 }
 
 void glitch_find_objects::slotSynchronize(void)

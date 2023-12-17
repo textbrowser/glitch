@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>glitch_find_objects</class>
- <widget class="QMainWindow" name="glitch_find_objects">
+ <widget class="QDialog" name="glitch_find_objects">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,130 +13,123 @@
   <property name="windowTitle">
    <string>Glitch: Find Objects</string>
   </property>
-  <property name="windowIcon">
-   <iconset resource="../Icons/icons.qrc">
-    <normaloff>:/Logo/glitch-logo.png</normaloff>:/Logo/glitch-logo.png</iconset>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="label">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>A double-clicked item will be selected and shown on its parent diagram.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="synchronize">
+     <property name="text">
+      <string>Synchronize with diagram. Option is ephemeral.</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="glitch_structures_treewidget" name="tree">
+     <property name="tabKeyNavigation">
+      <bool>true</bool>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DragOnly</enum>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="animated">
+      <bool>true</bool>
+     </property>
+     <attribute name="headerMinimumSectionSize">
+      <number>150</number>
+     </attribute>
+     <attribute name="headerHighlightSections">
+      <bool>true</bool>
+     </attribute>
+     <column>
       <property name="text">
-       <string>A double-clicked item will be selected and shown on its parent diagram.</string>
+       <string notr="true">Object</string>
       </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QCheckBox" name="synchronize">
+     </column>
+     <column>
       <property name="text">
-       <string>Synchronize with diagram. Option is ephemeral.</string>
+       <string>Position</string>
       </property>
-      <property name="checked">
-       <bool>true</bool>
+     </column>
+     <column>
+      <property name="text">
+       <string>Type</string>
       </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="glitch_structures_treewidget" name="tree">
-      <property name="tabKeyNavigation">
-       <bool>true</bool>
+     </column>
+     <column>
+      <property name="text">
+       <string>Type Total</string>
       </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-      <property name="dragDropMode">
-       <enum>QAbstractItemView::DragOnly</enum>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="uniformRowHeights">
-       <bool>true</bool>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <property name="animated">
-       <bool>true</bool>
-      </property>
-      <attribute name="headerMinimumSectionSize">
-       <number>150</number>
-      </attribute>
-      <attribute name="headerHighlightSections">
-       <bool>true</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string notr="true">Object</string>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="search">
+       <property name="placeholderText">
+        <string>Search</string>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Position</string>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Type</string>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Type Total</string>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-      </column>
-     </widget>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLineEdit" name="search">
-        <property name="placeholderText">
-         <string>Search</string>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="find">
-        <property name="text">
-         <string>Find</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="close">
-        <property name="text">
-         <string>Close</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+W</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="find">
+       <property name="text">
+        <string>Find</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="close">
+       <property name="text">
+        <string>Close</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+W</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
   <customwidget>
@@ -145,15 +138,6 @@
    <header>glitch-structures-treewidget.h</header>
   </customwidget>
  </customwidgets>
- <tabstops>
-  <tabstop>synchronize</tabstop>
-  <tabstop>tree</tabstop>
-  <tabstop>search</tabstop>
-  <tabstop>find</tabstop>
-  <tabstop>close</tabstop>
- </tabstops>
- <resources>
-  <include location="../Icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -40,7 +40,7 @@ class glitch_find_objects_position_item;
 class glitch_object;
 class glitch_view;
 
-class glitch_find_objects: public QMainWindow
+class glitch_find_objects: public QDialog
 {
   Q_OBJECT
 
