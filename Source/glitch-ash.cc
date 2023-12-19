@@ -218,15 +218,18 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 
 glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 {
-  m_commands[tr("about")] = "";
-  m_commands[tr("clear")] = "";
-  m_commands[tr("close")] = "";
-  m_commands[tr("cls")] = "";
-  m_commands[tr("display")] = tr("canvas-settings") +
-    " " +
-    tr("settings");
-  m_commands[tr("help")] = "";
-  m_commands[tr("show")] = m_commands.value(tr("display"));
+  m_commands.insert(tr("about"), "");
+  m_commands.insert(tr("clear"), "");
+  m_commands.insert(tr("close"), "");
+  m_commands.insert(tr("cls"), "");
+  m_commands.insert(tr("display"),
+		    tr("canvas-settings") +
+		    " " +
+		    tr("settings"));
+  m_commands.insert(tr("help"), "");
+  m_commands.insert(tr("set"), tr("widget-position"));
+  m_commands.insert(tr("set"), tr("widget-size"));
+  m_commands.insert(tr("show"), m_commands.value(tr("display")));
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
