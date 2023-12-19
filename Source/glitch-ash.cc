@@ -109,17 +109,12 @@ void glitch_ash_textedit::handleReturnKey(void)
 
 void glitch_ash_textedit::handleTabKey(void)
 {
-  QMapIterator<QString, QString> it(m_commands);
   QStringList list;
   auto command(currentCommand());
 
-  while(it.hasNext())
-    {
-      it.next();
-
-      if(command.isEmpty() || it.key().startsWith(command))
-	list << it.key();
-    }
+  foreach(const auto &i, m_commands.uniqueKeys())
+    if(command.isEmpty() || i.startsWith(command))
+      list << i;
 
   if(list.size() == 1)
     replaceCurrentCommand(list.at(0) + " ");
@@ -309,8 +304,15 @@ void glitch_ash::slotProcessCommand(const QString &command)
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
       m_ui.text->append(command);
 
-      foreach(const auto &i, m_commands.value(command).split(' '))
-	m_ui.text->append(" " + i);
+      auto list(m_commands.values(command));
+
+      std::sort(list.begin(), list.end());
+
+      foreach(const auto &i, list)
+	{
+	  foreach(const auto &j, i.split(' '))
+	    m_ui.text->append(" " + j);
+	}
 
       QApplication::restoreOverrideCursor();
     }

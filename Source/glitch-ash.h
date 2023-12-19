@@ -86,7 +86,7 @@ class glitch_ash: public QDialog
   void show(void);
 
  private:
-  QMap<QString, QString> m_commands;
+  QMultiMap<QString, QString> m_commands;
   Ui_glitch_ash m_ui;
 
  private slots:
