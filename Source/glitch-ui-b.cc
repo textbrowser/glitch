@@ -36,6 +36,11 @@
 #include "glitch-ui.h"
 #include "glitch-view.h"
 
+QString glitch_ui::about(void) const
+{
+  return m_about.text();
+}
+
 #ifdef Q_OS_ANDROID
 void glitch_ui::copyExamplesForAndroid(void)
 {

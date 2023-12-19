@@ -87,6 +87,7 @@ class glitch_ui: public QMainWindow
   glitch_preferences *m_preferences;
   glitch_serial_port_window *m_serialPortWindow;
   swifty *m_swifty;
+  QString about(void) const;
   bool openDiagram(const QString &fileName, QString &error);
   glitch_view *page(const int index);
   glitch_view_arduino *newArduinoDiagram(const QString &fileName,
@@ -184,6 +185,9 @@ class glitch_ui: public QMainWindow
 
  public slots:
   void show(void);
+
+ signals:
+  void information(const QString &text);
 };
 
 #endif

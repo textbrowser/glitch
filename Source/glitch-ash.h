@@ -40,6 +40,7 @@ class glitch_ash_textedit: public QTextEdit
     auto font(this->font());
 
     font.setFamily("Courier");
+    font.setPointSizeF(11.5);
     setCurrentFont(font);
     m_historyIndex = 0;
     m_promptBlockNumber = 0;
@@ -92,6 +93,7 @@ class glitch_ash: public QDialog
  private slots:
   void slotCanvasNameChanged(const QString &name);
   void slotCommandProcessed(const QString &results);
+  void slotInformationReceived(const QString &text);
   void slotProcessCommand(const QString &command);
 
  signals:

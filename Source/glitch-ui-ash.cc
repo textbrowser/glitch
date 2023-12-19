@@ -25,12 +25,15 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QtDebug>
+
 #include "glitch-ui.h"
 #include "glitch-view.h"
 
 enum class States
 {
-  DisplayState = 0,
+  About,
+  Display,
   ZZZ
 };
 
@@ -43,13 +46,24 @@ void glitch_ui::slotProcessCommand(const QString &command)
     {
       auto token(it.next());
 
+      /*
+      ** Here be single-state states.
+      */
+
+      if(token.startsWith(tr("about")))
+	state = States::About;
+
       if(state != States::ZZZ)
 	goto state_label;
+
+      /*
+      ** Here be multiple-state states.
+      */
 
       if(token.startsWith(tr("display")) ||
 	 token.startsWith(tr("show")))
 	{
-	  state = States::DisplayState;
+	  state = States::Display;
 	  continue;
 	}
 
@@ -57,7 +71,12 @@ void glitch_ui::slotProcessCommand(const QString &command)
 
       switch(state)
 	{
-	case States::DisplayState:
+	case States::About:
+	  {
+	    emit information(about());
+	    break;
+	  }
+	case States::Display:
 	  {
 	    state = States::ZZZ;
 

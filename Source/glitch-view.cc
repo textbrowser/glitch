@@ -1235,6 +1235,10 @@ void glitch_view::showASH(QWidget *parent)
 	      SIGNAL(processCommand(const QString &)),
 	      parent,
 	      SLOT(slotProcessCommand(const QString &)));
+      connect(parent,
+	      SIGNAL(information(const QString &)),
+	      m_ash,
+	      SLOT(slotInformationReceived(const QString &)));
       connect(this,
 	      SIGNAL(canvasNameChanged(const QString &)),
 	      m_ash,

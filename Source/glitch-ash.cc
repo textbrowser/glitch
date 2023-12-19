@@ -26,6 +26,7 @@
 */
 
 #include <QKeyEvent>
+#include <QSettings>
 
 #include "glitch-ash.h"
 #include "glitch-misc.h"
@@ -249,10 +250,16 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 
 glitch_ash::~glitch_ash()
 {
+  QSettings settings;
+
+  settings.setValue("ash/geometry", saveGeometry());
 }
 
 void glitch_ash::show(void)
 {
+  QSettings settings;
+
+  restoreGeometry(settings.value("ash/geometry").toByteArray());
   glitch_misc::centerWindow(parentWidget(), this);
   QDialog::showNormal();
   QDialog::activateWindow();
@@ -276,6 +283,14 @@ void glitch_ash::slotCommandProcessed(const QString &results)
   m_ui.text->append(results);
 }
 
+void glitch_ash::slotInformationReceived(const QString &text)
+{
+  if(text.trimmed().isEmpty())
+    return;
+
+  m_ui.text->append(text.trimmed());
+}
+
 void glitch_ash::slotProcessCommand(const QString &command)
 {
   if(command.trimmed().isEmpty())
@@ -289,13 +304,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-      QMapIterator<QString, QString> it(m_commands);
-
-      while(it.hasNext())
-	{
-	  it.next();
-	  m_ui.text->append(it.key());
-	}
+      foreach(const auto &i, m_commands.uniqueKeys())
+	m_ui.text->append(i);
 
       QApplication::restoreOverrideCursor();
     }
