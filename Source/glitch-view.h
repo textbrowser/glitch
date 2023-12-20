@@ -207,6 +207,7 @@ class glitch_view: public QWidget
   void slotGenerate(void);
   void slotGenerateSourceView(void);
   void slotPaste(void);
+  void slotProcessCommand(const QString &command);
   void slotResizeScene(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);

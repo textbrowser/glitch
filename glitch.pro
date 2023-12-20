@@ -286,6 +286,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-user-functions-model.cc \
                   Source/glitch-user-functions-tableview.cc \
                   Source/glitch-view.cc \
+                  Source/glitch-view-ash.cc \
 		  Source/glitch-wire.cc
 TRANSLATIONS    =
 

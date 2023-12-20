@@ -1235,6 +1235,10 @@ void glitch_view::showASH(QWidget *parent)
 	      SIGNAL(processCommand(const QString &)),
 	      parent,
 	      SLOT(slotProcessCommand(const QString &)));
+      connect(m_ash,
+	      SIGNAL(processCommand(const QString &)),
+	      this,
+	      SLOT(slotProcessCommand(const QString &)));
       connect(parent,
 	      SIGNAL(information(const QString &)),
 	      m_ash,
@@ -1246,7 +1250,7 @@ void glitch_view::showASH(QWidget *parent)
       emit canvasNameChanged(m_canvasSettings->name());
     }
 
-  m_ash->show();
+  m_ash->show(); // Special slot.
 }
 
 void glitch_view::showCanvasSettings(void) const

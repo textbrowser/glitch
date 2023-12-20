@@ -25,17 +25,15 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-ui.h"
 #include "glitch-view.h"
 
 enum class States
 {
-  About,
-  Display,
+  SetWidgetGeometry,
   ZZZ
 };
 
-void glitch_ui::slotProcessCommand(const QString &command)
+void glitch_view::slotProcessCommand(const QString &command)
 {
   QListIterator<QString> it(command.split(' '));
   States state = States::ZZZ;
@@ -48,9 +46,6 @@ void glitch_ui::slotProcessCommand(const QString &command)
       ** Here be single-state states.
       */
 
-      if(token.startsWith(tr("about")))
-	state = States::About;
-
       if(state != States::ZZZ)
 	goto state_label;
 
@@ -58,31 +53,33 @@ void glitch_ui::slotProcessCommand(const QString &command)
       ** Here be multiple-state states.
       */
 
-      if(token.startsWith(tr("display")) || token.startsWith(tr("show")))
-	{
-	  state = States::Display;
-	  continue;
-	}
+      if(token.startsWith(tr("set")))
+	state = States::SetWidgetGeometry;
 
     state_label:
 
       switch(state)
 	{
-	case States::About:
+	case States::SetWidgetGeometry:
 	  {
-	    emit information(about());
-	    state = States::ZZZ;
-	    break;
-	  }
-	case States::Display:
-	  {
-	    if(token == tr("canvas-settings"))
+	    QStringList geometry;
+	    qint64 id = -1;
+
+	    while(it.hasNext())
 	      {
-		if(m_currentView)
-		  m_currentView->showCanvasSettings();
+		if(id == -1)
+		  id = qAbs(it.next().toLongLong());
+		else
+		  {
+		    geometry = it.next().split(',');
+		    break;
+		  }
 	      }
-	    else if(token == tr("settings"))
-	      slotShowPreferences();
+
+	    if(geometry.size() == 2)
+	      {
+		// Locate the object having the identifier id.
+	      }
 
 	    state = States::ZZZ;
 	    break;
