@@ -29,7 +29,9 @@
 
 enum class States
 {
+  Set,
   SetWidgetGeometry,
+  SetWidgetPosition,
   ZZZ
 };
 
@@ -53,32 +55,58 @@ void glitch_view::slotProcessCommand(const QString &command)
       ** Here be multiple-state states.
       */
 
-      if(token.startsWith(tr("set")))
-	state = States::SetWidgetGeometry;
+      if(token.startsWith(tr("set"), Qt::CaseInsensitive))
+	{
+	  state = States::Set;
+	  continue;
+	}
 
     state_label:
+
+      if(state == States::Set)
+	{
+	  if(token.startsWith(tr("widget-geometry"), Qt::CaseInsensitive))
+	    state = States::SetWidgetGeometry;
+	  else if(token.startsWith(tr("widget-position"), Qt::CaseInsensitive))
+	    state = States::SetWidgetPosition;
+	  else
+	    {
+	      state = States::ZZZ;
+	      continue;
+	    }
+	}
 
       switch(state)
 	{
 	case States::SetWidgetGeometry:
+	case States::SetWidgetPosition:
 	  {
-	    QStringList geometry;
+	    QStringList list;
 	    qint64 id = -1;
 
 	    while(it.hasNext())
 	      {
-		if(id == -1)
-		  id = qAbs(it.next().toLongLong());
-		else
-		  {
-		    geometry = it.next().split(',');
-		    break;
-		  }
-	      }
+		auto token(it.next());
 
-	    if(geometry.size() == 2)
-	      {
-		// Locate the object having the identifier id.
+		if(id == -1)
+		  {
+		    id = qAbs(token.toLongLong());
+		    continue;
+		  }
+		else
+		  list = token.split(',');
+
+		if(list.size() == 2)
+		  {
+		    // Locate the object having the identifier id.
+
+		    // Reset.
+
+		    id = -1;
+		    list.clear();
+		  }
+		else
+		  break;
 	      }
 
 	    state = States::ZZZ;

@@ -48,7 +48,7 @@ void glitch_ui::slotProcessCommand(const QString &command)
       ** Here be single-state states.
       */
 
-      if(token.startsWith(tr("about")))
+      if(token.startsWith(tr("about"), Qt::CaseInsensitive))
 	state = States::About;
 
       if(state != States::ZZZ)
@@ -58,7 +58,8 @@ void glitch_ui::slotProcessCommand(const QString &command)
       ** Here be multiple-state states.
       */
 
-      if(token.startsWith(tr("display")) || token.startsWith(tr("show")))
+      if(token.startsWith(tr("display"), Qt::CaseInsensitive) ||
+	 token.startsWith(tr("show"), Qt::CaseInsensitive))
 	{
 	  state = States::Display;
 	  continue;
