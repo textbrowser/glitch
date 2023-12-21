@@ -92,6 +92,7 @@ class glitch_view: public QWidget
   bool saveAs(const QString &fileName, QString &error);
   glitch_common::ProjectTypes projectType(void) const;
   glitch_graphicsview *view(void) const;
+  glitch_object *find(const qint64 id) const;
   glitch_scene *scene(void) const;
   glitch_tools::Operations toolsOperation(void) const;
   glitch_user_functions_model *userFunctionsModel(void) const;
@@ -136,6 +137,10 @@ class glitch_view: public QWidget
 
  private:
   QList<glitch_wire *> m_delayedWires;
+  glitch_object *find
+    (const QList<glitch_object *> &list,
+     const qint64 id,
+     glitch_object *object) const;
   void createParentFromValues
     (QHash<qint64, char> &ids,
      QHash<qint64, glitch_object *> &parents,

@@ -327,6 +327,7 @@ Completed Items
 
 Remaining Items
 
+- ASH and redo / undo.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
@@ -342,6 +343,7 @@ Remaining Items
 - Print preview. Avoid Android.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Show identifiers in Find Objects.
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.

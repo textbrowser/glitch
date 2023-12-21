@@ -302,7 +302,6 @@ void glitch_find_objects::slotSynchronize(void)
     }
 
   QApplication::restoreOverrideCursor();
-
   find(ids);
 
   if(value1 >= 0)

@@ -790,6 +790,33 @@ glitch_graphicsview *glitch_view::view(void) const
   return m_view;
 }
 
+glitch_object *glitch_view::find
+(const QList<glitch_object *> &list,
+ const qint64 id,
+ glitch_object *object) const
+{
+  foreach(auto i, list)
+    if(i)
+      {
+	if(i->id() == id)
+	  {
+	    object = i;
+	    return object;
+	  }
+
+	object = find(i->objects(), id, object);
+      }
+
+  return object;
+}
+
+glitch_object *glitch_view::find(const qint64 id) const
+{
+  glitch_object *object = nullptr;
+
+  return find(objects(), id, object);
+}
+
 glitch_scene *glitch_view::scene(void) const
 {
   return m_scene;

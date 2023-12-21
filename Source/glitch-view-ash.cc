@@ -25,13 +25,14 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-object.h"
 #include "glitch-view.h"
 
 enum class States
 {
   Set,
-  SetWidgetGeometry,
   SetWidgetPosition,
+  SetWidgetSize,
   ZZZ
 };
 
@@ -65,10 +66,10 @@ void glitch_view::slotProcessCommand(const QString &command)
 
       if(state == States::Set)
 	{
-	  if(token.startsWith(tr("widget-geometry"), Qt::CaseInsensitive))
-	    state = States::SetWidgetGeometry;
-	  else if(token.startsWith(tr("widget-position"), Qt::CaseInsensitive))
+	  if(token.startsWith(tr("widget-position"), Qt::CaseInsensitive))
 	    state = States::SetWidgetPosition;
+	  else if(token.startsWith(tr("widget-size"), Qt::CaseInsensitive))
+	    state = States::SetWidgetSize;
 	  else
 	    {
 	      state = States::ZZZ;
@@ -78,8 +79,8 @@ void glitch_view::slotProcessCommand(const QString &command)
 
       switch(state)
 	{
-	case States::SetWidgetGeometry:
 	case States::SetWidgetPosition:
+	case States::SetWidgetSize:
 	  {
 	    QStringList list;
 	    qint64 id = -1;
@@ -99,6 +100,19 @@ void glitch_view::slotProcessCommand(const QString &command)
 		if(list.size() == 2)
 		  {
 		    // Locate the object having the identifier id.
+
+		    auto object = find(id);
+
+		    if(object)
+		      {
+			auto h = list.at(1).toInt();
+			auto w = list.at(0).toInt();
+
+			if(h > 0 && w > 0)
+			  object->setProperty
+			    (glitch_object::Properties::GEOMETRY,
+			     QRectF(object->pos(), QSize(w, h)));
+		      }
 
 		    // Reset.
 
