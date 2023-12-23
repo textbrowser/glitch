@@ -1225,6 +1225,14 @@ void glitch_object::prepareFont(void)
   setFont(m_properties.value(Properties::FONT).value<QFont> ());
 }
 
+void glitch_object::resizeEvent(QResizeEvent *event)
+{
+  QWidget::resizeEvent(event);
+  m_properties[glitch_object::Properties::GEOMETRY] =
+    QRectF(scenePos(), size());
+  m_properties[glitch_object::Properties::SIZE] = size();
+}
+
 void glitch_object::save(const QSqlDatabase &db, QString &error)
 {
   QSqlQuery query(db);
@@ -1590,6 +1598,7 @@ void glitch_object::setProperty(const Properties property,
 	if(m_proxy)
 	  m_proxy->setGeometry(value.toRectF());
 
+	emit changed();
 	break;
       }
     case Properties::LIBRARY_FUNCTION_HAS_INPUT:
@@ -1674,20 +1683,54 @@ void glitch_object::setProperty(const char *name, const QVariant &value)
   QObject::setProperty(name, value);
 }
 
+void glitch_object::setPropertyWithUndo
+(const Properties property, const QVariant &value)
+{
+  if(!m_undoStack)
+    return;
+
+  /*
+  ** Some actions are restricted.
+  */
+
+  switch(property)
+    {
+    case Properties::GEOMETRY:
+      {
+	if(m_properties.value(Properties::POSITION_LOCKED).toBool())
+	  return;
+
+	break;
+      }
+    case Properties::SIZE:
+      {
+	if(m_type == "arduino-loop" || m_type == "arduino-setup")
+	  return;
+
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
+  slotPropertyChanged(property, value);
+}
+
 void glitch_object::setProxy(const QPointer<glitch_proxy_widget> &proxy)
 {
   if(!proxy || m_proxy)
     return;
 
-  m_proxy = proxy;
-
   if(m_contextMenu)
-    connect(m_proxy,
+    connect(proxy,
 	    &glitch_proxy_widget::changed,
 	    m_contextMenu,
 	    &glitch_floating_context_menu::slotObjectChanged,
 	    Qt::UniqueConnection);
 
+  m_proxy = proxy;
   m_proxy->setFlag
     (QGraphicsItem::ItemIsMovable,
      !m_properties.value(Properties::POSITION_LOCKED).toBool());

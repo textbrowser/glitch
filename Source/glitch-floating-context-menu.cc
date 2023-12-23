@@ -214,7 +214,7 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
 	      &glitch_object::changed,
 	      this,
 	      &glitch_floating_context_menu::slotObjectChanged);
-      m_ui.object_id->setText(tr("ID: %1").arg(m_object->id()));
+      m_ui.object_id->setText(tr("Identifier: %1").arg(m_object->id()));
       slotObjectChanged();
     }
 }
@@ -335,7 +335,7 @@ void glitch_floating_context_menu::slotObjectChanged(void)
     {
       m_ui.position->setText
 	(tr("Position: (%1, %2)").
-	 arg(m_object->pos().x()).arg(m_object->pos().y()));
+	 arg(m_object->scenePos().x()).arg(m_object->scenePos().y()));
       m_ui.size->setText
 	(tr("Size: %1, %2").
 	 arg(m_object->size().width()).arg(m_object->size().height()));

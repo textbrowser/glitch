@@ -306,6 +306,7 @@ class glitch_object: public QWidget
 
   void setProperties(const QStringList &list);
   void setProperty(const char *name, const QVariant &value);
+  void setPropertyWithUndo(const Properties property, const QVariant &value);
   void setProxy(const QPointer<glitch_proxy_widget> &proxy);
 
   void setSizeBeforeFontChange(const QSize &size)
@@ -417,6 +418,7 @@ class glitch_object: public QWidget
   }
 
   virtual void mouseDoubleClickEvent(QMouseEvent *event);
+  virtual void resizeEvent(QResizeEvent *event);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
   void cloneWires(const QList<QPair<QPointF, QPointF> > &list);

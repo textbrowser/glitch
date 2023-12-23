@@ -103,15 +103,30 @@ void glitch_view::slotProcessCommand(const QString &command)
 
 		    auto object = find(id);
 
-		    if(object)
+		    if(object && object->proxy())
 		      {
-			auto h = list.at(1).toInt();
-			auto w = list.at(0).toInt();
+			if(state == States::SetWidgetPosition)
+			  {
+			    auto ok1 = true;
+			    auto ok2 = true;
+			    auto size(object->proxy()->size());
+			    auto x = list.at(0).trimmed().toInt(&ok1);
+			    auto y = list.at(1).trimmed().toInt(&ok2);
 
-			if(h > 0 && w > 0)
-			  object->setProperty
-			    (glitch_object::Properties::GEOMETRY,
-			     QRectF(object->pos(), QSize(w, h)));
+			    if(ok1 && ok2 && x >= 0 && y >= 0)
+			      object->setPropertyWithUndo
+				(glitch_object::Properties::GEOMETRY,
+				 QRectF(x, y, size.width(), size.height()));
+			  }
+			else
+			  {
+			    auto h = list.at(1).trimmed().toInt();
+			    auto w = list.at(0).trimmed().toInt();
+
+			    if(h > 0 && w > 0)
+			      object->setPropertyWithUndo
+				(glitch_object::Properties::SIZE, QSize(w, h));
+			  }
 		      }
 
 		    // Reset.
