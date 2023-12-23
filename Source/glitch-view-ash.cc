@@ -30,9 +30,13 @@
 
 enum class States
 {
+  Display,
+  Redo,
+  Select,
   Set,
   SetWidgetPosition,
   SetWidgetSize,
+  Undo,
   ZZZ
 };
 
@@ -49,6 +53,11 @@ void glitch_view::slotProcessCommand(const QString &command)
       ** Here be single-state states.
       */
 
+      if(token.startsWith(tr("redo"), Qt::CaseInsensitive))
+	state = States::Redo;
+      else if(token.startsWith(tr("undo"), Qt::CaseInsensitive))
+	state = States::Undo;
+
       if(state != States::ZZZ)
 	goto state_label;
 
@@ -56,7 +65,13 @@ void glitch_view::slotProcessCommand(const QString &command)
       ** Here be multiple-state states.
       */
 
-      if(token.startsWith(tr("set"), Qt::CaseInsensitive))
+      if(token.startsWith(tr("display"), Qt::CaseInsensitive) ||
+	 token.startsWith(tr("show"), Qt::CaseInsensitive))
+	{
+	  state = States::Display;
+	  continue;
+	}
+      else if(token.startsWith(tr("set"), Qt::CaseInsensitive))
 	{
 	  state = States::Set;
 	  continue;
@@ -79,6 +94,21 @@ void glitch_view::slotProcessCommand(const QString &command)
 
       switch(state)
 	{
+	case States::Display:
+	  {
+	    if(token == tr("canvas-settings"))
+	      showCanvasSettings();
+
+	    break;
+	  }
+	case States::Redo:
+	  {
+	    if(m_undoStack)
+	      m_undoStack->redo();
+
+	    state = States::ZZZ;
+	    break;
+	  }
 	case States::SetWidgetPosition:
 	case States::SetWidgetSize:
 	  {
@@ -137,6 +167,14 @@ void glitch_view::slotProcessCommand(const QString &command)
 		else
 		  break;
 	      }
+
+	    state = States::ZZZ;
+	    break;
+	  }
+	case States::Undo:
+	  {
+	    if(m_undoStack)
+	      m_undoStack->undo();
 
 	    state = States::ZZZ;
 	    break;

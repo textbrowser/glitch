@@ -223,9 +223,12 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 		    " " +
 		    tr("settings"));
   m_commands.insert(tr("help"), "");
+  m_commands.insert(tr("redo"), "");
+  m_commands.insert(tr("select"), tr("all identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position"));
   m_commands.insert(tr("set"), tr("widget-size"));
   m_commands.insert(tr("show"), m_commands.value(tr("display")));
+  m_commands.insert(tr("undo"), "");
   m_ui.setupUi(this);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);

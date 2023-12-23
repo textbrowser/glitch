@@ -2,6 +2,7 @@ Completed Items
 
 - A function panel. The panel should include a list of defined functions.
   Drag and drop function.
+- ASH and redo / undo.
 - About.
 - Add --open-arduino-diagram option.
 - Add close buttons to dialogs and windows.
@@ -328,7 +329,6 @@ Completed Items
 
 Remaining Items
 
-- ASH and redo / undo.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

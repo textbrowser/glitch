@@ -77,12 +77,7 @@ void glitch_ui::slotProcessCommand(const QString &command)
 	  }
 	case States::Display:
 	  {
-	    if(token == tr("canvas-settings"))
-	      {
-		if(m_currentView)
-		  m_currentView->showCanvasSettings();
-	      }
-	    else if(token == tr("settings"))
+	    if(token == tr("settings"))
 	      slotShowPreferences();
 
 	    state = States::ZZZ;
