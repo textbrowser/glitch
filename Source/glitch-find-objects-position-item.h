@@ -41,7 +41,7 @@ class glitch_find_objects_position_item: public QObject, public QTreeWidgetItem
 
  public:
   glitch_find_objects_position_item(QTreeWidget *parent):
-    QObject(), QTreeWidgetItem(parent)
+    QObject(parent), QTreeWidgetItem(parent)
   {
   }
 
@@ -61,6 +61,10 @@ class glitch_find_objects_position_item: public QObject, public QTreeWidgetItem
 
     switch(static_cast<glitch_find_objects::Columns> (i))
       {
+      case glitch_find_objects::Columns::Identifier:
+	{
+	  return other.text(i).toLongLong() > text(i).toLongLong();
+	}
       case glitch_find_objects::Columns::Object:
       case glitch_find_objects::Columns::Type:
 	{

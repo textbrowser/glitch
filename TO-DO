@@ -281,6 +281,7 @@ Completed Items
 - Shortcuts in object views.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
+- Show identifiers in Find Objects.
 - Show object coordinates in redo / undo text.
 - Single redo / undo stack per diagram.
 - Sort structures for languages.
@@ -343,7 +344,6 @@ Remaining Items
 - Print preview. Avoid Android.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Show identifiers in Find Objects.
 - Show tooltip source of editable widgets.
 - Snap-to-visible-grid.
 - Unique widget colors.

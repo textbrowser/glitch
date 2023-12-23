@@ -116,6 +116,9 @@ void glitch_find_objects::find
 		SLOT(slotSetTotals(const QHash<QString, int> &)));
 	item->setObject(child);
 	item->setSelected(ids.contains(child->id()));
+	item->setText
+	  (static_cast<int> (Columns::Identifier),
+	   QString::number(child->id()));
 	item->setText(static_cast<int> (Columns::Object), child->name());
 	item->setText(static_cast<int> (Columns::Position), child->position());
 	item->setText(static_cast<int> (Columns::Type), child->objectType());
@@ -146,6 +149,9 @@ void glitch_find_objects::find(const QSet<qint64> &ids)
 		    SLOT(slotSetTotals(const QHash<QString, int> &)));
 	    item->setObject(object);
 	    item->setSelected(ids.contains(object->id()));
+	    item->setText
+	      (static_cast<int> (Columns::Identifier),
+	       QString::number(object->id()));
 	    item->setText(static_cast<int> (Columns::Object), object->name());
 	    item->setText
 	      (static_cast<int> (Columns::Position), object->position());

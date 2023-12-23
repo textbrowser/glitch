@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
+    <width>800</width>
     <height>500</height>
    </rect>
   </property>
@@ -66,6 +66,11 @@
      <column>
       <property name="text">
        <string notr="true">Object</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Identifier</string>
       </property>
      </column>
      <column>

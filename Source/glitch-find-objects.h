@@ -47,10 +47,11 @@ class glitch_find_objects: public QDialog
  public:
   enum class Columns
   {
+    Identifier = 1,
     Object = 0,
-    Position = 1,
-    Type = 2,
-    TypeTotal = 3
+    Position = 2,
+    Type = 3,
+    TypeTotal = 4
   };
 
   glitch_find_objects(QWidget *parent);
