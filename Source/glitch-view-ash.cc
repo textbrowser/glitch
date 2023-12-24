@@ -71,6 +71,8 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  state = States::Display;
 	  continue;
 	}
+      else if(token.startsWith(tr("select"), Qt::CaseInsensitive))
+	state = States::Select;
       else if(token.startsWith(tr("set"), Qt::CaseInsensitive))
 	{
 	  state = States::Set;
@@ -109,6 +111,29 @@ void glitch_view::slotProcessCommand(const QString &command)
 	    state = States::ZZZ;
 	    break;
 	  }
+	case States::Select:
+	  {
+	    while(it.hasNext())
+	      {
+		auto token(it.next());
+
+		if(token == tr("all"))
+		  {
+		    selectAll();
+		    break;
+		  }
+		else
+		  {
+		    auto object = find(qAbs(token.toLongLong()));
+
+		    if(object && object->proxy())
+		      object->proxy()->setSelected(true);
+		  }
+	      }
+
+	    state = States::ZZZ;
+	    break;
+	  }
 	case States::SetWidgetPosition:
 	case States::SetWidgetSize:
 	  {
@@ -129,8 +154,6 @@ void glitch_view::slotProcessCommand(const QString &command)
 
 		if(list.size() == 2)
 		  {
-		    // Locate the object having the identifier id.
-
 		    auto object = find(id);
 
 		    if(object && object->proxy())
@@ -150,10 +173,12 @@ void glitch_view::slotProcessCommand(const QString &command)
 			  }
 			else
 			  {
-			    auto h = list.at(1).trimmed().toInt();
-			    auto w = list.at(0).trimmed().toInt();
+			    auto b1 = true;
+			    auto b2 = true;
+			    auto h = list.at(1).trimmed().toInt(&b1);
+			    auto w = list.at(0).trimmed().toInt(&b2);
 
-			    if(h > 0 && w > 0)
+			    if(b1 && b2 && h > 0 && w > 0)
 			      object->setPropertyWithUndo
 				(glitch_object::Properties::SIZE, QSize(w, h));
 			  }
