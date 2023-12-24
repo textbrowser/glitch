@@ -26,7 +26,6 @@
 */
 
 #include <QKeyEvent>
-#include <QSettings>
 
 #include "glitch-ash.h"
 #include "glitch-misc.h"
@@ -216,7 +215,6 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 {
   m_commands.insert(tr("about"), "");
   m_commands.insert(tr("clear"), "");
-  m_commands.insert(tr("close"), "");
   m_commands.insert(tr("cls"), "");
   m_commands.insert(tr("display"),
 		    tr("canvas-settings") +
@@ -230,21 +228,9 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("show"), m_commands.value(tr("display")));
   m_commands.insert(tr("undo"), "");
   m_ui.setupUi(this);
-  m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.text->setCommands(m_commands);
   m_ui.text->setCursorWidth(10);
   m_ui.text->setUndoRedoEnabled(false);
-#ifndef Q_OS_ANDROID
-  connect(m_ui.close,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_ash::close);
-#else
-  connect(m_ui.close,
-	  &QPushButton::clicked,
-	  this,
-	  &glitch_ash::hide);
-#endif
   connect(m_ui.text,
 	  SIGNAL(processCommand(const QString &)),
 	  this,
@@ -253,21 +239,6 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 
 glitch_ash::~glitch_ash()
 {
-  QSettings settings;
-
-  settings.setValue("ash/geometry", saveGeometry());
-}
-
-void glitch_ash::show(void)
-{
-  QSettings settings;
-
-  restoreGeometry(settings.value("ash/geometry").toByteArray());
-  glitch_misc::centerWindow(parentWidget(), this);
-  QDialog::showNormal();
-  QDialog::activateWindow();
-  QDialog::raise();
-  m_ui.text->setFocus();
 }
 
 void glitch_ash::slotCanvasNameChanged(const QString &name)
@@ -301,8 +272,6 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
   if(command == tr("clear") || command == tr("cls"))
     m_ui.text->clear();
-  else if(command == tr("close"))
-    close();
   else if(command == tr("help"))
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

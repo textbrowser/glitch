@@ -207,12 +207,6 @@ void glitch_ui::slotSeparate(void)
   slotSeparate(m_currentView);
 }
 
-void glitch_ui::slotShowASH(void)
-{
-  if(m_currentView)
-    m_currentView->showASH(this);
-}
-
 void glitch_ui::slotShowSerialPortWindow(void)
 {
   if(!m_serialPortWindow)

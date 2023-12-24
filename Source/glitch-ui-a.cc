@@ -147,10 +147,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &swifty::same,
 	  this,
 	  &glitch_ui::slotSwifty);
-  connect(m_ui.action_ASH_A_Natural_Language_Shell,
-	  &QAction::triggered,
-	  this,
-	  &glitch_ui::slotShowASH);
   connect(m_ui.action_About,
 	  &QAction::triggered,
 	  this,
@@ -760,7 +756,6 @@ void glitch_ui::parseCommandLineArguments(void)
 
   QString errors("");
   auto list(QApplication::arguments());
-  auto showASH = false;
   auto showSerialPortWindow = false;
   auto showTools = false;
 
@@ -807,15 +802,7 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
 
   for(int i = 1; i < list.size(); i++)
-    if(list.at(i) == "--show-ash")
-      {
-	if(!showASH)
-	  {
-	    QTimer::singleShot(1500, this, &glitch_ui::slotShowASH);
-	    showASH = true;
-	  }
-      }
-    else if(list.at(i) == "--show-serial-port-window")
+    if(list.at(i) == "--show-serial-port-window")
       {
 	if(!showSerialPortWindow)
 	  {
@@ -988,7 +975,6 @@ void glitch_ui::prepareActionWidgets(void)
   if(m_ui.tab->count() == 0)
     {
       m_statusBarTimer.stop();
-      m_ui.action_ASH_A_Natural_Language_Shell->setEnabled(false);
       m_ui.action_Canvas_Settings->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
@@ -1015,7 +1001,6 @@ void glitch_ui::prepareActionWidgets(void)
   else
     {
       m_statusBarTimer.start();
-      m_ui.action_ASH_A_Natural_Language_Shell->setEnabled(m_currentView);
       m_ui.action_Canvas_Settings->setEnabled(m_currentView);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
@@ -1093,7 +1078,6 @@ void glitch_ui::prepareFonts(void)
 
 void glitch_ui::prepareIcons(void)
 {
-  m_ui.action_ASH_A_Natural_Language_Shell->setIcon(QIcon(":/language.png"));
   m_ui.action_About->setIcon(QIcon(":/about.png"));
   m_ui.action_Arduino_Documentation->setIcon
     (QIcon(":/Logo/glitch-arduino-logo.png"));

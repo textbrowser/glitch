@@ -92,7 +92,6 @@
     <property name="title">
      <string>&amp;Windows</string>
     </property>
-    <addaction name="action_ASH_A_Natural_Language_Shell"/>
     <addaction name="action_Diagram_Context_Menu"/>
     <addaction name="action_Tools"/>
     <addaction name="action_User_Functions"/>
@@ -271,11 +270,6 @@
   <action name="action_Save_Current_Diagram_As">
    <property name="text">
     <string>Save Current Diagram &amp;As...</string>
-   </property>
-  </action>
-  <action name="action_Structures">
-   <property name="text">
-    <string>&amp;Structures...</string>
    </property>
   </action>
   <action name="action_Close_Diagram">
@@ -478,11 +472,6 @@
   <action name="action_Serial_Port_Window">
    <property name="text">
     <string>Serial Port Window...</string>
-   </property>
-  </action>
-  <action name="action_ASH_A_Natural_Language_Shell">
-   <property name="text">
-    <string>&amp;ASH (A Natural Language Shell)...</string>
    </property>
   </action>
  </widget>

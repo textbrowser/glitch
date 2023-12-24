@@ -83,8 +83,10 @@ class glitch_ash: public QDialog
   glitch_ash(QWidget *parent);
   ~glitch_ash();
 
- public slots:
-  void show(void);
+  QFrame *frame(void) const
+  {
+    return m_ui.frame;
+  }
 
  private:
   QMultiMap<QString, QString> m_commands;

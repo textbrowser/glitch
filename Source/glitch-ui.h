@@ -159,7 +159,6 @@ class glitch_ui: public QMainWindow
   void slotSeparate(QWidget *widget);
   void slotSeparate(glitch_view *view);
   void slotSeparate(void);
-  void slotShowASH(void);
   void slotShowAllTools(void);
   void slotShowArduinoDocumentation(void);
   void slotShowCanvasSettings(void);

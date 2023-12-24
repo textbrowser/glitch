@@ -72,6 +72,7 @@ glitch_view::glitch_view
 {
   m_ui.setupUi(this);
   m_alignment = new glitch_alignment(this);
+  m_ash = new glitch_ash(this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
   m_canvasSettings = new glitch_canvas_settings(this);
@@ -238,7 +239,9 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
-  layout()->addWidget(m_splitter);
+  m_ui.bottom_layout->addWidget(m_ash->frame());
+  m_ui.top_layout->addWidget(m_splitter);
+  prepareASH(parent);
   prepareDatabaseTables();
   prepareDefaultActions();
 }
@@ -1083,6 +1086,36 @@ void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
     m_tools->populateMenu(menu, parent);
 }
 
+void glitch_view::prepareASH(QWidget *parent)
+{
+  connect(m_ash,
+	  SIGNAL(processCommand(const QString &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &)),
+	  Qt::UniqueConnection);
+  connect(this,
+	  SIGNAL(canvasNameChanged(const QString &)),
+	  m_ash,
+	  SLOT(slotCanvasNameChanged(const QString &)),
+	  Qt::UniqueConnection);
+
+  if(parent)
+    {
+      connect(m_ash,
+	      SIGNAL(processCommand(const QString &)),
+	      parent,
+	      SLOT(slotProcessCommand(const QString &)),
+	      Qt::UniqueConnection);
+      connect(parent,
+	      SIGNAL(information(const QString &)),
+	      m_ash,
+	      SLOT(slotInformationReceived(const QString &)),
+	      Qt::UniqueConnection);
+    }
+
+  emit canvasNameChanged(m_canvasSettings->name());
+}
+
 void glitch_view::prepareDatabaseTables(void) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1251,33 +1284,6 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->width() - 2 * m_view->frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       m_view->height() - 2 * m_view->frameWidth())));
-}
-
-void glitch_view::showASH(QWidget *parent)
-{
-  if(!m_ash)
-    {
-      m_ash = new glitch_ash(this);
-      connect(m_ash,
-	      SIGNAL(processCommand(const QString &)),
-	      parent,
-	      SLOT(slotProcessCommand(const QString &)));
-      connect(m_ash,
-	      SIGNAL(processCommand(const QString &)),
-	      this,
-	      SLOT(slotProcessCommand(const QString &)));
-      connect(parent,
-	      SIGNAL(information(const QString &)),
-	      m_ash,
-	      SLOT(slotInformationReceived(const QString &)));
-      connect(this,
-	      SIGNAL(canvasNameChanged(const QString &)),
-	      m_ash,
-	      SLOT(slotCanvasNameChanged(const QString &)));
-      emit canvasNameChanged(m_canvasSettings->name());
-    }
-
-  m_ash->show(); // Special slot.
 }
 
 void glitch_view::showCanvasSettings(void) const
