@@ -44,7 +44,7 @@ class glitch_ash_textedit: public QTextEdit
     setCurrentFont(font);
     m_historyIndex = 0;
     m_promptBlockNumber = 0;
-    m_promptLength = 2;
+    m_promptLength = 4;
     displayPrompt();
   }
 

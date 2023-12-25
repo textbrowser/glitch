@@ -60,9 +60,14 @@ void glitch_ash_textedit::displayPrompt(void)
 {
   setTextColor(QColor(0, 0, 139));
 
+  QTextImageFormat image;
   auto cursor(textCursor());
 
-  cursor.insertText("> ");
+  image.setHeight(24.0);
+  image.setName(":/language.png");
+  image.setWidth(24.0);
+  cursor.insertImage(image);
+  cursor.insertText(" > ");
   cursor.movePosition(QTextCursor::EndOfLine);
   setTextCursor(cursor);
   m_promptBlockNumber = cursor.blockNumber();
@@ -276,9 +281,12 @@ void glitch_ash::slotProcessCommand(const QString &command)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-      foreach(const auto &i, m_commands.uniqueKeys())
-	m_ui.text->append(i);
+      QString string("");
 
+      foreach(const auto &i, m_commands.uniqueKeys())
+	string.append(i + " ");
+
+      m_ui.text->append(string.trimmed());
       QApplication::restoreOverrideCursor();
     }
   else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
