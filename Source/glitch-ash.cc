@@ -228,8 +228,8 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("select"), tr("all identifier-1 identifier-2 ..."));
-  m_commands.insert(tr("set"), tr("widget-position"));
-  m_commands.insert(tr("set"), tr("widget-size"));
+  m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
+  m_commands.insert(tr("set"), tr("widget-size identifier width,height ..."));
   m_commands.insert(tr("show"), m_commands.value(tr("display")));
   m_commands.insert(tr("undo"), "");
   m_ui.setupUi(this);
@@ -292,17 +292,14 @@ void glitch_ash::slotProcessCommand(const QString &command)
   else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-      m_ui.text->append(command);
+      m_ui.text->append(command + ":");
 
       auto list(m_commands.values(command));
 
       std::sort(list.begin(), list.end());
 
       foreach(const auto &i, list)
-	{
-	  foreach(const auto &j, i.split(' '))
-	    m_ui.text->append(" " + j);
-	}
+	m_ui.text->append(i);
 
       QApplication::restoreOverrideCursor();
     }
