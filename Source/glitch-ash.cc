@@ -216,6 +216,12 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
   cursor.insertText(command);
 }
 
+void glitch_ash_textedit::showEvent(QShowEvent *event)
+{
+  QTextEdit::showEvent(event);
+  setFocus();
+}
+
 glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 {
   m_commands.insert(tr("about"), "");

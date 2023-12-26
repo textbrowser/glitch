@@ -68,6 +68,7 @@ class glitch_ash_textedit: public QTextEdit
   void handleTabKey(void);
   void keyPressEvent(QKeyEvent *event);
   void replaceCurrentCommand(const QString &command);
+  void showEvent(QShowEvent *event);
 
  signals:
   void processCommand(const QString &command);
