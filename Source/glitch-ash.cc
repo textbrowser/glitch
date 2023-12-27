@@ -309,6 +309,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
       QApplication::restoreOverrideCursor();
     }
-  else
+  else if(m_commands.contains(command))
     emit processCommand(command);
+  else
+    m_ui.text->append(tr("%1: command not recognized.").arg(command));
 }
