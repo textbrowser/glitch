@@ -227,17 +227,14 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("about"), "");
   m_commands.insert(tr("clear"), "");
   m_commands.insert(tr("cls"), "");
-  m_commands.insert(tr("display"),
-		    tr("canvas-settings") +
-		    " " +
-		    tr("settings"));
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("list"), "-details");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("select"), tr("all identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
   m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
-  m_commands.insert(tr("show"), m_commands.value(tr("display")));
+  m_commands.insert(tr("show"), tr("canvas-settings"));
+  m_commands.insert(tr("show"), tr("settings"));
   m_commands.insert(tr("undo"), "");
   m_ui.setupUi(this);
   m_ui.text->setCommands(m_commands);
@@ -318,14 +315,17 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
       for(int i = 1; i < list1.size(); i++)
 	{
-	  m_ui.text->append(list1.at(i) + ":");
-
 	  auto list2(m_commands.values(list1.at(i)));
 
+	  if(list2.isEmpty())
+	    continue;
+
+	  m_ui.text->append(list1.at(i) + ":");
 	  std::sort(list2.begin(), list2.end());
 
 	  foreach(const auto &j, list2)
-	    m_ui.text->append(j);
+	    if(!j.isEmpty())
+	      m_ui.text->append(j);
 	}
 
       QApplication::restoreOverrideCursor();
