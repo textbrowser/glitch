@@ -232,10 +232,11 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
 		    " " +
 		    tr("settings"));
   m_commands.insert(tr("help"), "");
+  m_commands.insert(tr("list"), "-details");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("select"), tr("all identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
-  m_commands.insert(tr("set"), tr("widget-size identifier width,height ..."));
+  m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
   m_commands.insert(tr("show"), m_commands.value(tr("display")));
   m_commands.insert(tr("undo"), "");
   m_ui.setupUi(this);
@@ -309,7 +310,27 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
       QApplication::restoreOverrideCursor();
     }
-  else if(m_commands.contains(command))
+  else if(command.startsWith(tr("help")))
+    {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+      auto list1(command.split(' '));
+
+      for(int i = 1; i < list1.size(); i++)
+	{
+	  m_ui.text->append(list1.at(i) + ":");
+
+	  auto list2(m_commands.values(list1.at(i)));
+
+	  std::sort(list2.begin(), list2.end());
+
+	  foreach(const auto &j, list2)
+	    m_ui.text->append(j);
+	}
+
+      QApplication::restoreOverrideCursor();
+    }
+  else if(m_commands.contains(command.split(' ').value(0)))
     emit processCommand(command);
   else
     m_ui.text->append(tr("%1: command not recognized.").arg(command));
