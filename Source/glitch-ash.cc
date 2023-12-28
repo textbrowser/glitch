@@ -279,9 +279,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
   if(command.trimmed().isEmpty())
     return;
 
-  if(command == tr("clear") || command == tr("cls"))
-    m_ui.text->clear();
-  else if(command == tr("help"))
+  if(command == tr("?") || command == tr("help"))
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -293,6 +291,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
       m_ui.text->append(string.trimmed());
       QApplication::restoreOverrideCursor();
     }
+  else if(command == tr("clear") || command == tr("cls"))
+    m_ui.text->clear();
   else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -307,7 +307,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
       QApplication::restoreOverrideCursor();
     }
-  else if(command.startsWith(tr("help")))
+  else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
     {
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
