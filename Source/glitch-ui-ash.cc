@@ -32,6 +32,8 @@ enum class States
 {
   About,
   Display,
+  FullScreen,
+  NormalScreen,
   ZZZ
 };
 
@@ -50,6 +52,10 @@ void glitch_ui::slotProcessCommand(const QString &command)
 
       if(token.startsWith(tr("about"), Qt::CaseInsensitive))
 	state = States::About;
+      else if(token.startsWith(tr("full-screen"), Qt::CaseInsensitive))
+	state = States::FullScreen;
+      else if(token.startsWith(tr("normal-screen"), Qt::CaseInsensitive))
+	state = States::NormalScreen;
 
       if(state != States::ZZZ)
 	goto state_label;
@@ -79,6 +85,22 @@ void glitch_ui::slotProcessCommand(const QString &command)
 	  {
 	    if(token == tr("settings"))
 	      slotShowPreferences();
+
+	    state = States::ZZZ;
+	    break;
+	  }
+	case States::FullScreen:
+	  {
+	    if(!isFullScreen())
+	      slotShowFullScreenMode();
+
+	    state = States::ZZZ;
+	    break;
+	  }
+	case States::NormalScreen:
+	  {
+	    if(isFullScreen())
+	      slotShowFullScreenMode();
 
 	    state = States::ZZZ;
 	    break;
