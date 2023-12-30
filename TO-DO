@@ -2,6 +2,8 @@ Completed Items
 
 - A function panel. The panel should include a list of defined functions.
   Drag and drop function.
+- ASH and optional parameters (list -details). Optional parameters are not
+  necessary.
 - ASH and redo / undo.
 - About.
 - Add --open-arduino-diagram option.
@@ -330,7 +332,7 @@ Completed Items
 Remaining Items
 
 - ASH UI splitter state.
-- ASH and optional parameters (list --details).
+- ASH and set widget-size and minimum sizes.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
