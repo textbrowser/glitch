@@ -1630,7 +1630,16 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::SIZE:
       {
-	resize(value.toSize());
+	auto h = value.toSize().height();
+	auto size(value.toSize());
+	auto width = qMax(5 * qCeil(sizeHint().width() / 5.0), size.width());
+
+	if(m_proxy && m_proxy->minimumWidth() >= width)
+	  resize(m_proxy->minimumWidth(),
+		 qMax(h, minimumHeight(sizeHint().height())));
+	else
+	  resize(width, qMax(h, minimumHeight(sizeHint().height())));
+
 	break;
       }
     case Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE:

@@ -5,6 +5,7 @@ Completed Items
 - ASH and optional parameters (list -details). Optional parameters are not
   necessary.
 - ASH and redo / undo.
+- ASH and set widget-size and minimum sizes.
 - About.
 - Add --open-arduino-diagram option.
 - Add close buttons to dialogs and windows.
@@ -332,7 +333,7 @@ Completed Items
 Remaining Items
 
 - ASH UI splitter state.
-- ASH and set widget-size and minimum sizes.
+- ASH and the mouse.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
