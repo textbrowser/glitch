@@ -96,6 +96,14 @@ void glitch_ash_textedit::handleDownKey(void)
     }
 }
 
+void glitch_ash_textedit::handleInterrupt(void)
+{
+  replaceCurrentCommand(currentCommand() + "^C");
+  append("");
+  moveCursor(QTextCursor::End);
+  displayPrompt();
+}
+
 void glitch_ash_textedit::handleReturnKey(void)
 {
   auto command(currentCommand());
@@ -169,6 +177,16 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       {
 	if(handleBackspaceKey())
 	  return;
+
+	break;
+      }
+    case Qt::Key_C:
+      {
+	if(event->modifiers() & Qt::ControlModifier)
+	  {
+	    handleInterrupt();
+	    return;
+	  }
 
 	break;
       }

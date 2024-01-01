@@ -64,6 +64,7 @@ class glitch_ash_textedit: public QTextEdit
   void handleDownKey(void);
   void handleUpKey(void);
   void displayPrompt(void);
+  void handleInterrupt(void);
   void handleReturnKey(void);
   void handleTabKey(void);
   void keyPressEvent(QKeyEvent *event);
