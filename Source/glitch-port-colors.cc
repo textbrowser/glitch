@@ -82,7 +82,8 @@ void glitch_port_colors::setObject(glitch_object *object)
 	   << m_ui.output_connected
 	   << m_ui.output_disconnected;
       strings << m_object->property
-	(glitch_object::Properties::PORT_COLORS).toString().split('-');
+	(glitch_object::Properties::PORT_COLORS).
+	toString().split('-', Qt::SkipEmptyParts);
 
       for(int i = 0; i < list.size(); i++)
 	{

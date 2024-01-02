@@ -330,7 +330,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
       }
     else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
       {
-	auto list1(command.split(' '));
+	auto list1(command.split(' ', Qt::SkipEmptyParts));
 
 	for(int i = 1; i < list1.size(); i++)
 	  {
@@ -347,7 +347,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 		m_ui.text->append(j);
 	  }
       }
-    else if(m_commands.contains(command.split(' ').value(0)))
+    else if(m_commands.
+	    contains(command.split(' ', Qt::SkipEmptyParts).value(0)))
       emit processCommand(command);
     else
       m_ui.text->append(tr("%1: command not recognized.").arg(command));

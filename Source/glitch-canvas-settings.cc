@@ -255,9 +255,9 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
   QMap<QString, QColor> map;
   auto text(m_settings.value(Settings::KEYWORD_COLORS).toString());
 
-  foreach(const auto &string, text.mid(7).split(','))
+  foreach(const auto &string, text.mid(7).split(',', Qt::SkipEmptyParts))
     {
-      auto list(string.split(';'));
+      auto list(string.split(';', Qt::SkipEmptyParts));
 
       if(list.size() == 2)
 	map[list.at(0)] = QColor(list.at(1));
@@ -730,9 +730,9 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 
   QMap<QString, QColor> map;
 
-  foreach(const auto &string, text.mid(7).split(','))
+  foreach(const auto &string, text.mid(7).split(',', Qt::SkipEmptyParts))
     {
-      auto list(string.split(';'));
+      auto list(string.split(';', Qt::SkipEmptyParts));
 
       if(list.size() == 2)
 	map[list.at(0)] = QColor(list.at(1));

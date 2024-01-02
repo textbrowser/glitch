@@ -125,6 +125,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wextra \
                           -Wfloat-equal \
                           -Wformat=2 \
+                          -Wformat-overflow=2 \
                           -Wl,-z,relro \
                           -Wlogical-op \
                           -Wno-class-memaccess \
@@ -133,7 +134,8 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
                           -Wstack-protector \
-                          -Wstrict-overflow=1 \
+                          -Wstrict-overflow=5 \
+                          -Wstringop-overflow=4 \
                           -Wundef \
                           -fPIE \
                           -fstack-protector-all \

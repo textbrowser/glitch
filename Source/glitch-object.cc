@@ -1492,7 +1492,7 @@ void glitch_object::setProperties(const QStringList &list)
 	      string = string.mid(string.indexOf('=') + 1).trimmed();
 	      string.remove('"').remove('(').remove(')');
 
-	      auto list(string.split(','));
+	      auto list(string.split(',', Qt::SkipEmptyParts));
 
 	      m_delayedSize = QSize(list.value(0).trimmed().toInt(),
 				    list.value(1).trimmed().toInt());
