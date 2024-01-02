@@ -191,6 +191,7 @@ Completed Items
 - Intelligent beginMacro() / endMacro().
 - Intelligent select mode: select or wire by proximity.
 - Intelligent woody.
+- Interactive natural language shell. Forever.
 - Keywords (function names, variable names, etc.). Highlight errors.
 - Languages option.
 - Limit SQL text retrieval via SUBSTR().
@@ -341,7 +342,6 @@ Remaining Items
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
-- Interactive natural language shell.
 - Nested flow-control scenes.
 - Pasting of a function definition onto the main diagram should result
   in a non-clone function.
