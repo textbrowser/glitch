@@ -287,7 +287,7 @@ void glitch_ash::slotCommandProcessed(const QString &results)
   if(results.trimmed().isEmpty())
     return;
 
-  m_ui.text->append(results);
+  m_ui.text->append(results.trimmed());
 }
 
 void glitch_ash::slotInformationReceived(const QString &text)

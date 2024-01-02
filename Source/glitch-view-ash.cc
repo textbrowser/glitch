@@ -33,6 +33,7 @@ enum class States
 {
   Deselect,
   Display,
+  List,
   Redo,
   Select,
   Set,
@@ -44,7 +45,7 @@ enum class States
 
 void glitch_view::slotProcessCommand(const QString &command)
 {
-  QListIterator<QString> it(command.split(' '));
+  QListIterator<QString> it(command.split(' ', Qt::SkipEmptyParts));
   States state = States::ZZZ;
 
   while(it.hasNext())
@@ -75,6 +76,8 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  state = States::Display;
 	  continue;
 	}
+      else if(token.startsWith(tr("list"), Qt::CaseInsensitive))
+	state = States::List;
       else if(token.startsWith(tr("select"), Qt::CaseInsensitive))
 	state = States::Select;
       else if(token.startsWith(tr("set"), Qt::CaseInsensitive))
@@ -135,6 +138,18 @@ void glitch_view::slotProcessCommand(const QString &command)
 
 	    break;
 	  }
+	case States::List:
+	  {
+	    QString string("");
+
+	    foreach(auto object, objects())
+	      string.append(QString::number(object->id())).append(" ");
+
+	    if(!string.isEmpty())
+	      emit information(string);
+
+	    break;
+	  }
 	case States::Redo:
 	  {
 	    if(m_undoStack)
@@ -159,7 +174,7 @@ void glitch_view::slotProcessCommand(const QString &command)
 		    continue;
 		  }
 		else
-		  list = token.split(',');
+		  list = token.split(',', Qt::SkipEmptyParts);
 
 		if(list.size() == 2)
 		  {

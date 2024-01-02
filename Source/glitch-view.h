@@ -229,6 +229,7 @@ class glitch_view: public QWidget
   void canvasNameChanged(const QString &name);
   void changed(void);
   void copy(QGraphicsView *view);
+  void information(const QString &text);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);
   void paste(glitch_view *view);

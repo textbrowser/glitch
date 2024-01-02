@@ -40,7 +40,7 @@ enum class States
 
 void glitch_ui::slotProcessCommand(const QString &command)
 {
-  QListIterator<QString> it(command.split(' '));
+  QListIterator<QString> it(command.split(' ', Qt::SkipEmptyParts));
   States state = States::ZZZ;
 
   while(it.hasNext())

@@ -571,7 +571,9 @@ bool glitch_view::open(const QString &fileName, QString &error)
 					    PROPERTIES_MAXIMUM_LENGTH))) &&
 	   query.next())
 	  {
-	    auto list(query.value(0).toString().trimmed().split('&'));
+	    auto list
+	      (query.value(0).toString().trimmed().
+	       split('&', Qt::SkipEmptyParts));
 
 	    for(int i = 0; i < list.size(); i++)
 	      {
@@ -1103,6 +1105,11 @@ void glitch_view::prepareASH(QWidget *parent)
 	  SIGNAL(canvasNameChanged(const QString &)),
 	  m_ash,
 	  SLOT(slotCanvasNameChanged(const QString &)),
+	  Qt::UniqueConnection);
+  connect(this,
+	  SIGNAL(information(const QString &)),
+	  m_ash,
+	  SLOT(slotCommandProcessed(const QString &)),
 	  Qt::UniqueConnection);
 
   if(parent)
