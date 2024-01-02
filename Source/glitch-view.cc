@@ -888,6 +888,12 @@ void glitch_view::beginMacro(const QString &text)
     m_undoStack->beginMacro(text);
 }
 
+void glitch_view::clearSelection(void)
+{
+  if(m_scene)
+    m_scene->clearSelection();
+}
+
 void glitch_view::contextMenuEvent(QContextMenuEvent *event)
 {
   if(event)

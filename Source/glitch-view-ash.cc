@@ -25,11 +25,13 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-graphicsview.h"
 #include "glitch-object.h"
 #include "glitch-view.h"
 
 enum class States
 {
+  Deselect,
   Display,
   Redo,
   Select,
@@ -65,8 +67,10 @@ void glitch_view::slotProcessCommand(const QString &command)
       ** Here be multiple-state states.
       */
 
-      if(token.startsWith(tr("display"), Qt::CaseInsensitive) ||
-	 token.startsWith(tr("show"), Qt::CaseInsensitive))
+      if(token.startsWith(tr("deselect"), Qt::CaseInsensitive))
+	state = States::Deselect;
+      else if(token.startsWith(tr("display"), Qt::CaseInsensitive) ||
+	      token.startsWith(tr("show"), Qt::CaseInsensitive))
 	{
 	  state = States::Display;
 	  continue;
@@ -96,6 +100,34 @@ void glitch_view::slotProcessCommand(const QString &command)
 
       switch(state)
 	{
+	case States::Deselect:
+	case States::Select:
+	  {
+	    while(it.hasNext())
+	      {
+		auto token(it.next());
+
+		if(token == tr("all"))
+		  {
+		    if(state == States::Deselect)
+		      clearSelection();
+		    else
+		      selectAll();
+
+		    break;
+		  }
+		else
+		  {
+		    auto object = find(qAbs(token.toLongLong()));
+
+		    if(object && object->proxy())
+		      object->proxy()->setSelected(state != States::Deselect);
+		  }
+	      }
+
+	    state = States::ZZZ;
+	    break;
+	  }
 	case States::Display:
 	  {
 	    if(token == tr("canvas-settings"))
@@ -107,29 +139,6 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  {
 	    if(m_undoStack)
 	      m_undoStack->redo();
-
-	    state = States::ZZZ;
-	    break;
-	  }
-	case States::Select:
-	  {
-	    while(it.hasNext())
-	      {
-		auto token(it.next());
-
-		if(token == tr("all"))
-		  {
-		    selectAll();
-		    break;
-		  }
-		else
-		  {
-		    auto object = find(qAbs(token.toLongLong()));
-
-		    if(object && object->proxy())
-		      object->proxy()->setSelected(true);
-		  }
-	      }
 
 	    state = States::ZZZ;
 	    break;

@@ -333,8 +333,8 @@ Completed Items
 
 Remaining Items
 
-- ASH UI splitter state.
 - ASH and the mouse.
+- ASH splitter state.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
@@ -347,6 +347,7 @@ Remaining Items
   in a non-clone function.
 - Periodic backup.
 - Print preview. Avoid Android.
+- Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Show tooltip source of editable widgets.

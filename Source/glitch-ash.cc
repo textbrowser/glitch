@@ -245,13 +245,16 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("about"), "");
   m_commands.insert(tr("clear"), "");
   m_commands.insert(tr("cls"), "");
+  m_commands.insert(tr("deselect"), tr("all"));
+  m_commands.insert(tr("deselect"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("full-screen"), "");
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("list"), "");
   m_commands.insert(tr("normal-screen"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("save"), "");
-  m_commands.insert(tr("select"), tr("all identifier-1 identifier-2 ..."));
+  m_commands.insert(tr("select"), tr("all"));
+  m_commands.insert(tr("select"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
   m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
   m_commands.insert(tr("show"), tr("canvas-settings"));

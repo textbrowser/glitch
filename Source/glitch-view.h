@@ -141,6 +141,7 @@ class glitch_view: public QWidget
     (const QList<glitch_object *> &list,
      const qint64 id,
      glitch_object *object) const;
+  void clearSelection(void);
   void createParentFromValues
     (QHash<qint64, char> &ids,
      QHash<qint64, glitch_object *> &parents,
