@@ -303,59 +303,54 @@ void glitch_ash::slotProcessCommand(const QString &command)
   if(command.trimmed().isEmpty())
     return;
 
-  if(command == tr("?") || command == tr("help"))
-    {
-      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-      QString string("");
+  foreach(const auto &command, command.split(';', Qt::SkipEmptyParts))
+    if(command == tr("?") || command == tr("help"))
+      {
+	QString string("");
 
-      foreach(const auto &i, m_commands.uniqueKeys())
-	string.append(i + " ");
+	foreach(const auto &i, m_commands.uniqueKeys())
+	  string.append(i + " ");
 
-      m_ui.text->append(string.trimmed());
-      QApplication::restoreOverrideCursor();
-    }
-  else if(command == tr("clear") || command == tr("cls"))
-    m_ui.text->clear();
-  else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
-    {
-      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-      m_ui.text->append(command + ":");
+	m_ui.text->append(string.trimmed());
+      }
+    else if(command == tr("clear") || command == tr("cls"))
+      m_ui.text->clear();
+    else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
+      {
+	m_ui.text->append(command + ":");
 
-      auto list(m_commands.values(command));
+	auto list(m_commands.values(command));
 
-      std::sort(list.begin(), list.end());
+	std::sort(list.begin(), list.end());
 
-      foreach(const auto &i, list)
-	m_ui.text->append(i);
+	foreach(const auto &i, list)
+	  m_ui.text->append(i);
+      }
+    else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
+      {
+	auto list1(command.split(' '));
 
-      QApplication::restoreOverrideCursor();
-    }
-  else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
-    {
-      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	for(int i = 1; i < list1.size(); i++)
+	  {
+	    auto list2(m_commands.values(list1.at(i)));
 
-      auto list1(command.split(' '));
+	    if(list2.isEmpty())
+	      continue;
 
-      for(int i = 1; i < list1.size(); i++)
-	{
-	  auto list2(m_commands.values(list1.at(i)));
+	    m_ui.text->append(list1.at(i) + ":");
+	    std::sort(list2.begin(), list2.end());
 
-	  if(list2.isEmpty())
-	    continue;
+	    foreach(const auto &j, list2)
+	      if(!j.isEmpty())
+		m_ui.text->append(j);
+	  }
+      }
+    else if(m_commands.contains(command.split(' ').value(0)))
+      emit processCommand(command);
+    else
+      m_ui.text->append(tr("%1: command not recognized.").arg(command));
 
-	  m_ui.text->append(list1.at(i) + ":");
-	  std::sort(list2.begin(), list2.end());
-
-	  foreach(const auto &j, list2)
-	    if(!j.isEmpty())
-	      m_ui.text->append(j);
-	}
-
-      QApplication::restoreOverrideCursor();
-    }
-  else if(m_commands.contains(command.split(' ').value(0)))
-    emit processCommand(command);
-  else
-    m_ui.text->append(tr("%1: command not recognized.").arg(command));
+  QApplication::restoreOverrideCursor();
 }
