@@ -143,7 +143,7 @@ void glitch_view::slotProcessCommand(const QString &command)
 	    QString string("");
 
 	    foreach(auto object, objects())
-	      string.append(QString::number(object->id())).append(" ");
+	      string.append(object->about()).append(" ");
 
 	    if(!string.isEmpty())
 	      emit information(string);

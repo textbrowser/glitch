@@ -210,6 +210,18 @@ class glitch_object: public QWidget
 
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
+
+  QString about(void) const
+  {
+    return QString("<b>%1</b> (%2, %3, %4 x %5) (%6)").
+      arg(m_id).
+      arg(scenePos().x()).
+      arg(scenePos().y()).
+      arg(size().width()).
+      arg(size().height()).
+      arg(m_type);
+  }
+
   QString objectType(void) const;
 
   QString position(void) const
