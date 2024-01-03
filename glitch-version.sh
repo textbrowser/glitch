@@ -25,9 +25,9 @@ sed -i 's/\(GLITCH_VERSION_STRING "\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
 FILE="android/AndroidManifest.xml"
 
 sed -i \
-    's/\(android:versionName="\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
+    's/\(android:versionCode="\)[0-9]\+\(\.[0-9]\+\)*"/\1'"${VERSION//./}"'"/' \
     $FILE
 sed -i \
-    's/\(android:versionCode="\)[0-9]\+\(\.[0-9]\+\)*"/\1'"${VERSION//./}"'"/' \
+    's/\(android:versionName="\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
     $FILE
 echo "Please modify ReleaseNotes.html."
