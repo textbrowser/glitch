@@ -1,7 +1,0 @@
-Please consider glitch-version.sh.
-
-Distributions/*/control
-Distributions/build*
-Documentation/ReleaseNotes.html
-Source/glitch-version.h
-android/AndroidManifest.xml
