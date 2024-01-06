@@ -284,6 +284,14 @@ QList<QAction *> glitch_view::defaultActions(void) const
   return m_defaultActions;
 }
 
+QList<glitch_object *> glitch_view::allObjects(void) const
+{
+  if(m_scene)
+    return m_scene->allObjects();
+  else
+    return QList<glitch_object *> ();
+}
+
 QList<glitch_object *> glitch_view::objects(void) const
 {
   if(m_scene)
