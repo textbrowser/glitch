@@ -6,6 +6,7 @@ Completed Items
   necessary.
 - ASH and redo / undo.
 - ASH and set widget-size and minimum sizes.
+- ASH splitter state.
 - About.
 - Add --open-arduino-diagram option.
 - Add close buttons to dialogs and windows.
@@ -334,7 +335,6 @@ Completed Items
 Remaining Items
 
 - ASH and the mouse.
-- ASH splitter state.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

@@ -116,6 +116,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
 	  SLOT(slotSilentSave(void)));
+  connect(m_ui.splitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSilentSave(void)));
   m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
   m_rightSplitter->addWidget(m_canvasPreview);
   m_rightSplitter->setStretchFactor(0, 1);
@@ -368,6 +372,7 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 
 void glitch_view_arduino::slotSilentSave(void)
 {
+  m_properties["main_splitter_state"] = m_ui.splitter->saveState();
   m_properties["right_splitter_state"] = m_rightSplitter->saveState();
   m_properties["splitter_state"] = m_splitter->saveState();
   saveProperties();
