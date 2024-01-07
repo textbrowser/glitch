@@ -790,8 +790,7 @@ void glitch_ui::parseCommandLineArguments(void)
 	else
 	  m_delayedDiagrams << list.value(i);
       }
-    else if(list.at(i) == "--show-ash" ||
-	    list.at(i) == "--show-serial-port-window" ||
+    else if(list.at(i) == "--show-serial-port-window" ||
 	    list.at(i) == "--show-tools" ||
 	    list.at(i) == "--version")
       {

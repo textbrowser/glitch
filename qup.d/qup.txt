@@ -3,15 +3,15 @@
 
 [General]
 
+file = Glitch.1
 file = Glitch.pdf
-file = ReleaseNotes.html
 file = TO-DO
 file_destination = Documentation
 
 [Linux]
 
 executable:amd64 = Glitch_amd64
-executable:armhf = Glitch_armhf
+executable:arm64 = Glitch_arm64
 executable:powerpc = Glitch_powerpc
 local_executable = Glitch
 
