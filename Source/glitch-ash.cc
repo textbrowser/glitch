@@ -248,6 +248,9 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("deselect"), tr("all"));
   m_commands.insert(tr("deselect"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("full-screen"), "");
+  m_commands.insert(tr("generate"), tr("clipboard"));
+  m_commands.insert(tr("generate"), tr("file"));
+  m_commands.insert(tr("generate"), tr("view"));
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("list"), "");
   m_commands.insert(tr("normal-screen"), "");
