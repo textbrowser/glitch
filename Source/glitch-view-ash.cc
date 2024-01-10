@@ -33,6 +33,7 @@ enum class States
 {
   Deselect,
   Display,
+  Generate,
   List,
   Redo,
   Select,
@@ -74,6 +75,11 @@ void glitch_view::slotProcessCommand(const QString &command)
 	      token.startsWith(tr("show"), Qt::CaseInsensitive))
 	{
 	  state = States::Display;
+	  continue;
+	}
+      else if(token.startsWith(tr("generate"), Qt::CaseInsensitive))
+	{
+	  state = States::Generate;
 	  continue;
 	}
       else if(token.startsWith(tr("list"), Qt::CaseInsensitive))
@@ -136,6 +142,19 @@ void glitch_view::slotProcessCommand(const QString &command)
 	    if(token == tr("canvas-settings"))
 	      showCanvasSettings();
 
+	    state = States::ZZZ;
+	    break;
+	  }
+	case States::Generate:
+	  {
+	    if(token == tr("clipboard"))
+	      generateSourceClipboard();
+	    else if(token == tr("source"))
+	      generateSourceFile();
+	    else if(token == tr("view"))
+	      generateSourceView();
+
+	    state = States::ZZZ;
 	    break;
 	  }
 	case States::List:
@@ -148,6 +167,7 @@ void glitch_view::slotProcessCommand(const QString &command)
 	    if(!string.isEmpty())
 	      emit information(string);
 
+	    state = States::ZZZ;
 	    break;
 	  }
 	case States::Redo:
