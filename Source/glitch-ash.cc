@@ -135,9 +135,12 @@ void glitch_ash_textedit::handleTabKey(void)
     {
       moveCursor(QTextCursor::End);
 
-      for(int i = 0; i < list.size(); i++)
-	append(list.at(i));
+      QString string("");
 
+      for(int i = 0; i < list.size(); i++)
+	string.append(list.at(i)).append(" ");
+
+      append(string.trimmed());
       append("");
       displayPrompt();
       replaceCurrentCommand(command);
