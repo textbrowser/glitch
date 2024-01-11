@@ -111,7 +111,7 @@ void glitch_ash_textedit::handleReturnKey(void)
   if(!command.isEmpty())
     {
       emit processCommand(command);
-      m_history << command;
+      m_history << (m_commands.contains(command) ? command + " " : command);
       m_historyIndex = m_history.size();
     }
 
@@ -123,11 +123,23 @@ void glitch_ash_textedit::handleReturnKey(void)
 void glitch_ash_textedit::handleTabKey(void)
 {
   QMap<QString, char> map;
+  QMapIterator<QString, QString> it(m_commands);
   auto command(currentCommand());
 
-  foreach(const auto &i, m_commands.keys())
-    if(command.isEmpty() || i.startsWith(command))
-      map[i] = 0;
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(command.isEmpty() || it.key().startsWith(command))
+	map[it.key()] = 0;
+      else
+	{
+	  auto string(it.key() + " " + it.value());
+
+	  if(string.startsWith(command))
+	    map[string] = 0;
+	}
+    }
 
   if(map.size() == 1)
     replaceCurrentCommand(map.keys().at(0) + " ");
