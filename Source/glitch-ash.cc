@@ -122,23 +122,27 @@ void glitch_ash_textedit::handleReturnKey(void)
 
 void glitch_ash_textedit::handleTabKey(void)
 {
-  QStringList list;
+  QMap<QString, char> map;
   auto command(currentCommand());
 
-  foreach(const auto &i, m_commands.uniqueKeys())
+  foreach(const auto &i, m_commands.keys())
     if(command.isEmpty() || i.startsWith(command))
-      list << i;
+      map[i] = 0;
 
-  if(list.size() == 1)
-    replaceCurrentCommand(list.at(0) + " ");
+  if(map.size() == 1)
+    replaceCurrentCommand(map.keys().at(0) + " ");
   else
     {
       moveCursor(QTextCursor::End);
 
+      QMapIterator<QString, char> it(map);
       QString string("");
 
-      for(int i = 0; i < list.size(); i++)
-	string.append(list.at(i)).append(" ");
+      while(it.hasNext())
+	{
+	  it.next();
+	  string.append(it.key()).append(" ");
+	}
 
       append(string.trimmed());
       append("");
