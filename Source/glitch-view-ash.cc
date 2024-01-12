@@ -149,7 +149,7 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  {
 	    if(token == tr("clipboard"))
 	      generateSourceClipboard();
-	    else if(token == tr("source"))
+	    else if(token == tr("file"))
 	      generateSourceFile();
 	    else if(token == tr("view"))
 	      generateSourceView();
