@@ -68,6 +68,8 @@ class glitch_ash_textedit: public QTextEdit
   void handleReturnKey(void);
   void handleTabKey(void);
   void keyPressEvent(QKeyEvent *event);
+  void mouseDoubleClickEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event);
   void replaceCurrentCommand(const QString &command);
   void showEvent(QShowEvent *event);
 

@@ -242,6 +242,16 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
   QTextEdit::keyPressEvent(event);
 }
 
+void glitch_ash_textedit::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  Q_UNUSED(event);
+}
+
+void glitch_ash_textedit::mousePressEvent(QMouseEvent *event)
+{
+  Q_UNUSED(event);
+}
+
 void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 {
   auto cursor(textCursor());
