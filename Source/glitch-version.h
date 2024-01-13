@@ -27,5 +27,5 @@
 
 #ifndef _glitch_version_h_
 #define _glitch_version_h_
-#define GLITCH_VERSION_STRING "2024.01.10"
+#define GLITCH_VERSION_STRING "2024.01.15"
 #endif
