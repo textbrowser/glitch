@@ -324,12 +324,17 @@ $(function() {
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;};</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="keyword">inline</span> uint qHash(<span class="keyword">const</span> glitch_canvas_settings::Settings &amp;key, uint seed)</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;{</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;}</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="preprocessor">#if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">size_t</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="keyword">inline</span> uint</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;qHash(<span class="keyword">const</span> glitch_canvas_settings::Settings &amp;key, uint seed)</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;{</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;}</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__canvas__settings__item__delegate_html"><div class="ttname"><a href="classglitch__canvas__settings__item__delegate.html">glitch_canvas_settings_item_delegate</a></div><div class="ttdef"><b>Definition:</b> glitch-canvas-settings.h:39</div></div>
 <div class="ttc" id="aclassglitch__canvas__settings_html"><div class="ttname"><a href="classglitch__canvas__settings.html">glitch_canvas_settings</a></div><div class="ttdef"><b>Definition:</b> glitch-canvas-settings.h:140</div></div>
 </div><!-- fragment --></div><!-- contents -->
