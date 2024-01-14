@@ -8,7 +8,8 @@
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
-<li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and <b>c</b>ompiler <b>h</b>ybrid.
+<li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and
+  <b>c</b>ompiler <b>h</b>ybrid.
 <li>Infinite diagrams.</li>
 <li>Mindful drawing.</li>
 <li>Modern C++.</li>
@@ -24,7 +25,24 @@
 <li>Sparc!</li>
 
 <h3><b>Release Notes</b></h3>
-
+<p>2024.01.15</p>
+<ul>
+<li>ASH, design via a human-like language. An introduction.</li>
+<li>Connect close shortcuts to close buttons.</li>
+<li>Corrected Debian control files. The files do not contain
+  the required dependencies. GitHub ticket #9.</li>
+<li>Find Objects is now a dialog instead of a window.</li>
+<li>Highlight Recent Diagrams item if selected via the keyboard.</li>
+<li>Icons: zoom-reset on canvas context menu.</li>
+<li>Include object identifier in Find Objects.</li>
+<li>LTS release!</li>
+<li>New --full-screen.</li>
+<li>New errors covering Examples permissions. GitHub ticket #10.</li>
+<li>QString::split() and skip-empty-parts.</li>
+<li>Qt 6: size_t qHash() instead of uint qHash().</li>
+<li>Show image of dragged item during creation.</li>
+<li>The option --help did not include --show-serial-port-window.</li>
+</ul>
 <p>2023.11.20</p>
 <ul>
 <li>Center edit windows with respect to the main window.</li>
@@ -36,11 +54,10 @@
 <ul>
 <li>Adjust-size created shadows. Corrected!</li>
 <li>Added Other to Syntax category.</li>
-<li>Allow assigment of value during initialization of array
-  variable.</li>
+<li>Allow assigment of value during initialization of array variable.</li>
 <li>Beautiful zoom tool bar.</li>
-<li>Comment-like object property: Generate Source. Objects will
-  appear transparent.</li>
+<li>Comment-like object property: Generate Source. Objects will appear
+  transparent.</li>
 <li>Corrected spelling: macros() -> micros().</li>
 <li>Disable some keyboard events on read-only text-input fields.</li>
 <li>Improved recording of splitter states.</li>
@@ -88,10 +105,9 @@
   qt.pointer.dispatch: skipping QEventPoint() warning.</li>
 <li>Display a diagram's tab before loading it.</li>
 <li>Display only non-array types in Variables category.</li>
-<li>Do not register a redo / undo if a widget is moved to its
-  current position.</li>
-<li>Emit editingFinished() in
-  glitch_object_lineedit::leaveEvent().</li>
+<li>Do not register a redo / undo if a widget is moved to its current
+  position.</li>
+<li>Emit editingFinished() in glitch_object_lineedit::leaveEvent().</li>
 <li>Highlight problematic Recent Diagrams entries on non-Android and
   non-MacOS.</li>
 <li>Improved processing of restoring diagrams from database containers.
@@ -99,8 +115,8 @@
   future release.</li>
 <li>Increased generate-source-view timer interval to 1.5 seconds.</li>
 <li>Initialize the output_directory INI setting to the operator's
-  home directory. If the setting is not initialized, a source
-  file cannot be generated.</li>
+  home directory. If the setting is not initialized, a source file
+  cannot be generated.</li>
 <li>New lock and selection colors.</li>
 <li>New minimum height for comment object.</li>
 <li>New sizeHint() implementation for flow-control object.</li>
@@ -123,17 +139,16 @@
 <li>Disable diagram separation on Android.</li>
 <li>Double-clicking on an empty portion of a canvas will
   display the diagram's context menu.</li>
-<li>Hide a widget's resize helpers whenever the widget is
-  dragged.</li>
+<li>Hide a widget's resize helpers whenever the widget is dragged.</li>
 <li>Improved mouse interaction in proximity of wires.</li>
 <li>Improved positioning of context menus. A menu's top-left-corner
   position should be the cursor's position.</li>
-<li>Interactive scene previews. Double-clicking on a scene
-  will place the major theme into view.</li>
+<li>Interactive scene previews. Double-clicking on a scene will place
+  the major theme into view.</li>
 <li>New Glitch preference: Override Widget Fonts.</li>
 <li>Nicer Recent Diagrams for non-Android and non-MacOS.</li>
-<li>Open function edit windows via double-click on docked
-  function views.</li>
+<li>Open function edit windows via double-click on docked function
+  views.</li>
 <li>Set a minimum width when restoring a widget from its
   database.</li>
 <li>Set icon sizes on separated window tool bars.</li>
@@ -145,9 +160,8 @@
 <p>2023.07.30</p>
 <ul>
 <li>Android: new close buttons, properly close windows
-  (hide() instead of close()), showMaximized() instead of
-  showNormal(), tools menus (menus are shown in separate
-  windows).</li>
+  (hide() instead of close()), showMaximized() instead of showNormal(),
+  tools menus (menus are shown in separate windows).</li>
 <li>Attached descriptive tool tips to objects.</li>
 <li>Darkmode for Windows.</li>
 <li>Double-clicking a function clone will now launch the function's
@@ -155,8 +169,7 @@
 <li>Edit menu items are now present in the tool bar.</li>
 <li>File menu items are now present in the main window's tool bar.</li>
 <li>Font tool will now cover all widgets of a diagram.</li>
-<li>Generate Source View Periodically is now enabled for new
-  diagrams.</li>
+<li>Generate Source View Periodically is now enabled for new diagrams.</li>
 <li>Intelligent timers preserve resources.</li>
 <li>Linux-like distributions: /usr/local -> /opt.</li>
 <li>New Arduino variable types: BitOrder, PinStatus, pin_size_t,
@@ -180,8 +193,7 @@
 <p>2023.06.30</p>
 <ul>
 <li>A widget may be deleted in glitch_scene::artificialDrop() because
-  of an addObject() failure. Improved the logic of
-  artificialDrop().</li>
+  of an addObject() failure. Improved the logic of artificialDrop().</li>
 <li>Added Generate -> Source View to separated canvases.</li>
 <li>Added Tools to tool bars.</li>
 <li>Added analogReadResolution().</li>
@@ -199,13 +211,10 @@
 <li>Corrected adding of compound operator -= via drag & drop.</li>
 <li>Corrected derelict 'else' in glitch_object_variable_arduino::
   setProperties().</li>
-<li>Corrected drawing of arrow object. Large arrows are
-  distorted.</li>
-<li>Corrected state of Clear Copied Widgets Buffer in the main
-  window.</li>
+<li>Corrected drawing of arrow object. Large arrows are distorted.</li>
+<li>Corrected state of Clear Copied Widgets Buffer in the main window.</li>
 <li>Corrected state of Paste function in canvas floating menu.</li>
-<li>Corrected widget transformations. Function types were
-  incomplete.</li>
+<li>Corrected widget transformations. Function types were incomplete.</li>
 <li>Decreased the number of instructions in glitch_object():
   retrieve a new identifier for only a new widget.</li>
 <li>Default Arduino syntax colors for new diagrams.</li>
@@ -282,8 +291,7 @@
 <ul>
 <li>Activate minimized windows if necessary.</li>
 <li>An object's context menu is now accessible via Find Objects.
-Simply ignite a context menu over the desired object in Find
-Objects.</li>
+  Simply ignite a context menu over the desired object in Find Objects.</li>
 <li>Arduino IDE is optional. Do not prevent file generation.</li>
 <li>Corrected color sorting in Canvas Settings -> Source View.</li>
 <li>Corrected tear-off-menus default INI value.</li>
@@ -292,13 +300,11 @@ Objects.</li>
 <li>Natively-drawn widgets may now be optionally transparent.</li>
 <li>New tools: Adjust Size, Compress.</li>
 <li>Object transformation. For example, noTone() -> tone()
-via context menu.</li>
+  via context menu.</li>
 <li>Portable output files. New Glitch Preferences setting.</li>
 <li>PowerPC Debian release!</li>
-<li>Removed Other, block comment, and function() from
-Arduino keywords.</li>
-<li>Removed redundant sorting from
-Canvas Settings -> Source View.</li>
+<li>Removed Other, block comment, and function() from Arduino keywords.</li>
+<li>Removed redundant sorting from Canvas Settings -> Source View.</li>
 <li>Scroll a view if an object is moved via keyboard arrow keys.</li>
 </ul>
 <p>2023.04.30</p>
@@ -306,9 +312,9 @@ Canvas Settings -> Source View.</li>
 <li>Added New Diagram -> Arduino tool bar action.</li>
 <li>Background color property for natively-drawn widget.</li>
 <li>Corrected default value of setting
-preferences/docked_widget_property_editors.</li>
+  preferences/docked_widget_property_editors.</li>
 <li>Corrected pointer comparison in
-glitch_canvas_settings::slotSelectColor().</li>
+  glitch_canvas_settings::slotSelectColor().</li>
 <li>Dock property editors of children of editable objects.</li>
 <li>Edit tool bar.</li>
 <li>Enable native dialogs and menus. File dialogs are excluded.</li>
@@ -320,11 +326,10 @@ glitch_canvas_settings::slotSelectColor().</li>
 <li>Properties tool tips.</li>
 <li>Q_OS_MAC is deprecated. Replaced with Q_OS_MACOS.</li>
 <li>Qt 6.5 LTS compliant!</li>
-<li>Replaced color property with background color for arrow
-object.</li>
+<li>Replaced color property with background color for arrow object.</li>
 <li>Retain an edit window's geometry and state upon save event.</li>
 <li>Save state of a separated canvas is not reflected in the window's
-title.</li>
+  title.</li>
 <li>Simplified Recent Diagrams menu; native menus.</li>
 <li>Smoother preparation of tool bars through delayed painting.</li>
 <li>Vacuum glitch_recent_files.db after processing.</li>
@@ -339,7 +344,7 @@ title.</li>
 <li>C++17 is the new C++ standard.</li>
 <li>Corrected syntax highlighting of #define and #include.</li>
 <li>Delete selected items via Backspace and Delete keys if the Alt
-modifier key is also pressed.</li>
+  modifier key is also pressed.</li>
 <li>Denote the number of objects in Find Objects status bar.</li>
 <li>Disable Border Color property for arrow object.</li>
 <li>Disable a diagram's tool bar's context menu.</li>
@@ -352,7 +357,7 @@ modifier key is also pressed.</li>
 <li>New initial color for arrow object.</li>
 <li>Removed QPainter::HighQualityAntialiasing render hint.</li>
 <li>Replaced Shift modifier with Control modifier: disconnect wires,
-move objects via arrow keys.</li>
+  move objects via arrow keys.</li>
 <li>SQLite database of new diagram was missing keyword_colors field.</li>
 <li>Sensible notification of undefined source file.</li>
 <li>Separate pages via Control and drag.</li>
@@ -360,7 +365,7 @@ move objects via arrow keys.</li>
 <li>Stack widgets. New z-value property.</li>
 <li>Super render hints for arrow object.</li>
 <li>The main window's title will be incorrect if a non-current diagram
-is saved.</li>
+  is saved.</li>
 <li>Underline function clone name if parent function has members.</li>
 </ul>
 <p>2023.02.28</p>
@@ -381,7 +386,7 @@ is saved.</li>
 <ul>
 <li>Arduino Documentation and Release Notes window titles.</li>
 <li>Corrected changed states of views. Function object revisions may cause
-multiple signals.</li>
+  multiple signals.</li>
 <li>Do not create a source file after a canvas's settings are applied.</li>
 <li>Intelligent tree collapse / expand.</li>
 <li>Object border color via context menu item.</li>
@@ -397,10 +402,10 @@ multiple signals.</li>
 <p>2023.01.15</p>
 <ul>
 <li>Copy Object context menu item will not require that the object be
-selected.</li>
+  selected.</li>
 <li>Download official version information and display it in About.</li>
 <li>Enable Set Port Colors menu item if the parent widget has input or
-output.</li>
+  output.</li>
 <li>Include diagram name in Find Objects.</li>
 <li>Save option from object views.</li>
 <li>Show object floating menu via context menu action.</li>
@@ -416,16 +421,16 @@ output.</li>
 <li>Open the Arduino IDE even if the output file is not defined.</li>
 <li>Optionally synchronize Find Objects with parent diagram.</li>
 <li>QKeyEvent::modifiers() is not reliable. Replaced with
-QGuiApplication::keyboardModifiers().</li>
+  QGuiApplication::keyboardModifiers().</li>
 <li>Scroll-on-selection in diagrams.</li>
 <li>Select a widget if its combination box is clicked on by the left mouse
-button.</li>
+  button.</li>
 <li>Simplified flow-control conditional text.</li>
 </ul>
 <p>2022.11.30</p>
 <ul>
 <li>Detect clean states of redo / undo stacks and adjust states of parent
-diagrams.</li>
+  diagrams.</li>
 <li>Project IDE. Please see Project menu.</li>
 <li>Renamed Generate menu to Project.</li>
 <li>Special copying of loop() and setup() contents.</li>
@@ -446,7 +451,7 @@ diagrams.</li>
 <li>New selection color canvas property.</li>
 <li>Optimization level three.</li>
 <li>Prevent artificial redo / undo stack entries caused by copying and
-pasting of objects.</li>
+  pasting of objects.</li>
 </ul>
 <p>2022.11.15</p>
 <ul>
