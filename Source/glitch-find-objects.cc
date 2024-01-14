@@ -232,7 +232,7 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 
 void glitch_find_objects::slotSearch(void)
 {
-  auto count = 0;
+  // auto count = 0; Later, status-bar.
   auto text(m_ui.search->text().trimmed());
 
   if(text.isEmpty())
@@ -244,7 +244,7 @@ void glitch_find_objects::slotSearch(void)
       foreach(auto item, m_items)
 	if(item)
 	  {
-	    count += 1;
+	    // count += 1;
 	    item->setHidden(false);
 	  }
     }
@@ -260,7 +260,7 @@ void glitch_find_objects::slotSearch(void)
 	    for(i = 0; i < item->columnCount(); i++)
 	      if(item->text(i).contains(text, Qt::CaseInsensitive))
 		{
-		  count += 1;
+		  // count += 1;
 		  found = true;
 		  break;
 		}
