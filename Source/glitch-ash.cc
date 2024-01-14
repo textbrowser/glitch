@@ -123,7 +123,11 @@ void glitch_ash_textedit::handleReturnKey(void)
 void glitch_ash_textedit::handleTabKey(void)
 {
   QMap<QString, char> map;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QMapIterator<QString, QString> it(m_commands);
+#else
+  QMultiMapIterator<QString, QString> it(m_commands);
+#endif
   auto command(currentCommand());
 
   while(it.hasNext())
