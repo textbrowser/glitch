@@ -258,7 +258,12 @@ inline size_t
 #else
 inline uint
 #endif
-qHash(const glitch_canvas_settings::Settings &key, uint seed)
+qHash(const glitch_canvas_settings::Settings &key,
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+      size_t seed)
+#else
+      uint seed)
+#endif
 {
   return ::qHash(static_cast<uint> (key), seed);
 }
