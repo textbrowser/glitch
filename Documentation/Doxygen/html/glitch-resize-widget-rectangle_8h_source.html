@@ -139,12 +139,17 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">inline</span> uint</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;qHash(<span class="keyword">const</span> glitch_resize_widget_rectangle::RectangleLocations &amp;key, uint seed)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;qHash(<span class="keyword">const</span> glitch_resize_widget_rectangle::RectangleLocations &amp;key,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;#<span class="keywordflow">if</span> (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordtype">size_t</span> seed)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      uint seed)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;#endif</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__resize__widget__rectangle_html"><div class="ttname"><a href="classglitch__resize__widget__rectangle.html">glitch_resize_widget_rectangle</a></div><div class="ttdef"><b>Definition:</b> glitch-resize-widget-rectangle.h:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
