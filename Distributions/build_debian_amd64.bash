@@ -16,7 +16,7 @@ if [ ! -r glitch.pro ]; then
     exit 1
 fi
 
-# Preparing ./opt/glitch:
+# Prepare ./opt/glitch.
 
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
@@ -32,7 +32,7 @@ cp -pr ./Documentation/Arduino ./opt/glitch/Documentation/.
 cp -pr ./Examples ./opt/glitch/.
 rm -fr ./opt/glitch/Documentation/Doxygen
 
-# Preparing Glitch-x.deb:
+# Prepare Glitch-x.deb.
 
 mkdir -p glitch-debian/opt
 cp -pr ./Distributions/DEBIAN glitch-debian/.
