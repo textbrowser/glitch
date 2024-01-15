@@ -16,7 +16,7 @@ if [ ! -r glitch.pro ]; then
     exit 1
 fi
 
-# Prepare opt/glitch.
+# Prepare ./opt/glitch.
 
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
