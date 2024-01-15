@@ -46,7 +46,11 @@ enum class States
 
 void glitch_view::slotProcessCommand(const QString &command)
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   QListIterator<QString> it(command.split(' ', Qt::SkipEmptyParts));
+#else
+  QListIterator<QString> it(command.split(' ', QString::SkipEmptyParts));
+#endif
   States state = States::ZZZ;
 
   while(it.hasNext())
@@ -194,7 +198,11 @@ void glitch_view::slotProcessCommand(const QString &command)
 		    continue;
 		  }
 		else
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 		  list = token.split(',', Qt::SkipEmptyParts);
+#else
+		  list = token.split(',', QString::SkipEmptyParts);
+#endif
 
 		if(list.size() == 2)
 		  {

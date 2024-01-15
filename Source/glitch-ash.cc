@@ -341,7 +341,11 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   foreach(const auto &command, command.split(';', Qt::SkipEmptyParts))
+#else
+  foreach(const auto &command, command.split(';', QString::SkipEmptyParts))
+#endif
     if(command == tr("?") || command == tr("help"))
       {
 	QString string("");
@@ -366,7 +370,11 @@ void glitch_ash::slotProcessCommand(const QString &command)
       }
     else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
       {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	auto list1(command.split(' ', Qt::SkipEmptyParts));
+#else
+	auto list1(command.split(' ', QString::SkipEmptyParts));
+#endif
 
 	for(int i = 1; i < list1.size(); i++)
 	  {
@@ -383,8 +391,13 @@ void glitch_ash::slotProcessCommand(const QString &command)
 		m_ui.text->append(j);
 	  }
       }
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     else if(m_commands.
 	    contains(command.split(' ', Qt::SkipEmptyParts).value(0)))
+#else
+    else if(m_commands.
+	    contains(command.split(' ', QString::SkipEmptyParts).value(0)))
+#endif
       emit processCommand(command);
     else
       m_ui.text->append(tr("%1: command not recognized.").arg(command));

@@ -43,8 +43,13 @@
 
 QPointF glitch_misc::dbPointToPointF(const QString &text)
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   auto list
     (QString(text).remove("(").remove(")").split(',', Qt::SkipEmptyParts));
+#else
+  auto list
+    (QString(text).remove("(").remove(")").split(',', QString::SkipEmptyParts));
+#endif
 
   return {qAbs(list.value(0).toDouble()), qAbs(list.value(1).toDouble())};
 }

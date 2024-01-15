@@ -579,9 +579,15 @@ bool glitch_view::open(const QString &fileName, QString &error)
 					    PROPERTIES_MAXIMUM_LENGTH))) &&
 	   query.next())
 	  {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	    auto list
 	      (query.value(0).toString().trimmed().
 	       split('&', Qt::SkipEmptyParts));
+#else
+	    auto list
+	      (query.value(0).toString().trimmed().
+	       split('&', QString::SkipEmptyParts));
+#endif
 
 	    for(int i = 0; i < list.size(); i++)
 	      {
