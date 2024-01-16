@@ -32,11 +32,7 @@ Glitch: select left-most objects; align.
 <li>Serial port reader and writer.</li>
 </ul>
 
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/\
-	  glitch-android-1.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/\
-	  glitch-android-2.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/\
-	  glitch-arduino.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/\
-	  glitch-macos.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-android-1.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-android-2.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-arduino.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-macos.png)
