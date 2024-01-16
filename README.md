@@ -19,7 +19,8 @@ Glitch: select left-most objects; align.
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
-<li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and <b>c</b>ompiler <b>h</b>ybrid.</li>
+<li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and
+    <b>c</b>ompiler <b>h</b>ybrid.</li>
 <li>Infinite diagrams.</li>
 <li>Mindful drawing.</li>
 <li>Modern C++.</li>
@@ -31,7 +32,11 @@ Glitch: select left-most objects; align.
 <li>Serial port reader and writer.</li>
 </ul>
 
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-1.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-2.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-3.png)
-![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-4.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/
+	  glitch-android-1.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/
+	  glitch-android-2.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/
+	  glitch-arduino.png)
+![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/
+	  glitch-macos.png)
