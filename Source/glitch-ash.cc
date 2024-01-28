@@ -45,6 +45,14 @@ QString glitch_ash_textedit::currentCommand(void) const
   return command;
 }
 
+QString glitch_ash_textedit::history(const int index) const
+{
+  if(index >= 0 && index < m_history.count())
+    return m_history.at(index);
+  else
+    return "";
+}
+
 bool glitch_ash_textedit::handleBackspaceKey(void) const
 {
   auto cursor(textCursor());
@@ -348,6 +356,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  QString history("");
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   foreach(const auto &command, command.split(';', Qt::SkipEmptyParts))
 #else
@@ -376,8 +386,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	  m_ui.text->append(i);
       }
     else if(command.startsWith("!"))
-      {
-      }
+      history = m_ui.text->history
+	(QString(command).remove('!').toInt() - 1).trimmed();
     else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
       {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
@@ -415,4 +425,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
       m_ui.text->append(tr("%1: command not recognized.").arg(command));
 
   QApplication::restoreOverrideCursor();
+
+  if(!history.isEmpty())
+    emit m_ui.text->processCommand(history);
 }
