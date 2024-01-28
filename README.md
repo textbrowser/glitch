@@ -1,6 +1,6 @@
 Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
-Soon with a natural language processor!
+Now with a natural language processor!
 Glitch: connect (a, b) (c, d).
 Glitch: new int variable (a, b).
 Glitch: select left-most objects; align.
@@ -12,6 +12,7 @@ Glitch: select left-most objects; align.
 <li>ASH, or, a natural language shell.</li>
 <li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
+<li>Apple Silicon!</li>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
 <li>Configurable widgets.</li>
