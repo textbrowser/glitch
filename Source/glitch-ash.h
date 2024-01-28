@@ -48,6 +48,8 @@ class glitch_ash_textedit: public QTextEdit
     displayPrompt();
   }
 
+  void printHistory(void);
+
   void setCommands(const QMultiMap<QString, QString> &commands)
   {
     m_commands = commands;

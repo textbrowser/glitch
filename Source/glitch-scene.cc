@@ -1174,6 +1174,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
 	{
+	  /*
+	  ** Drag and copy.
+	  */
 	}
 
       auto cursorChanged = false;

@@ -256,6 +256,12 @@ void glitch_ash_textedit::mousePressEvent(QMouseEvent *event)
   Q_UNUSED(event);
 }
 
+void glitch_ash_textedit::printHistory(void)
+{
+  for(int i = 0; i < m_history.size(); i++)
+    append(QString("%1: %2").arg(i + 1).arg(m_history.at(i)));
+}
+
 void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
 {
   auto cursor(textCursor());
@@ -285,6 +291,7 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("generate"), tr("file"));
   m_commands.insert(tr("generate"), tr("view"));
   m_commands.insert(tr("help"), "");
+  m_commands.insert(tr("history"), "");
   m_commands.insert(tr("list"), "");
   m_commands.insert(tr("normal-screen"), "");
   m_commands.insert(tr("redo"), "");
@@ -368,6 +375,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	foreach(const auto &i, list)
 	  m_ui.text->append(i);
       }
+    else if(command.startsWith("!"))
+      {
+      }
     else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
       {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
@@ -391,6 +401,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
 		m_ui.text->append(j);
 	  }
       }
+    else if(command.startsWith(tr("history")))
+      m_ui.text->printHistory();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     else if(m_commands.
 	    contains(command.split(' ', Qt::SkipEmptyParts).value(0)))
