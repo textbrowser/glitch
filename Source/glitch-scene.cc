@@ -1169,6 +1169,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
       prepareBackgroundForMove(true);
 
+      auto dragAndCopy = false;
       auto instance = qobject_cast<QGuiApplication *>
 	(QApplication::instance());
 
@@ -1177,6 +1178,8 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  /*
 	  ** Drag and copy.
 	  */
+
+	  dragAndCopy = true;
 	}
 
       auto cursorChanged = false;
@@ -1223,7 +1226,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  if(!cursorChanged && viewport)
 	    {
 	      cursorChanged = true;
-	      viewport->setCursor(Qt::DragMoveCursor);
+
+	      if(dragAndCopy)
+		viewport->setCursor(Qt::DragCopyCursor);
+	      else
+		viewport->setCursor(Qt::DragMoveCursor);
 	    }
 
 	  moved = true;
