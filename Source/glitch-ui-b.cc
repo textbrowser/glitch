@@ -28,6 +28,7 @@
 #include <QFileDialog>
 #include <QToolButton>
 
+#include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
@@ -35,6 +36,73 @@
 #include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
 #include "glitch-view.h"
+
+QList<glitch_object *> glitch_ui::copySelected
+(QGraphicsView *view, QList<QPointF> &points, const bool selected)
+{
+  QList<glitch_object *> objects;
+
+  if(!view || !view->scene())
+    return objects;
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  auto list
+    (!selected ? view->scene()->items() : view->scene()->selectedItems());
+
+  foreach(auto i, list)
+    {
+      if(!i)
+	continue;
+
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+
+      if(!proxy || proxy->isMandatory())
+	continue;
+      else if((!(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
+	       !proxy->isSelected()) &&
+	      selected)
+	continue;
+
+      auto object = proxy->object();
+
+      if(!object)
+	continue;
+
+      auto point(object->scenePos());
+      glitch_object *clone = nullptr;
+
+      if(qobject_cast<glitch_object_function_arduino *> (object))
+	{
+	  /*
+	  ** Clone the real function.
+	  */
+
+	  object = qobject_cast<glitch_object_function_arduino *>
+	    (object)->parentFunction();
+
+	  if(!object)
+	    object = proxy->object();
+
+	  if(object)
+	    {
+	      clone = object->clone(nullptr);
+	      clone->setOriginalPosition(point);
+	    }
+	}
+      else
+	clone = object->clone(nullptr);
+
+      if(!clone)
+	continue;
+
+      objects << clone;
+      points << point;
+    }
+
+  QApplication::restoreOverrideCursor();
+  return objects;
+}
 
 QString glitch_ui::about(void) const
 {

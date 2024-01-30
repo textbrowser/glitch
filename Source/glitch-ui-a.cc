@@ -646,66 +646,19 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 
 void glitch_ui::copy(QGraphicsView *view, const bool selected)
 {
-  if(!view || !view->scene())
-    return;
-
   clearCopiedObjects();
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto list
-    (!selected ? view->scene()->items() : view->scene()->selectedItems());
+  QList<QPointF> points;
+  auto list(copySelected(view, points, selected));
 
-  foreach(auto i, list)
+  for(int i = 0; i < list.size(); i++)
     {
-      if(!i)
-	continue;
-
-      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
-
-      if(!proxy || proxy->isMandatory())
-	continue;
-      else if((!(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
-	       !proxy->isSelected()) &&
-	      selected)
-	continue;
-
-      auto object = proxy->object();
-
-      if(!object)
-	continue;
-
-      auto point(object->scenePos());
-      glitch_object *clone = nullptr;
-
-      if(qobject_cast<glitch_object_function_arduino *> (object))
-	{
-	  /*
-	  ** Clone the real function.
-	  */
-
-	  object = qobject_cast<glitch_object_function_arduino *>
-	    (object)->parentFunction();
-
-	  if(!object)
-	    object = proxy->object();
-
-	  if(object)
-	    {
-	      clone = object->clone(nullptr);
-	      clone->setOriginalPosition(point);
-	    }
-	}
-      else
-	clone = object->clone(nullptr);
-
-      if(!clone)
-	continue;
+      auto point(points.value(i));
 
       s_copiedObjects.insert
-	(QPair<int, int> (point.toPoint().x(), point.toPoint().y()), clone);
+	(QPair<int, int> (point.toPoint().x(), point.toPoint().y()),
+	 list.at(i));
     }
-
-  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::copy(glitch_object *object)
