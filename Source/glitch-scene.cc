@@ -1179,7 +1179,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	(QApplication::instance());
       auto list(selectedObjects());
 
-      if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
+      if(instance &&
+	 instance->keyboardModifiers() & Qt::ControlModifier &&
+	 list.size() > 0)
 	{
 	  /*
 	  ** Drag and copy.

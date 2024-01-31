@@ -135,6 +135,7 @@ Completed Items
 - Docked floating context menus.
 - Dots and grids.
 - Double-click to edit for editable widgets.
+- Drag and copy.
 - Drag multiple items.
 - Dragging an item onto a diagram and scroll bars.
 - Draw and, not, or, etc. objects.
@@ -339,7 +340,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Drag and copy.
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
 - Insert-between widgets option.
