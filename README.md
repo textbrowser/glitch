@@ -1,28 +1,35 @@
+Glitch is a graphical lightweight interactive tool and compiler hybrid.
+Generate Arduino software via beautiful graphical diagrams (blueprints).
+Now with a natural language processor!
+Glitch: connect (a, b) (c, d).
+Glitch: new int variable (a, b).
+Glitch: select left-most objects; align.
+
 <h3><b>Summary of Glitch</b></h3>
 
+<li>ARM, PowerPC, Sparc, etc.</li>
+<li>ASH, or, a natural language shell.</li>
 <li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
+<li>Apple Silicon!</li>
 <li>Arduino!</li>
 <li>Available almost everywhere!</li>
+<li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
 <li><b>G</b>raphical <b>l</b>ightweight <b>i</b>nteractive <b>t</b>ool and
-  <b>c</b>ompiler <b>h</b>ybrid.
+    <b>c</b>ompiler <b>h</b>ybrid.</li>
 <li>Infinite diagrams.</li>
 <li>Mindful drawing.</li>
 <li>Modern C++.</li>
-<li>Object alignment tools.</li>
-<li>Optionally-transparent widgets if provided by local systems.</li>
-<li>PowerPC!</li>
 <li>Qt 5.5.1 (PowerPC)!</li>
 <li>Qt LTS.</li>
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Serial port reader and writer.</li>
-<li>Sparc!</li>
 
 <h3><b>Release Notes</b></h3>
 <p>2024.01.15</p>
