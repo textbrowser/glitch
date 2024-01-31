@@ -1583,7 +1583,7 @@ void glitch_scene::paste
 
       if(!(object = object->clone(view)))
 	{
-	  delete objects.at(i);
+	  objects.at(i)->deleteLater();
 	  continue;
 	}
       else
@@ -1593,7 +1593,7 @@ void glitch_scene::paste
 		  object,
 		  SLOT(slotWireObjects(void)),
 		  Qt::UniqueConnection);
-	  delete objects.at(i);
+	  objects.at(i)->deleteLater();
 	}
 
       auto x = points.value(i).x();
