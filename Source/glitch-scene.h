@@ -81,6 +81,7 @@ class glitch_scene: public QGraphicsScene
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setDotsGridsColor(const QColor &color);
   void setMainScene(const bool state);
+  void setLoadingFromFile(const bool state);
   void setShowCanvasDots(const bool state);
   void setShowCanvasGrids(const bool state);
   void setUndoStack(QUndoStack *undoStack);
@@ -102,6 +103,7 @@ class glitch_scene: public QGraphicsScene
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_canvas_settings> m_canvasSettings;
   QSet<glitch_wire *> m_wires;
+  bool m_loadingFromFile;
   bool m_mainScene;
   bool m_showCanvasDots;
   bool m_showCanvasGrids;
@@ -121,6 +123,9 @@ class glitch_scene: public QGraphicsScene
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+  void paste(const QList<QPointF> &points,
+	     const QList<glitch_object *> &objects,
+	     const QPointF &position);
   void prepareBackgroundForMove(const bool state);
   void recordProxyOrder(glitch_proxy_widget *proxy);
   void wireConnectObjects(glitch_proxy_widget *proxy);

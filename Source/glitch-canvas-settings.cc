@@ -532,8 +532,10 @@ void glitch_canvas_settings::closeEvent(QCloseEvent *event)
   m_timer.stop();
 }
 
-void glitch_canvas_settings::prepare(void)
+void glitch_canvas_settings::prepare(const QString &fileName)
 {
+  m_fileName = fileName;
+
   QFileInfo fileInfo(m_fileName);
 
   if(!fileInfo.isReadable())

@@ -647,9 +647,10 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 void glitch_ui::copy(QGraphicsView *view, const bool selected)
 {
   clearCopiedObjects();
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QPointF> points;
-  auto list(copySelected(view, points, selected));
+  auto list(copySelected(view, &points, false, selected));
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -659,6 +660,8 @@ void glitch_ui::copy(QGraphicsView *view, const bool selected)
 	(QPair<int, int> (point.toPoint().x(), point.toPoint().y()),
 	 list.at(i));
     }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_ui::copy(glitch_object *object)
@@ -875,13 +878,13 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	{
 	  auto p(point);
 
-	  p.setX(p.x() + x - first.x());
+	  p.setX(-first.x() + p.x() + x);
 
 	  if(p.x() < 0)
 	    p.setX(0);
 
 	  if(y > first.y())
-	    p.setY(p.y() + y - first.y());
+	    p.setY(-first.y() + p.y() + y);
 	  else
 	    p.setY(p.y() - (first.y() - y));
 
@@ -1104,7 +1107,7 @@ void glitch_ui::prepareRecentFiles(void)
 #if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
       auto action = m_ui.menu_Recent_Diagrams->addAction(list.at(i));
 
-      action->setProperty("file_name", list.at(i));
+      action->setProperty("file-name", list.at(i));
       connect(action,
 	      &QAction::triggered,
 	      this,
@@ -1113,7 +1116,7 @@ void glitch_ui::prepareRecentFiles(void)
       auto action = new glitch_recent_diagram
 	(list.at(i), m_ui.menu_Recent_Diagrams);
 
-      action->setProperty("file_name", list.at(i));
+      action->setProperty("file-name", list.at(i));
       connect(action,
 	      &glitch_recent_diagram::clicked,
 	      this,
@@ -1805,7 +1808,7 @@ void glitch_ui::slotForgetRecentDiagram(void)
 	QSqlQuery query(db);
 
 	query.prepare("DELETE FROM glitch_recent_files WHERE file_name = ?");
-	query.addBindValue(action->property("file_name").toString());
+	query.addBindValue(action->property("file-name").toString());
 
 	if(query.exec())
 	  m_ui.menu_Recent_Diagrams->removeAction(action);
@@ -1970,7 +1973,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
   QString error("");
 
-  if(openDiagram(action->property("file_name").toString(), error))
+  if(openDiagram(action->property("file-name").toString(), error))
     prepareActionWidgets();
 
   if(!error.isEmpty())

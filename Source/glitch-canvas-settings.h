@@ -194,7 +194,7 @@ class glitch_canvas_settings: public QDialog
   bool showOrderIndicators(void) const;
   double wireWidth(void) const;
   int redoUndoStackSize(void) const;
-  void prepare(void);
+  void prepare(const QString &fileName);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
   void setName(const QString &name);

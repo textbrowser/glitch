@@ -38,7 +38,10 @@
 #include "glitch-view.h"
 
 QList<glitch_object *> glitch_ui::copySelected
-(QGraphicsView *view, QList<QPointF> &points, const bool selected)
+(QGraphicsView *view,
+ QList<QPointF> *points,
+ const bool deselectOriginal,
+ const bool selected)
 {
   QList<glitch_object *> objects;
 
@@ -93,11 +96,16 @@ QList<glitch_object *> glitch_ui::copySelected
       else
 	clone = object->clone(nullptr);
 
+      if(deselectOriginal)
+	proxy->setSelected(false);
+
       if(!clone)
 	continue;
 
       objects << clone;
-      points << point;
+
+      if(points)
+	points->append(point);
     }
 
   QApplication::restoreOverrideCursor();

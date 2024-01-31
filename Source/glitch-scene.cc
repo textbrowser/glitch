@@ -88,6 +88,7 @@ glitch_scene::glitch_scene
   QGraphicsScene(parent)
 {
   m_dotsGridsColor = Qt::white;
+  m_loadingFromFile = false;
   m_mainScene = false;
   m_projectType = projectType;
   m_showCanvasDots = false;
@@ -439,13 +440,18 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   */
 
 #ifndef Q_OS_MACOS
-  object->setVisible(false);
+  if(m_loadingFromFile)
+    object->setVisible(false);
 #endif
+
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
+
 #ifndef Q_OS_MACOS
-  QTimer::singleShot(50, object, &glitch_object::show);
+  if(m_loadingFromFile)
+    QTimer::singleShot(50, object, &glitch_object::show);
 #endif
+
   emit changed();
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
@@ -574,7 +580,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
 
   if(glitch_ui::s_copiedObjectsSet.contains(proxy ? proxy->object() : nullptr))
     /*
-    ** Connect pasted objects.
+    ** Connect the pasted objects.
     */
 
     QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
@@ -1169,9 +1175,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     {
       prepareBackgroundForMove(true);
 
-      auto dragAndCopy = false;
       auto instance = qobject_cast<QGuiApplication *>
 	(QApplication::instance());
+      auto list(selectedObjects());
 
       if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
 	{
@@ -1179,43 +1185,72 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	  ** Drag and copy.
 	  */
 
-	  dragAndCopy = true;
+	  if(!property("drag-and-copy").toBool())
+	    {
+	      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+	      QList<QPointF> points;
+
+	      /*
+	      ** Copy and deselect the original, selected widgets.
+	      */
+
+	      list = glitch_ui::copySelected
+		(views().value(0), &points, true, true);
+
+	      /*
+	      ** Paste the newly-copied widgets at the current location.
+	      */
+
+	      paste(points, list, event->scenePos());
+
+	      /*
+	      ** Wire the newly-pasted widgets.
+	      */
+
+	      QTimer::singleShot(5, this, SIGNAL(wireObjects(void)));
+
+	      /*
+	      ** Select the newly-pasted widgets.
+	      */
+
+	      list = selectedObjects();
+	      setProperty("drag-and-copy", true);
+	      QApplication::restoreOverrideCursor();
+	    }
 	}
 
       auto cursorChanged = false;
       auto moved = false;
       auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
 
-      foreach(auto i, selectedItems())
+      foreach(auto object, list)
 	{
-	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	  if(!object)
+	    continue;
+
+	  auto proxy = object->proxy();
 
 	  if(!proxy || !proxy->isMovable())
 	    continue;
 
-	  auto object = qobject_cast<glitch_object *> (proxy->widget());
-
-	  if(object)
+	  if(object->mouseOverScrollBar(event->scenePos()))
+	    continue;
+	  else
 	    {
-	      if(object->mouseOverScrollBar(event->scenePos()))
-		continue;
-	      else
-		{
-		  {
-		    auto w = qobject_cast<QLineEdit *> (object->focusWidget());
+	      {
+		auto w = qobject_cast<QLineEdit *> (object->focusWidget());
 
-		    if(w && w->isReadOnly() == false)
-		      continue;
-		  }
+		if(w && w->isReadOnly() == false)
+		  continue;
+	      }
 
-		  {
-		    auto w = qobject_cast<QPlainTextEdit *>
-		      (object->focusWidget());
+	      {
+		auto w = qobject_cast<QPlainTextEdit *> (object->focusWidget());
 
-		    if(w && w->isReadOnly() == false)
-		      continue;
-		  }
-		}
+		if(w && w->isReadOnly() == false)
+		  continue;
+	      }
 	    }
 
 	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
@@ -1227,7 +1262,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	    {
 	      cursorChanged = true;
 
-	      if(dragAndCopy)
+	      if(property("drag-and-copy").toBool())
 		viewport->setCursor(Qt::DragCopyCursor);
 	      else
 		viewport->setCursor(Qt::DragMoveCursor);
@@ -1428,6 +1463,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   m_lastScenePos = QPointF();
+  setProperty("drag-and-copy", false);
 
   if(event->modifiers() & Qt::ControlModifier)
     {
@@ -1509,6 +1545,108 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 
   QGraphicsScene::mouseReleaseEvent(event);
+}
+
+void glitch_scene::paste
+(const QList<QPointF> &points,
+ const QList<glitch_object *> &objects,
+ const QPointF &position)
+{
+  if(objects.isEmpty())
+    return;
+
+  auto view = views().value(0);
+
+  if(!view)
+    return;
+
+  QPoint first;
+  auto f = false; // First?
+  auto point(position);
+
+  if(point.x() < 0)
+    point.setX(0);
+
+  if(point.y() < 0)
+    point.setY(0);
+
+  for(int i = 0; i < objects.size(); i++)
+    {
+      auto object = objects.at(i);
+
+      if(!object)
+	continue;
+
+      object->setCanvasSettings(canvasSettings());
+
+      if(!(object = object->clone(view)))
+	{
+	  delete objects.at(i);
+	  continue;
+	}
+      else
+	{
+	  connect(this,
+		  SIGNAL(wireObjects(void)),
+		  object,
+		  SLOT(slotWireObjects(void)),
+		  Qt::UniqueConnection);
+	  delete objects.at(i);
+	}
+
+      auto x = points.value(i).x();
+      auto y = points.value(i).y();
+
+      if(!f)
+	{
+	  first = QPoint(x, y);
+
+	  auto proxy = addObject(object);
+
+	  if(proxy)
+	    {
+	      addItem(proxy);
+	      object->afterPaste();
+	      proxy->setParent(this);
+	      proxy->setPos(point);
+	      proxy->setSelected(true);
+	    }
+	  else
+	    object->deleteLater();
+	}
+      else
+	{
+	  auto p(point);
+
+	  p.setX(p.x() + x - first.x());
+
+	  if(p.x() < 0)
+	    p.setX(0);
+
+	  if(y > first.y())
+	    p.setY(p.y() + y - first.y());
+	  else
+	    p.setY(p.y() - (first.y() - y));
+
+	  if(p.y() < 0)
+	    p.setY(0);
+
+	  auto proxy = addObject(object);
+
+	  if(proxy)
+	    {
+	      addItem(proxy);
+	      object->afterPaste();
+	      proxy->setParent(this);
+	      proxy->setPos(p);
+	      proxy->setSelected(true);
+	    }
+	  else
+	    object->deleteLater();
+	}
+
+      f = true;
+    }
 }
 
 void glitch_scene::prepareBackgroundForMove(const bool state)
@@ -1668,6 +1806,11 @@ void glitch_scene::setDotsGridsColor(const QColor &color)
     m_dotsGridsColor = color;
   else
     m_dotsGridsColor = Qt::white;
+}
+
+void glitch_scene::setLoadingFromFile(const bool state)
+{
+  m_loadingFromFile = state;
 }
 
 void glitch_scene::setMainScene(const bool state)

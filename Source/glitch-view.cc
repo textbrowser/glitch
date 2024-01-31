@@ -76,9 +76,8 @@ glitch_view::glitch_view
   m_canvasPreview = new glitch_canvas_preview(this);
   m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
   m_canvasSettings = new glitch_canvas_settings(this);
-  m_canvasSettings->setFileName(fileName);
+  m_canvasSettings->prepare(fileName);
   m_canvasSettings->setName(name);
-  m_canvasSettings->prepare();
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
@@ -431,10 +430,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
       return false;
     }
 
-  m_canvasSettings->setFileName(fileName);
-  m_canvasSettings->prepare();
+  m_canvasSettings->prepare(fileName);
   m_delayedWires.clear();
   m_fileName = fileName;
+  m_scene->setLoadingFromFile(true);
   m_settings = m_canvasSettings->settings();
   disconnect(m_scene,
 	     &glitch_scene::changed,
@@ -692,6 +691,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  this,
 	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
+  m_scene->setLoadingFromFile(false);
   return ok;
 }
 
