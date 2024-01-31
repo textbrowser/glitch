@@ -91,37 +91,46 @@ QPointer<glitch_object> glitch_proxy_widget::object(void) const
 QVariant glitch_proxy_widget::itemChange
 (GraphicsItemChange change, const QVariant &value)
 {
-  if(change == QGraphicsItem::ItemFlagsChange &&
-     m_object &&
-     m_resizeWidget)
+  switch(change)
     {
-      foreach(auto item, resizeRectangles())
-	if(item)
-	  item->setVisible(isSelected());
+    case QGraphicsItem::ItemFlagsChange:
+      {
+	foreach(auto item, resizeRectangles())
+	  if(item)
+	    item->setVisible(isSelected());
 
-      if(isMandatory())
-	m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
-      else
-	m_resizeWidget->showEdgeRectanglesForLockedPosition
-	  (isSelected(), m_object->positionLocked());
+	if(m_object && m_resizeWidget)
+	  {
+	    if(isMandatory())
+	      m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
+	    else
+	      m_resizeWidget->showEdgeRectanglesForLockedPosition
+		(isSelected(), m_object->positionLocked());
+	  }
 
-      return value;
-    }
-  else if(change == QGraphicsItem::ItemSelectedChange &&
-	  m_object &&
-	  m_resizeWidget)
-    {
-      foreach(auto item, resizeRectangles())
-	if(item)
-	  item->setVisible(value.toBool());
+	return value;
+      }
+    case QGraphicsItem::ItemSelectedChange:
+      {
+	foreach(auto item, resizeRectangles())
+	  if(item)
+	    item->setVisible(value.toBool());
 
-      if(isMandatory())
-	m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
-      else
-	m_resizeWidget->showEdgeRectanglesForLockedPosition
-	  (value.toBool(), m_object->positionLocked());
+	if(m_object && m_resizeWidget)
+	  {
+	    if(isMandatory())
+	      m_resizeWidget->showEdgeRectanglesForLockedPosition(false, false);
+	    else
+	      m_resizeWidget->showEdgeRectanglesForLockedPosition
+		(value.toBool(), m_object->positionLocked());
+	  }
 
-      return value;
+	return value;
+      }
+    default:
+      {
+	break;
+      }
     }
 
   return QGraphicsProxyWidget::itemChange(change, value);
