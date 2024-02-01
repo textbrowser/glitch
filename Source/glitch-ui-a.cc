@@ -878,13 +878,13 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	{
 	  auto p(point);
 
-	  p.setX(-first.x() + p.x() + x);
+	  p.setX(p.x() + x - first.x());
 
 	  if(p.x() < 0)
 	    p.setX(0);
 
 	  if(y > first.y())
-	    p.setY(-first.y() + p.y() + y);
+	    p.setY(p.y() + y - first.y());
 	  else
 	    p.setY(p.y() - (first.y() - y));
 

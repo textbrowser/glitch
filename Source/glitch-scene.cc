@@ -1213,7 +1213,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	      QTimer::singleShot(5, this, SIGNAL(wireObjects(void)));
 
 	      /*
-	      ** Select the newly-pasted widgets.
+	      ** Retrieve the newly-pasted widgets.
 	      */
 
 	      list = selectedObjects();
