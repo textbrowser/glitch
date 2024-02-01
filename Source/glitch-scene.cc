@@ -1593,6 +1593,8 @@ void glitch_scene::paste
 		  object,
 		  SLOT(slotWireObjects(void)),
 		  Qt::UniqueConnection);
+	  object->setProperty
+	    (glitch_object::Properties::POSITION_LOCKED, false);
 	  objects.at(i)->deleteLater();
 	}
 
