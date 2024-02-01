@@ -262,7 +262,6 @@ void glitch_undo_command::redo(void)
       {
 	if(m_proxy && m_scene)
 	  {
-	    m_proxy->setParent(m_scene);
 	    m_scene->addItem(m_proxy);
 	    m_scene->update();
 	  }

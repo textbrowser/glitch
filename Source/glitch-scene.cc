@@ -569,6 +569,8 @@ void glitch_scene::addItem(QGraphicsItem *item)
 		proxy->object()->editScene(),
 		&glitch_scene::slotFunctionDeleted,
 		Qt::UniqueConnection);
+
+      proxy->setParent(this);
     }
 
   recordProxyOrder(proxy);
