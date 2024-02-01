@@ -1614,6 +1614,8 @@ void glitch_scene::paste
 	      proxy->setParent(this);
 	      proxy->setPos(point);
 	      proxy->setSelected(true);
+	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
+		(proxy->scenePos(), proxy);
 	    }
 	  else
 	    object->deleteLater();
@@ -1644,6 +1646,8 @@ void glitch_scene::paste
 	      proxy->setParent(this);
 	      proxy->setPos(p);
 	      proxy->setSelected(true);
+	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
+		(proxy->scenePos(), proxy);
 	    }
 	  else
 	    object->deleteLater();
