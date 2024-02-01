@@ -1563,6 +1563,7 @@ void glitch_scene::paste
     return;
 
   QPoint first;
+  auto began = false;
   auto f = false; // First?
   auto point(position);
 
@@ -1609,9 +1610,24 @@ void glitch_scene::paste
 
 	  if(proxy)
 	    {
-	      addItem(proxy);
+	      if(m_undoStack)
+		{
+		  if(!began)
+		    {
+		      began = true;
+		      m_undoStack->beginMacro
+			(tr("item(s) added via drag-and-copy"));
+		    }
+
+		  auto undoCommand = new glitch_undo_command
+		    (glitch_undo_command::Types::ITEM_ADDED, proxy, this);
+
+		  m_undoStack->push(undoCommand);
+		}
+	      else
+		addItem(proxy);
+
 	      object->afterPaste();
-	      proxy->setParent(this);
 	      proxy->setPos(point);
 	      proxy->setSelected(true);
 	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
@@ -1641,9 +1657,24 @@ void glitch_scene::paste
 
 	  if(proxy)
 	    {
-	      addItem(proxy);
+	      if(m_undoStack)
+		{
+		  if(!began)
+		    {
+		      began = true;
+		      m_undoStack->beginMacro
+			(tr("item(s) added via drag-and-copy"));
+		    }
+
+		  auto undoCommand = new glitch_undo_command
+		    (glitch_undo_command::Types::ITEM_ADDED, proxy, this);
+
+		  m_undoStack->push(undoCommand);
+		}
+	      else
+		addItem(proxy);
+
 	      object->afterPaste();
-	      proxy->setParent(this);
 	      proxy->setPos(p);
 	      proxy->setSelected(true);
 	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
@@ -1655,6 +1686,9 @@ void glitch_scene::paste
 
       f = true;
     }
+
+  if(began && m_undoStack)
+    m_undoStack->endMacro();
 }
 
 void glitch_scene::prepareBackgroundForMove(const bool state)
