@@ -77,7 +77,7 @@ void glitch_resize_widget::paint
 
   QHashIterator<glitch_resize_widget_rectangle::RectangleLocations,
 		glitch_resize_widget_rectangle *> it(m_rectangles);
-  auto color(m_parent->selectionColor());
+  auto color(m_parent ? m_parent->selectionColor() : QColor(Qt::blue));
 
   while(it.hasNext())
     {
@@ -148,9 +148,7 @@ void glitch_resize_widget::positionEdgeRectangles(void)
 
 void glitch_resize_widget::prepareRectangles(void)
 {
-  if(!m_parent)
-    return;
-  else if(!m_rectangles.isEmpty())
+  if(!m_parent || !m_rectangles.isEmpty())
     return;
 
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
