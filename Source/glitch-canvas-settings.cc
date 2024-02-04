@@ -34,7 +34,6 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include <QStandardPaths>
 #include <QStorageInfo>
 
 #include "Arduino/glitch-structures-arduino.h"

@@ -25,7 +25,10 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDir>
+#include <QDateTime>
 #include <QKeyEvent>
+#include <QStandardPaths>
 
 #include "glitch-ash.h"
 #include "glitch-misc.h"
@@ -281,6 +284,19 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
   cursor.insertText(command);
 }
 
+void glitch_ash_textedit::saveHistory(void) const
+{
+  auto fileName
+    (QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).
+     value(0));
+
+  fileName.append(QDir::separator());
+  fileName.append
+    (QString("glitch-history-%1.txt").
+     arg(QDateTime::currentDateTime().toString(Qt::ISODate).
+	 remove('-').remove(':')));
+}
+
 void glitch_ash_textedit::showEvent(QShowEvent *event)
 {
   QTextEdit::showEvent(event);
@@ -304,6 +320,7 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("normal-screen"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("save"), "");
+  m_commands.insert(tr("save-history"), "");
   m_commands.insert(tr("select"), tr("all"));
   m_commands.insert(tr("select"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
@@ -413,6 +430,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
       }
     else if(command.startsWith(tr("history")))
       m_ui.text->printHistory();
+    else if(command.startsWith(tr("save-history")))
+      m_ui.text->saveHistory();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     else if(m_commands.
 	    contains(command.split(' ', Qt::SkipEmptyParts).value(0)))
