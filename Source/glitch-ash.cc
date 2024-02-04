@@ -295,6 +295,22 @@ void glitch_ash_textedit::saveHistory(void) const
     (QString("glitch-history-%1.txt").
      arg(QDateTime::currentDateTime().toString(Qt::ISODate).
 	 remove('-').remove(':')));
+
+  QFile file(fileName);
+
+  if(file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+    {
+      QTextStream stream(&file);
+
+      for(int i = 0; i < m_history.size(); i++)
+	stream << m_history.at(i)
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+	       << endl
+#else
+	       << Qt::endl
+#endif
+	  ;
+    }
 }
 
 void glitch_ash_textedit::showEvent(QShowEvent *event)
