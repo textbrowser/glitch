@@ -284,7 +284,7 @@ void glitch_ash_textedit::replaceCurrentCommand(const QString &command)
   cursor.insertText(command);
 }
 
-void glitch_ash_textedit::saveHistory(void) const
+void glitch_ash_textedit::saveHistoryDesktop(void) const
 {
   auto fileName
     (QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).
@@ -292,7 +292,7 @@ void glitch_ash_textedit::saveHistory(void) const
 
   fileName.append(QDir::separator());
   fileName.append
-    (QString("glitch-history-%1.txt").
+    (QString("glitch-ash-history-%1.txt").
      arg(QDateTime::currentDateTime().toString(Qt::ISODate).
 	 remove('-').remove(':')));
 
@@ -336,7 +336,7 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("normal-screen"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("save"), "");
-  m_commands.insert(tr("save-history"), "");
+  m_commands.insert(tr("save-history-desktop"), "");
   m_commands.insert(tr("select"), tr("all"));
   m_commands.insert(tr("select"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
@@ -446,8 +446,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
       }
     else if(command.startsWith(tr("history")))
       m_ui.text->printHistory();
-    else if(command.startsWith(tr("save-history")))
-      m_ui.text->saveHistory();
+    else if(command.startsWith(tr("save-history-desktop")))
+      m_ui.text->saveHistoryDesktop();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     else if(m_commands.
 	    contains(command.split(' ', Qt::SkipEmptyParts).value(0)))
