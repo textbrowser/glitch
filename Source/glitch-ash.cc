@@ -332,7 +332,8 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("generate"), tr("view"));
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("history"), "");
-  m_commands.insert(tr("list"), "");
+  m_commands.insert(tr("list"), tr("all"));
+  m_commands.insert(tr("list"), tr("local"));
   m_commands.insert(tr("normal-screen"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("save"), "");

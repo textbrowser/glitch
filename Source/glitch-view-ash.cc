@@ -87,7 +87,10 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  continue;
 	}
       else if(token.startsWith(tr("list"), Qt::CaseInsensitive))
-	state = States::List;
+	{
+	  state = States::List;
+	  continue;
+	}
       else if(token.startsWith(tr("select"), Qt::CaseInsensitive))
 	state = States::Select;
       else if(token.startsWith(tr("set"), Qt::CaseInsensitive))
@@ -165,8 +168,16 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  {
 	    QString string("");
 
-	    foreach(auto object, allObjects())
-	      string.append(object->about()).append(" ");
+	    if(token == tr("all"))
+	      {
+		foreach(auto object, allObjects())
+		  string.append(object->about()).append(" ");
+	      }
+	    else if(token == tr("local"))
+	      {
+		foreach(auto object, objects())
+		  string.append(object->about()).append(" ");
+	      }
 
 	    if(!string.isEmpty())
 	      emit information(string);
