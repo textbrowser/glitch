@@ -79,6 +79,7 @@ class glitch_object_edit_window: public QMainWindow
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
   QPointer<glitch_user_functions_model> m_userFunctionsModel;
+  QSplitter *m_bottomTopSplitter;
   QSplitter *m_leftSplitter;
   QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
@@ -93,6 +94,7 @@ class glitch_object_edit_window: public QMainWindow
   bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void hideEvent(QHideEvent *event);
+  void prepareASH(void);
   void prepareIcons(void);
   void resizeEvent(QResizeEvent *event);
   void showEvent(QShowEvent *event);

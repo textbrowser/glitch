@@ -183,6 +183,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
   m_ash = new glitch_ash(this);
+  m_bottomTopSplitter = new QSplitter(Qt::Vertical, this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize
@@ -221,6 +222,10 @@ glitch_object_edit_window::glitch_object_edit_window
   addToolBar(m_editToolBar);
   addToolBar(m_toolsToolBar);
   addToolBar(m_miscellaneousToolBar);
+  connect(m_bottomTopSplitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSplitterMoved(void)));
   connect(m_rightSplitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
@@ -230,6 +235,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  this,
 	  SLOT(slotSplitterMoved(void)));
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
+  prepareASH();
 #ifndef Q_OS_ANDROID
   resize(0.85 * glitch_ui::s_mainWindow->size());
 #endif
@@ -283,6 +289,10 @@ void glitch_object_edit_window::hideEvent(QHideEvent *event)
 
   if(!isVisible()) // Minimized window?
     emit closed();
+}
+
+void glitch_object_edit_window::prepareASH(void)
+{
 }
 
 void glitch_object_edit_window::prepareHeader(const QString &text)
@@ -423,6 +433,11 @@ void glitch_object_edit_window::saveSplittersStates(void)
 {
   if(m_object)
     {
+      if(m_bottomTopSplitter->count() > 0)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_BOTTOM_TOP_SPLITTER_STATE,
+	   m_bottomTopSplitter->saveState());
+
       if(m_leftSplitter->count() > 0)
 	m_object->setProperty
 	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
@@ -601,9 +616,13 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	  m_splitter->setStretchFactor(1, 1);
 	}
 
-      frame->layout()->addWidget(m_splitter);
+      frame->layout()->addWidget(m_bottomTopSplitter);
       frame->layout()->setContentsMargins(5, 5, 5, 5);
       frame->layout()->setSpacing(5);
+      m_bottomTopSplitter->addWidget(m_splitter);
+      m_bottomTopSplitter->addWidget(m_ash->frame());
+      m_bottomTopSplitter->setStretchFactor(0, 1);
+      m_bottomTopSplitter->setStretchFactor(1, 0);
       m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
       m_rightSplitter->addWidget(m_canvasPreview);
       m_rightSplitter->setStretchFactor(0, 1);
@@ -615,28 +634,44 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 
   if(m_object)
     {
-      auto bytes1
-	(m_object->property(glitch_object::Properties::
-			    STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
-	 toByteArray());
+      {
+	auto bytes
+	  (m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_BOTTOM_TOP_SPLITTER_STATE).
+	   toByteArray());
 
-      if(!bytes1.isEmpty())
-	m_leftSplitter->restoreState(bytes1);
+	if(!bytes.isEmpty())
+	  m_bottomTopSplitter->restoreState(bytes);
+      }
 
-      auto bytes2
-	(m_object->property(glitch_object::Properties::
-			    STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
-	 toByteArray());
+      {
+	auto bytes
+	  (m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
+	   toByteArray());
 
-      if(!bytes2.isEmpty())
-	m_rightSplitter->restoreState(bytes2);
+	if(!bytes.isEmpty())
+	  m_leftSplitter->restoreState(bytes);
+      }
 
-      auto bytes3
-	(m_object->property(glitch_object::Properties::
-			    STRUCTURES_VIEW_SPLITTER_STATE).toByteArray());
+      {
+	auto bytes
+	  (m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
+	   toByteArray());
 
-      if(!bytes3.isEmpty())
-	m_splitter->restoreState(bytes3);
+	if(!bytes.isEmpty())
+	  m_rightSplitter->restoreState(bytes);
+      }
+
+      {
+	auto bytes
+	  (m_object->property(glitch_object::Properties::
+			      STRUCTURES_VIEW_SPLITTER_STATE).toByteArray());
+
+	if(!bytes.isEmpty())
+	  m_splitter->restoreState(bytes);
+      }
     }
 
   auto view = qobject_cast<glitch_object_view *> (m_centralWidget);
@@ -780,6 +815,11 @@ void glitch_object_edit_window::slotSplitterMoved(void)
 
   if(m_object)
     {
+      if(m_bottomTopSplitter == splitter)
+	m_object->setProperty
+	  (glitch_object::Properties::STRUCTURES_VIEW_BOTTOM_TOP_SPLITTER_STATE,
+	   splitter->saveState());
+
       if(m_leftSplitter == splitter)
 	m_object->setProperty
 	  (glitch_object::Properties::STRUCTURES_VIEW_LEFT_SPLITTER_STATE,
