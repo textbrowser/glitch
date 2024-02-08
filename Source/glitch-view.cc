@@ -72,7 +72,7 @@ glitch_view::glitch_view
 {
   m_ui.setupUi(this);
   m_alignment = new glitch_alignment(this);
-  m_ash = new glitch_ash(this);
+  m_ash = new glitch_ash(true, this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
   m_canvasSettings = new glitch_canvas_settings(this);

@@ -319,17 +319,23 @@ void glitch_ash_textedit::showEvent(QShowEvent *event)
   setFocus();
 }
 
-glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
+glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
 {
-  m_commands.insert(tr("about"), "");
+  if(topLevel)
+    {
+      m_commands.insert(tr("about"), "");
+      m_commands.insert(tr("generate"), tr("clipboard"));
+      m_commands.insert(tr("generate"), tr("file"));
+      m_commands.insert(tr("generate"), tr("view"));
+      m_commands.insert(tr("show"), tr("canvas-settings"));
+      m_commands.insert(tr("show"), tr("settings"));
+    }
+
   m_commands.insert(tr("clear"), "");
   m_commands.insert(tr("cls"), "");
   m_commands.insert(tr("deselect"), tr("all"));
   m_commands.insert(tr("deselect"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("full-screen"), "");
-  m_commands.insert(tr("generate"), tr("clipboard"));
-  m_commands.insert(tr("generate"), tr("file"));
-  m_commands.insert(tr("generate"), tr("view"));
   m_commands.insert(tr("help"), "");
   m_commands.insert(tr("history"), "");
   m_commands.insert(tr("list"), tr("all"));
@@ -342,9 +348,8 @@ glitch_ash::glitch_ash(QWidget *parent):QDialog(parent)
   m_commands.insert(tr("select"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
   m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
-  m_commands.insert(tr("show"), tr("canvas-settings"));
-  m_commands.insert(tr("show"), tr("settings"));
   m_commands.insert(tr("undo"), "");
+  m_isTopLevel = topLevel;
   m_ui.setupUi(this);
   m_ui.text->setCommands(m_commands);
   m_ui.text->setCursorWidth(10);

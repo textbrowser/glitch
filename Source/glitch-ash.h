@@ -88,7 +88,7 @@ class glitch_ash: public QDialog
   Q_OBJECT
 
  public:
-  glitch_ash(QWidget *parent);
+  glitch_ash(const bool topLevel, QWidget *parent);
   ~glitch_ash();
 
   QFrame *frame(void) const
@@ -99,6 +99,7 @@ class glitch_ash: public QDialog
  private:
   QMultiMap<QString, QString> m_commands;
   Ui_glitch_ash m_ui;
+  bool m_isTopLevel;
 
  private slots:
   void slotCanvasNameChanged(const QString &name);
