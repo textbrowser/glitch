@@ -35,6 +35,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-ash.h"
 #include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
 #include "glitch-floating-context-menu.h"
@@ -181,6 +182,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  &QAction::triggered,
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
+  m_ash = new glitch_ash(this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize

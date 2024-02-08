@@ -38,6 +38,7 @@
 class QLineEdit;
 class QSplitter;
 class QUndoStack;
+class glitch_ash;
 class glitch_canvas_preview;
 class glitch_docked_container;
 class glitch_object_view;
@@ -73,6 +74,7 @@ class glitch_object_edit_window: public QMainWindow
   QMap<QString, QAction *> m_actions;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_centralWidget;
+  QPointer<glitch_ash> m_ash;
   QPointer<glitch_object> m_object;
   QPointer<glitch_object_view> m_editView;
   QPointer<glitch_structures_arduino> m_arduinoStructures;
