@@ -52,6 +52,7 @@ void glitch_view::slotProcessCommand(const QString &command)
   QListIterator<QString> it(command.split(' ', QString::SkipEmptyParts));
 #endif
   States state = States::ZZZ;
+  auto undoStack(this->undoStack());
 
   while(it.hasNext())
     {
@@ -180,15 +181,15 @@ void glitch_view::slotProcessCommand(const QString &command)
 	      }
 
 	    if(!string.isEmpty())
-	      emit information(string);
+	      emit glitch_view::information(string);
 
 	    state = States::ZZZ;
 	    break;
 	  }
 	case States::Redo:
 	  {
-	    if(m_undoStack)
-	      m_undoStack->redo();
+	    if(undoStack)
+	      undoStack->redo();
 
 	    state = States::ZZZ;
 	    break;
@@ -261,8 +262,8 @@ void glitch_view::slotProcessCommand(const QString &command)
 	  }
 	case States::Undo:
 	  {
-	    if(m_undoStack)
-	      m_undoStack->undo();
+	    if(undoStack)
+	      undoStack->undo();
 
 	    state = States::ZZZ;
 	    break;
