@@ -25,7 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-graphicsview.h"
 #include "glitch-object.h"
 #include "glitch-view.h"
 
@@ -52,7 +51,7 @@ void glitch_view::slotProcessCommand(const QString &command)
   QListIterator<QString> it(command.split(' ', QString::SkipEmptyParts));
 #endif
   States state = States::ZZZ;
-  auto undoStack(this->undoStack());
+  auto undoStack = this->undoStack();
 
   while(it.hasNext())
     {
