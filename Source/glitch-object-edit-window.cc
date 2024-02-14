@@ -241,14 +241,6 @@ glitch_object_edit_window::glitch_object_edit_window
 #endif
 }
 
-QString glitch_object_edit_window::objectName(void) const
-{
-  if(m_object)
-    return m_object->name();
-  else
-    return tr("None");
-}
-
 glitch_object_edit_window::~glitch_object_edit_window()
 {
   if(m_editView)
@@ -258,6 +250,30 @@ glitch_object_edit_window::~glitch_object_edit_window()
     disconnect(m_undoStack, nullptr, this, nullptr);
 }
 
+QList<glitch_object *> glitch_object_edit_window::allObjects(void) const
+{
+  if(m_editView && m_editView->scene())
+    return m_editView->scene()->allObjects();
+  else
+    return QList<glitch_object *> ();
+}
+
+QList<glitch_object *> glitch_object_edit_window::objects(void) const
+{
+  if(m_editView && m_editView->scene())
+    return m_editView->scene()->objects();
+  else
+    return QList<glitch_object *> ();
+}
+
+QString glitch_object_edit_window::objectName(void) const
+{
+  if(m_object)
+    return m_object->name();
+  else
+    return tr("None");
+}
+
 bool glitch_object_edit_window::event(QEvent *event)
 {
   if(event && event->type() == QEvent::Show)
@@ -265,6 +281,39 @@ bool glitch_object_edit_window::event(QEvent *event)
       (150, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
 
   return QMainWindow::event(event);
+}
+
+glitch_object *glitch_object_edit_window::find
+(const QList<glitch_object *> &list,
+ const qint64 id,
+ glitch_object *object) const
+{
+  foreach(auto i, list)
+    if(i)
+      {
+	if(i->id() == id)
+	  {
+	    object = i;
+	    return object;
+	  }
+
+	object = find(i->objects(), id, object);
+      }
+
+  return object;
+}
+
+glitch_object *glitch_object_edit_window::find(const qint64 id) const
+{
+  glitch_object *object = nullptr;
+
+  return find(objects(), id, object);
+}
+
+void glitch_object_edit_window::clearSelection(void)
+{
+  if(m_editView && m_editView->scene())
+    m_editView->scene()->clearSelection();
 }
 
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
@@ -293,6 +342,16 @@ void glitch_object_edit_window::hideEvent(QHideEvent *event)
 
 void glitch_object_edit_window::prepareASH(void)
 {
+  connect(m_ash,
+	  SIGNAL(processCommand(const QString &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &)),
+	  Qt::UniqueConnection);
+  connect(this,
+	  SIGNAL(information(const QString &)),
+	  m_ash,
+	  SLOT(slotCommandProcessed(const QString &)),
+	  Qt::UniqueConnection);
 }
 
 void glitch_object_edit_window::prepareHeader(const QString &text)

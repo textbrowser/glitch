@@ -91,7 +91,15 @@ class glitch_object_edit_window: public QMainWindow
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   glitch_user_functions *m_userFunctions;
+  QList<glitch_object *> allObjects(void) const;
+  QList<glitch_object *> objects(void) const;
   bool event(QEvent *event);
+  glitch_object *find
+    (const QList<glitch_object *> &list,
+     const qint64 id,
+     glitch_object *object) const;
+  glitch_object *find(const qint64 id) const;
+  void clearSelection(void);
   void closeEvent(QCloseEvent *event);
   void hideEvent(QHideEvent *event);
   void prepareASH(void);
@@ -103,6 +111,7 @@ class glitch_object_edit_window: public QMainWindow
   void slotAboutToShowEditMenu(void);
   void slotDockPropertyEditor(QWidget *widget);
   void slotHideTearOffMenu(void);
+  void slotProcessCommand(const QString &command);
   void slotShowFullScreenMode(void);
   void slotShowTearOffMenu(void);
   void slotSpecialTools(void);
@@ -116,6 +125,7 @@ class glitch_object_edit_window: public QMainWindow
   void closed(void);
   void copy(void);
   void deleteSignal(void);
+  void information(const QString &text);
   void paste(void);
   void propertyChanged(const QString &property, const QVariant &value);
   void redo(void);

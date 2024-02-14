@@ -265,6 +265,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-object.cc \
                   Source/glitch-object-arrow.cc \
                   Source/glitch-object-edit-window.cc \
+                  Source/glitch-object-edit-window-ash.cc \
                   Source/glitch-object-view.cc \
                   Source/glitch-port-colors.cc \
                   Source/glitch-preferences.cc \

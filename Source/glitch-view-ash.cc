@@ -180,7 +180,7 @@ void glitch_view::slotProcessCommand(const QString &command)
 	      }
 
 	    if(!string.isEmpty())
-	      emit glitch_view::information(string);
+	      emit information(string);
 
 	    state = States::ZZZ;
 	    break;
