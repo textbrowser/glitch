@@ -33,8 +33,11 @@ enum class States
 {
   Deselect,
   Display,
+  FullScreen,
   List,
+  NormalScreen,
   Redo,
+  Save,
   Select,
   Set,
   SetWidgetPosition,
@@ -60,8 +63,14 @@ void glitch_object_edit_window::slotProcessCommand(const QString &command)
       ** Here be single-state states.
       */
 
-      if(token.startsWith(tr("redo"), Qt::CaseInsensitive))
+      if(token.startsWith(tr("full-screen"), Qt::CaseInsensitive))
+	state = States::FullScreen;
+      else if(token.startsWith(tr("normal-screen"), Qt::CaseInsensitive))
+	state = States::NormalScreen;
+      else if(token.startsWith(tr("redo"), Qt::CaseInsensitive))
 	state = States::Redo;
+      else if(token.startsWith(tr("save"), Qt::CaseInsensitive))
+	state = States::Save;
       else if(token.startsWith(tr("undo"), Qt::CaseInsensitive))
 	state = States::Undo;
 
@@ -143,6 +152,12 @@ void glitch_object_edit_window::slotProcessCommand(const QString &command)
 	    state = States::ZZZ;
 	    break;
 	  }
+	case States::FullScreen:
+	  {
+	    showFullScreen();
+	    state = States::ZZZ;
+	    break;
+	  }
 	case States::List:
 	  {
 	    QString string("");
@@ -164,11 +179,23 @@ void glitch_object_edit_window::slotProcessCommand(const QString &command)
 	    state = States::ZZZ;
 	    break;
 	  }
+	case States::NormalScreen:
+	  {
+	    showNormal();
+	    state = States::ZZZ;
+	    break;
+	  }
 	case States::Redo:
 	  {
 	    if(m_undoStack)
 	      m_undoStack->redo();
 
+	    state = States::ZZZ;
+	    break;
+	  }
+	case States::Save:
+	  {
+	    emit saveSignal();
 	    state = States::ZZZ;
 	    break;
 	  }
