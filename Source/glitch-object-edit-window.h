@@ -55,7 +55,25 @@ class glitch_object_edit_window: public QMainWindow
 			    glitch_object *object,
 			    QWidget *parent);
   ~glitch_object_edit_window();
+  QList<glitch_object *> allObjects(void) const;
+  QList<glitch_object *> objects(void) const;
+  QPointer<QUndoStack> undoStack(void) const;
   QString objectName(void) const;
+  glitch_object *find(const qint64 id) const;
+  void clearSelection(void);
+
+  void generateSourceClipboard(void)
+  {
+  }
+
+  void generateSourceFile(void)
+  {
+  }
+
+  void generateSourceView(void)
+  {
+  }
+
   void prepareHeader(const QString &text);
   void prepareToolBars(const QList<QAction *> &actions);
   void saveSplittersStates(void);
@@ -65,6 +83,10 @@ class glitch_object_edit_window: public QMainWindow
   void setToolBarVisible(const bool state);
   void setUndoStack(QUndoStack *undoStack);
   void setUserFunctionsModel(glitch_user_functions_model *model);
+
+  void showCanvasSettings(void)
+  {
+  }
 
  public slots:
   void slotPreferencesAccepted(void);
@@ -91,15 +113,11 @@ class glitch_object_edit_window: public QMainWindow
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   glitch_user_functions *m_userFunctions;
-  QList<glitch_object *> allObjects(void) const;
-  QList<glitch_object *> objects(void) const;
-  bool event(QEvent *event);
   glitch_object *find
     (const QList<glitch_object *> &list,
      const qint64 id,
      glitch_object *object) const;
-  glitch_object *find(const qint64 id) const;
-  void clearSelection(void);
+  bool event(QEvent *event);
   void closeEvent(QCloseEvent *event);
   void hideEvent(QHideEvent *event);
   void prepareASH(void);

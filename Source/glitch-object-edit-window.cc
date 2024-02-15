@@ -266,6 +266,11 @@ QList<glitch_object *> glitch_object_edit_window::objects(void) const
     return QList<glitch_object *> ();
 }
 
+QPointer<QUndoStack> glitch_object_edit_window::undoStack(void) const
+{
+  return m_undoStack;
+}
+
 QString glitch_object_edit_window::objectName(void) const
 {
   if(m_object)
