@@ -107,6 +107,16 @@ void glitch_ash_textedit::handleDownKey(void)
     }
 }
 
+void glitch_ash_textedit::handleHomeKey(void)
+{
+  auto cursor(textCursor());
+
+  cursor.movePosition(QTextCursor::StartOfLine);
+  cursor.movePosition
+    (QTextCursor::Right, QTextCursor::MoveAnchor, m_promptLength);
+  setTextCursor(cursor);
+}
+
 void glitch_ash_textedit::handleInterrupt(void)
 {
   replaceCurrentCommand(currentCommand() + "^C");
@@ -241,6 +251,11 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
 	  return;
 
 	break;
+      }
+    case Qt::Key_Home:
+      {
+	handleHomeKey();
+	return;
       }
     case Qt::Key_Tab:
       {
