@@ -126,6 +126,8 @@ class glitch_ash_state_machine
 	  {
 	  case States::Delete:
 	    {
+	      QList<glitch_scene *> list;
+
 	      while(it.hasNext())
 		{
 		  auto token(it.next());
@@ -135,8 +137,16 @@ class glitch_ash_state_machine
 		     object->proxy() &&
 		     object->proxy()->isMandatory() == false)
 		    {
+		      if(!list.contains(object->scene()))
+			list << object->scene();
+
+		      object->proxy()->setSelected(true);
 		    }
 		}
+
+	      foreach(auto scene, list)
+		if(scene)
+		  scene->deleteItems();
 
 	      state = States::ZZZ;
 	      break;

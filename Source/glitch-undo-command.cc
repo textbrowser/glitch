@@ -407,6 +407,7 @@ void glitch_undo_command::undo(void)
       {
 	if(m_proxy && m_scene)
 	  {
+	    m_proxy->setSelected(false);
 	    m_scene->addItem(m_proxy);
 	    m_scene->update();
 	  }
