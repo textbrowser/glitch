@@ -256,7 +256,7 @@ class glitch_ash_state_machine
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 		    list = token.split(',', Qt::SkipEmptyParts);
 #else
-		  list = token.split(',', QString::SkipEmptyParts);
+		    list = token.split(',', QString::SkipEmptyParts);
 #endif
 
 		  if(list.size() == 2)
