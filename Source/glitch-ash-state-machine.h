@@ -37,6 +37,7 @@ class glitch_ash_state_machine
  public:
   enum class States
   {
+    Delete,
     Deselect,
     Display,
     FullScreen,
@@ -94,7 +95,9 @@ class glitch_ash_state_machine
 	** Here be multiple-state states.
 	*/
 
-	if(token.startsWith(QObject::tr("deselect"), Qt::CaseInsensitive))
+	if(token.startsWith(QObject::tr("delete"), Qt::CaseInsensitive))
+	  state = States::Delete;
+	else if(token.startsWith(QObject::tr("deselect"), Qt::CaseInsensitive))
 	  state = States::Deselect;
 	else if(token.startsWith(QObject::tr("display"),
 				 Qt::CaseInsensitive) ||
@@ -140,6 +143,23 @@ class glitch_ash_state_machine
 
 	switch(state)
 	  {
+	  case States::Delete:
+	    {
+	      while(it.hasNext())
+		{
+		  auto token(it.next());
+		  auto object = t->template find(qAbs(token.toLongLong()));
+
+		  if(object &&
+		     object->proxy() &&
+		     object->proxy()->isMandatory() == false)
+		    {
+		    }
+		}
+
+	      state = States::ZZZ;
+	      break;
+	    }
 	  case States::Deselect:
 	  case States::Select:
 	    {

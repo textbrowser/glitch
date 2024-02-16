@@ -342,7 +342,7 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Editable geometry in context menu.
 - Generate source from terminal for testing results.
-- Insert-between widgets option.
+- Insert-between-widgets option.
 - Nested flow-control scenes.
 - Pasting of a function definition onto the main diagram should result
   in a non-clone function.
