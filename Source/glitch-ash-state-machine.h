@@ -35,25 +35,6 @@
 class glitch_ash_state_machine
 {
  public:
-  enum class States
-  {
-    Delete,
-    Deselect,
-    Display,
-    FullScreen,
-    Generate,
-    List,
-    NormalScreen,
-    Redo,
-    Save,
-    Select,
-    Set,
-    SetWidgetPosition,
-    SetWidgetSize,
-    Undo,
-    ZZZ
-  };
-
   template<class T>
   static void processCommand(const QString &command, T *t)
   {
@@ -337,6 +318,34 @@ class glitch_ash_state_machine
 	    }
 	  }
       }
+  }
+
+ private:
+  enum class States
+  {
+    Delete,
+    Deselect,
+    Display,
+    FullScreen,
+    Generate,
+    List,
+    NormalScreen,
+    Redo,
+    Save,
+    Select,
+    Set,
+    SetWidgetPosition,
+    SetWidgetSize,
+    Undo,
+    ZZZ
+  };
+
+  glitch_ash_state_machine(void)
+  {
+  }
+
+  ~glitch_ash_state_machine()
+  {
   }
 };
 
