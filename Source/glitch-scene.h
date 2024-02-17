@@ -73,7 +73,8 @@ class glitch_scene: public QGraphicsScene
 
   void addItem(QGraphicsItem *item);
   void artificialDrop(const QPointF &point, glitch_object *object, bool &ok);
-  void deleteItems(void);
+  void deleteItems
+    (const QList<QGraphicsItem *> &list = QList<QGraphicsItem *> ());
   void purgeRedoUndoProxies(void);
   void redo(void);
   void removeItem(QGraphicsItem *item);

@@ -126,7 +126,7 @@ class glitch_ash_state_machine
 	  {
 	  case States::Delete:
 	    {
-	      QList<glitch_scene *> list;
+	      QHash<glitch_scene *, QList<QGraphicsItem *> > hash;
 
 	      while(it.hasNext())
 		{
@@ -137,16 +137,24 @@ class glitch_ash_state_machine
 		     object->proxy() &&
 		     object->proxy()->isMandatory() == false)
 		    {
-		      if(!list.contains(object->scene()))
-			list << object->scene();
+		      auto list(hash.value(object->scene()));
 
-		      object->proxy()->setSelected(true);
+		      if(!list.contains(object->proxy()))
+			list << object->proxy();
+
+		      hash[object->scene()] = list;
 		    }
 		}
 
-	      foreach(auto scene, list)
-		if(scene)
-		  scene->deleteItems();
+	      QHashIterator<glitch_scene *, QList<QGraphicsItem *> > it(hash);
+
+	      while(it.hasNext())
+		{
+		  it.next();
+
+		  if(it.key())
+		    it.key()->deleteItems(it.value());
+		}
 
 	      state = States::ZZZ;
 	      break;

@@ -666,23 +666,26 @@ void glitch_scene::deleteFunctionClones(const QString &name)
     }
 }
 
-void glitch_scene::deleteItems(void)
+void glitch_scene::deleteItems(const QList<QGraphicsItem *> &items)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list;
 
-  foreach(auto i, items())
-    {
-      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+  if(items.isEmpty())
+    foreach(auto i, this->items())
+      {
+	auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(!proxy)
-	continue;
-      else if(proxy->isMandatory() || !proxy->isSelected())
-	continue;
-      else
-	list << i;
-    }
+	if(!proxy)
+	  continue;
+	else if(!proxy->isSelected() || proxy->isMandatory())
+	  continue;
+	else
+	  list << i;
+      }
+  else
+    list = items;
 
   if(list.isEmpty())
     {
