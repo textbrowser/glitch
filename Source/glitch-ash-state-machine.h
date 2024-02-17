@@ -147,14 +147,29 @@ class glitch_ash_state_machine
 		}
 
 	      QHashIterator<glitch_scene *, QList<QGraphicsItem *> > it(hash);
+	      auto begin = false;
 
 	      while(it.hasNext())
 		{
 		  it.next();
 
-		  if(it.key())
-		    it.key()->deleteItems(it.value());
+		  if(it.key() && it.value().size() > 0)
+		    {
+		      if(!begin)
+			{
+			  begin = true;
+
+			  if(undoStack)
+			    undoStack->beginMacro
+			      (QObject::tr("widget(s) deleted"));
+			}
+
+		      it.key()->deleteItems(it.value(), false);
+		    }
 		}
+
+	      if(begin && undoStack)
+		undoStack->endMacro();
 
 	      state = States::ZZZ;
 	      break;

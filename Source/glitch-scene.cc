@@ -666,7 +666,8 @@ void glitch_scene::deleteFunctionClones(const QString &name)
     }
 }
 
-void glitch_scene::deleteItems(const QList<QGraphicsItem *> &items)
+void glitch_scene::deleteItems
+(const QList<QGraphicsItem *> &items, const bool redoUndoMacro)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
@@ -707,7 +708,7 @@ void glitch_scene::deleteItems(const QList<QGraphicsItem *> &items)
 
       if(m_undoStack)
 	{
-	  if(!began)
+	  if(!began && redoUndoMacro)
 	    {
 	      began = true;
 	      m_undoStack->beginMacro(tr("widget(s) deleted"));
@@ -734,7 +735,7 @@ void glitch_scene::deleteItems(const QList<QGraphicsItem *> &items)
 	}
     }
 
-  if(began && m_undoStack)
+  if(began && m_undoStack && redoUndoMacro)
     m_undoStack->endMacro();
 
   QApplication::restoreOverrideCursor();
