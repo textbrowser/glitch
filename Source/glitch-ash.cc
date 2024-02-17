@@ -290,6 +290,12 @@ void glitch_ash_textedit::mousePressEvent(QMouseEvent *event)
 
 void glitch_ash_textedit::printHistory(void)
 {
+  if(m_history.isEmpty())
+    {
+      m_history << tr("history ");
+      m_historyIndex = 1;
+    }
+
   for(int i = 0; i < m_history.size(); i++)
     append(QString("%1: %2").arg(i + 1).arg(m_history.at(i)));
 }
