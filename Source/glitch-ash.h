@@ -49,6 +49,7 @@ class glitch_ash_textedit: public QTextEdit
   }
 
   QString history(const int index) const;
+  void clearHistory(void);
   void printHistory(void);
   void saveHistoryDesktop(void) const;
 

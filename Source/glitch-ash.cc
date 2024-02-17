@@ -67,6 +67,12 @@ bool glitch_ash_textedit::handleBackspaceKey(void) const
   return false;
 }
 
+void glitch_ash_textedit::clearHistory(void)
+{
+  m_history.clear();
+  m_historyIndex = 0;
+}
+
 void glitch_ash_textedit::displayPrompt(void)
 {
   setTextColor(QColor(0, 0, 139));
@@ -196,7 +202,7 @@ void glitch_ash_textedit::handleUpKey(void)
 
       do
 	{
-	  if(m_historyIndex)
+	  if(m_historyIndex > 0)
 	    m_historyIndex -= 1;
 	  else
 	    break;
@@ -347,6 +353,7 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
     }
 
   m_commands.insert(tr("clear"), "");
+  m_commands.insert(tr("clear-history"), "");
   m_commands.insert(tr("cls"), "");
   m_commands.insert(tr("delete"), tr("identifier-1 identifier-2 ..."));
   m_commands.insert(tr("deselect"), tr("all"));
@@ -429,6 +436,8 @@ void glitch_ash::slotProcessCommand(const QString &command)
       }
     else if(command == tr("clear") || command == tr("cls"))
       m_ui.text->clear();
+    else if(command == tr("clear-history"))
+      m_ui.text->clearHistory();
     else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
       {
 	m_ui.text->append(command + ":");
