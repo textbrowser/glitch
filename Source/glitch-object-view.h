@@ -45,6 +45,7 @@ class glitch_object_view: public QGraphicsView
   Q_OBJECT
 
  public:
+  glitch_object_view(QWidget *parent);
   glitch_object_view(const glitch_common::ProjectTypes projectType,
 		     const qint64 id,
 		     QUndoStack *undoStack,
@@ -59,6 +60,7 @@ class glitch_object_view: public QGraphicsView
   void endMacro(void);
   void push(glitch_undo_command *undoCommand);
   void save(const QSqlDatabase &db, QString &error);
+  void setIdentifier(const qint64 id);
   void setSceneRect(const QSize &size);
   void setUndoStack(QUndoStack *undoStack);
   void zoom(const int direction);

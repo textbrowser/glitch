@@ -40,6 +40,14 @@
 #include "glitch-undo-command.h"
 #include "glitch-view.h"
 
+glitch_object_view::glitch_object_view(QWidget *parent):
+  glitch_object_view(glitch_common::ProjectTypes::ArduinoProject,
+		     0,
+		     nullptr,
+		     parent)
+{
+}
+
 glitch_object_view::glitch_object_view
 (const glitch_common::ProjectTypes projectType,
  const qint64 id,
@@ -225,6 +233,11 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
 
   if(error.isEmpty())
     m_scene->saveWires(db, error);
+}
+
+void glitch_object_view::setIdentifier(const qint64 id)
+{
+  m_id = id;
 }
 
 void glitch_object_view::setSceneRect(const QSize &size)
