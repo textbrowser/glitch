@@ -149,19 +149,23 @@ void glitch_ash_textedit::handleReturnKey(void)
 
 void glitch_ash_textedit::handleTabKey(void)
 {
+  auto command(currentCommand());
+
+  if(command.isEmpty())
+    return;
+
   QMap<QString, char> map;
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QMapIterator<QString, QString> it(m_commands);
 #else
   QMultiMapIterator<QString, QString> it(m_commands);
 #endif
-  auto command(currentCommand());
 
   while(it.hasNext())
     {
       it.next();
 
-      if(command.isEmpty() || it.key().startsWith(command))
+      if(it.key().startsWith(command))
 	map[it.key()] = 0;
       else
 	{
@@ -174,7 +178,7 @@ void glitch_ash_textedit::handleTabKey(void)
 
   if(map.size() == 1)
     replaceCurrentCommand(map.keys().at(0) + " ");
-  else
+  else if(map.size() > 1)
     {
       moveCursor(QTextCursor::End);
 
