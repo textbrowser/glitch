@@ -28,6 +28,7 @@
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QSettings>
+#include <QtDebug>
 
 #include "glitch-graphicsview.h"
 #include "glitch-view.h"
@@ -84,7 +85,7 @@ void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
 
       if(!item || qgraphicsitem_cast<glitch_wire *> (item))
 	/*
-	** The slot issues mapToGlobal().
+	** The slot connected to the signal issues mapToGlobal().
 	*/
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
