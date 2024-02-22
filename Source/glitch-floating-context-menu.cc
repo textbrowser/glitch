@@ -327,11 +327,13 @@ void glitch_floating_context_menu::slotObjectChanged(void)
 {
   if(m_object)
     {
+      m_ui.height->setMinimum(m_object->minimumSize().height());
       m_ui.height->setReadOnly(m_object->isMandatory());
       m_ui.height->setValue(m_object->size().height());
       m_ui.position->setText
 	(tr("Position: (%1, %2)").
 	 arg(m_object->scenePos().x()).arg(m_object->scenePos().y()));
+      m_ui.width->setMinimum(m_object->minimumSize().width());
       m_ui.width->setReadOnly(m_object->isMandatory());
       m_ui.width->setValue(m_object->size().width());
     }
