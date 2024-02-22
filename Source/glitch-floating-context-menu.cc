@@ -56,15 +56,9 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(auto widget, m_ui.frame->findChildren<QWidget *> ())
+  foreach(auto widget, m_ui.property_frame->findChildren<QWidget *> ())
     {
-      if(m_ui.object_id == widget ||
-	 m_ui.object_name == widget ||
-	 m_ui.position == widget ||
-	 m_ui.size == widget)
-	continue;
-
-      m_ui.frame->layout()->removeWidget(widget);
+      m_ui.property_frame->layout()->removeWidget(widget);
 
       if(widget)
 	widget->deleteLater();
@@ -112,7 +106,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	      layout->addWidget(new QLabel(tr("Z-Value"), this));
 	      layout->addWidget(m_zValue);
 	      layout->addStretch();
-	      m_ui.frame->layout()->addWidget(frame);
+	      m_ui.property_frame->layout()->addWidget(frame);
 	    }
 
 	  continue;
@@ -136,7 +130,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 		  SIGNAL(clicked(bool)),
 		  it.value(),
 		  SIGNAL(triggered(void)));
-	  m_ui.frame->layout()->addWidget(checkBox);
+	  m_ui.property_frame->layout()->addWidget(checkBox);
 	}
       else if(it.value()->isSeparator())
 	continue;
@@ -162,7 +156,7 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 	  pushButton->setProperty("property", it.value()->data());
 	  pushButton->setText(it.value()->text());
 	  pushButton->setToolTip(it.value()->toolTip());
-	  m_ui.frame->layout()->addWidget(pushButton);
+	  m_ui.property_frame->layout()->addWidget(pushButton);
 	}
     }
 
@@ -333,12 +327,13 @@ void glitch_floating_context_menu::slotObjectChanged(void)
 {
   if(m_object)
     {
+      m_ui.height->setReadOnly(m_object->isMandatory());
+      m_ui.height->setValue(m_object->size().height());
       m_ui.position->setText
 	(tr("Position: (%1, %2)").
 	 arg(m_object->scenePos().x()).arg(m_object->scenePos().y()));
-      m_ui.size->setText
-	(tr("Size: %1, %2").
-	 arg(m_object->size().width()).arg(m_object->size().height()));
+      m_ui.width->setReadOnly(m_object->isMandatory());
+      m_ui.width->setValue(m_object->size().width());
     }
 }
 

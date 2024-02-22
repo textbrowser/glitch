@@ -143,6 +143,7 @@ Completed Items
 - Draw disconnect symbols.
 - Draw input and output connectors.
 - Edit window icons.
+- Editable geometry in context menu.
 - Enable categories icons for new diagrams.
 - Error dialog.
 - Ethernet class. Include required header file too. See Catalog category.
@@ -340,7 +341,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Editable geometry in context menu.
 - Generate source from terminal for testing results.
 - Insert-between-widgets option.
 - Nested flow-control scenes.
