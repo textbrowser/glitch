@@ -151,14 +151,17 @@ QMAKE_CXXFLAGS_RELEASE += -std=c++17
 QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
-QMAKE_DISTCLEAN     += -r .qmake* \
-                       -r Temporary \
-                       -r html \
-                       -r latex
-
 macx {
 QMAKE_DISTCLEAN     += -r Glitch.d
 QMAKE_EXTRA_TARGETS += dmg
+}
+
+win32 {
+QMAKE_DISTCLEAN     += del /F /Q .qmake* \
+                       rmdir /Q /S Temporary
+} else {
+QMAKE_DISTCLEAN     += -f .qmake* \
+                       -fr Temporary
 }
 
 unix {
