@@ -42,6 +42,14 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
 	  SIGNAL(destroyed(void)),
 	  this,
 	  SLOT(deleteLater(void)));
+  connect(m_ui.height,
+	  SIGNAL(valueChanged(int)),
+	  this,
+	  SLOT(slotSizeChanged(int)));
+  connect(m_ui.width,
+	  SIGNAL(valueChanged(int)),
+	  this,
+	  SLOT(slotSizeChanged(int)));
   resize(sizeHint());
   setWindowModality(Qt::NonModal);
 }
@@ -329,14 +337,26 @@ void glitch_floating_context_menu::slotObjectChanged(void)
     {
       m_ui.height->setMinimum(m_object->minimumSize().height());
       m_ui.height->setReadOnly(m_object->isMandatory());
+      m_ui.height->blockSignals(true);
       m_ui.height->setValue(m_object->size().height());
+      m_ui.height->blockSignals(false);
       m_ui.position->setText
 	(tr("Position: (%1, %2)").
 	 arg(m_object->scenePos().x()).arg(m_object->scenePos().y()));
       m_ui.width->setMinimum(m_object->minimumSize().width());
       m_ui.width->setReadOnly(m_object->isMandatory());
+      m_ui.width->blockSignals(true);
       m_ui.width->setValue(m_object->size().width());
+      m_ui.width->blockSignals(false);
     }
+}
+
+void glitch_floating_context_menu::slotSizeChanged(int value)
+{
+  Q_UNUSED(value);
+  emit propertyChanged
+    (glitch_object::Properties::SIZE,
+     QSize(m_ui.width->value(), m_ui.height->value()));
 }
 
 void glitch_floating_context_menu::slotZValueChanged(qreal value)

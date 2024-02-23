@@ -1228,9 +1228,8 @@ void glitch_object::prepareFont(void)
 void glitch_object::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
-  m_properties[glitch_object::Properties::GEOMETRY] =
-    QRectF(scenePos(), size());
-  m_properties[glitch_object::Properties::SIZE] = size();
+  m_properties[Properties::GEOMETRY] = QRectF(scenePos(), size());
+  m_properties[Properties::SIZE] = size();
 }
 
 void glitch_object::save(const QSqlDatabase &db, QString &error)
@@ -1572,13 +1571,42 @@ void glitch_object::setProperties(const QStringList &list)
 void glitch_object::setProperty(const Properties property,
 				const QVariant &value)
 {
+  switch(property)
+    {
+    case Properties::GEOMETRY:
+      {
+	if(!value.canConvert(QMetaType::QRect))
+	  return;
+
+	break;
+      }
+    case Properties::SIZE:
+      {
+	if(!value.canConvert(QMetaType::QSize))
+	  return;
+
+	break;
+      }
+    case Properties::Z_VALUE:
+      {
+	if(!value.canConvert(QMetaType::Double))
+	  return;
+
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+
   m_properties[property] = value;
 
   switch(property)
     {
-    case glitch_object::Properties::BACKGROUND_COLOR:
-    case glitch_object::Properties::BORDER_COLOR:
-    case glitch_object::Properties::FONT_COLOR:
+    case Properties::BACKGROUND_COLOR:
+    case Properties::BORDER_COLOR:
+    case Properties::FONT_COLOR:
       {
 	if(m_contextMenu)
 	  m_contextMenu->setProperty(property, value);

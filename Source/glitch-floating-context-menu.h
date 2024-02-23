@@ -56,6 +56,7 @@ class glitch_floating_context_menu: public QDialog
  public slots:
   void slotActionChanged(void);
   void slotObjectChanged(void);
+  void slotSizeChanged(int value);
   void slotZValueChanged(qreal value);
 
  private:
