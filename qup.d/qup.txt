@@ -1,8 +1,13 @@
 # Qup definitions file.
 # https://github.com/textbrowser/qup
 
+[Download]
+
+url = https://github.com/textbrowser/glitch/tree/master/QupRelease
+
 [General]
 
+file = Arduino.pdf
 file = Glitch.1
 file = Glitch.pdf
 file = TO-DO
@@ -12,6 +17,7 @@ file_destination = Documentation
 
 executable:amd64 = Glitch_amd64
 executable:arm64 = Glitch_arm64
+executable:armhf = Glitch_armhf
 executable:powerpc = Glitch_powerpc
 local_executable = Glitch
 
