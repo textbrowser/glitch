@@ -32,6 +32,22 @@ Glitch: select left-most objects; align.
 <li>Serial port reader and writer.</li>
 
 <h3><b>Release Notes</b></h3>
+<p>2024.02.29</p>
+<ul>
+<li>A source-only review for a planet of lunatics.</li>
+<li>ASH of child views.</li>
+<li>ASH: !history-item (repeat),
+  clear-history,
+  delete,
+  history,
+  list all,
+  list local,
+  save-history-desktop.</li>
+<li>ASH: support the Home key.</li>
+<li>Drag and copy!</li>
+<li>Editable size in widget context menu.</li>
+<li>This release is dedicated to the glitchy Mr. D. Peace out!</li>
+</ul>
 <p>2024.01.15</p>
 <ul>
 <li>ASH, design via a human-like language. An introduction.</li>
