@@ -97,6 +97,10 @@ glitch_object::
 glitch_object(const QString &type, const qint64 id, QWidget *parent):
   QWidget(nullptr), m_type(type), m_id(id)
 {
+  connect(this,
+	  SIGNAL(changed(void)),
+	  this,
+	  SLOT(slotChanged(void)));
   installEventFilter(new glitch_font_filter(this));
   m_drawInputConnector = false;
   m_drawOutputConnector = false;
@@ -1566,6 +1570,7 @@ void glitch_object::setProperties(const QStringList &list)
     }
 
   createActions();
+  setToolTip(description());
 }
 
 void glitch_object::setProperty(const Properties property,
@@ -2041,6 +2046,11 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
   m_editWindow->setWindowTitle
     (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
+}
+
+void glitch_object::slotChanged(void)
+{
+  setToolTip(description());
 }
 
 void glitch_object::slotClearTemporaryContainers(void)

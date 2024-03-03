@@ -444,6 +444,7 @@ class glitch_object: public QWidget
 		      QString &error);
 
  protected slots:
+  virtual void slotChanged(void);
   virtual void slotCopy(void);
   virtual void slotHideOrShowOccupied(void);
   virtual void slotSelectColor(void);
