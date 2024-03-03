@@ -351,7 +351,7 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Show tooltip source of editable widgets.
+- Show tooltip source of editable widgets. A new floating panel is required.
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.
