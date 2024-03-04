@@ -202,6 +202,7 @@ FORMS          += UI/glitch-ash.ui \
                   UI/glitch-errors-dialog.ui \
                   UI/glitch-find-objects.ui \
                   UI/glitch-floating-context-menu.ui \
+                  UI/glitch-floating-source.ui \
                   UI/glitch-mainwindow.ui \
                   UI/glitch-port-colors.ui \
                   UI/glitch-preferences.ui \
