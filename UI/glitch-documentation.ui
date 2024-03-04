@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Glitch</string>
+   <string>Glitch: Documentation</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../Icons/icons.qrc">
