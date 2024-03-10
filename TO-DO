@@ -351,6 +351,7 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Show statistics in ASH::list.
 - Show tooltip source of editable widgets. A new floating panel is required.
 - Snap-to-visible-grid.
 - Unique widget colors.
