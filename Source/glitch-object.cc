@@ -1580,21 +1580,21 @@ void glitch_object::setProperty(const Properties property,
     {
     case Properties::GEOMETRY:
       {
-	if(!value.canConvert(QMetaType::QRect))
+	if(!value.canConvert(QMetaType(QMetaType::QRect)))
 	  return;
 
 	break;
       }
     case Properties::SIZE:
       {
-	if(!value.canConvert(QMetaType::QSize))
+	if(!value.canConvert(QMetaType(QMetaType::QSize)))
 	  return;
 
 	break;
       }
     case Properties::Z_VALUE:
       {
-	if(!value.canConvert(QMetaType::Double))
+	if(!value.canConvert(QMetaType(QMetaType::Double)))
 	  return;
 
 	break;
