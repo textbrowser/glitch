@@ -47,7 +47,7 @@ class glitch_ash_state_machine
     QListIterator<QString> it(command.split(' ', QString::SkipEmptyParts));
 #endif
     States state = States::ZZZ;
-    auto undoStack = t->template undoStack();
+    auto undoStack = t->undoStack();
 
     while(it.hasNext())
       {
@@ -131,7 +131,7 @@ class glitch_ash_state_machine
 	      while(it.hasNext())
 		{
 		  auto token(it.next());
-		  auto object = t->template find(qAbs(token.toLongLong()));
+		  auto object = t->find(qAbs(token.toLongLong()));
 
 		  if(object &&
 		     object->proxy() &&
@@ -184,15 +184,15 @@ class glitch_ash_state_machine
 		  if(token == QObject::tr("all"))
 		    {
 		      if(state == States::Deselect)
-			t->template clearSelection();
+			t->clearSelection();
 		      else
-			emit t->template selectAll();
+			emit t->selectAll();
 
 		      break;
 		    }
 		  else
 		    {
-		      auto object = t->template find(qAbs(token.toLongLong()));
+		      auto object = t->find(qAbs(token.toLongLong()));
 
 		      if(object && object->proxy())
 			object->proxy()->setSelected
@@ -206,25 +206,25 @@ class glitch_ash_state_machine
 	  case States::Display:
 	    {
 	      if(token == QObject::tr("canvas-settings"))
-		t->template showCanvasSettings();
+		t->showCanvasSettings();
 
 	      state = States::ZZZ;
 	      break;
 	    }
 	  case States::FullScreen:
 	    {
-	      t->template showFullScreen();
+	      t->showFullScreen();
 	      state = States::ZZZ;
 	      break;
 	    }
 	  case States::Generate:
 	    {
 	      if(token == QObject::tr("clipboard"))
-		t->template generateSourceClipboard();
+		t->generateSourceClipboard();
 	      else if(token == QObject::tr("file"))
-		t->template generateSourceFile();
+		t->generateSourceFile();
 	      else if(token == QObject::tr("view"))
-		t->template generateSourceView();
+		t->generateSourceView();
 
 	      state = States::ZZZ;
 	      break;
@@ -235,24 +235,24 @@ class glitch_ash_state_machine
 
 	      if(token == QObject::tr("all"))
 		{
-		  foreach(auto object, t->template allObjects())
+		  foreach(auto object, t->allObjects())
 		    string.append(object->about()).append(" ");
 		}
 	      else if(token == QObject::tr("local"))
 		{
-		  foreach(auto object, t->template objects())
+		  foreach(auto object, t->objects())
 		    string.append(object->about()).append(" ");
 		}
 
 	      if(!string.isEmpty())
-		emit t->template information(string);
+		emit t->information(string);
 
 	      state = States::ZZZ;
 	      break;
 	    }
 	  case States::NormalScreen:
 	    {
-	      t->template showNormal();
+	      t->showNormal();
 	      state = States::ZZZ;
 	      break;
 	    }
@@ -266,7 +266,7 @@ class glitch_ash_state_machine
 	    }
 	  case States::Save:
 	    {
-	      emit t->template saveSignal();
+	      emit t->saveSignal();
 	      state = States::ZZZ;
 	      break;
 	    }
@@ -294,7 +294,7 @@ class glitch_ash_state_machine
 
 		  if(list.size() == 2)
 		    {
-		      auto object = t->template find(id);
+		      auto object = t->find(id);
 
 		      if(object && object->proxy())
 			{
