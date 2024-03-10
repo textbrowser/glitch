@@ -946,6 +946,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Separate_Current_Canvas->setEnabled(false);
       m_ui.action_Show_Project_IDE->setEnabled(false);
+      m_ui.action_Source_Preview->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
       m_ui.action_Zoom_In->setEnabled(false);
@@ -981,6 +982,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Separate_Current_Canvas->setEnabled(m_currentView);
 #endif
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
+      m_ui.action_Source_Preview->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
       m_ui.action_Zoom_In->setEnabled(m_currentView);
