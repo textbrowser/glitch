@@ -121,6 +121,7 @@ class glitch_view: public QWidget
   void save(void);
   void selectAll(void);
   void showCanvasSettings(void) const;
+  void showSourcePreview(void) const;
   void showTools(void);
   void showUserFunctions(void) const;
   void undo(void);

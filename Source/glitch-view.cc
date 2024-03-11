@@ -1330,6 +1330,10 @@ void glitch_view::showCanvasSettings(void) const
   m_canvasSettings->raise();
 }
 
+void glitch_view::showSourcePreview(void) const
+{
+}
+
 void glitch_view::showTools(void)
 {
   createTools();

@@ -293,6 +293,12 @@ void glitch_ui::slotShowSerialPortWindow(void)
   m_serialPortWindow->raise();
 }
 
+void glitch_ui::slotShowSourcePreview(void)
+{
+  if(m_currentView)
+    m_currentView->showSourcePreview();
+}
+
 void glitch_ui::slotShowTearOffMenu(void)
 {
   auto toolButton = qobject_cast<QToolButton *> (sender());

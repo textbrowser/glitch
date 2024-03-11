@@ -255,6 +255,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowProjectIDE);
+  connect(m_ui.action_Source_Preview,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowSourcePreview);
   connect(m_ui.action_Tools,
 	  &QAction::triggered,
 	  this,
