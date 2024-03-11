@@ -341,6 +341,8 @@ glitch.path		= Glitch.d
 macdeployqt.extra	= $$[QT_INSTALL_BINS]/macdeployqt Glitch.d/Glitch.app \
                           -executable=Glitch.d/Glitch.app/Contents/MacOS/Glitch
 macdeployqt.path	= Glitch.app
+postmacdeployqt1.extra  = install_name_tool -change @loader_path/../../../../opt/libpng/lib/libpng16.16.dylib @executable_path/../Frameworks/libpng16.16.dylib Glitch.d/Glitch.app/Contents/Frameworks/libfreetype.6.dylib
+postmacdeployqt1.path   = .
 preinstall.extra	= rm -fr Glitch.d/Glitch.app
 preinstall.path		= Glitch.d
 
@@ -351,7 +353,8 @@ INSTALLS = documentation1 \
            examples \
            preinstall \
            glitch \
-           macdeployqt
+           macdeployqt \
+           postmacdeployqt1
 }
 
 win32 {
