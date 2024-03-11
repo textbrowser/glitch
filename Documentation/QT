@@ -1,8 +1,11 @@
-The following Qt versions are supported.
+MacOS
+
+Please utilize the latest Qt LTS provided by Qt because the Homebrew
+versions require install_name_tool.
+
+Qt
 
 Qt 5.5.1 (PowerPC)
 Qt 5.15 LTS
 Qt 6.2 LTS
 Qt 6.5 LTS
-
-Other Qt versions may or may not be functional. Please report problems!
