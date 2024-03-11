@@ -1580,22 +1580,37 @@ void glitch_object::setProperty(const Properties property,
     {
     case Properties::GEOMETRY:
       {
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 	if(!value.canConvert(QMetaType(QMetaType::QRect)))
 	  return;
+#else
+	if(!value.canConvert(QMetaType::QRect))
+	  return;
+#endif
 
 	break;
       }
     case Properties::SIZE:
       {
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 	if(!value.canConvert(QMetaType(QMetaType::QSize)))
 	  return;
+#else
+	if(!value.canConvert(QMetaType::QSize))
+	  return;
+#endif
 
 	break;
       }
     case Properties::Z_VALUE:
       {
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 	if(!value.canConvert(QMetaType(QMetaType::Double)))
 	  return;
+#else
+	if(!value.canConvert(QMetaType::Double))
+	  return;
+#endif	
 
 	break;
       }
