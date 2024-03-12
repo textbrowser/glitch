@@ -184,6 +184,7 @@ class glitch_view: public QWidget
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   glitch_graphicsview *m_view;
   glitch_scene *m_scene;
+  glitch_source_preview *m_sourcePreview;
   glitch_user_functions *m_userFunctions;
   glitch_user_functions_model *m_userFunctionsModel;
   bool saveImplementation(const QString &fileName, QString &error);

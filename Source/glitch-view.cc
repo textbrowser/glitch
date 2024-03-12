@@ -56,6 +56,7 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
+#include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
 #include "glitch-tools.h"
 #include "glitch-ui.h"
@@ -99,6 +100,7 @@ glitch_view::glitch_view
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
+  m_sourceView = new glitch_source_preview(this);
   m_splitter = new QSplitter(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
@@ -1332,6 +1334,7 @@ void glitch_view::showCanvasSettings(void) const
 
 void glitch_view::showSourcePreview(void) const
 {
+  m_sourcePreview->show();
 }
 
 void glitch_view::showTools(void)
