@@ -49,6 +49,7 @@ class glitch_graphicsview;
 class glitch_object;
 class glitch_object_start;
 class glitch_scene;
+class glitch_source_preview;
 class glitch_syntax_highlighter;
 class glitch_tools;
 class glitch_undo_command;

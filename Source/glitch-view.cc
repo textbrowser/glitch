@@ -100,7 +100,7 @@ glitch_view::glitch_view
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
-  m_sourceView = new glitch_source_preview(this);
+  m_sourcePreview = new glitch_source_preview(this);
   m_splitter = new QSplitter(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);

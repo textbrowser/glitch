@@ -241,6 +241,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-scroll-filter.h \
                   Source/glitch-separated-diagram-window.h \
                   Source/glitch-serial-port-window.h \
+                  Source/glitch-source-preview.h \
                   Source/glitch-structures-treewidget.h \
                   Source/glitch-style-sheet.h \
                   Source/glitch-syntax-highlighter.h \
@@ -279,6 +280,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-scene.cc \
                   Source/glitch-separated-diagram-window.cc \
                   Source/glitch-serial-port-window.cc \
+                  Source/glitch-source-preview.cc \
                   Source/glitch-structures-treewidget.cc \
                   Source/glitch-style-sheet.cc \
                   Source/glitch-syntax-highlighter.cc \
