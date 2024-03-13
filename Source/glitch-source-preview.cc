@@ -30,8 +30,6 @@
 glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
-  m_ui.close->setShortcut(tr("Ctrl+W"));
-  resize(sizeHint());
   setWindowModality(Qt::NonModal);
 }
 
