@@ -293,6 +293,7 @@ Completed Items
   floating dialogs.
 - Show identifiers in Find Objects.
 - Show object coordinates in redo / undo text.
+- Show tooltip source of editable widgets. A source preview is provided.
 - Single redo / undo stack per diagram.
 - Sort structures for languages.
 - Split properties via special regular expression.
@@ -352,7 +353,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Show statistics in ASH::list.
-- Show tooltip source of editable widgets. A new floating panel is required.
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.
