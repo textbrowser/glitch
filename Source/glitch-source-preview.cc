@@ -26,13 +26,25 @@
 */
 
 #include "glitch-source-preview.h"
+#include "glitch-syntax-highlighter.h"
 
 glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_syntaxHighlighter = new glitch_syntax_highlighter(m_ui.text->document());
   setWindowModality(Qt::NonModal);
 }
 
 glitch_source_preview::~glitch_source_preview()
 {
+}
+
+void glitch_source_preview::setKeywordsColors(const QMap<QString, QColor> &map)
+{
+  m_syntaxHighlighter->setKeywordsColors(map);
+}
+
+void glitch_source_preview::setSource(const QString &text)
+{
+  m_ui.text->setPlainText(text.trimmed());
 }

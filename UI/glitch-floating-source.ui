@@ -27,7 +27,10 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Find</string>
+         <string>&amp;Find</string>
+        </property>
+        <property name="buddy">
+         <cstring>find</cstring>
         </property>
        </widget>
       </item>
@@ -38,19 +41,6 @@
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="close">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Close</string>
         </property>
        </widget>
       </item>

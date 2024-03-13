@@ -1183,11 +1183,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       auto instance = qobject_cast<QGuiApplication *>
 	(QApplication::instance());
-      auto list(selectedObjects());
+      auto objects(selectedObjects());
 
       if(instance &&
 	 instance->keyboardModifiers() & Qt::ControlModifier &&
-	 list.size() > 0)
+	 objects.size() > 0)
 	{
 	  /*
 	  ** Drag and copy.
@@ -1203,14 +1203,14 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	      ** Copy and deselect the original, selected widgets.
 	      */
 
-	      list = glitch_ui::copySelected
+	      objects = glitch_ui::copySelected
 		(views().value(0), &points, true, true);
 
 	      /*
 	      ** Paste the newly-copied widgets at the current location.
 	      */
 
-	      paste(points, list, event->scenePos());
+	      paste(points, objects, event->scenePos());
 
 	      /*
 	      ** Wire the newly-pasted widgets.
@@ -1222,7 +1222,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	      ** Retrieve the newly-pasted widgets.
 	      */
 
-	      list = selectedObjects();
+	      objects = selectedObjects();
 	      setProperty("drag-and-copy", true);
 	      QApplication::restoreOverrideCursor();
 	    }
@@ -1232,7 +1232,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
       auto moved = false;
       auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
 
-      foreach(auto object, list)
+      foreach(auto object, objects)
 	{
 	  if(!object)
 	    continue;

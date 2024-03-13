@@ -101,6 +101,7 @@ glitch_view::glitch_view
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
   m_sourcePreview = new glitch_source_preview(this);
+  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
   m_splitter = new QSplitter(this);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
@@ -220,6 +221,10 @@ glitch_view::glitch_view
 	  &glitch_scene::selectionChanged,
 	  this,
 	  &glitch_view::selectionChanged);
+  connect(m_scene,
+	  &glitch_scene::selectionChanged,
+	  this,
+	  &glitch_view::slotSelectionChanged);
   connect(m_undoStack,
 	  SIGNAL(indexChanged(int)),
 	  this,
@@ -1394,6 +1399,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_settings = m_canvasSettings->settings();
+  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
 
   if(m_sourceView)
     {
@@ -1748,6 +1754,14 @@ void glitch_view::slotSelectedWidgetsProperties(void)
       object->slotShowContextMenu();
 
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_view::slotSelectionChanged(void)
+{
+  auto objects(m_scene->selectedObjects());
+
+  if(objects.size() == 1)
+    m_sourcePreview->setSource(objects.at(0)->code());
 }
 
 void glitch_view::slotSeparate(void)

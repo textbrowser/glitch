@@ -222,6 +222,7 @@ class glitch_view: public QWidget
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
+  void slotSelectionChanged(void);
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
   void slotShowTools(void);
