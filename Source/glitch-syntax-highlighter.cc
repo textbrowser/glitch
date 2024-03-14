@@ -78,6 +78,15 @@ void glitch_syntax_highlighter::setKeywordsColors
       m_highlightingRules.append(rule);
     }
 
+  if(map.contains("//"))
+    {
+      format.setForeground(map.value("//"));
+      rule.format = format;
+      rule.pattern = QRegularExpression
+	(QStringLiteral("^//.*"), QRegularExpression::CaseInsensitiveOption);
+      m_highlightingRules.append(rule);
+    }
+
   format.setFontWeight(QFont::Normal);
   format.setForeground(Qt::darkGreen);
   rule.format = format;

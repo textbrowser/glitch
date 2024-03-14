@@ -75,7 +75,7 @@ QHash<QString, QColor> glitch_structures_arduino::defaultColors(void)
     if(i.endsWith("()"))
       hash[i] = QColor("#cc6600");
     else if(i.startsWith('/'))
-      hash[i] = QColor("#cc6600");
+      hash[i] = QColor("#ff00ff");
     else
       hash[i] = QColor("#024f8b");
 
