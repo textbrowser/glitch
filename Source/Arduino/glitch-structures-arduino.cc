@@ -74,6 +74,8 @@ QHash<QString, QColor> glitch_structures_arduino::defaultColors(void)
   foreach(const auto &i, keywords())
     if(i.endsWith("()"))
       hash[i] = QColor("#cc6600");
+    else if(i.startsWith('/'))
+      hash[i] = QColor("#cc6600");
     else
       hash[i] = QColor("#024f8b");
 
@@ -112,7 +114,8 @@ QStringList glitch_structures_arduino::keywords(void)
   ** Please do not translate!
   */
 
-  list << "const"
+  list << "//"
+       << "const"
        << "loop()"
        << "setup()"
        << "static"
@@ -132,6 +135,14 @@ QStringList glitch_structures_arduino::nonArrayVariableTypes(void)
       s_nonArrayVariableTypes.removeAt(i);
 
   return s_nonArrayVariableTypes;
+}
+
+QStringList glitch_structures_arduino::sortedKeywords(void)
+{
+  auto list(keywords());
+
+  std::sort(list.begin(), list.end());
+  return list;
 }
 
 QStringList glitch_structures_arduino::structureNames(void)

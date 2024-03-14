@@ -46,6 +46,7 @@ class glitch_structures_arduino: public QDialog
   static QHash<QString, QColor> defaultColors(void);
   static QStringList keywords(void);
   static QStringList nonArrayVariableTypes(void);
+  static QStringList sortedKeywords(void);
   static QStringList variableTypes(void);
   static bool containsStructure(const QString &structureName);
   static bool isReserved(const QString &t);
