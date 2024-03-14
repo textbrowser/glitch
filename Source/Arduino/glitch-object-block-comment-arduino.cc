@@ -62,7 +62,13 @@ QString glitch_object_block_comment_arduino::code(void) const
   if(!property(Properties::GENERATE_SOURCE).toBool())
     return "";
 
-  return "/* " + m_ui.comment->toPlainText() + " */";
+  QString code("");
+
+  foreach(const auto &str, m_ui.comment->toPlainText().split('\n'))
+    if(!str.trimmed().isEmpty())
+      code.append(QString("// %1\n").arg(str.trimmed()));
+
+  return code.trimmed();
 }
 
 bool glitch_object_block_comment_arduino::isFullyWired(void) const
