@@ -1060,6 +1060,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Save_Current_Diagram_As->setIcon(QIcon(":/save-as.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Serial_Port_Window->setIcon(QIcon(":/Arduino/serial.png"));
+  m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));

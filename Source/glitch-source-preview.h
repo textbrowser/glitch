@@ -28,8 +28,11 @@
 #ifndef _glitch_source_preview_h_
 #define _glitch_source_preview_h_
 
+#include <QPointer>
+
 #include "ui_glitch-floating-source.h"
 
+class glitch_object;
 class glitch_syntax_highlighter;
 
 class glitch_source_preview: public QDialog
@@ -40,13 +43,16 @@ class glitch_source_preview: public QDialog
   glitch_source_preview(QWidget *parent);
   ~glitch_source_preview();
   void setKeywordsColors(const QMap<QString, QColor> &map);
+  void setObject(glitch_object *object);
   void setSource(const QString &text);
 
- public slots:
-
  private:
+  QPointer<glitch_object> m_object;
   Ui_glitch_floating_source m_ui;
   glitch_syntax_highlighter *m_syntaxHighlighter;
+
+ private slots:
+  void slotObjectChanged(void);
 };
 
 #endif

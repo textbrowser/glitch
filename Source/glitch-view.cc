@@ -1761,7 +1761,10 @@ void glitch_view::slotSelectionChanged(void)
   auto objects(m_scene->selectedObjects());
 
   if(objects.size() == 1)
-    m_sourcePreview->setSource(objects.at(0)->code());
+    {
+      m_sourcePreview->setObject(objects.at(0));
+      m_sourcePreview->setSource(objects.at(0)->code());
+    }
 }
 
 void glitch_view::slotSeparate(void)

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "glitch-object.h"
 #include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
 
@@ -44,7 +45,30 @@ void glitch_source_preview::setKeywordsColors(const QMap<QString, QColor> &map)
   m_syntaxHighlighter->setKeywordsColors(map);
 }
 
+void glitch_source_preview::setObject(glitch_object *object)
+{
+  if(m_object)
+    disconnect(m_object,
+	       &glitch_object::changed,
+	       this,
+	       &glitch_source_preview::slotObjectChanged);
+
+  m_object = object;
+
+  if(m_object)
+    connect(m_object,
+	    &glitch_object::changed,
+	    this,
+	    &glitch_source_preview::slotObjectChanged);
+}
+
 void glitch_source_preview::setSource(const QString &text)
 {
   m_ui.text->setPlainText(text.trimmed());
+}
+
+void glitch_source_preview::slotObjectChanged(void)
+{
+  if(m_object)
+    setSource(m_object->code());
 }
