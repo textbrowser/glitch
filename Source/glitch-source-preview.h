@@ -30,7 +30,7 @@
 
 #include <QPointer>
 
-#include "ui_glitch-floating-source.h"
+#include "ui_glitch-source-preview.h"
 
 class glitch_object;
 class glitch_syntax_highlighter;
@@ -48,7 +48,7 @@ class glitch_source_preview: public QDialog
 
  private:
   QPointer<glitch_object> m_object;
-  Ui_glitch_floating_source m_ui;
+  Ui_glitch_source_preview m_ui;
   glitch_syntax_highlighter *m_syntaxHighlighter;
 
  private slots:

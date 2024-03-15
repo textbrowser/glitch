@@ -202,12 +202,12 @@ FORMS          += UI/glitch-ash.ui \
                   UI/glitch-errors-dialog.ui \
                   UI/glitch-find-objects.ui \
                   UI/glitch-floating-context-menu.ui \
-                  UI/glitch-floating-source.ui \
                   UI/glitch-mainwindow.ui \
                   UI/glitch-port-colors.ui \
                   UI/glitch-preferences.ui \
                   UI/glitch-separated-diagram-window.ui \
                   UI/glitch-serial-port-window.ui \
+                  UI/glitch-source-preview.ui \
                   UI/glitch-structures.ui \
                   UI/glitch-style-sheet.ui \
                   UI/glitch-tools.ui \

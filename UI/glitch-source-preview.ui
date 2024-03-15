@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>glitch_floating_source</class>
- <widget class="QDialog" name="glitch_floating_source">
+ <class>glitch_source_preview</class>
+ <widget class="QDialog" name="glitch_source_preview">
   <property name="geometry">
    <rect>
     <x>0</x>
