@@ -309,6 +309,8 @@ void glitch_object_library_function_arduino::slotSetFunctionName(void)
 
       if(m_proxy)
 	m_proxy->updateGeometry();
+
+      emit changed();
     }
   else
     QApplication::processEvents();

@@ -496,42 +496,50 @@ void glitch_object_compound_operator_arduino::slotCompoundOperatorChanged
 {
   setOperatorType(m_ui.compound_operator->currentText());
 
-  if(!m_undoStack)
-    return;
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_ui.compound_operator->currentText(),
+	 m_properties.value(Properties::COMPOUND_OPERATOR).toString(),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 Properties::COMPOUND_OPERATOR,
+	 this);
 
-  auto undoCommand = new glitch_undo_command
-    (m_ui.compound_operator->currentText(),
-     m_properties.value(Properties::COMPOUND_OPERATOR).toString(),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     Properties::COMPOUND_OPERATOR,
-     this);
+      m_properties[Properties::COMPOUND_OPERATOR] =
+	m_ui.compound_operator->currentText();
+      undoCommand->setText
+	(tr("compound operator changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[Properties::COMPOUND_OPERATOR] =
+      m_ui.compound_operator->currentText();
 
-  m_properties[Properties::COMPOUND_OPERATOR] =
-    m_ui.compound_operator->currentText();
-  undoCommand->setText
-    (tr("compound operator changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
   emit changed();
 }
 
 void glitch_object_compound_operator_arduino::slotPreToggled(bool state)
 {
-  if(!m_undoStack)
-    return;
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(state,
+	 m_properties.value(Properties::COMPOUND_OPERATOR_PRE).toString(),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 Properties::COMPOUND_OPERATOR_PRE,
+	 this);
 
-  auto undoCommand = new glitch_undo_command
-    (state,
-     m_properties.value(Properties::COMPOUND_OPERATOR_PRE).toString(),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     Properties::COMPOUND_OPERATOR_PRE,
-     this);
+      m_properties[Properties::COMPOUND_OPERATOR] =
+	m_ui.compound_operator->currentText();
+      undoCommand->setText
+	(tr("compound operator changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[Properties::COMPOUND_OPERATOR] =
+      m_ui.compound_operator->currentText();
 
-  m_properties[Properties::COMPOUND_OPERATOR] =
-    m_ui.compound_operator->currentText();
-  undoCommand->setText
-    (tr("compound operator changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
   emit changed();
 }

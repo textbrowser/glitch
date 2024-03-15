@@ -352,6 +352,7 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Review existence of redo / undo stack in Arduino objects.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
 - Unique widget colors.
