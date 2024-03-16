@@ -48,18 +48,33 @@ void glitch_source_preview::setKeywordsColors(const QMap<QString, QColor> &map)
 void glitch_source_preview::setObject(glitch_object *object)
 {
   if(m_object)
-    disconnect(m_object,
-	       &glitch_object::changed,
-	       this,
-	       &glitch_source_preview::slotObjectChanged);
+    {
+      disconnect(m_object,
+		 &glitch_object::changed,
+		 this,
+		 &glitch_source_preview::slotObjectChanged);
+      disconnect(m_object,
+		 &glitch_object::simulateDeleteSignal,
+		 this,
+		 &glitch_source_preview::slotObjectChanged);
+    }
 
   m_object = object;
 
   if(m_object)
-    connect(m_object,
-	    &glitch_object::changed,
-	    this,
-	    &glitch_source_preview::slotObjectChanged);
+    {
+      connect(m_object,
+	      &glitch_object::changed,
+	      this,
+	      &glitch_source_preview::slotObjectChanged);
+      connect(m_object,
+	      &glitch_object::simulateDeleteSignal,
+	      this,
+	      &glitch_source_preview::slotObjectChanged);
+      setSource(m_object->code());
+    }
+  else
+    setSource("");
 }
 
 void glitch_source_preview::setSource(const QString &text)
@@ -69,6 +84,8 @@ void glitch_source_preview::setSource(const QString &text)
 
 void glitch_source_preview::slotObjectChanged(void)
 {
-  if(m_object)
+  if(m_object && m_object->proxy() && m_object->proxy()->isSelected())
     setSource(m_object->code());
+  else
+    setSource("");
 }

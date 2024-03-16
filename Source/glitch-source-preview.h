@@ -44,12 +44,12 @@ class glitch_source_preview: public QDialog
   ~glitch_source_preview();
   void setKeywordsColors(const QMap<QString, QColor> &map);
   void setObject(glitch_object *object);
-  void setSource(const QString &text);
 
  private:
   QPointer<glitch_object> m_object;
   Ui_glitch_source_preview m_ui;
   glitch_syntax_highlighter *m_syntaxHighlighter;
+  void setSource(const QString &text);
 
  private slots:
   void slotObjectChanged(void);
