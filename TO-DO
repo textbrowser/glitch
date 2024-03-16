@@ -264,6 +264,7 @@ Completed Items
 - Retain loop(), setup () style sheets.
 - Retain scroll bar positions in Source View.
 - Return pointers for functions.
+- Review existence of redo / undo stack in Arduino objects.
 - Review lengthy tool tips.
 - SPI, USB, Wire (https://www.arduino.cc/reference/en). See Catalog
   category.
@@ -352,7 +353,6 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Review existence of redo / undo stack in Arduino objects.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
 - Unique widget colors.

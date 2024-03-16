@@ -672,9 +672,6 @@ void glitch_object_variable_arduino::slotAdjustSize(void)
 
 void glitch_object_variable_arduino::slotComboBoxChanged(void)
 {
-  if(!m_undoStack)
-    return;
-
   if(m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE, nullptr) &&
      m_ui.type == sender())
     {
@@ -717,18 +714,24 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
   else
     property = glitch_object::Properties::VARIABLE_TYPE;
 
-  auto undoCommand = new glitch_undo_command
-    (comboBox->currentText(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(comboBox->currentText(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = comboBox->currentText();
-  undoCommand->setText
-    (tr("variable property changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = comboBox->currentText();
+      undoCommand->setText
+	(tr("variable property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = comboBox->currentText();
+
   emit changed();
 }
 
@@ -743,26 +746,29 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
   lineEdit->setCursorPosition(0);
   prepareHighlights();
 
-  if(!m_undoStack)
-    return;
-
   auto property = glitch_object::Properties::VARIABLE_NAME;
 
   if(lineEdit->text() == m_properties.value(property).toString())
     return;
 
-  auto undoCommand = new glitch_undo_command
-    (lineEdit->text(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(lineEdit->text(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = lineEdit->text();
-  undoCommand->setText
-    (tr("variable property changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = lineEdit->text();
+      undoCommand->setText
+	(tr("variable property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = lineEdit->text();
+
   lineEdit->selectAll();
   emit changed();
 }

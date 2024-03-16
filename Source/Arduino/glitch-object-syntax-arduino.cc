@@ -195,26 +195,29 @@ void glitch_object_syntax_arduino::slotSyntaxChanged(void)
   m_ui.text->setCursorPosition(0);
   glitch_misc::highlight(m_ui.text);
 
-  if(!m_undoStack)
-    return;
-
   auto property = glitch_object::Properties::SYNTAX;
 
   if(m_properties.value(property).toString() == m_ui.text->text())
     return;
 
-  auto undoCommand = new glitch_undo_command
-    (m_ui.text->text(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_ui.text->text(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = m_ui.text->text();
-  undoCommand->setText
-    (tr("syntax property changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = m_ui.text->text();
+      undoCommand->setText
+	(tr("syntax property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = m_ui.text->text();
+
   m_ui.text->selectAll();
   emit changed();
 }

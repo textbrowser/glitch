@@ -334,19 +334,22 @@ void glitch_object_constant_arduino::slotAdjustSize(void)
 
 void glitch_object_constant_arduino::slotConstantChanged(void)
 {
-  if(!m_undoStack)
-    return;
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_properties.value(Properties::CONSTANT_TYPE).toString(),
+	 glitch_undo_command::Types::CONSTANT_TYPE_CHANGED,
+	 this);
 
-  auto undoCommand = new glitch_undo_command
-    (m_properties.value(Properties::CONSTANT_TYPE).toString(),
-     glitch_undo_command::Types::CONSTANT_TYPE_CHANGED,
-     this);
+      m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
+      undoCommand->setText
+	(tr("constant type changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
 
-  m_properties[Properties::CONSTANT_TYPE] = m_ui.constant->currentText();
-  undoCommand->setText
-    (tr("constant type changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
   emit changed();
 }
 
@@ -355,26 +358,29 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
   m_ui.other->setText(m_ui.other->text().trimmed());
   m_ui.other->setCursorPosition(0);
 
-  if(!m_undoStack)
-    return;
-
   auto property = glitch_object::Properties::CONSTANT_OTHER;
 
   if(m_properties.value(property).toString() == m_ui.other->text())
     return;
 
-  auto undoCommand = new glitch_undo_command
-    (m_ui.other->text(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_ui.other->text(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = m_ui.other->text();
-  undoCommand->setText
-    (tr("constant property changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = m_ui.other->text();
+      undoCommand->setText
+	(tr("constant property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = m_ui.other->text();
+
   m_ui.other->selectAll();
   emit changed();
 }

@@ -186,21 +186,25 @@ void glitch_object_block_comment_arduino::setProperty
 
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
-  if(!m_undoStack)
-    return;
-
   auto property = glitch_object::Properties::COMMENT;
-  auto undoCommand = new glitch_undo_command
-    (m_ui.comment->toPlainText(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
 
-  m_properties[property] = m_ui.comment->toPlainText();
-  undoCommand->setText
-    (tr("comment changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_ui.comment->toPlainText(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
+
+      m_properties[property] = m_ui.comment->toPlainText();
+      undoCommand->setText
+	(tr("comment changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = m_ui.comment->toPlainText();
+
   emit changed();
 }

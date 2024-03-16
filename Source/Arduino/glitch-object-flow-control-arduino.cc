@@ -623,26 +623,29 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
   m_ui.condition->setCursorPosition(0);
   glitch_misc::highlight(m_ui.condition);
 
-  if(!m_undoStack)
-    return;
-
   auto property = glitch_object::Properties::CONDITION;
 
   if(m_properties.value(property).toString() == m_ui.condition->text())
     return;
 
-  auto undoCommand = new glitch_undo_command
-    (m_ui.condition->text(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_ui.condition->text(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = m_ui.condition->text();
-  undoCommand->setText
-    (tr("flow control condition changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = m_ui.condition->text();
+      undoCommand->setText
+	(tr("flow control condition changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = m_ui.condition->text();
+
   m_ui.condition->selectAll();
   emit changed();
 }
@@ -672,20 +675,24 @@ void glitch_object_flow_control_arduino::slotEdit(void)
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
 {
-  if(!m_undoStack)
-    return;
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(m_properties.value(Properties::FLOW_CONTROL_TYPE).toString(),
+	 glitch_undo_command::Types::FLOW_CONTROL_TYPE_CHANGED,
+	 this);
 
-  auto undoCommand = new glitch_undo_command
-    (m_properties.value(Properties::FLOW_CONTROL_TYPE).toString(),
-     glitch_undo_command::Types::FLOW_CONTROL_TYPE_CHANGED,
-     this);
+      m_properties[Properties::FLOW_CONTROL_TYPE] =
+	m_ui.flow_control_type->currentText();
+      undoCommand->setText
+	(tr("flow control type changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[Properties::FLOW_CONTROL_TYPE] =
+      m_ui.flow_control_type->currentText();
 
-  m_properties[Properties::FLOW_CONTROL_TYPE] =
-    m_ui.flow_control_type->currentText();
-  undoCommand->setText
-    (tr("flow control type changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
   emit changed();
 }
 
