@@ -355,6 +355,7 @@ Remaining Items
 - Resizing after a font is difficult because of redo / undo.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
+- Source preview search.
 - Unique widget colors.
 - Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
