@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Glitch: Source</string>
+   <string>Glitch: Source Preview</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../Icons/icons.qrc">
@@ -101,5 +101,22 @@
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>close</sender>
+   <signal>clicked()</signal>
+   <receiver>glitch_source_preview</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>568</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
