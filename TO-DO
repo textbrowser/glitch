@@ -355,6 +355,10 @@ Remaining Items
 - Resizing after a font is difficult because of redo / undo.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
+- Sort contents of combination boxes in UI files:
+  Canvas Settings
+  Glitch Preferences
+  Serial Port Window
 - Source preview search.
 - Unique widget colors.
 - Warn of recursive functions.
