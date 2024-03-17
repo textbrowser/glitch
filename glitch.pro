@@ -13,7 +13,7 @@ CONFIG		+= qt release warn_on
 DEFINES         += GLITCH_FUTURE
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
-QT		+= gui printsupport network sql widgets
+QT		+= gui network printsupport sql widgets
 
 contains(QMAKE_HOST.arch, armv7l) {
 QMAKE_CXXFLAGS_RELEASE += -march=armv7
