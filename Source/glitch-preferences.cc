@@ -30,11 +30,13 @@
 #include <QPushButton>
 #include <QSettings>
 
+#include "glitch-misc.h"
 #include "glitch-preferences.h"
 
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  glitch_misc::sortCombinationBox(m_ui.font_hinting);
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   connect(m_ui.button_box->button(QDialogButtonBox::Apply),
 	  &QPushButton::clicked,
@@ -81,6 +83,8 @@ void glitch_preferences::prepareLanguages(void)
       it.next();
       m_ui.display_language->addItem(it.key(), it.value());
     }
+
+  glitch_misc::sortCombinationBox(m_ui.display_language);
 }
 
 void glitch_preferences::processSettings(void)

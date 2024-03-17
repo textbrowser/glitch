@@ -69,6 +69,9 @@
               </item>
               <item>
                <widget class="QComboBox" name="port_name">
+                <property name="currentText">
+                 <string notr="true"/>
+                </property>
                 <property name="sizeAdjustPolicy">
                  <enum>QComboBox::AdjustToContents</enum>
                 </property>
@@ -125,42 +128,42 @@
                </property>
                <item>
                 <property name="text">
-                 <string>1200</string>
+                 <string notr="true">1200</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>2400</string>
+                 <string notr="true">2400</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>4800</string>
+                 <string notr="true">4800</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>9600</string>
+                 <string notr="true">9600</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>19200</string>
+                 <string notr="true">19200</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>38400</string>
+                 <string notr="true">38400</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>57600</string>
+                 <string notr="true">57600</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>115200</string>
+                 <string notr="true">115200</string>
                 </property>
                </item>
               </widget>
@@ -224,42 +227,42 @@
                </property>
                <item>
                 <property name="text">
-                 <string>1200</string>
+                 <string notr="true">1200</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>2400</string>
+                 <string notr="true">2400</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>4800</string>
+                 <string notr="true">4800</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>9600</string>
+                 <string notr="true">9600</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>19200</string>
+                 <string notr="true">19200</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>38400</string>
+                 <string notr="true">38400</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>57600</string>
+                 <string notr="true">57600</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>115200</string>
+                 <string notr="true">115200</string>
                 </property>
                </item>
               </widget>
@@ -329,29 +332,29 @@
              <item row="3" column="1">
               <widget class="QComboBox" name="data_bits">
                <property name="currentIndex">
-                <number>3</number>
+                <number>0</number>
                </property>
                <property name="sizeAdjustPolicy">
                 <enum>QComboBox::AdjustToContents</enum>
                </property>
                <item>
                 <property name="text">
-                 <string>Data5</string>
+                 <string notr="true">Data5</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Data6</string>
+                 <string notr="true">Data6</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Data7</string>
+                 <string notr="true">Data7</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>Data8</string>
+                 <string notr="true">Data8</string>
                 </property>
                </item>
               </widget>

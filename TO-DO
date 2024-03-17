@@ -296,6 +296,10 @@ Completed Items
 - Show object coordinates in redo / undo text.
 - Show tooltip source of editable widgets. A source preview is provided.
 - Single redo / undo stack per diagram.
+- Sort contents of combination boxes in UI files:
+  Canvas Settings
+  Glitch Preferences
+  Serial Port Window
 - Sort structures for languages.
 - Split properties via special regular expression.
 - Splitter states and redo / undo. Not necessary.
@@ -355,10 +359,6 @@ Remaining Items
 - Resizing after a font is difficult because of redo / undo.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
-- Sort contents of combination boxes in UI files:
-  Canvas Settings
-  Glitch Preferences
-  Serial Port Window
 - Source preview search.
 - Unique widget colors.
 - Warn of recursive functions.

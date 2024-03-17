@@ -33,6 +33,7 @@
 #include <QShortcut>
 #include <QTimer>
 
+#include "glitch-misc.h"
 #include "glitch-serial-port-window.h"
 
 glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
@@ -40,6 +41,9 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 {
   m_packetsReceived = 0;
   m_ui.setupUi(this);
+  glitch_misc::sortCombinationBox(m_ui.flow_control);
+  glitch_misc::sortCombinationBox(m_ui.parity);
+  glitch_misc::sortCombinationBox(m_ui.stop_bits);
   connect(m_ui.clear,
 	  &QPushButton::clicked,
 	  this,
@@ -100,12 +104,8 @@ void glitch_serial_port_window::discoverDevices(void)
 
   m_ui.port_name->clear();
 
-  QMap<QString, char> map;
-
   foreach(const auto &port, QSerialPortInfo::availablePorts())
-    map[port.portName()] = 0;
-
-  m_ui.port_name->addItems(map.keys());
+    m_ui.port_name->addItem(port.portName());
 
   auto serialPort = findChild<QSerialPort *> ();
 
@@ -123,6 +123,7 @@ void glitch_serial_port_window::discoverDevices(void)
       m_ui.port_name->setCurrentIndex(0);
     }
 
+  glitch_misc::sortCombinationBox(m_ui.port_name);
   QApplication::restoreOverrideCursor();
 #endif
 }
@@ -190,74 +191,32 @@ void glitch_serial_port_window::slotConnect(void)
     (QSerialPort::DataBits(m_ui.data_bits->currentIndex() + 5));
   serialPort->setDataTerminalReady(m_ui.data_terminal_ready->isChecked());
 
-  switch(m_ui.flow_control->currentIndex())
-    {
-    case 0:
-      {
-	serialPort->setFlowControl(QSerialPort::HardwareControl);
-	break;
-      }
-    case 2:
-      {
-	serialPort->setFlowControl(QSerialPort::SoftwareControl);
-	break;
-      }
-    default:
-      {
-	serialPort->setFlowControl(QSerialPort::NoFlowControl);
-	break;
-      }
-    }
+  if(m_ui.flow_control->currentText() == tr("Hardware"))
+    serialPort->setFlowControl(QSerialPort::HardwareControl);
+  else if(m_ui.flow_control->currentText() == tr("Software"))
+    serialPort->setFlowControl(QSerialPort::SoftwareControl);
+  else
+    serialPort->setFlowControl(QSerialPort::NoFlowControl);
 
-  switch(m_ui.parity->currentIndex())
-    {
-    case 0:
-      {
-	serialPort->setParity(QSerialPort::EvenParity);
-	break;
-      }
-    case 1:
-      {
-	serialPort->setParity(QSerialPort::MarkParity);
-	break;
-      }
-    case 2:
-      {
-	serialPort->setParity(QSerialPort::NoParity);
-	break;
-      }
-    case 3:
-      {
-	serialPort->setParity(QSerialPort::OddParity);
-	break;
-      }
-    case 4:
-      {
-	serialPort->setParity(QSerialPort::SpaceParity);
-	break;
-      }
-    }
+  if(m_ui.parity->currentText() == tr("Even"))
+    serialPort->setParity(QSerialPort::EvenParity);
+  else if(m_ui.parity->currentText() == tr("Mark"))
+    serialPort->setParity(QSerialPort::MarkParity);
+  else if(m_ui.parity->currentText() == tr("Odd"))
+    serialPort->setParity(QSerialPort::OddParity);
+  else if(m_ui.parity->currentText() == tr("Space"))
+    serialPort->setParity(QSerialPort::SpaceParity);
+  else
+    serialPort->setParity(QSerialPort::NoParity);
 
   serialPort->setRequestToSend(m_ui.rts->isChecked());
 
-  switch(m_ui.stop_bits->currentIndex())
-    {
-    case 0:
-      {
-	serialPort->setStopBits(QSerialPort::OneStop);
-	break;
-      }
-    case 1:
-      {
-	serialPort->setStopBits(QSerialPort::OneAndHalfStop);
-	break;
-      }
-    case 2:
-      {
-	serialPort->setStopBits(QSerialPort::TwoStop);
-	break;
-      }
-    }
+  if(m_ui.stop_bits->currentText() == tr("OneAndHalf"))
+    serialPort->setStopBits(QSerialPort::OneAndHalfStop);
+  else if(m_ui.stop_bits->currentText() == tr("Two"))
+    serialPort->setStopBits(QSerialPort::TwoStop);
+  else
+    serialPort->setStopBits(QSerialPort::OneStop);
 
   m_ui.connect->setEnabled(false);
   m_ui.disconnect->setEnabled(true);
