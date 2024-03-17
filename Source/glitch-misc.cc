@@ -295,7 +295,9 @@ void glitch_misc::sortCombinationBox(QComboBox *comboBox)
   for(int i = 0; i < comboBox->count(); i++)
     list << comboBox->itemText(i);
 
-  comboBox->clear();
   std::sort(list.begin(), list.end());
+  comboBox->blockSignals(true);
+  comboBox->clear();
   comboBox->addItems(list);
+  comboBox->blockSignals(false);
 }
