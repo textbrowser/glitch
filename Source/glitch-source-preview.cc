@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QShortcut>
+
 #include "glitch-object.h"
 #include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
@@ -35,7 +37,9 @@ glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
   m_ui.close->setShortcut(tr("Ctrl+W"));
   m_ui.next->setIcon(QIcon(":/next.png"));
   m_ui.previous->setIcon(QIcon(":/previous.png"));
+  m_originalFindPalette = m_ui.find->palette();
   m_syntaxHighlighter = new glitch_syntax_highlighter(m_ui.text->document());
+  new QShortcut(tr("Ctrl+F"), this, SLOT(slotFind(void)));
   connect(m_ui.find,
 	  &QLineEdit::returnPressed,
 	  this,
@@ -101,8 +105,43 @@ void glitch_source_preview::setSource(const QString &text)
   m_ui.text->setPlainText(text.trimmed());
 }
 
+void glitch_source_preview::slotFind(void)
+{
+  m_ui.find->setFocus();
+  m_ui.find->selectAll();
+}
+
 void glitch_source_preview::slotFindText(void)
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+  auto options = QTextDocument::FindFlags();
+#else
+  QTextDocument::FindFlags options = 0;
+#endif
+
+  if(m_ui.previous == qobject_cast<QPushButton *> (sender()))
+    options = QTextDocument::FindBackward;
+
+  if(m_ui.find->text().isEmpty())
+    {
+      m_ui.find->setPalette(m_originalFindPalette);
+      m_ui.text->moveCursor(QTextCursor::Left);
+    }
+  else if(!m_ui.text->find(m_ui.find->text(), options))
+    {
+      QColor color(240, 128, 128); // Light Coral
+      auto palette(m_ui.find->palette());
+
+      palette.setColor(m_ui.find->backgroundRole(), color);
+      m_ui.find->setPalette(palette);
+
+      if(!options)
+	m_ui.text->moveCursor(QTextCursor::Start);
+      else
+	m_ui.text->moveCursor(QTextCursor::End);
+    }
+  else
+    m_ui.find->setPalette(m_originalFindPalette);
 }
 
 void glitch_source_preview::slotObjectChanged(void)
