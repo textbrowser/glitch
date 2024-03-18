@@ -92,7 +92,7 @@ glitch_view::glitch_view
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
-  m_scene->setBackgroundBrush(QColor(Qt::white));
+  m_scene->setBackgroundBrush(QColor("#00aaff"));
   m_scene->setCanvasSettings(m_canvasSettings);
   m_scene->setDotsGridsColor(Qt::white);
   m_scene->setMainScene(true);

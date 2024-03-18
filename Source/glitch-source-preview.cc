@@ -33,7 +33,25 @@ glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
   m_ui.close->setShortcut(tr("Ctrl+W"));
+  m_ui.next->setIcon(QIcon(":/next.png"));
+  m_ui.previous->setIcon(QIcon(":/previous.png"));
   m_syntaxHighlighter = new glitch_syntax_highlighter(m_ui.text->document());
+  connect(m_ui.find,
+	  &QLineEdit::returnPressed,
+	  this,
+	  &glitch_source_preview::slotFindText);
+  connect(m_ui.next,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_source_preview::slotFindText);
+  connect(m_ui.previous,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_source_preview::slotFindText);
+  connect(m_ui.find,
+	  SIGNAL(textEdited(const QString &)),
+	  this,
+	  SLOT(slotFindText(void)));
   setWindowModality(Qt::NonModal);
 }
 
@@ -81,6 +99,10 @@ void glitch_source_preview::setObject(glitch_object *object)
 void glitch_source_preview::setSource(const QString &text)
 {
   m_ui.text->setPlainText(text.trimmed());
+}
+
+void glitch_source_preview::slotFindText(void)
+{
 }
 
 void glitch_source_preview::slotObjectChanged(void)

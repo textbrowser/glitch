@@ -52,6 +52,7 @@ class glitch_source_preview: public QDialog
   void setSource(const QString &text);
 
  private slots:
+  void slotFindText(void);
   void slotObjectChanged(void);
 };
 
