@@ -27,6 +27,7 @@
 
 #include <QShortcut>
 
+#include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
@@ -122,26 +123,7 @@ void glitch_source_preview::slotFindText(void)
   if(m_ui.previous == qobject_cast<QPushButton *> (sender()))
     options = QTextDocument::FindBackward;
 
-  if(m_ui.find->text().isEmpty())
-    {
-      m_ui.find->setPalette(m_originalFindPalette);
-      m_ui.text->moveCursor(QTextCursor::Left);
-    }
-  else if(!m_ui.text->find(m_ui.find->text(), options))
-    {
-      QColor color(240, 128, 128); // Light Coral
-      auto palette(m_ui.find->palette());
-
-      palette.setColor(m_ui.find->backgroundRole(), color);
-      m_ui.find->setPalette(palette);
-
-      if(!options)
-	m_ui.text->moveCursor(QTextCursor::Start);
-      else
-	m_ui.text->moveCursor(QTextCursor::End);
-    }
-  else
-    m_ui.find->setPalette(m_originalFindPalette);
+  glitch_misc::searchText(m_ui.find, m_ui.text, m_originalFindPalette, options);
 }
 
 void glitch_source_preview::slotObjectChanged(void)

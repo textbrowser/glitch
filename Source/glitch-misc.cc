@@ -272,6 +272,51 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
   lineEdit->setReadOnly(state);
 }
 
+void glitch_misc::searchText
+(QLineEdit *find,
+ QTextEdit *text,
+ const QPalette &originalFindPalette,
+ const QTextDocument::FindFlags options)
+{
+  if(!find || !text)
+    return;
+
+  if(find->text().isEmpty())
+    {
+      find->setPalette(originalFindPalette);
+      find->setProperty("found", true);
+      text->moveCursor(QTextCursor::Left);
+    }
+  else if(!text->find(find->text(), options))
+    {
+      auto found = find->property("found").toBool();
+
+      if(found)
+	find->setProperty("found", false);
+      else
+	{
+	  QColor color(240, 128, 128); // Light Coral
+	  auto palette(find->palette());
+
+	  palette.setColor(find->backgroundRole(), color);
+	  find->setPalette(palette);
+	}
+
+      if(options)
+	text->moveCursor(QTextCursor::End);
+      else
+	text->moveCursor(QTextCursor::Start);
+
+      if(found)
+	searchText(find, text, originalFindPalette, options);
+    }
+  else
+    {
+      find->setPalette(originalFindPalette);
+      find->setProperty("found", true);
+    }
+}
+
 void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
 {
   QMessageBox mb(parent);

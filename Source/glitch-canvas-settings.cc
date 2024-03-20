@@ -51,8 +51,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_misc::sortCombinationBox(m_ui.update_mode);
   glitch_misc::sortCombinationBox(m_ui.wire_type);
   m_ui.background_color->setStyleSheet
-    ("QPushButton {background-color: #00aaff}");
-  m_ui.background_color->setText(QColor("#00aaff").name());
+    ("QPushButton {background-color: #55aaff}");
+  m_ui.background_color->setText(QColor("#55aaff").name());
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
@@ -650,7 +650,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	  }
 
 	if(!color.isValid())
-	  color = QColor("#00aaff");
+	  color = QColor("#55aaff");
 
 	if(!dotsGridsColor.isValid())
 	  dotsGridsColor = QColor(Qt::white);

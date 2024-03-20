@@ -29,6 +29,7 @@
 #define _glitch_misc_h_
 
 #include <QString>
+#include <QTextEdit>
 #include <QtDebug>
 
 class QComboBox;
@@ -43,6 +44,11 @@ class glitch_misc
   static bool sameAncestors(const QObject *object1, const QObject *object2);
   static void centerWindow(QWidget *parent, QWidget *window);
   static void highlight(QLineEdit *lineEdit);
+  static void searchText
+    (QLineEdit *find,
+     QTextEdit *text,
+     const QPalette &originalFindPalette,
+     const QTextDocument::FindFlags options);
   static void showErrorDialog(const QString &text, QWidget *parent);
   static void sortCombinationBox(QComboBox *comboBox);
 
