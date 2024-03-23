@@ -89,20 +89,21 @@ Collaboration diagram for glitch_view:</div>
 <div class="dyncontent">
 <div class="center"><img src="classglitch__view__coll__graph.png" border="0" usemap="#aglitch__view_coll__map" alt="Collaboration graph"/></div>
 <map name="aglitch__view_coll__map" id="aglitch__view_coll__map">
-<area shape="rect" title=" " alt="" coords="659,226,755,252"/>
-<area shape="rect" title=" " alt="" coords="46,95,125,122"/>
-<area shape="rect" href="classglitch__docked__container.html" title=" " alt="" coords="215,74,393,100"/>
-<area shape="rect" href="classglitch__canvas__preview.html" title=" " alt="" coords="219,124,389,151"/>
-<area shape="rect" href="classglitch__alignment.html" title=" " alt="" coords="239,175,369,202"/>
-<area shape="rect" href="classglitch__user__functions.html" title=" " alt="" coords="224,226,384,252"/>
-<area shape="rect" title=" " alt="" coords="48,255,123,282"/>
-<area shape="rect" href="classglitch__canvas__settings.html" title=" " alt="" coords="219,276,389,303"/>
-<area shape="rect" href="classglitch__graphicsview.html" title=" " alt="" coords="229,327,379,354"/>
-<area shape="rect" title=" " alt="" coords="25,327,146,354"/>
-<area shape="rect" href="classglitch__user__functions__model.html" title=" " alt="" coords="224,378,384,420"/>
-<area shape="rect" title=" " alt="" coords="5,386,165,412"/>
-<area shape="rect" href="classglitch__scene.html" title=" " alt="" coords="253,444,355,471"/>
-<area shape="rect" title=" " alt="" coords="21,444,149,471"/>
+<area shape="rect" title=" " alt="" coords="659,252,755,279"/>
+<area shape="rect" title=" " alt="" coords="46,101,125,128"/>
+<area shape="rect" href="classglitch__docked__container.html" title=" " alt="" coords="215,76,393,103"/>
+<area shape="rect" href="classglitch__canvas__preview.html" title=" " alt="" coords="219,127,389,153"/>
+<area shape="rect" href="classglitch__alignment.html" title=" " alt="" coords="239,177,369,204"/>
+<area shape="rect" href="classglitch__user__functions.html" title=" " alt="" coords="224,228,384,255"/>
+<area shape="rect" title=" " alt="" coords="48,279,123,305"/>
+<area shape="rect" href="classglitch__canvas__settings.html" title=" " alt="" coords="219,279,389,305"/>
+<area shape="rect" href="classglitch__source__preview.html" title=" " alt="" coords="221,329,387,356"/>
+<area shape="rect" href="classglitch__graphicsview.html" title=" " alt="" coords="229,380,379,407"/>
+<area shape="rect" title=" " alt="" coords="25,380,146,407"/>
+<area shape="rect" href="classglitch__user__functions__model.html" title=" " alt="" coords="224,431,384,473"/>
+<area shape="rect" title=" " alt="" coords="5,439,165,465"/>
+<area shape="rect" href="classglitch__scene.html" title=" " alt="" coords="253,497,355,524"/>
+<area shape="rect" title=" " alt="" coords="21,497,149,524"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -338,6 +339,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>selectAll</b> (void)<
 <tr class="memitem:a4624b259b46763d65edb79e85f88c69a"><td class="memItemLeft" align="right" valign="top"><a id="a4624b259b46763d65edb79e85f88c69a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>showCanvasSettings</b> (void) const</td></tr>
 <tr class="separator:a4624b259b46763d65edb79e85f88c69a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6512f36ecaced681d822d2a8c6b6f507"><td class="memItemLeft" align="right" valign="top"><a id="a6512f36ecaced681d822d2a8c6b6f507"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showSourcePreview</b> (void) const</td></tr>
+<tr class="separator:a6512f36ecaced681d822d2a8c6b6f507"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8adbc77346e06c2b51fa73b236f8dddd"><td class="memItemLeft" align="right" valign="top"><a id="a8adbc77346e06c2b51fa73b236f8dddd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>showTools</b> (void)</td></tr>
 <tr class="separator:a8adbc77346e06c2b51fa73b236f8dddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -404,6 +408,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSceneObjectDestro
 <tr class="memitem:a5800b26a212796306bd5436ea0480201"><td class="memItemLeft" align="right" valign="top"><a id="a5800b26a212796306bd5436ea0480201"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSceneResized</b> (void)</td></tr>
 <tr class="separator:a5800b26a212796306bd5436ea0480201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3fae695614da76726b456250908ddff"><td class="memItemLeft" align="right" valign="top"><a id="ad3fae695614da76726b456250908ddff"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSelectionChanged</b> (void)</td></tr>
+<tr class="separator:ad3fae695614da76726b456250908ddff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a899c09ca48e2059167d6918aea4b50c6"><td class="memItemLeft" align="right" valign="top"><a id="a899c09ca48e2059167d6918aea4b50c6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>slotSeparate</b> (void)</td></tr>
 <tr class="separator:a899c09ca48e2059167d6918aea4b50c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -533,6 +540,9 @@ glitch_common::ProjectTypes&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:a3332cc0ae16ebad67748351b1c569b3e"><td class="memItemLeft" align="right" valign="top"><a id="a3332cc0ae16ebad67748351b1c569b3e"></a>
 <a class="el" href="classglitch__scene.html">glitch_scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_scene</b></td></tr>
 <tr class="separator:a3332cc0ae16ebad67748351b1c569b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066f1b805f8fd5f2b38b0b4475f5ee20"><td class="memItemLeft" align="right" valign="top"><a id="a066f1b805f8fd5f2b38b0b4475f5ee20"></a>
+<a class="el" href="classglitch__source__preview.html">glitch_source_preview</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_sourcePreview</b></td></tr>
+<tr class="separator:a066f1b805f8fd5f2b38b0b4475f5ee20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cfccc909acfb62baccdbf05fac03399"><td class="memItemLeft" align="right" valign="top"><a id="a5cfccc909acfb62baccdbf05fac03399"></a>
 <a class="el" href="classglitch__user__functions.html">glitch_user_functions</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_userFunctions</b></td></tr>
 <tr class="separator:a5cfccc909acfb62baccdbf05fac03399"><td class="memSeparator" colspan="2">&#160;</td></tr>

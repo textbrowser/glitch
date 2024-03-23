@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['swifty_161',['swifty',['../classswifty.html',1,'']]]
+  ['swifty_163',['swifty',['../classswifty.html',1,'']]]
 ];
