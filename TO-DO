@@ -301,6 +301,7 @@ Completed Items
   Glitch Preferences
   Serial Port Window
 - Sort structures for languages.
+- Source preview search.
 - Split properties via special regular expression.
 - Splitter states and redo / undo. Not necessary.
 - Stack (z-values) widgets.
@@ -359,7 +360,6 @@ Remaining Items
 - Resizing after a font is difficult because of redo / undo.
 - Show statistics in ASH::list.
 - Snap-to-visible-grid.
-- Source preview search.
 - Unique widget colors.
 - Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
