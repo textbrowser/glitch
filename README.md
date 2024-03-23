@@ -32,6 +32,21 @@ Glitch: select left-most objects; align.
 <li>Serial port reader and writer.</li>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2024.03.25</p>
+<ul>
+<li>Block signals in glitch_misc::sortCombinationBox() before
+  altering the provided combination box widget.</li>
+<li>Floating source preview. Please see Windows. Click an object
+  and read its source!</li>
+<li>Improved text search in documentation class.</li>
+<li>Inspect redo / undo stack objects and provide
+  alternate logic if necessary.</li>
+<li>New Arduino keyword: //.</li>
+<li>New default canvas background color #55aaff.</li>
+<li>Write comments on multiple lines. Modifies an item from the
+  2023.09.10 release.</li>
+</ul>
 <p>2024.02.29</p>
 <ul>
 <li>A source-only review for a planet of lunatics.</li>
