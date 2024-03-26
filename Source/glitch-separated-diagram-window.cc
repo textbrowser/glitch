@@ -108,6 +108,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotSelectAll);
+  connect(m_ui.action_Source_Preview,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotShowSourcePreview);
   connect(m_ui.action_Undo,
 	  &QAction::triggered,
 	  this,
@@ -210,6 +214,7 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
   m_ui.action_Save_Diagram->setIcon(QIcon(":/save.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
+  m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
@@ -630,6 +635,12 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
     }
+}
+
+void glitch_separated_diagram_window::slotShowSourcePreview(void)
+{
+  if(m_view)
+    m_view->showSourcePreview();
 }
 
 void glitch_separated_diagram_window::slotShowTearOffMenu(void)
