@@ -38,7 +38,7 @@ class glitch_wire: public QGraphicsObject
   Q_OBJECT
 
  public:
-  enum
+  enum // Must not be a class.
   {
     Type = QGraphicsObject::UserType + 2
   };
