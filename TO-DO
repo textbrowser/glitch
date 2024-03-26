@@ -294,6 +294,7 @@ Completed Items
   floating dialogs.
 - Show identifiers in Find Objects.
 - Show object coordinates in redo / undo text.
+- Show statistics in ASH::list.
 - Show tooltip source of editable widgets. A source preview is provided.
 - Single redo / undo stack per diagram.
 - Sort contents of combination boxes in UI files:
@@ -358,7 +359,6 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Show statistics in ASH::list.
 - Snap-to-visible-grid.
 - Unique widget colors.
 - Warn of recursive functions.

@@ -235,12 +235,16 @@ class glitch_ash_state_machine
 
 	      if(token == QObject::tr("all"))
 		{
-		  foreach(auto object, t->allObjects())
+		  auto list(t->allObjects());
+
+		  foreach(auto object, list)
 		    string.append(object->about()).append(" ");
 		}
 	      else if(token == QObject::tr("local"))
 		{
-		  foreach(auto object, t->objects())
+		  auto list(t->objects());
+
+		  foreach(auto object, list)
 		    string.append(object->about()).append(" ");
 		}
 
