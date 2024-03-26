@@ -135,6 +135,7 @@ class glitch_view: public QWidget
   void slotFonts(void);
   void slotSave(void);
   void slotSelectedWidgetsProperties(void);
+  void slotSelectionChanged(void);
   void slotShowFind(void);
   void slotSimulateDelete(void);
   void slotUnite(void);
@@ -169,6 +170,7 @@ class glitch_view: public QWidget
   QPointer<glitch_ash> m_ash;
   QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_find_objects> m_findObjects;
+  QPointer<glitch_scene> m_scene;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
   QSplitter *m_rightSplitter;
@@ -184,7 +186,6 @@ class glitch_view: public QWidget
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   glitch_graphicsview *m_view;
-  glitch_scene *m_scene;
   glitch_source_preview *m_sourcePreview;
   glitch_user_functions *m_userFunctions;
   glitch_user_functions_model *m_userFunctionsModel;
@@ -222,7 +223,6 @@ class glitch_view: public QWidget
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
-  void slotSelectionChanged(void);
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
   void slotShowTools(void);

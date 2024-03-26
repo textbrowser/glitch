@@ -1171,6 +1171,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	      parentView,
 	      &glitch_view::slotSave,
 	      Qt::UniqueConnection);
+      connect(m_editView->scene(),
+	      &glitch_scene::selectionChanged,
+	      parentView,
+	      &glitch_view::slotSelectionChanged,
+	      Qt::UniqueConnection);
       connect(parentView,
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	      m_editView->scene(),

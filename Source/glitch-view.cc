@@ -1758,7 +1758,14 @@ void glitch_view::slotSelectedWidgetsProperties(void)
 
 void glitch_view::slotSelectionChanged(void)
 {
-  m_sourcePreview->setObject(m_scene->selectedObjects().value(0));
+  /*
+  ** This method is reached after a scene is destroyed.
+  */
+
+  auto scene = qobject_cast<glitch_scene *> (sender());
+
+  if(scene)
+    m_sourcePreview->setObject(scene->selectedObjects().value(0));
 }
 
 void glitch_view::slotSeparate(void)
