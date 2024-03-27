@@ -2,6 +2,7 @@ include(Source/glitch-arduino.pro)
 
 macx {
 dmg.commands = make install && hdiutil create Glitch.d.dmg -srcfolder Glitch.d
+QMAKE_EXTRA_TARGETS += dmg
 }
 
 unix {
@@ -154,7 +155,6 @@ QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 
 macx {
 QMAKE_DISTCLEAN     += -r Glitch.d
-QMAKE_EXTRA_TARGETS += dmg
 }
 
 win32 {
