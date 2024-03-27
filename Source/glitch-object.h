@@ -37,6 +37,7 @@
 
 #include "glitch-proxy-widget.h"
 
+class QMainWindow;
 class QUndoStack;
 class glitch_floating_context_menu;
 class glitch_object_edit_window;
@@ -364,6 +365,7 @@ class glitch_object: public QWidget
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
   QFont preferredFont(const QFont &font) const;
+  QMainWindow *parentMainWindow(void) const;
   bool event(QEvent *event);
   void allObjectsImplementation(QList<glitch_object *> &list) const;
   void disconnectInputs(void);

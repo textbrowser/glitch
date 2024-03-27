@@ -47,6 +47,7 @@ Completed Items
 - Canvas background color redo / undo.
 - Canvas printing! Save as PNG instead.
 - Center child edit windows!
+- Center child window with respect to separated diagram if necessary.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close all edit windows on simulated delete.
 - Close edit windows via Control + W.
@@ -346,7 +347,6 @@ Completed Items
 
 Remaining Items
 
-- Center child window with respect to separated diagram if necessary.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

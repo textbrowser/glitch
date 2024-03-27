@@ -256,6 +256,30 @@ QList<glitch_object *> glitch_object::objects(void) const
     return QList<glitch_object *> ();
 }
 
+QMainWindow *glitch_object::parentMainWindow(void) const
+{
+  QMainWindow *parent = glitch_ui::s_mainWindow;
+
+  if(m_editView && m_editWindow)
+    {
+      auto p = m_editView->parentWidget();
+
+      do
+	{
+	  if(m_editWindow != qobject_cast<QMainWindow *> (p) &&
+	     qobject_cast<QMainWindow *> (p))
+	    return qobject_cast<QMainWindow *> (p);
+	  else if(p)
+	    p = p->parentWidget();
+	  else
+	    break;
+	}
+      while(p);
+    }
+
+  return parent;
+}
+
 QPointF glitch_object::scenePos(void) const
 {
   if(m_proxy)
@@ -1214,9 +1238,9 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
       if(!m_editWindow->
 	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
 			 toByteArray()))
-	m_editWindow->resize(0.85 * glitch_ui::s_mainWindow->size());
+	m_editWindow->resize(0.85 * parentMainWindow()->size());
 
-      glitch_variety::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
+      glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
 
       m_editWindow->restoreState
@@ -1860,9 +1884,9 @@ void glitch_object::showEditWindow(void) const
 	     restoreGeometry(m_properties.
 			     value(Properties::EDIT_WINDOW_GEOMETRY).
 			     toByteArray()))
-	    m_editWindow->resize(0.85 * glitch_ui::s_mainWindow->size());
+	    m_editWindow->resize(0.85 * parentMainWindow()->size());
 
-	  glitch_variety::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
+	  glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
 
 	  m_editWindow->restoreState
