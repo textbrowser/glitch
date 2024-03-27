@@ -7,6 +7,7 @@ dmg.commands = make install && hdiutil create Glitch.d.dmg -srcfolder Glitch.d
 unix {
 doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name '*~' -exec rm {} \\;
+QMAKE_EXTRA_TARGETS += doxygen purge
 }
 
 CONFIG		+= qt release warn_on
@@ -162,10 +163,6 @@ QMAKE_DISTCLEAN     += del /F /Q .qmake* \
 } else {
 QMAKE_DISTCLEAN     += -f .qmake* \
                        -fr Temporary
-}
-
-unix {
-QMAKE_EXTRA_TARGETS += doxygen purge
 }
 
 QMAKE_STRIP	    = echo

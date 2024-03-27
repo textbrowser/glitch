@@ -431,10 +431,13 @@ void glitch_ash::slotProcessCommand(const QString &command)
   QString history("");
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  foreach(const auto &command, command.split(';', Qt::SkipEmptyParts))
+  foreach(const auto &c, command.split(';', Qt::SkipEmptyParts))
 #else
-  foreach(const auto &command, command.split(';', QString::SkipEmptyParts))
+  foreach(const auto &c, command.split(';', QString::SkipEmptyParts))
 #endif
+  {
+    auto command(c.trimmed());
+
     if(command == tr("?") || command == tr("help"))
       {
 	QString string("");
@@ -499,6 +502,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
       emit processCommand(command);
     else
       m_ui.text->append(tr("%1: command not recognized.").arg(command));
+  }
 
   QApplication::restoreOverrideCursor();
 
