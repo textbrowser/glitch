@@ -25,8 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_misc_h_
-#define _glitch_misc_h_
+#ifndef _glitch_variety_h_
+#define _glitch_variety_h_
 
 #include <QString>
 #include <QTextEdit>
@@ -36,7 +36,7 @@ class QComboBox;
 class QLineEdit;
 class QWidget;
 
-class glitch_misc
+class glitch_variety
 {
  public:
   static QPointF dbPointToPointF(const QString &text);
@@ -53,8 +53,8 @@ class glitch_misc
   static void sortCombinationBox(QComboBox *comboBox);
 
  private:
-  glitch_misc(void);
-  ~glitch_misc();
+  glitch_variety(void);
+  ~glitch_variety();
 };
 
 #endif

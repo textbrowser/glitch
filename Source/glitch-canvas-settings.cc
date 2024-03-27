@@ -39,7 +39,7 @@
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
-#include "glitch-misc.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
 glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
@@ -48,8 +48,8 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_outputFileExtension = "";
   m_timer.start(1500);
   m_ui.setupUi(this);
-  glitch_misc::sortCombinationBox(m_ui.update_mode);
-  glitch_misc::sortCombinationBox(m_ui.wire_type);
+  glitch_variety::sortCombinationBox(m_ui.update_mode);
+  glitch_variety::sortCombinationBox(m_ui.wire_type);
   m_ui.background_color->setStyleSheet
     ("QPushButton {background-color: #55aaff}");
   m_ui.background_color->setText(QColor("#55aaff").name());

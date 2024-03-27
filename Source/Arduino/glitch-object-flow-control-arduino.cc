@@ -27,13 +27,13 @@
 
 #include <QTextStream>
 
-#include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-flow-control-arduino.h"
 #include "glitch-object-view.h"
 #include "glitch-scroll-filter.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
@@ -372,7 +372,7 @@ createFromValues(const QMap<QString, QVariant> &values,
     (simplified(object->m_properties.value(Properties::CONDITION).toString()));
   object->m_ui.condition->setCursorPosition(0);
   object->prepareEditWindowHeader();
-  glitch_misc::highlight(object->m_ui.condition);
+  glitch_variety::highlight(object->m_ui.condition);
   return object;
 }
 
@@ -599,7 +599,7 @@ void glitch_object_flow_control_arduino::setProperty
       {
 	m_ui.condition->setText(simplified(value.toString()));
 	m_ui.condition->setCursorPosition(0);
-	glitch_misc::highlight(m_ui.condition);
+	glitch_variety::highlight(m_ui.condition);
 	prepareEditWindowHeader();
 	break;
       }
@@ -621,7 +621,7 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
   m_ui.condition->setCursorPosition(0);
-  glitch_misc::highlight(m_ui.condition);
+  glitch_variety::highlight(m_ui.condition);
 
   auto property = glitch_object::Properties::CONDITION;
 

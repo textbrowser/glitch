@@ -27,10 +27,10 @@
 
 #include <QShortcut>
 
-#include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
+#include "glitch-variety.h"
 
 glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
 {
@@ -123,7 +123,8 @@ void glitch_source_preview::slotFindText(void)
   if(m_ui.previous == qobject_cast<QPushButton *> (sender()))
     options = QTextDocument::FindBackward;
 
-  glitch_misc::searchText(m_ui.find, m_ui.text, m_originalFindPalette, options);
+  glitch_variety::searchText
+    (m_ui.find, m_ui.text, m_originalFindPalette, options);
 }
 
 void glitch_source_preview::slotObjectChanged(void)

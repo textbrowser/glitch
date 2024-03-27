@@ -29,12 +29,12 @@
 #include <QToolButton>
 
 #include "Arduino/glitch-object-function-arduino.h"
-#include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
 #include "glitch-scene.h"
 #include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
 QList<glitch_object *> glitch_ui::copySelected
@@ -122,13 +122,13 @@ void glitch_ui::copyExamplesForAndroid(void)
 {
   QApplication::setOverrideCursor(Qt::WaitCursor);
 
-  QDir dir(glitch_misc::homePath());
+  QDir dir(glitch_variety::homePath());
 
   dir.mkdir("Examples");
   dir = QDir("assets:/Examples");
 
   foreach(const auto &str, dir.entryList())
-    if(!QFileInfo(glitch_misc::homePath() +
+    if(!QFileInfo(glitch_variety::homePath() +
 		  QDir::separator() +
 		  "Examples" +
 		  QDir::separator() +
@@ -136,7 +136,7 @@ void glitch_ui::copyExamplesForAndroid(void)
       {
 	QFile file(dir.absolutePath() + QDir::separator() + str);
 
-	Q_UNUSED(file.copy(glitch_misc::homePath() +
+	Q_UNUSED(file.copy(glitch_variety::homePath() +
 			   QDir::separator() +
 			   "Examples" +
 			   QDir::separator() +

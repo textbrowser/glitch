@@ -39,12 +39,12 @@
 #include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
 #include "glitch-floating-context-menu.h"
-#include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-user-functions.h"
+#include "glitch-variety.h"
 
 glitch_object_edit_window::glitch_object_edit_window
 (const glitch_common::ProjectTypes projectType,
@@ -367,7 +367,7 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
       m_header->setCursorPosition(0);
       m_header->setVisible(true);
       m_header->setReadOnly(false);
-      glitch_misc::highlight(m_header);
+      glitch_variety::highlight(m_header);
       m_header->setReadOnly(true);
       setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }

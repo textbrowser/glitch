@@ -40,8 +40,8 @@
 #include "CocoaInitializer.h"
 #endif
 
-#include "glitch-misc.h"
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 #include "glitch-version.h"
 
 int main(int argc, char *argv[])
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 
   QDir dir;
 
-  dir.mkdir(glitch_misc::homePath());
+  dir.mkdir(glitch_variety::homePath());
 
 #ifdef Q_OS_MACOS
   /*
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   QSettings::setDefaultFormat(QSettings::IniFormat);
   QSettings::setPath(QSettings::IniFormat,
 		     QSettings::UserScope,
-                     glitch_misc::homePath());
+                     glitch_variety::homePath());
   glitch_ui::s_defaultApplicationFont = font;
 
   int rc = 0;

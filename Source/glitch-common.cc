@@ -26,7 +26,7 @@
 */
 
 #include "glitch-common.h"
-#include "glitch-misc.h"
+#include "glitch-variety.h"
 
 QChar glitch_common::s_indentationCharacter = ' ';
 qint64 glitch_common::s_dbId = 0;

@@ -45,14 +45,13 @@
 #include "glitch-alignment.h"
 #include "glitch-ash.h"
 #include "glitch-canvas-preview.h"
-#include "glitch-documentation.h"
 #include "glitch-docked-container.h"
+#include "glitch-documentation.h"
 #include "glitch-find-objects.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
-#include "glitch-misc.h"
-#include "glitch-object.h"
 #include "glitch-object-view.h"
+#include "glitch-object.h"
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -62,6 +61,7 @@
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
@@ -525,7 +525,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 				objects[object->id()] = object;
 				parents[id] = object;
 				proxy->setPos
-				  (glitch_misc::dbPointToPointF(point));
+				  (glitch_variety::dbPointToPointF(point));
 			      }
 			    else
 			      object->deleteLater();
@@ -558,7 +558,9 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			    child->setCanvasSettings(m_canvasSettings);
 			    ids[child->id()] = 0;
 			    object->addChild
-			      (glitch_misc::dbPointToPointF(point), child, ok);
+			      (glitch_variety::dbPointToPointF(point),
+			       child,
+			       ok);
 			    object->hideOrShowOccupied();
 
 			    if(ok)
@@ -985,7 +987,7 @@ void glitch_view::createParentFromValues
 
       child->setCanvasSettings(m_canvasSettings);
       ids[child->id()] = 0;
-      object->addChild(glitch_misc::dbPointToPointF(point), child, ok);
+      object->addChild(glitch_variety::dbPointToPointF(point), child, ok);
       object->hideOrShowOccupied();
 
       if(ok)
@@ -1657,7 +1659,7 @@ void glitch_view::slotSave(void)
   QString error("");
 
   if(!save(error))
-    glitch_misc::showErrorDialog
+    glitch_variety::showErrorDialog
       (tr("Unable to save %1 (%2).").arg(m_canvasSettings->name()).arg(error),
        this);
   else
@@ -1677,7 +1679,7 @@ void glitch_view::slotSaveAs(void)
   QFileDialog dialog(this, tr("Glitch: Save Current Diagram As"));
 
   dialog.setAcceptMode(QFileDialog::AcceptSave);
-  dialog.setDirectory(glitch_misc::homePath());
+  dialog.setDirectory(glitch_variety::homePath());
   dialog.setFileMode(QFileDialog::AnyFile);
   dialog.setNameFilter("Glitch Files (*.db)");
   dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
@@ -1692,7 +1694,7 @@ void glitch_view::slotSaveAs(void)
       QString error("");
 
       if(!saveAs(dialog.selectedFiles().value(0), error))
-	glitch_misc::showErrorDialog
+	glitch_variety::showErrorDialog
 	  (tr("Unable to save %1 (%2).").
 	   arg(m_canvasSettings->name()).arg(error), this);
       else

@@ -31,7 +31,6 @@
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
-#include "glitch-misc.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-function-arduino.h"
 #include "glitch-object-view.h"
@@ -39,6 +38,7 @@
 #include "glitch-scroll-filter.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 #include "glitch-view-arduino.h"
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -1105,7 +1105,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
       if(glitch_structures_arduino::isReserved(text))
 	{
-	  glitch_misc::showErrorDialog
+	  glitch_variety::showErrorDialog
 	    (tr("The function name %1 is a reserved keyword. "
 		"Please select another name.").arg(text), m_parent);
 	  goto restart_label;
@@ -1113,7 +1113,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 
       if(m_parentView && m_parentView->containsFunctionName(text))
 	{
-	  glitch_misc::showErrorDialog
+	  glitch_variety::showErrorDialog
 	    (tr("The function %1 is already defined. "
 		"Please select another name.").arg(text), m_parent);
 	  goto restart_label;

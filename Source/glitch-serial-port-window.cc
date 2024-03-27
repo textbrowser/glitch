@@ -33,17 +33,17 @@
 #include <QShortcut>
 #include <QTimer>
 
-#include "glitch-misc.h"
 #include "glitch-serial-port-window.h"
+#include "glitch-variety.h"
 
 glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
   QDialog(parent)
 {
   m_packetsReceived = 0;
   m_ui.setupUi(this);
-  glitch_misc::sortCombinationBox(m_ui.flow_control);
-  glitch_misc::sortCombinationBox(m_ui.parity);
-  glitch_misc::sortCombinationBox(m_ui.stop_bits);
+  glitch_variety::sortCombinationBox(m_ui.flow_control);
+  glitch_variety::sortCombinationBox(m_ui.parity);
+  glitch_variety::sortCombinationBox(m_ui.stop_bits);
   connect(m_ui.clear,
 	  &QPushButton::clicked,
 	  this,
@@ -123,7 +123,7 @@ void glitch_serial_port_window::discoverDevices(void)
       m_ui.port_name->setCurrentIndex(0);
     }
 
-  glitch_misc::sortCombinationBox(m_ui.port_name);
+  glitch_variety::sortCombinationBox(m_ui.port_name);
   QApplication::restoreOverrideCursor();
 #endif
 }

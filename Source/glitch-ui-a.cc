@@ -44,7 +44,6 @@
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-documentation.h"
 #include "glitch-graphicsview.h"
-#include "glitch-misc.h"
 #include "glitch-object.h"
 #include "glitch-preferences.h"
 #include "glitch-recent-diagram.h"
@@ -54,6 +53,7 @@
 #include "glitch-swifty.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 #include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
@@ -102,7 +102,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setWindowTitle(tr("Glitch: About"));
   m_arduino = nullptr;
   m_preferences = new glitch_preferences(this);
-  m_recentFilesFileName = glitch_misc::homePath() +
+  m_recentFilesFileName = glitch_variety::homePath() +
     QDir::separator() +
     "Glitch" +
     QDir::separator() +
@@ -492,7 +492,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 
   if(fileName.isEmpty())
     view = new glitch_view_arduino
-      (glitch_misc::homePath() + QDir::separator() + name + ".db",
+      (glitch_variety::homePath() + QDir::separator() + name + ".db",
        name,
        fromFile,
        glitch_common::ProjectTypes::ArduinoProject,
@@ -732,7 +732,7 @@ void glitch_ui::parseCommandLineArguments(void)
 	if(view)
 	  {
 	    saveRecentFile(QString("%1%2%3.db").
-			   arg(glitch_misc::homePath()).
+			   arg(glitch_variety::homePath()).
 			   arg(QDir::separator()).
 			   arg(view->name()));
 	    prepareRecentFiles();
@@ -1074,7 +1074,7 @@ void glitch_ui::prepareIcons(void)
 void glitch_ui::prepareRecentFiles(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  QDir().mkdir(glitch_misc::homePath() + QDir::separator() + "Glitch");
+  QDir().mkdir(glitch_variety::homePath() + QDir::separator() + "Glitch");
 
   QString connectionName("");
   QStringList list;
@@ -1440,7 +1440,7 @@ void glitch_ui::show(void)
       QApplication::processEvents();
     }
 
-  QFileInfo fileInfo(glitch_misc::homePath());
+  QFileInfo fileInfo(glitch_variety::homePath());
 
   if(!fileInfo.isReadable() || !fileInfo.isWritable())
     {
@@ -1448,7 +1448,7 @@ void glitch_ui::show(void)
 	(this,
 	 tr("Glitch: Error"),
 	 tr("Glitch's home directory %1 must be readable and writable.").
-	 arg(glitch_misc::homePath()));
+	 arg(glitch_variety::homePath()));
       QApplication::processEvents();
     }
 
@@ -1859,7 +1859,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
   dialog.setLabelText
     (tr("Please specify a project name. "
 	"A database file having the provided name will be created in "
-	"the %1 directory.").arg(glitch_misc::homePath()));
+	"the %1 directory.").arg(glitch_variety::homePath()));
   dialog.setTextValue("Arduino-Diagram");
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Arduino Project Name"));
@@ -1884,7 +1884,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
     name = "Arduino-Diagram";
 
   auto fileName(QString("%1%2%3.db").
-		arg(glitch_misc::homePath()).
+		arg(glitch_variety::homePath()).
 		arg(QDir::separator()).
 		arg(name));
 
@@ -1920,7 +1920,7 @@ void glitch_ui::slotOpenDiagram(void)
   QFileDialog dialog(this);
 
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
-  dialog.setDirectory(glitch_misc::homePath());
+  dialog.setDirectory(glitch_variety::homePath());
   dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
   dialog.setNameFilters(QStringList() << tr("Arduino Diagrams (*.db)"));
@@ -2072,7 +2072,7 @@ void glitch_ui::slotSaveCurrentDiagram(void)
       QString error("");
 
       if(!view->save(error))
-	glitch_misc::showErrorDialog
+	glitch_variety::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(view->name()).arg(error), this);
       else
 	{
@@ -2091,7 +2091,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
       QFileDialog dialog(this, tr("Glitch: Save Current Diagram As"));
 
       dialog.setAcceptMode(QFileDialog::AcceptSave);
-      dialog.setDirectory(glitch_misc::homePath());
+      dialog.setDirectory(glitch_variety::homePath());
       dialog.setFileMode(QFileDialog::AnyFile);
       dialog.setNameFilter("Glitch Files (*.db)");
       dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
@@ -2110,7 +2110,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 	    fileName += ".db";
 
 	  if(!view->saveAs(fileName, error))
-	    glitch_misc::showErrorDialog
+	    glitch_variety::showErrorDialog
 	      (tr("Unable to save %1 (%2).").arg(view->name()).arg(error),
 	       this);
 	  else

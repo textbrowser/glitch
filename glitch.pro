@@ -263,7 +263,6 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-find-objects.cc \
                   Source/glitch-floating-context-menu.cc \
                   Source/glitch-main.cc \
-                  Source/glitch-misc.cc \
                   Source/glitch-object.cc \
                   Source/glitch-object-arrow.cc \
                   Source/glitch-object-edit-window.cc \
@@ -288,11 +287,12 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-ui-ash.cc \
                   Source/glitch-ui-b.cc \
                   Source/glitch-undo-command.cc \
-                  Source/glitch-user-functions.cc \
                   Source/glitch-user-functions-model.cc \
                   Source/glitch-user-functions-tableview.cc \
-                  Source/glitch-view.cc \
+                  Source/glitch-user-functions.cc \
+                  Source/glitch-variety.cc \
                   Source/glitch-view-ash.cc \
+                  Source/glitch-view.cc \
 		  Source/glitch-wire.cc
 TRANSLATIONS    =
 

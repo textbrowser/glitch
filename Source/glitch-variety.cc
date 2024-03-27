@@ -38,10 +38,10 @@
 #include <QScreen>
 #include <QTextLayout>
 
-#include "glitch-misc.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
-QPointF glitch_misc::dbPointToPointF(const QString &text)
+QPointF glitch_variety::dbPointToPointF(const QString &text)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   auto list
@@ -54,7 +54,7 @@ QPointF glitch_misc::dbPointToPointF(const QString &text)
   return {qAbs(list.value(0).toDouble()), qAbs(list.value(1).toDouble())};
 }
 
-QString glitch_misc::homePath(void)
+QString glitch_variety::homePath(void)
 {
   QString homePath(qgetenv("GLITCH_HOME").trimmed());
 
@@ -78,7 +78,8 @@ QString glitch_misc::homePath(void)
     }
 }
 
-bool glitch_misc::sameAncestors(const QObject *object1, const QObject *object2)
+bool glitch_variety::sameAncestors
+(const QObject *object1, const QObject *object2)
 {
   if(!object1 || !object2)
     return false;
@@ -112,7 +113,7 @@ bool glitch_misc::sameAncestors(const QObject *object1, const QObject *object2)
   return parent1 == parent2;
 }
 
-void glitch_misc::centerWindow(QWidget *parent, QWidget *window)
+void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 {
   /*
   ** Adapted from qdialog.cpp.
@@ -194,7 +195,7 @@ void glitch_misc::centerWindow(QWidget *parent, QWidget *window)
   window->move(p);
 }
 
-void glitch_misc::highlight(QLineEdit *lineEdit)
+void glitch_variety::highlight(QLineEdit *lineEdit)
 {
   if(!lineEdit)
     return;
@@ -272,7 +273,7 @@ void glitch_misc::highlight(QLineEdit *lineEdit)
   lineEdit->setReadOnly(state);
 }
 
-void glitch_misc::searchText
+void glitch_variety::searchText
 (QLineEdit *find,
  QTextEdit *text,
  const QPalette &originalFindPalette,
@@ -317,7 +318,7 @@ void glitch_misc::searchText
     }
 }
 
-void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
+void glitch_variety::showErrorDialog(const QString &text, QWidget *parent)
 {
   QMessageBox mb(parent);
 
@@ -330,7 +331,7 @@ void glitch_misc::showErrorDialog(const QString &text, QWidget *parent)
   QApplication::processEvents();
 }
 
-void glitch_misc::sortCombinationBox(QComboBox *comboBox)
+void glitch_variety::sortCombinationBox(QComboBox *comboBox)
 {
   if(!comboBox)
     return;

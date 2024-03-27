@@ -61,7 +61,6 @@
 #include "Arduino/glitch-view-arduino.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-font-filter.h"
-#include "glitch-misc.h"
 #include "glitch-object-arrow.h"
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
@@ -71,6 +70,7 @@
 #include "glitch-style-sheet.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
@@ -1216,7 +1216,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 			 toByteArray()))
 	m_editWindow->resize(0.85 * glitch_ui::s_mainWindow->size());
 
-      glitch_misc::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
+      glitch_variety::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
 #endif
 
       m_editWindow->restoreState
@@ -1862,7 +1862,7 @@ void glitch_object::showEditWindow(void) const
 			     toByteArray()))
 	    m_editWindow->resize(0.85 * glitch_ui::s_mainWindow->size());
 
-	  glitch_misc::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
+	  glitch_variety::centerWindow(glitch_ui::s_mainWindow, m_editWindow);
 #endif
 
 	  m_editWindow->restoreState

@@ -61,13 +61,13 @@
 #include "Arduino/glitch-object-variable-arduino.h"
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-graphicsview.h"
-#include "glitch-misc.h"
 #include "glitch-object-arrow.h"
 #include "glitch-object-view.h"
 #include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 #include "glitch-wire.h"
 
 inline static qreal round(const qreal s, const qreal value)
@@ -261,7 +261,7 @@ bool glitch_scene::allowDrag
 
 	  auto tableView = qobject_cast<QTableView *> (event->source());
 
-	  if(glitch_misc::sameAncestors(tableView, this))
+	  if(glitch_variety::sameAncestors(tableView, this))
 	    {
 	      auto index = tableView->currentIndex();
 

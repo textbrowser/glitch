@@ -27,10 +27,10 @@
 
 #include <QInputDialog>
 
-#include "glitch-misc.h"
 #include "glitch-object-library-function-arduino.h"
 #include "glitch-structures-arduino.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_library_function_arduino::glitch_object_library_function_arduino
 (const QString &functionType, QWidget *parent):
@@ -284,7 +284,7 @@ void glitch_object_library_function_arduino::slotSetFunctionName(void)
 
       if(glitch_structures_arduino::isReserved(text))
 	{
-	  glitch_misc::showErrorDialog
+	  glitch_variety::showErrorDialog
 	    (tr("The function name %1 is a reserved keyword. "
 		"Please select another name.").arg(text), m_parent);
 	  goto restart_label;

@@ -31,7 +31,7 @@
 #include <QStandardPaths>
 
 #include "glitch-ash.h"
-#include "glitch-misc.h"
+#include "glitch-variety.h"
 
 QString glitch_ash_textedit::currentCommand(void) const
 {

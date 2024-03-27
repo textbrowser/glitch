@@ -39,7 +39,7 @@
 #include <QtDebug>
 
 #include "glitch-documentation.h"
-#include "glitch-misc.h"
+#include "glitch-variety.h"
 
 glitch_documentation::glitch_documentation(QWidget *parent):
   glitch_documentation("", parent)
@@ -220,7 +220,8 @@ void glitch_documentation::slotFindText(void)
   if(m_ui.previous == qobject_cast<QPushButton *> (sender()))
     options = QTextDocument::FindBackward;
 
-  glitch_misc::searchText(m_ui.find, m_ui.text, m_originalFindPalette, options);
+  glitch_variety::searchText
+    (m_ui.find, m_ui.text, m_originalFindPalette, options);
 }
 
 void glitch_documentation::slotPrint(void)

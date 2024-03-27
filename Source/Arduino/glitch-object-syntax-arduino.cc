@@ -25,9 +25,9 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "glitch-misc.h"
 #include "glitch-object-syntax-arduino.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_syntax_arduino::glitch_object_syntax_arduino
 (QWidget *parent):glitch_object_syntax_arduino(1, parent)
@@ -120,7 +120,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   object->setProperties
     (values.value("properties").toString().split(s_splitRegularExpression));
   object->setStyleSheet(values.value("stylesheet").toString());
-  glitch_misc::highlight(object->m_ui.text);
+  glitch_variety::highlight(object->m_ui.text);
   return object;
 }
 
@@ -178,7 +178,7 @@ void glitch_object_syntax_arduino::setProperty
       {
 	m_ui.text->setText(value.toString().trimmed());
 	m_ui.text->setCursorPosition(0);
-	glitch_misc::highlight(m_ui.text);
+	glitch_variety::highlight(m_ui.text);
 	setName(m_ui.text->text());
 	break;
       }
@@ -193,7 +193,7 @@ void glitch_object_syntax_arduino::slotSyntaxChanged(void)
 {
   m_ui.text->setText(m_ui.text->text().trimmed());
   m_ui.text->setCursorPosition(0);
-  glitch_misc::highlight(m_ui.text);
+  glitch_variety::highlight(m_ui.text);
 
   auto property = glitch_object::Properties::SYNTAX;
 

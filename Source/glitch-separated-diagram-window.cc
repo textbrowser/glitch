@@ -32,10 +32,10 @@
 #include <QShortcut>
 #include <QToolButton>
 
-#include "glitch-misc.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
 glitch_separated_diagram_window::
@@ -603,7 +603,7 @@ void glitch_separated_diagram_window::slotSaveDiagram(void)
       QString error("");
 
       if(!m_view->save(error))
-	glitch_misc::showErrorDialog
+	glitch_variety::showErrorDialog
 	  (tr("Unable to save %1 (%2).").arg(m_view->name()).arg(error), this);
     }
 
