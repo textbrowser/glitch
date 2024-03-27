@@ -741,14 +741,16 @@ void glitch_ui::parseCommandLineArguments(void)
 	      view->showTools();
 	  }
       }
-    else if(list.at(i) == "--open-arduino-diagram")
+    else if(list.at(i) == "--open-arduino-diagrams")
       {
-	i += 1;
-
-	if(i >= list.size())
-	  errors.append(tr("Incorrect usage of --open-arduino-diagram.\n\n"));
-	else
-	  m_delayedDiagrams << list.value(i);
+	while(true)
+	  if(i + 1 < list.size() && list.value(i + 1).endsWith(".db"))
+	    {
+	      i += 1;
+	      m_delayedDiagrams << list.value(i);
+	    }
+	  else
+	    break;
       }
     else if(list.at(i) == "--show-serial-port-window" ||
 	    list.at(i) == "--show-tools" ||
