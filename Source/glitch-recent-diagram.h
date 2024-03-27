@@ -95,28 +95,6 @@ class glitch_recent_diagram: public QWidgetAction
 
   void highlight(const bool state)
   {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-    auto menu = qobject_cast<QMenu *> (parent());
-#else
-    auto menu = qobject_cast<QMenu *> (parentWidget());
-#endif
-
-    if(!menu)
-      return;
-
-    foreach(auto action, menu->actions())
-      {
-	auto widget = qobject_cast <glitch_recent_diagram *> (action);
-
-	if(widget)
-	  widget->m_widget->setStyleSheet
-	    (QString("QWidget:hover {background: %1; color: %2;}").
-	     arg(widget->m_widget->
-		 palette().color(QPalette::Highlight).name()).
-	     arg(widget->m_widget->
-		 palette().color(QPalette::HighlightedText).name()));
-      }
-
     if(state)
       m_widget->setStyleSheet
 	(QString("QWidget {background: %1; color: %2;}").
