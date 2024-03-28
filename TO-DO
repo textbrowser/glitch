@@ -352,7 +352,7 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Generate source from terminal for testing results.
 - Insert-between-widgets option.
-- Nested flow-control scenes.
+- Nested flow-control scenes. Very difficult.
 - Pasting of a function definition onto the main diagram should result
   in a non-clone function.
 - Periodic backup.
