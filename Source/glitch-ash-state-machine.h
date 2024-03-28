@@ -59,6 +59,9 @@ class glitch_ash_state_machine
 
 	if(token.startsWith(QObject::tr("full-screen"), Qt::CaseInsensitive))
 	  state = States::FullScreen;
+	else if(token.startsWith(QObject::tr("list-statistics"),
+				 Qt::CaseInsensitive))
+	  state = States::ListStatistics;
 	else if(token.startsWith(QObject::tr("normal-screen"),
 				 Qt::CaseInsensitive))
 	  state = States::NormalScreen;
@@ -254,6 +257,18 @@ class glitch_ash_state_machine
 	      state = States::ZZZ;
 	      break;
 	    }
+	  case States::ListStatistics:
+	    {
+	      QString string("");
+
+	      string.append
+		(QObject::tr("all objects: %1\n").arg(t->allObjects().size()));
+	      string.append
+		(QObject::tr("local objects: %1").arg(t->objects().size()));
+	      emit t->information(string);
+	      state = States::ZZZ;
+	      break;
+	    }
 	  case States::NormalScreen:
 	    {
 	      t->showNormal();
@@ -366,6 +381,7 @@ class glitch_ash_state_machine
     FullScreen,
     Generate,
     List,
+    ListStatistics,
     NormalScreen,
     Redo,
     Save,
