@@ -88,6 +88,7 @@ class glitch_ui: public QMainWindow
   QStringList m_delayedDiagrams; // Open after launch.
   QTimer m_statusBarTimer;
   Ui_glitch_mainwindow m_ui;
+  bool m_generateSource;
   glitch_documentation *m_arduino;
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;

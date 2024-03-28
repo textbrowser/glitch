@@ -174,6 +174,7 @@ Completed Items
   a defined function. All duplicate instances should be duplicates of a single
   definition.
 - Generate periodically.
+- Generate source from terminal for testing results.
 - Generate to clipboard buffer.
 - Generate view.
 - Group delete.
@@ -350,7 +351,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Generate source from terminal for testing results.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting of a function definition onto the main diagram should result

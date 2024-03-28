@@ -101,6 +101,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setWindowModality(Qt::NonModal);
   m_about.setWindowTitle(tr("Glitch: About"));
   m_arduino = nullptr;
+  m_generateSource = false;
   m_preferences = new glitch_preferences(this);
   m_recentFilesFileName = glitch_variety::homePath() +
     QDir::separator() +
@@ -714,13 +715,15 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QString errors("");
   auto list(QApplication::arguments());
   auto showSerialPortWindow = false;
   auto showTools = false;
 
   for(int i = 1; i < list.size(); i++)
     if(list.at(i) == "--full-screen")
+      {
+      }
+    else if(list.at(i) == "--generate-source")
       {
       }
     else if(list.at(i) == "--new-arduino-diagram")
@@ -763,7 +766,9 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
 
   for(int i = 1; i < list.size(); i++)
-    if(list.at(i) == "--show-serial-port-window")
+    if(list.at(i) == "--generate-source")
+      m_generateSource = true;
+    else if(list.at(i) == "--show-serial-port-window")
       {
 	if(!showSerialPortWindow)
 	  {
@@ -782,19 +787,6 @@ void glitch_ui::parseCommandLineArguments(void)
       }
 
   QApplication::restoreOverrideCursor();
-
-  if(!errors.isEmpty())
-    {
-      QDialog dialog(this);
-      Ui_glitch_errors_dialog ui;
-
-      ui.setupUi(&dialog);
-      ui.label->setText(tr("The following errors occurred."));
-      ui.text->setPlainText(errors.trimmed());
-      QApplication::processEvents();
-      dialog.exec();
-      QApplication::processEvents();
-    }
 
   if(!m_delayedDiagrams.isEmpty())
     QTimer::singleShot(500, this, &glitch_ui::slotDelayedOpenDiagrams);
@@ -1621,6 +1613,17 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 	errors.append
 	  (tr("An error occurred while processing the file %1. (%2)\n\n").
 	   arg(i).arg(error));
+    }
+
+  if(m_generateSource)
+    {
+      QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+      foreach(auto view, findChildren<glitch_view *> ())
+	if(view)
+	  view->generateSourceFile();
+
+      QApplication::restoreOverrideCursor();
     }
 
   m_delayedDiagrams.clear();
