@@ -318,6 +318,7 @@ Completed Items
 - Transparent widgets, if system allows it.
 - Underline function clone name if parent function has members.
 - Undo macros for group actions.
+- Unique widget colors. Background and border colors. Style sheets.
 - Unite separated windows.
 - Variable (combination boxes) functions.
 - Variable clones. Not necessary.
@@ -361,7 +362,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
-- Unique widget colors.
 - Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
