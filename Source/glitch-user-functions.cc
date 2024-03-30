@@ -26,9 +26,6 @@
 */
 
 #include <QCoreApplication>
-#ifndef Q_OS_ANDROID
-#include <QShortcut>
-#endif
 
 #include "glitch-user-functions.h"
 
@@ -53,11 +50,6 @@ glitch_user_functions::glitch_user_functions(QWidget *parent):QDialog(parent)
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.functions->horizontalHeader()->setSortIndicator(0, Qt::AscendingOrder);
   m_ui.functions->horizontalHeader()->setSortIndicatorShown(true);
-#ifndef Q_OS_ANDROID
-  new QShortcut(tr("Ctrl+W"),
-		this,
-		SLOT(close(void)));
-#endif
   setWindowModality(Qt::NonModal);
 }
 
