@@ -327,6 +327,7 @@ Completed Items
 - Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of faulty home directory: read and write permissions.
 - Warn of missing SQLite driver.
+- Warn of recursive functions. Recursion is normal.
 - Warn on diagram overwrite during initialization.
 - Widget fonts.
 - Widgets for decorations.
@@ -362,7 +363,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
-- Warn of recursive functions.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
