@@ -944,7 +944,7 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
 
 void glitch_object_function_arduino::slotEdit(void)
 {
-  if(m_editWindow && !m_isFunctionClone)
+  if(!m_isFunctionClone && m_editWindow)
     {
       glitch_object::showEditWindow();
       m_editWindow->setToolBarVisible // Recorded in the window's state.

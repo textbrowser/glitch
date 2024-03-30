@@ -223,6 +223,8 @@ Completed Items
 - Paste in child views. Redo / undo.
 - Pasting multiple objects does not respect their original relative positions.
   Functional!
+- Pasting of a function definition onto the main diagram should result
+  in a non-clone function.
 - Percolate redo / undo of functions through child views.
 - Periodically-generated source and redo / undo.
 - Portable output location.
@@ -355,8 +357,8 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
-- Pasting of a function definition onto the main diagram should result
-  in a non-clone function.
+- Pasting a function clone in a child of another diagram must result
+  in a new main-window function in the other diagram.
 - Periodic backup.
 - Print preview. Avoid Android.
 - Redo / undo history panel.
