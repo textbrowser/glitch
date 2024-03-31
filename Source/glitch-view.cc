@@ -1341,7 +1341,9 @@ void glitch_view::showCanvasSettings(void) const
 
 void glitch_view::showSourcePreview(void) const
 {
-  m_sourcePreview->show();
+  m_sourcePreview->showNormal();
+  m_sourcePreview->activateWindow();
+  m_sourcePreview->raise();
 }
 
 void glitch_view::showTools(void)
