@@ -667,11 +667,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   prepareEditObjects(findNearestGlitchView(parent));
 }
 
-void glitch_object_function_arduino::mouseDoubleClickEvent(QMouseEvent *event)
-{
-  glitch_object::mouseDoubleClickEvent(event);
-}
-
 void glitch_object_function_arduino::save
 (const QSqlDatabase &db, QString &error)
 {

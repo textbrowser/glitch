@@ -84,7 +84,6 @@ class glitch_object_function_arduino: public glitch_object
   void compressWidget(const bool state);
   void hideOrShowOccupied(void);
   void initialize(QWidget *parent);
-  void mouseDoubleClickEvent(QMouseEvent *event);
   void setProperties(const QString &properties);
   void simulateDelete(void);
 
