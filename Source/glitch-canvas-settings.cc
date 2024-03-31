@@ -393,7 +393,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "categories_icon_size TEXT NOT NULL, "
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
-	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 1, "
+	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
@@ -594,7 +594,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QString updateMode("");
 	QString wireType("");
 	auto generatePeriodically = false;
-	auto generateSourceViewPeriodically = true;
+	auto generateSourceViewPeriodically = false;
 	auto record(query.record());
 	auto redoUndoStackSize = 0;
 	auto showCanvasDots = true;

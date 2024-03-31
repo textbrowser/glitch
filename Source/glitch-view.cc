@@ -1089,7 +1089,8 @@ void glitch_view::generateSourceView(const bool raise)
 	(m_canvasSettings->keywordColorsAsMap());
     }
 
-  m_sourceView->setPlainText(source());
+  if(m_sourceView->isVisible() || raise)
+    m_sourceView->setPlainText(source());
 
   if(raise)
     {
