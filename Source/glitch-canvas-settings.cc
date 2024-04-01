@@ -873,6 +873,7 @@ void glitch_canvas_settings::setSettings
   QColor color
     (hash.value(Settings::CANVAS_BACKGROUND_COLOR).toString().remove('&').
      trimmed());
+  auto same = hash == m_settings;
 
   m_settings = hash;
   m_ui.background_color->setStyleSheet
@@ -921,7 +922,7 @@ void glitch_canvas_settings::setSettings
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(name()));
   setWireType(hash.value(Settings::WIRE_TYPE).toString());
   setWireWidth(hash.value(Settings::WIRE_WIDTH).toDouble());
-  emit accepted(false);
+  same ? (void) 0 : emit accepted(false);
 }
 
 void glitch_canvas_settings::setShowCanvasDots(const bool state)
