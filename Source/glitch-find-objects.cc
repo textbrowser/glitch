@@ -39,11 +39,17 @@
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {
+  m_synchronizeTimer.setInterval(1500);
+  m_synchronizeTimer.setSingleShot(true);
   m_ui.setupUi(this);
   connect(&m_searchTimer,
 	  &QTimer::timeout,
 	  this,
 	  &glitch_find_objects::slotSearch);
+  connect(&m_synchronizeTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_find_objects::slotSynchronizeImplementation);
 #ifdef Q_OS_ANDROID
   connect(m_ui.close,
 	  &QPushButton::clicked,
@@ -80,7 +86,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 	  this,
 	  SLOT(deleteLater(void)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
-  m_searchTimer.setInterval(10);
+  m_searchTimer.setInterval(100);
   m_searchTimer.setSingleShot(true);
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.find->setIcon(QIcon(":/find.png"));
@@ -232,7 +238,7 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 
 void glitch_find_objects::slotSearch(void)
 {
-  // auto count = 0; Later, status-bar.
+  auto count = 0;
   auto text(m_ui.search->text().trimmed());
 
   if(text.isEmpty())
@@ -244,7 +250,7 @@ void glitch_find_objects::slotSearch(void)
       foreach(auto item, m_items)
 	if(item)
 	  {
-	    // count += 1;
+	    count += 1;
 	    item->setHidden(false);
 	  }
     }
@@ -260,7 +266,7 @@ void glitch_find_objects::slotSearch(void)
 	    for(i = 0; i < item->columnCount(); i++)
 	      if(item->text(i).contains(text, Qt::CaseInsensitive))
 		{
-		  // count += 1;
+		  count += 1;
 		  found = true;
 		  break;
 		}
@@ -285,6 +291,11 @@ void glitch_find_objects::slotSearch(void)
 }
 
 void glitch_find_objects::slotSynchronize(void)
+{
+  m_synchronizeTimer.start();
+}
+
+void glitch_find_objects::slotSynchronizeImplementation(void)
 {
   if(!m_ui.synchronize->isChecked())
     return;

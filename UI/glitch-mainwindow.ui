@@ -401,7 +401,7 @@
   </action>
   <action name="action_Find">
    <property name="text">
-    <string>&amp;Find...</string>
+    <string>&amp;Find Objects...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>

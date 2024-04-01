@@ -65,6 +65,7 @@ class glitch_find_objects: public QDialog
   QPointer<glitch_view> m_view;
   QVector<glitch_find_objects_position_item *> m_items;
   QTimer m_searchTimer;
+  QTimer m_synchronizeTimer;
   Ui_glitch_find_objects m_ui;
   glitch_collapse_expand_tool_button *m_collapse;
   void find(QTreeWidgetItem *i, const QSet<qint64> &ids, glitch_object *object);
@@ -75,6 +76,7 @@ class glitch_find_objects: public QDialog
   void slotFind(void);
   void slotItemDoubleClicked(QTreeWidgetItem *i, int column);
   void slotSearch(void);
+  void slotSynchronizeImplementation(void);
 
  signals:
   void setTotals(const QHash<QString, int> &totals);
