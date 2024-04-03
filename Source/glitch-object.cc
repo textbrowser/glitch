@@ -26,6 +26,9 @@
 */
 
 #include <QColorDialog>
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+#include <QElapsedTimer>
+#endif
 #include <QFontDialog>
 #include <QScrollBar>
 #include <QSettings>
@@ -440,6 +443,9 @@ QStringList glitch_object::parameters(void) const
 
 QToolButton *glitch_object::contextMenuButton(void) const
 {
+  if(m_contextMenuToolButton)
+    return m_contextMenuToolButton;
+
   foreach(auto toolButton, findChildren<QToolButton *> ())
     if(toolButton &&
        toolButton->objectName() == QString::fromUtf8("context_menu"))
@@ -525,6 +531,9 @@ glitch_object *glitch_object::createFromValues
  QString &error,
  QWidget *parent)
 {
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+  QElapsedTimer t; t.start();
+#endif
   auto type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
 
@@ -622,6 +631,9 @@ glitch_object *glitch_object::createFromValues
 	error = tr("The type %1 is not supported.").arg(type);
     }
 
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+  qDebug() << "glitch_object::createFromValues()" << t.elapsed() << type;
+#endif
   return object;
 }
 
@@ -769,10 +781,11 @@ void glitch_object::cloneWires(const QList<QPair<QPointF, QPointF> > &list)
 
 void glitch_object::compressWidget(const bool state)
 {
-  auto toolButton = contextMenuButton();
+  if(!m_contextMenuToolButton)
+    m_contextMenuToolButton = contextMenuButton();
 
-  if(toolButton)
-    toolButton->setVisible(!state);
+  if(m_contextMenuToolButton)
+    m_contextMenuToolButton->setVisible(!state);
 }
 
 void glitch_object::createActions(void)
@@ -1101,16 +1114,19 @@ void glitch_object::move(int x, int y)
 
 void glitch_object::prepareContextMenu(void)
 {
-  auto toolButton = contextMenuButton();
+  if(m_contextMenuToolButton)
+    return;
+  else
+    m_contextMenuToolButton = contextMenuButton();
 
-  if(toolButton)
+  if(m_contextMenuToolButton)
     {
-      connect(toolButton,
+      connect(m_contextMenuToolButton,
 	      &QToolButton::clicked,
 	      this,
 	      &glitch_object::slotShowContextMenu,
 	      Qt::UniqueConnection);
-      toolButton->setToolTip(tr("Floating Context Menu"));
+      m_contextMenuToolButton->setToolTip(tr("Floating Context Menu"));
     }
 }
 
@@ -1870,7 +1886,7 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
 }
 
-void glitch_object::showEditWindow(void) const
+void glitch_object::showEditWindow(void)
 {
   if(m_editView && m_editWindow)
     {

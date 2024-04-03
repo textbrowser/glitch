@@ -603,7 +603,9 @@ void glitch_scene::artificialDrop
   if(proxy)
     {
       addItem(proxy);
+      proxy->blockSignals(true);
       proxy->setPos(point);
+      proxy->blockSignals(false);
     }
   else
     ok = false;

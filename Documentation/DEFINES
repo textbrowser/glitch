@@ -1,0 +1,15 @@
+GLITCH_FUTURE
+
+Some logic is incomplete and this option is a review reminder.
+
+GLITCH_MEASURE_ELAPSED_TIME
+
+Measure various execution times.
+
+GLITCH_PDF_SUPPORTED
+
+Defined if the Qt modules pdf and pdfwidgets are discovered.
+
+GLITCH_SERIAL_PORT_SUPPORTED
+
+Defined if the Qt module serialport is discovered.

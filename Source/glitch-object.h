@@ -304,6 +304,7 @@ class glitch_object: public QWidget
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
+  virtual void showEditWindow(void);
   virtual void simulateDelete(void);
   virtual ~glitch_object();
   void addChild(const QPointF &point, glitch_object *object, bool &ok);
@@ -330,7 +331,6 @@ class glitch_object: public QWidget
 
   void setUndoStack(QUndoStack *undoStack);
   void setWiredObject(glitch_object *object, glitch_wire *wire);
-  void showEditWindow(void) const;
 
   void triggerAction(const DefaultMenuActions action)
   {
@@ -366,6 +366,7 @@ class glitch_object: public QWidget
   static qint64 s_id;
   QFont preferredFont(const QFont &font) const;
   QMainWindow *parentMainWindow(void) const;
+  QToolButton *contextMenuButton(void) const;
   bool event(QEvent *event);
   void allObjectsImplementation(QList<glitch_object *> &list) const;
   void disconnectInputs(void);
@@ -394,6 +395,7 @@ class glitch_object: public QWidget
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPainterPath m_path;
   QPointF m_originalPosition; // Wiring pasted objects.
+  QPointer<QToolButton> m_contextMenuToolButton;
   QPointer<QUndoStack> m_undoStack;
   QPointer<QWidget> m_parent;
   QPointer<glitch_canvas_settings> m_canvasSettings;
@@ -408,7 +410,6 @@ class glitch_object: public QWidget
   qint64 m_id;
   static QRegularExpression s_splitRegularExpression;
   static int s_widthTweak;
-  QToolButton *contextMenuButton(void) const;
 
   bool compressed(void) const
   {

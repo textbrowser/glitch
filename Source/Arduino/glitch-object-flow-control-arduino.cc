@@ -59,12 +59,7 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
      m_id,
      m_undoStack,
      this);
-  m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowTitle(tr("Glitch: flow control"));
+  m_editView->setVisible(false);
   m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
@@ -82,7 +77,6 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 	  this,
 	  SLOT(slotFlowControlTypeChanged(void)));
   prepareContextMenu();
-  prepareEditObjects(findNearestGlitchView(parent));
   setName(m_ui.flow_control_type->currentText());
 }
 
@@ -299,7 +293,7 @@ clone(QWidget *parent) const
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty() && m_editView)
+  if(m_copiedChildren.isEmpty())
     /*
     ** First, copy!
     */
@@ -417,10 +411,11 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
 {
-  m_editWindow->prepareHeader
-    (QString("%1(%2)").
-     arg(m_ui.flow_control_type->currentText()).
-     arg(m_ui.condition->text()));
+  if(m_editWindow)
+    m_editWindow->prepareHeader
+      (QString("%1(%2)").
+       arg(m_ui.flow_control_type->currentText()).
+       arg(m_ui.condition->text()));
 }
 
 void glitch_object_flow_control_arduino::save
@@ -437,17 +432,16 @@ void glitch_object_flow_control_arduino::save
   properties["flow_control_type"] = m_ui.flow_control_type->currentText();
   glitch_object::saveProperties(properties, db, error);
 
-  if(error.isEmpty() && m_editView)
-    if(m_flowControlType == FlowControlTypes::CASE ||
-       m_flowControlType == FlowControlTypes::DEFAULT ||
-       m_flowControlType == FlowControlTypes::DO_WHILE ||
-       m_flowControlType == FlowControlTypes::ELSE ||
-       m_flowControlType == FlowControlTypes::ELSE_IF ||
-       m_flowControlType == FlowControlTypes::FOR ||
-       m_flowControlType == FlowControlTypes::IF ||
-       m_flowControlType == FlowControlTypes::SWITCH ||
-       m_flowControlType == FlowControlTypes::WHILE)
-      m_editView->save(db, error);
+  if(error.isEmpty() && (m_flowControlType == FlowControlTypes::CASE ||
+			 m_flowControlType == FlowControlTypes::DEFAULT ||
+			 m_flowControlType == FlowControlTypes::DO_WHILE ||
+			 m_flowControlType == FlowControlTypes::ELSE ||
+			 m_flowControlType == FlowControlTypes::ELSE_IF ||
+			 m_flowControlType == FlowControlTypes::FOR ||
+			 m_flowControlType == FlowControlTypes::IF ||
+			 m_flowControlType == FlowControlTypes::SWITCH ||
+			 m_flowControlType == FlowControlTypes::WHILE))
+    m_editView->save(db, error);
 }
 
 void glitch_object_flow_control_arduino::setFlowControlType
@@ -460,7 +454,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
   if(f == "break")
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
     }
@@ -472,7 +466,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
   else if(f == "continue")
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::CONTINUE;
       m_ui.condition->setVisible(false);
     }
@@ -504,7 +498,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
   else if(f == "goto")
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::GOTO;
       m_ui.condition->setVisible(true);
     }
@@ -516,14 +510,14 @@ void glitch_object_flow_control_arduino::setFlowControlType
   else if(f == "label")
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::LABEL;
       m_ui.condition->setVisible(true);
     }
   else if(f == "return")
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::RETURN;
       m_ui.condition->setVisible(false);
     }
@@ -540,7 +534,7 @@ void glitch_object_flow_control_arduino::setFlowControlType
   else
     {
       enabled = false;
-      m_editWindow->setVisible(false);
+      m_editWindow ? m_editWindow->setVisible(false) : (void) 0;
       m_flowControlType = FlowControlTypes::BREAK;
       m_ui.condition->setVisible(false);
     }
@@ -617,6 +611,23 @@ void glitch_object_flow_control_arduino::setProperty
     }
 }
 
+void glitch_object_flow_control_arduino::showEditWindow(void)
+{
+  if(!m_editWindow)
+    {
+      m_editView->setVisible(true);
+      m_editWindow = new glitch_object_edit_window
+	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+      m_editWindow->setCentralWidget(m_editView);
+      m_editWindow->setEditView(m_editView);
+      m_editWindow->setUndoStack(m_undoStack);
+      m_editWindow->setWindowTitle(tr("Glitch: flow control"));
+      prepareEditObjects(findNearestGlitchView(m_parent));
+    }
+
+  glitch_object::showEditWindow();
+}
+
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
@@ -668,9 +679,11 @@ void glitch_object_flow_control_arduino::slotEdit(void)
       }
     }
 
-  glitch_object::showEditWindow();
-  m_editWindow->setToolBarVisible // Recorded in the window's state.
-    (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
+  showEditWindow();
+
+  if(m_editWindow)
+    m_editWindow->setToolBarVisible // Recorded in the window's state.
+      (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
