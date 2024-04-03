@@ -27,6 +27,9 @@
 
 #include <QCheckBox>
 #include <QComboBox>
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+#include <QElapsedTimer>
+#endif
 #include <QGraphicsSceneContextMenuEvent>
 #include <QLineEdit>
 #include <QMenu>
@@ -667,8 +670,17 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
   if(!widget || m_object)
     return;
 
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+  QElapsedTimer t; t.start();
+#endif
+
   QGraphicsProxyWidget::setWidget(widget);
   m_object = qobject_cast<glitch_object *> (widget);
+#ifdef GLITCH_MEASURE_ELAPSED_TIME
+  qDebug() << "glitch_proxy_widget::setWidget()"
+	   << m_object->objectType()
+	   << t.elapsed();
+#endif
   m_resizeWidget = new glitch_resize_widget(this);
 }
 

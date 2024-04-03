@@ -629,7 +629,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   else
     m_initialized = true;
 
-  m_ui.setupUi(this);
   m_editView = new glitch_object_view
     (glitch_common::ProjectTypes::ArduinoProject,
      m_id,
@@ -639,6 +638,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_editView->setVisible(false);
   m_isFunctionClone = false;
   m_type = "arduino-function";
+  m_ui.setupUi(this);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
