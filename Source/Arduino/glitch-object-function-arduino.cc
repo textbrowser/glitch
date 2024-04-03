@@ -622,6 +622,8 @@ void glitch_object_function_arduino::hideOrShowOccupied(void)
 
 void glitch_object_function_arduino::initialize(QWidget *parent)
 {
+  Q_UNUSED(parent);
+
   if(m_initialized)
     return;
   else
@@ -634,13 +636,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
      m_undoStack,
      this);
   m_editView->scene()->setCanvasSettings(m_canvasSettings);
-  m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowTitle
-    (tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
+  m_editView->setVisible(false);
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.return_type->addItems
@@ -664,7 +660,6 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   m_previousAsterisk = m_ui.asterisk->isChecked();
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
-  prepareEditObjects(findNearestGlitchView(parent));
 }
 
 void glitch_object_function_arduino::save
@@ -939,6 +934,19 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
 
 void glitch_object_function_arduino::slotEdit(void)
 {
+  if(!m_editWindow && !m_isFunctionClone)
+    {
+      m_editView->setVisible(true);
+      m_editWindow = new glitch_object_edit_window
+	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+      m_editWindow->setCentralWidget(m_editView);
+      m_editWindow->setEditView(m_editView);
+      m_editWindow->setUndoStack(m_undoStack);
+      m_editWindow->setWindowTitle
+	(tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
+      prepareEditObjects(findNearestGlitchView(m_parent));
+    }
+
   if(!m_isFunctionClone && m_editWindow)
     {
       glitch_object::showEditWindow();

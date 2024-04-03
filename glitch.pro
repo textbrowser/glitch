@@ -12,7 +12,7 @@ QMAKE_EXTRA_TARGETS += doxygen purge
 }
 
 CONFIG		+= qt release warn_on
-DEFINES         += GLITCH_FUTURE GLITCH_MEASURE_ELAPSED_TIME
+DEFINES         += GLITCH_FUTURE
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= gui network printsupport sql widgets
