@@ -127,6 +127,7 @@
     <addaction name="action_Find"/>
     <addaction name="separator"/>
     <addaction name="action_Canvas_Settings"/>
+    <addaction name="action_Editable_Canvas"/>
     <addaction name="separator"/>
     <addaction name="action_Separate_Current_Canvas"/>
    </widget>
@@ -478,6 +479,17 @@
   <action name="action_Source_Preview">
    <property name="text">
     <string>&amp;Source Preview...</string>
+   </property>
+  </action>
+  <action name="action_Editable_Canvas">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Editable Canvas</string>
    </property>
   </action>
  </widget>
