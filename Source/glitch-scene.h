@@ -164,6 +164,7 @@ class glitch_scene: public QGraphicsScene
   void changed(void);
   void copy(void);
   void dockPropertyEditor(QWidget *widget);
+  void editable(const bool state);
   void functionAdded(const QString &name, const bool isClone);
   void functionDeleted(const QString &name);
   void functionNameChanged(const QString &after,

@@ -208,7 +208,7 @@ QSet<glitch_wire *> glitch_scene::wires(void) const
 bool glitch_scene::allowDrag
 (QGraphicsSceneDragDropEvent *event, const QString &t) const
 {
-  if(!event)
+  if(!event || !m_editable)
     return false;
   else
     {
@@ -425,6 +425,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  SIGNAL(geometryChangedSignal(const QRectF &)),
 	  this,
 	  SLOT(slotProxyGeometryChanged(const QRectF &)));
+  connect(this,
+	  SIGNAL(editable(const bool)),
+	  object,
+	  SLOT(slotEditable(const bool)),
+	  Qt::UniqueConnection);
 
   if(object->editScene())
     connect(this,
@@ -682,6 +687,9 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 void glitch_scene::deleteItems
 (const QList<QGraphicsItem *> &items, const bool redoUndoMacro)
 {
+  if(!m_editable)
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list;
@@ -908,7 +916,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 
 void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
-  if(event && event->mimeData())
+  if(event && event->mimeData() && m_editable)
     {
       auto text(event->mimeData()->text().toLower().trimmed());
 
@@ -1934,6 +1942,7 @@ void glitch_scene::setEditable(const bool state)
 
   update();
   QApplication::restoreOverrideCursor();
+  emit editable(m_editable);
 }
 
 void glitch_scene::setLoadingFromFile(const bool state)

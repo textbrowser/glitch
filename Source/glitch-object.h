@@ -449,6 +449,7 @@ class glitch_object: public QWidget
  protected slots:
   virtual void slotChanged(void);
   virtual void slotCopy(void);
+  virtual void slotEditable(const bool state);
   virtual void slotHideOrShowOccupied(void);
   virtual void slotSelectColor(void);
   void slotSelectBorderColor(void);

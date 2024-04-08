@@ -2174,6 +2174,15 @@ void glitch_object::slotDelayedResize(void)
   m_delayedSize = QSize();
 }
 
+void glitch_object::slotEditable(const bool state)
+{
+  if(!isMandatory())
+    {
+      if(m_actions.value(DefaultMenuActions::DELETE, nullptr))
+	m_actions.value(DefaultMenuActions::DELETE)->setEnabled(state);
+    }
+}
+
 void glitch_object::slotHideOrShowOccupied(void)
 {
   hideOrShowOccupied();
