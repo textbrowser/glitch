@@ -472,6 +472,67 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
+	query.exec("ALTER TABLE properties RENAME TO diagram_properties");
+	query.exec("DROP TABLE IF EXISTS properties");
+
+	if(query.exec(QString("SELECT SUBSTR(properties, 1, %1) FROM "
+			      "diagram_properties").
+		      arg(static_cast<int> (Limits::
+					    PROPERTIES_MAXIMUM_LENGTH))) &&
+	   query.next())
+	  {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+	    auto list
+	      (query.value(0).toString().trimmed().
+	       split('&', Qt::SkipEmptyParts));
+#else
+	    auto list
+	      (query.value(0).toString().trimmed().
+	       split('&', QString::SkipEmptyParts));
+#endif
+
+	    for(int i = 0; i < list.size(); i++)
+	      {
+		auto string(list.at(i));
+
+		if(string.startsWith("editable"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["editable"] = QVariant
+		      (QByteArray::fromBase64(string.toLatin1())).toBool();
+		    setEditable(m_properties.value("editable").toBool());
+		  }
+		else if(string.startsWith("main_splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["main_splitter_state"] =
+		      QByteArray::fromBase64(string.toLatin1());
+		  }
+		else if(string.startsWith("right_splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["right_splitter_state"] =
+		      QByteArray::fromBase64(string.toLatin1());
+		  }
+		else if(string.startsWith("splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["splitter_state"] = QByteArray::fromBase64
+		      (string.toLatin1());
+		  }
+	      }
+
+	    m_rightSplitter->restoreState
+	      (m_properties.value("right_splitter_state").toByteArray());
+	    m_splitter->restoreState
+	      (m_properties.value("splitter_state").toByteArray());
+	    m_ui.splitter->restoreState
+	      (m_properties.value("main_splitter_state").toByteArray());
+	  }
 
 	if(query.exec(QString("SELECT "
 			      "myoid, "
@@ -584,65 +645,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  {
 	    error = tr("An error occurred while accessing the objects table.");
 	    ok = false;
-	  }
-
-	if(query.exec(QString("SELECT SUBSTR(properties, 1, %1) FROM "
-			      "properties").
-		      arg(static_cast<int> (Limits::
-					    PROPERTIES_MAXIMUM_LENGTH))) &&
-	   query.next())
-	  {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-	    auto list
-	      (query.value(0).toString().trimmed().
-	       split('&', Qt::SkipEmptyParts));
-#else
-	    auto list
-	      (query.value(0).toString().trimmed().
-	       split('&', QString::SkipEmptyParts));
-#endif
-
-	    for(int i = 0; i < list.size(); i++)
-	      {
-		auto string(list.at(i));
-
-		if(string.startsWith("editable"))
-		  {
-		    string = string.mid(string.indexOf('=') + 1);
-		    string.remove("\"");
-		    m_properties["editable"] = QVariant
-		      (QByteArray::fromBase64(string.toLatin1())).toBool();
-		    setEditable(m_properties.value("editable").toBool());
-		  }
-		else if(string.startsWith("main_splitter_state"))
-		  {
-		    string = string.mid(string.indexOf('=') + 1);
-		    string.remove("\"");
-		    m_properties["main_splitter_state"] =
-		      QByteArray::fromBase64(string.toLatin1());
-		  }
-		else if(string.startsWith("right_splitter_state"))
-		  {
-		    string = string.mid(string.indexOf('=') + 1);
-		    string.remove("\"");
-		    m_properties["right_splitter_state"] =
-		      QByteArray::fromBase64(string.toLatin1());
-		  }
-		else if(string.startsWith("splitter_state"))
-		  {
-		    string = string.mid(string.indexOf('=') + 1);
-		    string.remove("\"");
-		    m_properties["splitter_state"] = QByteArray::fromBase64
-		      (string.toLatin1());
-		  }
-	      }
-
-	    m_rightSplitter->restoreState
-	      (m_properties.value("right_splitter_state").toByteArray());
-	    m_splitter->restoreState
-	      (m_properties.value("splitter_state").toByteArray());
-	    m_ui.splitter->restoreState
-	      (m_properties.value("main_splitter_state").toByteArray());
 	  }
 
 	if(error.isEmpty())
@@ -1195,6 +1197,8 @@ void glitch_view::prepareDatabaseTables(void) const
 	query.exec("CREATE TABLE IF NOT EXISTS diagram ("
 		   "name TEXT NOT NULL PRIMARY KEY, "
 		   "type TEXT NOT NULL)");
+	query.exec("CREATE TABLE IF NOT EXISTS diagram_properties "
+		   "(properties TEXT)");
 	query.exec("CREATE TABLE IF NOT EXISTS objects ("
 		   "myoid INTEGER NOT NULL UNIQUE, "
 		   "parent_oid INTEGER NOT NULL DEFAULT -1, "
@@ -1203,8 +1207,6 @@ void glitch_view::prepareDatabaseTables(void) const
 		   "stylesheet TEXT, "
 		   "type TEXT NOT NULL, "
 		   "PRIMARY KEY (myoid, parent_oid))");
-	query.exec("CREATE TABLE IF NOT EXISTS properties "
-		   "(properties TEXT)");
 	query.exec("CREATE TABLE IF NOT EXISTS sequence ("
 		   "value INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT)");
 	query.exec("CREATE TABLE IF NOT EXISTS wires ("
@@ -1302,9 +1304,9 @@ void glitch_view::saveProperties(void)
 	      string += "&";
 	  }
 
-	query.exec("DELETE FROM properties");
+	query.exec("DELETE FROM diagram_properties");
 	query.prepare
-	  ("INSERT OR REPLACE INTO properties (properties) VALUES(?)");
+	  ("INSERT OR REPLACE INTO diagram_properties (properties) VALUES(?)");
 	query.addBindValue(string);
 	query.exec();
       }
@@ -1332,8 +1334,10 @@ void glitch_view::selectAll(void)
 
 void glitch_view::setEditable(const bool state)
 {
+  m_canvasPreview->setScene(state ? m_scene : nullptr);
   m_properties["editable"] = state;
-  m_view->setInteractive(state);
+  m_scene->setEditable(state);
+  m_view->setEditable(state);
 }
 
 void glitch_view::setSceneRect(const QSize &size)

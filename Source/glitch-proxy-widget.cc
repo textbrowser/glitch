@@ -667,21 +667,29 @@ void glitch_proxy_widget::setPos(const QPointF &point)
 
 void glitch_proxy_widget::setWidget(QWidget *widget)
 {
-  if(!widget || m_object)
-    return;
-
+  if(widget)
+    {
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-  QElapsedTimer t; t.start();
+      QElapsedTimer t; t.start();
 #endif
 
-  QGraphicsProxyWidget::setWidget(widget);
-  m_object = qobject_cast<glitch_object *> (widget);
+      if(!QGraphicsProxyWidget::widget())
+	QGraphicsProxyWidget::setWidget(widget);
+
+      if(!m_object)
+	m_object = qobject_cast<glitch_object *> (widget);
+
+      if(!m_resizeWidget)
+	m_resizeWidget = new glitch_resize_widget(this);
+
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-  qDebug() << "glitch_proxy_widget::setWidget()"
-	   << m_object->objectType()
-	   << t.elapsed();
+      qDebug() << "glitch_proxy_widget::setWidget()"
+	       << m_object ? m_object->objectType() : "(unknown)"
+	       << t.elapsed();
 #endif
-  m_resizeWidget = new glitch_resize_widget(this);
+    }
+  else
+    QGraphicsProxyWidget::setWidget(nullptr);
 }
 
 void glitch_proxy_widget::showResizeHelpers(const bool state)

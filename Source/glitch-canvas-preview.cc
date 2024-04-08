@@ -68,6 +68,5 @@ void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
 
 void glitch_canvas_preview::setScene(QGraphicsScene *scene)
 {
-  if(scene)
-    m_ui.view->setScene(scene);
+  m_ui.view->setScene(scene);
 }

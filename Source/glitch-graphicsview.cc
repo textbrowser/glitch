@@ -119,6 +119,17 @@ void glitch_graphicsview::scroll(const QPoint &point)
     verticalScrollBar()->setValue(verticalScrollBar()->value() - offset);
 }
 
+void glitch_graphicsview::setEditable(const bool state)
+{
+  setAcceptDrops(state);
+  setCacheMode
+    (state ? QGraphicsView::CacheBackground : QGraphicsView::CacheNone);
+  setDragMode(state ? QGraphicsView::RubberBandDrag : QGraphicsView::NoDrag);
+  setInteractive(state);
+  setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, !state);
+  setOptimizationFlag(QGraphicsView::DontSavePainterState, !state);
+}
+
 void glitch_graphicsview::zoom(const int direction)
 {
   QSettings settings;
