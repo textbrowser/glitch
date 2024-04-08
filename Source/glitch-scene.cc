@@ -477,6 +477,7 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   else
     {
       object->setParent(primaryView() ? primaryView()->viewport() : nullptr);
+      object->setVisible(true);
       proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
       proxy->setObject(object);
       proxy->setWidget(nullptr);
