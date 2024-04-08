@@ -363,6 +363,7 @@ Remaining Items
   glitch_object_view
   glitch_scene
   glitch_view
+  zoom
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Periodic backup.

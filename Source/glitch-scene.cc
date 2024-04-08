@@ -136,14 +136,27 @@ QList<glitch_object *> glitch_scene::objects(void) const
 {
   QList<glitch_object *> widgets;
 
-  foreach(auto i, items())
+  if(m_editable)
     {
-      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      foreach(auto i, items())
+	{
+	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
-	continue;
+	  if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
+	    continue;
 
-      widgets << qobject_cast<glitch_object *> (proxy->widget());
+	  widgets << qobject_cast<glitch_object *> (proxy->widget());
+	}
+    }
+  else
+    {
+      auto view = primaryView();
+
+      if(view && view->viewport())
+	{
+	  foreach(auto i, view->viewport()->findChildren<glitch_object *> ())
+	    widgets << i;
+	}
     }
 
   return widgets;
@@ -465,7 +478,8 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
     {
       object->setParent(primaryView() ? primaryView()->viewport() : nullptr);
       proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
-      proxy->setWidget(object);
+      proxy->setObject(object);
+      proxy->setWidget(nullptr);
     }
 
   emit changed();

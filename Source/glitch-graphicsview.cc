@@ -132,6 +132,9 @@ void glitch_graphicsview::setEditable(const bool state)
 
 void glitch_graphicsview::zoom(const int direction)
 {
+  if(!isInteractive())
+    return;
+
   QSettings settings;
   const auto factor = qBound
     (1.05, settings.value("preferences/zoom_factor", 1.25).toReal(), 1.75);

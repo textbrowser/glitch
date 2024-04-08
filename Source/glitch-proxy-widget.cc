@@ -657,6 +657,14 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
     }
 }
 
+void glitch_proxy_widget::setObject(QWidget *widget)
+{
+  if(m_object || widget == nullptr)
+    return;
+
+  m_object = qobject_cast<glitch_object *> (widget);
+}
+
 void glitch_proxy_widget::setPos(const QPointF &point)
 {
   QGraphicsProxyWidget::setPos(point);

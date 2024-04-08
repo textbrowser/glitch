@@ -792,26 +792,17 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	    goto done_label;
 	  }
 
-	foreach(auto i, m_scene->items())
-	  {
-	    auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+	foreach(auto object, m_scene->objects())
+	  if(object)
+	    {
+	      object->save(db, error);
 
-	    if(!proxy)
-	      continue;
-
-	    auto object = qobject_cast<glitch_object *> (proxy->widget());
-
-	    if(!object)
-	      continue;
-
-	    object->save(db, error);
-
-	    if(!error.isEmpty())
-	      {
-		ok = false;
-		break;
-	      }
-	  }
+	      if(!error.isEmpty())
+		{
+		  ok = false;
+		  break;
+		}
+	    }
 
 	m_scene->saveWires(db, error);
       }
