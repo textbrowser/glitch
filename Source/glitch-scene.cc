@@ -826,7 +826,7 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-  if(!painter)
+  if(!m_editable || !painter)
     {
       QGraphicsScene::drawBackground(painter, rect);
       return;
