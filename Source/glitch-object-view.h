@@ -60,6 +60,7 @@ class glitch_object_view: public QGraphicsView
   void endMacro(void);
   void push(glitch_undo_command *undoCommand);
   void save(const QSqlDatabase &db, QString &error);
+  void setEditable(const bool state);
   void setIdentifier(const qint64 id);
   void setSceneRect(const QSize &size);
   void setUndoStack(QUndoStack *undoStack);

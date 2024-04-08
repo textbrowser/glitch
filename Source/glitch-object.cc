@@ -2181,6 +2181,9 @@ void glitch_object::slotEditable(const bool state)
       if(m_actions.value(DefaultMenuActions::DELETE, nullptr))
 	m_actions.value(DefaultMenuActions::DELETE)->setEnabled(state);
     }
+
+  if(m_editView)
+    m_editView->setEditable(state);
 }
 
 void glitch_object::slotHideOrShowOccupied(void)

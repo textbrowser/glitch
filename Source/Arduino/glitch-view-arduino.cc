@@ -97,6 +97,14 @@ glitch_view_arduino::glitch_view_arduino
 	  this,
 	  SLOT(slotSilentSave(void)));
   connect(m_scene,
+	  SIGNAL(editable(const bool)),
+	  m_loopObject,
+	  SLOT(slotEditable(const bool)));
+  connect(m_scene,
+	  SIGNAL(editable(const bool)),
+	  m_setupObject,
+	  SLOT(slotEditable(const bool)));
+  connect(m_scene,
 	  SIGNAL(functionAdded(const QString &, const bool)),
 	  this,
 	  SLOT(slotFunctionAdded(const QString &, const bool)));
