@@ -437,11 +437,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
       return false;
     }
 
-  m_canvasSettings->prepare(fileName);
-  m_delayedWires.clear();
-  m_fileName = fileName;
-  m_scene->setLoadingFromFile(true);
-  m_settings = m_canvasSettings->settings();
   disconnect(m_scene,
 	     &glitch_scene::changed,
 	     this,
@@ -450,6 +445,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	     &glitch_scene::sceneResized,
 	     this,
 	     &glitch_view::slotSceneResized);
+  m_canvasSettings->prepare(fileName);
+  m_delayedWires.clear();
+  m_fileName = fileName;
+  m_scene->setLoadingFromFile(true);
+  m_settings = m_canvasSettings->settings();
+  m_view->setUpdatesEnabled(false);
+  m_view->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 
   QString connectionName("");
   auto ok = true;
@@ -703,6 +705,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
   m_scene->setLoadingFromFile(false);
+  m_view->setUpdatesEnabled(true);
+  m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
   return ok;
 }
 
