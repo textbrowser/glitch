@@ -235,18 +235,6 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
     m_scene->saveWires(db, error);
 }
 
-void glitch_object_view::setEditable(const bool state)
-{
-  m_scene->setEditable(state);
-  setAcceptDrops(state);
-  setCacheMode
-    (state ? QGraphicsView::CacheBackground : QGraphicsView::CacheNone);
-  setDragMode(state ? QGraphicsView::RubberBandDrag : QGraphicsView::NoDrag);
-  setInteractive(state);
-  setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, !state);
-  setOptimizationFlag(QGraphicsView::DontSavePainterState, !state);
-}
-
 void glitch_object_view::setIdentifier(const qint64 id)
 {
   m_id = id;

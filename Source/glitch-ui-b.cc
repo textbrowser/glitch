@@ -147,11 +147,6 @@ void glitch_ui::copyExamplesForAndroid(void)
 }
 #endif
 
-void glitch_ui::slotAboutToShowEditMenu(void)
-{
-  prepareActionWidgets();
-}
-
 void glitch_ui::slotAboutToShowProjectMenu(void)
 {
   m_ui.action_Generate_Source_Clipboard->setEnabled
@@ -289,11 +284,6 @@ void glitch_ui::slotSaveAsPNG(void)
 void glitch_ui::slotSeparate(void)
 {
   slotSeparate(m_currentView);
-}
-
-void glitch_ui::slotSetEditableCanvas(bool state)
-{
-  m_currentView ? m_currentView->setEditable(state) : (void) 0;
 }
 
 void glitch_ui::slotShowSerialPortWindow(void)

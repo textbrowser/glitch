@@ -82,7 +82,6 @@ class glitch_scene: public QGraphicsScene
   void saveWires(const QSqlDatabase &db, QString &error);
   void setCanvasSettings(glitch_canvas_settings *canvasSettings);
   void setDotsGridsColor(const QColor &color);
-  void setEditable(const bool state);
   void setMainScene(const bool state);
   void setLoadingFromFile(const bool state);
   void setShowCanvasDots(const bool state);
@@ -106,7 +105,6 @@ class glitch_scene: public QGraphicsScene
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_canvas_settings> m_canvasSettings;
   QSet<glitch_wire *> m_wires;
-  bool m_editable;
   bool m_loadingFromFile;
   bool m_mainScene;
   bool m_showCanvasDots;
@@ -164,7 +162,6 @@ class glitch_scene: public QGraphicsScene
   void changed(void);
   void copy(void);
   void dockPropertyEditor(QWidget *widget);
-  void editable(const bool state);
   void functionAdded(const QString &name, const bool isClone);
   void functionDeleted(const QString &name);
   void functionNameChanged(const QString &after,

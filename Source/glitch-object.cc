@@ -1101,15 +1101,11 @@ void glitch_object::move(int x, int y)
   if(m_properties.value(Properties::POSITION_LOCKED).toBool())
     return;
 
-  auto isChanged = false;
-
   if(pos().x() != x || pos().y() != y)
-    isChanged = true;
-
-  QWidget::move(x, y);
-
-  if(isChanged)
-    emit changed();
+    {
+      QWidget::move(x, y);
+      emit changed();
+    }
 }
 
 void glitch_object::prepareContextMenu(void)
@@ -2172,18 +2168,6 @@ void glitch_object::slotDelayedResize(void)
     }
 
   m_delayedSize = QSize();
-}
-
-void glitch_object::slotEditable(const bool state)
-{
-  if(!isMandatory())
-    {
-      if(m_actions.value(DefaultMenuActions::DELETE, nullptr))
-	m_actions.value(DefaultMenuActions::DELETE)->setEnabled(state);
-    }
-
-  if(m_editView)
-    m_editView->setEditable(state);
 }
 
 void glitch_object::slotHideOrShowOccupied(void)

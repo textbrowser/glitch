@@ -29,7 +29,6 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
 #include <QMimeData>
-#include <QScrollBar>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QTableView>
@@ -89,7 +88,6 @@ glitch_scene::glitch_scene
   QGraphicsScene(parent)
 {
   m_dotsGridsColor = Qt::white;
-  m_editable = true;
   m_loadingFromFile = false;
   m_mainScene = false;
   m_projectType = projectType;
@@ -134,32 +132,17 @@ QList<glitch_object *> glitch_scene::allObjects(void) const
 
 QList<glitch_object *> glitch_scene::objects(void) const
 {
-  QList<glitch_object *> widgets;
+  QList<glitch_object *> objects;
 
-  if(m_editable)
+  foreach(auto i, items())
     {
-      foreach(auto i, items())
-	{
-	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-	  if(!proxy || !(proxy->flags() & QGraphicsItem::ItemIsSelectable))
-	    continue;
-
-	  widgets << qobject_cast<glitch_object *> (proxy->widget());
-	}
-    }
-  else
-    {
-      auto view = primaryView();
-
-      if(view && view->viewport())
-	{
-	  foreach(auto i, view->viewport()->findChildren<glitch_object *> ())
-	    widgets << i;
-	}
+      if(proxy && proxy->object())
+	objects << proxy->object();
     }
 
-  return widgets;
+  return objects;
 }
 
 QList<glitch_object *> glitch_scene::orderedObjects(void) const
@@ -221,7 +204,7 @@ QSet<glitch_wire *> glitch_scene::wires(void) const
 bool glitch_scene::allowDrag
 (QGraphicsSceneDragDropEvent *event, const QString &t) const
 {
-  if(!event || !m_editable)
+  if(!event)
     return false;
   else
     {
@@ -438,11 +421,6 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  SIGNAL(geometryChangedSignal(const QRectF &)),
 	  this,
 	  SLOT(slotProxyGeometryChanged(const QRectF &)));
-  connect(this,
-	  SIGNAL(editable(const bool)),
-	  object,
-	  SLOT(slotEditable(const bool)),
-	  Qt::UniqueConnection);
 
   if(object->editScene())
     connect(this,
@@ -459,29 +437,18 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   ** Eliminate MacOS error (outside any known screen, using primary screen).
   */
 
-  if(m_editable)
-    {
 #ifndef Q_OS_MACOS
-      if(m_loadingFromFile)
-	object->setVisible(false);
+  if(m_loadingFromFile)
+    object->setVisible(false);
 #endif
 
-      proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
-      proxy->setWidget(object);
+  proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
+  proxy->setWidget(object);
 
 #ifndef Q_OS_MACOS
-      if(m_loadingFromFile)
-	QTimer::singleShot(50, object, &glitch_object::show);
+  if(m_loadingFromFile)
+    QTimer::singleShot(50, object, &glitch_object::show);
 #endif
-    }
-  else
-    {
-      object->setParent(primaryView() ? primaryView()->viewport() : nullptr);
-      object->setVisible(true);
-      proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
-      proxy->setObject(object);
-      proxy->setWidget(nullptr);
-    }
 
   emit changed();
 
@@ -702,9 +669,6 @@ void glitch_scene::deleteFunctionClones(const QString &name)
 void glitch_scene::deleteItems
 (const QList<QGraphicsItem *> &items, const bool redoUndoMacro)
 {
-  if(!m_editable)
-    return;
-
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QGraphicsItem *> list;
@@ -849,7 +813,7 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 
 void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-  if(!m_editable || !painter)
+  if(!painter)
     {
       QGraphicsScene::drawBackground(painter, rect);
       return;
@@ -931,7 +895,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 
 void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
-  if(event && event->mimeData() && m_editable)
+  if(event && event->mimeData())
     {
       auto text(event->mimeData()->text().toLower().trimmed());
 
@@ -1890,74 +1854,6 @@ void glitch_scene::setDotsGridsColor(const QColor &color)
     m_dotsGridsColor = color;
   else
     m_dotsGridsColor = Qt::white;
-}
-
-void glitch_scene::setEditable(const bool state)
-{
-  if(m_editable == state)
-    return;
-
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  m_editable = state;
-
-  if(m_editable)
-    {
-      auto view = primaryView();
-
-      if(view)
-	{
-	  if(view->horizontalScrollBar())
-	    view->horizontalScrollBar()->setValue(0);
-
-	  if(view->verticalScrollBar())
-	    view->verticalScrollBar()->setValue(0);
-
-	  foreach(auto object, view->findChildren<glitch_object *> ())
-	    if(object && object->parent() == view->viewport())
-	      {
-		object->setParent(nullptr);
-
-		if(object->proxy())
-		  {
-		    object->proxy()->setFlag
-		      (QGraphicsItem::ItemIsSelectable, true);
-		    object->proxy()->setWidget(object);
-		  }
-	      }
-	}
-
-      setItemIndexMethod(QGraphicsScene::NoIndex);
-    }
-  else
-    {
-      clearSelection();
-      setItemIndexMethod(QGraphicsScene::BspTreeIndex);
-
-      auto viewport = primaryView() ? primaryView()->viewport() : nullptr;
-
-      foreach(auto item, items())
-	{
-	  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
-
-	  if(proxy)
-	    {
-	      proxy->setFlag(QGraphicsItem::ItemIsSelectable, false);
-	      proxy->setWidget(nullptr);
-
-	      auto object = proxy->object();
-
-	      if(object)
-		{
-		  object->setParent(viewport);
-		  object->setVisible(true);
-		}
-	    }
-	}
-    }
-
-  update();
-  QApplication::restoreOverrideCursor();
-  emit editable(m_editable);
 }
 
 void glitch_scene::setLoadingFromFile(const bool state)

@@ -180,10 +180,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowDiagramContextMenu);
-  connect(m_ui.action_Editable_Canvas,
-	  SIGNAL(triggered(bool)),
-	  this,
-	  SLOT(slotSetEditableCanvas(bool)));
   connect(m_ui.action_Find,
 	  &QAction::triggered,
 	  this,
@@ -292,10 +288,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotZoom);
-  connect(m_ui.menu_Edit,
-	  &QMenu::aboutToShow,
-	  this,
-	  &glitch_ui::slotAboutToShowEditMenu);
   connect(m_ui.menu_Project,
 	  &QMenu::aboutToShow,
 	  this,
@@ -941,8 +933,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
       m_ui.action_Diagram_Context_Menu->setEnabled(false);
-      m_ui.action_Editable_Canvas->setChecked(false);
-      m_ui.action_Editable_Canvas->setEnabled(false);
       m_ui.action_Find->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
       m_ui.action_Generate_Source_Clipboard->setEnabled(false);
@@ -972,9 +962,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Delete->setEnabled
 	(m_currentView && !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
-      m_ui.action_Editable_Canvas->setChecked
-	(m_currentView ? m_currentView->isEditable() : false);
-      m_ui.action_Editable_Canvas->setEnabled(m_currentView);
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
       m_ui.action_Generate_Source_Clipboard->setEnabled(m_currentView);

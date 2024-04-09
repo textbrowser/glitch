@@ -427,11 +427,6 @@ bool glitch_view::hasChanged(void) const
   return !m_undoStack->isClean();
 }
 
-bool glitch_view::isEditable(void) const
-{
-  return m_view->isInteractive();
-}
-
 bool glitch_view::open(const QString &fileName, QString &error)
 {
   QFileInfo fileInfo(fileName);
@@ -495,15 +490,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	      {
 		auto string(list.at(i));
 
-		if(string.startsWith("editable"))
-		  {
-		    string = string.mid(string.indexOf('=') + 1);
-		    string.remove("\"");
-		    m_properties["editable"] = QVariant
-		      (QByteArray::fromBase64(string.toLatin1())).toBool();
-		    setEditable(m_properties.value("editable").toBool());
-		  }
-		else if(string.startsWith("main_splitter_state"))
+		if(string.startsWith("main_splitter_state"))
 		  {
 		    string = string.mid(string.indexOf('=') + 1);
 		    string.remove("\"");
@@ -1321,14 +1308,6 @@ void glitch_view::selectAll(void)
     }
 
   QApplication::restoreOverrideCursor();
-}
-
-void glitch_view::setEditable(const bool state)
-{
-  m_canvasPreview->setScene(state ? m_scene : nullptr);
-  m_properties["editable"] = state;
-  m_scene->setEditable(state);
-  m_view->setEditable(state);
 }
 
 void glitch_view::setSceneRect(const QSize &size)

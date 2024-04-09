@@ -123,7 +123,6 @@ class glitch_ui: public QMainWindow
 
  private slots:
   void slotAbout(void);
-  void slotAboutToShowEditMenu(void);
   void slotAboutToShowProjectMenu(void);
   void slotAboutToShowRecentDiagrams(void);
   void slotAboutToShowTabsMenu(void);
@@ -167,7 +166,6 @@ class glitch_ui: public QMainWindow
   void slotSeparate(QWidget *widget);
   void slotSeparate(glitch_view *view);
   void slotSeparate(void);
-  void slotSetEditableCanvas(bool state);
   void slotShowAllTools(void);
   void slotShowArduinoDocumentation(void);
   void slotShowCanvasSettings(void);

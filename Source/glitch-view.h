@@ -90,7 +90,6 @@ class glitch_view: public QWidget
   bool canUndo(void) const;
   bool containsFunction(const QString &name) const;
   bool hasChanged(void) const;
-  bool isEditable(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
   glitch_common::ProjectTypes projectType(void) const;
@@ -122,7 +121,6 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
-  void setEditable(const bool state);
   void showCanvasSettings(void) const;
   void showSourcePreview(void) const;
   void showTools(void);
