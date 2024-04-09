@@ -190,13 +190,13 @@ class glitch_view: public QWidget
   glitch_user_functions *m_userFunctions;
   glitch_user_functions_model *m_userFunctionsModel;
   bool saveImplementation(const QString &fileName, QString &error);
+  bool saveProperties(void) const;
   virtual void generateSource(QTextStream &stream) const;
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void createTools(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
-  void saveProperties(void);
   void setSceneRect(const QSize &size);
 
  protected slots:

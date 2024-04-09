@@ -806,12 +806,56 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
-  saveProperties();
+  ok &= saveProperties();
 
   if(ok)
     m_undoStack->setClean();
 
   QApplication::restoreOverrideCursor();
+  return ok;
+}
+
+bool glitch_view::saveProperties(void) const
+{
+  QString connectionName("");
+  auto ok = true;
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_fileName);
+
+    if((ok = db.open()))
+      {
+	QMapIterator<QString, QVariant> it(m_properties);
+	QSqlQuery query(db);
+	QString string("");
+
+	while(it.hasNext())
+	  {
+	    it.next();
+	    string += it.key();
+	    string += " = ";
+	    string += "\"";
+	    string += it.value().toByteArray().toBase64();
+	    string += "\"";
+
+	    if(it.hasNext())
+	      string += "&";
+	  }
+
+	query.exec("DELETE FROM diagram_properties");
+	query.prepare
+	  ("INSERT OR REPLACE INTO diagram_properties (properties) VALUES(?)");
+	query.addBindValue(string);
+	ok = query.exec();
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
   return ok;
 }
 
@@ -1255,48 +1299,6 @@ void glitch_view::save(void)
   QString error("");
 
   save(error);
-}
-
-void glitch_view::saveProperties(void)
-{
-  QString connectionName("");
-
-  {
-    auto db(glitch_common::sqliteDatabase());
-
-    connectionName = db.connectionName();
-    db.setDatabaseName(m_fileName);
-
-    if(db.open())
-      {
-	QMapIterator<QString, QVariant> it(m_properties);
-	QSqlQuery query(db);
-	QString string("");
-
-	while(it.hasNext())
-	  {
-	    it.next();
-	    string += it.key();
-	    string += " = ";
-	    string += "\"";
-	    string += it.value().toByteArray().toBase64();
-	    string += "\"";
-
-	    if(it.hasNext())
-	      string += "&";
-	  }
-
-	query.exec("DELETE FROM diagram_properties");
-	query.prepare
-	  ("INSERT OR REPLACE INTO diagram_properties (properties) VALUES(?)");
-	query.addBindValue(string);
-	query.exec();
-      }
-
-    db.close();
-  }
-
-  glitch_common::discardDatabase(connectionName);
 }
 
 void glitch_view::selectAll(void)

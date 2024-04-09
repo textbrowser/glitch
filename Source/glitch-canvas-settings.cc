@@ -375,7 +375,7 @@ bool glitch_canvas_settings::save(QString &error) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QString connectionName("");
-  auto ok = false;
+  auto ok = true;
 
   {
     auto db(glitch_common::sqliteDatabase());
@@ -383,7 +383,7 @@ bool glitch_canvas_settings::save(QString &error) const
     connectionName = db.connectionName();
     db.setDatabaseName(m_fileName);
 
-    if(db.open())
+    if((ok = db.open()))
       {
 	QSqlQuery query(db);
 
