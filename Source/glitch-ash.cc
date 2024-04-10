@@ -454,6 +454,12 @@ void glitch_ash::slotProcessCommand(const QString &command)
       m_ui.text->clearHistory();
     else if(command.indexOf(' ') == -1 && m_commands.value(command).size() > 0)
       {
+	if(command == tr("list"))
+	  {
+	    emit processCommand(command);
+	    continue;
+	  }
+
 	m_ui.text->append(command + ":");
 
 	auto list(m_commands.values(command));

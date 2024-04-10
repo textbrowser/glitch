@@ -32,6 +32,14 @@
 
 #include "glitch-object.h"
 
+static bool sort_by_identifier(glitch_object *w1, glitch_object *w2)
+{
+  if(!w1 || !w2)
+    return false;
+  else
+    return w1->id() < w2->id();
+}
+
 class glitch_ash_state_machine
 {
  public:
@@ -96,10 +104,7 @@ class glitch_ash_state_machine
 	    continue;
 	  }
 	else if(token.startsWith(QObject::tr("list"), Qt::CaseInsensitive))
-	  {
-	    state = States::List;
-	    continue;
-	  }
+	  state = States::List;
 	else if(token.startsWith(QObject::tr("select"), Qt::CaseInsensitive))
 	  state = States::Select;
 	else if(token.startsWith(QObject::tr("set"), Qt::CaseInsensitive))
@@ -234,25 +239,21 @@ class glitch_ash_state_machine
 	    }
 	  case States::List:
 	    {
+	      QList<glitch_object *> list;
 	      QString string("");
 
-	      if(token == QObject::tr("all"))
-		{
-		  auto list(t->allObjects());
+	      if(it.hasNext() && it.next() == QObject::tr("all"))
+		list = t->allObjects();
+	      else
+		list = t->objects();
 
-		  foreach(auto object, list)
-		    string.append(object->about()).append(" ");
-		}
-	      else if(token == QObject::tr("local"))
-		{
-		  auto list(t->objects());
+	      std::sort(list.begin(), list.end(), sort_by_identifier);
 
-		  foreach(auto object, list)
-		    string.append(object->about()).append(" ");
-		}
+	      foreach(auto object, list)
+		string.append(object->about()).append("<br>");
 
 	      if(!string.isEmpty())
-		emit t->information(string);
+		emit t->information(string.mid(0, string.length() - 4));
 
 	      state = States::ZZZ;
 	      break;
