@@ -175,12 +175,11 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(!proxy ||
-	 !(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
-	 !proxy->isSelected())
-	continue;
-
-      widgets << qobject_cast<glitch_object *> (proxy->widget());
+      if(proxy &&
+	 proxy->flags() & QGraphicsItem::ItemIsSelectable &&
+	 proxy->isSelected() &&
+	 proxy->widget())
+	widgets << qobject_cast<glitch_object *> (proxy->widget());
     }
 
   return widgets;
