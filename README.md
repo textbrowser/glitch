@@ -33,6 +33,41 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.04.30</p>
+<ul>
+<li>ASH behavior: list local objects if a list argument is not
+  provided.</li>
+<li>ASH: list local must return local objects only.</li>
+<li>ASH: list-statistics.</li>
+<li>ASH: sort list results.</li>
+<li>Added Ctrl+W shortcut to User Functions's Close button.</li>
+<li>Avoid noisy signals between Find Objects and modified
+  objects.</li>
+<li>Avoid verbose signals after committing canvas settings.</li>
+<li>Center child window with respect to separated diagram if
+  necessary.</li>
+<li>Copy selected ASH text via Control + C.</li>
+<li>Destroy magic proxies in glitch_scene::purgeRedoUndoProxies().
+  Such local proxies exist within the universal redo / undo stack
+  and must be purged when their parent scenes are destroyed.</li>
+<li>Display the number of objects in Find Objects.</li>
+<li>Do not generate a canvas's source view unless a
+  Source View window is visible.</li>
+<li>Floating source preview for child items.</li>
+<li>Interrupt an ASH prompt via Control + Shift + C instead of
+  Control + C.</li>
+<li>New --generate-source terminal option.</li>
+<li>New default value of false: Canvas Settings -> Source View ->
+  Generate Source View Periodically.</li>
+<li>Remove leading and trailing space characters from ASH
+  commands.</li>
+<li>Removed all iterators from recent-diagrams highlight logic.</li>
+<li>Renamed database table properties to diagram_properties.</li>
+<li>Separated diagrams and source previews.</li>
+<li>Speedier object instantiation.</li>
+<li>The option --open-arduino-diagram is now
+  --open-arduino-diagrams.</li>
+</ul>
 <p>2024.03.25</p>
 <ul>
 <li>Block signals in glitch_misc::sortCombinationBox() before
