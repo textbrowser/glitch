@@ -1428,7 +1428,7 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	      goto done_label;
 	    }
 
-	  if(event->modifiers() & Qt::ControlModifier)
+	  if(glitch_variety::keyboardModifiers() & Qt::ControlModifier)
 	    m_lastScenePos = event->scenePos();
 	  else
 	    {
@@ -1473,7 +1473,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
   m_lastScenePos = QPointF();
   setProperty("drag-and-copy", false);
 
-  if(event->modifiers() & Qt::ControlModifier)
+  if(glitch_variety::keyboardModifiers() & Qt::ControlModifier)
     {
       auto item = itemAt(event->scenePos(), QTransform());
 

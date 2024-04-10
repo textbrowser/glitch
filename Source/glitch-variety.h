@@ -41,6 +41,7 @@ class glitch_variety
  public:
   static QPointF dbPointToPointF(const QString &text);
   static QString homePath(void);
+  static Qt::KeyboardModifiers keyboardModifiers(void);
   static bool sameAncestors(const QObject *object1, const QObject *object2);
   static void centerWindow(QWidget *parent, QWidget *window);
   static void highlight(QLineEdit *lineEdit);

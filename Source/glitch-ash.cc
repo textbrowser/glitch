@@ -236,7 +236,9 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_C:
       {
-	if(event->modifiers() & Qt::ControlModifier)
+	auto modifiers = glitch_variety::keyboardModifiers();
+
+	if(modifiers & Qt::ControlModifier && modifiers & Qt::ShiftModifier)
 	  {
 	    handleInterrupt();
 	    return;
