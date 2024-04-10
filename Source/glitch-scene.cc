@@ -543,7 +543,7 @@ int glitch_scene::objectOrder(glitch_proxy_widget *proxy) const
 
 void glitch_scene::addItem(QGraphicsItem *item)
 {
-  if(item && !item->scene())
+  if(item && item->scene() == nullptr)
     QGraphicsScene::addItem(item);
 
   auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
@@ -1704,7 +1704,7 @@ void glitch_scene::prepareBackgroundForMove(const bool state)
 void glitch_scene::purgeRedoUndoProxies(void)
 {
   /*
-  ** Move proxies from the redo/undo stack onto the scene.
+  ** Delete proxies from the redo / undo stack.
   */
 
   QMutableMapIterator<QPointer<glitch_proxy_widget>, char> it
@@ -1718,7 +1718,10 @@ void glitch_scene::purgeRedoUndoProxies(void)
       if(!list.contains(it.key()))
 	{
 	  if(it.key())
-	    QGraphicsScene::addItem(it.key());
+	    {
+	      qDebug() << "Deleting magic proxy " << it.key() << ".";
+	      it.key()->deleteLater();
+	    }
 
 	  it.remove();
 	}

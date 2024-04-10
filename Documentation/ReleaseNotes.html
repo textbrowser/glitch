@@ -21,6 +21,9 @@
 	<li>Center child window with respect to separated diagram if
 	  necessary.</li>
 	<li>Copy selected ASH text via Control + C.</li>
+	<li>Destroy magic proxies in glitch_scene::purgeRedoUndoProxies().
+	  Such local proxies exist within the universal redo / undo stack
+	  and must be purged when their parent scenes are destroyed.</li>
 	<li>Do not generate a canvas's source view unless a
 	  Source View window is visible.</li>
 	<li>Floating source preview for child items.</li>
