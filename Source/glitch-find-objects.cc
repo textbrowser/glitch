@@ -98,7 +98,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 		m_ui.search,
 		SLOT(setFocus(void)));
 #endif
-  QTimer::singleShot(100, this, SLOT(slotFind(void)));
+  QTimer::singleShot(500, this, SLOT(slotFind(void)));
 }
 
 glitch_find_objects::~glitch_find_objects()
@@ -238,8 +238,9 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 
 void glitch_find_objects::slotSearch(void)
 {
-  auto count = 0;
+  auto discovered = 0;
   auto text(m_ui.search->text().trimmed());
+  auto total = 0;
 
   if(text.isEmpty())
     {
@@ -250,8 +251,9 @@ void glitch_find_objects::slotSearch(void)
       foreach(auto item, m_items)
 	if(item)
 	  {
-	    count += 1;
+	    discovered += 1;
 	    item->setHidden(false);
+	    total += 1;
 	  }
     }
   else
@@ -266,13 +268,13 @@ void glitch_find_objects::slotSearch(void)
 	    for(i = 0; i < item->columnCount(); i++)
 	      if(item->text(i).contains(text, Qt::CaseInsensitive))
 		{
-		  count += 1;
 		  found = true;
 		  break;
 		}
 
 	    if(found)
 	      {
+		discovered += 1;
 		item->setHidden(false);
 
 		auto parent = static_cast<QTreeWidgetItem *> (item)->parent();
@@ -286,8 +288,13 @@ void glitch_find_objects::slotSearch(void)
 	      }
 	    else
 	      item->setHidden(true);
+
+	    total += 1;
 	  }
     }
+
+  m_ui.total->setText
+    (tr("%1 Discovered Object(s) / %2 Object(s)").arg(discovered).arg(total));
 }
 
 void glitch_find_objects::slotSynchronize(void)

@@ -91,6 +91,22 @@
     </widget>
    </item>
    <item>
+    <widget class="QLineEdit" name="total">
+     <property name="styleSheet">
+      <string notr="true">QWidget {background: transparent;}</string>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="placeholderText">
+      <string>Total</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLineEdit" name="search">

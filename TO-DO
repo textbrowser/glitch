@@ -122,6 +122,7 @@ Completed Items
 - Display main() function. Fixed position? Yes.
 - Display serial port errors.
 - Display tool mode in status bar.
+- Display totals in Find Objects; status bar?
 - Do not align, stack, etc. unless coordinates would change.
 - Do not allow drag-and-drop operations for unaffiliated functions.
 - Do not clone pasted functions without parents unless they already exist.
@@ -356,13 +357,13 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Display totals in Find Objects; status bar?
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Periodic backup.
 - Print preview. Avoid Android.
+- Recursive copying of nested function definitions.
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
