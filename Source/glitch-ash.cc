@@ -267,6 +267,14 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
 	handleHomeKey();
 	return;
       }
+    case Qt::Key_PageDown:
+      {
+	return;
+      }
+    case Qt::Key_PageUp:
+      {
+	return;
+      }
     case Qt::Key_Tab:
       {
 	handleTabKey();
