@@ -238,9 +238,13 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       {
 	auto modifiers = glitch_variety::keyboardModifiers();
 
-	if(modifiers & Qt::ControlModifier && modifiers & Qt::ShiftModifier)
+	if(modifiers & Qt::ControlModifier)
 	  {
-	    handleInterrupt();
+	    if(modifiers & Qt::ShiftModifier)
+	      handleInterrupt();
+	    else
+	      copy();
+
 	    return;
 	  }
 
