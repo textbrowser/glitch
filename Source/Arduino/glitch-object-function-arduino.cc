@@ -246,22 +246,24 @@ QString glitch_object_function_arduino::code(void) const
 #endif
 
       if(m_editView->scene())
-	foreach(auto w, m_editView->scene()->orderedObjects())
-	  {
-	    if(!w || !w->shouldPrint())
-	      continue;
+	{
+	  foreach(auto w, m_editView->scene()->orderedObjects())
+	    {
+	      if(!w || !w->shouldPrint())
+		continue;
 
-	    auto code(w->code());
+	      auto code(w->code());
 
-	    if(!code.trimmed().isEmpty())
-	      stream << glitch_common::s_indentationCharacter
-		     << code
+	      if(!code.trimmed().isEmpty())
+		stream << glitch_common::s_indentationCharacter
+		       << code
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-		     << endl;
+		       << endl;
 #else
-	             << Qt::endl;
+	               << Qt::endl;
 #endif
-	  }
+	    }
+	}
 
       stream << "}";
       return code;
