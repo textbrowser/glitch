@@ -143,13 +143,13 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
   QRect desk;
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-  auto scrn = QApplication::desktop()->screenNumber(window);
+  auto screen = QApplication::desktop()->screenNumber(window);
 
   if(w)
-    scrn = QApplication::desktop()->screenNumber(w);
+    screen = QApplication::desktop()->screenNumber(w);
 
-  desk = QGuiApplication::screens().value(scrn) ?
-    QGuiApplication::screens().value(scrn)->geometry() : QRect();
+  desk = QGuiApplication::screens().value(screen) ?
+    QGuiApplication::screens().value(screen)->geometry() : QRect();
 #else
   auto screen = QGuiApplication::screenAt(window->pos());
 
@@ -185,7 +185,7 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
       p = QPoint(pp.x() + w->width() / 2, pp.y() + w->height() / 2);
     }
   else
-    p = QPoint(desk.x() + desk.width() / 2, desk.y() + desk.height() / 2);
+    p = QPoint(desk.width() / 2 + desk.x(), desk.height() / 2 + desk.y())
 
   p = QPoint(p.x() - window->width() / 2 - extraw,
 	     p.y() - window->height() / 2 - extrah);
