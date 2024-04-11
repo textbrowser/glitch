@@ -190,16 +190,16 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
   p = QPoint(p.x() - window->width() / 2 - extraw,
 	     p.y() - window->height() / 2 - extrah);
 
-  if(extraw + p.x() + window->width() > desk.width() + desk.x())
-    p.setX(desk.x() + desk.width() - window->width() - extraw);
+  if(desk.width() + desk.x() < extraw + p.x() + window->width())
+    p.setX(desk.width() + desk.x() - extraw - window->width());
 
-  if(p.x() < desk.x())
+  if(desk.x() > p.x())
     p.setX(desk.x());
 
-  if(p.y() + extrah + window->height() > desk.y() + desk.height())
-    p.setY(desk.y() + desk.height() - window->height() - extrah);
+  if(desk.height() + desk.y() < extrah + p.y() + window->height())
+    p.setY(desk.height() + desk.y() - extrah - window->height());
 
-  if(p.y() < desk.y())
+  if(desk.y() > p.y())
     p.setY(desk.y());
 
   window->move(p);
