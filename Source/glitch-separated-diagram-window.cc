@@ -176,7 +176,7 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 
 void glitch_separated_diagram_window::prepareActionWidgets(void)
 {
-  if(m_view)
+  if(m_view && m_view->scene())
     {
       m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());

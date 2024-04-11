@@ -541,7 +541,7 @@ void glitch_object_edit_window::setCentralWidget(QWidget *widget)
 
 void glitch_object_edit_window::setEditView(glitch_object_view *view)
 {
-  if(m_editView)
+  if(m_editView && m_editView->scene())
     {
       disconnect(m_editView->scene(),
 		 &glitch_scene::changed,
@@ -559,7 +559,7 @@ void glitch_object_edit_window::setEditView(glitch_object_view *view)
 
   m_editView = view;
 
-  if(m_editView)
+  if(m_editView && m_editView->scene())
     {
       connect(m_editView->scene(),
 	      &glitch_scene::changed,
@@ -747,9 +747,13 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 {
   m_actions.value("copy")->setEnabled
-    (m_editView && !m_editView->scene()->selectedItems().isEmpty());
+    (m_editView &&
+     m_editView->scene() &&
+     !m_editView->scene()->selectedItems().isEmpty());
   m_actions.value("delete")->setEnabled
-    (m_editView && !m_editView->scene()->selectedItems().isEmpty());
+    (m_editView &&
+     m_editView->scene() &&
+     !m_editView->scene()->selectedItems().isEmpty());
   m_actions.value("paste")->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
   m_actions.value("redo")->setEnabled(m_undoStack && m_undoStack->canRedo());
 
@@ -760,7 +764,9 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     m_actions.value("redo")->setText(tr("Redo"));
 
   m_actions.value("select all")->setEnabled
-    (m_editView && !m_editView->scene()->items().isEmpty());
+    (m_editView &&
+     m_editView->scene() &&
+     !m_editView->scene()->items().isEmpty());
   m_actions.value("undo")->setEnabled(m_undoStack && m_undoStack->canUndo());
 
   if(m_actions.value("undo")->isEnabled() && m_undoStack)
@@ -769,7 +775,7 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
   else
     m_actions.value("undo")->setText(tr("Undo"));
 
-  if(m_editView && statusBar())
+  if(m_editView && m_editView->scene() && statusBar())
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
@@ -805,7 +811,7 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
   auto state = settings.value
     ("preferences/docked_widget_property_editors", true).toBool();
 
-  if(m_editView && state)
+  if(m_editView && m_editView->scene() && state)
     {
       foreach(auto object, m_editView->scene()->objects())
 	if(object && object->menu() && object->menu()->isVisible())

@@ -138,12 +138,12 @@ class glitch_ash_state_machine
 
 	      while(it.hasNext())
 		{
-		  auto token(it.next());
-		  auto object = t->find(qAbs(token.toLongLong()));
+		  auto object = t->find(qAbs(it.next().toLongLong()));
 
 		  if(object &&
 		     object->proxy() &&
-		     object->proxy()->isMandatory() == false)
+		     object->proxy()->isMandatory() == false &&
+		     object->scene())
 		    {
 		      auto list(hash.value(object->scene()));
 

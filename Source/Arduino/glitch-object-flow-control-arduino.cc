@@ -170,22 +170,23 @@ QString glitch_object_flow_control_arduino::code(void) const
 	 << Qt::endl;
 #endif
 
-  foreach(auto w, m_editView->scene()->orderedObjects())
-    {
-      if(!w || !w->shouldPrint())
-	continue;
+  if(m_editView->scene())
+    foreach(auto w, m_editView->scene()->orderedObjects())
+      {
+	if(!w || !w->shouldPrint())
+	  continue;
 
-      auto code(w->code());
+	auto code(w->code());
 
-      if(!code.trimmed().isEmpty())
-	stream << QString(level + 1, glitch_common::s_indentationCharacter)
-	       << code
+	if(!code.trimmed().isEmpty())
+	  stream << QString(level + 1, glitch_common::s_indentationCharacter)
+		 << code
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-	       << endl;
+		 << endl;
 #else
-	       << Qt::endl;
+	         << Qt::endl;
 #endif
-    }
+      }
 
   stream << QString(level, glitch_common::s_indentationCharacter)
 	 << "}";
@@ -293,7 +294,7 @@ clone(QWidget *parent) const
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty())
+  if(m_copiedChildren.isEmpty() && m_editView->scene())
     /*
     ** First, copy!
     */

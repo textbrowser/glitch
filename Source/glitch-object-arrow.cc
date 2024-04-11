@@ -102,9 +102,9 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   QColor transparentColor;
   QPainter painter(this);
   QQueue<qreal> widths;
-  auto canvasBrush(m_proxy && m_proxy->scene() ?
-		   m_proxy->scene()->backgroundBrush() :
-		   QBrush(QColor("#55aaff")));
+  auto canvasBrush
+    (m_proxy && m_proxy->scene() ?
+     m_proxy->scene()->backgroundBrush() : QBrush(QColor("#55aaff")));
   const auto fillPattern = Qt::SolidPattern;
   const auto sizeHeight = static_cast<qreal> (size().height());
   const auto sizeWidth = static_cast<qreal> (size().width());

@@ -245,22 +245,23 @@ QString glitch_object_function_arduino::code(void) const
 	     << Qt::endl;
 #endif
 
-      foreach(auto w, m_editView->scene()->orderedObjects())
-	{
-	  if(!w || !w->shouldPrint())
-	    continue;
+      if(m_editView->scene())
+	foreach(auto w, m_editView->scene()->orderedObjects())
+	  {
+	    if(!w || !w->shouldPrint())
+	      continue;
 
-	  auto code(w->code());
+	    auto code(w->code());
 
-	  if(!code.trimmed().isEmpty())
-	    stream << glitch_common::s_indentationCharacter
-		   << code
+	    if(!code.trimmed().isEmpty())
+	      stream << glitch_common::s_indentationCharacter
+		     << code
 #if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
-		   << endl;
+		     << endl;
 #else
-		   << Qt::endl;
+	             << Qt::endl;
 #endif
-	}
+	  }
 
       stream << "}";
       return code;
@@ -329,7 +330,7 @@ clone(QWidget *parent) const
     (m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
   clone->resize(size());
 
-  if(m_copiedChildren.isEmpty() && m_editView)
+  if(m_copiedChildren.isEmpty() && m_editView && m_editView->scene())
     /*
     ** First, copy!
     */
@@ -358,7 +359,9 @@ clone(QWidget *parent) const
 	 clone->m_id,
 	 nullptr,
 	 clone);
-      clone->m_editView->scene()->setCanvasSettings(clone->m_canvasSettings);
+      clone->m_editView->scene() ?
+	clone->m_editView->scene()->setCanvasSettings(clone->m_canvasSettings) :
+	(void) 0;
       clone->m_editWindow = new glitch_object_edit_window
 	(glitch_common::ProjectTypes::ArduinoProject, clone, parent);
       clone->m_editWindow->prepareToolBars
@@ -634,7 +637,8 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
      m_id,
      m_undoStack,
      this);
-  m_editView->scene()->setCanvasSettings(m_canvasSettings);
+  m_editView->scene() ?
+    m_editView->scene()->setCanvasSettings(m_canvasSettings) : (void) 0;
   m_editView->setVisible(false);
   m_isFunctionClone = false;
   m_type = "arduino-function";

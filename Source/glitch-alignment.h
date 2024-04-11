@@ -85,7 +85,7 @@ class glitch_alignment: public QWidget
   {
     auto view = qobject_cast<T *> (parentWidget());
 
-    if(!view)
+    if(!view || !view->scene())
       return;
 
     auto list(view->scene()->items(Qt::AscendingOrder));
@@ -286,7 +286,7 @@ class glitch_alignment: public QWidget
   {
     auto view = qobject_cast<T *> (parentWidget());
 
-    if(!view)
+    if(!view || !view->scene())
       return;
 
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

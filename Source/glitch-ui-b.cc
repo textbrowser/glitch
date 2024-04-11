@@ -235,7 +235,7 @@ void glitch_ui::slotRecentDiagramHovered(QAction *action)
 
 void glitch_ui::slotSaveAsPNG(void)
 {
-  if(!m_currentView)
+  if(!m_currentView || !m_currentView->scene())
     return;
 
   QFileDialog dialog(this, tr("Glitch: Save Current Diagram As PNG"));

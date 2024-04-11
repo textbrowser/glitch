@@ -134,14 +134,14 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   {
     auto view = qobject_cast<glitch_object_view *> (parent);
 
-    if(view)
+    if(view && view->scene())
       setUndoStack(view->scene()->undoStack());
   }
 
   {
     auto view = qobject_cast<glitch_view *> (parent);
 
-    if(view)
+    if(view && view->scene())
       setUndoStack(view->scene()->undoStack());
   }
 
@@ -219,7 +219,7 @@ QFont glitch_object::preferredFont(const QFont &font) const
 
 QImage glitch_object::image(void) const
 {
-  if(m_editView)
+  if(m_editView && m_editView->scene())
     {
       QImage image
 	(m_editView->scene()->itemsBoundingRect().size().toSize(),
@@ -1128,7 +1128,7 @@ void glitch_object::prepareContextMenu(void)
 
 void glitch_object::prepareEditObjects(const glitch_view *parentView)
 {
-  if(m_editView && m_editWindow)
+  if(m_editView && m_editView->scene() && m_editWindow)
     {
       connect(m_editView,
 	      &glitch_object_view::paste,
@@ -1195,7 +1195,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	qDebug() << tr("m_editWindow is zero! Signals cannot be established!");
     }
 
-  if(m_editView && parentView)
+  if(m_editView && m_editView->scene() && parentView)
     {
       connect(m_editView,
 	      &glitch_object_view::copy,

@@ -794,12 +794,12 @@ void glitch_ui::parseCommandLineArguments(void)
 
 void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 {
-  if(s_copiedObjects.isEmpty())
+  if(s_copiedObjects.isEmpty() || undoStack == nullptr || view == nullptr)
     return;
 
   auto scene = qobject_cast<glitch_scene *> (view->scene());
 
-  if(!scene || !undoStack || !view)
+  if(!scene)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -958,9 +958,13 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Canvas_Settings->setEnabled(m_currentView);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
-	(m_currentView && !m_currentView->scene()->selectedItems().empty());
+	(m_currentView &&
+	 m_currentView->scene() &&
+	 !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled
-	(m_currentView && !m_currentView->scene()->selectedItems().empty());
+	(m_currentView &&
+	 m_currentView->scene() &&
+	 !m_currentView->scene()->selectedItems().empty());
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
@@ -971,7 +975,9 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Save_Current_Diagram->setEnabled(m_currentView);
       m_ui.action_Save_Current_Diagram_As->setEnabled(m_currentView);
       m_ui.action_Select_All->setEnabled
-	(m_currentView && m_currentView->scene()->items().size() > 0);
+	(m_currentView &&
+	 m_currentView->scene() &&
+	 m_currentView->scene()->items().size() > 0);
 #ifdef Q_OS_ANDROID
       m_ui.action_Separate_Current_Canvas->setEnabled(false);
       m_ui.action_Separate_Current_Canvas->setText
@@ -2129,7 +2135,7 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 
 void glitch_ui::slotSelectAll(void)
 {
-  if(m_currentView)
+  if(m_currentView && m_currentView->scene())
     {
       m_currentView->selectAll();
       showStatsuBarMessage
@@ -2155,7 +2161,7 @@ void glitch_ui::slotSelectPage(void)
 
 void glitch_ui::slotSelectionChanged(void)
 {
-  if(m_currentView)
+  if(m_currentView && m_currentView->scene())
     {
       m_ui.action_Copy->setEnabled
 	(!m_currentView->scene()->selectedItems().empty());
