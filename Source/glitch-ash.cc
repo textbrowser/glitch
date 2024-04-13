@@ -25,9 +25,10 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QDir>
 #include <QDateTime>
+#include <QDir>
 #include <QKeyEvent>
+#include <QScrollBar>
 #include <QStandardPaths>
 
 #include "glitch-ash.h"
@@ -275,11 +276,25 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_PageDown:
       {
-	return;
+	if(verticalScrollBar())
+	  {
+	    verticalScrollBar()->triggerAction
+	      (QAbstractSlider::SliderPageStepAdd);
+	    return;
+	  }
+
+	break;
       }
     case Qt::Key_PageUp:
       {
-	return;
+	if(verticalScrollBar())
+	  {
+	    verticalScrollBar()->triggerAction
+	      (QAbstractSlider::SliderPageStepSub);
+	    return;
+	  }
+
+	break;
       }
     case Qt::Key_Tab:
       {

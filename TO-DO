@@ -9,6 +9,7 @@ Completed Items
 - ASH and set widget-size and minimum sizes.
 - ASH and the mouse.
 - ASH splitter state.
+- ASH: page scrolling via keyboard (Page Down).
 - About.
 - Add --open-arduino-diagram option.
 - Add close buttons to dialogs and windows.
@@ -353,7 +354,6 @@ Completed Items
 
 Remaining Items
 
-- ASH: page scrolling via keyboard (Page Down + Shift).
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
