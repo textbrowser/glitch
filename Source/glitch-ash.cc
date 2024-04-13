@@ -256,6 +256,10 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
 	handleDownKey();
 	return;
       }
+    case Qt::Key_End:
+      {
+	break;
+      }
     case Qt::Key_Enter:
     case Qt::Key_Return:
       {
@@ -271,6 +275,17 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_Home:
       {
+	if(verticalScrollBar())
+	  {
+	    auto modifiers = glitch_variety::keyboardModifiers();
+
+	    if(modifiers & Qt::ControlModifier)
+	      {
+		verticalScrollBar()->setValue(0);
+		return;
+	      }
+	  }
+
 	handleHomeKey();
 	return;
       }
