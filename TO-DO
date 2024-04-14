@@ -368,6 +368,7 @@ Remaining Items
 - Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Review changed() signal. Emit whenever an object has changed.
 - Secondary view (preview) and pasting: QCursor::pos().
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
