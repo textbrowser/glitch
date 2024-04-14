@@ -643,8 +643,6 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
 
   if(m_object && m_resizeWidget)
     {
-      emit changed();
-
       foreach(auto item, resizeRectangles())
 	if(item)
 	  item->setVisible(isSelected());
@@ -655,6 +653,8 @@ void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
 	m_resizeWidget->showEdgeRectanglesForLockedPosition
 	  (isSelected(), m_object->positionLocked());
     }
+
+  emit changed();
 }
 
 void glitch_proxy_widget::setObject(QWidget *widget)
