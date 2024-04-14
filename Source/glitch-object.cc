@@ -2059,6 +2059,9 @@ void glitch_object::slotActionTriggered(void)
 
 void glitch_object::slotAdjustSize(void)
 {
+  if(m_actions.value(DefaultMenuActions::ADJUST_SIZE, nullptr))
+    createActions();
+
   if(m_actions.value(DefaultMenuActions::ADJUST_SIZE, nullptr) &&
      m_actions.value(DefaultMenuActions::ADJUST_SIZE)->isEnabled() == false)
     return;

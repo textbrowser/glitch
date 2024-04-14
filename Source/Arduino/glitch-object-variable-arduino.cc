@@ -671,6 +671,11 @@ void glitch_object_variable_arduino::slotAdjustSize(void)
 
 void glitch_object_variable_arduino::slotComboBoxChanged(void)
 {
+  auto comboBox = qobject_cast<QComboBox *> (sender());
+
+  if(!comboBox)
+    return;
+
   if(m_actions.value(DefaultMenuActions::SET_VARIABLE_TYPE, nullptr) &&
      m_ui.type == sender())
     {
@@ -698,11 +703,6 @@ void glitch_object_variable_arduino::slotComboBoxChanged(void)
 	      }
 	}
     }
-
-  auto comboBox = qobject_cast<QComboBox *> (sender());
-
-  if(!comboBox)
-    return;
 
   auto property = glitch_object::Properties::Z_Z_Z_PROPERTY;
 
@@ -774,9 +774,6 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
 
 void glitch_object_variable_arduino::slotToolButtonChecked(void)
 {
-  if(!m_undoStack)
-    return;
-
   auto toolButton = qobject_cast<QToolButton *> (sender());
 
   if(!toolButton)
@@ -787,18 +784,24 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
   if(m_ui.progmem == toolButton)
     property = glitch_object::Properties::VARIABLE_PROGMEM;
 
-  auto undoCommand = new glitch_undo_command
-    (toolButton->isChecked(),
-     m_properties.value(property),
-     glitch_undo_command::Types::PROPERTY_CHANGED,
-     property,
-     this);
+  if(m_undoStack)
+    {
+      auto undoCommand = new glitch_undo_command
+	(toolButton->isChecked(),
+	 m_properties.value(property),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 property,
+	 this);
 
-  m_properties[property] = toolButton->isChecked();
-  undoCommand->setText
-    (tr("variable property changed (%1, %2)").
-     arg(scenePos().x()).arg(scenePos().y()));
-  m_undoStack->push(undoCommand);
+      m_properties[property] = toolButton->isChecked();
+      undoCommand->setText
+	(tr("variable property changed (%1, %2)").
+	 arg(scenePos().x()).arg(scenePos().y()));
+      m_undoStack->push(undoCommand);
+    }
+  else
+    m_properties[property] = toolButton->isChecked();
+    
   emit changed();
 }
 
