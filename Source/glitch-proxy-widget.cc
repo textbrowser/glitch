@@ -667,15 +667,19 @@ void glitch_proxy_widget::setObject(QWidget *widget)
 
 void glitch_proxy_widget::setPos(const QPointF &point)
 {
+  /*
+  ** An object may not be attached. This is fine.
+  */
+
+  auto pos(this->pos());
+
   QGraphicsProxyWidget::setPos(point);
 
   if(m_object)
-    {
-      if(m_object->pos() != point.toPoint())
-	m_object->move(point.toPoint());
+    m_object->move(point.toPoint()); // A changed() signal may be emitted.
 
-      emit changed();
-    }
+  if(point != pos)
+    emit changed();
 }
 
 void glitch_proxy_widget::setWidget(QWidget *widget)
