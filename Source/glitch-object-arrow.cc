@@ -83,8 +83,15 @@ createFromValues(const QMap<QString, QVariant> &values,
   auto object = new glitch_object_arrow
     (values.value("myoid").toLongLong(), parent);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   object->setProperties
-    (values.value("properties").toString().split(s_splitRegularExpression));
+    (values.value("properties").toString().split(s_splitRegularExpression,
+						 Qt::SkipEmptyParts));
+#else
+  object->setProperties
+    (values.value("properties").toString().split(s_splitRegularExpression,
+						 QString::SkipEmptyParts));
+#endif
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
 }

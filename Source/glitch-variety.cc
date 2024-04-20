@@ -238,7 +238,14 @@ void glitch_variety::highlight(QLineEdit *lineEdit)
   QScopedArrayPointer<QTextLayout::FormatRange> ranges;
   QTextCharFormat format;
   auto index = 0;
-  auto list(lineEdit->text().split(QRegularExpression("\\W+")));
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+  auto list
+    (lineEdit->text().split(QRegularExpression("\\W+"), Qt::SkipEmptyParts));
+#else
+  auto list
+    (lineEdit->text().
+     split(QRegularExpression("\\W+"), QString::SkipEmptyParts));
+#endif
 
   ranges.reset(new QTextLayout::FormatRange[list.size()]);
 
