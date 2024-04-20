@@ -747,7 +747,7 @@ void glitch_object_function_arduino::setName(const QString &name)
 
 void glitch_object_function_arduino::setProperties(const QString &properties)
 {
-  auto list(properties.split("&"));
+  auto list(splitPropertiesAmpersand(properties));
 
   std::sort(list.begin(), list.end());
   glitch_object::setProperties(list);

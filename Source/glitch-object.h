@@ -275,6 +275,27 @@ class glitch_object: public QWidget
   glitch_scene *editScene(void) const;
   glitch_scene *scene(void) const;
   qint64 id(void) const;
+
+  static QStringList splitPropertiesAmpersand(const QVariant &variant)
+  {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    return variant.toString().split('&', Qt::SkipEmptyParts);
+#else
+    return variant.toString().split('&', QString::SkipEmptyParts);
+#endif
+  }
+
+  static QStringList splitPropertiesRegularExpression(const QVariant &variant)
+  {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    return variant.toString().split
+      (s_splitRegularExpression, Qt::SkipEmptyParts);
+#else
+    return variant.toString().split
+      (s_splitRegularExpression, QString::SkipEmptyParts);
+#endif
+  }
+
   static glitch_object *createFromValues
     (const QMap<QString, QVariant> &values,
      glitch_object *parentObject,

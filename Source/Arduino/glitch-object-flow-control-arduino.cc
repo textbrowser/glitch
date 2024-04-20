@@ -363,7 +363,7 @@ createFromValues(const QMap<QString, QVariant> &values,
     (values.value("myoid").toLongLong(), parent);
 
   object->setProperties
-    (values.value("properties").toString().split(s_splitRegularExpression));
+    (splitPropertiesRegularExpression(values.value("properties")));
   object->setStyleSheet(values.value("stylesheet").toString());
   object->m_ui.condition->setText
     (simplified(object->m_properties.value(Properties::CONDITION).toString()));

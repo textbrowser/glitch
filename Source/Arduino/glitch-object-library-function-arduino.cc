@@ -127,7 +127,7 @@ createFromValues(const QMap<QString, QVariant> &values,
   auto object = new glitch_object_library_function_arduino
     (values.value("myoid").toLongLong(), parent);
 
-  object->setProperties(values.value("properties").toString().split('&'));
+  object->setProperties(splitPropertiesAmpersand(values.value("properties")));
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
 }

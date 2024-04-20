@@ -221,12 +221,14 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 
 	      if(type == "arduino-loop")
 		{
-		  m_loopObject->setProperties(properties.split('&'));
+		  m_loopObject->setProperties
+		    (glitch_object::splitPropertiesAmpersand(properties));
 		  m_loopObject->setStyleSheet(styleSheet);
 		}
 	      else
 		{
-		  m_setupObject->setProperties(properties.split('&'));
+		  m_setupObject->setProperties
+		    (glitch_object::splitPropertiesAmpersand(properties));
 		  m_setupObject->setStyleSheet(styleSheet);
 		}
 	    }
