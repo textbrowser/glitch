@@ -156,7 +156,7 @@ $(function() {
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  {</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">auto</span> view = qobject_cast&lt;T *&gt; (parentWidget());</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span>(!view)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span>(!view || !view-&gt;scene())</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">auto</span> list(view-&gt;scene()-&gt;items(Qt::AscendingOrder));</div>
@@ -357,7 +357,7 @@ $(function() {
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  {</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">auto</span> view = qobject_cast&lt;T *&gt; (parentWidget());</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">if</span>(!view)</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">if</span>(!view || !view-&gt;scene())</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));</div>
@@ -488,7 +488,7 @@ $(function() {
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__alignment_html"><div class="ttname"><a href="classglitch__alignment.html">glitch_alignment</a></div><div class="ttdef"><b>Definition:</b> glitch-alignment.h:57</div></div>
-<div class="ttc" id="aclassglitch__object_html"><div class="ttname"><a href="classglitch__object.html">glitch_object</a></div><div class="ttdef"><b>Definition:</b> glitch-object.h:48</div></div>
+<div class="ttc" id="aclassglitch__object_html"><div class="ttname"><a href="classglitch__object.html">glitch_object</a></div><div class="ttdef"><b>Definition:</b> glitch-object.h:49</div></div>
 <div class="ttc" id="aclassglitch__undo__command_html"><div class="ttname"><a href="classglitch__undo__command.html">glitch_undo_command</a></div><div class="ttdef"><b>Definition:</b> glitch-undo-command.h:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
