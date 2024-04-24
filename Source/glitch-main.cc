@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	std::cout << " --generate-source" << std::endl;
 	std::cout << " --help" << std::endl;
 	std::cout << " --new-arduino-diagram diagram-name" << std::endl;
-	std::cout << " --open-arduino-diagrams absolute-file-name(s)"
+	std::cout << " --open-arduino-diagrams file-name(s)"
 		  << std::endl;
 	std::cout << " --show-serial-port-window" << std::endl;
 	std::cout << " --show-tools" << std::endl;

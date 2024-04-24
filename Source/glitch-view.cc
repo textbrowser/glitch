@@ -1764,7 +1764,7 @@ void glitch_view::slotSelectedWidgetsProperties(void)
 void glitch_view::slotSelectionChanged(void)
 {
   /*
-  ** This method is reached after a scene is destroyed.
+  ** We may arrive here after a scene is purged.
   */
 
   auto scene = qobject_cast<glitch_scene *> (sender());
