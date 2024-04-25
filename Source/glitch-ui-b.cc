@@ -354,6 +354,33 @@ void glitch_ui::slotSpecialTools(void)
     m_currentView->slotSelectedWidgetsProperties();
 }
 
+void glitch_ui::slotUniteAllDiagrams(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto view, findChildren<glitch_view *> ())
+    if(view)
+      {
+	auto window = qobject_cast<QMainWindow *> (view->parentWidget());
+
+	if(!window)
+	  continue;
+
+	m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
+	m_ui.tab->setCurrentWidget(view);
+	setTabText(view);
+	setWindowTitle(view);
+	view->unite();
+	window->deleteLater();
+      }
+
+  prepareActionWidgets();
+  prepareStatusBar();
+  prepareTabShortcuts();
+  slotAboutToShowTabsMenu();
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::slotZoom(void)
 {
   auto action = qobject_cast<QAction *> (sender());

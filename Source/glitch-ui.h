@@ -188,6 +188,7 @@ class glitch_ui: public QMainWindow
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
   void slotUnite(glitch_view *view);
+  void slotUniteAllDiagrams(void);
   void slotViewToolBars(void);
   void slotZoom(void);
 

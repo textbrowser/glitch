@@ -165,9 +165,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotClearCopiedWidgetsBuffer);
   connect(m_ui.action_Close_All_Diagrams,
-	  SIGNAL(triggered(void)),
+	  &QAction::triggered,
 	  this,
-	  SLOT(slotCloseAllDiagrams(void)));
+	  &glitch_ui::slotCloseAllDiagrams);
   connect(m_ui.action_Close_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -272,6 +272,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotUndo);
+  connect(m_ui.action_Unite_All_Canvases,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotUniteAllDiagrams);
   connect(m_ui.action_User_Functions,
 	  &QAction::triggered,
 	  this,
