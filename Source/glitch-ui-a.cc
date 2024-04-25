@@ -164,6 +164,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotClearCopiedWidgetsBuffer);
+  connect(m_ui.action_Close_All_Diagrams,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotCloseAllDiagrams(void)));
   connect(m_ui.action_Close_Diagram,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -453,12 +457,14 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  if(view)
 	    {
+	      QApplication::processEvents();
 	      setUpdatesEnabled(false);
 
 	      if((ok = view->open(fileName, error)))
 		saveRecentFile(fileName);
 
 	      setUpdatesEnabled(true);
+	      QApplication::processEvents();
 	    }
 
 	  showStatsuBarMessage
@@ -929,6 +935,7 @@ void glitch_ui::prepareActionWidgets(void)
     {
       m_statusBarTimer.stop();
       m_ui.action_Canvas_Settings->setEnabled(false);
+      m_ui.action_Close_All_Diagrams->setEnabled(false);
       m_ui.action_Close_Diagram->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
@@ -956,6 +963,7 @@ void glitch_ui::prepareActionWidgets(void)
     {
       m_statusBarTimer.start();
       m_ui.action_Canvas_Settings->setEnabled(m_currentView);
+      m_ui.action_Close_All_Diagrams->setEnabled(m_ui.tab->count() > 0);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
 	(m_currentView &&
@@ -1044,6 +1052,7 @@ void glitch_ui::prepareIcons(void)
     (QIcon(":/Logo/glitch-arduino-logo.png"));
   m_ui.action_Canvas_Settings->setIcon(QIcon(":/settings.png"));
   m_ui.action_Clear_Copied_Widgets_Buffer->setIcon(QIcon(":/clear.png"));
+  m_ui.action_Close_All_Diagrams->setIcon(QIcon(":/close.png"));
   m_ui.action_Close_Diagram->setIcon(QIcon(":/close.png"));
   m_ui.action_Copy->setIcon(QIcon(":/copy.png"));
   m_ui.action_Delete->setIcon(QIcon(":/delete.png"));

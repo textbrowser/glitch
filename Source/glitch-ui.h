@@ -129,6 +129,7 @@ class glitch_ui: public QMainWindow
   void slotArduinoViewDestroyed(void);
   void slotClearCopiedWidgetsBuffer(void);
   void slotClearRecentFiles(void);
+  void slotCloseAllDiagrams(void);
   void slotCloseDiagram(int index);
   void slotCloseDiagram(void);
   void slotCopiedObjectsChanged(void);

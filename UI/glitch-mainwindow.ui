@@ -77,6 +77,7 @@
     <addaction name="action_Open_Diagram"/>
     <addaction name="menu_Recent_Diagrams"/>
     <addaction name="separator"/>
+    <addaction name="action_Close_All_Diagrams"/>
     <addaction name="action_Close_Diagram"/>
     <addaction name="separator"/>
     <addaction name="action_Save_Current_Diagram"/>
@@ -478,6 +479,11 @@
   <action name="action_Source_Preview">
    <property name="text">
     <string>&amp;Source Preview...</string>
+   </property>
+  </action>
+  <action name="action_Close_All_Diagrams">
+   <property name="text">
+    <string>Close All Diagrams</string>
    </property>
   </action>
  </widget>
