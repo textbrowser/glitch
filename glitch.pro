@@ -29,14 +29,20 @@ qtHaveModule(pdf) {
 qtHaveModule(pdfwidgets) {
 DEFINES         += GLITCH_PDF_SUPPORTED
 QT              += pdf pdfwidgets
-message("The QtPdf module was discovered!")
+message("The QtPdf and QtPdfWidgets modules were discovered!")
+} else {
+warning("The QtPdfWidgets module was not found.")
 }
+} else {
+warning("The QtPdf module was not found.")
 }
 
 qtHaveModule(serialport) {
 DEFINES         += GLITCH_SERIAL_PORT_SUPPORTED
 QT              += serialport
 message("The QtSerialPort module was discovered!")
+} else {
+warning("The QtSerialPort module was not found.")
 }
 
 QMAKE_CXXFLAGS_RELEASE += -O3
