@@ -934,6 +934,7 @@ void glitch_ui::prepareActionWidgets(void)
 {
   m_ui.action_Clear_Copied_Widgets_Buffer->setEnabled
     (!s_copiedObjects.isEmpty());
+  m_ui.action_Unite_All_Canvases->setEnabled(m_separatedWindows.size() > 0);
 
   if(m_ui.tab->count() == 0)
     {
@@ -2206,15 +2207,19 @@ void glitch_ui::slotSeparate(glitch_view *view)
 {
   if(!view)
     {
-      if(m_separateWindow)
+      /*
+      ** Separation via a drag from the tab bar.
+      */
+
+      if(m_separatedWindow)
 	{
-	  m_separateWindow->move(QCursor::pos() + QPoint(10, 10));
-	  m_separateWindow->showNormal();
-	  m_separateWindow->activateWindow();
-	  m_separateWindow->raise();
+	  m_separatedWindow->move(QCursor::pos() + QPoint(10, 10));
+	  m_separatedWindow->showNormal();
+	  m_separatedWindow->activateWindow();
+	  m_separatedWindow->raise();
 	}
 
-      m_separateWindow = nullptr;
+      m_separatedWindow = nullptr;
       return;
     }
 
@@ -2231,9 +2236,15 @@ void glitch_ui::slotSeparate(glitch_view *view)
 	  this,
 	  SLOT(slotCopy(glitch_view *)));
   connect(window,
+	  SIGNAL(destroyed(QObject *)),
+	  this,
+	  SLOT(slotSeparatedWindowDestroyed(QObject *)),
+	  Qt::QueuedConnection);
+  connect(window,
 	  SIGNAL(paste(glitch_view *)),
 	  this,
 	  SLOT(slotPaste(glitch_view *)));
+  m_separatedWindow = m_separatedWindows[window] = window;
   window->setCentralWidget(view);
   view->separate();
   view->show();
@@ -2245,7 +2256,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
     window->setWindowTitle(tr("Glitch: %1").arg(view->name()));
 
   if(qobject_cast<QTabWidget *> (sender()))
-    m_separateWindow = window;
+    m_separatedWindow = window;
   else
     window->show();
 

@@ -43,6 +43,7 @@ class glitch_separated_diagram_window: public QMainWindow
  public:
   glitch_separated_diagram_window(QWidget *parent);
   ~glitch_separated_diagram_window();
+  QPointer<glitch_view> view(void) const;
   void setCentralWidget(QWidget *widget);
 
  public slots:

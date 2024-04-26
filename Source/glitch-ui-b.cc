@@ -292,6 +292,11 @@ void glitch_ui::slotSeparate(void)
   slotSeparate(m_currentView);
 }
 
+void glitch_ui::slotSeparatedWindowDestroyed(QObject *object)
+{
+  m_separatedWindows.remove(object);
+}
+
 void glitch_ui::slotShowSerialPortWindow(void)
 {
   if(!m_serialPortWindow)
@@ -358,22 +363,35 @@ void glitch_ui::slotUniteAllDiagrams(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  foreach(auto view, findChildren<glitch_view *> ())
-    if(view)
-      {
-	auto window = qobject_cast<QMainWindow *> (view->parentWidget());
+  QHashIterator<QObject *, QPointer<glitch_separated_diagram_window> >
+    it(m_separatedWindows);
 
-	if(!window)
-	  continue;
+  while(it.hasNext())
+    {
+      it.next();
 
-	m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
-	m_ui.tab->setCurrentWidget(view);
-	setTabText(view);
-	setWindowTitle(view);
-	view->unite();
-	window->deleteLater();
-      }
+      if(!it.value())
+	continue;
 
+      auto view = it.value()->view();
+
+      if(!view)
+	continue;
+
+      auto window = qobject_cast<QMainWindow *> (view->parentWidget());
+
+      if(!window)
+	continue;
+
+      m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
+      m_ui.tab->setCurrentWidget(view);
+      setTabText(view);
+      setWindowTitle(view);
+      view->unite();
+      window->deleteLater();
+    }
+
+  m_separatedWindows.clear();
   prepareActionWidgets();
   prepareStatusBar();
   prepareTabShortcuts();

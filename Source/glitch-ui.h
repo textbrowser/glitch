@@ -33,6 +33,7 @@
 #include <QTimer>
 
 #include "glitch-aware-containers.h"
+#include "glitch-separated-diagram-window.h"
 #include "glitch-tools.h"
 #include "ui_glitch-mainwindow.h"
 
@@ -42,7 +43,6 @@ class QUndoStack;
 class glitch_documentation;
 class glitch_object;
 class glitch_preferences;
-class glitch_separated_diagram_window;
 class glitch_serial_port_window;
 class glitch_view;
 class glitch_view_arduino;
@@ -79,10 +79,12 @@ class glitch_ui: public QMainWindow
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
+  QHash<QObject *, QPointer<glitch_separated_diagram_window> >
+    m_separatedWindows;
   QList<QShortcut *> m_tabWidgetShortcuts;
   QMessageBox m_about;
   QPointer<QAction> m_recentDiagramHoveredAction;
-  QPointer<glitch_separated_diagram_window> m_separateWindow;
+  QPointer<glitch_separated_diagram_window> m_separatedWindow;
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
@@ -167,6 +169,7 @@ class glitch_ui: public QMainWindow
   void slotSeparate(QWidget *widget);
   void slotSeparate(glitch_view *view);
   void slotSeparate(void);
+  void slotSeparatedWindowDestroyed(QObject *object);
   void slotShowAllTools(void);
   void slotShowArduinoDocumentation(void);
   void slotShowCanvasSettings(void);

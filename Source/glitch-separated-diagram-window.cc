@@ -146,6 +146,11 @@ glitch_separated_diagram_window::~glitch_separated_diagram_window()
   m_statusBarTimer.stop();
 }
 
+QPointer<glitch_view> glitch_separated_diagram_window::view(void) const
+{
+  return m_view;
+}
+
 void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 {
   if(event && m_view && m_view->hasChanged())
