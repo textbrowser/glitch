@@ -45,6 +45,9 @@ class glitch_source_preview: public QDialog
   void setKeywordsColors(const QMap<QString, QColor> &map);
   void setObject(glitch_object *object);
 
+ public slots:
+  void slotObjectChanged(void);
+
  private:
   QPalette m_originalFindPalette;
   QPointer<glitch_object> m_object;
@@ -55,7 +58,6 @@ class glitch_source_preview: public QDialog
  private slots:
   void slotFind(void);
   void slotFindText(void);
-  void slotObjectChanged(void);
 };
 
 #endif

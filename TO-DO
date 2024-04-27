@@ -310,6 +310,7 @@ Completed Items
   Glitch Preferences
   Serial Port Window
 - Sort structures for languages.
+- Source preview and lost focus.
 - Source preview search.
 - Split properties via special regular expression.
 - Splitter states and redo / undo. Not necessary.
@@ -370,7 +371,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Secondary view (preview) and pasting: QCursor::pos().
-- Source preview and lost focus.
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with

@@ -242,6 +242,10 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   connect(this,
+	  &glitch_view::changed,
+	  m_sourcePreview,
+	  &glitch_source_preview::slotObjectChanged);
+  connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
@@ -1844,7 +1848,6 @@ void glitch_view::slotUndoStackChanged(void)
     m_generateSourceViewTimer.start();
 
   adjustScrollBars();
-  m_sourcePreview->setObject(m_scene->selectedObjects().value(0));
   emit changed();
 }
 
