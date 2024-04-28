@@ -54,17 +54,23 @@ Glitch: select left-most objects; align.
 <li>Do not generate a canvas's source view unless a
   Source View window is visible.</li>
 <li>Floating source preview for child items.</li>
+<li>Inspect scene() results. Curious mishaps.</li>
 <li>Interrupt an ASH prompt via Control + Shift + C instead of
   Control + C.</li>
 <li>New --generate-source terminal option.</li>
+<li>New File -> Close All Diagrams.</li>
 <li>New default value of false: Canvas Settings -> Source View ->
   Generate Source View Periodically.</li>
+<li>Page scrolling in ASH.</li>
+<li>QString::split() and skip-empty-parts.</li>
 <li>Remove leading and trailing space characters from ASH
   commands.</li>
 <li>Removed all iterators from recent-diagrams highlight logic.</li>
 <li>Renamed database table properties to diagram_properties.</li>
 <li>Separated diagrams and source previews.</li>
 <li>Speedier object instantiation.</li>
+<li>The option --open-arduino-diagram does not require absolute
+  file names.</li>
 <li>The option --open-arduino-diagram is now
   --open-arduino-diagrams.</li>
 </ul>
