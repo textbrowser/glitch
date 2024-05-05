@@ -7,7 +7,7 @@ QMAKE_EXTRA_TARGETS += dmg
 
 unix {
 doxygen.commands = doxygen glitch.doxygen
-purge.commands = find . -name '*~' -exec rm {} \\;
+purge.commands = find . -name '*~' -exec rm {} \;
 QMAKE_EXTRA_TARGETS += doxygen purge
 }
 
