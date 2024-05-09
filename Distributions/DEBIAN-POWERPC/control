@@ -3,6 +3,7 @@ Depends: libqt5core5a (>= 5.5.1),
          libqt5gui5 (>= 5.5.1),
 	 libqt5network5 (>= 5.5.1),
 	 libqt5printsupport5 (>= 5.5.1),
+	 libqt5serialport5 (>= 5.5.1),
          libqt5sql5 (>= 5.5.1),
          libqt5sql5-sqlite (>= 5.5.1),
          libqt5widgets5 (>= 5.5.1)
