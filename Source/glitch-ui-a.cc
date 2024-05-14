@@ -1146,7 +1146,7 @@ void glitch_ui::prepareRecentFiles(void)
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotOpenRecentDiagram,
-	      Qt::QueuedConnection); // Prevent OS X fault.
+	      Qt::QueuedConnection); // Prevent MacOS fault.
       m_ui.menu_Recent_Diagrams->addAction(action);
 #endif
     }
