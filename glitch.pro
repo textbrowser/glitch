@@ -212,6 +212,7 @@ FORMS          += UI/glitch-ash.ui \
                   UI/glitch-mainwindow.ui \
                   UI/glitch-port-colors.ui \
                   UI/glitch-preferences.ui \
+                  UI/glitch-redo-undo-stack.ui \
                   UI/glitch-separated-diagram-window.ui \
                   UI/glitch-serial-port-window.ui \
                   UI/glitch-source-preview.ui \

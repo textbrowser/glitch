@@ -228,6 +228,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotRedo);
+  connect(m_ui.action_Redo_Undo_Stack,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotShowRedoUndoStack);
   connect(m_ui.action_Release_Notes,
 	  &QAction::triggered,
 	  this,

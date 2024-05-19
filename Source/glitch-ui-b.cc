@@ -297,6 +297,10 @@ void glitch_ui::slotSeparatedWindowDestroyed(QObject *object)
   m_separatedWindows.remove(object);
 }
 
+void glitch_ui::slotShowRedoUndoStack(void)
+{
+}
+
 void glitch_ui::slotShowSerialPortWindow(void)
 {
   if(!m_serialPortWindow)

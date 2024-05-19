@@ -100,6 +100,8 @@
     <addaction name="separator"/>
     <addaction name="action_Glitch_Preferences"/>
     <addaction name="separator"/>
+    <addaction name="action_Redo_Undo_Stack"/>
+    <addaction name="separator"/>
     <addaction name="action_Serial_Port_Window"/>
    </widget>
    <widget class="QMenu" name="menu_Tabs">
@@ -491,6 +493,11 @@
   <action name="action_Unite_All_Canvases">
    <property name="text">
     <string>Unite All Canvases</string>
+   </property>
+  </action>
+  <action name="action_Redo_Undo_Stack">
+   <property name="text">
+    <string>Redo / Undo Stack...</string>
    </property>
   </action>
  </widget>

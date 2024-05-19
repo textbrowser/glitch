@@ -177,6 +177,7 @@ class glitch_ui: public QMainWindow
   void slotShowFullScreenMode(void);
   void slotShowPreferences(void);
   void slotShowProjectIDE(void);
+  void slotShowRedoUndoStack(void);
   void slotShowReleaseNotes(void);
   void slotShowSerialPortWindow(void);
   void slotShowSourcePreview(void);
