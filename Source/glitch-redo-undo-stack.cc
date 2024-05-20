@@ -101,7 +101,7 @@ void glitch_redo_undo_stack::slotPopulate(void)
 
   pixmap.fill(Qt::transparent);
 
-  for(int i = 0; i < m_undoStack->count(); i++)
+  for(int i = m_undoStack->count() - 1; i >= 0; i--)
     {
       auto command = m_undoStack->command(i);
 
