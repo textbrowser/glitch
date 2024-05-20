@@ -87,7 +87,8 @@ void glitch_redo_undo_stack::setUndoStack(QUndoStack *undoStack)
 
 void glitch_redo_undo_stack::slotDoubleClicked(const QModelIndex &index)
 {
-  Q_UNUSED(index);
+  if(index.isValid() && m_undoStack)
+    m_undoStack->setIndex(-index.row() + m_ui.table->rowCount());
 }
 
 void glitch_redo_undo_stack::slotPopulate(void)

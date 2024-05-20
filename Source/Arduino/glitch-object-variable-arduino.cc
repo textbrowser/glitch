@@ -801,7 +801,7 @@ void glitch_object_variable_arduino::slotToolButtonChecked(void)
     }
   else
     m_properties[property] = toolButton->isChecked();
-    
+
   emit changed();
 }
 
