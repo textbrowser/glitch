@@ -1859,14 +1859,19 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
   if(m_editWindow)
     m_editWindow->setUndoStack(undoStack);
 
+  if(m_undoStack)
+    disconnect(m_undoStack,
+	       &QUndoStack::indexChanged,
+	       this,
+	       &glitch_object::slotHideOrShowOccupied);
+
   m_undoStack = undoStack;
 
   if(m_undoStack)
     connect(m_undoStack,
 	    &QUndoStack::indexChanged,
 	    this,
-	    &glitch_object::slotHideOrShowOccupied,
-	    Qt::UniqueConnection);
+	    &glitch_object::slotHideOrShowOccupied);
 }
 
 void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)

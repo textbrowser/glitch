@@ -48,6 +48,7 @@ class glitch_find_objects;
 class glitch_graphicsview;
 class glitch_object;
 class glitch_object_start;
+class glitch_redo_undo_stack;
 class glitch_scene;
 class glitch_source_preview;
 class glitch_syntax_highlighter;
@@ -122,6 +123,7 @@ class glitch_view: public QWidget
   void save(void);
   void selectAll(void);
   void showCanvasSettings(void) const;
+  void showRedoUndoStack(void);
   void showSourcePreview(void) const;
   void showTools(void);
   void showUserFunctions(void) const;
@@ -142,6 +144,7 @@ class glitch_view: public QWidget
 
  private:
   QList<glitch_wire *> m_delayedWires;
+  glitch_redo_undo_stack *m_redoUndoStack;
   glitch_object *find
     (const QList<glitch_object *> &list,
      const qint64 id,

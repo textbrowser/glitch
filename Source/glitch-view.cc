@@ -53,6 +53,7 @@
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
+#include "glitch-redo-undo-stack.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-source-preview.h"
@@ -91,6 +92,7 @@ glitch_view::glitch_view
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
+  m_redoUndoStack = nullptr;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
   m_scene->setBackgroundBrush(QColor("#55aaff"));
   m_scene->setCanvasSettings(m_canvasSettings);
@@ -1342,6 +1344,19 @@ void glitch_view::showCanvasSettings(void) const
   m_canvasSettings->showNormal();
   m_canvasSettings->activateWindow();
   m_canvasSettings->raise();
+}
+
+void glitch_view::showRedoUndoStack(void)
+{
+  if(!m_redoUndoStack)
+    {
+      m_redoUndoStack = new glitch_redo_undo_stack(this);
+      m_redoUndoStack->setUndoStack(m_undoStack);
+    }
+
+  m_redoUndoStack->showNormal();
+  m_redoUndoStack->activateWindow();
+  m_redoUndoStack->raise();
 }
 
 void glitch_view::showSourcePreview(void) const

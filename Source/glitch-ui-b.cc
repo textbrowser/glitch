@@ -299,6 +299,8 @@ void glitch_ui::slotSeparatedWindowDestroyed(QObject *object)
 
 void glitch_ui::slotShowRedoUndoStack(void)
 {
+  if(m_currentView)
+    m_currentView->showRedoUndoStack();
 }
 
 void glitch_ui::slotShowSerialPortWindow(void)

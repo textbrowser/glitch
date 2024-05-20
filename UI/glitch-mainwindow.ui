@@ -94,13 +94,12 @@
      <string>&amp;Windows</string>
     </property>
     <addaction name="action_Diagram_Context_Menu"/>
+    <addaction name="action_Redo_Undo_Stack"/>
     <addaction name="action_Source_Preview"/>
     <addaction name="action_Tools"/>
     <addaction name="action_User_Functions"/>
     <addaction name="separator"/>
     <addaction name="action_Glitch_Preferences"/>
-    <addaction name="separator"/>
-    <addaction name="action_Redo_Undo_Stack"/>
     <addaction name="separator"/>
     <addaction name="action_Serial_Port_Window"/>
    </widget>

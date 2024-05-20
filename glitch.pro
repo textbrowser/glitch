@@ -243,6 +243,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-preferences.h \
                   Source/glitch-proxy-widget.h \
                   Source/glitch-recent-diagram.h \
+                  Source/glitch-redo-undo-stack.h \
                   Source/glitch-resize-widget.h \
                   Source/glitch-resize-widget-rectangle.h \
                   Source/glitch-scene.h \
@@ -282,6 +283,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-port-colors.cc \
                   Source/glitch-preferences.cc \
                   Source/glitch-proxy-widget.cc \
+                  Source/glitch-redo-undo-stack.cc \
                   Source/glitch-resize-widget.cc \
                   Source/glitch-resize-widget-rectangle.cc \
                   Source/glitch-scene.cc \
