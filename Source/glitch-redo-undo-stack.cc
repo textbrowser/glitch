@@ -46,6 +46,7 @@ glitch_redo_undo_stack::glitch_redo_undo_stack(QWidget *parent):QDialog(parent)
 	  this,
 	  SLOT(slotDoubleClicked(const QModelIndex &)));
   m_ui.close->setIcon(QIcon(":/close.png"));
+  m_ui.table->setIconSize(QSize(16, 16));
   setWindowModality(Qt::NonModal);
 }
 
@@ -55,7 +56,35 @@ glitch_redo_undo_stack::~glitch_redo_undo_stack()
 
 void glitch_redo_undo_stack::setUndoStack(QUndoStack *undoStack)
 {
+  m_ui.table->setRowCount(0);
   m_undoStack = undoStack;
+
+  if(!m_undoStack)
+    return;
+
+  QPixmap pixmap(16, 16);
+
+  pixmap.fill(Qt::white);
+
+  for(int i = 0; i < m_undoStack->count(); i++)
+    {
+      auto command = m_undoStack->command(i);
+
+      if(!command)
+	continue;
+
+      auto item = new QTableWidgetItem
+	(QString("%1%2").
+	 arg(command->text()).
+	 arg(i == m_undoStack->index() - 1? " (Current)" : ""));
+
+      item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+      item->setIcon
+	(i == m_undoStack->index() - 1? QIcon(":/next.png") : QIcon(pixmap));
+      item->setSizeHint(QSize(16, 16));
+      m_ui.table->setRowCount(m_ui.table->rowCount() + 1);
+      m_ui.table->setItem(m_ui.table->rowCount() - 1, 0, item);
+    }
 }
 
 void glitch_redo_undo_stack::slotDoubleClicked(const QModelIndex &index)
