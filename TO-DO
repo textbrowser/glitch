@@ -245,6 +245,7 @@ Completed Items
 - Recreating functions and unique names.
 - Redo / undo and nested objects.
 - Redo / undo function names.
+- Redo / undo history panel.
 - Redo / undo lock positions.
 - Redo / undo shortcuts on edit windows.
 - Redo / undo style sheets.
@@ -367,7 +368,6 @@ Remaining Items
 - Periodic backup.
 - Print preview. Avoid Android.
 - Recursive copying of nested function definitions.
-- Redo / undo history panel.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Secondary view (preview) and pasting: QCursor::pos().

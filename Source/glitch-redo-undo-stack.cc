@@ -56,21 +56,60 @@ glitch_redo_undo_stack::~glitch_redo_undo_stack()
 
 void glitch_redo_undo_stack::setUndoStack(QUndoStack *undoStack)
 {
-  m_ui.table->setRowCount(0);
+  if(m_undoStack)
+    {
+      disconnect(m_undoStack,
+		 SIGNAL(cleanChanged(bool)),
+		 this,
+		 SLOT(slotPopulate(void)));
+      disconnect(m_undoStack,
+		 SIGNAL(indexChanged(int)),
+		 this,
+		 SLOT(slotPopulate(void)));
+    }
+
   m_undoStack = undoStack;
+
+  if(m_undoStack)
+    {
+      connect(m_undoStack,
+	      SIGNAL(cleanChanged(bool)),
+	      this,
+	      SLOT(slotPopulate(void)));
+      connect(m_undoStack,
+	      SIGNAL(indexChanged(int)),
+	      this,
+	      SLOT(slotPopulate(void)));
+    }
+
+  slotPopulate();
+}
+
+void glitch_redo_undo_stack::slotDoubleClicked(const QModelIndex &index)
+{
+  Q_UNUSED(index);
+}
+
+void glitch_redo_undo_stack::slotPopulate(void)
+{
+  m_ui.table->setRowCount(0);
 
   if(!m_undoStack)
     return;
 
   QPixmap pixmap(16, 16);
 
-  pixmap.fill(Qt::white);
+  pixmap.fill(Qt::transparent);
 
   for(int i = 0; i < m_undoStack->count(); i++)
     {
       auto command = m_undoStack->command(i);
 
       if(!command)
+	/*
+	** If this is true, our index will be incorrect!
+	*/
+
 	continue;
 
       auto item = new QTableWidgetItem
@@ -85,9 +124,4 @@ void glitch_redo_undo_stack::setUndoStack(QUndoStack *undoStack)
       m_ui.table->setRowCount(m_ui.table->rowCount() + 1);
       m_ui.table->setItem(m_ui.table->rowCount() - 1, 0, item);
     }
-}
-
-void glitch_redo_undo_stack::slotDoubleClicked(const QModelIndex &index)
-{
-  Q_UNUSED(index);
 }
