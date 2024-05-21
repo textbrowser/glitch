@@ -35,6 +35,7 @@
 glitch_source_preview::glitch_source_preview(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.next->setIcon(QIcon(":/next.png"));
   m_ui.previous->setIcon(QIcon(":/previous.png"));
   m_originalFindPalette = m_ui.find->palette();
