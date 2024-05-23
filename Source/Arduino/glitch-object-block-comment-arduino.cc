@@ -64,7 +64,7 @@ QString glitch_object_block_comment_arduino::code(void) const
 
   QString code("");
 
-  foreach(const auto &str, m_ui.comment->toPlainText().split('\n'))
+  foreach(auto const &str, m_ui.comment->toPlainText().split('\n'))
     if(!str.trimmed().isEmpty())
       code.append(QString("// %1\n").arg(str.trimmed()));
 

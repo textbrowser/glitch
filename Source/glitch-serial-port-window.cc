@@ -104,7 +104,7 @@ void glitch_serial_port_window::discoverDevices(void)
 
   m_ui.port_name->clear();
 
-  foreach(const auto &port, QSerialPortInfo::availablePorts())
+  foreach(auto const &port, QSerialPortInfo::availablePorts())
     m_ui.port_name->addItem(port.portName());
 
   auto serialPort = findChild<QSerialPort *> ();

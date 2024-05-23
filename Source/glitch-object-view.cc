@@ -179,7 +179,7 @@ void glitch_object_view::mouseMoveEvent(QMouseEvent *event)
 
   if(event && event->buttons() == Qt::LeftButton)
     {
-      const auto offset = 7;
+      auto const offset = 7;
 
       if(event->pos().x() >= width() - 50 && horizontalScrollBar())
 	horizontalScrollBar()->setValue
@@ -369,7 +369,7 @@ void glitch_object_view::slotUndo(void)
 void glitch_object_view::zoom(const int direction)
 {
   QSettings settings;
-  const auto factor = qBound
+  auto const factor = qBound
     (1.05, settings.value("preferences/zoom_factor", 1.25).toReal(), 1.75);
 
   if(direction < 0) // Zoom Out

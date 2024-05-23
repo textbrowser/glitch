@@ -1505,7 +1505,7 @@ void glitch_scene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
       auto began = false;
 
-      foreach(const auto &movedPoint, m_movedPoints)
+      foreach(auto const &movedPoint, m_movedPoints)
 	{
 	  if(!movedPoint.second)
 	    continue;

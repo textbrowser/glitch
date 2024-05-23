@@ -1629,7 +1629,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
   QString errors("");
   auto state = false;
 
-  foreach(const auto &i, m_delayedDiagrams)
+  foreach(auto const &i, m_delayedDiagrams)
     {
       QString error("");
 
@@ -1969,7 +1969,7 @@ void glitch_ui::slotOpenDiagram(void)
       for(int i = 0; i < list.size(); i++)
 	{
 	  QString error("");
-	  const auto &fileName(list.at(i));
+	  auto const &fileName(list.at(i));
 
 	  if(openDiagram(fileName, error))
 	    ok = true;

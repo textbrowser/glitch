@@ -168,9 +168,9 @@ void glitch_documentation::setPlainText(const QString &text)
     m_ui.text->verticalScrollBar()->value() : 0;
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-  foreach(const auto &str, QFontDatabase::families())
+  foreach(auto const &str, QFontDatabase::families())
 #else
-  foreach(const auto &str, QFontDatabase().families())
+  foreach(auto const &str, QFontDatabase().families())
 #endif
     if(str.toLower().contains("courier"))
       {

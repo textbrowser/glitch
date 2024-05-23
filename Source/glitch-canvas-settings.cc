@@ -256,9 +256,9 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
   auto text(m_settings.value(Settings::KEYWORD_COLORS).toString());
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  foreach(const auto &string, text.mid(7).split(',', Qt::SkipEmptyParts))
+  foreach(auto const &string, text.mid(7).split(',', Qt::SkipEmptyParts))
 #else
-  foreach(const auto &string, text.mid(7).split(',', QString::SkipEmptyParts))
+  foreach(auto const &string, text.mid(7).split(',', QString::SkipEmptyParts))
 #endif
     {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
@@ -741,9 +741,9 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
   QMap<QString, QColor> map;
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  foreach(const auto &string, text.mid(7).split(',', Qt::SkipEmptyParts))
+  foreach(auto const &string, text.mid(7).split(',', Qt::SkipEmptyParts))
 #else
-  foreach(const auto &string, text.mid(7).split(',', QString::SkipEmptyParts))
+  foreach(auto const &string, text.mid(7).split(',', QString::SkipEmptyParts))
 #endif
     {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))

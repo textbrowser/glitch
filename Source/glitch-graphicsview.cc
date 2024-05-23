@@ -106,7 +106,7 @@ void glitch_graphicsview::mouseMoveEvent(QMouseEvent *event)
 
 void glitch_graphicsview::scroll(const QPoint &point)
 {
-  const auto offset = 25;
+  auto const offset = 25;
 
   if(point.x() >= width() - 50)
     horizontalScrollBar()->setValue(horizontalScrollBar()->value() + offset);
@@ -122,7 +122,7 @@ void glitch_graphicsview::scroll(const QPoint &point)
 void glitch_graphicsview::zoom(const int direction)
 {
   QSettings settings;
-  const auto factor = qBound
+  auto const factor = qBound
     (1.05, settings.value("preferences/zoom_factor", 1.25).toReal(), 1.75);
 
   if(direction < 0) // Zoom Out

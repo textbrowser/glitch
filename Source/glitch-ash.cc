@@ -476,9 +476,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
   QString history("");
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  foreach(const auto &c, command.split(';', Qt::SkipEmptyParts))
+  foreach(auto const &c, command.split(';', Qt::SkipEmptyParts))
 #else
-  foreach(const auto &c, command.split(';', QString::SkipEmptyParts))
+  foreach(auto const &c, command.split(';', QString::SkipEmptyParts))
 #endif
   {
     auto command(c.trimmed());
@@ -487,7 +487,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
       {
 	QString string("");
 
-	foreach(const auto &i, m_commands.uniqueKeys())
+	foreach(auto const &i, m_commands.uniqueKeys())
 	  string.append(i + " ");
 
 	m_ui.text->append(string.trimmed());
@@ -510,7 +510,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
 
 	std::sort(list.begin(), list.end());
 
-	foreach(const auto &i, list)
+	foreach(auto const &i, list)
 	  m_ui.text->append(i);
       }
     else if(command.startsWith("!"))
@@ -534,7 +534,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	    m_ui.text->append(list1.at(i) + ":");
 	    std::sort(list2.begin(), list2.end());
 
-	    foreach(const auto &j, list2)
+	    foreach(auto const &j, list2)
 	      if(!j.isEmpty())
 		m_ui.text->append(j);
 	  }

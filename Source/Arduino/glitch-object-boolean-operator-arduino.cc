@@ -190,8 +190,8 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
     (QBrush(m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> (),
 	    Qt::SolidPattern));
   auto color(brush.color());
-  const auto h = static_cast<qreal> (size().height());
-  const auto w = static_cast<qreal> (size().width());
+  auto const h = static_cast<qreal> (size().height());
+  auto const w = static_cast<qreal> (size().width());
 
   color.setAlpha(255);
   brush.setColor(color);

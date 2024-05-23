@@ -107,11 +107,11 @@ void glitch_wire::paint
 	  QPointF c1;
 	  QPointF c2;
 	  QPointF endPoint;
-	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  const auto y1 = m_leftProxy->pos().y() +
+	  auto const x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  auto const y1 = m_leftProxy->pos().y() +
 	    m_leftProxy->size().height() / 2.0;
-	  const auto x2 = m_rightProxy->pos().x();
-	  const auto y2 = m_rightProxy->pos().y() +
+	  auto const x2 = m_rightProxy->pos().x();
+	  auto const y2 = m_rightProxy->pos().y() +
 	    m_rightProxy->size().height() / 2.0;
 
 	  c1.setX(qAbs(x1 - x2) / 2.0 + x1);
@@ -151,10 +151,10 @@ void glitch_wire::paint
 	  if(painter->isActive())
 	    painter->setPen(pen);
 
-	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  const auto x2 = m_rightProxy->pos().x();
-	  const auto xd = qAbs(x1 - x2) / 2.0;
-	  const auto yd = qAbs
+	  auto const x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  auto const x2 = m_rightProxy->pos().x();
+	  auto const xd = qAbs(x1 - x2) / 2.0;
+	  auto const yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
@@ -190,10 +190,10 @@ void glitch_wire::paint
 	  if(painter->isActive())
 	    painter->setPen(pen);
 
-	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  const auto x2 = m_rightProxy->pos().x();
-	  const auto xd = qAbs(x1 - x2) / 2.0;
-	  const auto yd = qAbs
+	  auto const x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  auto const x2 = m_rightProxy->pos().x();
+	  auto const xd = qAbs(x1 - x2) / 2.0;
+	  auto const yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y());
 
@@ -228,9 +228,9 @@ void glitch_wire::paint
 	  if(painter->isActive())
 	    painter->setPen(pen);
 
-	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  const auto xd = m_rightProxy->pos().x() - x1;
-	  const auto yd = qAbs
+	  auto const x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  auto const xd = m_rightProxy->pos().x() - x1;
+	  auto const yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y()) / 2.0;
 
@@ -269,9 +269,9 @@ void glitch_wire::paint
 	  if(painter->isActive())
 	    painter->setPen(pen);
 
-	  const auto x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
-	  const auto xd = m_rightProxy->pos().x() - x1;
-	  const auto yd = qAbs
+	  auto const x1 = m_leftProxy->pos().x() + m_leftProxy->size().width();
+	  auto const xd = m_rightProxy->pos().x() - x1;
+	  auto const yd = qAbs
 	    (m_leftProxy->size().height() / 2.0 + m_leftProxy->y() -
 	     m_rightProxy->size().height() / 2.0 - m_rightProxy->y()) / 2.0;
 

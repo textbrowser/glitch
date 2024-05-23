@@ -71,7 +71,7 @@ QHash<QString, QColor> glitch_structures_arduino::defaultColors(void)
 {
   QHash<QString, QColor> hash;
 
-  foreach(const auto &i, keywords())
+  foreach(auto const &i, keywords())
     if(i.endsWith("()"))
       hash[i] = QColor("#cc6600");
     else if(i.startsWith("//"))
@@ -156,9 +156,9 @@ QStringList glitch_structures_arduino::structureNames(void)
     {
       it.next();
 
-      const auto &list(it.value());
+      auto const &list(it.value());
 
-      foreach(const auto &i, list)
+      foreach(auto const &i, list)
 	s_structureNamesMap[QString("arduino-%1").arg(i)] = 0;
     }
 

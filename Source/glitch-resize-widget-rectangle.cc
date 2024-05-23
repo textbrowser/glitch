@@ -124,8 +124,8 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       return;
     }
 
+  auto const diagonal = qCeil(SQUARE_SIZE * qPow(2.0, 0.5));
   auto rectangle(parent->boundingRect());
-  const auto diagonal = qCeil(SQUARE_SIZE * qPow(2.0, 0.5));
 
   switch(m_location)
     {

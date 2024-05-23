@@ -326,7 +326,7 @@ void glitch_object_variable_arduino::addActions(QMenu &menu)
       list.prepend("");
       m->setStyleSheet("QMenu {menu-scrollable: 1;}");
 
-      foreach(const auto &i, list)
+      foreach(auto const &i, list)
 	{
 	  auto action = new QAction(i, m);
 

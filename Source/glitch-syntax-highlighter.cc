@@ -38,7 +38,7 @@ glitch_syntax_highlighter::~glitch_syntax_highlighter()
 
 void glitch_syntax_highlighter::highlightBlock(const QString &text)
 {
-  foreach(const auto &rule, m_highlightingRules)
+  foreach(auto const &rule, m_highlightingRules)
     {
       QRegularExpressionMatchIterator matchIterator
 	(rule.pattern.globalMatch(text));
