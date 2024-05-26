@@ -34,6 +34,7 @@ glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
   QTreeWidget(parent)
 {
   m_projectType = glitch_common::ProjectTypes::XYZProject;
+  setDragDropMode(QAbstractItemView::DragOnly);
 }
 
 glitch_structures_treewidget::~glitch_structures_treewidget()
