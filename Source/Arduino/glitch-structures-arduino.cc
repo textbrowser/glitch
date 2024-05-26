@@ -50,9 +50,9 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 	  this,
 	  SLOT(slotFilter(const QString &)));
   m_collapse = new glitch_collapse_expand_tool_button(m_ui.tree);
+  m_ui.tree->setIconSize(QSize(24, 24));
   m_ui.tree->setMinimumWidth(200);
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
-  m_ui.tree->setIconSize(QSize(24, 24));
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   setWindowModality(Qt::NonModal);
   setWindowTitle(tr("Glitch: Arduino Structures"));
