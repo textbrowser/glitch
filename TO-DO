@@ -361,6 +361,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
+- Dragging multiple items onto a canvas is incorrect.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
