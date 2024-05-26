@@ -64,7 +64,7 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
       drag->setHotSpot(QPoint(24, 48));
       drag->setMimeData(mimeData);
 
-      if(list.size() == 1)
+      if(item->parent() && list.size() == 1)
 	drag->setPixmap(item->parent()->icon(0).pixmap(QSize(48, 48)));
 
       drag->exec(Qt::CopyAction);
