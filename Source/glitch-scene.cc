@@ -897,7 +897,6 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
   if(event && event->mimeData())
     {
       auto text(event->mimeData()->text().toLower().trimmed());
-
       glitch_object *object = nullptr;
 
       if(allowDrag(event, text))
