@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QApplication>
 #include <QDrag>
 #include <QMimeData>
 
@@ -69,5 +70,6 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
 	drag->setPixmap(item->parent()->icon(0).pixmap(QSize(48, 48)));
 
       drag->exec(Qt::CopyAction);
+      QApplication::processEvents();
     }
 }
