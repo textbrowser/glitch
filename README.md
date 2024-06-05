@@ -42,8 +42,6 @@ Glitch: select left-most objects; align.
   termination because the category's parent() object does not
   exist because a category is a top-level item.</li>
 <li>First Apple Silicon release.</li>
-<li>MacOS will include the Qt provided by Homebrew. This item will be
-  included in future release notes.</li>
 <li>LTS release!</li>
 <li>Redo / undo history panel.</li>
 <li>Serial port in the PowerPC distribution.</li>
