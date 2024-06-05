@@ -33,6 +33,22 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.06.05</p>
+<ul>
+<li>Corrected dragging and dropping of multiple items. The
+  current implementation creates multiple copies of a single
+  item.</li>
+<li>Dragging a category onto a canvas will cause an abnormal
+  termination because the category's parent() object does not
+  exist because a category is a top-level item.</li>
+<li>First Apple Silicon release.</li>
+<li>MacOS will include the Qt provided by Homebrew. This item will be
+  included in future release notes.</li>
+<li>LTS release!</li>
+<li>Redo / undo history panel.</li>
+<li>Serial port in the PowerPC distribution.</li>
+<li>Source Preview Close icon.</li>
+</ul>
 <p>2024.04.30</p>
 <ul>
 <li>ASH behavior: list local objects if a list argument is not
