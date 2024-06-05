@@ -1,3 +1,7 @@
+Android
+
+OpenJDK 17 is required with Qt 6.5 LTS.
+
 MacOS
 
 Please utilize the latest Qt LTS provided by Qt because the Homebrew
