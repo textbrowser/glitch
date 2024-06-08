@@ -1,0 +1,12 @@
+Apple Silicon requires signed software. We recommend a Homebrew
+solution.
+
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+> brew install git
+> brew install qt
+> cd
+> git clone https://github.com/textbrowser/glitch glitch.d
+> cd glitch.d
+> qmake -o Makefile glitch.pro
+> make -j 5
+> open ./Glitch.app
