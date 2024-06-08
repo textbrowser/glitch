@@ -1,7 +1,6 @@
 Apple Silicon requires signed software. We recommend a Homebrew
-solution.
+solution. Please visit https://brew.sh and install Homebrew.
 
-> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 > brew install git
 > brew install qt
 > cd
