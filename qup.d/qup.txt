@@ -1,9 +1,14 @@
 # Qup definitions file.
-# https://github.com/textbrowser/qup
+# Visit https://github.com/textbrowser/qup.
 
-[Download]
+# Please do not terminate URLs with slashes.
+# Sorted order of keys is required.
 
-url = https://github.com/textbrowser/glitch/tree/master/QupRelease
+[General]
+
+file = glitch-logo.png
+file_destination = .
+url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [General]
 
@@ -12,21 +17,29 @@ file = Glitch.1
 file = Glitch.pdf
 file = TO-DO
 file_destination = Documentation
-
-[Linux]
-
-executable:amd64 = Glitch_amd64
-executable:arm64 = Glitch_arm64
-executable:armhf = Glitch_armhf
-executable:powerpc = Glitch_powerpc
-local_executable = Glitch
+url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [MacOS]
 
 executable = Glitch.app.zip
 local_executable = Glitch.app
+url =
+
+[Unix]
+
+executable = Glitch_PiOS_12_arm
+executable = Glitch_PiOS_12_arm64
+executable = Glitch_Ubuntu_16_04_powerpc
+executable = Glitch_Ubuntu_24_04_amd64
+file = ./glitch.desktop
+local_executable = Glitch
+shell = ./glitch.sh
+url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [Windows]
 
 executable = Glitch.exe
 local_executable = Glitch.exe
+url =
+
+# End of file. Required comment.
