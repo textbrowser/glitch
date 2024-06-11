@@ -21,9 +21,9 @@ url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [MacOS]
 
-executable = Glitch.app.zip
+executable = Glitch_Intel.app.zip
 local_executable = Glitch.app
-url =
+url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [Unix]
 
@@ -38,8 +38,8 @@ url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [Windows]
 
-executable = Glitch.exe
+executable = Glitch_Intel.exe
 local_executable = Glitch.exe
-url =
+url = https://github.com/textbrowser/glitch/releases/download/qup
 
 # End of file. Required comment.
