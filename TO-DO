@@ -341,6 +341,7 @@ Completed Items
 - Widget fonts.
 - Widgets for decorations.
 - Windows 10, 11, etc. Deprecate Windows 7.
+- Windows distclean.
 - Wire color setting.
 - Wire is not intially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
@@ -376,4 +377,3 @@ Remaining Items
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
-- Windows distclean.

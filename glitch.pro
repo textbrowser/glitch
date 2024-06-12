@@ -170,6 +170,7 @@ QMAKE_DISTCLEAN     += -r Glitch.d
 win32 {
 QMAKE_DISTCLEAN     += del /F /Q .qmake* \
                        rmdir /Q /S Temporary \
+                       rmdir /Q /S debug \
                        rmdir /Q /S release
 } else {
 QMAKE_DISTCLEAN     += -f .qmake* \
