@@ -1,0 +1,29 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,301,80,327"/>
+<area shape="rect" id="Node000001" href="$classglitch__ash.html" title=" " alt="" coords="191,5,279,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="41,287,45,235,57,168,68,133,83,99,102,68,126,40,157,22,191,15,192,21,159,27,130,44,106,71,87,102,73,135,62,170,50,236,47,288"/>
+<area shape="rect" id="Node000002" href="$classglitch__canvas__settings.html" title=" " alt="" coords="150,55,321,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="43,287,50,244,64,190,89,136,106,111,126,89,148,76,151,80,130,93,110,114,93,139,69,192,55,245,49,288"/>
+<area shape="rect" id="Node000003" href="$classglitch__find__objects.html" title=" " alt="" coords="164,104,307,129"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="47,287,56,253,72,213,95,173,126,139,144,128,163,121,165,126,146,133,130,143,99,176,77,215,61,255,52,288"/>
+<area shape="rect" id="Node000004" href="$classglitch__floating__context__menu.html" title=" " alt="" coords="128,153,343,179"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="52,287,80,236,101,210,126,188,149,176,151,181,130,192,105,214,85,239,57,290"/>
+<area shape="rect" id="Node000005" href="$classglitch__port__colors.html" title=" " alt="" coords="167,203,304,228"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="62,289,91,262,127,237,166,223,168,228,129,242,94,266,66,293"/>
+<area shape="rect" id="Node000006" href="$classglitch__preferences.html" title=" " alt="" coords="164,252,307,277"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="92,296,127,286,174,275,175,280,129,291,94,301"/>
+<area shape="rect" id="Node000007" href="$classglitch__redo__undo__stack.html" title=" " alt="" coords="148,301,323,327"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="94,311,148,311,148,317,94,317"/>
+<area shape="rect" id="Node000008" href="$classglitch__serial__port__window.html" title=" " alt="" coords="168,351,303,391"/>
+<area shape="poly" id="edge8_Node000000_Node000008" title=" " alt="" coords="94,326,169,349,167,354,92,331"/>
+<area shape="rect" id="Node000009" href="$classglitch__source__preview.html" title=" " alt="" coords="152,416,319,441"/>
+<area shape="poly" id="edge9_Node000000_Node000009" title=" " alt="" coords="62,336,91,370,129,401,158,414,156,418,127,406,88,374,58,340"/>
+<area shape="rect" id="Node000010" href="$classglitch__structures__arduino.html" title=" " alt="" coords="142,465,329,491"/>
+<area shape="poly" id="edge10_Node000000_Node000010" title=" " alt="" coords="55,339,82,396,103,426,130,451,152,463,150,468,126,455,99,429,78,399,50,341"/>
+<area shape="rect" id="Node000011" href="$classglitch__style__sheet.html" title=" " alt="" coords="165,515,305,540"/>
+<area shape="poly" id="edge11_Node000000_Node000011" title=" " alt="" coords="51,339,59,376,74,420,97,463,130,500,147,511,166,518,164,523,144,516,126,504,93,466,70,422,54,377,46,341"/>
+<area shape="rect" id="Node000012" href="$classglitch__tools.html" title=" " alt="" coords="187,564,284,589"/>
+<area shape="poly" id="edge12_Node000000_Node000012" title=" " alt="" coords="48,340,54,386,67,442,92,500,109,527,130,549,157,565,187,573,186,578,155,570,126,553,105,530,87,503,62,444,49,387,43,341"/>
+<area shape="rect" id="Node000013" href="$classglitch__user__functions.html" title=" " alt="" coords="155,613,315,639"/>
+<area shape="poly" id="edge13_Node000000_Node000013" title=" " alt="" coords="46,341,49,395,61,465,71,501,86,537,105,570,130,599,156,615,154,619,126,603,101,573,81,539,66,503,55,466,44,396,41,341"/>
+</map>
