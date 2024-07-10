@@ -28,6 +28,7 @@
 #ifndef _glitch_structures_treewidget_h_
 #define _glitch_structures_treewidget_h_
 
+#include <QTimer>
 #include <QTreeWidget>
 
 #include "glitch-common.h"
@@ -42,8 +43,13 @@ class glitch_structures_treewidget: public QTreeWidget
   void setProjectType(const glitch_common::ProjectTypes projectType);
 
  private:
+  QTimer m_pressAndHoldTimer;
   glitch_common::ProjectTypes m_projectType;
+  void mousePressEvent(QMouseEvent *event);
   void startDrag(Qt::DropActions supportedActions);
+
+ private slots:
+  void slotPressAndHoldTimeout(void);
 };
 
 #endif

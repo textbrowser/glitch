@@ -28,12 +28,19 @@
 #include <QApplication>
 #include <QDrag>
 #include <QMimeData>
+#include <QMouseEvent>
 
 #include "glitch-structures-treewidget.h"
 
 glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
   QTreeWidget(parent)
 {
+  connect(&m_pressAndHoldTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_structures_treewidget::slotPressAndHoldTimeout);
+  m_pressAndHoldTimer.setSingleShot(true);
+  m_pressAndHoldTimer.setInterval(QApplication::startDragTime());
   m_projectType = glitch_common::ProjectTypes::XYZProject;
   setDragDropMode(QAbstractItemView::DragOnly);
 }
@@ -42,10 +49,24 @@ glitch_structures_treewidget::~glitch_structures_treewidget()
 {
 }
 
+void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
+{
+  QTreeWidget::mousePressEvent(event);
+  m_pressAndHoldTimer.start();
+}
+
 void glitch_structures_treewidget::setProjectType
 (const glitch_common::ProjectTypes projectType)
 {
   m_projectType = projectType;
+}
+
+void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
+{
+  auto instance = qobject_cast<QGuiApplication *> (QApplication::instance());
+
+  if(instance && instance->mouseButtons() & Qt::LeftButton)
+    startDrag(Qt::CopyAction);
 }
 
 void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
