@@ -122,6 +122,8 @@ Completed Items
 - Display condition / label in flow control's edit window.
 - Display floating zoom widgets. Action widgets instead.
 - Display main() function. Fixed position? Yes.
+- Display new item icon if dragging is ready.
+  (QDragManager::drag in possibly invalid state)
 - Display serial port errors.
 - Display tool mode in status bar.
 - Display totals in Find Objects; status bar?
@@ -363,7 +365,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Display new item icon if dragging is ready.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
