@@ -39,8 +39,8 @@ glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
 	  &QTimer::timeout,
 	  this,
 	  &glitch_structures_treewidget::slotPressAndHoldTimeout);
-  m_pressAndHoldTimer.setSingleShot(true);
   m_pressAndHoldTimer.setInterval(QApplication::startDragTime());
+  m_pressAndHoldTimer.setSingleShot(true);
   m_projectType = glitch_common::ProjectTypes::XYZProject;
   setDragDropMode(QAbstractItemView::DragOnly);
 }
@@ -52,6 +52,7 @@ glitch_structures_treewidget::~glitch_structures_treewidget()
 void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
 {
   QTreeWidget::mousePressEvent(event);
+  event ? event->accept() : (void) 0;
   m_pressAndHoldTimer.start();
 }
 
