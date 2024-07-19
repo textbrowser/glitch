@@ -53,6 +53,8 @@ void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
 {
   QTreeWidget::mousePressEvent(event);
   event ? event->accept() : (void) 0;
+  event ? itemAt(event->pos()) ? itemAt(event->pos())->setSelected(true) :
+    (void) 0 : (void) 0;
   m_pressAndHoldTimer.start();
 }
 
