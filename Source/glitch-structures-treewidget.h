@@ -49,6 +49,8 @@ class glitch_structures_treewidget: public QTreeWidget
   void startDrag(Qt::DropActions supportedActions);
 
  private slots:
+  void slotCustomContextMenuRequested(const QPoint &point);
+  void slotFloatingCategoryDialog(void);
   void slotPressAndHoldTimeout(void);
 };
 

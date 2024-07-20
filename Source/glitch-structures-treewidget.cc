@@ -27,6 +27,7 @@
 
 #include <QApplication>
 #include <QDrag>
+#include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
 
@@ -39,9 +40,14 @@ glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
 	  &QTimer::timeout,
 	  this,
 	  &glitch_structures_treewidget::slotPressAndHoldTimeout);
+  connect(this,
+	  SIGNAL(customContextMenuRequested(const QPoint &)),
+	  this,
+	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   m_pressAndHoldTimer.setInterval(QApplication::startDragTime());
   m_pressAndHoldTimer.setSingleShot(true);
   m_projectType = glitch_common::ProjectTypes::XYZProject;
+  setContextMenuPolicy(Qt::CustomContextMenu);
   setDragDropMode(QAbstractItemView::DragOnly);
 }
 
@@ -62,6 +68,31 @@ void glitch_structures_treewidget::setProjectType
 (const glitch_common::ProjectTypes projectType)
 {
   m_projectType = projectType;
+}
+
+void glitch_structures_treewidget::slotCustomContextMenuRequested
+(const QPoint &point)
+{
+  auto item = itemAt(point);
+
+  if(item && item->childCount() > 0)
+    {
+      QMenu menu(this);
+
+      menu.addSection(tr("glitch-structures-treewidget"));
+
+      auto action = menu.addAction
+	(tr("&Show category contents in new dialog..."),
+	 this,
+	 SLOT(slotFloatingCategoryDialog(void)));
+
+      action->setData(point);
+      menu.exec(mapToGlobal(point));
+    }
+}
+
+void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
+{
 }
 
 void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
