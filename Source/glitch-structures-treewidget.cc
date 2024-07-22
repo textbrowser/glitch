@@ -30,6 +30,7 @@
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
+#include <QShortcut>
 #include <QtDebug>
 
 #include "glitch-structures-treewidget.h"
@@ -55,6 +56,8 @@ glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
 
 glitch_structures_treewidget::~glitch_structures_treewidget()
 {
+  for(int i = 0; i < m_uis.size(); i++)
+    delete m_uis[i];
 }
 
 void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
@@ -109,13 +112,15 @@ void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
 
   if(!dialog)
     {
-      Ui_glitch_structures ui;
+      Ui_glitch_structures *ui = new Ui_glitch_structures;
 
       dialog = new QDialog(this);
-      ui.setupUi(dialog);
+      ui->setupUi(dialog);
       dialog->resize(500, 500);
       dialog->setObjectName(item->text(0));
       dialog->setWindowTitle(tr("Glitch: %1").arg(item->text(0)));
+      m_uis << ui;
+      new QShortcut(tr("Ctrl+W"), dialog, SLOT(hide(void)));
     }
 
   dialog->showNormal();

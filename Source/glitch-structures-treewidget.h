@@ -33,6 +33,8 @@
 
 #include "glitch-common.h"
 
+class Ui_glitch_structures;
+
 class glitch_structures_treewidget: public QTreeWidget
 {
   Q_OBJECT
@@ -43,6 +45,7 @@ class glitch_structures_treewidget: public QTreeWidget
   void setProjectType(const glitch_common::ProjectTypes projectType);
 
  private:
+  QList<Ui_glitch_structures *> m_uis;
   QTimer m_pressAndHoldTimer;
   glitch_common::ProjectTypes m_projectType;
   void mousePressEvent(QMouseEvent *event);
