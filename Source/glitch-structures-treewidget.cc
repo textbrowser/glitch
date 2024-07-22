@@ -30,8 +30,10 @@
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
+#include <QtDebug>
 
 #include "glitch-structures-treewidget.h"
+#include "ui_glitch-structures.h"
 
 glitch_structures_treewidget::glitch_structures_treewidget(QWidget *parent):
   QTreeWidget(parent)
@@ -93,6 +95,32 @@ void glitch_structures_treewidget::slotCustomContextMenuRequested
 
 void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
 {
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  auto item = itemAt(action->data().toPoint());
+
+  if(!item)
+    return;
+
+  auto dialog = findChild<QDialog *> (item->text(0));
+
+  if(!dialog)
+    {
+      Ui_glitch_structures ui;
+
+      dialog = new QDialog(this);
+      ui.setupUi(dialog);
+      dialog->resize(500, 500);
+      dialog->setObjectName(item->text(0));
+      dialog->setWindowTitle(tr("Glitch: %1").arg(item->text(0)));
+    }
+
+  dialog->showNormal();
+  dialog->activateWindow();
+  dialog->raise();
 }
 
 void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
