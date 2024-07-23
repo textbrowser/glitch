@@ -63,7 +63,7 @@ glitch_structures_treewidget::~glitch_structures_treewidget()
 void glitch_structures_treewidget::addChildren
 (QTreeWidgetItem *item, Ui_glitch_structures *ui)
 {
-  if(!item || !ui)
+  if(!item || !ui || ui->tree->topLevelItemCount() > 0)
     return;
 
   for(int i = 0; i < item->childCount(); i++)
@@ -126,7 +126,7 @@ void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
 
       ui->setupUi(dialog = new QDialog(this));
       addChildren(item, ui);
-      dialog->resize(250, 500);
+      dialog->resize(300, 500);
       dialog->setObjectName(item->text(0));
       dialog->setWindowTitle(tr("Glitch: %1").arg(item->text(0)));
       m_uis << ui;

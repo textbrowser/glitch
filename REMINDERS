@@ -294,6 +294,7 @@ Completed Items
 - Select all.
 - Selection rectangle moves wired objects. Ignore wires.
 - Separate database objects when opening an existing diagram.
+- Separate panels for all categories.
 - Separated window and full-screen mode.
 - Separated window: context menu, generate source, save.
 - Set Floating Context Menu widgets colors.
@@ -375,7 +376,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Secondary view (preview) and pasting: QCursor::pos().
-- Separate panels for all categories.
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
