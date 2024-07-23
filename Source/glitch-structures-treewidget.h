@@ -48,6 +48,7 @@ class glitch_structures_treewidget: public QTreeWidget
   QList<Ui_glitch_structures *> m_uis;
   QTimer m_pressAndHoldTimer;
   glitch_common::ProjectTypes m_projectType;
+  void addChildren(QTreeWidgetItem *item, Ui_glitch_structures *ui);
   void mousePressEvent(QMouseEvent *event);
   void startDrag(Qt::DropActions supportedActions);
 

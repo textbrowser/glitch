@@ -60,6 +60,16 @@ glitch_structures_treewidget::~glitch_structures_treewidget()
     delete m_uis[i];
 }
 
+void glitch_structures_treewidget::addChildren
+(QTreeWidgetItem *item, Ui_glitch_structures *ui)
+{
+  if(!item || !ui)
+    return;
+
+  for(int i = 0; i < item->childCount(); i++)
+    ui->tree->addTopLevelItem(item->child(i)->clone());
+}
+
 void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
 {
   QTreeWidget::mousePressEvent(event);
@@ -114,13 +124,15 @@ void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
     {
       Ui_glitch_structures *ui = new Ui_glitch_structures;
 
-      dialog = new QDialog(this);
-      ui->setupUi(dialog);
+      ui->setupUi(dialog = new QDialog(this));
+      addChildren(item, ui);
       dialog->resize(500, 500);
       dialog->setObjectName(item->text(0));
       dialog->setWindowTitle(tr("Glitch: %1").arg(item->text(0)));
       m_uis << ui;
       new QShortcut(tr("Ctrl+W"), dialog, SLOT(hide(void)));
+      ui->filter->setVisible(false);
+      ui->tree->sortItems(0, Qt::AscendingOrder);
     }
 
   dialog->showNormal();
