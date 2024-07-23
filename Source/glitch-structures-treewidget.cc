@@ -126,12 +126,13 @@ void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
 
       ui->setupUi(dialog = new QDialog(this));
       addChildren(item, ui);
-      dialog->resize(500, 500);
+      dialog->resize(250, 500);
       dialog->setObjectName(item->text(0));
       dialog->setWindowTitle(tr("Glitch: %1").arg(item->text(0)));
       m_uis << ui;
       new QShortcut(tr("Ctrl+W"), dialog, SLOT(hide(void)));
       ui->filter->setVisible(false);
+      ui->tree->setHeaderLabel(item->text(0));
       ui->tree->sortItems(0, Qt::AscendingOrder);
     }
 
