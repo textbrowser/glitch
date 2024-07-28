@@ -108,7 +108,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   auto const fillPattern = Qt::SolidPattern;
   auto const sizeHeight = static_cast<qreal> (size().height());
   auto const sizeWidth = static_cast<qreal> (size().width());
-  QPointF block[4] =
+  const QPointF block[] =
     {
       QPointF(0.0, 0.0),
       QPointF(sizeWidth, 0.0),
@@ -146,19 +146,18 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 
   do
     {
+      auto brush
+	(QBrush(m_properties.value(Properties::BACKGROUND_COLOR).
+		value<QColor> (), fillPattern));
+      auto color(brush.color());
       auto const width = widths.dequeue();
-
-      QPointF block[4] =
+      const QPointF block[] =
 	{
 	  QPointF(xi, linePercentOfHeight * sizeHeight),
 	  QPointF(width + xi, linePercentOfHeight * sizeHeight),
 	  QPointF(width + xi, (1.0 - linePercentOfHeight) * sizeHeight),
 	  QPointF(xi, (1.0 - linePercentOfHeight) * sizeHeight)
 	};
-      auto brush
-	(QBrush(m_properties.value(Properties::BACKGROUND_COLOR).
-		value<QColor> (), fillPattern));
-      auto color(brush.color());
 
       color.setAlpha(255);
       brush.setColor(color);
@@ -174,13 +173,13 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 
   if(m_arrow == Arrows::LEFT || m_arrow == Arrows::LEFT_RIGHT)
     {
-      QPointF arrow[3] =
+      const QPointF arrow[] =
 	{
 	  QPointF(0.0, sizeHeight / 2.0),
 	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
 	  QPointF(arrowPercentOfWidth * sizeWidth, sizeHeight)
 	};
-      QPointF block[4] =
+      const QPointF block[] =
 	{
 	  QPointF(0.0, 0.0),
 	  QPointF(arrowPercentOfWidth * sizeWidth, 0.0),
@@ -208,13 +207,13 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 
   if(m_arrow == Arrows::LEFT_RIGHT || m_arrow == Arrows::RIGHT)
     {
-      QPointF arrow[3] =
+      const QPointF arrow[] =
 	{
 	  QPointF(sizeWidth, sizeHeight / 2.0),
 	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, 0.0),
 	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, sizeHeight)
 	};
-      QPointF block[4] =
+      const QPointF block[] =
 	{
 	  QPointF((1.0 - arrowPercentOfWidth) * sizeWidth, 0.0),
 	  QPointF(sizeWidth, 0.0),
