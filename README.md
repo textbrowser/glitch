@@ -33,6 +33,14 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.07.30</p>
+<ul>
+<li>Allow categories to exist in their own floating dialogs. Dialogs
+  are available via context menus.</li>
+<li>Constant variables and paint events.</li>
+<li>Drag-and-drop: display an item's icon if the item is ready for a
+  drag.</li>
+</ul>
 <p>2024.06.05</p>
 <ul>
 <li>Corrected dragging and dropping of multiple items. The
