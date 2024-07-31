@@ -45,8 +45,8 @@ class glitch_serial_port_window: public QDialog
  private:
   Ui_glitch_serial_port_window m_ui;
   quint64 m_packetsReceived;
-  void discoverDevices(void);
   void closeEvent(QCloseEvent *event);
+  void discoverDevices(void);
   void showEvent(QShowEvent *event);
 
  private slots:
