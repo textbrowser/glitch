@@ -218,7 +218,7 @@ bool glitch_structures_arduino::containsStructure(const QString &structureName)
 bool glitch_structures_arduino::isReserved(const QString &t)
 {
   QMapIterator<QString, QStringList> it(s_itemsForCategories);
-  auto text(QString(t).remove('(').remove(')').trimmed());
+  auto const text(QString(t).remove('(').remove(')').trimmed());
 
   while(it.hasNext())
     {
@@ -503,7 +503,7 @@ void glitch_structures_arduino::prepareCategories(void)
 
 void glitch_structures_arduino::setIconSize(const QString &t)
 {
-  auto text(t.toLower().trimmed());
+  auto const text(t.toLower().trimmed());
 
   if(text == "0x0")
     m_ui.tree->setIconSize(QSize(0, 0));
@@ -525,7 +525,7 @@ void glitch_structures_arduino::slotFilter(const QString &text)
 
 void glitch_structures_arduino::slotFilter(void)
 {
-  auto text(m_ui.filter->text().trimmed());
+  auto const text(m_ui.filter->text().trimmed());
 
   for(int i = 0; i < m_ui.tree->topLevelItemCount(); i++)
     {
