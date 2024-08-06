@@ -1969,7 +1969,7 @@ void glitch_ui::slotOpenDiagram(void)
       for(int i = 0; i < list.size(); i++)
 	{
 	  QString error("");
-	  auto const &fileName(list.at(i));
+	  auto const fileName(list.at(i));
 
 	  if(openDiagram(fileName, error))
 	    ok = true;

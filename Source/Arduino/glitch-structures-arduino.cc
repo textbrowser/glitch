@@ -156,7 +156,7 @@ QStringList glitch_structures_arduino::structureNames(void)
     {
       it.next();
 
-      auto const &list(it.value());
+      auto const list(it.value());
 
       foreach(auto const &i, list)
 	s_structureNamesMap[QString("arduino-%1").arg(i)] = 0;
