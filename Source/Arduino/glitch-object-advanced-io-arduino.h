@@ -175,7 +175,7 @@ class glitch_object_advanced_io_arduino:
 
   static Type stringToIOType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("notone"))
       return Type::NO_TONE;

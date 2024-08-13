@@ -165,7 +165,7 @@ void glitch_object_block_comment_arduino::setProperty
     case Properties::COMMENT:
       {
 	auto cursor(m_ui.comment->textCursor());
-	auto position = cursor.anchor();
+	auto const position = cursor.anchor();
 
 	m_ui.comment->blockSignals(true);
 	m_ui.comment->setPlainText(value.toString());
@@ -186,7 +186,7 @@ void glitch_object_block_comment_arduino::setProperty
 
 void glitch_object_block_comment_arduino::slotTextChanged(void)
 {
-  auto property = glitch_object::Properties::COMMENT;
+  auto const property = glitch_object::Properties::COMMENT;
 
   if(m_undoStack)
     {

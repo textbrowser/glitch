@@ -150,7 +150,7 @@ class glitch_object_mathematics_arduino:
 
   static Type stringToMathematicsType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("abs"))
       return Type::ABS;

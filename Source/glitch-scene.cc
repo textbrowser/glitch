@@ -260,11 +260,12 @@ bool glitch_scene::allowDrag
 
 	  if(glitch_variety::sameAncestors(tableView, this))
 	    {
-	      auto index = tableView->currentIndex();
+	      auto const index = tableView->currentIndex();
 
 	      if(index.isValid())
 		{
-		  auto text(index.data(Qt::UserRole + 1).toString().toLower());
+		  auto const text
+		    (index.data(Qt::UserRole + 1).toString().toLower());
 
 		  if(text == "glitch-user-function")
 		    {
@@ -327,7 +328,7 @@ bool glitch_scene::event(QEvent *event)
 
 	      rect.moveCenter(e->scenePos());
 
-	      auto items(this->items(rect));
+	      auto const items(this->items(rect));
 
 	      foreach(auto item, items)
 		{
@@ -782,7 +783,7 @@ void glitch_scene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      auto text(event->mimeData()->text().trimmed());
+      auto const text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -798,7 +799,7 @@ void glitch_scene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      auto text(event->mimeData()->text().trimmed());
+      auto const text(event->mimeData()->text().trimmed());
 
       if(allowDrag(event, text))
 	{
@@ -838,8 +839,8 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
       painter->setPen(pen);
 
       QVector<QPointF> points;
-      auto left = rect.left() - static_cast<int> (rect.left()) % 20;
-      auto top = rect.top() - static_cast<int> (rect.top()) % 20;
+      auto const left = rect.left() - static_cast<int> (rect.left()) % 20;
+      auto const top = rect.top() - static_cast<int> (rect.top()) % 20;
       const qreal step = 20.0;
 
       for(auto x = left; std::isless(x, rect.right()); x += step)
@@ -896,7 +897,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
   if(event && event->mimeData())
     {
-      auto text(event->mimeData()->text().toLower().trimmed());
+      auto const text(event->mimeData()->text().toLower().trimmed());
       glitch_object *object = nullptr;
 
       if(allowDrag(event, text))
@@ -1053,8 +1054,8 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	auto began = false;
 	auto moved = false;
-	auto pixels = (QGuiApplication::keyboardModifiers() &
-		       Qt::ControlModifier) ? 50 : 1;
+	auto const pixels = (QGuiApplication::keyboardModifiers() &
+			     Qt::ControlModifier) ? 50 : 1;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
 
@@ -1110,7 +1111,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	    if(point.x() < 0 || point.y() < 0)
 	      continue;
 
-	    auto previousPosition(proxy->scenePos());
+	    auto const previousPosition(proxy->scenePos());
 
 	    object->move(point);
 
@@ -1259,7 +1260,8 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	      }
 	    }
 
-	  auto point(proxy->mapToParent(event->scenePos() - m_lastScenePos));
+	  auto const point
+	    (proxy->mapToParent(event->scenePos() - m_lastScenePos));
 
 	  if(point == proxy->pos() || point.x() < 0 || point.y() < 0)
 	    continue;
@@ -1603,8 +1605,8 @@ void glitch_scene::paste
 	  objects.at(i)->deleteLater();
 	}
 
-      auto x = points.value(i).x();
-      auto y = points.value(i).y();
+      auto const x = points.value(i).x();
+      auto const y = points.value(i).y();
 
       if(!f)
 	{
@@ -1708,7 +1710,7 @@ void glitch_scene::purgeRedoUndoProxies(void)
 
   QMutableMapIterator<QPointer<glitch_proxy_widget>, char> it
     (m_redoUndoProxies);
-  auto list(items());
+  auto const list(items());
 
   while(it.hasNext())
     {
@@ -1735,7 +1737,7 @@ void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
 	  proxy->object()->objectType().startsWith("decoration"))
     return;
 
-  auto point(m_objectsHash.value(proxy));
+  auto const point(m_objectsHash.value(proxy));
 
   m_objectsHash[proxy] = glitch_point(proxy->pos());
 
@@ -1782,7 +1784,7 @@ void glitch_scene::removeItem(QGraphicsItem *item)
       ** Remove object order information.
       */
 
-      auto point(m_objectsHash.value(proxy));
+      auto const point(m_objectsHash.value(proxy));
 
       m_objectsHash.remove(proxy);
       m_objectsMap.remove(point, proxy);

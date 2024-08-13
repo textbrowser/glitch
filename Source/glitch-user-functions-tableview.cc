@@ -52,7 +52,7 @@ void glitch_user_functions_tableview::startDrag
 {
   Q_UNUSED(supportedActions);
 
-  auto index = selectedIndexes().value(0);
+  auto const index = selectedIndexes().value(0);
 
   if(!index.isValid())
     return;

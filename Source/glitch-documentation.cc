@@ -161,11 +161,11 @@ void glitch_documentation::setHtml(const QString &html)
 
 void glitch_documentation::setPlainText(const QString &text)
 {
-  auto font(m_ui.text->font());
-  auto h = m_ui.text->horizontalScrollBar() ?
+  auto const h = m_ui.text->horizontalScrollBar() ?
     m_ui.text->horizontalScrollBar()->value() : 0;
-  auto v = m_ui.text->verticalScrollBar() ?
+  auto const v = m_ui.text->verticalScrollBar() ?
     m_ui.text->verticalScrollBar()->value() : 0;
+  auto font(m_ui.text->font());
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   foreach(auto const &str, QFontDatabase::families())

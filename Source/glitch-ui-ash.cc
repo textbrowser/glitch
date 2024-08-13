@@ -49,7 +49,7 @@ void glitch_ui::slotProcessCommand(const QString &command)
 
   while(it.hasNext())
     {
-      auto token(it.next());
+      auto const token(it.next());
 
       /*
       ** Here be single-state states.

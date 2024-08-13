@@ -193,7 +193,7 @@ void glitch_floating_context_menu::setIdentifier(const qint64 id)
 
 void glitch_floating_context_menu::setName(const QString &n)
 {
-  auto name(n.trimmed());
+  auto const name(n.trimmed());
 
   if(!name.isEmpty())
     {
@@ -272,7 +272,7 @@ void glitch_floating_context_menu::setPushButtonColors(void)
     if(pushButton && pushButton->isEnabled())
       {
 	QColor color;
-	auto property = glitch_object::DefaultMenuActions
+	auto const property = glitch_object::DefaultMenuActions
 	  (pushButton->property("property").toInt());
 
 	switch(property)

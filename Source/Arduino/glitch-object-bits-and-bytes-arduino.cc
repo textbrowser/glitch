@@ -156,7 +156,7 @@ bool glitch_object_bits_and_bytes_arduino::hasInput(void) const
 
 bool glitch_object_bits_and_bytes_arduino::hasOutput(void) const
 {
-  auto babType = stringToType(m_text);
+  auto const babType = stringToType(m_text);
 
   if(babType == Type::BIT_SET || babType == Type::BIT_WRITE)
     return false;

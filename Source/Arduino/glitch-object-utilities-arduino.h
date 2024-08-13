@@ -85,7 +85,7 @@ class glitch_object_utilities_arduino: public glitch_object_simple_text_arduino
 
   static Type stringToUtilitiesType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("sizeof"))
       return Type::SIZEOF;

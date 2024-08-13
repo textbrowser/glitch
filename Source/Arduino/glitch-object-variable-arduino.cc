@@ -83,7 +83,7 @@ QSize glitch_object_variable_arduino::preferredSize(void) const
   if(m_properties.value(Properties::COMPRESSED_WIDGET).toBool())
     {
       QFontMetrics fontMetrics(font());
-      auto width = 5 * qCeil
+      auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.name->text().trimmed()).width() / 5.0) +
 	s_widthTweak;
 
@@ -102,13 +102,14 @@ QString glitch_object_variable_arduino::code(void) const
     return "";
 
   QString assignment("=");
-  auto array(m_ui.array->isChecked() ? QString("[]") : QString(""));
-  auto inputs(this->inputs());
-  auto name(m_ui.name->text().trimmed());
-  auto pointerAccess(m_ui.pointer_access->currentText());
-  auto progmem(m_ui.progmem->isChecked() ? QString("PROGMEM") : QString(""));
-  auto qualifier(m_ui.qualifier->currentText());
-  auto type(m_ui.type->currentText().trimmed());
+  auto const array(m_ui.array->isChecked() ? QString("[]") : QString(""));
+  auto const inputs(this->inputs());
+  auto const name(m_ui.name->text().trimmed());
+  auto const pointerAccess(m_ui.pointer_access->currentText());
+  auto const progmem
+    (m_ui.progmem->isChecked() ? QString("PROGMEM") : QString(""));
+  auto const qualifier(m_ui.qualifier->currentText());
+  auto const type(m_ui.type->currentText().trimmed());
 
   if(glitch_object_compound_operator_arduino::isOperator(inputs.value(0)) ||
      glitch_object_compound_operator_arduino::isOperator(inputs.value(1)))
@@ -644,7 +645,7 @@ void glitch_object_variable_arduino::setProperty
 
 void glitch_object_variable_arduino::slotAdjustSize(void)
 {
-  auto before(size());
+  auto const before(size());
 
   resize(preferredSize());
 
@@ -745,7 +746,7 @@ void glitch_object_variable_arduino::slotLineEditSet(void)
   lineEdit->setCursorPosition(0);
   prepareHighlights();
 
-  auto property = glitch_object::Properties::VARIABLE_NAME;
+  auto const property = glitch_object::Properties::VARIABLE_NAME;
 
   if(lineEdit->text() == m_properties.value(property).toString())
     return;
@@ -812,7 +813,7 @@ void glitch_object_variable_arduino::slotVariableTypeActionTriggered(void)
   if(!action)
     return;
 
-  auto index = m_ui.type->findText(action->text(), Qt::MatchFixedString);
+  auto const index = m_ui.type->findText(action->text(), Qt::MatchFixedString);
 
   if(index >= 0)
     m_ui.type->setCurrentIndex(index);

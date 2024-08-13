@@ -238,8 +238,8 @@ void glitch_find_objects::slotItemDoubleClicked(QTreeWidgetItem *i, int column)
 
 void glitch_find_objects::slotSearch(void)
 {
+  auto const text(m_ui.search->text().trimmed());
   auto discovered = 0;
-  auto text(m_ui.search->text().trimmed());
   auto total = 0;
 
   if(text.isEmpty())
@@ -310,10 +310,10 @@ void glitch_find_objects::slotSynchronizeImplementation(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QSet<qint64> ids;
-  auto list(m_ui.tree->selectedItems());
-  auto value1 = m_ui.tree->horizontalScrollBar() ?
+  auto const list(m_ui.tree->selectedItems());
+  auto const value1 = m_ui.tree->horizontalScrollBar() ?
     m_ui.tree->horizontalScrollBar()->value() : -1;
-  auto value2 = m_ui.tree->verticalScrollBar() ?
+  auto const value2 = m_ui.tree->verticalScrollBar() ?
     m_ui.tree->verticalScrollBar()->value() : -1;
 
   for(int i = 0; i < list.size(); i++)

@@ -74,7 +74,7 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
   if(m_ui.constant->currentText() == tr("Other"))
     {
       QFontMetrics fontMetrics(font());
-      auto width = 5 * qCeil
+      auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.other->text().trimmed()).width() / 5.0) +
 	(compressed() == false ?
 	 5 * qCeil(fontMetrics.boundingRect(m_ui.constant->currentText().
@@ -307,7 +307,7 @@ void glitch_object_constant_arduino::setProperty
 
 void glitch_object_constant_arduino::slotAdjustSize(void)
 {
-  auto before(size());
+  auto const before(size());
 
   resize(preferredSize());
 
@@ -358,7 +358,7 @@ void glitch_object_constant_arduino::slotOtherConstantChanged(void)
   m_ui.other->setText(m_ui.other->text().trimmed());
   m_ui.other->setCursorPosition(0);
 
-  auto property = glitch_object::Properties::CONSTANT_OTHER;
+  auto const property = glitch_object::Properties::CONSTANT_OTHER;
 
   if(m_properties.value(property).toString() == m_ui.other->text())
     return;

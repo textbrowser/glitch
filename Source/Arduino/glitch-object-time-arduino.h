@@ -111,7 +111,7 @@ class glitch_object_time_arduino: public glitch_object_simple_text_arduino
 
   static Type stringToTimeType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("delaymicroseconds"))
       return Type::DELAY_MICROSECONDS;

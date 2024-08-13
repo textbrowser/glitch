@@ -253,7 +253,7 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QMap<QString, QColor> map;
-  auto text(m_settings.value(Settings::KEYWORD_COLORS).toString());
+  auto const text(m_settings.value(Settings::KEYWORD_COLORS).toString());
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   foreach(auto const &string, text.mid(7).split(',', Qt::SkipEmptyParts))
@@ -262,9 +262,9 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
 #endif
     {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-      auto list(string.split(';', Qt::SkipEmptyParts));
+      auto const list(string.split(';', Qt::SkipEmptyParts));
 #else
-      auto list(string.split(';', QString::SkipEmptyParts));
+      auto const list(string.split(';', QString::SkipEmptyParts));
 #endif
 
       if(list.size() == 2)
@@ -513,7 +513,7 @@ int glitch_canvas_settings::redoUndoStackSize(void) const
 
 void glitch_canvas_settings::accept(void)
 {
-  auto name(m_ui.name->text().trimmed());
+  auto const name(m_ui.name->text().trimmed());
 
   if(name.isEmpty())
     {
@@ -536,7 +536,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 {
   m_fileName = fileName;
 
-  QFileInfo fileInfo(m_fileName);
+  QFileInfo const fileInfo(m_fileName);
 
   if(!fileInfo.isReadable())
     return;
@@ -593,9 +593,9 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QString projectType("");
 	QString updateMode("");
 	QString wireType("");
+	auto const record(query.record());
 	auto generatePeriodically = false;
 	auto generateSourceViewPeriodically = false;
-	auto record(query.record());
 	auto redoUndoStackSize = 0;
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
@@ -603,7 +603,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 
 	for(int i = 0; i < record.count(); i++)
 	  {
-	    auto fieldName(record.fieldName(i));
+	    auto const fieldName(record.fieldName(i));
 
 	    if(fieldName.contains("background_color"))
 	      color = QColor(record.value(i).toString().remove('&').trimmed());
@@ -747,9 +747,9 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 #endif
     {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-      auto list(string.split(';', Qt::SkipEmptyParts));
+      auto const list(string.split(';', Qt::SkipEmptyParts));
 #else
-      auto list(string.split(';', QString::SkipEmptyParts));
+      auto const list(string.split(';', QString::SkipEmptyParts));
 #endif
 
       if(list.size() == 2)
@@ -873,7 +873,7 @@ void glitch_canvas_settings::setSettings
   QColor color
     (hash.value(Settings::CANVAS_BACKGROUND_COLOR).toString().remove('&').
      trimmed());
-  auto same = hash == m_settings;
+  auto const same = hash == m_settings;
 
   m_settings = hash;
   m_ui.background_color->setStyleSheet
@@ -1062,9 +1062,9 @@ void glitch_canvas_settings::slotSelectColor(void)
       QApplication::processEvents();
 
       QColor color(dialog.selectedColor());
-      auto format = (button == m_ui.lock_color ||
-		     button == m_ui.selection_color ||
-		     button == m_ui.wire_color) ?
+      auto const format = (button == m_ui.lock_color ||
+			   button == m_ui.selection_color ||
+			   button == m_ui.wire_color) ?
 	QColor::HexArgb : QColor::HexRgb;
 
       button->setStyleSheet
@@ -1107,7 +1107,7 @@ void glitch_canvas_settings::slotSpecialCopy(void)
     return;
   else
     {
-      auto string(keywordColorsFromTableAsString());
+      auto const string(keywordColorsFromTableAsString());
 
       if(!string.isEmpty())
 	clipboard->setText(string);
@@ -1126,7 +1126,7 @@ void glitch_canvas_settings::slotSpecialPaste(void)
 
 void glitch_canvas_settings::slotTimerTimeout(void)
 {
-  QFileInfo fileInfo(m_ui.project_ide->text());
+  QFileInfo const fileInfo(m_ui.project_ide->text());
 
   if(!fileInfo.isExecutable())
     {

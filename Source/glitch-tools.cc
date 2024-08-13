@@ -169,7 +169,7 @@ void glitch_tools::slotAboutToShowConnectionsMenu(void)
   foreach(auto action, menu->actions())
     if(action)
       {
-	auto string(action->text());
+	auto const string(action->text());
 
 	action->blockSignals(true);
 

@@ -98,7 +98,7 @@ class glitch_object_digital_io_arduino:
 
   static Type stringToIOType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("read"))
       return Type::READ;

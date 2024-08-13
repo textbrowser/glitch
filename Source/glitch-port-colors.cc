@@ -93,7 +93,7 @@ void glitch_port_colors::setObject(glitch_object *object)
 
       for(int i = 0; i < list.size(); i++)
 	{
-	  auto string(strings.value(i).remove('&'));
+	  auto const string(strings.value(i).remove('&'));
 
 	  list.at(i)->setStyleSheet
 	    (QString("QPushButton {background-color: %1;}").arg(string));

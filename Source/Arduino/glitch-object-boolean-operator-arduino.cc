@@ -93,7 +93,7 @@ QString glitch_object_boolean_operator_arduino::code(void) const
     default:
       {
 	QString string("(");
-	auto list(inputs());
+	auto const list(inputs());
 
 	for(int i = 0; i < list.size(); i++)
 	  {

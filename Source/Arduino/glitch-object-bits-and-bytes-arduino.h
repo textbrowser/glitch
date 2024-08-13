@@ -139,7 +139,7 @@ class glitch_object_bits_and_bytes_arduino:
 
   static Type stringToType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("bitclear"))
       return Type::BIT_CLEAR;

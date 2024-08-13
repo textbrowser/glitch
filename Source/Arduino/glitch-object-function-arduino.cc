@@ -190,7 +190,7 @@ QString glitch_object_function_arduino::code(void) const
       code.append(m_ui.label->text().remove("()"));
       code.append("(");
 
-      auto list(inputs());
+      auto const list(inputs());
 
       for(int i = 0; i < list.size(); i++)
 	{
@@ -220,7 +220,7 @@ QString glitch_object_function_arduino::code(void) const
 	     << "(";
 
       QString parameters("");
-      auto list(inputs());
+      auto const list(inputs());
 
       for(int i = 0; i < list.size(); i++)
 	{
@@ -252,7 +252,7 @@ QString glitch_object_function_arduino::code(void) const
 	      if(!w || !w->shouldPrint())
 		continue;
 
-	      auto code(w->code());
+	      auto const code(w->code());
 
 	      if(!code.trimmed().isEmpty())
 		stream << glitch_common::s_indentationCharacter
@@ -483,7 +483,7 @@ findParentFunction(void) const
   if(!scene)
     return nullptr;
 
-  auto list(scene->items());
+  auto const list(scene->items());
 
   foreach(auto i, list)
     {
@@ -863,7 +863,7 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
 
   m_previousReturnType = returnType;
 
-  auto index = m_ui.return_type->findText(returnType);
+  auto const index = m_ui.return_type->findText(returnType);
 
   m_ui.return_type->blockSignals(true);
 
@@ -1128,7 +1128,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	  goto restart_label;
 	}
 
-      auto name(m_ui.label->text());
+      auto const name(m_ui.label->text());
 
       if(m_parentView)
 	m_parentView->removeFunctionName(m_ui.label->text());

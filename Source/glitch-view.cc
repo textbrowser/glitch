@@ -435,7 +435,7 @@ bool glitch_view::hasChanged(void) const
 
 bool glitch_view::open(const QString &fileName, QString &error)
 {
-  QFileInfo fileInfo(fileName);
+  QFileInfo const fileInfo(fileName);
 
   if(!fileInfo.isReadable() && !fileInfo.isWritable())
     {
@@ -485,11 +485,11 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	   query.next())
 	  {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-	    auto list
+	    auto const list
 	      (query.value(0).toString().trimmed().
 	       split('&', Qt::SkipEmptyParts));
 #else
-	    auto list
+	    auto const list
 	      (query.value(0).toString().trimmed().
 	       split('&', QString::SkipEmptyParts));
 #endif
@@ -551,10 +551,10 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  continue;
 
 		QMap<QString, QVariant> values;
-		auto id = query.value(0).toLongLong();
-		auto point(query.value(2).toString().trimmed());
-		auto properties(query.value(3).toString().trimmed());
-		auto type(query.value(5).toString().toLower().trimmed());
+		auto const id = query.value(0).toLongLong();
+		auto const point(query.value(2).toString().trimmed());
+		auto const properties(query.value(3).toString().trimmed());
+		auto const type(query.value(5).toString().toLower().trimmed());
 
 		values["myoid"] = id;
 		values["parentId"] = query.value(1).toLongLong();
@@ -939,7 +939,7 @@ qint64 glitch_view::nextId(void) const
 			      "COALESCE(MAX(value), %1) + 1 FROM sequence").
 		      arg(id)))
 	  {
-	    auto variant(query.lastInsertId());
+	    auto const variant(query.lastInsertId());
 
 	    if(variant.isValid())
 	      {
@@ -1016,9 +1016,9 @@ void glitch_view::createParentFromValues
 
   QMap<QString, QVariant> values;
   QString error("");
-  auto point(query.value(1).toString().trimmed());
-  auto properties(query.value(2).toString().trimmed());
-  auto type(query.value(4).toString().toLower().trimmed());
+  auto const point(query.value(1).toString().trimmed());
+  auto const properties(query.value(2).toString().trimmed());
+  auto const type(query.value(4).toString().toLower().trimmed());
 
   values["myoid"] = oid;
   values["parentId"] = query.value(0).toLongLong();
@@ -1150,8 +1150,8 @@ void glitch_view::generateSourceView(const bool raise)
 
 void glitch_view::launchProjectIDE(void) const
 {
-  auto program(m_canvasSettings->projectIDE());
-  auto outputFile(m_canvasSettings->outputFile());
+  auto const program(m_canvasSettings->projectIDE());
+  auto const outputFile(m_canvasSettings->outputFile());
 
   if(QFileInfo(program).isExecutable())
     {

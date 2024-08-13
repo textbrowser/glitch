@@ -154,7 +154,7 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
 {
   Q_UNUSED(supportedActions);
 
-  auto list(selectedItems());
+  auto const list(selectedItems());
 
   foreach(auto item, list)
     {

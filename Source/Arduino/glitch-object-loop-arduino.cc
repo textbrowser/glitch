@@ -97,7 +97,7 @@ QString glitch_object_loop_arduino::code(void) const
 	  if(!w || !w->shouldPrint())
 	    continue;
 
-	  auto code(w->code());
+	  auto const code(w->code());
 
 	  if(!code.trimmed().isEmpty())
 	    stream << glitch_common::s_indentationCharacter

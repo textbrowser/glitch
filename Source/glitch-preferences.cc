@@ -108,7 +108,8 @@ void glitch_preferences::processSettings(void)
   if(m_ui.font_hinting->currentIndex() < 0)
     m_ui.font_hinting->setCurrentIndex(0); // Default
 
-  auto language(settings.value("preferences/language").toString().trimmed());
+  auto const language
+    (settings.value("preferences/language").toString().trimmed());
 
   for(int i = 0; i < m_ui.display_language->count(); i++)
     if(QString::compare(language,

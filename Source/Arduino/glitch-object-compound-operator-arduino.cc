@@ -81,7 +81,7 @@ QSize glitch_object_compound_operator_arduino::preferredSize(void) const
      m_operatorType == OperatorTypes::INCREMENT_OPERATOR)
     {
       QFontMetrics fontMetrics(font());
-      auto width = 5 * qCeil
+      auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.compound_operator->
 				  currentText().trimmed()).width() /
 	 5.0) +
@@ -182,7 +182,7 @@ bool glitch_object_compound_operator_arduino::isFullyWired(void) const
 
 bool glitch_object_compound_operator_arduino::isOperator(const QString &o)
 {
-  auto op(o.trimmed());
+  auto const op(o.trimmed());
 
   return op.startsWith("%= ") ||
     op.startsWith("&= ") ||
@@ -466,7 +466,7 @@ void glitch_object_compound_operator_arduino::setProperty
 
 void glitch_object_compound_operator_arduino::slotAdjustSize(void)
 {
-  auto before(size());
+  auto const before(size());
 
   resize(preferredSize());
 

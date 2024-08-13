@@ -77,7 +77,7 @@ void glitch_resize_widget::paint
 
   QHashIterator<glitch_resize_widget_rectangle::RectangleLocations,
 		glitch_resize_widget_rectangle *> it(m_rectangles);
-  auto color(m_parent ? m_parent->selectionColor() : QColor(Qt::blue));
+  auto const color(m_parent ? m_parent->selectionColor() : QColor(Qt::blue));
 
   while(it.hasNext())
     {
@@ -92,8 +92,8 @@ void glitch_resize_widget::positionEdgeRectangles(void)
 {
   QList<QRectF> rectangles;
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
-  auto rectangle(m_parent ? m_parent->boundingRect() : boundingRect());
-  auto squareSize = glitch_resize_widget_rectangle::SQUARE_SIZE;
+  auto const rectangle(m_parent ? m_parent->boundingRect() : boundingRect());
+  auto const squareSize = glitch_resize_widget_rectangle::SQUARE_SIZE;
 
   list << glitch_resize_widget_rectangle::RectangleLocations::BottomCenter
        << glitch_resize_widget_rectangle::RectangleLocations::BottomLeft
@@ -153,7 +153,7 @@ void glitch_resize_widget::prepareRectangles(void)
 
   QList<glitch_resize_widget_rectangle::RectangleLocations> list;
   QPen pen;
-  auto color(m_parent->selectionColor());
+  auto const color(m_parent->selectionColor());
 
   list << glitch_resize_widget_rectangle::RectangleLocations::BottomCenter
        << glitch_resize_widget_rectangle::RectangleLocations::BottomLeft

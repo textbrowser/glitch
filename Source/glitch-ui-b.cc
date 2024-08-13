@@ -50,7 +50,7 @@ QList<glitch_object *> glitch_ui::copySelected
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto list
+  auto const list
     (!selected ? view->scene()->items() : view->scene()->selectedItems());
 
   foreach(auto i, list)
@@ -72,7 +72,7 @@ QList<glitch_object *> glitch_ui::copySelected
       if(!object)
 	continue;
 
-      auto point(object->scenePos());
+      auto const point(object->scenePos());
       glitch_object *clone = nullptr;
 
       if(qobject_cast<glitch_object_function_arduino *> (object))
@@ -169,7 +169,7 @@ void glitch_ui::slotAboutToShowRecentDiagrams(void)
 
       if(action->label())
 	{
-	  QFileInfo fileInfo(action->fileName());
+	  QFileInfo const fileInfo(action->fileName());
 
 	  if(!fileInfo.exists() || !fileInfo.isReadable())
 	    {
@@ -265,7 +265,7 @@ void glitch_ui::slotSaveAsPNG(void)
       foreach(auto object, m_currentView->scene()->allObjects())
 	if(object)
 	  {
-	    auto image(object->image());
+	    auto const image(object->image());
 
 	    if(image.isNull() == false)
 	      {
@@ -347,7 +347,7 @@ void glitch_ui::slotSpecialTools(void)
   if(!m_currentView || !m_currentView->scene())
     return;
 
-  auto type(action->data().toString());
+  auto const type(action->data().toString());
 
   if(type == "adjust-all-sizes")
     m_currentView->slotAllWidgetsAdjustSize();

@@ -114,7 +114,7 @@ QString glitch_object_time_arduino::code(void) const
 
 bool glitch_object_time_arduino::hasInput(void) const
 {
-  auto timeType = stringToTimeType(m_text);
+  auto const timeType = stringToTimeType(m_text);
 
   if(timeType == Type::DELAY || timeType == Type::DELAY_MICROSECONDS)
     return true;
@@ -124,7 +124,7 @@ bool glitch_object_time_arduino::hasInput(void) const
 
 bool glitch_object_time_arduino::hasOutput(void) const
 {
-  auto timeType = stringToTimeType(m_text);
+  auto const timeType = stringToTimeType(m_text);
 
   if(timeType == Type::MICROS || timeType == Type::MILLIS)
     return true;
@@ -153,7 +153,7 @@ bool glitch_object_time_arduino::isFullyWired(void) const
 
 bool glitch_object_time_arduino::shouldPrint(void) const
 {
-  auto timeType = stringToTimeType(m_text);
+  auto const timeType = stringToTimeType(m_text);
 
   if(timeType == Type::DELAY || timeType == Type::DELAY_MICROSECONDS)
     return true;

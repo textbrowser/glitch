@@ -215,9 +215,9 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
 					    STYLESHEET_MAXIMUM_LENGTH))))
 	  while(query.next())
 	    {
-	      auto properties(query.value(0).toString().trimmed());
-	      auto styleSheet(query.value(1).toString().trimmed());
-	      auto type(query.value(2).toString().toLower().trimmed());
+	      auto const properties(query.value(0).toString().trimmed());
+	      auto const styleSheet(query.value(1).toString().trimmed());
+	      auto const type(query.value(2).toString().toLower().trimmed());
 
 	      if(type == "arduino-loop")
 		{
@@ -277,7 +277,7 @@ void glitch_view_arduino::generateSource(QTextStream &stream) const
 
 	continue;
 
-      auto code(w->code());
+      auto const code(w->code());
 
       if(!code.trimmed().isEmpty())
 	stream << code

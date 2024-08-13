@@ -98,7 +98,7 @@ class glitch_object_arrow: public glitch_object
 
   static Arrows stringToArrow(const QString &s)
   {
-    auto string(s.toLower().trimmed());
+    auto const string(s.toLower().trimmed());
 
     if(string == "left")
       return Arrows::LEFT;

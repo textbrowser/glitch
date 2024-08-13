@@ -177,7 +177,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	  if(!w || !w->shouldPrint())
 	    continue;
 
-	  auto code(w->code());
+	  auto const code(w->code());
 
 	  if(!code.trimmed().isEmpty())
 	    stream << QString(level + 1, glitch_common::s_indentationCharacter)
@@ -450,9 +450,9 @@ void glitch_object_flow_control_arduino::save
 void glitch_object_flow_control_arduino::setFlowControlType
 (const QString &flowControlType)
 {
+  auto const f(flowControlType.mid(flowControlType.lastIndexOf('-') + 1).
+	       toLower().trimmed());
   auto enabled = true;
-  auto f(flowControlType.mid(flowControlType.lastIndexOf('-') + 1).
-	 toLower().trimmed());
 
   if(f == "break")
     {
@@ -637,7 +637,7 @@ void glitch_object_flow_control_arduino::slotConditionChanged(void)
   m_ui.condition->setCursorPosition(0);
   glitch_variety::highlight(m_ui.condition);
 
-  auto property = glitch_object::Properties::CONDITION;
+  auto const property = glitch_object::Properties::CONDITION;
 
   if(m_properties.value(property).toString() == m_ui.condition->text())
     return;

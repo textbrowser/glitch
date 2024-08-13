@@ -106,7 +106,7 @@ class glitch_object_analog_io_arduino: public glitch_object_simple_text_arduino
 
   static Type stringToIOType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("readresolution"))
       return Type::READ_RESOLUTION;

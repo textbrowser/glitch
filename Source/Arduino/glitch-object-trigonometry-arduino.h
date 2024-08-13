@@ -104,7 +104,7 @@ class glitch_object_trigonometry_arduino:
 
   static Types stringToTrigonometryType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("cos"))
       return Types::COS;

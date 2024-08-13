@@ -322,7 +322,7 @@ void glitch_object_view::slotSelectAll(void)
 
 void glitch_object_view::slotSelectedWidgetsProperties(void)
 {
-  auto objects(m_scene->selectedObjects());
+  auto const objects(m_scene->selectedObjects());
 
   if(objects.isEmpty())
     return;

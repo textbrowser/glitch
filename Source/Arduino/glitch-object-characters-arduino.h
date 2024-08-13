@@ -189,7 +189,7 @@ class glitch_object_characters_arduino:
 
   static Type stringToCharactersType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("isalphanumeric"))
       return Type::IS_ALPHA_NUMERIC;

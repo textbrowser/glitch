@@ -88,7 +88,7 @@ class glitch_alignment: public QWidget
     if(!view || !view->scene())
       return;
 
-    auto list(view->scene()->items(Qt::AscendingOrder));
+    auto const list(view->scene()->items(Qt::AscendingOrder));
 
     if(list.isEmpty())
       return;
@@ -153,7 +153,7 @@ class glitch_alignment: public QWidget
 	if(!object)
 	  continue;
 
-	auto movable = proxy->isMovable();
+	auto const movable = proxy->isMovable();
 
 	switch(alignmentType)
 	  {
@@ -291,7 +291,7 @@ class glitch_alignment: public QWidget
 
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-    auto list1(view->scene()->selectedItems());
+    auto const list1(view->scene()->selectedItems());
 
     if(list1.isEmpty())
       {

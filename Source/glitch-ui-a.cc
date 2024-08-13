@@ -379,7 +379,7 @@ glitch_ui::~glitch_ui()
 
 bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 {
-  QFileInfo fileInfo(fileName);
+  QFileInfo const fileInfo(fileName);
 
   if(!fileInfo.isReadable() && !fileInfo.isWritable())
     {
@@ -669,11 +669,11 @@ void glitch_ui::copy(QGraphicsView *view, const bool selected)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QList<QPointF> points;
-  auto list(copySelected(view, &points, false, selected));
+  auto const list(copySelected(view, &points, false, selected));
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto point(points.value(i));
+      auto const point(points.value(i));
 
       s_copiedObjects.insert
 	(QPair<int, int> (point.toPoint().x(), point.toPoint().y()),
@@ -691,7 +691,7 @@ void glitch_ui::copy(glitch_object *object)
   clearCopiedObjects();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto point(object->scenePos());
+  auto const point(object->scenePos());
   glitch_object *clone = nullptr;
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
@@ -729,7 +729,7 @@ void glitch_ui::parseCommandLineArguments(void)
   QApplication::processEvents();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto list(QApplication::arguments());
+  auto const list(QApplication::arguments());
   auto showSerialPortWindow = false;
   auto showTools = false;
 
@@ -858,8 +858,8 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 	  s_copiedObjectsSet << object;
 	}
 
-      auto x = it.key().first;
-      auto y = it.key().second;
+      auto const x = it.key().first;
+      auto const y = it.key().second;
 
       if(!f)
 	{
@@ -1023,10 +1023,10 @@ void glitch_ui::prepareFonts(void)
 
   QFont font;
   QSettings settings;
-  auto string1
+  auto const string1
     (settings.value("preferences/application_font").
      toString().remove('&').trimmed());
-  auto string2
+  auto const string2
     (settings.value("preferences/font_hinting").toString().trimmed());
 
   if(string1.isEmpty() || !font.fromString(string1))
@@ -1116,7 +1116,7 @@ void glitch_ui::prepareRecentFiles(void)
 		      arg(static_cast<int> (Limits::FILE_NAME_MAXIMUM_LENGTH))))
 	  while(query.next())
 	    {
-	      QFileInfo fileInfo(query.value(0).toString());
+	      QFileInfo const fileInfo(query.value(0).toString());
 
 	      list << fileInfo.absoluteFilePath();
 	    }
@@ -1387,7 +1387,7 @@ void glitch_ui::setTabText(glitch_view *view)
   if(!view)
     return;
 
-  auto index = m_ui.tab->indexOf(view);
+  auto const index = m_ui.tab->indexOf(view);
 
   if(view->hasChanged())
     m_ui.tab->setTabText(index, QString("%1 (*)").arg(view->name()));
@@ -1442,7 +1442,7 @@ void glitch_ui::show(void)
 
   if(!QSqlDatabase::isDriverAvailable("QSQLITE"))
     {
-      QFileInfo fileInfo("qt.conf");
+      QFileInfo const fileInfo("qt.conf");
       QString string("");
 
       if(fileInfo.isReadable() && fileInfo.size() > 0)
@@ -1458,7 +1458,7 @@ void glitch_ui::show(void)
       QApplication::processEvents();
     }
 
-  QFileInfo fileInfo(glitch_variety::homePath());
+  QFileInfo const fileInfo(glitch_variety::homePath());
 
   if(!fileInfo.isReadable() || !fileInfo.isWritable())
     {
@@ -1912,10 +1912,10 @@ void glitch_ui::slotNewArduinoDiagram(void)
   if(name.isEmpty())
     name = "Arduino-Diagram";
 
-  auto fileName(QString("%1%2%3.db").
-		arg(glitch_variety::homePath()).
-		arg(QDir::separator()).
-		arg(name));
+  auto const fileName(QString("%1%2%3.db").
+		      arg(glitch_variety::homePath()).
+		      arg(QDir::separator()).
+		      arg(name));
 
   if(QFile::exists(fileName))
     {
@@ -1963,7 +1963,7 @@ void glitch_ui::slotOpenDiagram(void)
       QApplication::processEvents();
 
       QString errors("");
-      auto list(dialog.selectedFiles());
+      auto const list(dialog.selectedFiles());
       auto ok = true;
 
       for(int i = 0; i < list.size(); i++)
@@ -2071,7 +2071,8 @@ void glitch_ui::slotPaste(void)
 void glitch_ui::slotPreferencesAccepted(void)
 {
   QSettings settings;
-  auto state = settings.value("preferences/tear_off_menus", true).toBool();
+  auto const state = settings.value("preferences/tear_off_menus", true).
+    toBool();
 
   m_ui.menu_Edit->setTearOffEnabled(state);
   m_ui.menu_Windows->setTearOffEnabled(state);
@@ -2469,8 +2470,8 @@ void glitch_ui::slotTabWidgetShortcutActivated(void)
   if(!shortcut)
     return;
 
+  auto const key(shortcut->key());
   auto index = -1;
-  auto key(shortcut->key());
 
   for(auto i = Qt::Key_1; i <= Qt::Key_9; i = Qt::Key(i + 1))
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))

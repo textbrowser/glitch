@@ -44,10 +44,10 @@
 QPointF glitch_variety::dbPointToPointF(const QString &text)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  auto list
+  auto const list
     (QString(text).remove("(").remove(")").split(',', Qt::SkipEmptyParts));
 #else
-  auto list
+  auto const list
     (QString(text).remove("(").remove(")").split(',', QString::SkipEmptyParts));
 #endif
 
@@ -66,7 +66,7 @@ QString glitch_variety::homePath(void)
 #endif
   else
     {
-      static auto r
+      static auto const r
 	(QRegularExpression(QString("[%1%1]+").arg(QDir::separator())));
 
       homePath.replace(r, QDir::separator());
@@ -156,7 +156,7 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
   if(screen)
     desk = screen->geometry();
 #endif
-  auto list(QApplication::topLevelWidgets());
+  auto const list(QApplication::topLevelWidgets());
 
   for(int i = 0; (extrah == 0 || extraw == 0) && i < list.size(); i++)
     {
@@ -164,8 +164,8 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 
       if(current && current->isVisible())
 	{
-	  auto frameh = current->geometry().y() - current->y();
-	  auto framew = current->geometry().x() - current->x();
+	  auto const frameh = current->geometry().y() - current->y();
+	  auto const framew = current->geometry().x() - current->x();
 
 	  extrah = qMax(extrah, frameh);
 	  extraw = qMax(extraw, framew);
@@ -180,7 +180,7 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 
   if(w)
     {
-      auto pp(w->mapToGlobal(QPoint(0, 0)));
+      auto const pp(w->mapToGlobal(QPoint(0, 0)));
 
       p = QPoint(pp.x() + w->width() / 2, pp.y() + w->height() / 2);
     }
@@ -239,10 +239,10 @@ void glitch_variety::highlight(QLineEdit *lineEdit)
   QTextCharFormat format;
   auto index = 0;
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  auto list
+  auto const list
     (lineEdit->text().split(QRegularExpression("\\W+"), Qt::SkipEmptyParts));
 #else
-  auto list
+  auto const list
     (lineEdit->text().
      split(QRegularExpression("\\W+"), QString::SkipEmptyParts));
 #endif
@@ -283,7 +283,7 @@ void glitch_variety::highlight(QLineEdit *lineEdit)
        ranges[i].format);
 
   QInputMethodEvent event(QString(), attributes);
-  auto state = lineEdit->isReadOnly();
+  auto const state = lineEdit->isReadOnly();
 
   lineEdit->setReadOnly(false);
   QCoreApplication::sendEvent(lineEdit, &event);
@@ -307,7 +307,7 @@ void glitch_variety::searchText
     }
   else if(!text->find(find->text(), options))
     {
-      auto found = find->property("found").toBool();
+      auto const found = find->property("found").toBool();
 
       if(found)
 	find->setProperty("found", false);

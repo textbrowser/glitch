@@ -165,7 +165,7 @@ bool glitch_object_advanced_io_arduino::hasInput(void) const
 
 bool glitch_object_advanced_io_arduino::hasOutput(void) const
 {
-  auto ioType = stringToIOType(m_text);
+  auto const ioType = stringToIOType(m_text);
 
   if(ioType == Type::PULSE_IN ||
      ioType == Type::PULSE_IN_LONG ||

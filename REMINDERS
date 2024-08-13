@@ -88,6 +88,7 @@ Completed Items
 - Confirm closing of changed separated windows.
 - Confirmation prompt on closing of edited diagrams.
 - Connect Has Input(s) / Has Output and Set Port Colors.
+- Constants.
 - Context menu action states.
 - Context menu icons.
 - Context menu on main tab widget.
@@ -363,7 +364,6 @@ Completed Items
 
 Remaining Items
 
-- Constants.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

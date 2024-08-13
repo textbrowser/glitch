@@ -699,7 +699,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
   if(m_object)
     {
       {
-	auto bytes
+	auto const bytes
 	  (m_object->property(glitch_object::Properties::
 			      STRUCTURES_VIEW_BOTTOM_TOP_SPLITTER_STATE).
 	   toByteArray());
@@ -709,7 +709,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       }
 
       {
-	auto bytes
+	auto const bytes
 	  (m_object->property(glitch_object::Properties::
 			      STRUCTURES_VIEW_LEFT_SPLITTER_STATE).
 	   toByteArray());
@@ -719,7 +719,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       }
 
       {
-	auto bytes
+	auto const bytes
 	  (m_object->property(glitch_object::Properties::
 			      STRUCTURES_VIEW_RIGHT_SPLITTER_STATE).
 	   toByteArray());
@@ -729,7 +729,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       }
 
       {
-	auto bytes
+	auto const bytes
 	  (m_object->property(glitch_object::Properties::
 			      STRUCTURES_VIEW_SPLITTER_STATE).toByteArray());
 
@@ -808,7 +808,7 @@ void glitch_object_edit_window::slotHideTearOffMenu(void)
 void glitch_object_edit_window::slotPreferencesAccepted(void)
 {
   QSettings settings;
-  auto state = settings.value
+  auto const state = settings.value
     ("preferences/docked_widget_property_editors", true).toBool();
 
   if(m_editView && m_editView->scene() && state)
@@ -865,7 +865,7 @@ void glitch_object_edit_window::slotSpecialTools(void)
   if(!m_editView || !m_editView->scene())
     return;
 
-  auto type(action->data().toString());
+  auto const type(action->data().toString());
 
   if(type == "adjust-sizes")
     m_editView->scene()->slotSelectedWidgetsAdjustSize();

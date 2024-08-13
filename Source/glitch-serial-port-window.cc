@@ -100,7 +100,7 @@ void glitch_serial_port_window::discoverDevices(void)
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
   QApplication::setOverrideCursor(Qt::WaitCursor);
 
-  auto portName(m_ui.port_name->currentText());
+  auto const portName(m_ui.port_name->currentText());
 
   m_ui.port_name->clear();
 
@@ -280,7 +280,7 @@ void glitch_serial_port_window::slotErrorOccurred
       {
 	if(serialPort)
 	  {
-	    auto error(serialPort->errorString().toLower());
+	    auto const error(serialPort->errorString().toLower());
 
 	    if(error.contains(tr("broken pipe")) ||
 	       serialPort->isOpen() == false)

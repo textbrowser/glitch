@@ -46,7 +46,7 @@ class glitch_recent_diagram: public QWidgetAction
     m_fileName = fileName;
     m_label = new QLabel(m_fileName, m_widget = new QWidget(parent));
 
-    QFileInfo fileInfo(m_fileName);
+    QFileInfo const fileInfo(m_fileName);
 
     if(!fileInfo.exists() || !fileInfo.isReadable())
       {

@@ -243,7 +243,7 @@ void glitch_object_conversion_arduino::setConversionType
 
 void glitch_object_conversion_arduino::setConversionType(const QString &ct)
 {
-  auto conversionType(ct.toLower());
+  auto const conversionType(ct.toLower());
 
   if(conversionType.contains("(uint8_t)"))
     setConversionType(ConversionTypes::UINT8_T);

@@ -66,7 +66,7 @@ QString glitch_object_library_function_arduino::code(void) const
   code.append(QString(m_text).remove("()"));
   code.append("(");
 
-  auto list(inputs());
+  auto const list(inputs());
 
   for(int i = 0; i < list.size(); i++)
     {

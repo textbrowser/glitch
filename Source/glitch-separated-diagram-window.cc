@@ -676,7 +676,7 @@ void glitch_separated_diagram_window::slotSpecialTools(void)
   if(!m_view || !m_view->scene())
     return;
 
-  auto type(action->data().toString());
+  auto const type(action->data().toString());
 
   if(type == "adjust-sizes")
     m_view->scene()->slotSelectedWidgetsAdjustSize();

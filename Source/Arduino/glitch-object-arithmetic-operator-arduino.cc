@@ -68,7 +68,7 @@ QString glitch_object_arithmetic_operator_arduino::code(void) const
     return "";
 
   QString string("(");
-  auto list(inputs());
+  auto const list(inputs());
 
   for(int i = 0; i < list.size(); i++)
     {

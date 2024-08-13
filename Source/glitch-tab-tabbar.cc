@@ -67,10 +67,10 @@ glitch_tab_tabbar::~glitch_tab_tabbar()
 
 QSize glitch_tab_tabbar::tabSizeHint(int index) const
 {
-  auto size(QTabBar::tabSizeHint(index));
-  auto tabPosition = qobject_cast<glitch_tab *> (parentWidget()) ?
+  auto const tabPosition = qobject_cast<glitch_tab *> (parentWidget()) ?
     qobject_cast<glitch_tab *> (parentWidget())->tabPosition() :
     QTabWidget::North;
+  auto size(QTabBar::tabSizeHint(index));
 
   if(tabPosition == QTabWidget::East || tabPosition == QTabWidget::West)
     {
@@ -122,7 +122,7 @@ preferredCloseButtonPositionOpposite(void) const
     return QTabBar::RightSide;
 #endif
 
-  auto buttonPosition = static_cast<QTabBar::ButtonPosition>
+  auto const buttonPosition = static_cast<QTabBar::ButtonPosition>
     (style()->styleHint(QStyle::SH_TabBar_CloseButtonPosition, 0, this));
 
 #ifdef Q_OS_MACOS
@@ -172,8 +172,8 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
     }
 
   QPixmap pixmap(1, 1);
+  auto const index = currentIndex();
   auto drag = new QDrag(this);
-  auto index = currentIndex();
   auto widget = qobject_cast<QTabWidget *> (parentWidget())->widget(index);
 
   pixmap.fill();

@@ -195,7 +195,7 @@ void glitch_object_syntax_arduino::slotSyntaxChanged(void)
   m_ui.text->setCursorPosition(0);
   glitch_variety::highlight(m_ui.text);
 
-  auto property = glitch_object::Properties::SYNTAX;
+  auto const property = glitch_object::Properties::SYNTAX;
 
   if(m_properties.value(property).toString() == m_ui.text->text())
     return;

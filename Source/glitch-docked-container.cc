@@ -55,7 +55,7 @@ void glitch_docked_container::add(QWidget *widget)
   for(int i = 0; i < m_model->rowCount(); i++)
     if(m_model->item(i, 0))
       {
-	auto index(m_model->item(i, 0)->index());
+	auto const index(m_model->item(i, 0)->index());
 
 	if(index.isValid() && m_ui.view->indexWidget(index) == widget)
 	  {
@@ -100,7 +100,7 @@ void glitch_docked_container::detach(void)
   for(int i = 0; i < m_model->rowCount(); i++)
     if(m_model->item(i, 0))
       {
-	auto index(m_model->item(i, 0)->index());
+	auto const index(m_model->item(i, 0)->index());
 
 	if(index.isValid())
 	  {
@@ -131,7 +131,7 @@ void glitch_docked_container::slotWidgetClosed(void)
   for(int i = m_model->rowCount() - 1; i >= 0; i--)
     if(m_model->item(i, 0))
       {
-	auto index(m_model->item(i, 0)->index());
+	auto const index(m_model->item(i, 0)->index());
 
 	if(index.isValid())
 	  {

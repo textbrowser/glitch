@@ -378,9 +378,9 @@ void glitch_proxy_widget::paint
 	  QFontMetricsF fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
+	  auto const order(QString::number(objectOrder()));
+	  auto const point(this->rect().topRight() / 2.0);
 	  auto font(painter->font());
-	  auto order(QString::number(objectOrder()));
-	  auto point(this->rect().topRight() / 2.0);
 
 	  path.addRect
 	    (point.x() - 15.0,
@@ -416,7 +416,7 @@ void glitch_proxy_widget::paint
 	      */
 
 	      QPainterPath path;
-	      auto rect(this->rect());
+	      auto const rect(this->rect());
 
 	      path.addEllipse(rect.topLeft().x() - 5.5,
 			      rect.height() / 2.0 + rect.topLeft().y() - 5.0,
@@ -440,7 +440,7 @@ void glitch_proxy_widget::paint
 	      */
 
 	      QPainterPath path;
-	      auto rect(this->rect());
+	      auto const rect(this->rect());
 
 	      path.addEllipse(rect.topRight().x() - 5.5,
 			      rect.height() / 2.0 + rect.topRight().y() - 5.0,
@@ -462,9 +462,9 @@ void glitch_proxy_widget::paint
 	    {
 	      QPainterPath path;
 	      auto canDisconnect = true;
-	      auto operation = m_scene ?
+	      auto const operation = m_scene ?
 		m_scene->toolsOperation() : glitch_tools::Operations::XYZ;
-	      auto rect(this->rect());
+	      auto const rect(this->rect());
 
 	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
 		{
@@ -620,12 +620,11 @@ void glitch_proxy_widget::prepareHoverSection(const QPointF &point)
 	}
       else
 	{
-	  auto distance1 = qSqrt(qPow(point.x() - pos().x(), 2.0) +
-				 qPow(point.y() - pos().y(), 2.0));
-	  auto distance2 = qSqrt(qPow(point.x() - pos().x() - size().width(),
-				      2.0) +
-				 qPow(point.y() - pos().y() - size().height(),
-				      2.0));
+	  auto const distance1 = qSqrt(qPow(point.x() - pos().x(), 2.0) +
+				       qPow(point.y() - pos().y(), 2.0));
+	  auto const distance2 = qSqrt
+	    (qPow(point.x() - pos().x() - size().width(), 2.0) +
+	     qPow(point.y() - pos().y() - size().height(), 2.0));
 
 	  if(distance1 < distance2)
 	    m_hoveredSection = Sections::LEFT;
@@ -671,7 +670,7 @@ void glitch_proxy_widget::setPos(const QPointF &point)
   ** An object may not be attached. This is fine.
   */
 
-  auto pos(this->pos());
+  auto const pos(this->pos());
 
   QGraphicsProxyWidget::setPos(point);
 

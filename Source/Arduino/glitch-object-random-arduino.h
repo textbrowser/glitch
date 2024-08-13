@@ -88,7 +88,7 @@ class glitch_object_random_arduino: public glitch_object_simple_text_arduino
 
   static Type stringToRandomType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("randomseed"))
       return Type::RANDOM_SEED;

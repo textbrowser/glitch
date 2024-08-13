@@ -204,7 +204,7 @@ QFont glitch_object::preferredFont(const QFont &font) const
   if(settings.value("preferences/override_widget_fonts", true).toBool())
     {
       QFont f;
-      auto string
+      auto const string
 	(settings.value("preferences/application_font").toString().
 	 remove('&').trimmed());
 
@@ -534,7 +534,7 @@ glitch_object *glitch_object::createFromValues
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
   QElapsedTimer t; t.start();
 #endif
-  auto type(values.value("type").toString().toLower().trimmed());
+  auto const type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
 
   if(type == "arduino-advancedio")
@@ -1406,7 +1406,8 @@ void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
 
 void glitch_object::setName(const QString &n)
 {
-  auto name(n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
+  auto const name
+    (n.trimmed().mid(0, static_cast<int> (Limits::NAME_MAXIMUM_LENGTH)));
 
   if(!name.isEmpty())
     {
@@ -1540,9 +1541,9 @@ void glitch_object::setProperties(const QStringList &list)
 	      string.remove('"').remove('(').remove(')');
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-	      auto list(string.split(',', Qt::SkipEmptyParts));
+	      auto const list(string.split(',', Qt::SkipEmptyParts));
 #else
-	      auto list(string.split(',', QString::SkipEmptyParts));
+	      auto const list(string.split(',', QString::SkipEmptyParts));
 #endif
 
 	      m_delayedSize = QSize(list.value(0).trimmed().toInt(),
@@ -1734,9 +1735,10 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::SIZE:
       {
-	auto h = value.toSize().height();
-	auto size(value.toSize());
-	auto width = qMax(5 * qCeil(sizeHint().width() / 5.0), size.width());
+	auto const h = value.toSize().height();
+	auto const size(value.toSize());
+	auto const width = qMax
+	  (5 * qCeil(sizeHint().width() / 5.0), size.width());
 
 	if(m_proxy && m_proxy->minimumWidth() >= width)
 	  resize(m_proxy->minimumWidth(),
@@ -2071,8 +2073,8 @@ void glitch_object::slotAdjustSize(void)
      m_actions.value(DefaultMenuActions::ADJUST_SIZE)->isEnabled() == false)
     return;
 
-  auto before(size());
-  auto width = 5 * qCeil(sizeHint().width() / 5.0);
+  auto const before(size());
+  auto const width = 5 * qCeil(sizeHint().width() / 5.0);
 
   if(m_proxy && m_proxy->minimumWidth() >= width)
     resize(m_proxy->minimumWidth(), minimumHeight(sizeHint().height()));
@@ -2132,7 +2134,7 @@ void glitch_object::slotCompress(void)
      m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->isEnabled() == false)
     return;
 
-  auto property = Properties::COMPRESSED_WIDGET;
+  auto const property = Properties::COMPRESSED_WIDGET;
 
   if(m_undoStack)
     {
@@ -2218,7 +2220,7 @@ void glitch_object::slotPropertyChanged
 {
   if(property != Properties::Z_Z_Z_PROPERTY)
     {
-      auto before = m_properties.value(property);
+      auto const before = m_properties.value(property);
 
       m_properties[property] = value;
 
@@ -2300,7 +2302,7 @@ void glitch_object::slotSelectColor(void)
     {
       QApplication::processEvents();
 
-      auto color(dialog.selectedColor());
+      auto const color(dialog.selectedColor());
 
       if(m_undoStack)
 	{
@@ -2393,7 +2395,8 @@ void glitch_object::slotSetPortColors(void)
     {
       QApplication::processEvents();
 
-      auto before(m_properties.value(Properties::PORT_COLORS).toString());
+      auto const before
+	(m_properties.value(Properties::PORT_COLORS).toString());
 
       m_properties[Properties::PORT_COLORS] = dialog.colors();
 
@@ -2420,7 +2423,7 @@ void glitch_object::slotSetPortColors(void)
 
 void glitch_object::slotSetStyleSheet(void)
 {
-  auto string(styleSheet());
+  auto const string(styleSheet());
   glitch_style_sheet dialog(m_parent);
 
   dialog.setWidget(this);

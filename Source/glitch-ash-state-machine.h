@@ -59,7 +59,7 @@ class glitch_ash_state_machine
 
     while(it.hasNext())
       {
-	auto token(it.next());
+	auto const token(it.next());
 
 	/*
 	** Here be single-state states.
@@ -187,7 +187,7 @@ class glitch_ash_state_machine
 	    {
 	      while(it.hasNext())
 		{
-		  auto token(it.next());
+		  auto const token(it.next());
 
 		  if(token == QObject::tr("all"))
 		    {
@@ -298,7 +298,7 @@ class glitch_ash_state_machine
 
 	      while(it.hasNext())
 		{
-		  auto token(it.next());
+		  auto const token(it.next());
 
 		  if(id == -1)
 		    {
@@ -320,13 +320,13 @@ class glitch_ash_state_machine
 			{
 			  if(state == States::SetWidgetPosition)
 			    {
-			      auto ok1 = true;
-			      auto ok2 = true;
-			      auto size(object->proxy()->size());
-			      auto x = list.at(0).trimmed().toInt(&ok1);
-			      auto y = list.at(1).trimmed().toInt(&ok2);
+			      auto b1 = true;
+			      auto b2 = true;
+			      auto const size(object->proxy()->size());
+			      auto const x = list.at(0).trimmed().toInt(&b1);
+			      auto const y = list.at(1).trimmed().toInt(&b2);
 
-			      if(ok1 && ok2 && x >= 0 && y >= 0)
+			      if(b1 && b2 && x >= 0 && y >= 0)
 				object->setPropertyWithUndo
 				  (glitch_object::Properties::GEOMETRY,
 				   QRectF(x, y, size.width(), size.height()));
@@ -335,8 +335,8 @@ class glitch_ash_state_machine
 			    {
 			      auto b1 = true;
 			      auto b2 = true;
-			      auto h = list.at(1).trimmed().toInt(&b1);
-			      auto w = list.at(0).trimmed().toInt(&b2);
+			      auto const h = list.at(1).trimmed().toInt(&b1);
+			      auto const w = list.at(0).trimmed().toInt(&b2);
 
 			      if(b1 && b2 && h > 0 && w > 0)
 				object->setPropertyWithUndo

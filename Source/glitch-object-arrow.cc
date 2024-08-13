@@ -108,7 +108,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   auto const fillPattern = Qt::SolidPattern;
   auto const sizeHeight = static_cast<qreal> (size().height());
   auto const sizeWidth = static_cast<qreal> (size().width());
-  const QPointF block[] =
+  QPointF const block[] =
     {
       QPointF(0.0, 0.0),
       QPointF(sizeWidth, 0.0),
@@ -151,7 +151,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
 		value<QColor> (), fillPattern));
       auto color(brush.color());
       auto const width = widths.dequeue();
-      const QPointF block[] =
+      QPointF const block[] =
 	{
 	  QPointF(xi, linePercentOfHeight * sizeHeight),
 	  QPointF(width + xi, linePercentOfHeight * sizeHeight),
@@ -306,7 +306,7 @@ void glitch_object_arrow::slotSelectColor(void)
     {
       QApplication::processEvents();
 
-      auto color(dialog.selectedColor());
+      auto const color(dialog.selectedColor());
 
       if(m_undoStack)
 	{

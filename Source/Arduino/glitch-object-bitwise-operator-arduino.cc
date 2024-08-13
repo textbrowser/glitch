@@ -71,7 +71,7 @@ QString glitch_object_bitwise_operator_arduino::code(void) const
   else
     {
       QString string("(");
-      auto list(inputs());
+      auto const list(inputs());
 
       for(int i = 0; i < list.size(); i++)
 	{

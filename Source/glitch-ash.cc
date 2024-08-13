@@ -43,7 +43,7 @@ QString glitch_ash_textedit::currentCommand(void) const
     (QTextCursor::Right, QTextCursor::MoveAnchor, m_promptLength);
   cursor.movePosition(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
 
-  auto command(cursor.selectedText().simplified().trimmed());
+  auto const command(cursor.selectedText().simplified().trimmed());
 
   cursor.clearSelection();
   return command;
@@ -59,7 +59,7 @@ QString glitch_ash_textedit::history(const int index) const
 
 bool glitch_ash_textedit::handleBackspaceKey(void) const
 {
-  auto cursor(textCursor());
+  auto const cursor(textCursor());
 
   if(cursor.blockNumber() == m_promptBlockNumber &&
      cursor.columnNumber() == m_promptLength)
@@ -95,7 +95,7 @@ void glitch_ash_textedit::handleDownKey(void)
 {
   if(!m_history.isEmpty())
     {
-      auto command(currentCommand());
+      auto const command(currentCommand());
 
       do
 	{
@@ -134,7 +134,7 @@ void glitch_ash_textedit::handleInterrupt(void)
 
 void glitch_ash_textedit::handleReturnKey(void)
 {
-  auto command(currentCommand());
+  auto const command(currentCommand());
 
   if(!command.isEmpty())
     {
@@ -150,7 +150,7 @@ void glitch_ash_textedit::handleReturnKey(void)
 
 void glitch_ash_textedit::handleTabKey(void)
 {
-  auto command(currentCommand());
+  auto const command(currentCommand());
 
   if(command.isEmpty())
     return;
@@ -170,7 +170,7 @@ void glitch_ash_textedit::handleTabKey(void)
 	map[it.key()] = 0;
       else
 	{
-	  auto string(it.key() + " " + it.value());
+	  auto const string(it.key() + " " + it.value());
 
 	  if(string.startsWith(command))
 	    map[string] = 0;
@@ -203,7 +203,7 @@ void glitch_ash_textedit::handleUpKey(void)
 {
   if(!m_history.isEmpty())
     {
-      auto command(currentCommand());
+      auto const command(currentCommand());
 
       do
 	{
@@ -237,7 +237,7 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_C:
       {
-	auto modifiers = glitch_variety::keyboardModifiers();
+	auto const modifiers = glitch_variety::keyboardModifiers();
 
 	if(modifiers & Qt::ControlModifier)
 	  {
@@ -277,7 +277,7 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       {
 	if(verticalScrollBar())
 	  {
-	    auto modifiers = glitch_variety::keyboardModifiers();
+	    auto const modifiers = glitch_variety::keyboardModifiers();
 
 	    if(modifiers & Qt::ControlModifier)
 	      {
@@ -481,7 +481,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
   foreach(auto const &c, command.split(';', QString::SkipEmptyParts))
 #endif
   {
-    auto command(c.trimmed());
+    auto const command(c.trimmed());
 
     if(command == tr("?") || command == tr("help"))
       {
@@ -519,9 +519,9 @@ void glitch_ash::slotProcessCommand(const QString &command)
     else if(command.startsWith(tr("?")) || command.startsWith(tr("help")))
       {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-	auto list1(command.split(' ', Qt::SkipEmptyParts));
+	auto const list1(command.split(' ', Qt::SkipEmptyParts));
 #else
-	auto list1(command.split(' ', QString::SkipEmptyParts));
+	auto const list1(command.split(' ', QString::SkipEmptyParts));
 #endif
 
 	for(int i = 1; i < list1.size(); i++)

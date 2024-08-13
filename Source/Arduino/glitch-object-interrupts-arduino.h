@@ -116,7 +116,7 @@ class glitch_object_interrupts_arduino:
 
   static Type stringToInterruptsType(const QString &s)
   {
-    auto string(s.toLower());
+    auto const string(s.toLower());
 
     if(string.contains("attachinterrupt"))
       return Type::ATTACH_INTERRUPT;

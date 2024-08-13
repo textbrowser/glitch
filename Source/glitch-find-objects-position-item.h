@@ -57,7 +57,7 @@ class glitch_find_objects_position_item: public QObject, public QTreeWidgetItem
 
   bool operator<(const QTreeWidgetItem &other) const
   {
-    auto i = treeWidget()->sortColumn();
+    auto const i = treeWidget()->sortColumn();
 
     switch(static_cast<glitch_find_objects::Columns> (i))
       {
@@ -76,13 +76,14 @@ class glitch_find_objects_position_item: public QObject, public QTreeWidgetItem
 	}
       default:
 	{
-	  auto list1
+	  auto const list1
 	    (other.text(i).remove(' ').remove('(').remove(')').split(','));
-	  auto list2(text(i).remove(' ').remove('(').remove(')').split(','));
-	  auto x1 = list1.value(0).toInt();
-	  auto x2 = list2.value(0).toInt();
-	  auto y1 = list1.value(1).toInt();
-	  auto y2 = list2.value(1).toInt();
+	  auto const list2
+	    (text(i).remove(' ').remove('(').remove(')').split(','));
+	  auto const x1 = list1.value(0).toInt();
+	  auto const x2 = list2.value(0).toInt();
+	  auto const y1 = list1.value(1).toInt();
+	  auto const y2 = list2.value(1).toInt();
 
 	  return !(x1 < x2 || (x1 == x2 && y1 < y2));
 	}
@@ -100,8 +101,8 @@ class glitch_find_objects_position_item: public QObject, public QTreeWidgetItem
  private slots:
   void slotSetTotals(const QHash<QString, int> &totals)
   {
-    auto i = static_cast<int> (glitch_find_objects::Columns::Type);
-    auto j = static_cast<int> (glitch_find_objects::Columns::TypeTotal);
+    auto const i = static_cast<int> (glitch_find_objects::Columns::Type);
+    auto const j = static_cast<int> (glitch_find_objects::Columns::TypeTotal);
 
     setText(j, QString::number(totals.value(text(i), 0)));
   }
