@@ -94,6 +94,8 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_redoUndoStack = nullptr;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
+  m_saveTimer.setInterval(1500);
+  m_saveTimer.setSingleShot(true);
   m_scene->setBackgroundBrush(QColor("#55aaff"));
   m_scene->setCanvasSettings(m_canvasSettings);
   m_scene->setDotsGridsColor(Qt::white);
@@ -152,6 +154,10 @@ glitch_view::glitch_view
 	  &QTimer::timeout,
 	  this,
 	  &glitch_view::slotGenerate);
+  connect(&m_saveTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_view::slotSave);
   connect(m_alignment,
 	  &glitch_alignment::changed,
 	  this,
@@ -266,6 +272,7 @@ glitch_view::~glitch_view()
 	     SLOT(slotUndoStackChanged(void)));
   m_generateSourceViewTimer.stop();
   m_generateTimer.stop();
+  m_saveTimer.stop();
   m_scene->purgeRedoUndoProxies();
 }
 
@@ -1470,6 +1477,9 @@ void glitch_view::slotChanged(void)
   if(m_canvasSettings->generateSourceViewPeriodically())
     m_generateSourceViewTimer.start();
 
+  if(m_canvasSettings->savePeriodically())
+    m_saveTimer.start();
+
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -1861,6 +1871,9 @@ void glitch_view::slotUndoStackChanged(void)
 
   if(m_canvasSettings->generateSourceViewPeriodically())
     m_generateSourceViewTimer.start();
+
+  if(m_canvasSettings->savePeriodically())
+    m_saveTimer.start();
 
   adjustScrollBars();
   emit changed();

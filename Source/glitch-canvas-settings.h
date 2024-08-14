@@ -160,6 +160,7 @@ class glitch_canvas_settings: public QDialog
     LOCK_COLOR,
     PROJECT_IDE,
     REDO_UNDO_STACK_SIZE,
+    SAVE_PERIODICALLY,
     SELECTION_COLOR,
     SHOW_CANVAS_DOTS,
     SHOW_CANVAS_GRIDS,
@@ -189,6 +190,7 @@ class glitch_canvas_settings: public QDialog
   bool generatePeriodically(void) const;
   bool generateSourceViewPeriodically(void) const;
   bool save(QString &error) const;
+  bool savePeriodically(void) const;
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
   bool showOrderIndicators(void) const;

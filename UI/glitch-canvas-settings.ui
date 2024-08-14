@@ -623,6 +623,19 @@
             </layout>
            </item>
            <item>
+            <widget class="QCheckBox" name="save_periodically">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the diagram after a change is made.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Save Periodically</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -850,6 +863,7 @@
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>
   <tabstop>project_type</tabstop>
+  <tabstop>save_periodically</tabstop>
   <tabstop>generate_source_view_periodically</tabstop>
   <tabstop>special_copy</tabstop>
   <tabstop>special_paste</tabstop>

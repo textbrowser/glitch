@@ -233,6 +233,7 @@ Completed Items
 - Pasting of a function definition onto the main diagram should result
   in a non-clone function.
 - Percolate redo / undo of functions through child views.
+- Periodic backup.
 - Periodically-generated source and redo / undo.
 - Portable output location.
 - PowerPC (QOverload()).
@@ -371,7 +372,6 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Periodic backup.
 - Print preview. Avoid Android.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.

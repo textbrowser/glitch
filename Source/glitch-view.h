@@ -181,6 +181,7 @@ class glitch_view: public QWidget
   QString m_fileName;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
+  QTimer m_saveTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
   glitch_alignment *m_alignment;
