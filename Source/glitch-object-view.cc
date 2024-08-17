@@ -283,7 +283,8 @@ void glitch_object_view::slotParentWindowClosed(void)
 
 void glitch_object_view::slotPaste(void)
 {
-  glitch_ui::paste(this, m_undoStack);
+  glitch_ui::paste
+    (qobject_cast<QGraphicsView *> (QApplication::focusWidget()), m_undoStack);
   adjustScrollBars();
 }
 

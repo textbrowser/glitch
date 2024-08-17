@@ -293,6 +293,7 @@ Completed Items
 - Scroll a view during selection.
 - Scroll a view if an item is moved via arrow keys.
 - Search structures.
+- Secondary view (preview) and pasting: QCursor::pos().
 - Select all.
 - Selection rectangle moves wired objects. Ignore wires.
 - Separate database objects when opening an existing diagram.
@@ -376,7 +377,6 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Secondary view (preview) and pasting: QCursor::pos().
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with

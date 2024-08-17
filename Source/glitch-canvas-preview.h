@@ -41,6 +41,11 @@ class glitch_canvas_preview: public QWidget
 
  private:
   Ui_glitch_canvas_preview m_ui;
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+  void enterEvent(QEnterEvent *event);
+#else
+  void enterEvent(QEvent *event);
+#endif
   void mouseDoubleClickEvent(QMouseEvent *event);
 };
 

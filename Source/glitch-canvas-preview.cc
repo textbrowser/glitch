@@ -54,6 +54,16 @@ glitch_canvas_preview::~glitch_canvas_preview()
 {
 }
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+void glitch_canvas_preview::enterEvent(QEnterEvent *event)
+#else
+void glitch_canvas_preview::enterEvent(QEvent *event)
+#endif
+{
+  QWidget::enterEvent(event);
+  m_ui.view->setFocus();
+}
+
 void glitch_canvas_preview::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QWidget::mouseDoubleClickEvent(event);

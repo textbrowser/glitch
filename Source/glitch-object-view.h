@@ -75,6 +75,16 @@ class glitch_object_view: public QGraphicsView
   void slotUndo(void);
 
  protected:
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+  void enterEvent(QEnterEvent *event)
+#else
+  void enterEvent(QEvent *event)
+#endif
+  {
+    QGraphicsView::enterEvent(event);
+    setFocus();
+  }
+
   void mouseMoveEvent(QMouseEvent *event);
 
  private:

@@ -67,6 +67,7 @@ void glitch_graphicsview::enterEvent(QEvent *event)
 {
   QGraphicsView::enterEvent(event);
   emit mouseEnterEvent();
+  setFocus();
 }
 
 void glitch_graphicsview::leaveEvent(QEvent *event)

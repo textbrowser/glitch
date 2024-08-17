@@ -2060,12 +2060,20 @@ void glitch_ui::slotPaste(glitch_view *view)
 
 void glitch_ui::slotPaste(void)
 {
-  if(m_currentView)
-    paste(m_currentView->view(), m_currentView->undoStack());
+  auto view = qobject_cast<QGraphicsView *> (QApplication::focusWidget());
 
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  prepareRedoUndoActions();
-  QApplication::restoreOverrideCursor();
+  if(view)
+    {
+      auto scene = qobject_cast<glitch_scene *> (view->scene());
+
+      if(scene)
+	{
+	  paste(view, scene->undoStack());
+	  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	  prepareRedoUndoActions();
+	  QApplication::restoreOverrideCursor();
+	}
+    }
 }
 
 void glitch_ui::slotPreferencesAccepted(void)
