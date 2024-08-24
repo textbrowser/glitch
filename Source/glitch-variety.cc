@@ -313,7 +313,7 @@ void glitch_variety::searchText
 	find->setProperty("found", false);
       else
 	{
-	  QColor color(240, 128, 128); // Light Coral
+	  QColor const color(240, 128, 128); // Light Coral
 	  auto palette(find->palette());
 
 	  palette.setColor(find->backgroundRole(), color);

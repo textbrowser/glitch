@@ -1080,7 +1080,7 @@ void glitch_canvas_settings::slotSelectColor(void)
     {
       QApplication::processEvents();
 
-      QColor color(dialog.selectedColor());
+      QColor const color(dialog.selectedColor());
       auto const format = (button == m_ui.lock_color ||
 			   button == m_ui.selection_color ||
 			   button == m_ui.wire_color) ?
