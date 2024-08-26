@@ -64,6 +64,7 @@ QTranslator *glitch_ui::s_translator1 = nullptr;
 QTranslator *glitch_ui::s_translator2 = nullptr;
 glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
 glitch_ui::s_copiedObjects;
+static const char * const COMPILED_ON = __DATE__ " @ " __TIME__;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
@@ -86,13 +87,15 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	"Software for and from the margins.<br><br>"
 	"Made with love by textbrowser.<br><br>"
 	"Architecture: %2.<br>"
-	"Product: %3.<br>"
-	"Qt version %4 (runtime version %5).<br><br>"
+	"Compiled On: %3.<br>"
+	"Product: %4.<br>"
+	"Qt version %5 (runtime version %6).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
      arg(GLITCH_VERSION_STRING).
      arg(QSysInfo::currentCpuArchitecture()).
+     arg(COMPILED_ON).
      arg(QSysInfo::prettyProductName()).
      arg(QT_VERSION_STR).
      arg(qVersion()));
@@ -2419,14 +2422,16 @@ void glitch_ui::slotSwifty(void)
 	"Software for and from the margins.<br><br>"
 	"Made with love by textbrowser.<br><br>"
 	"Architecture: %3.<br>"
-	"Product: %4.<br>"
-	"Qt version %5 (runtime version %6).<br><br>"
+	"Compiled On: %4.<br>"
+	"Product: %5.<br>"
+	"Qt version %6 (runtime version %7).<br><br>"
 	"Please visit "
 	"<a href=\"https://textbrowser.github.io/glitch\">"
 	"https://textbrowser.github.io/glitch</a> for more details.").
      arg(GLITCH_VERSION_STRING).
      arg(m_swifty->newest_version()).
      arg(QSysInfo::currentCpuArchitecture()).
+     arg(COMPILED_ON).
      arg(QSysInfo::prettyProductName()).
      arg(QT_VERSION_STR).
      arg(qVersion()));
