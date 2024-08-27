@@ -29,6 +29,7 @@
 
 #include "glitch-object.h"
 #include "glitch-port-colors.h"
+#include "glitch-variety.h"
 
 glitch_port_colors::glitch_port_colors(QWidget *parent):QDialog(parent)
 {
@@ -95,8 +96,7 @@ void glitch_port_colors::setObject(glitch_object *object)
 	{
 	  auto const string(strings.value(i).remove('&'));
 
-	  list.at(i)->setStyleSheet
-	    (QString("QPushButton {background-color: %1;}").arg(string));
+	  glitch_variety::assignImage(list.at(i), QColor(string));
 	  list.at(i)->setText(string);
 	}
     }
@@ -130,10 +130,8 @@ void glitch_port_colors::slotSelectColor(void)
   if(dialog.exec() == QDialog::Accepted)
     {
       QApplication::processEvents();
-      button->setStyleSheet
-	(QString("QPushButton {background-color: %1;}").
-	 arg(dialog.selectedColor().name(QColor::HexArgb)));
       button->setText(dialog.selectedColor().name(QColor::HexArgb));
+      glitch_variety::assignImage(button, dialog.selectedColor());
     }
   else
     QApplication::processEvents();
