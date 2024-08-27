@@ -30,6 +30,7 @@
 
 #include "ui_glitch-docked-container.h"
 
+class glitch_floating_context_menu;
 class glitch_user_functions_model;
 
 class glitch_docked_container: public QWidget
@@ -39,7 +40,7 @@ class glitch_docked_container: public QWidget
  public:
   glitch_docked_container(QWidget *parent);
   ~glitch_docked_container();
-  void add(QWidget *widget);
+  void add(glitch_floating_context_menu *widget);
   void detach(void);
 
  private:

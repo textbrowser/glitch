@@ -178,6 +178,13 @@ void glitch_floating_context_menu::closeEvent(QCloseEvent *event)
   emit closed();
 }
 
+void glitch_floating_context_menu::dockedFloatingContextMenu(const bool state)
+{
+  if(state)
+    m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut
+      (QKeySequence());
+}
+
 void glitch_floating_context_menu::hideEvent(QHideEvent *event)
 {
   QDialog::hideEvent(event);

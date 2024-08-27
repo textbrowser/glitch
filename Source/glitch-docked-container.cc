@@ -45,7 +45,7 @@ glitch_docked_container::~glitch_docked_container()
 {
 }
 
-void glitch_docked_container::add(QWidget *widget)
+void glitch_docked_container::add(glitch_floating_context_menu *widget)
 {
   if(!widget)
     return;
@@ -77,19 +77,18 @@ void glitch_docked_container::add(QWidget *widget)
 	if(shortcut)
 	  shortcut->setEnabled(false);
 
+      connect(widget,
+	      &glitch_floating_context_menu::closed,
+	      this,
+	      &glitch_docked_container::slotWidgetClosed,
+	      Qt::UniqueConnection);
       m_model->appendRow(item);
       m_model->setVerticalHeaderItem
 	(item->row(), new QStandardItem(QString(5, ' ')));
       m_ui.view->scrollTo(item->index(), QAbstractItemView::PositionAtTop);
       m_ui.view->selectRow(item->row());
       m_ui.view->setIndexWidget(item->index(), widget);
-
-      if(qobject_cast<glitch_floating_context_menu *> (widget))
-	connect(qobject_cast<glitch_floating_context_menu *> (widget),
-		&glitch_floating_context_menu::closed,
-		this,
-		&glitch_docked_container::slotWidgetClosed,
-		Qt::UniqueConnection);
+      widget->dockedFloatingContextMenu(true);
     }
 }
 
@@ -108,7 +107,10 @@ void glitch_docked_container::detach(void)
 	      (m_ui.view->indexWidget(index));
 
 	    if(menu && menu->object())
-	      list << menu->object();
+	      {
+		list << menu->object();
+		menu->dockedFloatingContextMenu(false);
+	      }
 	  }
       }
 

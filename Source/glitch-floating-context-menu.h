@@ -47,6 +47,7 @@ class glitch_floating_context_menu: public QDialog
   }
 
   void addActions(const QList<QAction *> &actions);
+  void dockedFloatingContextMenu(const bool state);
   void setIdentifier(const qint64 id);
   void setObject(glitch_object *object);
   void setName(const QString &n);
