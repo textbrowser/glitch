@@ -123,6 +123,18 @@ bool glitch_variety::sameAncestors
   return parent1 == parent2;
 }
 
+void glitch_variety::assignImage(QPushButton *button, const QColor &color)
+{
+  if(!button)
+    return;
+
+  QImage image(QSize(16, 16), QImage::Format_ARGB32);
+  QPainter painter(&image);
+
+  image.fill(color);
+  button->setIcon(QPixmap::fromImage(image));
+}
+
 void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 {
   /*

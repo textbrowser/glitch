@@ -50,15 +50,14 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.setupUi(this);
   glitch_variety::sortCombinationBox(m_ui.update_mode);
   glitch_variety::sortCombinationBox(m_ui.wire_type);
-  m_ui.background_color->setStyleSheet
-    ("QPushButton {background-color: #55aaff}");
+  glitch_variety::assignImage(m_ui.background_color, QColor("#55aaff"));
+  glitch_variety::assignImage(m_ui.dots_grids_color, QColor(Qt::white));
+  glitch_variety::assignImage(m_ui.lock_color, QColor(231, 84, 128));
+  glitch_variety::assignImage(m_ui.selection_color, QColor(0, 0, 139));
+  glitch_variety::assignImage(m_ui.wire_color, QColor(255, 192, 203, 175));
   m_ui.background_color->setText(QColor("#55aaff").name());
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
-  m_ui.dots_grids_color->setStyleSheet("QPushButton {background-color: white}");
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
-  m_ui.lock_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(QColor(231, 84, 128).name()));
   m_ui.lock_color->setText(QColor(231, 84, 128).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
   m_ui.project_ide->setText("/usr/bin/arduino");
@@ -67,9 +66,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.project_type->setEnabled(false);
   m_ui.reset_source_view_keywords->setIcon(QIcon(":/reset.png"));
   m_ui.select_project_ide->setIcon(QIcon(":/open.png"));
-  m_ui.selection_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(QColor(0, 0, 139).name()));
   m_ui.selection_color->setText(QColor(0, 0, 139).name());
   m_ui.source_view_keywords->setItemDelegateForColumn
     (1, m_itemDelegate = new glitch_canvas_settings_item_delegate(this));
@@ -107,9 +103,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
      tr("<html>The view will attempt to find an optimal update mode "
 	"by analyzing the areas that require a redraw.</html>"),
      Qt::ToolTipRole);
-  m_ui.wire_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(QColor(255, 192, 203, 175).name(QColor::HexArgb)));
   m_ui.wire_color->setText(QColor(255, 192, 203, 175).name(QColor::HexArgb));
   m_ui.wire_width->setToolTip(QString("[%1, %2]").
 			      arg(m_ui.wire_width->minimum()).
@@ -680,8 +673,11 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	if(!selectionColor.isValid())
 	  selectionColor = QColor("lightgreen");
 
-	m_ui.background_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").arg(color.name()));
+	glitch_variety::assignImage(m_ui.background_color, color);
+	glitch_variety::assignImage(m_ui.dots_grids_color, dotsGridsColor);
+	glitch_variety::assignImage(m_ui.lock_color, lockColor);
+	glitch_variety::assignImage(m_ui.selection_color, selectionColor);
+	glitch_variety::assignImage(m_ui.wire_color, wireColor);
 	m_ui.background_color->setText(color.name());
 	m_ui.categories_icon_size->setCurrentIndex
 	  (m_ui.categories_icon_size->findText(categoriesIconSize));
@@ -689,16 +685,10 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	if(m_ui.categories_icon_size->currentIndex() < 0)
 	  m_ui.categories_icon_size->setCurrentIndex(1); // 24x24
 
-	m_ui.dots_grids_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").
-	   arg(dotsGridsColor.name()));
 	m_ui.dots_grids_color->setText(dotsGridsColor.name());
 	m_ui.generate_periodically->setChecked(generatePeriodically);
 	m_ui.generate_source_view_periodically->setChecked
 	  (generateSourceViewPeriodically);
-	m_ui.lock_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").
-	   arg(lockColor.name(QColor::HexArgb)));
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
@@ -713,9 +703,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 
 	m_ui.redo_undo_stack_size->setValue(redoUndoStackSize);
 	m_ui.save_periodically->setChecked(savePeriodically);
-	m_ui.selection_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").
-	   arg(selectionColor.name(QColor::HexArgb)));
 	m_ui.selection_color->setText(selectionColor.name(QColor::HexArgb));
 	m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
@@ -727,9 +714,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	  m_ui.update_mode->setCurrentIndex
 	    (m_ui.update_mode->findText(tr("Full")));
 
-	m_ui.wire_color->setStyleSheet
-	  (QString("QPushButton {background-color: %1}").
-	   arg(wireColor.name(QColor::HexArgb)));
 	m_ui.wire_color->setText(wireColor.name(QColor::HexArgb));
 	m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(wireType));
 
@@ -893,13 +877,11 @@ void glitch_canvas_settings::setSettings
   auto const same = hash == m_settings;
 
   m_settings = hash;
-  m_ui.background_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").arg(color.name()));
+  glitch_variety::assignImage(m_ui.background_color, color);
   m_ui.background_color->setText(color.name());
   color = QColor
     (hash.value(Settings::DOTS_GRIDS_COLOR).toString().remove('&').trimmed());
-  m_ui.dots_grids_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").arg(color.name()));
+  glitch_variety::assignImage(m_ui.dots_grids_color, color);
   m_ui.dots_grids_color->setText(color.name());
   m_ui.generate_periodically->setChecked
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
@@ -907,9 +889,7 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool());
   color = QColor
     (hash.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
-  m_ui.lock_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(color.name(QColor::HexArgb)));
+  glitch_variety::assignImage(m_ui.lock_color, color);
   m_ui.lock_color->setText(color.name(QColor::HexArgb));
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
@@ -917,15 +897,11 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::SAVE_PERIODICALLY).toBool());
   color = QColor
     (hash.value(Settings::SELECTION_COLOR).toString().remove('&').trimmed());
-  m_ui.selection_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(color.name(QColor::HexArgb)));
+  glitch_variety::assignImage(m_ui.selection_color, color);
   m_ui.selection_color->setText(color.name(QColor::HexArgb));
   color = QColor
     (hash.value(Settings::WIRE_COLOR).toString().remove('&').trimmed());
-  m_ui.wire_color->setStyleSheet
-    (QString("QPushButton {background-color: %1}").
-     arg(color.name(QColor::HexArgb)));
+  glitch_variety::assignImage(m_ui.wire_color, color);
   m_ui.wire_color->setText(color.name(QColor::HexArgb));
   prepareKeywordColors(hash.value(Settings::KEYWORD_COLORS).toString());
   setCategoriesIconSize(hash.value(Settings::CATEGORIES_ICON_SIZE).toString());
@@ -1086,10 +1062,8 @@ void glitch_canvas_settings::slotSelectColor(void)
 			   button == m_ui.wire_color) ?
 	QColor::HexArgb : QColor::HexRgb;
 
-      button->setStyleSheet
-	(QString("QPushButton {background-color: %1;}").
-	 arg(color.name(format)));
       button->setText(color.name(format));
+      glitch_variety::assignImage(button, color);
     }
   else
     QApplication::processEvents();

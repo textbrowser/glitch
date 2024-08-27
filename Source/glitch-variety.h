@@ -34,6 +34,7 @@
 
 class QComboBox;
 class QLineEdit;
+class QPushButton;
 class QWidget;
 
 class glitch_variety
@@ -43,6 +44,7 @@ class glitch_variety
   static QString homePath(void);
   static Qt::KeyboardModifiers keyboardModifiers(void);
   static bool sameAncestors(const QObject *object1, const QObject *object2);
+  static void assignImage(QPushButton *button, const QColor &color);
   static void centerWindow(QWidget *parent, QWidget *window);
   static void highlight(QLineEdit *lineEdit);
   static void searchText

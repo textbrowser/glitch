@@ -369,6 +369,7 @@ Remaining Items
 - ASH.
 - Awesome color images to buttons instead of basic backgrounds.
 - Context-menu for attaching widgets to input / output ports of other widgets.
+- Ctrl + W and docked property editors.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
