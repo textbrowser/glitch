@@ -60,7 +60,9 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_grids_color->setText(QColor(Qt::white).name());
   m_ui.lock_color->setText(QColor(231, 84, 128).name());
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
+#ifdef Q_OS_LINUX
   m_ui.project_ide->setText("/usr/bin/arduino");
+#endif
   m_ui.project_ide->setCursorPosition(0);
   m_ui.project_ide_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
@@ -595,7 +597,11 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QString categoriesIconSize("");
 	QString keywordColors("");
 	QString name("");
+#ifdef Q_OS_LINUX
+	QString projectIDE("/usr/bin/arduino");
+#else
 	QString projectIDE("");
+#endif
 	QString projectType("");
 	QString updateMode("");
 	QString wireType("");
@@ -631,7 +637,14 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_ide"))
-	      projectIDE = record.value(i).toString().trimmed();
+	      {
+		projectIDE = record.value(i).toString().trimmed();
+
+#ifdef Q_OS_LINUX
+		if(projectIDE.isEmpty())
+		  projectIDE = "/usr/bin/arduino";
+#endif
+	      }
 	    else if(fieldName.contains("project_type"))
 	      projectType = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("redo_undo_stack_size"))
