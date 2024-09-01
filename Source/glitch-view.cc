@@ -799,7 +799,9 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 	foreach(auto object, m_scene->objects())
 	  if(object)
 	    {
+	      object->blockSignals(true);
 	      object->save(db, error);
+	      object->blockSignals(false);
 
 	      if(!error.isEmpty())
 		{
@@ -1693,9 +1695,18 @@ void glitch_view::slotSave(void)
   QString error("");
 
   if(!save(error))
-    glitch_variety::showErrorDialog
-      (tr("Unable to save %1 (%2).").arg(m_canvasSettings->name()).arg(error),
-       this);
+    {
+      error = error.trimmed();
+
+      if(error.isEmpty())
+	error = tr("unknown error");
+
+      glitch_variety::showErrorDialog
+	(tr("Unable to save %1 (%2).").
+	 arg(m_canvasSettings->name()).
+	 arg(error),
+	 this);
+    }
   else
     emit saved();
 }
