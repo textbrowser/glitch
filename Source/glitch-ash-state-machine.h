@@ -65,7 +65,10 @@ class glitch_ash_state_machine
 	** Here be single-state states.
 	*/
 
-	if(token.startsWith(QObject::tr("full-screen"), Qt::CaseInsensitive))
+	if(token.startsWith(QObject::tr("copy"), Qt::CaseInsensitive))
+	  state = States::Copy;
+	else if(token.startsWith(QObject::tr("full-screen"),
+				 Qt::CaseInsensitive))
 	  state = States::FullScreen;
 	else if(token.startsWith(QObject::tr("list-statistics"),
 				 Qt::CaseInsensitive))
@@ -132,6 +135,12 @@ class glitch_ash_state_machine
 
 	switch(state)
 	  {
+	  case States::Copy:
+	    {
+	      t->slotCopy();
+	      state = States::ZZZ;
+	      break;
+	    }
 	  case States::Delete:
 	    {
 	      QHash<glitch_scene *, QList<QGraphicsItem *> > hash;
@@ -376,6 +385,7 @@ class glitch_ash_state_machine
  private:
   enum class States
   {
+    Copy,
     Delete,
     Deselect,
     Display,
@@ -384,6 +394,7 @@ class glitch_ash_state_machine
     List,
     ListStatistics,
     NormalScreen,
+    Paste,
     Redo,
     Save,
     Select,

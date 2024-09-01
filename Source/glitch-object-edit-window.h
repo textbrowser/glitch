@@ -89,6 +89,7 @@ class glitch_object_edit_window: public QMainWindow
   }
 
  public slots:
+  void slotCopy(void);
   void slotPreferencesAccepted(void);
 
  private:

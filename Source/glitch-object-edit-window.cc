@@ -781,6 +781,11 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
        arg(m_editView->scene()->selectedItems().size()));
 }
 
+void glitch_object_edit_window::slotCopy(void)
+{
+  m_actions.value("copy")->trigger();
+}
+
 void glitch_object_edit_window::slotDockPropertyEditor(QWidget *widget)
 {
   m_dockedWidgetPropertyEditors->add

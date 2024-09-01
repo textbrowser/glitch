@@ -1507,6 +1507,8 @@ void glitch_view::slotCopy(void)
 		break;
 	      }
 	}
+      else
+	emit copy(m_view);
     }
 }
 
