@@ -420,6 +420,7 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
   m_commands.insert(tr("list"), tr("local"));
   m_commands.insert(tr("list-statistics"), "");
   m_commands.insert(tr("normal-screen"), "");
+  m_commands.insert(tr("paste"), "");
   m_commands.insert(tr("redo"), "");
   m_commands.insert(tr("save"), "");
   m_commands.insert(tr("save-history-desktop"), "");

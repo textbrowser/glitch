@@ -76,6 +76,8 @@ class glitch_ash_state_machine
 	else if(token.startsWith(QObject::tr("normal-screen"),
 				 Qt::CaseInsensitive))
 	  state = States::NormalScreen;
+	else if(token.startsWith(QObject::tr("paste"), Qt::CaseInsensitive))
+	  state = States::Paste;
 	else if(token.startsWith(QObject::tr("redo"), Qt::CaseInsensitive))
 	  state = States::Redo;
 	else if(token.startsWith(QObject::tr("save"), Qt::CaseInsensitive))
@@ -282,6 +284,12 @@ class glitch_ash_state_machine
 	  case States::NormalScreen:
 	    {
 	      t->showNormal();
+	      state = States::ZZZ;
+	      break;
+	    }
+	  case States::Paste:
+	    {
+	      t->slotPaste();
 	      state = States::ZZZ;
 	      break;
 	    }

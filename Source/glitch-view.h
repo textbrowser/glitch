@@ -135,6 +135,7 @@ class glitch_view: public QWidget
   void slotPreferencesAccepted(void);
   void slotCopy(void);
   void slotFonts(void);
+  void slotPaste(void);
   void slotSave(void);
   void slotSelectedWidgetsProperties(void);
   void slotSelectionChanged(void);
@@ -221,7 +222,6 @@ class glitch_view: public QWidget
 				     glitch_object *object);
   void slotGenerate(void);
   void slotGenerateSourceView(void);
-  void slotPaste(void);
   void slotProcessCommand(const QString &command);
   void slotResizeScene(void);
   void slotSaveAs(void);

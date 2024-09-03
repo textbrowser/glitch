@@ -810,6 +810,11 @@ void glitch_object_edit_window::slotHideTearOffMenu(void)
 #endif
 }
 
+void glitch_object_edit_window::slotPaste(void)
+{
+  emit paste();
+}
+
 void glitch_object_edit_window::slotPreferencesAccepted(void)
 {
   QSettings settings;
