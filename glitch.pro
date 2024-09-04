@@ -318,7 +318,8 @@ TEMPLATE	= app
 android {
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/Android
 DISTFILES += Android/AndroidManifest.xml \
-             Android/build.gradle
+             Android/build.gradle \
+             Android/res/values/libs.xml
 
 android: include(/home/saturn/Android/Sdk/android_openssl/openssl.pri)
 }
