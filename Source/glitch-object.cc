@@ -119,13 +119,13 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::GENERATE_SOURCE] = true;
   m_properties[Properties::PORT_COLORS] =
-    QColor(0, 80, 181).name() +    // Input Connected
+    QColor(0, 80, 181).name(QColor::HexArgb) +    // Input Connected
     "-" +
-    QColor(118, 134, 146).name() + // Input Disconnected
+    QColor(118, 134, 146).name(QColor::HexArgb) + // Input Disconnected
     "-" +
-    QColor(0, 80, 181).name() +    // Output Connected
+    QColor(0, 80, 181).name(QColor::HexArgb) +    // Output Connected
     "-" +
-    QColor(118, 134, 146).name();  // Output Disconnected
+    QColor(118, 134, 146).name(QColor::HexArgb);  // Output Disconnected
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = true;
   m_properties[Properties::TRANSPARENT] = true;
@@ -2339,7 +2339,8 @@ void glitch_object::slotSelectBorderColor(void)
   if(dialog.exec() == QDialog::Accepted)
     {
       QApplication::processEvents();
-      slotPropertyChanged("border_color", dialog.selectedColor().name());
+      slotPropertyChanged
+	("border_color", dialog.selectedColor().name(QColor::HexArgb));
     }
   else
     QApplication::processEvents();

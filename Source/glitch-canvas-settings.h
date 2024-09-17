@@ -105,6 +105,7 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
     QColorDialog dialog(pushButton);
 
     dialog.setCurrentColor(QColor(pushButton->text().remove('&')));
+    dialog.setOption(QColorDialog::ShowAlphaChannel, true);
 
     if(dialog.exec() == QDialog::Accepted)
       {
@@ -123,13 +124,13 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
 	    const_cast<QAbstractItemModel *> (m_index.model())->setData
 	      (m_index, dialog.selectedColor(), Qt::DecorationRole);
 	    const_cast<QAbstractItemModel *> (m_index.model())->setData
-	      (m_index, dialog.selectedColor().name());
+	      (m_index, dialog.selectedColor().name(QColor::HexArgb));
 
 	    if(table)
 	      table->setSortingEnabled(sortingEnabled);
 	  }
 
-	pushButton->setText(dialog.selectedColor().name());
+	pushButton->setText(dialog.selectedColor().name(QColor::HexArgb));
 	emit commitData(pushButton);
 	emit closeEditor(pushButton); // Order is crucial.
       }

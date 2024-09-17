@@ -55,10 +55,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_variety::assignImage(m_ui.lock_color, QColor(231, 84, 128));
   glitch_variety::assignImage(m_ui.selection_color, QColor(0, 0, 139));
   glitch_variety::assignImage(m_ui.wire_color, QColor(255, 192, 203, 175));
-  m_ui.background_color->setText(QColor("#55aaff").name());
+  m_ui.background_color->setText(QColor("#55aaff").name(QColor::HexArgb));
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
-  m_ui.dots_grids_color->setText(QColor(Qt::white).name());
-  m_ui.lock_color->setText(QColor(231, 84, 128).name());
+  m_ui.dots_grids_color->setText(QColor(Qt::white).name(QColor::HexArgb));
+  m_ui.lock_color->setText(QColor(231, 84, 128).name(QColor::HexArgb));
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 #ifdef Q_OS_LINUX
   m_ui.project_ide->setText("/usr/bin/arduino");
@@ -68,7 +68,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.project_type->setEnabled(false);
   m_ui.reset_source_view_keywords->setIcon(QIcon(":/reset.png"));
   m_ui.select_project_ide->setIcon(QIcon(":/open.png"));
-  m_ui.selection_color->setText(QColor(0, 0, 139).name());
+  m_ui.selection_color->setText(QColor(0, 0, 139).name(QColor::HexArgb));
   m_ui.source_view_keywords->setItemDelegateForColumn
     (1, m_itemDelegate = new glitch_canvas_settings_item_delegate(this));
   m_ui.special_copy->setIcon(QIcon(":/copy.png"));
@@ -691,14 +691,14 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	glitch_variety::assignImage(m_ui.lock_color, lockColor);
 	glitch_variety::assignImage(m_ui.selection_color, selectionColor);
 	glitch_variety::assignImage(m_ui.wire_color, wireColor);
-	m_ui.background_color->setText(color.name());
+	m_ui.background_color->setText(color.name(QColor::HexArgb));
 	m_ui.categories_icon_size->setCurrentIndex
 	  (m_ui.categories_icon_size->findText(categoriesIconSize));
 
 	if(m_ui.categories_icon_size->currentIndex() < 0)
 	  m_ui.categories_icon_size->setCurrentIndex(1); // 24x24
 
-	m_ui.dots_grids_color->setText(dotsGridsColor.name());
+	m_ui.dots_grids_color->setText(dotsGridsColor.name(QColor::HexArgb));
 	m_ui.generate_periodically->setChecked(generatePeriodically);
 	m_ui.generate_source_view_periodically->setChecked
 	  (generateSourceViewPeriodically);
@@ -793,7 +793,7 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 	{
 	  item2->setData
 	    (Qt::DecorationRole, map.value(item1->text()));
-	  item2->setText(map.value(item1->text()).name());
+	  item2->setText(map.value(item1->text()).name(QColor::HexArgb));
 	}
     }
 
@@ -855,7 +855,7 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
 
       item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
       m_ui.source_view_keywords->setItem(i, 0, item);
-      item = new QTableWidgetItem(QColor(Qt::black).name());
+      item = new QTableWidgetItem(QColor(Qt::black).name(QColor::HexArgb));
       item->setData(Qt::DecorationRole, QColor(item->text()));
       item->setFlags
 	(Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
@@ -863,7 +863,7 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
       if(colors.contains(list.at(i)))
 	{
 	  item->setData(Qt::DecorationRole, colors.value(list.at(i)));
-	  item->setText(colors.value(list.at(i)).name());
+	  item->setText(colors.value(list.at(i)).name(QColor::HexArgb));
 	}
 
       m_ui.source_view_keywords->setItem(i, 1, item);
@@ -891,11 +891,11 @@ void glitch_canvas_settings::setSettings
 
   m_settings = hash;
   glitch_variety::assignImage(m_ui.background_color, color);
-  m_ui.background_color->setText(color.name());
+  m_ui.background_color->setText(color.name(QColor::HexArgb));
   color = QColor
     (hash.value(Settings::DOTS_GRIDS_COLOR).toString().remove('&').trimmed());
   glitch_variety::assignImage(m_ui.dots_grids_color, color);
-  m_ui.dots_grids_color->setText(color.name());
+  m_ui.dots_grids_color->setText(color.name(QColor::HexArgb));
   m_ui.generate_periodically->setChecked
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
   m_ui.generate_source_view_periodically->setChecked
@@ -1032,12 +1032,13 @@ void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 	  if(colors.contains(item1->text()))
 	    {
 	      item2->setData(Qt::DecorationRole, colors.value(item1->text()));
-	      item2->setText(colors.value(item1->text()).name());
+	      item2->setText
+		(colors.value(item1->text()).name(QColor::HexArgb));
 	    }
 	  else
 	    {
 	      item2->setData(Qt::DecorationRole, QColor(Qt::black));
-	      item2->setText(QColor(Qt::black).name());
+	      item2->setText(QColor(Qt::black).name(QColor::HexArgb));
 	    }
 	}
     }
@@ -1054,14 +1055,8 @@ void glitch_canvas_settings::slotSelectColor(void)
 
   QColorDialog dialog(this);
 
-  if(button == m_ui.background_color || button == m_ui.dots_grids_color)
-    dialog.setCurrentColor(QColor(button->text().remove('&')));
-  else
-    {
-      dialog.setCurrentColor(QColor(button->text().remove('&')));
-      dialog.setOption(QColorDialog::ShowAlphaChannel, true);
-    }
-
+  dialog.setCurrentColor(QColor(button->text().remove('&')));
+  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   QApplication::processEvents();
 
@@ -1069,13 +1064,9 @@ void glitch_canvas_settings::slotSelectColor(void)
     {
       QApplication::processEvents();
 
-      QColor const color(dialog.selectedColor());
-      auto const format = (button == m_ui.lock_color ||
-			   button == m_ui.selection_color ||
-			   button == m_ui.wire_color) ?
-	QColor::HexArgb : QColor::HexRgb;
+      auto const color(dialog.selectedColor());
 
-      button->setText(color.name(format));
+      button->setText(color.name(QColor::HexArgb));
       glitch_variety::assignImage(button, color);
     }
   else
