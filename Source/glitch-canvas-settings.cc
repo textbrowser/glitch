@@ -398,7 +398,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 1500, "
-	   "save_periodically INTEGER NOT NULL DEFAULT 1, "
+	   "save_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "selection_color TEXT NOT NULL, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
@@ -561,7 +561,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD "
-	   "save_periodically INTEGER NOT NULL DEFAULT 1");
+	   "save_periodically INTEGER NOT NULL DEFAULT 0");
 	query.setForwardOnly(true);
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
@@ -609,7 +609,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto generatePeriodically = false;
 	auto generateSourceViewPeriodically = false;
 	auto redoUndoStackSize = 0;
-	auto savePeriodically = true;
+	auto savePeriodically = false;
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
 	auto showOrderIndicators = true;
