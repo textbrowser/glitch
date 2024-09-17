@@ -186,15 +186,12 @@ void glitch_object_boolean_operator_arduino::paintEvent(QPaintEvent *event)
   Q_UNUSED(event);
 
   QPainter painter(this);
-  auto brush
+  auto const brush
     (QBrush(m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> (),
 	    Qt::SolidPattern));
-  auto color(brush.color());
   auto const h = static_cast<qreal> (size().height());
   auto const w = static_cast<qreal> (size().width());
 
-  color.setAlpha(255);
-  brush.setColor(color);
   painter.setBrush(brush);
   painter.setPen(Qt::NoPen);
   painter.setRenderHints(QPainter::Antialiasing |
