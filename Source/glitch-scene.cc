@@ -853,6 +853,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
     {
       QPen pen;
       auto color(m_dotsGridsColor);
+      auto const alpha = color.alpha();
       qreal step = 20.0;
 
       pen.setWidthF(1.25);
@@ -861,12 +862,12 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 	{
 	  if(i == 1)
 	    {
-	      color.setAlpha(50);
+	      color.setAlpha(qCeil(-0.80 * alpha + alpha));
 	      pen.setStyle(Qt::DashLine);
 	    }
 	  else
 	    {
-	      color.setAlpha(100);
+	      color.setAlpha(qCeil(-0.60 * alpha + alpha));
 	      pen.setStyle(Qt::SolidLine);
 	      step = 100.0;
 	    }
