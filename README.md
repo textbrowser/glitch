@@ -600,5 +600,5 @@ Glitch: select left-most objects; align.
 </ul>
 <p>2004.09.25</p>
 <ul>
-<li>An idea is born.</li>
+<li>A splendid idea is born.</li>
 </ul>
