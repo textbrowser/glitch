@@ -79,6 +79,12 @@ void glitch_structures_treewidget::mousePressEvent(QMouseEvent *event)
   m_pressAndHoldTimer.start();
 }
 
+void glitch_structures_treewidget::mouseReleaseEvent(QMouseEvent *event)
+{
+  QApplication::restoreOverrideCursor();
+  QTreeWidget::mouseReleaseEvent(event);
+}
+
 void glitch_structures_treewidget::setProjectType
 (const glitch_common::ProjectTypes projectType)
 {
@@ -147,7 +153,18 @@ void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
   auto instance = qobject_cast<QGuiApplication *> (QApplication::instance());
 
   if(instance && instance->mouseButtons() & Qt::LeftButton)
-    startDrag(Qt::CopyAction);
+    {
+      auto list(selectedItems());
+
+      if(list.size() == 1)
+	{
+	  auto item = list.at(0);
+
+	  if(item && item->parent())
+	    QApplication::setOverrideCursor
+	      (QCursor(item->parent()->icon(0).pixmap(QSize(48, 48))));
+	}
+    }
 }
 
 void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
@@ -174,4 +191,6 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
       drag->exec(Qt::CopyAction);
       QApplication::processEvents();
     }
+
+  QApplication::restoreOverrideCursor();
 }

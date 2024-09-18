@@ -50,6 +50,7 @@ class glitch_structures_treewidget: public QTreeWidget
   glitch_common::ProjectTypes m_projectType;
   void addChildren(QTreeWidgetItem *item, Ui_glitch_structures *ui);
   void mousePressEvent(QMouseEvent *event);
+  void mouseReleaseEvent(QMouseEvent *event);
   void startDrag(Qt::DropActions supportedActions);
 
  private slots:
