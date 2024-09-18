@@ -33,6 +33,28 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.09.25</p>
+<ul>
+<li>ASH: copy, paste commands.</li>
+<li>Allow for canvas color alphas: background color,
+  dots / grids color, lock color, selection color, source text color,
+  wire color.</li>
+<li>Arrow object and background color alpha; in addition to
+  transparency property!</li>
+<li>Awesome button colors.</li>
+<li>Ctrl + W and docked property editors. Duplicating shortcuts
+  causes problems.</li>
+<li>Default Arduino IDE of /usr/bin/arduino on Linux.</li>
+<li>Fewer changed() signals during the saving of a diagram.</li>
+<li>Many constants.</li>
+<li>Object background color alpha.</li>
+<li>Pasting into a canvas preview is now natural. Previously,
+  a paste event's coordinates would be translated.</li>
+<li>Pasting into a view will not require a mouse click event.</li>
+<li>Save periodically. New Edit -> Canvas Settings -> Project ->
+  Save Periodically.</li>
+<li>Twenty years of Glitch!</li>
+</ul>
 <p>2024.07.30</p>
 <ul>
 <li>Allow categories to exist in their own floating dialogs. Dialogs
