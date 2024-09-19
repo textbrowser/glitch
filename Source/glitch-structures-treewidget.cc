@@ -154,16 +154,11 @@ void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
 
   if(instance && instance->mouseButtons() & Qt::LeftButton)
     {
-      auto list(selectedItems());
+      auto item = selectedItems().value(0);
 
-      if(list.size() == 1)
-	{
-	  auto item = list.at(0);
-
-	  if(item && item->parent())
-	    QApplication::setOverrideCursor
-	      (QCursor(item->parent()->icon(0).pixmap(QSize(48, 48))));
-	}
+      if(item && item->parent())
+	QApplication::setOverrideCursor
+	  (QCursor(item->parent()->icon(0).pixmap(QSize(48, 48))));
     }
 }
 
@@ -184,10 +179,9 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
       mimeData->setText(item->data(0, Qt::UserRole).toString());
       drag->setHotSpot(QPoint(24, 48));
       drag->setMimeData(mimeData);
-
-      if(item->parent() && list.size() == 1)
-	drag->setPixmap(item->parent()->icon(0).pixmap(QSize(48, 48)));
-
+      drag->setPixmap
+	(item->parent() ?
+	 item->parent()->icon(0).pixmap(QSize(48, 48)) : QPixmap());
       drag->exec(Qt::CopyAction);
       QApplication::processEvents();
     }
