@@ -488,9 +488,17 @@ void glitch_ash::slotProcessCommand(const QString &command)
     if(command == tr("?") || command == tr("help"))
       {
 	QString string("");
+	auto even = false;
 
 	foreach(auto const &i, m_commands.uniqueKeys())
-	  string.append(i + " ");
+	  {
+	    even = !even;
+
+	    if(even)
+	      string.append("<b>" + i + "</b> ");
+	    else
+	      string.append(i + " ");
+	  }
 
 	m_ui.text->append(string.trimmed());
       }
@@ -506,7 +514,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	    continue;
 	  }
 
-	m_ui.text->append(command + ":");
+	m_ui.text->append("<b>" + command + ":</b>");
 
 	auto list(m_commands.values(command));
 
@@ -533,7 +541,7 @@ void glitch_ash::slotProcessCommand(const QString &command)
 	    if(list2.isEmpty())
 	      continue;
 
-	    m_ui.text->append(list1.at(i) + ":");
+	    m_ui.text->append("<b>" + list1.at(i) + ":</b>");
 	    std::sort(list2.begin(), list2.end());
 
 	    foreach(auto const &j, list2)
