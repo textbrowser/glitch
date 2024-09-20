@@ -189,175 +189,178 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    QColorDialog dialog(pushButton);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    dialog.setCurrentColor(QColor(pushButton-&gt;text().remove(<span class="charliteral">&#39;&amp;&#39;</span>)));</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span>(dialog.exec() == QDialog::Accepted)</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">if</span>(m_index.isValid() &amp;&amp; m_index.model())</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keyword">auto</span> sortingEnabled = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keyword">auto</span> table = qobject_cast&lt;QTableWidget *&gt;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>          (m_index.model()-&gt;parent());</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">if</span>(table)</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>          {</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        sortingEnabled = table-&gt;isSortingEnabled();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        table-&gt;setSortingEnabled(<span class="keyword">false</span>);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>          }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keyword">const_cast&lt;</span>QAbstractItemModel *<span class="keyword">&gt;</span> (m_index.model())-&gt;setData</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>          (m_index, dialog.selectedColor(), Qt::DecorationRole);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keyword">const_cast&lt;</span>QAbstractItemModel *<span class="keyword">&gt;</span> (m_index.model())-&gt;setData</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>          (m_index, dialog.selectedColor().name());</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span>(table)</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>          table-&gt;setSortingEnabled(sortingEnabled);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>      }</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    pushButton-&gt;setText(dialog.selectedColor().name());</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    emit commitData(pushButton);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    emit closeEditor(pushButton); <span class="comment">// Order is crucial.</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      }</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>};</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    dialog.setOption(QColorDialog::ShowAlphaChannel, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span>(dialog.exec() == QDialog::Accepted)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span>(m_index.isValid() &amp;&amp; m_index.model())</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keyword">auto</span> sortingEnabled = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keyword">auto</span> table = qobject_cast&lt;QTableWidget *&gt;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>          (m_index.model()-&gt;parent());</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">if</span>(table)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>          {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        sortingEnabled = table-&gt;isSortingEnabled();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        table-&gt;setSortingEnabled(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>          }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keyword">const_cast&lt;</span>QAbstractItemModel *<span class="keyword">&gt;</span> (m_index.model())-&gt;setData</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>          (m_index, dialog.selectedColor(), Qt::DecorationRole);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keyword">const_cast&lt;</span>QAbstractItemModel *<span class="keyword">&gt;</span> (m_index.model())-&gt;setData</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>          (m_index, dialog.selectedColor().name(QColor::HexArgb));</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span>(table)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>          table-&gt;setSortingEnabled(sortingEnabled);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    pushButton-&gt;setText(dialog.selectedColor().name(QColor::HexArgb));</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    emit commitData(pushButton);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    emit closeEditor(pushButton); <span class="comment">// Order is crucial.</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>};</div>
 </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="foldopen" id="foldopen00139" data-start="{" data-end="};">
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classglitch__canvas__settings.html">  139</a></span><span class="keyword">class </span><a class="code hl_class" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>: <span class="keyword">public</span> QDialog</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  Q_OBJECT</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>  <span class="keyword">enum class</span> Pages</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    Canvas = 0,</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    Project = 1,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    UndoStack</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  };</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>  <span class="keyword">enum class</span> Settings</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    CANVAS_BACKGROUND_COLOR = 0,</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    CANVAS_NAME,</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    CATEGORIES_ICON_SIZE,</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    DOTS_GRIDS_COLOR,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    GENERATE_PERIODICALLY,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    GENERATE_SOURCE_VIEW_PERIODICALLY,</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    KEYWORD_COLORS,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    LOCK_COLOR,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    PROJECT_IDE,</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    REDO_UNDO_STACK_SIZE,</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    SELECTION_COLOR,</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    SHOW_CANVAS_DOTS,</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    SHOW_CANVAS_GRIDS,</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    SHOW_ORDER_INDICATORS,</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    VIEW_UPDATE_MODE,</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    WIRE_COLOR,</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    WIRE_TYPE,</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    WIRE_WIDTH</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  };</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  <a class="code hl_class" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>  <a class="code hl_class" href="classglitch__canvas__settings.html">~glitch_canvas_settings</a>();</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>  QColor dotsGridsColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  QColor lockColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  QColor selectionColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  QColor wireColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  QMap&lt;QString, QColor&gt; keywordColorsAsMap(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>  QString categoriesIconSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>  QString keywordColorsAsString(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  QString outputFile(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  QString projectIDE(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  QString wireType(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="keywordtype">bool</span> generatePeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  <span class="keywordtype">bool</span> generateSourceViewPeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  <span class="keywordtype">bool</span> showCanvasDots(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keywordtype">bool</span> showCanvasGrids(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  <span class="keywordtype">bool</span> showOrderIndicators(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>  <span class="keywordtype">double</span> wireWidth(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="keywordtype">int</span> redoUndoStackSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>  <span class="keywordtype">void</span> prepare(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="keywordtype">void</span> setCategoriesIconSize(<span class="keyword">const</span> QString &amp;text);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordtype">void</span> setOutputFileExtension(<span class="keyword">const</span> QString &amp;extension);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  <span class="keywordtype">void</span> setProjectIDE(<span class="keyword">const</span> QString &amp;filename);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  <span class="keywordtype">void</span> setProjectKeywords(<span class="keyword">const</span> QStringList &amp;list);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  <span class="keywordtype">void</span> setRedoUndoStackSize(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="keywordtype">void</span> setSettings</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    (<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; &amp;hash);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  <span class="keywordtype">void</span> setShowCanvasDots(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  <span class="keywordtype">void</span> setShowCanvasGrids(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  <span class="keywordtype">void</span> setShowOrderIndicators(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> QString &amp;<span class="keywordtype">string</span>);</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  <span class="keywordtype">void</span> setWireWidth(<span class="keyword">const</span> <span class="keywordtype">double</span> value);</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>  <span class="keywordtype">void</span> showPage(<span class="keyword">const</span> Pages page);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>  <span class="keyword">enum class</span> Limits</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  {</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    NAME_MAXIMUM_LENGTH = 100</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  };</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; m_settings;</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  QString m_fileName;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  QString m_outputFileExtension;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  QTimer m_timer;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  Ui_glitch_canvas_settings m_ui;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  <a class="code hl_class" href="classglitch__canvas__settings__item__delegate.html">glitch_canvas_settings_item_delegate</a> *m_itemDelegate;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>  QString keywordColorsFromTableAsString(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  <span class="keywordtype">void</span> closeEvent(QCloseEvent *event);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>  <span class="keywordtype">void</span> prepareKeywordColors(<span class="keyword">const</span> QString &amp;text);</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>  <span class="keywordtype">void</span> showEvent(QShowEvent *event);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> <span class="keyword">private</span> slots:</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="};">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classglitch__canvas__settings.html">  140</a></span><span class="keyword">class </span><a class="code hl_class" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>: <span class="keyword">public</span> QDialog</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>{</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  Q_OBJECT</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>  <span class="keyword">enum class</span> Pages</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>  {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    Canvas = 0,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    Project = 1,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    UndoStack</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  };</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>  <span class="keyword">enum class</span> Settings</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    CANVAS_BACKGROUND_COLOR = 0,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    CANVAS_NAME,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    CATEGORIES_ICON_SIZE,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    DOTS_GRIDS_COLOR,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    GENERATE_PERIODICALLY,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    GENERATE_SOURCE_VIEW_PERIODICALLY,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    KEYWORD_COLORS,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    LOCK_COLOR,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    PROJECT_IDE,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    REDO_UNDO_STACK_SIZE,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    SAVE_PERIODICALLY,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    SELECTION_COLOR,</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    SHOW_CANVAS_DOTS,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    SHOW_CANVAS_GRIDS,</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    SHOW_ORDER_INDICATORS,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    VIEW_UPDATE_MODE,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    WIRE_COLOR,</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    WIRE_TYPE,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    WIRE_WIDTH</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  };</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>  <a class="code hl_class" href="classglitch__canvas__settings.html">glitch_canvas_settings</a>(QWidget *parent);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>  <a class="code hl_class" href="classglitch__canvas__settings.html">~glitch_canvas_settings</a>();</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  QColor canvasBackgroundColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  QColor dotsGridsColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  QColor lockColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>  QColor selectionColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>  QColor wireColor(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  QGraphicsView::ViewportUpdateMode viewportUpdateMode(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; settings(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>  QMap&lt;QString, QColor&gt; keywordColorsAsMap(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>  QString categoriesIconSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  QString keywordColorsAsString(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>  QString name(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  QString outputFile(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  QString projectIDE(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  QString wireType(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keywordtype">bool</span> generatePeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  <span class="keywordtype">bool</span> generateSourceViewPeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="keywordtype">bool</span> save(QString &amp;error) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  <span class="keywordtype">bool</span> savePeriodically(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>  <span class="keywordtype">bool</span> showCanvasDots(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="keywordtype">bool</span> showCanvasGrids(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>  <span class="keywordtype">bool</span> showOrderIndicators(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>  <span class="keywordtype">double</span> wireWidth(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="keywordtype">int</span> redoUndoStackSize(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keywordtype">void</span> prepare(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordtype">void</span> setFileName(<span class="keyword">const</span> QString &amp;fileName);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  <span class="keywordtype">void</span> setCategoriesIconSize(<span class="keyword">const</span> QString &amp;text);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  <span class="keywordtype">void</span> setName(<span class="keyword">const</span> QString &amp;name);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  <span class="keywordtype">void</span> setOutputFileExtension(<span class="keyword">const</span> QString &amp;extension);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="keywordtype">void</span> setProjectIDE(<span class="keyword">const</span> QString &amp;filename);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>  <span class="keywordtype">void</span> setProjectKeywords(<span class="keyword">const</span> QStringList &amp;list);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  <span class="keywordtype">void</span> setRedoUndoStackSize(<span class="keyword">const</span> <span class="keywordtype">int</span> value);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  <span class="keywordtype">void</span> setSettings</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    (<span class="keyword">const</span> QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; &amp;hash);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  <span class="keywordtype">void</span> setShowCanvasDots(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keywordtype">void</span> setShowCanvasGrids(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>  <span class="keywordtype">void</span> setShowOrderIndicators(<span class="keyword">const</span> <span class="keywordtype">bool</span> state);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>  <span class="keywordtype">void</span> setViewportUpdateMode(<span class="keyword">const</span> QGraphicsView::ViewportUpdateMode mode);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>  <span class="keywordtype">void</span> setWireType(<span class="keyword">const</span> QString &amp;<span class="keywordtype">string</span>);</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>  <span class="keywordtype">void</span> setWireWidth(<span class="keyword">const</span> <span class="keywordtype">double</span> value);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>  <span class="keywordtype">void</span> showPage(<span class="keyword">const</span> Pages page);</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  <span class="keyword">enum class</span> Limits</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    NAME_MAXIMUM_LENGTH = 100</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  };</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  QHash&lt;glitch_canvas_settings::Settings, QVariant&gt; m_settings;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  QString m_fileName;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  QString m_outputFileExtension;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  QTimer m_timer;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>  Ui_glitch_canvas_settings m_ui;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  <a class="code hl_class" href="classglitch__canvas__settings__item__delegate.html">glitch_canvas_settings_item_delegate</a> *m_itemDelegate;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>  QString defaultName(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>  QString keywordColorsFromTableAsString(<span class="keywordtype">void</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>  <span class="keywordtype">void</span> closeEvent(QCloseEvent *event);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>  <span class="keywordtype">void</span> prepareKeywordColors(<span class="keyword">const</span> QString &amp;text);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>  <span class="keywordtype">void</span> showEvent(QShowEvent *event);</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#ifdef Q_OS_ANDROID</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  <span class="keywordtype">void</span> reject(<span class="keywordtype">void</span>)</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>  {</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    hide();</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    m_timer.stop();</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    setResult(QDialog::Rejected);</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>  }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>  <span class="keywordtype">void</span> slotResetSourceViewKeywords(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>  <span class="keywordtype">void</span> slotSelectColor(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>  <span class="keywordtype">void</span> slotSelectProjectIDE(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>  <span class="keywordtype">void</span> slotSpecialCopy(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>  <span class="keywordtype">void</span> slotSpecialPaste(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  <span class="keywordtype">void</span> slotTimerTimeout(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> signals:</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>};</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> <span class="keyword">private</span> slots:</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>  <span class="keywordtype">void</span> accept(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="preprocessor">#ifdef Q_OS_ANDROID</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>  <span class="keywordtype">void</span> reject(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>  {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    hide();</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    m_timer.stop();</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    setResult(QDialog::Rejected);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>  }</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>  <span class="keywordtype">void</span> slotResetSourceViewKeywords(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>  <span class="keywordtype">void</span> slotSelectColor(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>  <span class="keywordtype">void</span> slotSelectProjectIDE(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>  <span class="keywordtype">void</span> slotSpecialCopy(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>  <span class="keywordtype">void</span> slotSpecialPaste(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>  <span class="keywordtype">void</span> slotTimerTimeout(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> signals:</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>  <span class="keywordtype">void</span> accepted(<span class="keyword">const</span> <span class="keywordtype">bool</span> undo);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>};</div>
 </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="keyword">inline</span> <span class="keywordtype">size_t</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="keyword">inline</span> uint</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>qHash(<span class="keyword">const</span> glitch_canvas_settings::Settings &amp;key,</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>#<span class="keywordflow">if</span> (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>      <span class="keywordtype">size_t</span> seed)</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      uint seed)</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>#endif</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>{</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#if (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">inline</span> <span class="keywordtype">size_t</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keyword">inline</span> uint</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>qHash(<span class="keyword">const</span> glitch_canvas_settings::Settings &amp;key,</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>#<span class="keywordflow">if</span> (QT_VERSION &gt;= QT_VERSION_CHECK(6, 0, 0))</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>      <span class="keywordtype">size_t</span> seed)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>      uint seed)</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>#endif</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>{</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>  return ::qHash(<span class="keyword">static_cast&lt;</span>uint<span class="keyword">&gt;</span> (key), seed);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>}</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassglitch__canvas__settings__item__delegate_html"><div class="ttname"><a href="classglitch__canvas__settings__item__delegate.html">glitch_canvas_settings_item_delegate</a></div><div class="ttdef"><b>Definition</b> glitch-canvas-settings.h:39</div></div>
-<div class="ttc" id="aclassglitch__canvas__settings_html"><div class="ttname"><a href="classglitch__canvas__settings.html">glitch_canvas_settings</a></div><div class="ttdef"><b>Definition</b> glitch-canvas-settings.h:140</div></div>
+<div class="ttc" id="aclassglitch__canvas__settings_html"><div class="ttname"><a href="classglitch__canvas__settings.html">glitch_canvas_settings</a></div><div class="ttdef"><b>Definition</b> glitch-canvas-settings.h:141</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
