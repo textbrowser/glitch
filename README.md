@@ -42,10 +42,17 @@ Glitch: select left-most objects; align.
 <li>Arrow object and background color alpha; in addition to
   transparency property!</li>
 <li>Awesome button colors.</li>
+<li>Bold ASH text.</li>
+<li>Corrected glitch.pro. Deleting debug plugins may delete
+  required plugins files in the Windows install target. Qt 6.5 LTS
+  has separated the debug and release files and the additional logic in
+  glitch.pro is not necessary.</li>
 <li>Ctrl + W and docked property editors. Duplicating shortcuts
   causes problems.</li>
 <li>Default Arduino IDE of /usr/bin/arduino on Linux.</li>
+<li>Display icons of dragged objects.</li>
 <li>Fewer changed() signals during the saving of a diagram.</li>
+<li>LTS release!</li>
 <li>Many constants.</li>
 <li>Object background color alpha.</li>
 <li>Pasting into a canvas preview is now natural. Previously,
