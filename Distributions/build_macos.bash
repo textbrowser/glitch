@@ -22,7 +22,7 @@ if [ ! -r Glitch.d.dmg ]; then
     exit 1
 fi
 
-if [ "$(uname -m)" == "arm64" ]; then
+if [ "$(uname -m)" = "arm64" ]; then
     mv Glitch.d.dmg Glitch-2024.09.25_apple_silicon.d.dmg
 else
     mv Glitch.d.dmg Glitch-2024.09.25_intel.d.dmg
