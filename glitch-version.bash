@@ -14,7 +14,9 @@ for file in Distributions/*/control; do
 done
 
 for file in Distributions/build*; do
-    sed -i "s/Glitch-.*_/Glitch-$VERSION\_/" $file
+    sed -i \
+    "s/Glitch-[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+/Glitch-$VERSION/" \
+    $file
 done
 
 FILE="Source/glitch-version.h"
