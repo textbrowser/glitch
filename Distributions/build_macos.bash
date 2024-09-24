@@ -3,7 +3,7 @@
 
 if [ ! -x ~/Qt/6.5.3/macos/bin/qmake ]; then
     echo "Please install the official Qt."
-    exit
+    exit 1
 fi
 
 make distclean 2>/dev/null
