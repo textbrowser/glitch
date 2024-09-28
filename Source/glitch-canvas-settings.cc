@@ -216,7 +216,8 @@ settings(void) const
     m_ui.generate_source_view_periodically->isChecked();
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
-  hash[Settings::PROJECT_IDE] = m_ui.project_ide->text();
+  hash[Settings::PROJECT_IDE] = QFileInfo
+    (m_ui.project_ide->text()).absoluteFilePath();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
   hash[Settings::SAVE_PERIODICALLY] = m_ui.save_periodically->isChecked();
   hash[Settings::SELECTION_COLOR] =
@@ -336,18 +337,18 @@ QString glitch_canvas_settings::name(void) const
 
 QString glitch_canvas_settings::outputFile(void) const
 {
-  QSettings settings;
-
-  return settings.value("preferences/output_directory", QDir::homePath()).
-    toString().trimmed() +
-    QDir::separator() +
-    name() +
-    m_outputFileExtension;
+  return QFileInfo
+    (QSettings().value("preferences/output_directory", QDir::homePath()).
+     toString().trimmed() +
+     QDir::separator() +
+     name() +
+     m_outputFileExtension).absoluteFilePath();
 }
 
 QString glitch_canvas_settings::projectIDE(void) const
 {
-  return m_settings.value(Settings::PROJECT_IDE).toString();
+  return QFileInfo
+    (m_settings.value(Settings::PROJECT_IDE).toString()).absoluteFilePath();
 }
 
 QString glitch_canvas_settings::wireType(void) const
@@ -456,7 +457,8 @@ bool glitch_canvas_settings::save(QString &error) const
 
 	query.addBindValue(name);
 	query.addBindValue("");
-	query.addBindValue(m_ui.project_ide->text());
+	query.addBindValue
+	  (QFileInfo(m_ui.project_ide->text()).absoluteFilePath());
 	query.addBindValue(m_ui.project_type->currentText());
 	query.addBindValue(m_ui.redo_undo_stack_size->value());
 	query.addBindValue(m_ui.save_periodically->isChecked());
@@ -525,6 +527,7 @@ void glitch_canvas_settings::accept(void)
       m_ui.name->setCursorPosition(0);
     }
 
+  setProjectIDE(m_ui.project_ide->text());
   setResult(QDialog::Accepted);
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
   emit accepted(true);
@@ -638,7 +641,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_ide"))
 	      {
-		projectIDE = record.value(i).toString().trimmed();
+		projectIDE = QFileInfo
+		  (record.value(i).toString().trimmed()).absoluteFilePath();
 
 #ifdef Q_OS_LINUX
 		if(projectIDE.isEmpty())
@@ -833,8 +837,10 @@ void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
 
 void glitch_canvas_settings::setProjectIDE(const QString &fileName)
 {
-  m_settings[Settings::PROJECT_IDE] = fileName.trimmed();
-  m_ui.project_ide->setText(fileName.trimmed());
+  m_settings[Settings::PROJECT_IDE] = QFileInfo
+    (fileName.trimmed()).absoluteFilePath();
+  m_ui.project_ide->setText
+    (m_settings.value(Settings::PROJECT_IDE).toString());
   m_ui.project_ide->setToolTip(m_ui.project_ide->text());
   m_ui.project_ide->setCursorPosition(0);
 }

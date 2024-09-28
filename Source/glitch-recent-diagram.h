@@ -43,7 +43,7 @@ class glitch_recent_diagram: public QWidgetAction
   glitch_recent_diagram(const QString &fileName, QWidget *parent):
     QWidgetAction(parent)
   {
-    m_fileName = fileName;
+    m_fileName = QFileInfo(fileName).absoluteFilePath();
     m_label = new QLabel(m_fileName, m_widget = new QWidget(parent));
 
     QFileInfo const fileInfo(m_fileName);

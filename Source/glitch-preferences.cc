@@ -127,8 +127,9 @@ void glitch_preferences::processSettings(void)
   m_ui.display_tear_off_menus->setChecked
     (settings.value("preferences/tear_off_menus", true).toBool());
   m_ui.output_directory->setText
-    (settings.
-     value("preferences/output_directory", QDir::homePath()).toString());
+    (QFileInfo(settings.
+	       value("preferences/output_directory", QDir::homePath()).
+	       toString()).absoluteFilePath());
   m_ui.override_widget_fonts->setChecked
     (settings.value("preferences/override_widget_fonts", true).toBool());
   m_ui.zoom_factor->setValue
