@@ -102,7 +102,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -std=c++17
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 11.0
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
 } else:win32 {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
