@@ -60,6 +60,10 @@ Glitch: select left-most objects; align.
 <li>Pasting into a view will not require a mouse click event.</li>
 <li>Save periodically. New Edit -> Canvas Settings -> Project ->
   Save Periodically.</li>
+<li>The Windows bundle includes some additional revisions.
+Please read
+<a href = "https://github.com/textbrowser/glitch/compare/2024.09.25...master">
+https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Twenty years of Glitch!</li>
 </ul>
 <p>2024.07.30</p>
