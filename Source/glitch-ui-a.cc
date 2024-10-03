@@ -396,7 +396,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  showStatsuBarMessage(tr("Opening %1...").arg(fileName));
+  showStatusBarMessage(tr("Opening %1...").arg(fileName));
 
   QString connectionName("");
   QString name("");
@@ -478,7 +478,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	      QApplication::processEvents();
 	    }
 
-	  showStatsuBarMessage
+	  showStatusBarMessage
 	    (tr("%1 opened in %2 second(s).").
 	     arg(fileName).arg(timer.elapsed() / 1000.0),
 	     5000);
@@ -487,7 +487,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	ok = false;
     }
   else
-    showStatsuBarMessage("");
+    showStatusBarMessage("");
 
   QApplication::restoreOverrideCursor();
   return ok;
@@ -1203,27 +1203,27 @@ void glitch_ui::prepareStatusBar(void)
       {
       case glitch_tools::Operations::INTELLIGENT:
 	{
-	  showStatsuBarMessage(tr("Connections Mode: Intelligent"));
+	  showStatusBarMessage(tr("Connections Mode: Intelligent"));
 	  break;
 	}
       case glitch_tools::Operations::SELECT:
 	{
-	  showStatsuBarMessage(tr("Connections Mode: Select"));
+	  showStatusBarMessage(tr("Connections Mode: Select"));
 	  break;
 	}
       case glitch_tools::Operations::WIRE_CONNECT:
 	{
-	  showStatsuBarMessage(tr("Connections Mode: Wire (Connect)"));
+	  showStatusBarMessage(tr("Connections Mode: Wire (Connect)"));
 	  break;
 	}
       default:
 	{
-	  showStatsuBarMessage(tr("Connections Mode: Wire (Disconnect)"));
+	  showStatusBarMessage(tr("Connections Mode: Wire (Disconnect)"));
 	  break;
 	}
       }
   else
-    showStatsuBarMessage("");
+    showStatusBarMessage("");
 }
 
 void glitch_ui::prepareTabShortcuts(void)
@@ -1477,7 +1477,7 @@ void glitch_ui::show(void)
   parseCommandLineArguments();
 }
 
-void glitch_ui::showStatsuBarMessage(const QString &text, const int timeout)
+void glitch_ui::showStatusBarMessage(const QString &text, const int timeout)
 {
   if(statusBar())
     {
@@ -1623,7 +1623,7 @@ void glitch_ui::slotCopy(void)
     {
       copy(m_currentView->view());
       prepareActionWidgets();
-      showStatsuBarMessage
+      showStatusBarMessage
 	(tr("%1 widget(s) copied.").arg(s_copiedObjects.size()), 5000);
     }
 }
@@ -1867,9 +1867,9 @@ void glitch_ui::slotGenerateSource(void)
 {
   if(m_currentView)
     {
-      showStatsuBarMessage(tr("Generating source file. Please be patient."));
+      showStatusBarMessage(tr("Generating source file. Please be patient."));
       m_currentView->generateSourceFile();
-      showStatsuBarMessage("");
+      showStatusBarMessage("");
     }
 }
 
@@ -1877,9 +1877,9 @@ void glitch_ui::slotGenerateSourceView(void)
 {
   if(m_currentView)
     {
-      showStatsuBarMessage(tr("Generating source. Please be patient."));
+      showStatusBarMessage(tr("Generating source. Please be patient."));
       m_currentView->generateSourceView();
-      showStatsuBarMessage("");
+      showStatusBarMessage("");
     }
 }
 
@@ -2171,7 +2171,7 @@ void glitch_ui::slotSelectAll(void)
   if(m_currentView && m_currentView->scene())
     {
       m_currentView->selectAll();
-      showStatsuBarMessage
+      showStatusBarMessage
 	(tr("%1 Item(s) Selected").
 	 arg(m_currentView->scene()->selectedItems().size()));
     }
@@ -2203,7 +2203,7 @@ void glitch_ui::slotSelectionChanged(void)
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Select_All->setEnabled
 	(m_currentView->scene()->items().size() > 0);
-      showStatsuBarMessage
+      showStatusBarMessage
 	(tr("%1 Item(s) Selected").
 	 arg(m_currentView->scene()->selectedItems().size()));
     }
@@ -2514,22 +2514,22 @@ void glitch_ui::slotToolsOperationChanged
     {
     case glitch_tools::Operations::INTELLIGENT:
       {
-	showStatsuBarMessage(tr("Connections Mode: Intelligent"));
+	showStatusBarMessage(tr("Connections Mode: Intelligent"));
 	break;
       }
     case glitch_tools::Operations::SELECT:
       {
-	showStatsuBarMessage(tr("Connections Mode: Select"));
+	showStatusBarMessage(tr("Connections Mode: Select"));
 	break;
       }
     case glitch_tools::Operations::WIRE_CONNECT:
       {
-	showStatsuBarMessage(tr("Connections Mode: Wire (Connect)"));
+	showStatusBarMessage(tr("Connections Mode: Wire (Connect)"));
 	break;
       }
     default:
       {
-	showStatsuBarMessage(tr("Connections Mode: Wire (Disconnect)"));
+	showStatusBarMessage(tr("Connections Mode: Wire (Disconnect)"));
 	break;
       }
     }

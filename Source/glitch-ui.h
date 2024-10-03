@@ -121,7 +121,7 @@ class glitch_ui: public QMainWindow
   void saveSettings(void);
   void setTabText(glitch_view *view);
   void setWindowTitle(glitch_view *view);
-  void showStatsuBarMessage(const QString &text, const int timeout = 0);
+  void showStatusBarMessage(const QString &text, const int timeout = 0);
 
  private slots:
   void slotAbout(void);
