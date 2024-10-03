@@ -31,6 +31,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QPointer>
+#include <QTimer>
 
 class swifty: public QNetworkAccessManager
 {
@@ -42,7 +43,12 @@ class swifty: public QNetworkAccessManager
 	 const QUrl &url,
 	 QObject *parent):QNetworkAccessManager(parent)
   {
+    connect(&m_query_timer,
+	    SIGNAL(timeout(void)),
+	    this,
+	    SLOT(slot_query(void)));
     m_current_version = m_newest_version = current_version;
+    m_query_timer.setInterval(2500);
     m_search_for_string = search_for_string;
     m_url = url;
   }
@@ -59,6 +65,7 @@ class swifty: public QNetworkAccessManager
   void download()
   {
     m_buffer.clear();
+    m_query_timer.start();
 
     if(m_reply)
       m_reply->deleteLater();
@@ -80,6 +87,7 @@ class swifty: public QNetworkAccessManager
   QString m_current_version;
   QString m_newest_version;
   QString m_search_for_string;
+  QTimer m_query_timer;
   QUrl m_url;
 
  private slots:
@@ -105,7 +113,15 @@ class swifty: public QNetworkAccessManager
 	  }
 	else
 	  emit same();
+
+	m_query_timer.stop();
       }
+  }
+
+  void slot_query(void)
+  {
+    if(!m_reply)
+      download();
   }
 
   void slot_ready_read(void)
