@@ -2420,7 +2420,7 @@ void glitch_ui::slotSwifty(void)
   m_about.setText
     (tr("<html>"
 	"<b>Glitch Version %1</b><br>"
-	"The official version is <b>%2</b>.<br><br>"
+	"The <b>official version</b> is <b>%2</b>.<br><br>"
 	"<b>G</b>raphical<br>"
 	"<b>L</b>ightweight<br>"
 	"<b>I</b>nteractive<br>"
