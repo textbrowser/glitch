@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Alexis Megas.
 
 echo "The command sed may fail on MacOS."
 
@@ -21,8 +22,12 @@ done
 
 FILE="Source/glitch-version.h"
 
-sed -i 's/\(GLITCH_VERSION_STRING "\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
+sed -i \
+    's/\(GLITCH_VERSION_STRING "\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
     $FILE
+sed -i \
+'s/\(GLITCH_VERSION_STRING_LTS "\)[0-9]\+\(\.[0-9]\+\)*"/\1'"$VERSION"'"/' \
+$FILE
 
 FILE="Android/AndroidManifest.xml"
 

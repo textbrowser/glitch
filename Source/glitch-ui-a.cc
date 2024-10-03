@@ -116,7 +116,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_statusBarTimer.start(500);
   m_swifty = new swifty
     (GLITCH_VERSION_STRING,
-     "#define GLITCH_VERSION_STRING",
+     "#define GLITCH_VERSION_STRING_LTS",
      QUrl::fromUserInput("https://raw.githubusercontent.com/"
 			 "textbrowser/glitch/master/Source/glitch-version.h"),
      this);
