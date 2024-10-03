@@ -389,8 +389,7 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   this,
 			   SLOT(slotShowUserFunctions(void)));
   m_contextMenu->addSeparator();
-  m_contextMenu->addAction
-    (tr("Zoom Reset"), this, SLOT(slotZoomReset(void)))->
+  m_contextMenu->addAction(tr("Zoom Reset"), this, SLOT(slotZoomReset(void)))->
     setIcon(QIcon(":/zoom-reset.png"));
   return m_contextMenu;
 }
@@ -964,6 +963,11 @@ qint64 glitch_view::nextId(void) const
 
   glitch_common::discardDatabase(connectionName);
   return id;
+}
+
+qreal glitch_view::scalingFactor(void) const
+{
+  return m_view->scalingFactor();
 }
 
 void glitch_view::adjustScrollBars(void)

@@ -1199,29 +1199,38 @@ void glitch_ui::prepareRedoUndoActions(void)
 void glitch_ui::prepareStatusBar(void)
 {
   if(m_currentView)
-    switch(m_currentView->toolsOperation())
-      {
-      case glitch_tools::Operations::INTELLIGENT:
+    {
+      QString text("");
+
+      switch(m_currentView->toolsOperation())
 	{
-	  showStatusBarMessage(tr("Connections Mode: Intelligent"));
-	  break;
+	case glitch_tools::Operations::INTELLIGENT:
+	  {
+	    text = tr("Connections Mode: Intelligent");
+	    break;
+	  }
+	case glitch_tools::Operations::SELECT:
+	  {
+	    text = tr("Connections Mode: Select");
+	    break;
+	  }
+	case glitch_tools::Operations::WIRE_CONNECT:
+	  {
+	    text = tr("Connections Mode: Wire (Connect)");
+	    break;
+	  }
+	default:
+	  {
+	    text = tr("Connections Mode: Wire (Disconnect)");
+	    break;
+	  }
 	}
-      case glitch_tools::Operations::SELECT:
-	{
-	  showStatusBarMessage(tr("Connections Mode: Select"));
-	  break;
-	}
-      case glitch_tools::Operations::WIRE_CONNECT:
-	{
-	  showStatusBarMessage(tr("Connections Mode: Wire (Connect)"));
-	  break;
-	}
-      default:
-	{
-	  showStatusBarMessage(tr("Connections Mode: Wire (Disconnect)"));
-	  break;
-	}
-      }
+
+      text.append
+	(tr(" | Scaling Factor: %1").
+	 arg(m_currentView->scalingFactor(), 0, 'f', 2));
+      showStatusBarMessage(text);
+    }
   else
     showStatusBarMessage("");
 }

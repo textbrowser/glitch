@@ -705,15 +705,23 @@ void glitch_separated_diagram_window::slotToolsOperationChanged
 {
   if(statusBar())
     {
-      if(operation == glitch_tools::Operations::INTELLIGENT)
-	statusBar()->showMessage(tr("Connections Mode: Intelligent"));
-      else if(operation == glitch_tools::Operations::SELECT)
-	statusBar()->showMessage(tr("Connections Mode: Select"));
-      else if(operation == glitch_tools::Operations::WIRE_CONNECT)
-	statusBar()->showMessage(tr("Connections Mode: Wire (Connect)"));
-      else
-	statusBar()->showMessage(tr("Connections Mode: Wire (Disconnect)"));
+      QString text("");
 
+      if(operation == glitch_tools::Operations::INTELLIGENT)
+	text = tr("Connections Mode: Intelligent");
+      else if(operation == glitch_tools::Operations::SELECT)
+	text = tr("Connections Mode: Select");
+      else if(operation == glitch_tools::Operations::WIRE_CONNECT)
+	text = tr("Connections Mode: Wire (Connect)");
+      else
+	text = tr("Connections Mode: Wire (Disconnect)");
+
+      if(m_view)
+	text.append
+	  (tr(" | Scaling Factor: %1").
+	   arg(m_view->scalingFactor(), 0, 'f', 2));
+
+      statusBar()->showMessage(text);
       statusBar()->repaint();
     }
 }

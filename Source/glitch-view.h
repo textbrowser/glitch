@@ -100,6 +100,7 @@ class glitch_view: public QWidget
   glitch_tools::Operations toolsOperation(void) const;
   glitch_user_functions_model *userFunctionsModel(void) const;
   qint64 nextId(void) const;
+  qreal scalingFactor(void) const;
   virtual QString projectOutputFileExtension(void) const = 0;
   virtual QString source(void) const;
   virtual QStringList keywords(void) const = 0;

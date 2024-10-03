@@ -59,6 +59,16 @@ bool glitch_graphicsview::containsFunction(const QString &name) const
     return false;
 }
 
+qreal glitch_graphicsview::scalingFactor(void) const
+{
+  auto const transform(this->transform());
+
+  if(transform.isScaling())
+    return transform.m11();
+  else
+    return 0.0;
+}
+
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 void glitch_graphicsview::enterEvent(QEnterEvent *event)
 #else

@@ -37,6 +37,7 @@ class glitch_graphicsview: public QGraphicsView
  public:
   glitch_graphicsview(QWidget *parent);
   bool containsFunction(const QString &name) const;
+  qreal scalingFactor(void) const;
   void zoom(const int direction);
 
  private:
