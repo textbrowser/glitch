@@ -2427,7 +2427,7 @@ void glitch_ui::slotSwifty(void)
 	"<b>T</b>ool<br>"
 	"<b>C</b>ompiler<br>"
         "<b>H</b>ybrid<br><br>"
-	"Glitch is a visual compiler and designer for Arduino.<br>"
+	"Glitch is an awesome visual compiler and designer for Arduino.<br>"
 	"Develop through block diagrams.<br>"
 	"Software for and from the margins.<br><br>"
 	"Made with love by textbrowser.<br><br>"
@@ -2516,32 +2516,41 @@ void glitch_ui::slotTabWidgetShortcutActivated(void)
 void glitch_ui::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
-  if(m_ui.tab->currentWidget() != sender())
+  auto view = qobject_cast<glitch_view *> (sender());
+
+  if(m_ui.tab->currentWidget() != view || view == nullptr)
     return;
+
+  QString text("");
 
   switch(operation)
     {
     case glitch_tools::Operations::INTELLIGENT:
       {
-	showStatusBarMessage(tr("Connections Mode: Intelligent"));
+	text = tr("Connections Mode: Intelligent");
 	break;
       }
     case glitch_tools::Operations::SELECT:
       {
-	showStatusBarMessage(tr("Connections Mode: Select"));
+	text = tr("Connections Mode: Select");
 	break;
       }
     case glitch_tools::Operations::WIRE_CONNECT:
       {
-	showStatusBarMessage(tr("Connections Mode: Wire (Connect)"));
+	text = tr("Connections Mode: Wire (Connect)");
 	break;
       }
     default:
       {
-	showStatusBarMessage(tr("Connections Mode: Wire (Disconnect)"));
+	text = tr("Connections Mode: Wire (Disconnect)");
 	break;
       }
     }
+
+  text.append
+    (tr(" | Scaling Factor: %1").
+     arg(m_currentView->scalingFactor(), 0, 'f', 2));
+  showStatusBarMessage(text);
 }
 
 void glitch_ui::slotUndo(void)

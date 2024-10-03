@@ -418,4 +418,6 @@ void glitch_ui::slotZoom(void)
     m_currentView->zoom(-1);
   else
     m_currentView->zoom(0);
+
+  prepareStatusBar();
 }

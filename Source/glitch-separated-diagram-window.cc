@@ -749,4 +749,6 @@ void glitch_separated_diagram_window::slotZoom(void)
     m_view->zoom(-1);
   else
     m_view->zoom(0);
+
+  slotToolsOperationChanged(m_view->toolsOperation());
 }
