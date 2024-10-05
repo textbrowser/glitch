@@ -14,7 +14,7 @@ url = https://github.com/textbrowser/glitch/releases/download/qup
 file = Arduino.pdf
 file = Glitch.1
 file = Glitch.pdf
-file = TO-DO
+file = REMINDERS
 file_destination = Documentation
 url = https://github.com/textbrowser/glitch/releases/download/qup
 
@@ -26,10 +26,10 @@ url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [Unix]
 
-executable = Glitch_PiOS_12_arm
-executable = Glitch_PiOS_12_arm64
-executable = Glitch_Ubuntu_16_04_powerpc
-executable = Glitch_Ubuntu_24_04_amd64
+executable = Glitch_PiOS_12_ARM
+executable = Glitch_PiOS_12_ARM64
+executable = Glitch_Ubuntu_16_04_PowerPC
+executable = Glitch_Ubuntu_24_04_AMD64
 file = ./glitch.desktop
 local_executable = Glitch
 shell = ./glitch.sh
