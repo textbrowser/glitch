@@ -283,6 +283,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotUniteAllDiagrams);
+  connect(m_ui.action_Upload,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotUpload);
   connect(m_ui.action_User_Functions,
 	  &QAction::triggered,
 	  this,

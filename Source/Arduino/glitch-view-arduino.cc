@@ -30,6 +30,7 @@
 #include <QSettings>
 #include <QSplitter>
 #include <QSqlQuery>
+#include <QTextBrowser>
 #include <QTextStream>
 
 #include "Arduino/glitch-object-function-arduino.h"
@@ -84,6 +85,14 @@ glitch_view_arduino::glitch_view_arduino
   m_scene->addItem(proxy);
   m_setupObject->setProxy(proxy);
   proxy->setPos(QPointF(m_loopObject->width() + 45.0, 15.0));
+  connect(&m_ideProcess,
+	  &QProcess::readyReadStandardError,
+	  this,
+	  &glitch_view_arduino::slotIDEProcessOutput);
+  connect(&m_ideProcess,
+	  &QProcess::readyReadStandardOutput,
+	  this,
+	  &glitch_view_arduino::slotIDEProcessOutput);
   connect(m_loopObject,
 	  &glitch_object_loop_arduino::changed,
 	  this,
@@ -137,6 +146,8 @@ glitch_view_arduino::glitch_view_arduino
 
 glitch_view_arduino::~glitch_view_arduino()
 {
+  m_ideProcess.kill();
+  m_ideProcess.waitForFinished();
 }
 
 QString glitch_view_arduino::nextUniqueFunctionName(void) const
@@ -372,6 +383,33 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
   removeFunctionName(name);
 }
 
+void glitch_view_arduino::slotIDEProcessOutput(void)
+{
+  {
+    auto bytes(m_ideProcess.readAllStandardError().trimmed());
+
+    if(bytes.length() > 0)
+      {
+	if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
+	  bytes.append(".");
+
+	m_ideOutput->append(bytes);
+      }
+  }
+
+  {
+    auto bytes(m_ideProcess.readAllStandardOutput().trimmed());
+
+    if(bytes.length() > 0)
+      {
+	if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
+	  bytes.append(".");
+
+	m_ideOutput->append(bytes);
+      }
+  }
+}
+
 void glitch_view_arduino::slotSilentSave(void)
 {
   m_properties["main_splitter_state"] = m_ui.splitter->saveState();
@@ -384,4 +422,30 @@ void glitch_view_arduino::unite(void)
 {
   defaultContextMenu()->deleteLater();
   reparent();
+}
+
+void glitch_view_arduino::upload(void)
+{
+  auto const fileName(m_canvasSettings->outputFile().trimmed());
+
+  if(fileName.isEmpty())
+    {
+      m_ideOutput->append(tr("Empty program output file name."));
+      return;
+    }
+
+  auto const processFileName(m_canvasSettings->projectIDE().trimmed());
+
+  if(processFileName.isEmpty())
+    {
+      m_ideOutput->append(tr("Empty IDE process file name."));
+      return;
+    }
+
+  if(m_ideProcess.state() != QProcess::NotRunning)
+    return;
+
+  m_ideOutput->append(tr("Uploading %1.").arg(fileName));
+  m_ideProcess.start
+    (processFileName, QStringList() << "--upload" << fileName);
 }

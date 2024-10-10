@@ -405,6 +405,12 @@ void glitch_ui::slotUniteAllDiagrams(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_ui::slotUpload(void)
+{
+  if(m_currentView)
+    m_currentView->upload();
+}
+
 void glitch_ui::slotZoom(void)
 {
   auto action = qobject_cast<QAction *> (sender());

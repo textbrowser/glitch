@@ -90,6 +90,7 @@ glitch_view::glitch_view
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
   m_ideOutput = new QTextBrowser(this);
+  m_ideOutput->setPlaceholderText(tr("IDE Output"));
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;

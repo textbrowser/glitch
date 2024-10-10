@@ -28,6 +28,8 @@
 #ifndef _glitch_view_arduino_h_
 #define _glitch_view_arduino_h_
 
+#include <QProcess>
+
 #include "glitch-view.h"
 
 class glitch_object_loop_arduino;
@@ -58,9 +60,11 @@ class glitch_view_arduino: public glitch_view
   void removeFunctionName(const QString &name);
   void separate(void);
   void unite(void);
+  void upload(void);
 
  private:
   QMap<QString, char> m_functionNames;
+  QProcess m_ideProcess;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
   glitch_structures_arduino *m_arduinoStructures;
@@ -72,6 +76,7 @@ class glitch_view_arduino: public glitch_view
   void slotCanvasSettingsChanged(const bool undo);
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
+  void slotIDEProcessOutput(void);
   void slotSilentSave(void);
 };
 
