@@ -967,7 +967,9 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(false);
       m_ui.action_Source_Preview->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
+      m_ui.action_Upload->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
+      m_ui.action_Verify->setEnabled(false);
       m_ui.action_Zoom_In->setEnabled(false);
       m_ui.action_Zoom_Out->setEnabled(false);
       m_ui.action_Zoom_Reset->setEnabled(false);
@@ -1011,7 +1013,9 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Source_Preview->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
+      m_ui.action_Upload->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
+      m_ui.action_Verify->setEnabled(m_currentView);
       m_ui.action_Zoom_In->setEnabled(m_currentView);
       m_ui.action_Zoom_Out->setEnabled(m_currentView);
       m_ui.action_Zoom_Reset->setEnabled(m_currentView);
@@ -1086,6 +1090,8 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Serial_Port_Window->setIcon(QIcon(":/Arduino/serial.png"));
   m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
+  m_ui.action_Verify->setIcon(QIcon(":/verify.png"));
+  m_ui.action_Upload->setIcon(QIcon(":/upload.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
   m_ui.action_Zoom_Reset->setIcon(QIcon(":/zoom-reset.png"));

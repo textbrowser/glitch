@@ -143,6 +143,9 @@
     <addaction name="action_Generate_Source_View"/>
     <addaction name="separator"/>
     <addaction name="action_Show_Project_IDE"/>
+    <addaction name="separator"/>
+    <addaction name="action_Upload"/>
+    <addaction name="action_Verify"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -195,6 +198,17 @@
   <widget class="QToolBar" name="edit_toolbar">
    <property name="windowTitle">
     <string>Glitch: Edit Tool Bar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="project_toolbar">
+   <property name="windowTitle">
+    <string>Glitch: Project Tool Bar</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -497,6 +511,16 @@
   <action name="action_Redo_Undo_Stack">
    <property name="text">
     <string>Redo / Undo Stack...</string>
+   </property>
+  </action>
+  <action name="action_Upload">
+   <property name="text">
+    <string>Upload</string>
+   </property>
+  </action>
+  <action name="action_Verify">
+   <property name="text">
+    <string>Verify</string>
    </property>
   </action>
  </widget>
