@@ -89,6 +89,7 @@ glitch_view::glitch_view
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
+  m_ideOutput = new QTextBrowser(this);
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
@@ -258,6 +259,7 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
   m_ui.bottom_layout->addWidget(m_ash->frame());
+  m_ui.bottom_layout->addWidget(m_ideOutput);
   m_ui.top_layout->addWidget(m_splitter);
   prepareASH(parent);
   prepareDatabaseTables();

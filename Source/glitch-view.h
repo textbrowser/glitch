@@ -38,6 +38,7 @@
 #include "ui_glitch-view.h"
 
 class QSplitter;
+class QTextBrowser;
 class QTreeWidgetItem;
 class glitch_alignment;
 class glitch_ash;
@@ -181,6 +182,7 @@ class glitch_view: public QWidget
   QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
   QString m_fileName;
+  QTextBrowser *m_ideOutput;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
   QTimer m_saveTimer;
