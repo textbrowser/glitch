@@ -291,6 +291,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowUserFunctions);
+  connect(m_ui.action_Verify,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotVerify);
   connect(m_ui.action_View_Tool_Bars,
 	  &QAction::triggered,
 	  this,

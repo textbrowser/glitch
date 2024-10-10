@@ -411,6 +411,12 @@ void glitch_ui::slotUpload(void)
     m_currentView->upload();
 }
 
+void glitch_ui::slotVerify(void)
+{
+  if(m_currentView)
+    m_currentView->verify();
+}
+
 void glitch_ui::slotZoom(void)
 {
   auto action = qobject_cast<QAction *> (sender());

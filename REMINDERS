@@ -370,6 +370,7 @@ Remaining Items
 
 - ASH.
 - Arduino: --build, --verify canvas settings.
+- Arduino: board, port, verbosity.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

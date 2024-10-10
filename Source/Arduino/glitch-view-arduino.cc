@@ -448,9 +448,45 @@ void glitch_view_arduino::upload(void)
     }
 
   if(m_ideProcess.state() != QProcess::NotRunning)
-    return;
+    {
+      m_ideOutput->append(tr("Process running. Please wait."));
+      return;
+    }
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Uploading %1.").arg(fileName));
   m_ideProcess.start
-    (processFileName, QStringList() << "--upload" << fileName);
+    (processFileName, QStringList() << "--upload" << "--verbose" << fileName);
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_view_arduino::verify(void)
+{
+  auto const fileName(m_canvasSettings->outputFile().trimmed());
+
+  if(fileName.isEmpty())
+    {
+      m_ideOutput->append(tr("Empty program output file name."));
+      return;
+    }
+
+  auto const processFileName(m_canvasSettings->projectIDE().trimmed());
+
+  if(processFileName.isEmpty())
+    {
+      m_ideOutput->append(tr("Empty IDE process file name."));
+      return;
+    }
+
+  if(m_ideProcess.state() != QProcess::NotRunning)
+    {
+      m_ideOutput->append(tr("Process running. Please wait."));
+      return;
+    }
+
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  m_ideOutput->append(tr("Verifying %1.").arg(fileName));
+  m_ideProcess.start
+    (processFileName, QStringList() << "--verbose" << "--verify" << fileName);
+  QApplication::restoreOverrideCursor();
 }

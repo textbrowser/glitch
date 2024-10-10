@@ -61,6 +61,7 @@ class glitch_view_arduino: public glitch_view
   void separate(void);
   void unite(void);
   void upload(void);
+  void verify(void);
 
  private:
   QMap<QString, char> m_functionNames;
