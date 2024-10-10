@@ -75,6 +75,7 @@ glitch_view::glitch_view
   m_ui.setupUi(this);
   m_alignment = new glitch_alignment(this);
   m_ash = new glitch_ash(true, this);
+  m_bottomSplitter = new QSplitter(Qt::Vertical, this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
   m_canvasSettings = new glitch_canvas_settings(this);
@@ -259,8 +260,11 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
-  m_ui.bottom_layout->addWidget(m_ash->frame());
-  m_ui.bottom_layout->addWidget(m_ideOutput);
+  m_bottomSplitter->addWidget(m_ash->frame());
+  m_bottomSplitter->addWidget(m_ideOutput);
+  m_bottomSplitter->setStretchFactor(0, 1);
+  m_bottomSplitter->setStretchFactor(1, 0);
+  m_ui.bottom_layout->addWidget(m_bottomSplitter);
   m_ui.top_layout->addWidget(m_splitter);
   prepareASH(parent);
   prepareDatabaseTables();
@@ -507,7 +511,14 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	      {
 		auto string(list.at(i));
 
-		if(string.startsWith("main_splitter_state"))
+		if(string.startsWith("bottom_splitter_state"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["bottom_splitter_state"] =
+		      QByteArray::fromBase64(string.toLatin1());
+		  }
+		else if(string.startsWith("main_splitter_state"))
 		  {
 		    string = string.mid(string.indexOf('=') + 1);
 		    string.remove("\"");
@@ -530,6 +541,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		  }
 	      }
 
+	    m_bottomSplitter->restoreState
+	      (m_properties.value("bottom_splitter_state").toByteArray());
 	    m_rightSplitter->restoreState
 	      (m_properties.value("right_splitter_state").toByteArray());
 	    m_splitter->restoreState

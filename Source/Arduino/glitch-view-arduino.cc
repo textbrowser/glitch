@@ -93,6 +93,10 @@ glitch_view_arduino::glitch_view_arduino
 	  &QProcess::readyReadStandardOutput,
 	  this,
 	  &glitch_view_arduino::slotIDEProcessOutput);
+  connect(m_bottomSplitter,
+	  SIGNAL(splitterMoved(int, int)),
+	  this,
+	  SLOT(slotSilentSave(void)));
   connect(m_loopObject,
 	  &glitch_object_loop_arduino::changed,
 	  this,
@@ -412,6 +416,7 @@ void glitch_view_arduino::slotIDEProcessOutput(void)
 
 void glitch_view_arduino::slotSilentSave(void)
 {
+  m_properties["bottom_splitter_state"] = m_bottomSplitter->saveState();
   m_properties["main_splitter_state"] = m_ui.splitter->saveState();
   m_properties["right_splitter_state"] = m_rightSplitter->saveState();
   m_properties["splitter_state"] = m_splitter->saveState();

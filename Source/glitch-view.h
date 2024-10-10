@@ -180,6 +180,7 @@ class glitch_view: public QWidget
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
+  QSplitter *m_bottomSplitter;
   QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
   QString m_fileName;
