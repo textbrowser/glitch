@@ -362,6 +362,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.menu_Tabs->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
+  m_ui.project_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.project_toolbar->setIconSize(QSize(24, 24));
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -1337,6 +1339,12 @@ void glitch_ui::prepareToolBars(void)
       m_ui.file_toolbar->addAction(m_ui.action_Quit);
     }
 
+  if(m_ui.project_toolbar->actions().isEmpty())
+    {
+      m_ui.project_toolbar->addAction(m_ui.action_Upload);
+      m_ui.project_toolbar->addAction(m_ui.action_Verify);
+    }
+
   if(m_ui.zoom_toolbar->actions().isEmpty())
     {
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_In);
@@ -1349,20 +1357,20 @@ void glitch_ui::restoreSettings(void)
 {
   QSettings settings;
 
+  restoreState(settings.value("main_window/state").toByteArray());
   m_ui.action_View_Tool_Bars->setChecked
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.miscellaneous_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.project_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 
   if(!restoreGeometry(settings.value("main_window/geometry").toByteArray()))
     showMaximized();
-
-  restoreState(settings.value("main_window/state").toByteArray());
 }
 
 void glitch_ui::saveRecentFile(const QString &fileName)
@@ -2602,6 +2610,7 @@ void glitch_ui::slotViewToolBars(void)
   m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.miscellaneous_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.project_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
