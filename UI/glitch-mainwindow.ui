@@ -517,10 +517,16 @@
    <property name="text">
     <string>Upload</string>
    </property>
+   <property name="toolTip">
+    <string>Upload Sketch</string>
+   </property>
   </action>
   <action name="action_Verify">
    <property name="text">
     <string>Verify</string>
+   </property>
+   <property name="toolTip">
+    <string>Verify Sketch</string>
    </property>
   </action>
  </widget>

@@ -406,6 +406,7 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
       m_commands.insert(tr("show"), tr("settings"));
     }
 
+  m_commands.insert(tr("build"), tr("--verbose"));
   m_commands.insert(tr("clear"), "");
   m_commands.insert(tr("clear-history"), "");
   m_commands.insert(tr("cls"), "");
@@ -429,6 +430,7 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
   m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
   m_commands.insert(tr("undo"), "");
+  m_commands.insert(tr("verify"), tr("--verbose"));
   m_isTopLevel = topLevel;
   m_ui.setupUi(this);
   m_ui.text->setCommands(m_commands);
@@ -442,6 +444,25 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
 
 glitch_ash::~glitch_ash()
 {
+}
+
+bool glitch_ash::isValidCommand(const QString &command)
+{
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+  auto const list(command.split(' ', Qt::SkipEmptyParts));
+#else
+  auto const list(command.split(' ', QString::SkipEmptyParts));
+#endif
+  auto state = m_commands.contains(list.value(0));
+
+  foreach(auto const &string, m_commands.value(list.value(0)).split(' '))
+    if(!list.contains(string))
+      {
+	state = false;
+	break;
+      }
+
+  return state;
 }
 
 void glitch_ash::slotCanvasNameChanged(const QString &name)
@@ -560,7 +581,24 @@ void glitch_ash::slotProcessCommand(const QString &command)
     else if(m_commands.
 	    contains(command.split(' ', QString::SkipEmptyParts).value(0)))
 #endif
-      emit processCommand(command);
+      {
+	if(isValidCommand(command))
+	  {
+	    emit processCommand(command);
+	    continue;
+	  }
+
+	auto const index = command.indexOf(' ');
+
+	m_ui.text->append("<b>" + command.mid(0, index) + ":</b>");
+
+	auto list(m_commands.values(command.mid(0, index)));
+
+	std::sort(list.begin(), list.end());
+
+	foreach(auto const &i, list)
+	  m_ui.text->append(i);
+      }
     else
       m_ui.text->append(tr("%1: command not recognized.").arg(command));
   }
