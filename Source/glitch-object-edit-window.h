@@ -88,6 +88,16 @@ class glitch_object_edit_window: public QMainWindow
   {
   }
 
+  void upload(const QStringList &arguments = QStringList())
+  {
+    Q_UNUSED(arguments);
+  }
+
+  void verify(const QStringList &arguments = QStringList())
+  {
+    Q_UNUSED(arguments);
+  }
+
  public slots:
   void slotCopy(void);
   void slotPaste(void);

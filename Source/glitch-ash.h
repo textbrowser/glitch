@@ -102,7 +102,7 @@ class glitch_ash: public QDialog
   QMultiMap<QString, QString> m_commands;
   Ui_glitch_ash m_ui;
   bool m_isTopLevel;
-  bool isValidCommand(const QString &command);
+  bool optionsOptional(const QString &command);
 
  private slots:
   void slotCanvasNameChanged(const QString &name);

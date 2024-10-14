@@ -429,7 +429,7 @@ void glitch_view_arduino::unite(void)
   reparent();
 }
 
-void glitch_view_arduino::upload(void)
+void glitch_view_arduino::upload(const QStringList &arguments)
 {
   auto const fileName(m_canvasSettings->outputFile().trimmed());
 
@@ -456,11 +456,11 @@ void glitch_view_arduino::upload(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Uploading %1.").arg(fileName));
   m_ideProcess.start
-    (processFileName, QStringList() << "--upload" << "--verbose" << fileName);
+    (processFileName, QStringList() << "--upload" << arguments << fileName);
   QApplication::restoreOverrideCursor();
 }
 
-void glitch_view_arduino::verify(void)
+void glitch_view_arduino::verify(const QStringList &arguments)
 {
   auto const fileName(m_canvasSettings->outputFile().trimmed());
 
@@ -487,6 +487,6 @@ void glitch_view_arduino::verify(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Verifying %1.").arg(fileName));
   m_ideProcess.start
-    (processFileName, QStringList() << "--verbose" << "--verify" << fileName);
+    (processFileName, QStringList() << "--verify" << arguments << fileName);
   QApplication::restoreOverrideCursor();
 }

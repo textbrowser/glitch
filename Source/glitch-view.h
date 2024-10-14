@@ -111,8 +111,8 @@ class glitch_view: public QWidget
   virtual void openFunction(const QString &name) const = 0;
   virtual void separate(void) = 0;
   virtual void unite(void) = 0;
-  virtual void upload(void) = 0;
-  virtual void verify(void) = 0;
+  virtual void upload(const QStringList &arguments = QStringList()) = 0;
+  virtual void verify(const QStringList &arguments = QStringList()) = 0;
   void beginMacro(const QString &text);
   void clearSelection(void);
   void deleteItems(void);

@@ -117,6 +117,10 @@ class glitch_ash_state_machine
 	    state = States::Set;
 	    continue;
 	  }
+	else if(token.startsWith(QObject::tr("upload"), Qt::CaseInsensitive))
+	  state = States::Upload;
+	else if(token.startsWith(QObject::tr("verify"), Qt::CaseInsensitive))
+	  state = States::Verify;
 
       state_label:
 
@@ -382,6 +386,50 @@ class glitch_ash_state_machine
 	      state = States::ZZZ;
 	      break;
 	    }
+	  case States::Upload:
+	    {
+	      QStringList list;
+
+	      while(it.hasNext())
+		{
+		  auto const token(it.next());
+
+		  if(token == QObject::tr("--board"))
+		    list << "--board";
+		  else if(token == QObject::tr("--port"))
+		    list << "--port";
+		  else if(token == QObject::tr("--verbose"))
+		    list << "--verbose";
+		  else
+		    list << token;
+		}
+
+	      t->upload(list);
+	      state = States::ZZZ;
+	      break;
+	    }
+	  case States::Verify:
+	    {
+	      QStringList list;
+
+	      while(it.hasNext())
+		{
+		  auto const token(it.next());
+
+		  if(token == QObject::tr("--board"))
+		    list << "--board";
+		  else if(token == QObject::tr("--port"))
+		    list << "--port";
+		  else if(token == QObject::tr("--verbose"))
+		    list << "--verbose";
+		  else
+		    list << token;
+		}
+
+	      t->verify(list);
+	      state = States::ZZZ;
+	      break;
+	    }
 	  default:
 	    {
 	      break;
@@ -410,6 +458,8 @@ class glitch_ash_state_machine
     SetWidgetPosition,
     SetWidgetSize,
     Undo,
+    Upload,
+    Verify,
     ZZZ
   };
 
