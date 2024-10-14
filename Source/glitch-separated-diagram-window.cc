@@ -52,6 +52,8 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
   m_ui.file_toolbar->setIconSize(QSize(24, 24));
   m_ui.miscellaneous_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
+  m_ui.project_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
+  m_ui.project_toolbar->setIconSize(QSize(24, 24));
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.tools_toolbar->setIconSize(QSize(24, 24));
   m_ui.zoom_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
@@ -116,6 +118,14 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotUndo);
+  connect(m_ui.action_Upload,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotUpload);
+  connect(m_ui.action_Verify,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotVerify);
   connect(m_ui.action_Unite_Canvas,
 	  &QAction::triggered,
 	  this,
@@ -192,6 +202,8 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
+      m_ui.action_Upload->setEnabled(true);
+      m_ui.action_Verify->setEnabled(true);
     }
   else
     {
@@ -203,6 +215,8 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
+      m_ui.action_Upload->setEnabled(false);
+      m_ui.action_Verify->setEnabled(false);
     }
 
   prepareRedoUndoActions();
@@ -221,6 +235,8 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
+  m_ui.action_Upload->setIcon(QIcon(":/upload.png"));
+  m_ui.action_Verify->setIcon(QIcon(":/verify.png"));
   m_ui.action_Zoom_In->setIcon(QIcon(":/zoom-in.png"));
   m_ui.action_Zoom_Out->setIcon(QIcon(":/zoom-out.png"));
   m_ui.action_Zoom_Reset->setIcon(QIcon(":/zoom-reset.png"));
@@ -274,6 +290,12 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       m_ui.file_toolbar->addAction(m_ui.action_Save_Diagram);
       m_ui.file_toolbar->addSeparator();
       m_ui.file_toolbar->addAction(m_ui.action_Close_Diagram);
+    }
+
+  if(m_ui.project_toolbar->actions().isEmpty())
+    {
+      m_ui.project_toolbar->addAction(m_ui.action_Upload);
+      m_ui.project_toolbar->addAction(m_ui.action_Verify);
     }
 
   if(m_ui.zoom_toolbar->actions().isEmpty())
@@ -734,6 +756,18 @@ void glitch_separated_diagram_window::slotUndo(void)
       prepareRedoUndoActions();
       slotPageChanged();
     }
+}
+
+void glitch_separated_diagram_window::slotUpload(void)
+{
+  if(m_view)
+    m_view->upload();
+}
+
+void glitch_separated_diagram_window::slotVerify(void)
+{
+  if(m_view)
+    m_view->verify();
 }
 
 void glitch_separated_diagram_window::slotZoom(void)

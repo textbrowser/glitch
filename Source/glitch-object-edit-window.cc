@@ -237,7 +237,7 @@ glitch_object_edit_window::glitch_object_edit_window
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareASH();
 #ifndef Q_OS_ANDROID
-  resize(glitch_ui::s_mainWindow->size());
+  resize(glitch_ui::s_mainWindow->size() / 1.5);
 #endif
 }
 

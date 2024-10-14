@@ -404,6 +404,8 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
       m_commands.insert(tr("generate"), tr("view"));
       m_commands.insert(tr("show"), tr("canvas-settings"));
       m_commands.insert(tr("show"), tr("settings"));
+      m_commands.insert(tr("upload"), tr("--board --port --verbose"));
+      m_commands.insert(tr("verify"), tr("--board --port --verbose"));
     }
 
   m_commands.insert(tr("clear"), "");
@@ -429,8 +431,6 @@ glitch_ash::glitch_ash(const bool topLevel, QWidget *parent):QDialog(parent)
   m_commands.insert(tr("set"), tr("widget-position identifier-1 x,y ..."));
   m_commands.insert(tr("set"), tr("widget-size identifier-1 width,height ..."));
   m_commands.insert(tr("undo"), "");
-  m_commands.insert(tr("upload"), tr("--board --port --verbose"));
-  m_commands.insert(tr("verify"), tr("--board --port --verbose"));
   m_isTopLevel = topLevel;
   m_ui.setupUi(this);
   m_ui.text->setCommands(m_commands);

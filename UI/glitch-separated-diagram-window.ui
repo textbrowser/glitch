@@ -62,6 +62,9 @@
     <addaction name="action_Generate_Source_Clipboard"/>
     <addaction name="action_Generate_Source"/>
     <addaction name="action_Generate_Source_View"/>
+    <addaction name="separator"/>
+    <addaction name="action_Upload"/>
+    <addaction name="action_Verify"/>
    </widget>
    <widget class="QMenu" name="menu_Windows">
     <property name="title">
@@ -295,6 +298,16 @@
   <action name="action_Redo_Undo_Stack">
    <property name="text">
     <string>Redo / Undo Stack...</string>
+   </property>
+  </action>
+  <action name="action_Upload">
+   <property name="text">
+    <string>Upload</string>
+   </property>
+  </action>
+  <action name="action_Verify">
+   <property name="text">
+    <string>Verify</string>
    </property>
   </action>
  </widget>
