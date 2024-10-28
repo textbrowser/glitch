@@ -944,3 +944,13 @@ void glitch_object_edit_window::slotZoomReset(void)
   if(m_editView)
     m_editView->zoom(0);
 }
+
+void glitch_object_edit_window::upload(const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+}
+
+void glitch_object_edit_window::verify(const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+}

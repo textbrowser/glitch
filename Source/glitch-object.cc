@@ -1250,7 +1250,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
       if(!m_editWindow->
 	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
 			 toByteArray()))
-	m_editWindow->resize(parentMainWindow()->size() / 1.5);
+	m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.5);
 
       glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
@@ -1903,7 +1903,7 @@ void glitch_object::showEditWindow(void)
 	     restoreGeometry(m_properties.
 			     value(Properties::EDIT_WINDOW_GEOMETRY).
 			     toByteArray()))
-	    m_editWindow->resize(parentMainWindow()->size() / 1.5);
+	    m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.5);
 
 	  glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif

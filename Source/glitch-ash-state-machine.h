@@ -54,7 +54,7 @@ class glitch_ash_state_machine
 #else
     QListIterator<QString> it(command.split(' ', QString::SkipEmptyParts));
 #endif
-    States state = States::ZZZ;
+    auto state = States::ZZZ;
     auto undoStack = t->undoStack();
 
     while(it.hasNext())
