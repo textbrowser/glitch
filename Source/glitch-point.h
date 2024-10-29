@@ -42,9 +42,15 @@ class glitch_point
     m_x = m_y = 0.0;
   }
 
+  QPointF pos(void) const
+  {
+    return QPointF(m_x, m_y);
+  }
+
   bool operator<(const glitch_point &point) const
   {
-    return m_y < point.m_y ||(qFuzzyCompare(m_y, point.m_y) && m_x < point.m_x);
+    return m_y < point.m_y ||
+      (m_x < point.m_x && qFuzzyCompare(m_y, point.m_y));
   }
 
  private:
