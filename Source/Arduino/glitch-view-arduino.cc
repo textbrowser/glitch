@@ -104,6 +104,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(dockPropertyEditor(QWidget *)),
 	  this,
 	  SLOT(slotDockPropertyEditor(QWidget *)));
+  connect(m_loopObject,
+	  SIGNAL(processCommand(const QString &, const QStringList &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
   connect(m_rightSplitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
@@ -124,6 +128,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(dockPropertyEditor(QWidget *)),
 	  this,
 	  SLOT(slotDockPropertyEditor(QWidget *)));
+  connect(m_setupObject,
+	  SIGNAL(processCommand(const QString &, const QStringList &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
   connect(m_splitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
@@ -411,6 +419,15 @@ void glitch_view_arduino::slotIDEProcessOutput(void)
 	m_ideOutput->append(bytes);
       }
   }
+}
+
+void glitch_view_arduino::slotProcessCommand
+(const QString &command, const QStringList &arguments)
+{
+  if(command == "upload")
+    upload(arguments);
+  else if(command == "verify")
+    verify(arguments);
 }
 
 void glitch_view_arduino::slotSilentSave(void)

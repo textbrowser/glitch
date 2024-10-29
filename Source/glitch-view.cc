@@ -220,6 +220,10 @@ glitch_view::glitch_view
 					     const QString &,
 					     glitch_object *)));
   connect(m_scene,
+	  SIGNAL(processCommand(const QString &, const QStringList &)),
+	  this,
+	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
+  connect(m_scene,
 	  &glitch_scene::saveSignal,
 	  this,
 	  &glitch_view::slotSave);
@@ -1708,6 +1712,13 @@ void glitch_view::slotPreferencesAccepted(void)
 
   m_dockedWidgetPropertyEditors->setVisible(state);
   emit preferencesAccepted();
+}
+
+void glitch_view::slotProcessCommand
+(const QString &command, const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+  Q_UNUSED(command);
 }
 
 void glitch_view::slotResizeScene(void)

@@ -150,6 +150,7 @@ class glitch_object_edit_window: public QMainWindow
   void deleteSignal(void);
   void information(const QString &text);
   void paste(void);
+  void processCommand(const QString &command, const QStringList &arguments);
   void propertyChanged(const QString &property, const QVariant &value);
   void redo(void);
   void saveSignal(void);

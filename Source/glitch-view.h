@@ -212,6 +212,8 @@ class glitch_view: public QWidget
 
  protected slots:
   virtual void slotCanvasSettingsChanged(const bool undo);
+  virtual void slotProcessCommand
+    (const QString &command, const QStringList &arguments);
   void slotChanged(void);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotDockPropertyEditor(QWidget *widget);

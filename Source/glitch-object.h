@@ -482,6 +482,7 @@ class glitch_object: public QWidget
   void copy(void);
   void deletedViaContextMenu(void);
   void dockPropertyEditor(QWidget *widget);
+  void processCommand(const QString &command, const QStringList &arguments);
   void saveSignal(void);
   void simulateDeleteSignal(void);
 };

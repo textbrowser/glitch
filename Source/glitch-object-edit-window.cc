@@ -947,10 +947,10 @@ void glitch_object_edit_window::slotZoomReset(void)
 
 void glitch_object_edit_window::upload(const QStringList &arguments)
 {
-  Q_UNUSED(arguments);
+  emit processCommand("upload", arguments);
 }
 
 void glitch_object_edit_window::verify(const QStringList &arguments)
 {
-  Q_UNUSED(arguments);
+  emit processCommand("verify", arguments);
 }

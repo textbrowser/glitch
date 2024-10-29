@@ -413,6 +413,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  this,
 	  SIGNAL(dockPropertyEditor(QWidget *)),
 	  Qt::UniqueConnection);
+  connect(object,
+	  SIGNAL(processCommand(const QString &, const QStringList &)),
+	  this,
+	  SIGNAL(processCommand(const QString &, const QStringList &)),
+	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,
 	  this,

@@ -1185,6 +1185,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	      m_editView,
 	      &glitch_object_view::slotUndo,
 	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(processCommand(const QString &, const QStringList &)),
+	      this,
+	      SIGNAL(processCommand(const QString &, const QStringList &)),
+	      Qt::UniqueConnection);
     }
   else
     {

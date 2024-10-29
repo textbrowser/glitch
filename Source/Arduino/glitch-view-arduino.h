@@ -78,6 +78,8 @@ class glitch_view_arduino: public glitch_view
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotIDEProcessOutput(void);
+  void slotProcessCommand
+    (const QString &command, const QStringList &arguments);
   void slotSilentSave(void);
 };
 
