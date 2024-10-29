@@ -1242,6 +1242,12 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 
       if(parentView)
 	{
+	  connect
+	    (m_editWindow,
+	     SIGNAL(processCommand(const QString &, const QStringList &)),
+	     parentView,
+	     SLOT(slotProcessCommand(const QString &, const QStringList &)),
+	     Qt::UniqueConnection);
 	  connect(parentView,
 		  &glitch_view::preferencesAccepted,
 		  m_editWindow,
