@@ -27,6 +27,7 @@
 
 #include <QClipboard>
 #include <QFile>
+#include <QFileInfo>
 #include <QSettings>
 #include <QSplitter>
 #include <QSqlQuery>
@@ -455,6 +456,12 @@ void glitch_view_arduino::upload(const QStringList &arguments)
       return;
     }
 
+  if(!QFileInfo(fileName).exists())
+    {
+      m_ideOutput->append(tr("Creating %1.").arg(fileName));
+      generateSourceFile();
+    }
+
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
 
   if(processFileName.isEmpty())
@@ -484,6 +491,12 @@ void glitch_view_arduino::verify(const QStringList &arguments)
     {
       m_ideOutput->append(tr("Empty program output file name."));
       return;
+    }
+
+  if(!QFileInfo(fileName).exists())
+    {
+      m_ideOutput->append(tr("Creating %1.").arg(fileName));
+      generateSourceFile();
     }
 
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
