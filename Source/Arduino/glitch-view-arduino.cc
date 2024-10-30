@@ -456,12 +456,6 @@ void glitch_view_arduino::upload(const QStringList &arguments)
       return;
     }
 
-  if(!QFileInfo(fileName).exists())
-    {
-      m_ideOutput->append(tr("Creating %1.").arg(fileName));
-      generateSourceFile();
-    }
-
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
 
   if(processFileName.isEmpty())
@@ -476,6 +470,8 @@ void glitch_view_arduino::upload(const QStringList &arguments)
       return;
     }
 
+  m_ideOutput->append(tr("Creating %1.").arg(fileName));
+  generateSourceFile();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Uploading %1.").arg(fileName));
   m_ideProcess.start
@@ -493,12 +489,6 @@ void glitch_view_arduino::verify(const QStringList &arguments)
       return;
     }
 
-  if(!QFileInfo(fileName).exists())
-    {
-      m_ideOutput->append(tr("Creating %1.").arg(fileName));
-      generateSourceFile();
-    }
-
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
 
   if(processFileName.isEmpty())
@@ -513,6 +503,8 @@ void glitch_view_arduino::verify(const QStringList &arguments)
       return;
     }
 
+  m_ideOutput->append(tr("Creating %1.").arg(fileName));
+  generateSourceFile();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Verifying %1.").arg(fileName));
   m_ideProcess.start

@@ -1737,7 +1737,7 @@ void glitch_scene::purgeRedoUndoProxies(void)
 
 void glitch_scene::recordProxyOrder(glitch_proxy_widget *proxy)
 {
-  if(!proxy || proxy->isMandatory())
+  if(!proxy || proxy->isMandatory() || proxy->pos().isNull())
     return;
   else if(proxy->object() &&
 	  proxy->object()->objectType().startsWith("decoration"))
@@ -2039,6 +2039,8 @@ void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
 	 arg(proxy->scenePos().x()).arg(proxy->scenePos().y()));
       m_undoStack->push(undoCommand);
     }
+
+  recordProxyOrder(proxy);
 }
 
 void glitch_scene::slotSelectedWidgetsAdjustSize(void)
