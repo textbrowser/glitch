@@ -35,6 +35,7 @@
 
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 {
+  m_defaultOutputDirectory = QDir::homePath() + QDir::separator() + "Glitch";
   m_ui.setupUi(this);
   glitch_variety::sortCombinationBox(m_ui.font_hinting);
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
@@ -56,7 +57,7 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 	  &glitch_preferences::slotSelectOutputDirectory);
   m_ui.display_application_font->setText
     (QApplication::font().toString().trimmed());
-  m_ui.output_directory->setText(QDir::homePath());
+  m_ui.output_directory->setText(m_defaultOutputDirectory);
   m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
   m_ui.zoom_factor->setToolTip
     (tr("[%1, %2]").
@@ -128,7 +129,7 @@ void glitch_preferences::processSettings(void)
     (settings.value("preferences/tear_off_menus", true).toBool());
   m_ui.output_directory->setText
     (QFileInfo(settings.
-	       value("preferences/output_directory", QDir::homePath()).
+	       value("preferences/output_directory", m_defaultOutputDirectory).
 	       toString()).absoluteFilePath());
   m_ui.override_widget_fonts->setChecked
     (settings.value("preferences/override_widget_fonts", true).toBool());
@@ -158,6 +159,11 @@ void glitch_preferences::slotApply(void)
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   settings.setValue("preferences/zoom_factor", m_ui.zoom_factor->value());
+  m_ui.output_directory->setText
+    (QFileInfo(settings.
+	       value("preferences/output_directory").toString()).
+     absoluteFilePath());
+  m_ui.output_directory->selectAll();
   emit accept();
 }
 

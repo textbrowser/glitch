@@ -337,9 +337,12 @@ QString glitch_canvas_settings::name(void) const
 
 QString glitch_canvas_settings::outputFile(void) const
 {
+  auto const path
+    (QSettings().value("preferences/output_directory").toString().trimmed());
+
+  QDir().mkpath(path);
   return QFileInfo
-    (QSettings().value("preferences/output_directory", QDir::homePath()).
-     toString().trimmed() +
+    (path +
      QDir::separator() +
      name() +
      m_outputFileExtension).absoluteFilePath();

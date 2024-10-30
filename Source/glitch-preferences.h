@@ -40,6 +40,7 @@ class glitch_preferences: public QDialog
   void processSettings(void);
 
  private:
+  QString m_defaultOutputDirectory;
   Ui_glitch_preferences m_ui;
   void prepareLanguages(void);
 
