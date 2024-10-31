@@ -220,6 +220,11 @@ void glitch_ui::slotHideTearOffMenu(void)
 #endif
 }
 
+void glitch_ui::slotPrepareStatusBar(void)
+{
+  prepareStatusBar();
+}
+
 void glitch_ui::slotRecentDiagramHovered(QAction *action)
 {
   if(m_recentDiagramHoveredAction)

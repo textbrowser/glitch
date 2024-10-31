@@ -1936,6 +1936,7 @@ void glitch_view::slotUnite(void)
 void glitch_view::slotZoomReset(void)
 {
   m_view->zoom(0);
+  emit zoomReset();
 }
 
 void glitch_view::undo(void)

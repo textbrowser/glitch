@@ -571,6 +571,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 				 ** after m_ui is destroyed.
 				 */
   connect(view,
+	  &glitch_view_arduino::zoomReset,
+	  this,
+	  &glitch_ui::slotPrepareStatusBar);
+  connect(view,
 	  SIGNAL(separate(glitch_view *)),
 	  this,
 	  SLOT(slotSeparate(glitch_view *)));

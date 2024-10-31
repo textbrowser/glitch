@@ -444,6 +444,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 &glitch_view::selectionChanged,
 		 this,
 		 &glitch_separated_diagram_window::slotSelectionChanged);
+      disconnect(m_view,
+		 &glitch_view::zoomReset,
+		 this,
+		 &glitch_separated_diagram_window::slotZoom);
       disconnect
 	(m_view,
 	 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
@@ -472,6 +476,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      &glitch_view::selectionChanged,
 	      this,
 	      &glitch_separated_diagram_window::slotSelectionChanged);
+      connect(m_view,
+	      &glitch_view::zoomReset,
+	      this,
+	      &glitch_separated_diagram_window::slotZoom);
       connect(m_view,
 	      SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	      this,
@@ -772,14 +780,14 @@ void glitch_separated_diagram_window::slotVerify(void)
 
 void glitch_separated_diagram_window::slotZoom(void)
 {
-  auto action = qobject_cast<QAction *> (sender());
-
-  if(!action || !m_view)
+  if(!m_view)
     return;
 
-  if(action == m_ui.action_Zoom_In)
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(action && action == m_ui.action_Zoom_In)
     m_view->zoom(1);
-  else if(action == m_ui.action_Zoom_Out)
+  else if(action && action == m_ui.action_Zoom_Out)
     m_view->zoom(-1);
   else
     m_view->zoom(0);

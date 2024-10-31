@@ -257,6 +257,7 @@ class glitch_view: public QWidget
   void separate(glitch_view *view);
   void toolsOperationChanged(const glitch_tools::Operations operation);
   void unite(glitch_view *view);
+  void zoomReset(void);
 };
 
 #endif
