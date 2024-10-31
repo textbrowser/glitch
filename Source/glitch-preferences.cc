@@ -58,6 +58,9 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
   m_ui.display_application_font->setText
     (QApplication::font().toString().trimmed());
   m_ui.output_directory->setText(m_defaultOutputDirectory);
+  m_ui.output_directory->setToolTip(m_ui.output_directory->text());
+  m_ui.output_directory->setCursorPosition(0);
+  m_ui.output_directory->selectAll();
   m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
   m_ui.zoom_factor->setToolTip
     (tr("[%1, %2]").
@@ -131,6 +134,9 @@ void glitch_preferences::processSettings(void)
     (QFileInfo(settings.
 	       value("preferences/output_directory", m_defaultOutputDirectory).
 	       toString()).absoluteFilePath());
+  m_ui.output_directory->setToolTip(m_ui.output_directory->text());
+  m_ui.output_directory->setCursorPosition(0);
+  m_ui.output_directory->selectAll();
   m_ui.override_widget_fonts->setChecked
     (settings.value("preferences/override_widget_fonts", true).toBool());
   m_ui.zoom_factor->setValue
@@ -162,6 +168,8 @@ void glitch_preferences::slotApply(void)
   m_ui.output_directory->setText
     (QFileInfo(settings.value("preferences/output_directory").toString()).
      absoluteFilePath());
+  m_ui.output_directory->setToolTip(m_ui.output_directory->text());
+  m_ui.output_directory->setCursorPosition(0);
   m_ui.output_directory->selectAll();
   emit accept();
 }
@@ -208,5 +216,6 @@ void glitch_preferences::slotSelectOutputDirectory(void)
       m_ui.output_directory->setText(dialog.selectedFiles().value(0));
       m_ui.output_directory->setToolTip(m_ui.output_directory->text());
       m_ui.output_directory->setCursorPosition(0);
+      m_ui.output_directory->selectAll();
     }
 }

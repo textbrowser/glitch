@@ -63,6 +63,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 #ifdef Q_OS_LINUX
   m_ui.project_ide->setText("/usr/bin/arduino");
 #endif
+  m_ui.project_ide->setToolTip(m_ui.project_ide->text());
   m_ui.project_ide->setCursorPosition(0);
   m_ui.project_ide->selectAll();
   m_ui.project_ide_warning_label->setVisible(false);
