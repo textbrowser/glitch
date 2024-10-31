@@ -64,6 +64,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.project_ide->setText("/usr/bin/arduino");
 #endif
   m_ui.project_ide->setCursorPosition(0);
+  m_ui.project_ide->selectAll();
   m_ui.project_ide_warning_label->setVisible(false);
   m_ui.project_type->setEnabled(false);
   m_ui.reset_source_view_keywords->setIcon(QIcon(":/reset.png"));
@@ -525,11 +526,10 @@ void glitch_canvas_settings::accept(void)
   auto const name(m_ui.name->text().trimmed());
 
   if(name.isEmpty())
-    {
-      m_ui.name->setText(defaultName());
-      m_ui.name->setCursorPosition(0);
-    }
+    m_ui.name->setText(defaultName());
 
+  m_ui.name->setCursorPosition(0);
+  m_ui.name->selectAll();
   setProjectIDE(m_ui.project_ide->text());
   setResult(QDialog::Accepted);
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
@@ -712,9 +712,11 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
+	m_ui.name->selectAll();
 	m_ui.project_ide->setText(projectIDE);
 	m_ui.project_ide->setToolTip(m_ui.project_ide->text());
 	m_ui.project_ide->setCursorPosition(0);
+	m_ui.project_ide->selectAll();
 	m_ui.project_type->setCurrentIndex
 	  (m_ui.project_type->findText(projectType));
 
@@ -827,10 +829,12 @@ void glitch_canvas_settings::setName(const QString &name)
   if(name.trimmed().isEmpty())
     m_ui.name->setText(defaultName());
   else
-    m_ui.name->setText(QString(name).remove("(*)").replace(" ", "-").trimmed());
+    m_ui.name->setText
+      (QString(name).remove("(*)").replace(" ", "-").trimmed());
 
   m_settings[Settings::CANVAS_NAME] = m_ui.name->text();
   m_ui.name->setCursorPosition(0);
+  m_ui.name->selectAll();
 }
 
 void glitch_canvas_settings::setOutputFileExtension(const QString &extension)
@@ -846,6 +850,7 @@ void glitch_canvas_settings::setProjectIDE(const QString &fileName)
     (m_settings.value(Settings::PROJECT_IDE).toString());
   m_ui.project_ide->setToolTip(m_ui.project_ide->text());
   m_ui.project_ide->setCursorPosition(0);
+  m_ui.project_ide->selectAll();
 }
 
 void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
@@ -1102,6 +1107,7 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
       m_ui.project_ide->setText(dialog.selectedFiles().value(0));
       m_ui.project_ide->setToolTip(m_ui.project_ide->text().trimmed());
       m_ui.project_ide->setCursorPosition(0);
+      m_ui.project_ide->selectAll();
     }
 }
 

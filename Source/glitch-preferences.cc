@@ -160,8 +160,7 @@ void glitch_preferences::slotApply(void)
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   settings.setValue("preferences/zoom_factor", m_ui.zoom_factor->value());
   m_ui.output_directory->setText
-    (QFileInfo(settings.
-	       value("preferences/output_directory").toString()).
+    (QFileInfo(settings.value("preferences/output_directory").toString()).
      absoluteFilePath());
   m_ui.output_directory->selectAll();
   emit accept();
