@@ -458,7 +458,12 @@ void glitch_view_arduino::upload(const QStringList &arguments)
 
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
 
-  if(processFileName.isEmpty())
+  if(QFileInfo(processFileName).isExecutable() == false)
+    {
+      m_ideOutput->append(tr("The IDE is not an executable."));
+      return;
+    }
+  else if(processFileName.isEmpty())
     {
       m_ideOutput->append(tr("Empty IDE process file name."));
       return;
@@ -491,7 +496,12 @@ void glitch_view_arduino::verify(const QStringList &arguments)
 
   auto const processFileName(m_canvasSettings->projectIDE().trimmed());
 
-  if(processFileName.isEmpty())
+  if(QFileInfo(processFileName).isExecutable() == false)
+    {
+      m_ideOutput->append(tr("The IDE is not an executable."));
+      return;
+    }
+  else if(processFileName.isEmpty())
     {
       m_ideOutput->append(tr("Empty IDE process file name."));
       return;
