@@ -98,6 +98,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotPaste);
+  connect(m_ui.action_Print,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotPrint);
   connect(m_ui.action_Redo,
 	  &QAction::triggered,
 	  this,
@@ -200,6 +204,7 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 	(QApplication::clipboard());
       m_ui.action_Generate_Source_View->setEnabled(true);
       m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
+      m_ui.action_Print->setEnabled(true);
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
       m_ui.action_Upload->setEnabled(true);
@@ -213,6 +218,7 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Generate_Source_Clipboard->setEnabled(false);
       m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
+      m_ui.action_Print->setEnabled(false);
       m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Upload->setEnabled(false);
@@ -230,6 +236,7 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Find->setIcon(QIcon(":/find.png"));
   m_ui.action_Generate_Source_View->setIcon(QIcon(":/source.png"));
   m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
+  m_ui.action_Print->setIcon(QIcon(":/print.png"));
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
   m_ui.action_Save_Diagram->setIcon(QIcon(":/save.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
@@ -620,6 +627,12 @@ void glitch_separated_diagram_window::slotPreferencesAccepted(void)
 
   m_ui.menu_Edit->setTearOffEnabled
     (settings.value("preferences/tear_off_menus", true).toBool());
+}
+
+void glitch_separated_diagram_window::slotPrint(void)
+{
+  if(m_view)
+    m_view->print();
 }
 
 void glitch_separated_diagram_window::slotRedo(void)
