@@ -122,6 +122,7 @@ class glitch_view: public QWidget
   void launchProjectIDE(void) const;
   void populateToolsMenu(QMenu *menu, QWidget *parent);
   void prepareASH(QWidget *parent);
+  void print(void);
   void push(glitch_undo_command *undoCommand);
   void redo(void);
   void save(void);

@@ -157,6 +157,7 @@ class glitch_ui: public QMainWindow
   void slotPaste(void);
   void slotPreferencesAccepted(void);
   void slotPrepareStatusBar(void);
+  void slotPrint(void);
   void slotProcessCommand(const QString &command);
   void slotQuit(void);
   void slotRecentDiagramHovered(QAction *action);

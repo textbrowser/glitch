@@ -225,6 +225,12 @@ void glitch_ui::slotPrepareStatusBar(void)
   prepareStatusBar();
 }
 
+void glitch_ui::slotPrint(void)
+{
+  if(m_currentView)
+    m_currentView->print();
+}
+
 void glitch_ui::slotRecentDiagramHovered(QAction *action)
 {
   if(m_recentDiagramHoveredAction)

@@ -1205,6 +1205,10 @@ void glitch_view::launchProjectIDE(void) const
     }
 }
 
+void glitch_view::print(void)
+{
+}
+
 void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
 {
   createTools();
