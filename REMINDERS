@@ -242,6 +242,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
+- Print preview.
 - Private Arduino constructors (QWidget), (qint64, QWidget).
 - Promote comment widget (see glitch_object_lineedit).
 - Proper indentation of generated source.
@@ -376,7 +377,6 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Print preview. Avoid Android.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
