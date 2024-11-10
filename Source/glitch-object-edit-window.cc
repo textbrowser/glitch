@@ -56,30 +56,34 @@ glitch_object_edit_window::glitch_object_edit_window
   auto menu = menuBar()->addMenu(tr("&File"));
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
-  m_actions["save"] =
-    menu->addAction
+  m_actions["print"] = menu->addAction
+    (tr("&Print..."), tr("Ctrl+P"), this, SIGNAL(print(void)));
+#else
+  m_actions["print"] = menu->addAction
+    (tr("&Print..."), this, SIGNAL(print(void)), tr("Ctrl+P"));
+#endif
+  menu->addSeparator();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
+  m_actions["save"] = menu->addAction
     (tr("&Save Diagram"), tr("Ctrl+S"), this, SIGNAL(saveSignal(void)));
 #else
-  m_actions["save"] =
-    menu->addAction
+  m_actions["save"] = menu->addAction
     (tr("&Save Diagram"), this, SIGNAL(saveSignal(void)), tr("Ctrl+S"));
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
 #ifdef Q_OS_ANDROID
-  m_actions["close"] =
-    menu->addAction(tr("&Close"), this, SLOT(hide(void)));
+  m_actions["close"] = menu->addAction(tr("&Close"), this, SLOT(hide(void)));
 #else
-  m_actions["close"] =
-    menu->addAction(tr("&Close"), tr("Ctrl+W"), this, SLOT(close(void)));
+  m_actions["close"] = menu->addAction
+    (tr("&Close"), tr("Ctrl+W"), this, SLOT(close(void)));
 #endif
 #else
 #ifdef Q_OS_ANDROID
-  m_actions["close"] =
-    menu->addAction(tr("&Close"), this, SLOT(hide(void)));
+  m_actions["close"] = menu->addAction(tr("&Close"), this, SLOT(hide(void)));
 #else
-  m_actions["close"] =
-    menu->addAction(tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
+  m_actions["close"] = menu->addAction
+    (tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
 #endif
 #endif
   menu = menuBar()->addMenu(tr("&Edit"));
@@ -88,37 +92,37 @@ glitch_object_edit_window::glitch_object_edit_window
 	  this,
 	  &glitch_object_edit_window::slotAboutToShowEditMenu);
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
-  m_actions["undo"] =
-    menu->addAction(tr("Undo"), tr("Ctrl+Z"), this, SIGNAL(undo(void)));
-  m_actions["redo"] =
-    menu->addAction(tr("Redo"), tr("Ctrl+Shift+Z"), this, SIGNAL(redo(void)));
+  m_actions["undo"] = menu->addAction
+    (tr("Undo"), tr("Ctrl+Z"), this, SIGNAL(undo(void)));
+  m_actions["redo"] = menu->addAction
+    (tr("Redo"), tr("Ctrl+Shift+Z"), this, SIGNAL(redo(void)));
 #else
-  m_actions["undo"] =
-    menu->addAction(tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"));
-  m_actions["redo"] =
-    menu->addAction(tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"));
+  m_actions["undo"] = menu->addAction
+    (tr("Undo"), this, SIGNAL(undo(void)), tr("Ctrl+Z"));
+  m_actions["redo"] = menu->addAction
+    (tr("Redo"), this, SIGNAL(redo(void)), tr("Ctrl+Shift+Z"));
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
-  m_actions["copy"] =
-    menu->addAction(tr("&Copy"), tr("Ctrl+C"), this, SIGNAL(copy(void)));
-  m_actions["paste"] =
-    menu->addAction(tr("Paste"), tr("Ctrl+V"), this, SIGNAL(paste(void)));
+  m_actions["copy"] = menu->addAction
+    (tr("&Copy"), tr("Ctrl+C"), this, SIGNAL(copy(void)));
+  m_actions["paste"] = menu->addAction
+    (tr("Paste"), tr("Ctrl+V"), this, SIGNAL(paste(void)));
 #else
-  m_actions["copy"] =
-    menu->addAction(tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"));
-  m_actions["paste"] =
-    menu->addAction(tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"));
+  m_actions["copy"] = menu->addAction
+    (tr("&Copy"), this, SIGNAL(copy(void)), tr("Ctrl+C"));
+  m_actions["paste"] = menu->addAction
+    (tr("Paste"), this, SIGNAL(paste(void)), tr("Ctrl+V"));
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
-  m_actions["delete"] =
-    menu->addAction(tr("&Delete"), tr("Del"), this, SIGNAL(deleteSignal(void)));
+  m_actions["delete"] = menu->addAction
+    (tr("&Delete"), tr("Del"), this, SIGNAL(deleteSignal(void)));
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), tr("Ctrl+A"), this, SIGNAL(selectAll(void)));
 #else
-  m_actions["delete"] =
-    menu->addAction(tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
+  m_actions["delete"] = menu->addAction
+    (tr("&Delete"), this, SIGNAL(deleteSignal(void)), tr("Del"));
   m_actions["select all"] = menu->addAction
     (tr("Select &All"), this, SIGNAL(selectAll(void)), tr("Ctrl+A"));
 #endif
@@ -385,6 +389,7 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("copy")->setIcon(QIcon(":/copy.png"));
   m_actions.value("delete")->setIcon(QIcon(":/delete.png"));
   m_actions.value("paste")->setIcon(QIcon(":/paste.png"));
+  m_actions.value("print")->setIcon(QIcon(":/print.png"));
   m_actions.value("redo")->setIcon(QIcon(":/redo.png"));
   m_actions.value("save")->setIcon(QIcon(":/save.png"));
   m_actions.value("screen mode")->setIcon(QIcon(":/fullscreen.png"));
