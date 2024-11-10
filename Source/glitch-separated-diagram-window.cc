@@ -197,32 +197,46 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
 {
   if(m_view && m_view->scene())
     {
+      m_ui.action_Context_Menu->setEnabled(true);
       m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
       m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
+      m_ui.action_Find->setEnabled(true);
       m_ui.action_Generate_Source->setEnabled(true);
       m_ui.action_Generate_Source_Clipboard->setEnabled
 	(QApplication::clipboard());
       m_ui.action_Generate_Source_View->setEnabled(true);
       m_ui.action_Paste->setEnabled(!glitch_ui::s_copiedObjects.isEmpty());
       m_ui.action_Print->setEnabled(true);
+      m_ui.action_Redo_Undo_Stack->setEnabled(true);
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
+      m_ui.action_Source_Preview->setEnabled(true);
+      m_ui.action_Unite_Canvas->setEnabled(true);
       m_ui.action_Upload->setEnabled(true);
       m_ui.action_Verify->setEnabled(true);
+      m_ui.menu_Zoom->setEnabled(true);
+      m_ui.zoom_toolbar->setEnabled(true);
     }
   else
     {
+      m_ui.action_Context_Menu->setEnabled(false);
       m_ui.action_Copy->setEnabled(false);
       m_ui.action_Delete->setEnabled(false);
+      m_ui.action_Find->setEnabled(false);
       m_ui.action_Generate_Source->setEnabled(false);
       m_ui.action_Generate_Source_Clipboard->setEnabled(false);
       m_ui.action_Generate_Source_View->setEnabled(false);
       m_ui.action_Paste->setEnabled(false);
       m_ui.action_Print->setEnabled(false);
+      m_ui.action_Redo_Undo_Stack->setEnabled(false);
       m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
+      m_ui.action_Source_Preview->setEnabled(false);
+      m_ui.action_Unite_Canvas->setEnabled(false);
       m_ui.action_Upload->setEnabled(false);
       m_ui.action_Verify->setEnabled(false);
+      m_ui.menu_Zoom->setEnabled(false);
+      m_ui.zoom_toolbar->setEnabled(false);
     }
 
   prepareRedoUndoActions();
