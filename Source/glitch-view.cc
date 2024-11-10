@@ -32,10 +32,12 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QMessageBox>
+#include <QPrintPreviewDialog>
+#include <QPrinter>
 #include <QProcess>
 #include <QResizeEvent>
-#include <QSettings>
 #include <QScrollBar>
+#include <QSettings>
 #include <QSplitter>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -1207,6 +1209,18 @@ void glitch_view::launchProjectIDE(void) const
 
 void glitch_view::print(void)
 {
+  QPrinter printer;
+  QScopedPointer<QPrintPreviewDialog> printDialog
+    (new QPrintPreviewDialog(&printer, this));
+
+  connect(printDialog.data(),
+	  SIGNAL(paintRequested(QPrinter *)),
+	  this,
+	  SLOT(slotPrintPreview(QPrinter *)));
+
+  if(printDialog->exec() == QDialog::Accepted)
+    {
+    }
 }
 
 void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)

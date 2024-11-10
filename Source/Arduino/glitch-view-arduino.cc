@@ -151,8 +151,6 @@ glitch_view_arduino::glitch_view_arduino
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);
-  m_ui.splitter->addWidget(m_splitter);
-  m_ui.splitter->addWidget(m_bottomSplitter);
   m_ui.splitter->setStretchFactor(0, 1);
   m_ui.splitter->setStretchFactor(1, 0);
   slotPreferencesAccepted();

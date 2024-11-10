@@ -223,6 +223,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotPaste(void)));
+  connect(m_ui.action_Print,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotPrint);
   connect(m_ui.action_Quit,
 	  &QAction::triggered,
 	  this,
@@ -1097,6 +1101,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Glitch_Preferences->setIcon(QIcon(":/settings.png"));
   m_ui.action_Open_Diagram->setIcon(QIcon(":/open.png"));
   m_ui.action_Paste->setIcon(QIcon(":/paste.png"));
+  m_ui.action_Print->setIcon(QIcon(":/print.png"));
   m_ui.action_Quit->setIcon(QIcon(":/quit.png"));
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
   m_ui.action_Save_As_PNG->setIcon(QIcon(":/png.png"));
