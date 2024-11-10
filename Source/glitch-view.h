@@ -37,6 +37,7 @@
 #include "glitch-tools.h"
 #include "ui_glitch-view.h"
 
+class QPrinter;
 class QSplitter;
 class QTextBrowser;
 class QTreeWidgetItem;
@@ -165,6 +166,7 @@ class glitch_view: public QWidget
 
  private slots:
   void slotCopiedObjectsChanged(void);
+  void slotPrintPreview(QPrinter *printer);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotZoomReset(void);
 

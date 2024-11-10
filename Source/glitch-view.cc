@@ -1210,15 +1210,15 @@ void glitch_view::launchProjectIDE(void) const
 void glitch_view::print(void)
 {
   QPrinter printer;
-  QScopedPointer<QPrintPreviewDialog> printDialog
+  QScopedPointer<QPrintPreviewDialog> dialog
     (new QPrintPreviewDialog(&printer, this));
 
-  connect(printDialog.data(),
+  connect(dialog.data(),
 	  SIGNAL(paintRequested(QPrinter *)),
 	  this,
 	  SLOT(slotPrintPreview(QPrinter *)));
 
-  if(printDialog->exec() == QDialog::Accepted)
+  if(dialog->exec() == QDialog::Accepted)
     {
     }
 }
@@ -1730,6 +1730,16 @@ void glitch_view::slotPreferencesAccepted(void)
 
   m_dockedWidgetPropertyEditors->setVisible(state);
   emit preferencesAccepted();
+}
+
+void glitch_view::slotPrintPreview(QPrinter *printer)
+{
+  if(!printer)
+    return;
+
+  QPainter painter(printer);
+
+  m_scene->render(&painter);
 }
 
 void glitch_view::slotProcessCommand
