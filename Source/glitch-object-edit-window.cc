@@ -27,6 +27,8 @@
 
 #include <QLineEdit>
 #include <QMenuBar>
+#include <QPrintPreviewDialog>
+#include <QPrinter>
 #include <QResizeEvent>
 #include <QSettings>
 #include <QSplitter>
@@ -57,10 +59,10 @@ glitch_object_edit_window::glitch_object_edit_window
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
   m_actions["print"] = menu->addAction
-    (tr("&Print..."), tr("Ctrl+P"), this, SIGNAL(print(void)));
+    (tr("&Print..."), tr("Ctrl+P"), this, SLOT(slotPrint(void)));
 #else
   m_actions["print"] = menu->addAction
-    (tr("&Print..."), this, SIGNAL(print(void)), tr("Ctrl+P"));
+    (tr("&Print..."), this, SLOT(slotPrint(void)), tr("Ctrl+P"));
 #endif
   menu->addSeparator();
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
@@ -836,6 +838,38 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
     m_dockedWidgetPropertyEditors->detach();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
+}
+
+void glitch_object_edit_window::slotPrint(QPrinter *printer)
+{
+  if(!printer)
+    return;
+
+  if(m_editView && m_editView->scene())
+    {
+      QPainter painter(printer);
+
+      m_editView->scene()->render(&painter);
+    }
+}
+
+void glitch_object_edit_window::slotPrint(void)
+{
+  if(m_editView && m_editView->scene())
+    {
+      QPrinter printer;
+      QScopedPointer<QPrintPreviewDialog> dialog
+	(new QPrintPreviewDialog(&printer, this));
+
+      connect(dialog.data(),
+	      SIGNAL(paintRequested(QPrinter *)),
+	      this,
+	      SLOT(slotPrint(QPrinter *)));
+
+      if(dialog->exec() == QDialog::Accepted)
+	{
+	}
+    }
 }
 
 void glitch_object_edit_window::slotShowFullScreenMode(void)

@@ -166,7 +166,7 @@ class glitch_view: public QWidget
 
  private slots:
   void slotCopiedObjectsChanged(void);
-  void slotPrintPreview(QPrinter *printer);
+  void slotPrint(QPrinter *printer);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotZoomReset(void);
 

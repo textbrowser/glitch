@@ -1216,7 +1216,7 @@ void glitch_view::print(void)
   connect(dialog.data(),
 	  SIGNAL(paintRequested(QPrinter *)),
 	  this,
-	  SLOT(slotPrintPreview(QPrinter *)));
+	  SLOT(slotPrint(QPrinter *)));
 
   if(dialog->exec() == QDialog::Accepted)
     {
@@ -1732,7 +1732,7 @@ void glitch_view::slotPreferencesAccepted(void)
   emit preferencesAccepted();
 }
 
-void glitch_view::slotPrintPreview(QPrinter *printer)
+void glitch_view::slotPrint(QPrinter *printer)
 {
   if(!printer)
     return;
