@@ -33,6 +33,16 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.11.12</p>
+<ul>
+<li>Arduino: upload and verify functions.</li>
+<li>Generate output file before launching the IDE.</li>
+<li>Include scaling information in the status bar.</li>
+<li>New LTS version string information for About.</li>
+<li>Object order was incorrect upon loading of diagram because
+  of invalid object position.</li>
+<li>Print.</li>
+</ul>
 <p>2024.09.25</p>
 <ul>
 <li>ASH: copy, paste commands.</li>
