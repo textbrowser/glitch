@@ -1918,16 +1918,12 @@ void glitch_object::showEditWindow(void)
 
 	  glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
-
 	  m_editWindow->restoreState
 	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
 	}
 
-#ifdef Q_OS_ANDROID
-      m_editWindow->showMaximized();
-#else
-      m_editWindow->showNormal();
-#endif
+      m_canvasSettings && m_canvasSettings->maximizeEditWindows() ?
+	m_editWindow->showMaximized() : m_editWindow->showNormal();
       m_editWindow->activateWindow();
       m_editWindow->raise();
     }
