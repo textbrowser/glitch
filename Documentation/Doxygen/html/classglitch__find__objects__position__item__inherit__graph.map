@@ -1,7 +1,0 @@
-<map id="glitch_find_objects_position_item" name="glitch_find_objects_position_item">
-<area shape="rect" id="Node000001" title=" " alt="" coords="35,79,178,119"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,80,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,40,93,77,89,80,59,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="105,5,239,31"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,43,124,80,120,77,152,39"/>
-</map>

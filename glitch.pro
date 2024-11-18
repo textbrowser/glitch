@@ -6,9 +6,8 @@ QMAKE_EXTRA_TARGETS += dmg
 }
 
 unix {
-doxygen.commands = doxygen glitch.doxygen
 purge.commands = find . -name \'*~\' -exec rm {} \;
-QMAKE_EXTRA_TARGETS += doxygen purge
+QMAKE_EXTRA_TARGETS += purge
 }
 
 CONFIG		+= qt release warn_on

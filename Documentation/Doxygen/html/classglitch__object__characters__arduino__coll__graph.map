@@ -1,9 +1,0 @@
-<map id="glitch_object_characters_arduino" name="glitch_object_characters_arduino">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,240,185,280"/>
-<area shape="rect" id="Node000002" href="$classglitch__object__simple__text__arduino.html" title=" " alt="" coords="17,152,173,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,206,98,240,93,240,93,206"/>
-<area shape="rect" id="Node000003" href="$classglitch__object.html" title=" " alt="" coords="43,79,148,104"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,118,98,152,93,152,93,118"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="56,5,135,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="98,44,98,79,93,79,93,44"/>
-</map>
