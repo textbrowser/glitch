@@ -44,7 +44,7 @@
          <property name="documentMode">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="page_1">
+         <widget class="QWidget" name="page_canvas">
           <attribute name="title">
            <string>Canvas</string>
           </attribute>
@@ -520,7 +520,34 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_2">
+         <widget class="QWidget" name="page_display">
+          <attribute name="title">
+           <string>Display</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QCheckBox" name="maximize_edit_windows">
+             <property name="text">
+              <string>Maximize Edit Windows</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_project">
           <attribute name="title">
            <string>Project</string>
           </attribute>
@@ -649,7 +676,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_3">
+         <widget class="QWidget" name="page_source_view">
           <attribute name="title">
            <string>Source View</string>
           </attribute>
@@ -764,7 +791,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_4">
+         <widget class="QWidget" name="page_undo_stack">
           <attribute name="title">
            <string>Undo Stack</string>
           </attribute>
@@ -858,6 +885,7 @@
   <tabstop>wire_color</tabstop>
   <tabstop>wire_type</tabstop>
   <tabstop>wire_width</tabstop>
+  <tabstop>maximize_edit_windows</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>

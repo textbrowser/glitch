@@ -159,6 +159,7 @@ class glitch_canvas_settings: public QDialog
     GENERATE_SOURCE_VIEW_PERIODICALLY,
     KEYWORD_COLORS,
     LOCK_COLOR,
+    MAXIMIZE_EDIT_WINDOWS,
     PROJECT_IDE,
     REDO_UNDO_STACK_SIZE,
     SAVE_PERIODICALLY,
@@ -190,6 +191,7 @@ class glitch_canvas_settings: public QDialog
   QString wireType(void) const;
   bool generatePeriodically(void) const;
   bool generateSourceViewPeriodically(void) const;
+  bool maximizeEditWindows(void) const;
   bool save(QString &error) const;
   bool savePeriodically(void) const;
   bool showCanvasDots(void) const;

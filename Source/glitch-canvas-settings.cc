@@ -218,6 +218,8 @@ settings(void) const
     m_ui.generate_source_view_periodically->isChecked();
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
+  hash[Settings::MAXIMIZE_EDIT_WINDOWS] =
+    m_ui.maximize_edit_windows->isChecked();
   hash[Settings::PROJECT_IDE] = QFileInfo
     (m_ui.project_ide->text()).absoluteFilePath();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();
@@ -372,6 +374,11 @@ bool glitch_canvas_settings::generateSourceViewPeriodically(void) const
     (Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool();
 }
 
+bool glitch_canvas_settings::maximizeEditWindows(void) const
+{
+  return m_settings.value(Settings::MAXIMIZE_EDIT_WINDOWS).toBool();
+}
+
 bool glitch_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -398,6 +405,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
+	   "maximize_edit_windows INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
 	   "project_ide TEXT, "
@@ -421,6 +429,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	    goto done_label;
 	  }
 
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD maximize_edit_windows "
+	   "INTEGER NOT NULL DEFAULT 0");
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
@@ -430,6 +441,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "generate_source_view_periodically, "
 	   "keyword_colors, "
 	   "lock_color, "
+	   "maximize_edit_windows, "
 	   "name, "
 	   "output_file, "
 	   "project_ide, "
@@ -445,7 +457,28 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_type, "
 	   "wire_width) "
 	   "VALUES "
-	   "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	   "(?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?, "
+	   "?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.categories_icon_size->currentText());
 	query.addBindValue(m_ui.dots_grids_color->text().remove('&'));
@@ -454,6 +487,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  (m_ui.generate_source_view_periodically->isChecked());
 	query.addBindValue(keywordColorsFromTableAsString());
 	query.addBindValue(m_ui.lock_color->text().remove('&'));
+	query.addBindValue(m_ui.maximize_edit_windows->isChecked());
 
 	auto name(m_ui.name->text().trimmed());
 
@@ -578,6 +612,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "generate_source_view_periodically, "
 			   "SUBSTR(keyword_colors, 1, 5000), "
 			   "SUBSTR(lock_color, 1, 50), "
+			   "maximize_edit_windows, "
 			   "SUBSTR(name, 1, %1), "
 			   "SUBSTR(output_file, 1, 5000), "
 			   "SUBSTR(project_ide, 1, 5000), "
@@ -615,6 +650,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto const record(query.record());
 	auto generatePeriodically = false;
 	auto generateSourceViewPeriodically = false;
+	auto maximizeEditWindows = false;
 	auto redoUndoStackSize = 0;
 	auto savePeriodically = false;
 	auto showCanvasDots = true;
@@ -641,6 +677,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	    else if(fieldName.contains("lock_color"))
 	      lockColor = QColor
 		(record.value(i).toString().remove('&').trimmed());
+	    else if(fieldName.contains("maximize_edit_windows"))
+	      maximizeEditWindows = record.value(i).toBool();
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_ide"))
@@ -711,6 +749,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.generate_source_view_periodically->setChecked
 	  (generateSourceViewPeriodically);
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
+	m_ui.maximize_edit_windows->setChecked(maximizeEditWindows);
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
 	m_ui.name->selectAll();
@@ -919,6 +958,8 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
   glitch_variety::assignImage(m_ui.lock_color, color);
   m_ui.lock_color->setText(color.name(QColor::HexArgb));
+  m_ui.maximize_edit_windows->setChecked
+    (hash.value(Settings::MAXIMIZE_EDIT_WINDOWS).toBool());
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
   m_ui.save_periodically->setChecked
