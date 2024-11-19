@@ -167,6 +167,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_CANVAS_DOTS,
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
+    TABBED_EDIT_WINDOWS,
     VIEW_UPDATE_MODE,
     WIRE_COLOR,
     WIRE_TYPE,
@@ -197,6 +198,7 @@ class glitch_canvas_settings: public QDialog
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
   bool showOrderIndicators(void) const;
+  bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
   int redoUndoStackSize(void) const;
   void prepare(const QString &fileName);

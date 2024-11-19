@@ -418,6 +418,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  this,
 	  SIGNAL(processCommand(const QString &, const QStringList &)),
 	  Qt::UniqueConnection);
+  connect(object,
+	  SIGNAL(showEditWindow(QMainWindow *)),
+	  this,
+	  SIGNAL(showEditWindow(QMainWindow *)),
+	  Qt::UniqueConnection);
   connect(proxy,
 	  &glitch_proxy_widget::changed,
 	  this,
@@ -1405,8 +1410,8 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		    {
 		      foreach(auto child, object->findChildren<QWidget *> ())
 			if(child &&
-			   child->objectName().
-			   contains(QString::fromUtf8("viewport")))
+			   child->objectName().contains(QString::
+							fromUtf8("viewport")))
 			  {
 			    child->setFocus();
 			    goto exit_label;

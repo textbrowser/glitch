@@ -42,6 +42,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QTableWidget>
+#include <QToolButton>
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
@@ -112,6 +113,7 @@ glitch_view::glitch_view
   m_sourcePreview = new glitch_source_preview(this);
   m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
   m_splitter = new QSplitter(this);
+  m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
   m_userFunctions->setModel
@@ -181,6 +183,23 @@ glitch_view::glitch_view
 	  this,
 	  &glitch_view::slotCopy);
   connect(m_scene,
+	  &glitch_scene::saveSignal,
+	  this,
+	  &glitch_view::slotSave);
+  connect(m_scene,
+	  &glitch_scene::sceneResized,
+	  this,
+	  &glitch_view::slotSceneResized,
+	  Qt::QueuedConnection);
+  connect(m_scene,
+	  &glitch_scene::selectionChanged,
+	  this,
+	  &glitch_view::selectionChanged);
+  connect(m_scene,
+	  &glitch_scene::selectionChanged,
+	  this,
+	  &glitch_view::slotSelectionChanged);
+  connect(m_scene,
 	  SIGNAL(destroyed(QObject *)),
 	  this,
 	  SLOT(slotSceneObjectDestroyed(QObject *)),
@@ -226,22 +245,13 @@ glitch_view::glitch_view
 	  this,
 	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
   connect(m_scene,
-	  &glitch_scene::saveSignal,
+	  SIGNAL(showEditWindow(QMainWindow *)),
 	  this,
-	  &glitch_view::slotSave);
-  connect(m_scene,
-	  &glitch_scene::sceneResized,
+	  SLOT(slotShowEditWindow(QMainWindow *)));
+  connect(m_ui.tab,
+	  SIGNAL(tabCloseRequested(int)),
 	  this,
-	  &glitch_view::slotSceneResized,
-	  Qt::QueuedConnection);
-  connect(m_scene,
-	  &glitch_scene::selectionChanged,
-	  this,
-	  &glitch_view::selectionChanged);
-  connect(m_scene,
-	  &glitch_scene::selectionChanged,
-	  this,
-	  &glitch_view::slotSelectionChanged);
+	  SLOT(slotCloseTab(int)));
   connect(m_undoStack,
 	  SIGNAL(indexChanged(int)),
 	  this,
@@ -275,6 +285,7 @@ glitch_view::glitch_view
   prepareASH(parent);
   prepareDatabaseTables();
   prepareDefaultActions();
+  prepareTabWidget();
 }
 
 glitch_view::~glitch_view()
@@ -1331,6 +1342,30 @@ void glitch_view::prepareDefaultActions(void)
   m_defaultActions << action;
 }
 
+void glitch_view::prepareTabWidget(void)
+{
+  m_ui.tab->setContextMenuPolicy(Qt::CustomContextMenu);
+  m_ui.tab->setDocumentMode(true);
+  m_ui.tab->setElideMode(Qt::ElideRight);
+  m_ui.tab->setStyleSheet("QTabWidget::tab-bar {"
+			  "alignment: left;"
+			  "}");
+  m_ui.tab->setUsesScrollButtons(true);
+  m_ui.tab->tabBar()->setStyleSheet
+    ("QTabBar::tear {border: none; image: none; width: 0px;}");
+
+  foreach(auto toolButton, m_ui.tab->findChildren <QToolButton *> ())
+    if(toolButton)
+      toolButton->setStyleSheet
+	(QString("QToolButton {background-color: %1;"
+		 "border: none;"
+		 "margin-bottom: 0px;"
+		 "margin-top: 0px;"
+		 "}"
+		 "QToolButton::menu-button {border: none;}").
+	 arg(QWidget::palette().color(QWidget::backgroundRole()).name()));
+}
+
 void glitch_view::push(glitch_undo_command *undoCommand)
 {
   if(undoCommand)
@@ -1531,6 +1566,14 @@ void glitch_view::slotChanged(void)
 
   setSceneRect(m_view->size());
   emit changed();
+}
+
+void glitch_view::slotCloseTab(int index)
+{
+  if(index > 0)
+    m_ui.tab->removeTab(index);
+
+  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 }
 
 void glitch_view::slotCopiedObjectsChanged(void)
@@ -1887,6 +1930,26 @@ void glitch_view::slotSeparate(void)
 void glitch_view::slotShowCanvasSettings(void)
 {
   showCanvasSettings();
+}
+
+void glitch_view::slotShowEditWindow(QMainWindow *window)
+{
+  if(!m_canvasSettings->tabbedEditWindows() || !window)
+    return;
+
+  auto const index = m_ui.tab->indexOf(window);
+
+  if(index == -1)
+    {
+      m_ui.tab->addTab
+	(window,
+	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
+	 trimmed());
+      m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
+      m_ui.tab->setTabsClosable(true);
+    }
+  else
+    m_ui.tab->setCurrentIndex(index);
 }
 
 void glitch_view::slotShowFind(void)

@@ -533,6 +533,19 @@
             </widget>
            </item>
            <item>
+            <widget class="QCheckBox" name="tabbed_edit_windows">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;New windows only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Tabbed Edit Windows</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="verticalSpacer_4">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -886,6 +899,7 @@
   <tabstop>wire_type</tabstop>
   <tabstop>wire_width</tabstop>
   <tabstop>maximize_edit_windows</tabstop>
+  <tabstop>tabbed_edit_windows</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>

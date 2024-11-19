@@ -513,8 +513,8 @@ bool glitch_object::mouseOverScrollBar(const QPointF &point) const
     if(scrollBar && scrollBar->isSliderDown())
       return true;
     else if(scrollBar &&
-	    scrollBar->rect().
-	    contains(scrollBar->mapFromGlobal(point.toPoint())))
+	    scrollBar->rect().contains(scrollBar->mapFromGlobal(point.
+								toPoint())))
       return true;
 
   return false;
@@ -1185,6 +1185,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	      m_editView,
 	      &glitch_object_view::slotUndo,
 	      Qt::UniqueConnection);
+      connect(m_editWindow,
+	      SIGNAL(showEditWindow(QMainWindow *)),
+	      m_editView,
+	      SIGNAL(showEditWindow(QMainWindow *)),
+	      Qt::UniqueConnection);
     }
   else
     {
@@ -1206,6 +1211,11 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	      &glitch_object_view::saveSignal,
 	      parentView,
 	      &glitch_view::slotSave,
+	      Qt::UniqueConnection);
+      connect(m_editView,
+	      SIGNAL(showEditWindow(QMainWindow *)),
+	      parentView,
+	      SLOT(slotShowEditWindow(QMainWindow *)),
 	      Qt::UniqueConnection);
       connect(m_editView->scene(),
 	      &glitch_scene::selectionChanged,
@@ -1926,6 +1936,7 @@ void glitch_object::showEditWindow(void)
 	m_editWindow->showMaximized() : m_editWindow->showNormal();
       m_editWindow->activateWindow();
       m_editWindow->raise();
+      emit showEditWindow(m_editWindow);
     }
 }
 

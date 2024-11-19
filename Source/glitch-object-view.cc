@@ -98,6 +98,10 @@ glitch_object_view::glitch_object_view
 	  this,
 	  &glitch_object_view::slotSceneResized,
 	  Qt::QueuedConnection);
+  connect(m_scene,
+	  SIGNAL(showEditWindow(QMainWindow *)),
+	  this,
+	  SIGNAL(showEditWindow(QMainWindow *)));
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,

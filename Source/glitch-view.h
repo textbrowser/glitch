@@ -37,6 +37,7 @@
 #include "glitch-tools.h"
 #include "ui_glitch-view.h"
 
+class QMainWindow;
 class QPrinter;
 class QSplitter;
 class QTextBrowser;
@@ -209,6 +210,7 @@ class glitch_view: public QWidget
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void createTools(void);
+  void prepareTabWidget(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);
@@ -218,6 +220,7 @@ class glitch_view: public QWidget
   virtual void slotProcessCommand
     (const QString &command, const QStringList &arguments);
   void slotChanged(void);
+  void slotCloseTab(int index);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotDockPropertyEditor(QWidget *widget);
   void slotFunctionAdded(const QString &name, const bool isClone);
@@ -240,6 +243,7 @@ class glitch_view: public QWidget
   void slotSceneResized(void);
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
+  void slotShowEditWindow(QMainWindow *window);
   void slotShowTools(void);
   void slotShowUserFunctions(void) const;
   void slotShowWires(void);
@@ -258,6 +262,7 @@ class glitch_view: public QWidget
   void saved(void);
   void selectionChanged(void);
   void separate(glitch_view *view);
+  void showEditWindow(QMainWindow *window);
   void toolsOperationChanged(const glitch_tools::Operations operation);
   void unite(glitch_view *view);
   void zoomReset(void);

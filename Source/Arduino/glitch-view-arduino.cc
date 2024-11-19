@@ -109,6 +109,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(processCommand(const QString &, const QStringList &)),
 	  this,
 	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
+  connect(m_loopObject,
+	  SIGNAL(showEditWindow(QMainWindow *)),
+	  this,
+	  SLOT(slotShowEditWindow(QMainWindow *)));
   connect(m_rightSplitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
@@ -133,6 +137,10 @@ glitch_view_arduino::glitch_view_arduino
 	  SIGNAL(processCommand(const QString &, const QStringList &)),
 	  this,
 	  SLOT(slotProcessCommand(const QString &, const QStringList &)));
+  connect(m_setupObject,
+	  SIGNAL(showEditWindow(QMainWindow *)),
+	  this,
+	  SLOT(slotShowEditWindow(QMainWindow *)));
   connect(m_splitter,
 	  SIGNAL(splitterMoved(int, int)),
 	  this,

@@ -40,6 +40,7 @@
 #include "glitch-point.h"
 #include "glitch-tools.h"
 
+class QMainWindow;
 class QUndoStack;
 class glitch_graphicsview;
 class glitch_object;
@@ -177,6 +178,7 @@ class glitch_scene: public QGraphicsScene
   void processCommand(const QString &command, const QStringList &arguments);
   void saveSignal(void);
   void sceneResized(void);
+  void showEditWindow(QMainWindow *window);
   void wireObjects(void);
 };
 

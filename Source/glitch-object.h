@@ -484,6 +484,7 @@ class glitch_object: public QWidget
   void dockPropertyEditor(QWidget *widget);
   void processCommand(const QString &command, const QStringList &arguments);
   void saveSignal(void);
+  void showEditWindow(QMainWindow *window);
   void simulateDeleteSignal(void);
 };
 

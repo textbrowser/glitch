@@ -158,6 +158,7 @@ class glitch_object_edit_window: public QMainWindow
   void redo(void);
   void saveSignal(void);
   void selectAll(void);
+  void showEditWindow(QMainWindow *window);
   void undo(void);
 };
 

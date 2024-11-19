@@ -35,6 +35,7 @@
 
 #include "glitch-common.h"
 
+class QMainWindow;
 class glitch_alignment;
 class glitch_object;
 class glitch_scene;
@@ -109,6 +110,7 @@ class glitch_object_view: public QGraphicsView
   void copy(void);
   void paste(void);
   void saveSignal(void);
+  void showEditWindow(QMainWindow *window);
 };
 
 #endif
