@@ -1977,6 +1977,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 		   this,
 		   &glitch_view::slotEditWindowClosed);
 
+      window->close();
       m_ui.tab->addTab
 	(window,
 	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
