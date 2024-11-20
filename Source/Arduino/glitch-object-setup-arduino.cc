@@ -157,11 +157,17 @@ void glitch_object_setup_arduino::createEditObjects(void)
   glitch_object::createEditObjects();
 
   if(!m_editView)
-    m_editView = new glitch_object_view
-      (glitch_common::ProjectTypes::ArduinoProject,
-       m_id,
-       m_undoStack,
-       this);
+    {
+      m_editView = new glitch_object_view
+	(glitch_common::ProjectTypes::ArduinoProject,
+	 m_id,
+	 m_undoStack,
+	 this);
+      connect(m_editView,
+	      &glitch_object_view::changed,
+	      this,
+	      &glitch_object_setup_arduino::changed);
+    }
 
   m_editWindow = new glitch_object_edit_window
     (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
@@ -169,11 +175,6 @@ void glitch_object_setup_arduino::createEditObjects(void)
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
   m_editWindow->setWindowTitle(tr("Glitch: setup()"));
-  connect(m_editView,
-	  &glitch_object_view::changed,
-	  this,
-	  &glitch_object_setup_arduino::changed,
-	  Qt::UniqueConnection);
   prepareEditObjects(findNearestGlitchView(m_parent));
 }
 

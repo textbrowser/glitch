@@ -54,20 +54,11 @@ glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 glitch_object_flow_control_arduino::glitch_object_flow_control_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject,
-     m_id,
-     m_undoStack,
-     this);
-  m_editView->setVisible(false);
+  createEditObjects();
   m_flowControlType = FlowControlTypes::BREAK;
   m_type = "arduino-flow-control";
   m_ui.setupUi(this);
   m_ui.flow_control_type->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_editView,
-	  &glitch_object_view::changed,
-	  this,
-	  &glitch_object_flow_control_arduino::changed);
   connect(m_ui.condition,
 	  &QLineEdit::editingFinished,
 	  this,
@@ -170,7 +161,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	 << Qt::endl;
 #endif
 
-  if(m_editView->scene())
+  if(m_editView && m_editView->scene())
     {
       foreach(auto w, m_editView->scene()->orderedObjects())
 	{
@@ -296,7 +287,7 @@ clone(QWidget *parent) const
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty() && m_editView->scene())
+  if(m_copiedChildren.isEmpty() && m_editView && m_editView->scene())
     /*
     ** First, copy!
     */
@@ -394,6 +385,33 @@ void glitch_object_flow_control_arduino::addActions(QMenu &menu)
   addDefaultActions(menu);
 }
 
+void glitch_object_flow_control_arduino::createEditObjects(void)
+{
+  glitch_object::createEditObjects();
+
+  if(!m_editView)
+    {
+      m_editView = new glitch_object_view
+	(glitch_common::ProjectTypes::ArduinoProject,
+	 m_id,
+	 m_undoStack,
+	 this);
+      connect(m_editView,
+	      &glitch_object_view::changed,
+	      this,
+	      &glitch_object_flow_control_arduino::changed);
+    }
+
+  m_editView->setVisible(false);
+  m_editWindow = new glitch_object_edit_window
+    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_undoStack);
+  m_editWindow->setWindowTitle(tr("Glitch: flow control"));
+  prepareEditObjects(findNearestGlitchView(m_parent));
+}
+
 void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 {
   glitch_object::hideOrShowOccupied();
@@ -444,7 +462,8 @@ void glitch_object_flow_control_arduino::save
 			 m_flowControlType == FlowControlTypes::IF ||
 			 m_flowControlType == FlowControlTypes::SWITCH ||
 			 m_flowControlType == FlowControlTypes::WHILE))
-    m_editView->save(db, error);
+    if(m_editView)
+      m_editView->save(db, error);
 }
 
 void glitch_object_flow_control_arduino::setFlowControlType
@@ -614,23 +633,6 @@ void glitch_object_flow_control_arduino::setProperty
     }
 }
 
-void glitch_object_flow_control_arduino::showEditWindow(const bool signal)
-{
-  if(!m_editWindow)
-    {
-      m_editView->setVisible(true);
-      m_editWindow = new glitch_object_edit_window
-	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-      m_editWindow->setCentralWidget(m_editView);
-      m_editWindow->setEditView(m_editView);
-      m_editWindow->setUndoStack(m_undoStack);
-      m_editWindow->setWindowTitle(tr("Glitch: flow control"));
-      prepareEditObjects(findNearestGlitchView(m_parent));
-    }
-
-  glitch_object::showEditWindow(signal);
-}
-
 void glitch_object_flow_control_arduino::slotConditionChanged(void)
 {
   m_ui.condition->setText(simplified(m_ui.condition->text()));
@@ -682,11 +684,12 @@ void glitch_object_flow_control_arduino::slotEdit(void)
       }
     }
 
-  showEditWindow();
-
-  if(m_editWindow)
+  glitch_object::showEditWindow();
+  m_editWindow ? m_editView->setVisible(true) : (void) 0;
+  m_editWindow ?
     m_editWindow->setToolBarVisible // Recorded in the window's state.
-      (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
+    (m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool()) :
+    (void) 0;
 }
 
 void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)

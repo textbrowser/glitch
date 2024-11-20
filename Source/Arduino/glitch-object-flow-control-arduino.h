@@ -86,11 +86,11 @@ class glitch_object_flow_control_arduino: public glitch_object
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   glitch_object_flow_control_arduino *clone(QWidget *parent) const;
   void addActions(QMenu &menu);
+  void createEditObjects(void);
   void hideOrShowOccupied(void);
   void save(const QSqlDatabase &db, QString &error);
   void setFlowControlType(const QString &flowControlType);
   void setProperty(const Properties property, const QVariant &value);
-  void showEditWindow(const bool signal = true);
 
  private:
   glitch_object_flow_control_arduino(QWidget *parent);
