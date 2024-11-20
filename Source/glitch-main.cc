@@ -25,7 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QApplication>
 #include <QDir>
 #ifdef Q_OS_ANDROID
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 1, 0))
@@ -40,6 +39,7 @@
 #include "CocoaInitializer.h"
 #endif
 
+#include "glitch-application.h"
 #include "glitch-ui.h"
 #include "glitch-variety.h"
 #include "glitch-version.h"
@@ -82,15 +82,8 @@ int main(int argc, char *argv[])
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
 #endif
 
-  QApplication qapplication(argc, argv);
-  auto font(qapplication.font());
-
-  font.setStyleStrategy
-    (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
-  qapplication.setFont(font);
-  qapplication.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
-
   QDir dir;
+  glitch_application qapplication(argc, argv);
 
   dir.mkdir(glitch_variety::homePath());
 
@@ -108,7 +101,6 @@ int main(int argc, char *argv[])
   QSettings::setPath(QSettings::IniFormat,
 		     QSettings::UserScope,
                      glitch_variety::homePath());
-  glitch_ui::s_defaultApplicationFont = font;
 
   int rc = 0;
 

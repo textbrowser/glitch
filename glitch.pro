@@ -223,6 +223,7 @@ FORMS          += UI/glitch-ash.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
+                  Source/glitch-application.h \
                   Source/glitch-ash.h \
                   Source/glitch-aware-containers.h \
                   Source/glitch-canvas-preview.h \
@@ -266,6 +267,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-view.h \
                   Source/glitch-wire.h
 SOURCES	       += Source/glitch-alignment.cc \
+                  Source/glitch-application.cc \
                   Source/glitch-ash.cc \
                   Source/glitch-canvas-preview.cc \
                   Source/glitch-canvas-settings.cc \

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QKeyEvent>
 #include <QLineEdit>
 #include <QMenuBar>
 #include <QPrintPreviewDialog>
@@ -91,7 +92,7 @@ glitch_object_edit_window::glitch_object_edit_window
   connect(m_actions.value("close"),
 	  &QAction::triggered,
 	  this,
-	  &glitch_object_edit_window::slotClose);
+	  &glitch_object_edit_window::closedByButton);
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
 	  &QMenu::aboutToShow,
@@ -291,9 +292,36 @@ QString glitch_object_edit_window::objectName(void) const
 
 bool glitch_object_edit_window::event(QEvent *event)
 {
-  if(event && event->type() == QEvent::Show)
-    QTimer::singleShot
-      (150, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
+  if(event)
+    {
+      if(event->type() == QEvent::Shortcut ||
+	 event->type() == QEvent::ShortcutOverride)
+	{
+	  auto keyEvent = static_cast<QKeyEvent *> (event);
+
+	  if(keyEvent)
+	    {
+	      QKeySequence const keySequence
+		(keyEvent->key() | keyEvent->modifiers());
+	      QMapIterator<QString, QAction *> it(m_actions);
+
+	      while(it.hasNext())
+		{
+		  it.next();
+
+		  if(it.value() && it.value()->shortcut() == keySequence)
+		    {
+		      it.value()->activate(QAction::Trigger);
+		      keyEvent->accept();
+		      return true;
+		    }
+		}
+	    }
+	}
+      else if(event->type() == QEvent::Show)
+	QTimer::singleShot
+	  (150, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
+    }
 
   return QMainWindow::event(event);
 }
