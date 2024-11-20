@@ -614,7 +614,7 @@ void glitch_object_flow_control_arduino::setProperty
     }
 }
 
-void glitch_object_flow_control_arduino::showEditWindow(void)
+void glitch_object_flow_control_arduino::showEditWindow(const bool signal)
 {
   if(!m_editWindow)
     {
@@ -628,7 +628,7 @@ void glitch_object_flow_control_arduino::showEditWindow(void)
       prepareEditObjects(findNearestGlitchView(m_parent));
     }
 
-  glitch_object::showEditWindow();
+  glitch_object::showEditWindow(signal);
 }
 
 void glitch_object_flow_control_arduino::slotConditionChanged(void)

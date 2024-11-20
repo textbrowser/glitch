@@ -1023,6 +1023,12 @@ void glitch_object::createActions(void)
       (m_properties.value(Properties::TRANSPARENT).toBool());
 }
 
+void glitch_object::createEditObjects(void)
+{
+  if(m_editWindow)
+    m_editWindow->deleteLater();
+}
+
 void glitch_object::disconnectInputs(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1910,7 +1916,7 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
 }
 
-void glitch_object::showEditWindow(void)
+void glitch_object::showEditWindow(const bool signal)
 {
   if(m_editView && m_editWindow)
     {
@@ -1936,7 +1942,7 @@ void glitch_object::showEditWindow(void)
 	m_editWindow->showMaximized() : m_editWindow->showNormal();
       m_editWindow->activateWindow();
       m_editWindow->raise();
-      emit showEditWindow(m_editWindow);
+      signal ? emit showEditWindow(m_editWindow) : (void) 0;
     }
 }
 

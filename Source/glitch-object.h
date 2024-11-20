@@ -321,11 +321,12 @@ class glitch_object: public QWidget
   virtual glitch_object *clone(QWidget *parent) const = 0;
   virtual void addActions(QMenu &menu) = 0;
   virtual void compressWidget(const bool state);
+  virtual void createEditObjects(void);
   virtual void hideOrShowOccupied(void);
   virtual void save(const QSqlDatabase &db, QString &error);
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
-  virtual void showEditWindow(void);
+  virtual void showEditWindow(const bool signal = true);
   virtual void simulateDelete(void);
   virtual ~glitch_object();
   void addChild(const QPointF &point, glitch_object *object, bool &ok);

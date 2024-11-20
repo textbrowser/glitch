@@ -90,7 +90,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
   void setFlowControlType(const QString &flowControlType);
   void setProperty(const Properties property, const QVariant &value);
-  void showEditWindow(void);
+  void showEditWindow(const bool signal = true);
 
  private:
   glitch_object_flow_control_arduino(QWidget *parent);

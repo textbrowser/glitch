@@ -53,6 +53,7 @@
 #include "glitch-find-objects.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-graphicsview.h"
+#include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
@@ -1935,7 +1936,18 @@ void glitch_view::slotShowCanvasSettings(void)
 void glitch_view::slotShowEditWindow(QMainWindow *window)
 {
   if(!m_canvasSettings->tabbedEditWindows() || !window)
-    return;
+    {
+      auto w = qobject_cast<glitch_object_edit_window *> (window);
+
+      if(w)
+	{
+	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
+	  w->object() ? w->object()->createEditObjects() : (void) 0;
+	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
+	}
+
+      return;
+    }
 
   auto const index = m_ui.tab->indexOf(window);
 

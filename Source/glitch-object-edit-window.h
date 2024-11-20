@@ -58,6 +58,12 @@ class glitch_object_edit_window: public QMainWindow
   ~glitch_object_edit_window();
   QList<glitch_object *> allObjects(void) const;
   QList<glitch_object *> objects(void) const;
+
+  QPointer<glitch_object> object(void) const
+  {
+    return m_object;
+  }
+
   QPointer<QUndoStack> undoStack(void) const;
   QString objectName(void) const;
   glitch_object *find(const qint64 id) const;

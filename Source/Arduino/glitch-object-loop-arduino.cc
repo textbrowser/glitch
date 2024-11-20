@@ -43,28 +43,13 @@ glitch_object_loop_arduino::glitch_object_loop_arduino
 (const qint64 id, QWidget *parent):
   glitch_object_simple_text_arduino("arduino-loop", id, parent)
 {
-  m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject,
-     m_id,
-     m_undoStack,
-     this);
-  m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, this, parent);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowTitle(tr("Glitch: loop()"));
+  createEditObjects();
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::POSITION_LOCKED] = true;
   m_properties[Properties::TRANSPARENT] = true;
   m_text = "loop()";
   m_type = "arduino-loop";
-  connect(m_editView,
-	  &glitch_object_view::changed,
-	  this,
-	  &glitch_object_loop_arduino::changed);
   prepareContextMenu();
-  prepareEditObjects(findNearestGlitchView(parent));
   setName(m_text);
 }
 
@@ -166,6 +151,31 @@ void glitch_object_loop_arduino::addActions(QMenu &menu)
 
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
+}
+
+void glitch_object_loop_arduino::createEditObjects(void)
+{
+  glitch_object::createEditObjects();
+
+  if(!m_editView)
+    m_editView = new glitch_object_view
+      (glitch_common::ProjectTypes::ArduinoProject,
+       m_id,
+       m_undoStack,
+       this);
+
+  m_editWindow = new glitch_object_edit_window
+    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+  m_editWindow->setCentralWidget(m_editView);
+  m_editWindow->setEditView(m_editView);
+  m_editWindow->setUndoStack(m_undoStack);
+  m_editWindow->setWindowTitle(tr("Glitch: loop()"));
+  connect(m_editView,
+	  &glitch_object_view::changed,
+	  this,
+	  &glitch_object_loop_arduino::changed,
+	  Qt::UniqueConnection);
+  prepareEditObjects(findNearestGlitchView(m_parent));
 }
 
 void glitch_object_loop_arduino::hideOrShowOccupied(void)
