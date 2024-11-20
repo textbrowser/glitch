@@ -161,7 +161,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	 << Qt::endl;
 #endif
 
-  if(m_editView && m_editView->scene())
+  if(m_editView->scene())
     {
       foreach(auto w, m_editView->scene()->orderedObjects())
 	{
@@ -287,7 +287,7 @@ clone(QWidget *parent) const
   clone->setFlowControlType(m_ui.flow_control_type->currentText());
   clone->setStyleSheet(styleSheet());
 
-  if(m_copiedChildren.isEmpty() && m_editView && m_editView->scene())
+  if(m_copiedChildren.isEmpty() && m_editView->scene())
     /*
     ** First, copy!
     */
@@ -462,8 +462,7 @@ void glitch_object_flow_control_arduino::save
 			 m_flowControlType == FlowControlTypes::IF ||
 			 m_flowControlType == FlowControlTypes::SWITCH ||
 			 m_flowControlType == FlowControlTypes::WHILE))
-    if(m_editView)
-      m_editView->save(db, error);
+    m_editView->save(db, error);
 }
 
 void glitch_object_flow_control_arduino::setFlowControlType

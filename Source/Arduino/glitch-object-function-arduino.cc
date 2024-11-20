@@ -597,6 +597,41 @@ void glitch_object_function_arduino::compressWidget(const bool state)
   resize(sizeHint().width(), minimumHeight(sizeHint().height()));
 }
 
+void glitch_object_function_arduino::createEditObjects(void)
+{
+  if(!m_isFunctionClone)
+    glitch_object::createEditObjects();
+
+  if(!m_editView)
+    {
+      m_editView = new glitch_object_view
+	(glitch_common::ProjectTypes::ArduinoProject,
+	 m_id,
+	 m_undoStack,
+	 this);
+      m_editView->scene() ?
+	m_editView->scene()->setCanvasSettings(m_canvasSettings) : (void) 0;
+      connect(m_editView,
+	      &glitch_object_view::changed,
+	      this,
+	      &glitch_object_function_arduino::changed);
+    }
+
+  m_editView->setVisible(false);
+
+  if(!m_isFunctionClone)
+    {
+      m_editWindow = new glitch_object_edit_window
+	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+      m_editWindow->setCentralWidget(m_editView);
+      m_editWindow->setEditView(m_editView);
+      m_editWindow->setUndoStack(m_undoStack);
+      m_editWindow->setWindowTitle
+	(tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
+      prepareEditObjects(findNearestGlitchView(m_parent));
+    }
+}
+
 void glitch_object_function_arduino::hideOrShowOccupied(void)
 {
   glitch_object::hideOrShowOccupied();
@@ -634,25 +669,12 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   else
     m_initialized = true;
 
-  m_editView = new glitch_object_view
-    (glitch_common::ProjectTypes::ArduinoProject,
-     m_id,
-     m_undoStack,
-     this);
-  m_editView->scene() ?
-    m_editView->scene()->setCanvasSettings(m_canvasSettings) : (void) 0;
-  m_editView->setVisible(false);
   m_isFunctionClone = false;
   m_type = "arduino-function";
   m_ui.setupUi(this);
   m_ui.return_type->addItems
     (glitch_structures_arduino::nonArrayVariableTypes());
   m_ui.return_type->installEventFilter(new glitch_scroll_filter(this));
-  connect(m_editView,
-	  &glitch_object_view::changed,
-	  this,
-	  &glitch_object_function_arduino::changed,
-	  Qt::UniqueConnection);
   connect(m_ui.asterisk,
 	  SIGNAL(stateChanged(int)),
 	  this,
@@ -663,6 +685,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 	  this,
 	  SLOT(slotReturnTypeChanged(void)),
 	  Qt::UniqueConnection);
+  createEditObjects();
   m_previousAsterisk = m_ui.asterisk->isChecked();
   m_previousReturnType = m_ui.return_type->currentText();
   prepareContextMenu();
@@ -940,22 +963,10 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
 
 void glitch_object_function_arduino::slotEdit(void)
 {
-  if(!m_editWindow && !m_isFunctionClone)
-    {
-      m_editView->setVisible(true);
-      m_editWindow = new glitch_object_edit_window
-	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-      m_editWindow->setCentralWidget(m_editView);
-      m_editWindow->setEditView(m_editView);
-      m_editWindow->setUndoStack(m_undoStack);
-      m_editWindow->setWindowTitle
-	(tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
-      prepareEditObjects(findNearestGlitchView(m_parent));
-    }
-
   if(!m_isFunctionClone && m_editWindow)
     {
       glitch_object::showEditWindow();
+      m_editView->setVisible(true);
       m_editWindow->setToolBarVisible // Recorded in the window's state.
 	(m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
       return;
