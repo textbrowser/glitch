@@ -139,6 +139,7 @@ class glitch_object_edit_window: public QMainWindow
 
  private slots:
   void slotAboutToShowEditMenu(void);
+  void slotClose(void);
   void slotDockPropertyEditor(QWidget *widget);
   void slotHideTearOffMenu(void);
   void slotPrint(QPrinter *printer);
@@ -155,6 +156,7 @@ class glitch_object_edit_window: public QMainWindow
 
  signals:
   void closed(void);
+  void closedByButton(void);
   void copy(void);
   void deleteSignal(void);
   void information(const QString &text);

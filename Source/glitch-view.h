@@ -223,6 +223,7 @@ class glitch_view: public QWidget
   void slotCloseTab(int index);
   void slotCustomContextMenuRequested(const QPoint &point);
   void slotDockPropertyEditor(QWidget *widget);
+  void slotEditWindowClosed(void);
   void slotFunctionAdded(const QString &name, const bool isClone);
   void slotFunctionDeleted(const QString &name);
   void slotFunctionNameChanged(const QString &after,

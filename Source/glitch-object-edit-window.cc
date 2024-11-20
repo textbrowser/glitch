@@ -88,6 +88,10 @@ glitch_object_edit_window::glitch_object_edit_window
     (tr("&Close"), this, SLOT(close(void)), tr("Ctrl+W"));
 #endif
 #endif
+  connect(m_actions.value("close"),
+	  &QAction::triggered,
+	  this,
+	  &glitch_object_edit_window::slotClose);
   menu = menuBar()->addMenu(tr("&Edit"));
   connect(menu,
 	  &QMenu::aboutToShow,
@@ -786,6 +790,11 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
     statusBar()->showMessage
       (tr("%1 Item(s) Selected").
        arg(m_editView->scene()->selectedItems().size()));
+}
+
+void glitch_object_edit_window::slotClose(void)
+{
+  emit closedByButton();
 }
 
 void glitch_object_edit_window::slotCopy(void)

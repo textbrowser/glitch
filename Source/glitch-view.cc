@@ -1624,6 +1624,21 @@ void glitch_view::slotDockPropertyEditor(QWidget *widget)
     (qobject_cast<glitch_floating_context_menu *> (widget));
 }
 
+void glitch_view::slotEditWindowClosed(void)
+{
+  auto widget = qobject_cast<QWidget *> (sender());
+
+  if(widget)
+    {
+      auto const index = m_ui.tab->indexOf(widget);
+
+      if(index > 0)
+	m_ui.tab->removeTab(index);
+    }
+
+  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+}
+
 void glitch_view::slotFonts(void)
 {
   QFontDialog dialog(this);
@@ -1942,6 +1957,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       if(w)
 	{
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
+	  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
 	}
@@ -1953,12 +1969,27 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 
   if(index == -1)
     {
+      auto w = qobject_cast<glitch_object_edit_window *> (window);
+
+      if(w)
+	disconnect(w,
+		   &glitch_object_edit_window::closedByButton,
+		   this,
+		   &glitch_view::slotEditWindowClosed);
+
       m_ui.tab->addTab
 	(window,
 	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
 	 trimmed());
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
       m_ui.tab->setTabsClosable(true);
+
+      if(w)
+	connect
+	  (w,
+	   &glitch_object_edit_window::closedByButton,
+	   this,
+	   &glitch_view::slotEditWindowClosed);
     }
   else
     m_ui.tab->setCurrentIndex(index);
