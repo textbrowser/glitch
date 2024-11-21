@@ -41,7 +41,14 @@ class glitch_tab: public QTabWidget
   glitch_tab(QWidget *parent);
   ~glitch_tab();
   QTabBar *tabBar(void) const;
+
+  int addTab(QWidget *widget, const QString &title)
+  {
+    return QTabWidget::addTab(widget, title);
+  }
+
   int addTab(glitch_view *view, const QIcon &icon, const QString &label);
+  void disableSeparation(void);
 
  private:
   glitch_tab_tabbar *m_tabBar;

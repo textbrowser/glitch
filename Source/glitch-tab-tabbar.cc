@@ -38,6 +38,7 @@
 
 glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
 {
+  m_disableSeparation = false;
   setContextMenuPolicy(Qt::CustomContextMenu);
   setDocumentMode(true);
   setElideMode(Qt::ElideRight);
@@ -105,6 +106,7 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 	   qMax(size.width(), rect().width() / qMax(1, count())),
 	   preferred);
 
+      size.setHeight(5 + size.height());
       size.setWidth(preferredTabWidth);
     }
 
@@ -134,8 +136,19 @@ preferredCloseButtonPositionOpposite(void) const
 #endif
 }
 
+void glitch_tab_tabbar::disableSeparation(void)
+{
+  m_disableSeparation = true;
+}
+
 void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
 {
+  if(m_disableSeparation)
+    {
+      QTabBar::mouseMoveEvent(event);
+      return;
+    }
+
 #ifdef Q_OS_ANDROID
   QTabBar::mouseMoveEvent(event);
   return;

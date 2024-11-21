@@ -28,8 +28,9 @@
 #ifndef _glitch_tab_tabbar_h_
 #define _glitch_tab_tabbar_h_
 
-#include <QTabBar>
 #include <QDragEnterEvent>
+#include <QTabBar>
+
 class glitch_tab_tabbar: public QTabBar
 {
   Q_OBJECT
@@ -38,8 +39,10 @@ class glitch_tab_tabbar: public QTabBar
   glitch_tab_tabbar(QWidget *parent);
   ~glitch_tab_tabbar();
   QTabBar::ButtonPosition preferredCloseButtonPositionOpposite(void) const;
+  void disableSeparation(void);
 
  private:
+  bool m_disableSeparation;
   QSize tabSizeHint(int index) const;
   void mouseMoveEvent(QMouseEvent *event);
 

@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QTabWidget" name="tab">
+    <widget class="glitch_tab" name="tab">
      <property name="elideMode">
       <enum>Qt::ElideRight</enum>
      </property>
@@ -21,7 +21,7 @@
      </property>
      <widget class="QWidget" name="page_1">
       <attribute name="title">
-       <string>Main</string>
+       <string>Primary Diagram</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -43,6 +43,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glitch_tab</class>
+   <extends>QTabWidget</extends>
+   <header>glitch-tab.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

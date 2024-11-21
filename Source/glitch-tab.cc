@@ -90,3 +90,8 @@ int glitch_tab::addTab
   pushButton->setToolTip(tr("Save"));
   return index;
 }
+
+void glitch_tab::disableSeparation(void)
+{
+  m_tabBar->disableSeparation();
+}

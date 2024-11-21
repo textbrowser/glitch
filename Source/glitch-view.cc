@@ -1345,26 +1345,9 @@ void glitch_view::prepareDefaultActions(void)
 
 void glitch_view::prepareTabWidget(void)
 {
-  m_ui.tab->setContextMenuPolicy(Qt::CustomContextMenu);
-  m_ui.tab->setDocumentMode(true);
-  m_ui.tab->setElideMode(Qt::ElideRight);
-  m_ui.tab->setStyleSheet("QTabWidget::tab-bar {"
-			  "alignment: left;"
-			  "}");
-  m_ui.tab->setUsesScrollButtons(true);
-  m_ui.tab->tabBar()->setStyleSheet
-    ("QTabBar::tear {border: none; image: none; width: 0px;}");
-
-  foreach(auto toolButton, m_ui.tab->findChildren <QToolButton *> ())
-    if(toolButton)
-      toolButton->setStyleSheet
-	(QString("QToolButton {background-color: %1;"
-		 "border: none;"
-		 "margin-bottom: 0px;"
-		 "margin-top: 0px;"
-		 "}"
-		 "QToolButton::menu-button {border: none;}").
-	 arg(QWidget::palette().color(QWidget::backgroundRole()).name()));
+  m_ui.tab->disableSeparation();
+  m_ui.tab->setContextMenuPolicy(Qt::NoContextMenu);
+  m_ui.tab->tabBar()->setContextMenuPolicy(Qt::NoContextMenu);
 }
 
 void glitch_view::push(glitch_undo_command *undoCommand)
