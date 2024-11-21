@@ -130,6 +130,7 @@ class glitch_object_edit_window: public QMainWindow
      const qint64 id,
      glitch_object *object) const;
   bool event(QEvent *event);
+  bool eventFilter(QObject *object, QEvent *event);
   void closeEvent(QCloseEvent *event);
   void hideEvent(QHideEvent *event);
   void prepareASH(void);

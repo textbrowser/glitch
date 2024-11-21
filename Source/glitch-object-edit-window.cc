@@ -38,6 +38,7 @@
 #include <QtDebug>
 
 #include "Arduino/glitch-structures-arduino.h"
+#include "glitch-application.h"
 #include "glitch-ash.h"
 #include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
@@ -245,6 +246,7 @@ glitch_object_edit_window::glitch_object_edit_window
 	  SIGNAL(splitterMoved(int, int)),
 	  this,
 	  SLOT(slotSplitterMoved(void)));
+  installEventFilter(this);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareASH();
 #ifndef Q_OS_ANDROID
@@ -294,36 +296,46 @@ bool glitch_object_edit_window::event(QEvent *event)
 {
   if(event)
     {
-      if(event->type() == QEvent::Shortcut ||
-	 event->type() == QEvent::ShortcutOverride)
-	{
-	  auto keyEvent = static_cast<QKeyEvent *> (event);
-
-	  if(keyEvent)
-	    {
-	      QKeySequence const keySequence
-		(keyEvent->key() | keyEvent->modifiers());
-	      QMapIterator<QString, QAction *> it(m_actions);
-
-	      while(it.hasNext())
-		{
-		  it.next();
-
-		  if(it.value() && it.value()->shortcut() == keySequence)
-		    {
-		      it.value()->activate(QAction::Trigger);
-		      keyEvent->accept();
-		      return true;
-		    }
-		}
-	    }
-	}
-      else if(event->type() == QEvent::Show)
+      if(event->type() == QEvent::Show)
 	QTimer::singleShot
 	  (150, this, &glitch_object_edit_window::slotAboutToShowEditMenu);
     }
 
   return QMainWindow::event(event);
+}
+
+bool glitch_object_edit_window::eventFilter(QObject *object, QEvent *event)
+{
+  if(!event || !object)
+    return QMainWindow::eventFilter(object, event);
+
+  if(event->type() == QEvent::Shortcut ||
+     event->type() == QEvent::ShortcutOverride)
+    {
+      auto keyEvent = static_cast<QKeyEvent *> (event);
+
+      if(keyEvent)
+	{
+	  QKeySequence const keySequence
+	    (keyEvent->key() | keyEvent->modifiers());
+	  QMapIterator<QString, QAction *> it(m_actions);
+
+	  while(it.hasNext())
+	    {
+	      it.next();
+
+	      if(it.value() && it.value()->shortcut() == keySequence)
+		{
+		  glitch_application::s_blockShortcuts = true;
+		  it.value()->activate(QAction::Trigger);
+		  keyEvent->accept();
+		  return true;
+		}
+	    }
+	}
+    }
+
+  return QMainWindow::eventFilter(object, event);
 }
 
 glitch_object *glitch_object_edit_window::find

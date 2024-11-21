@@ -308,6 +308,7 @@ Completed Items
 - Set focus on plain-text-edit during mouse-press event. Discover the
   "viewport" widget.
 - Shadow copies of loop() and setup().
+- Shortcuts and tabbed edit windows.
 - Shortcuts in object views.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
@@ -380,7 +381,6 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Shortcuts and tabbed edit windows.
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with

@@ -31,6 +31,8 @@
 #include "glitch-application.h"
 #include "glitch-ui.h"
 
+bool glitch_application::s_blockShortcuts = false;
+
 glitch_application::glitch_application(int &argc, char **argv):
   QApplication(argc, argv)
 {
@@ -47,5 +49,14 @@ glitch_application::glitch_application(int &argc, char **argv):
 
 bool glitch_application::eventFilter(QObject *object, QEvent *event)
 {
+  if(!event || !object)
+    return QApplication::eventFilter(object, event);
+
+  if(event->type() == QEvent::Shortcut && s_blockShortcuts)
+    {
+      s_blockShortcuts = false;
+      return true;
+    }
+
   return QApplication::eventFilter(object, event);
 }
