@@ -1726,11 +1726,9 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 void glitch_ui::slotDelayedToolBarPreparation(void)
 {
   m_ui.miscellaneous_toolbar->clear();
-  m_ui.miscellaneous_toolbar->setVisible
-    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.miscellaneous_toolbar->setVisible(false);
   m_ui.tools_toolbar->clear();
-  m_ui.tools_toolbar->setVisible
-    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible(false);
 
   if(m_currentView)
     {
@@ -1851,15 +1849,18 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 #endif
       toolButton->setToolTip(tr("Miscellaneous Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
+
+      /*
+      ** Tools.
+      */
+
+      m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
     }
 
-  if(m_currentView)
-    /*
-    ** Tools.
-    */
-
-    m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
-
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible
+    (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   repaint();
 }
 
