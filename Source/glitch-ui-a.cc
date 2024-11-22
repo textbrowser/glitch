@@ -1620,11 +1620,9 @@ void glitch_ui::slotCloseDiagram(int index)
 	}
 
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-      m_ui.miscellaneous_toolbar->clear();
       m_ui.tab->removeTab(index);
-      m_ui.tools_toolbar->clear();
-      view->deleteLater();
       QApplication::restoreOverrideCursor();
+      QTimer::singleShot(150, view, SLOT(deleteLater(void)));
     }
   else
     m_ui.tab->removeTab(index);
