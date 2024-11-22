@@ -1622,6 +1622,11 @@ void glitch_ui::slotCloseDiagram(int index)
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
       m_ui.tab->removeTab(index);
       QApplication::restoreOverrideCursor();
+
+      /*
+      ** Avoid flickering of tool bar buttons.
+      */
+
       QTimer::singleShot(150, view, SLOT(deleteLater(void)));
     }
   else
@@ -1724,9 +1729,9 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 void glitch_ui::slotDelayedToolBarPreparation(void)
 {
   m_ui.miscellaneous_toolbar->clear();
-  m_ui.miscellaneous_toolbar->setVisible(false);
+  m_ui.miscellaneous_toolbar->setVisible(false); // Avoid flicker.
   m_ui.tools_toolbar->clear();
-  m_ui.tools_toolbar->setVisible(false);
+  m_ui.tools_toolbar->setVisible(false); // Avoid flicker.
 
   if(m_currentView)
     {
