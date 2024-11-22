@@ -214,7 +214,7 @@ Completed Items
 - List of recent files.
 - Lock color (similar to selection color).
 - Menu hovering and status bar text. QStatusTipEvent.
-- Miniture views.
+- Miniature views.
 - Modern Qt connect() (except for QOverload() (PowerPC)).
 - Movement via arrows. Increase distance if Shift is depressed.
 - Multiple inputs or single input? Single!
@@ -353,7 +353,7 @@ Completed Items
 - Windows 10, 11, etc. Deprecate Windows 7.
 - Windows distclean.
 - Wire color setting.
-- Wire is not intially drawn if objects are connected at a great distance.
+- Wire is not initially drawn if objects are connected at a great distance.
   Set initial bounding rectangle.
 - Wire options:
   color alpha
