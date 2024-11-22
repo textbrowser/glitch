@@ -1370,6 +1370,8 @@ void glitch_ui::prepareToolBars(void)
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Out);
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Reset);
     }
+
+  repaint();
 }
 
 void glitch_ui::restoreSettings(void)
@@ -1848,6 +1850,8 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
     */
 
     m_ui.tools_toolbar->addActions(m_currentView->alignmentActions());
+
+  repaint();
 }
 
 void glitch_ui::slotDelete(void)
