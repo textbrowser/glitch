@@ -1773,32 +1773,35 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       toolButton->setToolTip(tr("Connection Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
 
-      QList<QIcon> icons;
-      QStringList data;
-      QStringList texts;
+      static QStringList const data
+	(QStringList()
+	 << "adjust-all-sizes"
+	 << "adjust-sizes"
+	 << "compress-widgets"
+	 << "disconnect-widgets"
+	 << "fonts"
+	 << "lock-positions"
+	 << "widget-properties");
+      static QList<QIcon> const icons
+	(QList<QIcon> ()
+	 << QIcon(":/adjust-size.png")
+	 << QIcon(":/adjust-size.png")
+	 << QIcon(":/compress.png")
+	 << QIcon(":/disconnect.png")
+	 << QIcon(":/font.png")
+	 << QIcon(":/pin.png")
+	 << QIcon(":/widget-properties.png"));
+      static QStringList const texts
+	(QStringList()
+	 << tr("Adjust Size(s) (All Widgets)")
+	 << tr("Adjust Size(s) (Selected Widget(s))")
+	 << tr("(De)compress Selected Widget(s)")
+	 << tr("Disconnect Selected Widget(s)")
+	 << tr("Fonts (All Widgets)...")
+	 << tr("(Un)lock Position(s) (Selected Widget(s))")
+	 << tr("Widget(s) Properties (Selected Widget(s))..."));
 
-      data << "adjust-all-sizes"
-	   << "adjust-sizes"
-	   << "compress-widgets"
-	   << "disconnect-widgets"
-	   << "fonts"
-	   << "lock-positions"
-	   << "widget-properties";
-      icons << QIcon(":/adjust-size.png")
-	    << QIcon(":/adjust-size.png")
-	    << QIcon(":/compress.png")
-	    << QIcon(":/disconnect.png")
-	    << QIcon(":/font.png")
-	    << QIcon(":/pin.png")
-	    << QIcon(":/widget-properties.png");
       menu = new QMenu(m_currentView);
-      texts << tr("Adjust Size(s) (All Widgets)")
-	    << tr("Adjust Size(s) (Selected Widget(s))")
-	    << tr("(De)compress Selected Widget(s)")
-	    << tr("Disconnect Selected Widget(s)")
-	    << tr("Fonts (All Widgets)...")
-	    << tr("(Un)lock Position(s) (Selected Widget(s))")
-	    << tr("Widget(s) Properties (Selected Widget(s))...");
 
       for(int i = 0; i < data.size(); i++)
 	{
