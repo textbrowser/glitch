@@ -1758,7 +1758,10 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 #endif
       m_currentView->populateToolsMenu(menu, this);
       toolButton->setArrowType(Qt::NoArrow);
-      toolButton->setIcon(QIcon(":/wire.png"));
+
+      static auto const iconWire(QIcon(":/wire.png"));
+
+      toolButton->setIcon(iconWire);
       toolButton->setMenu(menu);
 #ifdef Q_OS_MACOS
 #else
@@ -1831,7 +1834,10 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	      &QToolButton::showMenu);
 #endif
       toolButton->setArrowType(Qt::NoArrow);
-      toolButton->setIcon(QIcon(":/tools.png"));
+
+      static auto const iconTools(QIcon(":/tools.png"));
+
+      toolButton->setIcon(iconTools);
       toolButton->setMenu(menu);
 #ifdef Q_OS_MACOS
 #else
