@@ -287,6 +287,7 @@ glitch_view::glitch_view
   prepareDatabaseTables();
   prepareDefaultActions();
   prepareTabWidget();
+  prepareTabWidgetCloseButtons();
 }
 
 glitch_view::~glitch_view()
@@ -1350,6 +1351,18 @@ void glitch_view::prepareTabWidget(void)
   m_ui.tab->tabBar()->setContextMenuPolicy(Qt::NoContextMenu);
 }
 
+void glitch_view::prepareTabWidgetCloseButtons(void)
+{
+  m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide) ?
+    m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide)->deleteLater() :
+    (void) 0;
+  m_ui.tab->tabBar()->tabButton(0, QTabBar::RightSide) ?
+    m_ui.tab->tabBar()->tabButton(0, QTabBar::RightSide)->deleteLater() :
+    (void) 0;
+  m_ui.tab->tabBar()->setTabButton(0, QTabBar::LeftSide, nullptr);
+  m_ui.tab->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
+}
+
 void glitch_view::push(glitch_undo_command *undoCommand)
 {
   if(undoCommand)
@@ -1558,6 +1571,7 @@ void glitch_view::slotCloseTab(int index)
     m_ui.tab->removeTab(index);
 
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+  prepareTabWidgetCloseButtons();
 }
 
 void glitch_view::slotCopiedObjectsChanged(void)
@@ -1620,6 +1634,7 @@ void glitch_view::slotEditWindowClosed(void)
     }
 
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+  prepareTabWidgetCloseButtons();
 }
 
 void glitch_view::slotFonts(void)
@@ -1941,6 +1956,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	{
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
 	  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
 	}
@@ -1967,6 +1983,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	 trimmed());
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
       m_ui.tab->setTabsClosable(true);
+      prepareTabWidgetCloseButtons();
 
       if(w)
 	connect

@@ -211,6 +211,7 @@ class glitch_view: public QWidget
   void contextMenuEvent(QContextMenuEvent *event);
   void createTools(void);
   void prepareTabWidget(void);
+  void prepareTabWidgetCloseButtons(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);
