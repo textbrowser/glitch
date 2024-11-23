@@ -44,7 +44,7 @@ class glitch_tab: public QTabWidget
 
   int addTab(QWidget *widget, const QString &title)
   {
-    return QTabWidget::addTab(widget, title);
+    return QTabWidget::addTab(widget, title.trimmed());
   }
 
   int addTab(glitch_view *view, const QIcon &icon, const QString &label);
