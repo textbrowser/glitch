@@ -353,7 +353,7 @@ void glitch_variety::showErrorDialog(const QString &text, QWidget *parent)
 
   mb.setIcon(QMessageBox::Critical);
   mb.setText(text);
-  mb.setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  mb.setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
   mb.setWindowModality(Qt::ApplicationModal);
   mb.setWindowTitle(QObject::tr("Glitch: Error"));
   mb.exec();

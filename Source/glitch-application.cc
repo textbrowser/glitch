@@ -44,7 +44,7 @@ glitch_application::glitch_application(int &argc, char **argv):
     (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
   glitch_ui::s_defaultApplicationFont = font;
   setFont(font);
-  setWindowIcon(QIcon(":Logo/glitch-logo.png"));
+  setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
 }
 
 bool glitch_application::eventFilter(QObject *object, QEvent *event)
