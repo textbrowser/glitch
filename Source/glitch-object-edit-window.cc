@@ -324,7 +324,9 @@ bool glitch_object_edit_window::eventFilter(QObject *object, QEvent *event)
 	    {
 	      it.next();
 
-	      if(it.value() && it.value()->shortcut() == keySequence)
+	      if(it.value() &&
+		 it.value()->isEnabled() &&
+		 it.value()->shortcut() == keySequence)
 		{
 		  glitch_application::s_blockShortcuts = true;
 		  it.value()->activate(QAction::Trigger);
