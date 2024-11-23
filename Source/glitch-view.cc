@@ -46,6 +46,7 @@
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
+#include "glitch-application.h"
 #include "glitch-ash.h"
 #include "glitch-canvas-preview.h"
 #include "glitch-docked-container.h"
@@ -1353,6 +1354,7 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
+  glitch_application::s_blockShortcuts = m_ui.tab->count() > 1;
   m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide) ?
     m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide)->deleteLater() :
     (void) 0;
