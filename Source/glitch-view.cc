@@ -1375,6 +1375,8 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
+  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+
   static QList<QTabBar::ButtonPosition> const list
     (QList<QTabBar::ButtonPosition> ()
      << QTabBar::LeftSide
@@ -1599,7 +1601,6 @@ void glitch_view::slotCloseTab(int index)
   if(index > 0)
     m_ui.tab->removeTab(index);
 
-  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
   prepareTabWidgetCloseButtons();
 }
 
@@ -1662,7 +1663,6 @@ void glitch_view::slotEditWindowClosed(void)
 	m_ui.tab->removeTab(index);
     }
 
-  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
   prepareTabWidgetCloseButtons();
 }
 
@@ -1984,7 +1984,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       if(w)
 	{
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
-	  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
@@ -2011,7 +2010,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
 	 trimmed());
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
-      m_ui.tab->setTabsClosable(true);
       prepareTabWidgetCloseButtons();
 
       if(w)

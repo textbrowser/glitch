@@ -16,9 +16,6 @@
      <property name="elideMode">
       <enum>Qt::ElideRight</enum>
      </property>
-     <property name="tabsClosable">
-      <bool>true</bool>
-     </property>
      <widget class="QWidget" name="page_1">
       <attribute name="title">
        <string>Primary Diagram</string>

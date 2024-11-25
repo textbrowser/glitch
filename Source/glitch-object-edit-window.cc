@@ -327,7 +327,7 @@ bool glitch_object_edit_window::eventFilter(QObject *object, QEvent *event)
 		 it.value()->shortcut() == keySequence)
 		{
 		  QTimer::singleShot
-		    (0, this, SLOT(slotResetShortcutBlock(void)));
+		    (250, this, SLOT(slotResetShortcutBlock(void)));
 		  glitch_application::s_blockShortcuts = true;
 		  it.value()->activate(QAction::Trigger);
 		  keyEvent->accept();
