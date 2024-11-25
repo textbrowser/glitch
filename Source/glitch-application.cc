@@ -29,6 +29,7 @@
 #include <QIcon>
 
 #include "glitch-application.h"
+#include "glitch-object-lineedit.h"
 #include "glitch-ui.h"
 
 bool glitch_application::s_blockShortcuts = false;
@@ -51,6 +52,15 @@ bool glitch_application::eventFilter(QObject *object, QEvent *event)
 {
   if(!event || !object)
     return QApplication::eventFilter(object, event);
+
+  if(event->type() == QEvent::Shortcut ||
+     event->type() == QEvent::ShortcutOverride)
+    {
+      auto lineedit = qobject_cast<glitch_object_lineedit *> (object);
+
+      if(lineedit && lineedit->isReadOnly())
+	return true;
+    }
 
   if(event->type() == QEvent::Shortcut && s_blockShortcuts)
     {

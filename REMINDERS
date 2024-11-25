@@ -104,6 +104,7 @@ Completed Items
 - Copy wires of cloned functions, if necessary.
 - Copy wires. Very difficult.
 - Correct drag & drop of -= operator.
+- Ctrl + A while focus is on a QLineEdit in edit window.
 - Ctrl + W and docked property editors.
 - Custom input and output port colors.
 - Dark mode on Windows. Fusion.
@@ -372,7 +373,6 @@ Remaining Items
 
 - ASH.
 - Context-menu for attaching widgets to input / output ports of other widgets.
-- Ctrl + A while focus is on QLineEdit in edit window.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
