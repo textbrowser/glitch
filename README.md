@@ -5,6 +5,9 @@ Glitch: connect (a, b) (c, d).
 Glitch: new int variable (a, b).
 Glitch: select left-most objects; align.
 
+Version 2024.09.25 is the newest LTS release.
+Version 2024.11.25 is the newest source release.
+
 <h3><b>Summary of Glitch</b></h3>
 
 <li>ARM, PowerPC, Sparc, etc.</li>
@@ -33,6 +36,16 @@ Glitch: select left-most objects; align.
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.11.25</p>
+<ul>
+<li>Edit window title shall now include the canvas name.</li>
+<li>Eliminated tool bar flicker. So many wonderful details.</li>
+<li>Include scaling information in the status bar of an edit
+  window.</li>
+<li>Maximize Edit Windows canvas setting.</li>
+<li>Removed Doxygen.</li>
+<li>Tabbed edit windows. Enabled. New canvas setting.</li>
+</ul>
 <p>2024.11.12</p>
 <ul>
 <li>Arduino: upload and verify functions.</li>
@@ -198,7 +211,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <ul>
 <li>Adjust-size created shadows. Corrected!</li>
 <li>Added Other to Syntax category.</li>
-<li>Allow assigment of value during initialization of array variable.</li>
+<li>Allow assignment of value during initialization of array variable.</li>
 <li>Beautiful zoom tool bar.</li>
 <li>Comment-like object property: Generate Source. Objects will appear
   transparent.</li>
