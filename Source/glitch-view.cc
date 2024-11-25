@@ -1379,13 +1379,14 @@ void glitch_view::prepareTabWidgetCloseButtons(void)
     (QList<QTabBar::ButtonPosition> ()
      << QTabBar::LeftSide
      << QTabBar::RightSide);
+  static const int index = 0;
 
   for(int i = 0; i < list.size(); i++)
     {
-      m_ui.tab->tabBar()->tabButton(0, list.at(i)) ?
-	m_ui.tab->tabBar()->tabButton(0, list.at(i))->deleteLater() :
+      m_ui.tab->tabBar()->tabButton(index, list.at(i)) ?
+	m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater() :
 	(void) 0;
-      m_ui.tab->tabBar()->setTabButton(0, list.at(i), nullptr);
+      m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
     }
 
   QApplication::processEvents();
