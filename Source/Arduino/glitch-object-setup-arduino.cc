@@ -174,8 +174,8 @@ void glitch_object_setup_arduino::createEditObjects(void)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowTitle(tr("Glitch: setup()"));
   prepareEditObjects(findNearestGlitchView(m_parent));
+  setEditWindowTitle(tr("setup()"));
 }
 
 void glitch_object_setup_arduino::hideOrShowOccupied(void)

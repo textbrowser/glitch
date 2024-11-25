@@ -408,8 +408,8 @@ void glitch_object_flow_control_arduino::createEditObjects(void)
   m_editWindow->setCentralWidget(m_editView);
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
-  m_editWindow->setWindowTitle(tr("Glitch: flow control"));
   prepareEditObjects(findNearestGlitchView(m_parent));
+  setEditWindowTitle(tr("flow control"));
 }
 
 void glitch_object_flow_control_arduino::hideOrShowOccupied(void)

@@ -1431,6 +1431,23 @@ void glitch_object::setCanvasSettings(glitch_canvas_settings *canvasSettings)
   slotCanvasSettingsChanged(true);
 }
 
+void glitch_object::setEditWindowTitle(const QString &t)
+{
+  if(!m_editWindow)
+    return;
+
+  auto text(t.trimmed());
+
+  if(text.isEmpty())
+    text = tr("unknown");
+
+  m_editWindow->setWindowTitle
+    (tr("Glitch: %1 (%2)").
+     arg(text).
+     arg(m_canvasSettings ?
+	 m_canvasSettings->name() : tr("Arduino-Diagram")));
+}
+
 void glitch_object::setName(const QString &n)
 {
   auto const name
@@ -2134,8 +2151,7 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     return;
 
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
-  m_editWindow->setWindowTitle
-    (tr("Glitch: %1 (%2)").arg(name()).arg(m_canvasSettings->name()));
+  setEditWindowTitle(name());
 }
 
 void glitch_object::slotChanged(void)

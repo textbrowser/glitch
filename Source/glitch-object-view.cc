@@ -361,6 +361,8 @@ void glitch_object_view::slotSelectedWidgetsProperties(void)
 	  QApplication::processEvents();
 	  return;
 	}
+      else
+	QApplication::processEvents();
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

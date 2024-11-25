@@ -421,14 +421,20 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
       m_header->setReadOnly(false);
       glitch_variety::highlight(m_header);
       m_header->setReadOnly(true);
-      setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
+      m_object ? m_object->setEditWindowTitle(m_header->text()) : (void) 0;
+
+      if(windowTitle().trimmed().isEmpty())
+	setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }
   else
     {
       m_header->clear();
       m_header->setVisible(false);
-      setWindowTitle(tr("Glitch"));
+      m_object ? m_object->setEditWindowTitle(m_header->text()) : (void) 0;
     }
+
+  if(windowTitle().trimmed().isEmpty())
+    setWindowTitle(tr("Glitch"));
 }
 
 void glitch_object_edit_window::prepareIcons(void)
@@ -936,6 +942,7 @@ void glitch_object_edit_window::slotPrint(void)
 	      this,
 	      SLOT(slotPrint(QPrinter *)));
       dialog->exec();
+      QApplication::processEvents();
     }
 }
 

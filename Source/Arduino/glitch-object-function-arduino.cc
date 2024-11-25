@@ -62,13 +62,11 @@ glitch_object_function_arduino::glitch_object_function_arduino
       QUuid::createUuid().toString().remove("{").remove("}").remove("-") +
       "()";
 
-  if(m_editWindow)
-    m_editWindow->setWindowTitle(tr("Glitch: %1").arg(name));
-
   if(m_parentView)
     m_parentView->consumeFunctionName(name);
 
   m_ui.label->setText(name);
+  setEditWindowTitle(name);
 }
 
 glitch_object_function_arduino::glitch_object_function_arduino
@@ -371,7 +369,6 @@ clone(QWidget *parent) const
       clone->m_editWindow->setCentralWidget(clone->m_editView);
       clone->m_editWindow->setEditView(clone->m_editView);
       clone->m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
-      clone->m_editWindow->setWindowTitle(tr("Glitch: %1").arg(clone->name()));
       clone->m_isFunctionClone = false;
       clone->m_parentView = qobject_cast<glitch_view_arduino *>
 	(clone->findNearestGlitchView(parent));
@@ -382,6 +379,7 @@ clone(QWidget *parent) const
 	(glitch_structures_arduino::nonArrayVariableTypes());
       clone->m_ui.return_type->setEnabled(true);
       clone->m_ui.return_type->setToolTip("");
+      clone->setEditWindowTitle(clone->name());
       connect(clone->m_editView,
 	      &glitch_object_view::changed,
 	      clone,
@@ -626,9 +624,8 @@ void glitch_object_function_arduino::createEditObjects(void)
       m_editWindow->setCentralWidget(m_editView);
       m_editWindow->setEditView(m_editView);
       m_editWindow->setUndoStack(m_undoStack);
-      m_editWindow->setWindowTitle
-	(tr("Glitch: %1").arg(glitch_object_function_arduino::name()));
       prepareEditObjects(findNearestGlitchView(m_parent));
+      setEditWindowTitle(glitch_object_function_arduino::name());
     }
 }
 
@@ -751,10 +748,6 @@ void glitch_object_function_arduino::setName(const QString &name)
 {
   glitch_object::setName(name);
 
-  if(m_editWindow)
-    m_editWindow->setWindowTitle
-      (tr("Glitch: %1").arg(m_properties.value(Properties::NAME).toString()));
-
   if(m_parentView)
     {
       m_parentView->consumeFunctionName(name);
@@ -763,6 +756,7 @@ void glitch_object_function_arduino::setName(const QString &name)
     }
 
   m_ui.label->setText(m_properties.value(Properties::NAME).toString());
+  setEditWindowTitle(m_properties.value(Properties::NAME).toString());
 
   if(!m_isFunctionClone)
     emit changed();
@@ -821,13 +815,11 @@ void glitch_object_function_arduino::setProperties(const QString &properties)
 	   m_parentView->containsFunctionName(string))
 	  string = m_parentView->nextUniqueFunctionName();
 
-	if(m_editWindow)
-	  m_editWindow->setWindowTitle(tr("Glitch: %1").arg(string));
-
 	if(!m_isFunctionClone && m_parentView)
 	  m_parentView->consumeFunctionName(string);
 
 	m_ui.label->setText(string);
+	setEditWindowTitle(string);
       }
     else if(list.at(i).startsWith("return_pointer = "))
       {
@@ -1144,12 +1136,11 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       if(m_parentView)
 	m_parentView->removeFunctionName(m_ui.label->text());
 
-      m_editWindow->setWindowTitle(tr("Glitch: %1").arg(text));
-
       if(m_parentView)
 	m_parentView->consumeFunctionName(text);
 
       m_ui.label->setText(text);
+      setEditWindowTitle(text);
       emit nameChanged(text, name, this);
     }
   else

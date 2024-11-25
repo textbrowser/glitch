@@ -337,7 +337,13 @@ QString glitch_canvas_settings::keywordColorsFromTableAsString(void) const
 
 QString glitch_canvas_settings::name(void) const
 {
-  return m_settings.value(Settings::CANVAS_NAME).toString().trimmed();
+  auto const name
+    (m_settings.value(Settings::CANVAS_NAME).toString().trimmed());
+
+  if(name.isEmpty())
+    return tr("Arduino-Diagram");
+  else
+    return name;
 }
 
 QString glitch_canvas_settings::outputFile(void) const
@@ -1171,6 +1177,8 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
       m_ui.project_ide->setCursorPosition(0);
       m_ui.project_ide->selectAll();
     }
+  else
+    QApplication::processEvents();
 }
 
 void glitch_canvas_settings::slotSpecialCopy(void)

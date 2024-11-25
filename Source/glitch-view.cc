@@ -1232,6 +1232,7 @@ void glitch_view::print(void)
 	  this,
 	  SLOT(slotPrint(QPrinter *)));
   dialog->exec();
+  QApplication::processEvents();
 }
 
 void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
