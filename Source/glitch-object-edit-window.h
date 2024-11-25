@@ -146,6 +146,7 @@ class glitch_object_edit_window: public QMainWindow
   void slotPrint(QPrinter *printer);
   void slotPrint(void);
   void slotProcessCommand(const QString &command);
+  void slotResetShortcutBlock(void);
   void slotShowFullScreenMode(void);
   void slotShowTearOffMenu(void);
   void slotSpecialTools(void);

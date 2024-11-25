@@ -1354,7 +1354,6 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
-  glitch_application::s_blockShortcuts = m_ui.tab->count() > 1;
   m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide) ?
     m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide)->deleteLater() :
     (void) 0;
