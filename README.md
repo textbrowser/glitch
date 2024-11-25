@@ -33,6 +33,7 @@ Glitch, originally QtNQC, was discovered in 2004!
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Serial port reader and writer.</li>
+<li>Tabbed edit windows!</li>
 </ul>
 
 ![Glitch](https://github.com/textbrowser/glitch/blob/master/Images/glitch-android-1.png)
