@@ -257,7 +257,7 @@ glitch_view::glitch_view
   connect(m_undoStack,
 	  SIGNAL(indexChanged(int)),
 	  this,
-	  SLOT(slotUndoStackChanged(void)));
+	  SLOT(slotUndoStackChanged(int)));
   connect(m_view,
 	  &glitch_graphicsview::mouseEnterEvent,
 	  this,
@@ -296,7 +296,7 @@ glitch_view::~glitch_view()
   disconnect(m_undoStack,
 	     SIGNAL(indexChanged(int)),
 	     this,
-	     SLOT(slotUndoStackChanged(void)));
+	     SLOT(slotUndoStackChanged(int)));
   m_generateSourceViewTimer.stop();
   m_generateTimer.stop();
   m_saveTimer.stop();
@@ -1231,10 +1231,7 @@ void glitch_view::print(void)
 	  SIGNAL(paintRequested(QPrinter *)),
 	  this,
 	  SLOT(slotPrint(QPrinter *)));
-
-  if(dialog->exec() == QDialog::Accepted)
-    {
-    }
+  dialog->exec();
 }
 
 void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
@@ -1278,6 +1275,7 @@ void glitch_view::prepareASH(QWidget *parent)
     }
 
   emit canvasNameChanged(m_canvasSettings->name());
+  prepareTabTitles();
 }
 
 void glitch_view::prepareDatabaseTables(void) const
@@ -1343,6 +1341,22 @@ void glitch_view::prepareDefaultActions(void)
 	  this,
 	  &glitch_view::slotShowUserFunctions);
   m_defaultActions << action;
+}
+
+void glitch_view::prepareTabTitles(void)
+{
+  for(int i = 1; i < m_ui.tab->count(); i++)
+    {
+      auto window = qobject_cast<QMainWindow *> (m_ui.tab->widget(i));
+
+      if(window)
+	{
+	  auto const title(window->windowTitle());
+
+	  m_ui.tab->setTabText
+	    (i, title.mid(title.indexOf(':') + 1).trimmed());
+	}
+    }
 }
 
 void glitch_view::prepareTabWidget(void)
@@ -1547,6 +1561,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 	}
 
       emit canvasNameChanged(m_canvasSettings->name());
+      prepareTabTitles();
       slotChanged();
     }
 }
@@ -2049,8 +2064,10 @@ void glitch_view::slotToolsOperationChanged
   setProperty("tools-operation", static_cast<int> (operation));
 }
 
-void glitch_view::slotUndoStackChanged(void)
+void glitch_view::slotUndoStackChanged(int index)
 {
+  Q_UNUSED(index);
+
   if(m_canvasSettings->generatePeriodically())
     m_generateTimer.start();
 
@@ -2062,6 +2079,7 @@ void glitch_view::slotUndoStackChanged(void)
 
   adjustScrollBars();
   emit changed();
+  prepareTabTitles();
 }
 
 void glitch_view::slotUnite(void)

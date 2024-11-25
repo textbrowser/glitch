@@ -25,7 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QToolButton>
+#include <QPushButton>
 
 #include "glitch-tab-tabbar.h"
 #include "glitch-tab.h"
@@ -67,28 +67,22 @@ int glitch_tab::addTab
   if(index < 0)
     return index;
 
-  auto toolButton = new QToolButton(this);
+  auto pushButton = new QPushButton(this);
 
-  connect(toolButton,
-	  &QToolButton::clicked,
+  connect(pushButton,
+	  &QPushButton::clicked,
 	  view,
 	  &glitch_view::slotSave);
   connect(view,
 	  SIGNAL(destroyed(void)),
-	  toolButton,
+	  pushButton,
 	  SLOT(deleteLater(void)));
   m_tabBar->setTabButton
-    (index, m_tabBar->preferredCloseButtonPositionOpposite(), toolButton);
-  toolButton->setAutoRaise(true);
-  toolButton->setIcon(QIcon(":/save.png"));
-  toolButton->setMaximumWidth(32);
-#ifdef Q_OS_MACOS
-  toolButton->setStyleSheet
-    ("QToolButton {border: none;}"
-     "QToolButton::menu-button {border: none;}"
-     "QToolButton::menu-indicator {image: none;}");
-#endif
-  toolButton->setToolTip(tr("Save"));
+    (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
+  pushButton->setFlat(true);
+  pushButton->setIcon(QIcon(":/save.png"));
+  pushButton->setMaximumWidth(32);
+  pushButton->setToolTip(tr("Save"));
   return index;
 }
 

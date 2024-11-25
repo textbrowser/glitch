@@ -8,5 +8,5 @@ solution. Please visit https://brew.sh and install Homebrew.
 > git clone https://github.com/textbrowser/glitch glitch.d
 > cd glitch.d
 > qmake
-> make -j 5
+> make
 > open ./Glitch.app

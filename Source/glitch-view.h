@@ -164,6 +164,7 @@ class glitch_view: public QWidget
      const qint64 oid) const;
   void prepareDatabaseTables(void) const;
   void prepareDefaultActions(void);
+  void prepareTabTitles(void);
 
  private slots:
   void slotCopiedObjectsChanged(void);
@@ -249,7 +250,7 @@ class glitch_view: public QWidget
   void slotShowTools(void);
   void slotShowUserFunctions(void) const;
   void slotShowWires(void);
-  void slotUndoStackChanged(void);
+  void slotUndoStackChanged(int index);
 
  signals:
   void canvasNameChanged(const QString &name);
