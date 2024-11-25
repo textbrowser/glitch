@@ -265,6 +265,7 @@ Completed Items
 - Remove functions from User Functions on redo / undo.
 - Remove logical operator as it duplicates boolean operator.
 - Remove missing diagram files.
+- Remove tabbed page after its object is deleted via another diagram.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows. Not necessary
 - Reparent support panels if a canvas is separated. Not necessary. Append
@@ -375,13 +376,12 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Double object icons on drag of new object.
+- Double object icons on drag of new object. Wayland.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
-- Remove tabbed page after its object is deleted via another diagram.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.

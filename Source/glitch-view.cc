@@ -1276,7 +1276,6 @@ void glitch_view::prepareASH(QWidget *parent)
     }
 
   emit canvasNameChanged(m_canvasSettings->name());
-  prepareTabTitles();
 }
 
 void glitch_view::prepareDatabaseTables(void) const
@@ -1346,17 +1345,24 @@ void glitch_view::prepareDefaultActions(void)
 
 void glitch_view::prepareTabTitles(void)
 {
-  for(int i = 1; i < m_ui.tab->count(); i++)
+  for(int i = m_ui.tab->count() - 1; i > 0; i--)
     {
-      auto window = qobject_cast<QMainWindow *> (m_ui.tab->widget(i));
+      auto window = qobject_cast<glitch_object_edit_window *>
+	(m_ui.tab->widget(i));
 
-      if(window)
+      if(window && window->object() && window->object()->scene())
 	{
 	  auto const title(window->windowTitle());
 
 	  m_ui.tab->setTabText
 	    (i, title.mid(title.indexOf(':') + 1).trimmed());
 	}
+      else
+	/*
+	** The object was deleted, temporarily.
+	*/
+
+	m_ui.tab->removeTab(i);
     }
 }
 
@@ -1562,7 +1568,6 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 	}
 
       emit canvasNameChanged(m_canvasSettings->name());
-      prepareTabTitles();
       slotChanged();
     }
 }
