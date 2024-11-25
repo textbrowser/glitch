@@ -172,6 +172,8 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
     {
       if(!item)
 	continue;
+      else
+	QApplication::restoreOverrideCursor(); // Wayland?
 
       auto drag = new QDrag(this);
       auto mimeData = new QMimeData();
