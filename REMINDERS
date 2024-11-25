@@ -372,6 +372,7 @@ Remaining Items
 
 - ASH.
 - Context-menu for attaching widgets to input / output ports of other widgets.
+- Ctrl + A while focus is on QLineEdit in edit window.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
