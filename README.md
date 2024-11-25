@@ -10,6 +10,7 @@ Version 2024.11.25 is the newest source release.
 
 <h3><b>Summary of Glitch</b></h3>
 
+<ul>
 <li>ARM, PowerPC, Sparc, etc.</li>
 <li>ASH, or, a natural language shell.</li>
 <li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
@@ -34,6 +35,7 @@ Version 2024.11.25 is the newest source release.
 <li>Rich redo / undo stack.</li>
 <li>Serial port reader and writer.</li>
 <li>Tabbed edit windows!</li>
+</ul>
 
 <h3><b>Release Notes</b></h3>
 
