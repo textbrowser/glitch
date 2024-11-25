@@ -1375,14 +1375,20 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
-  m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide) ?
-    m_ui.tab->tabBar()->tabButton(0, QTabBar::LeftSide)->deleteLater() :
-    (void) 0;
-  m_ui.tab->tabBar()->tabButton(0, QTabBar::RightSide) ?
-    m_ui.tab->tabBar()->tabButton(0, QTabBar::RightSide)->deleteLater() :
-    (void) 0;
-  m_ui.tab->tabBar()->setTabButton(0, QTabBar::LeftSide, nullptr);
-  m_ui.tab->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
+  static QList<QTabBar::ButtonPosition> const list
+    (QList<QTabBar::ButtonPosition> ()
+     << QTabBar::LeftSide
+     << QTabBar::RightSide);
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      m_ui.tab->tabBar()->tabButton(0, list.at(i)) ?
+	m_ui.tab->tabBar()->tabButton(0, list.at(i))->deleteLater() :
+	(void) 0;
+      m_ui.tab->tabBar()->setTabButton(0, list.at(i), nullptr);
+    }
+
+  QApplication::processEvents();
 }
 
 void glitch_view::push(glitch_undo_command *undoCommand)
