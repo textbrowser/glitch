@@ -55,8 +55,6 @@ glitch_object_edit_window::glitch_object_edit_window
  glitch_object *object,
  QWidget *parent):QMainWindow(parent)
 {
-  Q_UNUSED(statusBar());
-
   auto menu = menuBar()->addMenu(tr("&File"));
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 4, 0))
@@ -447,7 +445,17 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("undo")->setIcon(QIcon(":/undo.png"));
 }
 
-void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
+void glitch_object_edit_window::prepareStatusBarMessage(void)
+{
+  if(m_editView && m_editView->scene())
+    showStatusBarMessage
+      (tr("%1 Item(s) Selected | Scaling Factor: %2").
+       arg(m_editView->scene()->selectedItems().size()).
+       arg(m_editView->scalingFactor(), 0, 'f', 2));
+}
+
+void glitch_object_edit_window::prepareToolBars
+(const QList<QAction *> &actions)
 {
   if(!m_editToolBar->actions().isEmpty())
     return;
@@ -469,26 +477,29 @@ void glitch_object_edit_window::prepareToolBars(const QList<QAction *> &actions)
   m_toolsToolBar->clear();
   m_toolsToolBar->addActions(actions);
 
-  QList<QIcon> icons;
-  QStringList data;
-  QStringList texts;
-  auto menu = new QMenu(this);
+  static QList<QIcon> const icons
+    (QList<QIcon> ()
+     << QIcon(":/adjust-size.png")
+     << QIcon(":/compress.png")
+     << QIcon(":/disconnect.png")
+     << QIcon(":/pin.png")
+     << QIcon(":/widget-properties.png"));
+  static QStringList const data
+    (QStringList()
+     << "adjust-sizes"
+     << "compress-widgets"
+     << "disconnect-widgets"
+     << "lock-positions"
+     << "widget-properties");
+  static QStringList const texts
+    (QStringList()
+     << tr("Adjust Size(s) (Selected Widget(s))")
+     << tr("(De)compress Selected Widget(s)")
+     << tr("Disconnect Selected Widget(s)")
+     << tr("(Un)lock Position(s) (Selected Widget(s))")
+     << tr("Widget(s) Properties (Selected Widget(s))..."));
 
-  data << "adjust-sizes"
-       << "compress-widgets"
-       << "disconnect-widgets"
-       << "lock-positions"
-       << "widget-properties";
-  icons << QIcon(":/adjust-size.png")
-	<< QIcon(":/compress.png")
-	<< QIcon(":/disconnect.png")
-	<< QIcon(":/pin.png")
-	<< QIcon(":/widget-properties.png");
-  texts << tr("Adjust Size(s) (Selected Widget(s))")
-	<< tr("(De)compress Selected Widget(s)")
-	<< tr("Disconnect Selected Widget(s)")
-	<< tr("(Un)lock Position(s) (Selected Widget(s))")
-	<< tr("Widget(s) Properties (Selected Widget(s))...");
+  auto menu = new QMenu(this);
 
   for(int i = 0; i < data.size(); i++)
     {
@@ -799,6 +810,15 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
     view->setSceneRect(size());
 }
 
+void glitch_object_edit_window::showStatusBarMessage(const QString &text)
+{
+  if(statusBar())
+    {
+      statusBar()->showMessage(text);
+      statusBar()->repaint();
+    }
+}
+
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 {
   m_actions.value("copy")->setEnabled
@@ -830,10 +850,7 @@ void glitch_object_edit_window::slotAboutToShowEditMenu(void)
   else
     m_actions.value("undo")->setText(tr("Undo"));
 
-  if(m_editView && m_editView->scene() && statusBar())
-    statusBar()->showMessage
-      (tr("%1 Item(s) Selected").
-       arg(m_editView->scene()->selectedItems().size()));
+  prepareStatusBarMessage();
 }
 
 void glitch_object_edit_window::slotClose(void)
@@ -1024,19 +1041,28 @@ void glitch_object_edit_window::slotViewTools(void)
 void glitch_object_edit_window::slotZoomIn(void)
 {
   if(m_editView)
-    m_editView->zoom(1);
+    {
+      m_editView->zoom(1);
+      prepareStatusBarMessage();
+    }
 }
 
 void glitch_object_edit_window::slotZoomOut(void)
 {
   if(m_editView)
-    m_editView->zoom(-1);
+    {
+      m_editView->zoom(-1);
+      prepareStatusBarMessage();
+    }
 }
 
 void glitch_object_edit_window::slotZoomReset(void)
 {
   if(m_editView)
-    m_editView->zoom(0);
+    {
+      m_editView->zoom(0);
+      prepareStatusBarMessage();
+    }
 }
 
 void glitch_object_edit_window::upload(const QStringList &arguments)

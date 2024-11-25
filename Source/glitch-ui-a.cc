@@ -1777,15 +1777,6 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       toolButton->setToolTip(tr("Connection Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
 
-      static QStringList const data
-	(QStringList()
-	 << "adjust-all-sizes"
-	 << "adjust-sizes"
-	 << "compress-widgets"
-	 << "disconnect-widgets"
-	 << "fonts"
-	 << "lock-positions"
-	 << "widget-properties");
       static QList<QIcon> const icons
 	(QList<QIcon> ()
 	 << QIcon(":/adjust-size.png")
@@ -1795,6 +1786,15 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << QIcon(":/font.png")
 	 << QIcon(":/pin.png")
 	 << QIcon(":/widget-properties.png"));
+      static QStringList const data
+	(QStringList()
+	 << "adjust-all-sizes"
+	 << "adjust-sizes"
+	 << "compress-widgets"
+	 << "disconnect-widgets"
+	 << "fonts"
+	 << "lock-positions"
+	 << "widget-properties");
       static QStringList const texts
 	(QStringList()
 	 << tr("Adjust Size(s) (All Widgets)")

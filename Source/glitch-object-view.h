@@ -56,6 +56,7 @@ class glitch_object_view: public QGraphicsView
   QList<glitch_object *> objects(void) const;
   glitch_scene* scene(void) const;
   qint64 id(void) const;
+  qreal scalingFactor(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object, bool &ok);
   void beginMacro(const QString &text);
   void endMacro(void);

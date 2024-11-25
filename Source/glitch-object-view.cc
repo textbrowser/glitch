@@ -133,6 +133,16 @@ qint64 glitch_object_view::id(void) const
   return m_id;
 }
 
+qreal glitch_object_view::scalingFactor(void) const
+{
+  auto const transform(this->transform());
+
+  if(transform.isScaling())
+    return transform.m11();
+  else
+    return 0.0;
+}
+
 void glitch_object_view::adjustScrollBars(void)
 {
   QTimer::singleShot(250, this, &glitch_object_view::slotResizeScene);

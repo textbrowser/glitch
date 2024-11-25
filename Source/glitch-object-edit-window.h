@@ -135,8 +135,10 @@ class glitch_object_edit_window: public QMainWindow
   void hideEvent(QHideEvent *event);
   void prepareASH(void);
   void prepareIcons(void);
+  void prepareStatusBarMessage(void);
   void resizeEvent(QResizeEvent *event);
   void showEvent(QShowEvent *event);
+  void showStatusBarMessage(const QString &text);
 
  private slots:
   void slotAboutToShowEditMenu(void);
