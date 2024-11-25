@@ -28,7 +28,6 @@
 #ifndef _glitch_tab_tabbar_h_
 #define _glitch_tab_tabbar_h_
 
-#include <QDragEnterEvent>
 #include <QTabBar>
 
 class glitch_tab_tabbar: public QTabBar

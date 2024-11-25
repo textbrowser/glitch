@@ -29,10 +29,8 @@
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
-#include <QTabWidget>
 #include <QToolButton>
 
-#include "glitch-tab.h"
 #include "glitch-tab-tabbar.h"
 #include "glitch-view.h"
 
