@@ -5,7 +5,7 @@ Glitch: connect (a, b) (c, d).
 Glitch: new int variable (a, b).
 Glitch: select left-most objects; align.
 
-Version 2024.09.25 is the newest LTS release.
+Version 2024.09.25 is the newest LTS release.<br>
 Version 2024.11.25 is the newest source release.
 
 <h3><b>Summary of Glitch</b></h3>
@@ -33,6 +33,7 @@ Version 2024.11.25 is the newest source release.
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
 <li>Serial port reader and writer.</li>
+<li>Tabbed edit windows!</li>
 
 <h3><b>Release Notes</b></h3>
 
