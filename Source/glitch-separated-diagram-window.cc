@@ -94,6 +94,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotDelete);
+  connect(m_ui.action_Full_Screen,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotShowFullScreenMode);
   connect(m_ui.action_Paste,
 	  &QAction::triggered,
 	  this,
@@ -696,6 +700,20 @@ void glitch_separated_diagram_window::slotShowContextMenu(void)
 	  menu->raise();
 	  menu->exec(mapToGlobal(QPoint(size().width() / 2, 0)));
 	}
+    }
+}
+
+void glitch_separated_diagram_window::slotShowFullScreenMode(void)
+{
+  if(isFullScreen())
+    {
+      m_ui.action_Full_Screen->setText(tr("&Full Screen"));
+      showNormal();
+    }
+  else
+    {
+      m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
+      showFullScreen();
     }
 }
 
