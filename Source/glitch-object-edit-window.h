@@ -81,6 +81,7 @@ class glitch_object_edit_window: public QMainWindow
   {
   }
 
+  void prepareForTab(const bool state);
   void prepareHeader(const QString &text);
   void prepareToolBars(const QList<QAction *> &actions);
   void saveSplittersStates(void);

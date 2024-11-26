@@ -411,6 +411,11 @@ void glitch_object_edit_window::prepareASH(void)
 	  Qt::UniqueConnection);
 }
 
+void glitch_object_edit_window::prepareForTab(const bool state)
+{
+  m_actions.value("screen mode")->setEnabled(!state);
+}
+
 void glitch_object_edit_window::prepareHeader(const QString &text)
 {
   if(!text.trimmed().isEmpty())

@@ -1354,10 +1354,14 @@ void glitch_view::prepareTabTitles(void)
 
       if(window && window->object() && window->object()->scene())
 	{
-	  auto const title(window->windowTitle());
+	  auto title(window->windowTitle().trimmed());
 
-	  m_ui.tab->setTabText
-	    (i, title.mid(title.indexOf(':') + 1).trimmed());
+	  title = title.mid(title.indexOf(':') + 1).trimmed();
+
+	  if(title.isEmpty())
+	    title = tr("unknown");
+
+	  m_ui.tab->setTabText(i, title);
 	  m_ui.tab->setTabToolTip(i, m_ui.tab->tabText(i));
 	}
       else
@@ -1994,6 +1998,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
+	  w->prepareForTab(false);
 	}
 
       return;
@@ -2006,10 +2011,13 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       auto w = qobject_cast<glitch_object_edit_window *> (window);
 
       if(w)
-	disconnect(w,
-		   &glitch_object_edit_window::closedByButton,
-		   this,
-		   &glitch_view::slotEditWindowClosed);
+	{
+	  disconnect(w,
+		     &glitch_object_edit_window::closedByButton,
+		     this,
+		     &glitch_view::slotEditWindowClosed);
+	  w->prepareForTab(true);
+	}
 
       window->close();
       m_ui.tab->addTab
