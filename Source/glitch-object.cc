@@ -195,6 +195,9 @@ glitch_object::~glitch_object()
 
   if(m_editWindow)
     m_editWindow->deleteLater();
+
+  if(m_portColors)
+    m_portColors->deleteLater();
 }
 
 QFont glitch_object::preferredFont(const QFont &font) const
@@ -1458,6 +1461,10 @@ void glitch_object::setName(const QString &n)
       if(m_contextMenu)
 	m_contextMenu->setName(name);
 
+      if(m_portColors)
+	m_portColors->setWindowTitle
+	  (tr("Glitch: Widget Port Colors (%1)").arg(name));
+
       m_properties[Properties::NAME] = name;
     }
 }
@@ -1971,12 +1978,18 @@ void glitch_object::simulateDelete(void)
 
   if(m_editWindow)
     m_editWindow->hide();
+
+  if(m_portColors)
+    m_portColors->hide();
 #else
   if(m_contextMenu)
     m_contextMenu->close();
 
   if(m_editWindow)
     m_editWindow->close();
+
+  if(m_portColors)
+    m_portColors->close();
 #endif
 
   emit simulateDeleteSignal();
@@ -2255,6 +2268,36 @@ void glitch_object::slotLockPosition(void)
   emit changed();
 }
 
+void glitch_object::slotPortColorsFinished(int result)
+{
+  if(m_portColors && result == QDialog::Accepted)
+    {
+      QApplication::processEvents();
+
+      auto const before
+	(m_properties.value(Properties::PORT_COLORS).toString());
+
+      m_properties[Properties::PORT_COLORS] = m_portColors->colors();
+
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (m_properties.value(Properties::PORT_COLORS),
+	     before,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
+	     Properties::PORT_COLORS,
+	     this);
+
+	  undoCommand->setText
+	    (tr("port colors changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+
+      emit changed();
+    }
+}
+
 void glitch_object::slotPropertyChanged
 (const Properties property, const QVariant &value)
 {
@@ -2427,39 +2470,21 @@ void glitch_object::slotSetFont(void)
 
 void glitch_object::slotSetPortColors(void)
 {
-  glitch_port_colors dialog(m_parent);
-
-  dialog.setObject(this);
-  QApplication::processEvents();
-
-  if(dialog.exec() == QDialog::Accepted)
+  if(!m_portColors)
     {
-      QApplication::processEvents();
-
-      auto const before
-	(m_properties.value(Properties::PORT_COLORS).toString());
-
-      m_properties[Properties::PORT_COLORS] = dialog.colors();
-
-      if(m_undoStack)
-	{
-	  auto undoCommand = new glitch_undo_command
-	    (m_properties.value(Properties::PORT_COLORS),
-	     before,
-	     glitch_undo_command::Types::PROPERTY_CHANGED,
-	     Properties::PORT_COLORS,
-	     this);
-
-	  undoCommand->setText
-	    (tr("port colors changed (%1, %2)").
-	     arg(scenePos().x()).arg(scenePos().y()));
-	  m_undoStack->push(undoCommand);
-	}
-
-      emit changed();
+      m_portColors = new glitch_port_colors(m_parent);
+      m_portColors->setModal(false);
+      m_portColors->setObject(this);
+      connect(m_portColors,
+	      SIGNAL(finished(int)),
+	      this,
+	      SLOT(slotPortColorsFinished(int)));
     }
-  else
-    QApplication::processEvents();
+
+  m_portColors->setWindowTitle
+    (tr("Glitch: Widget Port Colors (%1)").arg(name()));
+  m_portColors->show();
+  QApplication::processEvents();
 }
 
 void glitch_object::slotSetStyleSheet(void)

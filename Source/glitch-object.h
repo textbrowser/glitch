@@ -42,6 +42,7 @@ class QUndoStack;
 class glitch_floating_context_menu;
 class glitch_object_edit_window;
 class glitch_object_view;
+class glitch_port_colors;
 class glitch_scene;
 class glitch_view;
 
@@ -402,6 +403,7 @@ class glitch_object: public QWidget
   void slotDelayedResize(void);
   void slotSetFont(void);
   void slotSimulateDelete(void);
+  void slotPortColorsFinished(int result);
   void slotPropertyChanged
     (const glitch_object::Properties property, const QVariant &value);
   void slotWireDestroyed(void);
@@ -425,6 +427,7 @@ class glitch_object: public QWidget
   QPointer<glitch_floating_context_menu> m_contextMenu;
   QPointer<glitch_object_edit_window> m_editWindow;
   QPointer<glitch_object_view> m_editView;
+  QPointer<glitch_port_colors> m_portColors;
   QPointer<glitch_proxy_widget> m_proxy;
   QString m_type;
   bool m_drawInputConnector;
