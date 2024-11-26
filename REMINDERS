@@ -385,6 +385,7 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
+- Tab menu for tabbed edit windows.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
