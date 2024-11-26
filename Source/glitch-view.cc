@@ -1345,6 +1345,8 @@ void glitch_view::prepareDefaultActions(void)
 
 void glitch_view::prepareTabTitles(void)
 {
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+
   for(int i = m_ui.tab->count() - 1; i > 0; i--)
     {
       auto window = qobject_cast<glitch_object_edit_window *>
@@ -1364,6 +1366,8 @@ void glitch_view::prepareTabTitles(void)
 
 	m_ui.tab->removeTab(i);
     }
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_view::prepareTabWidget(void)
@@ -1375,6 +1379,7 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
+  QApplication::setOverrideCursor(Qt::WaitCursor);
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
   static QList<QTabBar::ButtonPosition> const list
@@ -1392,6 +1397,7 @@ void glitch_view::prepareTabWidgetCloseButtons(void)
     }
 
   QApplication::processEvents();
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_view::push(glitch_undo_command *undoCommand)
