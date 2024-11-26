@@ -42,6 +42,7 @@ class glitch_port_colors: public QDialog
   glitch_port_colors(QWidget *parent);
   ~glitch_port_colors();
   QString colors(void) const;
+  void setColors(const QVariant &value);
   void setObject(glitch_object *object);
 
  private:
@@ -50,6 +51,9 @@ class glitch_port_colors: public QDialog
 
  private slots:
   void slotSelectColor(void);
+
+ signals:
+  void applied(void);
 };
 
 #endif

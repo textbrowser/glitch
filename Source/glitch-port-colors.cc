@@ -35,6 +35,10 @@ glitch_port_colors::glitch_port_colors(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
   m_ui.buttonBox->setEnabled(false);
+  connect(m_ui.buttonBox->button(QDialogButtonBox::Apply),
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::applied);
   connect(m_ui.input_connected,
 	  &QPushButton::clicked,
 	  this,
@@ -68,38 +72,37 @@ QString glitch_port_colors::colors(void) const
     m_ui.output_disconnected->text().remove('&');
 }
 
+void glitch_port_colors::setColors(const QVariant &value)
+{
+  QList<QPushButton *> list;
+  QStringList strings;
+
+  list << m_ui.input_connected
+       << m_ui.input_disconnected
+       << m_ui.output_connected
+       << m_ui.output_disconnected;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+  strings << value.toString().split('-', Qt::SkipEmptyParts);
+#else
+  strings << value.toString().split('-', QString::SkipEmptyParts);
+#endif
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      auto const string(strings.value(i).remove('&'));
+
+      glitch_variety::assignImage(list.at(i), QColor(string));
+      list.at(i)->setText(string);
+    }
+}
+
 void glitch_port_colors::setObject(glitch_object *object)
 {
   m_object = object;
   m_ui.buttonBox->setEnabled(object);
 
   if(m_object)
-    {
-      QList<QPushButton *> list;
-      QStringList strings;
-
-      list << m_ui.input_connected
-	   << m_ui.input_disconnected
-	   << m_ui.output_connected
-	   << m_ui.output_disconnected;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-      strings << m_object->property
-	(glitch_object::Properties::PORT_COLORS).
-	toString().split('-', Qt::SkipEmptyParts);
-#else
-      strings << m_object->property
-	(glitch_object::Properties::PORT_COLORS).
-	toString().split('-', QString::SkipEmptyParts);
-#endif
-
-      for(int i = 0; i < list.size(); i++)
-	{
-	  auto const string(strings.value(i).remove('&'));
-
-	  glitch_variety::assignImage(list.at(i), QColor(string));
-	  list.at(i)->setText(string);
-	}
-    }
+    setColors(m_object->property(glitch_object::Properties::PORT_COLORS));
 }
 
 void glitch_port_colors::slotSelectColor(void)

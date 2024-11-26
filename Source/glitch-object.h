@@ -403,7 +403,7 @@ class glitch_object: public QWidget
   void slotDelayedResize(void);
   void slotSetFont(void);
   void slotSimulateDelete(void);
-  void slotPortColorsFinished(int result);
+  void slotPortColorsApplied(void);
   void slotPropertyChanged
     (const glitch_object::Properties property, const QVariant &value);
   void slotWireDestroyed(void);

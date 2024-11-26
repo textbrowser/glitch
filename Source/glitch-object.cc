@@ -1683,6 +1683,11 @@ void glitch_object::setProperty(const Properties property,
 
 	break;
       }
+    case Properties::PORT_COLORS:
+      {
+	m_portColors ? m_portColors->setColors(value) : (void) 0;
+	break;
+      }
     case Properties::SIZE:
       {
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
@@ -2268,9 +2273,9 @@ void glitch_object::slotLockPosition(void)
   emit changed();
 }
 
-void glitch_object::slotPortColorsFinished(int result)
+void glitch_object::slotPortColorsApplied(void)
 {
-  if(m_portColors && result == QDialog::Accepted)
+  if(m_portColors)
     {
       QApplication::processEvents();
 
@@ -2476,9 +2481,9 @@ void glitch_object::slotSetPortColors(void)
       m_portColors->setModal(false);
       m_portColors->setObject(this);
       connect(m_portColors,
-	      SIGNAL(finished(int)),
+	      &glitch_port_colors::applied,
 	      this,
-	      SLOT(slotPortColorsFinished(int)));
+	      &glitch_object::slotPortColorsApplied);
     }
 
   m_portColors->setWindowTitle
