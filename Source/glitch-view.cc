@@ -1358,6 +1358,7 @@ void glitch_view::prepareTabTitles(void)
 
 	  m_ui.tab->setTabText
 	    (i, title.mid(title.indexOf(':') + 1).trimmed());
+	  m_ui.tab->setTabToolTip(i, m_ui.tab->tabText(i));
 	}
       else
 	/*
@@ -2016,6 +2017,8 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
 	 trimmed());
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
+      m_ui.tab->setTabToolTip
+	(m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
       prepareTabWidgetCloseButtons();
 
       if(w)
