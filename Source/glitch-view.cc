@@ -137,6 +137,7 @@ glitch_view::glitch_view
   m_tabPullDown->setToolTip(tr("Tab Menu"));
   m_tabPullDown->menu()->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
+  m_ui.tab->setDocumentMode(false);
   m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
@@ -280,10 +281,6 @@ glitch_view::glitch_view
 	  &QMenu::aboutToShow,
 	  this,
 	  &glitch_view::slotAboutToShowTabCornerMenu);
-  connect(m_ui.tab,
-	  SIGNAL(currentChanged(int)),
-	  this,
-	  SLOT(slotPageSelected(int)));
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -1891,14 +1888,6 @@ void glitch_view::slotGenerate(void)
 void glitch_view::slotGenerateSourceView(void)
 {
   generateSourceView(false);
-}
-
-void glitch_view::slotPageSelected(int index)
-{
-  auto action = m_tabPullDown->menu()->actions().value(index + 2);
-
-  if(action)
-    action->setChecked(true);
 }
 
 void glitch_view::slotPaste(void)
