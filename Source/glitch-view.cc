@@ -120,7 +120,7 @@ glitch_view::glitch_view
   m_tabPullDown->setArrowType(Qt::NoArrow);
   m_tabPullDown->setAutoRaise(false);
   m_tabPullDown->setIcon(QIcon(":/down.png"));
-  m_tabPullDown->setIconSize(QSize(32, 64));
+  m_tabPullDown->setIconSize(QSize(32, 32));
   m_tabPullDown->setMenu(new QMenu(this));
   m_tabPullDown->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
@@ -134,6 +134,7 @@ glitch_view::glitch_view
      "QToolButton::menu-button {border: none;}"
      "QToolButton::menu-indicator {image: none;}");
 #endif
+  m_tabPullDown->setToolTip(tr("Tab Menu"));
   m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
   m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
