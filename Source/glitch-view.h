@@ -224,6 +224,7 @@ class glitch_view: public QWidget
   virtual void slotCanvasSettingsChanged(const bool undo);
   virtual void slotProcessCommand
     (const QString &command, const QStringList &arguments);
+  void slotAboutToShowTabCornerMenu(void);
   void slotChanged(void);
   void slotCloseTab(int index);
   void slotCustomContextMenuRequested(const QPoint &point);

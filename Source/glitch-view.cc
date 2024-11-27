@@ -276,6 +276,10 @@ glitch_view::glitch_view
 	  &QToolButton::clicked,
 	  m_tabPullDown,
 	  &QToolButton::showMenu);
+  connect(m_tabPullDown->menu(),
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_view::slotAboutToShowTabCornerMenu);
   connect(m_ui.tab,
 	  SIGNAL(currentChanged(int)),
 	  this,
@@ -317,7 +321,6 @@ glitch_view::glitch_view
   prepareASH(parent);
   prepareDatabaseTables();
   prepareDefaultActions();
-  prepareTabCornerMenu();
   prepareTabWidget();
   prepareTabWidgetCloseButtons();
 }
@@ -1594,6 +1597,11 @@ void glitch_view::showUserFunctions(void) const
   slotShowUserFunctions();
 }
 
+void glitch_view::slotAboutToShowTabCornerMenu(void)
+{
+  prepareTabCornerMenu();
+}
+
 void glitch_view::slotAllWidgetsAdjustSize(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1692,10 +1700,7 @@ void glitch_view::slotCloseTab(int index)
     m_ui.tab->removeTab(index);
 
   if(sender()) // Avoid iterations.
-    {
-      prepareTabCornerMenu();
-      prepareTabWidgetCloseButtons();
-    }
+    prepareTabWidgetCloseButtons();
 }
 
 void glitch_view::slotCopiedObjectsChanged(void)
@@ -1757,7 +1762,6 @@ void glitch_view::slotEditWindowClosed(void)
 	m_ui.tab->removeTab(index);
     }
 
-  prepareTabCornerMenu();
   prepareTabWidgetCloseButtons();
 }
 
@@ -2030,7 +2034,6 @@ void glitch_view::slotSelectItemTab(void)
       for(int i = m_ui.tab->count() - 1; i > 0; i--)
 	slotCloseTab(i);
 
-      prepareTabCornerMenu();
       prepareTabWidgetCloseButtons();
     }
   else
@@ -2106,7 +2109,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       if(w)
 	{
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
-	  prepareTabCornerMenu();
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
@@ -2139,7 +2141,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
       m_ui.tab->setTabToolTip
 	(m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
-      prepareTabCornerMenu();
       prepareTabWidgetCloseButtons();
 
       if(w)
@@ -2220,7 +2221,6 @@ void glitch_view::slotUndoStackChanged(int index)
 
   adjustScrollBars();
   emit changed();
-  prepareTabCornerMenu();
   prepareTabTitles();
 }
 
