@@ -159,6 +159,7 @@ class glitch_view: public QWidget
     (const QList<glitch_object *> &list,
      const qint64 id,
      glitch_object *object) const;
+  void copyCornerWidget(void);
   void createParentFromValues
     (QHash<qint64, char> &ids,
      QHash<qint64, glitch_object *> &parents,
@@ -166,7 +167,7 @@ class glitch_view: public QWidget
      const qint64 oid) const;
   void prepareDatabaseTables(void) const;
   void prepareDefaultActions(void);
-  void prepareTabCornerMenu(void);
+  void prepareTabCornerMenu(QToolButton *toolButton);
   void prepareTabTitles(void);
   void prepareTabWidget(void);
   void prepareTabWidgetCloseButtons(void);

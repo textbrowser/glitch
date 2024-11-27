@@ -121,7 +121,7 @@ glitch_view::glitch_view
   m_tabPullDown->setAutoRaise(false);
   m_tabPullDown->setIcon(QIcon(":/down.png"));
   m_tabPullDown->setIconSize(QSize(32, 32));
-  m_tabPullDown->setMenu(new QMenu(this));
+  m_tabPullDown->setMenu(new QMenu(m_tabPullDown));
   m_tabPullDown->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
   m_tabPullDown->setStyleSheet
@@ -309,6 +309,7 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+  copyCornerWidget();
   m_bottomSplitter->addWidget(m_ash->frame());
   m_bottomSplitter->addWidget(m_ideOutput);
   m_bottomSplitter->setStretchFactor(0, 1);
@@ -1064,6 +1065,43 @@ void glitch_view::contextMenuEvent(QContextMenuEvent *event)
     emit customContextMenuRequested(QCursor::pos());
 }
 
+void glitch_view::copyCornerWidget(void)
+{
+  if(m_ui.tab->cornerWidget(Qt::TopRightCorner))
+    return;
+
+  auto toolButton = new QToolButton(this);
+
+  toolButton->setArrowType(Qt::NoArrow);
+  toolButton->setAutoRaise(false);
+  toolButton->setIcon(QIcon(":/down.png"));
+  toolButton->setIconSize(QSize(32, 32));
+  toolButton->setMenu(new QMenu(toolButton));
+  toolButton->setPopupMode(QToolButton::DelayedPopup);
+#ifdef Q_OS_MACOS
+  toolButton->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#else
+  toolButton->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 10px; margin-top: 10px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#endif
+  toolButton->setToolTip(tr("Tab Menu"));
+  toolButton->menu()->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  connect(toolButton,
+	  &QToolButton::clicked,
+	  toolButton,
+	  &QToolButton::showMenu);
+  connect(toolButton->menu(),
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_view::slotAboutToShowTabCornerMenu);
+  m_ui.tab->setCornerWidget(toolButton, Qt::TopRightCorner);
+}
+
 void glitch_view::createParentFromValues
 (QHash<qint64, char> &ids,
  QHash<qint64, glitch_object *> &parents,
@@ -1385,24 +1423,27 @@ void glitch_view::prepareDefaultActions(void)
   m_defaultActions << action;
 }
 
-void glitch_view::prepareTabCornerMenu(void)
+void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
 {
-  QApplication::setOverrideCursor(Qt::WaitCursor);
-  m_tabPullDown->menu()->clear();
+  if(!toolButton || !toolButton->menu())
+    return;
 
-  auto action = m_tabPullDown->menu()->addAction(tr("&Close All"));
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+  toolButton->menu()->clear();
+
+  auto action = toolButton->menu()->addAction(tr("&Close All"));
 
   action->setData(-1);
   connect(action,
 	  SIGNAL(triggered(void)),
 	  this,
 	  SLOT(slotSelectItemTab(void)));
-  m_tabPullDown->menu()->addSeparator();
+  toolButton->menu()->addSeparator();
 
-  auto group = m_tabPullDown->menu()->findChild<QActionGroup *> ();
+  auto group = toolButton->menu()->findChild<QActionGroup *> ();
 
   if(!group)
-    group = new QActionGroup(m_tabPullDown->menu());
+    group = new QActionGroup(toolButton->menu());
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
@@ -1416,7 +1457,7 @@ void glitch_view::prepareTabCornerMenu(void)
 	      this,
 	      SLOT(slotSelectItemTab(void)));
       group->addAction(action);
-      m_tabPullDown->menu()->addAction(action);
+      toolButton->menu()->addAction(action);
     }
 
   QApplication::restoreOverrideCursor();
@@ -1596,7 +1637,10 @@ void glitch_view::showUserFunctions(void) const
 
 void glitch_view::slotAboutToShowTabCornerMenu(void)
 {
-  prepareTabCornerMenu();
+  auto menu = qobject_cast<QMenu *> (sender());
+
+  if(menu)
+    prepareTabCornerMenu(qobject_cast<QToolButton *> (menu->parentWidget()));
 }
 
 void glitch_view::slotAllWidgetsAdjustSize(void)
