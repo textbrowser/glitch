@@ -59,6 +59,7 @@ class glitch_object_view: public QGraphicsView
   qreal scalingFactor(void) const;
   void artificialDrop(const QPointF &point, glitch_object *object, bool &ok);
   void beginMacro(const QString &text);
+  void editWidgets(void);
   void endMacro(void);
   void push(glitch_undo_command *undoCommand);
   void save(const QSqlDatabase &db, QString &error);

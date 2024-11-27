@@ -118,6 +118,7 @@ class glitch_view: public QWidget
   void beginMacro(const QString &text);
   void clearSelection(void);
   void deleteItems(void);
+  void editWidgets(void);
   void endMacro(void);
   void find(void);
   void generateSourceView(const bool raise = true);
@@ -241,11 +242,13 @@ class glitch_view: public QWidget
 				     glitch_object *object);
   void slotGenerate(void);
   void slotGenerateSourceView(void);
+  void slotPageSelected(int index);
   void slotProcessCommand(const QString &command);
   void slotResizeScene(void);
   void slotSaveAs(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
+  void slotSelectItemTab(void);
   void slotSeparate(void);
   void slotShowCanvasSettings(void);
   void slotShowEditWindow(QMainWindow *window);

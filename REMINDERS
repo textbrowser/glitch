@@ -331,6 +331,7 @@ Completed Items
 - Stack (z-values) widgets.
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
+- Tab menu for tabbed edit windows.
 - The name of the display in settings should be separate from the file name.
 - Tools Bar?
 - Tools:
@@ -385,7 +386,6 @@ Remaining Items
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
-- Tab menu for tabbed edit windows.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.

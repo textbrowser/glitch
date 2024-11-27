@@ -368,6 +368,8 @@ void glitch_ui::slotSpecialTools(void)
     m_currentView->scene()->slotSelectedWidgetsCompress();
   else if(type == "disconnect-widgets")
     m_currentView->scene()->slotSelectedWidgetsDisconnect();
+  else if(type == "edit-widgets")
+    m_currentView->editWidgets();
   else if(type == "fonts")
     m_currentView->slotFonts();
   else if(type == "lock-positions")

@@ -135,6 +135,7 @@ glitch_view::glitch_view
      "QToolButton::menu-indicator {image: none;}");
 #endif
   m_tabPullDown->setToolTip(tr("Tab Menu"));
+  m_tabPullDown->menu()->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
   m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
@@ -275,6 +276,10 @@ glitch_view::glitch_view
 	  &QToolButton::clicked,
 	  m_tabPullDown,
 	  &QToolButton::showMenu);
+  connect(m_ui.tab,
+	  SIGNAL(currentChanged(int)),
+	  this,
+	  SLOT(slotPageSelected(int)));
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -1150,6 +1155,17 @@ void glitch_view::deleteItems(void)
   m_scene->deleteItems();
 }
 
+void glitch_view::editWidgets(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto object, selectedObjects())
+    if(object)
+      object->showEditWindow();
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view::endMacro(void)
 {
   m_undoStack->endMacro();
@@ -1374,6 +1390,15 @@ void glitch_view::prepareTabCornerMenu(void)
   QApplication::setOverrideCursor(Qt::WaitCursor);
   m_tabPullDown->menu()->clear();
 
+  auto action = m_tabPullDown->menu()->addAction(tr("&Close All"));
+
+  action->setData(-1);
+  connect(action,
+	  SIGNAL(triggered(void)),
+	  this,
+	  SLOT(slotSelectItemTab(void)));
+  m_tabPullDown->menu()->addSeparator();
+
   auto group = m_tabPullDown->menu()->findChild<QActionGroup *> ();
 
   if(!group)
@@ -1385,6 +1410,11 @@ void glitch_view::prepareTabCornerMenu(void)
 
       action->setCheckable(true);
       action->setChecked(i == m_ui.tab->currentIndex());
+      action->setData(i);
+      connect(action,
+	      SIGNAL(triggered(void)),
+	      this,
+	      SLOT(slotSelectItemTab(void)));
       group->addAction(action);
       m_tabPullDown->menu()->addAction(action);
     }
@@ -1661,8 +1691,11 @@ void glitch_view::slotCloseTab(int index)
   if(index > 0)
     m_ui.tab->removeTab(index);
 
-  prepareTabCornerMenu();
-  prepareTabWidgetCloseButtons();
+  if(sender()) // Avoid iterations.
+    {
+      prepareTabCornerMenu();
+      prepareTabWidgetCloseButtons();
+    }
 }
 
 void glitch_view::slotCopiedObjectsChanged(void)
@@ -1856,6 +1889,14 @@ void glitch_view::slotGenerateSourceView(void)
   generateSourceView(false);
 }
 
+void glitch_view::slotPageSelected(int index)
+{
+  auto action = m_tabPullDown->menu()->actions().value(index + 2);
+
+  if(action)
+    action->setChecked(true);
+}
+
 void glitch_view::slotPaste(void)
 {
   emit paste(this);
@@ -1976,6 +2017,25 @@ void glitch_view::slotSceneObjectDestroyed(QObject *object)
 void glitch_view::slotSceneResized(void)
 {
   adjustScrollBars();
+}
+
+void glitch_view::slotSelectItemTab(void)
+{
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+  else if(action->data().toInt() < 0)
+    {
+      for(int i = m_ui.tab->count() - 1; i > 0; i--)
+	slotCloseTab(i);
+
+      prepareTabCornerMenu();
+      prepareTabWidgetCloseButtons();
+    }
+  else
+    m_ui.tab->setCurrentIndex
+      (qBound(0, action->data().toInt(), m_ui.tab->count() - 1));
 }
 
 void glitch_view::slotSelectedWidgetsProperties(void)

@@ -181,6 +181,17 @@ void glitch_object_view::contextMenuEvent(QContextMenuEvent *event)
     QGraphicsView::contextMenuEvent(event);
 }
 
+void glitch_object_view::editWidgets(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  foreach(auto object, m_scene->selectedObjects())
+    if(object)
+      object->showEditWindow();
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_object_view::endMacro(void)
 {
   if(m_undoStack)

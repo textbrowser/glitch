@@ -1009,6 +1009,8 @@ void glitch_object_edit_window::slotSpecialTools(void)
     m_editView->scene()->slotSelectedWidgetsCompress();
   else if(type == "disconnect-widgets")
     m_editView->scene()->slotSelectedWidgetsDisconnect();
+  else if(type == "edit-widgets")
+    m_editView->editWidgets();
   else if(type == "lock-positions")
     m_editView->scene()->slotSelectedWidgetsLock();
   else if(type == "widget-properties")

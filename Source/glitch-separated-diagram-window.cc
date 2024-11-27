@@ -397,6 +397,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	 << tr("Adjust Size(s) (Selected Widget(s))")
 	 << tr("(De)compress Selected Widget(s)")
 	 << tr("Disconnect Selected Widget(s)")
+	 << tr("Edit Selected Widgets(s)...")
 	 << tr("Fonts (All Widgets)...")
 	 << tr("(Un)lock Position(s) (Selected Widget(s))")
 	 << tr("Widget(s) Properties (Selected Widget(s))..."));
@@ -764,6 +765,8 @@ void glitch_separated_diagram_window::slotSpecialTools(void)
     m_view->scene()->slotSelectedWidgetsCompress();
   else if(type == "disconnect-widgets")
     m_view->scene()->slotSelectedWidgetsDisconnect();
+  else if(type == "edit-widgets")
+    m_view->editWidgets();
   else if(type == "fonts")
     m_view->slotFonts();
   else if(type == "lock-positions")
