@@ -1783,6 +1783,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << QIcon(":/adjust-size.png")
 	 << QIcon(":/compress.png")
 	 << QIcon(":/disconnect.png")
+	 << QIcon(":/document-edit.png")
 	 << QIcon(":/font.png")
 	 << QIcon(":/pin.png")
 	 << QIcon(":/widget-properties.png"));
@@ -1792,6 +1793,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << "adjust-sizes"
 	 << "compress-widgets"
 	 << "disconnect-widgets"
+	 << "edit-widgets"
 	 << "fonts"
 	 << "lock-positions"
 	 << "widget-properties");
@@ -1801,6 +1803,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << tr("Adjust Size(s) (Selected Widget(s))")
 	 << tr("(De)compress Selected Widget(s)")
 	 << tr("Disconnect Selected Widget(s)")
+	 << tr("Edit Selected Widgets(s)...")
 	 << tr("Fonts (All Widgets)...")
 	 << tr("(Un)lock Position(s) (Selected Widget(s))")
 	 << tr("Widget(s) Properties (Selected Widget(s))..."));

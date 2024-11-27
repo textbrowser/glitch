@@ -493,6 +493,7 @@ void glitch_object_edit_window::prepareToolBars
      << QIcon(":/adjust-size.png")
      << QIcon(":/compress.png")
      << QIcon(":/disconnect.png")
+     << QIcon(":/document-edit.png")
      << QIcon(":/pin.png")
      << QIcon(":/widget-properties.png"));
   static QStringList const data
@@ -500,6 +501,7 @@ void glitch_object_edit_window::prepareToolBars
      << "adjust-sizes"
      << "compress-widgets"
      << "disconnect-widgets"
+     << "edit-widgets"
      << "lock-positions"
      << "widget-properties");
   static QStringList const texts
@@ -507,6 +509,7 @@ void glitch_object_edit_window::prepareToolBars
      << tr("Adjust Size(s) (Selected Widget(s))")
      << tr("(De)compress Selected Widget(s)")
      << tr("Disconnect Selected Widget(s)")
+     << tr("Edit Selected Widget(s)...")
      << tr("(Un)lock Position(s) (Selected Widget(s))")
      << tr("Widget(s) Properties (Selected Widget(s))..."));
 
