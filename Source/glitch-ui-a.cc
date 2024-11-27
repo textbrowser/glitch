@@ -2519,12 +2519,7 @@ void glitch_ui::slotTabMoved(int from, int to)
 	  auto action = view->menuAction();
 
 	  action->setCheckable(true);
-
-	  if(i == m_ui.tab->currentIndex())
-	    action->setChecked(true);
-	  else
-	    action->setChecked(false);
-
+	  action->setChecked(i == m_ui.tab->currentIndex());
 	  group->addAction(action);
 	  m_ui.menu_Tabs->addAction(action);
 	}

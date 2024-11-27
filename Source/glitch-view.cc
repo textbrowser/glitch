@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QActionGroup>
 #include <QDateTime>
 #include <QDir>
 #include <QFileDialog>
@@ -269,6 +270,10 @@ glitch_view::glitch_view
 	  SIGNAL(showEditWindow(QMainWindow *)),
 	  this,
 	  SLOT(slotShowEditWindow(QMainWindow *)));
+  connect(m_tabPullDown,
+	  &QToolButton::clicked,
+	  m_tabPullDown,
+	  &QToolButton::showMenu);
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -306,6 +311,7 @@ glitch_view::glitch_view
   prepareASH(parent);
   prepareDatabaseTables();
   prepareDefaultActions();
+  prepareTabCornerMenu();
   prepareTabWidget();
   prepareTabWidgetCloseButtons();
 }
@@ -1362,6 +1368,29 @@ void glitch_view::prepareDefaultActions(void)
   m_defaultActions << action;
 }
 
+void glitch_view::prepareTabCornerMenu(void)
+{
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+  m_tabPullDown->menu()->clear();
+
+  auto group = m_tabPullDown->menu()->findChild<QActionGroup *> ();
+
+  if(!group)
+    group = new QActionGroup(m_tabPullDown->menu());
+
+  for(int i = 0; i < m_ui.tab->count(); i++)
+    {
+      auto action = new QAction(m_ui.tab->tabText(i));
+
+      action->setCheckable(true);
+      action->setChecked(i == m_ui.tab->currentIndex());
+      group->addAction(action);
+      m_tabPullDown->menu()->addAction(action);
+    }
+
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view::prepareTabTitles(void)
 {
   QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -1631,6 +1660,7 @@ void glitch_view::slotCloseTab(int index)
   if(index > 0)
     m_ui.tab->removeTab(index);
 
+  prepareTabCornerMenu();
   prepareTabWidgetCloseButtons();
 }
 
@@ -1693,6 +1723,7 @@ void glitch_view::slotEditWindowClosed(void)
 	m_ui.tab->removeTab(index);
     }
 
+  prepareTabCornerMenu();
   prepareTabWidgetCloseButtons();
 }
 
@@ -2014,6 +2045,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       if(w)
 	{
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
+	  prepareTabCornerMenu();
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
 	  w->object() ? w->object()->showEditWindow(false) : (void) 0;
@@ -2046,6 +2078,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
       m_ui.tab->setTabToolTip
 	(m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
+      prepareTabCornerMenu();
       prepareTabWidgetCloseButtons();
 
       if(w)
@@ -2126,6 +2159,7 @@ void glitch_view::slotUndoStackChanged(int index)
 
   adjustScrollBars();
   emit changed();
+  prepareTabCornerMenu();
   prepareTabTitles();
 }
 

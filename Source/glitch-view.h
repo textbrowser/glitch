@@ -165,7 +165,10 @@ class glitch_view: public QWidget
      const qint64 oid) const;
   void prepareDatabaseTables(void) const;
   void prepareDefaultActions(void);
+  void prepareTabCornerMenu(void);
   void prepareTabTitles(void);
+  void prepareTabWidget(void);
+  void prepareTabWidgetCloseButtons(void);
 
  private slots:
   void slotCopiedObjectsChanged(void);
@@ -212,8 +215,6 @@ class glitch_view: public QWidget
   void adjustScrollBars(void);
   void contextMenuEvent(QContextMenuEvent *event);
   void createTools(void);
-  void prepareTabWidget(void);
-  void prepareTabWidgetCloseButtons(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
   void setSceneRect(const QSize &size);
