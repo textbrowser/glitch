@@ -152,6 +152,7 @@ class glitch_view: public QWidget
 
  private:
   QList<glitch_wire *> m_delayedWires;
+  QToolButton *m_tabPullDown;
   glitch_redo_undo_stack *m_redoUndoStack;
   glitch_object *find
     (const QList<glitch_object *> &list,

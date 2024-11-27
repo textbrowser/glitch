@@ -115,6 +115,25 @@ glitch_view::glitch_view
   m_sourcePreview = new glitch_source_preview(this);
   m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
   m_splitter = new QSplitter(this);
+  m_tabPullDown = new QToolButton(this);
+  m_tabPullDown->setArrowType(Qt::NoArrow);
+  m_tabPullDown->setAutoRaise(false);
+  m_tabPullDown->setIcon(QIcon(":/down.png"));
+  m_tabPullDown->setIconSize(QSize(32, 64));
+  m_tabPullDown->setMenu(new QMenu(this));
+  m_tabPullDown->setPopupMode(QToolButton::DelayedPopup);
+#ifdef Q_OS_MACOS
+  m_tabPullDown->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#else
+  m_tabPullDown->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 10px; margin-top: 10px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#endif
+  m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
   m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);
