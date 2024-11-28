@@ -120,7 +120,7 @@ glitch_view::glitch_view
   m_tabPullDown->setArrowType(Qt::NoArrow);
   m_tabPullDown->setAutoRaise(false);
   m_tabPullDown->setIcon(QIcon(":/down.png"));
-  m_tabPullDown->setIconSize(QSize(32, 32));
+  m_tabPullDown->setIconSize(QSize(24, 24));
   m_tabPullDown->setMenu(new QMenu(m_tabPullDown));
   m_tabPullDown->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
@@ -1075,7 +1075,7 @@ void glitch_view::copyCornerWidget(void)
   toolButton->setArrowType(Qt::NoArrow);
   toolButton->setAutoRaise(false);
   toolButton->setIcon(QIcon(":/down.png"));
-  toolButton->setIconSize(QSize(32, 32));
+  toolButton->setIconSize(QSize(24, 24));
   toolButton->setMenu(new QMenu(toolButton));
   toolButton->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
