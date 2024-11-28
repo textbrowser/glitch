@@ -765,6 +765,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       frame->layout()->setSpacing(5);
       m_bottomTopSplitter->addWidget(m_splitter);
       m_bottomTopSplitter->addWidget(m_ash->frame());
+      m_bottomTopSplitter->setSizes(QList<int> () << 2 << 1);
       m_bottomTopSplitter->setStretchFactor(0, 1);
       m_bottomTopSplitter->setStretchFactor(1, 0);
       m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
