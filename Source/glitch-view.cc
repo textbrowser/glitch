@@ -27,7 +27,6 @@
 
 #include <QActionGroup>
 #include <QDateTime>
-#include <QDir>
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QMainWindow>
@@ -37,12 +36,10 @@
 #include <QPrinter>
 #include <QProcess>
 #include <QResizeEvent>
-#include <QScrollBar>
 #include <QSettings>
 #include <QSplitter>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QTableWidget>
 #include <QToolButton>
 
 #include "Arduino/glitch-object-function-arduino.h"

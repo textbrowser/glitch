@@ -25,8 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QToolButton>
-
 #include "glitch-collapse-expand-tool-button.h"
 #include "glitch-structures-arduino.h"
 

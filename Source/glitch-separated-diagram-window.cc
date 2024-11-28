@@ -29,7 +29,6 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QSettings>
-#include <QShortcut>
 #include <QToolButton>
 
 #include "glitch-scene.h"

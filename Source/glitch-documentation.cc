@@ -26,7 +26,6 @@
 */
 
 #include <QDesktopServices>
-#include <QDir>
 #include <QFontDatabase>
 #ifdef GLITCH_PDF_SUPPORTED
 #include <QPdfDocument>
