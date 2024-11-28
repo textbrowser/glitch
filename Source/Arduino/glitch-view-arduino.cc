@@ -405,29 +405,37 @@ void glitch_view_arduino::slotFunctionDeleted(const QString &name)
 
 void glitch_view_arduino::slotIDEProcessOutput(void)
 {
-  {
-    auto bytes(m_ideProcess.readAllStandardError().trimmed());
+  QByteArray bytes;
 
-    if(bytes.length() > 0)
-      {
-	if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
-	  bytes.append(".");
+  do
+    {
+      bytes = m_ideProcess.readAllStandardError().trimmed();
 
-	m_ideOutput->append(bytes);
-      }
-  }
+      if(bytes.length() > 0)
+	{
+	  if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
+	    bytes.append(".");
 
-  {
-    auto bytes(m_ideProcess.readAllStandardOutput().trimmed());
+	  bytes[0] = std::toupper(bytes[0]);
+	  m_ideOutput->append(bytes);
+	}
+    }
+  while(bytes.length() > 0);
 
-    if(bytes.length() > 0)
-      {
-	if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
-	  bytes.append(".");
+  do
+    {
+      bytes = m_ideProcess.readAllStandardOutput().trimmed();
 
-	m_ideOutput->append(bytes);
-      }
-  }
+      if(bytes.length() > 0)
+	{
+	  if(!QChar(bytes.at(bytes.length() - 1)).isPunct())
+	    bytes.append(".");
+
+	  bytes[0] = std::toupper(bytes[0]);
+	  m_ideOutput->append(bytes);
+	}
+    }
+  while(bytes.length() > 0);
 }
 
 void glitch_view_arduino::slotProcessCommand
