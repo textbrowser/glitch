@@ -202,8 +202,8 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
   if(m_view && m_view->scene())
     {
       m_ui.action_Context_Menu->setEnabled(true);
-      m_ui.action_Copy->setEnabled(!m_view->scene()->selectedItems().empty());
-      m_ui.action_Delete->setEnabled(!m_view->scene()->selectedItems().empty());
+      m_ui.action_Copy->setEnabled(m_view->selectedCanCopyOrDelete());
+      m_ui.action_Delete->setEnabled(m_view->selectedCanCopyOrDelete());
       m_ui.action_Find->setEnabled(true);
       m_ui.action_Generate_Source->setEnabled(true);
       m_ui.action_Generate_Source_Clipboard->setEnabled
