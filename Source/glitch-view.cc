@@ -2215,10 +2215,8 @@ void glitch_view::slotShowWires(void)
     {
       auto wire = m_delayedWires.at(i);
 
-      if(!wire)
-	continue;
-
-      if(wire->leftProxy() &&
+      if(wire &&
+	 wire->leftProxy() &&
 	 wire->leftProxy()->isVisible() &&
 	 wire->rightProxy() &&
 	 wire->rightProxy()->isVisible())
