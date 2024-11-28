@@ -30,7 +30,6 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QSettings>
-#include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>

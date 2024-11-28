@@ -28,8 +28,6 @@
 #include <QClipboard>
 #include <QFile>
 #include <QFileInfo>
-#include <QSettings>
-#include <QSplitter>
 #include <QSqlQuery>
 #include <QTextBrowser>
 #include <QTextStream>

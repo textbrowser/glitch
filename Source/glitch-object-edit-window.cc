@@ -27,7 +27,6 @@
 
 #include <QKeyEvent>
 #include <QLineEdit>
-#include <QMenuBar>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <QResizeEvent>

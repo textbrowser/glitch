@@ -25,8 +25,6 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QCoreApplication>
-
 #include "glitch-user-functions.h"
 
 glitch_user_functions::glitch_user_functions(QWidget *parent):QDialog(parent)

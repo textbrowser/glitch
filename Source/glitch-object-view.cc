@@ -28,7 +28,6 @@
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QSettings>
-#include <QSqlError>
 #include <QTimer>
 
 #include "glitch-alignment.h"
