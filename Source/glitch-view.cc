@@ -130,7 +130,7 @@ glitch_view::glitch_view
      "QToolButton::menu-indicator {image: none;}");
 #else
   m_tabPullDown->setStyleSheet
-    ("QToolButton {border: none; margin-bottom: 10px; margin-top: 10px;}"
+    ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
      "QToolButton::menu-button {border: none;}"
      "QToolButton::menu-indicator {image: none;}");
 #endif
@@ -1085,7 +1085,7 @@ void glitch_view::copyCornerWidget(void)
      "QToolButton::menu-indicator {image: none;}");
 #else
   toolButton->setStyleSheet
-    ("QToolButton {border: none; margin-bottom: 10px; margin-top: 10px;}"
+    ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
      "QToolButton::menu-button {border: none;}"
      "QToolButton::menu-indicator {image: none;}");
 #endif
@@ -1434,6 +1434,7 @@ void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
   auto action = toolButton->menu()->addAction(tr("&Close All"));
 
   action->setData(-1);
+  action->setEnabled(m_ui.tab->count() > 1);
   connect(action,
 	  SIGNAL(triggered(void)),
 	  this,

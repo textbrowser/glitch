@@ -35,6 +35,7 @@ glitch_tab::glitch_tab(QWidget *parent):QTabWidget(parent)
 {
   m_tabBar = new glitch_tab_tabbar(this);
   m_tabBar->setContextMenuPolicy(Qt::CustomContextMenu);
+  m_tabBar->setIconSize(QSize(24, 24));
   connect(m_tabBar,
 	  SIGNAL(separate(QWidget *)),
 	  this,
@@ -81,7 +82,7 @@ int glitch_tab::addTab
     (index, m_tabBar->preferredCloseButtonPositionOpposite(), pushButton);
   pushButton->setFlat(true);
   pushButton->setIcon(QIcon(":/save.png"));
-  pushButton->setMaximumWidth(32);
+  pushButton->setIconSize(QSize(24, 24));
   pushButton->setToolTip(tr("Save"));
   return index;
 }
