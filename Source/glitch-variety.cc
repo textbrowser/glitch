@@ -35,6 +35,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QScopedArrayPointer>
+#include <QScreen>
 #include <QTextLayout>
 
 #include "glitch-variety.h"
