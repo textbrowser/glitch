@@ -1001,13 +1001,9 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Close_All_Diagrams->setEnabled(m_ui.tab->count() > 0);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
-	(m_currentView &&
-	 m_currentView->scene() &&
-	 !m_currentView->scene()->selectedItems().empty());
+	(m_currentView && m_currentView->selectedCanCopyOrDelete());
       m_ui.action_Delete->setEnabled
-	(m_currentView &&
-	 m_currentView->scene() &&
-	 !m_currentView->scene()->selectedItems().empty());
+	(m_currentView && m_currentView->selectedCanCopyOrDelete());
       m_ui.action_Diagram_Context_Menu->setEnabled(m_currentView);
       m_ui.action_Find->setEnabled(m_currentView);
       m_ui.action_Generate_Source->setEnabled(m_currentView);
@@ -2258,10 +2254,8 @@ void glitch_ui::slotSelectionChanged(void)
 {
   if(m_currentView && m_currentView->scene())
     {
-      m_ui.action_Copy->setEnabled
-	(!m_currentView->scene()->selectedItems().empty());
-      m_ui.action_Delete->setEnabled
-	(!m_currentView->scene()->selectedItems().empty());
+      m_ui.action_Copy->setEnabled(m_currentView->selectedCanCopyOrDelete());
+      m_ui.action_Delete->setEnabled(m_currentView->selectedCanCopyOrDelete());
       m_ui.action_Paste->setEnabled(!s_copiedObjects.isEmpty());
       m_ui.action_Select_All->setEnabled
 	(m_currentView->scene()->items().size() > 0);

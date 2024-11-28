@@ -278,6 +278,26 @@ bool glitch_view_arduino::open(const QString &fileName, QString &error)
   return ok;
 }
 
+bool glitch_view_arduino::selectedCanCopyOrDelete(void) const
+{
+  auto const size = selectedObjects().size();
+
+  if(m_loopObject->proxy() && m_setupObject->proxy())
+    {
+      auto const b1 = m_loopObject->proxy()->isSelected();
+      auto const b2 = m_setupObject->proxy()->isSelected();
+
+      if(b1 && b2)
+	return size > 2;
+      else if(b1 || b2)
+	return size > 1;
+      else
+	return size > 0;
+    }
+  else
+    return size > 0;
+}
+
 glitch_object_loop_arduino *glitch_view_arduino::loopObject(void) const
 {
   return m_loopObject;
