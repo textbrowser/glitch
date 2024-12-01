@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2024.09.25 is the newest LTS release.</b><br>
-<b>Version 2024.11.25 is the newest source release.</b>
+<b>Version 2024.11.30 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,18 @@ Now with a natural language processor!
 
 <h3><b>Release Notes</b></h3>
 
+<p>2024.11.30</p>
+<ul>
+<li>Disable full-screen menu option for tabbed edit window.</li>
+<li>Enable Copy and Delete widgets intelligently.</li>
+<li>Full-screen option for separated canvas.</li>
+<li>Include widget name in port-colors dialog title.</li>
+<li>Menu for tabbed edit windows.</li>
+<li>New Edit Selected Widget(s) tool.</li>
+<li>Non-modal port-colors dialog.</li>
+<li>Stretch contents of splitters.</li>
+<li>Tab tool tips.</li>
+</ul>
 <p>2024.11.25</p>
 <ul>
 <li>Edit window title shall now include the canvas name.</li>
