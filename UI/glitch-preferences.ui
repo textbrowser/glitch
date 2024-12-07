@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>600</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>488</width>
-        <height>544</height>
+        <height>594</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -148,6 +148,13 @@
              </property>
              <property name="checked">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="download_version_information">
+             <property name="text">
+              <string>Download Version Information After Launch</string>
              </property>
             </widget>
            </item>
@@ -323,11 +330,13 @@
   <tabstop>display_application_font</tabstop>
   <tabstop>font_hinting</tabstop>
   <tabstop>docked_widget_property_editors</tabstop>
+  <tabstop>download_version_information</tabstop>
   <tabstop>display_language</tabstop>
   <tabstop>output_directory</tabstop>
   <tabstop>select_output_directory</tabstop>
   <tabstop>override_widget_fonts</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
+  <tabstop>zoom_factor</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>

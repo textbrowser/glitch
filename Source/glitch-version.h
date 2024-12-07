@@ -27,6 +27,9 @@
 
 #ifndef _glitch_version_h_
 #define _glitch_version_h_
-#define GLITCH_VERSION_STRING "2024.11.30"
-#define GLITCH_VERSION_STRING_LTS "2024.09.25"
+#define GLITCH_VERSION_FILE_URL				\
+  "https://raw.githubusercontent.com/"			\
+  "textbrowser/glitch/master/Source/glitch-version.h"
+#define GLITCH_VERSION_STRING "2024.12.30"
+#define GLITCH_VERSION_STRING_LTS "2024.12.30"
 #endif

@@ -117,8 +117,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_swifty = new swifty
     (GLITCH_VERSION_STRING,
      "#define GLITCH_VERSION_STRING_LTS",
-     QUrl::fromUserInput("https://raw.githubusercontent.com/"
-			 "textbrowser/glitch/master/Source/glitch-version.h"),
+     QUrl::fromUserInput(GLITCH_VERSION_FILE_URL),
      this);
   m_ui.setupUi(this);
   connect(&m_statusBarTimer,
@@ -351,7 +350,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 #ifdef Q_OS_ANDROID
   copyExamplesForAndroid();
 #endif
-  m_swifty->download();
 #ifndef GLITCH_PDF_SUPPORTED
   m_ui.action_Arduino_Documentation->setEnabled(false);
 #endif
@@ -388,6 +386,12 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareRecentFiles();
   prepareToolBars();
   slotPreferencesAccepted();
+
+  QSettings settings;
+
+  if(settings.value("preferences/download_version_information", false).
+     toBool())
+    QTimer::singleShot(5000, m_swifty, &swifty::slot_download);
 }
 
 glitch_ui::~glitch_ui()

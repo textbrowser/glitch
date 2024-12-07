@@ -62,7 +62,8 @@ class swifty: public QNetworkAccessManager
     return m_newest_version;
   }
 
-  void download()
+ public slots:
+  void slot_download()
   {
     m_buffer.clear();
     m_query_timer.start();
@@ -121,7 +122,7 @@ class swifty: public QNetworkAccessManager
   void slot_query(void)
   {
     if(!m_reply)
-      download();
+      slot_download();
   }
 
   void slot_ready_read(void)

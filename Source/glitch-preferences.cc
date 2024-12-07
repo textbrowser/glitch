@@ -107,6 +107,9 @@ void glitch_preferences::processSettings(void)
   m_ui.docked_widget_property_editors->setChecked
     (settings.value("preferences/docked_widget_property_editors", true).
      toBool());
+  m_ui.download_version_information->setChecked
+    (settings.value("preferences/download_version_information", false).
+     toBool());
   m_ui.font_hinting->setCurrentIndex
     (m_ui.font_hinting->
      findText(settings.value("preferences/font_hinting").toString().trimmed()));
@@ -157,6 +160,9 @@ void glitch_preferences::slotApply(void)
   settings.setValue
     ("preferences/docked_widget_property_editors",
      m_ui.docked_widget_property_editors->isChecked());
+  settings.setValue
+    ("preferences/download_version_information",
+     m_ui.download_version_information->isChecked());
   settings.setValue
     ("preferences/font_hinting", m_ui.font_hinting->currentText());
   settings.setValue
