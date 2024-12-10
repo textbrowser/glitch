@@ -1139,8 +1139,9 @@ void glitch_ui::prepareRecentFiles(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
-	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
-		   "file_name TEXT NOT NULL PRIMARY KEY)");
+	query.exec("ALTER TABLE glitch_recent_files ADD image TEXT");
+	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files "
+		   "(file_name TEXT NOT NULL PRIMARY KEY, image TEXT)");
 
 	if(query.exec(QString("SELECT SUBSTR(file_name, 1, %1) "
 			      "FROM glitch_recent_files ORDER BY 1").
