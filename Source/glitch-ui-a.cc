@@ -1121,6 +1121,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Zoom_Reset->setIcon(QIcon(":/zoom-reset.png"));
   m_ui.menu_New_Diagram->setIcon(QIcon(":/new-document.png"));
   m_ui.menu_Recent_Diagrams->setIcon(QIcon(":/recent.png"));
+  m_ui.tab->setTabIcon(0, QIcon(":/recent.png"));
 }
 
 void glitch_ui::prepareRecentFiles(void)
@@ -2536,6 +2537,7 @@ void glitch_ui::slotTabMoved(int from, int to)
 
 	  action->setCheckable(true);
 	  action->setChecked(i == m_ui.tab->currentIndex());
+	  action->setIcon(m_ui.tab->tabIcon(i));
 	  group->addAction(action);
 	}
     }
