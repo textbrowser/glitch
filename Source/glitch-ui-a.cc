@@ -2530,6 +2530,14 @@ void glitch_ui::slotTabMoved(int from, int to)
 	  group->addAction(action);
 	  m_ui.menu_Tabs->addAction(action);
 	}
+      else
+	{
+	  auto action = m_ui.menu_Tabs->addAction(m_ui.tab->tabText(i));
+
+	  action->setCheckable(true);
+	  action->setChecked(i == m_ui.tab->currentIndex());
+	  group->addAction(action);
+	}
     }
 
   if(m_ui.menu_Tabs->actions().isEmpty())
