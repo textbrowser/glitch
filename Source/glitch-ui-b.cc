@@ -147,6 +147,29 @@ void glitch_ui::copyExamplesForAndroid(void)
 }
 #endif
 
+void glitch_ui::prepareTab(void)
+{
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+  m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
+
+  static QList<QTabBar::ButtonPosition> const list
+    (QList<QTabBar::ButtonPosition> ()
+     << QTabBar::LeftSide
+     << QTabBar::RightSide);
+  static const int index = 0;
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      m_ui.tab->tabBar()->tabButton(index, list.at(i)) ?
+	m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater() :
+	(void) 0;
+      m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
+    }
+
+  QApplication::processEvents();
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_ui::slotAboutToShowProjectMenu(void)
 {
   m_ui.action_Generate_Source_Clipboard->setEnabled
@@ -413,6 +436,7 @@ void glitch_ui::slotUniteAllDiagrams(void)
   m_separatedWindows.clear();
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTab();
   prepareTabShortcuts();
   slotAboutToShowTabsMenu();
   QApplication::restoreOverrideCursor();

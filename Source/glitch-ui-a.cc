@@ -337,7 +337,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   connect(m_ui.tab,
 	  SIGNAL(separate(QWidget *)),
 	  this,
-	  SLOT(slotSeparate(QWidget *)));
+	  SLOT(slotSeparate(QWidget *)),
+	  Qt::QueuedConnection);
   connect(m_ui.tab,
 	  SIGNAL(tabCloseRequested(int)),
 	  this,
@@ -384,6 +385,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareActionWidgets();
   prepareIcons();
   prepareRecentFiles();
+  prepareTab();
   prepareToolBars();
   slotPreferencesAccepted();
 
@@ -604,6 +606,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
     (m_ui.tab->indexOf(view), "<html>" + name + "</html>");
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTab();
   prepareTabShortcuts();
   setWindowTitle(view);
   slotAboutToShowTabsMenu();
@@ -1635,6 +1638,7 @@ void glitch_ui::slotCloseDiagram(int index)
 
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTab();
   prepareTabShortcuts();
   slotAboutToShowTabsMenu();
 }
@@ -2342,6 +2346,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
 
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTab();
   prepareTabShortcuts();
   setWindowTitle(nullptr);
   slotAboutToShowTabsMenu();
@@ -2625,6 +2630,7 @@ void glitch_ui::slotUnite(glitch_view *view)
   m_ui.tab->setCurrentWidget(view);
   prepareActionWidgets();
   prepareStatusBar();
+  prepareTab();
   prepareTabShortcuts();
   setTabText(view);
   setWindowTitle(view);
