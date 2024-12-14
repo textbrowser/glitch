@@ -1209,6 +1209,8 @@ void glitch_canvas_settings::slotTimerTimeout(void)
 {
   QFileInfo const fileInfo(m_ui.project_ide->text());
 
+  m_ui.project_ide->setToolTip(m_ui.project_ide->text());
+
   if(!fileInfo.isExecutable())
     {
       if(m_ui.project_ide->text().trimmed().isEmpty())
