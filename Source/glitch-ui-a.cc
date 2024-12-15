@@ -1005,7 +1005,7 @@ void glitch_ui::prepareActionWidgets(void)
     {
       m_statusBarTimer.start();
       m_ui.action_Canvas_Settings->setEnabled(m_currentView);
-      m_ui.action_Close_All_Diagrams->setEnabled(m_ui.tab->count() > 0);
+      m_ui.action_Close_All_Diagrams->setEnabled(m_ui.tab->count() > 1);
       m_ui.action_Close_Diagram->setEnabled(m_currentView);
       m_ui.action_Copy->setEnabled
 	(m_currentView && m_currentView->selectedCanCopyOrDelete());

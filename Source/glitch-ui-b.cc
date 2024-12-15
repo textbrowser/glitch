@@ -216,7 +216,8 @@ void glitch_ui::slotAboutToShowRecentDiagrams(void)
 void glitch_ui::slotCloseAllDiagrams(void)
 {
   for(int i = m_ui.tab->count() - 1; i >= 0; i--)
-    slotCloseDiagram(i);
+    if(qobject_cast<glitch_view *> (m_ui.tab->widget(i)))
+      slotCloseDiagram(i);
 }
 
 void glitch_ui::slotGenerateSourceClipboard(void)
