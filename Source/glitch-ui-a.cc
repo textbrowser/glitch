@@ -972,7 +972,7 @@ void glitch_ui::prepareActionWidgets(void)
     (!s_copiedObjects.isEmpty());
   m_ui.action_Unite_All_Canvases->setEnabled(m_separatedWindows.size() > 0);
 
-  if(m_ui.tab->count() == 0)
+  if(m_ui.tab->count() <= 1)
     {
       m_statusBarTimer.stop();
       m_ui.action_Canvas_Settings->setEnabled(false);
