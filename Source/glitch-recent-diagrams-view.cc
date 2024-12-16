@@ -38,6 +38,8 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 #endif
 		 QPainter::SmoothPixmapTransform |
 		 QPainter::TextAntialiasing);
+  setScene(new QGraphicsScene(this));
+  setStyleSheet("QGraphicsView {background: transparent; border: none;}");
 #ifdef Q_OS_MACOS
   // qt.pointer.dispatch: skipping QEventPoint()
 

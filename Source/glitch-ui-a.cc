@@ -47,6 +47,7 @@
 #include "glitch-object.h"
 #include "glitch-preferences.h"
 #include "glitch-recent-diagram.h"
+#include "glitch-recent-diagrams-view.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-serial-port-window.h"
@@ -106,6 +107,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_arduino = nullptr;
   m_generateSource = false;
   m_preferences = new glitch_preferences(this);
+  m_recentDiagramsView = new glitch_recent_diagrams_view(this);
   m_recentFilesFileName = glitch_variety::homePath() +
     QDir::separator() +
     "Glitch" +
@@ -375,6 +377,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.miscellaneous_toolbar->setIconSize(QSize(24, 24));
   m_ui.project_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.project_toolbar->setIconSize(QSize(24, 24));
+  m_ui.tab->addTab(m_recentDiagramsView, tr("Recent Diagrams"));
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);

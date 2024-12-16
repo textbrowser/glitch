@@ -45,11 +45,6 @@
       <property name="movable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="page_1">
-       <attribute name="title">
-        <string>Recent Diagrams</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
    </layout>
