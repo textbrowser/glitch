@@ -28,7 +28,6 @@
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QSettings>
-#include <QtDebug>
 
 #include "glitch-graphicsview.h"
 #include "glitch-view.h"
