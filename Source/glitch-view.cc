@@ -26,6 +26,7 @@
 */
 
 #include <QActionGroup>
+#include <QBuffer>
 #include <QDateTime>
 #include <QFileDialog>
 #include <QFontDialog>
@@ -100,6 +101,8 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_redoUndoStack = nullptr;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
+  m_saveSnapTimer.setInterval(2500);
+  m_saveSnapTimer.setSingleShot(true);
   m_saveTimer.setInterval(1500);
   m_saveTimer.setSingleShot(true);
   m_scene->setBackgroundBrush(QColor("#55aaff"));
@@ -183,6 +186,10 @@ glitch_view::glitch_view
 	  &QTimer::timeout,
 	  this,
 	  &glitch_view::slotGenerate);
+  connect(&m_saveSnapTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_view::slotSaveSnap);
   connect(&m_saveTimer,
 	  &QTimer::timeout,
 	  this,
@@ -781,6 +788,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  this,
 	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
+  m_saveSnapTimer.start();
   m_scene->setLoadingFromFile(false);
   m_view->setUpdatesEnabled(true);
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
@@ -890,6 +898,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   if(ok)
     m_undoStack->setClean();
 
+  m_saveSnapTimer.start();
   QApplication::restoreOverrideCursor();
   return ok;
 }
@@ -1558,6 +1567,59 @@ void glitch_view::save(void)
   save(error);
 }
 
+void glitch_view::saveSnap(void)
+{
+  if(m_fileName.trimmed().isEmpty())
+    return;
+
+  QApplication::setOverrideCursor(Qt::WaitCursor);
+
+  QString connectionName("");
+
+  {
+    auto db = glitch_common::sqliteDatabase();
+
+    connectionName = db.connectionName();
+    db.setDatabaseName
+      (glitch_variety::homePath() +
+       QDir::separator() +
+       "Glitch" +
+       QDir::separator() +
+       "glitch_recent_files.db");
+
+    if(db.open())
+      {
+	QBuffer buffer;
+	QByteArray bytes;
+	QImage image;
+	QPainter painter;
+	QSqlQuery query(db);
+
+	image = QImage
+	  (m_scene->sceneRect().size().toSize(), QImage::Format_RGB32);
+	buffer.setBuffer(&bytes);
+	buffer.open(QIODevice::WriteOnly);
+	image.fill(Qt::white);
+	painter.begin(&image);
+	m_scene->render(&painter, QRectF(), scene()->sceneRect());
+	painter.end();
+	image = image.scaled
+	  (320, 240, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+	image.save(&buffer, "PNG", 100);
+	query.prepare
+	  ("UPDATE glitch_recent_files SET image = ? WHERE file_name = ?");
+	query.addBindValue(bytes.toBase64());
+	query.addBindValue(m_fileName);
+	query.exec();
+      }
+
+    db.close();
+  }
+
+  QSqlDatabase::removeDatabase(connectionName);
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view::selectAll(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1732,6 +1794,7 @@ void glitch_view::slotChanged(void)
   if(m_canvasSettings->savePeriodically())
     m_saveTimer.start();
 
+  m_saveSnapTimer.start();
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -2038,6 +2101,11 @@ void glitch_view::slotSaveAs(void)
     }
   else
     QApplication::processEvents();
+}
+
+void glitch_view::slotSaveSnap(void)
+{
+  saveSnap();
 }
 
 void glitch_view::slotSceneObjectDestroyed(QObject *object)

@@ -200,6 +200,7 @@ class glitch_view: public QWidget
   QTextBrowser *m_ideOutput;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
+  QTimer m_saveSnapTimer;
   QTimer m_saveTimer;
   QUndoStack *m_undoStack;
   Ui_glitch_view m_ui;
@@ -220,6 +221,7 @@ class glitch_view: public QWidget
   void createTools(void);
   void reparent(void);
   void resizeEvent(QResizeEvent *event);
+  void saveSnap(void);
   void setSceneRect(const QSize &size);
 
  protected slots:
@@ -248,6 +250,7 @@ class glitch_view: public QWidget
   void slotProcessCommand(const QString &command);
   void slotResizeScene(void);
   void slotSaveAs(void);
+  void slotSaveSnap(void);
   void slotSceneObjectDestroyed(QObject *object);
   void slotSceneResized(void);
   void slotSelectItemTab(void);

@@ -28,19 +28,16 @@
 #include "glitch-common.h"
 #include "glitch-variety.h"
 
+QAtomicInteger<quint64> glitch_common::s_dbId = 0;
 QChar glitch_common::s_indentationCharacter = ' ';
-qint64 glitch_common::s_dbId = 0;
 qreal glitch_common::s_maximumZValue = 100000000.0;
 qreal glitch_common::s_minimumZValue = -100000000.0;
 
 QSqlDatabase glitch_common::sqliteDatabase(void)
 {
-  QSqlDatabase db;
-
-  s_dbId += 1;
-  db = QSqlDatabase::addDatabase
-    ("QSQLITE", QString("glitch_database_%1").arg(s_dbId));
-  return db;
+  return QSqlDatabase::addDatabase
+    ("QSQLITE",
+     QString("glitch_database_%1").arg(s_dbId.fetchAndAddOrdered(1)));
 }
 
 QString glitch_common::projectTypeToString(const ProjectTypes projectType)

@@ -28,6 +28,7 @@
 #ifndef _glitch_common_h_
 #define _glitch_common_h_
 
+#include <QAtomicInteger>
 #include <QSqlDatabase>
 
 class glitch_common
@@ -49,7 +50,7 @@ class glitch_common
  private:
   glitch_common(void);
   ~glitch_common(void);
-  static qint64 s_dbId;
+  static QAtomicInteger<quint64> s_dbId;
 };
 
 #endif

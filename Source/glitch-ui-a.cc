@@ -1419,7 +1419,7 @@ void glitch_ui::saveRecentFile(const QString &fileName)
 	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
 	query.prepare
-	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name) VALUES (?)");
+	  ("INSERT INTO glitch_recent_files (file_name) VALUES (?)");
 	query.addBindValue(QFileInfo(fileName).absoluteFilePath());
 	query.exec();
       }
