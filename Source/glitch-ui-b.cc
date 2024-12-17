@@ -27,6 +27,7 @@
 
 #include <QFileDialog>
 #include <QToolButton>
+#include <QtConcurrent>
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-object.h"
@@ -147,6 +148,10 @@ void glitch_ui::copyExamplesForAndroid(void)
 }
 #endif
 
+void glitch_ui::gatherPreviews(void)
+{
+}
+
 void glitch_ui::prepareTab(void)
 {
   QApplication::setOverrideCursor(Qt::WaitCursor);
@@ -241,6 +246,18 @@ void glitch_ui::slotHideTearOffMenu(void)
 #else
   if(menu)
     menu->hide();
+#endif
+}
+
+void glitch_ui::slotPopulatePreviews(void)
+{
+  if(m_gatherPreviewsFuture.isFinished())
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    m_gatherPreviewsFuture = QtConcurrent::run
+      (this, &glitch_ui::gatherPreviews);
+#else
+    m_gatherPreviewsFuture = QtConcurrent::run
+      (&glitch_ui::gatherPreviews, this);
 #endif
 }
 

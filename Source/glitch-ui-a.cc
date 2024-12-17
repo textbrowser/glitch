@@ -107,6 +107,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_arduino = nullptr;
   m_generateSource = false;
   m_preferences = new glitch_preferences(this);
+  m_previewsTimer.setInterval(2500);
+  m_previewsTimer.setSingleShot(true);
   m_recentDiagramsView = new glitch_recent_diagrams_view(this);
   m_recentFilesFileName = glitch_variety::homePath() +
     QDir::separator() +
@@ -122,6 +124,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
      QUrl::fromUserInput(GLITCH_VERSION_FILE_URL),
      this);
   m_ui.setupUi(this);
+  connect(&m_previewsTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_ui::slotPopulatePreviews);
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -392,15 +398,17 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareToolBars();
   slotPreferencesAccepted();
 
-  QSettings settings;
-
-  if(settings.value("preferences/download_version_information", false).
+  if(QSettings().value("preferences/download_version_information", false).
      toBool())
     QTimer::singleShot(5000, m_swifty, &swifty::slot_download);
 }
 
 glitch_ui::~glitch_ui()
 {
+  m_gatherPreviewsFuture.cancel();
+  m_gatherPreviewsFuture.waitForFinished();
+  m_previewsTimer.stop();
+  m_statusBarTimer.stop();
 }
 
 bool glitch_ui::openDiagram(const QString &fileName, QString &error)
@@ -2105,6 +2113,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
 void glitch_ui::slotPageChanged(void)
 {
+  m_previewsTimer.start();
   prepareActionWidgets();
   setTabText(qobject_cast<glitch_view *> (sender()));
   setWindowTitle(qobject_cast<glitch_view *> (sender()));
