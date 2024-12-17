@@ -1616,7 +1616,7 @@ void glitch_view::saveSnap(void)
     db.close();
   }
 
-  QSqlDatabase::removeDatabase(connectionName);
+  glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
 }
 

@@ -50,6 +50,8 @@ class glitch_view;
 class glitch_view_arduino;
 class swifty;
 
+typedef QVector<QPair<QImage, QString> > QVectorQPairQImageQString;
+
 class glitch_ui: public QMainWindow
 {
   Q_OBJECT
@@ -112,7 +114,7 @@ class glitch_ui: public QMainWindow
 #ifdef Q_OS_ANDROID
   void copyExamplesForAndroid(void);
 #endif
-  void gatherPreviews(void);
+  void gatherPreviews(const QString &fileName);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void prepareFonts(void);
@@ -165,6 +167,7 @@ class glitch_ui: public QMainWindow
   void slotPopulatePreviews(void);
   void slotPreferencesAccepted(void);
   void slotPrepareStatusBar(void);
+  void slotPreviewsGathered(const QVectorQPairQImageQString &vector);
   void slotPrint(void);
   void slotProcessCommand(const QString &command);
   void slotQuit(void);
@@ -213,6 +216,7 @@ class glitch_ui: public QMainWindow
 
  signals:
   void information(const QString &text);
+  void previewsGathered(const QVectorQPairQImageQString &vector);
 };
 
 #endif

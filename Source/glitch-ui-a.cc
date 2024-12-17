@@ -69,6 +69,7 @@ static const char * const COMPILED_ON = __DATE__ " @ " __TIME__;
 
 glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 {
+  qRegisterMetaType<QVectorQPairQImageQString> ("QVectorQPairQImageQString");
   m_about.setIconPixmap
     (QPixmap(":/Logo/glitch-logo.png").scaled(QSize(256, 256),
 					      Qt::KeepAspectRatio,
@@ -356,6 +357,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
+  connect(this,
+	  SIGNAL(previewsGathered(const QVectorQPairQImageQString &)),
+	  this,
+	  SLOT(slotPreviewsGathered(const QVectorQPairQImageQString &)));
 #ifdef Q_OS_ANDROID
   copyExamplesForAndroid();
 #endif

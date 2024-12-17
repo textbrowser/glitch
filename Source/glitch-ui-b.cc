@@ -26,6 +26,7 @@
 */
 
 #include <QFileDialog>
+#include <QSqlQuery>
 #include <QToolButton>
 #include <QtConcurrent>
 
@@ -148,8 +149,41 @@ void glitch_ui::copyExamplesForAndroid(void)
 }
 #endif
 
-void glitch_ui::gatherPreviews(void)
+void glitch_ui::gatherPreviews(const QString &fileName)
 {
+  QString connectionName("");
+  QVectorQPairQImageQString vector;
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(fileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	if(query.exec("SELECT file_name, image FROM glitch_recent_files "
+		      "ORDER BY 1"))
+	  while(m_gatherPreviewsFuture.isCanceled() == false && query.next())
+	    {
+	      QFileInfo const fileInfo(query.value(0).toString());
+	      QImage image;
+
+	      if(image.loadFromData(QByteArray::
+				    fromBase64(query.value(1).toByteArray()),
+				    "PNG"))
+		vector << QPair<QImage, QString>
+		  (image, fileInfo.absoluteFilePath());
+	    }
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
+  emit previewsGathered(vector);
 }
 
 void glitch_ui::prepareTab(void)
@@ -254,16 +288,21 @@ void glitch_ui::slotPopulatePreviews(void)
   if(m_gatherPreviewsFuture.isFinished())
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     m_gatherPreviewsFuture = QtConcurrent::run
-      (this, &glitch_ui::gatherPreviews);
+      (this, &glitch_ui::gatherPreviews, m_recentFilesFileName);
 #else
     m_gatherPreviewsFuture = QtConcurrent::run
-      (&glitch_ui::gatherPreviews, this);
+      (&glitch_ui::gatherPreviews, this, m_recentFilesFileName);
 #endif
 }
 
 void glitch_ui::slotPrepareStatusBar(void)
 {
   prepareStatusBar();
+}
+
+void glitch_ui::slotPreviewsGathered(const QVectorQPairQImageQString &vector)
+{
+  Q_UNUSED(vector);
 }
 
 void glitch_ui::slotPrint(void)
