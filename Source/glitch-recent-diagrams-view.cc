@@ -59,7 +59,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     pen.setColor(QColor(Qt::white));
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setStyle(Qt::SolidLine);
-    pen.setWidthF(1.5);
+    pen.setWidthF(5.0);
     painter->setBrush(QBrush(pixmap()));
     painter->setPen(pen);
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -124,10 +124,10 @@ void glitch_recent_diagrams_view::populate
     return;
 
   const int static columns = 3;
-  const qreal height = 192.0;
+  const qreal height = 220.0;
   const qreal offseth = 15.0;
-  const qreal offsetw = 25.0;
-  const qreal width = 280.0;
+  const qreal offsetw = 15.0;
+  const qreal width = 318.0;
   int columnIndex = 0;
   int rowIndex = 0;
 
@@ -141,13 +141,14 @@ void glitch_recent_diagrams_view::populate
       auto item = new glitch_recent_diagrams_view_item(pixmap);
 
       if(rowIndex == 0)
-	item->setPos(columnIndex * width + offseth, offsetw);
+	item->setPos(columnIndex * width + offsetw, offseth);
       else
 	item->setPos
-	  (columnIndex * width + offseth, height * rowIndex + offsetw);
+	  (columnIndex * width + offsetw, height * rowIndex + offseth);
 
       columnIndex += 1;
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+      item->setToolTip(vector.at(i).second);
       scene()->addItem(item);
 
       if(columnIndex >= columns)

@@ -527,6 +527,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     showStatusBarMessage("");
 
   QApplication::restoreOverrideCursor();
+  m_previewsTimer.start();
   return ok;
 }
 
@@ -1605,6 +1606,7 @@ void glitch_ui::slotClearRecentFiles(void)
   }
 
   glitch_common::discardDatabase(connectionName);
+  m_previewsTimer.start();
   m_ui.menu_Recent_Diagrams->clear();
   m_ui.menu_Recent_Diagrams->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
@@ -1946,6 +1948,7 @@ void glitch_ui::slotForgetRecentDiagram(void)
 
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
+  m_previewsTimer.start();
 }
 
 void glitch_ui::slotGenerateSource(void)
