@@ -1604,7 +1604,7 @@ void glitch_view::saveSnap(void)
 	m_scene->render(&painter, QRectF(), scene()->sceneRect());
 	painter.end();
 	image = image.scaled
-	  (320, 240, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
+	  (480, 320, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 	image.save(&buffer, "PNG", 100);
 	query.prepare
 	  ("UPDATE glitch_recent_files SET image = ? WHERE file_name = ?");

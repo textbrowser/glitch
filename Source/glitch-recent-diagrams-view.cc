@@ -36,6 +36,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
   glitch_recent_diagrams_view_item(const QPixmap &pixmap):
     QGraphicsPixmapItem(pixmap)
   {
+    setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
   }
 
   QRectF boundingRect(void) const
@@ -50,6 +51,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     if(!option || !painter || !widget)
       {
 	QGraphicsPixmapItem::paint(painter, option, widget);
+	return;
       }
 
     QPen pen;
@@ -57,7 +59,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     pen.setColor(QColor(Qt::white));
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setStyle(Qt::SolidLine);
-    pen.setWidthF(2.5);
+    pen.setWidthF(1.5);
     painter->setBrush(QBrush(pixmap()));
     painter->setPen(pen);
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -122,31 +124,33 @@ void glitch_recent_diagrams_view::populate
     return;
 
   const int static columns = 3;
-
-  setSceneRect
-    (0.0,
-     0.0,
-     150.0 * static_cast<qreal> (columns),
-     (vector.size() / static_cast<qreal> (columns)) * 200.0 + 200.0);
-
+  const qreal height = 192.0;
+  const qreal offseth = 15.0;
+  const qreal offsetw = 25.0;
+  const qreal width = 280.0;
   int columnIndex = 0;
   int rowIndex = 0;
 
   for(int i = 0; i < vector.size(); i++)
     {
-      auto item = new glitch_recent_diagrams_view_item
-	(QPixmap::fromImage(vector.at(i).first));
+      auto pixmap(QPixmap::fromImage(vector.at(i).first));
+
+      pixmap = pixmap.scaled
+	(280, 192, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+      auto item = new glitch_recent_diagrams_view_item(pixmap);
 
       if(rowIndex == 0)
-	item->setPos(150.0 * columnIndex + 15.0, 15.0);
+	item->setPos(columnIndex * width + offseth, offsetw);
       else
-	item->setPos(150.0 * columnIndex + 15.0, 200.0 * rowIndex + 15.0);
+	item->setPos
+	  (columnIndex * width + offseth, height * rowIndex + offsetw);
 
       columnIndex += 1;
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
       scene()->addItem(item);
 
-      if(columns <= columnIndex)
+      if(columnIndex >= columns)
 	{
 	  columnIndex = 0;
 	  rowIndex += 1;
