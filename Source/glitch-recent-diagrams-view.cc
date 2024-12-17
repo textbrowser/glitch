@@ -30,6 +30,41 @@
 
 #include "glitch-recent-diagrams-view.h"
 
+class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
+{
+ public:
+  glitch_recent_diagrams_view_item(const QPixmap &pixmap):
+    QGraphicsPixmapItem(pixmap)
+  {
+  }
+
+  QRectF boundingRect(void) const
+  {
+    return QRectF(0.0, 0.0, 1.0 * pixmap().width(), 1.0 * pixmap().height());
+  }
+
+  void paint(QPainter *painter,
+	     const QStyleOptionGraphicsItem *option,
+	     QWidget *widget)
+  {
+    if(!option || !painter || !widget)
+      {
+	QGraphicsPixmapItem::paint(painter, option, widget);
+      }
+
+    QPen pen;
+
+    pen.setColor(QColor(Qt::white));
+    pen.setJoinStyle(Qt::RoundJoin);
+    pen.setStyle(Qt::SolidLine);
+    pen.setWidthF(2.5);
+    painter->setBrush(QBrush(pixmap()));
+    painter->setPen(pen);
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->drawRoundedRect(boundingRect(), 5.0, 5.0); // Order.
+  }
+};
+
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
@@ -99,7 +134,7 @@ void glitch_recent_diagrams_view::populate
 
   for(int i = 0; i < vector.size(); i++)
     {
-      auto item = new QGraphicsPixmapItem
+      auto item = new glitch_recent_diagrams_view_item
 	(QPixmap::fromImage(vector.at(i).first));
 
       if(rowIndex == 0)
