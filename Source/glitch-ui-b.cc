@@ -4,7 +4,7 @@
 **
 ** Redistribution and use in source and binary forms, with or without
 ** modification, are permitted provided that the following conditions
-** are met
+** are met:
 ** 1. Redistributions of source code must retain the above copyright
 **    notice, this list of conditions and the following disclaimer.
 ** 2. Redistributions in binary form must reproduce the above copyright
@@ -33,6 +33,7 @@
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-object.h"
 #include "glitch-recent-diagram.h"
+#include "glitch-recent-diagrams-view.h"
 #include "glitch-scene.h"
 #include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
@@ -302,7 +303,7 @@ void glitch_ui::slotPrepareStatusBar(void)
 
 void glitch_ui::slotPreviewsGathered(const QVectorQPairQImageQString &vector)
 {
-  Q_UNUSED(vector);
+  m_recentDiagramsView->populate(vector);
 }
 
 void glitch_ui::slotPrint(void)

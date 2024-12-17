@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QGraphicsPixmapItem>
 #include <QMouseEvent>
 
 #include "glitch-recent-diagrams-view.h"
@@ -32,12 +33,15 @@
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
+  setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+  setDragMode(QGraphicsView::RubberBandDrag);
   setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
 		 QPainter::LosslessImageRendering |
 #endif
 		 QPainter::SmoothPixmapTransform |
 		 QPainter::TextAntialiasing);
+  setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(new QGraphicsScene(this));
   setStyleSheet("QGraphicsView {background: transparent; border: none;}");
 #ifdef Q_OS_MACOS
@@ -70,4 +74,49 @@ void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
 void glitch_recent_diagrams_view::mouseMoveEvent(QMouseEvent *event)
 {
   QGraphicsView::mouseMoveEvent(event);
+}
+
+void glitch_recent_diagrams_view::populate
+(const QVectorQPairQImageQString &vector)
+{
+  resetTransform();
+  scene()->clear();
+  setSceneRect(0.0, 0.0, 1.0, 1.0);
+
+  if(vector.isEmpty())
+    return;
+
+  const int static columns = 3;
+
+  setSceneRect
+    (0.0,
+     0.0,
+     150.0 * static_cast<qreal> (columns),
+     (vector.size() / static_cast<qreal> (columns)) * 200.0 + 200.0);
+
+  int columnIndex = 0;
+  int rowIndex = 0;
+
+  for(int i = 0; i < vector.size(); i++)
+    {
+      auto item = new QGraphicsPixmapItem
+	(QPixmap::fromImage(vector.at(i).first));
+
+      if(rowIndex == 0)
+	item->setPos(150.0 * columnIndex + 15.0, 15.0);
+      else
+	item->setPos(150.0 * columnIndex + 15.0, 200.0 * rowIndex + 15.0);
+
+      columnIndex += 1;
+      item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+      scene()->addItem(item);
+
+      if(columns <= columnIndex)
+	{
+	  columnIndex = 0;
+	  rowIndex += 1;
+	}
+    }
+
+  setSceneRect(scene()->itemsBoundingRect());
 }

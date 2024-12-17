@@ -30,12 +30,15 @@
 
 #include <QGraphicsView>
 
+#include "glitch-ui.h"
+
 class glitch_recent_diagrams_view: public QGraphicsView
 {
   Q_OBJECT
 
  public:
   glitch_recent_diagrams_view(QWidget *parent);
+  void populate(const QVectorQPairQImageQString &vector);
 
  protected:
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
