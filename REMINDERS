@@ -383,6 +383,7 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
+- Preview image not saved properly with --open-arduino-diagrams.
 - Recent-displays view.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.

@@ -101,7 +101,7 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_redoUndoStack = nullptr;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
-  m_saveSnapTimer.setInterval(2500);
+  m_saveSnapTimer.setInterval(1500);
   m_saveSnapTimer.setSingleShot(true);
   m_saveTimer.setInterval(1500);
   m_saveTimer.setSingleShot(true);

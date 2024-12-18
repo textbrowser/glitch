@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QGraphicsDropShadowEffect>
 #include <QGraphicsPixmapItem>
 #include <QMouseEvent>
 
@@ -138,7 +139,13 @@ void glitch_recent_diagrams_view::populate
       pixmap = pixmap.scaled
 	(280, 192, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
+      auto effect = new QGraphicsDropShadowEffect();
       auto item = new glitch_recent_diagrams_view_item(pixmap);
+
+      effect->setBlurRadius(10.0);
+      effect->setColor(QColor(Qt::gray));
+      effect->setOffset(2.5, 2.5);
+      item->setGraphicsEffect(effect);
 
       if(rowIndex == 0)
 	item->setPos(columnIndex * width + offsetw, offseth);
