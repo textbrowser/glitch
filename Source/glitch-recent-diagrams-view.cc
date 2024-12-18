@@ -71,6 +71,8 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
+  m_menuAction = new QAction
+    (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setDragMode(QGraphicsView::RubberBandDrag);
   setRenderHints(QPainter::Antialiasing |
@@ -87,6 +89,11 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 
   viewport()->setAttribute(Qt::WA_AcceptTouchEvents, false);
 #endif
+}
+
+QAction *glitch_recent_diagrams_view::menuAction(void) const
+{
+  return m_menuAction;
 }
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))

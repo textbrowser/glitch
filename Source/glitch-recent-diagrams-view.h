@@ -38,9 +38,11 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  public:
   glitch_recent_diagrams_view(QWidget *parent);
+  QAction *menuAction(void) const;
   void populate(const QVectorQPairQImageQString &vector);
 
- protected:
+ private:
+  QAction *m_menuAction;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else

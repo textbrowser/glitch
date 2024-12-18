@@ -151,6 +151,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &glitch_preferences::accept,
 	  this,
 	  &glitch_ui::slotPreferencesAccepted);
+  connect(m_recentDiagramsView->menuAction(),
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotSelectPage);
   connect(m_swifty,
 	  SIGNAL(different(const QString &)),
 	  this,
@@ -2542,25 +2546,13 @@ void glitch_ui::slotTabMoved(int from, int to)
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
       auto view = qobject_cast<glitch_view *> (m_ui.tab->widget(i));
+      auto action = view ?
+	view->menuAction() : m_recentDiagramsView->menuAction();
 
-      if(view)
-	{
-	  auto action = view->menuAction();
-
-	  action->setCheckable(true);
-	  action->setChecked(i == m_ui.tab->currentIndex());
-	  group->addAction(action);
-	  m_ui.menu_Tabs->addAction(action);
-	}
-      else
-	{
-	  auto action = m_ui.menu_Tabs->addAction(m_ui.tab->tabText(i));
-
-	  action->setCheckable(true);
-	  action->setChecked(i == m_ui.tab->currentIndex());
-	  action->setIcon(m_ui.tab->tabIcon(i));
-	  group->addAction(action);
-	}
+      action->setCheckable(true);
+      action->setChecked(i == m_ui.tab->currentIndex());
+      group->addAction(action);
+      m_ui.menu_Tabs->addAction(action);
     }
 
   if(m_ui.menu_Tabs->actions().isEmpty())
