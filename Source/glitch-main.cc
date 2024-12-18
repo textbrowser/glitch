@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 	return static_cast<int> (EXIT_SUCCESS);
       }
 
-#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
+#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS) || defined(Q_OS_WIN)
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);

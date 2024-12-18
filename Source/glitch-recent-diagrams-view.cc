@@ -60,7 +60,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     pen.setColor(QColor(Qt::white));
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setStyle(Qt::SolidLine);
-    pen.setWidthF(5.0);
+    pen.setWidthF(0.0);
     painter->setBrush(QBrush(pixmap()));
     painter->setPen(pen);
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -125,10 +125,10 @@ void glitch_recent_diagrams_view::populate
     return;
 
   const int static columns = 3;
-  const qreal height = 220.0;
+  const qreal height = 330.0;
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
-  const qreal width = 318.0;
+  const qreal width = 490.0;
   int columnIndex = 0;
   int rowIndex = 0;
 
@@ -137,7 +137,7 @@ void glitch_recent_diagrams_view::populate
       auto pixmap(QPixmap::fromImage(vector.at(i).first));
 
       pixmap = pixmap.scaled
-	(280, 192, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	(480, 320, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
       auto effect = new QGraphicsDropShadowEffect();
       auto item = new glitch_recent_diagrams_view_item(pixmap);

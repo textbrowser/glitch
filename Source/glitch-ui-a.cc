@@ -811,7 +811,7 @@ void glitch_ui::parseCommandLineArguments(void)
 	  if(i + 1 < list.size() && list.value(i + 1).endsWith(".db"))
 	    {
 	      i += 1;
-	      m_delayedDiagrams << list.value(i);
+	      m_delayedDiagrams << QFileInfo(list.value(i)).absoluteFilePath();
 	    }
 	  else
 	    break;

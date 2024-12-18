@@ -1596,20 +1596,25 @@ void glitch_view::saveSnap(void)
 	QSqlQuery query(db);
 
 	image = QImage
-	  (m_scene->sceneRect().size().toSize(), QImage::Format_RGB32);
+	  (m_scene->sceneRect().size().toSize(), QImage::Format_ARGB32);
 	buffer.setBuffer(&bytes);
 	buffer.open(QIODevice::WriteOnly);
 	image.fill(Qt::white);
 	painter.begin(&image);
+	painter.setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+			       QPainter::LosslessImageRendering |
+#endif
+			       QPainter::SmoothPixmapTransform |
+			       QPainter::TextAntialiasing);
 	m_scene->render(&painter, QRectF(), scene()->sceneRect());
 	painter.end();
-	image = image.scaled
-	  (480, 320, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation);
 	image.save(&buffer, "PNG", 100);
 	query.prepare
-	  ("UPDATE glitch_recent_files SET image = ? WHERE file_name = ?");
-	query.addBindValue(bytes.toBase64());
+	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name, image) "
+	   "VALUES (?, ?)");
 	query.addBindValue(m_fileName);
+	query.addBindValue(bytes.toBase64());
 	query.exec();
       }
 
