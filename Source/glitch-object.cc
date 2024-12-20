@@ -2488,7 +2488,11 @@ void glitch_object::slotSetPortColors(void)
 
   m_portColors->setWindowTitle
     (tr("Glitch: Widget Port Colors (%1)").arg(name()));
+#ifndef Q_OS_ANDROID
   m_portColors->show();
+#else
+  m_portColors->showMaximized();
+#endif
   QApplication::processEvents();
 }
 

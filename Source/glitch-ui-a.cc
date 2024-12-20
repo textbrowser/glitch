@@ -1500,7 +1500,13 @@ void glitch_ui::show(void)
   restoreSettings();
 
   if(QApplication::arguments().contains("--full-screen") == false)
-    QMainWindow::show();
+    {
+#ifndef Q_OS_ANDROID
+      QMainWindow::show();
+#else
+      QMainWindow::showMaximized();
+#endif
+    }
   else
     QMainWindow::showFullScreen();
 
@@ -2474,7 +2480,11 @@ void glitch_ui::slotShowPreferences(void)
 {
   m_preferences->processSettings();
   m_preferences->resize(650, m_preferences->sizeHint().height());
+#ifndef Q_OS_ANDROID
   m_preferences->show();
+#else
+  m_preferences->showMaximized();
+#endif
 }
 
 void glitch_ui::slotShowProjectIDE(void)
