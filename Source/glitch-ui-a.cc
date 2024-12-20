@@ -693,6 +693,7 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	    mb.setWindowModality(Qt::ApplicationModal);
 	    mb.setWindowTitle(tr("Glitch: Confirmation"));
 	    m_ui.tab->setCurrentWidget(view);
+	    QApplication::processEvents();
 
 	    if(mb.exec() == QMessageBox::Yes)
 	      {
@@ -1637,6 +1638,7 @@ void glitch_ui::slotCloseDiagram(int index)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::ApplicationModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
+	  QApplication::processEvents();
 
 	  if(mb.exec() != QMessageBox::Yes)
 	    {
@@ -1743,6 +1745,9 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
       ui.setupUi(&dialog);
       ui.label->setText(tr("The following errors occurred."));
       ui.text->setPlainText(errors.trimmed());
+#ifdef Q_OS_ANDROID
+      dialog.showMaximized();
+#endif
       QApplication::processEvents();
       dialog.exec();
       QApplication::processEvents();
@@ -1993,6 +1998,9 @@ void glitch_ui::slotNewArduinoDiagram(void)
   if((label = dialog.findChild<QLabel *> ()))
     label->setWordWrap(true);
 
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() != QDialog::Accepted)
@@ -2023,6 +2031,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
       mb.setWindowIcon(windowIcon());
       mb.setWindowModality(Qt::ApplicationModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
+      QApplication::processEvents();
 
       if(mb.exec() != QMessageBox::Yes)
 	{
@@ -2052,6 +2061,9 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Open Diagram"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2089,6 +2101,9 @@ void glitch_ui::slotOpenDiagram(void)
 	  ui.setupUi(&dialog);
 	  ui.label->setText(tr("The following errors occurred."));
 	  ui.text->setPlainText(errors.trimmed());
+#ifdef Q_OS_ANDROID
+	  dialog.showMaximized();
+#endif
 	  QApplication::processEvents();
 	  dialog.exec();
 	  QApplication::processEvents();
@@ -2118,6 +2133,9 @@ void glitch_ui::slotOpenRecentDiagram(void)
       ui.setupUi(&dialog);
       ui.label->setText(tr("The following errors occurred."));
       ui.text->setPlainText(error.trimmed());
+#ifdef Q_OS_ANDROID
+      dialog.showMaximized();
+#endif
       QApplication::processEvents();
       dialog.exec();
       QApplication::processEvents();
@@ -2232,6 +2250,9 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
       dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
       dialog.setOption(QFileDialog::DontUseNativeDialog);
       dialog.setWindowIcon(windowIcon());
+#ifdef Q_OS_ANDROID
+      dialog.showMaximized();
+#endif
       QApplication::processEvents();
 
       if(dialog.exec() == QDialog::Accepted)
@@ -2399,7 +2420,11 @@ void glitch_ui::slotShowArduinoDocumentation(void)
       m_arduino->setWindowTitle(tr("Glitch: Arduino Documentation"));
     }
 
+#if Q_OS_ANDROID
+  m_arduino->showMaximized();
+#else
   m_arduino->showNormal();
+#endif
   m_arduino->activateWindow();
   m_arduino->raise();
 }
