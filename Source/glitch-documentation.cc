@@ -189,7 +189,11 @@ void glitch_documentation::setPlainText(const QString &text)
 
 void glitch_documentation::show(void)
 {
+#ifdef Q_OS_ANDROID
+  QMainWindow::showMaximized();
+#else
   QMainWindow::showNormal();
+#endif
   QMainWindow::activateWindow();
   QMainWindow::raise();
 }

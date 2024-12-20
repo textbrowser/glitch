@@ -1143,6 +1143,9 @@ void glitch_canvas_settings::slotSelectColor(void)
   dialog.setCurrentColor(QColor(button->text().remove('&')));
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -1170,6 +1173,9 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Project IDE"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)

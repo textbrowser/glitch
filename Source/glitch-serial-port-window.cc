@@ -87,7 +87,9 @@ void glitch_serial_port_window::closeEvent(QCloseEvent *event)
 {
   QSettings settings;
 
+#ifndef Q_OS_ANDROID
   settings.setValue("serial_port_window/geometry", saveGeometry());
+#endif
   settings.setValue
     ("serial_port_window/splitter_1", m_ui.splitter_1->saveState());
   settings.setValue

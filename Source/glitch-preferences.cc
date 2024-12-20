@@ -202,6 +202,9 @@ void glitch_preferences::slotSelectFont(void)
   else
     dialog.setCurrentFont(font);
 
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -225,6 +228,9 @@ void glitch_preferences::slotSelectOutputDirectory(void)
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Output Directory"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)

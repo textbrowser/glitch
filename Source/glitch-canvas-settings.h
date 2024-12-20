@@ -106,6 +106,10 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
 
     dialog.setCurrentColor(QColor(pushButton->text().remove('&')));
     dialog.setOption(QColorDialog::ShowAlphaChannel, true);
+#ifdef Q_OS_ANDROID
+    dialog.showMaximized();
+#endif
+    QApplication::processEvents();
 
     if(dialog.exec() == QDialog::Accepted)
       {

@@ -287,7 +287,11 @@ class glitch_ash_state_machine
 	    }
 	  case States::NormalScreen:
 	    {
+#ifdef Q_OS_ANDROID
+	      t->showMaximized();
+#else
 	      t->showNormal();
+#endif
 	      state = States::ZZZ;
 	      break;
 	    }

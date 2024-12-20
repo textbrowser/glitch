@@ -1228,7 +1228,11 @@ void glitch_view::find(void)
 
   m_findObjects->setWindowTitle
     (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
+#ifdef Q_OS_ANDROID
+  m_findObjects->showMaximized();
+#else
   m_findObjects->showNormal();
+#endif
   m_findObjects->activateWindow();
   m_findObjects->raise();
 }
@@ -1277,7 +1281,11 @@ void glitch_view::generateSourceView(const bool raise)
 
   if(raise)
     {
+#ifdef Q_OS_ANDROID
+      m_sourceView->showMaximized();
+#else
       m_sourceView->showNormal();
+#endif
       m_sourceView->activateWindow();
       m_sourceView->raise();
     }
@@ -1317,6 +1325,9 @@ void glitch_view::print(void)
 	  SIGNAL(paintRequested(QPrinter *)),
 	  this,
 	  SLOT(slotPrint(QPrinter *)));
+#ifdef Q_OS_ANDROID
+  dialog->showMaximized();
+#endif
   dialog->exec();
   QApplication::processEvents();
 }
@@ -1659,7 +1670,11 @@ void glitch_view::setSceneRect(const QSize &size)
 void glitch_view::showCanvasSettings(void) const
 {
   m_canvasSettings->setSettings(m_settings);
+#ifdef Q_OS_ANDROID
+  m_canvasSettings->showMaximized();
+#else
   m_canvasSettings->showNormal();
+#endif
   m_canvasSettings->activateWindow();
   m_canvasSettings->raise();
 }
@@ -1672,14 +1687,22 @@ void glitch_view::showRedoUndoStack(void)
       m_redoUndoStack->setUndoStack(m_undoStack);
     }
 
+#ifdef Q_OS_ANDROID
+  m_redoUndoStack->showMaximized();
+#else
   m_redoUndoStack->showNormal();
+#endif
   m_redoUndoStack->activateWindow();
   m_redoUndoStack->raise();
 }
 
 void glitch_view::showSourcePreview(void) const
 {
+#ifdef Q_OS_ANDROID
+  m_sourcePreview->showMaximized();
+#else
   m_sourcePreview->showNormal();
+#endif
   m_sourcePreview->activateWindow();
   m_sourcePreview->raise();
 }
@@ -1692,7 +1715,11 @@ void glitch_view::showTools(void)
     {
       m_tools->setWindowTitle
 	(tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
+#ifdef Q_OS_ANDROID
+      m_tools->showMaximized();
+#else
       m_tools->showNormal();
+#endif
       m_tools->activateWindow();
       m_tools->raise();
     }
@@ -1879,6 +1906,9 @@ void glitch_view::slotFonts(void)
 {
   QFontDialog dialog(this);
 
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2089,6 +2119,9 @@ void glitch_view::slotSaveAs(void)
   dialog.setOption(QFileDialog::DontConfirmOverwrite, false);
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2275,7 +2308,11 @@ void glitch_view::slotShowUserFunctions(void) const
 {
   m_userFunctions->setWindowTitle
     (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
+#ifdef Q_OS_ANDROID
+  m_userFunctions->showMaximized();
+#else
   m_userFunctions->showNormal();
+#endif
   m_userFunctions->activateWindow();
   m_userFunctions->raise();
 }

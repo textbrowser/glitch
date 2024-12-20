@@ -128,6 +128,9 @@ void glitch_port_colors::slotSelectColor(void)
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(title);
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)

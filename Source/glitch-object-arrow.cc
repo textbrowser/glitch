@@ -291,6 +291,9 @@ void glitch_object_arrow::slotSelectColor(void)
     (m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ());
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)

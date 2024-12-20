@@ -2388,6 +2388,9 @@ void glitch_object::slotSelectColor(void)
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(title);
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2426,6 +2429,9 @@ void glitch_object::slotSelectBorderColor(void)
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Widget Border Color"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2445,6 +2451,9 @@ void glitch_object::slotSelectFont(void)
   dialog.setCurrentFont(m_properties.value(Properties::FONT).value<QFont> ());
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Widget Font"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
@@ -2506,6 +2515,9 @@ void glitch_object::slotSetStyleSheet(void)
   glitch_style_sheet dialog(m_parent);
 
   dialog.setWidget(this);
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted && dialog.styleSheet() != string)

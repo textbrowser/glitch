@@ -345,6 +345,9 @@ void glitch_ui::slotSaveAsPNG(void)
   dialog.setOption(QFileDialog::DontConfirmOverwrite, true);
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
   QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
