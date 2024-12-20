@@ -1967,8 +1967,12 @@ void glitch_object::showEditWindow(const bool signal)
 	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
 	}
 
+#ifdef Q_OS_ANDROID
+      m_editWindow->showMaximized();
+#else
       m_canvasSettings && m_canvasSettings->maximizeEditWindows() ?
 	m_editWindow->showMaximized() : m_editWindow->showNormal();
+#endif
       m_editWindow->activateWindow();
       m_editWindow->raise();
       signal ? emit showEditWindow(m_editWindow) : (void) 0;
@@ -2585,8 +2589,12 @@ void glitch_object::slotShowContextMenu(void)
     emit dockPropertyEditor(m_contextMenu);
   else
     {
+#ifndef Q_OS_ANDROID
       m_contextMenu->resize(400, 650);
       m_contextMenu->showNormal();
+#else
+      m_contextMenu->showMaximized();
+#endif
       m_contextMenu->activateWindow();
       m_contextMenu->raise();
     }

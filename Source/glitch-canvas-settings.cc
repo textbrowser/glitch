@@ -382,7 +382,11 @@ bool glitch_canvas_settings::generateSourceViewPeriodically(void) const
 
 bool glitch_canvas_settings::maximizeEditWindows(void) const
 {
+#ifndef Q_OS_ANDROID
   return m_settings.value(Settings::MAXIMIZE_EDIT_WINDOWS).toBool();
+#else
+  return true;
+#endif
 }
 
 bool glitch_canvas_settings::save(QString &error) const

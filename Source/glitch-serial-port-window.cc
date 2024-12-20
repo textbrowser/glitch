@@ -138,7 +138,9 @@ void glitch_serial_port_window::showEvent(QShowEvent *event)
     (settings.value("serial_port_window/splitter_1").toByteArray());
   m_ui.splitter_2->restoreState
     (settings.value("serial_port_window/splitter_2").toByteArray());
+#ifndef Q_OS_ANDROID
   restoreGeometry(settings.value("serial_port_window/geometry").toByteArray());
+#endif
 }
 
 void glitch_serial_port_window::slotClear(void)

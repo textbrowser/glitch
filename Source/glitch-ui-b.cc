@@ -400,7 +400,11 @@ void glitch_ui::slotShowSerialPortWindow(void)
   if(!m_serialPortWindow)
     m_serialPortWindow = new glitch_serial_port_window(this);
 
+#ifdef Q_OS_ANDROID
+  m_serialPortWindow->showMaximized();
+#else
   m_serialPortWindow->showNormal();
+#endif
   m_serialPortWindow->activateWindow();
   m_serialPortWindow->raise();
 }

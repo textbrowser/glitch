@@ -37,6 +37,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
   glitch_recent_diagrams_view_item(const QPixmap &pixmap):
     QGraphicsPixmapItem(pixmap)
   {
+    setCacheMode(QGraphicsItem::NoCache);
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
   }
 
@@ -74,6 +75,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   m_menuAction = new QAction
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+  setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::RubberBandDrag);
   setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
@@ -84,6 +86,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(new QGraphicsScene(this));
   setStyleSheet("QGraphicsView {background: transparent; border: none;}");
+  setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 #ifdef Q_OS_MACOS
   // qt.pointer.dispatch: skipping QEventPoint()
 

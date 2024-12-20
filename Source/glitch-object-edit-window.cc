@@ -145,6 +145,9 @@ glitch_object_edit_window::glitch_object_edit_window
      SLOT(slotShowFullScreenMode(void)),
      tr("F11"));
 #endif
+#ifdef Q_OS_ANDROID
+  m_actions.value("screen mode")->setEnabled(false);
+#endif
   menu->addSeparator();
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
@@ -412,7 +415,11 @@ void glitch_object_edit_window::prepareASH(void)
 
 void glitch_object_edit_window::prepareForTab(const bool state)
 {
+#ifndef Q_OS_ANDROID
   m_actions.value("screen mode")->setEnabled(!state);
+#else
+  Q_UNUSED(state);
+#endif
 }
 
 void glitch_object_edit_window::prepareHeader(const QString &text)
