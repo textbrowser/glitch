@@ -59,7 +59,7 @@ QString glitch_variety::homePath(void)
   QString homePath(qgetenv("GLITCH_HOME").trimmed());
 
   if(homePath.isEmpty())
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WINDOWS
     return QDir::currentPath() + QDir::separator() + ".glitch";
 #else
     return QDir::homePath() + QDir::separator() + ".glitch";
