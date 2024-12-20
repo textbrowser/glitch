@@ -2420,7 +2420,7 @@ void glitch_ui::slotShowArduinoDocumentation(void)
       m_arduino->setWindowTitle(tr("Glitch: Arduino Documentation"));
     }
 
-#if Q_OS_ANDROID
+#ifdef Q_OS_ANDROID
   m_arduino->showMaximized();
 #else
   m_arduino->showNormal();
