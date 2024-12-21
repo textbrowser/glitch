@@ -189,6 +189,9 @@ void glitch_ui::gatherPreviews(const QString &fileName)
 
 void glitch_ui::prepareTab(void)
 {
+#ifdef Q_OS_ANDROID
+  return;
+#endif
   QApplication::setOverrideCursor(Qt::WaitCursor);
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 

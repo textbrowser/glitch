@@ -1665,8 +1665,6 @@ void glitch_ui::slotCloseDiagram(int index)
 
       QTimer::singleShot(150, view, SLOT(deleteLater(void)));
     }
-  else
-    m_ui.tab->removeTab(index);
 
   prepareActionWidgets();
   prepareStatusBar();
