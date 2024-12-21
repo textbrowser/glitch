@@ -157,6 +157,7 @@ class glitch_ui: public QMainWindow
   void slotGenerateSourceView(void);
   void slotHideTearOffMenu(void);
   void slotNewArduinoDiagram(void);
+  void slotOpenDiagram(const QString &fileName);
   void slotOpenDiagram(void);
   void slotOpenRecentDiagram(void);
   void slotPageChanged(void);

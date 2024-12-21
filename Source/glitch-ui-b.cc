@@ -39,6 +39,7 @@
 #include "glitch-ui.h"
 #include "glitch-variety.h"
 #include "glitch-view.h"
+#include "ui_glitch-errors-dialog.h"
 
 QList<glitch_object *> glitch_ui::copySelected
 (QGraphicsView *view,
@@ -285,6 +286,42 @@ void glitch_ui::slotHideTearOffMenu(void)
   if(menu)
     menu->hide();
 #endif
+}
+
+void glitch_ui::slotOpenDiagram(const QString &fileName)
+{
+  if(fileName.trimmed().isEmpty())
+    return;
+
+  QString error("");
+  QString errors("");
+
+  if(openDiagram(fileName, error))
+    {
+      prepareActionWidgets();
+      prepareRecentFiles();
+    }
+
+  if(!error.isEmpty())
+    errors.append
+      (tr("An error occurred while processing "
+	  "the file %1. (%2)\n\n").arg(fileName.trimmed()).arg(error));
+
+  if(!errors.isEmpty())
+    {
+      QDialog dialog(this);
+      Ui_glitch_errors_dialog ui;
+
+      ui.setupUi(&dialog);
+      ui.label->setText(tr("The following errors occurred."));
+      ui.text->setPlainText(errors.trimmed());
+#ifdef Q_OS_ANDROID
+      dialog.showMaximized();
+#endif
+      QApplication::processEvents();
+      dialog.exec();
+      QApplication::processEvents();
+    }
 }
 
 void glitch_ui::slotPopulatePreviews(void)

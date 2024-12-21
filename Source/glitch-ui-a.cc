@@ -151,6 +151,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &glitch_preferences::accept,
 	  this,
 	  &glitch_ui::slotPreferencesAccepted);
+  connect(m_recentDiagramsView,
+	  SIGNAL(openDiagram(const QString &)),
+	  this,
+	  SLOT(slotOpenDiagram(const QString &)));
   connect(m_recentDiagramsView->menuAction(),
 	  &QAction::triggered,
 	  this,
@@ -228,9 +232,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  &glitch_ui::slotNewArduinoDiagram);
   connect(m_ui.action_Open_Diagram,
-	  &QAction::triggered,
+	  SIGNAL(triggered(void)),
 	  this,
-	  &glitch_ui::slotOpenDiagram);
+	  SLOT(slotOpenDiagram(void)));
   connect(m_ui.action_Paste,
 	  SIGNAL(triggered(void)),
 	  this,
@@ -1724,7 +1728,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
       else
 	errors.append
 	  (tr("An error occurred while processing the file %1. (%2)\n\n").
-	   arg(i).arg(error));
+	   arg(i.trimmed()).arg(error));
     }
 
   if(m_generateSource)
@@ -2088,7 +2092,7 @@ void glitch_ui::slotOpenDiagram(void)
 	  else
 	    errors.append
 	      (tr("An error occurred while processing "
-		  "the file %1. (%2)\n\n").arg(fileName).arg(error));
+		  "the file %1. (%2)\n\n").arg(fileName.trimmed()).arg(error));
 	}
 
       if(ok)

@@ -51,6 +51,9 @@ class glitch_recent_diagrams_view: public QGraphicsView
   void leaveEvent(QEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
+
+ signals:
+  void openDiagram(const QString &fileName);
 };
 
 #endif

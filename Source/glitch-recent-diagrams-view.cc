@@ -46,6 +46,11 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     return QRectF(0.0, 0.0, 1.0 * pixmap().width(), 1.0 * pixmap().height());
   }
 
+  QString fileName(void) const
+  {
+    return m_fileName;
+  }
+
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *option,
 	     QWidget *widget)
@@ -67,6 +72,14 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->drawRoundedRect(boundingRect(), 5.0, 5.0); // Order.
   }
+
+  void setFileName(const QString &fileName)
+  {
+    m_fileName = fileName;
+  }
+
+ private:
+  QString m_fileName;
 };
 
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
@@ -117,6 +130,12 @@ void glitch_recent_diagrams_view::leaveEvent(QEvent *event)
 void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QGraphicsView::mouseDoubleClickEvent(event);
+
+  auto item = qgraphicsitem_cast<glitch_recent_diagrams_view_item *>
+    (scene()->selectedItems().value(0));
+
+  if(item)
+    emit openDiagram(item->fileName());
 }
 
 void glitch_recent_diagrams_view::mouseMoveEvent(QMouseEvent *event)
@@ -164,6 +183,7 @@ void glitch_recent_diagrams_view::populate
 	  (columnIndex * width + offsetw, height * rowIndex + offseth);
 
       columnIndex += 1;
+      item->setFileName(vector.at(i).second);
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
       item->setToolTip(vector.at(i).second);
       scene()->addItem(item);
