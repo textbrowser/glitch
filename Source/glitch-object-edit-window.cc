@@ -956,6 +956,9 @@ void glitch_object_edit_window::slotPrint(void)
 	      SIGNAL(paintRequested(QPrinter *)),
 	      this,
 	      SLOT(slotPrint(QPrinter *)));
+#ifdef Q_OS_ANDROID
+      dialog->showMaximized();
+#endif
       dialog->exec();
       QApplication::processEvents();
     }
