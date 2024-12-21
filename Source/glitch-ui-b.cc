@@ -151,7 +151,7 @@ void glitch_ui::copyExamplesForAndroid(void)
 }
 #endif
 
-void glitch_ui::gatherPreviews(const QString &fileName)
+void glitch_ui::gatherRecentDiagrams(const QString &fileName)
 {
   QString connectionName("");
   QVectorQPairQImageQString vector;
@@ -168,7 +168,8 @@ void glitch_ui::gatherPreviews(const QString &fileName)
 
 	if(query.exec("SELECT file_name, image FROM glitch_recent_files "
 		      "ORDER BY 1"))
-	  while(m_gatherPreviewsFuture.isCanceled() == false && query.next())
+	  while(m_gatherRecentDiagramsFuture.isCanceled() == false &&
+		query.next())
 	    {
 	      QFileInfo const fileInfo(query.value(0).toString());
 	      QImage image;
@@ -185,7 +186,7 @@ void glitch_ui::gatherPreviews(const QString &fileName)
   }
 
   glitch_common::discardDatabase(connectionName);
-  emit previewsGathered(vector);
+  emit recentDiagramsGathered(vector);
 }
 
 void glitch_ui::prepareTab(void)
@@ -326,26 +327,21 @@ void glitch_ui::slotOpenDiagram(const QString &fileName)
     }
 }
 
-void glitch_ui::slotPopulatePreviews(void)
+void glitch_ui::slotPopulateRecentDiagrams(void)
 {
-  if(m_gatherPreviewsFuture.isFinished())
+  if(m_gatherRecentDiagramsFuture.isFinished())
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    m_gatherPreviewsFuture = QtConcurrent::run
-      (this, &glitch_ui::gatherPreviews, m_recentFilesFileName);
+    m_gatherRecentDiagramsFuture = QtConcurrent::run
+      (this, &glitch_ui::gatherRecentDiagrams, m_recentFilesFileName);
 #else
     m_gatherPreviewsFuture = QtConcurrent::run
-      (&glitch_ui::gatherPreviews, this, m_recentFilesFileName);
+      (&glitch_ui::gatherRecentDiagrams, this, m_recentFilesFileName);
 #endif
 }
 
 void glitch_ui::slotPrepareStatusBar(void)
 {
   prepareStatusBar();
-}
-
-void glitch_ui::slotPreviewsGathered(const QVectorQPairQImageQString &vector)
-{
-  m_recentDiagramsView->populate(vector);
 }
 
 void glitch_ui::slotPrint(void)
@@ -371,6 +367,12 @@ void glitch_ui::slotRecentDiagramHovered(QAction *action)
     widget->highlight(true);
 
   m_recentDiagramHoveredAction = action;
+}
+
+void glitch_ui::slotRecentDiagramsGathered
+(const QVectorQPairQImageQString &vector)
+{
+  m_recentDiagramsView->populate(vector);
 }
 
 void glitch_ui::slotSaveAsPNG(void)

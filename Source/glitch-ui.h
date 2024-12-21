@@ -83,7 +83,7 @@ class glitch_ui: public QMainWindow
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
 
  private:
-  QFuture<void> m_gatherPreviewsFuture;
+  QFuture<void> m_gatherRecentDiagramsFuture;
   QHash<QObject *, QPointer<glitch_separated_diagram_window> >
     m_separatedWindows;
   QList<QShortcut *> m_tabWidgetShortcuts;
@@ -93,7 +93,7 @@ class glitch_ui: public QMainWindow
   QPointer<glitch_view> m_currentView;
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
-  QTimer m_previewsTimer;
+  QTimer m_recentDiagramsTimer;
   QTimer m_statusBarTimer;
   Ui_glitch_mainwindow m_ui;
   bool m_generateSource;
@@ -114,7 +114,7 @@ class glitch_ui: public QMainWindow
 #ifdef Q_OS_ANDROID
   void copyExamplesForAndroid(void);
 #endif
-  void gatherPreviews(const QString &fileName);
+  void gatherRecentDiagrams(const QString &fileName);
   void parseCommandLineArguments(void);
   void prepareActionWidgets(void);
   void prepareFonts(void);
@@ -165,14 +165,14 @@ class glitch_ui: public QMainWindow
   void slotPageSelected(int index);
   void slotPaste(glitch_view *view);
   void slotPaste(void);
-  void slotPopulatePreviews(void);
+  void slotPopulateRecentDiagrams(void);
   void slotPreferencesAccepted(void);
   void slotPrepareStatusBar(void);
-  void slotPreviewsGathered(const QVectorQPairQImageQString &vector);
   void slotPrint(void);
   void slotProcessCommand(const QString &command);
   void slotQuit(void);
   void slotRecentDiagramHovered(QAction *action);
+  void slotRecentDiagramsGathered(const QVectorQPairQImageQString &vector);
   void slotRedo(void);
   void slotSaveAsPNG(void);
   void slotSaveCurrentDiagram(void);
@@ -217,7 +217,7 @@ class glitch_ui: public QMainWindow
 
  signals:
   void information(const QString &text);
-  void previewsGathered(const QVectorQPairQImageQString &vector);
+  void recentDiagramsGathered(const QVectorQPairQImageQString &vector);
 };
 
 #endif

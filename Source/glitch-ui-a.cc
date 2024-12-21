@@ -108,8 +108,8 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_arduino = nullptr;
   m_generateSource = false;
   m_preferences = new glitch_preferences(this);
-  m_previewsTimer.setInterval(2500);
-  m_previewsTimer.setSingleShot(true);
+  m_recentDiagramsTimer.setInterval(2500);
+  m_recentDiagramsTimer.setSingleShot(true);
   m_recentDiagramsView = new glitch_recent_diagrams_view(this);
   m_recentFilesFileName = glitch_variety::homePath() +
     QDir::separator() +
@@ -125,10 +125,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
      QUrl::fromUserInput(GLITCH_VERSION_FILE_URL),
      this);
   m_ui.setupUi(this);
-  connect(&m_previewsTimer,
+  connect(&m_recentDiagramsTimer,
 	  &QTimer::timeout,
 	  this,
-	  &glitch_ui::slotPopulatePreviews);
+	  &glitch_ui::slotPopulateRecentDiagrams);
   connect(&m_statusBarTimer,
 	  &QTimer::timeout,
 	  this,
@@ -366,9 +366,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SLOT(slotTabMoved(int, int)),
 	  Qt::QueuedConnection);
   connect(this,
-	  SIGNAL(previewsGathered(const QVectorQPairQImageQString &)),
+	  SIGNAL(recentDiagramsGathered(const QVectorQPairQImageQString &)),
 	  this,
-	  SLOT(slotPreviewsGathered(const QVectorQPairQImageQString &)));
+	  SLOT(slotRecentDiagramsGathered(const QVectorQPairQImageQString &)));
 #ifdef Q_OS_ANDROID
   copyExamplesForAndroid();
 #endif
@@ -409,7 +409,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareRecentFiles();
   prepareTab();
   prepareToolBars();
-  slotPopulatePreviews();
+  slotPopulateRecentDiagrams();
   slotPreferencesAccepted();
 
   if(QSettings().value("preferences/download_version_information", false).
@@ -419,9 +419,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 
 glitch_ui::~glitch_ui()
 {
-  m_gatherPreviewsFuture.cancel();
-  m_gatherPreviewsFuture.waitForFinished();
-  m_previewsTimer.stop();
+  m_gatherRecentDiagramsFuture.cancel();
+  m_gatherRecentDiagramsFuture.waitForFinished();
+  m_recentDiagramsTimer.stop();
   m_statusBarTimer.stop();
 }
 
@@ -535,7 +535,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     showStatusBarMessage("");
 
   QApplication::restoreOverrideCursor();
-  m_previewsTimer.start();
+  m_recentDiagramsTimer.start();
   return ok;
 }
 
@@ -1621,7 +1621,7 @@ void glitch_ui::slotClearRecentFiles(void)
   }
 
   glitch_common::discardDatabase(connectionName);
-  m_previewsTimer.start();
+  m_recentDiagramsTimer.start();
   m_ui.menu_Recent_Diagrams->clear();
   m_ui.menu_Recent_Diagrams->addAction
     (tr("Clear"), this, SLOT(slotClearRecentFiles(void)));
@@ -1965,7 +1965,7 @@ void glitch_ui::slotForgetRecentDiagram(void)
 
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
-  m_previewsTimer.start();
+  m_recentDiagramsTimer.start();
 }
 
 void glitch_ui::slotGenerateSource(void)
@@ -2052,6 +2052,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
     }
 
   QFile::remove(fileName);
+  m_recentDiagramsTimer.start();
   newArduinoDiagram("", name, false);
   saveRecentFile(fileName);
   prepareRecentFiles();
@@ -2152,7 +2153,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 
 void glitch_ui::slotPageChanged(void)
 {
-  m_previewsTimer.start();
+  m_recentDiagramsTimer.start();
   prepareActionWidgets();
   setTabText(qobject_cast<glitch_view *> (sender()));
   setWindowTitle(qobject_cast<glitch_view *> (sender()));
