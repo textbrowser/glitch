@@ -253,6 +253,7 @@ Completed Items
 - Qt 6.5.1 LTS for Windows.
 - Raise currently-selected function via z-value. This will allow the
   function's combination box to float above other widgets.
+- Recent-displays view.
 - Recreating functions and unique names.
 - Redo / undo and nested objects.
 - Redo / undo function names.
@@ -385,10 +386,10 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Recent-displays view.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Save diagram snap in a separate task.
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
