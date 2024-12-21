@@ -1564,7 +1564,7 @@ void glitch_ui::showStatusBarMessage(const QString &text, const int timeout)
   if(statusBar())
     {
       statusBar()->showMessage(text, timeout);
-      statusBar()->repaint();
+      QTimer::singleShot(100, statusBar(), SLOT(repaint(void)));
     }
 }
 

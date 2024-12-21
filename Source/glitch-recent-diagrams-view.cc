@@ -153,6 +153,8 @@ void glitch_recent_diagrams_view::populate
   if(vector.isEmpty())
     return;
 
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
   const int static columns = 3;
   const qreal height = 330.0;
   const qreal offseth = 15.0;
@@ -196,4 +198,5 @@ void glitch_recent_diagrams_view::populate
     }
 
   setSceneRect(scene()->itemsBoundingRect());
+  QApplication::restoreOverrideCursor();
 }

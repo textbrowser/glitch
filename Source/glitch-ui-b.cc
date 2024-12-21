@@ -196,6 +196,7 @@ void glitch_ui::prepareTab(void)
   QApplication::setOverrideCursor(Qt::WaitCursor);
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
+  int c = 0;
   static QList<QTabBar::ButtonPosition> const list
     (QList<QTabBar::ButtonPosition> ()
      << QTabBar::LeftSide
@@ -205,12 +206,13 @@ void glitch_ui::prepareTab(void)
   for(int i = 0; i < list.size(); i++)
     {
       m_ui.tab->tabBar()->tabButton(index, list.at(i)) ?
-	m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater() :
+	(c += 1,
+	 m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater()) :
 	(void) 0;
       m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
     }
 
-  QApplication::processEvents();
+  c > 0 ? QApplication::processEvents() : (void) 0;
   QApplication::restoreOverrideCursor();
 }
 
