@@ -89,7 +89,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
-  setDragMode(QGraphicsView::RubberBandDrag);
+  setDragMode(QGraphicsView::NoDrag);
   setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
 		 QPainter::LosslessImageRendering |

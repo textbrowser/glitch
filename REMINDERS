@@ -294,6 +294,7 @@ Completed Items
 - Save As.
 - Save button on tab.
 - Save canvas settings.
+- Save diagram snap in a separate task.
 - Save loop() and setup() style sheets.
 - Save option from child views.
 - Save position-locked property.
@@ -387,7 +388,6 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Save diagram snap in a separate task.
 - Snap-to-visible-grid.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
