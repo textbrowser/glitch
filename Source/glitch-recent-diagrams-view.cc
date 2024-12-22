@@ -28,6 +28,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsPixmapItem>
 #include <QMouseEvent>
+#include <QStyleOptionGraphicsItem>
 
 #include "glitch-recent-diagrams-view.h"
 
@@ -71,6 +72,20 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     painter->setPen(pen);
     painter->setRenderHint(QPainter::Antialiasing, true);
     painter->drawRoundedRect(boundingRect(), 5.0, 5.0); // Order.
+
+    if(option->state & (QStyle::State_HasFocus | QStyle::State_Selected))
+      {
+	QPainterPath path;
+	auto rect(boundingRect());
+	const qreal offset = 5.0;
+
+	rect.setHeight(offset + rect.height());
+	rect.setWidth(offset + rect.width());
+	rect.setX(-offset + rect.x());
+	rect.setY(-offset + rect.y());
+	path.addRoundedRect(rect, 5.0, 5.0);
+	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
+      }
   }
 
   void setFileName(const QString &fileName)
