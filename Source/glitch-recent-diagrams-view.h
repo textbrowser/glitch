@@ -48,9 +48,6 @@ class glitch_recent_diagrams_view: public QGraphicsView
 #else
   void enterEvent(QEvent *event);
 #endif
-  void leaveEvent(QEvent *event);
-  void mouseDoubleClickEvent(QMouseEvent *event);
-  void mouseMoveEvent(QMouseEvent *event);
 
  signals:
   void openDiagram(const QString &fileName);

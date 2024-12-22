@@ -138,32 +138,13 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
   setFocus();
 }
 
-void glitch_recent_diagrams_view::leaveEvent(QEvent *event)
-{
-  QGraphicsView::leaveEvent(event);
-}
-
-void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
-{
-  QGraphicsView::mouseDoubleClickEvent(event);
-
-  auto item = qgraphicsitem_cast<glitch_recent_diagrams_view_item *>
-    (scene()->selectedItems().value(0));
-
-  if(item)
-    emit openDiagram(item->fileName());
-}
-
-void glitch_recent_diagrams_view::mouseMoveEvent(QMouseEvent *event)
-{
-  QGraphicsView::mouseMoveEvent(event);
-}
-
 void glitch_recent_diagrams_view::populate
 (const QVectorQPairQImageQString &vector)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+  auto const fileName
+    (scene()->selectedItems().value(0)->data(Qt::UserRole).toString());
   auto const hValue = horizontalScrollBar()->value();
   auto const vValue = verticalScrollBar()->value();
 
@@ -201,8 +182,10 @@ void glitch_recent_diagrams_view::populate
 	  (columnIndex * width + offsetw, height * rowIndex + offseth);
 
       columnIndex += 1;
+      item->setData(Qt::UserRole, vector.at(i).second);
       item->setFileName(vector.at(i).second);
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+      item->setSelected(fileName == vector.at(i).second);
       item->setToolTip(vector.at(i).second);
       scene()->addItem(item);
 
@@ -213,8 +196,14 @@ void glitch_recent_diagrams_view::populate
 	}
     }
 
+  auto rect(scene()->itemsBoundingRect());
+
+  rect.setX(0.0);
+  rect.setY(0.0);
+  rect.setHeight(offseth + rect.height());
+
   horizontalScrollBar()->setValue(hValue);
-  setSceneRect(scene()->itemsBoundingRect());
+  setSceneRect(rect);
   verticalScrollBar()->setValue(vValue);
   QApplication::restoreOverrideCursor();
 }

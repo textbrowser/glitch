@@ -376,6 +376,7 @@ Completed Items
 Remaining Items
 
 - ASH.
+- Add open button to recent-diagrams view.
 - Android: QDialog::exec(), menus, etc.
 - Comments: "met" -> "met:".
 - Context-menu for attaching widgets to input / output ports of other widgets.
