@@ -1749,13 +1749,20 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 	    ** Glitch has exited!
 	    */
 
-	    return;
+	    break;
 
 	  if(view)
 	    view->generateSourceFile();
 	}
 
       QApplication::restoreOverrideCursor();
+
+      if(!isVisible())
+	/*
+	** Glitch has exited!
+	*/
+
+	return;
     }
 
   m_delayedDiagrams.clear();
