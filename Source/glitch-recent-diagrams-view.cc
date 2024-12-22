@@ -28,6 +28,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsPixmapItem>
 #include <QMouseEvent>
+#include <QScrollBar>
 #include <QStyleOptionGraphicsItem>
 
 #include "glitch-recent-diagrams-view.h"
@@ -161,16 +162,16 @@ void glitch_recent_diagrams_view::mouseMoveEvent(QMouseEvent *event)
 void glitch_recent_diagrams_view::populate
 (const QVectorQPairQImageQString &vector)
 {
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+  auto const hValue = horizontalScrollBar()->value();
+  auto const vValue = verticalScrollBar()->value();
+
   resetTransform();
   scene()->clear();
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
-  if(vector.isEmpty())
-    return;
-
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
-  const int static columns = 3;
+  const int static columns = 2;
   const qreal height = 330.0;
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
@@ -212,6 +213,8 @@ void glitch_recent_diagrams_view::populate
 	}
     }
 
+  horizontalScrollBar()->setValue(hValue);
   setSceneRect(scene()->itemsBoundingRect());
+  verticalScrollBar()->setValue(vValue);
   QApplication::restoreOverrideCursor();
 }
