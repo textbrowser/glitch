@@ -1721,6 +1721,13 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 
   foreach(auto const &i, m_delayedDiagrams)
     {
+      if(!isVisible())
+	/*
+	** Glitch has exited!
+	*/
+
+	return;
+
       QString error("");
 
       if(openDiagram(i, error))
@@ -1736,8 +1743,17 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
       foreach(auto view, findChildren<glitch_view *> ())
-	if(view)
-	  view->generateSourceFile();
+	{
+	  if(!isVisible())
+	    /*
+	    ** Glitch has exited!
+	    */
+
+	    return;
+
+	  if(view)
+	    view->generateSourceFile();
+	}
 
       QApplication::restoreOverrideCursor();
     }
