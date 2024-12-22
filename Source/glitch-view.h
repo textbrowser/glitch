@@ -28,6 +28,7 @@
 #ifndef _glitch_view_h_
 #define _glitch_view_h_
 
+#include <QFuture>
 #include <QPointer>
 #include <QTimer>
 #include <QUndoStack>
@@ -153,6 +154,7 @@ class glitch_view: public QWidget
   void slotUnite(void);
 
  private:
+  QFuture<void> m_saveSnapFuture;
   QList<glitch_wire *> m_delayedWires;
   QToolButton *m_tabPullDown;
   glitch_redo_undo_stack *m_redoUndoStack;
@@ -172,6 +174,7 @@ class glitch_view: public QWidget
   void prepareTabTitles(void);
   void prepareTabWidget(void);
   void prepareTabWidgetCloseButtons(void);
+  void saveSnapToDatabase(const QByteArray &bytes, const QString &fileName);
 
  private slots:
   void slotCopiedObjectsChanged(void);

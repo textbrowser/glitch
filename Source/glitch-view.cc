@@ -42,6 +42,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QToolButton>
+#include <QtConcurrent>
 
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-alignment.h"
@@ -335,6 +336,8 @@ glitch_view::~glitch_view()
 	     SLOT(slotUndoStackChanged(int)));
   m_generateSourceViewTimer.stop();
   m_generateTimer.stop();
+  m_saveSnapFuture.cancel();
+  m_saveSnapFuture.waitForFinished();
   m_saveTimer.stop();
   m_scene->purgeRedoUndoProxies();
 }
@@ -1580,11 +1583,43 @@ void glitch_view::save(void)
 
 void glitch_view::saveSnap(void)
 {
-  if(m_fileName.trimmed().isEmpty())
+  if(m_fileName.trimmed().isEmpty() || m_saveSnapFuture.isRunning())
     return;
 
   QApplication::setOverrideCursor(Qt::WaitCursor);
 
+  QBuffer buffer;
+  QByteArray bytes;
+  QImage image;
+  QPainter painter;
+
+  image = QImage(m_scene->sceneRect().size().toSize(), QImage::Format_ARGB32);
+  buffer.setBuffer(&bytes);
+  buffer.open(QIODevice::WriteOnly);
+  image.fill(Qt::white);
+  painter.begin(&image);
+  painter.setRenderHints(QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+			 QPainter::LosslessImageRendering |
+#endif
+			 QPainter::SmoothPixmapTransform |
+			 QPainter::TextAntialiasing);
+  m_scene->render(&painter, QRectF(), scene()->sceneRect());
+  painter.end();
+  image.save(&buffer, "PNG", 100);
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  m_saveSnapFuture = QtConcurrent::run
+    (this, &glitch_view::saveSnapToDatabase, bytes, m_fileName);
+#else
+  m_saveSnapFuture = QtConcurrent::run
+    (&glitch_view::saveSnapToDatabase, this, bytes, m_fileName);
+#endif
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_view::saveSnapToDatabase
+(const QByteArray &bytes, const QString &fileName)
+{
   QString connectionName("");
 
   {
@@ -1600,31 +1635,12 @@ void glitch_view::saveSnap(void)
 
     if(db.open())
       {
-	QBuffer buffer;
-	QByteArray bytes;
-	QImage image;
-	QPainter painter;
 	QSqlQuery query(db);
 
-	image = QImage
-	  (m_scene->sceneRect().size().toSize(), QImage::Format_ARGB32);
-	buffer.setBuffer(&bytes);
-	buffer.open(QIODevice::WriteOnly);
-	image.fill(Qt::white);
-	painter.begin(&image);
-	painter.setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			       QPainter::LosslessImageRendering |
-#endif
-			       QPainter::SmoothPixmapTransform |
-			       QPainter::TextAntialiasing);
-	m_scene->render(&painter, QRectF(), scene()->sceneRect());
-	painter.end();
-	image.save(&buffer, "PNG", 100);
 	query.prepare
 	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name, image) "
 	   "VALUES (?, ?)");
-	query.addBindValue(m_fileName);
+	query.addBindValue(fileName);
 	query.addBindValue(bytes.toBase64());
 	query.exec();
       }
@@ -1633,7 +1649,6 @@ void glitch_view::saveSnap(void)
   }
 
   glitch_common::discardDatabase(connectionName);
-  QApplication::restoreOverrideCursor();
 }
 
 void glitch_view::selectAll(void)
