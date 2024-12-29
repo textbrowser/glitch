@@ -334,7 +334,7 @@ void glitch_ui::slotPopulateRecentDiagrams(void)
     m_gatherRecentDiagramsFuture = QtConcurrent::run
       (this, &glitch_ui::gatherRecentDiagrams, m_recentFilesFileName);
 #else
-    m_gatherPreviewsFuture = QtConcurrent::run
+    m_gatherRecentDiagramsFuture = QtConcurrent::run
       (&glitch_ui::gatherRecentDiagrams, this, m_recentFilesFileName);
 #endif
 }
