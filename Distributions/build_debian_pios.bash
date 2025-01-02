@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 # Alexis Megas.
 
-if [ ! -x /usr/bin/dpkg-deb ]; then
+if [ ! -x /usr/bin/dpkg-deb ]
+then
     echo "Please install dpkg-deb."
     exit 1
 fi
 
-if [ ! -x /usr/bin/fakeroot ]; then
+if [ ! -x /usr/bin/fakeroot ]
+then
     echo "Please install fakeroot."
     exit 1
 fi
 
-if [ ! -r glitch.pro ]; then
+if [ ! -r glitch.pro ]
+then
     echo "Please issue $0 from the primary directory."
     exit 1
 fi
@@ -21,7 +24,8 @@ fi
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
 
-if [ ! -z "$(which qmake)" ]; then
+if [ ! -z "$(which qmake)" ]
+then
     qmake -o Makefile glitch.pro
 else
     qmake6 -o Makefile glitch.pro
@@ -44,7 +48,8 @@ architecture="$(dpkg --print-architecture)"
 
 mkdir -p glitch-debian/opt
 
-if [ "$architecture" = "armhf" ]; then
+if [ "$architecture" = "armhf" ]
+then
     cp -pr ./Distributions/DEBIAN-PI glitch-debian/DEBIAN
 else
     cp -pr ./Distributions/DEBIAN-PI-ARM64 glitch-debian/DEBIAN

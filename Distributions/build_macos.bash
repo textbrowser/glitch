@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # Alexis Megas.
 
-if [ ! -e glitch.pro ]; then
+if [ ! -e glitch.pro ]
+then
     echo "Please issue $0 from the primary directory."
     exit 1
 fi
 
-if [ ! -x ~/Qt/6.5.3/macos/bin/qmake ]; then
+if [ ! -x ~/Qt/6.5.3/macos/bin/qmake ]
+then
     echo "Please install the official Qt."
     exit 1
 fi
@@ -17,12 +19,14 @@ rm -f Glitch.d.dmg
 make -j 5
 make dmg
 
-if [ ! -r Glitch.d.dmg ]; then
+if [ ! -r Glitch.d.dmg ]
+then
     echo "Glitch.d.dmg is not a readable file."
     exit 1
 fi
 
-if [ "$(uname -m)" = "arm64" ]; then
+if [ "$(uname -m)" = "arm64" ]
+then
     mv Glitch.d.dmg Glitch-2024.12.30_apple_silicon.d.dmg
 else
     mv Glitch.d.dmg Glitch-2024.12.30_intel.d.dmg
