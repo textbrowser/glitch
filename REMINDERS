@@ -377,6 +377,7 @@ Completed Items
 Remaining Items
 
 - ASH.
+- Add forget-me on items in recent diagrams view.
 - Android: QDialog::exec(), menus, etc.
 - Comments: "met" -> "met:".
 - Context-menu for attaching widgets to input / output ports of other widgets.
