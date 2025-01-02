@@ -43,6 +43,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  private:
   QAction *m_menuAction;
+  QStringList selectedFileNames(void) const;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else

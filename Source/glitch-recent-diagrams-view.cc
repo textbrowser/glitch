@@ -128,6 +128,17 @@ QAction *glitch_recent_diagrams_view::menuAction(void) const
   return m_menuAction;
 }
 
+QStringList glitch_recent_diagrams_view::selectedFileNames(void) const
+{
+  QMap<QString, char> map;
+
+  foreach(auto item, scene()->selectedItems())
+    if(item)
+      map[item->data(Qt::UserRole).toString()] = 0;
+
+  return map.keys();
+}
+
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
 void glitch_recent_diagrams_view::enterEvent(QEnterEvent *event)
 #else
@@ -143,8 +154,7 @@ void glitch_recent_diagrams_view::populate
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  auto const fileName
-    (scene()->selectedItems().value(0)->data(Qt::UserRole).toString());
+  auto const fileNames(selectedFileNames());
   auto const hValue = horizontalScrollBar()->value();
   auto const vValue = verticalScrollBar()->value();
 
@@ -185,7 +195,7 @@ void glitch_recent_diagrams_view::populate
       item->setData(Qt::UserRole, vector.at(i).second);
       item->setFileName(vector.at(i).second);
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
-      item->setSelected(fileName == vector.at(i).second);
+      item->setSelected(fileNames.contains(vector.at(i).second));
       item->setToolTip(vector.at(i).second);
       scene()->addItem(item);
 
