@@ -4,7 +4,7 @@
 **
 ** Redistribution and use in source and binary forms, with or without
 ** modification, are permitted provided that the following conditions
-** are met
+** are met:
 ** 1. Redistributions of source code must retain the above copyright
 **    notice, this list of conditions and the following disclaimer.
 ** 2. Redistributions in binary form must reproduce the above copyright
@@ -30,6 +30,6 @@
 #define GLITCH_VERSION_FILE_URL				\
   "https://raw.githubusercontent.com/"			\
   "textbrowser/glitch/master/Source/glitch-version.h"
-#define GLITCH_VERSION_STRING "2024.12.30"
-#define GLITCH_VERSION_STRING_LTS "2024.12.30"
+#define GLITCH_VERSION_STRING "2025.01.30"
+#define GLITCH_VERSION_STRING_LTS "2025.01.30"
 #endif
