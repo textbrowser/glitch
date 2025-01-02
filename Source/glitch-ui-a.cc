@@ -406,6 +406,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareActionWidgets();
   prepareIcons();
+  prepareRecentDiagramsView();
   prepareRecentFiles();
   prepareTab();
   prepareToolBars();

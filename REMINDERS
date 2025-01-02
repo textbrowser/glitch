@@ -15,6 +15,7 @@ Completed Items
 - Add --open-arduino-diagram option.
 - Add close buttons to dialogs and windows.
 - Add newly-created projects to Recent Files menu.
+- Add open button to recent-diagrams view.
 - Add widget actions to Edit menu. No. Instead, Shift key and the
   primary mouse button should display the object's context menu.
 - Adjust changed state of parent canvas if redo / undo stack of a child
@@ -376,7 +377,6 @@ Completed Items
 Remaining Items
 
 - ASH.
-- Add open button to recent-diagrams view.
 - Android: QDialog::exec(), menus, etc.
 - Comments: "met" -> "met:".
 - Context-menu for attaching widgets to input / output ports of other widgets.

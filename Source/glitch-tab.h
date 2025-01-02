@@ -30,6 +30,7 @@
 
 #include <QTabWidget>
 
+class QPushButton;
 class glitch_tab_tabbar;
 class glitch_view;
 
@@ -49,6 +50,7 @@ class glitch_tab: public QTabWidget
 
   int addTab(glitch_view *view, const QIcon &icon, const QString &label);
   void disableSeparation(void);
+  void setPushButton(QPushButton *pushButton, const int index);
 
  private:
   glitch_tab_tabbar *m_tabBar;

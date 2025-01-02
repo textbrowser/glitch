@@ -45,7 +45,11 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 
   QRectF boundingRect(void) const
   {
-    return QRectF(0.0, 0.0, 1.0 * pixmap().width(), 1.0 * pixmap().height());
+    return QRectF
+      (0.0,
+       0.0,
+       static_cast<qreal> (pixmap().width()),
+       static_cast<qreal> (pixmap().height()));
   }
 
   QString fileName(void) const
@@ -57,7 +61,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 	     const QStyleOptionGraphicsItem *option,
 	     QWidget *widget)
   {
-    if(!option || !painter || !widget)
+    if(!option || !painter)
       {
 	QGraphicsPixmapItem::paint(painter, option, widget);
 	return;
@@ -78,7 +82,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
       {
 	QPainterPath path;
 	auto rect(boundingRect());
-	const qreal offset = 5.0;
+	const qreal static offset = 5.0;
 
 	rect.setHeight(offset + rect.height());
 	rect.setWidth(offset + rect.width());
@@ -211,9 +215,14 @@ void glitch_recent_diagrams_view::populate
   rect.setX(0.0);
   rect.setY(0.0);
   rect.setHeight(offseth + rect.height());
-
   horizontalScrollBar()->setValue(hValue);
   setSceneRect(rect);
   verticalScrollBar()->setValue(vValue);
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_recent_diagrams_view::slotOpen(void)
+{
+  foreach(auto const &fileName, selectedFileNames())
+    emit openDiagram(fileName);
 }

@@ -189,6 +189,26 @@ void glitch_ui::gatherRecentDiagrams(const QString &fileName)
   emit recentDiagramsGathered(vector);
 }
 
+void glitch_ui::prepareRecentDiagramsView(void)
+{
+  auto pushButton = findChild<QPushButton *> ("recent-diagrams");
+
+  if(pushButton)
+    return;
+
+  pushButton = new QPushButton(this);
+  connect(pushButton,
+	  &QPushButton::clicked,
+	  m_recentDiagramsView,
+	  &glitch_recent_diagrams_view::slotOpen);
+  m_ui.tab->setPushButton(pushButton, 0);
+  pushButton->setFlat(true);
+  pushButton->setIcon(QIcon(":/open.png"));
+  pushButton->setIconSize(QSize(24, 24));
+  pushButton->setObjectName("recent-diagrams");
+  pushButton->setToolTip(tr("Open Selected Diagram(s)"));
+}
+
 void glitch_ui::prepareTab(void)
 {
 #ifdef Q_OS_ANDROID
@@ -206,11 +226,15 @@ void glitch_ui::prepareTab(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      m_ui.tab->tabBar()->tabButton(index, list.at(i)) ?
+      auto button = m_ui.tab->tabBar()->tabButton(index, list.at(i));
+
+      button && button->objectName() != "recent-diagrams" ?
 	(c += 1,
 	 m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater()) :
 	(void) 0;
-      m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
+      button && button->objectName() != "recent-diagrams" ?
+	m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr) :
+	(void) 0;
     }
 
   c > 0 ? QApplication::processEvents() : (void) 0;

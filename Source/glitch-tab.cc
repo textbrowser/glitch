@@ -91,3 +91,14 @@ void glitch_tab::disableSeparation(void)
 {
   m_tabBar->disableSeparation();
 }
+
+void glitch_tab::setPushButton(QPushButton *pushButton, const int index)
+{
+  if(index < 0 || pushButton == nullptr)
+    return;
+
+  auto const position = m_tabBar->preferredCloseButtonPositionOpposite();
+
+  if(m_tabBar->tabButton(index, position) == nullptr)
+    m_tabBar->setTabButton(index, position, pushButton);
+}

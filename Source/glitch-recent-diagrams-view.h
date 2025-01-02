@@ -41,6 +41,9 @@ class glitch_recent_diagrams_view: public QGraphicsView
   QAction *menuAction(void) const;
   void populate(const QVectorQPairQImageQString &vector);
 
+ public slots:
+  void slotOpen(void);
+
  private:
   QAction *m_menuAction;
   QStringList selectedFileNames(void) const;

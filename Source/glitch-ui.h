@@ -119,6 +119,7 @@ class glitch_ui: public QMainWindow
   void prepareActionWidgets(void);
   void prepareFonts(void);
   void prepareIcons(void);
+  void prepareRecentDiagramsView(void);
   void prepareRecentFiles(void);
   void prepareRedoUndoActions(void);
   void prepareStatusBar(void);
