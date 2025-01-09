@@ -254,7 +254,7 @@
   </widget>
   <action name="action_Open_Diagram">
    <property name="text">
-    <string>&amp;Open Diagram...</string>
+    <string>&amp;Open Diagram(s)...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
