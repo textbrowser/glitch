@@ -91,6 +91,16 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 	path.addRoundedRect(rect, 5.0, 5.0);
 	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
       }
+
+    QIcon icon(":/clear.png");
+    QPainterPath path;
+
+    path.addEllipse(-30.0 + boundingRect().topRight().x(),
+		    5.0 + boundingRect().topRight().y(),
+		    25.0,
+		    25.0);
+    painter->fillPath(path, QColor(Qt::white));
+    icon.paint(painter, path.boundingRect().toRect());
   }
 
   void setFileName(const QString &fileName)
