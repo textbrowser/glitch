@@ -118,7 +118,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 		 QPainter::TextAntialiasing);
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(new QGraphicsScene(this));
-  setStyleSheet("QGraphicsView {background: transparent; border: none;}");
+  setStyleSheet("QGraphicsView {border: none;}");
   setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 #ifdef Q_OS_MACOS
   // qt.pointer.dispatch: skipping QEventPoint()
