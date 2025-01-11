@@ -1468,6 +1468,7 @@ void glitch_ui::saveRecentFile(const QString &fileName)
       {
 	QSqlQuery query(db);
 
+	query.exec("ALTER TABLE glitch_recent_files ADD image TEXT");
 	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
 		   "file_name TEXT NOT NULL PRIMARY KEY)");
 	query.prepare
