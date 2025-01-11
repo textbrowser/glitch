@@ -249,39 +249,7 @@ void glitch_ui::slotAboutToShowProjectMenu(void)
 
 void glitch_ui::slotAboutToShowRecentDiagrams(void)
 {
-#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
-  return;
-#endif
-
-  for(int i = 0; i < m_ui.menu_Recent_Diagrams->actions().size(); i++)
-    {
-      auto action = qobject_cast<glitch_recent_diagram *>
-	(m_ui.menu_Recent_Diagrams->actions().at(i));
-
-      if(!action)
-	continue;
-
-      if(action->label())
-	{
-	  QFileInfo const fileInfo(action->fileName());
-
-	  if(!fileInfo.exists() || !fileInfo.isReadable())
-	    {
-	      action->label()->setStyleSheet
-		("QLabel {color: rgb(240, 128, 128);}");
-
-	      if(!fileInfo.exists())
-		action->label()->setToolTip(tr("File does not exist."));
-	      else
-		action->label()->setToolTip(tr("File is not readable."));
-	    }
-	  else
-	    {
-	      action->label()->setStyleSheet("");
-	      action->label()->setToolTip("");
-	    }
-	}
-    }
+  prepareRecentFiles();
 }
 
 void glitch_ui::slotCloseAllDiagrams(void)
@@ -324,10 +292,7 @@ void glitch_ui::slotOpenDiagram(const QString &fileName)
   QString errors("");
 
   if(openDiagram(fileName, error))
-    {
-      prepareActionWidgets();
-      prepareRecentFiles();
-    }
+    prepareActionWidgets();
 
   if(!error.isEmpty())
     errors.append

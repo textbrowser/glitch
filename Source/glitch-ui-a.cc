@@ -155,6 +155,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  SIGNAL(openDiagram(const QString &)),
 	  this,
 	  SLOT(slotOpenDiagram(const QString &)));
+  connect(m_recentDiagramsView,
+	  SIGNAL(remove(const QString &)),
+	  this,
+	  SLOT(slotForgetRecentDiagram(const QString &)));
   connect(m_recentDiagramsView->menuAction(),
 	  &QAction::triggered,
 	  this,
@@ -407,7 +411,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareActionWidgets();
   prepareIcons();
   prepareRecentDiagramsView();
-  prepareRecentFiles();
   prepareTab();
   prepareToolBars();
   slotPopulateRecentDiagrams();
@@ -809,7 +812,6 @@ void glitch_ui::parseCommandLineArguments(void)
 			   arg(glitch_variety::homePath()).
 			   arg(QDir::separator()).
 			   arg(view->name()));
-	    prepareRecentFiles();
 
 	    if(showTools)
 	      view->showTools();
@@ -1209,15 +1211,36 @@ void glitch_ui::prepareRecentFiles(void)
 
       action->setProperty("file-name", list.at(i));
       connect(action,
-	      &glitch_recent_diagram::clicked,
+	      SIGNAL(clicked(void)),
 	      this,
-	      &glitch_ui::slotForgetRecentDiagram);
+	      SLOT(slotForgetRecentDiagram(void)));
       connect(action,
 	      &QAction::triggered,
 	      this,
 	      &glitch_ui::slotOpenRecentDiagram,
 	      Qt::QueuedConnection); // Prevent MacOS fault.
       m_ui.menu_Recent_Diagrams->addAction(action);
+
+      if(action->label())
+	{
+	  QFileInfo const fileInfo(action->fileName());
+
+	  if(!fileInfo.exists() || !fileInfo.isReadable())
+	    {
+	      action->label()->setStyleSheet
+		("QLabel {color: rgb(240, 128, 128);}");
+
+	      if(!fileInfo.exists())
+		action->label()->setToolTip(tr("File does not exist."));
+	      else
+		action->label()->setToolTip(tr("File is not readable."));
+	    }
+	  else
+	    {
+	      action->label()->setStyleSheet("");
+	      action->label()->setToolTip("");
+	    }
+	}
 #endif
     }
 
@@ -1786,10 +1809,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
     }
 
   if(state)
-    {
-      prepareActionWidgets();
-      prepareRecentFiles();
-    }
+    prepareActionWidgets();
 }
 
 void glitch_ui::slotDelayedToolBarPreparation(void)
@@ -1956,14 +1976,12 @@ void glitch_ui::slotFind(void)
     m_currentView->find();
 }
 
-void glitch_ui::slotForgetRecentDiagram(void)
+void glitch_ui::slotForgetRecentDiagram(const QString &fileName, bool *ok)
 {
-  auto action = qobject_cast<QWidgetAction *> (sender());
-
-  if(!action)
-    return;
-
   QApplication::setOverrideCursor(Qt::WaitCursor);
+
+  if(ok)
+    *ok = false;
 
   QString connectionName("");
 
@@ -1978,10 +1996,13 @@ void glitch_ui::slotForgetRecentDiagram(void)
 	QSqlQuery query(db);
 
 	query.prepare("DELETE FROM glitch_recent_files WHERE file_name = ?");
-	query.addBindValue(action->property("file-name").toString());
+	query.addBindValue(fileName);
 
 	if(query.exec())
-	  m_ui.menu_Recent_Diagrams->removeAction(action);
+	  {
+	    if(ok)
+	      *ok = true;
+	  }
       }
 
     db.close();
@@ -1989,7 +2010,20 @@ void glitch_ui::slotForgetRecentDiagram(void)
 
   glitch_common::discardDatabase(connectionName);
   QApplication::restoreOverrideCursor();
-  m_recentDiagramsTimer.start();
+  slotPopulateRecentDiagrams();
+}
+
+void glitch_ui::slotForgetRecentDiagram(void)
+{
+  auto action = qobject_cast<QWidgetAction *> (sender());
+
+  if(!action)
+    return;
+
+  auto ok = true;
+
+  slotForgetRecentDiagram(action->property("file-name").toString(), &ok);
+  ok ? m_ui.menu_Recent_Diagrams->removeAction(action) : (void) 0;
 }
 
 void glitch_ui::slotGenerateSource(void)
@@ -2079,7 +2113,6 @@ void glitch_ui::slotNewArduinoDiagram(void)
   m_recentDiagramsTimer.start();
   newArduinoDiagram("", name, false);
   saveRecentFile(fileName);
-  prepareRecentFiles();
 }
 
 void glitch_ui::slotOpenDiagram(void)
@@ -2121,10 +2154,7 @@ void glitch_ui::slotOpenDiagram(void)
 	}
 
       if(ok)
-	{
-	  prepareActionWidgets();
-	  prepareRecentFiles();
-	}
+	prepareActionWidgets();
 
       if(!errors.isEmpty())
 	{

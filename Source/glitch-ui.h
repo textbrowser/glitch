@@ -152,6 +152,7 @@ class glitch_ui: public QMainWindow
   void slotDelayedToolBarPreparation(void);
   void slotDelete(void);
   void slotFind(void);
+  void slotForgetRecentDiagram(const QString &fileName, bool *ok = nullptr);
   void slotForgetRecentDiagram(void);
   void slotGenerateSource(void);
   void slotGenerateSourceClipboard(void);

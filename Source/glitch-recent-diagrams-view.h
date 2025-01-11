@@ -28,9 +28,150 @@
 #ifndef _glitch_recent_diagrams_view_h_
 #define _glitch_recent_diagrams_view_h_
 
+#include <QGraphicsDropShadowEffect>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsSceneHoverEvent>
+#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
+#include <QStyleOptionGraphicsItem>
 
 #include "glitch-ui.h"
+
+class glitch_recent_diagrams_view_item:
+  public QObject, public QGraphicsPixmapItem
+{
+  Q_OBJECT
+
+ public:
+  glitch_recent_diagrams_view_item(const QPixmap &pixmap):
+    QObject(), QGraphicsPixmapItem(pixmap)
+  {
+    setAcceptHoverEvents(true);
+    setCacheMode(QGraphicsItem::NoCache);
+    setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+  }
+
+  ~glitch_recent_diagrams_view_item()
+  {
+  }
+
+  QString fileName(void) const
+  {
+    return m_fileName;
+  }
+
+  void setFileName(const QString &fileName)
+  {
+    m_fileName = fileName;
+  }
+
+ private:
+  QPainterPath m_removeButton;
+  QPointF m_hoverPoint;
+  QString m_fileName;
+
+  QRectF boundingRect(void) const
+  {
+    return QRectF
+      (0.0,
+       0.0,
+       static_cast<qreal> (pixmap().width()),
+       static_cast<qreal> (pixmap().height()));
+  }
+
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverEnterEvent(event);
+    m_hoverPoint = event ? event->pos() : QPointF();
+    update();
+  }
+
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverLeaveEvent(event);
+    m_hoverPoint = QPointF();
+    update();
+  }
+
+  void hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverMoveEvent(event);
+    m_hoverPoint = event ? event->pos() : QPointF();
+    update();
+  }
+
+  void mousePressEvent(QGraphicsSceneMouseEvent *event)
+  {
+    if(!event)
+      {
+	QGraphicsPixmapItem::mousePressEvent(event);
+	return;
+      }
+
+    m_removeButton.contains(event->pos()) ? emit remove(m_fileName) : (void) 0;
+    m_removeButton.contains(event->pos()) ? emit remove(this) : (void) 0;
+  }
+
+  void paint(QPainter *painter,
+	     const QStyleOptionGraphicsItem *option,
+	     QWidget *widget)
+  {
+    if(!option || !painter)
+      {
+	QGraphicsPixmapItem::paint(painter, option, widget);
+	return;
+      }
+
+    QPen pen;
+
+    pen.setColor(QColor(Qt::white));
+    pen.setJoinStyle(Qt::RoundJoin);
+    pen.setStyle(Qt::SolidLine);
+    pen.setWidthF(0.0);
+    painter->setBrush(QBrush(pixmap()));
+    painter->setPen(pen);
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->drawRoundedRect(boundingRect(), 5.0, 5.0); // Order.
+
+    QIcon const icon(":/clear.png");
+
+    m_removeButton.clear();
+    m_removeButton.addEllipse(-32.5 + boundingRect().topRight().x(),
+			      7.5 + boundingRect().topRight().y(),
+			      25.0,
+			      25.0);
+    m_removeButton.closeSubpath();
+    pen.setColor(QColor(222, 141, 174));
+    pen.setJoinStyle(Qt::RoundJoin);
+    pen.setStyle(Qt::SolidLine);
+    pen.setWidthF(3.5);
+    painter->setPen(pen);
+    painter->drawPath(m_removeButton);
+    painter->fillPath
+      (m_removeButton,
+       m_removeButton.contains(m_hoverPoint) ?
+       QColor(Qt::white) : QColor(46, 26, 71));
+    icon.paint(painter, m_removeButton.boundingRect().toRect());
+
+    if(option->state & (QStyle::State_HasFocus | QStyle::State_Selected))
+      {
+	QPainterPath path;
+	auto rect(boundingRect());
+	const qreal static offset = 5.0;
+
+	rect.setHeight(offset + rect.height());
+	rect.setWidth(offset + rect.width());
+	rect.setX(-offset + rect.x());
+	rect.setY(-offset + rect.y());
+	path.addRoundedRect(rect, 5.0, 5.0);
+	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
+      }
+  }
+
+ signals:
+  void remove(QGraphicsItem *item);
+  void remove(const QString &fileName);
+};
 
 class glitch_recent_diagrams_view: public QGraphicsView
 {
@@ -53,8 +194,12 @@ class glitch_recent_diagrams_view: public QGraphicsView
   void enterEvent(QEvent *event);
 #endif
 
+ private slots:
+  void slotRemove(QGraphicsItem *item);
+
  signals:
   void openDiagram(const QString &fileName);
+  void remove(const QString &fileName);
 };
 
 #endif
