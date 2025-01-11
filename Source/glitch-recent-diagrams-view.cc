@@ -43,6 +43,19 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
   }
 
+  QString fileName(void) const
+  {
+    return m_fileName;
+  }
+
+  void setFileName(const QString &fileName)
+  {
+    m_fileName = fileName;
+  }
+
+ private:
+  QString m_fileName;
+
   QRectF boundingRect(void) const
   {
     return QRectF
@@ -50,11 +63,6 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
        0.0,
        static_cast<qreal> (pixmap().width()),
        static_cast<qreal> (pixmap().height()));
-  }
-
-  QString fileName(void) const
-  {
-    return m_fileName;
   }
 
   void paint(QPainter *painter,
@@ -92,24 +100,22 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
       }
 
-    QIcon icon(":/clear.png");
+    QIcon const icon(":/clear.png");
     QPainterPath path;
 
     path.addEllipse(-30.0 + boundingRect().topRight().x(),
 		    5.0 + boundingRect().topRight().y(),
 		    25.0,
 		    25.0);
+    pen.setColor(QColor(222, 141, 174));
+    pen.setJoinStyle(Qt::RoundJoin);
+    pen.setStyle(Qt::SolidLine);
+    pen.setWidthF(3.5);
+    painter->setPen(pen);
+    painter->drawPath(path);
     painter->fillPath(path, QColor(Qt::white));
     icon.paint(painter, path.boundingRect().toRect());
   }
-
-  void setFileName(const QString &fileName)
-  {
-    m_fileName = fileName;
-  }
-
- private:
-  QString m_fileName;
 };
 
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
