@@ -27,7 +27,7 @@
 
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsPixmapItem>
-#include <QMouseEvent>
+#include <QGraphicsSceneHoverEvent>
 #include <QScrollBar>
 #include <QStyleOptionGraphicsItem>
 
@@ -39,6 +39,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
   glitch_recent_diagrams_view_item(const QPixmap &pixmap):
     QGraphicsPixmapItem(pixmap)
   {
+    setAcceptHoverEvents(true);
     setCacheMode(QGraphicsItem::NoCache);
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
   }
@@ -54,6 +55,7 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
   }
 
  private:
+  QPointF m_hoverPoint;
   QString m_fileName;
 
   QRectF boundingRect(void) const
@@ -63,6 +65,27 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
        0.0,
        static_cast<qreal> (pixmap().width()),
        static_cast<qreal> (pixmap().height()));
+  }
+
+  void hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverEnterEvent(event);
+    m_hoverPoint = event ? event->pos() : QPointF();
+    update();
+  }
+
+  void hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverLeaveEvent(event);
+    m_hoverPoint = QPointF();
+    update();
+  }
+
+  void hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+  {
+    QGraphicsPixmapItem::hoverMoveEvent(event);
+    m_hoverPoint = event ? event->pos() : QPointF();
+    update();
   }
 
   void paint(QPainter *painter,
@@ -107,13 +130,16 @@ class glitch_recent_diagrams_view_item: public QGraphicsPixmapItem
 		    5.0 + boundingRect().topRight().y(),
 		    25.0,
 		    25.0);
+    path.closeSubpath();
     pen.setColor(QColor(222, 141, 174));
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setStyle(Qt::SolidLine);
     pen.setWidthF(3.5);
     painter->setPen(pen);
     painter->drawPath(path);
-    painter->fillPath(path, QColor(Qt::white));
+    painter->fillPath
+      (path,
+       path.contains(m_hoverPoint) ? QColor(Qt::white) : QColor(46, 26, 71));
     icon.paint(painter, path.boundingRect().toRect());
   }
 };
