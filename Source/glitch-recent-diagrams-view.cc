@@ -147,9 +147,9 @@ void glitch_recent_diagrams_view::populate
 
   auto rect(scene()->itemsBoundingRect());
 
+  rect.setHeight(offseth + rect.height());
   rect.setX(0.0);
   rect.setY(0.0);
-  rect.setHeight(offseth + rect.height());
   horizontalScrollBar()->setValue(hValue);
   setSceneRect(rect);
   verticalScrollBar()->setValue(vValue);
