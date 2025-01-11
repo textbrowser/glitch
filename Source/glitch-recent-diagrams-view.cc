@@ -158,8 +158,13 @@ void glitch_recent_diagrams_view::populate
 
 void glitch_recent_diagrams_view::slotOpen(void)
 {
-  foreach(auto const &fileName, selectedFileNames())
-    emit openDiagram(fileName);
+  auto const list(selectedFileNames());
+
+  if(list.isEmpty())
+    emit openDiagram();
+  else
+    foreach(auto const &fileName, list)
+      emit openDiagram(fileName);
 }
 
 void glitch_recent_diagrams_view::slotRemove(QGraphicsItem *item)

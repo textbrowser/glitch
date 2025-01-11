@@ -156,6 +156,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  this,
 	  SLOT(slotOpenDiagram(const QString &)));
   connect(m_recentDiagramsView,
+	  SIGNAL(openDiagram(void)),
+	  this,
+	  SLOT(slotOpenDiagram(void)));
+  connect(m_recentDiagramsView,
 	  SIGNAL(remove(const QString &)),
 	  this,
 	  SLOT(slotForgetRecentDiagram(const QString &)));

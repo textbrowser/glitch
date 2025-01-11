@@ -199,6 +199,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  signals:
   void openDiagram(const QString &fileName);
+  void openDiagram(void);
   void remove(const QString &fileName);
 };
 
