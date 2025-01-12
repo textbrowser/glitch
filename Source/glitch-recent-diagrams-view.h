@@ -55,6 +55,11 @@ class glitch_recent_diagrams_view_item:
   {
   }
 
+  QRectF boundingRect(void) const
+  {
+    return QRectF(0.0, 0.0, 372.0, 240.0);
+  }
+
   QString fileName(void) const
   {
     return m_fileName;
@@ -69,15 +74,6 @@ class glitch_recent_diagrams_view_item:
   QPainterPath m_removeButton;
   QPointF m_hoverPoint;
   QString m_fileName;
-
-  QRectF boundingRect(void) const
-  {
-    return QRectF
-      (0.0,
-       0.0,
-       static_cast<qreal> (pixmap().width()),
-       static_cast<qreal> (pixmap().height()));
-  }
 
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event)
   {
@@ -136,8 +132,8 @@ class glitch_recent_diagrams_view_item:
     QIcon const icon(":/clear.png");
 
     m_removeButton.clear();
-    m_removeButton.addEllipse(-32.5 + boundingRect().topRight().x(),
-			      7.5 + boundingRect().topRight().y(),
+    m_removeButton.addEllipse(-31.5 + boundingRect().topRight().x(),
+			      8.5 + boundingRect().topRight().y(),
 			      25.0,
 			      25.0);
     m_removeButton.closeSubpath();
@@ -150,7 +146,7 @@ class glitch_recent_diagrams_view_item:
     painter->fillPath
       (m_removeButton,
        m_removeButton.contains(m_hoverPoint) ?
-       QColor(Qt::white) : QColor(46, 26, 71));
+       QColor(Qt::black) : QColor(Qt::white));
     icon.paint(painter, m_removeButton.boundingRect().toRect());
 
     if(option->state & (QStyle::State_HasFocus | QStyle::State_Selected))

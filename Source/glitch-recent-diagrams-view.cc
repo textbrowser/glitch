@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QFileInfo>
 #include <QScrollBar>
 
 #include "glitch-recent-diagrams-view.h"
@@ -93,23 +94,18 @@ void glitch_recent_diagrams_view::populate
   scene()->clear();
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
+  QPixmap const missing(":/missing-image.png", "PNG");
   const int static columns = 3;
-  const qreal height = 266.0;
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
-  const qreal width = 266.0;
   int columnIndex = 0;
   int rowIndex = 0;
 
   for(int i = 0; i < vector.size(); i++)
     {
-      auto pixmap(QPixmap::fromImage(vector.at(i).first));
-
-      pixmap = pixmap.scaled
-	(256, 256, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
       auto effect = new QGraphicsDropShadowEffect();
-      auto item = new glitch_recent_diagrams_view_item(pixmap);
+      auto item = new glitch_recent_diagrams_view_item
+	(QPixmap::fromImage(vector.at(i).first));
 
       connect(item,
 	      SIGNAL(remove(QGraphicsItem *)),
@@ -122,7 +118,9 @@ void glitch_recent_diagrams_view::populate
       effect->setBlurRadius(10.0);
       effect->setColor(QColor(Qt::gray));
       effect->setOffset(2.5, 2.5);
-      item->setGraphicsEffect(effect);
+
+      auto const height = 25.0 + item->boundingRect().size().height();
+      auto const width = 25.0 + item->boundingRect().size().width();
 
       if(rowIndex == 0)
 	item->setPos(columnIndex * width + offsetw, offseth);
@@ -134,6 +132,10 @@ void glitch_recent_diagrams_view::populate
       item->setData(Qt::UserRole, vector.at(i).second);
       item->setFileName(vector.at(i).second);
       item->setFlag(QGraphicsItem::ItemIsSelectable, true);
+      item->setGraphicsEffect(effect);
+      item->setPixmap
+	(QFileInfo(vector.at(i).second).isReadable() ?
+	 item->pixmap() : missing);
       item->setSelected(fileNames.contains(vector.at(i).second));
       item->setToolTip(vector.at(i).second);
       scene()->addItem(item);
