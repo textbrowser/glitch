@@ -119,6 +119,7 @@ class glitch_recent_diagrams_view_item:
       }
 
     QPen pen;
+    const qreal static radius = 7.5;
 
     pen.setColor(QColor(Qt::white));
     pen.setJoinStyle(Qt::RoundJoin);
@@ -127,7 +128,7 @@ class glitch_recent_diagrams_view_item:
     painter->setBrush(QBrush(pixmap()));
     painter->setPen(pen);
     painter->setRenderHint(QPainter::Antialiasing, true);
-    painter->drawRoundedRect(boundingRect(), 5.0, 5.0); // Order.
+    painter->drawRoundedRect(boundingRect(), radius, radius); // Order.
 
     QIcon const icon(":/clear.png");
 
@@ -159,7 +160,7 @@ class glitch_recent_diagrams_view_item:
 	rect.setWidth(offset + rect.width());
 	rect.setX(-offset + rect.x());
 	rect.setY(-offset + rect.y());
-	path.addRoundedRect(rect, 5.0, 5.0);
+	path.addRoundedRect(rect, radius, radius);
 	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
       }
   }
