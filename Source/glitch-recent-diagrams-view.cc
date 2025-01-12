@@ -94,12 +94,15 @@ void glitch_recent_diagrams_view::populate
   scene()->clear();
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
-  QPixmap const missing(":/missing-image.png", "PNG");
+  QPixmap missing(":/missing-image.png", "PNG");
   const int static columns = 3;
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
   int columnIndex = 0;
   int rowIndex = 0;
+
+  missing = missing.scaled
+    (372, 240, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
   for(int i = 0; i < vector.size(); i++)
     {
