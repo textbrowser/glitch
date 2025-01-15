@@ -26,6 +26,7 @@
 */
 
 #include <QFileInfo>
+#include <QKeyEvent>
 #include <QScrollBar>
 
 #include "glitch-recent-diagrams-view.h"
@@ -79,6 +80,15 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
 {
   QGraphicsView::enterEvent(event);
   setFocus();
+}
+
+void glitch_recent_diagrams_view::keyPressEvent(QKeyEvent *event)
+{
+  QGraphicsView::keyPressEvent(event);
+
+  if(event)
+    if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
+      slotOpen();
 }
 
 void glitch_recent_diagrams_view::populate

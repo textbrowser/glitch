@@ -190,6 +190,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
 #else
   void enterEvent(QEvent *event);
 #endif
+  void keyPressEvent(QKeyEvent *event);
 
  private slots:
   void slotRemove(QGraphicsItem *item);
