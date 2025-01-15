@@ -104,7 +104,7 @@ void glitch_recent_diagrams_view::populate
   scene()->clear();
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
-  QPixmap missing(":/missing-image.png", "PNG");
+  QPixmap static missing(":/missing-image.png", "PNG");
   const int static columns = 3;
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
