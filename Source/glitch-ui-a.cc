@@ -1851,7 +1851,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       m_currentView->populateToolsMenu(menu, this);
       toolButton->setArrowType(Qt::NoArrow);
 
-      static auto const iconWire(QIcon(":/wire.png"));
+      auto const static iconWire(QIcon(":/wire.png"));
 
       toolButton->setIcon(iconWire);
       toolButton->setMenu(menu);
@@ -1868,7 +1868,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       toolButton->setToolTip(tr("Connection Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
 
-      static QList<QIcon> const icons
+      QList<QIcon> const static icons
 	(QList<QIcon> ()
 	 << QIcon(":/adjust-size.png")
 	 << QIcon(":/adjust-size.png")
@@ -1878,7 +1878,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << QIcon(":/font.png")
 	 << QIcon(":/pin.png")
 	 << QIcon(":/widget-properties.png"));
-      static QStringList const data
+      QStringList const static data
 	(QStringList()
 	 << "adjust-all-sizes"
 	 << "adjust-sizes"
@@ -1888,7 +1888,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << "fonts"
 	 << "lock-positions"
 	 << "widget-properties");
-      static QStringList const texts
+      QStringList const static texts
 	(QStringList()
 	 << tr("Adjust Size(s) (All Widgets)")
 	 << tr("Adjust Size(s) (Selected Widget(s))")
@@ -1930,7 +1930,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 #endif
       toolButton->setArrowType(Qt::NoArrow);
 
-      static auto const iconTools(QIcon(":/tools.png"));
+      auto const static iconTools(QIcon(":/tools.png"));
 
       toolButton->setIcon(iconTools);
       toolButton->setMenu(menu);

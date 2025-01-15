@@ -494,7 +494,7 @@ void glitch_object_edit_window::prepareToolBars
   m_toolsToolBar->clear();
   m_toolsToolBar->addActions(actions);
 
-  static QList<QIcon> const icons
+  QList<QIcon> const static icons
     (QList<QIcon> ()
      << QIcon(":/adjust-size.png")
      << QIcon(":/compress.png")
@@ -502,7 +502,7 @@ void glitch_object_edit_window::prepareToolBars
      << QIcon(":/document-edit.png")
      << QIcon(":/pin.png")
      << QIcon(":/widget-properties.png"));
-  static QStringList const data
+  QStringList const static data
     (QStringList()
      << "adjust-sizes"
      << "compress-widgets"
@@ -510,7 +510,7 @@ void glitch_object_edit_window::prepareToolBars
      << "edit-widgets"
      << "lock-positions"
      << "widget-properties");
-  static QStringList const texts
+  QStringList const static texts
     (QStringList()
      << tr("Adjust Size(s) (Selected Widget(s))")
      << tr("(De)compress Selected Widget(s)")

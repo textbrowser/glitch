@@ -373,7 +373,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       toolButton->setToolTip(tr("Connection Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
 
-      static QList<QIcon> const icons
+      QList<QIcon> const static icons
 	(QList<QIcon> ()
 	 << QIcon(":/adjust-size.png")
 	 << QIcon(":/compress.png")
@@ -382,7 +382,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	 << QIcon(":/font.png")
 	 << QIcon(":/pin.png")
 	 << QIcon(":/widget-properties.png"));
-      static QStringList const data
+      QStringList const static data
 	(QStringList()
 	 << "adjust-sizes"
 	 << "compress-widgets"
@@ -391,7 +391,7 @@ void glitch_separated_diagram_window::prepareToolBar(void)
 	 << "fonts"
 	 << "lock-positions"
 	 << "widget-properties");
-      static QStringList const texts
+      QStringList const static texts
 	(QStringList()
 	 << tr("Adjust Size(s) (Selected Widget(s))")
 	 << tr("(De)compress Selected Widget(s)")
