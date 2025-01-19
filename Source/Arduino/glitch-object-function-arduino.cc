@@ -576,6 +576,9 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
 	  m->addAction(action);
 	}
 
+      if(group->actions().isEmpty())
+	group->deleteLater();
+
       m_actions[DefaultMenuActions::SET_FUNCTION_RETURN_TYPE] = m->menuAction();
       menu.addMenu(m);
     }

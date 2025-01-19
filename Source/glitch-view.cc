@@ -1484,6 +1484,9 @@ void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
       toolButton->menu()->addAction(action);
     }
 
+  if(group->actions().isEmpty())
+    group->deleteLater();
+
   QApplication::restoreOverrideCursor();
 }
 

@@ -2652,6 +2652,9 @@ void glitch_ui::slotTabMoved(int from, int to)
       m_ui.menu_Tabs->addAction(action);
     }
 
+  if(group->actions().isEmpty())
+    group->deleteLater();
+
   if(m_ui.menu_Tabs->actions().isEmpty())
     m_ui.menu_Tabs->addAction(tr("Empty"))->setEnabled(false);
 

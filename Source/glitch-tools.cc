@@ -130,6 +130,9 @@ void glitch_tools::populateMenu(QMenu *menu, QObject *parent)
 	  action->setChecked(m_ui.wire_disconnect->isChecked());
 	}
     }
+
+  if(group->actions().isEmpty())
+    group->deleteLater();
 }
 
 void glitch_tools::setOperation(const Operations operation)
