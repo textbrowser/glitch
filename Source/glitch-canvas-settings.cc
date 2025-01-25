@@ -1165,7 +1165,6 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
 {
   QFileDialog dialog(this);
 
-  dialog.selectFile(m_ui.project_ide->text().trimmed());
   dialog.setAcceptMode(QFileDialog::AcceptOpen);
   dialog.setDirectory(QStorageInfo::root().displayName());
   dialog.setFileMode(QFileDialog::AnyFile);
@@ -1173,6 +1172,7 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Select Project IDE"));
+  dialog.selectFile(m_ui.project_ide->text().trimmed());
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
