@@ -1,12 +1,12 @@
 Architecture: powerpc
-Depends: libqt5core5a (>= 5.5.1),
-         libqt5gui5 (>= 5.5.1),
-	 libqt5network5 (>= 5.5.1),
-	 libqt5printsupport5 (>= 5.5.1),
-	 libqt5serialport5 (>= 5.5.1),
-         libqt5sql5 (>= 5.5.1),
-         libqt5sql5-sqlite (>= 5.5.1),
-         libqt5widgets5 (>= 5.5.1)
+Depends: libqt5core5a,
+         libqt5gui5,
+	 libqt5network5,
+	 libqt5printsupport5,
+	 libqt5serialport5,
+         libqt5sql5,
+         libqt5sql5-sqlite,
+         libqt5widgets5
 Maintainer: f83043e79dc03a0abfbcbc376879a97d66f2cacb@protonmail.ch
 Package: Glitch
 Priority: optional
