@@ -2,8 +2,8 @@ Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
-<b>Version 2024.09.25 is the newest LTS release.</b><br>
-<b>Version 2024.11.30 is the newest source release.</b>
+<b>Version 2025.01.30 is the newest LTS release.</b><br>
+<b>Version 2025.01.30 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,25 @@ Now with a natural language processor!
 
 <h3><b>Release Notes</b></h3>
 
+<p>2025.01.30</p>
+<ul>
+<li>Android: showMaximized() instead of show() and showNormal()
+  for child dialogs and windows. Android is strange.</li>
+<li>Ascertain the absolute-file-paths of --open-arduino-diagrams
+  arguments.
+<li>First LTS of 2025.</li>
+<li>New Glitch Preferences -> Download Version Information After
+  Launch. Off.</li>
+<li>New recently-accessed views in the main window. Image
+  data are gathered in a separate task and presented in the
+  main thread.</li>
+<li>Q_OS_WINDOWS replaces Q_OS_WIN and Q_OS_WIN32.</li>
+<li>Qt 6.8.1 LTS on Android.</li>
+<li>Qt 6.8.1 LTS on MacOS.</li>
+<li>Qt 6.8.1 LTS on Windows.</li>
+<li>Thread-safe glitch_common::sqliteDatabase().</li>
+<li>Twenty-one years of glitches!</li>
+</ul>
 <p>2024.11.30</p>
 <ul>
 <li>Disable full-screen menu option for tabbed edit window.</li>
