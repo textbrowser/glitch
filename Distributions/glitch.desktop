@@ -4,7 +4,6 @@ Comment=Glitch
 Exec=/opt/glitch/glitch.sh
 GenericName=Glitch
 Icon=/opt/glitch/glitch-logo.png
-MimeType=text/html;/text/xml;application/xhtml_xml;
 Name=Glitch
 StartupNotify=true
 Terminal=false
