@@ -1535,9 +1535,8 @@ void glitch_view::prepareTabWidgetCloseButtons(void)
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
   static QList<QTabBar::ButtonPosition> const list
-    (QList<QTabBar::ButtonPosition> ()
-     << QTabBar::LeftSide
-     << QTabBar::RightSide);
+    (QList<QTabBar::ButtonPosition> () << QTabBar::LeftSide
+                                       << QTabBar::RightSide);
   static const int index = 0;
 
   for(int i = 0; i < list.size(); i++)
