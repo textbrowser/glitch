@@ -838,7 +838,16 @@ void glitch_ui::parseCommandLineArguments(void)
       {
       }
     else if(!list.at(i).trimmed().isEmpty())
-      qDebug() << tr("The option ") << list.at(i) << tr(" is not supported.");
+      {
+	QFileInfo const fileInfo(list.at(i).trimmed());
+
+	if(fileInfo.isReadable() && fileInfo.suffix() == "db")
+	  m_delayedDiagrams << fileInfo.absoluteFilePath();
+	else
+	  qDebug() << tr("The option ")
+		   << list.at(i)
+		   << tr(" is not supported.");
+      }
 
   QApplication::processEvents();
 
