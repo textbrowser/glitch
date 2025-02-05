@@ -1029,7 +1029,10 @@ void glitch_object::createActions(void)
 void glitch_object::createEditObjects(void)
 {
   if(m_editWindow)
-    m_editWindow->deleteLater();
+    {
+      m_editWindow->deleteLater();
+      QApplication::processEvents();
+    }
 }
 
 void glitch_object::disconnectInputs(void)
@@ -1949,6 +1952,7 @@ void glitch_object::showEditWindow(const bool signal)
 {
   if(m_editView && m_editWindow)
     {
+      m_editView->setVisible(false);
       m_editWindow->prepareToolBars(m_editView->alignmentActions());
       m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
 
@@ -1967,6 +1971,7 @@ void glitch_object::showEditWindow(const bool signal)
 	    (m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
 	}
 
+      m_editView->setVisible(true);
 #ifdef Q_OS_ANDROID
       m_editWindow->showMaximized();
 #else
