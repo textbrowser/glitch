@@ -154,6 +154,7 @@ glitch_view_arduino::glitch_view_arduino
   m_splitter->addWidget(m_arduinoStructures->frame());
   m_splitter->addWidget(m_view);
   m_splitter->addWidget(m_rightSplitter);
+  m_splitter->setCollapsible(1, false);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);

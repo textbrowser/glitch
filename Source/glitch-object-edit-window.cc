@@ -748,6 +748,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	  m_leftSplitter->setStretchFactor(1, 0);
 	  m_splitter->addWidget(m_leftSplitter);
 	  m_splitter->addWidget(m_centralWidget);
+	  m_splitter->setCollapsible(1, false);
 	  m_splitter->setStretchFactor(0, 0);
 	  m_splitter->setStretchFactor(1, 1);
 	}
@@ -762,6 +763,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 
 	  m_splitter->addWidget(m_userFunctions->frame());
 	  m_splitter->addWidget(m_centralWidget);
+	  m_splitter->setCollapsible(1, false);
 	  m_splitter->setStretchFactor(0, 0);
 	  m_splitter->setStretchFactor(1, 1);
 	}
@@ -771,6 +773,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       frame->layout()->setSpacing(5);
       m_bottomTopSplitter->addWidget(m_splitter);
       m_bottomTopSplitter->addWidget(m_ash->frame());
+      m_bottomTopSplitter->setCollapsible(0, false);
       m_bottomTopSplitter->setSizes(QList<int> () << 2 << 1);
       m_bottomTopSplitter->setStretchFactor(0, 1);
       m_bottomTopSplitter->setStretchFactor(1, 0);
