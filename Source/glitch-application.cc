@@ -32,7 +32,7 @@
 #include "glitch-object-lineedit.h"
 #include "glitch-ui.h"
 
-bool glitch_application::s_blockShortcuts = false;
+QAtomicInteger<int> glitch_application::s_blockShortcuts = 0;
 
 glitch_application::glitch_application(int &argc, char **argv):
   QApplication(argc, argv)
@@ -62,11 +62,29 @@ bool glitch_application::eventFilter(QObject *object, QEvent *event)
 	return true;
     }
 
-  if(event->type() == QEvent::Shortcut && s_blockShortcuts)
+  if(blockShortcuts() > 0 && event->type() == QEvent::Shortcut)
     {
-      s_blockShortcuts = false;
+      s_blockShortcuts.fetchAndStoreOrdered(0);
       return true;
     }
 
   return QApplication::eventFilter(object, event);
+}
+
+int glitch_application::blockShortcuts(void)
+{
+  return s_blockShortcuts.fetchAndAddOrdered(0);
+}
+
+void glitch_application::blockShortcutsDecrement(void)
+{
+  auto const value = s_blockShortcuts.fetchAndSubOrdered(1);
+
+  if(value <= 0)
+    s_blockShortcuts.fetchAndStoreOrdered(0);
+}
+
+void glitch_application::blockShortcutsIncrement(void)
+{
+  s_blockShortcuts.fetchAndAddOrdered(1);
 }

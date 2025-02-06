@@ -36,9 +36,12 @@ class glitch_application: public QApplication
 
  public:
   glitch_application(int &argc, char **argv);
-  static bool s_blockShortcuts;
+  static int blockShortcuts(void);
+  static void blockShortcutsDecrement(void);
+  static void blockShortcutsIncrement(void);
 
  private:
+  static QAtomicInteger<int> s_blockShortcuts;
   bool eventFilter(QObject *object, QEvent *event);
 };
 

@@ -328,11 +328,11 @@ bool glitch_object_edit_window::eventFilter(QObject *object, QEvent *event)
 		 it.value()->isEnabled() &&
 		 it.value()->shortcut() == keySequence)
 		{
-		  QTimer::singleShot
-		    (250, this, SLOT(slotResetShortcutBlock(void)));
-		  glitch_application::s_blockShortcuts = true;
+		  glitch_application::blockShortcutsIncrement();
 		  it.value()->activate(QAction::Trigger);
 		  keyEvent->accept();
+		  QTimer::singleShot
+		    (0, this, SLOT(slotResetShortcutBlock(void)));
 		  return true;
 		}
 	    }
@@ -969,7 +969,7 @@ void glitch_object_edit_window::slotPrint(void)
 
 void glitch_object_edit_window::slotResetShortcutBlock(void)
 {
-  glitch_application::s_blockShortcuts = false;
+  glitch_application::blockShortcutsDecrement();
 }
 
 void glitch_object_edit_window::slotShowFullScreenMode(void)
