@@ -2291,6 +2291,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	}
 
       window->close();
+      QApplication::processEvents();
       m_ui.tab->addTab
 	(window,
 	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
@@ -2309,6 +2310,8 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
     }
   else
     m_ui.tab->setCurrentIndex(index);
+
+  QApplication::processEvents();
 }
 
 void glitch_view::slotShowFind(void)
