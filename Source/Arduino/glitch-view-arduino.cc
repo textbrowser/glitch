@@ -485,6 +485,8 @@ void glitch_view_arduino::unite(void)
 
 void glitch_view_arduino::upload(const QStringList &arguments)
 {
+  glitch_view::upload(arguments);
+
   if(m_ideProcess.state() != QProcess::NotRunning)
     {
       m_ideOutput->append(tr("A process is active. Please wait."));
@@ -529,6 +531,8 @@ void glitch_view_arduino::upload(const QStringList &arguments)
 
 void glitch_view_arduino::verify(const QStringList &arguments)
 {
+  glitch_view::verify(arguments);
+
   if(m_ideProcess.state() != QProcess::NotRunning)
     {
       m_ideOutput->append(tr("A process is active. Please wait."));

@@ -2415,6 +2415,18 @@ void glitch_view::undo(void)
   m_scene->undo();
 }
 
+void glitch_view::upload(const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+  m_ui.tab->setCurrentIndex(0);
+}
+
+void glitch_view::verify(const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+  m_ui.tab->setCurrentIndex(0);
+}
+
 void glitch_view::zoom(const int direction)
 {
   m_view->zoom(direction);
