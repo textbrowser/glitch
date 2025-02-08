@@ -87,6 +87,8 @@ class glitch_view: public QWidget
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
   QMenu *defaultContextMenu(void);
+  QString fileName(void) const;
+  QString fileNameOrName(void) const;
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;

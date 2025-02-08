@@ -621,9 +621,11 @@ void glitch_separated_diagram_window::slotPageChanged(void)
   if(m_view)
     {
       if(m_view->hasChanged())
-	QMainWindow::setWindowTitle(tr("Glitch: %1 (*)").arg(m_view->name()));
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1 (*)").arg(m_view->fileNameOrName()));
       else
-	QMainWindow::setWindowTitle(tr("Glitch: %1").arg(m_view->name()));
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1").arg(m_view->fileNameOrName()));
     }
   else
     QMainWindow::setWindowTitle(tr("Glitch"));

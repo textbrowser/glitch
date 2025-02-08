@@ -1520,18 +1520,20 @@ void glitch_ui::setWindowTitle(glitch_view *view)
   if(m_ui.tab->currentWidget() == view && view)
     {
       if(view->hasChanged())
-	QMainWindow::setWindowTitle(tr("Glitch: %1 (*)").arg(view->name()));
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1 (*)").arg(view->fileNameOrName()));
       else
-	QMainWindow::setWindowTitle(tr("Glitch: %1").arg(view->name()));
+	QMainWindow::setWindowTitle
+	  (tr("Glitch: %1").arg(view->fileNameOrName()));
     }
   else if(m_currentView)
     {
       if(m_currentView->hasChanged())
 	QMainWindow::setWindowTitle
-	  (tr("Glitch: %1 (*)").arg(m_currentView->name()));
+	  (tr("Glitch: %1 (*)").arg(m_currentView->fileNameOrName()));
       else
 	QMainWindow::setWindowTitle
-	  (tr("Glitch: %1").arg(m_currentView->name()));
+	  (tr("Glitch: %1").arg(m_currentView->fileNameOrName()));
     }
   else
     QMainWindow::setWindowTitle(tr("Glitch"));
@@ -2459,9 +2461,9 @@ void glitch_ui::slotSeparate(glitch_view *view)
   window->resize(view->size());
 
   if(view->hasChanged())
-    window->setWindowTitle(tr("Glitch: %1 (*)").arg(view->name()));
+    window->setWindowTitle(tr("Glitch: %1 (*)").arg(view->fileNameOrName()));
   else
-    window->setWindowTitle(tr("Glitch: %1").arg(view->name()));
+    window->setWindowTitle(tr("Glitch: %1").arg(view->fileNameOrName()));
 
   if(qobject_cast<QTabWidget *> (sender()))
     m_separatedWindow = window;

@@ -460,6 +460,19 @@ QMenu *glitch_view::defaultContextMenu(void)
   return m_contextMenu;
 }
 
+QString glitch_view::fileName(void) const
+{
+  return m_fileName;
+}
+
+QString glitch_view::fileNameOrName(void) const
+{
+  if(m_fileName.trimmed().isEmpty() == false)
+    return m_fileName;
+  else
+    return name();
+}
+
 QString glitch_view::name(void) const
 {
   return m_canvasSettings->name();
