@@ -28,6 +28,7 @@
 #include <QClipboard>
 #include <QFile>
 #include <QFileInfo>
+#include <QScrollBar>
 #include <QSqlQuery>
 #include <QTextBrowser>
 #include <QTextStream>
@@ -484,6 +485,18 @@ void glitch_view_arduino::unite(void)
 
 void glitch_view_arduino::upload(const QStringList &arguments)
 {
+  if(m_ideProcess.state() != QProcess::NotRunning)
+    {
+      m_ideOutput->append(tr("A process is active. Please wait."));
+      m_ideOutput->verticalScrollBar() ?
+	m_ideOutput->verticalScrollBar()->setValue
+	(m_ideOutput->verticalScrollBar()->maximum()) :
+	(void) 0;
+      return;
+    }
+
+  m_ideOutput->clear();
+
   auto const fileName(m_canvasSettings->outputFile().trimmed());
 
   if(fileName.isEmpty())
@@ -502,12 +515,6 @@ void glitch_view_arduino::upload(const QStringList &arguments)
   else if(processFileName.isEmpty())
     {
       m_ideOutput->append(tr("Empty IDE process file name."));
-      return;
-    }
-
-  if(m_ideProcess.state() != QProcess::NotRunning)
-    {
-      m_ideOutput->append(tr("Process running. Please wait."));
       return;
     }
 
@@ -522,6 +529,18 @@ void glitch_view_arduino::upload(const QStringList &arguments)
 
 void glitch_view_arduino::verify(const QStringList &arguments)
 {
+  if(m_ideProcess.state() != QProcess::NotRunning)
+    {
+      m_ideOutput->append(tr("A process is active. Please wait."));
+      m_ideOutput->verticalScrollBar() ?
+	m_ideOutput->verticalScrollBar()->setValue
+	(m_ideOutput->verticalScrollBar()->maximum()) :
+	(void) 0;
+      return;
+    }
+
+  m_ideOutput->clear();
+
   auto const fileName(m_canvasSettings->outputFile().trimmed());
 
   if(fileName.isEmpty())
@@ -540,12 +559,6 @@ void glitch_view_arduino::verify(const QStringList &arguments)
   else if(processFileName.isEmpty())
     {
       m_ideOutput->append(tr("Empty IDE process file name."));
-      return;
-    }
-
-  if(m_ideProcess.state() != QProcess::NotRunning)
-    {
-      m_ideOutput->append(tr("Process running. Please wait."));
       return;
     }
 
