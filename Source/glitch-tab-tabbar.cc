@@ -30,6 +30,7 @@
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QToolButton>
+#include <QtMath>
 
 #include "glitch-tab-tabbar.h"
 #include "glitch-view.h"
@@ -73,37 +74,29 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 
   if(tabPosition == QTabWidget::East || tabPosition == QTabWidget::West)
     {
-      auto preferredTabHeight = 175;
+      int preferredTabHeight = 175;
 
-      if(parentWidget() &&
-	 count() * rect().height() < parentWidget()->size().height())
-	preferredTabHeight = 175;
-      else
-	preferredTabHeight = qBound
-	  (125,
-	   qMax(size.height(), rect().height() / qMax(1, count())),
-	   175);
-
+      preferredTabHeight = qBound
+	(125,
+	 qMax(rect().height() / qMax(1, count()), size.height()),
+	 175);
+      preferredTabHeight = 5 * qCeil(preferredTabHeight / 5.0),
       size.setHeight(preferredTabHeight);
     }
   else
     {
 #ifdef Q_OS_MACOS
-      auto preferred = 250;
+      int preferred = 250;
 #else
-      auto preferred = 250;
+      int preferred = 250;
 #endif
-      auto preferredTabWidth = 0;
+      int preferredTabWidth = 0;
 
-      if(parentWidget() &&
-	 count() * rect().width() < parentWidget()->size().width())
-	preferredTabWidth = preferred;
-      else
-	preferredTabWidth = qBound
-	  (125,
-	   qMax(size.width(), rect().width() / qMax(1, count())),
-	   preferred);
-
+      preferredTabWidth = qBound
+	(125,
+	 qMax(rect().width() / qMax(1, count()), size.width()),
+	 preferred);
+      preferredTabWidth = 5 * qCeil(preferredTabWidth / 5.0),
       size.setHeight(10 + size.height());
       size.setWidth(preferredTabWidth);
     }
