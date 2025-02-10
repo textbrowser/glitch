@@ -195,6 +195,7 @@ class glitch_canvas_settings: public QDialog
   QString outputFile(void) const;
   QString projectIDE(void) const;
   QString wireType(void) const;
+  QTabWidget::TabPosition tabPosition(void) const;
   bool generatePeriodically(void) const;
   bool generateSourceViewPeriodically(void) const;
   bool maximizeEditWindows(void) const;
@@ -205,8 +206,8 @@ class glitch_canvas_settings: public QDialog
   bool showOrderIndicators(void) const;
   bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
+  int adjustedTabPositionIndexFromIndex(const int index) const;
   int redoUndoStackSize(void) const;
-  int tabPositionIndex(void) const;
   void prepare(const QString &fileName);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
@@ -241,7 +242,6 @@ class glitch_canvas_settings: public QDialog
   QString keywordColorsFromTableAsString(void) const;
   void closeEvent(QCloseEvent *event);
   void prepareKeywordColors(const QString &text);
-  void prepareTabPositionCombinationBox(void);
   void showEvent(QShowEvent *event);
 
  private slots:
