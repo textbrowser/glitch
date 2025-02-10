@@ -535,18 +535,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QComboBox" name="tab_position">
-               <item>
-                <property name="text">
-                 <string>East</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>North</string>
-                </property>
-               </item>
-              </widget>
+              <widget class="QComboBox" name="tab_position"/>
              </item>
              <item>
               <spacer name="horizontalSpacer_14">

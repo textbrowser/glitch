@@ -47,7 +47,6 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_outputFileExtension = "";
   m_timer.start(1500);
   m_ui.setupUi(this);
-  glitch_variety::sortCombinationBox(m_ui.tab_position);
   glitch_variety::sortCombinationBox(m_ui.update_mode);
   glitch_variety::sortCombinationBox(m_ui.wire_type);
   glitch_variety::assignImage(m_ui.background_color, QColor("#55aaff"));
@@ -156,6 +155,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  prepareTabPositionCombinationBox();
   setWindowModality(Qt::NonModal);
 }
 
@@ -230,7 +230,8 @@ settings(void) const
   hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
   hash[Settings::SHOW_ORDER_INDICATORS] =
     m_ui.show_order_indicators->isChecked();
-  hash[Settings::TAB_POSITION_INDEX] = m_ui.tab_position->currentIndex();
+  hash[Settings::TAB_POSITION_INDEX] = m_ui.tab_position->
+    currentData().toInt();
   hash[Settings::TABBED_EDIT_WINDOWS] = m_ui.tabbed_edit_windows->isChecked();
 
   if(m_ui.update_mode->currentText() == tr("Bounding Rectangle"))
@@ -529,7 +530,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
-	query.addBindValue(m_ui.tab_position->currentIndex());
+	query.addBindValue(m_ui.tab_position->currentData().toInt());
 	query.addBindValue(m_ui.tabbed_edit_windows->isChecked());
 	query.addBindValue(m_ui.update_mode->currentText());
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
@@ -895,6 +896,24 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 
   m_ui.source_view_keywords->setSortingEnabled(true);
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_canvas_settings::prepareTabPositionCombinationBox(void)
+{
+  m_ui.tab_position->clear();
+
+  QMap<QString, QTabWidget::TabPosition> map;
+
+  map[tr("East")] = QTabWidget::East;
+  map[tr("North")] = QTabWidget::North;
+
+  QMapIterator<QString, QTabWidget::TabPosition> it(map);
+
+  while(it.hasNext())
+    {
+      it.next();
+      m_ui.tab_position->addItem(it.key(), it.value());
+    }
 }
 
 void glitch_canvas_settings::setCategoriesIconSize(const QString &text)

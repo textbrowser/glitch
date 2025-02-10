@@ -241,6 +241,7 @@ class glitch_canvas_settings: public QDialog
   QString keywordColorsFromTableAsString(void) const;
   void closeEvent(QCloseEvent *event);
   void prepareKeywordColors(const QString &text);
+  void prepareTabPositionCombinationBox(void);
   void showEvent(QShowEvent *event);
 
  private slots:
