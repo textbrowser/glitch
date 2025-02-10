@@ -906,6 +906,8 @@ void glitch_canvas_settings::prepareTabPositionCombinationBox(void)
 
   map[tr("East")] = QTabWidget::East;
   map[tr("North")] = QTabWidget::North;
+  map[tr("South")] = QTabWidget::South;
+  map[tr("West")] = QTabWidget::West;
 
   QMapIterator<QString, QTabWidget::TabPosition> it(map);
 

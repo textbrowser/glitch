@@ -1818,13 +1818,13 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
       m_sourceView->setWindowTitle(tr("Glitch: Source View (%1)").arg(name()));
     }
 
-  if(m_tools)
-    m_tools->setWindowTitle
-      (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name()));
-
-  if(m_undoStack->count() == 0)
-    m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
-
+  m_tools ? m_tools->setWindowTitle
+    (tr("Glitch: Tools (%1)").arg(m_canvasSettings->name())) : (void) 0;
+  m_ui.tab->setTabPosition
+    (QTabWidget::TabPosition(m_canvasSettings->tabPositionIndex()));
+  m_undoStack->count() == 0 ?
+    m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize()) :
+    (void) 0;
   m_userFunctions->setWindowTitle
     (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
