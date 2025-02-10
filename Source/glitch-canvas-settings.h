@@ -171,6 +171,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_CANVAS_DOTS,
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
+    TAB_POSITION_INDEX,
     TABBED_EDIT_WINDOWS,
     VIEW_UPDATE_MODE,
     WIRE_COLOR,
@@ -205,6 +206,7 @@ class glitch_canvas_settings: public QDialog
   bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
   int redoUndoStackSize(void) const;
+  int tabPositionIndex(void) const;
   void prepare(const QString &fileName);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);

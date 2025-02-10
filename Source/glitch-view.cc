@@ -139,6 +139,8 @@ glitch_view::glitch_view
   m_tabPullDown->menu()->setStyleSheet("QMenu {menu-scrollable: 1;}");
   m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
   m_ui.tab->setDocumentMode(false);
+  m_ui.tab->setTabPosition
+    (QTabWidget::TabPosition(m_canvasSettings->tabPositionIndex()));
   m_ui.tab->setTabsClosable(false);
   m_undoStack->setUndoLimit(m_canvasSettings->redoUndoStackSize());
   m_userFunctions = new glitch_user_functions(this);

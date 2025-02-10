@@ -47,6 +47,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_outputFileExtension = "";
   m_timer.start(1500);
   m_ui.setupUi(this);
+  glitch_variety::sortCombinationBox(m_ui.tab_position);
   glitch_variety::sortCombinationBox(m_ui.update_mode);
   glitch_variety::sortCombinationBox(m_ui.wire_type);
   glitch_variety::assignImage(m_ui.background_color, QColor("#55aaff"));
@@ -229,6 +230,7 @@ settings(void) const
   hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
   hash[Settings::SHOW_ORDER_INDICATORS] =
     m_ui.show_order_indicators->isChecked();
+  hash[Settings::TAB_POSITION_INDEX] = m_ui.tab_position->currentIndex();
   hash[Settings::TABBED_EDIT_WINDOWS] = m_ui.tabbed_edit_windows->isChecked();
 
   if(m_ui.update_mode->currentText() == tr("Bounding Rectangle"))
@@ -427,6 +429,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
+	   "tab_position_index INTEGER NOT NULL DEFAULT 0, "
 	   "tabbed_edit_windows INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL, "
 	   "wire_color TEXT NOT NULL, "
@@ -442,6 +445,9 @@ bool glitch_canvas_settings::save(QString &error) const
 
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD maximize_edit_windows "
+	   "INTEGER NOT NULL DEFAULT 0");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD tab_position_index "
 	   "INTEGER NOT NULL DEFAULT 0");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
@@ -466,6 +472,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_dots, "
 	   "show_canvas_grids, "
 	   "show_order_indicators, "
+	   "tab_position_index, "
 	   "tabbed_edit_windows, "
 	   "update_mode, "
 	   "wire_color, "
@@ -473,6 +480,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_width) "
 	   "VALUES "
 	   "(?, "
+	   "?, "
 	   "?, "
 	   "?, "
 	   "?, "
@@ -521,6 +529,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
+	query.addBindValue(m_ui.tab_position->currentIndex());
 	query.addBindValue(m_ui.tabbed_edit_windows->isChecked());
 	query.addBindValue(m_ui.update_mode->currentText());
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
@@ -576,6 +585,11 @@ double glitch_canvas_settings::wireWidth(void) const
 int glitch_canvas_settings::redoUndoStackSize(void) const
 {
   return m_settings.value(Settings::REDO_UNDO_STACK_SIZE).toInt();
+}
+
+int glitch_canvas_settings::tabPositionIndex(void) const
+{
+  return m_settings.value(Settings::TAB_POSITION_INDEX).toInt();
 }
 
 void glitch_canvas_settings::accept(void)
@@ -645,6 +659,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "show_canvas_dots, "
 			   "show_canvas_grids, "
 			   "show_order_indicators, "
+			   "tab_position_index, "
 			   "tabbed_edit_windows, "
 			   "SUBSTR(update_mode, 1, 100), "
 			   "SUBSTR(wire_color, 1, 50), "
@@ -680,6 +695,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto showCanvasGrids = true;
 	auto showOrderIndicators = true;
 	auto tabbedEditWindows = true;
+	int tabPositionIndex = 0;
 
 	for(int i = 0; i < record.count(); i++)
 	  {
@@ -730,6 +746,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      showCanvasGrids = record.value(i).toBool();
 	    else if(fieldName.contains("show_order_indicators"))
 	      showOrderIndicators = record.value(i).toBool();
+	    else if(fieldName.contains("tab_position_index"))
+	      tabPositionIndex = record.value(i).toInt();
 	    else if(fieldName.contains("tabbed_edit_windows"))
 	      tabbedEditWindows = record.value(i).toBool();
 	    else if(fieldName.contains("update_mode"))
@@ -795,6 +813,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
 	m_ui.show_order_indicators->setChecked(showOrderIndicators);
+	m_ui.tab_position->setCurrentIndex
+	  (qBound(0, tabPositionIndex, m_ui.tab_position->count() - 1));
 	m_ui.tabbed_edit_windows->setChecked(tabbedEditWindows);
 	m_ui.update_mode->setCurrentIndex
 	  (m_ui.update_mode->findText(updateMode));
@@ -995,6 +1015,10 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::SELECTION_COLOR).toString().remove('&').trimmed());
   glitch_variety::assignImage(m_ui.selection_color, color);
   m_ui.selection_color->setText(color.name(QColor::HexArgb));
+  m_ui.tab_position->setCurrentIndex
+    (qBound(0,
+	    hash.value(Settings::TAB_POSITION_INDEX).toInt(),
+	    m_ui.tab_position->count() - 1));
   m_ui.tabbed_edit_windows->setChecked
     (hash.value(Settings::TABBED_EDIT_WINDOWS).toBool());
   color = QColor

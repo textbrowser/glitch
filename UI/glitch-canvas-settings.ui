@@ -533,6 +533,37 @@
             </widget>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QComboBox" name="tab_position">
+               <item>
+                <property name="text">
+                 <string>East</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>North</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QCheckBox" name="tabbed_edit_windows">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;New windows only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -899,6 +930,7 @@
   <tabstop>wire_type</tabstop>
   <tabstop>wire_width</tabstop>
   <tabstop>maximize_edit_windows</tabstop>
+  <tabstop>tab_position</tabstop>
   <tabstop>tabbed_edit_windows</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>project_ide</tabstop>
