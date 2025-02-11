@@ -111,8 +111,9 @@ void glitch_recent_diagrams_view::populate
   int columnIndex = 0;
   int rowIndex = 0;
 
-  missing = missing.scaled
-    (372, 240, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  if(missing.size() != QSize(372, 240))
+    missing = missing.scaled
+      (372, 240, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
   for(int i = 0; i < vector.size(); i++)
     {
