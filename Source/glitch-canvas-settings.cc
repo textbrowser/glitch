@@ -187,14 +187,15 @@ QColor glitch_canvas_settings::lockColor(void) const
 
 QColor glitch_canvas_settings::selectionColor(void) const
 {
-  return QColor(m_settings.value(Settings::SELECTION_COLOR).
-		toString().remove('&').trimmed());
+  return QColor
+    (m_settings.value(Settings::SELECTION_COLOR).toString().remove('&').
+     trimmed());
 }
 
 QColor glitch_canvas_settings::wireColor(void) const
 {
-  return QColor(m_settings.value(Settings::WIRE_COLOR).
-		toString().remove('&').trimmed());
+  return QColor
+    (m_settings.value(Settings::WIRE_COLOR).toString().remove('&').trimmed());
 }
 
 QGraphicsView::ViewportUpdateMode glitch_canvas_settings::
@@ -662,6 +663,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
       {
 	QSqlQuery query(db);
 
+	query.setForwardOnly(true);
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD "
 	   "save_periodically INTEGER NOT NULL DEFAULT 0");
@@ -671,7 +673,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
 	   "INTEGER NOT NULL DEFAULT 1");
-	query.setForwardOnly(true);
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
 			   "SUBSTR(categories_icon_size, 1, 50), "

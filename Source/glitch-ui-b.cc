@@ -166,8 +166,10 @@ void glitch_ui::gatherRecentDiagrams(const QString &fileName)
       {
 	QSqlQuery query(db);
 
+	query.setForwardOnly(true);
+
 	if(query.exec("SELECT file_name, image FROM glitch_recent_files "
-		      "ORDER BY 1"))
+		      "ORDER BY 1 LIMIT 100"))
 	  while(m_gatherRecentDiagramsFuture.isCanceled() == false &&
 		query.next())
 	    {
