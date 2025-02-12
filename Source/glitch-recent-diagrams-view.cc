@@ -106,8 +106,8 @@ void glitch_recent_diagrams_view::populate
 
   QPixmap static missing(":/missing-image.png", "PNG");
   const int static columns = 3;
-  const qreal offseth = 15.0;
-  const qreal offsetw = 15.0;
+  const qreal static offseth = 15.0;
+  const qreal static offsetw = 15.0;
   int columnIndex = 0;
   int rowIndex = 0;
 
