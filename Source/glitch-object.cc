@@ -80,10 +80,10 @@
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 int glitch_object::s_widthTweak = 50; // Multiple of 5 please!
-static qreal s_disableSourceOpacity = 0.35;
-static qreal s_windowOpacity = 0.85;
+qreal static s_disableSourceOpacity = 0.35;
+qreal static s_windowOpacity = 0.85;
 
-inline static bool order_less_than(glitch_object *o1, glitch_object *o2)
+bool inline static order_less_than(glitch_object *o1, glitch_object *o2)
 {
   if(!o1 || !o1->proxy() || !o1->scene() || !o2 || !o2->proxy() || !o2->scene())
     return false;

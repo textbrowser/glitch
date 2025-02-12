@@ -46,7 +46,7 @@
 #include "glitch-scene.h"
 #include "glitch-tools.h"
 
-static qreal s_intelligentDistance = 20.0;
+qreal static s_intelligentDistance = 20.0;
 
 glitch_proxy_widget::glitch_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):

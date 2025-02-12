@@ -66,7 +66,7 @@ QString glitch_variety::homePath(void)
 #endif
   else
     {
-      static auto const r
+      auto const r
 	(QRegularExpression(QString("[%1%1]+").arg(QDir::separator())));
 
       homePath.replace(r, QDir::separator());
@@ -222,7 +222,7 @@ void glitch_variety::highlight(QLineEdit *lineEdit)
   if(!lineEdit)
     return;
 
-  static QHash<QString, QColor> colors;
+  QHash<QString, QColor> static colors;
 
   if(colors.isEmpty())
     {

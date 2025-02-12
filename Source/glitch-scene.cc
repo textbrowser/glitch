@@ -70,7 +70,7 @@
 #include "glitch-variety.h"
 #include "glitch-wire.h"
 
-inline static qreal round(const qreal s, const qreal value)
+inline qreal static round(const qreal s, const qreal value)
 {
   auto step = s;
 

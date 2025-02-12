@@ -219,12 +219,11 @@ void glitch_ui::prepareTab(void)
   QApplication::setOverrideCursor(Qt::WaitCursor);
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
+  QList<QTabBar::ButtonPosition> const static list
+    (QList<QTabBar::ButtonPosition> () << QTabBar::LeftSide
+                                       << QTabBar::RightSide);
+  const int index = 0;
   int c = 0;
-  static QList<QTabBar::ButtonPosition> const list
-    (QList<QTabBar::ButtonPosition> ()
-     << QTabBar::LeftSide
-     << QTabBar::RightSide);
-  static const int index = 0;
 
   for(int i = 0; i < list.size(); i++)
     {
