@@ -30,6 +30,6 @@
 #define GLITCH_VERSION_FILE_URL				\
   "https://raw.githubusercontent.com/"			\
   "textbrowser/glitch/master/Source/glitch-version.h"
-#define GLITCH_VERSION_STRING "2025.02.15"
+#define GLITCH_VERSION_STRING "2025.02.28"
 #define GLITCH_VERSION_STRING_LTS "2025.01.30"
 #endif
