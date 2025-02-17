@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Alexis Megas.
 
 echo "The command sed may fail on MacOS."
