@@ -2,6 +2,12 @@
 
 # Alexis Megas.
 
+if [ ! -x /usr/bin/dpkg ]
+then
+    echo "Please install dpkg."
+    exit 1
+fi
+
 if [ ! -x /usr/bin/dpkg-deb ]
 then
     echo "Please install dpkg-deb."
@@ -44,13 +50,13 @@ cp -pr ./Examples ./opt/glitch/.
 
 # Prepare Glitch-x.deb.
 
-architecture="$(dpkg --print-architecture)"
-
 mkdir -p glitch-debian/opt
+
+architecture="$(dpkg --print-architecture)"
 
 if [ "$architecture" = "armhf" ]
 then
-    cp -pr ./Distributions/DEBIAN-PI glitch-debian/DEBIAN
+    cp -pr ./Distributions/DEBIAN-PI-ARM32 glitch-debian/DEBIAN
 else
     cp -pr ./Distributions/DEBIAN-PI-ARM64 glitch-debian/DEBIAN
 fi
