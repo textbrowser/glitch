@@ -198,6 +198,7 @@ class glitch_view: public QWidget
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
+  QPushButton *m_ideClear;
   QSplitter *m_bottomSplitter;
   QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
@@ -252,6 +253,7 @@ class glitch_view: public QWidget
 				     glitch_object *object);
   void slotGenerate(void);
   void slotGenerateSourceView(void);
+  void slotIDEOutputTextChanged(void);
   void slotProcessCommand(const QString &command);
   void slotResizeScene(void);
   void slotSaveAs(void);

@@ -53,6 +53,7 @@ Completed Items
 - Canvas printing! Save as PNG instead.
 - Center child edit windows!
 - Center child window with respect to separated diagram if necessary.
+- Clear IDE button.
 - Close a function's Objects Alignment dialog if its editing window is closed.
 - Close all edit windows on simulated delete.
 - Close edit windows via Control + W.
@@ -382,7 +383,6 @@ Remaining Items
 - ASH.
 - Allow selection of Arduino board.
 - Android: QDialog::exec(), menus, etc.
-- Clear IDE button.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

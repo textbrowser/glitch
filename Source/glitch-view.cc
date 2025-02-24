@@ -95,7 +95,12 @@ glitch_view::glitch_view
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
-  m_ideOutput = new QTextBrowser(this);
+  m_ideClear = new QPushButton
+    (tr("CLS"), m_ideOutput = new QTextBrowser(this));
+  m_ideClear->setIcon(QIcon::fromTheme("edit-clear"));
+  m_ideClear->setToolTip
+    (tr("Clear the contents of the IDE text browser widget."));
+  m_ideClear->setVisible(false);
   m_ideOutput->setPlaceholderText(tr("IDE Output"));
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
@@ -204,6 +209,14 @@ glitch_view::glitch_view
 	  SIGNAL(accepted(const bool)),
 	  this,
 	  SLOT(slotCanvasSettingsChanged(const bool)));
+  connect(m_ideClear,
+	  &QPushButton::clicked,
+	  m_ideOutput,
+	  &QTextBrowser::clear);
+  connect(m_ideOutput,
+	  &QTextBrowser::textChanged,
+	  this,
+	  &glitch_view::slotIDEOutputTextChanged);
   connect(m_scene,
 	  &glitch_scene::changed,
 	  this,
@@ -1583,6 +1596,10 @@ void glitch_view::reparent(void)
 void glitch_view::resizeEvent(QResizeEvent *event)
 {
   QWidget::resizeEvent(event);
+  m_ideClear->isVisible() ?
+    m_ideClear->move
+    (-QPoint(25 + m_ideClear->width(), -5) + m_ideOutput->rect().topRight()) :
+    (void) 0;
 
   if(m_view->isVisible())
     setSceneRect(m_view->size());
@@ -2061,6 +2078,15 @@ void glitch_view::slotGenerate(void)
 void glitch_view::slotGenerateSourceView(void)
 {
   generateSourceView(false);
+}
+
+void glitch_view::slotIDEOutputTextChanged(void)
+{
+  m_ideClear->setVisible(!m_ideOutput->toPlainText().isEmpty());
+  m_ideClear->isVisible() ?
+    m_ideClear->move
+    (-QPoint(25 + m_ideClear->width(), -5) + m_ideOutput->rect().topRight()) :
+    (void) 0;
 }
 
 void glitch_view::slotPaste(void)
