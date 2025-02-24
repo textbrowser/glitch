@@ -382,6 +382,7 @@ Remaining Items
 - ASH.
 - Allow selection of Arduino board.
 - Android: QDialog::exec(), menus, etc.
+- Clear IDE button.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
