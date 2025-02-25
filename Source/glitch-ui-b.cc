@@ -284,6 +284,24 @@ void glitch_ui::slotHideTearOffMenu(void)
 #endif
 }
 
+void glitch_ui::slotIDEUpload(void)
+{
+  if(m_currentView)
+    m_currentView->upload();
+}
+
+void glitch_ui::slotIDETerminate(void)
+{
+  if(m_currentView)
+    m_currentView->terminate();
+}
+
+void glitch_ui::slotIDEVerify(void)
+{
+  if(m_currentView)
+    m_currentView->verify();
+}
+
 void glitch_ui::slotOpenDiagram(const QString &fileName)
 {
   if(fileName.trimmed().isEmpty())
@@ -539,18 +557,6 @@ void glitch_ui::slotUniteAllDiagrams(void)
   prepareTabShortcuts();
   slotAboutToShowTabsMenu();
   QApplication::restoreOverrideCursor();
-}
-
-void glitch_ui::slotUpload(void)
-{
-  if(m_currentView)
-    m_currentView->upload();
-}
-
-void glitch_ui::slotVerify(void)
-{
-  if(m_currentView)
-    m_currentView->verify();
 }
 
 void glitch_ui::slotZoom(void)

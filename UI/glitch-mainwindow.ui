@@ -146,6 +146,7 @@
     <addaction name="separator"/>
     <addaction name="action_Show_Project_IDE"/>
     <addaction name="separator"/>
+    <addaction name="action_Terminate"/>
     <addaction name="action_Upload"/>
     <addaction name="action_Verify"/>
    </widget>
@@ -537,6 +538,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="action_Terminate">
+   <property name="text">
+    <string>Terminate Upload / Verify</string>
+   </property>
+   <property name="toolTip">
+    <string>Terminate Upload / Verify Process</string>
    </property>
   </action>
  </widget>

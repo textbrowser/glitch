@@ -299,6 +299,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowSourcePreview);
+  connect(m_ui.action_Terminate,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotIDETerminate);
   connect(m_ui.action_Tools,
 	  &QAction::triggered,
 	  this,
@@ -314,7 +318,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   connect(m_ui.action_Upload,
 	  &QAction::triggered,
 	  this,
-	  &glitch_ui::slotUpload);
+	  &glitch_ui::slotIDEUpload);
   connect(m_ui.action_User_Functions,
 	  &QAction::triggered,
 	  this,
@@ -322,7 +326,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   connect(m_ui.action_Verify,
 	  &QAction::triggered,
 	  this,
-	  &glitch_ui::slotVerify);
+	  &glitch_ui::slotIDEVerify);
   connect(m_ui.action_View_Tool_Bars,
 	  &QAction::triggered,
 	  this,
@@ -1036,6 +1040,7 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Show_Project_IDE->setEnabled(false);
       m_ui.action_Source_Preview->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
+      m_ui.action_Terminate->setEnabled(false);
       m_ui.action_Upload->setEnabled(false);
       m_ui.action_User_Functions->setEnabled(false);
       m_ui.action_Verify->setEnabled(false);
@@ -1078,6 +1083,7 @@ void glitch_ui::prepareActionWidgets(void)
 #endif
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
       m_ui.action_Source_Preview->setEnabled(m_currentView);
+      m_ui.action_Terminate->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_Upload->setEnabled(m_currentView);
       m_ui.action_User_Functions->setEnabled(m_currentView);
@@ -1156,6 +1162,7 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Serial_Port_Window->setIcon(QIcon(":/Arduino/serial.png"));
   m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
+  m_ui.action_Terminate->setIcon(QIcon(":/quit.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Verify->setIcon(QIcon(":/verify.png"));
   m_ui.action_Upload->setIcon(QIcon(":/upload.png"));
@@ -1429,6 +1436,7 @@ void glitch_ui::prepareToolBars(void)
 
   if(m_ui.project_toolbar->actions().isEmpty())
     {
+      m_ui.project_toolbar->addAction(m_ui.action_Terminate);
       m_ui.project_toolbar->addAction(m_ui.action_Upload);
       m_ui.project_toolbar->addAction(m_ui.action_Verify);
     }

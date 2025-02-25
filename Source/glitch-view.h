@@ -116,6 +116,7 @@ class glitch_view: public QWidget
   virtual void generateSourceFile(void) const;
   virtual void openFunction(const QString &name) const = 0;
   virtual void separate(void) = 0;
+  virtual void terminate(const QStringList &arguments = QStringList());
   virtual void unite(void) = 0;
   virtual void upload(const QStringList &arguments = QStringList());
   virtual void verify(const QStringList &arguments = QStringList());

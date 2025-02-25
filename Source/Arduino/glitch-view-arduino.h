@@ -60,6 +60,7 @@ class glitch_view_arduino: public glitch_view
   void openFunction(const QString &name) const;
   void removeFunctionName(const QString &name);
   void separate(void);
+  void terminate(const QStringList &arguments = QStringList());
   void unite(void);
   void upload(const QStringList &arguments = QStringList());
   void verify(const QStringList &arguments = QStringList());

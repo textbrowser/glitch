@@ -477,6 +477,14 @@ void glitch_view_arduino::slotSilentSave(void)
   saveProperties();
 }
 
+void glitch_view_arduino::terminate(const QStringList &arguments)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  glitch_view::terminate(arguments);
+  m_ideProcess.kill();
+  QApplication::restoreOverrideCursor();
+}
+
 void glitch_view_arduino::unite(void)
 {
   defaultContextMenu()->deleteLater();

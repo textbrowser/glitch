@@ -2448,6 +2448,11 @@ void glitch_view::slotZoomReset(void)
   emit zoomReset();
 }
 
+void glitch_view::terminate(const QStringList &arguments)
+{
+  Q_UNUSED(arguments);
+}
+
 void glitch_view::undo(void)
 {
   m_scene->undo();
