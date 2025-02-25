@@ -95,11 +95,19 @@ glitch_view::glitch_view
   m_generateSourceViewTimer.setSingleShot(true);
   m_generateTimer.setInterval(1500);
   m_generateTimer.setSingleShot(true);
-  m_ideClear = new QPushButton
-    (tr("CLS"), m_ideOutput = new QTextBrowser(this));
+  m_ideClear = new QToolButton(m_ideOutput = new QTextBrowser(this));
   m_ideClear->setIcon(QIcon::fromTheme("edit-clear"));
-  m_ideClear->setToolTip
-    (tr("Clear the contents of the IDE text browser widget."));
+#ifdef Q_OS_MACOS
+  m_ideClear->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#else
+  m_ideClear->setStyleSheet
+    ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
+     "QToolButton::menu-button {border: none;}"
+     "QToolButton::menu-indicator {image: none;}");
+#endif
   m_ideClear->setVisible(false);
   m_ideOutput->setPlaceholderText(tr("IDE Output"));
   m_menuAction = new QAction
@@ -2082,11 +2090,15 @@ void glitch_view::slotGenerateSourceView(void)
 
 void glitch_view::slotIDEOutputTextChanged(void)
 {
-  m_ideClear->setVisible(!m_ideOutput->toPlainText().isEmpty());
-  m_ideClear->isVisible() ?
-    m_ideClear->move
-    (-QPoint(25 + m_ideClear->width(), -5) + m_ideOutput->rect().topRight()) :
-    (void) 0;
+  if(m_ideOutput->toPlainText().isEmpty())
+    m_ideClear->setVisible(false);
+  else
+    {
+      m_ideClear->move
+	(-QPoint(25 + m_ideClear->width(), -5) +
+	 m_ideOutput->rect().topRight());
+      m_ideClear->setVisible(true);
+    }
 }
 
 void glitch_view::slotPaste(void)
