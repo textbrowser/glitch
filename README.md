@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.01.30 is the newest LTS release.</b><br>
-<b>Version 2025.01.30 is the newest source release.</b>
+<b>Version 2025.02.28 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,27 @@ Now with a natural language processor!
 
 <h3><b>Release Notes</b></h3>
 
+<p>2025.02.28</p>
+<ul>
+<li>Allow termination of Arduino IDE process.</li>
+<li>Central views are required and therefore must not be
+  collapsible.</li>
+<li>Clear the IDE text field before launching a new IDE process.</li>
+<li>Display either the canvas file name or the canvas name in
+  the main window's title and a separated window's title.</li>
+<li>Finer repainting during opening of edit windows.</li>
+<li>Floating clear-text button attached to IDE output widget.</li>
+<li>Forward-only SQL queries.</li>
+<li>Improved removal of ambiguous shortcuts.</li>
+<li>Interpret file arguments having the suffix db.</li>
+<li>Limit of 100 items in the recent-diagrams view.</li>
+<li>New Tab Position in Canvas Settings -> Display. A tab's
+  corner widgets are not shown for East and West positions and
+  this is fine.</li>
+<li>Removed static numeric constants.</li>
+<li>Uniform tab widths.</li>
+</ul>
+
 <p>2025.01.30</p>
 <ul>
 <li>Android: showMaximized() instead of show() and showNormal()
@@ -55,6 +76,7 @@ Now with a natural language processor!
 <li>Thread-safe glitch_common::sqliteDatabase().</li>
 <li>Twenty-one years of glitches!</li>
 </ul>
+
 <p>2024.11.30</p>
 <ul>
 <li>Disable full-screen menu option for tabbed edit window.</li>
@@ -67,6 +89,7 @@ Now with a natural language processor!
 <li>Stretch contents of splitters.</li>
 <li>Tab tool tips.</li>
 </ul>
+
 <p>2024.11.25</p>
 <ul>
 <li>Edit window title shall now include the canvas name.</li>
@@ -77,6 +100,7 @@ Now with a natural language processor!
 <li>Removed Doxygen.</li>
 <li>Tabbed edit windows. Enabled. New canvas setting.</li>
 </ul>
+
 <p>2024.11.12</p>
 <ul>
 <li>Arduino: upload and verify functions.</li>
@@ -87,6 +111,7 @@ Now with a natural language processor!
   of invalid object position.</li>
 <li>Print.</li>
 </ul>
+
 <p>2024.09.25</p>
 <ul>
 <li>ASH: copy, paste commands.</li>
@@ -120,6 +145,7 @@ Please read
 https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Twenty years of Glitch!</li>
 </ul>
+
 <p>2024.07.30</p>
 <ul>
 <li>Allow categories to exist in their own floating dialogs. Dialogs
@@ -128,6 +154,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Drag-and-drop: display an item's icon if the item is ready for a
   drag.</li>
 </ul>
+
 <p>2024.06.05</p>
 <ul>
 <li>Corrected dragging and dropping of multiple items. The
@@ -142,6 +169,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Serial port in the PowerPC distribution.</li>
 <li>Source Preview Close icon.</li>
 </ul>
+
 <p>2024.04.30</p>
 <ul>
 <li>ASH behavior: list local objects if a list argument is not
@@ -183,6 +211,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>The option --open-arduino-diagram is now
   --open-arduino-diagrams.</li>
 </ul>
+
 <p>2024.03.25</p>
 <ul>
 <li>Block signals in glitch_misc::sortCombinationBox() before
@@ -197,6 +226,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Write comments on multiple lines. Modifies an item from the
   2023.09.10 release.</li>
 </ul>
+
 <p>2024.02.29</p>
 <ul>
 <li>A source-only review for a planet of lunatics.</li>
@@ -213,6 +243,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Editable size in widget context menu.</li>
 <li>This release is dedicated to the glitchy Mr. D. Peace out!</li>
 </ul>
+
 <p>2024.01.15</p>
 <ul>
 <li>ASH, design via a human-like language. An introduction.</li>
@@ -231,6 +262,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Show image of dragged item during creation.</li>
 <li>The option --help did not include --show-serial-port-window.</li>
 </ul>
+
 <p>2023.11.20</p>
 <ul>
 <li>Center edit windows with respect to the main window.</li>
@@ -238,6 +270,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>New Arduino constants and conversions.</li>
 <li>Zoom Reset tool.</li>
 </ul>
+
 <p>2023.10.30</p>
 <ul>
 <li>Adjust-size created shadows. Corrected!</li>
@@ -266,6 +299,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>The size property of a widget must be restored in a delayed
   manner as some properties are prepared in derived classes.</li>
 </ul>
+
 <p>2023.09.25</p>
 <ul>
 <li>Bouncy-less object resizing.</li>
@@ -279,6 +313,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Variable spelling: m_rectanges -> m_rectangles.</li>
 <li>Write serial port data as UTF-8 instead of Latin.</li>
 </ul>
+
 <p>2023.09.10</p>
 <ul>
 <li>Added QPainter::LosslessImageRendering where supported. Requires
@@ -316,6 +351,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Simplified selection border of selected objects.</li>
 <li>Write comments on single lines.</li>
 </ul>
+
 <p>2023.08.19</p>
 <ul>
 <li>Corrected abnormal termination caused by redo / undo delete of
@@ -345,6 +381,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Support returning pointers in functions.</li>
 <li>Zoom feature: View -> Zoom. See Windows -> Glitch Preferences.</li>
 </ul>
+
 <p>2023.07.30</p>
 <ul>
 <li>Android: new close buttons, properly close windows
@@ -378,6 +415,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Widgets now ignore the application-level font. Widgets provide
   custom fonts.</li>
 </ul>
+
 <p>2023.06.30</p>
 <ul>
 <li>A widget may be deleted in glitch_scene::artificialDrop() because
@@ -475,6 +513,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Wired objects may now be disconnected via wire clicks.</li>
 <li>loop and setup are Arduino keywords.</li>
 </ul>
+
 <p>2023.05.20</p>
 <ul>
 <li>Activate minimized windows if necessary.</li>
@@ -495,6 +534,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Removed redundant sorting from Canvas Settings -> Source View.</li>
 <li>Scroll a view if an object is moved via keyboard arrow keys.</li>
 </ul>
+
 <p>2023.04.30</p>
 <ul>
 <li>Added New Diagram -> Arduino tool bar action.</li>
@@ -522,6 +562,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Smoother preparation of tool bars through delayed painting.</li>
 <li>Vacuum glitch_recent_files.db after processing.</li>
 </ul>
+
 <p>2023.04.04</p>
 <ul>
 <li>A function name may not represent a reserved word.</li>
@@ -556,6 +597,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
   is saved.</li>
 <li>Underline function clone name if parent function has members.</li>
 </ul>
+
 <p>2023.02.28</p>
 <ul>
 <li>Categories icons.</li>
@@ -570,6 +612,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Source preview highlighting. See also Canvas Settings.</li>
 <li>The first Android release was available in 2023.02.10!</li>
 </ul>
+
 <p>2023.02.10</p>
 <ul>
 <li>Arduino Documentation and Release Notes window titles.</li>
@@ -581,12 +624,14 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Set object opacity after a paste event.</li>
 <li>Source view. See Project -> Generate Source View.</li>
 </ul>
+
 <p>2023.02.05</p>
 <ul>
 <li>Floating context menu items are now sorted by name.</li>
 <li>Horizontal arrow object for decorating diagrams.</li>
 <li>Qt 5.5.1 corrections.</li>
 </ul>
+
 <p>2023.01.15</p>
 <ul>
 <li>Copy Object context menu item will not require that the object be
@@ -598,6 +643,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Save option from object views.</li>
 <li>Show object floating menu via context menu action.</li>
 </ul>
+
 <p>2023.01.01</p>
 <ul>
 <li>Added Find action to separated window.</li>
@@ -615,6 +661,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
   button.</li>
 <li>Simplified flow-control conditional text.</li>
 </ul>
+
 <p>2022.11.30</p>
 <ul>
 <li>Detect clean states of redo / undo stacks and adjust states of parent
@@ -623,6 +670,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Renamed Generate menu to Project.</li>
 <li>Special copying of loop() and setup() contents.</li>
 </ul>
+
 <p>2022.11.25</p>
 <ul>
 <li>Copy context-menu action.</li>
@@ -632,6 +680,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>New Position column in Find Objects. Proper sorting is included.</li>
 <li>Paste context-menu actions attached to diagrams.</li>
 </ul>
+
 <p>2022.11.20</p>
 <ul>
 <li>Connect (wire) copied items if necessary.</li>
@@ -641,6 +690,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Prevent artificial redo / undo stack entries caused by copying and
   pasting of objects.</li>
 </ul>
+
 <p>2022.11.15</p>
 <ul>
 <li>Application fonts.</li>
@@ -650,6 +700,7 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Wire color alphas.</li>
 <li>Wire widths.</li>
 </ul>
+
 <p>2022.11.10</p>
 <ul>
 <li>Find objects.</li>
@@ -659,10 +710,12 @@ https://github.com/textbrowser/glitch/compare/2024.09.25...master</a>.</li>
 <li>Qt 5.15.7 LTS for MacOS.</li>
 <li>Removed logical operator as it duplicates boolean operator.</li>
 </ul>
+
 <p>2022.11.05</p>
 <ul>
 <li>Initial release!</li>
 </ul>
+
 <p>2004.09.25</p>
 <ul>
 <li>A splendid idea is born.</li>
