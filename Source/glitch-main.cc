@@ -77,8 +77,9 @@ int main(int argc, char *argv[])
   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 #endif
 #endif
-#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
+#if defined(Q_OS_ANDROID)
 #else
+  QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
 #endif
 
