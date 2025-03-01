@@ -53,6 +53,7 @@ Now with a natural language processor!
 <li>New Tab Position in Canvas Settings -> Display. A tab's
   corner widgets are not shown for East and West positions and
   this is fine.</li>
+<li>Non-native dialogs for non-Android operating systems.</li>
 <li>Removed static numeric constants.</li>
 <li>Uniform tab widths.</li>
 </ul>
