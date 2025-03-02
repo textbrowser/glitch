@@ -2150,7 +2150,7 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setNameFilters(QStringList() << tr("Arduino Diagrams (*.db)"));
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
-  dialog.setWindowTitle(tr("Glitch: Open Diagram"));
+  dialog.setWindowTitle(tr("Glitch: Open Diagram(s)"));
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif

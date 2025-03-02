@@ -76,11 +76,6 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
     {
       int preferredTabHeight = 175;
 
-      preferredTabHeight = qBound
-	(125,
-	 qMax(rect().height() / qMax(1, count()), size.height()),
-	 175);
-      preferredTabHeight = 5 * qCeil(preferredTabHeight / 5.0),
       size.setHeight(preferredTabHeight);
     }
   else
@@ -90,15 +85,9 @@ QSize glitch_tab_tabbar::tabSizeHint(int index) const
 #else
       int preferred = 250;
 #endif
-      int preferredTabWidth = 0;
 
-      preferredTabWidth = qBound
-	(125,
-	 qMax(rect().width() / qMax(1, count()), size.width()),
-	 preferred);
-      preferredTabWidth = 5 * qCeil(preferredTabWidth / 5.0),
       size.setHeight(10 + size.height());
-      size.setWidth(preferredTabWidth);
+      size.setWidth(preferred);
     }
 
   return size;
