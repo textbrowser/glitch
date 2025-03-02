@@ -30,7 +30,6 @@
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QToolButton>
-#include <QtMath>
 
 #include "glitch-tab-tabbar.h"
 #include "glitch-view.h"
