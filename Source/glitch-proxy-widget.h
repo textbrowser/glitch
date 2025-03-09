@@ -111,7 +111,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void paint(QPainter *painter,
-	     const QStyleOptionGraphicsItem *opt,
+	     const QStyleOptionGraphicsItem *option,
 	     QWidget *widget);
   void resizeEvent(QGraphicsSceneResizeEvent *event);
 

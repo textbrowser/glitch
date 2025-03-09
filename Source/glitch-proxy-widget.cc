@@ -286,9 +286,9 @@ void glitch_proxy_widget::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }
 
 void glitch_proxy_widget::paint
-(QPainter *painter, const QStyleOptionGraphicsItem *opt, QWidget *widget)
+(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-  QGraphicsProxyWidget::paint(painter, opt, widget);
+  QGraphicsProxyWidget::paint(painter, option, widget);
 
   if(!m_scene)
     m_scene = qobject_cast<glitch_scene *> (scene());
@@ -350,7 +350,7 @@ void glitch_proxy_widget::paint
 	  painter->restore();
 	}
 
-      if(isMandatory() && opt && (opt->state & QStyle::State_Selected))
+      if(isMandatory() && option && (option->state & QStyle::State_Selected))
 	{
 	  /*
 	  ** Draw a selection rectangle.
