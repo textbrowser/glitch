@@ -245,6 +245,7 @@ class glitch_canvas_settings: public QDialog
   void alterDatabase(void) const;
   void closeEvent(QCloseEvent *event);
   void prepareKeywordColors(const QString &text);
+  void prepareWidgets(void);
   void showEvent(QShowEvent *event);
 
  private slots:

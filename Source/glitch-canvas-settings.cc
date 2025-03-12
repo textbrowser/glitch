@@ -163,6 +163,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  prepareWidgets();
   setWindowModality(Qt::NonModal);
 }
 
@@ -545,7 +546,7 @@ bool glitch_canvas_settings::save(QString &error) const
 
 	query.addBindValue(name);
 	query.addBindValue("");
-	query.addBindValue(m_ui.project_board->currentText());
+	query.addBindValue(m_ui.project_board->currentText().trimmed());
 	query.addBindValue(m_ui.project_communications_port->currentText());
 	query.addBindValue
 	  (QFileInfo(m_ui.project_ide->text()).absoluteFilePath());
@@ -693,21 +694,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#ifdef GLITCH_SERIAL_PORT_SUPPORTED
-  m_ui.project_communications_port->clear();
-
-  foreach(auto const &port, QSerialPortInfo::availablePorts())
-    m_ui.project_communications_port->addItem(port.portName());
-
-  if(m_ui.project_communications_port->count() == 0)
-    {
-      m_ui.project_communications_port->addItem
-	("/dev/null"); // Do not translate.
-      m_ui.project_communications_port->setCurrentIndex(0);
-    }
-
-  glitch_variety::sortCombinationBox(m_ui.project_communications_port);
-#endif
   alterDatabase();
 
   QString connectionName("");
@@ -888,7 +874,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
 	m_ui.name->selectAll();
-	m_ui.project_board->addItem(projectBoard);
+	m_ui.project_board->setCurrentIndex
+	  (m_ui.project_board->findText(projectBoard));
 	m_ui.project_communications_port->setCurrentIndex
 	  (m_ui.project_communications_port->
 	   findText(projectCommunicationsPort));
@@ -993,6 +980,27 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
     }
 
   m_ui.source_view_keywords->setSortingEnabled(true);
+  QApplication::restoreOverrideCursor();
+}
+
+void glitch_canvas_settings::prepareWidgets(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  m_ui.project_communications_port->clear();
+
+  foreach(auto const &port, QSerialPortInfo::availablePorts())
+    m_ui.project_communications_port->addItem(port.portName());
+
+  if(m_ui.project_communications_port->count() == 0)
+    {
+      m_ui.project_communications_port->addItem
+	("/dev/null"); // Do not translate.
+      m_ui.project_communications_port->setCurrentIndex(0);
+    }
+
+  glitch_variety::sortCombinationBox(m_ui.project_communications_port);
+#endif
   QApplication::restoreOverrideCursor();
 }
 
@@ -1106,6 +1114,17 @@ void glitch_canvas_settings::setSettings
   m_ui.lock_color->setText(color.name(QColor::HexArgb));
   m_ui.maximize_edit_windows->setChecked
     (hash.value(Settings::MAXIMIZE_EDIT_WINDOWS).toBool());
+  m_ui.project_board->setCurrentIndex
+    (m_ui.project_board->
+     findText(hash.value(Settings::PROJECT_BOARD).toString().trimmed()));
+  m_ui.project_communications_port->setCurrentIndex
+    (m_ui.project_communications_port->
+     findText(hash.value(Settings::PROJECT_COMMUNICATIONS_PORT).
+	      toString().trimmed()));
+
+  if(m_ui.project_communications_port->currentIndex() < 0)
+    m_ui.project_communications_port->setCurrentIndex(0);
+
   m_ui.redo_undo_stack_size->setValue
     (hash.value(Settings::REDO_UNDO_STACK_SIZE).toInt());
   m_ui.save_periodically->setChecked
