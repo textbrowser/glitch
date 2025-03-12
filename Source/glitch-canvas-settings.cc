@@ -29,6 +29,9 @@
 #include <QColorDialog>
 #include <QDir>
 #include <QFileDialog>
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+#include <QSerialPortInfo>
+#endif
 #include <QSettings>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -479,6 +482,8 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "maximize_edit_windows, "
 	   "name, "
 	   "output_file, "
+	   "project_board, "
+	   "project_communications_port, "
 	   "project_ide, "
 	   "project_type, "
 	   "redo_undo_stack_size, "
@@ -495,6 +500,8 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_width) "
 	   "VALUES "
 	   "(?, "
+	   "?, "
+	   "?, "
 	   "?, "
 	   "?, "
 	   "?, "
@@ -535,6 +542,8 @@ bool glitch_canvas_settings::save(QString &error) const
 
 	query.addBindValue(name);
 	query.addBindValue("");
+	query.addBindValue(m_ui.project_board->currentText());
+	query.addBindValue(m_ui.project_communications_port->currentText());
 	query.addBindValue
 	  (QFileInfo(m_ui.project_ide->text()).absoluteFilePath());
 	query.addBindValue(m_ui.project_type->currentText());
@@ -681,6 +690,21 @@ void glitch_canvas_settings::prepare(const QString &fileName)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+#ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  m_ui.project_communications_port->clear();
+
+  foreach(auto const &port, QSerialPortInfo::availablePorts())
+    m_ui.project_communications_port->addItem(port.portName());
+
+  if(m_ui.project_communications_port->count() == 0)
+    {
+      m_ui.project_communications_port->addItem
+	("/dev/null"); // Do not translate.
+      m_ui.project_communications_port->setCurrentIndex(0);
+    }
+
+  glitch_variety::sortCombinationBox(m_ui.project_communications_port);
+#endif
   alterDatabase();
 
   QString connectionName("");
@@ -707,6 +731,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "maximize_edit_windows, "
 			   "SUBSTR(name, 1, %1), "
 			   "SUBSTR(output_file, 1, 5000), "
+			   "SUBSTR(project_board, 1, 5000), "
+			   "SUBSTR(project_communications_port, 1, 5000), "
 			   "SUBSTR(project_ide, 1, 5000), "
 			   "SUBSTR(project_type, 1, 50), "
 			   "redo_undo_stack_size, "
@@ -733,6 +759,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QString categoriesIconSize("");
 	QString keywordColors("");
 	QString name("");
+	QString projectBoard("");
+	QString projectCommunicationsPort("");
 #ifdef Q_OS_LINUX
 	QString projectIDE("/usr/bin/arduino");
 #else
@@ -777,6 +805,10 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      maximizeEditWindows = record.value(i).toBool();
 	    else if(fieldName.contains("name"))
 	      name = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("project_board"))
+	      projectBoard = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("project_communications_port"))
+	      projectCommunicationsPort = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_ide"))
 	      {
 		projectIDE = QFileInfo
@@ -853,6 +885,14 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.name->setText(name);
 	m_ui.name->setCursorPosition(0);
 	m_ui.name->selectAll();
+	m_ui.project_board->addItem(projectBoard);
+	m_ui.project_communications_port->setCurrentIndex
+	  (m_ui.project_communications_port->
+	   findText(projectCommunicationsPort));
+
+	if(m_ui.project_communications_port->currentIndex() < 0)
+	  m_ui.project_communications_port->setCurrentIndex(0);
+
 	m_ui.project_ide->setText(projectIDE);
 	m_ui.project_ide->setToolTip(m_ui.project_ide->text());
 	m_ui.project_ide->setCursorPosition(0);

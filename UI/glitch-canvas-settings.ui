@@ -620,6 +620,9 @@
              </item>
              <item>
               <widget class="QComboBox" name="project_board">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
                <property name="currentText">
                 <string notr="true"/>
                </property>
@@ -628,6 +631,9 @@
                </property>
                <property name="sizeAdjustPolicy">
                 <enum>QComboBox::AdjustToContents</enum>
+               </property>
+               <property name="minimumContentsLength">
+                <number>10</number>
                </property>
               </widget>
              </item>
