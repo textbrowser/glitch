@@ -378,6 +378,15 @@ Completed Items
 - prepareGeometryChange() may decrease performance. Implement shape().
 - setWindowIcon(windowIcon()) on child dialogs.
 
+Qt Items
+
+- Qt PDF magnification.
+- Qt PDF navigation.
+- Qt PDF search.
+- Windows and GDI objects. Remove QGraphicsProxyWidget from as many
+  structures as possible. Replace QWidget in glitch_object with
+  QGraphicsWidget.
+
 Remaining Items
 
 - ASH.
@@ -390,14 +399,8 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Qt PDF magnification.
-- Qt PDF navigation.
-- Qt PDF search.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Show indicator for an active Arduino process.
 - Snap-to-visible-grid.
-- Windows and GDI objects. Remove QGraphicsProxyWidget from as many
-  structures as possible. Replace QWidget in glitch_object with
-  QGraphicsWidget.

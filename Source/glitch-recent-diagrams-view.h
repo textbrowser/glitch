@@ -192,6 +192,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
   void enterEvent(QEvent *event);
 #endif
   void keyPressEvent(QKeyEvent *event);
+  void mouseDoubleClickEvent(QMouseEvent *event);
 
  private slots:
   void slotRemove(QGraphicsItem *item);

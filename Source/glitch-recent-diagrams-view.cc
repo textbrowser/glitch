@@ -91,6 +91,12 @@ void glitch_recent_diagrams_view::keyPressEvent(QKeyEvent *event)
       slotOpen();
 }
 
+void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
+{
+  QGraphicsView::mouseDoubleClickEvent(event);
+  slotOpen();
+}
+
 void glitch_recent_diagrams_view::populate
 (const QVectorQPairQImageQString &vector)
 {

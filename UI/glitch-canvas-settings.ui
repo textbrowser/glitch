@@ -607,6 +607,86 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_17">
+             <item>
+              <widget class="QLabel" name="label_15">
+               <property name="text">
+                <string>&amp;Board</string>
+               </property>
+               <property name="buddy">
+                <cstring>project_board</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="project_board">
+               <property name="currentText">
+                <string notr="true"/>
+               </property>
+               <property name="currentIndex">
+                <number>-1</number>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_15">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_18">
+             <item>
+              <widget class="QLabel" name="label_16">
+               <property name="text">
+                <string>Communications Port</string>
+               </property>
+               <property name="buddy">
+                <cstring>project_communications_port</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="project_communications_port">
+               <property name="currentText">
+                <string notr="true"/>
+               </property>
+               <property name="currentIndex">
+                <number>-1</number>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QCheckBox" name="generate_periodically">
              <property name="toolTip">
               <string>Generate the code shortly after a change is made.</string>
@@ -942,6 +1022,8 @@
   <tabstop>maximize_edit_windows</tabstop>
   <tabstop>tab_position</tabstop>
   <tabstop>tabbed_edit_windows</tabstop>
+  <tabstop>project_board</tabstop>
+  <tabstop>project_communications_port</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>

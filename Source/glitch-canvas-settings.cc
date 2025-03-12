@@ -415,6 +415,7 @@ bool glitch_canvas_settings::maximizeEditWindows(void) const
 bool glitch_canvas_settings::save(QString &error) const
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  alterDatabase();
 
   QString connectionName("");
   auto ok = true;
@@ -441,7 +442,9 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "maximize_edit_windows INTEGER NOT NULL DEFAULT 0, "
 	   "name TEXT NOT NULL PRIMARY KEY, "
 	   "output_file TEXT, "
+	   "project_board TEXT, "
 	   "project_ide TEXT, "
+	   "project_communications_port TEXT, "
 	   "project_type TEXT NOT NULL CHECK "
 	   "(project_type IN ('Arduino')), "
 	   "redo_undo_stack_size INTEGER NOT NULL DEFAULT 1500, "
@@ -464,15 +467,6 @@ bool glitch_canvas_settings::save(QString &error) const
 	    goto done_label;
 	  }
 
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD maximize_edit_windows "
-	   "INTEGER NOT NULL DEFAULT 0");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tab_position_index "
-	   "INTEGER NOT NULL DEFAULT -1");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
-	   "INTEGER NOT NULL DEFAULT 1");
 	query.prepare
 	  ("INSERT OR REPLACE INTO canvas_settings "
 	   "(background_color, "
@@ -634,6 +628,43 @@ void glitch_canvas_settings::accept(void)
   emit accepted(true);
 }
 
+void glitch_canvas_settings::alterDatabase(void) const
+{
+  QString connectionName("");
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(m_fileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD maximize_edit_windows "
+	   "INTEGER NOT NULL DEFAULT 0");
+	query.exec("ALTER TABLE canvas_settings ADD project_board TEXT");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD project_communications_port TEXT");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD save_periodically "
+	   "INTEGER NOT NULL DEFAULT 0");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD tab_position_index "
+	   "INTEGER NOT NULL DEFAULT -1");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
+	   "INTEGER NOT NULL DEFAULT 1");
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
+}
+
 void glitch_canvas_settings::closeEvent(QCloseEvent *event)
 {
   QDialog::closeEvent(event);
@@ -650,6 +681,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
     return;
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  alterDatabase();
 
   QString connectionName("");
 
@@ -664,15 +696,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD "
-	   "save_periodically INTEGER NOT NULL DEFAULT 0");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tab_position_index "
-	   "INTEGER NOT NULL DEFAULT -1");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
-	   "INTEGER NOT NULL DEFAULT 1");
 	query.exec(QString("SELECT "
 			   "SUBSTR(background_color, 1, 50), "
 			   "SUBSTR(categories_icon_size, 1, 50), "
