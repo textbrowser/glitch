@@ -29,6 +29,7 @@ Completed Items
 - Allow opening of multiple files.
 - Allow removal of individual items from Recent Diagrams.
 - Allow removal of wire by click.
+- Allow selection of Arduino board.
 - Allow setting of function names.
 - Android release.
 - Android:
@@ -390,7 +391,6 @@ Qt Items
 Remaining Items
 
 - ASH.
-- Allow selection of Arduino board.
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.

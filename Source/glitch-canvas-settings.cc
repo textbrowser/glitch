@@ -228,6 +228,9 @@ settings(void) const
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
   hash[Settings::MAXIMIZE_EDIT_WINDOWS] =
     m_ui.maximize_edit_windows->isChecked();
+  hash[Settings::PROJECT_BOARD] = m_ui.project_board->currentText().trimmed();
+  hash[Settings::PROJECT_COMMUNICATIONS_PORT] =
+    m_ui.project_communications_port->currentText().trimmed();
   hash[Settings::PROJECT_IDE] = QFileInfo
     (m_ui.project_ide->text()).absoluteFilePath();
   hash[Settings::REDO_UNDO_STACK_SIZE] = m_ui.redo_undo_stack_size->value();

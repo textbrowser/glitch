@@ -280,6 +280,9 @@
    <property name="toolTip">
     <string>New Arduino Diagram</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="action_Save_Current_Diagram">
    <property name="text">
