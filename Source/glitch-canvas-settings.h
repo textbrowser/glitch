@@ -195,6 +195,7 @@ class glitch_canvas_settings: public QDialog
   QString keywordColorsAsString(void) const;
   QString name(void) const;
   QString outputFile(void) const;
+  QString projectBoard(void) const;
   QString projectCommunicationsPort(void) const;
   QString projectIDE(void) const;
   QString wireType(void) const;

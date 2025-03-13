@@ -387,6 +387,11 @@ QString glitch_canvas_settings::outputFile(void) const
      m_outputFileExtension).absoluteFilePath();
 }
 
+QString glitch_canvas_settings::projectBoard(void) const
+{
+  return m_settings.value(Settings::PROJECT_BOARD).toString();
+}
+
 QString glitch_canvas_settings::projectCommunicationsPort(void) const
 {
   return m_settings.value(Settings::PROJECT_COMMUNICATIONS_PORT).toString();
