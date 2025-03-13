@@ -261,6 +261,7 @@ class glitch_canvas_settings: public QDialog
   }
 #endif
 
+  void slotCommunicationsPortRefresh(void);
   void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);
   void slotSelectProjectIDE(void);

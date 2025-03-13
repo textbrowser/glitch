@@ -678,6 +678,13 @@
               </widget>
              </item>
              <item>
+              <widget class="QPushButton" name="project_communications_port_refresh">
+               <property name="text">
+                <string>Refresh</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <spacer name="horizontalSpacer_16">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -1030,6 +1037,7 @@
   <tabstop>tabbed_edit_windows</tabstop>
   <tabstop>project_board</tabstop>
   <tabstop>project_communications_port</tabstop>
+  <tabstop>project_communications_port_refresh</tabstop>
   <tabstop>generate_periodically</tabstop>
   <tabstop>project_ide</tabstop>
   <tabstop>select_project_ide</tabstop>

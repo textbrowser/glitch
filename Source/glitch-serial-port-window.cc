@@ -101,20 +101,24 @@ void glitch_serial_port_window::discoverDevices(void)
 {
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
   QApplication::setOverrideCursor(Qt::WaitCursor);
-
-  auto const portName(m_ui.port_name->currentText());
-
   m_ui.port_name->clear();
 
   foreach(auto const &port, QSerialPortInfo::availablePorts())
     m_ui.port_name->addItem(port.portName());
 
+  glitch_variety::sortCombinationBox(m_ui.port_name);
+
   auto serialPort = findChild<QSerialPort *> ();
 
   if(serialPort)
     {
-      if(!serialPort->isOpen() || m_ui.port_name->findText(portName) == -1)
+      int index = -1;
+
+      if((index = m_ui.port_name->findText(serialPort->portName())) == -1 ||
+	 (serialPort->isOpen() == false))
 	QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
+      else if(index >= 0)
+	m_ui.port_name->setCurrentIndex(index);
     }
   else
     m_ui.port_name->setCurrentIndex(0);
@@ -125,7 +129,6 @@ void glitch_serial_port_window::discoverDevices(void)
       m_ui.port_name->setCurrentIndex(0);
     }
 
-  glitch_variety::sortCombinationBox(m_ui.port_name);
   QApplication::restoreOverrideCursor();
 #endif
 }

@@ -63,6 +63,17 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.dots_grids_color->setText(QColor(Qt::white).name(QColor::HexArgb));
   m_ui.lock_color->setText(QColor(231, 84, 128).name(QColor::HexArgb));
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
+#ifndef GLITCH_SERIAL_PORT_SUPPORTED
+  m_ui.project_board->setEnabled(false);
+  m_ui.project_board->setToolTip
+    (tr("The QtSerialPort module is not available."));
+  m_ui.project_communications_port->setEnabled(false);
+  m_ui.project_communications_port->setToolTip
+    (tr("The QtSerialPort module is not available."));
+  m_ui.project_communications_port_refresh->setEnabled(false);
+  m_ui.project_communications_port_refresh->setToolTip
+    (tr("The QtSerialPort module is not available."));
+#endif
 #ifdef Q_OS_LINUX
   m_ui.project_ide->setText("/usr/bin/arduino");
 #endif
@@ -139,6 +150,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
+  connect(m_ui.project_communications_port_refresh,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotCommunicationsPortRefresh);
   connect(m_ui.reset_source_view_keywords,
 	  &QPushButton::clicked,
 	  this,
@@ -992,10 +1007,19 @@ void glitch_canvas_settings::prepareWidgets(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
+  auto const systemLocation(m_ui.project_communications_port->currentText());
+
   m_ui.project_communications_port->clear();
 
   foreach(auto const &port, QSerialPortInfo::availablePorts())
     m_ui.project_communications_port->addItem(port.systemLocation());
+
+  glitch_variety::sortCombinationBox(m_ui.project_communications_port);
+  m_ui.project_communications_port->setCurrentIndex
+    (m_ui.project_communications_port->findText(systemLocation));
+
+  if(m_ui.project_communications_port->currentIndex() < 0)
+    m_ui.project_communications_port->setCurrentIndex(0);
 
   if(m_ui.project_communications_port->count() == 0)
     {
@@ -1003,8 +1027,6 @@ void glitch_canvas_settings::prepareWidgets(void)
 	("/dev/null"); // Do not translate.
       m_ui.project_communications_port->setCurrentIndex(0);
     }
-
-  glitch_variety::sortCombinationBox(m_ui.project_communications_port);
 #endif
   QApplication::restoreOverrideCursor();
 }
@@ -1243,6 +1265,11 @@ void glitch_canvas_settings::showEvent(QShowEvent *event)
 void glitch_canvas_settings::showPage(const Pages page)
 {
   m_ui.tab->setCurrentIndex(static_cast<int> (page));
+}
+
+void glitch_canvas_settings::slotCommunicationsPortRefresh(void)
+{
+  prepareWidgets();
 }
 
 void glitch_canvas_settings::slotResetSourceViewKeywords(void)
