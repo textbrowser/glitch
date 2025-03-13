@@ -532,14 +532,19 @@ void glitch_view_arduino::upload(const QStringList &arguments)
   generateSourceFile();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Uploading %1.").arg(fileName));
-  m_ideProcess.start
-    (processFileName,
-     QStringList()
-     << "--port"
-     << m_canvasSettings->projectCommunicationsPort()
-     << "--upload"
-     << arguments
-     << fileName);
+
+  QStringList list;
+  auto board(m_canvasSettings->projectBoard().trimmed());
+
+  if(!board.isEmpty())
+    list << "--board" << board;
+
+  list << "--port"
+       << m_canvasSettings->projectCommunicationsPort()
+       << "--upload"
+       << arguments
+       << fileName;
+  m_ideProcess.start(processFileName, list);
   QApplication::restoreOverrideCursor();
 }
 
@@ -584,13 +589,18 @@ void glitch_view_arduino::verify(const QStringList &arguments)
   generateSourceFile();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ideOutput->append(tr("Verifying %1.").arg(fileName));
-  m_ideProcess.start
-    (processFileName,
-     QStringList()
-     << "--port"
-     << m_canvasSettings->projectCommunicationsPort()
-     << "--verify"
-     << arguments
-     << fileName);
+
+  QStringList list;
+  auto board(m_canvasSettings->projectBoard().trimmed());
+
+  if(!board.isEmpty())
+    list << "--board" << board;
+
+  list << "--port"
+       << m_canvasSettings->projectCommunicationsPort()
+       << "--verify"
+       << arguments
+       << fileName;
+  m_ideProcess.start(processFileName, list);
   QApplication::restoreOverrideCursor();
 }
