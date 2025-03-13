@@ -372,6 +372,11 @@ QString glitch_canvas_settings::outputFile(void) const
      m_outputFileExtension).absoluteFilePath();
 }
 
+QString glitch_canvas_settings::projectCommunicationsPort(void) const
+{
+  return m_settings.value(Settings::PROJECT_COMMUNICATIONS_PORT).toString();
+}
+
 QString glitch_canvas_settings::projectIDE(void) const
 {
   return QFileInfo
@@ -990,7 +995,7 @@ void glitch_canvas_settings::prepareWidgets(void)
   m_ui.project_communications_port->clear();
 
   foreach(auto const &port, QSerialPortInfo::availablePorts())
-    m_ui.project_communications_port->addItem(port.portName());
+    m_ui.project_communications_port->addItem(port.systemLocation());
 
   if(m_ui.project_communications_port->count() == 0)
     {
