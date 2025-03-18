@@ -582,8 +582,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
-	query.exec("ALTER TABLE properties RENAME TO diagram_properties");
-	query.exec("DROP TABLE IF EXISTS properties");
 
 	if(query.exec(QString("SELECT SUBSTR(properties, 1, %1) FROM "
 			      "diagram_properties").

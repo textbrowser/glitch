@@ -680,21 +680,12 @@ void glitch_canvas_settings::alterDatabase(void) const
       {
 	QSqlQuery query(db);
 
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD maximize_edit_windows "
-	   "INTEGER NOT NULL DEFAULT 0");
 	query.exec("ALTER TABLE canvas_settings ADD project_board TEXT");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD project_communications_port TEXT");
 	query.exec
-	  ("ALTER TABLE canvas_settings ADD save_periodically "
-	   "INTEGER NOT NULL DEFAULT 0");
-	query.exec
 	  ("ALTER TABLE canvas_settings ADD tab_position_index "
 	   "INTEGER NOT NULL DEFAULT -1");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tabbed_edit_windows "
-	   "INTEGER NOT NULL DEFAULT 1");
       }
 
     db.close();

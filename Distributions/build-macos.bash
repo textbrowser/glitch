@@ -28,9 +28,9 @@ fi
 
 if [ "$(uname -m)" = "arm64" ]
 then
-    mv Glitch.d.dmg Glitch-2025.01.30_apple_silicon.d.dmg
+    mv Glitch.d.dmg Glitch-2025.04.01_apple_silicon.d.dmg
 else
-    mv Glitch.d.dmg Glitch-2025.01.30_intel.d.dmg
+    mv Glitch.d.dmg Glitch-2025.04.01_intel.d.dmg
 fi
 
 make distclean 2>/dev/null
