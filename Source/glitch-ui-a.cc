@@ -1193,7 +1193,6 @@ void glitch_ui::prepareRecentFiles(void)
 	QSqlQuery query(db);
 
 	query.setForwardOnly(true);
-	query.exec("ALTER TABLE glitch_recent_files ADD image TEXT");
 	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files "
 		   "(file_name TEXT NOT NULL PRIMARY KEY, image TEXT)");
 
@@ -1485,9 +1484,8 @@ void glitch_ui::saveRecentFile(const QString &fileName)
       {
 	QSqlQuery query(db);
 
-	query.exec("ALTER TABLE glitch_recent_files ADD image TEXT");
-	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files ("
-		   "file_name TEXT NOT NULL PRIMARY KEY)");
+	query.exec("CREATE TABLE IF NOT EXISTS glitch_recent_files "
+		   "(file_name TEXT NOT NULL PRIMARY KEY, image TEXT)");
 	query.prepare
 	  ("INSERT INTO glitch_recent_files (file_name) VALUES (?)");
 	query.addBindValue(QFileInfo(fileName).absoluteFilePath());
