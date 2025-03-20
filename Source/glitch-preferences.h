@@ -37,6 +37,7 @@ class glitch_preferences: public QDialog
  public:
   glitch_preferences(QWidget *parent);
   ~glitch_preferences();
+  static void prepareEnvironmentVariables(void);
   void processSettings(void);
 
  private:

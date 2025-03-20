@@ -94,7 +94,10 @@
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>Hinting</string>
+                   <string>&amp;Hinting</string>
+                  </property>
+                  <property name="buddy">
+                   <cstring>font_hinting</cstring>
                   </property>
                  </widget>
                 </item>
@@ -239,12 +242,39 @@
             </widget>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>&amp;Style Override</string>
+               </property>
+               <property name="buddy">
+                <cstring>style_override</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="style_override">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the environment variable QT_STYLE_OVERRIDE to the specified value. Please restart Glitch if this value is modified.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="placeholderText">
+                <string>QT_STYLE_OVERRIDE</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QCheckBox" name="display_tear_off_menus">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, some menus will reside in their own windows.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>&amp;Tear-Off Menus</string>
+              <string>Tear-Off Menus</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -335,6 +365,7 @@
   <tabstop>output_directory</tabstop>
   <tabstop>select_output_directory</tabstop>
   <tabstop>override_widget_fonts</tabstop>
+  <tabstop>style_override</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
   <tabstop>zoom_factor</tabstop>
  </tabstops>

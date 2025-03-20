@@ -40,6 +40,7 @@
 #endif
 
 #include "glitch-application.h"
+#include "glitch-preferences.h"
 #include "glitch-ui.h"
 #include "glitch-variety.h"
 #include "glitch-version.h"
@@ -82,6 +83,14 @@ int main(int argc, char *argv[])
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
 #endif
+  QCoreApplication::setApplicationName("Glitch");
+  QCoreApplication::setApplicationVersion(GLITCH_VERSION_STRING);
+  QCoreApplication::setOrganizationName("Glitch");
+  QSettings::setDefaultFormat(QSettings::IniFormat);
+  QSettings::setPath(QSettings::IniFormat,
+		     QSettings::UserScope,
+                     glitch_variety::homePath());
+  glitch_preferences::prepareEnvironmentVariables();
 
   QDir dir;
   glitch_application qapplication(argc, argv);
@@ -95,13 +104,6 @@ int main(int argc, char *argv[])
 
   CocoaInitializer ci;
 #endif
-  QCoreApplication::setApplicationName("Glitch");
-  QCoreApplication::setApplicationVersion(GLITCH_VERSION_STRING);
-  QCoreApplication::setOrganizationName("Glitch");
-  QSettings::setDefaultFormat(QSettings::IniFormat);
-  QSettings::setPath(QSettings::IniFormat,
-		     QSettings::UserScope,
-                     glitch_variety::homePath());
 
   int rc = 0;
 

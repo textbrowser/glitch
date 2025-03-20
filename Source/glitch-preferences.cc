@@ -77,6 +77,15 @@ glitch_preferences::~glitch_preferences()
 {
 }
 
+void glitch_preferences::prepareEnvironmentVariables(void)
+{
+  auto const variable
+    (QSettings().value("preferences/QT_STYLE_OVERRIDE").toByteArray());
+
+  qDebug() << variable;
+  qputenv("QT_STYLE_OVERRIDE", variable);
+}
+
 void glitch_preferences::prepareLanguages(void)
 {
   QMap<QString, QString> map;
@@ -144,6 +153,8 @@ void glitch_preferences::processSettings(void)
   m_ui.output_directory->selectAll();
   m_ui.override_widget_fonts->setChecked
     (settings.value("preferences/override_widget_fonts", true).toBool());
+  m_ui.style_override->setText
+    (settings.value("preferences/QT_STYLE_OVERRIDE").toString().trimmed());
   m_ui.zoom_factor->setValue
     (settings.value("preferences/zoom_factor", 1.25).toDouble());
 }
@@ -152,6 +163,8 @@ void glitch_preferences::slotApply(void)
 {
   QSettings settings;
 
+  settings.setValue
+    ("preferences/QT_STYLE_OVERRIDE", m_ui.style_override->text().trimmed());
   settings.setValue
     ("preferences/application_font",
      m_ui.display_application_font->text().remove('&'));
