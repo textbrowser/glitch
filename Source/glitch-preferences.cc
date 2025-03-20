@@ -80,9 +80,9 @@ glitch_preferences::~glitch_preferences()
 void glitch_preferences::prepareEnvironmentVariables(void)
 {
   auto const variable
-    (QSettings().value("preferences/QT_STYLE_OVERRIDE").toByteArray());
+    (QSettings().value("preferences/QT_STYLE_OVERRIDE").
+     toByteArray().trimmed());
 
-  qDebug() << variable;
   qputenv("QT_STYLE_OVERRIDE", variable);
 }
 
