@@ -1539,7 +1539,7 @@ void glitch_view::prepareTabTitles(void)
 	  title = title.mid(title.indexOf(':') + 1).trimmed();
 
 	  if(title.isEmpty())
-	    title = tr("unknown");
+	    title = tr("Unknown");
 
 	  m_ui.tab->setTabText(i, title);
 	  m_ui.tab->setTabToolTip(i, m_ui.tab->tabText(i));

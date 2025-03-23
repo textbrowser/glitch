@@ -1445,7 +1445,7 @@ void glitch_object::setEditWindowTitle(const QString &t)
   auto text(t.trimmed());
 
   if(text.isEmpty())
-    text = tr("unknown");
+    text = tr("Unknown");
 
   m_editWindow->setWindowTitle
     (tr("Glitch: %1 (%2)").
