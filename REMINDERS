@@ -245,6 +245,7 @@ Completed Items
 - Percolate redo / undo of functions through child views.
 - Periodic backup.
 - Periodically-generated source and redo / undo.
+- Port refresh.
 - Portable output location.
 - PowerPC (QOverload()).
 - Prepare Copy, Delete, Paste, and Select All states.
@@ -399,7 +400,6 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Port refresh.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
