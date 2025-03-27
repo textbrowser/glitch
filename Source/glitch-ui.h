@@ -101,7 +101,6 @@ class glitch_ui: public QMainWindow
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;
   glitch_recent_diagrams_view *m_recentDiagramsView;
-  glitch_serial_port_window *m_serialPortWindow;
   swifty *m_swifty;
   QString about(void) const;
   bool openDiagram(const QString &fileName, QString &error);

@@ -117,7 +117,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
     QDir::separator() +
     "glitch_recent_files.db";
   m_releaseNotes = nullptr;
-  m_serialPortWindow = nullptr;
   m_statusBarTimer.start(500);
   m_swifty = new swifty
     (GLITCH_VERSION_STRING,
@@ -725,7 +724,6 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	  }
     }
 
-  m_serialPortWindow ? m_serialPortWindow->close() : (0);
   saveSettings();
   QMainWindow::closeEvent(event);
   QApplication::exit();
