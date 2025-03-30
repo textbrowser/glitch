@@ -96,6 +96,8 @@ void glitch_source_preview::setObject(glitch_object *object)
 	      this,
 	      &glitch_source_preview::slotObjectChanged);
       setSource(m_object->code());
+      setWindowTitle
+	(tr("Glitch: Source Preview (%1)").arg(m_object->name()));
     }
   else
     setSource("");
@@ -129,8 +131,15 @@ void glitch_source_preview::slotFindText(void)
 
 void glitch_source_preview::slotObjectChanged(void)
 {
-  if(m_object && m_object->proxy() && m_object->proxy()->isSelected())
-    setSource(m_object->code());
+  if(m_object)
+    {
+      setSource(m_object->code());
+      setWindowTitle
+	(tr("Glitch: Source Preview (%1)").arg(m_object->name()));
+    }
   else
-    setSource("");
+    {
+      setSource("");
+      setWindowTitle(tr("Glitch: Source Preview"));
+    }
 }

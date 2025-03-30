@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>34</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -374,9 +374,6 @@
    <property name="text">
     <string>&amp;Generate Source File</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+G</string>
-   </property>
   </action>
   <action name="action_Diagram_Context_Menu">
    <property name="text">
@@ -433,6 +430,9 @@
   <action name="action_Glitch_Preferences">
    <property name="text">
     <string>Glitch Preferences...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
    </property>
   </action>
   <action name="action_Show_Project_IDE">
