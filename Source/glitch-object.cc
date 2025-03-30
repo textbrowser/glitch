@@ -725,8 +725,8 @@ void glitch_object::addDefaultActions(QMenu &menu)
 
       if((DefaultMenuActions::DELETE == it.key() ||
 	  DefaultMenuActions::EDIT == it.key() ||
-	  DefaultMenuActions::FLOATING_CONTEXT_MENU == it.key() ||
 	  DefaultMenuActions::LOCK_POSITION == it.key() ||
+	  DefaultMenuActions::SOURCE_PREVIEW == it.key() ||
 	  DefaultMenuActions::TRANSPARENT == it.key()) &&
 	 it.hasNext())
 	menu.addSeparator();
@@ -1006,6 +1006,21 @@ void glitch_object::createActions(void)
 	      &glitch_object::slotSetStyleSheet,
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::SET_STYLE_SHEET] = action;
+    }
+
+  if(!m_actions.contains(DefaultMenuActions::SOURCE_PREVIEW))
+    {
+      auto action = new QAction(tr("Source Preview..."), this);
+
+      action->setData
+	(static_cast<int> (DefaultMenuActions::SOURCE_PREVIEW));
+      action->setIcon(QIcon(":/source.png"));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotShowSourcePreview,
+	      Qt::QueuedConnection);
+      m_actions[DefaultMenuActions::SOURCE_PREVIEW] = action;
     }
 
   if(!m_actions.contains(DefaultMenuActions::TRANSPARENT))
@@ -2179,6 +2194,10 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     return;
 
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
+  m_sourcePreview ? m_sourcePreview->setKeywordsColors
+    (m_canvasSettings ?
+     m_canvasSettings->keywordColorsAsMap() : QMap<QString, QColor> ()) :
+    (void) 0;
   setEditWindowTitle(name());
 }
 
@@ -2622,11 +2641,13 @@ void glitch_object::slotShowSourcePreview(void)
 {
   if(!m_sourcePreview)
     {
-      m_sourcePreview = new glitch_source_preview(this);
+      m_sourcePreview = new glitch_source_preview(m_parent);
+      m_sourcePreview->setKeywordsColors
+	(m_canvasSettings ?
+	 m_canvasSettings->keywordColorsAsMap() : QMap<QString, QColor> ());
       m_sourcePreview->setObject(this);
     }
 
-  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
 #ifdef Q_OS_ANDROID
   m_sourcePreview->showMaximized();
 #else

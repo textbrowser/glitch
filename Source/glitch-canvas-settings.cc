@@ -126,7 +126,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	"by analyzing the areas that require a redraw.</html>"),
      Qt::ToolTipRole);
   m_ui.wire_color->setText(QColor(255, 192, 203, 175).name(QColor::HexArgb));
-  m_ui.wire_width->setToolTip(QString("[%1, %2]").
+  m_ui.wire_width->setToolTip(tr("[%1, %2]").
 			      arg(m_ui.wire_width->minimum()).
 			      arg(m_ui.wire_width->maximum()));
   m_settings = settings();

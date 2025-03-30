@@ -83,6 +83,7 @@ class glitch_object: public QWidget
     DELETE,
     EDIT,
     FLOATING_CONTEXT_MENU,
+    SOURCE_PREVIEW,
 
     /*
     ** Miscellaneous.
