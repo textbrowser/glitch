@@ -149,6 +149,12 @@ glitch_object_edit_window::glitch_object_edit_window
   m_actions.value("screen mode")->setEnabled(false);
 #endif
   menu->addSeparator();
+  m_actions["source preview"] = menu->addAction
+    (tr("&Source Preview..."),
+     this,
+     SLOT(slotShowSourcePreview(void)));
+  m_actions.value("source preview")->setEnabled(object);
+  menu->addSeparator();
   m_actions["tools"] = menu->addAction(tr("&Tools Tool Bar"));
   m_actions["tools"]->setCheckable(true);
   m_actions["tools"]->setChecked(true);
@@ -459,6 +465,7 @@ void glitch_object_edit_window::prepareIcons(void)
   m_actions.value("save")->setIcon(QIcon(":/save.png"));
   m_actions.value("screen mode")->setIcon(QIcon(":/fullscreen.png"));
   m_actions.value("select all")->setIcon(QIcon(":/select-all.png"));
+  m_actions.value("source preview")->setIcon(QIcon(":/source.png"));
   m_actions.value("undo")->setIcon(QIcon(":/undo.png"));
 }
 
@@ -984,6 +991,12 @@ void glitch_object_edit_window::slotShowFullScreenMode(void)
       m_actions.value("screen mode")->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_object_edit_window::slotShowSourcePreview(void)
+{
+  if(m_object)
+    m_object->slotShowSourcePreview();
 }
 
 void glitch_object_edit_window::slotShowTearOffMenu(void)

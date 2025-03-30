@@ -384,6 +384,7 @@ class glitch_object: public QWidget
   void slotLockPosition(void);
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
+  void slotShowSourcePreview(void);
 
  private:
   QMenu m_menu;
@@ -405,7 +406,6 @@ class glitch_object: public QWidget
   void slotClearTemporaryContainers(void);
   void slotDelayedResize(void);
   void slotSetFont(void);
-  void slotShowSourcePreview(void);
   void slotSimulateDelete(void);
   void slotPortColorsApplied(void);
   void slotPropertyChanged

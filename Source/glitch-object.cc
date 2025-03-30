@@ -2011,6 +2011,9 @@ void glitch_object::simulateDelete(void)
 
   if(m_portColors)
     m_portColors->hide();
+
+  if(m_sourcePreview)
+    m_sourcePreview->hide();
 #else
   if(m_contextMenu)
     m_contextMenu->close();
@@ -2020,6 +2023,9 @@ void glitch_object::simulateDelete(void)
 
   if(m_portColors)
     m_portColors->close();
+
+  if(m_sourcePreview)
+    m_sourcePreview->close();
 #endif
 
   emit simulateDeleteSignal();
