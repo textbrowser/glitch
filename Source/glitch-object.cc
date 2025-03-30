@@ -70,6 +70,7 @@
 #include "glitch-object.h"
 #include "glitch-port-colors.h"
 #include "glitch-scene.h"
+#include "glitch-source-preview.h"
 #include "glitch-style-sheet.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -2615,6 +2616,24 @@ void glitch_object::slotShowContextMenu(void)
       m_contextMenu->activateWindow();
       m_contextMenu->raise();
     }
+}
+
+void glitch_object::slotShowSourcePreview(void)
+{
+  if(!m_sourcePreview)
+    {
+      m_sourcePreview = new glitch_source_preview(this);
+      m_sourcePreview->setObject(this);
+    }
+
+  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
+#ifdef Q_OS_ANDROID
+  m_sourcePreview->showMaximized();
+#else
+  m_sourcePreview->showNormal();
+#endif
+  m_sourcePreview->activateWindow();
+  m_sourcePreview->raise();
 }
 
 void glitch_object::slotSimulateDelete(void)

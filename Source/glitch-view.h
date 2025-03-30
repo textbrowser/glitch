@@ -54,7 +54,6 @@ class glitch_object;
 class glitch_object_start;
 class glitch_redo_undo_stack;
 class glitch_scene;
-class glitch_source_preview;
 class glitch_syntax_highlighter;
 class glitch_tools;
 class glitch_undo_command;
@@ -137,7 +136,6 @@ class glitch_view: public QWidget
   void selectAll(void);
   void showCanvasSettings(void) const;
   void showRedoUndoStack(void);
-  void showSourcePreview(void) const;
   void showTools(void);
   void showUserFunctions(void) const;
   void undo(void);
@@ -217,7 +215,6 @@ class glitch_view: public QWidget
   glitch_common::ProjectTypes m_projectType;
   glitch_docked_container *m_dockedWidgetPropertyEditors;
   glitch_graphicsview *m_view;
-  glitch_source_preview *m_sourcePreview;
   glitch_user_functions *m_userFunctions;
   glitch_user_functions_model *m_userFunctionsModel;
   bool saveImplementation(const QString &fileName, QString &error);

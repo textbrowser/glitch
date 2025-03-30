@@ -44,6 +44,7 @@ class glitch_object_edit_window;
 class glitch_object_view;
 class glitch_port_colors;
 class glitch_scene;
+class glitch_source_preview;
 class glitch_view;
 
 class glitch_object: public QWidget
@@ -385,6 +386,7 @@ class glitch_object: public QWidget
 
  private:
   QMenu m_menu;
+  QPointer<glitch_source_preview> m_sourcePreview;
   QSize m_delayedSize;
   QSize m_sizeBeforeFontChange;
   static qint64 s_id;
@@ -402,6 +404,7 @@ class glitch_object: public QWidget
   void slotClearTemporaryContainers(void);
   void slotDelayedResize(void);
   void slotSetFont(void);
+  void slotShowSourcePreview(void);
   void slotSimulateDelete(void);
   void slotPortColorsApplied(void);
   void slotPropertyChanged

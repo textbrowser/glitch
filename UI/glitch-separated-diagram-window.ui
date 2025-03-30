@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>34</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
@@ -74,7 +74,6 @@
     </property>
     <addaction name="action_Context_Menu"/>
     <addaction name="action_Redo_Undo_Stack"/>
-    <addaction name="action_Source_Preview"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -292,11 +291,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+0</string>
-   </property>
-  </action>
-  <action name="action_Source_Preview">
-   <property name="text">
-    <string>&amp;Source Preview...</string>
    </property>
   </action>
   <action name="action_Redo_Undo_Stack">

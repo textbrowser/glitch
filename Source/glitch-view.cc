@@ -61,7 +61,6 @@
 #include "glitch-redo-undo-stack.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
-#include "glitch-source-preview.h"
 #include "glitch-syntax-highlighter.h"
 #include "glitch-tools.h"
 #include "glitch-ui.h"
@@ -127,8 +126,6 @@ glitch_view::glitch_view
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_scene->setUndoStack(m_undoStack = new QUndoStack(this));
   m_settings = m_canvasSettings->settings();
-  m_sourcePreview = new glitch_source_preview(this);
-  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
   m_splitter = new QSplitter(this);
   m_tabPullDown = new QToolButton(this);
   m_tabPullDown->setArrowType(Qt::NoArrow);
@@ -328,10 +325,6 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
-  connect(this,
-	  &glitch_view::changed,
-	  m_sourcePreview,
-	  &glitch_source_preview::slotObjectChanged);
   connect(this,
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
@@ -1750,17 +1743,6 @@ void glitch_view::showRedoUndoStack(void)
   m_redoUndoStack->raise();
 }
 
-void glitch_view::showSourcePreview(void) const
-{
-#ifdef Q_OS_ANDROID
-  m_sourcePreview->showMaximized();
-#else
-  m_sourcePreview->showNormal();
-#endif
-  m_sourcePreview->activateWindow();
-  m_sourcePreview->raise();
-}
-
 void glitch_view::showTools(void)
 {
   createTools();
@@ -1830,7 +1812,6 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());
   m_settings = m_canvasSettings->settings();
-  m_sourcePreview->setKeywordsColors(m_canvasSettings->keywordColorsAsMap());
 
   if(m_sourceView)
     {
@@ -2289,11 +2270,6 @@ void glitch_view::slotSelectionChanged(void)
   /*
   ** We may arrive here after a scene is purged.
   */
-
-  auto scene = qobject_cast<glitch_scene *> (sender());
-
-  if(scene)
-    m_sourcePreview->setObject(scene->selectedObjects().value(0));
 }
 
 void glitch_view::slotSeparate(void)

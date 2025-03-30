@@ -55,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>34</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -97,7 +97,6 @@
     </property>
     <addaction name="action_Diagram_Context_Menu"/>
     <addaction name="action_Redo_Undo_Stack"/>
-    <addaction name="action_Source_Preview"/>
     <addaction name="action_Tools"/>
     <addaction name="action_User_Functions"/>
     <addaction name="separator"/>
@@ -497,11 +496,6 @@
   <action name="action_Serial_Port_Window">
    <property name="text">
     <string>Serial Port Window...</string>
-   </property>
-  </action>
-  <action name="action_Source_Preview">
-   <property name="text">
-    <string>&amp;Source Preview...</string>
    </property>
   </action>
   <action name="action_Close_All_Diagrams">

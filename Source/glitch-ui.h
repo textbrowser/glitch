@@ -198,7 +198,6 @@ class glitch_ui: public QMainWindow
   void slotShowRedoUndoStack(void);
   void slotShowReleaseNotes(void);
   void slotShowSerialPortWindow(void);
-  void slotShowSourcePreview(void);
   void slotShowTearOffMenu(void);
   void slotShowTools(void);
   void slotShowUserFunctions(void);

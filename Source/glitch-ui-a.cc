@@ -294,10 +294,6 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotShowProjectIDE);
-  connect(m_ui.action_Source_Preview,
-	  &QAction::triggered,
-	  this,
-	  &glitch_ui::slotShowSourcePreview);
   connect(m_ui.action_Terminate,
 	  &QAction::triggered,
 	  this,
@@ -1036,7 +1032,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Select_All->setEnabled(false);
       m_ui.action_Separate_Current_Canvas->setEnabled(false);
       m_ui.action_Show_Project_IDE->setEnabled(false);
-      m_ui.action_Source_Preview->setEnabled(false);
       m_ui.action_Tools->setEnabled(false);
       m_ui.action_Terminate->setEnabled(false);
       m_ui.action_Upload->setEnabled(false);
@@ -1080,7 +1075,6 @@ void glitch_ui::prepareActionWidgets(void)
       m_ui.action_Separate_Current_Canvas->setEnabled(m_currentView);
 #endif
       m_ui.action_Show_Project_IDE->setEnabled(m_currentView);
-      m_ui.action_Source_Preview->setEnabled(m_currentView);
       m_ui.action_Terminate->setEnabled(m_currentView);
       m_ui.action_Tools->setEnabled(m_currentView);
       m_ui.action_Upload->setEnabled(m_currentView);
@@ -1159,7 +1153,6 @@ void glitch_ui::prepareIcons(void)
   m_ui.action_Save_Current_Diagram_As->setIcon(QIcon(":/save-as.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
   m_ui.action_Serial_Port_Window->setIcon(QIcon(":/Arduino/serial.png"));
-  m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Terminate->setIcon(QIcon(":/quit.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Verify->setIcon(QIcon(":/verify.png"));

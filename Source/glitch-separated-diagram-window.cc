@@ -117,10 +117,6 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotSelectAll);
-  connect(m_ui.action_Source_Preview,
-	  &QAction::triggered,
-	  this,
-	  &glitch_separated_diagram_window::slotShowSourcePreview);
   connect(m_ui.action_Undo,
 	  &QAction::triggered,
 	  this,
@@ -213,7 +209,6 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Redo_Undo_Stack->setEnabled(true);
       m_ui.action_Save_Diagram->setEnabled(true);
       m_ui.action_Select_All->setEnabled(m_view->scene()->items().size() > 2);
-      m_ui.action_Source_Preview->setEnabled(true);
       m_ui.action_Unite_Canvas->setEnabled(true);
       m_ui.action_Upload->setEnabled(true);
       m_ui.action_Verify->setEnabled(true);
@@ -234,7 +229,6 @@ void glitch_separated_diagram_window::prepareActionWidgets(void)
       m_ui.action_Redo_Undo_Stack->setEnabled(false);
       m_ui.action_Save_Diagram->setEnabled(false);
       m_ui.action_Select_All->setEnabled(false);
-      m_ui.action_Source_Preview->setEnabled(false);
       m_ui.action_Unite_Canvas->setEnabled(false);
       m_ui.action_Upload->setEnabled(false);
       m_ui.action_Verify->setEnabled(false);
@@ -257,7 +251,6 @@ void glitch_separated_diagram_window::prepareIcons(void)
   m_ui.action_Redo->setIcon(QIcon(":/redo.png"));
   m_ui.action_Save_Diagram->setIcon(QIcon(":/save.png"));
   m_ui.action_Select_All->setIcon(QIcon(":/select-all.png"));
-  m_ui.action_Source_Preview->setIcon(QIcon(":/source.png"));
   m_ui.action_Undo->setIcon(QIcon(":/undo.png"));
   m_ui.action_Upload->setIcon(QIcon(":/upload.png"));
   m_ui.action_Verify->setIcon(QIcon(":/verify.png"));
@@ -722,12 +715,6 @@ void glitch_separated_diagram_window::slotShowFullScreenMode(void)
       m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
       showFullScreen();
     }
-}
-
-void glitch_separated_diagram_window::slotShowSourcePreview(void)
-{
-  if(m_view)
-    m_view->showSourcePreview();
 }
 
 void glitch_separated_diagram_window::slotShowTearOffMenu(void)
