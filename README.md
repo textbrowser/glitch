@@ -10,12 +10,11 @@ Glitch, originally QtNQC, was discovered in 2004!
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
-<li>ARM, PowerPC, Sparc, etc.</li>
+<li>AMD, ARM, Apple Silicon, PowerPC, Sparc, etc.</li>
 <li>ASH, or, a natural language shell.</li>
-<li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
+<li>Android, FreeBSD, Linux, MacOS, PiOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
-<li>Apple Silicon!</li>
-<li>Arduino!</li>
+<li>Arduino, of course!</li>
 <li>Available almost everywhere!</li>
 <li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
@@ -32,7 +31,7 @@ Glitch, originally QtNQC, was discovered in 2004!
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
-<li>Serial port reader and writer.</li>
+<li>Serial port readers and writers.</li>
 <li>Tabbed edit windows!</li>
 </ul>
 
