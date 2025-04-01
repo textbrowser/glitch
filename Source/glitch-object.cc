@@ -1967,7 +1967,13 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  this,
 	  &glitch_object::slotWireDestroyed,
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+  connect(wire,
+	  &glitch_wire::visibleChanged,
+	  this,
+	  &glitch_object::changed,
+	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
+  QTimer::singleShot(250, this, SIGNAL(changed(void)));
 }
 
 void glitch_object::showEditWindow(const bool signal)

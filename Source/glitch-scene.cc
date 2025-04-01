@@ -586,7 +586,11 @@ void glitch_scene::addItem(QGraphicsItem *item)
   auto wire = qgraphicsitem_cast<glitch_wire *> (item);
 
   if(wire)
-    m_wires << wire;
+    {
+      m_wires << wire;
+      wire->setVisible(false);
+      wire->setVisible(true);
+    }
 
   if(glitch_ui::s_copiedObjectsSet.contains(proxy ? proxy->object() : nullptr))
     /*
@@ -1804,7 +1808,11 @@ void glitch_scene::removeItem(QGraphicsItem *item)
   auto wire = qgraphicsitem_cast<glitch_wire *> (item);
 
   if(wire)
-    m_wires.remove(wire);
+    {
+      m_wires.remove(wire);
+      wire->setVisible(false);
+      wire->setVisible(true);
+    }
 }
 
 void glitch_scene::saveWires(const QSqlDatabase &db, QString &error)
