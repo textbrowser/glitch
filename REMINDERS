@@ -123,6 +123,7 @@ Completed Items
 - Depict cloned functions. Function definitions will contain labels having
   f symbols.
 - Depict main functions via immutable themes.
+- Detect removal of a wire in the glitch_object class.
 - Detect scene boundaries and prevent placement outside of.
 - Detect scene boundaries of object scenes.
 - Disable redo / undo of line-edit widgets? No.
@@ -395,7 +396,6 @@ Remaining Items
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
-- Detect removal of a wire in the glitch_object class.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.

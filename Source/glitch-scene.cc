@@ -2007,7 +2007,8 @@ void glitch_scene::slotObjectDeletedViaContextMenu(void)
       m_undoStack->beginMacro(tr("widget(s) deleted"));
 
       if(qobject_cast<glitch_object_function_arduino *> (object) &&
-	 !qobject_cast<glitch_object_function_arduino *> (object)->isClone())
+	 qobject_cast<glitch_object_function_arduino *> (object)->isClone() ==
+	 false)
 	{
 	  deleteFunctionClones(object->name());
 	  emit functionDeleted
