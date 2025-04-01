@@ -395,6 +395,7 @@ Remaining Items
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
+- Detect removal of a wire in the glitch_object class.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.

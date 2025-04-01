@@ -1056,6 +1056,7 @@ void glitch_object::disconnectInputs(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+  auto state = false;
 
   while(it.hasNext())
     {
@@ -1072,10 +1073,12 @@ void glitch_object::disconnectInputs(void)
 	    (glitch_undo_command::Types::WIRE_DELETED, scene(), wire);
 
 	  m_undoStack->push(undoCommand);
+	  state = true;
 	}
     }
 
   QApplication::restoreOverrideCursor();
+  state ? emit changed() : (void) 0;
 }
 
 void glitch_object::disconnectOutputs(void)
@@ -1083,6 +1086,7 @@ void glitch_object::disconnectOutputs(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+  auto state = false;
 
   while(it.hasNext())
     {
@@ -1099,10 +1103,12 @@ void glitch_object::disconnectOutputs(void)
 	    (glitch_undo_command::Types::WIRE_DELETED, scene(), wire);
 
 	  m_undoStack->push(undoCommand);
+	  state = true;
 	}
     }
 
   QApplication::restoreOverrideCursor();
+  state ? emit changed() : (void) 0;
 }
 
 void glitch_object::hideOrShowOccupied(void)
@@ -2673,16 +2679,21 @@ void glitch_object::slotWireDestroyed(void)
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QMutableHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+  auto state = false;
 
   while(it.hasNext())
     {
       it.next();
 
       if(!it.value())
-	it.remove();
+	{
+	  it.remove();
+	  state = true;
+	}
     }
 
   QApplication::restoreOverrideCursor();
+  state ? emit changed() : (void) 0;
 }
 
 void glitch_object::slotWireObjects(void)
