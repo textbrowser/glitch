@@ -25,6 +25,10 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+** Wires are not assigned direct parents.
+*/
+
 #include <QPainter>
 
 #include "glitch-object.h"
@@ -323,11 +327,6 @@ void glitch_wire::setLeftProxy(glitch_proxy_widget *proxy)
   if(!object)
     return;
 
-  connect(object,
-	  &glitch_object::destroyed,
-	  this,
-	  &glitch_wire::deleteLater,
-	  Qt::UniqueConnection);
   m_leftProxy = proxy;
 }
 
@@ -341,11 +340,6 @@ void glitch_wire::setRightProxy(glitch_proxy_widget *proxy)
   if(!object)
     return;
 
-  connect(object,
-	  &glitch_object::destroyed,
-	  this,
-	  &glitch_wire::deleteLater,
-	  Qt::UniqueConnection);
   m_rightProxy = proxy;
 }
 

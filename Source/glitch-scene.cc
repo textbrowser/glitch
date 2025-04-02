@@ -788,7 +788,10 @@ void glitch_scene::disconnectWireIfNecessary(glitch_wire *wire)
       m_undoStack->push(undoCommand);
     }
   else
-    wire->deleteLater();
+    {
+      removeItem(wire);
+      wire->deleteLater();
+    }
 
   emit changed();
 }
@@ -2328,6 +2331,7 @@ void glitch_scene::wireDisconnectObjects
 	  else
 	    {
 	      it.remove();
+	      removeItem(wire);
 	      state = true;
 	      wire->deleteLater();
 	    }
@@ -2384,6 +2388,7 @@ void glitch_scene::wireDisconnectObjects(glitch_proxy_widget *proxy)
 	  else
 	    {
 	      it.remove();
+	      removeItem(wire);
 	      state = true;
 	      wire->deleteLater();
 	    }
