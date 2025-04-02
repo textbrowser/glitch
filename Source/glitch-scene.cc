@@ -571,12 +571,17 @@ void glitch_scene::addItem(QGraphicsItem *item)
 	   qobject_cast<glitch_object_function_arduino *> (proxy->widget())->
 	   isClone());
 
-      if(proxy->object() && proxy->object()->editScene())
-	connect(this,
-		&glitch_scene::functionDeleted,
-		proxy->object()->editScene(),
-		&glitch_scene::slotFunctionDeleted,
-		Qt::UniqueConnection);
+      if(proxy->object())
+	{
+	  proxy->object()->editScene() ?
+	    (void) connect(this,
+			   &glitch_scene::functionDeleted,
+			   proxy->object()->editScene(),
+			   &glitch_scene::slotFunctionDeleted,
+			   Qt::UniqueConnection) :
+	    (void) 0;
+	  proxy->object()->simulateAdd();
+	}
 
       proxy->setParent(this);
     }

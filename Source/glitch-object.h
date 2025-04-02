@@ -330,6 +330,7 @@ class glitch_object: public QWidget
   virtual void setName(const QString &n);
   virtual void setProperty(const Properties property, const QVariant &value);
   virtual void showEditWindow(const bool signal = true);
+  virtual void simulateAdd(void);
   virtual void simulateDelete(void);
   virtual ~glitch_object();
   void addChild(const QPointF &point, glitch_object *object, bool &ok);

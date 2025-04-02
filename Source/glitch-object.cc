@@ -2012,6 +2012,24 @@ void glitch_object::showEditWindow(const bool signal)
     }
 }
 
+void glitch_object::simulateAdd(void)
+{
+  if(!isVisible())
+    return;
+
+  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto wire = it.value();
+
+      if(wire)
+	wire->setVisible(true);
+    }
+}
+
 void glitch_object::simulateDelete(void)
 {
 #ifdef Q_OS_ANDROID
@@ -2039,6 +2057,18 @@ void glitch_object::simulateDelete(void)
   if(m_sourcePreview)
     m_sourcePreview->close();
 #endif
+
+  QHashIterator<qint64, QPointer<glitch_wire> > it(m_wires);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      auto wire = it.value();
+
+      if(wire)
+	wire->setVisible(false);
+    }
 
   emit simulateDeleteSignal();
 }
