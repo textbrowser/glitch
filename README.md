@@ -2,18 +2,18 @@ Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
-<b>Version 2025.01.30 is the newest LTS release.</b><br>
-<b>Version 2025.03.15 is the newest source release.</b>
+<b>Version 2025.04.05 is the newest LTS release.</b><br>
+<b>Version 2025.04.05 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
 <ul>
-<li>ARM, PowerPC, Sparc, etc.</li>
+<li>AMD, ARM, Apple Silicon, PowerPC, Sparc, etc.</li>
 <li>ASH, or, a natural language shell.</li>
-<li>Android, FreeBSD, Linux, MacOS, Windows, etc.</li>
+<li>Android, FreeBSD, Linux, MacOS, PiOS, Windows, etc.</li>
 <li>Android-friendly design.</li>
 <li>Apple Silicon!</li>
-<li>Arduino!</li>
+<li>Arduino, of course!</li>
 <li>Available almost everywhere!</li>
 <li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
@@ -30,11 +30,32 @@ Now with a natural language processor!
 <li>Qt-only dependency.</li>
 <li>Raspberry Pi!</li>
 <li>Rich redo / undo stack.</li>
-<li>Serial port reader and writer.</li>
+<li>Serial port readers and writers.</li>
 <li>Tabbed edit windows!</li>
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.04.05</p>
+<ul>
+<li>Altered Examples database files.</li>
+<li>Ctrl + G will now open Glitch Preferences. The shortcut
+  was previously responsible for generating the current diagram's
+  source.</li>
+<li>Detect removal of wires in objects.</li>
+<li>Fewer paint events in wire objects.</li>
+<li>Multiple Serial Port Windows.</li>
+<li>New Glitch Preferences -> Style Override. For a pleasant
+  Qt style, please consider Kvantum.</li>
+<li>Qt 6.8.3 LTS on Android.</li>
+<li>Qt 6.8.3 LTS on MacOS.</li>
+<li>Qt 6.8.3 LTS on Windows.</li>
+<li>Removed some database alter statements. Statements included
+  with the 2025.03.15 release remain.</li>
+<li>Second LTS release of 2025.</li>
+<li>Source previews are now attached to objects.</li>
+<li>The Blue-Balloon-Papa release!</li>
+</ul>
 
 <p>2025.03.15</p>
 <ul>
