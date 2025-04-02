@@ -593,7 +593,6 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(wire)
     {
       m_wires << wire;
-      wire->setVisible(false);
       wire->setVisible(true);
     }
 
@@ -1819,7 +1818,6 @@ void glitch_scene::removeItem(QGraphicsItem *item)
     {
       m_wires.remove(wire);
       wire->setVisible(false);
-      wire->setVisible(true);
     }
 }
 

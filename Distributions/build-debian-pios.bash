@@ -62,7 +62,7 @@ else
 fi
 
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2025.04.01_$architecture.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2025.04.05_$architecture.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean

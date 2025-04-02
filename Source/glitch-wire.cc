@@ -365,7 +365,10 @@ void glitch_wire::slotUpdate(const QList<QRectF> &region)
 {
   Q_UNUSED(region);
 
-  QPainter painter;
+  if(isVisible())
+    {
+      QPainter painter;
 
-  paint(&painter, nullptr, nullptr);
+      paint(&painter, nullptr, nullptr);
+    }
 }
