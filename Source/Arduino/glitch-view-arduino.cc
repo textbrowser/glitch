@@ -481,6 +481,10 @@ void glitch_view_arduino::terminate(const QStringList &arguments)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   glitch_view::terminate(arguments);
+  m_ideOutput->append
+    (m_ideProcess.processId() > 0 ?
+     tr("Terminating PID %1.").arg(m_ideProcess.processId()) :
+     tr("Cannot terminate an inactive Arduino process."));
   m_ideProcess.kill();
   QApplication::restoreOverrideCursor();
 }
