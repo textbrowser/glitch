@@ -82,6 +82,7 @@ glitch_view::glitch_view
   m_bottomSplitter = new QSplitter(Qt::Vertical, this);
   m_canvasPreview = new glitch_canvas_preview(this);
   m_canvasPreview->setScene(m_scene = new glitch_scene(m_projectType, this));
+  m_canvasPreview->setVisible(false);
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->prepare(fileName);
   m_canvasSettings->setName(name);
@@ -1806,6 +1807,7 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     m_findObjects->setWindowTitle
       (tr("Glitch: Find Objects (%1)").arg(m_canvasSettings->name()));
 
+  m_canvasPreview->setVisible(m_canvasSettings->showPreview());
   m_menuAction->setText(m_canvasSettings->name());
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());

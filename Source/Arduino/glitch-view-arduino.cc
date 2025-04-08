@@ -150,12 +150,16 @@ glitch_view_arduino::glitch_view_arduino
 	  SLOT(slotSilentSave(void)));
   m_rightSplitter->addWidget(m_dockedWidgetPropertyEditors);
   m_rightSplitter->addWidget(m_canvasPreview);
+  m_rightSplitter->setCollapsible(0, false);
+  m_rightSplitter->setCollapsible(1, false);
   m_rightSplitter->setStretchFactor(0, 1);
   m_rightSplitter->setStretchFactor(1, 0);
   m_splitter->addWidget(m_arduinoStructures->frame());
   m_splitter->addWidget(m_view);
   m_splitter->addWidget(m_rightSplitter);
+  m_splitter->setCollapsible(0, false);
   m_splitter->setCollapsible(1, false);
+  m_splitter->setCollapsible(2, false);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);
