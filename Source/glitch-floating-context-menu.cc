@@ -195,7 +195,7 @@ void glitch_floating_context_menu::hideEvent(QHideEvent *event)
 
 void glitch_floating_context_menu::setIdentifier(const qint64 id)
 {
-  m_ui.object_id->setText(tr("Identifier: %1").arg(id));
+  m_ui.object_id->setText(tr("Identifier %1").arg(id));
 }
 
 void glitch_floating_context_menu::setName(const QString &n)
@@ -223,7 +223,7 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
 	      &glitch_object::changed,
 	      this,
 	      &glitch_floating_context_menu::slotObjectChanged);
-      m_ui.object_id->setText(tr("Identifier: %1").arg(m_object->id()));
+      m_ui.object_id->setText(tr("Identifier %1").arg(m_object->id()));
       slotObjectChanged();
     }
 }
@@ -348,7 +348,7 @@ void glitch_floating_context_menu::slotObjectChanged(void)
       m_ui.height->setValue(m_object->size().height());
       m_ui.height->blockSignals(false);
       m_ui.position->setText
-	(tr("Position: (%1, %2)").
+	(tr("Position (%1, %2)").
 	 arg(m_object->scenePos().x()).arg(m_object->scenePos().y()));
       m_ui.width->setMinimum(m_object->minimumSize().width());
       m_ui.width->setReadOnly(m_object->isMandatory());
