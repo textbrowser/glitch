@@ -1809,6 +1809,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
 
   m_canvasPreview->setVisible(m_canvasSettings->showPreview());
   m_menuAction->setText(m_canvasSettings->name());
+  m_rightSplitter->setVisible
+    (QSettings().value("preferences/docked_widget_property_editors", true).
+     toBool() ||
+     m_canvasSettings->showPreview());
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
@@ -2103,6 +2107,7 @@ void glitch_view::slotPreferencesAccepted(void)
     m_dockedWidgetPropertyEditors->detach();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
+  m_rightSplitter->setVisible(m_canvasSettings->showPreview() || state);
   emit preferencesAccepted();
 }
 
