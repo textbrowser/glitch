@@ -91,7 +91,10 @@ void glitch_wire::paint
      !m_leftProxy->scene() ||
      !m_rightProxy ||
      !m_rightProxy->scene())
-    return;
+    {
+      m_boundingRect = QRectF();
+      return;
+    }
 
   if(painter)
     {
