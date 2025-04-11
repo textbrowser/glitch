@@ -137,84 +137,13 @@ void glitch_variety::assignImage(QPushButton *button, const QColor &color)
 
 void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 {
-  /*
-  ** Adapted from qdialog.cpp.
-  */
-
-  if(!window)
+  if(!parent || !window)
     return;
 
-  QPoint p(0, 0);
-  auto extrah = 0;
-  auto extraw = 0;
-  auto w = parent;
+  auto geometry(window->geometry());
 
-  if(w)
-    w = w->window();
-
-  QRect desk;
-
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-  auto screen = QApplication::desktop()->screenNumber(window);
-
-  if(w)
-    screen = QApplication::desktop()->screenNumber(w);
-
-  desk = QGuiApplication::screens().value(screen) ?
-    QGuiApplication::screens().value(screen)->geometry() : QRect();
-#else
-  auto screen = QGuiApplication::screenAt(window->pos());
-
-  if(screen)
-    desk = screen->geometry();
-#endif
-  auto const list(QApplication::topLevelWidgets());
-
-  for(int i = 0; (extrah == 0 || extraw == 0) && i < list.size(); i++)
-    {
-      auto current = list.at(i);
-
-      if(current && current->isVisible())
-	{
-	  auto const frameh = current->geometry().y() - current->y();
-	  auto const framew = current->geometry().x() - current->x();
-
-	  extrah = qMax(extrah, frameh);
-	  extraw = qMax(extraw, framew);
-        }
-    }
-
-  if(extrah == 0 || extrah >= 40 || extraw == 0 || extraw >= 10)
-    {
-      extrah = 40;
-      extraw = 10;
-    }
-
-  if(w)
-    {
-      auto const pp(w->mapToGlobal(QPoint(0, 0)));
-
-      p = QPoint(pp.x() + w->width() / 2, pp.y() + w->height() / 2);
-    }
-  else
-    p = QPoint(desk.width() / 2 + desk.x(), desk.height() / 2 + desk.y());
-
-  p = QPoint(p.x() - window->width() / 2 - extraw,
-	     p.y() - window->height() / 2 - extrah);
-
-  if(desk.width() + desk.x() < extraw + p.x() + window->width())
-    p.setX(desk.width() + desk.x() - extraw - window->width());
-
-  if(desk.x() > p.x())
-    p.setX(desk.x());
-
-  if(desk.height() + desk.y() < extrah + p.y() + window->height())
-    p.setY(desk.height() + desk.y() - extrah - window->height());
-
-  if(desk.y() > p.y())
-    p.setY(desk.y());
-
-  window->move(p);
+  geometry.moveCenter(parent->geometry().center());
+  window->setGeometry(geometry);
 }
 
 void glitch_variety::highlight(QLineEdit *lineEdit)
