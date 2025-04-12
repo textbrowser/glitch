@@ -11,7 +11,7 @@ Maintainer: f83043e79dc03a0abfbcbc376879a97d66f2cacb@protonmail.ch
 Package: Glitch
 Priority: optional
 Section: Development
-Version: 2025.04.05
+Version: 2025.04.13
 Description: Glitch
  Welcome to Glitch on Pi!
  Glitch is governed by a BSD license. Enjoy!
