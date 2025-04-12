@@ -2,8 +2,8 @@ Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
-<b>Version 2025.04.05 is the newest LTS release.</b><br>
-<b>Version 2025.04.05 is the newest source release.</b>
+<b>Version 2025.04.13 is the newest LTS release.</b><br>
+<b>Version 2025.04.13 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,15 +36,18 @@ Now with a natural language processor!
 
 <h3><b>Release Notes</b></h3>
 
-<p>2025.04.05</p>
+<p>2025.04.13</p>
 <ul>
 <li>Altered Examples database files.</li>
 <li>Ctrl + G will now open Glitch Preferences. The shortcut
   was previously responsible for generating the current diagram's
   source.</li>
 <li>Detect removal of wires in objects.</li>
+<li>Display information on termination of Arduino process.
 <li>Fewer paint events in wire objects.</li>
 <li>Multiple Serial Port Windows.</li>
+<li>New Canvas Settings -> Canvas -> Show Preview. Initially
+  false.</li>
 <li>New Glitch Preferences -> Style Override. For a pleasant
   Qt style, please consider Kvantum.</li>
 <li>Qt 6.8.3 LTS on Android.</li>
@@ -54,7 +57,12 @@ Now with a natural language processor!
   with the 2025.03.15 release remain.</li>
 <li>Second LTS release of 2025.</li>
 <li>Source previews are now attached to objects.</li>
+<li>Super-simple window-centering algorithm.</li>
 <li>The Blue-Balloon-Papa release!</li>
+<li>The bottom and right children of the right-most splitter are
+  now not collapsible.</li>
+<li>The center, left, and right children of a canvas are now not
+  collapsible.</li>
 </ul>
 
 <p>2025.03.15</p>
