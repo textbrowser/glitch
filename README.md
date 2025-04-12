@@ -43,7 +43,7 @@ Now with a natural language processor!
   was previously responsible for generating the current diagram's
   source.</li>
 <li>Detect removal of wires in objects.</li>
-<li>Display information on termination of Arduino process.
+<li>Display information on termination of Arduino process.</li>
 <li>Fewer paint events in wire objects.</li>
 <li>Multiple Serial Port Windows.</li>
 <li>New Canvas Settings -> Canvas -> Show Preview. Initially
