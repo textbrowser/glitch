@@ -133,7 +133,7 @@ QString glitch_object_flow_control_arduino::code(void) const
 	   << ")";
 
   QObject *w = nullptr;
-  auto level = 0;
+  int level = 0;
 
   if(scene())
     w = scene()->parent();
