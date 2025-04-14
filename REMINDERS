@@ -253,6 +253,7 @@ Completed Items
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
 - Preview image not saved properly with --open-arduino-diagrams.
+- Previews within child edit windows.
 - Print preview.
 - Private Arduino constructors (QWidget), (qint64, QWidget).
 - Promote comment widget (see glitch_object_lineedit).
@@ -403,7 +404,6 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Previews within child edit windows.
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
