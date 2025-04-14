@@ -96,6 +96,7 @@ class glitch_object_edit_window: public QMainWindow
   {
   }
 
+  void showPreview(const bool state);
   void upload(const QStringList &arguments = QStringList());
   void verify(const QStringList &arguments = QStringList());
 

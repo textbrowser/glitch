@@ -203,6 +203,7 @@ glitch_object_edit_window::glitch_object_edit_window
   m_ash = new glitch_ash(false, this);
   m_bottomTopSplitter = new QSplitter(Qt::Vertical, this);
   m_canvasPreview = new glitch_canvas_preview(this);
+  m_canvasPreview->setVisible(false);
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
@@ -841,6 +842,15 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
     view->setSceneRect(size());
 }
 
+void glitch_object_edit_window::showPreview(const bool state)
+{
+  m_canvasPreview->setVisible(state);
+  m_rightSplitter->setVisible
+    (QSettings().value("preferences/docked_widget_property_editors",
+		       true).toBool() ||
+     state);
+}
+
 void glitch_object_edit_window::showStatusBarMessage(const QString &text)
 {
   if(statusBar())
@@ -939,6 +949,7 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
     m_dockedWidgetPropertyEditors->detach();
 
   m_dockedWidgetPropertyEditors->setVisible(state);
+  m_rightSplitter->setVisible(m_canvasPreview->isVisible() || state);
 }
 
 void glitch_object_edit_window::slotPrint(QPrinter *printer)

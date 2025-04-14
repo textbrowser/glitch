@@ -2242,6 +2242,7 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     return;
 
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
+  m_editWindow->showPreview(m_canvasSettings->showPreview());
   m_sourcePreview ? m_sourcePreview->setKeywordsColors
     (m_canvasSettings ?
      m_canvasSettings->keywordColorsAsMap() : QMap<QString, QColor> ()) :
