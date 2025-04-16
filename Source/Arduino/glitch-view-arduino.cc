@@ -160,6 +160,7 @@ glitch_view_arduino::glitch_view_arduino
   m_splitter->setCollapsible(0, false);
   m_splitter->setCollapsible(1, false);
   m_splitter->setCollapsible(2, false);
+  m_splitter->setSizes(QList<int> () << 1 << 2 << 1);
   m_splitter->setStretchFactor(0, 0);
   m_splitter->setStretchFactor(1, 1);
   m_splitter->setStretchFactor(2, 0);
