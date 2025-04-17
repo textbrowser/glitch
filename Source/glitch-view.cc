@@ -115,8 +115,6 @@ glitch_view::glitch_view
   m_projectType = projectType;
   m_redoUndoStack = nullptr;
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
-  m_saveSnapTimer.setInterval(1500);
-  m_saveSnapTimer.setSingleShot(true);
   m_saveTimer.setInterval(1500);
   m_saveTimer.setSingleShot(true);
   m_scene->setBackgroundBrush(QColor("#55aaff"));
@@ -199,10 +197,6 @@ glitch_view::glitch_view
 	  &QTimer::timeout,
 	  this,
 	  &glitch_view::slotGenerate);
-  connect(&m_saveSnapTimer,
-	  &QTimer::timeout,
-	  this,
-	  &glitch_view::slotSaveSnap);
   connect(&m_saveTimer,
 	  &QTimer::timeout,
 	  this,
@@ -805,6 +799,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
   }
 
   QTimer::singleShot(100, this, &glitch_view::slotShowWires);
+  QTimer::singleShot(1500, this, &glitch_view::slotSaveSnap);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   adjustScrollBars();
@@ -818,7 +813,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	  this,
 	  &glitch_view::slotSceneResized,
 	  Qt::QueuedConnection);
-  m_saveSnapTimer.start();
   m_scene->setLoadingFromFile(false);
   m_view->setUpdatesEnabled(true);
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
@@ -928,8 +922,8 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
   if(ok)
     m_undoStack->setClean();
 
-  m_saveSnapTimer.start();
   QApplication::restoreOverrideCursor();
+  saveSnap();
   return ok;
 }
 
@@ -1866,7 +1860,6 @@ void glitch_view::slotChanged(void)
   if(m_canvasSettings->savePeriodically())
     m_saveTimer.start();
 
-  m_saveSnapTimer.start();
   setSceneRect(m_view->size());
   emit changed();
 }

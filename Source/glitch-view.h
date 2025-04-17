@@ -204,7 +204,6 @@ class glitch_view: public QWidget
   QTextBrowser *m_ideOutput;
   QTimer m_generateSourceViewTimer;
   QTimer m_generateTimer;
-  QTimer m_saveSnapTimer;
   QTimer m_saveTimer;
   QToolButton *m_ideClear;
   QUndoStack *m_undoStack;
