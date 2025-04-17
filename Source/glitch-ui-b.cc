@@ -26,18 +26,13 @@
 */
 
 #include <QFileDialog>
-#include <QSqlQuery>
 #include <QToolButton>
-#include <QtConcurrent>
 
 #include "Arduino/glitch-object-function-arduino.h"
-#include "glitch-object.h"
 #include "glitch-recent-diagram.h"
 #include "glitch-recent-diagrams-view.h"
-#include "glitch-scene.h"
 #include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
-#include "glitch-variety.h"
 #include "glitch-view.h"
 #include "ui_glitch-errors-dialog.h"
 
@@ -150,46 +145,6 @@ void glitch_ui::copyExamplesForAndroid(void)
   QApplication::restoreOverrideCursor();
 }
 #endif
-
-void glitch_ui::gatherRecentDiagrams(const QString &fileName)
-{
-  QString connectionName("");
-  QVectorQPairQImageQString vector;
-
-  {
-    auto db(glitch_common::sqliteDatabase());
-
-    connectionName = db.connectionName();
-    db.setDatabaseName(fileName);
-
-    if(db.open())
-      {
-	QSqlQuery query(db);
-
-	query.setForwardOnly(true);
-
-	if(query.exec("SELECT file_name, image FROM glitch_recent_files "
-		      "ORDER BY 1 LIMIT 100"))
-	  while(m_gatherRecentDiagramsFuture.isCanceled() == false &&
-		query.next())
-	    {
-	      QFileInfo const fileInfo(query.value(0).toString());
-	      QImage image;
-
-	      if(image.loadFromData(QByteArray::
-				    fromBase64(query.value(1).toByteArray()),
-				    "PNG"))
-		vector << QPair<QImage, QString>
-		  (image, fileInfo.absoluteFilePath());
-	    }
-      }
-
-    db.close();
-  }
-
-  glitch_common::discardDatabase(connectionName);
-  emit recentDiagramsGathered(vector);
-}
 
 void glitch_ui::prepareRecentDiagramsView(void)
 {
@@ -335,18 +290,6 @@ void glitch_ui::slotOpenDiagram(const QString &fileName)
     }
 }
 
-void glitch_ui::slotPopulateRecentDiagrams(void)
-{
-  if(m_gatherRecentDiagramsFuture.isFinished())
-#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
-    m_gatherRecentDiagramsFuture = QtConcurrent::run
-      (this, &glitch_ui::gatherRecentDiagrams, m_recentFilesFileName);
-#else
-    m_gatherRecentDiagramsFuture = QtConcurrent::run
-      (&glitch_ui::gatherRecentDiagrams, this, m_recentFilesFileName);
-#endif
-}
-
 void glitch_ui::slotPrepareStatusBar(void)
 {
   prepareStatusBar();
@@ -375,12 +318,6 @@ void glitch_ui::slotRecentDiagramHovered(QAction *action)
     widget->highlight(true);
 
   m_recentDiagramHoveredAction = action;
-}
-
-void glitch_ui::slotRecentDiagramsGathered
-(const QVectorQPairQImageQString &vector)
-{
-  m_recentDiagramsView->populate(vector);
 }
 
 void glitch_ui::slotSaveAsPNG(void)

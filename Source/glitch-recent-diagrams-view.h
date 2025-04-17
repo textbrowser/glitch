@@ -28,6 +28,7 @@
 #ifndef _glitch_recent_diagrams_view_h_
 #define _glitch_recent_diagrams_view_h_
 
+#include <QFuture>
 #include <QGraphicsDropShadowEffect>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneHoverEvent>
@@ -177,29 +178,36 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  public:
   glitch_recent_diagrams_view(QWidget *parent);
+  ~glitch_recent_diagrams_view();
   QAction *menuAction(void) const;
-  void populate(const QVectorQPairQImageQString &vector);
 
  public slots:
   void slotOpen(void);
 
  private:
   QAction *m_menuAction;
+  QFuture<void> m_gatherRecentDiagramsFuture;
+  QString m_recentFilesFileName;
   QStringList selectedFileNames(void) const;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else
   void enterEvent(QEvent *event);
 #endif
+  void gatherRecentDiagrams(const QString &fileName);
   void keyPressEvent(QKeyEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
+  void populate(const QVectorQPairQImageQString &vector);
 
  private slots:
+  void slotPopulateRecentDiagrams(void);
+  void slotRecentDiagramsGathered(const QVectorQPairQImageQString &vector);
   void slotRemove(QGraphicsItem *item);
 
  signals:
   void openDiagram(const QString &fileName);
   void openDiagram(void);
+  void recentDiagramsGathered(const QVectorQPairQImageQString &vector);
   void remove(const QString &fileName);
 };
 

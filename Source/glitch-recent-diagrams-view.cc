@@ -25,17 +25,32 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QDir>
 #include <QFileInfo>
 #include <QKeyEvent>
 #include <QScrollBar>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QtConcurrent>
 
+#include "glitch-common.h"
 #include "glitch-recent-diagrams-view.h"
+#include "glitch-variety.h"
 
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
+  connect(this,
+	  SIGNAL(recentDiagramsGathered(const QVectorQPairQImageQString &)),
+	  this,
+	  SLOT(slotRecentDiagramsGathered(const QVectorQPairQImageQString &)));
   m_menuAction = new QAction
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
+  m_recentFilesFileName = glitch_variety::homePath() +
+    QDir::separator() +
+    "Glitch" +
+    QDir::separator() +
+    "glitch_recent_files.db";
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::NoDrag);
@@ -54,6 +69,12 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 
   viewport()->setAttribute(Qt::WA_AcceptTouchEvents, false);
 #endif
+}
+
+glitch_recent_diagrams_view::~glitch_recent_diagrams_view()
+{
+  m_gatherRecentDiagramsFuture.cancel();
+  m_gatherRecentDiagramsFuture.waitForFinished();
 }
 
 QAction *glitch_recent_diagrams_view::menuAction(void) const
@@ -80,6 +101,46 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
 {
   QGraphicsView::enterEvent(event);
   setFocus();
+}
+
+void glitch_recent_diagrams_view::gatherRecentDiagrams(const QString &fileName)
+{
+  QString connectionName("");
+  QVectorQPairQImageQString vector;
+
+  {
+    auto db(glitch_common::sqliteDatabase());
+
+    connectionName = db.connectionName();
+    db.setDatabaseName(fileName);
+
+    if(db.open())
+      {
+	QSqlQuery query(db);
+
+	query.setForwardOnly(true);
+
+	if(query.exec("SELECT file_name, image FROM glitch_recent_files "
+		      "ORDER BY 1 LIMIT 100"))
+	  while(m_gatherRecentDiagramsFuture.isCanceled() == false &&
+		query.next())
+	    {
+	      QFileInfo const fileInfo(query.value(0).toString());
+	      QImage image;
+
+	      if(image.loadFromData(QByteArray::
+				    fromBase64(query.value(1).toByteArray()),
+				    "PNG"))
+		vector << QPair<QImage, QString>
+		  (image, fileInfo.absoluteFilePath());
+	    }
+      }
+
+    db.close();
+  }
+
+  glitch_common::discardDatabase(connectionName);
+  emit recentDiagramsGathered(vector);
 }
 
 void glitch_recent_diagrams_view::keyPressEvent(QKeyEvent *event)
@@ -187,6 +248,28 @@ void glitch_recent_diagrams_view::slotOpen(void)
   else
     foreach(auto const &fileName, list)
       emit openDiagram(fileName);
+}
+
+void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)
+{
+  if(m_gatherRecentDiagramsFuture.isFinished())
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    m_gatherRecentDiagramsFuture = QtConcurrent::run
+      (this,
+       &glitch_recent_diagrams_view::gatherRecentDiagrams,
+       m_recentFilesFileName);
+#else
+    m_gatherRecentDiagramsFuture = QtConcurrent::run
+      (&glitch_recent_diagrams_view::gatherRecentDiagrams,
+       this,
+       m_recentFilesFileName);
+#endif
+}
+
+void glitch_recent_diagrams_view::slotRecentDiagramsGathered
+(const QVectorQPairQImageQString &vector)
+{
+  populate(vector);
 }
 
 void glitch_recent_diagrams_view::slotRemove(QGraphicsItem *item)
