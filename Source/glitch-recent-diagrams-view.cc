@@ -40,10 +40,15 @@
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
+  connect(&m_timer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_recent_diagrams_view::slotPopulateRecentDiagrams);
   connect(this,
 	  SIGNAL(recentDiagramsGathered(const QVectorQPairQImageQString &)),
 	  this,
 	  SLOT(slotRecentDiagramsGathered(const QVectorQPairQImageQString &)));
+  m_lastModified = 0;
   m_menuAction = new QAction
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   m_recentFilesFileName = glitch_variety::homePath() +
@@ -51,6 +56,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
     "Glitch" +
     QDir::separator() +
     "glitch_recent_files.db";
+  m_timer.start(500);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::NoDrag);
@@ -75,6 +81,7 @@ glitch_recent_diagrams_view::~glitch_recent_diagrams_view()
 {
   m_gatherRecentDiagramsFuture.cancel();
   m_gatherRecentDiagramsFuture.waitForFinished();
+  m_timer.stop();
 }
 
 QAction *glitch_recent_diagrams_view::menuAction(void) const
@@ -105,6 +112,13 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
 
 void glitch_recent_diagrams_view::gatherRecentDiagrams(const QString &fileName)
 {
+  auto const value = QFileInfo(fileName).lastModified().toMSecsSinceEpoch();
+
+  if(m_lastModified.fetchAndAddOrdered(0) < value)
+    m_lastModified.fetchAndStoreOrdered(value);
+  else
+    return;
+
   QString connectionName("");
   QVectorQPairQImageQString vector;
 

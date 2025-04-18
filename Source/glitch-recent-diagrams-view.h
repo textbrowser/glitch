@@ -35,6 +35,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
 #include <QStyleOptionGraphicsItem>
+#include <QTimer>
 
 #include "glitch-ui.h"
 
@@ -186,8 +187,10 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  private:
   QAction *m_menuAction;
+  QAtomicInteger<qint64> m_lastModified;
   QFuture<void> m_gatherRecentDiagramsFuture;
   QString m_recentFilesFileName;
+  QTimer m_timer;
   QStringList selectedFileNames(void) const;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
