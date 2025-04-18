@@ -187,7 +187,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  private:
   QAction *m_menuAction;
-  QAtomicInteger<qint64> m_lastModified;
+  QByteArray m_digest;
   QFuture<void> m_gatherRecentDiagramsFuture;
   QString m_recentFilesFileName;
   QTimer m_timer;
@@ -197,20 +197,22 @@ class glitch_recent_diagrams_view: public QGraphicsView
 #else
   void enterEvent(QEvent *event);
 #endif
-  void gatherRecentDiagrams(const QString &fileName);
+  void gatherRecentDiagrams(const QByteArray &digest, const QString &fileName);
   void keyPressEvent(QKeyEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void populate(const QVectorQPairQImageQString &vector);
 
  private slots:
   void slotPopulateRecentDiagrams(void);
-  void slotRecentDiagramsGathered(const QVectorQPairQImageQString &vector);
+  void slotRecentDiagramsGathered
+    (const QByteArray &digest, const QVectorQPairQImageQString &vector);
   void slotRemove(QGraphicsItem *item);
 
  signals:
   void openDiagram(const QString &fileName);
   void openDiagram(void);
-  void recentDiagramsGathered(const QVectorQPairQImageQString &vector);
+  void recentDiagramsGathered
+    (const QByteArray &digest, const QVectorQPairQImageQString &vector);
   void remove(const QString &fileName);
 };
 

@@ -11,7 +11,7 @@ QMAKE_EXTRA_TARGETS += purge
 }
 
 CONFIG		+= qt release warn_on
-DEFINES         += GLITCH_FUTURE
+DEFINES         += GLITCH_FUTURE QT_SHA3_KECCAK_COMPAT
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
 QT		+= concurrent gui network printsupport sql widgets

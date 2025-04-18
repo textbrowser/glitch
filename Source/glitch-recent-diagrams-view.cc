@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QKeyEvent>
+#include <QMessageAuthenticationCode>
 #include <QScrollBar>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -36,6 +37,7 @@
 #include "glitch-common.h"
 #include "glitch-recent-diagrams-view.h"
 #include "glitch-variety.h"
+#include "glitch-version.h"
 
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
@@ -45,10 +47,11 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 	  this,
 	  &glitch_recent_diagrams_view::slotPopulateRecentDiagrams);
   connect(this,
-	  SIGNAL(recentDiagramsGathered(const QVectorQPairQImageQString &)),
+	  SIGNAL(recentDiagramsGathered(const QByteArray &,
+					const QVectorQPairQImageQString &)),
 	  this,
-	  SLOT(slotRecentDiagramsGathered(const QVectorQPairQImageQString &)));
-  m_lastModified = 0;
+	  SLOT(slotRecentDiagramsGathered(const QByteArray &,
+					  const QVectorQPairQImageQString &)));
   m_menuAction = new QAction
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   m_recentFilesFileName = glitch_variety::homePath() +
@@ -56,7 +59,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
     "Glitch" +
     QDir::separator() +
     "glitch_recent_files.db";
-  m_timer.start(500);
+  m_timer.start(1500);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::NoDrag);
@@ -110,15 +113,12 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
   setFocus();
 }
 
-void glitch_recent_diagrams_view::gatherRecentDiagrams(const QString &fileName)
+void glitch_recent_diagrams_view::gatherRecentDiagrams
+(const QByteArray &digest, const QString &fileName)
 {
-  auto const value = QFileInfo(fileName).lastModified().toMSecsSinceEpoch();
-
-  if(m_lastModified.fetchAndAddOrdered(0) < value)
-    m_lastModified.fetchAndStoreOrdered(value);
-  else
-    return;
-
+  QMessageAuthenticationCode sha
+    (QCryptographicHash::Sha3_512,
+     QByteArray("Glitch") + GLITCH_VERSION_STRING);
   QString connectionName("");
   QVectorQPairQImageQString vector;
 
@@ -145,8 +145,12 @@ void glitch_recent_diagrams_view::gatherRecentDiagrams(const QString &fileName)
 	      if(image.loadFromData(QByteArray::
 				    fromBase64(query.value(1).toByteArray()),
 				    "PNG"))
-		vector << QPair<QImage, QString>
-		  (image, fileInfo.absoluteFilePath());
+		{
+		  sha.addData(query.value(0).toByteArray() +
+			      query.value(1).toByteArray());
+		  vector << QPair<QImage, QString>
+		    (image, fileInfo.absoluteFilePath());
+		}
 	    }
       }
 
@@ -154,7 +158,9 @@ void glitch_recent_diagrams_view::gatherRecentDiagrams(const QString &fileName)
   }
 
   glitch_common::discardDatabase(connectionName);
-  emit recentDiagramsGathered(vector);
+
+  if(digest != sha.result())
+    emit recentDiagramsGathered(sha.result(), vector);
 }
 
 void glitch_recent_diagrams_view::keyPressEvent(QKeyEvent *event)
@@ -175,6 +181,7 @@ void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
 void glitch_recent_diagrams_view::populate
 (const QVectorQPairQImageQString &vector)
 {
+  qDebug() << "Here.";
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto const fileNames(selectedFileNames());
@@ -271,18 +278,21 @@ void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)
     m_gatherRecentDiagramsFuture = QtConcurrent::run
       (this,
        &glitch_recent_diagrams_view::gatherRecentDiagrams,
+       m_digest,
        m_recentFilesFileName);
 #else
     m_gatherRecentDiagramsFuture = QtConcurrent::run
       (&glitch_recent_diagrams_view::gatherRecentDiagrams,
        this,
+       m_digest,
        m_recentFilesFileName);
 #endif
 }
 
 void glitch_recent_diagrams_view::slotRecentDiagramsGathered
-(const QVectorQPairQImageQString &vector)
+(const QByteArray &digest, const QVectorQPairQImageQString &vector)
 {
+  m_digest = digest;
   populate(vector);
 }
 
