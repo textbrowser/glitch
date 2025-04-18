@@ -168,6 +168,8 @@ glitch_object_function_arduino::~glitch_object_function_arduino()
 
   if(m_undoStack)
     disconnect(m_undoStack, nullptr, this, nullptr);
+
+  m_findParentFunctionTimer.stop();
 }
 
 QPointer<glitch_object_function_arduino> glitch_object_function_arduino::

@@ -58,6 +58,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
 
 glitch_structures_arduino::~glitch_structures_arduino()
 {
+  m_filterTimer.stop();
 }
 
 QFrame *glitch_structures_arduino::frame(void) const
