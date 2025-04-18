@@ -184,6 +184,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 
 glitch_canvas_settings::~glitch_canvas_settings()
 {
+  m_timer.stop();
 }
 
 QColor glitch_canvas_settings::canvasBackgroundColor(void) const

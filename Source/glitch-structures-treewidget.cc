@@ -58,6 +58,8 @@ glitch_structures_treewidget::~glitch_structures_treewidget()
 {
   for(int i = 0; i < m_uis.size(); i++)
     delete m_uis[i];
+
+  m_pressAndHoldTimer.stop();
 }
 
 void glitch_structures_treewidget::addChildren

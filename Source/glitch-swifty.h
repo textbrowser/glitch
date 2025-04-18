@@ -55,6 +55,7 @@ class swifty: public QNetworkAccessManager
 
   ~swifty()
   {
+    m_query_timer.stop();
   }
 
   QString newest_version(void) const
