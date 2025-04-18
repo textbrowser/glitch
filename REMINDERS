@@ -398,6 +398,7 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
+- Fewer changed() on opening of diagram.
 - Highlight possible object connection inside of the scene.
   See glitch-proxy-widget.cc.
 - Insert-between-widgets option.
