@@ -52,6 +52,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
 	  this,
 	  SLOT(slotRecentDiagramsGathered(const QByteArray &,
 					  const QVectorQPairQImageQString &)));
+  m_lastModified = 0;
   m_menuAction = new QAction
     (QIcon(":/recent.png"), tr("Recent Diagrams"), this);
   m_recentFilesFileName = glitch_variety::homePath() +
@@ -116,6 +117,13 @@ void glitch_recent_diagrams_view::enterEvent(QEvent *event)
 void glitch_recent_diagrams_view::gatherRecentDiagrams
 (const QByteArray &digest, const QString &fileName)
 {
+  auto const value = QFileInfo(fileName).lastModified().toMSecsSinceEpoch();
+
+  if(m_lastModified.fetchAndAddOrdered(0) < value)
+    m_lastModified.fetchAndStoreOrdered(value);
+  else
+    return;
+
   QMessageAuthenticationCode sha
     (QCryptographicHash::Sha3_512,
      QByteArray("Glitch") + GLITCH_VERSION_STRING);

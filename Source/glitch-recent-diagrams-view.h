@@ -187,6 +187,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
 
  private:
   QAction *m_menuAction;
+  QAtomicInteger<qint64> m_lastModified;
   QByteArray m_digest;
   QFuture<void> m_gatherRecentDiagramsFuture;
   QString m_recentFilesFileName;
