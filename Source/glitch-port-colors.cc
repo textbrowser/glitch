@@ -74,22 +74,20 @@ QString glitch_port_colors::colors(void) const
 
 void glitch_port_colors::setColors(const QVariant &value)
 {
-  QList<QPushButton *> list;
-  QStringList strings;
-
-  list << m_ui.input_connected
-       << m_ui.input_disconnected
-       << m_ui.output_connected
-       << m_ui.output_disconnected;
+  auto const list
+    (QList<QPushButton *> () << m_ui.input_connected
+                             << m_ui.input_disconnected
+                             << m_ui.output_connected
+                             << m_ui.output_disconnected);
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-  strings << value.toString().split('-', Qt::SkipEmptyParts);
+  auto const strings(value.toString().split('-', Qt::SkipEmptyParts));
 #else
-  strings << value.toString().split('-', QString::SkipEmptyParts);
+  auto const strings(value.toString().split('-', QString::SkipEmptyParts));
 #endif
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto const string(strings.value(i).remove('&'));
+      auto const string(strings.value(i).remove('&').trimmed());
 
       glitch_variety::assignImage(list.at(i), QColor(string));
       list.at(i)->setText(string);
