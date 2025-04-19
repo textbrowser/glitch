@@ -1867,7 +1867,13 @@ void glitch_view::slotChanged(void)
 void glitch_view::slotCloseTab(int index)
 {
   if(index > 0)
-    m_ui.tab->removeTab(index);
+    {
+      auto window = qobject_cast<glitch_object_edit_window *>
+	(m_ui.tab->widget(index));
+
+      window ? (void) window->close() : (void) 0;
+      m_ui.tab->removeTab(index);
+    }
 
   if(sender()) // Avoid iterations.
     prepareTabWidgetCloseButtons();
