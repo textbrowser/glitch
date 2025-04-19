@@ -142,6 +142,12 @@ void glitch_variety::centerWindow(QWidget *parent, QWidget *window)
 
   auto geometry(window->geometry());
 
+  if(geometry.isNull())
+    {
+      window->show();
+      geometry = window->geometry();
+    }
+
   geometry.moveCenter(parent->geometry().center());
   window->setGeometry(geometry);
 }
