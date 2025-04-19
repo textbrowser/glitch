@@ -181,7 +181,6 @@ void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
 void glitch_recent_diagrams_view::populate
 (const QVectorQPairQImageQString &vector)
 {
-  qDebug() << "Here.";
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto const fileNames(selectedFileNames());
