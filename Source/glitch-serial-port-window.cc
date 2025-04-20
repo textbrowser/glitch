@@ -100,7 +100,7 @@ void glitch_serial_port_window::closeEvent(QCloseEvent *event)
 void glitch_serial_port_window::discoverDevices(void)
 {
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.port_name->clear();
 
   foreach(auto const &port, QSerialPortInfo::availablePorts())
@@ -156,7 +156,7 @@ void glitch_serial_port_window::slotClear(void)
 void glitch_serial_port_window::slotConnect(void)
 {
 #ifdef GLITCH_SERIAL_PORT_SUPPORTED
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto serialPort = findChild<QSerialPort *> ();
 
