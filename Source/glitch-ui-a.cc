@@ -1972,7 +1972,7 @@ void glitch_ui::slotFind(void)
 
 void glitch_ui::slotForgetRecentDiagram(const QString &fileName, bool *ok)
 {
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   if(ok)
     *ok = false;

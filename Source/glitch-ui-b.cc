@@ -119,7 +119,7 @@ QString glitch_ui::about(void) const
 #ifdef Q_OS_ANDROID
 void glitch_ui::copyExamplesForAndroid(void)
 {
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QDir dir(glitch_variety::homePath());
 
@@ -171,7 +171,7 @@ void glitch_ui::prepareTab(void)
 #ifdef Q_OS_ANDROID
   return;
 #endif
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
   QList<QTabBar::ButtonPosition> const static list
