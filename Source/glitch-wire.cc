@@ -38,13 +38,15 @@
 static int s_alpha = 175;
 static qreal s_penWidth = 2.5;
 
-glitch_wire::glitch_wire(QGraphicsItem *parent):QGraphicsObject(parent)
+glitch_wire::glitch_wire(QGraphicsItem *parent, const bool visible):
+  QGraphicsObject(parent)
 {
   m_color = QColor(255, 192, 203, s_alpha);
   m_wireType = WireTypes::CURVE;
   m_wireWidth = s_penWidth;
   setCacheMode(QGraphicsItem::NoCache);
   setFlag(QGraphicsItem::ItemIsSelectable, false);
+  setVisible(visible);
   setZValue(glitch_common::s_minimumZValue - static_cast<qreal> (1));
 }
 

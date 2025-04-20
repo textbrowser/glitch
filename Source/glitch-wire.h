@@ -49,7 +49,7 @@ class glitch_wire: public QGraphicsObject
     LINE
   };
 
-  glitch_wire(QGraphicsItem *parent);
+  glitch_wire(QGraphicsItem *parent, const bool visible = true);
   ~glitch_wire();
   QPointer<glitch_proxy_widget> leftProxy(void) const;
   QPointer<glitch_proxy_widget> rightProxy(void) const;

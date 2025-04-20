@@ -167,6 +167,7 @@ Completed Items
 - Error dialog.
 - Ethernet class. Include required header file too. See Catalog category.
 - Exiting does not require closing of pages.
+- Fewer changed() instances on opening of diagram.
 - Filter mouse scrolling on combination boxes. Prevent accidental changes.
 - Find Objects:
   Copy context-menu action
@@ -398,7 +399,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Fewer changed() instances on opening of diagram.
 - Highlight possible object connection inside of the scene.
   See glitch-proxy-widget.cc.
 - Insert-between-widgets option.

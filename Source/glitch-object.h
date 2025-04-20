@@ -357,7 +357,8 @@ class glitch_object: public QWidget
   }
 
   void setUndoStack(QUndoStack *undoStack);
-  void setWiredObject(glitch_object *object, glitch_wire *wire);
+  void setWiredObject
+    (glitch_object *object, glitch_wire *wire, const bool signal = true);
 
   void triggerAction(const DefaultMenuActions action)
   {

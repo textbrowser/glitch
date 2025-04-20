@@ -552,7 +552,7 @@ int glitch_scene::objectOrder(glitch_proxy_widget *proxy) const
      m_objectsMap.find(m_objectsHash.value(proxy), proxy));
 }
 
-void glitch_scene::addItem(QGraphicsItem *item)
+void glitch_scene::addItem(QGraphicsItem *item, const bool visible)
 {
   if(item && item->scene() == nullptr)
     QGraphicsScene::addItem(item);
@@ -593,7 +593,7 @@ void glitch_scene::addItem(QGraphicsItem *item)
   if(wire)
     {
       m_wires << wire;
-      wire->setVisible(true);
+      wire->setVisible(visible);
     }
 
   if(glitch_ui::s_copiedObjectsSet.contains(proxy ? proxy->object() : nullptr))

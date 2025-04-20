@@ -762,7 +762,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		     object2 &&
 		     object2->proxy())
 		    {
-		      auto wire = new glitch_wire(nullptr);
+		      auto wire = new glitch_wire(nullptr, false);
 
 		      connect(object1->scene(),
 			      SIGNAL(changed(const QList<QRectF> &)),
@@ -774,14 +774,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      &glitch_scene::slotDisconnectWireIfNecessary,
 			      Qt::QueuedConnection);
 		      m_delayedWires << wire;
-		      object1->scene()->addItem(wire);
-		      object1->setWiredObject(object2, wire);
-		      object2->setWiredObject(object1, wire);
+		      object1->scene()->addItem(wire, false);
+		      object1->setWiredObject(object2, wire, false);
+		      object2->setWiredObject(object1, wire, false);
 		      wire->setBoundingRect(object1->scene()->sceneRect());
 		      wire->setColor(m_canvasSettings->wireColor());
 		      wire->setLeftProxy(object2->proxy());
 		      wire->setRightProxy(object1->proxy());
-		      wire->setVisible(false);
 		      wire->setWireType(m_canvasSettings->wireType());
 		      wire->setWireWidth(m_canvasSettings->wireWidth());
 		    }
@@ -2382,7 +2381,9 @@ void glitch_view::slotShowWires(void)
 	 wire->rightProxy()->isVisible())
 	{
 	  m_delayedWires.removeAt(i);
+	  wire->blockSignals(true); // Block changed().
 	  wire->setVisible(true);
+	  wire->blockSignals(false);
 	}
     }
 

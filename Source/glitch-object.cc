@@ -1964,7 +1964,8 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
 	    &glitch_object::slotHideOrShowOccupied);
 }
 
-void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
+void glitch_object::setWiredObject
+(glitch_object *object, glitch_wire *wire, const bool signal)
 {
   if(!object || !wire || m_id == object->id() || object == this)
     return;
@@ -1980,7 +1981,7 @@ void glitch_object::setWiredObject(glitch_object *object, glitch_wire *wire)
 	  &glitch_object::changed,
 	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
-  QTimer::singleShot(250, this, SIGNAL(changed(void)));
+  signal ? QTimer::singleShot(250, this, SIGNAL(changed(void))) : (void) 0;
 }
 
 void glitch_object::showEditWindow(const bool signal)

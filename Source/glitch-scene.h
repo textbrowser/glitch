@@ -72,7 +72,7 @@ class glitch_scene: public QGraphicsScene
     return m_objectsToWire.size();
   }
 
-  void addItem(QGraphicsItem *item);
+  void addItem(QGraphicsItem *item, const bool visible = true);
   void artificialDrop(const QPointF &point, glitch_object *object, bool &ok);
   void deleteItems
     (const QList<QGraphicsItem *> &list = QList<QGraphicsItem *> (),
