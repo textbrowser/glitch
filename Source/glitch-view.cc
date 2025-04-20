@@ -1468,7 +1468,7 @@ void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
   if(!toolButton || !toolButton->menu())
     return;
 
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   toolButton->menu()->clear();
 
   auto action = toolButton->menu()->addAction(tr("&Close All"));
@@ -1512,7 +1512,7 @@ void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
 
 void glitch_view::prepareTabTitles(void)
 {
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   for(int i = m_ui.tab->count() - 1; i > 0; i--)
     {
@@ -1551,7 +1551,7 @@ void glitch_view::prepareTabWidget(void)
 
 void glitch_view::prepareTabWidgetCloseButtons(void)
 {
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
   QList<QTabBar::ButtonPosition> const static list
@@ -1612,7 +1612,7 @@ void glitch_view::saveSnap(void)
   if(m_fileName.trimmed().isEmpty() || m_saveSnapFuture.isRunning())
     return;
 
-  QApplication::setOverrideCursor(Qt::WaitCursor);
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   QBuffer buffer;
   QByteArray bytes;
