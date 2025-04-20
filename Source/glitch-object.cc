@@ -536,7 +536,9 @@ glitch_object *glitch_object::createFromValues
  QWidget *parent)
 {
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-  QElapsedTimer t; t.start();
+  QElapsedTimer timer;
+
+  timer.start();
 #endif
   auto const type(values.value("type").toString().toLower().trimmed());
   glitch_object *object = nullptr;
@@ -636,7 +638,7 @@ glitch_object *glitch_object::createFromValues
     }
 
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-  qDebug() << "glitch_object::createFromValues()" << t.elapsed() << type;
+  qDebug() << "glitch_object::createFromValues()" << timer.elapsed() << type;
 #endif
   return object;
 }

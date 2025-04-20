@@ -687,7 +687,9 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
   if(widget)
     {
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-      QElapsedTimer t; t.start();
+      QElapsedTimer timer;
+
+      timer.start();
 #endif
 
       if(!QGraphicsProxyWidget::widget())
@@ -702,7 +704,7 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
       qDebug() << "glitch_proxy_widget::setWidget()"
 	       << m_object ? m_object->objectType() : "(unknown)"
-	       << t.elapsed();
+	       << timer.elapsed();
 #endif
     }
   else
