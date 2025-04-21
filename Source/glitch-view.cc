@@ -1663,6 +1663,8 @@ void glitch_view::saveSnapToDatabase
       {
 	QSqlQuery query(db);
 
+	query.exec("PRAGMA JOURNAL_MODE = WAL");
+	query.exec("PRAGMA SYNCHRONOUS = NORMAL");
 	query.prepare
 	  ("INSERT OR REPLACE INTO glitch_recent_files (file_name, image) "
 	   "VALUES (?, ?)");
