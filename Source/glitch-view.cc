@@ -638,8 +638,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 			      "SUBSTR(properties, 1, %1), "
 			      "SUBSTR(stylesheet, 1, %2), "
 			      "SUBSTR(type, 1, %3) "
-			      "FROM objects ORDER BY "
-			      "parent_oid, properties").
+			      "FROM objects ORDER BY parent_oid, properties").
 		      arg(static_cast<int> (Limits::PROPERTIES_MAXIMUM_LENGTH)).
 		      arg(static_cast<int> (Limits::STYLESHEET_MAXIMUM_LENGTH)).
 		      arg(static_cast<int> (glitch_ui::Limits::
@@ -798,7 +797,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
   }
 
   QTimer::singleShot(100, this, &glitch_view::slotShowWires);
-  QTimer::singleShot(1500, this, &glitch_view::slotSaveSnap);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   adjustScrollBars();
