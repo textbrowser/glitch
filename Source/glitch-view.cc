@@ -903,7 +903,11 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 		}
 	    }
 
-	m_scene->saveWires(db, error);
+	if(ok)
+	  m_scene->saveWires(db, error);
+
+	if(!error.isEmpty())
+	  ok = false;
       }
     else
       error = db.lastError().text();
@@ -914,7 +918,9 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
 
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
-  ok &= saveProperties();
+
+  if(ok)
+    ok &= saveProperties();
 
   if(ok)
     m_undoStack->setClean();

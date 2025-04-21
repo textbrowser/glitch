@@ -158,7 +158,7 @@ void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
     {
       auto item = selectedItems().value(0);
 
-      if(item && item->parent())
+      if(item && item->parent() && item->parent()->icon(0).isNull() == false)
 	QApplication::setOverrideCursor
 	  (QCursor(item->parent()->icon(0).pixmap(QSize(48, 48))));
     }

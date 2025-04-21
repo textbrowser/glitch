@@ -2,6 +2,13 @@
   <body>
     <h4><u>2025.04.30 Release</u></h4>
     <p>
+      <b>Corrections</b>
+      <ul>
+	<li>Do not create a cursor from an invalid image in
+	  glitch_structures_treewidget::slotPressAndHoldTimeout().</li>
+      </ul>
+    </p>
+    <p>
       <b>New</b>
       <ul>
 	<li>Altered Examples database files.</li>
@@ -22,6 +29,8 @@
 	  false.</li>
 	<li>New Glitch Preferences -> Style Override. For a pleasant
 	  Qt style, please consider Kvantum.</li>
+	<li>Observe as many failures as possible on saving of diagrams.
+	  Unfortunately, SQLite write errors are not recoverable.</li>
 	<li>Qt 6.8.3 LTS on Android.</li>
 	<li>Qt 6.8.3 LTS on MacOS.</li>
 	<li>Qt 6.8.3 LTS on Windows.</li>
