@@ -208,7 +208,8 @@ glitch_view::glitch_view
   connect(m_canvasSettings,
 	  SIGNAL(accepted(const bool)),
 	  this,
-	  SLOT(slotCanvasSettingsChanged(const bool)));
+	  SLOT(slotCanvasSettingsChanged(const bool)),
+	  Qt::QueuedConnection);
   connect(m_ideClear,
 	  &QPushButton::clicked,
 	  m_ideOutput,
