@@ -249,11 +249,6 @@ class glitch_object: public QWidget
     return !inputs().isEmpty();
   }
 
-  bool isOccupied(void) const
-  {
-    return m_occupied;
-  }
-
   bool isOutputWired(void) const
   {
     return !outputs().isEmpty();
