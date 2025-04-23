@@ -84,7 +84,6 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -pedantic \
                           -std=c++17
 } else:macx {
-QMAKE_APPLE_DEVICE_ARCHS = arm64 x86_64
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
                           -Wcast-qual \
