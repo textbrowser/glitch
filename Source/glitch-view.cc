@@ -927,7 +927,6 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
     m_undoStack->setClean();
 
   QApplication::restoreOverrideCursor();
-  saveSnap();
   return ok;
 }
 

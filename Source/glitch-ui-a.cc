@@ -2340,7 +2340,7 @@ void glitch_ui::slotSelectAll(void)
     {
       m_currentView->selectAll();
       showStatusBarMessage
-	(tr("%1 Item(s) Selected").
+	(tr("%1 Primary Diagram Item(s) Selected").
 	 arg(m_currentView->scene()->selectedItems().size()));
     }
 }
@@ -2370,7 +2370,7 @@ void glitch_ui::slotSelectionChanged(void)
       m_ui.action_Select_All->setEnabled
 	(m_currentView->scene()->items().size() > 0);
       showStatusBarMessage
-	(tr("%1 Item(s) Selected").
+	(tr("%1 Primary Diagram Item(s) Selected").
 	 arg(m_currentView->scene()->selectedItems().size()));
     }
   else
