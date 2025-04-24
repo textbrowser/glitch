@@ -464,6 +464,8 @@ bool glitch_canvas_settings::save(QString &error) const
       {
 	QSqlQuery query(db);
 
+	query.exec("PRAGMA JOURNAL_MODE = WAL");
+	query.exec("PRAGMA SYNCHRONOUS = NORMAL");
 	query.exec
 	  ("CREATE TABLE IF NOT EXISTS canvas_settings ("
 	   "background_color TEXT NOT NULL, "
@@ -503,7 +505,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	  }
 
 	query.prepare
-	  ("INSERT OR REPLACE INTO canvas_settings "
+	  ("INSERT INTO canvas_settings "
 	   "(background_color, "
 	   "categories_icon_size, "
 	   "dots_grids_color, "
