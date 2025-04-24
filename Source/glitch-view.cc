@@ -2199,11 +2199,6 @@ void glitch_view::slotSaveAs(void)
     QApplication::processEvents();
 }
 
-void glitch_view::slotSaveSnap(void)
-{
-  saveSnap();
-}
-
 void glitch_view::slotSceneObjectDestroyed(QObject *object)
 {
   if(!object)
