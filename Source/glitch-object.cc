@@ -1366,7 +1366,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
 {
   auto properties(p);
 
-  m_editWindow ? m_editWindow->saveSplittersStates() : Q_UNUSED(0);
+  m_editWindow ? m_editWindow->saveSplittersStates() : (void) 0;
   properties["background_color"] = m_properties.value
     (Properties::BACKGROUND_COLOR).toString();
   properties["border_color"] = m_properties.value

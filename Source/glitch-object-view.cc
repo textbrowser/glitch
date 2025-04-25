@@ -237,23 +237,16 @@ void glitch_object_view::save(const QSqlDatabase &db, QString &error)
   ** Save the children!
   */
 
-  foreach(auto i, m_scene->items())
-    {
-      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
+  foreach(auto object, m_scene->objects())
+    if(object)
+      {
+	object->blockSignals(true);
+	object->save(db, error);
+	object->blockSignals(false);
 
-      if(!proxy)
-	continue;
-
-      auto object = qobject_cast<glitch_object *> (proxy->widget());
-
-      if(!object)
-	continue;
-
-      object->save(db, error);
-
-      if(!error.isEmpty())
-	break;
-    }
+	if(!error.isEmpty())
+	  break;
+      }
 
   if(error.isEmpty())
     m_scene->saveWires(db, error);
