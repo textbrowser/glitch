@@ -545,6 +545,13 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
+              <widget class="QLabel" name="label_17">
+               <property name="text">
+                <string>Tab Position</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QComboBox" name="tab_position">
                <item>
                 <property name="text">
@@ -1068,8 +1075,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>260</x>
-     <y>543</y>
+     <x>266</x>
+     <y>693</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1084,8 +1091,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>328</x>
-     <y>543</y>
+     <x>334</x>
+     <y>693</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
