@@ -48,6 +48,7 @@ class glitch_recent_diagrams_view_item:
   glitch_recent_diagrams_view_item(const QPixmap &pixmap):
     QObject(), QGraphicsPixmapItem(pixmap)
   {
+    m_showRemoveButton = false;
     setAcceptHoverEvents(true);
     setCacheMode(QGraphicsItem::NoCache);
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
@@ -76,11 +77,13 @@ class glitch_recent_diagrams_view_item:
   QPainterPath m_removeButton;
   QPointF m_hoverPoint;
   QString m_fileName;
+  bool m_showRemoveButton;
 
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event)
   {
     QGraphicsPixmapItem::hoverEnterEvent(event);
     m_hoverPoint = event ? event->pos() : QPointF();
+    m_showRemoveButton = true;
     setCursor(QCursor(Qt::PointingHandCursor));
     update();
   }
@@ -89,6 +92,8 @@ class glitch_recent_diagrams_view_item:
   {
     QGraphicsPixmapItem::hoverLeaveEvent(event);
     m_hoverPoint = QPointF();
+    m_removeButton.clear();
+    m_showRemoveButton = false;
     setCursor(QCursor(Qt::ArrowCursor));
     update();
   }
@@ -144,7 +149,7 @@ class glitch_recent_diagrams_view_item:
 
     QIcon const static icon(":/clear.png");
 
-    m_removeButton.isEmpty() ?
+    m_removeButton.isEmpty() && m_showRemoveButton ?
       m_removeButton.addEllipse(-31.5 + boundingRect().topRight().x(),
 				8.5 + boundingRect().topRight().y(),
 				25.0,

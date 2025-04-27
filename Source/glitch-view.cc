@@ -798,6 +798,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
   }
 
   QTimer::singleShot(100, this, &glitch_view::slotShowWires);
+  QTimer::singleShot(1500, this, &glitch_view::slotSaveSnap);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
   adjustScrollBars();
@@ -814,7 +815,6 @@ bool glitch_view::open(const QString &fileName, QString &error)
   m_scene->setLoadingFromFile(false);
   m_view->setUpdatesEnabled(true);
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
-  saveSnap();
   return ok;
 }
 
@@ -2197,6 +2197,11 @@ void glitch_view::slotSaveAs(void)
     }
   else
     QApplication::processEvents();
+}
+
+void glitch_view::slotSaveSnap(void)
+{
+  saveSnap();
 }
 
 void glitch_view::slotSceneObjectDestroyed(QObject *object)
