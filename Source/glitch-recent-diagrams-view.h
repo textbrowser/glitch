@@ -81,6 +81,7 @@ class glitch_recent_diagrams_view_item:
   {
     QGraphicsPixmapItem::hoverEnterEvent(event);
     m_hoverPoint = event ? event->pos() : QPointF();
+    setCursor(QCursor(Qt::PointingHandCursor));
     update();
   }
 
@@ -88,6 +89,7 @@ class glitch_recent_diagrams_view_item:
   {
     QGraphicsPixmapItem::hoverLeaveEvent(event);
     m_hoverPoint = QPointF();
+    setCursor(QCursor(Qt::ArrowCursor));
     update();
   }
 
@@ -106,15 +108,23 @@ class glitch_recent_diagrams_view_item:
 	return;
       }
 
-    m_removeButton.contains(event->pos()) ? emit remove(m_fileName) : (void) 0;
-    m_removeButton.contains(event->pos()) ? emit remove(this) : (void) 0;
+    if(m_removeButton.contains(event->pos()))
+      {
+	setCursor(QCursor(Qt::ArrowCursor));
+	emit remove(m_fileName);
+	emit remove(this);
+      }
+    else
+      emit open(m_fileName);
   }
 
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *option,
 	     QWidget *widget)
   {
-    if(!option || !painter)
+    Q_UNUSED(option);
+
+    if(!painter)
       {
 	QGraphicsPixmapItem::paint(painter, option, widget);
 	return;
@@ -152,23 +162,10 @@ class glitch_recent_diagrams_view_item:
        m_removeButton.contains(m_hoverPoint) ?
        QColor(Qt::black) : QColor(Qt::white));
     icon.paint(painter, m_removeButton.boundingRect().toRect());
-
-    if(option->state & (QStyle::State_HasFocus | QStyle::State_Selected))
-      {
-	QPainterPath path;
-	auto rect(boundingRect());
-	const qreal static offset = 5.0;
-
-	rect.setHeight(offset + rect.height());
-	rect.setWidth(offset + rect.width());
-	rect.setX(-offset + rect.x());
-	rect.setY(-offset + rect.y());
-	path.addRoundedRect(rect, radius, radius);
-	painter->fillPath(path, QColor(222, 141, 174, 100)); // Sassy Pink
-      }
   }
 
  signals:
+  void open(const QString &fileName);
   void remove(QGraphicsItem *item);
   void remove(const QString &fileName);
 };
@@ -192,7 +189,6 @@ class glitch_recent_diagrams_view: public QGraphicsView
   QFuture<void> m_gatherRecentDiagramsFuture;
   QString m_recentFilesFileName;
   QTimer m_timer;
-  QStringList selectedFileNames(void) const;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else

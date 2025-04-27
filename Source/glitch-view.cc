@@ -814,6 +814,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
   m_scene->setLoadingFromFile(false);
   m_view->setUpdatesEnabled(true);
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
+  saveSnap();
   return ok;
 }
 
