@@ -84,6 +84,7 @@ class glitch_recent_diagrams_view_item:
     QGraphicsPixmapItem::hoverEnterEvent(event);
     m_hoverPoint = event ? event->pos() : QPointF();
     m_showRemoveButton = true;
+    prepareEffectOnHoverEnter();
     setCursor(QCursor(Qt::PointingHandCursor));
     update();
   }
@@ -94,6 +95,7 @@ class glitch_recent_diagrams_view_item:
     m_hoverPoint = QPointF();
     m_removeButton.clear();
     m_showRemoveButton = false;
+    prepareEffectOnHoverLeave();
     setCursor(QCursor(Qt::ArrowCursor));
     update();
   }
@@ -167,6 +169,22 @@ class glitch_recent_diagrams_view_item:
        m_removeButton.contains(m_hoverPoint) ?
        QColor(Qt::black) : QColor(Qt::white));
     icon.paint(painter, m_removeButton.boundingRect().toRect());
+  }
+
+  void prepareEffectOnHoverEnter(void)
+  {
+    auto effect = qobject_cast<QGraphicsDropShadowEffect *> (graphicsEffect());
+
+    if(effect)
+      effect->setBlurRadius(50.0);
+  }
+
+  void prepareEffectOnHoverLeave(void)
+  {
+    auto effect = qobject_cast<QGraphicsDropShadowEffect *> (graphicsEffect());
+
+    if(effect)
+      effect->setBlurRadius(0.0);
   }
 
  signals:

@@ -216,9 +216,9 @@ void glitch_recent_diagrams_view::populate
 	      SIGNAL(remove(const QString &)),
 	      this,
 	      SIGNAL(remove(const QString &)));
-      effect->setBlurRadius(10.0);
-      effect->setColor(QColor(Qt::gray));
-      effect->setOffset(2.5, 2.5);
+      effect->setBlurRadius(0.0);
+      effect->setColor(QColor(99, 99, 99));
+      effect->setOffset(0.0, 0.0);
 
       auto const height = 25.0 + item->boundingRect().size().height();
       auto const width = 25.0 + item->boundingRect().size().width();
