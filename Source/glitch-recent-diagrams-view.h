@@ -202,9 +202,6 @@ class glitch_recent_diagrams_view: public QGraphicsView
   ~glitch_recent_diagrams_view();
   QAction *menuAction(void) const;
 
- public slots:
-  void slotOpen(void);
-
  private:
   QAction *m_menuAction;
   QAtomicInteger<qint64> m_lastModified;
@@ -219,7 +216,6 @@ class glitch_recent_diagrams_view: public QGraphicsView
 #endif
   void gatherRecentDiagrams(const QByteArray &digest, const QString &fileName);
   void keyPressEvent(QKeyEvent *event);
-  void mouseDoubleClickEvent(QMouseEvent *event);
   void populate(const QVectorQPairQImageQString &vector);
 
  private slots:

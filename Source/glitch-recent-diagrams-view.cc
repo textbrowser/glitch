@@ -166,13 +166,7 @@ void glitch_recent_diagrams_view::keyPressEvent(QKeyEvent *event)
 
   if(event)
     if(event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
-      slotOpen();
-}
-
-void glitch_recent_diagrams_view::mouseDoubleClickEvent(QMouseEvent *event)
-{
-  QGraphicsView::mouseDoubleClickEvent(event);
-  slotOpen();
+      emit openDiagram();
 }
 
 void glitch_recent_diagrams_view::populate
@@ -255,11 +249,6 @@ void glitch_recent_diagrams_view::populate
   setSceneRect(rect);
   verticalScrollBar()->setValue(vValue);
   QApplication::restoreOverrideCursor();
-}
-
-void glitch_recent_diagrams_view::slotOpen(void)
-{
-  emit openDiagram();
 }
 
 void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)

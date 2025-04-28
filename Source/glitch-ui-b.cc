@@ -155,15 +155,15 @@ void glitch_ui::prepareRecentDiagramsView(void)
 
   pushButton = new QPushButton(this);
   connect(pushButton,
-	  &QPushButton::clicked,
+	  SIGNAL(clicked(void)),
 	  m_recentDiagramsView,
-	  &glitch_recent_diagrams_view::slotOpen);
+	  SIGNAL(openDiagram(void)));
   m_ui.tab->setPushButton(pushButton, 0);
   pushButton->setFlat(true);
   pushButton->setIcon(QIcon(":/open.png"));
   pushButton->setIconSize(QSize(24, 24));
   pushButton->setObjectName("recent-diagrams");
-  pushButton->setToolTip(tr("Open Selected Diagram(s)"));
+  pushButton->setToolTip(tr("Open Diagram(s)"));
 }
 
 void glitch_ui::prepareTab(void)
