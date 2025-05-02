@@ -40,7 +40,7 @@ cp -pr ./Examples ./opt/glitch/.
 mkdir -p glitch-debian/opt
 cp -pr ./Distributions/DEBIAN glitch-debian/.
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2025.04.13_amd64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2025.05.03_amd64.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
