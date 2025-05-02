@@ -2,8 +2,8 @@ Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
-<b>Version 2025.04.13 is the newest LTS release.</b><br>
-<b>Version 2025.04.13 is the newest source release.</b>
+<b>Version 2025.05.03 is the newest LTS release.</b><br>
+<b>Version 2025.05.03 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,52 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.05.03</p>
+<ul>
+<li>Altered Examples database files.</li>
+<li>An SQLite REPLACE statement is not necessary during
+  the saving of a canvas's settings.</li>
+<li>Clicking on a recent-diagram item will now open it.</li>
+<li>Create a view's preview image after the view is initialized
+  and recorded.</li>
+<li>Ctrl + G will now open Glitch Preferences. The shortcut
+  was previously responsible for generating the current diagram's
+  source.</li>
+<li>Detect removal of wires in objects.</li>
+<li>Determine if the recent-diagrams view should be populated via
+  cryptographic digests.</li>
+<li>Display information on termination of Arduino process.</li>
+<li>Do not create a cursor from an invalid image in
+  glitch_structures_treewidget::slotPressAndHoldTimeout().</li>
+<li>Elegant recent-diagrams view.</li>
+<li>Fewer paint events in wire objects.</li>
+<li>Issue a close() on an object's edit window if the window
+  is closed via its tab's close button.</li>
+<li>Multiple Serial Port Windows.</li>
+<li>New Canvas Settings -> Canvas -> Show Preview. Initially
+  false.</li>
+<li>New Glitch Preferences -> Style Override. For a pleasant
+  Qt style, please consider Kvantum.</li>
+<li>Observe as many failures as possible on saving of diagrams.
+  Unfortunately, SQLite write errors are not recoverable.</li>
+<li>Qt 6.8.3 LTS on Android.</li>
+<li>Qt 6.8.3 LTS on MacOS.</li>
+<li>Qt 6.8.3 LTS on Windows.</li>
+<li>Removed some database alter statements. Statements included
+  with the 2025.03.15 release remain.</li>
+<li>Scrolling-per-pixel.</li>
+<li>Second LTS release of 2025.</li>
+<li>Source previews are now attached to objects.</li>
+<li>Super-simple window-centering algorithm.</li>
+<li>The Blue-Balloon-Papa release!</li>
+<li>The MacOS build is a universal build; AMD64 and ARM64. The Glitch
+  bundle is manufactured on an Apple Silicon device.</li>
+<li>The bottom and right children of the right-most splitter are
+  now not collapsible.</li>
+<li>The center, left, and right children of a canvas are now not
+  collapsible.</li>
+</ul>
 
 <p>2025.04.13</p>
 <ul>
