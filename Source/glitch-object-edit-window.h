@@ -162,6 +162,7 @@ class glitch_object_edit_window: public QMainWindow
   void slotZoomReset(void);
 
  signals:
+  void closeSignal(void);
   void closed(void);
   void closedByButton(void);
   void copy(void);

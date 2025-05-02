@@ -269,6 +269,7 @@ class glitch_view: public QWidget
  signals:
   void canvasNameChanged(const QString &name);
   void changed(void);
+  void closeSignal(void);
   void copy(QGraphicsView *view);
   void information(const QString &text);
   void mouseEnterEvent(void);

@@ -145,7 +145,7 @@ class glitch_ash_state_machine
 	  {
 	  case States::Close:
 	    {
-	      t->close();
+	      emit t->closeSignal();
 	      state = States::ZZZ;
 	      break;
 	    }
