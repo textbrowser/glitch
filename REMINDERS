@@ -395,6 +395,7 @@ Qt Items
 Remaining Items
 
 - ASH.
+- ASH: close.
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.

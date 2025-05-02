@@ -65,7 +65,9 @@ class glitch_ash_state_machine
 	** Here be single-state states.
 	*/
 
-	if(token.startsWith(QObject::tr("copy"), Qt::CaseInsensitive))
+	if(token.startsWith(QObject::tr("close"), Qt::CaseInsensitive))
+	  state = States::Close;
+	else if(token.startsWith(QObject::tr("copy"), Qt::CaseInsensitive))
 	  state = States::Copy;
 	else if(token.startsWith(QObject::tr("full-screen"),
 				 Qt::CaseInsensitive))
@@ -141,6 +143,12 @@ class glitch_ash_state_machine
 
 	switch(state)
 	  {
+	  case States::Close:
+	    {
+	      t->close();
+	      state = States::ZZZ;
+	      break;
+	    }
 	  case States::Copy:
 	    {
 	      t->slotCopy();
@@ -445,6 +453,7 @@ class glitch_ash_state_machine
  private:
   enum class States
   {
+    Close,
     Copy,
     Delete,
     Deselect,
