@@ -31,11 +31,11 @@ fi
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
 
-if [ ! -z "$(which qmake)" ]
+if [ ! -z "$(which qmake6)" ]
 then
-    qmake -o Makefile glitch.pro
+    qmake6 -o Makefile glitch.pro 2>/dev/null
 else
-    qmake6 -o Makefile glitch.pro
+    qmake -o Makefile glitch.pro 2>/dev/null
 fi
 
 lupdate glitch.pro 2>/dev/null
