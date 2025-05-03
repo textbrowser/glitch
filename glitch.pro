@@ -54,6 +54,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wextra \
                           -Wfloat-equal \
                           -Wformat=2 \
+                          -Wno-c++20-attribute-extensions \
                           -Woverloaded-virtual \
                           -Wpointer-arith \
                           -Wstack-protector \
