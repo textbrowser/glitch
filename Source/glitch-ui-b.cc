@@ -33,6 +33,7 @@
 #include "glitch-recent-diagrams-view.h"
 #include "glitch-serial-port-window.h"
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 #include "ui_glitch-errors-dialog.h"
 
