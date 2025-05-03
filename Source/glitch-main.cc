@@ -80,7 +80,9 @@ int main(int argc, char *argv[])
 #endif
 #if defined(Q_OS_ANDROID)
 #else
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 7, 0))
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
+#endif
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
 #endif
   QCoreApplication::setApplicationName("Glitch");
