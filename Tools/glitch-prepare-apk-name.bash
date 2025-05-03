@@ -15,10 +15,20 @@ do
     if [[ "$i" == *"arm64"* ]]
     then
 	mv $i ~/Glitch-"$VERSION"_arm64.apk
+
+	if [ -e ~/Glitch-"$VERSION"_arm64.apk ]
+	then
+	    echo "Created ~/Glitch-"$VERSION"_arm64.apk."
+	fi
     fi
 
     if [[ "$i" == *"armeabi"* ]]
     then
 	mv $i ~/Glitch-"$VERSION"_arm32.apk
+
+	if [ -e ~/Glitch-"$VERSION"_arm32.apk ]
+	then
+	    echo "Created ~/Glitch-"$VERSION"_arm32.apk."
+	fi
     fi
 done
