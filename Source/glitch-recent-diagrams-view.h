@@ -93,7 +93,11 @@ class glitch_recent_diagrams_view_item:
   {
     QGraphicsPixmapItem::hoverLeaveEvent(event);
     m_hoverPoint = QPointF();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
     m_removeButton.clear();
+#else
+    m_removeButton = QPainterPath();
+#endif
     m_showRemoveButton = false;
     prepareEffectOnHoverLeave();
     setCursor(QCursor(Qt::ArrowCursor));
