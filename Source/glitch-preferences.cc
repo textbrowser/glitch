@@ -143,6 +143,8 @@ void glitch_preferences::processSettings(void)
     m_ui.display_language->setCurrentIndex
       (m_ui.display_language->findText(tr("English")));
 
+  m_ui.display_tab_bar->setChecked
+    (settings.value("preferences/tab_bar", true).toBool());
   m_ui.display_tear_off_menus->setChecked
     (settings.value("preferences/tear_off_menus", true).toBool());
   m_ui.output_directory->setText
@@ -183,6 +185,7 @@ void glitch_preferences::slotApply(void)
   settings.setValue
     ("preferences/override_widget_fonts",
      m_ui.override_widget_fonts->isChecked());
+  settings.setValue("preferences/tab_bar", m_ui.display_tab_bar->isChecked());
   settings.setValue
     ("preferences/tear_off_menus", m_ui.display_tear_off_menus->isChecked());
   settings.setValue("preferences/zoom_factor", m_ui.zoom_factor->value());

@@ -2248,11 +2248,13 @@ void glitch_ui::slotPaste(void)
 void glitch_ui::slotPreferencesAccepted(void)
 {
   QSettings settings;
-  auto const state = settings.value("preferences/tear_off_menus", true).
-    toBool();
 
-  m_ui.menu_Edit->setTearOffEnabled(state);
-  m_ui.menu_Windows->setTearOffEnabled(state);
+  m_ui.menu_Edit->setTearOffEnabled
+    (settings.value("preferences/tear_off_menus", true).toBool());
+  m_ui.menu_Windows->setTearOffEnabled
+    (settings.value("preferences/tear_off_menus", true).toBool());
+  m_ui.tab->tabBar()->setVisible
+    (settings.value("preferences/tab_bar", true).toBool());
   prepareFonts();
 }
 
@@ -2527,7 +2529,6 @@ void glitch_ui::slotShowFullScreenMode(void)
 void glitch_ui::slotShowPreferences(void)
 {
   m_preferences->processSettings();
-  m_preferences->resize(650, m_preferences->sizeHint().height());
 #ifndef Q_OS_ANDROID
   m_preferences->show();
 #else

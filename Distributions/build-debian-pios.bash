@@ -33,9 +33,9 @@ mkdir -p ./opt/glitch/Documentation
 
 if [ ! -z "$(which qmake6)" ]
 then
-    qmake6 -o Makefile glitch.pro 2>/dev/null
+    qmake6 2>/dev/null
 else
-    qmake -o Makefile glitch.pro 2>/dev/null
+    qmake 2>/dev/null
 fi
 
 lupdate glitch.pro 2>/dev/null

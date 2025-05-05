@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>650</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>488</width>
-        <height>594</height>
+        <height>644</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -269,6 +269,16 @@
             </layout>
            </item>
            <item>
+            <widget class="QCheckBox" name="display_tab_bar">
+             <property name="text">
+              <string>Tab Bar</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="display_tear_off_menus">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, some menus will reside in their own windows.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -366,6 +376,7 @@
   <tabstop>select_output_directory</tabstop>
   <tabstop>override_widget_fonts</tabstop>
   <tabstop>style_override</tabstop>
+  <tabstop>display_tab_bar</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
   <tabstop>zoom_factor</tabstop>
  </tabstops>
