@@ -60,7 +60,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
     "Glitch" +
     QDir::separator() +
     "glitch_recent_files.db";
-  m_timer.start(1500);
+  m_timer.start(50);
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::NoDrag);
@@ -136,13 +136,14 @@ void glitch_recent_diagrams_view::gatherRecentDiagrams
 	  while(m_gatherRecentDiagramsFuture.isCanceled() == false &&
 		query.next())
 	    {
-	      QFileInfo const fileInfo(query.value(0).toString());
 	      QImage image;
 
 	      if(image.loadFromData(QByteArray::
 				    fromBase64(query.value(1).toByteArray()),
 				    "PNG"))
 		{
+		  QFileInfo const fileInfo(query.value(0).toString());
+
 		  sha.addData(query.value(0).toByteArray() +
 			      query.value(1).toByteArray());
 		  vector << QPair<QImage, QString>
