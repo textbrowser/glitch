@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.05.03 is the newest source release.</b>
+<b>Version 2025.05.05 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,12 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.05.05</p>
+<ul>
+<li>Another blue-balloon-papa release!</li>
+<li>Optional tab bar. Please see Glitch Preferences and View.</li>
+</ul>
 
 <p>2025.05.03</p>
 <ul>
