@@ -313,6 +313,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotIDEVerify);
+  connect(m_ui.action_View_Tab_Bar,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotViewTabBar);
   connect(m_ui.action_View_Tool_Bars,
 	  &QAction::triggered,
 	  this,
@@ -1428,6 +1432,8 @@ void glitch_ui::restoreSettings(void)
   QSettings settings;
 
   restoreState(settings.value("main_window/state").toByteArray());
+  m_ui.action_View_Tab_Bar->setChecked
+    (settings.value("preferences/tab_bar", true).toBool());
   m_ui.action_View_Tool_Bars->setChecked
     (settings.value("main_window/view_tools", true).toBool());
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
@@ -1435,6 +1441,7 @@ void glitch_ui::restoreSettings(void)
   m_ui.miscellaneous_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.project_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tab->tabBar()->setVisible(m_ui.action_View_Tab_Bar->isChecked());
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
@@ -2249,12 +2256,13 @@ void glitch_ui::slotPreferencesAccepted(void)
 {
   QSettings settings;
 
+  m_ui.action_View_Tab_Bar->setChecked
+    (settings.value("preferences/tab_bar", true).toBool());
   m_ui.menu_Edit->setTearOffEnabled
     (settings.value("preferences/tear_off_menus", true).toBool());
   m_ui.menu_Windows->setTearOffEnabled
     (settings.value("preferences/tear_off_menus", true).toBool());
-  m_ui.tab->tabBar()->setVisible
-    (settings.value("preferences/tab_bar", true).toBool());
+  m_ui.tab->tabBar()->setVisible(m_ui.action_View_Tab_Bar->isChecked());
   prepareFonts();
 }
 

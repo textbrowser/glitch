@@ -26,6 +26,7 @@
 */
 
 #include <QFileDialog>
+#include <QSettings>
 #include <QToolButton>
 
 #include "Arduino/glitch-object-function-arduino.h"
@@ -488,6 +489,14 @@ void glitch_ui::slotUniteAllDiagrams(void)
   prepareTabShortcuts();
   slotAboutToShowTabsMenu();
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_ui::slotViewTabBar(void)
+{
+  QSettings().setValue
+    ("preferences/tab_bar", m_ui.action_View_Tab_Bar->isChecked());
+  m_ui.tab->tabBar()->setVisible
+    (QSettings().value("preferences/tab_bar", true).toBool());
 }
 
 void glitch_ui::slotZoom(void)
