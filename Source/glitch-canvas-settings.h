@@ -30,6 +30,7 @@
 
 #include <QColorDialog>
 #include <QGraphicsView>
+#include <QPointer>
 #include <QStyledItemDelegate>
 #include <QTimer>
 
@@ -43,6 +44,7 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
   glitch_canvas_settings_item_delegate(QObject *parent):
     QStyledItemDelegate(parent)
   {
+    m_parent = qobject_cast<QWidget *> (parent);
   }
 
   QWidget *createEditor(QWidget *parent,
@@ -64,7 +66,7 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
 #endif
 		  );
 	  m_index = index;
-	  pushButton->setText(index.data().toString().trimmed());
+	  pushButton->setText(index.data().toString().remove('&').trimmed());
 	  return pushButton;
 	}
       default:
@@ -92,51 +94,47 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
     QStyledItemDelegate::setModelData(editor, model, index);
   }
 
+  QPointer<QWidget> m_parent;
   mutable QModelIndex m_index;
 
  private slots:
   void slotSelectColor(void)
   {
-    auto pushButton = qobject_cast<QPushButton *> (sender());
+    QColorDialog dialog(m_parent);
 
-    if(!pushButton)
-      return;
-
-    QColorDialog dialog(pushButton);
-
-    dialog.setCurrentColor(QColor(pushButton->text().remove('&')));
+    dialog.setCurrentColor
+      (QColor(m_index.data().toString().remove('&').trimmed()));
     dialog.setOption(QColorDialog::ShowAlphaChannel, true);
 #ifdef Q_OS_ANDROID
     dialog.showMaximized();
 #endif
     QApplication::processEvents();
 
-    if(dialog.exec() == QDialog::Accepted)
+    if(dialog.exec() == QDialog::Accepted &&
+       m_index.isValid() &&
+       m_index.model())
       {
-	if(m_index.isValid() && m_index.model())
+	auto model = const_cast<QAbstractItemModel *> (m_index.model());
+	auto sortingEnabled = false;
+	auto table = qobject_cast<QTableWidget *>
+	  (m_index.model()->parent());
+
+	if(table)
 	  {
-	    auto sortingEnabled = false;
-	    auto table = qobject_cast<QTableWidget *>
-	      (m_index.model()->parent());
-
-	    if(table)
-	      {
-		sortingEnabled = table->isSortingEnabled();
-		table->setSortingEnabled(false);
-	      }
-
-	    const_cast<QAbstractItemModel *> (m_index.model())->setData
-	      (m_index, dialog.selectedColor(), Qt::DecorationRole);
-	    const_cast<QAbstractItemModel *> (m_index.model())->setData
-	      (m_index, dialog.selectedColor().name(QColor::HexArgb));
-
-	    if(table)
-	      table->setSortingEnabled(sortingEnabled);
+	    sortingEnabled = table->isSortingEnabled();
+	    table->setSortingEnabled(false);
 	  }
 
-	pushButton->setText(dialog.selectedColor().name(QColor::HexArgb));
-	emit commitData(pushButton);
-	emit closeEditor(pushButton); // Order is crucial.
+	if(model)
+	  {
+	    model->setData
+	      (m_index, dialog.selectedColor(), Qt::DecorationRole);
+	    model->setData
+	      (m_index, dialog.selectedColor().name(QColor::HexArgb));
+	  }
+
+	if(table)
+	  table->setSortingEnabled(sortingEnabled);
       }
   }
 };
