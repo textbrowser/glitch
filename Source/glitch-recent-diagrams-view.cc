@@ -115,7 +115,7 @@ void glitch_recent_diagrams_view::gatherRecentDiagrams
 
   QMessageAuthenticationCode sha
     (QCryptographicHash::Sha3_512,
-     QByteArray("Glitch") + GLITCH_VERSION_STRING);
+     QByteArray("Glitch") + QByteArray(GLITCH_VERSION_STRING));
   QString connectionName("");
   QVectorQPairQImageQString vector;
 
