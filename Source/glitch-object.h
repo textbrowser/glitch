@@ -108,6 +108,7 @@ class glitch_object: public QWidget
   {
     INPUT_CONNECTED = 0,
     INPUT_DISCONNECTED,
+    INPUT_FULL,
     OUTPUT_CONNECTED,
     OUTPUT_DISCONNECTED
   };
@@ -182,9 +183,37 @@ class glitch_object: public QWidget
 
   QColor portColor(const glitch_object::PortColors portColor) const
   {
-    return QColor
-      (m_properties.value(Properties::PORT_COLORS).
-       toString().split('-').value(static_cast<int> (portColor)).remove('&'));
+    auto const list
+      (m_properties.value(Properties::PORT_COLORS).toString().split('-'));
+
+    if(list.size() == 4)
+      {
+	/*
+	** Before version 2025.05.10.
+	*/
+
+	switch(portColor)
+	  {
+	  case PortColors::INPUT_CONNECTED:
+	    {
+	      return QColor(list.value(0).remove('&'));
+	    }
+	  case PortColors::INPUT_DISCONNECTED:
+	    {
+	      return QColor(list.value(1).remove('&'));
+	    }
+	  case PortColors::OUTPUT_CONNECTED:
+	    {
+	      return QColor(list.value(2).remove('&'));
+	    }
+	  default:
+	    {
+	      return QColor(list.value(3).remove('&'));
+	    }
+	  }
+      }
+    else
+      return QColor(list.value(static_cast<int> (portColor)).remove('&'));
   }
 
   QHash<Properties, QVariant> properties(void) const
