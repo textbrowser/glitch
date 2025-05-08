@@ -124,6 +124,8 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
     "-" +
     QColor(118, 134, 146).name(QColor::HexArgb) + // Input Disconnected
     "-" +
+    QColor(Qt::red).name(QColor::HexArgb) + // Input Full
+    "-" +
     QColor(0, 80, 181).name(QColor::HexArgb) +    // Output Connected
     "-" +
     QColor(118, 134, 146).name(QColor::HexArgb);  // Output Disconnected

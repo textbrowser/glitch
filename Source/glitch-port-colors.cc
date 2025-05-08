@@ -43,6 +43,10 @@ glitch_port_colors::glitch_port_colors(QWidget *parent):QDialog(parent)
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_port_colors::slotSelectColor);
+  connect(m_ui.input_full,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_port_colors::slotSelectColor);
   connect(m_ui.input_disconnected,
 	  &QPushButton::clicked,
 	  this,
@@ -67,6 +71,8 @@ QString glitch_port_colors::colors(void) const
     "-" +
     m_ui.input_disconnected->text().remove('&') +
     "-" +
+    m_ui.input_full->text().remove('&') +
+    "-" +
     m_ui.output_connected->text().remove('&') +
     "-" +
     m_ui.output_disconnected->text().remove('&');
@@ -74,11 +80,24 @@ QString glitch_port_colors::colors(void) const
 
 void glitch_port_colors::setColors(const QVariant &value)
 {
-  auto const list
-    (QList<QPushButton *> () << m_ui.input_connected
-                             << m_ui.input_disconnected
-                             << m_ui.output_connected
-                             << m_ui.output_disconnected);
+  QList<QPushButton *> list;
+
+  if(value.toString().count('-') == 3)
+    {
+      glitch_variety::assignImage(m_ui.input_full, QColor(Qt::red));
+      list << m_ui.input_connected
+	   << m_ui.input_disconnected
+	   << m_ui.output_connected
+	   << m_ui.output_disconnected;
+      m_ui.input_full->setText(QColor(Qt::red).name(QColor::HexArgb));
+    }
+  else
+    list << m_ui.input_connected
+	 << m_ui.input_disconnected
+	 << m_ui.input_full
+	 << m_ui.output_connected
+	 << m_ui.output_disconnected;
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
   auto const strings(value.toString().split('-', Qt::SkipEmptyParts));
 #else
@@ -117,6 +136,8 @@ void glitch_port_colors::slotSelectColor(void)
     title = tr("Glitch: Select Widget Connected Input Color");
   else if(button == m_ui.input_disconnected)
     title = tr("Glitch: Select Widget Disconnected Input Color");
+  else if(button == m_ui.input_full)
+    title = tr("Glitch: Select Widget Full Input Color");
   else if(button == m_ui.output_connected)
     title = tr("Glitch: Select Widget Connected Output Color");
   else
