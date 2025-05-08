@@ -425,9 +425,14 @@ void glitch_proxy_widget::paint
 			      10.0);
 
 	      if((canDisconnectInput = m_object->isInputWired()))
-		painter->fillPath
-		  (path, m_object->portColor(glitch_object::PortColors::
-					     INPUT_CONNECTED));
+		{
+		  auto const portColorType =
+		    m_object->isFullyWired() == false ?
+		    glitch_object::PortColors::INPUT_CONNECTED :
+		    glitch_object::PortColors::INPUT_FULL;
+
+		  painter->fillPath(path, m_object->portColor(portColorType));
+		}
 	      else
 		painter->fillPath
 		  (path, m_object->portColor(glitch_object::PortColors::
