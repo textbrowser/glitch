@@ -195,7 +195,6 @@ void glitch_recent_diagrams_view::populate
 
   for(int i = 0; i < vector.size(); i++)
     {
-      auto effect = new QGraphicsDropShadowEffect();
       auto item = new glitch_recent_diagrams_view_item
 	(QPixmap::fromImage(vector.at(i).first));
 
@@ -211,9 +210,6 @@ void glitch_recent_diagrams_view::populate
 	      SIGNAL(remove(const QString &)),
 	      this,
 	      SIGNAL(remove(const QString &)));
-      effect->setBlurRadius(0.0);
-      effect->setColor(QColor(59, 59, 59));
-      effect->setOffset(0.0, 0.0);
 
       auto const height = 25.0 + item->boundingRect().size().height();
       auto const width = 25.0 + item->boundingRect().size().width();
@@ -227,7 +223,6 @@ void glitch_recent_diagrams_view::populate
       columnIndex += 1;
       item->setData(Qt::UserRole, vector.at(i).second);
       item->setFileName(vector.at(i).second);
-      item->setGraphicsEffect(effect);
       item->setPixmap
 	(QFileInfo(vector.at(i).second).isReadable() ?
 	 item->pixmap() : missing);

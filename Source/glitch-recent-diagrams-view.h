@@ -48,9 +48,15 @@ class glitch_recent_diagrams_view_item:
   glitch_recent_diagrams_view_item(const QPixmap &pixmap):
     QObject(), QGraphicsPixmapItem(pixmap)
   {
+    m_effect = new QGraphicsDropShadowEffect(this);
+    m_effect->setBlurRadius(50.0);
+    m_effect->setColor(QColor(59, 59, 59));
+    m_effect->setEnabled(false);
+    m_effect->setOffset(0.0, 0.0);
     m_showRemoveButton = false;
     setAcceptHoverEvents(true);
     setCacheMode(QGraphicsItem::NoCache);
+    setGraphicsEffect(m_effect);
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
   }
 
@@ -74,6 +80,7 @@ class glitch_recent_diagrams_view_item:
   }
 
  private:
+  QGraphicsDropShadowEffect *m_effect;
   QPainterPath m_removeButton;
   QPointF m_hoverPoint;
   QString m_fileName;
@@ -177,18 +184,12 @@ class glitch_recent_diagrams_view_item:
 
   void prepareEffectOnHoverEnter(void)
   {
-    auto effect = qobject_cast<QGraphicsDropShadowEffect *> (graphicsEffect());
-
-    if(effect)
-      effect->setBlurRadius(50.0);
+    m_effect->setEnabled(true);
   }
 
   void prepareEffectOnHoverLeave(void)
   {
-    auto effect = qobject_cast<QGraphicsDropShadowEffect *> (graphicsEffect());
-
-    if(effect)
-      effect->setBlurRadius(0.0);
+    m_effect->setEnabled(false);
   }
 
  signals:
