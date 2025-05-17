@@ -928,6 +928,7 @@ bool glitch_view::saveImplementation(const QString &fileName, QString &error)
     m_undoStack->setClean();
 
   QApplication::restoreOverrideCursor();
+  QTimer::singleShot(500, this, &glitch_view::slotSaveSnap);
   return ok;
 }
 
