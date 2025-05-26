@@ -37,8 +37,9 @@
 #include "glitch-variety.h"
 
 glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
-  QDialog(parent)
+  QDialog(nullptr)
 {
+  Q_UNUSED(parent);
   m_packetsReceived = 0;
   m_ui.setupUi(this);
   glitch_variety::sortCombinationBox(m_ui.flow_control);
@@ -318,18 +319,24 @@ void glitch_serial_port_window::slotReadyRead(void)
 
 	  if(!bytes.isEmpty())
 	    {
-	      QString string("");
-
 	      m_packetsReceived += 1;
-	      string.append
-		(QString("<font color='#33a532'>%1</font>:"
-			 "<b>%2</b>:"
-			 "<font color='#00238b'>%3</font>: ").
-		 arg(serialPort->portName()).
-		 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
-		 arg(QString::number(m_packetsReceived)));
-	      string.append(bytes);
-	      m_ui.communications->append(string);
+
+	      if(m_ui.raw->isChecked())
+		m_ui.communications->append(bytes);
+	      else
+		{
+		  QString string("");
+
+		  string.append
+		    (QString("<font color='#33a532'>%1</font>:"
+			     "<b>%2</b>:"
+			     "<font color='#00238b'>%3</font>: ").
+		     arg(serialPort->portName()).
+		     arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+		     arg(QString::number(m_packetsReceived)));
+		  string.append(bytes);
+		  m_ui.communications->append(string);
+		}
 	    }
 	}
     }

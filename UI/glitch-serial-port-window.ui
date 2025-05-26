@@ -541,6 +541,16 @@
            </widget>
           </item>
           <item>
+           <widget class="QCheckBox" name="raw">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Data will be displayed in the original format.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Raw</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -599,6 +609,8 @@
   <tabstop>send</tabstop>
   <tabstop>communications</tabstop>
   <tabstop>clear</tabstop>
+  <tabstop>raw</tabstop>
+  <tabstop>last_error</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
