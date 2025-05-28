@@ -69,8 +69,8 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotGenerateSourceClipboard(void);
   void slotGenerateSourceView(void);
   void slotHideTearOffMenu(void);
-  void slotIdeProcessFinished(void);
-  void slotIdeProcessStarted(void);
+  void slotIDEProcessFinished(void);
+  void slotIDEProcessStarted(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotPaste(void);

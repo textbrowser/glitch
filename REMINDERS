@@ -326,6 +326,7 @@ Completed Items
 - Shadow copies of loop() and setup().
 - Shortcuts and tabbed edit windows.
 - Shortcuts in object views.
+- Show an indicator for an active Arduino process.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
 - Show identifiers in Find Objects.
@@ -409,5 +410,4 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Show an indicator for an active Arduino process.
 - Snap-to-visible-grid.

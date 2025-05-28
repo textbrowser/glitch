@@ -470,11 +470,11 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       disconnect(m_view,
 		 &glitch_view::ideProcessFinished,
 		 this,
-		 &glitch_separated_diagram_window::slotIdeProcessFinished);
+		 &glitch_separated_diagram_window::slotIDEProcessFinished);
       disconnect(m_view,
 		 &glitch_view::ideProcessStarted,
 		 this,
-		 &glitch_separated_diagram_window::slotIdeProcessStarted);
+		 &glitch_separated_diagram_window::slotIDEProcessStarted);
       disconnect(m_view,
 		 &glitch_view::saved,
 		 this,
@@ -498,6 +498,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 &glitch_view::slotUnite);
     }
 
+  m_ideProcessIndicator->setVisible(false);
   m_statusBarTimer.stop();
   m_view = qobject_cast<glitch_view *> (widget);
 
@@ -510,11 +511,11 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       connect(m_view,
 	      &glitch_view::ideProcessFinished,
 	      this,
-	      &glitch_separated_diagram_window::slotIdeProcessFinished);
+	      &glitch_separated_diagram_window::slotIDEProcessFinished);
       connect(m_view,
 	      &glitch_view::ideProcessStarted,
 	      this,
-	      &glitch_separated_diagram_window::slotIdeProcessStarted);
+	      &glitch_separated_diagram_window::slotIDEProcessStarted);
       connect(m_view,
 	      &glitch_view::saved,
 	      this,
@@ -536,6 +537,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      m_view,
 	      &glitch_view::slotUnite);
       QMainWindow::setCentralWidget(m_view);
+      m_ideProcessIndicator->setVisible(m_view->isIDEProcessActive());
       m_statusBarTimer.start();
       slotToolsOperationChanged(m_view->toolsOperation());
     }
@@ -633,12 +635,12 @@ void glitch_separated_diagram_window::slotHideTearOffMenu(void)
 #endif
 }
 
-void glitch_separated_diagram_window::slotIdeProcessFinished(void)
+void glitch_separated_diagram_window::slotIDEProcessFinished(void)
 {
   m_ideProcessIndicator->setVisible(false);
 }
 
-void glitch_separated_diagram_window::slotIdeProcessStarted(void)
+void glitch_separated_diagram_window::slotIDEProcessStarted(void)
 {
   m_ideProcessIndicator->setVisible(true);
 }

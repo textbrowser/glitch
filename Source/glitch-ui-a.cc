@@ -33,6 +33,7 @@
 #include <QFileInfo>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QSettings>
 #include <QShortcut>
 #include <QSqlError>
@@ -104,6 +105,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_about.setWindowTitle(tr("Glitch: About"));
   m_arduino = nullptr;
   m_generateSource = false;
+  m_ideProcessIndicator = new QProgressBar(this);
+  m_ideProcessIndicator->setMaximumWidth(100);
+  m_ideProcessIndicator->setRange(0, 0);
+  m_ideProcessIndicator->setToolTip(tr("Active IDE Process"));
   m_preferences = new glitch_preferences(this);
   m_recentDiagramsView = new glitch_recent_diagrams_view(this);
   m_recentFilesFileName = glitch_variety::homePath() +
@@ -408,6 +413,9 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareTab();
   prepareToolBars();
   slotPreferencesAccepted();
+  statusBar() ?
+    statusBar()->addPermanentWidget(m_ideProcessIndicator) : (void) 0;
+  m_ideProcessIndicator->setVisible(false);
 
   if(QSettings().value("preferences/download_version_information", false).
      toBool())
@@ -570,6 +578,14 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  &glitch_view_arduino::changed,
 	  this,
 	  &glitch_ui::slotPageChanged);
+  connect(view,
+	  &glitch_view_arduino::ideProcessFinished,
+	  this,
+	  &glitch_ui::slotIDEProcessFinished);
+  connect(view,
+	  &glitch_view_arduino::ideProcessStarted,
+	  this,
+	  &glitch_ui::slotIDEProcessStarted);
   connect(view,
 	  SIGNAL(copy(QGraphicsView *)),
 	  this,
@@ -2221,6 +2237,8 @@ void glitch_ui::slotPageSaved(void)
 void glitch_ui::slotPageSelected(int index)
 {
   m_currentView = qobject_cast<glitch_view *> (m_ui.tab->widget(index));
+  m_ideProcessIndicator->setVisible
+    (m_currentView && m_currentView->isIDEProcessActive());
   prepareActionWidgets();
   prepareStatusBar();
   prepareToolBars();

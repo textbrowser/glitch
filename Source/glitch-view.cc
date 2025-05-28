@@ -536,6 +536,11 @@ bool glitch_view::hasChanged(void) const
   return !m_undoStack->isClean();
 }
 
+bool glitch_view::isIDEProcessActive(void) const
+{
+  return m_ideProcess.state() == QProcess::Running;
+}
+
 bool glitch_view::open(const QString &fileName, QString &error)
 {
   QFileInfo const fileInfo(fileName);

@@ -38,6 +38,7 @@
 #include "ui_glitch-mainwindow.h"
 
 class QGraphicsView;
+class QProgressBar;
 class QShortcut;
 class QUndoStack;
 class glitch_documentation;
@@ -89,6 +90,7 @@ class glitch_ui: public QMainWindow
   QPointer<QAction> m_recentDiagramHoveredAction;
   QPointer<glitch_separated_diagram_window> m_separatedWindow;
   QPointer<glitch_view> m_currentView;
+  QProgressBar *m_ideProcessIndicator;
   QString m_recentFilesFileName;
   QStringList m_delayedDiagrams; // Open after launch.
   QTimer m_statusBarTimer;
@@ -153,6 +155,8 @@ class glitch_ui: public QMainWindow
   void slotGenerateSourceClipboard(void);
   void slotGenerateSourceView(void);
   void slotHideTearOffMenu(void);
+  void slotIDEProcessFinished(void);
+  void slotIDEProcessStarted(void);
   void slotIDETerminate(void);
   void slotIDEUpload(void);
   void slotIDEVerify(void);

@@ -26,6 +26,7 @@
 */
 
 #include <QFileDialog>
+#include <QProgressBar>
 #include <QSettings>
 #include <QToolButton>
 
@@ -245,6 +246,18 @@ void glitch_ui::slotIDEUpload(void)
 {
   if(m_currentView)
     m_currentView->upload();
+}
+
+void glitch_ui::slotIDEProcessFinished(void)
+{
+  if(m_currentView)
+    m_ideProcessIndicator->setVisible(false);
+}
+
+void glitch_ui::slotIDEProcessStarted(void)
+{
+  if(m_currentView)
+    m_ideProcessIndicator->setVisible(true);
 }
 
 void glitch_ui::slotIDETerminate(void)
