@@ -28,6 +28,7 @@
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QProgressBar>
 #include <QSettings>
 #include <QToolButton>
 
@@ -40,6 +41,10 @@
 glitch_separated_diagram_window::
 glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 {
+  m_ideProcessIndicator = new QProgressBar(this);
+  m_ideProcessIndicator->setRange(0, 0);
+  m_ideProcessIndicator->setMaximumWidth(100);
+  m_ideProcessIndicator->setToolTip(tr("Active IDE Process"));
   m_statusBarTimer.setInterval(500);
   m_ui.setupUi(this);
   m_ui.action_Generate_Source->setEnabled(false);
@@ -149,6 +154,9 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
   prepareIcons();
   slotPreferencesAccepted();
   statusBar(); // Create a status bar.
+  statusBar() ?
+    statusBar()->addPermanentWidget(m_ideProcessIndicator) : (void) 0;
+  m_ideProcessIndicator->setVisible(false);
 }
 
 glitch_separated_diagram_window::~glitch_separated_diagram_window()
@@ -460,6 +468,14 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 this,
 		 &glitch_separated_diagram_window::slotPageChanged);
       disconnect(m_view,
+		 &glitch_view::ideProcessFinished,
+		 this,
+		 &glitch_separated_diagram_window::slotIdeProcessFinished);
+      disconnect(m_view,
+		 &glitch_view::ideProcessStarted,
+		 this,
+		 &glitch_separated_diagram_window::slotIdeProcessStarted);
+      disconnect(m_view,
 		 &glitch_view::saved,
 		 this,
 		 &glitch_separated_diagram_window::slotPageSaved);
@@ -491,6 +507,14 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      &glitch_view::changed,
 	      this,
 	      &glitch_separated_diagram_window::slotPageChanged);
+      connect(m_view,
+	      &glitch_view::ideProcessFinished,
+	      this,
+	      &glitch_separated_diagram_window::slotIdeProcessFinished);
+      connect(m_view,
+	      &glitch_view::ideProcessStarted,
+	      this,
+	      &glitch_separated_diagram_window::slotIdeProcessStarted);
       connect(m_view,
 	      &glitch_view::saved,
 	      this,
@@ -607,6 +631,16 @@ void glitch_separated_diagram_window::slotHideTearOffMenu(void)
   if(menu)
     menu->hide();
 #endif
+}
+
+void glitch_separated_diagram_window::slotIdeProcessFinished(void)
+{
+  m_ideProcessIndicator->setVisible(false);
+}
+
+void glitch_separated_diagram_window::slotIdeProcessStarted(void)
+{
+  m_ideProcessIndicator->setVisible(true);
 }
 
 void glitch_separated_diagram_window::slotPageChanged(void)

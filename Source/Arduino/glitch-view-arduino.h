@@ -28,8 +28,6 @@
 #ifndef _glitch_view_arduino_h_
 #define _glitch_view_arduino_h_
 
-#include <QProcess>
-
 #include "glitch-view.h"
 
 class glitch_object_loop_arduino;
@@ -67,7 +65,6 @@ class glitch_view_arduino: public glitch_view
 
  private:
   QMap<QString, char> m_functionNames;
-  QProcess m_ideProcess;
   glitch_object_loop_arduino *m_loopObject;
   glitch_object_setup_arduino *m_setupObject;
   glitch_structures_arduino *m_arduinoStructures;

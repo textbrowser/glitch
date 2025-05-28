@@ -35,7 +35,6 @@
 #include <QMessageBox>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
-#include <QProcess>
 #include <QResizeEvent>
 #include <QSettings>
 #include <QSplitter>
@@ -197,6 +196,14 @@ glitch_view::glitch_view
 	  &QTimer::timeout,
 	  this,
 	  &glitch_view::slotGenerate);
+  connect(&m_ideProcess,
+	  &QProcess::started,
+	  this,
+	  &glitch_view::ideProcessStarted);
+  connect(&m_ideProcess,
+	  SIGNAL(finished(int, QProcess::ExitStatus)),
+	  this,
+	  SIGNAL(ideProcessFinished(void)));
   connect(&m_saveTimer,
 	  &QTimer::timeout,
 	  this,

@@ -30,6 +30,7 @@
 
 #include <QFuture>
 #include <QPointer>
+#include <QProcess>
 #include <QTimer>
 #include <QUndoStack>
 
@@ -197,6 +198,7 @@ class glitch_view: public QWidget
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
+  QProcess m_ideProcess;
   QSplitter *m_bottomSplitter;
   QSplitter *m_rightSplitter;
   QSplitter *m_splitter;
@@ -271,6 +273,8 @@ class glitch_view: public QWidget
   void changed(void);
   void closeSignal(void);
   void copy(QGraphicsView *view);
+  void ideProcessFinished(void);
+  void ideProcessStarted(void);
   void information(const QString &text);
   void mouseEnterEvent(void);
   void mouseLeaveEvent(void);

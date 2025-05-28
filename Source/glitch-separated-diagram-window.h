@@ -34,6 +34,7 @@
 #include "glitch-tools.h"
 #include "ui_glitch-separated-diagram-window.h"
 
+class QProgressBar;
 class glitch_view;
 
 class glitch_separated_diagram_window: public QMainWindow
@@ -51,6 +52,7 @@ class glitch_separated_diagram_window: public QMainWindow
 
  private:
   QPointer<glitch_view> m_view;
+  QProgressBar *m_ideProcessIndicator;
   QTimer m_statusBarTimer;
   Ui_glitch_separated_diagram_window m_ui;
   void closeEvent(QCloseEvent *event);
@@ -67,6 +69,8 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotGenerateSourceClipboard(void);
   void slotGenerateSourceView(void);
   void slotHideTearOffMenu(void);
+  void slotIdeProcessFinished(void);
+  void slotIdeProcessStarted(void);
   void slotPageChanged(void);
   void slotPageSaved(void);
   void slotPaste(void);
