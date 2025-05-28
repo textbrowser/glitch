@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>34</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
@@ -65,6 +65,7 @@
     <addaction name="action_Generate_Source"/>
     <addaction name="action_Generate_Source_View"/>
     <addaction name="separator"/>
+    <addaction name="action_Terminate"/>
     <addaction name="action_Upload"/>
     <addaction name="action_Verify"/>
    </widget>
@@ -322,6 +323,11 @@
    </property>
    <property name="shortcut">
     <string>F11</string>
+   </property>
+  </action>
+  <action name="action_Terminate">
+   <property name="text">
+    <string>Terminate Upload / Verify</string>
    </property>
   </action>
  </widget>

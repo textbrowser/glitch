@@ -84,6 +84,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotShowTearOffMenu(void);
   void slotSpecialTools(void);
   void slotStatusBarTimerTimeout(void);
+  void slotTerminate(void);
   void slotToolsOperationChanged(const glitch_tools::Operations operation);
   void slotUndo(void);
   void slotUpload(void);
