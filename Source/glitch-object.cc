@@ -1476,8 +1476,7 @@ void glitch_object::setEditWindowTitle(const QString &t)
   m_editWindow->setWindowTitle
     (tr("Glitch: %1 (%2)").
      arg(text).
-     arg(m_canvasSettings ?
-	 m_canvasSettings->name() : tr("Arduino-Diagram")));
+     arg(m_canvasSettings ? m_canvasSettings->name() : "Arduino-Diagram"));
 }
 
 void glitch_object::setName(const QString &n)

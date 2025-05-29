@@ -371,21 +371,24 @@ QString glitch_canvas_settings::name(void) const
     (m_settings.value(Settings::CANVAS_NAME).toString().trimmed());
 
   if(name.isEmpty())
-    return tr("Arduino-Diagram");
+    return "Arduino-Diagram";
   else
     return name;
 }
 
 QString glitch_canvas_settings::outputFile(void) const
 {
+  auto const name(this->name());
   auto const path
     (QSettings().value("preferences/output_directory").toString().trimmed());
 
-  QDir().mkpath(path);
+  QDir().mkpath(path + QDir::separator() + name);
   return QFileInfo
     (path +
      QDir::separator() +
-     name() +
+     name +
+     QDir::separator() +
+     name +
      m_outputFileExtension).absoluteFilePath();
 }
 
