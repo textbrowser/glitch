@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.05.26 is the newest source release.</b>
+<b>Version 2025.05.31 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,16 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.05.31</p>
+<ul>
+<li>Denote active IDE processes in status bars.</li>
+<li>Do not translate the text Arduino-Diagram.</li>
+<li>New option for terminating an Arduino process in a
+  separated canvas.</li>
+<li>The Arduino process requires an INO file to reside
+  in its own directory.</li>
+</ul>
 
 <p>2025.05.26</p>
 <ul>
