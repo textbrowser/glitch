@@ -189,7 +189,7 @@
              <item>
               <widget class="QLabel" name="label_7">
                <property name="text">
-                <string>For grids, major and minor alphas are decreased by 60% and 80%.</string>
+                <string>For grids, major and minor color alphas are decreased by 60% and 80%, respectively.</string>
                </property>
                <property name="wordWrap">
                 <bool>true</bool>

@@ -59,6 +59,7 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_variety::assignImage(m_ui.selection_color, QColor(0, 0, 139));
   glitch_variety::assignImage(m_ui.wire_color, QColor(255, 192, 203, 175));
   m_ui.background_color->setText(QColor("#55aaff").name(QColor::HexArgb));
+  m_ui.button_box->button(QDialogButtonBox::Apply)->setShortcut(tr("Ctrl+S"));
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   m_ui.dots_grids_color->setText(QColor(Qt::white).name(QColor::HexArgb));
   m_ui.lock_color->setText(QColor(231, 84, 128).name(QColor::HexArgb));
