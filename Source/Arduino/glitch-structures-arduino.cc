@@ -480,6 +480,7 @@ void glitch_structures_arduino::prepareCategories(void)
 	(0,
 	 QIcon(QString(":/Arduino/%1").arg(s_itemsForIcons.value(it.key()))));
       item->setText(0, it.key());
+      item->setToolTip(0, item->text(0));
       m_ui.tree->addTopLevelItem(item);
 
       for(int i = 0; i < s_itemsForCategories.value(it.value()).size(); i++)
@@ -493,9 +494,9 @@ void glitch_structures_arduino::prepareCategories(void)
 			 "-" +
 			 s_itemsForCategories.value(it.value()).at(i));
 	  child->setText(0, s_itemsForCategories.value(it.value()).at(i));
-
-	  if(item->text(0).contains("operator", Qt::CaseInsensitive))
-	    child->setTextAlignment(0, Qt::AlignCenter);
+	  child->setToolTip(0, child->text(0));
+	  item->text(0).contains("operator", Qt::CaseInsensitive) ?
+	    child->setTextAlignment(0, Qt::AlignCenter) : (void) 0;
 	}
     }
 }
