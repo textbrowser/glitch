@@ -793,6 +793,7 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
       m_splitter->setCollapsible(0, false);
       m_splitter->setCollapsible(1, false);
       m_splitter->setCollapsible(2, false);
+      m_splitter->setSizes(QList<int> () << 1 << 2 << 1);
       m_splitter->setStretchFactor(m_splitter->count() - 1, 0);
       QMainWindow::setCentralWidget(frame);
     }
