@@ -57,7 +57,7 @@ glitch_proxy_widget::glitch_proxy_widget
 	  &QTimer::timeout,
 	  this,
 	  &glitch_proxy_widget::slotHoverTimerTimeout);
-  m_hoverTimer.setInterval(500);
+  m_hoverTimer.setInterval(150);
   m_hoveredSection = Sections::XYZ;
   m_resizeWidget = nullptr;
   setAcceptHoverEvents(true);
@@ -410,6 +410,8 @@ void glitch_proxy_widget::paint
 	{
 	  auto canDisconnectInput = false;
 	  auto canDisconnectOuput = false;
+	  auto const objectToBeWired = m_scene->objectToBeWired
+	    (m_object->proxy());
 
 	  if(m_object->hasInput())
 	    {
@@ -436,8 +438,11 @@ void glitch_proxy_widget::paint
 		}
 	      else
 		painter->fillPath
-		  (path, m_object->portColor(glitch_object::PortColors::
-					     INPUT_DISCONNECTED));
+		  (path,
+		   objectToBeWired ?
+		   QColor(255, 95, 0) :
+		   m_object->portColor(glitch_object::PortColors::
+				       INPUT_DISCONNECTED));
 	    }
 
 	  if(m_object->hasOutput())
@@ -460,8 +465,11 @@ void glitch_proxy_widget::paint
 					     OUTPUT_CONNECTED));
 	      else
 		painter->fillPath
-		  (path, m_object->portColor(glitch_object::PortColors::
-					     OUTPUT_DISCONNECTED));
+		  (path,
+		   objectToBeWired ?
+		   QColor(255, 95, 0) :
+		   m_object->portColor(glitch_object::PortColors::
+				       OUTPUT_DISCONNECTED));
 	    }
 
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
