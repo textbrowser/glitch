@@ -58,6 +58,12 @@ class glitch_scene: public QGraphicsScene
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> orderedObjects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
+
+  QPointF lastHoverScenePos(void) const
+  {
+    return m_lastHoverScenePos;
+  }
+
   QPointer<QUndoStack> undoStack(void) const;
   QPointer<glitch_canvas_settings> canvasSettings(void) const;
   QSet<glitch_wire *> wires(void) const;
@@ -102,6 +108,7 @@ class glitch_scene: public QGraphicsScene
   QList<QPair<QPointF, glitch_proxy_widget *> > m_movedPoints;
   QMap<QPointer<glitch_proxy_widget>, char> m_redoUndoProxies;
   QMultiMap<glitch_point, glitch_proxy_widget *> m_objectsMap; // For ordering.
+  QPointF m_lastHoverScenePos;
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_canvas_settings> m_canvasSettings;
@@ -114,7 +121,6 @@ class glitch_scene: public QGraphicsScene
   glitch_tools::Operations m_toolsOperation;
   QGraphicsView *primaryView(void) const;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
-  bool event(QEvent *event);
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
   void disconnectWireIfNecessary(glitch_wire *wire);

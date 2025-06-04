@@ -45,6 +45,7 @@
 #include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-tools.h"
+#include "glitch-variety.h"
 
 qreal static s_intelligentDistance = 20.0;
 
@@ -52,6 +53,11 @@ glitch_proxy_widget::glitch_proxy_widget
 (QGraphicsItem *parent, Qt::WindowFlags wFlags):
   QGraphicsProxyWidget(parent, wFlags)
 {
+  connect(&m_hoverTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_proxy_widget::slotHoverTimerTimeout);
+  m_hoverTimer.setInterval(500);
   m_hoveredSection = Sections::XYZ;
   m_resizeWidget = nullptr;
   setAcceptHoverEvents(true);
@@ -61,6 +67,7 @@ glitch_proxy_widget::glitch_proxy_widget
 
 glitch_proxy_widget::~glitch_proxy_widget()
 {
+  m_hoverTimer.stop();
 }
 
 QColor glitch_proxy_widget::selectionColor(void) const
@@ -193,7 +200,6 @@ void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
 void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverEnterEvent(event);
-  event ? prepareHoverSection(event->scenePos()) : (void) 0;
   setCursor(QCursor(Qt::PointingHandCursor));
   update();
 }
@@ -201,7 +207,6 @@ void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverLeaveEvent(event);
-  m_hoveredSection = Sections::XYZ;
   setCursor(QCursor(Qt::ArrowCursor));
   update();
 }
@@ -209,7 +214,6 @@ void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverMoveEvent(event);
-  event ? prepareHoverSection(event->scenePos()) : (void) 0;
   setCursor(QCursor(Qt::PointingHandCursor));
   update();
 }
@@ -491,17 +495,15 @@ void glitch_proxy_widget::paint
 		{
 		  if(operation == glitch_tools::Operations::INTELLIGENT)
 		    {
-		      auto instance = qobject_cast<QGuiApplication *>
-			(QApplication::instance());
-
-		      if(instance &&
-			 instance->keyboardModifiers() & Qt::ControlModifier)
+		      if(glitch_variety::keyboardModifiers() &
+			 Qt::ControlModifier)
 			{
 			  if(canDisconnect)
 			    {
 			      QIcon const static icon(":/clear.png");
 
-			      icon.paint(painter, path.boundingRect().toRect());
+			      icon.paint
+				(painter, path.boundingRect().toRect());
 			      return;
 			    }
 			  else
@@ -601,6 +603,8 @@ void glitch_proxy_widget::prepareHoverSection(const QPointF &point)
 	      else
 		goto done_label;
 
+	      m_hoverTimer.start();
+	      update();
 	      return;
 	    }
 
@@ -615,10 +619,13 @@ void glitch_proxy_widget::prepareHoverSection(const QPointF &point)
 	      else
 		goto done_label;
 
+	      m_hoverTimer.start();
+	      update();
 	      return;
 	    }
 
 	done_label:
+	  m_hoverTimer.stop();
 	  m_hoveredSection = Sections::XYZ;
 	}
       else
@@ -633,10 +640,17 @@ void glitch_proxy_widget::prepareHoverSection(const QPointF &point)
 	    m_hoveredSection = Sections::LEFT;
 	  else
 	    m_hoveredSection = Sections::RIGHT;
+
+	  m_hoverTimer.start();
 	}
     }
   else
-    m_hoveredSection = Sections::XYZ;
+    {
+      m_hoverTimer.stop();
+      m_hoveredSection = Sections::XYZ;
+    }
+
+  update();
 }
 
 void glitch_proxy_widget::resizeEvent(QGraphicsSceneResizeEvent *event)
@@ -718,4 +732,9 @@ void glitch_proxy_widget::showResizeHelpers(const bool state)
   foreach(auto item, resizeRectangles())
     if(item)
       item->setVisible(state);
+}
+
+void glitch_proxy_widget::slotHoverTimerTimeout(void)
+{
+  prepareHoverSection(m_scene ? m_scene->lastHoverScenePos() : QPointF());
 }

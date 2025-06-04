@@ -200,6 +200,8 @@ Completed Items
 - Group disconnect tool.
 - Hide alignment options.
 - Hide resize helpers on widget drag move.
+- Highlight possible object connection inside of the scene.
+  See glitch-proxy-widget.cc.
 - Horizontal arrow object for decorating:
   Color
   Show both, left, or right arrows
@@ -401,8 +403,6 @@ Remaining Items
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
-- Highlight possible object connection inside of the scene.
-  See glitch-proxy-widget.cc.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
@@ -410,4 +410,5 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
+- Retain 1st-clicked wiring port. New color?
 - Snap-to-visible-grid.

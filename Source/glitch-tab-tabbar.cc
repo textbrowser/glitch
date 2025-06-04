@@ -32,6 +32,7 @@
 #include <QToolButton>
 
 #include "glitch-tab-tabbar.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 
 glitch_tab_tabbar::glitch_tab_tabbar(QWidget *parent):QTabBar(parent)
@@ -132,9 +133,9 @@ void glitch_tab_tabbar::mouseMoveEvent(QMouseEvent *event)
   return;
 #endif
 
-  if(!(QGuiApplication::keyboardModifiers() & Qt::ControlModifier) ||
-     !(event) ||
-     !(event->buttons() & Qt::LeftButton))
+  if(!(event) ||
+     !(event->buttons() & Qt::LeftButton) ||
+     !(glitch_variety::keyboardModifiers() & Qt::ControlModifier))
     {
       QTabBar::mouseMoveEvent(event);
       return;

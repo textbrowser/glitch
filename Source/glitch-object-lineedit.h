@@ -32,6 +32,8 @@
 #include <QKeyEvent>
 #include <QLineEdit>
 
+#include "glitch-variety.h"
+
 class glitch_object_lineedit: public QLineEdit
 {
   Q_OBJECT
@@ -65,7 +67,7 @@ class glitch_object_lineedit: public QLineEdit
       case Qt::Key_C:
       case Qt::Key_V:
 	{
-	  if(QGuiApplication::keyboardModifiers() & Qt::ControlModifier &&
+	  if(glitch_variety::keyboardModifiers() & Qt::ControlModifier &&
 	     isReadOnly())
 	    {
 	      event->ignore();

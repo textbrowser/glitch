@@ -80,12 +80,7 @@ QString glitch_variety::homePath(void)
 
 Qt::KeyboardModifiers glitch_variety::keyboardModifiers(void)
 {
-  auto instance = qobject_cast<QGuiApplication *> (QApplication::instance());
-
-  if(instance)
-    return instance->keyboardModifiers();
-  else
-    return Qt::NoModifier;
+  return QGuiApplication::keyboardModifiers();
 }
 
 bool glitch_variety::sameAncestors

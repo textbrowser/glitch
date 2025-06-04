@@ -277,9 +277,7 @@ void glitch_ash_textedit::keyPressEvent(QKeyEvent *event)
       {
 	if(verticalScrollBar())
 	  {
-	    auto const modifiers = glitch_variety::keyboardModifiers();
-
-	    if(modifiers & Qt::ControlModifier)
+	    if(glitch_variety::keyboardModifiers() & Qt::ControlModifier)
 	      {
 		verticalScrollBar()->setValue(0);
 		return;

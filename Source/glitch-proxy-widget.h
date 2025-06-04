@@ -30,6 +30,7 @@
 
 #include <QGraphicsProxyWidget>
 #include <QPointer>
+#include <QTimer>
 
 #include "glitch-scene.h"
 
@@ -101,6 +102,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
  private:
   QPointer<glitch_object> m_object;
   QPointer<glitch_scene> m_scene;
+  QTimer m_hoverTimer;
   Sections m_hoveredSection;
   glitch_resize_widget *m_resizeWidget;
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
@@ -114,6 +116,9 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 	     const QStyleOptionGraphicsItem *option,
 	     QWidget *widget);
   void resizeEvent(QGraphicsSceneResizeEvent *event);
+
+ private slots:
+  void slotHoverTimerTimeout(void);
 
  signals:
   void changed(void);

@@ -312,50 +312,6 @@ bool glitch_scene::areObjectsWired
   return false;
 }
 
-bool glitch_scene::event(QEvent *event)
-{
-#ifndef GLITCH_FUTURE
-  if(event)
-    switch(event->type())
-      {
-      case QEvent::GraphicsSceneMouseMove:
-	{
-	  auto e = static_cast<QGraphicsSceneMouseEvent *> (event);
-
-	  if(e && e->buttons() == Qt::NoButton)
-	    {
-	      QRectF rect(e->scenePos(), QSizeF(20.0, 20.0));
-
-	      rect.moveCenter(e->scenePos());
-
-	      auto const items(this->items(rect));
-
-	      foreach(auto item, items)
-		{
-		  auto proxy = qgraphicsitem_cast<glitch_proxy_widget *>
-		    (item);
-
-		  if(proxy)
-		    {
-		      proxy->prepareHoverSection(e->scenePos());
-		      proxy->update();
-		      break;
-		    }
-		}
-	    }
-
-	  break;
-	}
-      default:
-	{
-	  break;
-	}
-      }
-#endif
-
-  return QGraphicsScene::event(event);
-}
-
 bool glitch_scene::objectToBeWired(glitch_proxy_widget *proxy) const
 {
   QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);
@@ -771,10 +727,7 @@ void glitch_scene::disconnectWireIfNecessary(glitch_wire *wire)
 
   if(m_toolsOperation == glitch_tools::Operations::INTELLIGENT)
     {
-      auto instance = qobject_cast<QGuiApplication *>
-	(QApplication::instance());
-
-      if(instance && instance->keyboardModifiers() & Qt::ControlModifier)
+      if(glitch_variety::keyboardModifiers() & Qt::ControlModifier)
 	state = true;
     }
   else if(m_toolsOperation == glitch_tools::Operations::WIRE_DISCONNECT)
@@ -1042,7 +995,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Backspace:
     case Qt::Key_Delete:
       {
-	if(QGuiApplication::keyboardModifiers() & Qt::AltModifier)
+	if(glitch_variety::keyboardModifiers() & Qt::AltModifier)
 	  deleteItems();
 
 	break;
@@ -1076,7 +1029,7 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	auto began = false;
 	auto moved = false;
-	auto const pixels = (QGuiApplication::keyboardModifiers() &
+	auto const pixels = (glitch_variety::keyboardModifiers() &
 			     Qt::ControlModifier) ? 50 : 1;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
@@ -1178,9 +1131,11 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
       }
     case Qt::Key_Z:
       {
-	if(QGuiApplication::keyboardModifiers() & Qt::ControlModifier)
+	auto const modifiers = glitch_variety::keyboardModifiers();
+
+	if(modifiers & Qt::ControlModifier)
 	  {
-	    if(QGuiApplication::keyboardModifiers() & Qt::ShiftModifier)
+	    if(modifiers & Qt::ShiftModifier)
 	      redo();
 	    else
 	      undo();
@@ -1198,7 +1153,31 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-  if(event && !m_lastScenePos.isNull())
+  if(event)
+    {
+      m_lastHoverScenePos = event->scenePos();
+
+      if(event->buttons() == Qt::NoButton)
+	{
+	  /*
+	  ** Notice 20.0 in glitch_proxy_widget.cc.
+	  */
+
+	  QRectF rect(m_lastHoverScenePos, QSizeF(20.0, 20.0));
+
+	  rect.moveCenter(m_lastHoverScenePos);
+
+	  foreach(auto item, items(rect))
+	    {
+	      auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (item);
+
+	      if(proxy)
+		proxy->prepareHoverSection(m_lastHoverScenePos);
+	    }
+	}
+    }
+
+  if(event && m_lastScenePos.isNull() == false)
     {
       prepareBackgroundForMove(true);
 
