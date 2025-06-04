@@ -319,7 +319,7 @@ void glitch_proxy_widget::paint
 	      pen.setJoinStyle(Qt::RoundJoin);
 	      pen.setStyle(Qt::SolidLine);
 	      pen.setWidthF
-		(scene() ? (scene()->backgroundBrush().color() ==
+		(m_scene ? (m_scene->backgroundBrush().color() ==
 			    QColor(Qt::white) ? 2.5 : 3.5) : 3.5);
 	      painter->save();
 	      painter->setPen(pen);
@@ -343,7 +343,7 @@ void glitch_proxy_widget::paint
 	  pen.setJoinStyle(Qt::RoundJoin);
 	  pen.setStyle(Qt::SolidLine);
 	  pen.setWidthF
-	    (scene() ? (scene()->backgroundBrush().color() ==
+	    (m_scene ? (m_scene->backgroundBrush().color() ==
 			QColor(Qt::white) ? 2.5 : 3.5) : 3.5);
 	  painter->save();
 	  painter->setPen(pen);
@@ -377,7 +377,7 @@ void glitch_proxy_widget::paint
 	  ** Draw the object's order.
 	  */
 
-	  QFontMetricsF fontMetrics(painter->font());
+	  QFontMetricsF const fontMetrics(painter->font());
 	  QPainterPath path;
 	  QPen pen;
 	  auto const order(QString::number(objectOrder()));

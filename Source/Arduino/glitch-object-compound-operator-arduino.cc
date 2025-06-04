@@ -80,7 +80,7 @@ QSize glitch_object_compound_operator_arduino::preferredSize(void) const
   if(m_operatorType == OperatorTypes::DECREMENT_OPERATOR ||
      m_operatorType == OperatorTypes::INCREMENT_OPERATOR)
     {
-      QFontMetrics fontMetrics(font());
+      QFontMetrics const fontMetrics(font());
       auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.compound_operator->
 				  currentText().trimmed()).width() /

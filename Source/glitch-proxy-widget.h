@@ -67,10 +67,11 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 
   int objectOrder(void) const
   {
-    glitch_scene *scene = qobject_cast<glitch_scene *> (this->scene());
+    if(!m_scene)
+      m_scene = qobject_cast<glitch_scene *> (scene());
 
-    if(scene)
-      return scene->objectOrder(const_cast<glitch_proxy_widget *> (this));
+    if(m_scene)
+      return m_scene->objectOrder(const_cast<glitch_proxy_widget *> (this));
     else
       return -1;
   }
@@ -101,10 +102,10 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
 
  private:
   QPointer<glitch_object> m_object;
-  QPointer<glitch_scene> m_scene;
   QTimer m_hoverTimer;
   Sections m_hoveredSection;
   glitch_resize_widget *m_resizeWidget;
+  mutable QPointer<glitch_scene> m_scene;
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
   bool isWired(void) const;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

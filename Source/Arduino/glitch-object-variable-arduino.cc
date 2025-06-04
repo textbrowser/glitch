@@ -82,7 +82,7 @@ QSize glitch_object_variable_arduino::preferredSize(void) const
 {
   if(m_properties.value(Properties::COMPRESSED_WIDGET).toBool())
     {
-      QFontMetrics fontMetrics(font());
+      QFontMetrics const fontMetrics(font());
       auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.name->text().trimmed()).width() / 5.0) +
 	s_widthTweak;

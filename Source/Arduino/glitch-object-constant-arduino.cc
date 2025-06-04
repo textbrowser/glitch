@@ -73,7 +73,7 @@ QSize glitch_object_constant_arduino::preferredSize(void) const
 {
   if(m_ui.constant->currentText() == tr("Other"))
     {
-      QFontMetrics fontMetrics(font());
+      QFontMetrics const fontMetrics(font());
       auto const width = 5 * qCeil
 	(fontMetrics.boundingRect(m_ui.other->text().trimmed()).width() / 5.0) +
 	(compressed() == false ?

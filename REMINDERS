@@ -400,6 +400,7 @@ Remaining Items
 - ASH.
 - ASH: close.
 - Android: QDialog::exec(), menus, etc.
+- Cancel a wiring operation if the second clicked connection is invalid.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
