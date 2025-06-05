@@ -410,8 +410,6 @@ void glitch_proxy_widget::paint
 	{
 	  auto canDisconnectInput = false;
 	  auto canDisconnectOuput = false;
-	  auto const objectToBeWired = m_scene->objectToBeWired
-	    (m_object->proxy());
 
 	  if(m_object->hasInput())
 	    {
@@ -439,8 +437,6 @@ void glitch_proxy_widget::paint
 	      else
 		painter->fillPath
 		  (path,
-		   objectToBeWired ?
-		   QColor(255, 95, 0) :
 		   m_object->portColor(glitch_object::PortColors::
 				       INPUT_DISCONNECTED));
 	    }
@@ -466,8 +462,6 @@ void glitch_proxy_widget::paint
 	      else
 		painter->fillPath
 		  (path,
-		   objectToBeWired ?
-		   QColor(255, 95, 0) :
 		   m_object->portColor(glitch_object::PortColors::
 				       OUTPUT_DISCONNECTED));
 	    }

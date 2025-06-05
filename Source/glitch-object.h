@@ -202,6 +202,10 @@ class glitch_object: public QWidget
 	    {
 	      return QColor(list.value(1).remove('&'));
 	    }
+	  case PortColors::INPUT_FULL:
+	    {
+	      return QColor(Qt::red);
+	    }
 	  case PortColors::OUTPUT_CONNECTED:
 	    {
 	      return QColor(list.value(2).remove('&'));
