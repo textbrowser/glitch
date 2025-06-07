@@ -198,7 +198,7 @@ void glitch_proxy_widget::drawWireIndicator
  const QRectF &rect,
  const int number)
 {
-  if(!painter || number < 1 || number > 2 || path.isEmpty() || rect.isNull())
+  if(!painter || path.isEmpty() || rect.isNull())
     return;
 
   /*
@@ -241,7 +241,9 @@ void glitch_proxy_widget::drawWireIndicator
   painter->setFont(font);
   painter->setPen(pen);
   painter->drawText
-    (path.boundingRect(), Qt::AlignCenter, QString::number(number));
+    (path.boundingRect(),
+     Qt::AlignCenter,
+     QString::number(qBound(1, number, 2)));
 }
 
 void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
