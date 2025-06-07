@@ -574,7 +574,9 @@ void glitch_proxy_widget::paint
 	      painter->drawText
 		(path.boundingRect(),
 		 Qt::AlignCenter,
-		 QString::number(m_scene->selectedForWiringCount() + 1));
+		 QString::number(m_scene ?
+				 m_scene->selectedForWiringCount() + 1 :
+				 1));
 	    }
 	}
     }
