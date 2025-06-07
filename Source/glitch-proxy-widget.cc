@@ -198,7 +198,7 @@ void glitch_proxy_widget::drawWireIndicator
  const QRectF &rect,
  const int number)
 {
-  if(!painter || path.isEmpty() || rect.isNull())
+  if(!painter || number < 1 || number > 2 || path.isEmpty() || rect.isNull())
     return;
 
   /*
