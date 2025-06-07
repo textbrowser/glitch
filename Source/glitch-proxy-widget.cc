@@ -192,6 +192,58 @@ void glitch_proxy_widget::contextMenuEvent
     QGraphicsProxyWidget::contextMenuEvent(event);
 }
 
+void glitch_proxy_widget::drawWireIndicator
+(QPainter *painter,
+ const QPainterPath &path,
+ const QRectF &rect,
+ const int number)
+{
+  if(!painter || path.isEmpty() || rect.isNull())
+    return;
+
+  /*
+  ** Draw an input or an output selection indicator.
+  */
+
+  painter->fillPath(path, QColor(255, 192, 203, 225));
+
+  QPen pen;
+
+  pen.setColor(QColor(199, 21, 133));
+  pen.setWidthF(1.5);
+  painter->save();
+  painter->setPen(pen);
+
+  if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
+    painter->drawEllipse
+      (rect.topLeft().x() - size().height() / 2.0,
+       rect.topLeft().y(),
+       size().height(),
+       size().height());
+  else
+    painter->drawEllipse
+      (rect.topRight().x() - size().height() / 2.0,
+       rect.topRight().y(),
+       size().height(),
+       size().height());
+
+  painter->restore();
+
+  /*
+  ** Draw wiring order text.
+  */
+
+  auto font(painter->font());
+  
+  font.setBold(true);
+  font.setPointSizeF(25.0);
+  pen.setColor(Qt::white);
+  painter->setFont(font);
+  painter->setPen(pen);
+  painter->drawText
+    (path.boundingRect(), Qt::AlignCenter, QString::number(number));
+}
+
 void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
 {
   emit geometryChangedSignal(previousRect);
@@ -533,50 +585,14 @@ void glitch_proxy_widget::paint
 		return;
 
 	      /*
-	      ** Draw an input or an output selection indicator.
+	      ** Draw a wire indicator.
 	      */
 
-	      painter->fillPath(path, QColor(255, 192, 203, 225));
-
-	      QPen pen;
-
-	      pen.setColor(QColor(199, 21, 133));
-	      pen.setWidthF(1.5);
-	      painter->save();
-	      painter->setPen(pen);
-
-	      if(m_hoveredSection == Sections::LEFT && m_object->hasInput())
-		painter->drawEllipse
-		  (rect.topLeft().x() - size().height() / 2.0,
-		   rect.topLeft().y(),
-		   size().height(),
-		   size().height());
-	      else
-		painter->drawEllipse
-		  (rect.topRight().x() - size().height() / 2.0,
-		   rect.topRight().y(),
-		   size().height(),
-		   size().height());
-
-	      painter->restore();
-
-	      /*
-	      ** Draw wiring order text.
-	      */
-
-	      auto font(painter->font());
-
-	      font.setBold(true);
-	      font.setPointSizeF(25.0);
-	      pen.setColor(Qt::white);
-	      painter->setFont(font);
-	      painter->setPen(pen);
-	      painter->drawText
-		(path.boundingRect(),
-		 Qt::AlignCenter,
-		 QString::number(m_scene ?
-				 m_scene->selectedForWiringCount() + 1 :
-				 1));
+	      drawWireIndicator
+		(painter,
+		 path,
+		 rect,
+		 m_scene ? m_scene->selectedForWiringCount() + 1 : 1);
 	    }
 	}
     }

@@ -109,6 +109,11 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
   QVariant itemChange(GraphicsItemChange change, const QVariant &value);
   bool isWired(void) const;
   void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+  void drawWireIndicator
+    (QPainter *painter,
+     const QPainterPath &path,
+     const QRectF &rect,
+     const int number);
   void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
   void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
