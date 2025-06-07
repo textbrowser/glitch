@@ -176,17 +176,12 @@ glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
 void glitch_proxy_widget::contextMenuEvent
 (QGraphicsSceneContextMenuEvent *event)
 {
-  if(event)
+  if(event && m_object)
     {
-      if(m_object)
-	{
-	  QMenu menu;
+      QMenu menu;
 
-	  m_object->addActions(menu);
-	  menu.exec(event->screenPos());
-	}
-      else
-	QGraphicsProxyWidget::contextMenuEvent(event);
+      m_object->addActions(menu);
+      menu.exec(event->screenPos());
     }
   else
     QGraphicsProxyWidget::contextMenuEvent(event);
@@ -202,7 +197,7 @@ void glitch_proxy_widget::drawWireIndicator
     return;
 
   /*
-  ** Draw an input or an output selection indicator.
+  ** Draw an input or an output connection indicator.
   */
 
   painter->fillPath(path, QColor(255, 192, 203, 225));
