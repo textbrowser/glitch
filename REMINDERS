@@ -291,6 +291,7 @@ Completed Items
 - Reset object order on delete / redo / undo.
 - Resize objects manually.
 - Resize objects? Yes, option included.
+- Retain 1st-clicked wiring port.
 - Retain Find Objects selection after an action.
 - Retain Tools Bar position.
 - Retain edit window geometry and state.
@@ -411,5 +412,4 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
-- Retain 1st-clicked wiring port. New color?
 - Snap-to-visible-grid.
