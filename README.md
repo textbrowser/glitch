@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.05.31 is the newest source release.</b>
+<b>Version 2025.06.08 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,21 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.06.08</p>
+<ul>
+<li>Constant objects.</li>
+<li>Control + S will now activate a save in Canvas Settings.</li>
+<li>Display a hefty cursor whenever the mouse hovers
+  over an object.</li>
+<li>Fully-connected input ports are depicted with red colors for
+  displays created with Glitch versions before 2025.05.10.</li>
+<li>Highlight a connection port during the wiring process.</li>
+<li>Highlight object wiring port from its parent scene.</li>
+<li>New tool tips in Categories widget.</li>
+<li>Utilize m_scene in glitch_proxy_widget::objectOrder(). Speedier
+  results.</li>
+</ul>
 
 <p>2025.05.31</p>
 <ul>
