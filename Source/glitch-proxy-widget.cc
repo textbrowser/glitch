@@ -229,7 +229,7 @@ void glitch_proxy_widget::drawWireIndicator
   */
 
   auto font(painter->font());
-  
+
   font.setBold(true);
   font.setPointSizeF(25.0);
   pen.setColor(Qt::white);
@@ -466,13 +466,18 @@ void glitch_proxy_widget::paint
 	      ** Draw an input port.
 	      */
 
+	      QColor color;
 	      QPainterPath path;
 	      auto const rect(this->rect());
+	      auto const size =
+		m_scene && m_scene->objectToBeWired(m_object->proxy()) ?
+		30.0 : 10.0;
 
-	      path.addEllipse(rect.topLeft().x() - 5.5,
-			      rect.height() / 2.0 + rect.topLeft().y() - 5.0,
-			      10.0,
-			      10.0);
+	      path.addEllipse
+		(rect.topLeft().x() - (0.5 + size / 2.0),
+		 rect.height() / 2.0 + rect.topLeft().y() - size / 2.0,
+		 size,
+		 size);
 
 	      if((canDisconnectInput = m_object->isInputWired()))
 		{
@@ -481,13 +486,28 @@ void glitch_proxy_widget::paint
 		    glitch_object::PortColors::INPUT_CONNECTED :
 		    glitch_object::PortColors::INPUT_FULL;
 
-		  painter->fillPath(path, m_object->portColor(portColorType));
+		  painter->fillPath
+		    (path, color = m_object->portColor(portColorType));
 		}
 	      else
 		painter->fillPath
 		  (path,
-		   m_object->portColor(glitch_object::PortColors::
-				       INPUT_DISCONNECTED));
+		   color = m_object->portColor(glitch_object::PortColors::
+					       INPUT_DISCONNECTED));
+
+	      if(size > 10.0)
+		{
+		  QPen pen;
+		  auto font(painter->font());
+
+		  font.setBold(true);
+		  font.setPointSizeF(size / 2.0);
+		  pen.setColor(color.lighter(200));
+		  painter->setFont(font);
+		  painter->setPen(pen);
+		  painter->drawText
+		    (path.boundingRect(), Qt::AlignCenter, QString::number(1));
+		}
 	    }
 
 	  if(m_object->hasOutput())
@@ -496,23 +516,43 @@ void glitch_proxy_widget::paint
 	      ** Draw an output port.
 	      */
 
+	      QColor color;
 	      QPainterPath path;
 	      auto const rect(this->rect());
+	      auto const size =
+		m_scene && m_scene->objectToBeWired(m_object->proxy()) ?
+		30.0 : 10.0;
 
-	      path.addEllipse(rect.topRight().x() - 5.5,
-			      rect.height() / 2.0 + rect.topRight().y() - 5.0,
-			      10.0,
-			      10.0);
+	      path.addEllipse
+		(rect.topRight().x() - (0.5 + size / 2.0),
+		 rect.height() / 2.0 + rect.topRight().y() - size / 2.0,
+		 size,
+		 size);
 
 	      if((canDisconnectOuput = m_object->isOutputWired()))
 		painter->fillPath
-		  (path, m_object->portColor(glitch_object::PortColors::
-					     OUTPUT_CONNECTED));
+		  (path,
+		   color = m_object->portColor(glitch_object::PortColors::
+					       OUTPUT_CONNECTED));
 	      else
 		painter->fillPath
 		  (path,
-		   m_object->portColor(glitch_object::PortColors::
-				       OUTPUT_DISCONNECTED));
+		   color = m_object->portColor(glitch_object::PortColors::
+					       OUTPUT_DISCONNECTED));
+
+	      if(size > 10.0)
+		{
+		  QPen pen;
+		  auto font(painter->font());
+
+		  font.setBold(true);
+		  font.setPointSizeF(size / 2.0);
+		  pen.setColor(color.lighter(200));
+		  painter->setFont(font);
+		  painter->setPen(pen);
+		  painter->drawText
+		    (path.boundingRect(), Qt::AlignCenter, QString::number(1));
+		}
 	    }
 
 	  if((m_hoveredSection == Sections::LEFT && m_object->hasInput()) ||
