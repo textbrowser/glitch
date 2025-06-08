@@ -478,22 +478,25 @@ void glitch_proxy_widget::paint
 		 size,
 		 size);
 
-	      if((canDisconnectInput = m_object->isInputWired()))
+	      if(size < 30.0)
 		{
-		  auto const portColorType =
-		    m_object->isFullyWired() == false ?
-		    glitch_object::PortColors::INPUT_CONNECTED :
-		    glitch_object::PortColors::INPUT_FULL;
+		  if((canDisconnectInput = m_object->isInputWired()))
+		    {
+		      auto const portColorType =
+			m_object->isFullyWired() == false ?
+			glitch_object::PortColors::INPUT_CONNECTED :
+			glitch_object::PortColors::INPUT_FULL;
 
-		  painter->fillPath(path, m_object->portColor(portColorType));
+		      painter->fillPath
+			(path, m_object->portColor(portColorType));
+		    }
+		  else
+		    painter->fillPath
+		      (path,
+		       m_object->portColor(glitch_object::PortColors::
+					   INPUT_DISCONNECTED));
 		}
 	      else
-		painter->fillPath
-		  (path,
-		   m_object->portColor(glitch_object::PortColors::
-				       INPUT_DISCONNECTED));
-
-	      if(size > 10.0)
 		{
 		  QPen pen;
 		  auto font(painter->font());
@@ -526,18 +529,20 @@ void glitch_proxy_widget::paint
 		 size,
 		 size);
 
-	      if((canDisconnectOuput = m_object->isOutputWired()))
-		painter->fillPath
-		  (path,
-		   m_object->portColor(glitch_object::PortColors::
-				       OUTPUT_CONNECTED));
+	      if(size < 30.0)
+		{
+		  if((canDisconnectOuput = m_object->isOutputWired()))
+		    painter->fillPath
+		      (path,
+		       m_object->portColor(glitch_object::PortColors::
+					   OUTPUT_CONNECTED));
+		  else
+		    painter->fillPath
+		      (path,
+		       m_object->portColor(glitch_object::PortColors::
+					   OUTPUT_DISCONNECTED));
+		}
 	      else
-		painter->fillPath
-		  (path,
-		   m_object->portColor(glitch_object::PortColors::
-				       OUTPUT_DISCONNECTED));
-
-	      if(size > 10.0)
 		{
 		  QPen pen;
 		  auto font(painter->font());
