@@ -87,7 +87,7 @@ glitch_scene::glitch_scene
 (const glitch_common::ProjectTypes projectType, QObject *parent):
   QGraphicsScene(parent)
 {
-  m_dotsGridsColor = Qt::white;
+  m_dotsGridsColor = QColor(Qt::white);
   m_loadingFromFile = false;
   m_mainScene = false;
   m_projectType = projectType;
@@ -1860,7 +1860,7 @@ void glitch_scene::setDotsGridsColor(const QColor &color)
   if(color.isValid())
     m_dotsGridsColor = color;
   else
-    m_dotsGridsColor = Qt::white;
+    m_dotsGridsColor = QColor(Qt::white);
 }
 
 void glitch_scene::setLoadingFromFile(const bool state)

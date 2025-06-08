@@ -118,7 +118,7 @@ glitch_view::glitch_view
   m_saveTimer.setSingleShot(true);
   m_scene->setBackgroundBrush(QColor("#55aaff"));
   m_scene->setCanvasSettings(m_canvasSettings);
-  m_scene->setDotsGridsColor(Qt::white);
+  m_scene->setDotsGridsColor(QColor(Qt::white));
   m_scene->setMainScene(true);
   m_scene->setShowCanvasDots(m_canvasSettings->showCanvasDots());
   m_scene->setShowCanvasGrids(m_canvasSettings->showCanvasGrids());

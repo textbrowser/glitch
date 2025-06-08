@@ -232,7 +232,7 @@ void glitch_proxy_widget::drawWireIndicator
 
   font.setBold(true);
   font.setPointSizeF(25.0);
-  pen.setColor(Qt::white);
+  pen.setColor(QColor(Qt::white));
   painter->setFont(font);
   painter->setPen(pen);
   painter->drawText
@@ -438,7 +438,7 @@ void glitch_proxy_widget::paint
 	     point.y() - 25.0,
 	     30.0 + fontMetrics.boundingRect(order).width(),
 	     30.0);
-	  pen.setColor(Qt::blue);
+	  pen.setColor(QColor(Qt::blue));
 	  pen.setWidthF(1.0);
 	  painter->save();
 	  painter->setPen(pen);
@@ -448,7 +448,7 @@ void glitch_proxy_widget::paint
 	  painter->save();
 	  font.setBold(true);
 	  font.setPointSizeF(11.5);
-	  pen.setColor(Qt::white);
+	  pen.setColor(QColor(Qt::white));
 	  painter->setFont(font);
 	  painter->setPen(pen);
 	  painter->drawText(path.boundingRect(), Qt::AlignCenter, order);
@@ -466,7 +466,6 @@ void glitch_proxy_widget::paint
 	      ** Draw an input port.
 	      */
 
-	      QColor color;
 	      QPainterPath path;
 	      auto const rect(this->rect());
 	      auto const size =
@@ -486,14 +485,13 @@ void glitch_proxy_widget::paint
 		    glitch_object::PortColors::INPUT_CONNECTED :
 		    glitch_object::PortColors::INPUT_FULL;
 
-		  painter->fillPath
-		    (path, color = m_object->portColor(portColorType));
+		  painter->fillPath(path, m_object->portColor(portColorType));
 		}
 	      else
 		painter->fillPath
 		  (path,
-		   color = m_object->portColor(glitch_object::PortColors::
-					       INPUT_DISCONNECTED));
+		   m_object->portColor(glitch_object::PortColors::
+				       INPUT_DISCONNECTED));
 
 	      if(size > 10.0)
 		{
@@ -502,11 +500,11 @@ void glitch_proxy_widget::paint
 
 		  font.setBold(true);
 		  font.setPointSizeF(size / 2.0);
-		  pen.setColor(color.lighter(200));
+		  pen.setColor(QColor(Qt::white));
+		  painter->fillPath(path, QColor(255, 121, 0));
 		  painter->setFont(font);
 		  painter->setPen(pen);
-		  painter->drawText
-		    (path.boundingRect(), Qt::AlignCenter, QString::number(1));
+		  painter->drawText(path.boundingRect(), Qt::AlignCenter, "1");
 		}
 	    }
 
@@ -516,7 +514,6 @@ void glitch_proxy_widget::paint
 	      ** Draw an output port.
 	      */
 
-	      QColor color;
 	      QPainterPath path;
 	      auto const rect(this->rect());
 	      auto const size =
@@ -532,13 +529,13 @@ void glitch_proxy_widget::paint
 	      if((canDisconnectOuput = m_object->isOutputWired()))
 		painter->fillPath
 		  (path,
-		   color = m_object->portColor(glitch_object::PortColors::
-					       OUTPUT_CONNECTED));
+		   m_object->portColor(glitch_object::PortColors::
+				       OUTPUT_CONNECTED));
 	      else
 		painter->fillPath
 		  (path,
-		   color = m_object->portColor(glitch_object::PortColors::
-					       OUTPUT_DISCONNECTED));
+		   m_object->portColor(glitch_object::PortColors::
+				       OUTPUT_DISCONNECTED));
 
 	      if(size > 10.0)
 		{
@@ -547,11 +544,11 @@ void glitch_proxy_widget::paint
 
 		  font.setBold(true);
 		  font.setPointSizeF(size / 2.0);
-		  pen.setColor(color.lighter(200));
+		  pen.setColor(QColor(Qt::white));
+		  painter->fillPath(path, QColor(255, 121, 0));
 		  painter->setFont(font);
 		  painter->setPen(pen);
-		  painter->drawText
-		    (path.boundingRect(), Qt::AlignCenter, QString::number(1));
+		  painter->drawText(path.boundingRect(), Qt::AlignCenter, "1");
 		}
 	    }
 
