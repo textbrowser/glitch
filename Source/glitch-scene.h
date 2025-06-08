@@ -69,6 +69,8 @@ class glitch_scene: public QGraphicsScene
   QSet<glitch_wire *> wires(void) const;
   bool areObjectsWired(glitch_object *object1, glitch_object *object2) const;
   bool objectToBeWired(glitch_proxy_widget *proxy) const;
+  bool objectToBeWiredIn(glitch_proxy_widget *proxy) const;
+  bool objectToBeWiredOut(glitch_proxy_widget *proxy) const;
   glitch_proxy_widget *addObject(glitch_object *object);
   glitch_tools::Operations toolsOperation(void) const;
   int objectOrder(glitch_proxy_widget *proxy) const;

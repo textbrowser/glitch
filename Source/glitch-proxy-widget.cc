@@ -469,7 +469,7 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto const rect(this->rect());
 	      auto const size =
-		m_scene && m_scene->objectToBeWired(m_object->proxy()) ?
+		m_scene && m_scene->objectToBeWiredIn(m_object->proxy()) ?
 		30.0 : 10.0;
 
 	      path.addEllipse
@@ -517,7 +517,7 @@ void glitch_proxy_widget::paint
 	      QPainterPath path;
 	      auto const rect(this->rect());
 	      auto const size =
-		m_scene && m_scene->objectToBeWired(m_object->proxy()) ?
+		m_scene && m_scene->objectToBeWiredOut(m_object->proxy()) ?
 		30.0 : 10.0;
 
 	      path.addEllipse

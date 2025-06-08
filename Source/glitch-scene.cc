@@ -327,6 +327,36 @@ bool glitch_scene::objectToBeWired(glitch_proxy_widget *proxy) const
   return false;
 }
 
+bool glitch_scene::objectToBeWiredIn(glitch_proxy_widget *proxy) const
+{
+  QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value().data() == proxy)
+	return it.key() == "input";
+    }
+
+  return false;
+}
+
+bool glitch_scene::objectToBeWiredOut(glitch_proxy_widget *proxy) const
+{
+  QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);
+
+  while(it.hasNext())
+    {
+      it.next();
+
+      if(it.value().data() == proxy)
+	return it.key() == "output";
+    }
+
+  return false;
+}
+
 glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 {
   if(!object || object->proxy() || object->scene() == this)
