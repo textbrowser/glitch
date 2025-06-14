@@ -1341,7 +1341,7 @@ void glitch_view::launchProjectIDE(void) const
     {
       if(outputFile.length() > 0)
 	{
-	  if(!QFileInfo(outputFile).exists())
+	  if(!QFileInfo::exists(outputFile))
 	    generateSourceFile();
 
 	  QProcess::startDetached(program, QStringList() << outputFile);

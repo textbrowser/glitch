@@ -130,11 +130,11 @@ void glitch_ui::copyExamplesForAndroid(void)
   dir = QDir("assets:/Examples");
 
   foreach(auto const &str, dir.entryList())
-    if(!QFileInfo(glitch_variety::homePath() +
-		  QDir::separator() +
-		  "Examples" +
-		  QDir::separator() +
-		  str).exists())
+    if(!QFileInfo::exists(glitch_variety::homePath() +
+			  QDir::separator() +
+			  "Examples" +
+			  QDir::separator() +
+			  str))
       {
 	QFile file(dir.absolutePath() + QDir::separator() + str);
 
