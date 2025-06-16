@@ -281,6 +281,57 @@ bool glitch_scene::allowDrag
     }
 }
 
+bool glitch_scene::areObjectsWireCompatible(glitch_object *object) const
+{
+  if(!object)
+    return false;
+
+  if(m_objectsToWire.isEmpty())
+    {
+      auto proxy = object->proxy();
+
+      if(object->hasInput() &&
+	 object->isFullyWired() == false &&
+	 proxy &&
+	 proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	return true;
+      else if(object->hasOutput() &&
+	      proxy &&
+	      proxy->hoveredSection() == glitch_proxy_widget::Sections::RIGHT)
+	return true;
+    }
+
+  glitch_object *other = nullptr;
+
+  if(m_objectsToWire.value("input"))
+    other = qobject_cast<glitch_object *>
+      (m_objectsToWire.value("input")->widget());
+  else if(m_objectsToWire.value("output"))
+    other = qobject_cast<glitch_object *>
+      (m_objectsToWire.value("output")->widget());
+
+  if(areObjectsWired(object, other) || object == other || other == nullptr)
+    return false;
+
+  auto proxy = object->proxy();
+
+  if(m_objectsToWire.value("input") &&
+     m_objectsToWire.value("input")->widget() == other &&
+     object->hasOutput() &&
+     proxy &&
+     proxy->hoveredSection() == glitch_proxy_widget::Sections::RIGHT)
+    return true;
+  else if(m_objectsToWire.value("output") &&
+	  m_objectsToWire.value("output")->widget() == other &&
+	  object->hasInput() &&
+	  object->isFullyWired() == false &&
+	  proxy &&
+	  proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+    return true;
+
+  return false;
+}
+
 bool glitch_scene::areObjectsWired
 (glitch_object *object1, glitch_object *object2) const
 {
@@ -2221,20 +2272,16 @@ void glitch_scene::wireConnectObjects(glitch_proxy_widget *proxy)
       return;
     }
   else if(m_objectsToWire.size() == 1)
-    {
-      if(object->hasInput() || object->hasOutput())
+    if(object->hasInput() || object->hasOutput())
+      if(!m_objectsToWire.values().contains(proxy))
 	{
-	  if(!m_objectsToWire.values().contains(proxy))
-	    {
-	      if(!object->isFullyWired() &&
-		 proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
-		m_objectsToWire["input"] = proxy;
-	      else if(proxy->hoveredSection() ==
-		      glitch_proxy_widget::Sections::RIGHT)
-		m_objectsToWire["output"] = proxy;
-	    }
+	  if(!object->isFullyWired() &&
+	     proxy->hoveredSection() == glitch_proxy_widget::Sections::LEFT)
+	    m_objectsToWire["input"] = proxy;
+	  else if(proxy->hoveredSection() ==
+		  glitch_proxy_widget::Sections::RIGHT)
+	    m_objectsToWire["output"] = proxy;
 	}
-    }
 
   if(m_objectsToWire.value("input") && m_objectsToWire.value("output"))
     {

@@ -617,21 +617,13 @@ void glitch_proxy_widget::paint
 		    }
 		}
 
-	      if((m_hoveredSection == Sections::LEFT &&
-		  m_object->hasInput() &&
-		  m_object->isFullyWired()) ||
-		 (m_scene && m_scene->objectToBeWired(m_object->proxy())))
-		return;
-
-	      /*
-	      ** Draw a wire indicator.
-	      */
-
-	      drawWireIndicator
-		(painter,
-		 path,
-		 rect,
-		 m_scene ? m_scene->selectedForWiringCount() + 1 : 1);
+	      if(m_scene &&
+		 m_scene->areObjectsWireCompatible(m_object))
+		drawWireIndicator
+		  (painter,
+		   path,
+		   rect,
+		   m_scene ? m_scene->selectedForWiringCount() + 1 : 1);
 	    }
 	}
     }
