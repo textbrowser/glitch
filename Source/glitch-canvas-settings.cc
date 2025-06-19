@@ -1306,6 +1306,8 @@ void glitch_canvas_settings::slotResetSourceViewKeywords(void)
   if(m_ui.project_type->currentText() == tr("Arduino"))
     colors = glitch_structures_arduino::defaultColors();
 
+  m_ui.source_view_keywords->clearSelection();
+  m_ui.source_view_keywords->scrollToTop();
   m_ui.source_view_keywords->setSortingEnabled(false);
 
   for(int i = 0; i < m_ui.source_view_keywords->rowCount(); i++)
