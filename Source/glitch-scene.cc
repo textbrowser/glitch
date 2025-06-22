@@ -340,14 +340,17 @@ bool glitch_scene::areObjectsWired
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QSetIterator<glitch_wire *> it(m_wires);
+  QMutableSetIterator<glitch_wire *> it(m_wires);
 
   while(it.hasNext())
     {
       auto wire = it.next();
 
       if(!wire)
-	continue;
+	{
+	  it.remove();
+	  continue;
+	}
 
       if((object1->proxy() == wire->leftProxy() &&
 	  object2->proxy() == wire->rightProxy()) ||
@@ -1883,15 +1886,20 @@ void glitch_scene::removeItem(QGraphicsItem *item)
 
 void glitch_scene::saveWires(const QSqlDatabase &db, QString &error)
 {
-  QSetIterator<glitch_wire *> it(m_wires);
+  QMutableSetIterator<glitch_wire *> it(m_wires);
   QSqlQuery query(db);
 
   while(it.hasNext())
     {
       auto wire = it.next();
 
-      if(!wire ||
-	 !wire->leftProxy() ||
+      if(!wire)
+	{
+	  it.remove();
+	  continue;
+	}
+
+      if(!wire->leftProxy() ||
 	 !wire->leftProxy()->object() ||
 	 !wire->leftProxy()->scene() ||
 	 !wire->rightProxy() ||
@@ -1984,7 +1992,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-  QSetIterator<glitch_wire *> it(m_wires);
+  QMutableSetIterator<glitch_wire *> it(m_wires);
 
   while(it.hasNext())
     {
@@ -1996,6 +2004,8 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
 	  wire->setWireType(m_canvasSettings->wireType());
 	  wire->setWireWidth(m_canvasSettings->wireWidth());
 	}
+      else
+	it.remove();
     }
 
   m_dotsGridsColor = m_canvasSettings->dotsGridsColor();

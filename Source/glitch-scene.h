@@ -115,13 +115,13 @@ class glitch_scene: public QGraphicsScene
   QPointF m_lastScenePos;
   QPointer<QUndoStack> m_undoStack;
   QPointer<glitch_canvas_settings> m_canvasSettings;
-  QSet<glitch_wire *> m_wires;
   bool m_loadingFromFile;
   bool m_mainScene;
   bool m_showCanvasDots;
   bool m_showCanvasGrids;
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
+  mutable QSet<glitch_wire *> m_wires;
   QGraphicsView *primaryView(void) const;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
   void bringToFront(glitch_proxy_widget *proxy);
