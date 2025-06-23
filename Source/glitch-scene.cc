@@ -338,8 +338,6 @@ bool glitch_scene::areObjectsWired
   if(!object1 || !object2)
     return false;
 
-  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-
   QMutableSetIterator<glitch_wire *> it(m_wires);
 
   while(it.hasNext())
@@ -356,13 +354,9 @@ bool glitch_scene::areObjectsWired
 	  object2->proxy() == wire->rightProxy()) ||
 	 (object1->proxy() == wire->rightProxy() &&
 	  object2->proxy() == wire->leftProxy()))
-	{
-	  QApplication::restoreOverrideCursor();
-	  return true;
-	}
+	return true;
     }
 
-  QApplication::restoreOverrideCursor();
   return false;
 }
 
