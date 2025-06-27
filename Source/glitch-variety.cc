@@ -299,6 +299,7 @@ void glitch_variety::sortCombinationBox(QComboBox *comboBox)
     return;
 
   QStringList list;
+  auto const text(comboBox->currentText());
 
   for(int i = 0; i < comboBox->count(); i++)
     list << comboBox->itemText(i);
@@ -307,5 +308,6 @@ void glitch_variety::sortCombinationBox(QComboBox *comboBox)
   comboBox->blockSignals(true);
   comboBox->clear();
   comboBox->addItems(list);
+  comboBox->setCurrentIndex(comboBox->findText(text));
   comboBox->blockSignals(false);
 }

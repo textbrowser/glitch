@@ -259,7 +259,7 @@ void glitch_serial_port_window::slotErrorOccurred
 {
   auto serialPort = qobject_cast<QSerialPort *> (sender());
 
-  if(serialPort)
+  if(error != QSerialPort::NoError && serialPort)
     {
       m_ui.last_error->setText
 	(QString("%1:%2:%3 (%4)").
