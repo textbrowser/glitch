@@ -50,6 +50,8 @@ Completed Items
 - Attach Structures to canvas page. Android and others.
 - Awesome color images to buttons instead of basic backgrounds.
 - Background color for natively-drawn widget.
+- Cancel a wiring operation if the second clicked connection is invalid.
+  No, may be an invalid click.
 - Canvas background color redo / undo.
 - Canvas printing! Save as PNG instead.
 - Center child edit windows!
@@ -401,7 +403,6 @@ Remaining Items
 - ASH.
 - ASH: close.
 - Android: QDialog::exec(), menus, etc.
-- Cancel a wiring operation if the second clicked connection is invalid.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
