@@ -498,6 +498,10 @@ void glitch_proxy_widget::paint
 		}
 	      else
 		{
+		  /*
+		  ** Draw the first ("1") indicator.
+		  */
+
 		  QPen pen;
 		  auto font(painter->font());
 
@@ -544,6 +548,10 @@ void glitch_proxy_widget::paint
 		}
 	      else
 		{
+		  /*
+		  ** Draw the first ("1") indicator.
+		  */
+
 		  QPen pen;
 		  auto font(painter->font());
 
