@@ -8,7 +8,12 @@ set_qt_qpa_platformtheme()
 
     if [ ! -z "$qt6" ]
     then
-	export QT_QPA_PLATFORMTHEME=qt6ct
+	if [ ! -z "$(which qt6ct)" ]
+	then
+	    echo "Exporting QT_QPA_PLATFORMTHEME as qt6ct."
+
+	    export QT_QPA_PLATFORMTHEME=qt6ct
+	fi
     fi
 }
 
