@@ -56,7 +56,7 @@ QPointF glitch_variety::dbPointToPointF(const QString &text)
 
 QString glitch_variety::homePath(void)
 {
-  QString homePath(qgetenv("GLITCH_HOME").trimmed());
+  auto homePath(QString::fromLocal8Bit(qgetenv("GLITCH_HOME")).trimmed());
 
   if(homePath.isEmpty())
 #ifdef Q_OS_WINDOWS
