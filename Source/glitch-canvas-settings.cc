@@ -304,7 +304,7 @@ QMap<QString, QColor> glitch_canvas_settings::keywordColorsAsMap(void) const
 	map[list.at(0)] = QColor(list.at(1));
     }
 
-  if(m_ui.project_type->currentText() == tr("Arduino") && map.isEmpty())
+  if(m_ui.project_type->currentText() == "Arduino" && map.isEmpty())
     {
       QHashIterator<QString, QColor> it
 	(glitch_structures_arduino::defaultColors());
@@ -327,7 +327,7 @@ QString glitch_canvas_settings::categoriesIconSize(void) const
 
 QString glitch_canvas_settings::defaultName(void) const
 {
-  if(m_ui.project_type->currentText() == tr("Arduino"))
+  if(m_ui.project_type->currentText() == "Arduino")
     return "Arduino-Diagram";
   else
     return "Diagram";
@@ -993,7 +993,7 @@ void glitch_canvas_settings::prepareKeywordColors(const QString &text)
 	map[list.at(0)] = QColor(list.at(1));
     }
 
-  if(m_ui.project_type->currentText() == tr("Arduino") && map.isEmpty())
+  if(m_ui.project_type->currentText() == "Arduino" && map.isEmpty())
     {
       QHashIterator<QString, QColor> it
 	(glitch_structures_arduino::defaultColors());
@@ -1099,7 +1099,7 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
 {
   QHash<QString, QColor> colors;
 
-  if(m_ui.project_type->currentText() == tr("Arduino"))
+  if(m_ui.project_type->currentText() == "Arduino")
     colors = glitch_structures_arduino::defaultColors();
 
   m_ui.source_view_keywords->setRowCount(list.size());
@@ -1303,7 +1303,7 @@ void glitch_canvas_settings::slotResetSourceViewKeywords(void)
 {
   QHash<QString, QColor> colors;
 
-  if(m_ui.project_type->currentText() == tr("Arduino"))
+  if(m_ui.project_type->currentText() == "Arduino")
     colors = glitch_structures_arduino::defaultColors();
 
   m_ui.source_view_keywords->clearSelection();

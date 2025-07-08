@@ -839,6 +839,8 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 
   if(view)
     view->setSceneRect(size());
+
+  slotPreferencesAccepted();
 }
 
 void glitch_object_edit_window::showPreview(const bool state)

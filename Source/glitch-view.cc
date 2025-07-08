@@ -2312,7 +2312,7 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
     {
       auto w = qobject_cast<glitch_object_edit_window *> (window);
 
-      if(w)
+      if(w && w->isVisible() == false)
 	{
 	  w->close();
 	  QApplication::processEvents();

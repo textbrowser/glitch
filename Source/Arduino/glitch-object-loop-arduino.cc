@@ -176,7 +176,7 @@ void glitch_object_loop_arduino::createEditObjects(void)
   m_editWindow->setEditView(m_editView);
   m_editWindow->setUndoStack(m_undoStack);
   prepareEditObjects(findNearestGlitchView(m_parent));
-  setEditWindowTitle(tr("loop()"));
+  setEditWindowTitle("loop()");
 }
 
 void glitch_object_loop_arduino::hideOrShowOccupied(void)
