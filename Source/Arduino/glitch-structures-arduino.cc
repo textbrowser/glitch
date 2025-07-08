@@ -53,7 +53,7 @@ glitch_structures_arduino::glitch_structures_arduino(QWidget *parent):
   m_ui.tree->setProjectType(glitch_common::ProjectTypes::ArduinoProject);
   m_ui.tree->sortItems(0, Qt::AscendingOrder);
   setWindowModality(Qt::NonModal);
-  setWindowTitle(tr("Glitch: Arduino Structures"));
+  setWindowTitle(tr("Glitch: ") + "Arduino" + tr(" Structures"));
 }
 
 glitch_structures_arduino::~glitch_structures_arduino()

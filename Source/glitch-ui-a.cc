@@ -483,7 +483,9 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 		if(name.isEmpty())
 		  error = tr("Empty diagram name.");
 		else
-		  error = tr("Expecting a diagram type of ArduinoProject.");
+		  error = tr("Expecting a diagram type of ") +
+		    "ArduinoProject" +
+		    tr(".");
 
 		ok = false;
 	      }
@@ -2074,7 +2076,7 @@ void glitch_ui::slotNewArduinoDiagram(void)
 	"the %1 directory.").arg(glitch_variety::homePath()));
   dialog.setTextValue("Arduino-Diagram");
   dialog.setWindowIcon(windowIcon());
-  dialog.setWindowTitle(tr("Glitch: Arduino Project Name"));
+  dialog.setWindowTitle(tr("Glitch: ") + "Arduino" + tr(" Project Name"));
   dialog.resize(450, dialog.sizeHint().height());
 
   if((label = dialog.findChild<QLabel *> ()))
@@ -2138,7 +2140,7 @@ void glitch_ui::slotOpenDiagram(void)
   dialog.setDirectory(glitch_variety::homePath());
   dialog.setFileMode(QFileDialog::ExistingFiles);
   dialog.setLabelText(QFileDialog::Accept, tr("Select"));
-  dialog.setNameFilters(QStringList() << tr("Arduino Diagrams (*.db)"));
+  dialog.setNameFilters(QStringList() << "Arduino" + tr(" Diagrams (*.db)"));
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());
   dialog.setWindowTitle(tr("Glitch: Open Diagram(s)"));
@@ -2499,7 +2501,8 @@ void glitch_ui::slotShowArduinoDocumentation(void)
   if(!m_arduino)
     {
       m_arduino = new glitch_documentation(":/Arduino/Arduino.pdf", this);
-      m_arduino->setWindowTitle(tr("Glitch: Arduino Documentation"));
+      m_arduino->setWindowTitle
+	(tr("Glitch: ") + "Arduino" + tr(" Documentation"));
     }
 
 #ifdef Q_OS_ANDROID
