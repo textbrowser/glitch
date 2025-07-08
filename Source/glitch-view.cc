@@ -2314,6 +2314,8 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 
       if(w)
 	{
+	  w->close();
+	  QApplication::processEvents();
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
@@ -2336,26 +2338,22 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 		     &glitch_object_edit_window::closedByButton,
 		     this,
 		     &glitch_view::slotEditWindowClosed);
+	  w->close();
 	  w->prepareForTab(true);
+	  QApplication::processEvents();
+	  m_ui.tab->addTab
+	    (w,
+	     w->windowTitle().mid(w->windowTitle().indexOf(':') + 1).trimmed());
+	  m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
+	  m_ui.tab->setTabToolTip
+	    (m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
+	  prepareTabWidgetCloseButtons();
+	  connect
+	    (w,
+	     &glitch_object_edit_window::closedByButton,
+	     this,
+	     &glitch_view::slotEditWindowClosed);
 	}
-
-      window->close();
-      QApplication::processEvents();
-      m_ui.tab->addTab
-	(window,
-	 window->windowTitle().mid(window->windowTitle().indexOf(':') + 1).
-	 trimmed());
-      m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
-      m_ui.tab->setTabToolTip
-	(m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
-      prepareTabWidgetCloseButtons();
-
-      if(w)
-	connect
-	  (w,
-	   &glitch_object_edit_window::closedByButton,
-	   this,
-	   &glitch_view::slotEditWindowClosed);
     }
   else
     m_ui.tab->setCurrentIndex(index);

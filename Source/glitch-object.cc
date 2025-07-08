@@ -1991,6 +1991,7 @@ void glitch_object::showEditWindow(const bool signal)
 {
   if(m_editView && m_editWindow)
     {
+      signal ? emit showEditWindow(m_editWindow) : (void) 0;
       m_editView->setVisible(false);
       m_editWindow->prepareToolBars(m_editView->alignmentActions());
       m_editWindow->setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
@@ -2019,7 +2020,6 @@ void glitch_object::showEditWindow(const bool signal)
 #endif
       m_editWindow->activateWindow();
       m_editWindow->raise();
-      signal ? emit showEditWindow(m_editWindow) : (void) 0;
     }
 }
 
