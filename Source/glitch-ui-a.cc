@@ -2623,7 +2623,9 @@ void glitch_ui::slotSwifty(void)
 	"<b>T</b>ool<br>"
 	"<b>C</b>ompiler<br>"
         "<b>H</b>ybrid<br><br>"
-	"Glitch is an awesome visual compiler and designer for Arduino.<br>"
+	"Glitch is an awesome visual compiler and designer for ") +
+     "Arduino" +
+     tr(".<br>"
 	"Develop through block diagrams.<br>"
 	"Software for and from the margins.<br><br>"
 	"Made with love by textbrowser.<br><br>"
