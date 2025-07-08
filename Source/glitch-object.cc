@@ -113,7 +113,6 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::BACKGROUND_COLOR] = QColor(230, 230, 250);
   m_properties[Properties::BORDER_COLOR] = QColor(168, 169, 173);
   m_properties[Properties::COMPRESSED_WIDGET] = false;
-  m_properties[Properties::EDIT_WINDOW_GEOMETRY] = QByteArray().toBase64();
   m_properties[Properties::EDIT_WINDOW_STATE] = QByteArray().toBase64();
   m_properties[Properties::FONT] = preferredFont
     (glitch_ui::s_defaultApplicationFont);
@@ -1306,14 +1305,9 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	}
 
 #ifndef Q_OS_ANDROID
-      if(!m_editWindow->
-	 restoreGeometry(m_properties.value(Properties::EDIT_WINDOW_GEOMETRY).
-			 toByteArray()))
-	m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.5);
-
+      m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.25);
       glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
-
       m_editWindow->restoreState
 	(m_properties.value(Properties::EDIT_WINDOW_STATE).toByteArray());
     }
@@ -1375,8 +1369,6 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::BORDER_COLOR).toString();
   properties["compressed_widget"] = m_properties.value
     (Properties::COMPRESSED_WIDGET).toBool();
-  properties["edit_window_geometry"] = m_editWindow ?
-    m_editWindow->saveGeometry().toBase64() : QByteArray().toBase64();
   properties["edit_window_state"] = m_editWindow ?
     m_editWindow->saveState().toBase64() : QByteArray().toBase64();
   properties["font"] = m_properties.value(Properties::FONT).toString();
@@ -1539,13 +1531,6 @@ void glitch_object::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::COMMENT] = string.trimmed();
-	}
-      else if(string.simplified().startsWith("edit_window_geometry = "))
-	{
-	  string = string.mid(string.indexOf('=') + 1);
-	  string.remove("\"");
-	  m_properties[Properties::EDIT_WINDOW_GEOMETRY] =
-	    QByteArray::fromBase64(string.trimmed().toLatin1());
 	}
       else if(string.simplified().startsWith("edit_window_state = "))
 	{
@@ -1999,12 +1984,7 @@ void glitch_object::showEditWindow(const bool signal)
       if(!m_editWindow->isVisible())
 	{
 #ifndef Q_OS_ANDROID
-	  if(!m_editWindow->
-	     restoreGeometry(m_properties.
-			     value(Properties::EDIT_WINDOW_GEOMETRY).
-			     toByteArray()))
-	    m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.5);
-
+	  m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.25);
 	  glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
 	  m_editWindow->restoreState

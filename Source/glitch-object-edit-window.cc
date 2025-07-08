@@ -257,7 +257,7 @@ glitch_object_edit_window::glitch_object_edit_window
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareASH();
 #ifndef Q_OS_ANDROID
-  resize(glitch_ui::s_mainWindow->size() / 1.5);
+  resize(glitch_ui::s_mainWindow->size() / 1.25);
 #endif
 }
 
@@ -385,15 +385,10 @@ void glitch_object_edit_window::clearSelection(void)
 void glitch_object_edit_window::closeEvent(QCloseEvent *event)
 {
   QMainWindow::closeEvent(event);
-
-  if(m_object)
-    {
-      m_object->setProperty
-	(glitch_object::Properties::EDIT_WINDOW_GEOMETRY, saveGeometry());
-      m_object->setProperty
-	(glitch_object::Properties::EDIT_WINDOW_STATE, saveState());
-    }
-
+  m_object ?
+    m_object->setProperty(glitch_object::Properties::EDIT_WINDOW_STATE,
+			  saveState()) :
+    (void) 0;
   saveSplittersStates();
   emit closed();
 }
@@ -939,8 +934,7 @@ void glitch_object_edit_window::slotPaste(void)
 
 void glitch_object_edit_window::slotPreferencesAccepted(void)
 {
-  QSettings settings;
-  auto const state = settings.value
+  auto const state = QSettings().value
     ("preferences/docked_widget_property_editors", true).toBool();
 
   if(m_editView && m_editView->scene() && state)
