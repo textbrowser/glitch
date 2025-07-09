@@ -74,25 +74,27 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 					      Qt::SmoothTransformation));
   m_about.setStandardButtons(QMessageBox::Close);
   m_about.setText
-    (tr("<html>"
-	"<b>Glitch Version %1</b><br><br>"
-	"<b>G</b>raphical<br>"
-	"<b>L</b>ightweight<br>"
-	"<b>I</b>nteractive<br>"
-	"<b>T</b>ool<br>"
-	"<b>C</b>ompiler<br>"
-        "<b>H</b>ybrid<br><br>"
-	"Glitch is a visual compiler and designer for Arduino.<br>"
-	"Develop through block diagrams.<br>"
-	"Software for and from the margins.<br><br>"
-	"Made with love by textbrowser.<br><br>"
-	"Architecture: %2.<br>"
-	"Compiled On: %3.<br>"
-	"Product: %4.<br>"
-	"Qt version %5 (runtime version %6).<br><br>"
-	"Please visit "
-	"<a href=\"https://textbrowser.github.io/glitch\">"
-	"https://textbrowser.github.io/glitch</a> for more details.").
+    (QString(tr("<html>"
+		"<b>Glitch Version %1</b><br><br>"
+		"<b>G</b>raphical<br>"
+		"<b>L</b>ightweight<br>"
+		"<b>I</b>nteractive<br>"
+		"<b>T</b>ool<br>"
+		"<b>C</b>ompiler<br>"
+		"<b>H</b>ybrid<br><br>"
+		"Glitch is a visual compiler and designer for ") +
+	     "Arduino" +
+	     tr(".<br>"
+		"Develop through block diagrams.<br>"
+		"Software for and from the margins.<br><br>"
+		"Made with love by textbrowser.<br><br>"
+		"Architecture: %2.<br>"
+		"Compiled On: %3.<br>"
+		"Product: %4.<br>"
+		"Qt version %5 (runtime version %6).<br><br>"
+		"Please visit "
+		"<a href=\"https://textbrowser.github.io/glitch\">"
+		"https://textbrowser.github.io/glitch</a> for more details.")).
      arg(GLITCH_VERSION_STRING).
      arg(QSysInfo::currentCpuArchitecture()).
      arg(COMPILED_ON).
@@ -2614,28 +2616,28 @@ void glitch_ui::slotStatusBarTimerTimeout(void)
 void glitch_ui::slotSwifty(void)
 {
   m_about.setText
-    (tr("<html>"
-	"<b>Glitch Version %1</b><br>"
-	"The <b>official version</b> is <b>%2</b>.<br><br>"
-	"<b>G</b>raphical<br>"
-	"<b>L</b>ightweight<br>"
-	"<b>I</b>nteractive<br>"
-	"<b>T</b>ool<br>"
-	"<b>C</b>ompiler<br>"
-        "<b>H</b>ybrid<br><br>"
-	"Glitch is an awesome visual compiler and designer for ") +
-     "Arduino" +
-     tr(".<br>"
-	"Develop through block diagrams.<br>"
-	"Software for and from the margins.<br><br>"
-	"Made with love by textbrowser.<br><br>"
-	"Architecture: %3.<br>"
-	"Compiled On: %4.<br>"
-	"Product: %5.<br>"
-	"Qt version %6 (runtime version %7).<br><br>"
-	"Please visit "
-	"<a href=\"https://textbrowser.github.io/glitch\">"
-	"https://textbrowser.github.io/glitch</a> for more details.").
+    (QString(tr("<html>"
+		"<b>Glitch Version %1</b><br>"
+		"The <b>official version</b> is <b>%2</b>.<br><br>"
+		"<b>G</b>raphical<br>"
+		"<b>L</b>ightweight<br>"
+		"<b>I</b>nteractive<br>"
+		"<b>T</b>ool<br>"
+		"<b>C</b>ompiler<br>"
+		"<b>H</b>ybrid<br><br>"
+		"Glitch is an awesome visual compiler and designer for ") +
+	     "Arduino" +
+	     tr(".<br>"
+		"Develop through block diagrams.<br>"
+		"Software for and from the margins.<br><br>"
+		"Made with love by textbrowser.<br><br>"
+		"Architecture: %3.<br>"
+		"Compiled On: %4.<br>"
+		"Product: %5.<br>"
+		"Qt version %6 (runtime version %7).<br><br>"
+		"Please visit "
+		"<a href=\"https://textbrowser.github.io/glitch\">"
+		"https://textbrowser.github.io/glitch</a> for more details.")).
      arg(GLITCH_VERSION_STRING).
      arg(m_swifty->newest_version()).
      arg(QSysInfo::currentCpuArchitecture()).
