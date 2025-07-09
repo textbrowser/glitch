@@ -777,9 +777,12 @@ void glitch_proxy_widget::setWidget(QWidget *widget)
 	m_resizeWidget = new glitch_resize_widget(this);
 
 #ifdef GLITCH_MEASURE_ELAPSED_TIME
-      qDebug() << "glitch_proxy_widget::setWidget()"
-	       << m_object ? m_object->objectType() : "(unknown)"
-	       << timer.elapsed();
+      m_object ?
+	qDebug() << "glitch_proxy_widget::setWidget()"
+		 << m_object->objectType()
+		 << timer.elapsed() :
+	qDebug() << "glitch_proxy_widget::setWidget()"
+		 << timer.elapsed();
 #endif
     }
   else
