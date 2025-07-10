@@ -1445,7 +1445,7 @@ void glitch_ui::prepareToolBars(void)
       m_ui.zoom_toolbar->addAction(m_ui.action_Zoom_Reset);
     }
 
-  repaint();
+  QTimer::singleShot(100, this, SLOT(repaint(void)));
 }
 
 void glitch_ui::restoreSettings(void)
