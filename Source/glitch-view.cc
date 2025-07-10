@@ -113,6 +113,8 @@ glitch_view::glitch_view
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
   m_redoUndoStack = nullptr;
+  m_resizeSceneTimer.setInterval(500);
+  m_resizeSceneTimer.setSingleShot(true);
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
   m_saveTimer.setInterval(1500);
   m_saveTimer.setSingleShot(true);
@@ -204,6 +206,10 @@ glitch_view::glitch_view
 	  SIGNAL(finished(int, QProcess::ExitStatus)),
 	  this,
 	  SIGNAL(ideProcessFinished(void)));
+  connect(&m_resizeSceneTimer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_view::slotResizeScene);
   connect(&m_saveTimer,
 	  &QTimer::timeout,
 	  this,
@@ -354,6 +360,7 @@ glitch_view::~glitch_view()
 	     SLOT(slotUndoStackChanged(int)));
   m_generateSourceViewTimer.stop();
   m_generateTimer.stop();
+  m_resizeSceneTimer.stop();
   m_saveSnapFuture.cancel();
   m_saveSnapFuture.waitForFinished();
   m_saveTimer.stop();
@@ -723,6 +730,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 
 		    if(object && object->editView())
 		      {
+			object->editView()->scene()->setLoadingFromFile(true);
+
 			auto child = glitch_object::createFromValues
 			  (values, object, error, object->editView());
 
@@ -746,6 +755,8 @@ bool glitch_view::open(const QString &fileName, QString &error)
 				child->deleteLater();
 			      }
 			  }
+
+			object->editView()->scene()->setLoadingFromFile(false);
 		      }
 		  }
 	      }
@@ -1087,7 +1098,7 @@ qreal glitch_view::scalingFactor(void) const
 
 void glitch_view::adjustScrollBars(void)
 {
-  QTimer::singleShot(250, this, SLOT(slotResizeScene(void)));
+  m_resizeSceneTimer.start();
 }
 
 void glitch_view::beginMacro(const QString &text)

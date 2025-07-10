@@ -1976,6 +1976,7 @@ void glitch_object::showEditWindow(const bool signal)
 {
   if(m_editView && m_editWindow)
     {
+      signal ? emit m_editView->scene()->showObjectsLater() : (void) 0;
       signal ? emit showEditWindow(m_editWindow) : (void) 0;
       m_editView->setVisible(false);
       m_editWindow->prepareToolBars(m_editView->alignmentActions());
@@ -2675,6 +2676,19 @@ void glitch_object::slotShowContextMenu(void)
       m_contextMenu->activateWindow();
       m_contextMenu->raise();
     }
+}
+
+void glitch_object::slotShowLater(void)
+{
+  auto scene = qobject_cast<glitch_scene *> (sender());
+
+  if(scene)
+    disconnect(scene,
+	       &glitch_scene::showObjectsLater,
+	       this,
+	       &glitch_object::slotShowLater);
+
+  QTimer::singleShot(10, this, &glitch_object::show);
 }
 
 void glitch_object::slotShowSourcePreview(void)
