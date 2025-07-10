@@ -1962,12 +1962,14 @@ void glitch_object::setWiredObject
 	  &glitch_wire::destroyed,
 	  this,
 	  &glitch_object::slotWireDestroyed,
-	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+	  static_cast<Qt::ConnectionType> (Qt::QueuedConnection |
+					   Qt::UniqueConnection));
   connect(wire,
 	  &glitch_wire::visibleChanged,
 	  this,
 	  &glitch_object::changed,
-	  Qt::ConnectionType(Qt::QueuedConnection | Qt::UniqueConnection));
+	  static_cast<Qt::ConnectionType> (Qt::QueuedConnection |
+					   Qt::UniqueConnection));
   m_wires[object->id()] = wire; // Replace the wire object if necessary.
   signal ? QTimer::singleShot(250, this, SIGNAL(changed(void))) : (void) 0;
 }

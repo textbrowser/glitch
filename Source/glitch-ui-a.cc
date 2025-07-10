@@ -1118,7 +1118,8 @@ void glitch_ui::prepareFonts(void)
     font.setHintingPreference(QFont::PreferDefaultHinting);
 
   font.setStyleStrategy
-    (QFont::StyleStrategy(QFont::PreferAntialias | QFont::PreferQuality));
+    (static_cast<QFont::StyleStrategy> (QFont::PreferAntialias |
+					QFont::PreferQuality));
   QApplication::setFont(font);
 
   foreach(auto widget, QApplication::allWidgets())
