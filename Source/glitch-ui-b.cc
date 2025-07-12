@@ -359,6 +359,14 @@ void glitch_ui::slotSaveAsPNG(void)
       QApplication::processEvents();
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
+      auto const image(m_currentView->snap());
+      auto fileName(dialog.selectedFiles().value(0));
+
+      fileName.append(QDir::separator());
+      fileName.append(m_currentView->name().replace(' ', '_'));
+      fileName.append(".png");
+      image.save(fileName, "PNG", 100);
+
       auto i = 0;
 
       foreach(auto object, m_currentView->scene()->allObjects())
