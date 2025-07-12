@@ -226,20 +226,22 @@ QImage glitch_object::image(void) const
 {
   if(m_editView && m_editView->scene())
     {
+      emit m_editView->scene()->showObjectsNow();
+
       QImage image
-	(m_editView->scene()->itemsBoundingRect().size().toSize(),
+	(m_editView->scene()->sceneRect().size().toSize(),
 	 QImage::Format_RGB32);
 
       if(image.isNull())
 	return image;
 
-      QPainter painter(&image);
+      QPainter painter;
 
       image.fill(Qt::white);
+      painter.begin(&image);
       m_editView->scene()->render
-	(&painter,
-	 QRectF(),
-	 m_editView->scene()->itemsBoundingRect());
+	(&painter, QRectF(), m_editView->scene()->sceneRect());
+      painter.end();
       return image;
     }
   else
@@ -2691,6 +2693,19 @@ void glitch_object::slotShowLater(void)
 	       &glitch_object::slotShowLater);
 
   QTimer::singleShot(10, this, &glitch_object::show);
+}
+
+void glitch_object::slotShowNow(void)
+{
+  auto scene = qobject_cast<glitch_scene *> (sender());
+
+  if(scene)
+    disconnect(scene,
+	       &glitch_scene::showObjectsNow,
+	       this,
+	       &glitch_object::slotShowNow);
+
+  show();
 }
 
 void glitch_object::slotShowSourcePreview(void)

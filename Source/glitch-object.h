@@ -415,6 +415,7 @@ class glitch_object: public QWidget
   void slotPropertyChanged(const QString &property, const QVariant &value);
   void slotShowContextMenu(void);
   void slotShowLater(void);
+  void slotShowNow(void);
   void slotShowSourcePreview(void);
 
  private:

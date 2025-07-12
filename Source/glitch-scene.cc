@@ -471,6 +471,11 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  object,
 	  &glitch_object::slotShowLater,
 	  Qt::UniqueConnection);
+  connect(this,
+	  &glitch_scene::showObjectsNow,
+	  object,
+	  &glitch_object::slotShowNow,
+	  Qt::UniqueConnection);
 
   if(object->editScene())
     connect(this,

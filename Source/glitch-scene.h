@@ -189,6 +189,7 @@ class glitch_scene: public QGraphicsScene
   void sceneResized(void);
   void showEditWindow(QMainWindow *window);
   void showObjectsLater(void);
+  void showObjectsNow(void);
   void wireObjects(void);
 };
 
