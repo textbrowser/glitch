@@ -249,7 +249,6 @@ void glitch_proxy_widget::geometryChanged(const QRectF &previousRect)
 void glitch_proxy_widget::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverEnterEvent(event);
-  setCursor(QCursor(Qt::PointingHandCursor));
   update();
 }
 
@@ -263,7 +262,6 @@ void glitch_proxy_widget::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void glitch_proxy_widget::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
 {
   QGraphicsProxyWidget::hoverMoveEvent(event);
-  setCursor(QCursor(Qt::PointingHandCursor));
   update();
 }
 

@@ -466,16 +466,6 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 	  SIGNAL(geometryChangedSignal(const QRectF &)),
 	  this,
 	  SLOT(slotProxyGeometryChanged(const QRectF &)));
-  connect(this,
-	  &glitch_scene::showObjectsLater,
-	  object,
-	  &glitch_object::slotShowLater,
-	  Qt::UniqueConnection);
-  connect(this,
-	  &glitch_scene::showObjectsNow,
-	  object,
-	  &glitch_object::slotShowNow,
-	  Qt::UniqueConnection);
 
   if(object->editScene())
     connect(this,
@@ -501,8 +491,8 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   proxy->setWidget(object);
 
 #ifndef Q_OS_MACOS
-  if(m_loadingFromFile && m_mainScene)
-    QTimer::singleShot(50, object, &glitch_object::show);
+  if(m_loadingFromFile)
+    QTimer::singleShot(m_mainScene ? 50 : 750, object, &glitch_object::show);
 #endif
 
   emit changed();
