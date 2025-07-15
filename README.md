@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.06.16 is the newest source release.</b>
+<b>Version 2025.07.15 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,24 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.07.15</p>
+<ul>
+<li>Compress-widget and generate-source are not applicable
+  for decorative arrow widgets.</li>
+<li>Do not translate: Arduino, loop(), setup().</li>
+<li>Hide the right-side panel on a separated edit window if
+  necessary. The panel is visible when it should not be.</li>
+<li>Record smaller images for diagram previews.</li>
+<li>Removed edit-window-geometry object property. An object's
+  edit window will be resized relative to the main window's
+  geometry.</li>
+<li>Removed hefty cursor whenever the mouse hovers
+  over an object.</li>
+<li>Render the main scene when saving a diagram as a set of
+  PNG images.</li>
+<li>Retain selected index in glitch_variety::sortCombinationBox().</li>
+</ul>
 
 <p>2025.06.16</p>
 <ul>
