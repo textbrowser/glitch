@@ -39,6 +39,8 @@
 #include "glitch-variety.h"
 #include "glitch-version.h"
 
+auto static s_snapSize = QSize(372, 240);
+
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)
 {
@@ -189,9 +191,9 @@ void glitch_recent_diagrams_view::populate
   int columnIndex = 0;
   int rowIndex = 0;
 
-  if(missing.size() != QSize(372, 240))
+  if(missing.size() != s_snapSize)
     missing = missing.scaled
-      (372, 240, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+      (s_snapSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 
   for(int i = 0; i < vector.size(); i++)
     {
