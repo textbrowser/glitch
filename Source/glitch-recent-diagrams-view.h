@@ -205,6 +205,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
  public:
   glitch_recent_diagrams_view(QWidget *parent);
   ~glitch_recent_diagrams_view();
+  static QSize s_snapSize;
   QAction *menuAction(void) const;
 
  private:

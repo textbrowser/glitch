@@ -39,7 +39,7 @@
 #include "glitch-variety.h"
 #include "glitch-version.h"
 
-auto static s_snapSize = QSize(372, 240);
+QSize glitch_recent_diagrams_view::s_snapSize = QSize(372, 240);
 
 glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   QGraphicsView(parent)

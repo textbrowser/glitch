@@ -57,6 +57,7 @@
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-proxy-widget.h"
+#include "glitch-recent-diagrams-view.h"
 #include "glitch-redo-undo-stack.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
@@ -1648,7 +1649,8 @@ void glitch_view::saveSnap(void)
   QImage image;
   QPainter painter;
 
-  image = QImage(m_scene->sceneRect().size().toSize(), QImage::Format_ARGB32);
+  image = QImage
+    (1.05 * glitch_recent_diagrams_view::s_snapSize, QImage::Format_ARGB32);
   buffer.setBuffer(&bytes);
   buffer.open(QIODevice::WriteOnly);
   image.fill(Qt::white);
@@ -1659,7 +1661,11 @@ void glitch_view::saveSnap(void)
 #endif
 			 QPainter::SmoothPixmapTransform |
 			 QPainter::TextAntialiasing);
-  m_scene->render(&painter, QRectF(), scene()->sceneRect());
+  m_scene->render
+    (&painter,
+     QRectF(),
+     QRectF(QPointF(0.0, 0.0),
+	    1.05 * QSizeF(glitch_recent_diagrams_view::s_snapSize)));
   painter.end();
   image.save(&buffer, "PNG", 100);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
