@@ -31,6 +31,7 @@
 #include <QSettings>
 
 #include "glitch-preferences.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-variety.h"
 
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
@@ -61,10 +62,13 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 	  &glitch_preferences::slotSelectOutputDirectory);
   m_ui.display_application_font->setText
     (QApplication::font().toString().trimmed());
+  m_ui.display_language->installEventFilter(new glitch_scroll_filter(this));
+  m_ui.font_hinting->installEventFilter(new glitch_scroll_filter(this));
   m_ui.output_directory->setText(m_defaultOutputDirectory);
   m_ui.output_directory->setCursorPosition(0);
   m_ui.output_directory->selectAll();
   m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
+  m_ui.zoom_factor->installEventFilter(new glitch_scroll_filter(this));
   m_ui.zoom_factor->setToolTip
     (tr("[%1, %2]").
      arg(m_ui.zoom_factor->minimum()).arg(m_ui.zoom_factor->maximum()));

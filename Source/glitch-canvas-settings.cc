@@ -41,6 +41,7 @@
 #include "Arduino/glitch-structures-arduino.h"
 #include "glitch-canvas-settings.h"
 #include "glitch-common.h"
+#include "glitch-scroll-filter.h"
 #include "glitch-variety.h"
 #include "glitch-view.h"
 
@@ -1286,6 +1287,18 @@ void glitch_canvas_settings::setWireWidth(const double value)
 void glitch_canvas_settings::showEvent(QShowEvent *event)
 {
   QDialog::showEvent(event);
+
+  if(!property("scroll_filters_installed").toBool())
+    {
+      foreach(auto widget, findChildren<QWidget *> ())
+	if(qobject_cast<QComboBox *> (widget) ||
+	   qobject_cast<QDoubleSpinBox *> (widget) ||
+	   qobject_cast<QSpinBox *> (widget))
+	  widget->installEventFilter(new glitch_scroll_filter(this));
+
+      setProperty("scroll_filters_installed", true);
+    }
+
   m_timer.start();
 }
 

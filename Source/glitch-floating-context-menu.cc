@@ -38,6 +38,8 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
 {
   m_ui.setupUi(this);
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
+  m_ui.height->installEventFilter(new glitch_scroll_filter(this));
+  m_ui.width->installEventFilter(new glitch_scroll_filter(this));
   connect(m_ui.frame,
 	  SIGNAL(destroyed(void)),
 	  this,

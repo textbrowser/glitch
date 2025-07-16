@@ -33,6 +33,7 @@
 #include <QShortcut>
 #include <QTimer>
 
+#include "glitch-scroll-filter.h"
 #include "glitch-serial-port-window.h"
 #include "glitch-variety.h"
 
@@ -65,6 +66,11 @@ glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_serial_port_window::slotSend);
+
+  foreach(auto widget, findChildren<QWidget *> ())
+    if(qobject_cast<QComboBox *> (widget))
+      widget->installEventFilter(new glitch_scroll_filter(this));
+
   m_ui.clear->setIcon(QIcon(":/clear.png"));
 #ifndef Q_OS_ANDROID
   new QShortcut(tr("Ctrl+W"), this, SLOT(close(void)));
