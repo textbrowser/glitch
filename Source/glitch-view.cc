@@ -1650,7 +1650,7 @@ void glitch_view::saveSnap(void)
   QPainter painter;
 
   image = QImage
-    (1.05 * glitch_recent_diagrams_view::s_snapSize, QImage::Format_ARGB32);
+    (1.25 * glitch_recent_diagrams_view::s_snapSize, QImage::Format_ARGB32);
   buffer.setBuffer(&bytes);
   buffer.open(QIODevice::WriteOnly);
   image.fill(Qt::white);
@@ -1665,7 +1665,7 @@ void glitch_view::saveSnap(void)
     (&painter,
      QRectF(),
      QRectF(QPointF(0.0, 0.0),
-	    1.05 * QSizeF(glitch_recent_diagrams_view::s_snapSize)));
+	    1.25 * QSizeF(glitch_recent_diagrams_view::s_snapSize)));
   painter.end();
   image.save(&buffer, "PNG", 100);
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
