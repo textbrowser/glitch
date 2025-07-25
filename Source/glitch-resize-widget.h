@@ -43,7 +43,7 @@ class glitch_resize_widget: public QGraphicsItem
   QRectF boundingRect(void) const;
   void paint(QPainter *painter,
 	     const QStyleOptionGraphicsItem *option,
-	     QWidget *widget = 0);
+	     QWidget *widget = nullptr);
   void positionEdgeRectangles(void);
   void showEdgeRectangles(const bool state);
   void showEdgeRectanglesForLockedPosition(const bool isParentSelected,
