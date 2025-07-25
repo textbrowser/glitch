@@ -394,6 +394,7 @@ Qt Items
 - Qt PDF magnification.
 - Qt PDF navigation.
 - Qt PDF search.
+- Replace comment widget with a text graphics item.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
@@ -411,6 +412,5 @@ Remaining Items
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
-- Replace comment widget with a text graphics item.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
