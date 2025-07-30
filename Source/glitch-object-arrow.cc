@@ -45,6 +45,7 @@ glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
 glitch_object_arrow::glitch_object_arrow
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_arrow = Arrows::LEFT_RIGHT;
   m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180, 255);
   m_type = "decoration-arrow";
   resize(100, 30);
