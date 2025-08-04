@@ -2114,10 +2114,10 @@ void glitch_view::slotIDEOutputTextChanged(void)
     m_ideClear->setVisible(false);
   else
     {
+      m_ideClear->setVisible(true); // Order is important.
       m_ideClear->move
 	(-QPoint(25 + m_ideClear->width(), -5) +
 	 m_ideOutput->rect().topRight());
-      m_ideClear->setVisible(true);
     }
 }
 
