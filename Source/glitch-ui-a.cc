@@ -431,21 +431,24 @@ glitch_ui::~glitch_ui()
 
 bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 {
+  if(fileName.trimmed().isEmpty())
+    {
+      error = tr("Empty file name.");
+      return false;
+    }
+
   QFileInfo const fileInfo(fileName);
 
   if(!fileInfo.isReadable() && !fileInfo.isWritable())
     {
-      if(fileName.isEmpty())
-	error = tr("Empty file name.");
-      else
-	error = tr
-	  ("The file %1 must be both readable and writable.").arg(fileName);
-
+      error = tr
+	("The file %1 must be both readable and writable.").
+	arg(fileInfo.absoluteFilePath());
       return false;
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  showStatusBarMessage(tr("Opening %1...").arg(fileName));
+  showStatusBarMessage(tr("Opening %1...").arg(fileInfo.absoluteFilePath()));
 
   QString connectionName("");
   QString name("");
@@ -456,7 +459,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
     auto db(glitch_common::sqliteDatabase());
 
     connectionName = db.connectionName();
-    db.setDatabaseName(fileName);
+    db.setDatabaseName(fileInfo.absoluteFilePath());
 
     if((ok = db.open()))
       {
@@ -500,7 +503,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	  }
       }
     else
-      error = tr("Unable to open %1.").arg(fileName);
+      error = tr("Unable to open %1.").arg(fileInfo.absoluteFilePath());
 
     db.close();
   }
@@ -515,15 +518,16 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  timer.start();
 
-	  auto view = newArduinoDiagram(fileName, name, true);
+	  auto view = newArduinoDiagram
+	    (fileInfo.absoluteFilePath(), name, true);
 
 	  if(view)
 	    {
 	      QApplication::processEvents();
 	      setUpdatesEnabled(false);
 
-	      if((ok = view->open(fileName, error)))
-		saveRecentFile(fileName);
+	      if((ok = view->open(fileInfo.absoluteFilePath(), error)))
+		saveRecentFile(fileInfo.absoluteFilePath());
 
 	      setUpdatesEnabled(true);
 	      QApplication::processEvents();
@@ -531,7 +535,7 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  showStatusBarMessage
 	    (tr("%1 opened in %2 second(s).").
-	     arg(fileName).arg(timer.elapsed() / 1000.0),
+	     arg(fileInfo.absoluteFilePath()).arg(timer.elapsed() / 1000.0),
 	     5000);
 	}
       else
