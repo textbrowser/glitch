@@ -539,6 +539,11 @@ bool glitch_view::containsFunction(const QString &name) const
   return m_userFunctions->contains(name);
 }
 
+bool glitch_view::contextMenuAllowed(void) const
+{
+  return m_contextMenuAllowed;
+}
+
 bool glitch_view::hasChanged(void) const
 {
   return !m_undoStack->isClean();
@@ -568,6 +573,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
 	     this,
 	     &glitch_view::slotSceneResized);
   m_canvasSettings->prepare(fileName);
+  m_contextMenuAllowed = false;
   m_delayedWires.clear();
   m_fileName = fileName;
   m_scene->setLoadingFromFile(true);
@@ -1945,6 +1951,9 @@ void glitch_view::slotCopy(void)
 
 void glitch_view::slotCustomContextMenuRequested(const QPoint &point)
 {
+  if(!m_contextMenuAllowed)
+    return;
+
   auto menu = defaultContextMenu();
 
   if(!menu)
@@ -2424,6 +2433,8 @@ void glitch_view::slotShowWires(void)
 
   if(!m_delayedWires.isEmpty())
     QTimer::singleShot(500, this, &glitch_view::slotShowWires);
+  else
+    m_contextMenuAllowed = true;
 
   QApplication::restoreOverrideCursor();
 }

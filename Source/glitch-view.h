@@ -96,6 +96,7 @@ class glitch_view: public QWidget
   bool canRedo(void) const;
   bool canUndo(void) const;
   bool containsFunction(const QString &name) const;
+  bool contextMenuAllowed(void) const;
   bool hasChanged(void) const;
   bool isIDEProcessActive(void) const;
   bool save(QString &error);
@@ -160,6 +161,7 @@ class glitch_view: public QWidget
   QFuture<void> m_saveSnapFuture;
   QList<glitch_wire *> m_delayedWires;
   QToolButton *m_tabPullDown;
+  bool m_contextMenuAllowed;
   glitch_redo_undo_stack *m_redoUndoStack;
   glitch_object *find
     (const QList<glitch_object *> &list,
