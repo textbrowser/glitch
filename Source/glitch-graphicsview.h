@@ -29,6 +29,9 @@
 #define _glitch_graphicsview_h_
 
 #include <QGraphicsView>
+#include <QPointer>
+
+class glitch_view;
 
 class glitch_graphicsview: public QGraphicsView
 {
@@ -44,6 +47,7 @@ class glitch_graphicsview: public QGraphicsView
   void scroll(const QPoint &point);
 
  protected:
+  QPointer<glitch_view> m_view;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else

@@ -35,6 +35,7 @@
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
+  m_view = qobject_cast<glitch_view *> (parent);
   setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
 		 QPainter::LosslessImageRendering |
@@ -50,9 +51,7 @@ glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 
 bool glitch_graphicsview::containsFunction(const QString &name) const
 {
-  auto view = qobject_cast<glitch_view *> (parent());
-
-  if(view && view->containsFunction(name))
+  if(m_view && m_view->containsFunction(name))
     return true;
   else
     return false;
@@ -87,6 +86,9 @@ void glitch_graphicsview::leaveEvent(QEvent *event)
 
 void glitch_graphicsview::mouseDoubleClickEvent(QMouseEvent *event)
 {
+  if(m_view && m_view->contextMenuAllowed() == false)
+    return;
+
   QGraphicsView::mouseDoubleClickEvent(event);
 
   if(event && scene())
