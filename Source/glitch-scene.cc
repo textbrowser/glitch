@@ -68,6 +68,7 @@
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
+#include "glitch-view.h"
 #include "glitch-wire.h"
 
 inline qreal static round(const qreal s, const qreal value)
@@ -1372,6 +1373,11 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  auto view = qobject_cast<glitch_view *> (parent());
+
+  if(view && view->contextMenuAllowed() == false)
+    return;
+
   if(m_toolsOperation == glitch_tools::Operations::SELECT)
     {
       m_lastScenePos = QPointF();

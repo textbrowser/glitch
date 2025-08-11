@@ -523,14 +523,12 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  if(view)
 	    {
-	      QApplication::processEvents();
 	      setUpdatesEnabled(false);
 
 	      if((ok = view->open(fileInfo.absoluteFilePath(), error)))
 		saveRecentFile(fileInfo.absoluteFilePath());
 
 	      setUpdatesEnabled(true);
-	      QApplication::processEvents();
 	    }
 
 	  showStatusBarMessage
