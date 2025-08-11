@@ -257,6 +257,7 @@ Completed Items
 - Prepare Copy, Delete, Paste, and Select All states.
 - Prepare parents after cloning objects.
 - Prepare settings of child views on initialization.
+- Prevent context menus while a diagram is opening.
 - Preview image not saved properly with --open-arduino-diagrams.
 - Previews within child edit windows.
 - Print preview.
@@ -411,7 +412,6 @@ Remaining Items
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Prevent context menus while a diagram is opening.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.

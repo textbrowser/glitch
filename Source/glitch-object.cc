@@ -1122,6 +1122,11 @@ void glitch_object::mouseDoubleClickEvent(QMouseEvent *event)
 {
   QWidget::mouseDoubleClickEvent(event);
 
+  auto view = qobject_cast<glitch_view *> (m_parent);
+
+  if(view && view->contextMenuAllowed() == false)
+    return;
+
   QMenu menu;
 
   addActions(menu);
