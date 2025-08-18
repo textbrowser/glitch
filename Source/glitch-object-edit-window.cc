@@ -200,6 +200,10 @@ glitch_object_edit_window::glitch_object_edit_window
 	  &QAction::triggered,
 	  this,
 	  &glitch_object_edit_window::slotViewTools);
+  connect(this,
+	  &glitch_object_edit_window::closeSignal,
+	  this,
+	  &glitch_object_edit_window::slotClose);
   m_ash = new glitch_ash(false, this);
   m_bottomTopSplitter = new QSplitter(Qt::Vertical, this);
   m_canvasPreview = new glitch_canvas_preview(this);
