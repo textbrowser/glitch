@@ -10,6 +10,7 @@ Completed Items
 - ASH and the mouse.
 - ASH splitter state.
 - ASH: Control + End, Control + Home.
+- ASH: close.
 - ASH: page scrolling via keyboard (Page Down).
 - About.
 - Add --open-arduino-diagram option.
@@ -403,7 +404,6 @@ Qt Items
 Remaining Items
 
 - ASH.
-- ASH: close.
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.

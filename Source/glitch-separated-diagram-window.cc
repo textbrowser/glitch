@@ -476,6 +476,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 this,
 		 &glitch_separated_diagram_window::slotPageChanged);
       disconnect(m_view,
+		 &glitch_view::closeSignal,
+		 this,
+		 &glitch_separated_diagram_window::close);
+      disconnect(m_view,
 		 &glitch_view::ideProcessFinished,
 		 this,
 		 &glitch_separated_diagram_window::slotIDEProcessFinished);
@@ -516,6 +520,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      &glitch_view::changed,
 	      this,
 	      &glitch_separated_diagram_window::slotPageChanged);
+      connect(m_view,
+	      &glitch_view::closeSignal,
+	      this,
+	      &glitch_separated_diagram_window::close);
       connect(m_view,
 	      &glitch_view::ideProcessFinished,
 	      this,
