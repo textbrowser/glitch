@@ -593,6 +593,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  this,
 	  &glitch_ui::slotIDEProcessStarted);
   connect(view,
+	  SIGNAL(closeSignal(void)),
+	  this,
+	  SLOT(slotCloseDiagram(void)));
+  connect(view,
 	  SIGNAL(copy(QGraphicsView *)),
 	  this,
 	  SLOT(slotCopy(QGraphicsView *)));
