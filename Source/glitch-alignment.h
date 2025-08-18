@@ -33,7 +33,6 @@
 #include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
-#include "glitch-view.h"
 
 #include <limits>
 

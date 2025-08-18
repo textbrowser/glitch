@@ -178,6 +178,14 @@ void glitch_proxy_widget::contextMenuEvent
 {
   if(event && m_object)
     {
+      auto view = m_object->view();
+
+      if(view && view->contextMenuAllowed() == false)
+	{
+	  QGraphicsProxyWidget::contextMenuEvent(event);
+	  return;
+	}
+
       QMenu menu;
 
       m_object->addActions(menu);

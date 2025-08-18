@@ -35,7 +35,6 @@
 #include "glitch-find-objects-position-item.h"
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
-#include "glitch-view.h"
 
 glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 {

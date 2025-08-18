@@ -36,6 +36,7 @@
 #include <QtMath>
 
 #include "glitch-proxy-widget.h"
+#include "glitch-view.h"
 
 class QMainWindow;
 class QUndoStack;
@@ -45,7 +46,6 @@ class glitch_object_view;
 class glitch_port_colors;
 class glitch_scene;
 class glitch_source_preview;
-class glitch_view;
 
 class glitch_object: public QWidget
 {
@@ -248,6 +248,11 @@ class glitch_object: public QWidget
 
   QPointer<glitch_object_view> editView(void) const;
   QPointer<glitch_proxy_widget> proxy(void) const;
+
+  QPointer<glitch_view> view(void) const
+  {
+    return qobject_cast<glitch_view *> (m_parent);
+  }
 
   QString about(void) const
   {

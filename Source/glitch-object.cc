@@ -75,7 +75,6 @@
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
-#include "glitch-view.h"
 #include "glitch-wire.h"
 
 QRegularExpression glitch_object::s_splitRegularExpression =
@@ -1120,7 +1119,7 @@ void glitch_object::hideOrShowOccupied(void)
 
 void glitch_object::mouseDoubleClickEvent(QMouseEvent *event)
 {
-  auto view = qobject_cast<glitch_view *> (m_parent);
+  auto view = this->view();
 
   if(view && view->contextMenuAllowed() == false)
     return;

@@ -67,7 +67,6 @@
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
 #include "glitch-variety.h"
-#include "glitch-view.h"
 #include "glitch-wire.h"
 
 glitch_view::glitch_view

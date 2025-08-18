@@ -37,7 +37,6 @@
 #include "glitch-scene.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
-#include "glitch-view.h"
 
 glitch_object_view::glitch_object_view(QWidget *parent):
   glitch_object_view(glitch_common::ProjectTypes::ArduinoProject,
