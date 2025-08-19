@@ -478,24 +478,8 @@ glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
   object->setCanvasSettings(m_canvasSettings);
   object->setProxy(proxy);
   object->setUndoStack(m_undoStack);
-
-  /*
-  ** Eliminate MacOS error (outside any known screen, using primary screen).
-  */
-
-#ifndef Q_OS_MACOS
-  if(m_loadingFromFile)
-    object->setVisible(false);
-#endif
-
   proxy->setFlag(QGraphicsItem::ItemIsSelectable, true);
   proxy->setWidget(object);
-
-#ifndef Q_OS_MACOS
-  if(m_loadingFromFile)
-    QTimer::singleShot(m_mainScene ? 50 : 750, object, &glitch_object::show);
-#endif
-
   emit changed();
 
   if(qobject_cast<glitch_object_function_arduino *> (object))
@@ -637,7 +621,7 @@ void glitch_scene::addItem(QGraphicsItem *item, const bool visible)
     ** Connect the pasted objects.
     */
 
-    QTimer::singleShot(50, this, SIGNAL(wireObjects(void)));
+    QTimer::singleShot(0, this, SIGNAL(wireObjects(void)));
 }
 
 void glitch_scene::artificialDrop

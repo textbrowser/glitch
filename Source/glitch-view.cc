@@ -826,7 +826,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
     db.close();
   }
 
-  QTimer::singleShot(100, this, &glitch_view::slotShowWires);
+  QTimer::singleShot(0, this, &glitch_view::slotShowWires);
   QTimer::singleShot(1500, this, &glitch_view::slotSaveSnap);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
@@ -2431,7 +2431,7 @@ void glitch_view::slotShowWires(void)
     }
 
   if(!m_delayedWires.isEmpty())
-    QTimer::singleShot(500, this, &glitch_view::slotShowWires);
+    QTimer::singleShot(0, this, &glitch_view::slotShowWires);
   else
     m_contextMenuAllowed = true;
 
