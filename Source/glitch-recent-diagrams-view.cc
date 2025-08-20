@@ -185,7 +185,7 @@ void glitch_recent_diagrams_view::populate
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
   QPixmap static missing(":/missing-image.png", "PNG");
-  const int columns = 3;
+  const int columns = qMax(1, width() / qMax(372, s_snapSize.width()));
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
   int columnIndex = 0;
@@ -247,6 +247,11 @@ void glitch_recent_diagrams_view::populate
   setSceneRect(rect);
   verticalScrollBar()->setValue(vValue);
   QApplication::restoreOverrideCursor();
+}
+
+void glitch_recent_diagrams_view::resizeEvent(QResizeEvent *event)
+{
+  QGraphicsView::resizeEvent(event);
 }
 
 void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)

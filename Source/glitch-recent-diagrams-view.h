@@ -229,6 +229,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
   void gatherRecentDiagrams(const QByteArray &digest, const QString &fileName);
   void keyPressEvent(QKeyEvent *event);
   void populate(const QVectorQPairQImageQString &vector);
+  void resizeEvent(QResizeEvent *event);
 
  private slots:
   void slotPopulateRecentDiagrams(void);
