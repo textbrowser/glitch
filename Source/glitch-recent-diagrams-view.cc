@@ -252,6 +252,8 @@ void glitch_recent_diagrams_view::populate
 void glitch_recent_diagrams_view::resizeEvent(QResizeEvent *event)
 {
   QGraphicsView::resizeEvent(event);
+
+  const int columns = qMax(1, width() / qMax(372, s_snapSize.width()));
 }
 
 void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)
