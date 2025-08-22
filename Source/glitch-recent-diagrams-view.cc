@@ -185,7 +185,8 @@ void glitch_recent_diagrams_view::populate
   setSceneRect(0.0, 0.0, 1.0, 1.0);
 
   QPixmap static missing(":/missing-image.png", "PNG");
-  const int columns = qMax(1, width() / qMax(372, s_snapSize.width()));
+  auto const columns = static_cast<int>
+    (qMax(1.0, width() / (40.0 + qMax(372, s_snapSize.width()))));
   const qreal offseth = 15.0;
   const qreal offsetw = 15.0;
   int columnIndex = 0;
@@ -253,7 +254,39 @@ void glitch_recent_diagrams_view::resizeEvent(QResizeEvent *event)
 {
   QGraphicsView::resizeEvent(event);
 
-  const int columns = qMax(1, width() / qMax(372, s_snapSize.width()));
+  auto const columns = static_cast<int>
+    (qMax(1.0, width() / (40.0 + qMax(372, s_snapSize.width()))));
+  const qreal offseth = 15.0;
+  const qreal offsetw = 15.0;
+  int columnIndex = 0;
+  int rowIndex = 0;
+
+  foreach(auto item, scene()->items())
+    {
+      auto const height = 25.0 + item->boundingRect().size().height();
+      auto const width = 25.0 + item->boundingRect().size().width();
+
+      if(rowIndex == 0)
+	item->setPos(columnIndex * width + offsetw, offseth);
+      else
+	item->setPos
+	  (columnIndex * width + offsetw, height * rowIndex + offseth);
+
+      columnIndex += 1;
+
+      if(columnIndex >= columns)
+	{
+	  columnIndex = 0;
+	  rowIndex += 1;
+	}
+    }
+
+  auto rect(scene()->itemsBoundingRect());
+
+  rect.setHeight(offseth + rect.height());
+  rect.setX(0.0);
+  rect.setY(0.0);
+  setSceneRect(rect);
 }
 
 void glitch_recent_diagrams_view::slotPopulateRecentDiagrams(void)
