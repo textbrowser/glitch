@@ -180,6 +180,7 @@ void glitch_recent_diagrams_view::populate
   auto const hValue = horizontalScrollBar()->value();
   auto const vValue = verticalScrollBar()->value();
 
+  m_items.clear();
   resetTransform();
   scene()->clear();
   setSceneRect(0.0, 0.0, 1.0, 1.0);
@@ -230,6 +231,7 @@ void glitch_recent_diagrams_view::populate
 	(QFileInfo(vector.at(i).second).isReadable() ?
 	 item->pixmap() : missing);
       item->setToolTip(vector.at(i).second);
+      m_items << item;
       scene()->addItem(item);
 
       if(columnIndex >= columns)
@@ -261,7 +263,7 @@ void glitch_recent_diagrams_view::resizeEvent(QResizeEvent *event)
   int columnIndex = 0;
   int rowIndex = 0;
 
-  foreach(auto item, scene()->items())
+  foreach(auto item, m_items)
     {
       auto const height = 25.0 + item->boundingRect().size().height();
       auto const width = 25.0 + item->boundingRect().size().width();
@@ -319,6 +321,7 @@ void glitch_recent_diagrams_view::slotRemove(QGraphicsItem *item)
   if(!item)
     return;
 
+  m_items.removeOne(item);
   scene()->removeItem(item);
   delete item;
 }

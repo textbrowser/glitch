@@ -221,6 +221,7 @@ class glitch_recent_diagrams_view: public QGraphicsView
   QFuture<void> m_gatherRecentDiagramsFuture;
   QString m_recentFilesFileName;
   QTimer m_timer;
+  QVector<QGraphicsItem *> m_items;
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
   void enterEvent(QEnterEvent *event);
 #else
