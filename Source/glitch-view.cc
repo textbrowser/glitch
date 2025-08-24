@@ -85,6 +85,7 @@ glitch_view::glitch_view
   m_canvasSettings = new glitch_canvas_settings(this);
   m_canvasSettings->prepare(fileName);
   m_canvasSettings->setName(name);
+  m_contextMenuAllowed = false;
   m_dockedWidgetPropertyEditors = new glitch_docked_container(this);
   m_dockedWidgetPropertyEditors->resize
     (m_dockedWidgetPropertyEditors->sizeHint());
@@ -338,6 +339,7 @@ glitch_view::glitch_view
 	  SIGNAL(customContextMenuRequested(const QPoint &)),
 	  this,
 	  SLOT(slotCustomContextMenuRequested(const QPoint &)));
+  QTimer::singleShot(500, this, &glitch_view::slotShowWires);
   copyCornerWidget();
   m_bottomSplitter->addWidget(m_ash->frame());
   m_bottomSplitter->addWidget(m_ideOutput);
@@ -826,7 +828,7 @@ bool glitch_view::open(const QString &fileName, QString &error)
     db.close();
   }
 
-  QTimer::singleShot(0, this, &glitch_view::slotShowWires);
+  QTimer::singleShot(500, this, &glitch_view::slotShowWires);
   QTimer::singleShot(1500, this, &glitch_view::slotSaveSnap);
   error = error.trimmed();
   glitch_common::discardDatabase(connectionName);
