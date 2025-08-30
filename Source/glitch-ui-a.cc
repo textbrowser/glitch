@@ -102,6 +102,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
      arg(QT_VERSION_STR).
      arg(qVersion()));
   m_about.setTextFormat(Qt::RichText);
+  m_about.setWindowFlags(Qt::WindowStaysOnTopHint | m_about.windowFlags());
   m_about.setWindowIcon(windowIcon());
   m_about.setWindowModality(Qt::NonModal);
   m_about.setWindowTitle(tr("Glitch: About"));
