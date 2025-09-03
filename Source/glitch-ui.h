@@ -45,7 +45,6 @@ class glitch_documentation;
 class glitch_object;
 class glitch_preferences;
 class glitch_recent_diagrams_view;
-class glitch_serial_port_window;
 class glitch_view;
 class glitch_view_arduino;
 class swifty;

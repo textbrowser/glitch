@@ -38,9 +38,8 @@
 #include "glitch-variety.h"
 
 glitch_serial_port_window::glitch_serial_port_window(QWidget *parent):
-  QDialog(nullptr)
+  QDialog(parent)
 {
-  Q_UNUSED(parent);
   m_packetsReceived = 0;
   m_ui.setupUi(this);
   glitch_variety::sortCombinationBox(m_ui.flow_control);
