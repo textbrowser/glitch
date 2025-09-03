@@ -183,8 +183,16 @@ void glitch_serial_port_window::slotConnect(void)
     {
       QApplication::restoreOverrideCursor();
       QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
+      m_ui.last_error->setText
+	(QString("%1:%2:%3").
+	 arg(serialPort->portName()).
+	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+	 arg(serialPort->errorString().trimmed().toUpper()));
+      m_ui.last_error->setCursorPosition(0);
       return;
     }
+  else
+    m_ui.last_error->clear();
 
   connect(serialPort,
 	  &QSerialPort::readyRead,
