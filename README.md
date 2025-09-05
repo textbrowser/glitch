@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.07.15 is the newest source release.</b>
+<b>Version 2025.09.04 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,16 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.09.04</p>
+<ul>
+<li>ASH: close.</li>
+<li>Adjust the number of columns in the recent-diagrams-view on
+  resize events.</li>
+<li>Serial port windows are now children of the main window.</li>
+<li>Show objects as quickly as possible after a diagram is
+  opened.</li>
+</ul>
 
 <p>2025.07.15</p>
 <ul>
