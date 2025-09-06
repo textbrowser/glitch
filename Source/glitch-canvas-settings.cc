@@ -1126,9 +1126,9 @@ void glitch_canvas_settings::setProjectKeywords(const QStringList &list)
       m_ui.source_view_keywords->setItem(i, 1, item);
     }
 
-  m_ui.source_view_keywords->resizeColumnToContents(0);
   m_ui.source_view_keywords->setSortingEnabled(true);
   m_ui.source_view_keywords->sortByColumn(0, Qt::AscendingOrder);
+  m_ui.source_view_keywords->resizeColumnToContents(0);
 }
 
 void glitch_canvas_settings::setRedoUndoStackSize(const int value)
