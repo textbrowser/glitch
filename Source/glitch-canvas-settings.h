@@ -60,11 +60,7 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
 	  connect(pushButton,
 		  SIGNAL(clicked(void)),
 		  this,
-		  SLOT(slotSelectColor(void))
-#ifdef Q_OS_MACOS
-		  , Qt::QueuedConnection
-#endif
-		  );
+		  SLOT(slotSelectColor(void)));
 	  m_index = index;
 	  pushButton->setText(index.data().toString().remove('&').trimmed());
 	  return pushButton;
