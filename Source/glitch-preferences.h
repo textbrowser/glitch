@@ -60,7 +60,7 @@ class glitch_preferences: public QDialog
   void slotSelectOutputDirectory(void);
 
  signals:
-  void accept(void);
+  void accepted(void);
 };
 
 #endif

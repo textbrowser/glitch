@@ -198,7 +198,7 @@ void glitch_preferences::slotApply(void)
      absoluteFilePath());
   m_ui.output_directory->setCursorPosition(0);
   m_ui.output_directory->selectAll();
-  emit accept();
+  emit accepted();
 }
 
 void glitch_preferences::slotOutputDirectoryTextChanged(const QString &text)

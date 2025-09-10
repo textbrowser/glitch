@@ -146,7 +146,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
      &glitch_ui::slotCopiedObjectsChanged,
      Qt::QueuedConnection);
   connect(m_preferences,
-	  &glitch_preferences::accept,
+	  &glitch_preferences::accepted,
 	  this,
 	  &glitch_ui::slotPreferencesAccepted);
   connect(m_recentDiagramsView,
@@ -578,7 +578,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
        this);
 
   connect(m_preferences,
-	  &glitch_preferences::accept,
+	  &glitch_preferences::accepted,
 	  view,
 	  &glitch_view::slotPreferencesAccepted);
   connect(view,
@@ -2453,7 +2453,7 @@ void glitch_ui::slotSeparate(glitch_view *view)
   auto window = new glitch_separated_diagram_window(this);
 
   connect(m_preferences,
-	  &glitch_preferences::accept,
+	  &glitch_preferences::accepted,
 	  window,
 	  &glitch_separated_diagram_window::slotPreferencesAccepted);
   connect(window,

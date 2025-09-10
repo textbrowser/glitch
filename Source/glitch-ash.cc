@@ -178,7 +178,7 @@ void glitch_ash_textedit::handleTabKey(void)
     }
 
   if(map.size() == 1)
-    replaceCurrentCommand(map.keys().at(0) + " ");
+    replaceCurrentCommand(map.firstKey() + " ");
   else if(map.size() > 1)
     {
       moveCursor(QTextCursor::End);
