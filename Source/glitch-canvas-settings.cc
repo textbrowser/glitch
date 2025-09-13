@@ -59,9 +59,11 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   glitch_variety::assignImage(m_ui.lock_color, QColor(231, 84, 128));
   glitch_variety::assignImage(m_ui.selection_color, QColor(0, 0, 139));
   glitch_variety::assignImage(m_ui.wire_color, QColor(255, 192, 203, 175));
+  m_ui.apply->setIcon(QIcon(":/save.png"));
+  m_ui.apply->setShortcut(tr("Ctrl+S"));
   m_ui.background_color->setText(QColor("#55aaff").name(QColor::HexArgb));
-  m_ui.button_box->button(QDialogButtonBox::Apply)->setShortcut(tr("Ctrl+S"));
-  m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
+  m_ui.close->setIcon(QIcon(":/close.png"));
+  m_ui.close->setShortcut(tr("Ctrl+W"));
   m_ui.dots_grids_color->setText(QColor(Qt::white).name(QColor::HexArgb));
   m_ui.lock_color->setText(QColor(231, 84, 128).name(QColor::HexArgb));
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
@@ -136,14 +138,18 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
 	  &QTimer::timeout,
 	  this,
 	  &glitch_canvas_settings::slotTimerTimeout);
+  connect(m_ui.apply,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_canvas_settings::slotApply);
   connect(m_ui.background_color,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_canvas_settings::slotSelectColor);
-  connect(m_ui.button_box->button(QDialogButtonBox::Apply),
+  connect(m_ui.close,
 	  &QPushButton::clicked,
 	  this,
-	  &glitch_canvas_settings::accept);
+	  &glitch_canvas_settings::close);
   connect(m_ui.dots_grids_color,
 	  &QPushButton::clicked,
 	  this,
@@ -667,21 +673,6 @@ int glitch_canvas_settings::adjustedTabPositionIndexFromIndex
 int glitch_canvas_settings::redoUndoStackSize(void) const
 {
   return m_settings.value(Settings::REDO_UNDO_STACK_SIZE).toInt();
-}
-
-void glitch_canvas_settings::accept(void)
-{
-  auto const name(m_ui.name->text().trimmed());
-
-  if(name.isEmpty())
-    m_ui.name->setText(defaultName());
-
-  m_ui.name->setCursorPosition(0);
-  m_ui.name->selectAll();
-  setProjectIDE(m_ui.project_ide->text());
-  setResult(QDialog::Accepted);
-  setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
-  emit accepted(true);
 }
 
 void glitch_canvas_settings::alterDatabase(void) const
@@ -1305,6 +1296,22 @@ void glitch_canvas_settings::showEvent(QShowEvent *event)
 void glitch_canvas_settings::showPage(const Pages page)
 {
   m_ui.tab->setCurrentIndex(static_cast<int> (page));
+}
+
+void glitch_canvas_settings::slotApply(void)
+{
+  auto const name(m_ui.name->text().trimmed());
+
+  if(name.isEmpty())
+    m_ui.name->setText(defaultName());
+
+  m_ui.apply->animate(2500);
+  m_ui.name->setCursorPosition(0);
+  m_ui.name->selectAll();
+  setProjectIDE(m_ui.project_ide->text());
+  setResult(QDialog::Accepted);
+  setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(this->name()));
+  emit accepted(true);
 }
 
 void glitch_canvas_settings::slotCommunicationsPortRefresh(void)

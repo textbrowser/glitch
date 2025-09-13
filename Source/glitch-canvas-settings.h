@@ -248,8 +248,6 @@ class glitch_canvas_settings: public QDialog
   void showEvent(QShowEvent *event);
 
  private slots:
-  void accept(void);
-
 #ifdef Q_OS_ANDROID
   void reject(void)
   {
@@ -259,6 +257,7 @@ class glitch_canvas_settings: public QDialog
   }
 #endif
 
+  void slotApply(void);
   void slotCommunicationsPortRefresh(void);
   void slotResetSourceViewKeywords(void);
   void slotSelectColor(void);

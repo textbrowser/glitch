@@ -227,6 +227,8 @@ FORMS          += UI/glitch-ash.ui \
                   UI/glitch-user-functions.ui \
 		  UI/glitch-view.ui
 HEADERS	       += Source/glitch-alignment.h \
+                  Source/glitch-animated-push-button.h \
+                  Source/glitch-animated-tool-button.h \
                   Source/glitch-application.h \
                   Source/glitch-ash.h \
                   Source/glitch-aware-containers.h \
