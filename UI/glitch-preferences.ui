@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>488</width>
-        <height>644</height>
+        <height>642</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -353,17 +353,45 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="button_box">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Apply|QDialogButtonBox::Close</set>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_19">
+     <item>
+      <spacer name="horizontalSpacer_15">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="glitch_animated_push_button" name="apply">
+       <property name="text">
+        <string>&amp;Apply</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="close">
+       <property name="text">
+        <string>&amp;Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glitch_animated_push_button</class>
+   <extends>QPushButton</extends>
+   <header>glitch-animated-push-button.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>scrollArea</tabstop>
   <tabstop>tab</tabstop>
@@ -383,38 +411,5 @@
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>button_box</sender>
-   <signal>accepted()</signal>
-   <receiver>glitch_preferences</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>254</x>
-     <y>493</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>button_box</sender>
-   <signal>rejected()</signal>
-   <receiver>glitch_preferences</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>322</x>
-     <y>493</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

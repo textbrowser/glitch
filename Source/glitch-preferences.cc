@@ -39,12 +39,12 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
   m_defaultOutputDirectory = QDir::homePath() + QDir::separator() + "Glitch";
   m_ui.setupUi(this);
   glitch_variety::sortCombinationBox(m_ui.font_hinting);
-  m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
-  connect(m_ui.button_box->button(QDialogButtonBox::Apply),
+  m_ui.close->setShortcut(tr("Ctrl+W"));
+  connect(m_ui.apply,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::slotApply);
-  connect(m_ui.button_box->button(QDialogButtonBox::Close),
+  connect(m_ui.close,
 	  &QPushButton::clicked,
 	  this,
 	  &glitch_preferences::reject);
@@ -198,7 +198,14 @@ void glitch_preferences::slotApply(void)
      absoluteFilePath());
   m_ui.output_directory->setCursorPosition(0);
   m_ui.output_directory->selectAll();
-  emit accepted();
+
+  if(settings.status() == QSettings::NoError)
+    {
+      m_ui.apply->animate(2500);
+      emit accepted();
+    }
+  else
+    m_ui.apply->animateNegatively(2500);
 }
 
 void glitch_preferences::slotOutputDirectoryTextChanged(const QString &text)
