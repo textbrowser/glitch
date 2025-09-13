@@ -244,6 +244,13 @@ void glitch_serial_port_window::slotConnect(void)
     ok &= serialPort->setStopBits(QSerialPort::OneStop);
 
   ok ? m_ui.connect->animate(2500) : m_ui.connect->animateNegatively(2500);
+  ok ? m_ui.last_error->clear() :
+    m_ui.last_error->setText
+    (QString("%1:%2:%3").
+     arg(serialPort->portName()).
+     arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
+     arg(serialPort->errorString().trimmed().toUpper())),
+    m_ui.last_error->setCursorPosition(0);
   m_ui.connect->setEnabled(false);
   m_ui.disconnect->setEnabled(true);
   m_ui.send->setEnabled(true);
