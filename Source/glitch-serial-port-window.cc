@@ -182,6 +182,7 @@ void glitch_serial_port_window::slotConnect(void)
     {
       QApplication::restoreOverrideCursor();
       QTimer::singleShot(250, this, SLOT(slotDisconnect(void)));
+      m_ui.connect->animateNegatively(2500);
       m_ui.last_error->setText
 	(QString("%1:%2:%3").
 	 arg(serialPort->portName()).
@@ -201,44 +202,48 @@ void glitch_serial_port_window::slotConnect(void)
 	  SIGNAL(errorOccurred(QSerialPort::SerialPortError)),
 	  this,
 	  SLOT(slotErrorOccurred(QSerialPort::SerialPortError)));
-  serialPort->setBaudRate
+
+  auto ok = true;
+
+  ok &= serialPort->setBaudRate
     (static_cast<qint32> (m_ui.baud_rate_input->currentText().toInt()),
      QSerialPort::Input);
-  serialPort->setBaudRate
+  ok &= serialPort->setBaudRate
     (static_cast<qint32> (m_ui.baud_rate_output->currentText().toInt()),
      QSerialPort::Output);
-  serialPort->setBreakEnabled(m_ui.break_enabled->isChecked());
-  serialPort->setDataBits
+  ok &= serialPort->setBreakEnabled(m_ui.break_enabled->isChecked());
+  ok &= serialPort->setDataBits
     (QSerialPort::DataBits(m_ui.data_bits->currentIndex() + 5));
-  serialPort->setDataTerminalReady(m_ui.data_terminal_ready->isChecked());
+  ok &= serialPort->setDataTerminalReady(m_ui.data_terminal_ready->isChecked());
 
   if(m_ui.flow_control->currentText() == tr("Hardware"))
-    serialPort->setFlowControl(QSerialPort::HardwareControl);
+    ok &= serialPort->setFlowControl(QSerialPort::HardwareControl);
   else if(m_ui.flow_control->currentText() == tr("Software"))
-    serialPort->setFlowControl(QSerialPort::SoftwareControl);
+    ok &= serialPort->setFlowControl(QSerialPort::SoftwareControl);
   else
-    serialPort->setFlowControl(QSerialPort::NoFlowControl);
+    ok &= serialPort->setFlowControl(QSerialPort::NoFlowControl);
 
   if(m_ui.parity->currentText() == tr("Even"))
-    serialPort->setParity(QSerialPort::EvenParity);
+    ok &= serialPort->setParity(QSerialPort::EvenParity);
   else if(m_ui.parity->currentText() == tr("Mark"))
-    serialPort->setParity(QSerialPort::MarkParity);
+    ok &= serialPort->setParity(QSerialPort::MarkParity);
   else if(m_ui.parity->currentText() == tr("Odd"))
-    serialPort->setParity(QSerialPort::OddParity);
+    ok &= serialPort->setParity(QSerialPort::OddParity);
   else if(m_ui.parity->currentText() == tr("Space"))
-    serialPort->setParity(QSerialPort::SpaceParity);
+    ok &= serialPort->setParity(QSerialPort::SpaceParity);
   else
-    serialPort->setParity(QSerialPort::NoParity);
+    ok &= serialPort->setParity(QSerialPort::NoParity);
 
-  serialPort->setRequestToSend(m_ui.rts->isChecked());
+  ok &= serialPort->setRequestToSend(m_ui.rts->isChecked());
 
   if(m_ui.stop_bits->currentText() == tr("OneAndHalf"))
-    serialPort->setStopBits(QSerialPort::OneAndHalfStop);
+    ok &= serialPort->setStopBits(QSerialPort::OneAndHalfStop);
   else if(m_ui.stop_bits->currentText() == tr("Two"))
-    serialPort->setStopBits(QSerialPort::TwoStop);
+    ok &= serialPort->setStopBits(QSerialPort::TwoStop);
   else
-    serialPort->setStopBits(QSerialPort::OneStop);
+    ok &= serialPort->setStopBits(QSerialPort::OneStop);
 
+  ok ? m_ui.connect->animate(2500) : m_ui.connect->animateNegatively(2500);
   m_ui.connect->setEnabled(false);
   m_ui.disconnect->setEnabled(true);
   m_ui.send->setEnabled(true);
@@ -370,7 +375,8 @@ void glitch_serial_port_window::slotSend(void)
 
   if(serialPort)
     {
-      serialPort->write(m_ui.command->toPlainText().toUtf8());
+      serialPort->write(m_ui.command->toPlainText().toUtf8()) != -1 ?
+	m_ui.send->animate(2500) : m_ui.send->animateNegatively(2500);
       serialPort->flush();
     }
 #endif

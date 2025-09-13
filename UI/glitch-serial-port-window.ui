@@ -407,7 +407,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="connect">
+            <widget class="glitch_animated_push_button" name="connect">
              <property name="text">
               <string>Connect</string>
              </property>
@@ -480,7 +480,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="send">
+           <widget class="glitch_animated_push_button" name="send">
             <property name="text">
              <string>Send</string>
             </property>
@@ -590,6 +590,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glitch_animated_push_button</class>
+   <extends>QPushButton</extends>
+   <header>glitch-animated-push-button.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>port_name</tabstop>
   <tabstop>refresh</tabstop>
