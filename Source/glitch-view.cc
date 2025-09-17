@@ -103,6 +103,11 @@ glitch_view::glitch_view
       ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
        "QToolButton::menu-button {border: none;}"
        "QToolButton::menu-indicator {image: none;}");
+  else
+    m_ideClear->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
 #else
   m_ideClear->setStyleSheet
     ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
@@ -140,6 +145,11 @@ glitch_view::glitch_view
   if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
     m_tabPullDown->setStyleSheet
       ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
+  else
+    m_tabPullDown->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
        "QToolButton::menu-button {border: none;}"
        "QToolButton::menu-indicator {image: none;}");
 #else
@@ -1150,6 +1160,11 @@ void glitch_view::copyCornerWidget(void)
   if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
     toolButton->setStyleSheet
       ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
+  else
+    toolButton->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
        "QToolButton::menu-button {border: none;}"
        "QToolButton::menu-indicator {image: none;}");
 #else
