@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.09.04 is the newest source release.</b>
+<b>Version 2025.09.17 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,15 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.09.17</p>
+<ul>
+<li>Animated push and tool buttons.</li>
+<li>Modify tool button stylesheets on MacOS if QT_STYLE_OVERRIDE
+  is assigned. The stylesheets resemble stylesheets on other
+  operating systems.</li>
+<li>Report serial-port configuration errors after open().</li>
+</ul>
 
 <p>2025.09.04</p>
 <ul>
