@@ -374,10 +374,11 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #endif
 #ifdef Q_OS_MACOS
-      toolButton->setStyleSheet
-	("QToolButton {border: none;}"
-	 "QToolButton::menu-button {border: none;}"
-	 "QToolButton::menu-indicator {image: none;}");
+      if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+	toolButton->setStyleSheet
+	  ("QToolButton {border: none;}"
+	   "QToolButton::menu-button {border: none;}"
+	   "QToolButton::menu-indicator {image: none;}");
 #endif
       toolButton->setToolTip(tr("Connection Tools"));
       m_ui.miscellaneous_toolbar->addWidget(toolButton);
@@ -432,10 +433,11 @@ void glitch_separated_diagram_window::prepareToolBar(void)
       toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #endif
 #ifdef Q_OS_MACOS
-      toolButton->setStyleSheet
-	("QToolButton {border: none;}"
-	 "QToolButton::menu-button {border: none;}"
-	 "QToolButton::menu-indicator {image: none;}");
+      if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+	toolButton->setStyleSheet
+	  ("QToolButton {border: none;}"
+	   "QToolButton::menu-button {border: none;}"
+	   "QToolButton::menu-indicator {image: none;}");
 #endif
       toolButton->setToolTip(tr("Miscellaneous Tools"));
 #ifdef Q_OS_ANDROID

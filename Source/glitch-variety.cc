@@ -83,6 +83,14 @@ Qt::KeyboardModifiers glitch_variety::keyboardModifiers(void)
   return QGuiApplication::keyboardModifiers();
 }
 
+bool glitch_variety::isEnvironmentSet(const char *name)
+{
+  if(!name)
+    return false;
+  else
+    return !qgetenv(name).isNull();
+}
+
 bool glitch_variety::sameAncestors
 (const QObject *object1, const QObject *object2)
 {

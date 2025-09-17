@@ -98,10 +98,11 @@ glitch_view::glitch_view
   m_ideClear = new QToolButton(m_ideOutput = new QTextBrowser(this));
   m_ideClear->setIcon(QIcon::fromTheme("edit-clear"));
 #ifdef Q_OS_MACOS
-  m_ideClear->setStyleSheet
-    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
-     "QToolButton::menu-button {border: none;}"
-     "QToolButton::menu-indicator {image: none;}");
+  if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+    m_ideClear->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
 #else
   m_ideClear->setStyleSheet
     ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
@@ -136,10 +137,11 @@ glitch_view::glitch_view
   m_tabPullDown->setMenu(new QMenu(m_tabPullDown));
   m_tabPullDown->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
-  m_tabPullDown->setStyleSheet
-    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
-     "QToolButton::menu-button {border: none;}"
-     "QToolButton::menu-indicator {image: none;}");
+  if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+    m_tabPullDown->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
 #else
   m_tabPullDown->setStyleSheet
     ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
@@ -1145,10 +1147,11 @@ void glitch_view::copyCornerWidget(void)
   toolButton->setMenu(new QMenu(toolButton));
   toolButton->setPopupMode(QToolButton::DelayedPopup);
 #ifdef Q_OS_MACOS
-  toolButton->setStyleSheet
-    ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
-     "QToolButton::menu-button {border: none;}"
-     "QToolButton::menu-indicator {image: none;}");
+  if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+    toolButton->setStyleSheet
+      ("QToolButton {border: none; margin-bottom: 0px; margin-top: 0px;}"
+       "QToolButton::menu-button {border: none;}"
+       "QToolButton::menu-indicator {image: none;}");
 #else
   toolButton->setStyleSheet
     ("QToolButton {border: none; margin-bottom: 5px; margin-top: 5px;}"
