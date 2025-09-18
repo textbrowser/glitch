@@ -1880,6 +1880,8 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       toolButton->setIcon(iconWire);
       toolButton->setMenu(menu);
 #ifdef Q_OS_MACOS
+      if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+	toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #else
       toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #endif
@@ -1960,6 +1962,8 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
       toolButton->setIcon(iconTools);
       toolButton->setMenu(menu);
 #ifdef Q_OS_MACOS
+      if(!glitch_variety::isEnvironmentSet("QT_STYLE_OVERRIDE"))
+	toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #else
       toolButton->setPopupMode(QToolButton::MenuButtonPopup);
 #endif
