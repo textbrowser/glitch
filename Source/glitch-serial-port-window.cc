@@ -156,7 +156,7 @@ void glitch_serial_port_window::showEvent(QShowEvent *event)
 
 void glitch_serial_port_window::slotClear(void)
 {
-  m_ui.communications->clear();
+  m_ui.communications->setRowCount(0);
 }
 
 void glitch_serial_port_window::slotConnect(void)
@@ -255,6 +255,7 @@ void glitch_serial_port_window::slotConnect(void)
   m_ui.disconnect->setEnabled(true);
   m_ui.send->setEnabled(true);
   m_ui.serial_port->setText(serialPort->portName());
+  serialPort->clear();
   QApplication::restoreOverrideCursor();
 #endif
 }
@@ -333,37 +334,40 @@ void glitch_serial_port_window::slotReadyRead(void)
 
   if(serialPort)
     {
+      QByteArray bytes;
+
       while(serialPort->bytesAvailable() > 0)
-	{
-	  QByteArray bytes;
+	if(serialPort->canReadLine())
+	  bytes.append(serialPort->readLine());
+	else
+	  bytes.append(serialPort->readAll());
 
-	  if(serialPort->canReadLine())
-	    bytes = serialPort->readLine();
-	  else
-	    bytes = serialPort->readAll();
+      foreach(auto const &bytes, bytes.split('\n'))
+	if(!bytes.trimmed().isEmpty())
+	  {
+	    m_ui.communications->setRowCount
+	      (m_ui.communications->rowCount() + 1);
+	    m_ui.communications->setSortingEnabled(false);
 
-	  if(!bytes.isEmpty())
-	    {
-	      m_packetsReceived += 1;
+	    QStringList list;
 
-	      if(m_ui.raw->isChecked())
-		m_ui.communications->append(bytes);
-	      else
-		{
-		  QString string("");
+	    list << bytes
+		 << QDateTime::currentDateTime().toString(Qt::ISODateWithMs)
+		 << serialPort->portName();
 
-		  string.append
-		    (QString("<font color='#33a532'>%1</font>:"
-			     "<b>%2</b>:"
-			     "<font color='#00238b'>%3</font>: ").
-		     arg(serialPort->portName()).
-		     arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
-		     arg(QString::number(m_packetsReceived)));
-		  string.append(bytes);
-		  m_ui.communications->append(string);
-		}
-	    }
-	}
+	    for(int i = 0; i < 3; i++)
+	      {
+		auto item = new QTableWidgetItem(list.at(i));
+
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+		m_ui.communications->setItem
+		  (m_ui.communications->rowCount() - 1, i, item);
+	      }
+
+	    m_ui.communications->setSortingEnabled(true);
+	  }
+
+      m_ui.communications->scrollToBottom();
     }
 #endif
 }

@@ -332,7 +332,7 @@
              <item row="3" column="1">
               <widget class="QComboBox" name="data_bits">
                <property name="currentIndex">
-                <number>0</number>
+                <number>3</number>
                </property>
                <property name="sizeAdjustPolicy">
                 <enum>QComboBox::AdjustToContents</enum>
@@ -509,13 +509,49 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTextBrowser" name="communications">
-          <property name="textInteractionFlags">
-           <set>Qt::TextSelectableByMouse</set>
+         <widget class="QTableWidget" name="communications">
+          <property name="alternatingRowColors">
+           <bool>true</bool>
           </property>
-          <property name="openLinks">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="horizontalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>200</number>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
            <bool>false</bool>
-          </property>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Event</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Event Time</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Port Name</string>
+           </property>
+          </column>
          </widget>
         </item>
         <item>
@@ -537,16 +573,6 @@
            <widget class="QPushButton" name="clear">
             <property name="text">
              <string>Clear</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="raw">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Data will be displayed in the original format.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-            <property name="text">
-             <string>Raw</string>
             </property>
            </widget>
           </item>
@@ -616,7 +642,6 @@
   <tabstop>send</tabstop>
   <tabstop>communications</tabstop>
   <tabstop>clear</tabstop>
-  <tabstop>raw</tabstop>
   <tabstop>last_error</tabstop>
  </tabstops>
  <resources>
