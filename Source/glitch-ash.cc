@@ -366,7 +366,7 @@ void glitch_ash_textedit::saveHistoryDesktop(void) const
   fileName.append(QDir::separator());
   fileName.append
     (QString("glitch-ash-history-%1.txt").
-     arg(QDateTime::currentDateTime().toString(Qt::ISODate).
+     arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs).
 	 remove('-').remove(':')));
 
   QFile file(fileName);
