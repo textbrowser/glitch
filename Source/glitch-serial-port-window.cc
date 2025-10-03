@@ -342,12 +342,13 @@ void glitch_serial_port_window::slotReadyRead(void)
 	else
 	  bytes.append(serialPort->readAll());
 
+      m_ui.communications->setSortingEnabled(false);
+
       foreach(auto const &bytes, bytes.split('\n'))
 	if(!bytes.trimmed().isEmpty())
 	  {
 	    m_ui.communications->setRowCount
 	      (m_ui.communications->rowCount() + 1);
-	    m_ui.communications->setSortingEnabled(false);
 
 	    QStringList list;
 
@@ -363,11 +364,10 @@ void glitch_serial_port_window::slotReadyRead(void)
 		m_ui.communications->setItem
 		  (m_ui.communications->rowCount() - 1, i, item);
 	      }
-
-	    m_ui.communications->setSortingEnabled(true);
 	  }
 
       m_ui.communications->scrollToBottom();
+      m_ui.communications->setSortingEnabled(true);
     }
 #endif
 }
