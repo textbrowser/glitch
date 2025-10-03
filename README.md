@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.05.03 is the newest LTS release.</b><br>
-<b>Version 2025.09.17 is the newest source release.</b>
+<b>Version 2025.10.03 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,14 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2025.10.03</p>
+<ul>
+<li>Display serial data in a table widget. Only UTF-8-printable
+  data will be shown.</li>
+<li>ISODate will now include milliseconds.</li>
+<li>New serial port default value: 8-bit frame size.</li>
+</ul>
 
 <p>2025.09.17</p>
 <ul>
