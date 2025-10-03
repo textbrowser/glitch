@@ -185,7 +185,7 @@ void glitch_serial_port_window::slotConnect(void)
       m_ui.connect->animateNegatively(2500);
       m_ui.last_error->setText
 	(QString("%1:%2:%3").
-	 arg(serialPort->portName()).
+	 arg(serialPort->portName().trimmed()).
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
 	 arg(serialPort->errorString().trimmed().toUpper()));
       m_ui.last_error->setCursorPosition(0);
@@ -247,7 +247,7 @@ void glitch_serial_port_window::slotConnect(void)
   ok ? m_ui.last_error->clear() :
     m_ui.last_error->setText
     (QString("%1:%2:%3").
-     arg(serialPort->portName()).
+     arg(serialPort->portName().trimmed()).
      arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
      arg(serialPort->errorString().trimmed().toUpper())),
     m_ui.last_error->setCursorPosition(0);
@@ -289,7 +289,7 @@ void glitch_serial_port_window::slotErrorOccurred
     {
       m_ui.last_error->setText
 	(QString("%1:%2:%3 (%4)").
-	 arg(serialPort->portName()).
+	 arg(serialPort->portName().trimmed()).
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
 	 arg(serialPort->errorString().trimmed().toUpper()).
 	 arg(error));
@@ -352,13 +352,15 @@ void glitch_serial_port_window::slotReadyRead(void)
 
 	    QStringList list;
 
-	    list << qUtf8Printable(bytes)
+	    list << QString(qUtf8Printable(bytes)).trimmed()
 		 << QDateTime::currentDateTime().toString(Qt::ISODateWithMs)
 		 << serialPort->portName();
 
 	    for(int i = 0; i < list.size(); i++)
 	      {
-		auto item = new QTableWidgetItem(list.at(i));
+		auto item = new QTableWidgetItem
+		  (list.at(i).trimmed().isEmpty() ?
+		   tr("(Empty)") : list.at(i).trimmed());
 
 		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		m_ui.communications->setItem
