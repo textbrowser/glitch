@@ -409,7 +409,6 @@ Remaining Items
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
-- Moving a group of widgets causes glitchy scroll behavior.
 - Nested flow-control scenes. Very difficult.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
