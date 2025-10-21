@@ -209,7 +209,7 @@ QString glitch_object_function_arduino::code(void) const
       if(!m_editView)
 	return "";
 
-      QString asterisk(m_ui.asterisk->isChecked() ? "*" : "");
+      QString const asterisk(m_ui.asterisk->isChecked() ? "*" : "");
       QString code("");
       QTextStream stream(&code);
 
@@ -701,7 +701,7 @@ void glitch_object_function_arduino::prepareEditWindowHeader(void)
 {
   if(m_editWindow && m_isFunctionClone == false)
     {
-      QString asterisk(m_ui.asterisk->isChecked() ? "*" : "");
+      QString const asterisk(m_ui.asterisk->isChecked() ? "*" : "");
       auto string
 	(m_ui.return_type->currentText() +
 	 " " +
