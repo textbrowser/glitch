@@ -414,4 +414,5 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
+- Show function parameter header for Arduino function object.
 - Snap-to-visible-grid.
