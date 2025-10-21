@@ -624,11 +624,15 @@ void glitch_object_function_arduino::createEditObjects(void)
 
   if(!m_isFunctionClone)
     {
-      m_editWindow = new glitch_object_edit_window
-	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-      m_editWindow->setCentralWidget(m_editView);
-      m_editWindow->setEditView(m_editView);
-      m_editWindow->setUndoStack(m_undoStack);
+      if(!m_editWindow)
+	{
+	  m_editWindow = new glitch_object_edit_window
+	    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+	  m_editWindow->setCentralWidget(m_editView);
+	  m_editWindow->setEditView(m_editView);
+	  m_editWindow->setUndoStack(m_undoStack);
+	}
+
       prepareEditObjects(findNearestGlitchView(m_parent));
       setEditWindowTitle(glitch_object_function_arduino::name());
     }
@@ -693,6 +697,37 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
   prepareContextMenu();
 }
 
+void glitch_object_function_arduino::prepareEditWindowHeader(void)
+{
+  if(m_editWindow && m_isFunctionClone == false)
+    {
+      QString asterisk(m_ui.asterisk->isChecked() ? "*" : "");
+      auto string
+	(m_ui.return_type->currentText() +
+	 " " +
+	 asterisk +
+	 m_ui.label->text().remove("()") +
+	 "(");
+
+      QString parameters("");
+      auto const list(inputs());
+
+      for(int i = 0; i < list.size(); i++)
+	{
+	  parameters.append(list.at(i).trimmed());
+
+	  if(i != list.size() - 1)
+	    parameters.append(", ");
+	}
+
+      if(parameters.isEmpty())
+	parameters = "void";
+
+      string.append(parameters + ")");
+      m_editWindow->prepareHeader(string);
+    }
+}
+
 void glitch_object_function_arduino::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -744,6 +779,7 @@ void glitch_object_function_arduino::setIsPointer(const bool state)
   m_ui.asterisk->blockSignals(true);
   m_ui.asterisk->setChecked(state);
   m_ui.asterisk->blockSignals(false);
+  prepareEditWindowHeader();
 
   if(!m_isFunctionClone)
     emit changed();
@@ -761,6 +797,7 @@ void glitch_object_function_arduino::setName(const QString &name)
     }
 
   m_ui.label->setText(m_properties.value(Properties::NAME).toString());
+  prepareEditWindowHeader();
   setEditWindowTitle(m_properties.value(Properties::NAME).toString());
 
   if(!m_isFunctionClone)
@@ -893,6 +930,7 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
     m_ui.return_type->setCurrentIndex(0);
 
   m_ui.return_type->blockSignals(false);
+  prepareEditWindowHeader();
 
   if(!m_isFunctionClone)
     emit changed();
@@ -956,6 +994,7 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
   emit returnPointerChanged
     (m_ui.asterisk->isChecked(), m_previousAsterisk, this);
   m_previousAsterisk = m_ui.asterisk->isChecked();
+  prepareEditWindowHeader();
 }
 
 void glitch_object_function_arduino::slotEdit(void)
@@ -966,6 +1005,7 @@ void glitch_object_function_arduino::slotEdit(void)
       m_editView->setVisible(true);
       m_editWindow->setToolBarVisible // Recorded in the window's state.
 	(m_properties.value(Properties::TOOL_BAR_VISIBLE).toBool());
+      prepareEditWindowHeader();
       return;
     }
 
@@ -1066,6 +1106,7 @@ void glitch_object_function_arduino::slotReturnTypeChanged(void)
   emit returnTypeChanged
     (m_ui.return_type->currentText(), m_previousReturnType, this);
   m_previousReturnType = m_ui.return_type->currentText();
+  prepareEditWindowHeader();
 }
 
 void glitch_object_function_arduino::slotSetFunctionName(void)
@@ -1148,6 +1189,7 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_parentView->consumeFunctionName(text);
 
       m_ui.label->setText(text);
+      prepareEditWindowHeader();
       setEditWindowTitle(text);
       emit nameChanged(text, name, this);
     }

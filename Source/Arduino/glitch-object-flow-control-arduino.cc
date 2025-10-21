@@ -403,11 +403,16 @@ void glitch_object_flow_control_arduino::createEditObjects(void)
     }
 
   m_editView->setVisible(false);
-  m_editWindow = new glitch_object_edit_window
-    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-  m_editWindow->setCentralWidget(m_editView);
-  m_editWindow->setEditView(m_editView);
-  m_editWindow->setUndoStack(m_undoStack);
+
+  if(!m_editWindow)
+    {
+      m_editWindow = new glitch_object_edit_window
+	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+      m_editWindow->setCentralWidget(m_editView);
+      m_editWindow->setEditView(m_editView);
+      m_editWindow->setUndoStack(m_undoStack);
+    }
+
   prepareEditObjects(findNearestGlitchView(m_parent));
   setEditWindowTitle(tr("flow control"));
 }
