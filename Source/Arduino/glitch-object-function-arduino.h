@@ -91,6 +91,7 @@ class glitch_object_function_arduino: public glitch_object
 
  private slots:
   void slotAsteriskChanged(void);
+  void slotChanged(void);
   void slotEdit(void);
   void slotFindParentFunctionTimeout(void);
   void slotHideOrShowOccupied(void);

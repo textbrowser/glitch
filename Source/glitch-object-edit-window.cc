@@ -434,14 +434,11 @@ void glitch_object_edit_window::prepareHeader(const QString &text)
     {
       m_header->setText(text.trimmed());
       m_header->setCursorPosition(0);
-      m_header->setVisible(true);
-      m_header->setReadOnly(false);
-      glitch_variety::highlight(m_header);
       m_header->setReadOnly(true);
+      m_header->setVisible(true);
+      glitch_variety::highlight(m_header);
       m_object ? m_object->setEditWindowTitle(m_header->text()) : (void) 0;
-
-      if(windowTitle().trimmed().isEmpty())
-	setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
+      setWindowTitle(tr("Glitch: %1").arg(m_header->text()));
     }
   else
     {

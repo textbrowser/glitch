@@ -44,6 +44,10 @@
 glitch_object_function_arduino::glitch_object_function_arduino
 (QWidget *parent):glitch_object(parent)
 {
+  connect(this,
+	  &glitch_object_function_arduino::changed,
+	  this,
+	  &glitch_object_function_arduino::slotChanged);
   m_initialized = false;
   initialize(parent);
   m_parentView = qobject_cast<glitch_view_arduino *>
@@ -779,7 +783,6 @@ void glitch_object_function_arduino::setIsPointer(const bool state)
   m_ui.asterisk->blockSignals(true);
   m_ui.asterisk->setChecked(state);
   m_ui.asterisk->blockSignals(false);
-  prepareEditWindowHeader();
 
   if(!m_isFunctionClone)
     emit changed();
@@ -797,7 +800,6 @@ void glitch_object_function_arduino::setName(const QString &name)
     }
 
   m_ui.label->setText(m_properties.value(Properties::NAME).toString());
-  prepareEditWindowHeader();
   setEditWindowTitle(m_properties.value(Properties::NAME).toString());
 
   if(!m_isFunctionClone)
@@ -930,7 +932,6 @@ void glitch_object_function_arduino::setReturnType(const QString &returnType)
     m_ui.return_type->setCurrentIndex(0);
 
   m_ui.return_type->blockSignals(false);
-  prepareEditWindowHeader();
 
   if(!m_isFunctionClone)
     emit changed();
@@ -994,6 +995,11 @@ void glitch_object_function_arduino::slotAsteriskChanged(void)
   emit returnPointerChanged
     (m_ui.asterisk->isChecked(), m_previousAsterisk, this);
   m_previousAsterisk = m_ui.asterisk->isChecked();
+  prepareEditWindowHeader();
+}
+
+void glitch_object_function_arduino::slotChanged(void)
+{
   prepareEditWindowHeader();
 }
 
@@ -1189,7 +1195,6 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 	m_parentView->consumeFunctionName(text);
 
       m_ui.label->setText(text);
-      prepareEditWindowHeader();
       setEditWindowTitle(text);
       emit nameChanged(text, name, this);
     }
