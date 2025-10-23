@@ -1189,10 +1189,10 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       auto const name(m_ui.label->text());
 
       if(m_parentView)
-	m_parentView->removeFunctionName(m_ui.label->text());
-
-      if(m_parentView)
-	m_parentView->consumeFunctionName(text);
+	{
+	  m_parentView->removeFunctionName(m_ui.label->text());
+	  m_parentView->consumeFunctionName(text);
+	}
 
       m_ui.label->setText(text);
       setEditWindowTitle(text);
