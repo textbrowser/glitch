@@ -43,6 +43,11 @@ class glitch_tab: public QTabWidget
   ~glitch_tab();
   QTabBar *tabBar(void) const;
 
+  int addTab(QWidget *widget)
+  {
+    return QTabWidget::addTab(widget, QString());
+  }
+
   int addTab(QWidget *widget, const QString &title)
   {
     return QTabWidget::addTab(widget, title.trimmed());

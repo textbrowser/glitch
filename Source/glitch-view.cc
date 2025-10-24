@@ -1921,6 +1921,7 @@ void glitch_view::slotChanged(void)
   if(m_canvasSettings->savePeriodically())
     m_saveTimer.start();
 
+  prepareTabTitles();
   setSceneRect(m_view->size());
   emit changed();
 }
@@ -2386,12 +2387,9 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	  w->close();
 	  w->prepareForTab(true);
 	  QApplication::processEvents();
-	  m_ui.tab->addTab
-	    (w,
-	     w->windowTitle().mid(w->windowTitle().indexOf(':') + 1).trimmed());
+	  m_ui.tab->addTab(w);
 	  m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
-	  m_ui.tab->setTabToolTip
-	    (m_ui.tab->count() - 1, m_ui.tab->tabText(m_ui.tab->count() - 1));
+	  prepareTabTitles();
 	  prepareTabWidgetCloseButtons();
 	  connect
 	    (w,
@@ -2493,7 +2491,6 @@ void glitch_view::slotUndoStackChanged(int index)
 
   adjustScrollBars();
   emit changed();
-  prepareTabTitles();
 }
 
 void glitch_view::slotUnite(void)
