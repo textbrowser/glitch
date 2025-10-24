@@ -303,6 +303,14 @@ QString glitch_object_edit_window::objectName(void) const
     return tr("None");
 }
 
+QString glitch_object_edit_window::windowTitle(void) const
+{
+  if(m_object)
+    return m_object->editWindowTitle();
+
+  return tr("Glitch");
+}
+
 bool glitch_object_edit_window::event(QEvent *event)
 {
   if(event)

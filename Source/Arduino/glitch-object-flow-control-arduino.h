@@ -76,6 +76,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   }
 
   QString code(void) const;
+  QString editWindowTitle(void) const;
   QString flowControlType(void) const;
   bool hasInput(void) const;
   bool hasOutput(void) const;
@@ -107,6 +108,7 @@ class glitch_object_flow_control_arduino: public glitch_object
   void slotEdit(void);
   void slotFlowControlTypeChanged(void);
   void slotHideOrShowOccupied(void);
+  void slotPrepareEditWindowHeader(void);
 };
 
 #endif

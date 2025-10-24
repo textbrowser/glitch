@@ -654,6 +654,7 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
   prepareStatusBar();
   prepareTab();
   prepareTabShortcuts();
+  setTabText(view);
   setWindowTitle(view);
   slotAboutToShowTabsMenu();
 
@@ -2785,6 +2786,8 @@ void glitch_ui::slotUnite(glitch_view *view)
 
   m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
   m_ui.tab->setCurrentWidget(view);
+  m_ui.tab->setTabToolTip
+    (m_ui.tab->indexOf(view), "<html>" + view->name() + "</html>");
   prepareActionWidgets();
   prepareStatusBar();
   prepareTab();

@@ -66,6 +66,7 @@ class glitch_object_edit_window: public QMainWindow
 
   QPointer<QUndoStack> undoStack(void) const;
   QString objectName(void) const;
+  QString windowTitle(void) const;
   glitch_object *find(const qint64 id) const;
   void clearSelection(void);
 

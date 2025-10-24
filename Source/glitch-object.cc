@@ -310,6 +310,11 @@ QString glitch_object::description(void) const
   return "";
 }
 
+QString glitch_object::editWindowTitle(void) const
+{
+  return "";
+}
+
 QString glitch_object::name(void) const
 {
   return m_properties.value(Properties::NAME).toString();
@@ -1317,6 +1322,10 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
     }
 }
 
+void glitch_object::prepareEditWindowHeader(void)
+{
+}
+
 void glitch_object::prepareFont(void)
 {
   foreach(auto widget, findChildren<QWidget *> ())
@@ -1942,18 +1951,30 @@ void glitch_object::setUndoStack(QUndoStack *undoStack)
     m_editWindow->setUndoStack(undoStack);
 
   if(m_undoStack)
-    disconnect(m_undoStack,
-	       &QUndoStack::indexChanged,
-	       this,
-	       &glitch_object::slotHideOrShowOccupied);
+    {
+      disconnect(m_undoStack,
+		 &QUndoStack::indexChanged,
+		 this,
+		 &glitch_object::slotHideOrShowOccupied);
+      disconnect(m_undoStack,
+		 &QUndoStack::indexChanged,
+		 this,
+		 &glitch_object::slotPrepareEditWindowHeader);
+    }
 
   m_undoStack = undoStack;
 
   if(m_undoStack)
-    connect(m_undoStack,
-	    &QUndoStack::indexChanged,
-	    this,
-	    &glitch_object::slotHideOrShowOccupied);
+    {
+      connect(m_undoStack,
+	      &QUndoStack::indexChanged,
+	      this,
+	      &glitch_object::slotHideOrShowOccupied);
+      connect(m_undoStack,
+	      &QUndoStack::indexChanged,
+	      this,
+	      &glitch_object::slotPrepareEditWindowHeader);
+    }
 }
 
 void glitch_object::setWiredObject
@@ -1962,6 +1983,12 @@ void glitch_object::setWiredObject
   if(!object || !wire || m_id == object->id() || object == this)
     return;
 
+  connect(object,
+	  &glitch_object::changed,
+	  this,
+	  &glitch_object::slotWiredObjectChanged,
+	  static_cast<Qt::ConnectionType> (Qt::QueuedConnection |
+					   Qt::UniqueConnection));
   connect(wire,
 	  &glitch_wire::destroyed,
 	  this,
@@ -2344,6 +2371,10 @@ void glitch_object::slotLockPosition(void)
       !m_properties.value(Properties::POSITION_LOCKED).toBool();
 
   emit changed();
+}
+
+void glitch_object::slotPrepareEditWindowHeader(void)
+{
 }
 
 void glitch_object::slotPortColorsApplied(void)
@@ -2794,4 +2825,9 @@ void glitch_object::slotWireObjects(void)
 
   QApplication::restoreOverrideCursor();
   QTimer::singleShot(250, this, &glitch_object::slotClearTemporaryContainers);
+}
+
+void glitch_object::slotWiredObjectChanged(void)
+{
+  prepareEditWindowHeader();
 }

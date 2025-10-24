@@ -46,6 +46,7 @@ class glitch_object_function_arduino: public glitch_object
   ~glitch_object_function_arduino();
   QPointer<glitch_object_function_arduino> parentFunction(void) const;
   QString code(void) const;
+  QString editWindowTitle(void) const;
   QString name(void) const;
   QString returnType(void) const;
   bool hasInput(void) const;
@@ -96,6 +97,7 @@ class glitch_object_function_arduino: public glitch_object
   void slotFindParentFunctionTimeout(void);
   void slotHideOrShowOccupied(void);
   void slotParentFunctionChanged(void);
+  void slotPrepareEditWindowHeader(void);
   void slotReturnTypeChanged(void);
   void slotSetFunctionName(void);
 

@@ -2174,6 +2174,11 @@ void glitch_view::slotPreferencesAccepted(void)
   emit preferencesAccepted();
 }
 
+void glitch_view::slotPrepareTabTitles(void)
+{
+  prepareTabTitles();
+}
+
 void glitch_view::slotPrint(QPrinter *printer)
 {
   if(!printer)
@@ -2387,9 +2392,9 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 	  w->close();
 	  w->prepareForTab(true);
 	  QApplication::processEvents();
-	  m_ui.tab->addTab(w);
+	  m_ui.tab->addTab(w, w->windowTitle());
 	  m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
-	  prepareTabTitles();
+	  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(w), w->windowTitle());
 	  prepareTabWidgetCloseButtons();
 	  connect
 	    (w,

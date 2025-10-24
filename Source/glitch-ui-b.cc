@@ -497,6 +497,7 @@ void glitch_ui::slotUniteAllDiagrams(void)
 
       m_ui.tab->addTab(view, view->menuAction()->icon(), view->name());
       m_ui.tab->setCurrentWidget(view);
+      m_ui.tab->setTabToolTip(m_ui.tab->indexOf(view), view->name());
       setTabText(view);
       setWindowTitle(view);
       view->unite();

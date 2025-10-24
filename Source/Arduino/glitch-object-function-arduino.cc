@@ -274,6 +274,34 @@ QString glitch_object_function_arduino::code(void) const
     }
 }
 
+QString glitch_object_function_arduino::editWindowTitle(void) const
+{
+  QString const asterisk(m_ui.asterisk->isChecked() ? "*" : "");
+  auto string
+    (m_ui.return_type->currentText() +
+     " " +
+     asterisk +
+     m_ui.label->text().remove("()") +
+     "(");
+
+  QString parameters("");
+  auto const list(inputs());
+
+  for(int i = 0; i < list.size(); i++)
+    {
+      parameters.append(list.at(i).trimmed());
+
+      if(i != list.size() - 1)
+	parameters.append(", ");
+    }
+
+  if(parameters.isEmpty())
+    parameters = "void";
+
+  string.append(parameters + ")");
+  return string;
+}
+
 QString glitch_object_function_arduino::name(void) const
 {
   return m_ui.label->text();
@@ -704,32 +732,7 @@ void glitch_object_function_arduino::initialize(QWidget *parent)
 void glitch_object_function_arduino::prepareEditWindowHeader(void)
 {
   if(m_editWindow && m_isFunctionClone == false)
-    {
-      QString const asterisk(m_ui.asterisk->isChecked() ? "*" : "");
-      auto string
-	(m_ui.return_type->currentText() +
-	 " " +
-	 asterisk +
-	 m_ui.label->text().remove("()") +
-	 "(");
-
-      QString parameters("");
-      auto const list(inputs());
-
-      for(int i = 0; i < list.size(); i++)
-	{
-	  parameters.append(list.at(i).trimmed());
-
-	  if(i != list.size() - 1)
-	    parameters.append(", ");
-	}
-
-      if(parameters.isEmpty())
-	parameters = "void";
-
-      string.append(parameters + ")");
-      m_editWindow->prepareHeader(string);
-    }
+    m_editWindow->prepareHeader(editWindowTitle());
 }
 
 void glitch_object_function_arduino::save
@@ -1056,6 +1059,11 @@ void glitch_object_function_arduino::slotParentFunctionChanged(void)
   glitch_object_function_arduino::setName(m_parentFunction->name());
   setIsPointer(m_parentFunction->isPointer());
   setReturnType(m_parentFunction->returnType());
+}
+
+void glitch_object_function_arduino::slotPrepareEditWindowHeader(void)
+{
+  prepareEditWindowHeader();
 }
 
 void glitch_object_function_arduino::slotReturnTypeChanged(void)

@@ -406,6 +406,7 @@ Remaining Items
 - ASH.
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
+- Correct tab title for flow-control object.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.

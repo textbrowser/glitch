@@ -345,6 +345,7 @@ class glitch_object: public QWidget
 
   virtual QString code(void) const = 0;
   virtual QString description(void) const;
+  virtual QString editWindowTitle(void) const;
   virtual QString name(void) const;
   virtual QStringList parameters(void) const;
   virtual bool canResize(void) const;
@@ -447,6 +448,7 @@ class glitch_object: public QWidget
     (const glitch_object::Properties property, const QVariant &value);
   void slotWireDestroyed(void);
   void slotWireObjects(void);
+  void slotWiredObjectChanged(void);
 
  protected:
   QHash<Properties, QVariant> m_properties;
@@ -499,6 +501,7 @@ class glitch_object: public QWidget
   }
 
   virtual void mouseDoubleClickEvent(QMouseEvent *event);
+  virtual void prepareEditWindowHeader(void);
   virtual void resizeEvent(QResizeEvent *event);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
@@ -515,6 +518,7 @@ class glitch_object: public QWidget
   virtual void slotChanged(void);
   virtual void slotCopy(void);
   virtual void slotHideOrShowOccupied(void);
+  virtual void slotPrepareEditWindowHeader(void);
   virtual void slotSelectColor(void);
   void slotSelectBorderColor(void);
   void slotSelectFont(void);

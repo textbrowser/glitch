@@ -192,6 +192,13 @@ QString glitch_object_flow_control_arduino::code(void) const
   return code;
 }
 
+QString glitch_object_flow_control_arduino::editWindowTitle(void) const
+{
+  return QString("%1(%2)").
+    arg(m_ui.flow_control_type->currentText()).
+    arg(m_ui.condition->text());
+}
+
 QString glitch_object_flow_control_arduino::flowControlType(void) const
 {
   return m_ui.flow_control_type->currentText();
@@ -438,10 +445,7 @@ void glitch_object_flow_control_arduino::hideOrShowOccupied(void)
 void glitch_object_flow_control_arduino::prepareEditWindowHeader(void)
 {
   if(m_editWindow)
-    m_editWindow->prepareHeader
-      (QString("%1(%2)").
-       arg(m_ui.flow_control_type->currentText()).
-       arg(m_ui.condition->text()));
+    m_editWindow->prepareHeader(editWindowTitle());
 }
 
 void glitch_object_flow_control_arduino::save
@@ -723,4 +727,9 @@ void glitch_object_flow_control_arduino::slotFlowControlTypeChanged(void)
 void glitch_object_flow_control_arduino::slotHideOrShowOccupied(void)
 {
   hideOrShowOccupied();
+}
+
+void glitch_object_flow_control_arduino::slotPrepareEditWindowHeader(void)
+{
+  prepareEditWindowHeader();
 }
