@@ -2495,6 +2495,7 @@ void glitch_view::slotUndoStackChanged(int index)
     m_saveTimer.start();
 
   adjustScrollBars();
+  prepareTabTitles();
   emit changed();
 }
 
