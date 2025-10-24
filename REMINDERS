@@ -113,6 +113,7 @@ Completed Items
 - Copy wires of cloned functions, if necessary.
 - Copy wires. Very difficult.
 - Correct drag & drop of -= operator.
+- Correct tab title for flow-control object.
 - Ctrl + A while focus is on a QLineEdit in edit window.
 - Ctrl + W and docked property editors.
 - Custom input and output port colors.
@@ -336,6 +337,7 @@ Completed Items
 - Show an indicator for an active Arduino process.
 - Show expected parameters of Arduino functions. Tool tips or minimal
   floating dialogs.
+- Show function parameter header for Arduino function object.
 - Show identifiers in Find Objects.
 - Show object coordinates in redo / undo text.
 - Show statistics in ASH::list.
@@ -406,7 +408,6 @@ Remaining Items
 - ASH.
 - Android: QDialog::exec(), menus, etc.
 - Context-menu for attaching widgets to input / output ports of other widgets.
-- Correct tab title for flow-control object.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
@@ -415,5 +416,4 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
-- Show function parameter header for Arduino function object.
 - Snap-to-visible-grid.
