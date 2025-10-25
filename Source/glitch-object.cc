@@ -954,7 +954,8 @@ void glitch_object::createActions(void)
 	(m_properties.value(Properties::GENERATE_SOURCE).toBool());
       action->setData(static_cast<int> (DefaultMenuActions::GENERATE_SOURCE));
       action->setEnabled(!isMandatory());
-      action->setToolTip(tr("Generate source."));
+      action->setToolTip
+	(tr("Generate this object's source code in the output file."));
       connect(action,
 	      &QAction::triggered,
 	      this,
