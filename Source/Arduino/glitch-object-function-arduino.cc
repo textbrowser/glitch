@@ -656,15 +656,11 @@ void glitch_object_function_arduino::createEditObjects(void)
 
   if(!m_isFunctionClone)
     {
-      if(!m_editWindow)
-	{
-	  m_editWindow = new glitch_object_edit_window
-	    (glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
-	  m_editWindow->setCentralWidget(m_editView);
-	  m_editWindow->setEditView(m_editView);
-	  m_editWindow->setUndoStack(m_undoStack);
-	}
-
+      m_editWindow = new glitch_object_edit_window
+	(glitch_common::ProjectTypes::ArduinoProject, this, m_parent);
+      m_editWindow->setCentralWidget(m_editView);
+      m_editWindow->setEditView(m_editView);
+      m_editWindow->setUndoStack(m_undoStack);
       prepareEditObjects(findNearestGlitchView(m_parent));
       setEditWindowTitle(glitch_object_function_arduino::name());
     }
