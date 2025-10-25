@@ -104,6 +104,11 @@ QString glitch_object_setup_arduino::code(void) const
   return code;
 }
 
+QString glitch_object_setup_arduino::editWindowTitle(void) const
+{
+  return "setup()";
+}
+
 bool glitch_object_setup_arduino::hasView(void) const
 {
   return true;

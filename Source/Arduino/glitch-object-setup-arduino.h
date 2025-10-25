@@ -38,6 +38,7 @@ class glitch_object_setup_arduino: public glitch_object_simple_text_arduino
   glitch_object_setup_arduino(QWidget *parent);
   ~glitch_object_setup_arduino();
   QString code(void) const;
+  QString editWindowTitle(void) const;
   bool hasView(void) const;
   bool isFullyWired(void) const;
   bool isMandatory(void) const;

@@ -104,6 +104,11 @@ QString glitch_object_loop_arduino::code(void) const
   return code;
 }
 
+QString glitch_object_loop_arduino::editWindowTitle(void) const
+{
+  return "loop()";
+}
+
 bool glitch_object_loop_arduino::hasView(void) const
 {
   return true;
