@@ -97,7 +97,7 @@ glitch_find_objects::glitch_find_objects(QWidget *parent):QDialog(parent)
 		m_ui.search,
 		SLOT(setFocus(void)));
 #endif
-  QTimer::singleShot(500, this, SLOT(slotFind(void)));
+  QTimer::singleShot(500, this, &glitch_find_objects::slotFind);
 }
 
 glitch_find_objects::~glitch_find_objects()

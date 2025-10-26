@@ -1626,7 +1626,7 @@ void glitch_object::setProperties(const QStringList &list)
 
 	      m_delayedSize = QSize(list.value(0).trimmed().toInt(),
 				    list.value(1).trimmed().toInt());
-	      QTimer::singleShot(50, this, &glitch_object::slotDelayedResize);
+	      QTimer::singleShot(0, this, &glitch_object::slotDelayedResize);
 	    }
 	}
       else if(string.simplified().

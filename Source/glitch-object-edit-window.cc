@@ -351,7 +351,9 @@ bool glitch_object_edit_window::eventFilter(QObject *object, QEvent *event)
 		  it.value()->activate(QAction::Trigger);
 		  keyEvent->accept();
 		  QTimer::singleShot
-		    (0, this, SLOT(slotResetShortcutBlock(void)));
+		    (0,
+		     this,
+		     &glitch_object_edit_window::slotResetShortcutBlock);
 		  return true;
 		}
 	    }
