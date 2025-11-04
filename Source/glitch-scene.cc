@@ -96,7 +96,7 @@ glitch_scene::glitch_scene
   m_showCanvasGrids = !m_showCanvasDots;
   m_toolsOperation = glitch_tools::Operations::INTELLIGENT;
   m_undoStack = nullptr;
-  setItemIndexMethod(QGraphicsScene::NoIndex);
+  setItemIndexMethod(QGraphicsScene::BspTreeIndex);
 }
 
 glitch_scene::~glitch_scene()

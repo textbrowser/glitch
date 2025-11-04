@@ -88,6 +88,7 @@ class glitch_object_view: public QGraphicsView
     setFocus();
   }
 
+  void keyPressEvent(QKeyEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
 
  private:

@@ -78,6 +78,50 @@ void glitch_graphicsview::enterEvent(QEvent *event)
   setFocus();
 }
 
+void glitch_graphicsview::keyPressEvent(QKeyEvent *event)
+{
+  if((!event) || (scene() && scene()->selectedItems().size() > 0))
+    {
+      QGraphicsView::keyPressEvent(event);
+      return;
+    }
+
+  switch(event->key())
+    {
+    case Qt::Key_Down:
+      {
+	verticalScrollBar()->setValue
+	  (verticalScrollBar()->singleStep() + verticalScrollBar()->value());
+	break;
+      }
+    case Qt::Key_Left:
+      {
+	horizontalScrollBar()->setValue
+	  (-horizontalScrollBar()->singleStep() +
+	   horizontalScrollBar()->value());
+	break;
+      }
+    case Qt::Key_Right:
+      {
+	horizontalScrollBar()->setValue
+	  (horizontalScrollBar()->singleStep() +
+	   horizontalScrollBar()->value());
+	break;
+      }
+    case Qt::Key_Up:
+      {
+	verticalScrollBar()->setValue
+	  (-verticalScrollBar()->singleStep() + verticalScrollBar()->value());
+	break;
+      }
+    default:
+      {
+	QGraphicsView::keyPressEvent(event);
+	break;
+      }
+    }
+}
+
 void glitch_graphicsview::leaveEvent(QEvent *event)
 {
   QGraphicsView::leaveEvent(event);

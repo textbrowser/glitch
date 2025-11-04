@@ -53,6 +53,7 @@ class glitch_graphicsview: public QGraphicsView
 #else
   void enterEvent(QEvent *event);
 #endif
+  void keyPressEvent(QKeyEvent *event);
   void leaveEvent(QEvent *event);
   void mouseDoubleClickEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
