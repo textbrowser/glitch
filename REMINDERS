@@ -407,6 +407,7 @@ Remaining Items
 
 - ASH.
 - Android: QDialog::exec(), menus, etc.
+- Canvas preview and arrow scrolling.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
