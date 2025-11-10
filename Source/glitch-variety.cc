@@ -160,33 +160,31 @@ void glitch_variety::highlight(QLineEdit *lineEdit)
   if(!lineEdit)
     return;
 
-  QHash<QString, QColor> static colors;
-
-  if(colors.isEmpty())
+  QHash<QString, QColor> const static colors
     {
-      colors["#define"] = QColor(128, 0, 128);
-      colors["#include"] = QColor(128, 0, 128);
-      colors["bool"] = QColor(0, 100, 0);
-      colors["boolean"] = QColor(0, 100, 0);
-      colors["byte"] = QColor(0, 100, 0);
-      colors["case"] = QColor(255, 0, 255);
-      colors["char"] = QColor(0, 100, 0);
-      colors["do"] = QColor(255, 0, 255);
-      colors["double"] = QColor(0, 100, 0);
-      colors["else"] = QColor(255, 0, 255);
-      colors["float"] = QColor(0, 100, 0);
-      colors["for"] = QColor(255, 0, 255);
-      colors["if"] = QColor(255, 0, 255);
-      colors["int"] = QColor(0, 100, 0);
-      colors["long"] = QColor(0, 100, 0);
-      colors["short"] = QColor(0, 100, 0);
-      colors["size_t"] = QColor(0, 100, 0);
-      colors["unsigned char"] = QColor(0, 100, 0);
-      colors["unsigned int"] = QColor(0, 100, 0);
-      colors["unsigned long"] = QColor(0, 100, 0);
-      colors["while"] = QColor(255, 0, 255);
-      colors["word"] = QColor(0, 100, 0);
-    }
+      {"#define", QColor(128, 0, 128)},
+      {"#include", QColor(128, 0, 128)},
+      {"bool", QColor(0, 100, 0)},
+      {"boolean", QColor(0, 100, 0)},
+      {"byte", QColor(0, 100, 0)},
+      {"case", QColor(255, 0, 255)},
+      {"char", QColor(0, 100, 0)},
+      {"do", QColor(255, 0, 255)},
+      {"double", QColor(0, 100, 0)},
+      {"else", QColor(255, 0, 255)},
+      {"float", QColor(0, 100, 0)},
+      {"for", QColor(255, 0, 255)},
+      {"if", QColor(255, 0, 255)},
+      {"int", QColor(0, 100, 0)},
+      {"long", QColor(0, 100, 0)},
+      {"short", QColor(0, 100, 0)},
+      {"size_t", QColor(0, 100, 0)},
+      {"unsigned char", QColor(0, 100, 0)},
+      {"unsigned int", QColor(0, 100, 0)},
+      {"unsigned long", QColor(0, 100, 0)},
+      {"while", QColor(255, 0, 255)},
+      {"word", QColor(0, 100, 0)}
+    };
 
   QScopedArrayPointer<QTextLayout::FormatRange> ranges;
   QTextCharFormat format;
