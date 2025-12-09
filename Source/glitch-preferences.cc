@@ -162,7 +162,7 @@ void glitch_preferences::processSettings(void)
   m_ui.style_override->setText
     (settings.value("preferences/QT_STYLE_OVERRIDE").toString().trimmed());
   m_ui.zoom_factor->setValue
-    (settings.value("preferences/zoom_factor", 1.25).toDouble());
+    (settings.value("preferences/zoom_factor", 1.25).toReal());
 }
 
 void glitch_preferences::slotApply(void)

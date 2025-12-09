@@ -74,6 +74,7 @@ class glitch_object: public QWidget
     PORT_COLORS,
     SET_STYLE_SHEET,
     TRANSPARENT,
+    VISIBLE,
 
     /*
     ** Editing.
@@ -168,6 +169,7 @@ class glitch_object: public QWidget
     VARIABLE_PROGMEM,
     VARIABLE_QUALIFIER,
     VARIABLE_TYPE,
+    VISIBLE,
     Z_VALUE,
     Z_Z_Z_PROPERTY
   };

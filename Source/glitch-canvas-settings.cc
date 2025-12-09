@@ -656,7 +656,7 @@ bool glitch_canvas_settings::tabbedEditWindows(void) const
 
 double glitch_canvas_settings::wireWidth(void) const
 {
-  return m_settings.value(Settings::WIRE_WIDTH).toDouble();
+  return m_settings.value(Settings::WIRE_WIDTH).toReal();
 }
 
 int glitch_canvas_settings::adjustedTabPositionIndexFromIndex
@@ -1197,7 +1197,7 @@ void glitch_canvas_settings::setSettings
      ViewportUpdateMode(hash.value(Settings::VIEW_UPDATE_MODE).toInt()));
   setWindowTitle(tr("Glitch: Canvas Settings (%1)").arg(name()));
   setWireType(hash.value(Settings::WIRE_TYPE).toString());
-  setWireWidth(hash.value(Settings::WIRE_WIDTH).toDouble());
+  setWireWidth(hash.value(Settings::WIRE_WIDTH).toReal());
   same ? (void) 0 : emit accepted(false);
 }
 

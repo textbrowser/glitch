@@ -130,6 +130,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::POSITION_LOCKED] = false;
   m_properties[Properties::TOOL_BAR_VISIBLE] = true;
   m_properties[Properties::TRANSPARENT] = true;
+  m_properties[Properties::VISIBLE] = true;
   m_properties[Properties::Z_VALUE] = 0.0;
 
   {
@@ -734,7 +735,7 @@ void glitch_object::addDefaultActions(QMenu &menu)
 	  DefaultMenuActions::EDIT == it.key() ||
 	  DefaultMenuActions::LOCK_POSITION == it.key() ||
 	  DefaultMenuActions::SOURCE_PREVIEW == it.key() ||
-	  DefaultMenuActions::TRANSPARENT == it.key()) &&
+	  DefaultMenuActions::VISIBLE == it.key()) && // Final group item.
 	 it.hasNext())
 	menu.addSeparator();
     }
@@ -1048,6 +1049,24 @@ void glitch_object::createActions(void)
   else if(m_actions.value(DefaultMenuActions::TRANSPARENT, nullptr))
     m_actions[DefaultMenuActions::TRANSPARENT]->setChecked
       (m_properties.value(Properties::TRANSPARENT).toBool());
+
+  if(!m_actions.contains(DefaultMenuActions::VISIBLE))
+    {
+      auto action = new QAction(tr("&Visible"), this);
+
+      action->setCheckable(true);
+      action->setChecked(m_properties.value(Properties::VISIBLE).toBool());
+      action->setData(static_cast<int> (DefaultMenuActions::VISIBLE));
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object::slotActionTriggered,
+	      Qt::QueuedConnection);
+      m_actions[DefaultMenuActions::VISIBLE] = action;
+    }
+  else if(m_actions.value(DefaultMenuActions::VISIBLE, nullptr))
+    m_actions[DefaultMenuActions::VISIBLE]->setChecked
+      (m_properties.value(Properties::VISIBLE).toBool());
 }
 
 void glitch_object::createEditObjects(void)
@@ -1409,6 +1428,7 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
     (Properties::TOOL_BAR_VISIBLE).toBool();
   properties["transparent"] = m_properties.value
     (Properties::TRANSPARENT).toBool();
+  properties["visible"] = m_properties.value(Properties::VISIBLE).toBool();
   properties["z_value"] = m_properties.value(Properties::Z_VALUE).toReal();
 
   QMapIterator<QString, QVariant> it(properties);
@@ -1675,6 +1695,14 @@ void glitch_object::setProperties(const QStringList &list)
 	    QVariant(string.trimmed()).toBool();
 	  setOpacity();
 	}
+      else if(string.simplified().startsWith("visible = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::VISIBLE] = QVariant
+	    (string.trimmed()).toBool();
+	  setVisible(m_properties.value(Properties::VISIBLE).toBool());
+	}
       else if(string.simplified().startsWith("z_value = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
@@ -1860,6 +1888,15 @@ void glitch_object::setProperty(const Properties property,
 	    (value.toBool());
 
 	setOpacity();
+	break;
+      }
+    case Properties::VISIBLE:
+      {
+	if(m_actions.contains(DefaultMenuActions::VISIBLE))
+	  m_actions.value(DefaultMenuActions::VISIBLE)->setChecked
+	    (value.toBool());
+
+	setVisible(value.toBool());
 	break;
       }
     case Properties::Z_VALUE:
@@ -2192,6 +2229,11 @@ void glitch_object::slotActionTriggered(void)
 	case DefaultMenuActions::TRANSPARENT:
 	  {
 	    property = Properties::TRANSPARENT;
+	    break;
+	  }
+	case DefaultMenuActions::VISIBLE:
+	  {
+	    property = Properties::VISIBLE;
 	    break;
 	  }
 	default:
