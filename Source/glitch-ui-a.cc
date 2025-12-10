@@ -1905,6 +1905,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << QIcon(":/document-edit.png")
 	 << QIcon(":/font.png")
 	 << QIcon(":/pin.png")
+	 << QIcon(":/visibility.png")
 	 << QIcon(":/widget-properties.png"));
       QStringList const static data
 	(QStringList()
@@ -1915,6 +1916,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << "edit-widgets"
 	 << "fonts"
 	 << "lock-positions"
+	 << "visible-all"
 	 << "widget-properties");
       QStringList const static texts
 	(QStringList()
@@ -1925,6 +1927,7 @@ void glitch_ui::slotDelayedToolBarPreparation(void)
 	 << tr("Edit Selected Widgets(s)...")
 	 << tr("Fonts (All Widgets)...")
 	 << tr("(Un)lock Position(s) (Selected Widget(s))")
+	 << tr("Visible (All Widgets)")
 	 << tr("Widget(s) Properties (Selected Widget(s))..."));
 
       menu = new QMenu(m_currentView);

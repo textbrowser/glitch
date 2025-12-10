@@ -467,6 +467,8 @@ void glitch_ui::slotSpecialTools(void)
     m_currentView->slotFonts();
   else if(type == "lock-positions")
     m_currentView->scene()->slotSelectedWidgetsLock();
+  else if(type == "visible-all")
+    m_currentView->slotAllWidgetsVisible();
   else if(type == "widget-properties")
     m_currentView->slotSelectedWidgetsProperties();
 }
