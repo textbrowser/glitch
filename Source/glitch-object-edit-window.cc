@@ -873,6 +873,12 @@ void glitch_object_edit_window::showStatusBarMessage(const QString &text)
     }
 }
 
+void glitch_object_edit_window::showStructuresTreeWidget(const bool state)
+{
+  if(m_arduinoStructures)
+    m_arduinoStructures->frame()->setVisible(state);
+}
+
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)
 {
   m_actions.value("copy")->setEnabled

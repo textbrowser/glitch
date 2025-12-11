@@ -414,6 +414,8 @@ void glitch_view_arduino::separate(void)
 void glitch_view_arduino::slotCanvasSettingsChanged(const bool undo)
 {
   glitch_view::slotCanvasSettingsChanged(undo);
+  m_arduinoStructures->frame()->setVisible
+    (m_canvasSettings->showStructuresTreeWidget());
   m_arduinoStructures->setIconSize(m_canvasSettings->categoriesIconSize());
 }
 
