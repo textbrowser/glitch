@@ -591,6 +591,16 @@
             </layout>
            </item>
            <item>
+            <widget class="QCheckBox" name="show_structures_tree_widget">
+             <property name="text">
+              <string>Show Structures Tree Widget</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QCheckBox" name="tabbed_edit_windows">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;New windows only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1076,6 +1086,7 @@
   <tabstop>wire_width</tabstop>
   <tabstop>maximize_edit_windows</tabstop>
   <tabstop>tab_position</tabstop>
+  <tabstop>show_structures_tree_widget</tabstop>
   <tabstop>tabbed_edit_windows</tabstop>
   <tabstop>project_board</tabstop>
   <tabstop>project_communications_port</tabstop>
@@ -1091,6 +1102,8 @@
   <tabstop>reset_source_view_keywords</tabstop>
   <tabstop>source_view_keywords</tabstop>
   <tabstop>redo_undo_stack_size</tabstop>
+  <tabstop>apply</tabstop>
+  <tabstop>close</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>

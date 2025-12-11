@@ -168,6 +168,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
     SHOW_PREVIEW,
+    SHOW_STRUCTURES_TREE_WIDGET,
     TABBED_EDIT_WINDOWS,
     TAB_POSITION_INDEX,
     VIEW_UPDATE_MODE,
@@ -204,6 +205,7 @@ class glitch_canvas_settings: public QDialog
   bool showCanvasGrids(void) const;
   bool showOrderIndicators(void) const;
   bool showPreview(void) const;
+  bool showStructuresTreeWidget(void) const;
   bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
   int adjustedTabPositionIndexFromIndex(const int index) const;
@@ -222,6 +224,7 @@ class glitch_canvas_settings: public QDialog
   void setShowCanvasGrids(const bool state);
   void setShowOrderIndicators(const bool state);
   void setShowPreview(const bool state);
+  void setShowStructuresTreeWidget(const bool state);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
   void setWireType(const QString &string);
   void setWireWidth(const double value);

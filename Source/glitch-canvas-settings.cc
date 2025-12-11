@@ -267,6 +267,8 @@ settings(void) const
   hash[Settings::SHOW_ORDER_INDICATORS] =
     m_ui.show_order_indicators->isChecked();
   hash[Settings::SHOW_PREVIEW] = m_ui.show_preview->isChecked();
+  hash[Settings::SHOW_STRUCTURES_TREE_WIDGET] =
+    m_ui.show_structures_tree_widget->isChecked();
   hash[Settings::TAB_POSITION_INDEX] = m_ui.tab_position->currentIndex();
   hash[Settings::TABBED_EDIT_WINDOWS] = m_ui.tabbed_edit_windows->isChecked();
 
@@ -501,6 +503,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
 	   "show_preview INTEGER NOT NULL DEFAULT 0, "
+	   "show_structures_tree_widget INTEGER NOT NULL DEFAULT 1, "
 	   "tab_position_index INTEGER NOT NULL DEFAULT -1, "
 	   "tabbed_edit_windows INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL, "
@@ -538,6 +541,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "show_canvas_grids, "
 	   "show_order_indicators, "
 	   "show_preview, "
+	   "show_structures_tree_widget, "
 	   "tab_position_index, "
 	   "tabbed_edit_windows, "
 	   "update_mode, "
@@ -546,6 +550,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_width) "
 	   "VALUES "
 	   "(?, "
+	   "?, "
 	   "?, "
 	   "?, "
 	   "?, "
@@ -601,6 +606,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
 	query.addBindValue(m_ui.show_preview->isChecked());
+	query.addBindValue(m_ui.show_structures_tree_widget->isChecked());
 	query.addBindValue(m_ui.tab_position->currentIndex());
 	query.addBindValue(m_ui.tabbed_edit_windows->isChecked());
 	query.addBindValue(m_ui.update_mode->currentText());
@@ -649,6 +655,11 @@ bool glitch_canvas_settings::showPreview(void) const
   return m_settings.value(Settings::SHOW_PREVIEW).toBool();
 }
 
+bool glitch_canvas_settings::showStructuresTreeWidget(void) const
+{
+  return m_settings.value(Settings::SHOW_STRUCTURES_TREE_WIDGET).toBool();
+}
+
 bool glitch_canvas_settings::tabbedEditWindows(void) const
 {
   return m_settings.value(Settings::TABBED_EDIT_WINDOWS).toBool();
@@ -695,6 +706,9 @@ void glitch_canvas_settings::alterDatabase(void) const
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD show_preview "
 	   "INTEGER NOT NULL DEFAULT 0");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD show_structures_tree_widget "
+	   "INTEGER NOT NULL DEFAULT 1");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD tab_position_index "
 	   "INTEGER NOT NULL DEFAULT -1");
@@ -759,6 +773,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "show_canvas_grids, "
 			   "show_order_indicators, "
 			   "show_preview, "
+			   "show_structures_tree_widget, "
 			   "tab_position_index, "
 			   "tabbed_edit_windows, "
 			   "SUBSTR(update_mode, 1, 100), "
@@ -797,6 +812,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto showCanvasGrids = true;
 	auto showOrderIndicators = true;
 	auto showPreview = false;
+	auto showStructuresTreeWidget = true;
 	auto tabbedEditWindows = true;
 	int tabPositionIndex = -1;
 
@@ -855,6 +871,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      showOrderIndicators = record.value(i).toBool();
 	    else if(fieldName.contains("show_preview"))
 	      showPreview = record.value(i).toBool();
+	    else if(fieldName.contains("show_structures_tree_widget"))
+	      showStructuresTreeWidget = record.value(i).toBool();
 	    else if(fieldName.contains("tab_position_index"))
 	      tabPositionIndex = record.value(i).toInt();
 	    else if(fieldName.contains("tabbed_edit_windows"))
@@ -932,6 +950,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
 	m_ui.show_order_indicators->setChecked(showOrderIndicators);
 	m_ui.show_preview->setChecked(showPreview);
+	m_ui.show_structures_tree_widget->setChecked(showStructuresTreeWidget);
 	m_ui.tab_position->setCurrentIndex
 	  (adjustedTabPositionIndexFromIndex(tabPositionIndex));
 	m_ui.tabbed_edit_windows->setChecked(tabbedEditWindows);
@@ -1192,6 +1211,8 @@ void glitch_canvas_settings::setSettings
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
   setShowOrderIndicators(hash.value(Settings::SHOW_ORDER_INDICATORS).toBool());
   setShowPreview(hash.value(Settings::SHOW_PREVIEW).toBool());
+  setShowStructuresTreeWidget
+    (hash.value(Settings::SHOW_STRUCTURES_TREE_WIDGET).toBool());
   setViewportUpdateMode
     (QGraphicsView::
      ViewportUpdateMode(hash.value(Settings::VIEW_UPDATE_MODE).toInt()));
@@ -1219,6 +1240,11 @@ void glitch_canvas_settings::setShowOrderIndicators(const bool state)
 void glitch_canvas_settings::setShowPreview(const bool state)
 {
   m_ui.show_preview->setChecked(state);
+}
+
+void glitch_canvas_settings::setShowStructuresTreeWidget(const bool state)
+{
+  m_ui.show_structures_tree_widget->setChecked(state);
 }
 
 void glitch_canvas_settings::setViewportUpdateMode
