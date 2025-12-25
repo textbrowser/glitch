@@ -366,7 +366,7 @@ void glitch_ash_textedit::saveHistoryDesktop(void) const
   fileName.append(QDir::separator());
   fileName.append
     (QString("glitch-ash-history-%1.txt").
-#if (QT_VERSION > QT_VERSION_CHECK(5, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
      arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs).
 #else
      arg(QDateTime::currentDateTime().toString(Qt::ISODate).

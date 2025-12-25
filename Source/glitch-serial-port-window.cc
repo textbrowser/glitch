@@ -186,7 +186,7 @@ void glitch_serial_port_window::slotConnect(void)
       m_ui.last_error->setText
 	(QString("%1:%2:%3").
 	 arg(serialPort->portName().trimmed()).
-#if (QT_VERSION > QT_VERSION_CHECK(5, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
 #else
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
@@ -252,7 +252,7 @@ void glitch_serial_port_window::slotConnect(void)
     m_ui.last_error->setText
     (QString("%1:%2:%3").
      arg(serialPort->portName().trimmed()).
-#if (QT_VERSION > QT_VERSION_CHECK(5, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
      arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
 #else
      arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
@@ -298,7 +298,7 @@ void glitch_serial_port_window::slotErrorOccurred
       m_ui.last_error->setText
 	(QString("%1:%2:%3 (%4)").
 	 arg(serialPort->portName().trimmed()).
-#if (QT_VERSION > QT_VERSION_CHECK(5, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODateWithMs)).
 #else
 	 arg(QDateTime::currentDateTime().toString(Qt::ISODate)).
@@ -365,7 +365,7 @@ void glitch_serial_port_window::slotReadyRead(void)
 	    QStringList list;
 
 	    list << QString(qUtf8Printable(bytes)).trimmed()
-#if (QT_VERSION > QT_VERSION_CHECK(5, 5, 0))
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
 		 << QDateTime::currentDateTime().toString(Qt::ISODateWithMs)
 #else
 		 << QDateTime::currentDateTime().toString(Qt::ISODate)
