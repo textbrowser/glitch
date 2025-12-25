@@ -157,7 +157,8 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -std=c++17
 contains(QMAKE_HOST.arch, ppc) {
 QMAKE_CXXFLAGS_RELEASE -= -Wformat-overflow=2 \
-                          -Wstringop-overflow=4
+                          -Wstringop-overflow=4 \
+                          -Wzero-as-null-pointer-constant
 }
 }
 
