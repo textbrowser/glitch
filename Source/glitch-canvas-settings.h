@@ -168,6 +168,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_CANVAS_GRIDS,
     SHOW_ORDER_INDICATORS,
     SHOW_PREVIEW,
+    SHOW_FUNCTION_NAME_WIDGET,
     SHOW_STRUCTURES_TREE_WIDGET,
     TABBED_EDIT_WINDOWS,
     TAB_POSITION_INDEX,
@@ -203,6 +204,7 @@ class glitch_canvas_settings: public QDialog
   bool savePeriodically(void) const;
   bool showCanvasDots(void) const;
   bool showCanvasGrids(void) const;
+  bool showFunctionNameWidget(void) const;
   bool showOrderIndicators(void) const;
   bool showPreview(void) const;
   bool showStructuresTreeWidget(void) const;
@@ -222,6 +224,7 @@ class glitch_canvas_settings: public QDialog
     (const QHash<glitch_canvas_settings::Settings, QVariant> &hash);
   void setShowCanvasDots(const bool state);
   void setShowCanvasGrids(const bool state);
+  void setShowFunctionNameWidget(const bool state);
   void setShowOrderIndicators(const bool state);
   void setShowPreview(const bool state);
   void setShowStructuresTreeWidget(const bool state);

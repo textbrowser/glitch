@@ -264,6 +264,8 @@ settings(void) const
     m_ui.selection_color->text().remove('&').trimmed();
   hash[Settings::SHOW_CANVAS_DOTS] = m_ui.show_canvas_dots->isChecked();
   hash[Settings::SHOW_CANVAS_GRIDS] = m_ui.show_canvas_grids->isChecked();
+  hash[Settings::SHOW_FUNCTION_NAME_WIDGET] =
+    m_ui.show_function_name_widget->isChecked();
   hash[Settings::SHOW_ORDER_INDICATORS] =
     m_ui.show_order_indicators->isChecked();
   hash[Settings::SHOW_PREVIEW] = m_ui.show_preview->isChecked();
@@ -501,6 +503,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "selection_color TEXT NOT NULL, "
 	   "show_canvas_dots INTEGER NOT NULL DEFAULT 1, "
 	   "show_canvas_grids INTEGER NOT NULL DEFAULT 1, "
+	   "show_function_name_widget INTEGER NOT NULL DEFAULT 1, "
 	   "show_order_indicators INTEGER NOT NULL DEFAULT 1, "
 	   "show_preview INTEGER NOT NULL DEFAULT 0, "
 	   "show_structures_tree_widget INTEGER NOT NULL DEFAULT 1, "
@@ -539,6 +542,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "selection_color, "
 	   "show_canvas_dots, "
 	   "show_canvas_grids, "
+	   "show_function_name_widget, "
 	   "show_order_indicators, "
 	   "show_preview, "
 	   "show_structures_tree_widget, "
@@ -550,6 +554,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "wire_width) "
 	   "VALUES "
 	   "(?, "
+	   "?, "
 	   "?, "
 	   "?, "
 	   "?, "
@@ -604,6 +609,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.selection_color->text().remove('&'));
 	query.addBindValue(m_ui.show_canvas_dots->isChecked());
 	query.addBindValue(m_ui.show_canvas_grids->isChecked());
+	query.addBindValue(m_ui.show_function_name_widget->isChecked());
 	query.addBindValue(m_ui.show_order_indicators->isChecked());
 	query.addBindValue(m_ui.show_preview->isChecked());
 	query.addBindValue(m_ui.show_structures_tree_widget->isChecked());
@@ -643,6 +649,11 @@ bool glitch_canvas_settings::showCanvasDots(void) const
 bool glitch_canvas_settings::showCanvasGrids(void) const
 {
   return m_settings.value(Settings::SHOW_CANVAS_GRIDS).toBool();
+}
+
+bool glitch_canvas_settings::showFunctionNameWidget(void) const
+{
+  return m_settings.value(Settings::SHOW_FUNCTION_NAME_WIDGET).toBool();
 }
 
 bool glitch_canvas_settings::showOrderIndicators(void) const
@@ -703,6 +714,9 @@ void glitch_canvas_settings::alterDatabase(void) const
 	query.exec("ALTER TABLE canvas_settings ADD project_board TEXT");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD project_communications_port TEXT");
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD show_function_name_widget "
+	   "INTEGER NOT NULL DEFAULT 1");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD show_preview "
 	   "INTEGER NOT NULL DEFAULT 0");
@@ -771,6 +785,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "SUBSTR(selection_color, 1, 50), "
 			   "show_canvas_dots, "
 			   "show_canvas_grids, "
+			   "show_function_name_widget, "
 			   "show_order_indicators, "
 			   "show_preview, "
 			   "show_structures_tree_widget, "
@@ -810,6 +825,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto savePeriodically = false;
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
+	auto showFunctionNameWidget = true;
 	auto showOrderIndicators = true;
 	auto showPreview = false;
 	auto showStructuresTreeWidget = true;
@@ -867,6 +883,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      showCanvasDots = record.value(i).toBool();
 	    else if(fieldName.contains("show_canvas_grids"))
 	      showCanvasGrids = record.value(i).toBool();
+	    else if(fieldName.contains("show_function_name_widget"))
+	      showFunctionNameWidget = record.value(i).toBool();
 	    else if(fieldName.contains("show_order_indicators"))
 	      showOrderIndicators = record.value(i).toBool();
 	    else if(fieldName.contains("show_preview"))
@@ -948,6 +966,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.selection_color->setText(selectionColor.name(QColor::HexArgb));
 	m_ui.show_canvas_dots->setChecked(showCanvasDots);
 	m_ui.show_canvas_grids->setChecked(showCanvasGrids);
+	m_ui.show_function_name_widget->setChecked(showFunctionNameWidget);
 	m_ui.show_order_indicators->setChecked(showOrderIndicators);
 	m_ui.show_preview->setChecked(showPreview);
 	m_ui.show_structures_tree_widget->setChecked(showStructuresTreeWidget);
@@ -1209,6 +1228,8 @@ void glitch_canvas_settings::setSettings
   setResult(QDialog::Accepted);
   setShowCanvasDots(hash.value(Settings::SHOW_CANVAS_DOTS).toBool());
   setShowCanvasGrids(hash.value(Settings::SHOW_CANVAS_GRIDS).toBool());
+  setShowFunctionNameWidget
+    (hash.value(Settings::SHOW_FUNCTION_NAME_WIDGET).toBool());
   setShowOrderIndicators(hash.value(Settings::SHOW_ORDER_INDICATORS).toBool());
   setShowPreview(hash.value(Settings::SHOW_PREVIEW).toBool());
   setShowStructuresTreeWidget
@@ -1230,6 +1251,11 @@ void glitch_canvas_settings::setShowCanvasDots(const bool state)
 void glitch_canvas_settings::setShowCanvasGrids(const bool state)
 {
   m_ui.show_canvas_grids->setChecked(state);
+}
+
+void glitch_canvas_settings::setShowFunctionNameWidget(const bool state)
+{
+  m_ui.show_function_name_widget->setChecked(state);
 }
 
 void glitch_canvas_settings::setShowOrderIndicators(const bool state)
