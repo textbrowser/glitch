@@ -860,8 +860,6 @@ void glitch_object_edit_window::showFunctionNameWidget(const bool state)
   if(m_userFunctions)
     {
       m_userFunctions->frame()->setVisible(state);
-      m_leftSplitter->setVisible(false);
-      m_leftSplitter->setVisible(true);
     }
 }
 
@@ -879,8 +877,7 @@ void glitch_object_edit_window::showStatusBarMessage(const QString &text)
   if(statusBar())
     {
       statusBar()->showMessage(text);
-      m_leftSplitter->setVisible(false);
-      m_leftSplitter->setVisible(true);
+      statusBar()->repaint();
     }
 }
 
@@ -889,7 +886,6 @@ void glitch_object_edit_window::showStructuresTreeWidget(const bool state)
   if(m_arduinoStructures)
     {
       m_arduinoStructures->frame()->setVisible(state);
-      m_leftSplitter->refresh();
     }
 }
 
