@@ -762,9 +762,9 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	  m_leftSplitter->setStretchFactor(0, 1);
 	  m_leftSplitter->setStretchFactor(1, 0);
 	  m_splitter->addWidget(m_leftSplitter);
-	  m_splitter->addWidget(m_centralWidget);
+	  m_centralWidget ? m_splitter->addWidget(m_centralWidget) : (void) 0;
 	  m_splitter->setStretchFactor(0, 0);
-	  m_splitter->setStretchFactor(1, 1);
+	  m_centralWidget ? m_splitter->setStretchFactor(1, 1) : (void) 0;
 	}
       else
 	{
@@ -776,9 +776,9 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
 	    }
 
 	  m_splitter->addWidget(m_userFunctions->frame());
-	  m_splitter->addWidget(m_centralWidget);
+	  m_centralWidget ? m_splitter->addWidget(m_centralWidget) : (void) 0;
 	  m_splitter->setStretchFactor(0, 0);
-	  m_splitter->setStretchFactor(1, 1);
+	  m_centralWidget ? m_splitter->setStretchFactor(1, 1) : (void) 0;
 	}
 
       frame->layout()->addWidget(m_bottomTopSplitter);
