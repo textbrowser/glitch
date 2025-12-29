@@ -855,6 +855,16 @@ void glitch_object_edit_window::showEvent(QShowEvent *event)
   slotPreferencesAccepted();
 }
 
+void glitch_object_edit_window::showFunctionNameWidget(const bool state)
+{
+  if(m_userFunctions)
+    {
+      m_userFunctions->frame()->setVisible(state);
+      m_leftSplitter->setVisible(false);
+      m_leftSplitter->setVisible(true);
+    }
+}
+
 void glitch_object_edit_window::showPreview(const bool state)
 {
   m_canvasPreview->setVisible(state);
@@ -869,14 +879,18 @@ void glitch_object_edit_window::showStatusBarMessage(const QString &text)
   if(statusBar())
     {
       statusBar()->showMessage(text);
-      statusBar()->repaint();
+      m_leftSplitter->setVisible(false);
+      m_leftSplitter->setVisible(true);
     }
 }
 
 void glitch_object_edit_window::showStructuresTreeWidget(const bool state)
 {
   if(m_arduinoStructures)
-    m_arduinoStructures->frame()->setVisible(state);
+    {
+      m_arduinoStructures->frame()->setVisible(state);
+      m_leftSplitter->refresh();
+    }
 }
 
 void glitch_object_edit_window::slotAboutToShowEditMenu(void)

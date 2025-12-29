@@ -2071,6 +2071,9 @@ void glitch_object::showEditWindow(const bool signal)
 #endif
       m_editWindow->activateWindow();
       m_editWindow->raise();
+      m_editWindow->showFunctionNameWidget
+	(m_canvasSettings ?
+	 m_canvasSettings->showFunctionNameWidget() : true);
       m_editWindow->showStructuresTreeWidget
 	(m_canvasSettings ?
 	 m_canvasSettings->showStructuresTreeWidget() : true);
@@ -2312,6 +2315,8 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
     return;
 
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
+  m_editWindow->showFunctionNameWidget
+    (m_canvasSettings->showFunctionNameWidget());
   m_editWindow->showPreview(m_canvasSettings->showPreview());
   m_editWindow->showStructuresTreeWidget
     (m_canvasSettings->showStructuresTreeWidget());

@@ -30,6 +30,7 @@
 glitch_user_functions::glitch_user_functions(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  m_ui.frame->setMinimumWidth(200);
 #ifdef Q_OS_ANDROID
   connect(m_ui.close,
 	  &QPushButton::clicked,

@@ -854,7 +854,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 		(record.value(i).toString().remove('&').trimmed());
 	    else if(fieldName.contains("maximize_edit_windows"))
 	      maximizeEditWindows = record.value(i).toBool();
-	    else if(fieldName.contains("name"))
+	    else if(fieldName.contains("name") &&
+		    fieldName.contains("show_function_name_widget") == false)
 	      name = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("project_board"))
 	      projectBoard = record.value(i).toString().trimmed();

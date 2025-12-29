@@ -97,6 +97,7 @@ class glitch_object_edit_window: public QMainWindow
   {
   }
 
+  void showFunctionNameWidget(const bool state);
   void showPreview(const bool state);
   void showStructuresTreeWidget(const bool state);
   void upload(const QStringList &arguments = QStringList());
