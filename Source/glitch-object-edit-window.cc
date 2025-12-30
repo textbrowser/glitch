@@ -863,10 +863,18 @@ void glitch_object_edit_window::showFunctionNameWidget(const bool state)
 
       auto list(m_splitter->sizes());
 
-      if(m_arduinoStructures)
-	list.replace(0, list.at(0) * m_arduinoStructures->isVisible());
+      if(list.size() > 0)
+	list.replace
+	  (0,
+	   m_arduinoStructures ?
+	   list.at(0) * m_arduinoStructures->isVisible() : list.at(0));
 
-      list.replace(1, list.at(1) * m_userFunctions->isVisible());
+      if(list.size() > 1)
+	list.replace
+	  (1,
+	   m_userFunctions ?
+	   list.at(1) * m_userFunctions->isVisible() : list.at(1));
+
       m_splitter->setSizes(list);
     }
 }
@@ -897,10 +905,18 @@ void glitch_object_edit_window::showStructuresTreeWidget(const bool state)
 
       auto list(m_splitter->sizes());
 
-      if(m_arduinoStructures)
-	list.replace(0, list.at(0) * m_arduinoStructures->isVisible());
+      if(list.size() > 0)
+	list.replace
+	  (0,
+	   m_arduinoStructures ?
+	   list.at(0) * m_arduinoStructures->isVisible() : list.at(0));
 
-      list.replace(1, list.at(1) * m_userFunctions->isVisible());
+      if(list.size() > 1)
+	list.replace
+	  (1,
+	   m_userFunctions ?
+	   list.at(1) * m_userFunctions->isVisible() : list.at(1));
+
       m_splitter->setSizes(list);
     }
 }
