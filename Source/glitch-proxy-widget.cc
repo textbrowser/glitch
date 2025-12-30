@@ -360,7 +360,8 @@ void glitch_proxy_widget::paint
 			      true);
 
       if(m_object && (m_object->objectType() == "arduino-booleanoperator" ||
-		      m_object->objectType() == "decoration-arrow"))
+		      m_object->objectType() == "decoration-arrow" ||
+		      m_object->objectType() == "decoration-frame"))
        	{
 	  if(!m_object->path().isEmpty())
 	    {

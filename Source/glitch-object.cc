@@ -66,6 +66,7 @@
 #include "glitch-font-filter.h"
 #include "glitch-object-arrow.h"
 #include "glitch-object-edit-window.h"
+#include "glitch-object-frame.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
 #include "glitch-port-colors.h"
@@ -635,6 +636,8 @@ glitch_object *glitch_object::createFromValues
       (values, error, parent);
   else if(type == "decoration-arrow")
     object = glitch_object_arrow::createFromValues(values, error, parent);
+  else if(type == "decoration-frame")
+    object = glitch_object_frame::createFromValues(values, error, parent);
   else
     {
       if(type.isEmpty())
@@ -942,6 +945,7 @@ void glitch_object::createActions(void)
 
       if(!isNativelyDrawn() ||
 	 m_type == "decoration-arrow" ||
+	 m_type == "decoration-frame" ||
 	 m_type == "arduino-booleanoperator")
 	action->setEnabled(false);
     }

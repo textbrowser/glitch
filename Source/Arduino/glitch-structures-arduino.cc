@@ -385,7 +385,8 @@ void glitch_structures_arduino::prepareCategories(void)
 						      << "word()";
   s_itemsForIcons["Conversions"] = "convert.png";
   s_itemsForCategories["Decorations"] =
-    QStringList() << "horizontal arrow"
+    QStringList() << "frame"
+		  << "horizontal arrow"
 		  << "horizontal arrow (left)"
 		  << "horizontal arrow (right)";
   s_itemsForIcons["Decorations"] = "decoration.png";

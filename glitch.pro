@@ -246,6 +246,7 @@ HEADERS	       += Source/glitch-alignment.h \
                   Source/glitch-object.h \
                   Source/glitch-object-arrow.h \
                   Source/glitch-object-edit-window.h \
+                  Source/glitch-object-frame.h \
                   Source/glitch-object-lineedit.h \
                   Source/glitch-object-view.h \
                   Source/glitch-port-colors.h \
@@ -290,6 +291,7 @@ SOURCES	       += Source/glitch-alignment.cc \
                   Source/glitch-object-arrow.cc \
                   Source/glitch-object-edit-window.cc \
                   Source/glitch-object-edit-window-ash.cc \
+                  Source/glitch-object-frame.cc \
                   Source/glitch-object-view.cc \
                   Source/glitch-port-colors.cc \
                   Source/glitch-preferences.cc \
