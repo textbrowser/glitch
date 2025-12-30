@@ -929,6 +929,10 @@ void glitch_object::createActions(void)
 	      &glitch_object::slotSelectFont,
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::FONT] = action;
+
+      if(m_type == "decoration-arrow" ||
+	 m_type == "decoration-frame")
+	action->setEnabled(false);
     }
 
   if(!m_actions.contains(DefaultMenuActions::FONT_COLOR))

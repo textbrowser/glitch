@@ -26,7 +26,6 @@
 */
 
 #include <QColorDialog>
-#include <QQueue>
 
 #include "glitch-object-frame.h"
 #include "glitch-undo-command.h"
@@ -94,6 +93,33 @@ void glitch_object_frame::addActions(QMenu &menu)
 void glitch_object_frame::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
+
+  QPainter painter(this);
+
+  painter.setRenderHints(QPainter::Antialiasing);
+
+  QPainterPath path;
+  QPen pen;
+  auto const frameWidth = static_cast<qreal> (5.0);
+  auto const frameWidth1 = frameWidth / 2.0;
+  auto const height = static_cast<qreal> (size().height());
+  auto const radius = static_cast<qreal> (10.0);
+  auto const width = static_cast<qreal> (size().width());
+  const QColor color
+    (m_properties.value(Properties::BACKGROUND_COLOR).toString());
+
+  path.addRoundedRect
+    (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
+     radius,
+     radius);
+  painter.fillPath(path, QBrush(QColor(Qt::transparent)));
+  pen.setColor(color);
+  pen.setJoinStyle(Qt::RoundJoin);
+  pen.setWidthF(frameWidth);
+  painter.setPen(pen);
+  painter.save();
+  painter.drawPath(path);
+  painter.restore();
 }
 
 void glitch_object_frame::save(const QSqlDatabase &db, QString &error)
