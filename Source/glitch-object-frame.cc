@@ -39,6 +39,7 @@ glitch_object_frame::glitch_object_frame
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180, 255);
+  m_properties[Properties::FRAME_OBJECT_RADIUS] = 10.0;
   m_type = "decoration-frame";
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
@@ -103,7 +104,8 @@ void glitch_object_frame::paintEvent(QPaintEvent *event)
   auto const frameWidth = static_cast<qreal> (5.0);
   auto const frameWidth1 = frameWidth / 2.0;
   auto const height = static_cast<qreal> (size().height());
-  auto const radius = static_cast<qreal> (10.0);
+  auto const radius = static_cast<qreal>
+    (m_properties.value(Properties::FRAME_OBJECT_RADIUS).toDouble());
   auto const width = static_cast<qreal> (size().width());
   const QColor color
     (m_properties.value(Properties::BACKGROUND_COLOR).toString());
@@ -131,6 +133,8 @@ void glitch_object_frame::save(const QSqlDatabase &db, QString &error)
 
   QMap<QString, QVariant> properties;
 
+  properties["frame_object_radius"] = m_properties.value
+    (Properties::FRAME_OBJECT_RADIUS);
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -140,6 +144,16 @@ void glitch_object_frame::setProperties(const QStringList &list)
 
   for(int i = 0; i < list.size(); i++)
     {
+      auto string(list.at(i));
+
+      if(string.simplified().startsWith("frame_object_radius = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1).toLower();
+	  string.remove("\"");
+	  m_properties[Properties::FRAME_OBJECT_RADIUS] =
+	    qAbs(string.toDouble());
+	  break;
+	}
     }
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
@@ -155,6 +169,11 @@ void glitch_object_frame::setProperty
     case Properties::BACKGROUND_COLOR:
       {
 	m_properties[Properties::BACKGROUND_COLOR] = QColor(value.toString());
+	break;
+      }
+    case Properties::FRAME_OBJECT_RADIUS:
+      {
+	m_properties[Properties::FRAME_OBJECT_RADIUS] = value;
 	break;
       }
     default:
