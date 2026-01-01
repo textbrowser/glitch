@@ -1715,11 +1715,6 @@ void glitch_object::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-
-	  if(m_contextMenu)
-	    m_contextMenu->setProperty
-	      (Properties::Z_VALUE, QVariant(string.trimmed()).toReal());
-
 	  m_properties[Properties::Z_VALUE] =
 	    QVariant(string.trimmed()).toReal();
 	}
@@ -2753,6 +2748,9 @@ void glitch_object::slotShowContextMenu(void)
   m_contextMenu->addActions(m_actions.values());
   m_contextMenu->setIdentifier(m_id);
   m_contextMenu->setName(name());
+  m_contextMenu->setProperty
+    (Properties::FRAME_OBJECT_RADIUS,
+     m_properties.value(Properties::FRAME_OBJECT_RADIUS));
   m_contextMenu->setProperty
     (Properties::Z_VALUE, m_properties.value(Properties::Z_VALUE));
 
