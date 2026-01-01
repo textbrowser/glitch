@@ -97,6 +97,7 @@ void glitch_object_arrow::addActions(QMenu &menu)
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setEnabled(false);
+  m_actions.value(DefaultMenuActions::SOURCE_PREVIEW)->setEnabled(false);
 }
 
 void glitch_object_arrow::paintEvent(QPaintEvent *event)

@@ -27,6 +27,7 @@
 
 #include <QColorDialog>
 
+#include "glitch-floating-context-menu.h"
 #include "glitch-object-frame.h"
 #include "glitch-undo-command.h"
 
@@ -89,6 +90,7 @@ void glitch_object_frame::addActions(QMenu &menu)
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setEnabled(false);
+  m_actions.value(DefaultMenuActions::SOURCE_PREVIEW)->setEnabled(false);
 }
 
 void glitch_object_frame::paintEvent(QPaintEvent *event)
@@ -150,6 +152,7 @@ void glitch_object_frame::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1).toLower();
 	  string.remove("\"");
+	  string = string.trimmed();
 	  m_properties[Properties::FRAME_OBJECT_RADIUS] =
 	    qAbs(string.toDouble());
 	  break;

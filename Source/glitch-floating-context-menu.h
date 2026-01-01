@@ -56,12 +56,12 @@ class glitch_floating_context_menu: public QDialog
 
  public slots:
   void slotActionChanged(void);
+  void slotDoubleSpinBoxChanged(qreal value);
   void slotObjectChanged(void);
   void slotSizeChanged(int value);
-  void slotZValueChanged(qreal value);
 
  private:
-  QPointer<QDoubleSpinBox> m_zValue;
+  QHash<QString, QPointer<QDoubleSpinBox> > m_doubleSpinBoxes;
   QPointer<glitch_object> m_object;
   Ui_glitch_floating_context_menu m_ui;
   void closeEvent(QCloseEvent *event);

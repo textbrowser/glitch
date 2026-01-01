@@ -41,7 +41,9 @@ class glitch_common
   };
 
   static QChar s_indentationCharacter;
+  static qreal s_maximumFrameRadius;
   static qreal s_maximumZValue;
+  static qreal s_minimumFrameRadius;
   static qreal s_minimumZValue;
   static QSqlDatabase sqliteDatabase(void);
   static QString projectTypeToString(const ProjectTypes projectType);

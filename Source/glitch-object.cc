@@ -1786,15 +1786,15 @@ void glitch_object::setProperty(const Properties property,
 
   m_properties[property] = value;
 
+  if(m_contextMenu)
+    m_contextMenu->setProperty(property, value);
+
   switch(property)
     {
     case Properties::BACKGROUND_COLOR:
     case Properties::BORDER_COLOR:
     case Properties::FONT_COLOR:
       {
-	if(m_contextMenu)
-	  m_contextMenu->setProperty(property, value);
-
 	break;
       }
     case Properties::COMPRESSED_WIDGET:
@@ -1809,6 +1809,10 @@ void glitch_object::setProperty(const Properties property,
     case Properties::FONT:
       {
 	prepareFont();
+	break;
+      }
+    case Properties::FRAME_OBJECT_RADIUS:
+      {
 	break;
       }
     case Properties::GENERATE_SOURCE:
@@ -1909,9 +1913,6 @@ void glitch_object::setProperty(const Properties property,
       }
     case Properties::Z_VALUE:
       {
-	if(m_contextMenu)
-	  m_contextMenu->setProperty(property, value);
-
 	if(m_proxy)
 	  m_proxy->setZValue(value.toReal());
 

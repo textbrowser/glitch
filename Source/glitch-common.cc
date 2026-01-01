@@ -30,6 +30,8 @@
 
 QAtomicInteger<quint64> glitch_common::s_dbId = 0;
 QChar glitch_common::s_indentationCharacter = ' ';
+qreal glitch_common::s_maximumFrameRadius = 25.0;
+qreal glitch_common::s_minimumFrameRadius = 2.5;
 qreal glitch_common::s_maximumZValue = 100000000.0;
 qreal glitch_common::s_minimumZValue = -100000000.0;
 

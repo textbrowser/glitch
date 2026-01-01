@@ -80,6 +80,9 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
     if(action)
       map[action->text().remove('&')] = action;
 
+  if(m_object && m_object->name() == "decoration-frame")
+    map["frame-object-radius"] = nullptr;
+
   map["z-value"] = nullptr;
 
   QMapIterator<QString, QAction *> it(map);
@@ -90,32 +93,51 @@ void glitch_floating_context_menu::addActions(const QList<QAction *> &actions)
 
       if(!it.value())
 	{
-	  if(it.key() == "z-value")
+	  if(it.key() == "frame-object-radius" || it.key() == "z-value")
 	    {
 	      auto frame = new QFrame(this);
 	      auto layout = new QHBoxLayout();
+	      auto widget = new QDoubleSpinBox(this);
 
 	      delete frame->layout();
 	      frame->setLayout(layout);
-	      m_zValue = new QDoubleSpinBox(this);
-	      m_zValue->installEventFilter(new glitch_scroll_filter(this));
-	      m_zValue->setDecimals(1);
-	      m_zValue->setRange
-		(glitch_common::s_minimumZValue,
-		 glitch_common::s_maximumZValue);
-	      m_zValue->setSizePolicy
+	      widget->installEventFilter(new glitch_scroll_filter(widget));
+	      widget->setDecimals(1);
+	      widget->setObjectName(it.key());
+
+	      if(it.key() == "frame-object-radius")
+		widget->setRange
+		  (glitch_common::s_minimumFrameRadius,
+		   glitch_common::s_maximumFrameRadius);
+	      else
+		widget->setRange
+		  (glitch_common::s_minimumZValue,
+		   glitch_common::s_maximumZValue);
+
+	      widget->setSizePolicy
 		(QSizePolicy::Minimum, QSizePolicy::Fixed);
-	      m_zValue->setToolTip
+	      widget->setToolTip
 		(QString("[%1, %2]").
-		 arg(m_zValue->minimum()).arg(m_zValue->maximum()));
-	      m_zValue->setValue(property("z-value").toReal());
-	      connect(m_zValue,
+		 arg(widget->minimum()).arg(widget->maximum()));
+
+	      if(it.key() == "frame-object-radius")
+		widget->setValue(property("frame-object-radius").toReal());
+	      else
+		widget->setValue(property("z-value").toReal());
+
+	      connect(widget,
 		      SIGNAL(valueChanged(qreal)),
 		      this,
-		      SLOT(slotZValueChanged(qreal)));
-	      layout->addWidget(new QLabel(tr("Z-Value"), this));
-	      layout->addWidget(m_zValue);
+		      SLOT(slotDoubleSpinBoxChanged(qreal)));
+
+	      if(it.key() == "frame-object-radius")
+		layout->addWidget(new QLabel(tr("Radius"), this));
+	      else
+		layout->addWidget(new QLabel(tr("Z-Value"), this));
+
+	      layout->addWidget(widget);
 	      layout->addStretch();
+	      m_doubleSpinBoxes[it.key()] = widget;
 	      m_ui.property_frame->layout()->addWidget(frame);
 	    }
 
@@ -233,7 +255,6 @@ void glitch_floating_context_menu::setObject(glitch_object *object)
 void glitch_floating_context_menu::setProperty
 (const glitch_object::Properties property, const QVariant &value)
 {
-
   switch(property)
     {
     case glitch_object::Properties::BACKGROUND_COLOR:
@@ -243,22 +264,46 @@ void glitch_floating_context_menu::setProperty
 	setPushButtonColors();
 	break;
       }
+    case glitch_object::Properties::FRAME_OBJECT_RADIUS:
+      {
+	QObject::setProperty("frame-object-radius", value);
+
+	auto widget = m_doubleSpinBoxes.value("frame-object-radius");
+
+	if(widget)
+	  {
+	    disconnect(widget,
+		       SIGNAL(valueChanged(qreal)),
+		       this,
+		       SLOT(slotDoubleSpinBoxChanged(qreal)));
+	    widget->setValue(value.toReal());
+	    widget->selectAll();
+	    connect(widget,
+		    SIGNAL(valueChanged(qreal)),
+		    this,
+		    SLOT(slotDoubleSpinBoxChanged(qreal)));
+	  }
+
+	break;
+      }
     case glitch_object::Properties::Z_VALUE:
       {
 	QObject::setProperty("z-value", value);
 
-	if(m_zValue)
+	auto widget = m_doubleSpinBoxes.value("z-value");
+
+	if(widget)
 	  {
-	    disconnect(m_zValue,
+	    disconnect(widget,
 		       SIGNAL(valueChanged(qreal)),
 		       this,
-		       SLOT(slotZValueChanged(qreal)));
-	    m_zValue->setValue(value.toReal());
-	    m_zValue->selectAll();
-	    connect(m_zValue,
+		       SLOT(slotDoubleSpinBoxChanged(qreal)));
+	    widget->setValue(value.toReal());
+	    widget->selectAll();
+	    connect(widget,
 		    SIGNAL(valueChanged(qreal)),
 		    this,
-		    SLOT(slotZValueChanged(qreal)));
+		    SLOT(slotDoubleSpinBoxChanged(qreal)));
 	  }
 
 	break;
@@ -340,6 +385,17 @@ void glitch_floating_context_menu::slotActionChanged(void)
   widget->setEnabled(action->isEnabled());
 }
 
+void glitch_floating_context_menu::slotDoubleSpinBoxChanged(qreal value)
+{
+  auto widget = qobject_cast<QDoubleSpinBox *> (sender());
+
+  if(m_doubleSpinBoxes.value("frame-object-radius") == widget)
+    emit propertyChanged
+      (glitch_object::Properties::FRAME_OBJECT_RADIUS, value);
+  else if(m_doubleSpinBoxes.value("z-value") == widget)
+    emit propertyChanged(glitch_object::Properties::Z_VALUE, value);
+}
+
 void glitch_floating_context_menu::slotObjectChanged(void)
 {
   if(m_object)
@@ -366,9 +422,4 @@ void glitch_floating_context_menu::slotSizeChanged(int value)
   emit propertyChanged
     (glitch_object::Properties::SIZE,
      QSize(m_ui.width->value(), m_ui.height->value()));
-}
-
-void glitch_floating_context_menu::slotZValueChanged(qreal value)
-{
-  emit propertyChanged(glitch_object::Properties::Z_VALUE, value);
 }
