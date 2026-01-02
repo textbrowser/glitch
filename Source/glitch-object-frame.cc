@@ -39,7 +39,7 @@ glitch_object_frame::glitch_object_frame(QWidget *parent):
 glitch_object_frame::glitch_object_frame
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
-  m_properties[Properties::BACKGROUND_COLOR] = QColor(70, 130, 180, 255);
+  m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
   m_properties[Properties::FRAME_OBJECT_RADIUS] = 10.0;
   m_type = "decoration-frame";
   resize(100, 30);
@@ -86,6 +86,7 @@ createFromValues(const QMap<QString, QVariant> &values,
 void glitch_object_frame::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+  m_actions.value(DefaultMenuActions::BACKGROUND_COLOR)->setEnabled(false);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setChecked(false);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked(false);
@@ -110,7 +111,7 @@ void glitch_object_frame::paintEvent(QPaintEvent *event)
     (m_properties.value(Properties::FRAME_OBJECT_RADIUS).toDouble());
   auto const width = static_cast<qreal> (size().width());
   const QColor color
-    (m_properties.value(Properties::BACKGROUND_COLOR).toString());
+    (m_properties.value(Properties::BORDER_COLOR).toString());
 
   path.addRoundedRect
     (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
@@ -169,9 +170,9 @@ void glitch_object_frame::setProperty
 
   switch(property)
     {
-    case Properties::BACKGROUND_COLOR:
+    case Properties::BORDER_COLOR:
       {
-	m_properties[Properties::BACKGROUND_COLOR] = QColor(value.toString());
+	m_properties[Properties::BORDER_COLOR] = QColor(value.toString());
 	break;
       }
     case Properties::FRAME_OBJECT_RADIUS:
@@ -191,7 +192,7 @@ void glitch_object_frame::slotSelectColor(void)
   QColorDialog dialog(m_parent);
 
   dialog.setCurrentColor
-    (m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ());
+    (m_properties.value(Properties::BORDER_COLOR).value<QColor> ());
   dialog.setOption(QColorDialog::ShowAlphaChannel, true);
   dialog.setWindowIcon(windowIcon());
 #ifdef Q_OS_ANDROID
@@ -209,9 +210,9 @@ void glitch_object_frame::slotSelectColor(void)
 	{
 	  auto undoCommand = new glitch_undo_command
 	    (color.name(QColor::HexArgb),
-	     m_properties.value(Properties::BACKGROUND_COLOR),
+	     m_properties.value(Properties::BORDER_COLOR),
 	     glitch_undo_command::Types::PROPERTY_CHANGED,
-	     Properties::BACKGROUND_COLOR,
+	     Properties::BORDER_COLOR,
 	     this);
 
 	  undoCommand->setText
