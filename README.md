@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
 
 <b>Version 2025.12.25 is the newest LTS release.</b><br>
-<b>Version 2025.12.25 is the newest source release.</b>
+<b>Version 2026.01.01 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -35,6 +35,13 @@ Now with a natural language processor!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2026.01.01 Release</p>
+<ul>
+<li>Disable font property for arrow widget.</li>
+<li>New Canvas Settings -> Display -> Show Function Name Widget.</li>
+<li>New frame widget.</li>
+</ul>
 
 <p>2025.12.25</p>
 <ul>
