@@ -388,7 +388,8 @@ void glitch_structures_arduino::prepareCategories(void)
     QStringList() << "frame"
 		  << "horizontal arrow"
 		  << "horizontal arrow (left)"
-		  << "horizontal arrow (right)";
+		  << "horizontal arrow (right)"
+		  << "numeric display";
   s_itemsForIcons["Decorations"] = "decoration.png";
   s_itemsForCategories["Digital I/O"] = QStringList() << "digitalRead()"
 						      << "digitalWrite()"
