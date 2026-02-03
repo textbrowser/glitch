@@ -1,6 +1,8 @@
 Life is a glitch. Your Arduino projects should not be.
 Awesome diagrams for the curious.
 
+https://en.wikipedia.org/wiki/Glitch
+
 Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with a natural language processor!
