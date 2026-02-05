@@ -639,7 +639,7 @@ glitch_object *glitch_object::createFromValues
     object = glitch_object_arrow::createFromValues(values, error, parent);
   else if(type == "decoration-frame")
     object = glitch_object_frame::createFromValues(values, error, parent);
-  else if(type == "decoration-numeric-display")
+  else if(type == "digitalio-numeric-display")
     object = glitch_object_numeric_display::createFromValues
       (values, error, parent);
   else

@@ -40,10 +40,10 @@ glitch_object_numeric_display::glitch_object_numeric_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
-  m_type = "decoration-numeric-display";
+  m_type = "digitalio-numeric-display";
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
-  setName("decoration-numeric-display");
+  setName("digitalio-numeric-display");
   setStyleSheet("background-color: transparent;");
 }
 

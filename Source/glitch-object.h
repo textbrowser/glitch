@@ -305,7 +305,8 @@ class glitch_object: public QWidget
 
   bool showOrderIndicator(void) const
   {
-    if(m_type.startsWith("decoration"))
+    if(m_type.startsWith("decoration") ||
+       m_type.startsWith("digitalio-numeric-display"))
       return false;
     else
       return m_canvasSettings && m_canvasSettings->showOrderIndicators();

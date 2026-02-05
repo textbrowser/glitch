@@ -988,7 +988,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 	    object = new glitch_object_arrow(text, view);
 	  else if(text.startsWith("glitch-arduino-decorations-frame"))
 	    object = new glitch_object_frame(view);
-	  else if(text.startsWith("glitch-arduino-decorations-numeric display"))
+	  else if(text.startsWith("glitch-arduino-digital i/o-numeric display"))
 	    object = new glitch_object_numeric_display(view);
 	  else if(text.startsWith("glitch-arduino-digital i/o-"))
 	    object = new glitch_object_digital_io_arduino(text, view);
