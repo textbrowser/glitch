@@ -290,6 +290,7 @@ Completed Items
   are numerous windows. Not necessary
 - Reparent support panels if a canvas is separated. Not necessary. Append
   Qt::Dialog to separated window's window flags. Not standard.
+- Replace comment widget with a text graphics item.
 - Replace theme icons with true icons.
 - Replace-with context menus for natively-drawn Arduino structures. Object
   promotion.
@@ -399,7 +400,6 @@ Qt Items
 - Qt PDF magnification.
 - Qt PDF navigation.
 - Qt PDF search.
-- Replace comment widget with a text graphics item.
 - Windows and GDI objects. Remove QGraphicsProxyWidget from as many
   structures as possible. Replace QWidget in glitch_object with
   QGraphicsWidget.
