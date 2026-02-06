@@ -29,7 +29,6 @@
 #define _glitch_object_block_comment_arduino_h_
 
 #include "glitch-object.h"
-#include "ui_glitch-object-block-comment-arduino.h"
 
 class glitch_object_block_comment_arduino: public glitch_object
 {
@@ -38,9 +37,25 @@ class glitch_object_block_comment_arduino: public glitch_object
  public:
   glitch_object_block_comment_arduino(QWidget *parent);
   ~glitch_object_block_comment_arduino();
-  QPlainTextEdit *plainTextEdit(void) const;
+
+  QSize minimumSizeHint(void) const
+  {
+    return QSize(100, 30);
+  }
+
+  QSize sizeHint(void) const
+  {
+    return minimumSizeHint();
+  }
+
   QString code(void) const;
   bool isFullyWired(void) const;
+
+  bool isNativelyDrawn(void) const
+  {
+    return true;
+  }
+
   bool shouldPrint(void) const;
   glitch_object_block_comment_arduino *clone(QWidget *parent) const;
   static glitch_object_block_comment_arduino *createFromValues
@@ -51,7 +66,7 @@ class glitch_object_block_comment_arduino: public glitch_object
 
  private:
   glitch_object_block_comment_arduino(const qint64 id, QWidget *parent);
-  Ui_glitch_object_block_comment_arduino m_ui;
+  void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
 
  private slots:

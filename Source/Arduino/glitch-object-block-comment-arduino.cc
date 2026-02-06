@@ -31,30 +31,22 @@
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (QWidget *parent):glitch_object_block_comment_arduino(1, parent)
 {
-  m_properties[Properties::COMMENT] = "";
+  m_properties[Properties::COMMENT] = "A comment in the landscape of Glitch.";
 }
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_type = "arduino-blockcomment";
-  m_ui.setupUi(this);
-  m_ui.comment->setUndoRedoEnabled(false);
-  connect(m_ui.comment,
-	  &QPlainTextEdit::textChanged,
-	  this,
-	  &glitch_object_block_comment_arduino::slotTextChanged);
   prepareContextMenu();
+  resize(300, 100);
+  setAttribute(Qt::WA_OpaquePaintEvent, true);
   setName(m_type);
+  setStyleSheet("background-color: transparent;");
 }
 
 glitch_object_block_comment_arduino::~glitch_object_block_comment_arduino()
 {
-}
-
-QPlainTextEdit *glitch_object_block_comment_arduino::plainTextEdit(void) const
-{
-  return m_ui.comment;
 }
 
 QString glitch_object_block_comment_arduino::code(void) const
@@ -64,7 +56,9 @@ QString glitch_object_block_comment_arduino::code(void) const
 
   QString code("");
 
-  foreach(auto const &str, m_ui.comment->toPlainText().split('\n'))
+  foreach
+    (auto const &str,
+     m_properties.value(Properties::COMMENT).toString().trimmed().split('\n'))
     if(!str.trimmed().isEmpty())
       code.append(QString("// %1\n").arg(str.trimmed()));
 
@@ -90,10 +84,9 @@ clone(QWidget *parent) const
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->m_ui.comment->blockSignals(true);
-  clone->m_ui.comment->setPlainText(m_ui.comment->toPlainText());
-  clone->m_ui.comment->blockSignals(false);
   clone->resize(size());
+  clone->setAttribute
+    (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
   clone->setCanvasSettings(m_canvasSettings);
   clone->setStyleSheet(styleSheet());
   return clone;
@@ -111,16 +104,52 @@ createFromValues(const QMap<QString, QVariant> &values,
 
   object->setProperties(splitPropertiesAmpersand(values.value("properties")));
   object->setStyleSheet(values.value("stylesheet").toString());
-  object->m_ui.comment->blockSignals(true);
-  object->m_ui.comment->setPlainText
-    (object->m_properties.value(Properties::COMMENT).toString().trimmed());
-  object->m_ui.comment->blockSignals(false);
   return object;
 }
 
 void glitch_object_block_comment_arduino::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
+}
+
+void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
+{
+  Q_UNUSED(event);
+
+  QPainter painter(this);
+
+  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+
+  QPainterPath path;
+  QPen pen;
+  auto const frameWidth = static_cast<qreal> (1.5);
+  auto const frameWidth1 = frameWidth / 2.0;
+  auto const height = static_cast<qreal> (size().height());
+  auto const radius = static_cast<qreal> (5.0);
+  auto const width = static_cast<qreal> (size().width());
+  const QColor color
+    (m_properties.value(Properties::BORDER_COLOR).toString());
+
+  path.addRoundedRect
+    (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
+     radius,
+     radius);
+  painter.fillPath(path, QBrush(QColor(Qt::transparent)));
+  pen.setColor(color);
+  pen.setJoinStyle(Qt::RoundJoin);
+  pen.setWidthF(frameWidth);
+  painter.setPen(pen);
+  painter.save();
+  painter.drawPath(path);
+  painter.restore();
+  pen.setColor(QColor(m_properties.value(Properties::FONT_COLOR).toString()));
+  painter.setPen(pen);
+  painter.save();
+  painter.drawText
+    (path.boundingRect(),
+     Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+     m_properties.value(Properties::COMMENT).toString().trimmed());
+  painter.restore();
 }
 
 void glitch_object_block_comment_arduino::save
@@ -133,7 +162,8 @@ void glitch_object_block_comment_arduino::save
 
   QMap<QString, QVariant> properties;
 
-  properties["comment"] = m_ui.comment->toPlainText().trimmed();
+  properties["comment"] =
+    m_properties.value(Properties::COMMENT).toString().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -164,17 +194,6 @@ void glitch_object_block_comment_arduino::setProperty
     {
     case Properties::COMMENT:
       {
-	auto cursor(m_ui.comment->textCursor());
-	auto const position = cursor.anchor();
-
-	m_ui.comment->blockSignals(true);
-	m_ui.comment->setPlainText(value.toString());
-
-	if(position <= m_ui.comment->toPlainText().length())
-	  cursor.setPosition(position);
-
-	m_ui.comment->setTextCursor(cursor);
-	m_ui.comment->blockSignals(false);
 	break;
       }
     default:
@@ -191,20 +210,20 @@ void glitch_object_block_comment_arduino::slotTextChanged(void)
   if(m_undoStack)
     {
       auto undoCommand = new glitch_undo_command
-	(m_ui.comment->toPlainText(),
+	("",
 	 m_properties.value(property),
 	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 property,
 	 this);
 
-      m_properties[property] = m_ui.comment->toPlainText();
+      m_properties[property] = "";
       undoCommand->setText
 	(tr("comment changed (%1, %2)").
 	 arg(scenePos().x()).arg(scenePos().y()));
       m_undoStack->push(undoCommand);
     }
   else
-    m_properties[property] = m_ui.comment->toPlainText();
+    m_properties[property] = "";
 
   emit changed();
 }

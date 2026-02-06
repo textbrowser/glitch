@@ -29,6 +29,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsView>
 #include <QMimeData>
+#include <QPlainTextEdit>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QTableView>
