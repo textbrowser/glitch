@@ -130,6 +130,7 @@ void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
   const QColor color
     (m_properties.value(Properties::BORDER_COLOR).toString());
 
+  painter.setFont(font());
   path.addRoundedRect
     (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
      radius,
@@ -146,7 +147,7 @@ void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
   painter.setPen(pen);
   painter.save();
   painter.drawText
-    (path.boundingRect(),
+    (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
      Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
      m_properties.value(Properties::COMMENT).toString().trimmed());
   painter.restore();
