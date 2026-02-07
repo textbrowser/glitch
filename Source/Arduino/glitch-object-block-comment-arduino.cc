@@ -135,7 +135,9 @@ void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
     (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
      radius,
      radius);
-  painter.fillPath(path, QBrush(QColor(Qt::transparent)));
+  painter.fillPath
+  (path,
+   QBrush(QColor(m_properties.value(Properties::BACKGROUND_COLOR).toString())));
   pen.setColor(color);
   pen.setJoinStyle(Qt::RoundJoin);
   pen.setWidthF(frameWidth);
