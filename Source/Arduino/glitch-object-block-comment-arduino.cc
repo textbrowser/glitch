@@ -127,6 +127,8 @@ void glitch_object_block_comment_arduino::addActions(QMenu &menu)
     menu.addAction(m_actions.value(DefaultMenuActions::SET_COMMENT_TEXT));
 
   addDefaultActions(menu);
+  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setChecked(false);
+  m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
 }
 
 void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)

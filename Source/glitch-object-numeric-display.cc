@@ -40,6 +40,7 @@ glitch_object_numeric_display::glitch_object_numeric_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
+  m_properties[Properties::NUMERIC_DISPLAY_VALUE] = "0.0";
   m_type = "digitalio-numeric-display";
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
@@ -86,7 +87,6 @@ createFromValues(const QMap<QString, QVariant> &values,
 void glitch_object_numeric_display::addActions(QMenu &menu)
 {
   addDefaultActions(menu);
-  m_actions.value(DefaultMenuActions::BACKGROUND_COLOR)->setEnabled(false);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setChecked(false);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
   m_actions.value(DefaultMenuActions::GENERATE_SOURCE)->setChecked(false);
@@ -131,7 +131,7 @@ void glitch_object_numeric_display::paintEvent(QPaintEvent *event)
   painter.save();
   painter.drawText
   (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
-   Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+   Qt::AlignCenter | Qt::TextWordWrap,
    m_properties.value(Properties::NUMERIC_DISPLAY_VALUE).toString().trimmed());
   painter.restore();
 }
