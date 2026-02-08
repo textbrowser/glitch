@@ -144,8 +144,7 @@ void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
   auto const height = static_cast<qreal> (size().height());
   auto const radius = static_cast<qreal> (5.0);
   auto const width = static_cast<qreal> (size().width());
-  const QColor color
-    (m_properties.value(Properties::BORDER_COLOR).toString());
+  const QColor color(m_properties.value(Properties::BORDER_COLOR).toString());
 
   painter.setFont(font());
   path.addRoundedRect

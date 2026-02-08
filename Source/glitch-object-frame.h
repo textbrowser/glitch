@@ -79,9 +79,6 @@ class glitch_object_frame: public glitch_object
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
-
- private slots:
-  void slotSelectColor(void);
 };
 
 #endif

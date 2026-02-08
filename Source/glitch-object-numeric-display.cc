@@ -100,7 +100,40 @@ void glitch_object_numeric_display::paintEvent(QPaintEvent *event)
 
   QPainter painter(this);
 
-  painter.setRenderHints(QPainter::Antialiasing);
+  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+
+  QPainterPath path;
+  QPen pen;
+  auto const frameWidth = static_cast<qreal> (1.5);
+  auto const frameWidth1 = frameWidth / 2.0;
+  auto const height = static_cast<qreal> (size().height());
+  auto const radius = static_cast<qreal> (5.0);
+  auto const width = static_cast<qreal> (size().width());
+  const QColor color(m_properties.value(Properties::BORDER_COLOR).toString());
+
+  painter.setFont(font());
+  path.addRoundedRect
+    (QRectF(frameWidth1, frameWidth1, width - frameWidth, height - frameWidth),
+     radius,
+     radius);
+  painter.fillPath
+  (path,
+   QBrush(QColor(m_properties.value(Properties::BACKGROUND_COLOR).toString())));
+  pen.setColor(color);
+  pen.setJoinStyle(Qt::RoundJoin);
+  pen.setWidthF(frameWidth);
+  painter.setPen(pen);
+  painter.save();
+  painter.drawPath(path);
+  painter.restore();
+  pen.setColor(QColor(m_properties.value(Properties::FONT_COLOR).toString()));
+  painter.setPen(pen);
+  painter.save();
+  painter.drawText
+  (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
+   Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
+   m_properties.value(Properties::NUMERIC_DISPLAY_VALUE).toString().trimmed());
+  painter.restore();
 }
 
 void glitch_object_numeric_display::save
@@ -145,44 +178,4 @@ void glitch_object_numeric_display::setProperty
 	break;
       }
     }
-}
-
-void glitch_object_numeric_display::slotSelectColor(void)
-{
-  QColorDialog dialog(m_parent);
-
-  dialog.setCurrentColor
-    (m_properties.value(Properties::BORDER_COLOR).value<QColor> ());
-  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
-  dialog.setWindowIcon(windowIcon());
-#ifdef Q_OS_ANDROID
-  dialog.showMaximized();
-#endif
-  QApplication::processEvents();
-
-  if(dialog.exec() == QDialog::Accepted)
-    {
-      QApplication::processEvents();
-
-      auto const color(dialog.selectedColor());
-
-      if(m_undoStack)
-	{
-	  auto undoCommand = new glitch_undo_command
-	    (color.name(QColor::HexArgb),
-	     m_properties.value(Properties::BORDER_COLOR),
-	     glitch_undo_command::Types::PROPERTY_CHANGED,
-	     Properties::BORDER_COLOR,
-	     this);
-
-	  undoCommand->setText
-	    (tr("color changed (%1, %2)").
-	     arg(scenePos().x()).arg(scenePos().y()));
-	  m_undoStack->push(undoCommand);
-	}
-      else
-	m_properties[Properties::BORDER_COLOR] = color.name(QColor::HexArgb);
-    }
-  else
-    QApplication::processEvents();
 }

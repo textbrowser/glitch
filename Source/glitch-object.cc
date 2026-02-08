@@ -847,7 +847,7 @@ void glitch_object::createActions(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object::slotSelectBorderColor,
+	      &glitch_object::slotSelectColor,
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::BORDER_COLOR] = action;
     }
@@ -2534,7 +2534,15 @@ void glitch_object::slotSelectColor(void)
      static_cast<int> (DefaultMenuActions::BACKGROUND_COLOR))
     {
       color = m_properties.value(Properties::BACKGROUND_COLOR).value<QColor> ();
+      property = Properties::BACKGROUND_COLOR;
       title = tr("Glitch: Select Widget Background Color");
+    }
+  else if(action->data().toInt() ==
+	  static_cast<int> (DefaultMenuActions::BORDER_COLOR))
+    {
+      color = m_properties.value(Properties::BORDER_COLOR).value<QColor> ();
+      property = Properties::BORDER_COLOR;
+      title = tr("Glitch: Select Widget Border Color");
     }
   else
     {
@@ -2578,30 +2586,6 @@ void glitch_object::slotSelectColor(void)
 	m_properties[property] = color.name(QColor::HexArgb);
 
       emit changed();
-    }
-  else
-    QApplication::processEvents();
-}
-
-void glitch_object::slotSelectBorderColor(void)
-{
-  QColorDialog dialog(m_parent);
-
-  dialog.setCurrentColor
-    (QColor(m_properties.value(Properties::BORDER_COLOR).toString()));
-  dialog.setOption(QColorDialog::ShowAlphaChannel, true);
-  dialog.setWindowIcon(windowIcon());
-  dialog.setWindowTitle(tr("Glitch: Select Widget Border Color"));
-#ifdef Q_OS_ANDROID
-  dialog.showMaximized();
-#endif
-  QApplication::processEvents();
-
-  if(dialog.exec() == QDialog::Accepted)
-    {
-      QApplication::processEvents();
-      slotPropertyChanged
-	("border_color", dialog.selectedColor().name(QColor::HexArgb));
     }
   else
     QApplication::processEvents();

@@ -150,6 +150,7 @@ class glitch_object: public QWidget
     LOGICAL_OPERATOR,
     MATHEMATICS_TYPE,
     NAME,
+    NUMERIC_DISPLAY_VALUE,
     PORT_COLORS,
     POSITION_LOCKED,
     RANDOM_TYPE,
@@ -525,7 +526,6 @@ class glitch_object: public QWidget
   virtual void slotHideOrShowOccupied(void);
   virtual void slotPrepareEditWindowHeader(void);
   virtual void slotSelectColor(void);
-  void slotSelectBorderColor(void);
   void slotSelectFont(void);
   void slotSetPortColors(void);
   void slotSetStyleSheet(void);
