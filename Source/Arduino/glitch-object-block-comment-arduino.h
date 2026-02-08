@@ -45,7 +45,7 @@ class glitch_object_block_comment_arduino: public glitch_object
 
   QSize sizeHint(void) const
   {
-    return minimumSizeHint();
+    return size();
   }
 
   QString code(void) const;
@@ -70,7 +70,7 @@ class glitch_object_block_comment_arduino: public glitch_object
   void setProperties(const QStringList &list);
 
  private slots:
-  void slotTextChanged(void);
+  void slotSetCommentText(void);
 };
 
 #endif

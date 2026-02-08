@@ -321,6 +321,9 @@ void glitch_object_arrow::slotSelectColor(void)
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
+      else
+	m_properties[Properties::BACKGROUND_COLOR] =
+	  color.name(QColor::HexArgb);
     }
   else
     QApplication::processEvents();

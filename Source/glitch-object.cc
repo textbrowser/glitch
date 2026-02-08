@@ -2574,6 +2574,8 @@ void glitch_object::slotSelectColor(void)
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
+      else
+	m_properties[property] = color.name(QColor::HexArgb);
 
       emit changed();
     }

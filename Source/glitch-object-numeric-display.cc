@@ -180,6 +180,8 @@ void glitch_object_numeric_display::slotSelectColor(void)
 	     arg(scenePos().x()).arg(scenePos().y()));
 	  m_undoStack->push(undoCommand);
 	}
+      else
+	m_properties[Properties::BORDER_COLOR] = color.name(QColor::HexArgb);
     }
   else
     QApplication::processEvents();

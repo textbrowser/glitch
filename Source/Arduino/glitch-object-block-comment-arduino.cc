@@ -25,6 +25,8 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QInputDialog>
+
 #include "glitch-object-block-comment-arduino.h"
 #include "glitch-undo-command.h"
 
@@ -39,7 +41,7 @@ glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 {
   m_type = "arduino-blockcomment";
   prepareContextMenu();
-  resize(300, 100);
+  resize(100, 100);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
   setName(m_type);
   setStyleSheet("background-color: transparent;");
@@ -109,6 +111,21 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_block_comment_arduino::addActions(QMenu &menu)
 {
+  if(!m_actions.contains(DefaultMenuActions::SET_COMMENT_TEXT))
+    {
+      auto action = new QAction(tr("Comment &Text..."), this);
+
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_block_comment_arduino::slotSetCommentText,
+	      Qt::QueuedConnection);
+      m_actions[DefaultMenuActions::SET_COMMENT_TEXT] = action;
+      menu.addAction(action);
+    }
+  else
+    menu.addAction(m_actions.value(DefaultMenuActions::SET_COMMENT_TEXT));
+
   addDefaultActions(menu);
 }
 
@@ -206,27 +223,45 @@ void glitch_object_block_comment_arduino::setProperty
     }
 }
 
-void glitch_object_block_comment_arduino::slotTextChanged(void)
+void glitch_object_block_comment_arduino::slotSetCommentText(void)
 {
-  auto const property = glitch_object::Properties::COMMENT;
+  QInputDialog dialog(m_parent);
 
-  if(m_undoStack)
+  dialog.resize(350, dialog.sizeHint().height());
+  dialog.setLabelText(tr("Set Comment Text"));
+  dialog.setTextEchoMode(QLineEdit::Normal); // A line edit!
+  dialog.setTextValue
+    (m_properties.value(Properties::COMMENT).toString().trimmed());
+  dialog.setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
+  dialog.setWindowTitle(tr("Glitch: Set Comment Text"));
+#ifdef Q_OS_ANDROID
+  dialog.showMaximized();
+#endif
+  QApplication::processEvents();
+
+  if(dialog.exec() == QDialog::Accepted)
     {
-      auto undoCommand = new glitch_undo_command
-	("",
-	 m_properties.value(property),
-	 glitch_undo_command::Types::PROPERTY_CHANGED,
-	 property,
-	 this);
+      QApplication::processEvents();
 
-      m_properties[property] = "";
-      undoCommand->setText
-	(tr("comment changed (%1, %2)").
-	 arg(scenePos().x()).arg(scenePos().y()));
-      m_undoStack->push(undoCommand);
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (dialog.textValue().trimmed(),
+	     m_properties.value(Properties::COMMENT),
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
+	     Properties::COMMENT,
+	     this);
+
+	  undoCommand->setText
+	    (tr("comment text changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+      else
+	setProperty(Properties::COMMENT, dialog.textValue().trimmed());
+
+      emit changed();
     }
   else
-    m_properties[property] = "";
-
-  emit changed();
+    QApplication::processEvents();
 }
