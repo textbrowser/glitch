@@ -157,8 +157,6 @@ void glitch_object_numeric_display::setProperties(const QStringList &list)
     {
       auto string(list.at(i));
     }
-
-  compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
 
 void glitch_object_numeric_display::setProperty
@@ -168,10 +166,10 @@ void glitch_object_numeric_display::setProperty
 
   switch(property)
     {
-    case Properties::BORDER_COLOR:
+    case Properties::NUMERIC_DISPLAY_VALUE:
       {
-	m_properties[Properties::BORDER_COLOR] = QColor(value.toString());
-	break;
+	m_properties[Properties::NUMERIC_DISPLAY_VALUE] =
+	  value.toString().trimmed();
       }
     default:
       {
