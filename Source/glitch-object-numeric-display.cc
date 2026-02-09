@@ -156,6 +156,8 @@ void glitch_object_numeric_display::setProperties(const QStringList &list)
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
+
+      Q_UNUSED(string);
     }
 }
 
@@ -166,11 +168,6 @@ void glitch_object_numeric_display::setProperty
 
   switch(property)
     {
-    case Properties::NUMERIC_DISPLAY_VALUE:
-      {
-	m_properties[Properties::NUMERIC_DISPLAY_VALUE] =
-	  value.toString().trimmed();
-      }
     default:
       {
 	break;
