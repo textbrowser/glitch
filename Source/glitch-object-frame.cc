@@ -170,11 +170,6 @@ void glitch_object_frame::setProperty
 
   switch(property)
     {
-    case Properties::BORDER_COLOR:
-      {
-	m_properties[Properties::BORDER_COLOR] = QColor(value.toString());
-	break;
-      }
     case Properties::FRAME_OBJECT_RADIUS:
       {
 	m_properties[Properties::FRAME_OBJECT_RADIUS] = value;

@@ -40,8 +40,8 @@ glitch_object_numeric_display::glitch_object_numeric_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
-  m_properties[Properties::NUMERIC_DISPLAY_VALUE] = "0.0";
   m_type = "digitalio-numeric-display";
+  m_value = 0.0;
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
   setName("digitalio-numeric-display");
@@ -149,7 +149,7 @@ void glitch_object_numeric_display::paintEvent(QPaintEvent *event)
   painter.drawText
   (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
    Qt::AlignCenter | Qt::TextWordWrap,
-   m_properties.value(Properties::NUMERIC_DISPLAY_VALUE).toString().trimmed());
+   QString::number(m_value));
   painter.restore();
 }
 
@@ -169,12 +169,18 @@ void glitch_object_numeric_display::save
 void glitch_object_numeric_display::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
+  m_properties[Properties::NUMERIC_DISPLAY_DEVICE] = "";
 
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
 
-      Q_UNUSED(string);
+      if(string.startsWith("device = "))
+	{
+	  string = string.mid(string.indexOf('=') + 1);
+	  string.remove("\"");
+	  m_properties[Properties::NUMERIC_DISPLAY_DEVICE] = string.trimmed();
+	}
     }
 }
 
@@ -185,6 +191,10 @@ void glitch_object_numeric_display::setProperty
 
   switch(property)
     {
+    case Properties::NUMERIC_DISPLAY_DEVICE:
+      {
+	break;
+      }
     default:
       {
 	break;

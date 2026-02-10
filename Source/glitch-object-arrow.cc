@@ -276,11 +276,6 @@ void glitch_object_arrow::setProperty
 
   switch(property)
     {
-    case Properties::BACKGROUND_COLOR:
-      {
-	m_properties[Properties::BACKGROUND_COLOR] = QColor(value.toString());
-	break;
-      }
     default:
       {
 	break;

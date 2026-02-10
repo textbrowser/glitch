@@ -1794,6 +1794,7 @@ void glitch_object::setProperty(const Properties property,
     case Properties::BORDER_COLOR:
     case Properties::FONT_COLOR:
       {
+	m_properties[property] = QColor(value.toString());
 	break;
       }
     case Properties::COMPRESSED_WIDGET:
@@ -1808,10 +1809,6 @@ void glitch_object::setProperty(const Properties property,
     case Properties::FONT:
       {
 	prepareFont();
-	break;
-      }
-    case Properties::FRAME_OBJECT_RADIUS:
-      {
 	break;
       }
     case Properties::GENERATE_SOURCE:

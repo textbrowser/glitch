@@ -76,6 +76,7 @@ class glitch_object_numeric_display: public glitch_object
 
  private:
   QPointer<QIODevice> m_device;
+  qreal m_value;
   glitch_object_numeric_display(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
