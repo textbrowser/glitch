@@ -86,6 +86,23 @@ createFromValues(const QMap<QString, QVariant> &values,
 
 void glitch_object_numeric_display::addActions(QMenu &menu)
 {
+  if(!m_actions.contains(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE))
+    {
+      auto action = new QAction(tr("Set &Device..."), this);
+
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_object_numeric_display::slotSetDevice,
+	      Qt::QueuedConnection);
+      m_actions[DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE] = action;
+      menu.addAction(action);
+    }
+  else if(m_actions.value(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE,
+			  nullptr))
+    menu.addAction
+      (m_actions.value(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE));
+
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setChecked(false);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setEnabled(false);
@@ -173,4 +190,8 @@ void glitch_object_numeric_display::setProperty
 	break;
       }
     }
+}
+
+void glitch_object_numeric_display::slotSetDevice(void)
+{
 }

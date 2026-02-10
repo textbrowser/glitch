@@ -552,7 +552,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::EDIT] = action;
       menu.addAction(action);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::EDIT, nullptr))
     menu.addAction(m_actions.value(DefaultMenuActions::EDIT));
 
   if(m_isFunctionClone)
@@ -573,7 +573,7 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::SET_FUNCTION_NAME] = action;
       menu.addAction(action);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME, nullptr))
     menu.addAction(m_actions.value(DefaultMenuActions::SET_FUNCTION_NAME));
 
   if(!m_actions.contains(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE))
@@ -616,7 +616,8 @@ void glitch_object_function_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::SET_FUNCTION_RETURN_TYPE] = m->menuAction();
       menu.addMenu(m);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE,
+			  nullptr))
     menu.addMenu
       (m_actions.value(DefaultMenuActions::SET_FUNCTION_RETURN_TYPE)->menu());
 

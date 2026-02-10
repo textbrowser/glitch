@@ -123,7 +123,7 @@ void glitch_object_block_comment_arduino::addActions(QMenu &menu)
       m_actions[DefaultMenuActions::SET_COMMENT_TEXT] = action;
       menu.addAction(action);
     }
-  else
+  else if(m_actions.value(DefaultMenuActions::SET_COMMENT_TEXT, nullptr))
     menu.addAction(m_actions.value(DefaultMenuActions::SET_COMMENT_TEXT));
 
   addDefaultActions(menu);
