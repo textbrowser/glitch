@@ -25,18 +25,18 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _glitch_object_numeric_display_h_
-#define _glitch_object_numeric_display_h_
+#ifndef _glitch_object_device_display_h_
+#define _glitch_object_device_display_h_
 
 #include "glitch-object.h"
 
-class glitch_object_numeric_display: public glitch_object
+class glitch_object_device_display: public glitch_object
 {
   Q_OBJECT
 
  public:
-  glitch_object_numeric_display(QWidget *parent);
-  ~glitch_object_numeric_display();
+  glitch_object_device_display(QWidget *parent);
+  ~glitch_object_device_display();
 
   QSize minimumSizeHint(void) const
   {
@@ -68,16 +68,16 @@ class glitch_object_numeric_display: public glitch_object
     return false;
   }
 
-  glitch_object_numeric_display *clone(QWidget *parent) const;
-  static glitch_object_numeric_display *createFromValues
+  glitch_object_device_display *clone(QWidget *parent) const;
+  static glitch_object_device_display *createFromValues
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
 
  private:
   QPointer<QIODevice> m_device;
-  qreal m_value;
-  glitch_object_numeric_display(const qint64 id, QWidget *parent);
+  QVariant m_value;
+  glitch_object_device_display(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);

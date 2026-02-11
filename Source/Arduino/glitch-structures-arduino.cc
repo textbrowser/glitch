@@ -390,9 +390,9 @@ void glitch_structures_arduino::prepareCategories(void)
 		  << "horizontal arrow (left)"
 		  << "horizontal arrow (right)";
   s_itemsForIcons["Decorations"] = "decoration.png";
-  s_itemsForCategories["Digital I/O"] = QStringList() << "digitalRead()"
+  s_itemsForCategories["Digital I/O"] = QStringList() << "device display"
+						      << "digitalRead()"
 						      << "digitalWrite()"
-						      << "numeric display"
 						      << "pinMode()";
   s_itemsForIcons["Digital I/O"] = "digital.png";
   s_itemsForCategories["External Interrupts"] =

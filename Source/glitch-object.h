@@ -93,9 +93,9 @@ class glitch_object: public QWidget
     LIBRARY_FUNCTION_HAS_INPUT = 3000,
     LIBRARY_FUNCTION_HAS_OUTPUT = 3005,
     SET_COMMENT_TEXT = 4000,
-    SET_FUNCTION_NAME = 5000,
-    SET_FUNCTION_RETURN_TYPE = 5005,
-    SET_NUMERIC_DISPLAY_DEVICE = 6000,
+    SET_DEVICE_DISPLAY_DEVICE = 5000,
+    SET_FUNCTION_NAME = 6000,
+    SET_FUNCTION_RETURN_TYPE = 6005,
     SET_VARIABLE_TYPE = 7000
   };
 
@@ -135,6 +135,7 @@ class glitch_object: public QWidget
     CONSTANT_OTHER,
     CONSTANT_TYPE,
     CONVERSION,
+    DEVICE_DISPLAY_DEVICE,
     DIGITAL_IO_TYPE,
     EDIT_WINDOW_GEOMETRY,
     EDIT_WINDOW_STATE,
@@ -151,7 +152,6 @@ class glitch_object: public QWidget
     LOGICAL_OPERATOR,
     MATHEMATICS_TYPE,
     NAME,
-    NUMERIC_DISPLAY_DEVICE,
     PORT_COLORS,
     POSITION_LOCKED,
     RANDOM_TYPE,
@@ -309,7 +309,7 @@ class glitch_object: public QWidget
   bool showOrderIndicator(void) const
   {
     if(m_type.startsWith("decoration") ||
-       m_type.startsWith("digitalio-numeric-display"))
+       m_type.startsWith("digitalio-device-display"))
       return false;
     else
       return m_canvasSettings && m_canvasSettings->showOrderIndicators();

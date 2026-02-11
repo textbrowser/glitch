@@ -28,34 +28,34 @@
 #include <QColorDialog>
 
 #include "glitch-floating-context-menu.h"
-#include "glitch-object-numeric-display.h"
+#include "glitch-object-device-display.h"
 #include "glitch-undo-command.h"
 
-glitch_object_numeric_display::glitch_object_numeric_display(QWidget *parent):
-  glitch_object_numeric_display(1, parent)
+glitch_object_device_display::glitch_object_device_display(QWidget *parent):
+  glitch_object_device_display(1, parent)
 {
 }
 
-glitch_object_numeric_display::glitch_object_numeric_display
+glitch_object_device_display::glitch_object_device_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
-  m_type = "digitalio-numeric-display";
+  m_type = "digitalio-device-display";
   m_value = 0.0;
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
-  setName("digitalio-numeric-display");
+  setName("digitalio-device-display");
   setStyleSheet("background-color: transparent;");
 }
 
-glitch_object_numeric_display::~glitch_object_numeric_display()
+glitch_object_device_display::~glitch_object_device_display()
 {
 }
 
-glitch_object_numeric_display *glitch_object_numeric_display::clone
+glitch_object_device_display *glitch_object_device_display::clone
 (QWidget *parent) const
 {
-  auto clone = new glitch_object_numeric_display(parent);
+  auto clone = new glitch_object_device_display(parent);
 
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
@@ -68,14 +68,14 @@ glitch_object_numeric_display *glitch_object_numeric_display::clone
   return clone;
 }
 
-glitch_object_numeric_display *glitch_object_numeric_display::
+glitch_object_device_display *glitch_object_device_display::
 createFromValues(const QMap<QString, QVariant> &values,
 		 QString &error,
 		 QWidget *parent)
 {
   Q_UNUSED(error);
 
-  auto object = new glitch_object_numeric_display
+  auto object = new glitch_object_device_display
     (values.value("myoid").toLongLong(), parent);
 
   object->setProperties
@@ -84,24 +84,24 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-void glitch_object_numeric_display::addActions(QMenu &menu)
+void glitch_object_device_display::addActions(QMenu &menu)
 {
-  if(!m_actions.contains(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE))
+  if(!m_actions.contains(DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE))
     {
-      auto action = new QAction(tr("Set &Device..."), this);
+      auto action = new QAction(tr("Set &Device Information..."), this);
 
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_numeric_display::slotSetDevice,
+	      &glitch_object_device_display::slotSetDevice,
 	      Qt::QueuedConnection);
-      m_actions[DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE] = action;
+      m_actions[DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE] = action;
       menu.addAction(action);
     }
-  else if(m_actions.value(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE,
+  else if(m_actions.value(DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE,
 			  nullptr))
     menu.addAction
-      (m_actions.value(DefaultMenuActions::SET_NUMERIC_DISPLAY_DEVICE));
+      (m_actions.value(DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE));
 
   addDefaultActions(menu);
   m_actions.value(DefaultMenuActions::COMPRESS_WIDGET)->setChecked(false);
@@ -111,7 +111,7 @@ void glitch_object_numeric_display::addActions(QMenu &menu)
   m_actions.value(DefaultMenuActions::SOURCE_PREVIEW)->setEnabled(false);
 }
 
-void glitch_object_numeric_display::paintEvent(QPaintEvent *event)
+void glitch_object_device_display::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
 
@@ -149,11 +149,11 @@ void glitch_object_numeric_display::paintEvent(QPaintEvent *event)
   painter.drawText
   (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
    Qt::AlignCenter | Qt::TextWordWrap,
-   QString::number(m_value));
+   m_value.toString());
   painter.restore();
 }
 
-void glitch_object_numeric_display::save
+void glitch_object_device_display::save
 (const QSqlDatabase &db, QString &error)
 {
   glitch_object::save(db, error);
@@ -166,10 +166,10 @@ void glitch_object_numeric_display::save
   glitch_object::saveProperties(properties, db, error);
 }
 
-void glitch_object_numeric_display::setProperties(const QStringList &list)
+void glitch_object_device_display::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::NUMERIC_DISPLAY_DEVICE] = "";
+  m_properties[Properties::DEVICE_DISPLAY_DEVICE] = "";
 
   for(int i = 0; i < list.size(); i++)
     {
@@ -179,19 +179,19 @@ void glitch_object_numeric_display::setProperties(const QStringList &list)
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::NUMERIC_DISPLAY_DEVICE] = string.trimmed();
+	  m_properties[Properties::DEVICE_DISPLAY_DEVICE] = string.trimmed();
 	}
     }
 }
 
-void glitch_object_numeric_display::setProperty
+void glitch_object_device_display::setProperty
 (const Properties property, const QVariant &value)
 {
   glitch_object::setProperty(property, value);
 
   switch(property)
     {
-    case Properties::NUMERIC_DISPLAY_DEVICE:
+    case Properties::DEVICE_DISPLAY_DEVICE:
       {
 	break;
       }
@@ -202,6 +202,6 @@ void glitch_object_numeric_display::setProperty
     }
 }
 
-void glitch_object_numeric_display::slotSetDevice(void)
+void glitch_object_device_display::slotSetDevice(void)
 {
 }
