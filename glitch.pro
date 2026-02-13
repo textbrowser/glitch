@@ -210,6 +210,7 @@ UI_DIR      = Temporary/ui
 FORMS          += UI/glitch-ash.ui \
                   UI/glitch-canvas-preview.ui \
                   UI/glitch-canvas-settings.ui \
+                  UI/glitch-device-display-properties.ui \
                   UI/glitch-documentation.ui \
                   UI/glitch-docked-container.ui \
                   UI/glitch-errors-dialog.ui \
