@@ -110,7 +110,6 @@ class glitch_object_arrow: public glitch_object
 
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
-  void setProperty(const Properties property, const QVariant &value);
 };
 
 #endif

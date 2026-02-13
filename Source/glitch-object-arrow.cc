@@ -268,17 +268,3 @@ void glitch_object_arrow::setProperties(const QStringList &list)
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
-
-void glitch_object_arrow::setProperty
-(const Properties property, const QVariant &value)
-{
-  glitch_object::setProperty(property, value);
-
-  switch(property)
-    {
-    default:
-      {
-	break;
-      }
-    }
-}

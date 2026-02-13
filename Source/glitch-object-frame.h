@@ -78,7 +78,6 @@ class glitch_object_frame: public glitch_object
   glitch_object_frame(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
-  void setProperty(const Properties property, const QVariant &value);
 };
 
 #endif

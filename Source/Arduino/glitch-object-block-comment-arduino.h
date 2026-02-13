@@ -62,7 +62,6 @@ class glitch_object_block_comment_arduino: public glitch_object
     (const QMap<QString, QVariant> &values, QString &error, QWidget *parent);
   void addActions(QMenu &menu);
   void save(const QSqlDatabase &db, QString &error);
-  void setProperty(const Properties property, const QVariant &value);
 
  private:
   glitch_object_block_comment_arduino(const qint64 id, QWidget *parent);

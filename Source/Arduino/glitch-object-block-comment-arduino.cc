@@ -206,24 +206,6 @@ void glitch_object_block_comment_arduino::setProperties(const QStringList &list)
     }
 }
 
-void glitch_object_block_comment_arduino::setProperty
-(const Properties property, const QVariant &value)
-{
-  glitch_object::setProperty(property, value);
-
-  switch(property)
-    {
-    case Properties::COMMENT:
-      {
-	break;
-      }
-    default:
-      {
-	break;
-      }
-    }
-}
-
 void glitch_object_block_comment_arduino::slotSetCommentText(void)
 {
   QInputDialog dialog(m_parent);

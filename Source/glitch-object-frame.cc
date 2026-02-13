@@ -162,22 +162,3 @@ void glitch_object_frame::setProperties(const QStringList &list)
 
   compressWidget(m_properties.value(Properties::COMPRESSED_WIDGET).toBool());
 }
-
-void glitch_object_frame::setProperty
-(const Properties property, const QVariant &value)
-{
-  glitch_object::setProperty(property, value);
-
-  switch(property)
-    {
-    case Properties::FRAME_OBJECT_RADIUS:
-      {
-	m_properties[Properties::FRAME_OBJECT_RADIUS] = value;
-	break;
-      }
-    default:
-      {
-	break;
-      }
-    }
-}

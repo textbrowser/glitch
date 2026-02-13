@@ -1825,9 +1825,6 @@ void glitch_object::setProperty(const Properties property,
 	if(m_proxy)
 	  m_proxy->setGeometry(value.toRectF());
 
-	if(!same)
-	  emit changed();
-
 	break;
       }
     case Properties::LIBRARY_FUNCTION_HAS_INPUT:
@@ -1877,9 +1874,6 @@ void glitch_object::setProperty(const Properties property,
     case Properties::STRUCTURES_VIEW_RIGHT_SPLITTER_STATE:
     case Properties::STRUCTURES_VIEW_SPLITTER_STATE:
       {
-	if(!same)
-	  emit changed();
-
 	break;
       }
     case Properties::TOOL_BAR_VISIBLE:
@@ -1919,6 +1913,9 @@ void glitch_object::setProperty(const Properties property,
 	break;
       }
     }
+
+  if(!same)
+    emit changed();
 
   if(m_proxy && m_proxy->scene())
     m_proxy->scene()->update();
