@@ -167,23 +167,26 @@ void glitch_object_device_display::save
 
   QMap<QString, QVariant> properties;
 
+  properties["device_properties"] = m_properties.value
+    (Properties::DEVICE_DISPLAY_PROPERTIES).toString().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
 void glitch_object_device_display::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
-  m_properties[Properties::DEVICE_DISPLAY_DEVICE] = "";
+  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = QByteArray();
 
   for(int i = 0; i < list.size(); i++)
     {
       auto string(list.at(i));
 
-      if(string.startsWith("device = "))
+      if(string.startsWith("device_properties = "))
 	{
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
-	  m_properties[Properties::DEVICE_DISPLAY_DEVICE] = string.trimmed();
+	  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] =
+	    string.trimmed();
 	}
     }
 }
@@ -195,7 +198,7 @@ void glitch_object_device_display::setProperty
 
   switch(property)
     {
-    case Properties::DEVICE_DISPLAY_DEVICE:
+    case Properties::DEVICE_DISPLAY_PROPERTIES:
       {
 	break;
       }
