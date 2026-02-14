@@ -30,6 +30,7 @@
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-device-display.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_device_display::glitch_object_device_display(QWidget *parent):
   glitch_object_device_display(1, parent)
@@ -39,6 +40,7 @@ glitch_object_device_display::glitch_object_device_display(QWidget *parent):
 glitch_object_device_display::glitch_object_device_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  m_deviceDisplayPropertiesUI = nullptr;
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
   m_type = "digitalio-device-display";
   m_value = 0.0;
@@ -50,6 +52,8 @@ glitch_object_device_display::glitch_object_device_display
 
 glitch_object_device_display::~glitch_object_device_display()
 {
+  delete m_deviceDisplayPropertiesDialog;
+  delete m_deviceDisplayPropertiesUI;
 }
 
 glitch_object_device_display *glitch_object_device_display::clone
@@ -204,4 +208,15 @@ void glitch_object_device_display::setProperty
 
 void glitch_object_device_display::slotSetDevice(void)
 {
+  if(!m_deviceDisplayPropertiesDialog)
+    {
+      m_deviceDisplayPropertiesDialog = new QDialog(m_parent);
+      m_deviceDisplayPropertiesDialog->setModal(false);
+      m_deviceDisplayPropertiesUI = new Ui::glitch_device_display_properties;
+      m_deviceDisplayPropertiesUI->setupUi(m_deviceDisplayPropertiesDialog);
+      glitch_variety::sortCombinationBox
+	(m_deviceDisplayPropertiesUI->data_type);
+    }
+
+  m_deviceDisplayPropertiesDialog->show();
 }

@@ -29,6 +29,7 @@
 #define _glitch_object_device_display_h_
 
 #include "glitch-object.h"
+#include "ui_glitch-device-display-properties.h"
 
 class glitch_object_device_display: public glitch_object
 {
@@ -75,8 +76,10 @@ class glitch_object_device_display: public glitch_object
   void save(const QSqlDatabase &db, QString &error);
 
  private:
+  QPointer<QDialog> m_deviceDisplayPropertiesDialog;
   QPointer<QIODevice> m_device;
   QVariant m_value;
+  Ui::glitch_device_display_properties *m_deviceDisplayPropertiesUI;
   glitch_object_device_display(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
