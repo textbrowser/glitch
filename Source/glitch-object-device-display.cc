@@ -92,12 +92,12 @@ void glitch_object_device_display::addActions(QMenu &menu)
 {
   if(!m_actions.contains(DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE))
     {
-      auto action = new QAction(tr("Set &Device Information..."), this);
+      auto action = new QAction(tr("Set Device &Information..."), this);
 
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_object_device_display::slotSetDevice,
+	      &glitch_object_device_display::slotSetDeviceInformation,
 	      Qt::QueuedConnection);
       m_actions[DefaultMenuActions::SET_DEVICE_DISPLAY_DEVICE] = action;
       menu.addAction(action);
@@ -209,7 +209,7 @@ void glitch_object_device_display::setProperty
     }
 }
 
-void glitch_object_device_display::slotSetDevice(void)
+void glitch_object_device_display::slotSetDeviceInformation(void)
 {
   if(!m_deviceDisplayPropertiesDialog)
     {
@@ -219,7 +219,20 @@ void glitch_object_device_display::slotSetDevice(void)
       m_deviceDisplayPropertiesUI->setupUi(m_deviceDisplayPropertiesDialog);
       glitch_variety::sortCombinationBox
 	(m_deviceDisplayPropertiesUI->data_type);
+      connect
+	(m_deviceDisplayPropertiesUI->apply,
+	 &QPushButton::clicked,
+	 this,
+	 &glitch_object_device_display::slotSetDeviceInformationAccepted);
     }
 
-  m_deviceDisplayPropertiesDialog->show();
+  m_deviceDisplayPropertiesDialog->showNormal();
+  m_deviceDisplayPropertiesDialog->activateWindow();
+  m_deviceDisplayPropertiesDialog->raise();
+}
+
+void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
+{
+  if(!m_deviceDisplayPropertiesUI)
+    return;
 }

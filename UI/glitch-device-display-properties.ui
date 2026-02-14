@@ -181,7 +181,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="glitch_animated_push_button" name="apply">
+      <widget class="QPushButton" name="apply">
        <property name="text">
         <string>&amp;Apply</string>
        </property>
@@ -198,13 +198,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>glitch_animated_push_button</class>
-   <extends>QPushButton</extends>
-   <header>glitch-animated-push-button.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>data_type</tabstop>
   <tabstop>device_url</tabstop>
