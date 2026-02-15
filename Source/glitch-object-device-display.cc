@@ -224,7 +224,11 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 	 &QPushButton::clicked,
 	 this,
 	 &glitch_object_device_display::slotSetDeviceInformationAccepted);
-    }
+      connect(m_deviceDisplayPropertiesUI->close,
+	      &QPushButton::clicked,
+	      m_deviceDisplayPropertiesDialog,
+	      &QDialog::close);
+     }
 
   m_deviceDisplayPropertiesDialog->showNormal();
   m_deviceDisplayPropertiesDialog->activateWindow();
