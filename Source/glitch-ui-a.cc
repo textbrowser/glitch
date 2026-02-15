@@ -1632,7 +1632,11 @@ void glitch_ui::slotAbout(void)
 	  Qt::UniqueConnection);
   m_about.button(QMessageBox::Close)->setShortcut(tr("Ctrl+W"));
   m_about.resize(m_about.sizeHint());
+#ifdef Q_OS_ANDROID
+  m_about.showMaximized();
+#else
   m_about.showNormal();
+#endif
   m_about.activateWindow();
   m_about.raise();
 }

@@ -145,7 +145,11 @@ void glitch_structures_treewidget::slotFloatingCategoryDialog(void)
       ui->tree->sortItems(0, Qt::AscendingOrder);
     }
 
+#ifdef Q_OS_ANDROID
+  dialog->showMaximized();
+#else
   dialog->showNormal();
+#endif
   dialog->activateWindow();
   dialog->raise();
 }

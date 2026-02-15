@@ -244,7 +244,11 @@ class glitch_ash_state_machine
 	    }
 	  case States::FullScreen:
 	    {
+#ifdef Q_OS_ANDROID
+	      t->showMaximized();
+#else
 	      t->showFullScreen();
+#endif
 	      state = States::ZZZ;
 	      break;
 	    }
