@@ -209,6 +209,12 @@ void glitch_object_device_display::setProperty
     }
 }
 
+void glitch_object_device_display::simulateDelete(void)
+{
+  if(m_deviceDisplayPropertiesDialog)
+    m_deviceDisplayPropertiesDialog->close();
+}
+
 void glitch_object_device_display::slotSetDeviceInformation(void)
 {
   if(!m_deviceDisplayPropertiesDialog)
@@ -230,7 +236,11 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 	      &QDialog::close);
      }
 
+#ifdef Q_OS_ANDROID
+  m_deviceDisplayPropertiesDialog->showMaximized();
+#else
   m_deviceDisplayPropertiesDialog->showNormal();
+#endif
   m_deviceDisplayPropertiesDialog->activateWindow();
   m_deviceDisplayPropertiesDialog->raise();
 }

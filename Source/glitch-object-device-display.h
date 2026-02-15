@@ -84,6 +84,7 @@ class glitch_object_device_display: public glitch_object
   void paintEvent(QPaintEvent *event);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
+  void simulateDelete(void);
 
  private slots:
   void slotSetDeviceInformation(void);
