@@ -414,6 +414,7 @@ void glitch_ui::slotShowSerialPortWindow(void)
 {
   auto window = new glitch_serial_port_window(this);
 
+  window->setAttribute(Qt::WA_DeleteOnClose);
 #ifdef Q_OS_ANDROID
   window->showMaximized();
 #else
