@@ -26,6 +26,7 @@
 */
 
 #include <QColorDialog>
+#include <QDataStream>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-device-display.h"
@@ -159,6 +160,17 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
+  QByteArray bytes
+    (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());
+  QDataStream stream(&bytes, QIODevice::ReadOnly);
+  QHash<QString, QVariant> hash;
+
+  stream.setVersion(QDataStream::Qt_5_0);
+  stream >> hash;
+
+  if(stream.status() != QDataStream::Ok)
+    return;
+
   m_device ? m_device->deleteLater() : (void) 0;
 }
 
@@ -173,7 +185,7 @@ void glitch_object_device_display::save
   QMap<QString, QVariant> properties;
 
   properties["device_properties"] = m_properties.value
-    (Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray().trimmed();
+    (Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray().toBase64();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -191,7 +203,7 @@ void glitch_object_device_display::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] =
-	    string.trimmed().toUtf8();
+	    QByteArray::fromBase64(string.trimmed().toUtf8());
 	}
     }
 }
@@ -255,26 +267,26 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   if(!m_deviceDisplayPropertiesUI)
     return;
 
-  QByteArray value;
+  QHash<QString, QVariant> hash;
 
-  value += m_deviceDisplayPropertiesUI->data_type->
-    currentText().toUtf8().toBase64();
-  value += ";";
-  value += m_deviceDisplayPropertiesUI->device_url->
-    text().trimmed().toUtf8().toBase64();
-  value += ";";
-  value += m_deviceDisplayPropertiesUI->javascript->
-    toPlainText().trimmed().toUtf8().toBase64();
-  value += ";";
-  value += QByteArray::number
-    (m_deviceDisplayPropertiesUI->read_rate_interval->value()).toBase64();
-  value += ";";
-  value += QByteArray::number
-    (m_deviceDisplayPropertiesUI->read_rate_size->value()).toBase64();
+  hash["data_type"] = m_deviceDisplayPropertiesUI->data_type->currentText();
+  hash["device_url"] = m_deviceDisplayPropertiesUI->device_url->text();
+  hash["javascript"] = m_deviceDisplayPropertiesUI->javascript->toPlainText();
+  hash["read_rate_interval"] = m_deviceDisplayPropertiesUI->
+    read_rate_interval->value();
+  hash["read_rate_size"] = m_deviceDisplayPropertiesUI->read_rate_size->
+    value();
 
-  if(m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES) != value)
+  QByteArray bytes;
+  QDataStream stream(&bytes, QIODevice::WriteOnly);
+
+  stream.setVersion(QDataStream::Qt_5_0);
+  stream << hash;
+
+  if(bytes !=
+     m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray())
     {
-      m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = value;
+      m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = bytes;
       prepareDevice();
       emit changed();
     }
