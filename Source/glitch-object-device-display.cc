@@ -217,6 +217,7 @@ void glitch_object_device_display::setProperty
     {
     case Properties::DEVICE_DISPLAY_PROPERTIES:
       {
+	prepareDevice();
 	break;
       }
     default:
@@ -283,11 +284,28 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   stream.setVersion(QDataStream::Qt_5_0);
   stream << hash;
 
-  if(bytes !=
-     m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray())
+  auto const before
+    (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());
+
+  if(before != bytes)
     {
-      m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = bytes;
-      prepareDevice();
+      if(m_undoStack)
+	{
+	  auto undoCommand = new glitch_undo_command
+	    (bytes,
+	     before,
+	     glitch_undo_command::Types::PROPERTY_CHANGED,
+	     Properties::DEVICE_DISPLAY_PROPERTIES,
+	     this);
+
+	  undoCommand->setText
+	    (tr("item property changed (%1, %2)").
+	     arg(scenePos().x()).arg(scenePos().y()));
+	  m_undoStack->push(undoCommand);
+	}
+      else
+	m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = bytes;
+
       emit changed();
     }
 }
