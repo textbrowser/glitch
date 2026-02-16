@@ -36,6 +36,11 @@
          </property>
          <item>
           <property name="text">
+           <string>Binary</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Integer</string>
           </property>
          </item>
@@ -118,7 +123,7 @@ p, li { white-space: pre-wrap; }
           <string>[1, 1048576]</string>
          </property>
          <property name="suffix">
-          <string> Bytes</string>
+          <string> bytes</string>
          </property>
          <property name="minimum">
           <number>1</number>
@@ -144,7 +149,7 @@ p, li { white-space: pre-wrap; }
           <string>[1, 10000]</string>
          </property>
          <property name="suffix">
-          <string> MS</string>
+          <string> ms</string>
          </property>
          <property name="minimum">
           <number>1</number>

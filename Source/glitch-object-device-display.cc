@@ -173,7 +173,7 @@ void glitch_object_device_display::save
   QMap<QString, QVariant> properties;
 
   properties["device_properties"] = m_properties.value
-    (Properties::DEVICE_DISPLAY_PROPERTIES).toString().trimmed();
+    (Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray().trimmed();
   glitch_object::saveProperties(properties, db, error);
 }
 
@@ -191,7 +191,7 @@ void glitch_object_device_display::setProperties(const QStringList &list)
 	  string = string.mid(string.indexOf('=') + 1);
 	  string.remove("\"");
 	  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] =
-	    string.trimmed();
+	    string.trimmed().toUtf8();
 	}
     }
 }
@@ -255,7 +255,7 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   if(!m_deviceDisplayPropertiesUI)
     return;
 
-  QString value;
+  QByteArray value;
 
   value += m_deviceDisplayPropertiesUI->data_type->
     currentText().toUtf8().toBase64();
@@ -266,11 +266,11 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   value += m_deviceDisplayPropertiesUI->javascript->
     toPlainText().trimmed().toUtf8().toBase64();
   value += ";";
-  value += m_deviceDisplayPropertiesUI->read_rate_interval->
-    text().toUtf8().toBase64();
+  value += QByteArray::number
+    (m_deviceDisplayPropertiesUI->read_rate_interval->value()).toBase64();
   value += ";";
-  value += m_deviceDisplayPropertiesUI->read_rate_size->text().toUtf8().
-    toBase64();
+  value += QByteArray::number
+    (m_deviceDisplayPropertiesUI->read_rate_size->value()).toBase64();
 
   if(m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES) != value)
     {
