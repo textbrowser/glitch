@@ -157,6 +157,11 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
   painter.restore();
 }
 
+void glitch_object_device_display::prepareDevice(void)
+{
+  m_device ? m_device->deleteLater() : (void) 0;
+}
+
 void glitch_object_device_display::save
 (const QSqlDatabase &db, QString &error)
 {
@@ -223,8 +228,6 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
       m_deviceDisplayPropertiesDialog->setModal(false);
       m_deviceDisplayPropertiesUI = new Ui::glitch_device_display_properties;
       m_deviceDisplayPropertiesUI->setupUi(m_deviceDisplayPropertiesDialog);
-      glitch_variety::sortCombinationBox
-	(m_deviceDisplayPropertiesUI->data_type);
       connect
 	(m_deviceDisplayPropertiesUI->apply,
 	 &QPushButton::clicked,
@@ -234,6 +237,8 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 	      &QPushButton::clicked,
 	      m_deviceDisplayPropertiesDialog,
 	      &QDialog::close);
+      glitch_variety::sortCombinationBox
+	(m_deviceDisplayPropertiesUI->data_type);
      }
 
 #ifdef Q_OS_ANDROID
@@ -249,4 +254,28 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
 {
   if(!m_deviceDisplayPropertiesUI)
     return;
+
+  QString value;
+
+  value += m_deviceDisplayPropertiesUI->data_type->
+    currentText().toUtf8().toBase64();
+  value += ";";
+  value += m_deviceDisplayPropertiesUI->device_url->
+    text().trimmed().toUtf8().toBase64();
+  value += ";";
+  value += m_deviceDisplayPropertiesUI->javascript->
+    toPlainText().trimmed().toUtf8().toBase64();
+  value += ";";
+  value += m_deviceDisplayPropertiesUI->read_rate_interval->
+    text().toUtf8().toBase64();
+  value += ";";
+  value += m_deviceDisplayPropertiesUI->read_rate_size->text().toUtf8().
+    toBase64();
+
+  if(m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES) != value)
+    {
+      m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] = value;
+      prepareDevice();
+      emit changed();
+    }
 }
