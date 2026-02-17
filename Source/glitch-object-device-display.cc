@@ -221,6 +221,29 @@ void glitch_object_device_display::save
   glitch_object::saveProperties(properties, db, error);
 }
 
+void glitch_object_device_display::setDevicePropertiesInformation(void)
+{
+  if(!m_deviceDisplayPropertiesUI)
+    return;
+
+  auto const map(mapFromProperties());
+
+  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
+    (m_deviceDisplayPropertiesUI->data_type->
+     findText(map.value("data_type").toString()));
+  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
+    (m_deviceDisplayPropertiesUI->data_type->currentIndex() < 0 ?
+     0 : m_deviceDisplayPropertiesUI->data_type->currentIndex());
+  m_deviceDisplayPropertiesUI->device_url->setText
+    (map.value("device_url").toString().trimmed());
+  m_deviceDisplayPropertiesUI->javascript->setPlainText
+    (map.value("javascript").toString().trimmed());
+  m_deviceDisplayPropertiesUI->read_rate_interval->setValue
+    (map.value("read_rate_interval").toInt());
+  m_deviceDisplayPropertiesUI->read_rate_size->setValue
+    (map.value("read_rate_size").toInt());
+}
+
 void glitch_object_device_display::setProperties(const QStringList &list)
 {
   glitch_object::setProperties(list);
@@ -251,6 +274,7 @@ void glitch_object_device_display::setProperty
     case Properties::DEVICE_DISPLAY_PROPERTIES:
       {
 	prepareDevice();
+	setDevicePropertiesInformation();
 	break;
       }
     default:
@@ -289,6 +313,8 @@ void glitch_object_device_display::slotReadDevice(void)
       m_value = value.toVariant();
       update();
     }
+  else
+    m_value = bytes.toHex();
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)
@@ -319,23 +345,7 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 #endif
   m_deviceDisplayPropertiesDialog->activateWindow();
   m_deviceDisplayPropertiesDialog->raise();
-
-  auto const map(mapFromProperties());
-
-  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
-    (m_deviceDisplayPropertiesUI->data_type->
-     findText(map.value("data_type").toString()));
-  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
-    (m_deviceDisplayPropertiesUI->data_type->currentIndex() < 0 ?
-     0 : m_deviceDisplayPropertiesUI->data_type->currentIndex());
-  m_deviceDisplayPropertiesUI->device_url->setText
-    (map.value("device_url").toString().trimmed());
-  m_deviceDisplayPropertiesUI->javascript->setPlainText
-    (map.value("javascript").toString().trimmed());
-  m_deviceDisplayPropertiesUI->read_rate_interval->setValue
-    (map.value("read_rate_interval").toInt());
-  m_deviceDisplayPropertiesUI->read_rate_size->setValue
-    (map.value("read_rate_size").toInt());
+  setDevicePropertiesInformation();
 }
 
 void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
