@@ -41,6 +41,10 @@ glitch_object_device_display::glitch_object_device_display(QWidget *parent):
 glitch_object_device_display::glitch_object_device_display
 (const qint64 id, QWidget *parent):glitch_object(id, parent)
 {
+  connect(&m_timer,
+	  &QTimer::timeout,
+	  this,
+	  &glitch_object_device_display::slotReadDevice);
   m_deviceDisplayPropertiesUI = nullptr;
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
   m_type = "digitalio-device-display";
@@ -87,6 +91,23 @@ createFromValues(const QMap<QString, QVariant> &values,
     (splitPropertiesRegularExpression(values.value("properties")));
   object->setStyleSheet(values.value("stylesheet").toString());
   return object;
+}
+
+QHash<QString, QVariant> glitch_object_device_display::
+hashFromProperties(void) const
+{
+  QByteArray bytes
+    (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());
+  QDataStream stream(&bytes, QIODevice::ReadOnly);
+  QHash<QString, QVariant> hash;
+
+  stream.setVersion(QDataStream::Qt_5_0);
+  stream >> hash;
+
+  if(stream.status() != QDataStream::Ok)
+    hash.clear();
+
+  return hash;
 }
 
 void glitch_object_device_display::addActions(QMenu &menu)
@@ -160,18 +181,17 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
-  QByteArray bytes
-    (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());
-  QDataStream stream(&bytes, QIODevice::ReadOnly);
-  QHash<QString, QVariant> hash;
-
-  stream.setVersion(QDataStream::Qt_5_0);
-  stream >> hash;
-
-  if(stream.status() != QDataStream::Ok)
-    return;
+  auto const hash(hashFromProperties());
 
   m_device ? m_device->deleteLater() : (void) 0;
+  m_timer.stop();
+
+  auto const deviceUrl
+    (QUrl::fromUserInput(hash.value("device_url").toString().trimmed()));
+
+  if(deviceUrl.isLocalFile())
+    {
+    }
 }
 
 void glitch_object_device_display::save
@@ -204,6 +224,7 @@ void glitch_object_device_display::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] =
 	    QByteArray::fromBase64(string.trimmed().toUtf8());
+	  prepareDevice();
 	}
     }
 }
@@ -231,6 +252,10 @@ void glitch_object_device_display::simulateDelete(void)
 {
   if(m_deviceDisplayPropertiesDialog)
     m_deviceDisplayPropertiesDialog->close();
+}
+
+void glitch_object_device_display::slotReadDevice(void)
+{
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)
@@ -261,6 +286,19 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 #endif
   m_deviceDisplayPropertiesDialog->activateWindow();
   m_deviceDisplayPropertiesDialog->raise();
+
+  auto const hash(hashFromProperties());
+
+  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
+    (m_deviceDisplayPropertiesUI->data_type->
+     findText(hash.value("data_type").toString()));
+  m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
+    (m_deviceDisplayPropertiesUI->data_type->currentIndex() < 0 ?
+     0 : m_deviceDisplayPropertiesUI->data_type->currentIndex());
+  m_deviceDisplayPropertiesUI->device_url->setText
+    (hash.value("device_url").toString().trimmed());
+  m_deviceDisplayPropertiesUI->javascript->setPlainText
+    (hash.value("javascript").toString().trimmed());
 }
 
 void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
