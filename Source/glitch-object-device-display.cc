@@ -27,6 +27,7 @@
 
 #include <QColorDialog>
 #include <QDataStream>
+#include <QFile>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-device-display.h"
@@ -48,7 +49,7 @@ glitch_object_device_display::glitch_object_device_display
   m_deviceDisplayPropertiesUI = nullptr;
   m_properties[Properties::BORDER_COLOR] = QColor(70, 130, 180, 255);
   m_type = "digitalio-device-display";
-  m_value = 0.0;
+  m_value = QVariant();
   resize(100, 30);
   setAttribute(Qt::WA_OpaquePaintEvent, true);
   setName("digitalio-device-display");
@@ -59,6 +60,7 @@ glitch_object_device_display::~glitch_object_device_display()
 {
   delete m_deviceDisplayPropertiesDialog;
   delete m_deviceDisplayPropertiesUI;
+  m_timer.stop();
 }
 
 glitch_object_device_display *glitch_object_device_display::clone
@@ -68,6 +70,7 @@ glitch_object_device_display *glitch_object_device_display::clone
 
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->prepareDevice();
   clone->resize(size());
   clone->setAttribute
     (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
@@ -184,13 +187,19 @@ void glitch_object_device_display::prepareDevice(void)
   auto const hash(hashFromProperties());
 
   m_device ? m_device->deleteLater() : (void) 0;
-  m_timer.stop();
+  m_timer.start
+    (qBound(100, hash.value("read_rate_interval").toInt(), 10000));
 
   auto const deviceUrl
     (QUrl::fromUserInput(hash.value("device_url").toString().trimmed()));
 
-  if(deviceUrl.isLocalFile())
+  if(deviceUrl.isLocalFile() &&
+     deviceUrl.toLocalFile().trimmed().isEmpty() == false)
     {
+      m_device = new QFile(deviceUrl.toLocalFile());
+      m_device->open(QIODevice::ReadOnly);
+      m_device->setProperty
+	("read_rate_size", hash.value("read_rate_size").toLongLong());
     }
 }
 
@@ -256,6 +265,15 @@ void glitch_object_device_display::simulateDelete(void)
 
 void glitch_object_device_display::slotReadDevice(void)
 {
+  if(!m_device)
+    return;
+
+  auto const bytes
+    (m_device->read(qBound(1LL,
+			   m_device->property("read_rate_size").toLongLong(),
+			   1048576LL)));
+
+  m_value = bytes;
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)
@@ -299,6 +317,10 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
     (hash.value("device_url").toString().trimmed());
   m_deviceDisplayPropertiesUI->javascript->setPlainText
     (hash.value("javascript").toString().trimmed());
+  m_deviceDisplayPropertiesUI->read_rate_interval->setValue
+    (hash.value("read_rate_interval").toInt());
+  m_deviceDisplayPropertiesUI->read_rate_size->setValue
+    (hash.value("read_rate_size").toInt());
 }
 
 void glitch_object_device_display::slotSetDeviceInformationAccepted(void)

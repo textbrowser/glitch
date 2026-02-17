@@ -36,21 +36,6 @@
          </property>
          <item>
           <property name="text">
-           <string>Binary</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Integer</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Rational</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
            <string>String</string>
           </property>
          </item>
