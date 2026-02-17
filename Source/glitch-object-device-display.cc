@@ -28,6 +28,7 @@
 #include <QColorDialog>
 #include <QDataStream>
 #include <QFile>
+#include <QJSEngine>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-device-display.h"
@@ -70,7 +71,6 @@ glitch_object_device_display *glitch_object_device_display::clone
 
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
-  clone->prepareDevice();
   clone->resize(size());
   clone->setAttribute
     (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
@@ -96,21 +96,21 @@ createFromValues(const QMap<QString, QVariant> &values,
   return object;
 }
 
-QHash<QString, QVariant> glitch_object_device_display::
-hashFromProperties(void) const
+QMap<QString, QVariant> glitch_object_device_display::
+mapFromProperties(void) const
 {
   QByteArray bytes
     (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());
   QDataStream stream(&bytes, QIODevice::ReadOnly);
-  QHash<QString, QVariant> hash;
+  QMap<QString, QVariant> map;
 
   stream.setVersion(QDataStream::Qt_5_0);
-  stream >> hash;
+  stream >> map;
 
   if(stream.status() != QDataStream::Ok)
-    hash.clear();
+    map.clear();
 
-  return hash;
+  return map;
 }
 
 void glitch_object_device_display::addActions(QMenu &menu)
@@ -184,22 +184,25 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
-  auto const hash(hashFromProperties());
+  auto const map(mapFromProperties());
+  auto const url
+    (QUrl::fromUserInput(map.value("device_url").toString().trimmed()));
 
-  m_device ? m_device->deleteLater() : (void) 0;
-  m_timer.start
-    (qBound(100, hash.value("read_rate_interval").toInt(), 10000));
-
-  auto const deviceUrl
-    (QUrl::fromUserInput(hash.value("device_url").toString().trimmed()));
-
-  if(deviceUrl.isLocalFile() &&
-     deviceUrl.toLocalFile().trimmed().isEmpty() == false)
+  if(url.isLocalFile() && url.toLocalFile().trimmed().isEmpty() == false)
     {
-      m_device = new QFile(deviceUrl.toLocalFile());
-      m_device->open(QIODevice::ReadOnly);
-      m_device->setProperty
-	("read_rate_size", hash.value("read_rate_size").toLongLong());
+      m_device ? m_device->deleteLater() : (void) 0;
+      m_device = new QFile(url.toLocalFile());
+      m_timer.stop();
+
+      if(m_device->open(QIODevice::ReadOnly))
+	{
+	  m_device->setProperty
+	    ("javascript", map.value("javascript").toString());
+	  m_device->setProperty
+	    ("read_rate_size", map.value("read_rate_size").toLongLong());
+	  m_timer.start
+	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
+	}
     }
 }
 
@@ -273,7 +276,19 @@ void glitch_object_device_display::slotReadDevice(void)
 			   m_device->property("read_rate_size").toLongLong(),
 			   1048576LL)));
 
-  m_value = bytes;
+  if(bytes.isEmpty())
+    return;
+
+  QJSEngine engine;
+  auto const value = engine.evaluate
+    (m_device->property("javascript").
+     toString().trimmed().replace("%1", bytes));
+
+  if(!value.isNull())
+    {
+      m_value = value.toVariant();
+      update();
+    }
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)
@@ -305,22 +320,22 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
   m_deviceDisplayPropertiesDialog->activateWindow();
   m_deviceDisplayPropertiesDialog->raise();
 
-  auto const hash(hashFromProperties());
+  auto const map(mapFromProperties());
 
   m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
     (m_deviceDisplayPropertiesUI->data_type->
-     findText(hash.value("data_type").toString()));
+     findText(map.value("data_type").toString()));
   m_deviceDisplayPropertiesUI->data_type->setCurrentIndex
     (m_deviceDisplayPropertiesUI->data_type->currentIndex() < 0 ?
      0 : m_deviceDisplayPropertiesUI->data_type->currentIndex());
   m_deviceDisplayPropertiesUI->device_url->setText
-    (hash.value("device_url").toString().trimmed());
+    (map.value("device_url").toString().trimmed());
   m_deviceDisplayPropertiesUI->javascript->setPlainText
-    (hash.value("javascript").toString().trimmed());
+    (map.value("javascript").toString().trimmed());
   m_deviceDisplayPropertiesUI->read_rate_interval->setValue
-    (hash.value("read_rate_interval").toInt());
+    (map.value("read_rate_interval").toInt());
   m_deviceDisplayPropertiesUI->read_rate_size->setValue
-    (hash.value("read_rate_size").toInt());
+    (map.value("read_rate_size").toInt());
 }
 
 void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
@@ -328,21 +343,21 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   if(!m_deviceDisplayPropertiesUI)
     return;
 
-  QHash<QString, QVariant> hash;
+  QMap<QString, QVariant> map;
 
-  hash["data_type"] = m_deviceDisplayPropertiesUI->data_type->currentText();
-  hash["device_url"] = m_deviceDisplayPropertiesUI->device_url->text();
-  hash["javascript"] = m_deviceDisplayPropertiesUI->javascript->toPlainText();
-  hash["read_rate_interval"] = m_deviceDisplayPropertiesUI->
+  map["data_type"] = m_deviceDisplayPropertiesUI->data_type->currentText();
+  map["device_url"] = m_deviceDisplayPropertiesUI->device_url->text();
+  map["javascript"] = m_deviceDisplayPropertiesUI->javascript->toPlainText();
+  map["read_rate_interval"] = m_deviceDisplayPropertiesUI->
     read_rate_interval->value();
-  hash["read_rate_size"] = m_deviceDisplayPropertiesUI->read_rate_size->
+  map["read_rate_size"] = m_deviceDisplayPropertiesUI->read_rate_size->
     value();
 
   QByteArray bytes;
   QDataStream stream(&bytes, QIODevice::WriteOnly);
 
   stream.setVersion(QDataStream::Qt_5_0);
-  stream << hash;
+  stream << map;
 
   auto const before
     (m_properties.value(Properties::DEVICE_DISPLAY_PROPERTIES).toByteArray());

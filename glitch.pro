@@ -14,7 +14,7 @@ CONFIG		+= qt release warn_on
 DEFINES         += GLITCH_FUTURE QT_SHA3_KECCAK_COMPAT
 LANGUAGE	= C++
 QMAKE_CLEAN	+= Glitch
-QT		+= concurrent gui network printsupport sql widgets
+QT		+= concurrent gui network printsupport qml sql widgets
 
 contains(QMAKE_HOST.arch, armv7l) {
 QMAKE_CXXFLAGS_RELEASE += -march=armv7

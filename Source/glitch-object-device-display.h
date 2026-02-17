@@ -81,7 +81,7 @@ class glitch_object_device_display: public glitch_object
   QTimer m_timer;
   QVariant m_value;
   Ui::glitch_device_display_properties *m_deviceDisplayPropertiesUI;
-  QHash<QString, QVariant> hashFromProperties(void) const;
+  QMap<QString, QVariant> mapFromProperties(void) const;
   glitch_object_device_display(const qint64 id, QWidget *parent);
   void paintEvent(QPaintEvent *event);
   void prepareDevice(void);
