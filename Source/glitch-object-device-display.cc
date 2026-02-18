@@ -312,13 +312,12 @@ void glitch_object_device_display::slotReadDevice(void)
     (m_device->property("javascript").
      toString().trimmed().replace("%1", bytes));
 
-  if(!value.isNull())
-    {
-      m_value = value.toVariant();
-      update();
-    }
+  if(value.isError() == false && value.toVariant().isValid())
+    m_value = value.toVariant();
   else
     m_value = bytes.toHex();
+
+  update();
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)

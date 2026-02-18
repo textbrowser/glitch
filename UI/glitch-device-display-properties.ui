@@ -81,11 +81,28 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QPlainTextEdit" name="javascript">
-       <property name="placeholderText">
-        <string>JavaScript</string>
-       </property>
-      </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Glitch will replace the variable %1 with the data read from the device.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="javascript">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glitch will replace the variable %1 with the data read from the device.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="placeholderText">
+          <string>JavaScript</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_4">
