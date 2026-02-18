@@ -71,6 +71,7 @@ glitch_object_device_display *glitch_object_device_display::clone
 
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;
+  clone->prepareDevice();
   clone->resize(size());
   clone->setAttribute
     (Qt::WA_OpaquePaintEvent, testAttribute(Qt::WA_OpaquePaintEvent));
@@ -286,13 +287,16 @@ void glitch_object_device_display::setProperty
 
 void glitch_object_device_display::simulateDelete(void)
 {
-  if(m_deviceDisplayPropertiesDialog)
-    m_deviceDisplayPropertiesDialog->close();
+  glitch_object::simulateDelete();
+  m_device ? m_device->close() : (void) 0;
+  m_deviceDisplayPropertiesDialog ?
+    (void) m_deviceDisplayPropertiesDialog->close() : (void) 0;
+  m_timer.stop();
 }
 
 void glitch_object_device_display::slotReadDevice(void)
 {
-  if(!m_device)
+  if(!m_device || !m_device->isOpen())
     return;
 
   auto const bytes
