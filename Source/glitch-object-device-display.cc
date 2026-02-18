@@ -192,7 +192,7 @@ void glitch_object_device_display::prepareDevice(void)
   if(url.isLocalFile() && url.toLocalFile().trimmed().isEmpty() == false)
     {
       m_device ? m_device->deleteLater() : (void) 0;
-      m_device = new QFile(url.toLocalFile());
+      m_device = new QFile(url.toLocalFile(), this);
       m_timer.stop();
 
       if(m_device->open(QIODevice::ReadOnly))
@@ -204,6 +204,8 @@ void glitch_object_device_display::prepareDevice(void)
 	  m_timer.start
 	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
 	}
+      else
+	m_device->deleteLater();
     }
 }
 
@@ -285,12 +287,27 @@ void glitch_object_device_display::setProperty
     }
 }
 
+void glitch_object_device_display::simulateAdd(void)
+{
+  glitch_object::simulateAdd();
+
+  if(m_device &&
+     m_device->isOpen() == false &&
+     m_device->open(QIODevice::ReadOnly))
+    m_timer.start();
+}
+
 void glitch_object_device_display::simulateDelete(void)
 {
   glitch_object::simulateDelete();
   m_device ? m_device->close() : (void) 0;
+#ifdef Q_OS_ANDROID
+  m_deviceDisplayPropertiesDialog ?
+    (void) m_deviceDisplayPropertiesDialog->hide() : (void) 0;
+#else
   m_deviceDisplayPropertiesDialog ?
     (void) m_deviceDisplayPropertiesDialog->close() : (void) 0;
+#endif
   m_timer.stop();
 }
 
@@ -333,10 +350,17 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 	 &QPushButton::clicked,
 	 this,
 	 &glitch_object_device_display::slotSetDeviceInformationAccepted);
+#ifdef Q_OS_ANDROID
+      connect(m_deviceDisplayPropertiesUI->close,
+	      &QPushButton::clicked,
+	      m_deviceDisplayPropertiesDialog,
+	      &QDialog::hide);
+#else
       connect(m_deviceDisplayPropertiesUI->close,
 	      &QPushButton::clicked,
 	      m_deviceDisplayPropertiesDialog,
 	      &QDialog::close);
+#endif
       glitch_variety::sortCombinationBox
 	(m_deviceDisplayPropertiesUI->data_type);
      }
