@@ -187,6 +187,8 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
+  m_value = QVariant();
+
   auto const map(mapFromProperties());
   auto const url
     (QUrl::fromUserInput(map.value("device_url").toString().trimmed()));
@@ -212,23 +214,17 @@ void glitch_object_device_display::prepareDevice(void)
   else if(url.scheme().startsWith("http", Qt::CaseInsensitive))
     {
       m_device ? m_device->deleteLater() : (void) 0;
+      m_device = glitch_ui::networkReply(QNetworkRequest(url));
 
-      QNetworkRequest request;
-
-      request.setUrl(url);
-
-      auto reply = glitch_ui::networkReply(request);
-
-      if(reply)
+      if(m_device)
 	{
-	  m_device = reply;
+	  m_device->setParent(this);
 	  m_device->setProperty
 	    ("javascript", map.value("javascript").toString());
 	  m_device->setProperty
 	    ("read_rate_size", map.value("read_rate_size").toLongLong());
 	  m_timer.start
 	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
-	  reply->setParent(this);
 	}
       else
 	m_timer.stop();
