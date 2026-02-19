@@ -84,7 +84,10 @@ class glitch_ui: public QMainWindow
 
   static QNetworkReply *networkReply(const QNetworkRequest &request)
   {
-    return s_networkAccessManager.get(request);
+    if(!s_networkAccessManager)
+      s_networkAccessManager = new QNetworkAccessManager(mainWindow());
+
+    return s_networkAccessManager->get(request);
   }
 
   static QPointer<QMainWindow> mainWindow(void)
@@ -126,8 +129,8 @@ class glitch_ui: public QMainWindow
   glitch_preferences *m_preferences;
   glitch_recent_diagrams_view *m_recentDiagramsView;
   static QFont s_defaultApplicationFont;
-  static QNetworkAccessManager s_networkAccessManager;
   static QPointer<QMainWindow> s_mainWindow;
+  static QPointer<QNetworkAccessManager> s_networkAccessManager;
   static QPointer<QTranslator> s_translator1;
   static QPointer<QTranslator> s_translator2;
   swifty *m_swifty;

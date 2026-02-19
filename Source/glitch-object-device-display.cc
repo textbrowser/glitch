@@ -29,9 +29,11 @@
 #include <QDataStream>
 #include <QFile>
 #include <QJSEngine>
+#include <QNetworkReply>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-device-display.h"
+#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
 
@@ -209,6 +211,27 @@ void glitch_object_device_display::prepareDevice(void)
     }
   else if(url.scheme().startsWith("http", Qt::CaseInsensitive))
     {
+      m_device ? m_device->deleteLater() : (void) 0;
+
+      QNetworkRequest request;
+
+      request.setUrl(url);
+
+      auto reply = glitch_ui::networkReply(request);
+
+      if(reply)
+	{
+	  m_device = reply;
+	  m_device->setProperty
+	    ("javascript", map.value("javascript").toString());
+	  m_device->setProperty
+	    ("read_rate_size", map.value("read_rate_size").toLongLong());
+	  m_timer.start
+	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
+	  reply->setParent(this);
+	}
+      else
+	m_timer.stop();
     }
   else
     {
@@ -250,9 +273,9 @@ void glitch_object_device_display::setDevicePropertiesInformation(void)
   m_deviceDisplayPropertiesUI->javascript->setPlainText
     (map.value("javascript").toString().trimmed());
   m_deviceDisplayPropertiesUI->read_rate_interval->setValue
-    (map.value("read_rate_interval").toInt());
+    (map.value("read_rate_interval", 1000).toInt());
   m_deviceDisplayPropertiesUI->read_rate_size->setValue
-    (map.value("read_rate_size").toInt());
+    (map.value("read_rate_size", 1000).toInt());
 }
 
 void glitch_object_device_display::setProperties(const QStringList &list)
@@ -340,15 +363,20 @@ void glitch_object_device_display::slotReadDevice(void)
   if(bytes.isEmpty())
     return;
 
-  QJSEngine engine;
-  auto const value = engine.evaluate
-    (m_device->property("javascript").
-     toString().trimmed().replace("%1", bytes));
+  auto javascript(m_device->property("javascript").toString().trimmed());
 
-  if(value.isError() == false && value.toVariant().isValid())
-    m_value = value.toVariant();
+  if(javascript.isEmpty())
+    m_value = bytes;
   else
-    m_value = bytes.toHex();
+    {
+      QJSEngine engine;
+      auto const value = engine.evaluate(javascript.replace("%1", bytes));
+
+      if(value.isError() == false && value.toVariant().isValid())
+	m_value = value.toVariant();
+      else
+	m_value = bytes.toHex();
+    }
 
   update();
 }
