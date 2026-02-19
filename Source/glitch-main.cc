@@ -112,9 +112,7 @@ int main(int argc, char *argv[])
   {
     glitch_ui ui;
 
-#ifndef Q_OS_ANDROID
-    glitch_ui::s_mainWindow = &ui;
-#endif
+    glitch_ui::setMainWindow(&ui);
     ui.show();
     rc = static_cast<int> (qapplication.exec());
   }

@@ -66,7 +66,6 @@ class glitch_ui: public QMainWindow
   glitch_ui(void);
   ~glitch_ui();
 
-  static QPointer<QMainWindow> s_mainWindow;
   static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;
@@ -83,6 +82,12 @@ class glitch_ui: public QMainWindow
      QList<QPointF> *points,
      const bool deselectOriginal = false,
      const bool selected = true);
+
+  static QPointer<QMainWindow> mainWindow(void)
+  {
+    return s_mainWindow;
+  }
+
   static void copy(QGraphicsView *view, const bool selected = true);
   static void copy(glitch_object *object);
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
@@ -90,6 +95,12 @@ class glitch_ui: public QMainWindow
   static void setDefaultApplicationFont(const QFont &font)
   {
     s_defaultApplicationFont = font;
+  }
+
+  static void setMainWindow(QMainWindow *window)
+  {
+    if(s_mainWindow == nullptr && window != nullptr)
+      s_mainWindow = window;
   }
 
  private:
@@ -111,6 +122,7 @@ class glitch_ui: public QMainWindow
   glitch_preferences *m_preferences;
   glitch_recent_diagrams_view *m_recentDiagramsView;
   static QFont s_defaultApplicationFont;
+  static QPointer<QMainWindow> s_mainWindow;
   swifty *m_swifty;
   QString about(void) const;
   bool openDiagram(const QString &fileName, QString &error);

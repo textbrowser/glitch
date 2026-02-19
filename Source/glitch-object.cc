@@ -268,7 +268,7 @@ QList<glitch_object *> glitch_object::objects(void) const
 
 QMainWindow *glitch_object::parentMainWindow(void) const
 {
-  QMainWindow *parent = glitch_ui::s_mainWindow;
+  QMainWindow *parent = glitch_ui::mainWindow();
 
   if(m_editView && m_editWindow)
     {
@@ -1346,7 +1346,7 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 	}
 
 #ifndef Q_OS_ANDROID
-      m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.25);
+      m_editWindow->resize(glitch_ui::mainWindow()->size() / 1.25);
       glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
       m_editWindow->restoreState
@@ -2057,7 +2057,7 @@ void glitch_object::showEditWindow(const bool signal)
       if(!m_editWindow->isVisible())
 	{
 #ifndef Q_OS_ANDROID
-	  m_editWindow->resize(glitch_ui::s_mainWindow->size() / 1.25);
+	  m_editWindow->resize(glitch_ui::mainWindow()->size() / 1.25);
 	  glitch_variety::centerWindow(parentMainWindow(), m_editWindow);
 #endif
 	  m_editWindow->restoreState
