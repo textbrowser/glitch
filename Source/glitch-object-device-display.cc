@@ -207,6 +207,11 @@ void glitch_object_device_display::prepareDevice(void)
       else
 	m_device->deleteLater();
     }
+  else
+    {
+      m_device ? m_device->deleteLater() : (void) 0;
+      m_timer.stop();
+    }
 }
 
 void glitch_object_device_display::save
@@ -291,10 +296,18 @@ void glitch_object_device_display::simulateAdd(void)
 {
   glitch_object::simulateAdd();
 
-  if(m_device &&
-     m_device->isOpen() == false &&
-     m_device->open(QIODevice::ReadOnly))
-    m_timer.start();
+  if(m_device)
+    {
+      if(!m_device->isOpen())
+	{
+	  if(m_device->open(QIODevice::ReadOnly))
+	    m_timer.start();
+	  else
+	    m_timer.stop();
+	}
+      else if(!m_timer.isActive())
+	m_timer.start();
+    }
 }
 
 void glitch_object_device_display::simulateDelete(void)
