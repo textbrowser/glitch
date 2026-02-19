@@ -29,6 +29,7 @@
 #define _glitch_ui_h_
 
 #include <QMessageBox>
+#include <QNetworkAccessManager>
 #include <QPointer>
 #include <QTimer>
 
@@ -67,8 +68,6 @@ class glitch_ui: public QMainWindow
   ~glitch_ui();
 
   static QSet<glitch_object *> s_copiedObjectsSet;
-  static QTranslator *s_translator1;
-  static QTranslator *s_translator2;
   static glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
     s_copiedObjects;
 
@@ -82,6 +81,11 @@ class glitch_ui: public QMainWindow
      QList<QPointF> *points,
      const bool deselectOriginal = false,
      const bool selected = true);
+
+  static QNetworkReply *networkReply(const QNetworkRequest &request)
+  {
+    return s_networkAccessManager.get(request);
+  }
 
   static QPointer<QMainWindow> mainWindow(void)
   {
@@ -122,7 +126,10 @@ class glitch_ui: public QMainWindow
   glitch_preferences *m_preferences;
   glitch_recent_diagrams_view *m_recentDiagramsView;
   static QFont s_defaultApplicationFont;
+  static QNetworkAccessManager s_networkAccessManager;
   static QPointer<QMainWindow> s_mainWindow;
+  static QPointer<QTranslator> s_translator1;
+  static QPointer<QTranslator> s_translator2;
   swifty *m_swifty;
   QString about(void) const;
   bool openDiagram(const QString &fileName, QString &error);

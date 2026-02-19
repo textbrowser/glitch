@@ -415,10 +415,13 @@ Remaining Items
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - New class for displaying numeric values read from a source:
-  device
-  device name visibility option
-  precision option
-  read rate option
+  device (completed)
+  device name visibility option (completed)
+  file (completed)
+  http (completed)
+  https (completed)
+  precision option (completed)
+  read rate option (completed)
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.

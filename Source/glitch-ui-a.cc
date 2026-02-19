@@ -56,11 +56,12 @@
 #include "glitch-version.h"
 #include "ui_glitch-errors-dialog.h"
 
-QFont glitch_ui::s_defaultApplicationFont;
+QFont glitch_ui::s_defaultApplicationFont = QFont();
+QNetworkAccessManager glitch_ui::s_networkAccessManager;
 QPointer<QMainWindow> glitch_ui::s_mainWindow;
+QPointer<QTranslator> glitch_ui::s_translator1;
+QPointer<QTranslator> glitch_ui::s_translator2;
 QSet<glitch_object *> glitch_ui::s_copiedObjectsSet;
-QTranslator *glitch_ui::s_translator1 = nullptr;
-QTranslator *glitch_ui::s_translator2 = nullptr;
 glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
 glitch_ui::s_copiedObjects;
 static const char * const COMPILED_ON = __DATE__ " @ " __TIME__;
