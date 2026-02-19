@@ -215,8 +215,9 @@ void glitch_object_device_display::prepareDevice(void)
     {
       m_device ? m_device->deleteLater() : (void) 0;
       m_device = glitch_ui::networkReply(QNetworkRequest(url));
+      m_timer.stop();
 
-      if(m_device)
+      if(m_device && m_device->isOpen())
 	{
 	  m_device->setParent(this);
 	  m_device->setProperty
@@ -227,7 +228,7 @@ void glitch_object_device_display::prepareDevice(void)
 	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
 	}
       else
-	m_timer.stop();
+	m_device ? m_device->deleteLater() : (void) 0;
     }
   else
     {
