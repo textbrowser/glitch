@@ -44,7 +44,7 @@ glitch_application::glitch_application(int &argc, char **argv):
   font.setStyleStrategy
     (static_cast<QFont::StyleStrategy> (QFont::PreferAntialias |
 					QFont::PreferQuality));
-  glitch_ui::s_defaultApplicationFont = font;
+  glitch_ui::setDefaultApplicationFont(font);
   setFont(font);
   setWindowIcon(QIcon(":/Logo/glitch-logo.png"));
 }

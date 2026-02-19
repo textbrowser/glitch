@@ -116,7 +116,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
   m_properties[Properties::COMPRESSED_WIDGET] = false;
   m_properties[Properties::EDIT_WINDOW_STATE] = QByteArray().toBase64();
   m_properties[Properties::FONT] = preferredFont
-    (glitch_ui::s_defaultApplicationFont);
+    (glitch_ui::defaultApplicationFont());
   m_properties[Properties::FONT_COLOR] = QColor(Qt::black);
   m_properties[Properties::GENERATE_SOURCE] = true;
   m_properties[Properties::PORT_COLORS] =
@@ -173,7 +173,7 @@ glitch_object(const QString &type, const qint64 id, QWidget *parent):
       while(true);
     }
 
-  setFont(preferredFont(glitch_ui::s_defaultApplicationFont));
+  setFont(preferredFont(glitch_ui::defaultApplicationFont()));
   setWindowOpacity(s_windowOpacity);
 }
 
@@ -1594,7 +1594,7 @@ void glitch_object::setProperties(const QStringList &list)
 
 	  if(string.isEmpty() || !font.fromString(string))
 	    m_properties[Properties::FONT] = preferredFont
-	      (glitch_ui::s_defaultApplicationFont);
+	      (glitch_ui::defaultApplicationFont());
 	  else
 	    m_properties[Properties::FONT] = preferredFont(font);
 

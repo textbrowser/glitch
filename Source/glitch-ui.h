@@ -65,13 +65,19 @@ class glitch_ui: public QMainWindow
 
   glitch_ui(void);
   ~glitch_ui();
-  static QFont s_defaultApplicationFont;
+
   static QPointer<QMainWindow> s_mainWindow;
   static QSet<glitch_object *> s_copiedObjectsSet;
   static QTranslator *s_translator1;
   static QTranslator *s_translator2;
   static glitch_aware_multi_map<QPair<int, int>, QPointer<glitch_object> >
     s_copiedObjects;
+
+  static QFont defaultApplicationFont(void)
+  {
+    return s_defaultApplicationFont;
+  }
+
   static QList<glitch_object *> copySelected
     (QGraphicsView *view,
      QList<QPointF> *points,
@@ -80,6 +86,11 @@ class glitch_ui: public QMainWindow
   static void copy(QGraphicsView *view, const bool selected = true);
   static void copy(glitch_object *object);
   static void paste(QGraphicsView *view, QUndoStack *undoStack);
+
+  static void setDefaultApplicationFont(const QFont &font)
+  {
+    s_defaultApplicationFont = font;
+  }
 
  private:
   QHash<QObject *, QPointer<glitch_separated_diagram_window> >
@@ -99,6 +110,7 @@ class glitch_ui: public QMainWindow
   glitch_documentation *m_releaseNotes;
   glitch_preferences *m_preferences;
   glitch_recent_diagrams_view *m_recentDiagramsView;
+  static QFont s_defaultApplicationFont;
   swifty *m_swifty;
   QString about(void) const;
   bool openDiagram(const QString &fileName, QString &error);

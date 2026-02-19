@@ -207,6 +207,9 @@ void glitch_object_device_display::prepareDevice(void)
       else
 	m_device->deleteLater();
     }
+  else if(url.scheme().startsWith("http", Qt::CaseInsensitive))
+    {
+    }
   else
     {
       m_device ? m_device->deleteLater() : (void) 0;
