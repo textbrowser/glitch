@@ -83,6 +83,7 @@ class glitch_object_device_display: public glitch_object
   Ui::glitch_device_display_properties *m_deviceDisplayPropertiesUI;
   QMap<QString, QVariant> mapFromProperties(void) const;
   glitch_object_device_display(const qint64 id, QWidget *parent);
+  void destroyDevice(void);
   void paintEvent(QPaintEvent *event);
   void prepareDevice(void);
   void setDevicePropertiesInformation(void);

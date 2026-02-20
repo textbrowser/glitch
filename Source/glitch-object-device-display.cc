@@ -63,6 +63,7 @@ glitch_object_device_display::~glitch_object_device_display()
 {
   delete m_deviceDisplayPropertiesDialog;
   delete m_deviceDisplayPropertiesUI;
+  destroyDevice();
   m_timer.stop();
 }
 
@@ -143,6 +144,23 @@ void glitch_object_device_display::addActions(QMenu &menu)
   m_actions.value(DefaultMenuActions::SOURCE_PREVIEW)->setEnabled(false);
 }
 
+void glitch_object_device_display::destroyDevice(void)
+{
+  if(!m_device)
+    return;
+
+  auto process = qobject_cast<QProcess *> (m_device);
+
+  if(process)
+    {
+      process->kill();
+      process->terminate();
+      process->waitForFinished(1000);
+    }
+
+  delete m_device;
+}
+
 void glitch_object_device_display::paintEvent(QPaintEvent *event)
 {
   Q_UNUSED(event);
@@ -187,13 +205,12 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
-  delete m_device;
+  destroyDevice();
   m_timer.stop();
   m_value = QVariant();
 
   auto const map(mapFromProperties());
-  auto const url
-    (QUrl::fromUserInput(map.value("device_url").toString().trimmed()));
+  auto const url(QUrl(map.value("device_url").toString().trimmed()));
 
   if(url.isLocalFile() && url.toLocalFile().trimmed().isEmpty() == false)
     {
@@ -227,6 +244,18 @@ void glitch_object_device_display::prepareDevice(void)
 	}
       else
 	m_device ? m_device->deleteLater() : (void) 0;
+    }
+  else if(url.scheme().startsWith("process", Qt::CaseInsensitive))
+    {
+      m_device = new QProcess(this);
+      m_device->setProperty("javascript", map.value("javascript").toString());
+      m_device->setProperty
+	("read_rate_size", map.value("read_rate_size").toLongLong());
+      m_timer.start
+	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
+      qobject_cast<QProcess *> (m_device)->setProcessChannelMode
+	(QProcess::MergedChannels);
+      qobject_cast<QProcess *> (m_device)->setProgram(url.host());
     }
   else if(url.scheme().startsWith("tcp", Qt::CaseInsensitive))
     {
@@ -327,8 +356,8 @@ void glitch_object_device_display::simulateAdd(void)
 
 void glitch_object_device_display::simulateDelete(void)
 {
+  destroyDevice();
   glitch_object::simulateDelete();
-  m_device ? m_device->deleteLater() : (void) 0;
 #ifdef Q_OS_ANDROID
   m_deviceDisplayPropertiesDialog ?
     (void) m_deviceDisplayPropertiesDialog->hide() : (void) 0;
@@ -345,9 +374,11 @@ void glitch_object_device_display::slotReadDevice(void)
     return;
   else if(m_device->isOpen() == false && qobject_cast<QFile *> (m_device))
     return;
+  else if(m_device->isOpen() == false && qobject_cast<QProcess *> (m_device))
+    return;
   else if(qobject_cast<QTcpSocket *> (m_device) &&
-	  qobject_cast<QTcpSocket *> (m_device)->state() ==
-	  QAbstractSocket::UnconnectedState)
+	  qobject_cast<QTcpSocket *> (m_device)->state() == QAbstractSocket::
+	                                                    UnconnectedState)
     {
       auto const url(m_device->property("device_url").toUrl());
 
@@ -360,7 +391,7 @@ void glitch_object_device_display::slotReadDevice(void)
 			   m_device->property("read_rate_size").toLongLong(),
 			   1048576LL)));
 
-  if(bytes.isEmpty())
+  if(bytes.isEmpty()) // Error or we do not have data.
     return;
 
   auto javascript(m_device->property("javascript").toString().trimmed());
