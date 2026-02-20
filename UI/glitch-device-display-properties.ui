@@ -66,7 +66,7 @@
      <item row="1" column="1">
       <widget class="QLineEdit" name="device_url">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;file:///path&lt;/p&gt;&lt;p&gt;https://example.org&lt;/p&gt;&lt;p&gt;tcp://host:port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;file:///path&lt;/p&gt;&lt;p&gt;https://example.org&lt;/p&gt;&lt;p&gt;process://executable:arguments&lt;/p&gt;&lt;p&gt;tcp://host:port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="placeholderText">
         <string>Device URL</string>

@@ -230,6 +230,15 @@ void glitch_object_device_display::prepareDevice(void)
       else
 	m_device ? m_device->deleteLater() : (void) 0;
     }
+  else if(url.scheme().startsWith("tcp", Qt::CaseInsensitive))
+    {
+      m_device ? m_device->deleteLater() : (void) 0;
+      m_device = new QTcpSocket(this);
+      m_timer.start
+	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
+      qobject_cast<QTcpSocket *> (m_device)->connectToHost
+	(url.host(), url.port(), QIODevice::ReadOnly);
+    }
   else
     {
       m_device ? m_device->deleteLater() : (void) 0;

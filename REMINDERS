@@ -421,7 +421,9 @@ Remaining Items
   http (completed)
   https (completed)
   precision option (completed)
+  process
   read rate option (completed)
+  tcp
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
