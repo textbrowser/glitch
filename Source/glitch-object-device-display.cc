@@ -341,7 +341,9 @@ void glitch_object_device_display::simulateDelete(void)
 
 void glitch_object_device_display::slotReadDevice(void)
 {
-  if(!m_device || !m_device->isOpen())
+  if(!m_device)
+    return;
+  else if(m_device->isOpen() == false && qobject_cast<QFile *> (m_device))
     return;
   else if(qobject_cast<QTcpSocket *> (m_device) &&
 	  qobject_cast<QTcpSocket *> (m_device)->state() ==

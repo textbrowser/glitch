@@ -414,7 +414,7 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
-- New class for displaying numeric values read from a source:
+- New class for displaying values read from a source:
   device (completed)
   device name visibility option (completed)
   file (completed)
@@ -423,7 +423,8 @@ Remaining Items
   precision option (completed)
   process
   read rate option (completed)
-  tcp
+  tcp (completed)
+  tcps
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
