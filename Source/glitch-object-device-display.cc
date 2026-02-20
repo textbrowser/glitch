@@ -234,10 +234,12 @@ void glitch_object_device_display::prepareDevice(void)
     {
       m_device ? m_device->deleteLater() : (void) 0;
       m_device = new QTcpSocket(this);
+      m_device->setProperty("device_url", url);
+      m_device->setProperty("javascript", map.value("javascript").toString());
+      m_device->setProperty
+	("read_rate_size", map.value("read_rate_size").toLongLong());
       m_timer.start
 	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
-      qobject_cast<QTcpSocket *> (m_device)->connectToHost
-	(url.host(), url.port(), QIODevice::ReadOnly);
     }
   else
     {
@@ -360,6 +362,15 @@ void glitch_object_device_display::slotReadDevice(void)
 {
   if(!m_device || !m_device->isOpen())
     return;
+  else if(qobject_cast<QTcpSocket *> (m_device) &&
+	  qobject_cast<QTcpSocket *> (m_device)->state() ==
+	  QAbstractSocket::UnconnectedState)
+    {
+      auto const url(m_device->property("device_url").toUrl());
+
+      qobject_cast<QTcpSocket *> (m_device)->connectToHost
+	(url.host(), url.port(), QIODevice::ReadOnly);
+    }
 
   auto const bytes
     (m_device->read(qBound(1LL,
