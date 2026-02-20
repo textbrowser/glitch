@@ -301,9 +301,10 @@ void glitch_object_device_display::setProperties(const QStringList &list)
 	  string.remove("\"");
 	  m_properties[Properties::DEVICE_DISPLAY_PROPERTIES] =
 	    QByteArray::fromBase64(string.trimmed().toUtf8());
-	  prepareDevice();
 	}
     }
+
+  prepareDevice();
 }
 
 void glitch_object_device_display::setProperty
@@ -329,25 +330,13 @@ void glitch_object_device_display::setProperty
 void glitch_object_device_display::simulateAdd(void)
 {
   glitch_object::simulateAdd();
-
-  if(m_device)
-    {
-      if(!m_device->isOpen())
-	{
-	  if(m_device->open(QIODevice::ReadOnly))
-	    m_timer.start();
-	  else
-	    m_timer.stop();
-	}
-      else if(!m_timer.isActive())
-	m_timer.start();
-    }
+  prepareDevice();
 }
 
 void glitch_object_device_display::simulateDelete(void)
 {
   glitch_object::simulateDelete();
-  m_device ? m_device->close() : (void) 0;
+  m_device ? m_device->deleteLater() : (void) 0;
 #ifdef Q_OS_ANDROID
   m_deviceDisplayPropertiesDialog ?
     (void) m_deviceDisplayPropertiesDialog->hide() : (void) 0;
