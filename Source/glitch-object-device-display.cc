@@ -187,6 +187,8 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
 void glitch_object_device_display::prepareDevice(void)
 {
+  delete m_device;
+  m_timer.stop();
   m_value = QVariant();
 
   auto const map(mapFromProperties());
@@ -195,9 +197,7 @@ void glitch_object_device_display::prepareDevice(void)
 
   if(url.isLocalFile() && url.toLocalFile().trimmed().isEmpty() == false)
     {
-      m_device ? m_device->deleteLater() : (void) 0;
       m_device = new QFile(url.toLocalFile(), this);
-      m_timer.stop();
 
       if(m_device->open(QIODevice::ReadOnly))
 	{
@@ -213,9 +213,7 @@ void glitch_object_device_display::prepareDevice(void)
     }
   else if(url.scheme().startsWith("http", Qt::CaseInsensitive))
     {
-      m_device ? m_device->deleteLater() : (void) 0;
       m_device = glitch_ui::networkReply(QNetworkRequest(url));
-      m_timer.stop();
 
       if(m_device && m_device->isOpen())
 	{
@@ -232,7 +230,6 @@ void glitch_object_device_display::prepareDevice(void)
     }
   else if(url.scheme().startsWith("tcp", Qt::CaseInsensitive))
     {
-      m_device ? m_device->deleteLater() : (void) 0;
       m_device = new QTcpSocket(this);
       m_device->setProperty("device_url", url);
       m_device->setProperty("javascript", map.value("javascript").toString());
@@ -240,11 +237,6 @@ void glitch_object_device_display::prepareDevice(void)
 	("read_rate_size", map.value("read_rate_size").toLongLong());
       m_timer.start
 	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
-    }
-  else
-    {
-      m_device ? m_device->deleteLater() : (void) 0;
-      m_timer.stop();
     }
 }
 
