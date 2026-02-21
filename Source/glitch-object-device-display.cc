@@ -254,6 +254,7 @@ void glitch_object_device_display::prepareDevice(void)
 	    (qBound(MINIMUM_READ_RATE,
 		    map.value("read_rate_interval").toInt(),
 		    MAXIMUM_READ_RATE));
+	  qobject_cast<QNetworkReply *> (m_device)->ignoreSslErrors();
 	}
       else
 	m_device ? m_device->deleteLater() : (void) 0;
@@ -409,6 +410,17 @@ void glitch_object_device_display::slotReadDevice(void)
 	  qobject_cast<QProcess *> (m_device)->state() == QProcess::NotRunning)
     {
       qobject_cast<QProcess *> (m_device)->start();
+      return;
+    }
+  else if(qobject_cast<QSslSocket *> (m_device) &&
+	  qobject_cast<QSslSocket *> (m_device)->state() == QAbstractSocket::
+	                                                    UnconnectedState)
+    {
+      auto const url(m_device->property("device_url").toUrl());
+
+      qobject_cast<QSslSocket *> (m_device)->connectToHostEncrypted
+	(url.host(), url.port());
+      qobject_cast<QSslSocket *> (m_device)->ignoreSslErrors();
       return;
     }
   else if(qobject_cast<QTcpSocket *> (m_device) &&
