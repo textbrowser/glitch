@@ -158,7 +158,7 @@ void glitch_object_device_display::destroyDevice(void)
       process->waitForFinished(1000);
     }
 
-  delete m_device;
+  m_device->deleteLater();
 }
 
 void glitch_object_device_display::paintEvent(QPaintEvent *event)
@@ -248,11 +248,21 @@ void glitch_object_device_display::prepareDevice(void)
   else if(url.scheme().startsWith("process", Qt::CaseInsensitive))
     {
       m_device = new QProcess(this);
+      connect(qobject_cast<QProcess *> (m_device),
+	      &QProcess::readyReadStandardOutput,
+	      this,
+	      &glitch_object_device_display::slotReadDevice);
       m_device->setProperty("javascript", map.value("javascript").toString());
       m_device->setProperty
 	("read_rate_size", map.value("read_rate_size").toLongLong());
       m_timer.start
 	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
+      qobject_cast<QProcess *> (m_device)->setArguments
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+	(url.query().split('&', Qt::SkipEmptyParts));
+#else
+        (url.query().split('&', QString::SkipEmptyParts));
+#endif
       qobject_cast<QProcess *> (m_device)->setProcessChannelMode
 	(QProcess::MergedChannels);
       qobject_cast<QProcess *> (m_device)->setProgram(url.host());
@@ -374,8 +384,12 @@ void glitch_object_device_display::slotReadDevice(void)
     return;
   else if(m_device->isOpen() == false && qobject_cast<QFile *> (m_device))
     return;
-  else if(m_device->isOpen() == false && qobject_cast<QProcess *> (m_device))
-    return;
+  else if(qobject_cast<QProcess *> (m_device) &&
+	  qobject_cast<QProcess *> (m_device)->state() == QProcess::NotRunning)
+    {
+      qobject_cast<QProcess *> (m_device)->start();
+      return;
+    }
   else if(qobject_cast<QTcpSocket *> (m_device) &&
 	  qobject_cast<QTcpSocket *> (m_device)->state() == QAbstractSocket::
 	                                                    UnconnectedState)
@@ -384,6 +398,7 @@ void glitch_object_device_display::slotReadDevice(void)
 
       qobject_cast<QTcpSocket *> (m_device)->connectToHost
 	(url.host(), url.port(), QIODevice::ReadOnly);
+      return;
     }
 
   auto const bytes
