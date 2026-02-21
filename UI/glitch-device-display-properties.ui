@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>550</width>
     <height>500</height>
    </rect>
   </property>
@@ -63,16 +63,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="device_url">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;file:///absolute-path&lt;/p&gt;&lt;p&gt;https://example.org&lt;/p&gt;&lt;p&gt;process://executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;/p&gt;&lt;p&gt;tcp://host:port&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="placeholderText">
-        <string>Device URL</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -85,7 +75,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Glitch will replace the variable %1 with the data read from the device.</string>
+          <string>Glitch will replace the variable %1 with the data read from the device. The data read from the device is stored in a byte array.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -142,7 +132,7 @@
        <item>
         <widget class="QSpinBox" name="read_rate_interval">
          <property name="toolTip">
-          <string>[1, 10000]</string>
+          <string>[1, 100000]</string>
          </property>
          <property name="suffix">
           <string> ms</string>
@@ -151,7 +141,7 @@
           <number>1</number>
          </property>
          <property name="maximum">
-          <number>10000</number>
+          <number>100000</number>
          </property>
          <property name="value">
           <number>1000</number>
@@ -170,6 +160,27 @@
           </size>
          </property>
         </spacer>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="1">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;file:///&lt;/span&gt;absolute-path&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;https://&lt;/span&gt;example.org&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;br/&gt;process://&lt;/span&gt;executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcp://&lt;/span&gt;host:port&lt;br&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcps://&lt;/span&gt;host:port&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="device_url">
+         <property name="placeholderText">
+          <string>Device URL</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

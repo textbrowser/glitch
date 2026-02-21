@@ -81,6 +81,8 @@ class glitch_object_device_display: public glitch_object
   QTimer m_timer;
   QVariant m_value;
   Ui::glitch_device_display_properties *m_deviceDisplayPropertiesUI;
+  int static MAXIMUM_READ_RATE;
+  int static MINIMUM_READ_RATE;
   QMap<QString, QVariant> mapFromProperties(void) const;
   glitch_object_device_display(const qint64 id, QWidget *parent);
   void destroyDevice(void);

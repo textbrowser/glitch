@@ -37,6 +37,9 @@
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
 
+int glitch_object_device_display::MAXIMUM_READ_RATE = 100000;
+int glitch_object_device_display::MINIMUM_READ_RATE = 1;
+
 glitch_object_device_display::glitch_object_device_display(QWidget *parent):
   glitch_object_device_display(1, parent)
 {
@@ -229,7 +232,9 @@ void glitch_object_device_display::prepareDevice(void)
 	  m_device->setProperty
 	    ("read_rate_size", map.value("read_rate_size").toLongLong());
 	  m_timer.start
-	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
+	    (qBound(MINIMUM_READ_RATE,
+		    map.value("read_rate_interval").toInt(),
+		    MAXIMUM_READ_RATE));
 	}
       else
 	m_device->deleteLater();
@@ -246,7 +251,9 @@ void glitch_object_device_display::prepareDevice(void)
 	  m_device->setProperty
 	    ("read_rate_size", map.value("read_rate_size").toLongLong());
 	  m_timer.start
-	    (qBound(100, map.value("read_rate_interval").toInt(), 10000));
+	    (qBound(MINIMUM_READ_RATE,
+		    map.value("read_rate_interval").toInt(),
+		    MAXIMUM_READ_RATE));
 	}
       else
 	m_device ? m_device->deleteLater() : (void) 0;
@@ -262,7 +269,9 @@ void glitch_object_device_display::prepareDevice(void)
       m_device->setProperty
 	("read_rate_size", map.value("read_rate_size").toLongLong());
       m_timer.start
-	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
+	(qBound(MINIMUM_READ_RATE,
+		map.value("read_rate_interval").toInt(),
+		MAXIMUM_READ_RATE));
       qobject_cast<QProcess *> (m_device)->setArguments
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	(url.query().split('&', Qt::SkipEmptyParts));
@@ -275,14 +284,20 @@ void glitch_object_device_display::prepareDevice(void)
     }
   else if(url.scheme().startsWith("tcp", Qt::CaseInsensitive))
     {
-      m_device = new QTcpSocket(this);
+      if(url.scheme().compare("tcp", Qt::CaseInsensitive) == 0)
+	m_device = new QTcpSocket(this);
+      else
+	m_device = new QSslSocket(this);
+
       m_device->setProperty("device_url", url);
       m_device->setProperty("javascript", map.value("javascript").toString());
       m_device->setProperty
 	("read_rate_size", map.value("read_rate_size").toLongLong());
       m_timer.start
-	(qBound(100, map.value("read_rate_interval").toInt(), 10000));
-    }
+	(qBound(MINIMUM_READ_RATE,
+		map.value("read_rate_interval").toInt(),
+		MAXIMUM_READ_RATE));
+   }
 }
 
 void glitch_object_device_display::save

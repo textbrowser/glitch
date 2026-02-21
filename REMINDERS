@@ -421,7 +421,7 @@ Remaining Items
   process (completed)
   read rate (completed)
   tcp (completed)
-  tcps
+  tcps (completed)
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.

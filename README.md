@@ -5,7 +5,7 @@ https://en.wikipedia.org/wiki/Glitch
 
 Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
-Now with a natural language processor!
+Now with device readers and natural language processors!
 
 Glitch, originally QtNQC, was discovered in 2004!
 
@@ -20,6 +20,7 @@ Glitch, originally QtNQC, was discovered in 2004!
 <li>Available almost everywhere!</li>
 <li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
+<li>Create beautiful displays with device readers!</li>
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
