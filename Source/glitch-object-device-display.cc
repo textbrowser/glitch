@@ -158,6 +158,11 @@ void glitch_object_device_display::destroyDevice(void)
       process->waitForFinished(1000);
     }
 
+  auto reply = qobject_cast<QNetworkReply *> (m_device);
+
+  if(reply)
+    reply->abort();
+
   m_device->deleteLater();
 }
 
@@ -208,6 +213,7 @@ void glitch_object_device_display::prepareDevice(void)
   destroyDevice();
   m_timer.stop();
   m_value = QVariant();
+  update();
 
   auto const map(mapFromProperties());
   auto const url(QUrl(map.value("device_url").toString().trimmed()));
