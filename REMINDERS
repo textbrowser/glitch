@@ -415,14 +415,11 @@ Remaining Items
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - New class for displaying values read from a source:
-  device (completed)
-  device name visibility option (completed)
   file (completed)
   http (completed)
   https (completed)
-  precision option (completed)
-  process
-  read rate option (completed)
+  process (completed)
+  read rate (completed)
   tcp (completed)
   tcps
 - Pasting a function clone in a child of another diagram must result
