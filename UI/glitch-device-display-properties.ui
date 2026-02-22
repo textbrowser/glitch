@@ -106,13 +106,13 @@
        <item>
         <widget class="QSpinBox" name="read_rate_size">
          <property name="toolTip">
-          <string>[1, 1048576]</string>
+          <string>Range: [0, 1048576]. Read all available byes by setting a read-size of zero.</string>
          </property>
          <property name="suffix">
           <string> bytes</string>
          </property>
          <property name="minimum">
-          <number>1</number>
+          <number>0</number>
          </property>
          <property name="maximum">
           <number>1048576</number>

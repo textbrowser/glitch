@@ -37,8 +37,8 @@
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
 
-int glitch_object_device_display::MAXIMUM_READ_RATE = 100000;
-int glitch_object_device_display::MINIMUM_READ_RATE = 1;
+int glitch_object_device_display::MAXIMUM_READ_INTERVAL = 100000;
+int glitch_object_device_display::MINIMUM_READ_INTERVAL = 1;
 
 glitch_object_device_display::glitch_object_device_display(QWidget *parent):
   glitch_object_device_display(1, parent)
@@ -230,11 +230,11 @@ void glitch_object_device_display::prepareDevice(void)
 	  m_device->setProperty
 	    ("javascript", map.value("javascript").toString());
 	  m_device->setProperty
-	    ("read_rate_size", map.value("read_rate_size").toLongLong());
+	    ("read_size", map.value("read_size").toLongLong());
 	  m_timer.start
-	    (qBound(MINIMUM_READ_RATE,
-		    map.value("read_rate_interval").toInt(),
-		    MAXIMUM_READ_RATE));
+	    (qBound(MINIMUM_READ_INTERVAL,
+		    map.value("read_interval").toInt(),
+		    MAXIMUM_READ_INTERVAL));
 	}
       else
 	m_device->deleteLater();
@@ -249,11 +249,11 @@ void glitch_object_device_display::prepareDevice(void)
 	  m_device->setProperty
 	    ("javascript", map.value("javascript").toString());
 	  m_device->setProperty
-	    ("read_rate_size", map.value("read_rate_size").toLongLong());
+	    ("read_size", map.value("read_size").toLongLong());
 	  m_timer.start
-	    (qBound(MINIMUM_READ_RATE,
-		    map.value("read_rate_interval").toInt(),
-		    MAXIMUM_READ_RATE));
+	    (qBound(MINIMUM_READ_INTERVAL,
+		    map.value("read_interval").toInt(),
+		    MAXIMUM_READ_INTERVAL));
 	  qobject_cast<QNetworkReply *> (m_device)->ignoreSslErrors();
 	}
       else
@@ -267,12 +267,11 @@ void glitch_object_device_display::prepareDevice(void)
 	      this,
 	      &glitch_object_device_display::slotReadDevice);
       m_device->setProperty("javascript", map.value("javascript").toString());
-      m_device->setProperty
-	("read_rate_size", map.value("read_rate_size").toLongLong());
+      m_device->setProperty("read_size", map.value("read_size").toLongLong());
       m_timer.start
-	(qBound(MINIMUM_READ_RATE,
-		map.value("read_rate_interval").toInt(),
-		MAXIMUM_READ_RATE));
+	(qBound(MINIMUM_READ_INTERVAL,
+		map.value("read_interval").toInt(),
+		MAXIMUM_READ_INTERVAL));
       qobject_cast<QProcess *> (m_device)->setArguments
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	(url.query().split('&', Qt::SkipEmptyParts));
@@ -292,12 +291,11 @@ void glitch_object_device_display::prepareDevice(void)
 
       m_device->setProperty("device_url", url);
       m_device->setProperty("javascript", map.value("javascript").toString());
-      m_device->setProperty
-	("read_rate_size", map.value("read_rate_size").toLongLong());
+      m_device->setProperty("read_size", map.value("read_size").toLongLong());
       m_timer.start
-	(qBound(MINIMUM_READ_RATE,
-		map.value("read_rate_interval").toInt(),
-		MAXIMUM_READ_RATE));
+	(qBound(MINIMUM_READ_INTERVAL,
+		map.value("read_interval").toInt(),
+		MAXIMUM_READ_INTERVAL));
    }
 }
 
@@ -334,9 +332,9 @@ void glitch_object_device_display::setDevicePropertiesInformation(void)
   m_deviceDisplayPropertiesUI->javascript->setPlainText
     (map.value("javascript").toString().trimmed());
   m_deviceDisplayPropertiesUI->read_rate_interval->setValue
-    (map.value("read_rate_interval", 1000).toInt());
+    (map.value("read_interval", 1000).toInt());
   m_deviceDisplayPropertiesUI->read_rate_size->setValue
-    (map.value("read_rate_size", 1000).toInt());
+    (map.value("read_size", 1000).toInt());
 }
 
 void glitch_object_device_display::setProperties(const QStringList &list)
@@ -434,10 +432,15 @@ void glitch_object_device_display::slotReadDevice(void)
       return;
     }
 
-  auto const bytes
-    (m_device->read(qBound(1LL,
-			   m_device->property("read_rate_size").toLongLong(),
-			   1048576LL)));
+  QByteArray bytes;
+
+  if(m_device->property("read_size").toInt() > 0)
+    bytes = m_device->read
+      (qBound(1LL,
+	      m_device->property("read_size").toLongLong(),
+	      1048576LL));
+ else
+   bytes = m_device->readAll();
 
   if(bytes.isEmpty()) // Error or we do not have data.
     return;
@@ -508,10 +511,9 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   map["data_type"] = m_deviceDisplayPropertiesUI->data_type->currentText();
   map["device_url"] = m_deviceDisplayPropertiesUI->device_url->text();
   map["javascript"] = m_deviceDisplayPropertiesUI->javascript->toPlainText();
-  map["read_rate_interval"] = m_deviceDisplayPropertiesUI->
-    read_rate_interval->value();
-  map["read_rate_size"] = m_deviceDisplayPropertiesUI->read_rate_size->
+  map["read_interval"] = m_deviceDisplayPropertiesUI->read_rate_interval->
     value();
+  map["read_size"] = m_deviceDisplayPropertiesUI->read_rate_size->value();
 
   QByteArray bytes;
   QDataStream stream(&bytes, QIODevice::WriteOnly);
