@@ -168,7 +168,7 @@
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;file:///&lt;/span&gt;absolute-path&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;https://&lt;/span&gt;example.org&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;br/&gt;process://&lt;/span&gt;executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcp://&lt;/span&gt;host:port&lt;br&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcps://&lt;/span&gt;host:port&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;file:///&lt;/span&gt;absolute-path&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;http(s)://&lt;/span&gt;example.org&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;br/&gt;process://&lt;/span&gt;executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcp(s)://&lt;/span&gt;host:port&lt;br&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
