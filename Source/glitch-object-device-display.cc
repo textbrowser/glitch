@@ -284,10 +284,10 @@ void glitch_object_device_display::prepareDevice(void)
     }
   else if(url.scheme().startsWith("tcp", Qt::CaseInsensitive))
     {
-      if(url.scheme().compare("tcp", Qt::CaseInsensitive) == 0)
-	m_device = new QTcpSocket(this);
-      else
+      if(url.scheme().compare("tcp", Qt::CaseInsensitive) != 0)
 	m_device = new QSslSocket(this);
+      else
+	m_device = new QTcpSocket(this);
 
       m_device->setProperty("device_url", url);
       m_device->setProperty("javascript", map.value("javascript").toString());
