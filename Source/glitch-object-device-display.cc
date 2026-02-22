@@ -296,7 +296,7 @@ void glitch_object_device_display::prepareDevice(void)
 	(qBound(MINIMUM_READ_INTERVAL,
 		map.value("read_interval").toInt(),
 		MAXIMUM_READ_INTERVAL));
-   }
+    }
 }
 
 void glitch_object_device_display::save
@@ -489,7 +489,7 @@ void glitch_object_device_display::slotSetDeviceInformation(void)
 #endif
       glitch_variety::sortCombinationBox
 	(m_deviceDisplayPropertiesUI->data_type);
-     }
+    }
 
 #ifdef Q_OS_ANDROID
   m_deviceDisplayPropertiesDialog->showMaximized();
