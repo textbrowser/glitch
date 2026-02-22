@@ -234,6 +234,14 @@ Completed Items
 - Modern Qt connect() (except for QOverload() (PowerPC)).
 - Movement via arrows. Increase distance if Shift is depressed.
 - Multiple inputs or single input? Single!
+- New class for displaying values read from a source:
+  file (completed)
+  http (completed)
+  https (completed)
+  process (completed)
+  read rate (completed)
+  tcp (completed)
+  tcps (completed)
 - Numeric sort in Find Widgets and Type Total column.
 - Object border color.
 - Object numbers should be sequenced.
@@ -414,14 +422,6 @@ Remaining Items
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
-- New class for displaying values read from a source:
-  file (completed)
-  http (completed)
-  https (completed)
-  process (completed)
-  read rate (completed)
-  tcp (completed)
-  tcps (completed)
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
