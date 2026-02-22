@@ -439,8 +439,8 @@ void glitch_object_device_display::slotReadDevice(void)
       (qBound(1LL,
 	      m_device->property("read_size").toLongLong(),
 	      1048576LL));
- else
-   bytes = m_device->readAll();
+  else
+    bytes = m_device->readAll();
 
   if(bytes.isEmpty()) // Error or we do not have data.
     return;
