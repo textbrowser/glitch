@@ -564,7 +564,8 @@ bool glitch_view::hasChanged(void) const
 
 bool glitch_view::isIDEProcessActive(void) const
 {
-  return m_ideProcess.state() == QProcess::Running;
+  return m_ideProcess.state() == QProcess::Running ||
+    m_ideProcess.state() == QProcess::Starting;
 }
 
 bool glitch_view::open(const QString &fileName, QString &error)
