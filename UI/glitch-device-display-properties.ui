@@ -63,6 +63,27 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;file:///&lt;/span&gt;absolute-path&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;http(s)://&lt;/span&gt;example.org&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;br/&gt;process://&lt;/span&gt;executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcp(s)://&lt;/span&gt;host:port&lt;br&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="device_url">
+         <property name="placeholderText">
+          <string>Device URL</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -163,24 +184,34 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="1">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Show Errors</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;file:///&lt;/span&gt;absolute-path&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;http(s)://&lt;/span&gt;example.org&lt;span style=&quot; font-weight:600;&quot;&gt;&lt;br/&gt;process://&lt;/span&gt;executable?argument&amp;amp;argument&amp;amp;...&amp;amp;argument&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;tcp(s)://&lt;/span&gt;host:port&lt;br&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
+        <widget class="QCheckBox" name="show_errors">
+         <property name="toolTip">
+          <string>Device errors will be appended to processed data.</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="device_url">
-         <property name="placeholderText">
-          <string>Device URL</string>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -225,6 +256,7 @@
   <tabstop>javascript</tabstop>
   <tabstop>read_rate_size</tabstop>
   <tabstop>read_rate_interval</tabstop>
+  <tabstop>show_errors</tabstop>
   <tabstop>apply</tabstop>
   <tabstop>close</tabstop>
  </tabstops>
