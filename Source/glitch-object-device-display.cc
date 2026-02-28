@@ -231,6 +231,8 @@ void glitch_object_device_display::prepareDevice(void)
 	    ("javascript", map.value("javascript").toString());
 	  m_device->setProperty
 	    ("read_size", map.value("read_size").toLongLong());
+	  m_device->setProperty
+	    ("show_errors", map.value("show_errors").toBool());
 	  m_timer.start
 	    (qBound(MINIMUM_READ_INTERVAL,
 		    map.value("read_interval").toInt(),
@@ -250,6 +252,8 @@ void glitch_object_device_display::prepareDevice(void)
 	    ("javascript", map.value("javascript").toString());
 	  m_device->setProperty
 	    ("read_size", map.value("read_size").toLongLong());
+	  m_device->setProperty
+	    ("show_errors", map.value("show_errors").toBool());
 	  m_timer.start
 	    (qBound(MINIMUM_READ_INTERVAL,
 		    map.value("read_interval").toInt(),
@@ -268,6 +272,7 @@ void glitch_object_device_display::prepareDevice(void)
 	      &glitch_object_device_display::slotReadDevice);
       m_device->setProperty("javascript", map.value("javascript").toString());
       m_device->setProperty("read_size", map.value("read_size").toLongLong());
+      m_device->setProperty("show_errors", map.value("show_errors").toBool());
       m_timer.start
 	(qBound(MINIMUM_READ_INTERVAL,
 		map.value("read_interval").toInt(),
@@ -292,6 +297,7 @@ void glitch_object_device_display::prepareDevice(void)
       m_device->setProperty("device_url", url);
       m_device->setProperty("javascript", map.value("javascript").toString());
       m_device->setProperty("read_size", map.value("read_size").toLongLong());
+      m_device->setProperty("show_errors", map.value("show_errors").toBool());
       m_timer.start
 	(qBound(MINIMUM_READ_INTERVAL,
 		map.value("read_interval").toInt(),
@@ -461,6 +467,13 @@ void glitch_object_device_display::slotReadDevice(void)
       else
 	m_value = bytes.toHex();
     }
+
+  if(m_device->errorString().trimmed().isEmpty() == false &&
+     m_device->property("show_errors").toBool())
+    m_value = QVariant
+      (m_value.toString().trimmed() +
+       "\n\n" +
+       QString("(%1)").arg(m_device->errorString().toUpper().trimmed()));
 
   update();
 }
