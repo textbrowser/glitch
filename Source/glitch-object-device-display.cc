@@ -335,6 +335,8 @@ void glitch_object_device_display::setDevicePropertiesInformation(void)
     (map.value("read_interval", 1000).toInt());
   m_deviceDisplayPropertiesUI->read_rate_size->setValue
     (map.value("read_size", 1000).toInt());
+  m_deviceDisplayPropertiesUI->show_errors->setChecked
+    (map.value("show_errors", false).toBool());
 }
 
 void glitch_object_device_display::setProperties(const QStringList &list)
@@ -514,6 +516,7 @@ void glitch_object_device_display::slotSetDeviceInformationAccepted(void)
   map["read_interval"] = m_deviceDisplayPropertiesUI->read_rate_interval->
     value();
   map["read_size"] = m_deviceDisplayPropertiesUI->read_rate_size->value();
+  map["show_errors"] = m_deviceDisplayPropertiesUI->show_errors->isChecked();
 
   QByteArray bytes;
   QDataStream stream(&bytes, QIODevice::WriteOnly);
