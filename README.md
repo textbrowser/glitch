@@ -1,9 +1,9 @@
 Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
-Now with a natural language processor!
+Now with device readers and natural language processors!
 
 <b>Version 2025.12.25 is the newest LTS release.</b><br>
-<b>Version 2026.01.01 is the newest source release.</b>
+<b>Version 2026.02.28 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -17,6 +17,7 @@ Now with a natural language processor!
 <li>Available almost everywhere!</li>
 <li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
+<li>Device displays!</li>
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
@@ -36,7 +37,14 @@ Now with a natural language processor!
 
 <h3><b>Release Notes</b></h3>
 
-<p>2026.01.01 Release</p>
+<p>2026.02.28</p>
+<ul>
+<li>Delete Serial Port Window panels on close events.</li>
+<li>New numeric display widget.</li>
+<li>Replaced the comment block's QPlainTextEdit with a custom painter.</li>
+</ul>
+
+<p>2026.01.01</p>
 <ul>
 <li>Disable font property for arrow widget.</li>
 <li>New Canvas Settings -> Display -> Show Function Name Widget.</li>
