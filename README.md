@@ -21,6 +21,7 @@ Glitch, originally QtNQC, was discovered in 2004!
 <li>Configurable widgets.</li>
 <li>Copy-and-paste.</li>
 <li>Create beautiful displays with device readers!</li>
+<li>Device displays!</li>
 <li>Diagrams are recorded in portable SQLite databases.</li>
 <li>Drag-and-drop.</li>
 <li>Extensible with other frameworks.</li>
