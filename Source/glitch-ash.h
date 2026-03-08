@@ -41,7 +41,7 @@ class glitch_ash_textedit: public QTextEdit
 
     font.setFamily("Courier");
     font.setPointSizeF(11.5);
-    setCurrentFont(font);
+    setFont(font);
     m_historyIndex = 0;
     m_promptBlockNumber = 0;
     m_promptLength = 4;
