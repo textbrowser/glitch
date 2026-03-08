@@ -37,11 +37,11 @@ class glitch_ash_textedit: public QTextEdit
  public:
   glitch_ash_textedit(QWidget *parent):QTextEdit(parent)
   {
-    auto font(this->font());
+    auto font(this->currentFont());
 
     font.setFamily("Courier");
     font.setPointSizeF(11.5);
-    setFont(font);
+    setCurrentFont(font);
     m_historyIndex = 0;
     m_promptBlockNumber = 0;
     m_promptLength = 4;
