@@ -453,14 +453,15 @@ void glitch_object_device_display::slotReadDevice(void)
   if(bytes.isEmpty()) // Error or we do not have data.
     return;
 
-  auto javascript(m_device->property("javascript").toString().trimmed());
+  auto const javascript(m_device->property("javascript").toString().trimmed());
 
   if(javascript.isEmpty())
     m_value = bytes;
   else
     {
       QJSEngine engine;
-      auto const value = engine.evaluate(javascript.replace("%1", bytes));
+      auto const value = engine.evaluate
+	(QString(javascript).replace("%1", bytes));
 
       if(value.isError() == false && value.toVariant().isValid())
 	m_value = value.toVariant();
