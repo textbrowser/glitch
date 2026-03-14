@@ -96,7 +96,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Glitch will replace the variable %1 with the data read from the device. The data read from the device is stored in a byte array.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Glitch will replace the variable %1 with the data read from the device. The data read from the device is stored in a byte array. The below program will be executed after a read request completes. Please avoid complex expressions.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
