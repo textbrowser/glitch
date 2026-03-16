@@ -127,7 +127,7 @@
        <item>
         <widget class="QSpinBox" name="read_rate_size">
          <property name="toolTip">
-          <string>Range: [0, 1048576]. Read all available byes by setting a read-size of zero.</string>
+          <string>Range: [0, 1048576]. Read all available bytes by setting a read-size of zero.</string>
          </property>
          <property name="suffix">
           <string> bytes</string>
