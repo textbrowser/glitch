@@ -76,11 +76,11 @@ QString glitch_variety::escape(const QString &text)
     else if(text[i] == '\\')
       string.append("\\");
     else if(text[i] == '\'')
-      string.append("'");
+      string.append("\'");
     else if(text[i] == '\"')
       string.append("\"");
     else if(text[i] == '\?')
-      string.append("?");
+      string.append("\?");
     else
       string.append(text[i]);
 
