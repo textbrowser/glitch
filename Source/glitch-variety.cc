@@ -54,6 +54,39 @@ QPointF glitch_variety::dbPointToPointF(const QString &text)
   return {qAbs(list.value(0).toDouble()), qAbs(list.value(1).toDouble())};
 }
 
+QString glitch_variety::escape(const QString &text)
+{
+  QString string("");
+
+  for(int i = 0; i < text.length(); i++)
+    if(text[i] == '\a')
+      string.append("\\a");
+    else if(text[i] == '\b')
+      string.append("\\b");
+    else if(text[i] == '\f')
+      string.append("\\f");
+    else if(text[i] == '\n')
+      string.append("\\n");
+    else if(text[i] == '\r')
+      string.append("\\r");
+    else if(text[i] == '\t')
+      string.append("\\t");
+    else if(text[i] == '\v')
+      string.append("\\v");
+    else if(text[i] == '\\')
+      string.append("\\");
+    else if(text[i] == '\'')
+      string.append("'");
+    else if(text[i] == '\"')
+      string.append("\"");
+    else if(text[i] == '\?')
+      string.append("?");
+    else
+      string.append(text[i]);
+
+  return string;
+}
+
 QString glitch_variety::homePath(void)
 {
   auto homePath(QString::fromLocal8Bit(qgetenv("GLITCH_HOME")).trimmed());
