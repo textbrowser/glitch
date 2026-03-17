@@ -461,7 +461,8 @@ void glitch_object_device_display::slotReadDevice(void)
     {
       QJSEngine engine;
       auto const value = engine.evaluate
-	(QString(javascript).replace("%1", bytes));
+	(QString(javascript).
+	 replace("%1", QByteArray(bytes).replace('\n', "\\n")));
 
       if(value.isError() == false && value.toVariant().isValid())
 	m_value = value.toVariant();
