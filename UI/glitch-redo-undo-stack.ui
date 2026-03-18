@@ -69,6 +69,13 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
+      <widget class="QPushButton" name="clear">
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -95,6 +102,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>table</tabstop>
+  <tabstop>clear</tabstop>
+  <tabstop>close</tabstop>
+ </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
  </resources>

@@ -47,6 +47,7 @@ class glitch_redo_undo_stack: public QDialog
   Ui_glitch_redo_undo_stack m_ui;
 
  private slots:
+  void slotClear(void);
   void slotDoubleClicked(const QModelIndex &index);
   void slotPopulate(void);
 };

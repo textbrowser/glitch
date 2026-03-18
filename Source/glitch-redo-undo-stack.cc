@@ -25,11 +25,17 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QMessageBox>
+
 #include "glitch-redo-undo-stack.h"
 
 glitch_redo_undo_stack::glitch_redo_undo_stack(QWidget *parent):QDialog(parent)
 {
   m_ui.setupUi(this);
+  connect(m_ui.clear,
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_redo_undo_stack::slotClear);
 #ifdef Q_OS_ANDROID
   connect(m_ui.close,
 	  &QPushButton::clicked,
@@ -45,6 +51,7 @@ glitch_redo_undo_stack::glitch_redo_undo_stack(QWidget *parent):QDialog(parent)
 	  SIGNAL(doubleClicked(const QModelIndex &)),
 	  this,
 	  SLOT(slotDoubleClicked(const QModelIndex &)));
+  m_ui.clear->setIcon(QIcon(":/clear.png"));
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.table->setIconSize(QSize(16, 16));
   setWindowModality(Qt::NonModal);
@@ -83,6 +90,25 @@ void glitch_redo_undo_stack::setUndoStack(QUndoStack *undoStack)
     }
 
   slotPopulate();
+}
+
+void glitch_redo_undo_stack::slotClear(void)
+{
+  if(m_undoStack && m_undoStack->count() > 0)
+    {
+      QMessageBox mb(this);
+
+      mb.setIcon(QMessageBox::Question);
+      mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+      mb.setText
+	(tr("Are you sure that you wish clear the redo / undo stack?"));
+      mb.setWindowIcon(windowIcon());
+      mb.setWindowModality(Qt::ApplicationModal);
+      mb.setWindowTitle(tr("Glitch: Confirmation"));
+
+      if(mb.exec() == QMessageBox::Yes)
+	m_undoStack->clear();
+    }
 }
 
 void glitch_redo_undo_stack::slotDoubleClicked(const QModelIndex &index)
