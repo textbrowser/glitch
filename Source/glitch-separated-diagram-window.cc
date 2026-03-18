@@ -114,6 +114,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotRedo);
+  connect(m_ui.action_Redo_Undo_Stack,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotShowRedoUndoStack);
   connect(m_ui.action_Save_Diagram,
 	  &QAction::triggered,
 	  this,
@@ -769,6 +773,12 @@ void glitch_separated_diagram_window::slotShowFullScreenMode(void)
       m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
       showFullScreen();
     }
+}
+
+void glitch_separated_diagram_window::slotShowRedoUndoStack(void)
+{
+  if(m_view)
+    m_view->showRedoUndoStack();
 }
 
 void glitch_separated_diagram_window::slotShowTearOffMenu(void)
