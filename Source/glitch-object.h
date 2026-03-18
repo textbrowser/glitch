@@ -434,6 +434,8 @@ class glitch_object: public QWidget
   QPointer<glitch_source_preview> m_sourcePreview;
   QSize m_delayedSize;
   QSize m_sizeBeforeFontChange;
+  static int s_maximumHeight;
+  static int s_maximumWidth;
   static qint64 s_id;
   QFont preferredFont(const QFont &font) const;
   QMainWindow *parentMainWindow(void) const;

@@ -81,6 +81,8 @@
 
 QRegularExpression glitch_object::s_splitRegularExpression =
   QRegularExpression("&(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+int glitch_object::s_maximumHeight = 2500;
+int glitch_object::s_maximumWidth = 2500;
 int glitch_object::s_widthTweak = 50; // Multiple of 5 please!
 qreal static s_disableSourceOpacity = 0.35;
 qreal static s_windowOpacity = 0.85;
@@ -1656,8 +1658,9 @@ void glitch_object::setProperties(const QStringList &list)
 	      auto const list(string.split(',', QString::SkipEmptyParts));
 #endif
 
-	      m_delayedSize = QSize(list.value(0).trimmed().toInt(),
-				    list.value(1).trimmed().toInt());
+	      m_delayedSize = QSize
+		(qMin(list.value(0).trimmed().toInt(), s_maximumWidth),
+		 qMin(list.value(1).trimmed().toInt(), s_maximumHeight));
 	      QTimer::singleShot(0, this, &glitch_object::slotDelayedResize);
 	    }
 	}

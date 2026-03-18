@@ -103,14 +103,14 @@
             <item>
              <widget class="QSpinBox" name="width">
               <property name="maximum">
-               <number>999</number>
+               <number>2500</number>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QSpinBox" name="height">
               <property name="maximum">
-               <number>999</number>
+               <number>2500</number>
               </property>
              </widget>
             </item>

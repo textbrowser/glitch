@@ -202,11 +202,12 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
   painter.drawPath(path);
   painter.restore();
   pen.setColor(QColor(m_properties.value(Properties::FONT_COLOR).toString()));
+  painter.setFont(font());
   painter.setPen(pen);
   painter.save();
   painter.drawText
   (path.boundingRect().adjusted(5.0, 5.0, -5.0, -5.0),
-   Qt::AlignCenter | Qt::TextWordWrap,
+   Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap,
    m_value.toString());
   painter.restore();
 }
