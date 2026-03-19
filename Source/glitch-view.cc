@@ -119,6 +119,7 @@ glitch_view::glitch_view
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
+  m_properties["view_tool_bars"] = true;
   m_redoUndoStack = nullptr;
   m_resizeSceneTimer.setInterval(500);
   m_resizeSceneTimer.setSingleShot(true);
@@ -660,6 +661,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    m_properties["splitter_state"] = QByteArray::fromBase64
 		      (string.toLatin1());
 		  }
+		else if(string.startsWith("view_tool_bars"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["view_tool_bars"] = QVariant
+		      (QByteArray::fromBase64(string.toLatin1())).toBool();
+		  }
 	      }
 
 	    m_bottomSplitter->restoreState
@@ -1018,6 +1026,11 @@ bool glitch_view::saveProperties(void) const
 
   glitch_common::discardDatabase(connectionName);
   return ok;
+}
+
+bool glitch_view::viewToolBars(void) const
+{
+  return m_properties.value("view_tool_bars").toBool();
 }
 
 glitch_common::ProjectTypes glitch_view::projectType(void) const
@@ -1769,6 +1782,25 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->width() - 2 * m_view->frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       m_view->height() - 2 * m_view->frameWidth())));
+}
+
+void glitch_view::setViewToolBars(const bool state)
+{
+  if(m_properties.value("view_tool_bars").toBool() != state)
+    {
+      auto undoCommand = new glitch_undo_command
+	(state,
+	 m_properties.value("view_tool_bars").toBool(),
+	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 glitch_view::Properties::VIEW_TOOL_BARS,
+	 this);
+
+      undoCommand->setText(tr("view tool-bars changed"));
+      m_undoStack->push(undoCommand);
+      emit changed();
+    }
+
+  m_properties["view_tool_bars"] = state;
 }
 
 void glitch_view::showCanvasSettings(void) const

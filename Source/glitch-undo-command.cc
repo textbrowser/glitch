@@ -33,6 +33,7 @@
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
+#include "glitch-view.h"
 #include "glitch-wire.h"
 
 glitch_undo_command::glitch_undo_command
@@ -182,6 +183,21 @@ glitch_undo_command::glitch_undo_command
   m_previousProperty = previousProperty;
   m_property = property;
   m_type = type;
+}
+
+glitch_undo_command::glitch_undo_command
+(const QVariant &currentProperty,
+ const QVariant &previousProperty,
+ const Types type,
+ const glitch_view::Properties property,
+ glitch_view *view,
+ QUndoCommand *parent):QUndoCommand(parent)
+{
+  m_currentProperty = currentProperty;
+  m_previousProperty = previousProperty;
+  m_type = type;
+  m_view = view;
+  m_viewProperty = property;
 }
 
 glitch_undo_command::glitch_undo_command

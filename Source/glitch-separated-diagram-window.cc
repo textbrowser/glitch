@@ -165,7 +165,6 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   slotPreferencesAccepted();
-  statusBar(); // Create a status bar.
   statusBar() ?
     statusBar()->addPermanentWidget(m_ideProcessIndicator) : (void) 0;
   m_ideProcessIndicator->setVisible(false);
@@ -565,7 +564,9 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       QMainWindow::setCentralWidget(m_view);
       m_ideProcessIndicator->setVisible(m_view->isIDEProcessActive());
       m_statusBarTimer.start();
+      m_ui.action_View_Tool_Bars->setChecked(m_view->viewToolBars());
       slotToolsOperationChanged(m_view->toolsOperation());
+      slotViewToolBars();
     }
 
   prepareToolBar(); // Order is important.
@@ -903,6 +904,8 @@ void glitch_separated_diagram_window::slotViewToolBars(void)
   m_ui.tools_toolbar->setVisible
     (m_ui.action_View_Tool_Bars->isChecked() && m_view);
   m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_view ? m_view->setViewToolBars(m_ui.action_View_Tool_Bars->isChecked()) :
+    (void) 0;
 }
 
 void glitch_separated_diagram_window::slotZoom(void)

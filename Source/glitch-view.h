@@ -74,6 +74,11 @@ class glitch_view: public QWidget
     STYLESHEET_MAXIMUM_LENGTH = 10000
   };
 
+  enum class Properties
+  {
+    VIEW_TOOL_BARS = 0
+  };
+
   glitch_view(const QString &fileName,
 	      const QString &name,
 	      const glitch_common::ProjectTypes projectType,
@@ -101,6 +106,7 @@ class glitch_view: public QWidget
   bool isIDEProcessActive(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
+  bool viewToolBars(void) const;
   glitch_common::ProjectTypes projectType(void) const;
   glitch_graphicsview *view(void) const;
   glitch_object *find(const qint64 id) const;
@@ -137,6 +143,7 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
+  void setViewToolBars(const bool state);
   void showCanvasSettings(void) const;
   void showRedoUndoStack(void);
   void showTools(void);

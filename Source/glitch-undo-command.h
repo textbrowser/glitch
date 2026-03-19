@@ -37,6 +37,7 @@ class glitch_object;
 class glitch_proxy_widget;
 class glitch_scene;
 class glitch_user_functions;
+class glitch_view;
 class glitch_wire;
 
 class glitch_undo_command: public QUndoCommand
@@ -56,6 +57,7 @@ class glitch_undo_command: public QUndoCommand
     ITEM_RENAMED,
     PROPERTY_CHANGED,
     STYLESHEET_CHANGED,
+    VIEW_PROPERTY_CHANGED,
     WIRE_ADDED,
     WIRE_DELETED
   };
@@ -75,7 +77,7 @@ class glitch_undo_command: public QUndoCommand
 		      glitch_object *object,
 		      glitch_user_functions *userFunctions,
 		      QUndoCommand *parent = nullptr);
-  glitch_undo_command(const QString &previousValue,
+  glitch_undo_command(const QString &previousString,
 		      const Types type,
 		      glitch_object *object,
 		      QUndoCommand *parent = nullptr);
@@ -84,6 +86,12 @@ class glitch_undo_command: public QUndoCommand
 		      const Types type,
 		      const glitch_object::Properties property,
 		      glitch_object *object,
+		      QUndoCommand *parent = nullptr);
+  glitch_undo_command(const QVariant &currentProperty,
+		      const QVariant &previousProperty,
+		      const Types type,
+		      const glitch_view::Properties property,
+		      glitch_view *view,
 		      QUndoCommand *parent = nullptr);
   glitch_undo_command(const Types type,
 		      glitch_proxy_widget *proxy,
@@ -107,6 +115,7 @@ class glitch_undo_command: public QUndoCommand
   QPointer<glitch_proxy_widget> m_proxy;
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_user_functions> m_userFunctions;
+  QPointer<glitch_view> m_view;
   QPointer<glitch_wire> m_wire;
   QString m_currentFunctionName;
   QString m_currentFunctionReturnType;
@@ -120,6 +129,7 @@ class glitch_undo_command: public QUndoCommand
   bool m_currentFunctionReturnPointer;
   bool m_previousFunctionReturnPointer;
   glitch_object::Properties m_property;
+  glitch_view::Properties m_viewProperty;
 };
 
 #endif
