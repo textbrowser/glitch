@@ -142,6 +142,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotVerify);
+  connect(m_ui.action_View_Tool_Bars,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotViewToolBars);
   connect(m_ui.action_Unite_Canvas,
 	  &QAction::triggered,
 	  this,
@@ -887,6 +891,18 @@ void glitch_separated_diagram_window::slotVerify(void)
 {
   if(m_view)
     m_view->verify();
+}
+
+void glitch_separated_diagram_window::slotViewToolBars(void)
+{
+  m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_ui.action_View_Tool_Bars->isChecked() && m_view);
+  m_ui.project_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible
+    (m_ui.action_View_Tool_Bars->isChecked() && m_view);
+  m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }
 
 void glitch_separated_diagram_window::slotZoom(void)

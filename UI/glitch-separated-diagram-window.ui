@@ -90,6 +90,8 @@
     </widget>
     <addaction name="action_Full_Screen"/>
     <addaction name="separator"/>
+    <addaction name="action_View_Tool_Bars"/>
+    <addaction name="separator"/>
     <addaction name="menu_Zoom"/>
    </widget>
    <addaction name="menu_File"/>
@@ -328,6 +330,17 @@
   <action name="action_Terminate">
    <property name="text">
     <string>Terminate Upload / Verify</string>
+   </property>
+  </action>
+  <action name="action_View_Tool_Bars">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tool Bars</string>
    </property>
   </action>
  </widget>
