@@ -26,8 +26,8 @@ url = https://github.com/textbrowser/glitch/releases/download/qup
 
 [Unix]
 
-executable = Glitch_PiOS_12_ARM
-executable = Glitch_PiOS_12_ARM64
+executable = Glitch_PiOS_ARM
+executable = Glitch_PiOS_ARM64
 executable = Glitch_Ubuntu_PowerPC
 executable = Glitch_Ubuntu_AMD64
 file = ./glitch.desktop
