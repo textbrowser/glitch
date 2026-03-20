@@ -75,6 +75,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotPageSaved(void);
   void slotPaste(void);
   void slotPrint(void);
+  void slotPropertySet(void);
   void slotRedo(void);
   void slotSaveDiagram(void);
   void slotSelectAll(void);

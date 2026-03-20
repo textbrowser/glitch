@@ -497,6 +497,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 this,
 		 &glitch_separated_diagram_window::slotIDEProcessStarted);
       disconnect(m_view,
+		 &glitch_view::propertySet,
+		 this,
+		 &glitch_separated_diagram_window::slotPropertySet);
+      disconnect(m_view,
 		 &glitch_view::saved,
 		 this,
 		 &glitch_separated_diagram_window::slotPageSaved);
@@ -541,6 +545,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      &glitch_view::ideProcessStarted,
 	      this,
 	      &glitch_separated_diagram_window::slotIDEProcessStarted);
+      connect(m_view,
+	      &glitch_view::propertySet,
+	      this,
+	      &glitch_separated_diagram_window::slotPropertySet);
       connect(m_view,
 	      &glitch_view::saved,
 	      this,
@@ -714,6 +722,20 @@ void glitch_separated_diagram_window::slotPrint(void)
 {
   if(m_view)
     m_view->print();
+}
+
+void glitch_separated_diagram_window::slotPropertySet(void)
+{
+  m_ui.action_View_Tool_Bars->setChecked
+    (m_view ? m_view->viewToolBars() : true);
+  m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.file_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.miscellaneous_toolbar->setVisible
+    (m_ui.action_View_Tool_Bars->isChecked() && m_view);
+  m_ui.project_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  m_ui.tools_toolbar->setVisible
+    (m_ui.action_View_Tool_Bars->isChecked() && m_view);
+  m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
 }
 
 void glitch_separated_diagram_window::slotRedo(void)

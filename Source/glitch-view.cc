@@ -1775,6 +1775,7 @@ void glitch_view::setProperty(const Properties property, const QVariant &value)
     case Properties::VIEW_TOOL_BARS:
       {
 	m_properties["view_tool_bars"] = value.toBool();
+	emit propertySet();
 	break;
       }
     default:
@@ -1807,7 +1808,7 @@ void glitch_view::setViewToolBars(const bool state)
       auto undoCommand = new glitch_undo_command
 	(state,
 	 m_properties.value("view_tool_bars").toBool(),
-	 glitch_undo_command::Types::PROPERTY_CHANGED,
+	 glitch_undo_command::Types::VIEW_PROPERTY_CHANGED,
 	 glitch_view::Properties::VIEW_TOOL_BARS,
 	 this);
 

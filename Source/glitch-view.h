@@ -294,6 +294,7 @@ class glitch_view: public QWidget
   void mouseLeaveEvent(void);
   void paste(glitch_view *view);
   void preferencesAccepted(void);
+  void propertySet(void);
   void saveSignal(void);
   void saved(void);
   void selectionChanged(void);
