@@ -143,6 +143,7 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
+  void setProperty(const Properties property, const QVariant &value);
   void setViewToolBars(const bool state);
   void showCanvasSettings(void) const;
   void showRedoUndoStack(void);

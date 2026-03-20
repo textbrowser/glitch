@@ -335,6 +335,26 @@ void glitch_undo_command::redo(void)
 
 	break;
       }
+    case Types::VIEW_PROPERTY_CHANGED:
+      {
+	if(m_view)
+	  {
+	    switch(m_viewProperty)
+	      {
+	      case glitch_view::Properties::VIEW_TOOL_BARS:
+		{
+		  m_view->setProperty(m_viewProperty, m_currentProperty);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
+	  }
+
+	break;
+      }
     case Types::WIRE_ADDED:
       {
 	if(m_scene && m_wire)
@@ -463,6 +483,26 @@ void glitch_undo_command::undo(void)
       {
 	if(m_object)
 	  m_object->setStyleSheet(m_previousString);
+
+	break;
+      }
+    case Types::VIEW_PROPERTY_CHANGED:
+      {
+	if(m_view)
+	  {
+	    switch(m_viewProperty)
+	      {
+	      case glitch_view::Properties::VIEW_TOOL_BARS:
+		{
+		  m_view->setProperty(m_viewProperty, m_previousProperty);
+		  break;
+		}
+	      default:
+		{
+		  break;
+		}
+	      }
+	  }
 
 	break;
       }

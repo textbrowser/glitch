@@ -505,14 +505,14 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 this,
 		 &glitch_separated_diagram_window::slotSelectionChanged);
       disconnect(m_view,
+		 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
+		 this,
+		 SLOT
+		 (slotToolsOperationChanged(const glitch_tools::Operations)));
+      disconnect(m_view,
 		 &glitch_view::zoomReset,
 		 this,
 		 &glitch_separated_diagram_window::slotZoom);
-      disconnect
-	(m_view,
-	 SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
-	 this,
-	 SLOT(slotToolsOperationChanged(const glitch_tools::Operations)));
       disconnect(this,
 		 &glitch_separated_diagram_window::unite,
 		 m_view,

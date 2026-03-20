@@ -1768,6 +1768,22 @@ void glitch_view::selectAll(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_view::setProperty(const Properties property, const QVariant &value)
+{
+  switch(property)
+    {
+    case Properties::VIEW_TOOL_BARS:
+      {
+	m_properties["view_tool_bars"] = value.toBool();
+	break;
+      }
+    default:
+      {
+	break;
+      }
+    }
+}
+
 void glitch_view::setSceneRect(const QSize &size)
 {
   Q_UNUSED(size);
@@ -2535,7 +2551,7 @@ void glitch_view::slotShowWires(void)
 void glitch_view::slotToolsOperationChanged
 (const glitch_tools::Operations operation)
 {
-  setProperty("tools-operation", static_cast<int> (operation));
+  QObject::setProperty("tools-operation", static_cast<int> (operation));
 }
 
 void glitch_view::slotUndoStackChanged(int index)
