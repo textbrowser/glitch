@@ -178,7 +178,7 @@ glitch_view::glitch_view
   m_view->setCornerWidget(new QLabel(this));
   m_view->setDragMode(QGraphicsView::RubberBandDrag);
   m_view->setFrameStyle(QFrame::NoFrame);
-  m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+  m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
   m_view->setRenderHints(QPainter::Antialiasing |
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
@@ -188,7 +188,7 @@ glitch_view::glitch_view
 			 QPainter::TextAntialiasing);
   m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);
   m_view->setScene(m_scene);
-  m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+  m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
   connect
     (&glitch_ui::s_copiedObjects,

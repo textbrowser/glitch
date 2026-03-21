@@ -488,6 +488,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
+	   "horizontal_scrollbar_policy TEXT NOT NULL, "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
 	   "maximize_edit_windows INTEGER NOT NULL DEFAULT 0, "
@@ -510,6 +511,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "tab_position_index INTEGER NOT NULL DEFAULT -1, "
 	   "tabbed_edit_windows INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL, "
+	   "vertical_scrollbar_policy TEXT NOT NULL, "
 	   "wire_color TEXT NOT NULL, "
 	   "wire_type TEXT NOT NULL, "
 	   "wire_width REAL"
@@ -528,6 +530,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color, "
 	   "generate_periodically, "
 	   "generate_source_view_periodically, "
+	   "horizontal_scrollbar_policy, "
 	   "keyword_colors, "
 	   "lock_color, "
 	   "maximize_edit_windows, "
@@ -549,11 +552,14 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "tab_position_index, "
 	   "tabbed_edit_windows, "
 	   "update_mode, "
+	   "vertical_scrollbar_policy, "
 	   "wire_color, "
 	   "wire_type, "
 	   "wire_width) "
 	   "VALUES "
 	   "(?, "
+	   "?, "
+	   "?, "
 	   "?, "
 	   "?, "
 	   "?, "
@@ -588,6 +594,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.generate_periodically->isChecked());
 	query.addBindValue
 	  (m_ui.generate_source_view_periodically->isChecked());
+	query.addBindValue(m_ui.horizontal_scrollbar_policy->currentText());
 	query.addBindValue(keywordColorsFromTableAsString());
 	query.addBindValue(m_ui.lock_color->text().remove('&'));
 	query.addBindValue(m_ui.maximize_edit_windows->isChecked());
@@ -616,6 +623,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.tab_position->currentIndex());
 	query.addBindValue(m_ui.tabbed_edit_windows->isChecked());
 	query.addBindValue(m_ui.update_mode->currentText());
+	query.addBindValue(m_ui.vertical_scrollbar_policy->currentText());
 	query.addBindValue(m_ui.wire_color->text().remove('&'));
 	query.addBindValue(m_ui.wire_type->currentText());
 	query.addBindValue(m_ui.wire_width->value());
