@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>750</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>488</width>
-        <height>692</height>
+        <height>792</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -212,6 +212,58 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_20">
+             <item>
+              <widget class="QLabel" name="label_18">
+               <property name="text">
+                <string>Horizontal ScrollBar Policy</string>
+               </property>
+               <property name="buddy">
+                <cstring>categories_icon_size</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="horizontal_scrollbar_policy">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+               <item>
+                <property name="text">
+                 <string>As Needed</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Off</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>On</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_17">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_15">
              <item>
               <widget class="QLabel" name="label_14">
@@ -333,6 +385,58 @@
               <string>Show Preview</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_21">
+             <item>
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>Vertical ScrollBar Policy</string>
+               </property>
+               <property name="buddy">
+                <cstring>categories_icon_size</cstring>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="vertical_scrollbar_policy">
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QComboBox::AdjustToContents</enum>
+               </property>
+               <item>
+                <property name="text">
+                 <string>As Needed</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Off</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>On</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_18">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1084,12 +1188,14 @@
   <tabstop>name</tabstop>
   <tabstop>categories_icon_size</tabstop>
   <tabstop>dots_grids_color</tabstop>
+  <tabstop>horizontal_scrollbar_policy</tabstop>
   <tabstop>lock_color</tabstop>
   <tabstop>selection_color</tabstop>
   <tabstop>show_canvas_dots</tabstop>
   <tabstop>show_canvas_grids</tabstop>
   <tabstop>show_order_indicators</tabstop>
   <tabstop>show_preview</tabstop>
+  <tabstop>vertical_scrollbar_policy</tabstop>
   <tabstop>update_mode</tabstop>
   <tabstop>wire_color</tabstop>
   <tabstop>wire_type</tabstop>
