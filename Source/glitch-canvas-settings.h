@@ -143,8 +143,10 @@ class glitch_canvas_settings: public QDialog
   enum class Pages
   {
     Canvas = 0,
-    Project = 1,
-    UndoStack
+    Display = 1,
+    Project = 2,
+    SourceView = 3,
+    UndoStack = 4
   };
 
   enum class Settings
@@ -156,6 +158,7 @@ class glitch_canvas_settings: public QDialog
     GENERATE_PERIODICALLY,
     GENERATE_SOURCE_VIEW_PERIODICALLY,
     KEYWORD_COLORS,
+    HORIZONTAL_SCROLLBAR_POLICY,
     LOCK_COLOR,
     MAXIMIZE_EDIT_WINDOWS,
     PROJECT_BOARD,
@@ -172,6 +175,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_STRUCTURES_TREE_WIDGET,
     TABBED_EDIT_WINDOWS,
     TAB_POSITION_INDEX,
+    VERTICAL_SCROLLBAR_POLICY,
     VIEW_UPDATE_MODE,
     WIRE_COLOR,
     WIRE_TYPE,
