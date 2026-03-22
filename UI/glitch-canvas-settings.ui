@@ -225,6 +225,9 @@
              </item>
              <item>
               <widget class="QComboBox" name="horizontal_scrollbar_policy">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting is also applied to edit views of child objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
@@ -400,6 +403,9 @@
              </item>
              <item>
               <widget class="QComboBox" name="vertical_scrollbar_policy">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting is also applied to edit views of child objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="currentIndex">
                 <number>0</number>
                </property>
