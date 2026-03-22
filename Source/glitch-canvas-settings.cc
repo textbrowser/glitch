@@ -51,8 +51,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_outputFileExtension = "";
   m_timer.start(1500);
   m_ui.setupUi(this);
+  glitch_variety::sortCombinationBox(m_ui.horizontal_scrollbar_policy);
   glitch_variety::sortCombinationBox(m_ui.tab_position);
   glitch_variety::sortCombinationBox(m_ui.update_mode);
+  glitch_variety::sortCombinationBox(m_ui.vertical_scrollbar_policy);
   glitch_variety::sortCombinationBox(m_ui.wire_type);
   glitch_variety::assignImage(m_ui.background_color, QColor("#55aaff"));
   glitch_variety::assignImage(m_ui.dots_grids_color, QColor(Qt::white));
@@ -488,7 +490,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
-	   "horizontal_scrollbar_policy TEXT NOT NULL, "
+	   "horizontal_scrollbar_policy TEXT NOT NULL DEFAULT '', "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
 	   "maximize_edit_windows INTEGER NOT NULL DEFAULT 0, "
@@ -511,7 +513,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "tab_position_index INTEGER NOT NULL DEFAULT -1, "
 	   "tabbed_edit_windows INTEGER NOT NULL DEFAULT 1, "
 	   "update_mode TEXT NOT NULL, "
-	   "vertical_scrollbar_policy TEXT NOT NULL, "
+	   "vertical_scrollbar_policy TEXT NOT NULL DEFAULT '', "
 	   "wire_color TEXT NOT NULL, "
 	   "wire_type TEXT NOT NULL, "
 	   "wire_width REAL"
@@ -719,21 +721,12 @@ void glitch_canvas_settings::alterDatabase(void) const
       {
 	QSqlQuery query(db);
 
-	query.exec("ALTER TABLE canvas_settings ADD project_board TEXT");
 	query.exec
-	  ("ALTER TABLE canvas_settings ADD project_communications_port TEXT");
+	  ("ALTER TABLE canvas_settings ADD "
+	   "horizontal_scrollbar_policy TEXT DEFAULT ''");
 	query.exec
-	  ("ALTER TABLE canvas_settings ADD show_function_name_widget "
-	   "INTEGER NOT NULL DEFAULT 1");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD show_preview "
-	   "INTEGER NOT NULL DEFAULT 0");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD show_structures_tree_widget "
-	   "INTEGER NOT NULL DEFAULT 1");
-	query.exec
-	  ("ALTER TABLE canvas_settings ADD tab_position_index "
-	   "INTEGER NOT NULL DEFAULT -1");
+	  ("ALTER TABLE canvas_settings ADD "
+	   "vertical_scrollbar_policy TEXT DEFAULT ''");
       }
 
     db.close();
