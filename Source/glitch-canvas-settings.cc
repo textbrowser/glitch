@@ -1169,12 +1169,11 @@ void glitch_canvas_settings::setFileName(const QString &fileName)
 
 void glitch_canvas_settings::setHorizontalScrollBarPolicy(const QString &text)
 {
-  if(text == tr("Off"))
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
-  else if(text == tr("On"))
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
-  else
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
+  m_ui.horizontal_scrollbar_policy->setCurrentIndex
+    (m_ui.horizontal_scrollbar_policy->findText(text));
+
+  if(m_ui.horizontal_scrollbar_policy->currentIndex() < 0)
+    m_ui.horizontal_scrollbar_policy->setCurrentIndex(0); // As Needed
 }
 
 void glitch_canvas_settings::setName(const QString &name)
@@ -1362,12 +1361,11 @@ void glitch_canvas_settings::setShowStructuresTreeWidget(const bool state)
 
 void glitch_canvas_settings::setVerticalScrollBarPolicy(const QString &text)
 {
-  if(text == tr("Off"))
-    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
-  else if(text == tr("On"))
-    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
-  else
-    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
+  m_ui.vertical_scrollbar_policy->setCurrentIndex
+    (m_ui.vertical_scrollbar_policy->findText(text));
+
+  if(m_ui.vertical_scrollbar_policy->currentIndex() < 0)
+    m_ui.vertical_scrollbar_policy->setCurrentIndex(0); // As Needed
 }
 
 void glitch_canvas_settings::setViewportUpdateMode
