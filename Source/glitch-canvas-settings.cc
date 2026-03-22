@@ -1406,7 +1406,7 @@ void glitch_canvas_settings::showEvent(QShowEvent *event)
 {
   QDialog::showEvent(event);
 
-  if(!property("scroll_filters_installed").toBool())
+  if(!property("scroll-filters-installed").toBool())
     {
       foreach(auto widget, findChildren<QWidget *> ())
 	if(qobject_cast<QComboBox *> (widget) ||
@@ -1414,7 +1414,7 @@ void glitch_canvas_settings::showEvent(QShowEvent *event)
 	   qobject_cast<QSpinBox *> (widget))
 	  widget->installEventFilter(new glitch_scroll_filter(this));
 
-      setProperty("scroll_filters_installed", true);
+      setProperty("scroll-filters-installed", true);
     }
 
   m_timer.start();
