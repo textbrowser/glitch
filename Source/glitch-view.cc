@@ -1939,8 +1939,8 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
   m_canvasPreview->setVisible(m_canvasSettings->showPreview());
   m_menuAction->setText(m_canvasSettings->name());
   m_rightSplitter->setVisible
-    (QSettings().value("preferences/docked_widget_property_editors",
-		       true).toBool() ||
+    (QSettings().
+     value("preferences/docked_widget_property_editors", true).toBool() ||
      m_canvasSettings->showPreview());
   m_scene->setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
   m_scene->setDotsGridsColor(m_canvasSettings->dotsGridsColor());
@@ -1964,6 +1964,10 @@ void glitch_view::slotCanvasSettingsChanged(const bool undo)
     (void) 0;
   m_userFunctions->setWindowTitle
     (tr("Glitch: User Functions (%1)").arg(m_canvasSettings->name()));
+  m_view->setHorizontalScrollBarPolicy
+    (m_canvasSettings->horizontalScrollBarPolicy());
+  m_view->setVerticalScrollBarPolicy
+    (m_canvasSettings->verticalScrollBarPolicy());
   m_view->setViewportUpdateMode(m_canvasSettings->viewportUpdateMode());
 
   if(!hash.isEmpty() && hash != m_settings)
