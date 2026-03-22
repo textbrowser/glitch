@@ -2316,9 +2316,13 @@ void glitch_object::slotCanvasSettingsChanged(const bool state)
 {
   Q_UNUSED(state);
 
-  if(!m_canvasSettings || !m_editWindow)
+  if(!m_canvasSettings || !m_editView || !m_editWindow)
     return;
 
+  m_editView->setHorizontalScrollBarPolicy
+    (m_canvasSettings->horizontalScrollBarPolicy());
+  m_editView->setVerticalScrollBarPolicy
+    (m_canvasSettings->verticalScrollBarPolicy());
   m_editWindow->setCategoriesIconSize(m_canvasSettings->categoriesIconSize());
   m_editWindow->showFunctionNameWidget
     (m_canvasSettings->showFunctionNameWidget());
