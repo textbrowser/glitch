@@ -251,6 +251,8 @@ settings(void) const
     m_ui.generate_periodically->isChecked();
   hash[Settings::GENERATE_SOURCE_VIEW_PERIODICALLY] =
     m_ui.generate_source_view_periodically->isChecked();
+  hash[Settings::HORIZONTAL_SCROLLBAR_POLICY] =
+    scrollBarPolicyFromText(m_ui.horizontal_scrollbar_policy->currentText());
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
   hash[Settings::LOCK_COLOR] = m_ui.lock_color->text().remove('&').trimmed();
   hash[Settings::MAXIMIZE_EDIT_WINDOWS] =
@@ -275,6 +277,8 @@ settings(void) const
     m_ui.show_structures_tree_widget->isChecked();
   hash[Settings::TAB_POSITION_INDEX] = m_ui.tab_position->currentIndex();
   hash[Settings::TABBED_EDIT_WINDOWS] = m_ui.tabbed_edit_windows->isChecked();
+  hash[Settings::VERTICAL_SCROLLBAR_POLICY] =
+    scrollBarPolicyFromText(m_ui.vertical_scrollbar_policy->currentText());
 
   if(m_ui.update_mode->currentText() == tr("Bounding Rectangle"))
     hash[Settings::VIEW_UPDATE_MODE] =
@@ -441,6 +445,30 @@ QTabWidget::TabPosition glitch_canvas_settings::tabPosition(void) const
     return QTabWidget::West;
   else
     return QTabWidget::North;
+}
+
+Qt::ScrollBarPolicy glitch_canvas_settings::
+horizontalScrollBarPolicy(void) const
+{
+  return Qt::ScrollBarPolicy
+    (m_settings.value(Settings::HORIZONTAL_SCROLLBAR_POLICY).toInt());
+}
+
+Qt::ScrollBarPolicy glitch_canvas_settings::scrollBarPolicyFromText
+(const QString &text)
+{
+  if(text == tr("Off"))
+    return Qt::ScrollBarAlwaysOff;
+  else if(text == tr("On"))
+    return Qt::ScrollBarAlwaysOn;
+  else
+    return Qt::ScrollBarAsNeeded;
+}
+
+Qt::ScrollBarPolicy glitch_canvas_settings::verticalScrollBarPolicy(void) const
+{
+  return Qt::ScrollBarPolicy
+    (m_settings.value(Settings::VERTICAL_SCROLLBAR_POLICY).toInt());
 }
 
 bool glitch_canvas_settings::generatePeriodically(void) const
@@ -772,6 +800,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
 			   "generate_source_view_periodically, "
+			   "SUBSTR(horizontal_scrollbar_policy, 1, 100), "
 			   "SUBSTR(keyword_colors, 1, 5000), "
 			   "SUBSTR(lock_color, 1, 50), "
 			   "maximize_edit_windows, "
@@ -793,6 +822,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "tab_position_index, "
 			   "tabbed_edit_windows, "
 			   "SUBSTR(update_mode, 1, 100), "
+			   "SUBSTR(vertical_scrollbar_policy, 1, 100), "
 			   "SUBSTR(wire_color, 1, 50), "
 			   "SUBSTR(wire_type, 1, 50), "
 			   "wire_width "
@@ -806,6 +836,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	QColor selectionColor;
 	QColor wireColor;
 	QString categoriesIconSize("");
+	QString horizontalScrollBarPolicy("");
 	QString keywordColors("");
 	QString name("");
 	QString projectBoard("");
@@ -817,6 +848,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 #endif
 	QString projectType("");
 	QString updateMode("");
+	QString verticalScrollBarPolicy("");
 	QString wireType("");
 	auto const record(query.record());
 	auto generatePeriodically = false;
@@ -848,6 +880,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      generatePeriodically = record.value(i).toBool();
 	    else if(fieldName.contains("generate_source_view_periodically"))
 	      generateSourceViewPeriodically = record.value(i).toBool();
+	    else if(fieldName.contains("horizontal_scrollbar_policy"))
+	      horizontalScrollBarPolicy = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("keyword_colors"))
 	      keywordColors = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("lock_color"))
@@ -899,6 +933,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      tabbedEditWindows = record.value(i).toBool();
 	    else if(fieldName.contains("update_mode"))
 	      updateMode = record.value(i).toString().trimmed();
+	    else if(fieldName.contains("vertical_scrollbar_policy"))
+	      verticalScrollBarPolicy = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("wire_color"))
 	      wireColor = QColor
 		(record.value(i).toString().remove('&').trimmed());
@@ -939,6 +975,13 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.generate_periodically->setChecked(generatePeriodically);
 	m_ui.generate_source_view_periodically->setChecked
 	  (generateSourceViewPeriodically);
+	m_ui.horizontal_scrollbar_policy->setCurrentIndex
+	  (m_ui.horizontal_scrollbar_policy->
+	   findText(horizontalScrollBarPolicy));
+
+	if(m_ui.horizontal_scrollbar_policy->currentIndex() < 0)
+	  m_ui.horizontal_scrollbar_policy->setCurrentIndex(0); // As Needed.
+
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.maximize_edit_windows->setChecked(maximizeEditWindows);
 	m_ui.name->setText(name);
@@ -981,6 +1024,12 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	if(m_ui.update_mode->currentIndex() < 0)
 	  m_ui.update_mode->setCurrentIndex
 	    (m_ui.update_mode->findText(tr("Full")));
+
+	m_ui.vertical_scrollbar_policy->setCurrentIndex
+	  (m_ui.vertical_scrollbar_policy->findText(verticalScrollBarPolicy));
+
+	if(m_ui.vertical_scrollbar_policy->currentIndex() < 0)
+	  m_ui.vertical_scrollbar_policy->setCurrentIndex(0); // As Needed.
 
 	m_ui.wire_color->setText(wireColor.name(QColor::HexArgb));
 	m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(wireType));

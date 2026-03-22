@@ -201,6 +201,8 @@ class glitch_canvas_settings: public QDialog
   QString projectIDE(void) const;
   QString wireType(void) const;
   QTabWidget::TabPosition tabPosition(void) const;
+  Qt::ScrollBarPolicy horizontalScrollBarPolicy(void) const;
+  Qt::ScrollBarPolicy verticalScrollBarPolicy(void) const;
   bool generatePeriodically(void) const;
   bool generateSourceViewPeriodically(void) const;
   bool maximizeEditWindows(void) const;
@@ -251,6 +253,7 @@ class glitch_canvas_settings: public QDialog
   glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
   QString keywordColorsFromTableAsString(void) const;
+  static Qt::ScrollBarPolicy scrollBarPolicyFromText(const QString &text);
   void alterDatabase(void) const;
   void closeEvent(QCloseEvent *event);
   void prepareKeywordColors(const QString &text);
