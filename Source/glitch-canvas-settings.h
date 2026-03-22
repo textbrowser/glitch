@@ -221,6 +221,7 @@ class glitch_canvas_settings: public QDialog
   void prepare(const QString &fileName);
   void setFileName(const QString &fileName);
   void setCategoriesIconSize(const QString &text);
+  void setHorizontalScrollBarPolicy(const QString &text);
   void setName(const QString &name);
   void setOutputFileExtension(const QString &extension);
   void setProjectIDE(const QString &filename);
@@ -234,6 +235,7 @@ class glitch_canvas_settings: public QDialog
   void setShowOrderIndicators(const bool state);
   void setShowPreview(const bool state);
   void setShowStructuresTreeWidget(const bool state);
+  void setVerticalScrollBarPolicy(const QString &text);
   void setViewportUpdateMode(const QGraphicsView::ViewportUpdateMode mode);
   void setWireType(const QString &string);
   void setWireWidth(const double value);

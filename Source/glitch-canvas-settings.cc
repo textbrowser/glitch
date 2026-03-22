@@ -1147,6 +1147,16 @@ void glitch_canvas_settings::setFileName(const QString &fileName)
   m_fileName = fileName;
 }
 
+void glitch_canvas_settings::setHorizontalScrollBarPolicy(const QString &text)
+{
+  if(text == tr("Off"))
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
+  else if(text == tr("On"))
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
+  else
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
+}
+
 void glitch_canvas_settings::setName(const QString &name)
 {
   if(name.trimmed().isEmpty())
@@ -1322,6 +1332,16 @@ void glitch_canvas_settings::setShowPreview(const bool state)
 void glitch_canvas_settings::setShowStructuresTreeWidget(const bool state)
 {
   m_ui.show_structures_tree_widget->setChecked(state);
+}
+
+void glitch_canvas_settings::setVerticalScrollBarPolicy(const QString &text)
+{
+  if(text == tr("Off"))
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
+  else if(text == tr("On"))
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
+  else
+    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
 }
 
 void glitch_canvas_settings::setViewportUpdateMode
