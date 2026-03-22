@@ -426,6 +426,26 @@ QString glitch_canvas_settings::projectIDE(void) const
     (m_settings.value(Settings::PROJECT_IDE).toString()).absoluteFilePath();
 }
 
+QString glitch_canvas_settings::scrollBarPolicyTextFromInteger
+(const int value)
+{
+  switch(Qt::ScrollBarPolicy(value))
+    {
+    case Qt::ScrollBarAlwaysOff:
+      {
+	return tr("Off");
+      }
+    case Qt::ScrollBarAlwaysOn:
+      {
+	return tr("On");
+      }
+    default:
+      {
+	return tr("As Needed");
+      }
+    }
+}
+
 QString glitch_canvas_settings::wireType(void) const
 {
   return m_settings.value(Settings::WIRE_TYPE).toString().trimmed();
@@ -980,7 +1000,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	   findText(horizontalScrollBarPolicy));
 
 	if(m_ui.horizontal_scrollbar_policy->currentIndex() < 0)
-	  m_ui.horizontal_scrollbar_policy->setCurrentIndex(0); // As Needed.
+	  m_ui.horizontal_scrollbar_policy->setCurrentIndex(0); // As Needed
 
 	m_ui.lock_color->setText(lockColor.name(QColor::HexArgb));
 	m_ui.maximize_edit_windows->setChecked(maximizeEditWindows);
@@ -1029,7 +1049,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	  (m_ui.vertical_scrollbar_policy->findText(verticalScrollBarPolicy));
 
 	if(m_ui.vertical_scrollbar_policy->currentIndex() < 0)
-	  m_ui.vertical_scrollbar_policy->setCurrentIndex(0); // As Needed.
+	  m_ui.vertical_scrollbar_policy->setCurrentIndex(0); // As Needed
 
 	m_ui.wire_color->setText(wireColor.name(QColor::HexArgb));
 	m_ui.wire_type->setCurrentIndex(m_ui.wire_type->findText(wireType));
@@ -1285,7 +1305,8 @@ void glitch_canvas_settings::setSettings
   prepareKeywordColors(hash.value(Settings::KEYWORD_COLORS).toString());
   setCategoriesIconSize(hash.value(Settings::CATEGORIES_ICON_SIZE).toString());
   setHorizontalScrollBarPolicy
-    (hash.value(Settings::HORIZONTAL_SCROLLBAR_POLICY).toString());
+    (scrollBarPolicyTextFromInteger
+    (hash.value(Settings::HORIZONTAL_SCROLLBAR_POLICY).toInt()));
   setName(hash.value(Settings::CANVAS_NAME).toString());
   setProjectIDE(hash.value(Settings::PROJECT_IDE).toString());
   setResult(QDialog::Accepted);
@@ -1298,7 +1319,8 @@ void glitch_canvas_settings::setSettings
   setShowStructuresTreeWidget
     (hash.value(Settings::SHOW_STRUCTURES_TREE_WIDGET).toBool());
   setVerticalScrollBarPolicy
-    (hash.value(Settings::VERTICAL_SCROLLBAR_POLICY).toString());
+    (scrollBarPolicyTextFromInteger
+    (hash.value(Settings::VERTICAL_SCROLLBAR_POLICY).toInt()));
   setViewportUpdateMode
     (QGraphicsView::
      ViewportUpdateMode(hash.value(Settings::VIEW_UPDATE_MODE).toInt()));
@@ -1341,11 +1363,11 @@ void glitch_canvas_settings::setShowStructuresTreeWidget(const bool state)
 void glitch_canvas_settings::setVerticalScrollBarPolicy(const QString &text)
 {
   if(text == tr("Off"))
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
+    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOff;
   else if(text == tr("On"))
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
+    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAlwaysOn;
   else
-    m_settings[Settings::HORIZONTAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
+    m_settings[Settings::VERTICAL_SCROLLBAR_POLICY] = Qt::ScrollBarAsNeeded;
 }
 
 void glitch_canvas_settings::setViewportUpdateMode

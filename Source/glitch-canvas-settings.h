@@ -255,6 +255,7 @@ class glitch_canvas_settings: public QDialog
   glitch_canvas_settings_item_delegate *m_itemDelegate;
   QString defaultName(void) const;
   QString keywordColorsFromTableAsString(void) const;
+  static QString scrollBarPolicyTextFromInteger(const int value);
   static Qt::ScrollBarPolicy scrollBarPolicyFromText(const QString &text);
   void alterDatabase(void) const;
   void closeEvent(QCloseEvent *event);
