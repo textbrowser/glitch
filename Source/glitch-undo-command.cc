@@ -341,13 +341,9 @@ void glitch_undo_command::redo(void)
 	  {
 	    switch(m_viewProperty)
 	      {
-	      case glitch_view::Properties::VIEW_TOOL_BARS:
-		{
-		  m_view->setProperty(m_viewProperty, m_currentProperty);
-		  break;
-		}
 	      default:
 		{
+		  m_view->setProperty(m_viewProperty, m_currentProperty);
 		  break;
 		}
 	      }
@@ -492,13 +488,9 @@ void glitch_undo_command::undo(void)
 	  {
 	    switch(m_viewProperty)
 	      {
-	      case glitch_view::Properties::VIEW_TOOL_BARS:
-		{
-		  m_view->setProperty(m_viewProperty, m_previousProperty);
-		  break;
-		}
 	      default:
 		{
+		  m_view->setProperty(m_viewProperty, m_previousProperty);
 		  break;
 		}
 	      }

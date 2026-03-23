@@ -576,6 +576,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       QMainWindow::setCentralWidget(m_view);
       m_ideProcessIndicator->setVisible(m_view->isIDEProcessActive());
       m_statusBarTimer.start();
+      m_ui.action_View_Status_Bar->setChecked(m_view->viewStatusBar());
       m_ui.action_View_Tool_Bars->setChecked(m_view->viewToolBars());
       slotToolsOperationChanged(m_view->toolsOperation());
       slotViewStatusBar();
