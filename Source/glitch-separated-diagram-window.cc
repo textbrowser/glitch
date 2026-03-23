@@ -146,6 +146,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotViewStatusBar);
+  connect(m_ui.action_View_Tab_Bar,
+	  &QAction::triggered,
+	  this,
+	  &glitch_separated_diagram_window::slotViewTabBar);
   connect(m_ui.action_View_Tool_Bars,
 	  &QAction::triggered,
 	  this,
@@ -577,6 +581,7 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
       m_ideProcessIndicator->setVisible(m_view->isIDEProcessActive());
       m_statusBarTimer.start();
       m_ui.action_View_Status_Bar->setChecked(m_view->viewStatusBar());
+      m_ui.action_View_Tab_Bar->setChecked(m_view->viewTabBar());
       m_ui.action_View_Tool_Bars->setChecked(m_view->viewToolBars());
       slotToolsOperationChanged(m_view->toolsOperation());
       slotViewStatusBar();
@@ -734,6 +739,7 @@ void glitch_separated_diagram_window::slotPropertySet(void)
 {
   m_ui.action_View_Status_Bar->setChecked
     (m_view ? m_view->viewStatusBar() : true);
+  m_ui.action_View_Tab_Bar->setChecked(m_view ? m_view->viewTabBar() : true);
   m_ui.action_View_Tool_Bars->setChecked
     (m_view ? m_view->viewToolBars() : true);
   m_ui.edit_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
@@ -933,6 +939,12 @@ void glitch_separated_diagram_window::slotViewStatusBar(void)
     (void) 0;
   statusBar() ?
     statusBar()->setVisible(m_ui.action_View_Status_Bar->isChecked()) :
+    (void) 0;
+}
+
+void glitch_separated_diagram_window::slotViewTabBar(void)
+{
+  m_view ? m_view->setViewTabBar(m_ui.action_View_Tab_Bar->isChecked()) :
     (void) 0;
 }
 

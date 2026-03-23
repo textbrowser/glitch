@@ -92,6 +92,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void slotUpload(void);
   void slotVerify(void);
   void slotViewStatusBar(void);
+  void slotViewTabBar(void);
   void slotViewToolBars(void);
   void slotZoom(void);
 

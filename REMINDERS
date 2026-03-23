@@ -246,6 +246,7 @@ Completed Items
 - Object border color.
 - Object numbers should be sequenced.
 - Option: override diagram fonts.
+- Optional tab bar in separated window.
 - Order items by bubbles and coordinates. Orders describe order in
   generated source.
 - Order: top-bottom followed by left-right.
@@ -423,7 +424,6 @@ Remaining Items
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - New dial object for displaying numeric data.
-- Optional tab bar in separated window.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Process JavaScript in separate tasks.

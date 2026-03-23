@@ -77,6 +77,7 @@ class glitch_view: public QWidget
   enum class Properties
   {
     VIEW_STATUS_BAR = 0,
+    VIEW_TAB_BAR,
     VIEW_TOOL_BARS
   };
 
@@ -108,6 +109,7 @@ class glitch_view: public QWidget
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
   bool viewStatusBar(void) const;
+  bool viewTabBar(void) const;
   bool viewToolBars(void) const;
   glitch_common::ProjectTypes projectType(void) const;
   glitch_graphicsview *view(void) const;
@@ -147,6 +149,7 @@ class glitch_view: public QWidget
   void selectAll(void);
   void setProperty(const Properties property, const QVariant &value);
   void setViewStatusBar(const bool state);
+  void setViewTabBar(const bool state);
   void setViewToolBars(const bool state);
   void showCanvasSettings(void) const;
   void showRedoUndoStack(void);

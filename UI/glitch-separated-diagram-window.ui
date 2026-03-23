@@ -91,6 +91,7 @@
     <addaction name="action_Full_Screen"/>
     <addaction name="separator"/>
     <addaction name="action_View_Status_Bar"/>
+    <addaction name="action_View_Tab_Bar"/>
     <addaction name="action_View_Tool_Bars"/>
     <addaction name="separator"/>
     <addaction name="menu_Zoom"/>
@@ -353,6 +354,17 @@
    </property>
    <property name="text">
     <string>Status Bar</string>
+   </property>
+  </action>
+  <action name="action_View_Tab_Bar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tab Bar</string>
    </property>
   </action>
  </widget>
