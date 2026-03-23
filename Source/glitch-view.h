@@ -106,6 +106,7 @@ class glitch_view: public QWidget
   bool contextMenuAllowed(void) const;
   bool hasChanged(void) const;
   bool isIDEProcessActive(void) const;
+  bool isSeparated(void) const;
   bool save(QString &error);
   bool saveAs(const QString &fileName, QString &error);
   bool viewStatusBar(void) const;

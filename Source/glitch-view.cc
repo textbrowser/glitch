@@ -571,6 +571,11 @@ bool glitch_view::isIDEProcessActive(void) const
     m_ideProcess.state() == QProcess::Starting;
 }
 
+bool glitch_view::isSeparated(void) const
+{
+  return qobject_cast<glitch_separated_diagram_window *> (parentWidget());
+}
+
 bool glitch_view::open(const QString &fileName, QString &error)
 {
   QFileInfo const fileInfo(fileName);
@@ -1806,6 +1811,8 @@ void glitch_view::setProperty(const Properties property, const QVariant &value)
       }
     case Properties::VIEW_TAB_BAR:
       {
+	isSeparated() ?
+	  m_ui.tab->tabBar()->setVisible(value.toBool()) : (void) 0;
 	m_properties["view_tab_bar"] = value.toBool();
 	emit propertySet();
 	break;
@@ -2504,6 +2511,7 @@ void glitch_view::slotSelectionChanged(void)
 void glitch_view::slotSeparate(void)
 {
   emit separate(this);
+  m_ui.tab->tabBar()->setVisible(viewTabBar());
 }
 
 void glitch_view::slotShowCanvasSettings(void)
@@ -2656,6 +2664,7 @@ void glitch_view::slotUndoStackChanged(int index)
 void glitch_view::slotUnite(void)
 {
   emit unite(this);
+  m_ui.tab->tabBar()->setVisible(true);
 }
 
 void glitch_view::slotZoomReset(void)
