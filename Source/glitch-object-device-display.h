@@ -41,7 +41,10 @@ class glitch_object_device_display: public glitch_object
 
   QSize minimumSizeHint(void) const
   {
-    return QSize(100, 30);
+    QFontMetrics const fontMetrics(font());
+
+    return QSize(15, 15) +
+      fontMetrics.size(Qt::TextExpandTabs, m_value.toString().trimmed());
   }
 
   QSize sizeHint(void) const

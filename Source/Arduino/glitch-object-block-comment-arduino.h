@@ -40,12 +40,15 @@ class glitch_object_block_comment_arduino: public glitch_object
 
   QSize minimumSizeHint(void) const
   {
-    return QSize(100, 30);
+    QFontMetrics const fontMetrics(font());
+
+    return QSize(15, 15) +
+      fontMetrics.size(Qt::TextExpandTabs, code().trimmed());
   }
 
   QSize sizeHint(void) const
   {
-    return size();
+    return minimumSizeHint();
   }
 
   QString code(void) const;
