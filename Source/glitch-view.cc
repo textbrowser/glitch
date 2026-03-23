@@ -119,6 +119,7 @@ glitch_view::glitch_view
   m_menuAction = new QAction
     (QIcon(":/Logo/glitch-arduino-logo.png"), m_canvasSettings->name(), this);
   m_projectType = projectType;
+  m_properties["view_status_bar"] = true;
   m_properties["view_tool_bars"] = true;
   m_redoUndoStack = nullptr;
   m_resizeSceneTimer.setInterval(500);
@@ -661,6 +662,13 @@ bool glitch_view::open(const QString &fileName, QString &error)
 		    m_properties["splitter_state"] = QByteArray::fromBase64
 		      (string.toLatin1());
 		  }
+		else if(string.startsWith("view_status_bar"))
+		  {
+		    string = string.mid(string.indexOf('=') + 1);
+		    string.remove("\"");
+		    m_properties["view_status_bar"] = QVariant
+		      (QByteArray::fromBase64(string.toLatin1())).toBool();
+		  }
 		else if(string.startsWith("view_tool_bars"))
 		  {
 		    string = string.mid(string.indexOf('=') + 1);
@@ -1026,6 +1034,11 @@ bool glitch_view::saveProperties(void) const
 
   glitch_common::discardDatabase(connectionName);
   return ok;
+}
+
+bool glitch_view::viewStatusBar(void) const
+{
+  return m_properties.value("view_status_bar").toBool();
 }
 
 bool glitch_view::viewToolBars(void) const
@@ -1772,6 +1785,12 @@ void glitch_view::setProperty(const Properties property, const QVariant &value)
 {
   switch(property)
     {
+    case Properties::VIEW_STATUS_BAR:
+      {
+	m_properties["view_status_bar"] = value.toBool();
+	emit propertySet();
+	break;
+      }
     case Properties::VIEW_TOOL_BARS:
       {
 	m_properties["view_tool_bars"] = value.toBool();
@@ -1799,6 +1818,25 @@ void glitch_view::setSceneRect(const QSize &size)
 			       m_view->width() - 2 * m_view->frameWidth())),
      static_cast<double> (qMax(static_cast<int> (b.height()),
 			       m_view->height() - 2 * m_view->frameWidth())));
+}
+
+void glitch_view::setViewStatusBar(const bool state)
+{
+  if(m_properties.value("view_status_bar").toBool() != state)
+    {
+      auto undoCommand = new glitch_undo_command
+	(state,
+	 m_properties.value("view_status_bar").toBool(),
+	 glitch_undo_command::Types::VIEW_PROPERTY_CHANGED,
+	 glitch_view::Properties::VIEW_STATUS_BAR,
+	 this);
+
+      undoCommand->setText(tr("view status-bar changed"));
+      m_undoStack->push(undoCommand);
+      emit changed();
+    }
+
+  m_properties["view_status_bar"] = state;
 }
 
 void glitch_view::setViewToolBars(const bool state)
