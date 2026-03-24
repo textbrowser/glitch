@@ -122,7 +122,6 @@ glitch_view::glitch_view
   m_properties["view_status_bar"] = true;
   m_properties["view_tab_bar"] = true;
   m_properties["view_tool_bars"] = true;
-  m_redoUndoStack = nullptr;
   m_resizeSceneTimer.setInterval(500);
   m_resizeSceneTimer.setSingleShot(true);
   m_rightSplitter = new QSplitter(Qt::Vertical, this);
@@ -467,6 +466,10 @@ QMenu *glitch_view::defaultContextMenu(void)
 			   this,
 			   SLOT(slotShowTools(void)));
   m_contextMenu->addSeparator();
+  action = m_contextMenu->addAction(tr("Resize To Contents"),
+				    this,
+				    SIGNAL(resizeToContents(void)));
+  action->setEnabled(isSeparated());
 #ifndef Q_OS_ANDROID
   action = m_contextMenu->addAction(tr("Se&parate Canvas..."),
 				    this,
@@ -533,6 +536,11 @@ QString glitch_view::source(void) const
 QString glitch_view::undoText(void) const
 {
   return m_undoStack->undoText();
+}
+
+QTabBar *glitch_view::tabBar(void) const
+{
+  return m_ui.tab->tabBar();
 }
 
 QUndoStack *glitch_view::undoStack(void) const

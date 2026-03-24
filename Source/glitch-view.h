@@ -99,6 +99,7 @@ class glitch_view: public QWidget
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;
+  QTabBar *tabBar(void) const;
   QUndoStack *undoStack(void) const;
   bool canRedo(void) const;
   bool canUndo(void) const;
@@ -178,7 +179,6 @@ class glitch_view: public QWidget
   QList<glitch_wire *> m_delayedWires;
   QToolButton *m_tabPullDown;
   bool m_contextMenuAllowed;
-  glitch_redo_undo_stack *m_redoUndoStack;
   glitch_object *find
     (const QList<glitch_object *> &list,
      const qint64 id,
@@ -214,6 +214,7 @@ class glitch_view: public QWidget
   QPointer<glitch_ash> m_ash;
   QPointer<glitch_documentation> m_sourceView;
   QPointer<glitch_find_objects> m_findObjects;
+  QPointer<glitch_redo_undo_stack> m_redoUndoStack;
   QPointer<glitch_scene> m_scene;
   QPointer<glitch_syntax_highlighter> m_sourceViewSyntaxHighlighter;
   QPointer<glitch_tools> m_tools;
@@ -302,6 +303,7 @@ class glitch_view: public QWidget
   void paste(glitch_view *view);
   void preferencesAccepted(void);
   void propertySet(void);
+  void resizeToContents(void);
   void saveSignal(void);
   void saved(void);
   void selectionChanged(void);

@@ -29,9 +29,11 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QProgressBar>
+#include <QScrollBar>
 #include <QSettings>
 #include <QToolButton>
 
+#include "glitch-graphicsview.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-ui.h"
@@ -509,6 +511,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 		 this,
 		 &glitch_separated_diagram_window::slotPropertySet);
       disconnect(m_view,
+		 &glitch_view::resizeToContents,
+		 this,
+		 &glitch_separated_diagram_window::slotResizeToContents);
+      disconnect(m_view,
 		 &glitch_view::saved,
 		 this,
 		 &glitch_separated_diagram_window::slotPageSaved);
@@ -557,6 +563,10 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 	      &glitch_view::propertySet,
 	      this,
 	      &glitch_separated_diagram_window::slotPropertySet);
+      connect(m_view,
+	      &glitch_view::resizeToContents,
+	      this,
+	      &glitch_separated_diagram_window::slotResizeToContents);
       connect(m_view,
 	      &glitch_view::saved,
 	      this,
@@ -762,6 +772,43 @@ void glitch_separated_diagram_window::slotRedo(void)
       m_view->redo();
       prepareRedoUndoActions();
     }
+}
+
+void glitch_separated_diagram_window::slotResizeToContents(void)
+{
+  if(!m_view)
+    return;
+
+  QSizeF size(m_view->size());
+  auto rect(m_view->view()->scene()->itemsBoundingRect());
+
+  if(m_view->view()->isTransformed())
+    rect = m_view->view()->transform().mapRect(rect);
+
+  if(rect.isNull())
+    size = QSizeF(800.0, 600.0);
+  else
+    {
+      size.setHeight
+	(m_view->view()->horizontalScrollBar()->height() +
+	 rect.size().height() +
+	 rect.y());
+      size.setWidth
+	(m_view->view()->verticalScrollBar()->width() +
+	 rect.size().width() +
+	 rect.x());
+    }
+
+  if(m_view->viewTabBar())
+    size.setHeight(m_view->tabBar()->size().height() + size.height());
+
+  if(m_view->viewToolBars())
+    size += m_ui.tools_toolbar->size();
+
+  if(statusBar() && statusBar()->isVisible())
+    size.setHeight(size.height() + statusBar()->size().height());
+
+  resize(size.toSize());
 }
 
 void glitch_separated_diagram_window::slotSaveDiagram(void)
