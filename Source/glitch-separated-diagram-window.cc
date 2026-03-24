@@ -779,7 +779,7 @@ void glitch_separated_diagram_window::slotResizeToContents(void)
   if(!m_view)
     return;
 
-  QSizeF size(m_view->size());
+  QSizeF size;
   auto rect(m_view->view()->scene()->itemsBoundingRect());
 
   if(m_view->view()->isTransformed())
@@ -803,12 +803,13 @@ void glitch_separated_diagram_window::slotResizeToContents(void)
     size.setHeight(m_view->tabBar()->size().height() + size.height());
 
   if(m_view->viewToolBars())
-    size += m_ui.tools_toolbar->size();
+    size.setHeight(m_ui.tools_toolbar->size().height() + size.height());
 
   if(statusBar() && statusBar()->isVisible())
     size.setHeight(size.height() + statusBar()->size().height());
 
-  resize(size.toSize());
+  size.setHeight(menuBar()->size().height() + size.height());
+  resize(QSize(25.0, 25.0) + size.toSize());
 }
 
 void glitch_separated_diagram_window::slotSaveDiagram(void)
