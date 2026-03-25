@@ -283,6 +283,7 @@ class glitch_view: public QWidget
   void slotSceneResized(void);
   void slotSelectItemTab(void);
   void slotSeparate(void);
+  void slotSeparateAndResize(void);
   void slotShowCanvasSettings(void);
   void slotShowEditWindow(QMainWindow *window);
   void slotShowTools(void);
@@ -308,6 +309,7 @@ class glitch_view: public QWidget
   void saved(void);
   void selectionChanged(void);
   void separate(glitch_view *view);
+  void separateAndResize(glitch_view *view);
   void showEditWindow(QMainWindow *window);
   void toolsOperationChanged(const glitch_tools::Operations operation);
   void unite(glitch_view *view);

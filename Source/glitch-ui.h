@@ -159,6 +159,7 @@ class glitch_ui: public QMainWindow
   void restoreSettings(void);
   void saveRecentFile(const QString &fileName);
   void saveSettings(void);
+  void separate(const bool resize, glitch_view *view);
   void setTabText(glitch_view *view);
   void setWindowTitle(glitch_view *view);
   void showStatusBarMessage(const QString &text, const int timeout = 0);
@@ -218,6 +219,7 @@ class glitch_ui: public QMainWindow
   void slotSeparate(QWidget *widget);
   void slotSeparate(glitch_view *view);
   void slotSeparate(void);
+  void slotSeparateAndResize(glitch_view *view);
   void slotSeparatedWindowDestroyed(QObject *object);
   void slotShowAllTools(void);
   void slotShowArduinoDocumentation(void);

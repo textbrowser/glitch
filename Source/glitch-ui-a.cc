@@ -48,7 +48,6 @@
 #include "glitch-preferences.h"
 #include "glitch-recent-diagram.h"
 #include "glitch-recent-diagrams-view.h"
-#include "glitch-separated-diagram-window.h"
 #include "glitch-swifty.h"
 #include "glitch-ui.h"
 #include "glitch-undo-command.h"
@@ -635,6 +634,10 @@ glitch_view_arduino *glitch_ui::newArduinoDiagram
 	  SIGNAL(separate(glitch_view *)),
 	  this,
 	  SLOT(slotSeparate(glitch_view *)));
+  connect(view,
+	  SIGNAL(separateAndResize(glitch_view *)),
+	  this,
+	  SLOT(slotSeparateAndResize(glitch_view *)));
   connect(view,
 	  SIGNAL(toolsOperationChanged(const glitch_tools::Operations)),
 	  this,
@@ -2445,69 +2448,12 @@ void glitch_ui::slotSeparate(QWidget *widget)
 
 void glitch_ui::slotSeparate(glitch_view *view)
 {
-  if(!view)
-    {
-      /*
-      ** Separation via a drag from the tab bar.
-      */
+  separate(false, view);
+}
 
-      if(m_separatedWindow)
-	{
-	  m_separatedWindow->move(QCursor::pos() + QPoint(10, 10));
-	  m_separatedWindow->showNormal();
-	  m_separatedWindow->activateWindow();
-	  m_separatedWindow->raise();
-	}
-
-      m_separatedWindow = nullptr;
-      return;
-    }
-
-  m_ui.tab->removeTab(m_ui.tab->indexOf(view));
-
-  auto window = new glitch_separated_diagram_window(this);
-
-  connect(m_preferences,
-	  &glitch_preferences::accepted,
-	  window,
-	  &glitch_separated_diagram_window::slotPreferencesAccepted);
-  connect(window,
-	  SIGNAL(copy(glitch_view *)),
-	  this,
-	  SLOT(slotCopy(glitch_view *)));
-  connect(window,
-	  SIGNAL(destroyed(QObject *)),
-	  this,
-	  SLOT(slotSeparatedWindowDestroyed(QObject *)),
-	  Qt::QueuedConnection);
-  connect(window,
-	  SIGNAL(paste(glitch_view *)),
-	  this,
-	  SLOT(slotPaste(glitch_view *)));
-  m_separatedWindow = m_separatedWindows[window] = window;
-  window->setCentralWidget(view);
-  view->separate();
-  view->show();
-  window->resize(view->size());
-
-  if(view->hasChanged())
-    window->setWindowTitle(tr("Glitch: %1 (*)").arg(view->fileNameOrName()));
-  else
-    window->setWindowTitle(tr("Glitch: %1").arg(view->fileNameOrName()));
-
-  if(qobject_cast<QTabWidget *> (sender()))
-    m_separatedWindow = window;
-  else
-    window->show();
-
-  prepareActionWidgets();
-  prepareStatusBar();
-  prepareTab();
-  prepareTabShortcuts();
-  setWindowTitle(nullptr);
-  slotAboutToShowTabsMenu();
-  window->activateWindow();
-  window->raise();
+void glitch_ui::slotSeparateAndResize(glitch_view *view)
+{
+  separate(true, view);
 }
 
 void glitch_ui::slotShowAllTools(void)

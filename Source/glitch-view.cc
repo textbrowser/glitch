@@ -480,6 +480,16 @@ QMenu *glitch_view::defaultContextMenu(void)
   else
     action->setEnabled(true);
 
+  action = m_contextMenu->addAction
+    (tr("Separate Canvas (Resized To Contents)..."),
+     this,
+     SLOT(slotSeparateAndResize(void)));
+
+  if(qobject_cast<QMainWindow *> (parentWidget()))
+    action->setEnabled(false);
+  else
+    action->setEnabled(true);
+
   action = m_contextMenu->addAction(tr("&Unite Canvas"),
 				    this,
 				    SLOT(slotUnite(void)));
@@ -1563,6 +1573,12 @@ void glitch_view::prepareDefaultActions(void)
 	  this,
 	  &glitch_view::slotSeparate);
   m_defaultActions << action;
+  action = new QAction(tr("Separate Canvas (Resize To Contents)..."), this);
+  connect(action,
+	  &QAction::triggered,
+	  this,
+	  &glitch_view::slotSeparateAndResize);
+  m_defaultActions << action;
   action = new QAction(tr("&User Functions..."), this);
   connect(action,
 	  &QAction::triggered,
@@ -2519,6 +2535,12 @@ void glitch_view::slotSelectionChanged(void)
 void glitch_view::slotSeparate(void)
 {
   emit separate(this);
+  m_ui.tab->tabBar()->setVisible(viewTabBar());
+}
+
+void glitch_view::slotSeparateAndResize(void)
+{
+  emit separateAndResize(this);
   m_ui.tab->tabBar()->setVisible(viewTabBar());
 }
 
