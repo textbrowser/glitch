@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with device readers and natural language processors!
 
 <b>Version 2025.12.25 is the newest LTS release.</b><br>
-<b>Version 2026.03.20 is the newest source release.</b>
+<b>Version 2026.03.28 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,18 @@ Now with device readers and natural language processors!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2026.03.28</p>
+<ul>
+<li>Improved minimumSizeHint() of comment and device-display
+  widgets by considering the dimensions of the widget text.</li>
+<li>New resize-to-contents context menu options for a separated
+  canvas.</li>
+<li>New scroll-bar policies. Please see
+  Canvas Settings -> Canvas.</li>
+<li>Optional status bars for separated canvases.</li>
+<li>Optional tab bars for separated canvases.</li>
+</ul>
 
 <p>2026.03.20</p>
 <ul>
