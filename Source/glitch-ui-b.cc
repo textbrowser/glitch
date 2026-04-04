@@ -175,7 +175,7 @@ void glitch_ui::prepareTab(void)
 #ifdef Q_OS_ANDROID
   return;
 #endif
-  const int index = m_ui.tab->indexOf(m_recentDiagramsView);
+  auto const index = m_ui.tab->indexOf(m_recentDiagramsView);
 
   if(index == -1)
     return;
