@@ -194,7 +194,7 @@ void glitch_ui::prepareTab(void)
       if(button == nullptr || button->objectName() == "recent-diagrams")
 	continue;
 
-      m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater();
+      button->deleteLater();
       m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
     }
 
