@@ -428,5 +428,6 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
+- Remove processEvents().
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.
