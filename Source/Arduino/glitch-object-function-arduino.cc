@@ -1159,12 +1159,9 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       auto text(dialog.textValue().remove("(").remove(")").trimmed());
 
       if(text.isEmpty())
@@ -1203,6 +1200,4 @@ void glitch_object_function_arduino::slotSetFunctionName(void)
       setEditWindowTitle(text);
       emit nameChanged(text, name, this);
     }
-  else
-    QApplication::processEvents();
 }
