@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with device readers and natural language processors!
 
 <b>Version 2025.12.25 is the newest LTS release.</b><br>
-<b>Version 2026.03.28 is the newest source release.</b>
+<b>Version 2026.04.04 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,16 @@ Now with device readers and natural language processors!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2026.04.04</p>
+<ul>
+<li>Corrected tab button preparation. As the pages in the main
+  tab bar are movable, we cannot assume that the Recent Diagrams
+  page resides at index zero.</li>
+<li>Removed all instances of QCoreApplication::processEvents(). This
+  method may cause strange behavior with respect to deleted
+  objects.</li>
+</ul>
 
 <p>2026.03.28</p>
 <ul>
