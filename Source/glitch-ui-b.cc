@@ -175,29 +175,29 @@ void glitch_ui::prepareTab(void)
 #ifdef Q_OS_ANDROID
   return;
 #endif
+  const int index = m_ui.tab->indexOf(m_recentDiagramsView);
+
+  if(index == -1)
+    return;
+
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.tab->setTabsClosable(m_ui.tab->count() > 1);
 
   QList<QTabBar::ButtonPosition> const static list
     (QList<QTabBar::ButtonPosition> () << QTabBar::LeftSide
                                        << QTabBar::RightSide);
-  const int index = 0;
-  int c = 0;
 
   for(int i = 0; i < list.size(); i++)
     {
       auto button = m_ui.tab->tabBar()->tabButton(index, list.at(i));
 
-      button && button->objectName() != "recent-diagrams" ?
-	(c += 1,
-	 m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater()) :
-	(void) 0;
-      button && button->objectName() != "recent-diagrams" ?
-	m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr) :
-	(void) 0;
+      if(button == nullptr || button->objectName() == "recent-diagrams")
+	continue;
+
+      m_ui.tab->tabBar()->tabButton(index, list.at(i))->deleteLater();
+      m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
     }
 
-  c > 0 ? QApplication::processEvents() : (void) 0;
   QApplication::restoreOverrideCursor();
 }
 

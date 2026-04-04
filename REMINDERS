@@ -294,6 +294,7 @@ Completed Items
 - Remove functions from User Functions on redo / undo.
 - Remove logical operator as it duplicates boolean operator.
 - Remove missing diagram files.
+- Remove processEvents().
 - Remove tabbed page after its object is deleted via another diagram.
 - Reopen child windows after undo of delete. Probably not pleasant if there
   are numerous windows. Not necessary
@@ -428,6 +429,5 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
-- Remove processEvents().
 - Resizing after a font is difficult because of redo / undo.
 - Snap-to-visible-grid.

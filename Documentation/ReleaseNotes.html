@@ -1,5 +1,22 @@
 <html>
   <body>
+    <h4><u>2026.04.04 Release</u></h4>
+    <p>
+      <b>Corrections</b>
+      <ul>
+	<li>Corrected tab button preparation. As the pages in the main
+	  tab bar are movable, we cannot assume that the Recent Diagrams
+	  View resides at index zero.</li>
+      </ul>
+    </p>
+    <p>
+      <b>New</b>
+      <ul>
+	<li>Removed all instances of QCoreApplication::processEvents(). This
+	  method may cause strange behavior with respect to deleted
+	  objects.</li>
+      </ul>
+    </p>
     <h4><u>2026.03.28 Release</u></h4>
     <p>
       <b>New</b>
