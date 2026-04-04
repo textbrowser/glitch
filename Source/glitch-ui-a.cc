@@ -550,8 +550,6 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 glitch_view_arduino *glitch_ui::newArduinoDiagram
 (const QString &fileName, const QString &n, const bool fromFile)
 {
-  QApplication::processEvents();
-
   auto name(n);
 
   name.remove("(*)");
@@ -722,16 +720,11 @@ void glitch_ui::closeEvent(QCloseEvent *event)
 	    mb.setWindowModality(Qt::ApplicationModal);
 	    mb.setWindowTitle(tr("Glitch: Confirmation"));
 	    m_ui.tab->setCurrentWidget(view);
-	    QApplication::processEvents();
 
 	    if(mb.exec() == QMessageBox::Yes)
-	      {
-		QApplication::processEvents();
-		break;
-	      }
+	      break;
 	    else
 	      {
-		QApplication::processEvents();
 		event->ignore();
 		return;
 	      }
@@ -806,7 +799,6 @@ void glitch_ui::copy(glitch_object *object)
 
 void glitch_ui::parseCommandLineArguments(void)
 {
-  QApplication::processEvents();
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
   auto const list(QApplication::arguments());
@@ -864,8 +856,6 @@ void glitch_ui::parseCommandLineArguments(void)
 		   << list.at(i)
 		   << tr(" is not supported.");
       }
-
-  QApplication::processEvents();
 
   for(int i = 1; i < list.size(); i++)
     if(list.at(i) == "--generate-source")
@@ -1578,7 +1568,6 @@ void glitch_ui::show(void)
   */
 
   repaint();
-  QApplication::processEvents();
 
   if(isFullScreen())
     m_ui.action_Full_Screen->setText(tr("&Normal Screen"));
@@ -1600,20 +1589,16 @@ void glitch_ui::show(void)
 	  ("The SQLite database driver is not available. Please resolve!");
 
       QMessageBox::critical(this, tr("Glitch: Error"), string);
-      QApplication::processEvents();
     }
 
   QFileInfo const fileInfo(glitch_variety::homePath());
 
   if(!fileInfo.isReadable() || !fileInfo.isWritable())
-    {
-      QMessageBox::critical
-	(this,
-	 tr("Glitch: Error"),
-	 tr("Glitch's home directory %1 must be readable and writable.").
-	 arg(glitch_variety::homePath()));
-      QApplication::processEvents();
-    }
+    QMessageBox::critical
+      (this,
+       tr("Glitch: Error"),
+       tr("Glitch's home directory %1 must be readable and writable.").
+       arg(glitch_variety::homePath()));
 
   parseCommandLineArguments();
 }
@@ -1710,15 +1695,9 @@ void glitch_ui::slotCloseDiagram(int index)
 	  mb.setWindowIcon(windowIcon());
 	  mb.setWindowModality(Qt::ApplicationModal);
 	  mb.setWindowTitle(tr("Glitch: Confirmation"));
-	  QApplication::processEvents();
 
 	  if(mb.exec() != QMessageBox::Yes)
-	    {
-	      QApplication::processEvents();
-	      return;
-	    }
-
-	  QApplication::processEvents();
+	    return;
 	}
 
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1828,7 +1807,6 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
     }
 
   m_delayedDiagrams.clear();
-  QApplication::processEvents();
 
   if(!errors.isEmpty())
     {
@@ -1841,9 +1819,7 @@ void glitch_ui::slotDelayedOpenDiagrams(void)
 #ifdef Q_OS_ANDROID
       dialog.showMaximized();
 #endif
-      QApplication::processEvents();
       dialog.exec();
-      QApplication::processEvents();
     }
 
   if(state)
@@ -2113,17 +2089,11 @@ void glitch_ui::slotNewArduinoDiagram(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() != QDialog::Accepted)
-    {
-      QApplication::processEvents();
-      return;
-    }
+    return;
   else
     name = dialog.textValue().trimmed();
-
-  QApplication::processEvents();
 
   if(name.isEmpty())
     name = "Arduino-Diagram";
@@ -2143,16 +2113,12 @@ void glitch_ui::slotNewArduinoDiagram(void)
       mb.setWindowIcon(windowIcon());
       mb.setWindowModality(Qt::ApplicationModal);
       mb.setWindowTitle(tr("Glitch: Confirmation"));
-      QApplication::processEvents();
 
       if(mb.exec() != QMessageBox::Yes)
 	{
-	  QApplication::processEvents();
 	  QTimer::singleShot(250, this, &glitch_ui::slotNewArduinoDiagram);
 	  return;
 	}
-
-      QApplication::processEvents();
     }
 
   QFile::remove(fileName);
@@ -2175,12 +2141,9 @@ void glitch_ui::slotOpenDiagram(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       QString errors("");
       auto const list(dialog.selectedFiles());
       auto ok = true;
@@ -2212,13 +2175,9 @@ void glitch_ui::slotOpenDiagram(void)
 #ifdef Q_OS_ANDROID
 	  dialog.showMaximized();
 #endif
-	  QApplication::processEvents();
 	  dialog.exec();
-	  QApplication::processEvents();
 	}
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_ui::slotOpenRecentDiagram(void)
@@ -2244,9 +2203,7 @@ void glitch_ui::slotOpenRecentDiagram(void)
 #ifdef Q_OS_ANDROID
       dialog.showMaximized();
 #endif
-      QApplication::processEvents();
       dialog.exec();
-      QApplication::processEvents();
     }
 }
 
@@ -2365,12 +2322,9 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 #ifdef Q_OS_ANDROID
       dialog.showMaximized();
 #endif
-      QApplication::processEvents();
 
       if(dialog.exec() == QDialog::Accepted)
 	{
-	  QApplication::processEvents();
-
 	  QString error("");
 	  auto fileName(dialog.selectedFiles().value(0));
 
@@ -2387,8 +2341,6 @@ void glitch_ui::slotSaveCurrentDiagramAs(void)
 	      setWindowTitle(view);
 	    }
 	}
-      else
-	QApplication::processEvents();
     }
 }
 
