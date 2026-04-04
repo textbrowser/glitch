@@ -1041,7 +1041,6 @@ void glitch_object_edit_window::slotPrint(void)
       dialog->showMaximized();
 #endif
       dialog->exec();
-      QApplication::processEvents();
     }
 }
 
