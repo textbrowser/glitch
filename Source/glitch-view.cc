@@ -1470,7 +1470,6 @@ void glitch_view::print(void)
   dialog->showMaximized();
 #endif
   dialog->exec();
-  QApplication::processEvents();
 }
 
 void glitch_view::populateToolsMenu(QMenu *menu, QWidget *parent)
@@ -1691,7 +1690,6 @@ void glitch_view::prepareTabWidgetCloseButtons(void)
       m_ui.tab->tabBar()->setTabButton(index, list.at(i), nullptr);
     }
 
-  QApplication::processEvents();
   QApplication::restoreOverrideCursor();
 }
 
@@ -2198,11 +2196,9 @@ void glitch_view::slotFonts(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
       auto began = false;
@@ -2224,8 +2220,6 @@ void glitch_view::slotFonts(void)
 
       QApplication::restoreOverrideCursor();
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_view::slotFunctionAdded(const QString &name, const bool isClone)
@@ -2429,12 +2423,9 @@ void glitch_view::slotSaveAs(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       QString error("");
 
       if(!saveAs(dialog.selectedFiles().value(0), error))
@@ -2444,8 +2435,6 @@ void glitch_view::slotSaveAs(void)
       else
 	emit saved();
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_view::slotSaveSnap(void)
@@ -2510,10 +2499,7 @@ void glitch_view::slotSelectedWidgetsProperties(void)
       mb.setWindowTitle(tr("Glitch: Confirmation"));
 
       if(mb.exec() == QMessageBox::No)
-	{
-	  QApplication::processEvents();
-	  return;
-	}
+	return;
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -2558,7 +2544,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
       if(w && w->isVisible() == false)
 	{
 	  w->close();
-	  QApplication::processEvents();
 	  m_ui.tab->removeTab(m_ui.tab->indexOf(w));
 	  prepareTabWidgetCloseButtons();
 	  w->object() ? w->object()->createEditObjects() : (void) 0;
@@ -2583,7 +2568,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
 		     &glitch_view::slotEditWindowClosed);
 	  w->close();
 	  w->prepareForTab(true);
-	  QApplication::processEvents();
 	  m_ui.tab->addTab(w, w->windowTitle());
 	  m_ui.tab->setCurrentIndex(m_ui.tab->count() - 1);
 	  m_ui.tab->setTabToolTip(m_ui.tab->indexOf(w), w->windowTitle());
@@ -2597,8 +2581,6 @@ void glitch_view::slotShowEditWindow(QMainWindow *window)
     }
   else
     m_ui.tab->setCurrentIndex(index);
-
-  QApplication::processEvents();
 }
 
 void glitch_view::slotShowFind(void)
