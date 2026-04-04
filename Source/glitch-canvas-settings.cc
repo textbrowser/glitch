@@ -1531,19 +1531,14 @@ void glitch_canvas_settings::slotSelectColor(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       auto const color(dialog.selectedColor());
 
       button->setText(color.name(QColor::HexArgb));
       glitch_variety::assignImage(button, color);
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_canvas_settings::slotSelectProjectIDE(void)
@@ -1561,18 +1556,14 @@ void glitch_canvas_settings::slotSelectProjectIDE(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
       m_ui.project_ide->setText(dialog.selectedFiles().value(0));
       m_ui.project_ide->setToolTip(m_ui.project_ide->text().trimmed());
       m_ui.project_ide->setCursorPosition(0);
       m_ui.project_ide->selectAll();
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_canvas_settings::slotSpecialCopy(void)

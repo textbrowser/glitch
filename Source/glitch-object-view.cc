@@ -403,12 +403,7 @@ void glitch_object_view::slotSelectedWidgetsProperties(void)
       mb.setWindowTitle(tr("Glitch: Confirmation"));
 
       if(mb.exec() == QMessageBox::No)
-	{
-	  QApplication::processEvents();
-	  return;
-	}
-      else
-	QApplication::processEvents();
+	return;
     }
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

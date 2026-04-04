@@ -220,12 +220,9 @@ void glitch_object_block_comment_arduino::slotSetCommentText(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       if(m_undoStack)
 	{
 	  auto undoCommand = new glitch_undo_command
@@ -245,6 +242,4 @@ void glitch_object_block_comment_arduino::slotSetCommentText(void)
 
       emit changed();
     }
-  else
-    QApplication::processEvents();
 }

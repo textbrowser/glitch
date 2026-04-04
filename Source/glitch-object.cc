@@ -2443,8 +2443,6 @@ void glitch_object::slotPortColorsApplied(void)
 {
   if(m_portColors)
     {
-      QApplication::processEvents();
-
       auto const before
 	(m_properties.value(Properties::PORT_COLORS).toString());
 
@@ -2561,12 +2559,9 @@ void glitch_object::slotSelectColor(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
-
       auto const color(dialog.selectedColor());
 
       if(m_undoStack)
@@ -2588,8 +2583,6 @@ void glitch_object::slotSelectColor(void)
 
       emit changed();
     }
-  else
-    QApplication::processEvents();
 }
 
 void glitch_object::slotSelectFont(void)
@@ -2602,15 +2595,9 @@ void glitch_object::slotSelectFont(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
-    {
-      QApplication::processEvents();
-      slotPropertyChanged("font", dialog.selectedFont());
-    }
-  else
-    QApplication::processEvents();
+    slotPropertyChanged("font", dialog.selectedFont());
 }
 
 void glitch_object::slotSetFont(void)
@@ -2624,8 +2611,6 @@ void glitch_object::slotSetFont(void)
 	widget->setFont(font);
 	widget->updateGeometry();
       }
-
-  QApplication::processEvents();
 
   if(!isMandatory())
     resize(m_sizeBeforeFontChange);
@@ -2654,7 +2639,6 @@ void glitch_object::slotSetPortColors(void)
 #else
   m_portColors->showMaximized();
 #endif
-  QApplication::processEvents();
 }
 
 void glitch_object::slotSetStyleSheet(void)
@@ -2666,11 +2650,9 @@ void glitch_object::slotSetStyleSheet(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted && dialog.styleSheet() != string)
     {
-      QApplication::processEvents();
       setStyleSheet(dialog.styleSheet());
 
       if(m_undoStack)
@@ -2687,15 +2669,11 @@ void glitch_object::slotSetStyleSheet(void)
       emit changed();
     }
   else
-    {
-      QApplication::processEvents();
+    /*
+    ** Reset. Perhaps a preview?
+    */
 
-      /*
-      ** Reset. Perhaps a preview?
-      */
-
-      setStyleSheet(string);
-    }
+    setStyleSheet(string);
 }
 
 void glitch_object::slotShowContextMenu(void)

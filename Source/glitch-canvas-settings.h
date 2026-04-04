@@ -104,7 +104,6 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
 #ifdef Q_OS_ANDROID
     dialog.showMaximized();
 #endif
-    QApplication::processEvents();
 
     if(dialog.exec() == QDialog::Accepted &&
        m_index.isValid() &&

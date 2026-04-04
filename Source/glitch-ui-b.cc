@@ -370,9 +370,7 @@ void glitch_ui::slotOpenDiagram(const QString &fileName)
 #ifdef Q_OS_ANDROID
       dialog.showMaximized();
 #endif
-      QApplication::processEvents();
       dialog.exec();
-      QApplication::processEvents();
     }
 }
 
@@ -423,11 +421,9 @@ void glitch_ui::slotSaveAsPNG(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
       QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
       auto const image(m_currentView->snap());
