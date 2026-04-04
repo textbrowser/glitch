@@ -210,12 +210,9 @@ void glitch_separated_diagram_window::closeEvent(QCloseEvent *event)
 
       if(mb.exec() != QMessageBox::Yes)
 	{
-	  QApplication::processEvents();
 	  event->ignore();
 	  return;
 	}
-
-      QApplication::processEvents();
     }
 
   deleteLater();
