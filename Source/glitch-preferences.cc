@@ -232,16 +232,10 @@ void glitch_preferences::slotSelectFont(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
-    {
-      QApplication::processEvents();
-      m_ui.display_application_font->setText
-	(dialog.selectedFont().toString().trimmed());
-    }
-  else
-    QApplication::processEvents();
+    m_ui.display_application_font->setText
+      (dialog.selectedFont().toString().trimmed());
 }
 
 void glitch_preferences::slotSelectOutputDirectory(void)
@@ -258,11 +252,9 @@ void glitch_preferences::slotSelectOutputDirectory(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
       m_ui.output_directory->setText(dialog.selectedFiles().value(0));
       m_ui.output_directory->setCursorPosition(0);
       m_ui.output_directory->selectAll();
