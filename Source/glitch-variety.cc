@@ -329,7 +329,6 @@ void glitch_variety::showErrorDialog(const QString &text, QWidget *parent)
   mb.setWindowModality(Qt::ApplicationModal);
   mb.setWindowTitle(QObject::tr("Glitch: Error"));
   mb.exec();
-  QApplication::processEvents();
 }
 
 void glitch_variety::sortCombinationBox(QComboBox *comboBox)
