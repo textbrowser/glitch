@@ -1088,7 +1088,7 @@ void glitch_object::createEditObjects(void)
   if(m_editWindow)
     {
       m_editWindow->deleteLater();
-      QApplication::processEvents();
+      m_editWindow = nullptr;
     }
 }
 
