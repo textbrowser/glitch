@@ -150,14 +150,10 @@ void glitch_port_colors::slotSelectColor(void)
 #ifdef Q_OS_ANDROID
   dialog.showMaximized();
 #endif
-  QApplication::processEvents();
 
   if(dialog.exec() == QDialog::Accepted)
     {
-      QApplication::processEvents();
       button->setText(dialog.selectedColor().name(QColor::HexArgb));
       glitch_variety::assignImage(button, dialog.selectedColor());
     }
-  else
-    QApplication::processEvents();
 }
