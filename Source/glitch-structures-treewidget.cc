@@ -191,7 +191,6 @@ void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
 	(item->parent() ?
 	 item->parent()->icon(0).pixmap(QSize(48, 48)) : QPixmap());
       drag->exec(Qt::CopyAction);
-      QApplication::processEvents();
     }
 
   QApplication::restoreOverrideCursor();
