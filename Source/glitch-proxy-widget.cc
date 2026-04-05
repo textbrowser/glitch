@@ -124,7 +124,15 @@ QVariant glitch_proxy_widget::itemChange
       }
     case QGraphicsItem::ItemPositionChange:
       {
-	return value;
+	if(!m_scene)
+	  m_scene = qobject_cast<glitch_scene *> (scene());
+
+	if(m_scene && m_scene->snapToGrid())
+	  {
+	    return value;
+	  }
+
+	break;
       }
     case QGraphicsItem::ItemSelectedChange:
       {
