@@ -172,6 +172,7 @@ class glitch_canvas_settings: public QDialog
     SHOW_ORDER_INDICATORS,
     SHOW_PREVIEW,
     SHOW_STRUCTURES_TREE_WIDGET,
+    SNAP_TO_GRID,
     TABBED_EDIT_WINDOWS,
     TAB_POSITION_INDEX,
     VERTICAL_SCROLLBAR_POLICY,
@@ -213,6 +214,7 @@ class glitch_canvas_settings: public QDialog
   bool showOrderIndicators(void) const;
   bool showPreview(void) const;
   bool showStructuresTreeWidget(void) const;
+  bool snapToGrid(void) const;
   bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
   int adjustedTabPositionIndexFromIndex(const int index) const;
