@@ -72,6 +72,7 @@ class glitch_scene: public QGraphicsScene
   bool objectToBeWired(glitch_proxy_widget *proxy) const;
   bool objectToBeWiredIn(glitch_proxy_widget *proxy) const;
   bool objectToBeWiredOut(glitch_proxy_widget *proxy) const;
+  bool snapToGrid(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);
   glitch_tools::Operations toolsOperation(void) const;
   int objectOrder(glitch_proxy_widget *proxy) const;

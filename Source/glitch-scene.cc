@@ -409,6 +409,15 @@ bool glitch_scene::objectToBeWiredOut(glitch_proxy_widget *proxy) const
   return false;
 }
 
+bool glitch_scene::snapToGrid(void) const
+{
+  if(!m_canvasSettings)
+    return false;
+
+  return backgroundBrush().color() != m_dotsGridsColor &&
+    m_canvasSettings->snapToGrid();
+}
+
 glitch_proxy_widget *glitch_scene::addObject(glitch_object *object)
 {
   if(!object || object->proxy() || object->scene() == this)
