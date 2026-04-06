@@ -795,6 +795,9 @@ void glitch_canvas_settings::alterDatabase(void) const
 	  ("ALTER TABLE canvas_settings ADD show_structures_tree_widget "
 	   "INTEGER NOT NULL DEFAULT 1");
 	query.exec
+	  ("ALTER TABLE canvas_settings ADD snap_to_grid "
+	   "INTEGER NOT NULL DEFAULT 0");
+	query.exec
 	  ("ALTER TABLE canvas_settings ADD tab_position_index "
 	   "INTEGER NOT NULL DEFAULT -1");
 	query.exec
