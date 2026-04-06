@@ -62,7 +62,8 @@ glitch_undo_command::glitch_undo_command
  QUndoCommand *parent):QUndoCommand(parent)
 {
   m_currentFunctionReturnPointer = false;
-  m_currentPosition = proxy ? proxy->scenePos() : QPointF();
+  m_currentPosition = proxy && scene ?
+    scene->pointToGrid(proxy->scenePos()) : QPointF();
   m_previousFunctionReturnPointer = false;
   m_previousPosition = previousPosition;
   m_property = glitch_object::Properties::Z_Z_Z_PROPERTY;

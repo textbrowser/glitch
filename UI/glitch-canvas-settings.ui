@@ -395,7 +395,7 @@
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show an interactive canvas preview. The preview is situated to the right of the canvas.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
-              <string>Snap items to grid while dragging.</string>
+              <string>Snap items to grid.</string>
              </property>
             </widget>
            </item>

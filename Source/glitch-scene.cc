@@ -190,6 +190,15 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   return widgets;
 }
 
+QPointF glitch_scene::pointToGrid(const QPointF &point) const
+{
+  if(!snapToGrid())
+    return point;
+
+  return QPointF(m_gridSize * round(point.x() / m_gridSize),
+		 m_gridSize * round(point.y() / m_gridSize));
+}
+
 QPointer<QUndoStack> glitch_scene::undoStack(void) const
 {
   return m_undoStack;
@@ -667,7 +676,7 @@ void glitch_scene::artificialDrop
     {
       addItem(proxy);
       proxy->blockSignals(true);
-      proxy->setPos(point);
+      proxy->setPos(pointToGrid(point));
       proxy->blockSignals(false);
     }
   else
@@ -1066,7 +1075,7 @@ void glitch_scene::dropEvent(QGraphicsSceneDragDropEvent *event)
 		addItem(proxy);
 
 	      object->resize(object->sizeHint());
-	      proxy->setPos(event->scenePos());
+	      proxy->setPos(pointToGrid(event->scenePos()));
 	      emit changed();
 	    }
 	  else
@@ -1371,7 +1380,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	    }
 
 	  moved = true;
-	  proxy->setPos(point);
+	  proxy->setPos(point); // Do not snap-to-grid.
 	  proxy->showResizeHelpers(false);
 	}
 
@@ -1733,7 +1742,7 @@ void glitch_scene::paste
 		addItem(proxy);
 
 	      object->afterPaste();
-	      proxy->setPos(point);
+	      proxy->setPos(pointToGrid(point));
 	      proxy->setSelected(true);
 	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
 		(proxy->scenePos(), proxy);
@@ -1780,7 +1789,7 @@ void glitch_scene::paste
 		addItem(proxy);
 
 	      object->afterPaste();
-	      proxy->setPos(p);
+	      proxy->setPos(pointToGrid(p));
 	      proxy->setSelected(true);
 	      m_movedPoints << QPair<QPointF, glitch_proxy_widget *>
 		(proxy->scenePos(), proxy);

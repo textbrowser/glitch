@@ -775,7 +775,9 @@ bool glitch_view::open(const QString &fileName, QString &error)
 				objects[object->id()] = object;
 				parents[id] = object;
 				proxy->setPos
-				  (glitch_variety::dbPointToPointF(point));
+				  (m_scene->
+				   pointToGrid(glitch_variety::
+					       dbPointToPointF(point)));
 			      }
 			    else
 			      object->deleteLater();

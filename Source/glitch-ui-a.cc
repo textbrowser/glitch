@@ -959,7 +959,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 		(glitch_undo_command::Types::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
-	      proxy->setPos(point);
+	      proxy->setPos(scene->pointToGrid(point));
 	    }
 	  else
 	    object->deleteLater();
@@ -997,7 +997,7 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
 		(glitch_undo_command::Types::ITEM_ADDED, proxy, scene);
 
 	      undoStack->push(undoCommand);
-	      proxy->setPos(p);
+	      proxy->setPos(scene->pointToGrid(p));
 	    }
 	  else
 	    object->deleteLater();

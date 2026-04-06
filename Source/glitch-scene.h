@@ -64,6 +64,7 @@ class glitch_scene: public QGraphicsScene
     return m_lastHoverScenePos;
   }
 
+  QPointF pointToGrid(const QPointF &point) const;
   QPointer<QUndoStack> undoStack(void) const;
   QPointer<glitch_canvas_settings> canvasSettings(void) const;
   QSet<glitch_wire *> wires(void) const;
@@ -72,7 +73,6 @@ class glitch_scene: public QGraphicsScene
   bool objectToBeWired(glitch_proxy_widget *proxy) const;
   bool objectToBeWiredIn(glitch_proxy_widget *proxy) const;
   bool objectToBeWiredOut(glitch_proxy_widget *proxy) const;
-  bool snapToGrid(void) const;
   glitch_proxy_widget *addObject(glitch_object *object);
   glitch_tools::Operations toolsOperation(void) const;
   int objectOrder(glitch_proxy_widget *proxy) const;
@@ -126,6 +126,7 @@ class glitch_scene: public QGraphicsScene
   qreal m_gridSize;
   QGraphicsView *primaryView(void) const;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
+  bool snapToGrid(void) const;
   void bringToFront(glitch_proxy_widget *proxy);
   void deleteFunctionClones(const QString &name);
   void disconnectWireIfNecessary(glitch_wire *wire);
