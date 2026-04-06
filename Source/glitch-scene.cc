@@ -180,10 +180,10 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
     {
       auto proxy = qgraphicsitem_cast<glitch_proxy_widget *> (i);
 
-      if(proxy &&
-	 proxy->flags() & QGraphicsItem::ItemIsSelectable &&
-	 proxy->isSelected() &&
-	 proxy->widget())
+      if((proxy) &&
+	 (proxy->flags() & QGraphicsItem::ItemIsSelectable) &&
+	 (proxy->isSelected()) &&
+	 (proxy->widget()))
 	widgets << qobject_cast<glitch_object *> (proxy->widget());
     }
 
@@ -1287,9 +1287,9 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	(QApplication::instance());
       auto objects(selectedObjects());
 
-      if(instance &&
-	 instance->keyboardModifiers() & Qt::ControlModifier &&
-	 objects.size() > 0)
+      if((instance) &&
+	 (instance->keyboardModifiers() & Qt::ControlModifier) &&
+	 (objects.size() > 0))
 	{
 	  /*
 	  ** Drag and copy.
@@ -1448,8 +1448,8 @@ void glitch_scene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 		      auto instance = qobject_cast<QGuiApplication *>
 			(QApplication::instance());
 
-		      if(instance &&
-			 instance->keyboardModifiers() & Qt::ControlModifier)
+		      if((instance) &&
+			 (instance->keyboardModifiers() & Qt::ControlModifier))
 			{
 			  wireDisconnectObjects(event->scenePos(), proxy);
 			  goto done_label;

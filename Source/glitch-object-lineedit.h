@@ -67,8 +67,8 @@ class glitch_object_lineedit: public QLineEdit
       case Qt::Key_C:
       case Qt::Key_V:
 	{
-	  if(glitch_variety::keyboardModifiers() & Qt::ControlModifier &&
-	     isReadOnly())
+	  if((glitch_variety::keyboardModifiers() & Qt::ControlModifier) &&
+	     (isReadOnly()))
 	    {
 	      event->ignore();
 	      return;

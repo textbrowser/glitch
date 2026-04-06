@@ -66,8 +66,8 @@ QList<glitch_object *> glitch_ui::copySelected
       if(!proxy || proxy->isMandatory())
 	continue;
       else if((!(proxy->flags() & QGraphicsItem::ItemIsSelectable) ||
-	       !proxy->isSelected()) &&
-	      selected)
+	       !(proxy->isSelected())) &&
+	      (selected))
 	continue;
 
       auto object = proxy->object();

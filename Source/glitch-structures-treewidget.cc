@@ -158,7 +158,7 @@ void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
 {
   auto instance = qobject_cast<QGuiApplication *> (QApplication::instance());
 
-  if(instance && instance->mouseButtons() & Qt::LeftButton)
+  if((instance) && (instance->mouseButtons() & Qt::LeftButton))
     {
       auto item = selectedItems().value(0);
 
