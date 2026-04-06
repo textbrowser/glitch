@@ -354,6 +354,7 @@ Completed Items
 - Show statistics in ASH::list.
 - Show tooltip source of editable widgets. A source preview is provided.
 - Single redo / undo stack per diagram.
+- Snap-to-visible-grid.
 - Sort contents of combination boxes in UI files:
   Canvas Settings
   Glitch Preferences
@@ -430,4 +431,3 @@ Remaining Items
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
-- Snap-to-visible-grid.
