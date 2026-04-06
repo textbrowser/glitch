@@ -92,6 +92,7 @@ glitch_scene::glitch_scene
   QGraphicsScene(parent)
 {
   m_dotsGridsColor = QColor(Qt::white);
+  m_gridSize = 20.0;
   m_loadingFromFile = false;
   m_mainScene = false;
   m_projectType = projectType;
@@ -903,9 +904,11 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
       painter->setPen(pen);
 
       QVector<QPointF> points;
-      auto const left = rect.left() - static_cast<int> (rect.left()) % 20;
-      auto const top = rect.top() - static_cast<int> (rect.top()) % 20;
-      const qreal step = 20.0;
+      auto const left = rect.left() -
+	static_cast<int> (rect.left()) % static_cast<int> (m_gridSize);
+      auto const step = m_gridSize;
+      auto const top = rect.top() -
+	static_cast<int> (rect.top()) % static_cast<int> (m_gridSize);
 
       for(auto x = left; std::isless(x, rect.right()); x += step)
 	for(auto y = top; std::isless(y, rect.bottom()); y += step)
@@ -918,7 +921,7 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
       QPen pen;
       auto color(m_dotsGridsColor);
       auto const alpha = color.alpha();
-      qreal step = 20.0;
+      auto step = m_gridSize;
 
       pen.setWidthF(1.25);
 
@@ -1253,11 +1256,7 @@ void glitch_scene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
       if(event->buttons() == Qt::NoButton)
 	{
-	  /*
-	  ** Notice 20.0 in glitch_proxy_widget.cc.
-	  */
-
-	  QRectF rect(m_lastHoverScenePos, QSizeF(20.0, 20.0));
+	  QRectF rect(m_lastHoverScenePos, QSizeF(m_gridSize, m_gridSize));
 
 	  rect.moveCenter(m_lastHoverScenePos);
 

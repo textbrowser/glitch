@@ -123,6 +123,7 @@ class glitch_scene: public QGraphicsScene
   glitch_common::ProjectTypes m_projectType;
   glitch_tools::Operations m_toolsOperation;
   mutable QSet<glitch_wire *> m_wires;
+  qreal m_gridSize;
   QGraphicsView *primaryView(void) const;
   bool allowDrag(QGraphicsSceneDragDropEvent *event, const QString &t) const;
   void bringToFront(glitch_proxy_widget *proxy);

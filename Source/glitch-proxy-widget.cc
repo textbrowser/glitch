@@ -63,7 +63,6 @@ glitch_proxy_widget::glitch_proxy_widget
   setAcceptHoverEvents(true);
   setAttribute(Qt::WA_OpaquePaintEvent, true); // We paint pixels!
   setCacheMode(QGraphicsItem::NoCache);
-  setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
 
 glitch_proxy_widget::~glitch_proxy_widget()
@@ -121,18 +120,6 @@ QVariant glitch_proxy_widget::itemChange
 	  }
 
 	return value;
-      }
-    case QGraphicsItem::ItemPositionChange:
-      {
-	if(!m_scene)
-	  m_scene = qobject_cast<glitch_scene *> (scene());
-
-	if(m_scene && m_scene->snapToGrid())
-	  {
-	    return value;
-	  }
-
-	break;
       }
     case QGraphicsItem::ItemSelectedChange:
       {
