@@ -2140,8 +2140,12 @@ void glitch_scene::slotProxyGeometryChanged(const QRectF &previousRect)
 
   if(m_undoStack)
     {
+      auto rect(proxy->geometry());
+
+      rect.setTopLeft(pointToGrid(rect.topLeft()));
+
       auto undoCommand = new glitch_undo_command
-	(proxy->geometry(),
+	(rect,
 	 previousRect,
 	 glitch_undo_command::Types::PROPERTY_CHANGED,
 	 glitch_object::Properties::GEOMETRY,
