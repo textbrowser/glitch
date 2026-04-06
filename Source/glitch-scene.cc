@@ -195,8 +195,8 @@ QPointF glitch_scene::pointToGrid(const QPointF &point) const
   if(!snapToGrid())
     return point;
 
-  return QPointF(m_gridSize * round(point.x() / m_gridSize),
-		 m_gridSize * round(point.y() / m_gridSize));
+  return QPointF(m_gridSize * trunc(point.x() / m_gridSize),
+		 m_gridSize * trunc(point.y() / m_gridSize));
 }
 
 QPointer<QUndoStack> glitch_scene::undoStack(void) const
