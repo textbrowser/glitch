@@ -940,12 +940,13 @@ void glitch_scene::drawBackground(QPainter *painter, const QRectF &rect)
 	    {
 	      color.setAlpha(qCeil(-0.80 * alpha + alpha));
 	      pen.setStyle(Qt::DashLine);
+	      step = m_gridSize / 5.0;
 	    }
 	  else
 	    {
 	      color.setAlpha(qCeil(-0.60 * alpha + alpha));
 	      pen.setStyle(Qt::SolidLine);
-	      step = 100.0;
+	      step = m_gridSize;
 	    }
 
 	  pen.setBrush(color);

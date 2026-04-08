@@ -30,7 +30,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-60</y>
+        <y>0</y>
         <width>467</width>
         <height>852</height>
        </rect>
@@ -226,10 +226,10 @@
              <item>
               <widget class="QSpinBox" name="grid_size">
                <property name="minimum">
-                <number>1</number>
+                <number>10</number>
                </property>
                <property name="maximum">
-                <number>100</number>
+                <number>500</number>
                </property>
                <property name="value">
                 <number>20</number>
