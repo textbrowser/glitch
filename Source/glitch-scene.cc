@@ -2032,6 +2032,7 @@ void glitch_scene::slotCanvasSettingsChanged(const bool state)
     }
 
   m_dotsGridsColor = m_canvasSettings->dotsGridsColor();
+  m_gridSize = m_canvasSettings->gridSize();
   m_showCanvasDots = m_canvasSettings->showCanvasDots();
   m_showCanvasGrids = !m_showCanvasDots;
   setBackgroundBrush(m_canvasSettings->canvasBackgroundColor());
