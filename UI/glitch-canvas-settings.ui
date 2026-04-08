@@ -216,7 +216,7 @@
              <item>
               <widget class="QLabel" name="label_21">
                <property name="text">
-                <string>Grid Size</string>
+                <string>Grid Spacing</string>
                </property>
                <property name="buddy">
                 <cstring>wire_width</cstring>

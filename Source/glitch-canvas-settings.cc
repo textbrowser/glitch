@@ -67,6 +67,10 @@ glitch_canvas_settings::glitch_canvas_settings(QWidget *parent):
   m_ui.close->setIcon(QIcon(":/close.png"));
   m_ui.close->setShortcut(tr("Ctrl+W"));
   m_ui.dots_grids_color->setText(QColor(Qt::white).name(QColor::HexArgb));
+  m_ui.grid_size->setToolTip
+    (tr("[%1, %2]").
+     arg(m_ui.grid_size->minimum()).
+     arg(m_ui.grid_size->maximum()));
   m_ui.lock_color->setText(QColor(231, 84, 128).name(QColor::HexArgb));
   m_ui.name->setMaxLength(static_cast<int> (Limits::NAME_MAXIMUM_LENGTH));
 #ifndef GLITCH_SERIAL_PORT_SUPPORTED

@@ -79,7 +79,7 @@ inline qreal static round(const qreal s, const qreal value)
   auto step = s;
 
   if(!(step < 0.0 || step > 0.0))
-    step = 25.0;
+    step = 20.0;
 
   auto tmp = static_cast<int> (step / 2.0 + value);
 
