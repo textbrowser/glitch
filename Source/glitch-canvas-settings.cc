@@ -251,6 +251,7 @@ settings(void) const
     m_ui.generate_periodically->isChecked();
   hash[Settings::GENERATE_SOURCE_VIEW_PERIODICALLY] =
     m_ui.generate_source_view_periodically->isChecked();
+  hash[Settings::GRID_SIZE] = m_ui.grid_size->value();
   hash[Settings::HORIZONTAL_SCROLLBAR_POLICY] =
     scrollBarPolicyFromText(m_ui.horizontal_scrollbar_policy->currentText());
   hash[Settings::KEYWORD_COLORS] = keywordColorsFromTableAsString().trimmed();
@@ -539,6 +540,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
+	   "grid_size INTEGER NOT NULL DEFAULT 20, "
 	   "horizontal_scrollbar_policy TEXT NOT NULL DEFAULT '', "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
@@ -582,6 +584,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color, "
 	   "generate_periodically, "
 	   "generate_source_view_periodically, "
+	   "grid_size, "
 	   "horizontal_scrollbar_policy, "
 	   "keyword_colors, "
 	   "lock_color, "
@@ -641,6 +644,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "?, "
 	   "?, "
 	   "?, "
+	   "?, "
 	   "?)");
 	query.addBindValue(m_ui.background_color->text().remove('&'));
 	query.addBindValue(m_ui.categories_icon_size->currentText());
@@ -648,6 +652,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	query.addBindValue(m_ui.generate_periodically->isChecked());
 	query.addBindValue
 	  (m_ui.generate_source_view_periodically->isChecked());
+	query.addBindValue(m_ui.grid_size->value());
 	query.addBindValue(m_ui.horizontal_scrollbar_policy->currentText());
 	query.addBindValue(keywordColorsFromTableAsString());
 	query.addBindValue(m_ui.lock_color->text().remove('&'));
@@ -760,6 +765,11 @@ int glitch_canvas_settings::adjustedTabPositionIndexFromIndex
     return index;
 }
 
+int glitch_canvas_settings::gridSize(void) const
+{
+  return m_settings.value(Settings::GRID_SIZE).toInt();
+}
+
 int glitch_canvas_settings::redoUndoStackSize(void) const
 {
   return m_settings.value(Settings::REDO_UNDO_STACK_SIZE).toInt();
@@ -779,6 +789,9 @@ void glitch_canvas_settings::alterDatabase(void) const
       {
 	QSqlQuery query(db);
 
+	query.exec
+	  ("ALTER TABLE canvas_settings ADD "
+	   "grid_size INTEGER NOT NULL DEFAULT 20");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD "
 	   "horizontal_scrollbar_policy TEXT DEFAULT ''");
@@ -848,6 +861,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 			   "SUBSTR(dots_grids_color, 1, 50), "
 			   "generate_periodically, "
 			   "generate_source_view_periodically, "
+			   "grid_size, "
 			   "SUBSTR(horizontal_scrollbar_policy, 1, 100), "
 			   "SUBSTR(keyword_colors, 1, 5000), "
 			   "SUBSTR(lock_color, 1, 50), "
@@ -913,6 +927,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto showStructuresTreeWidget = true;
 	auto snapToGrid = false;
 	auto tabbedEditWindows = true;
+	int gridSize = 20;
 	int tabPositionIndex = -1;
 
 	for(int i = 0; i < record.count(); i++)
@@ -930,6 +945,8 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	      generatePeriodically = record.value(i).toBool();
 	    else if(fieldName.contains("generate_source_view_periodically"))
 	      generateSourceViewPeriodically = record.value(i).toBool();
+	    else if(fieldName.contains("grid_size"))
+	      gridSize = record.value(i).toInt();
 	    else if(fieldName.contains("horizontal_scrollbar_policy"))
 	      horizontalScrollBarPolicy = record.value(i).toString().trimmed();
 	    else if(fieldName.contains("keyword_colors"))
@@ -1027,6 +1044,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	m_ui.generate_periodically->setChecked(generatePeriodically);
 	m_ui.generate_source_view_periodically->setChecked
 	  (generateSourceViewPeriodically);
+	m_ui.grid_size->setValue(gridSize);
 	m_ui.horizontal_scrollbar_policy->setCurrentIndex
 	  (m_ui.horizontal_scrollbar_policy->
 	   findText(horizontalScrollBarPolicy));
@@ -1299,6 +1317,7 @@ void glitch_canvas_settings::setSettings
     (hash.value(Settings::GENERATE_PERIODICALLY).toBool());
   m_ui.generate_source_view_periodically->setChecked
     (hash.value(Settings::GENERATE_SOURCE_VIEW_PERIODICALLY).toBool());
+  m_ui.grid_size->setValue(hash.value(Settings::GRID_SIZE).toInt());
   color = QColor
     (hash.value(Settings::LOCK_COLOR).toString().remove('&').trimmed());
   glitch_variety::assignImage(m_ui.lock_color, color);

@@ -156,6 +156,7 @@ class glitch_canvas_settings: public QDialog
     DOTS_GRIDS_COLOR,
     GENERATE_PERIODICALLY,
     GENERATE_SOURCE_VIEW_PERIODICALLY,
+    GRID_SIZE,
     HORIZONTAL_SCROLLBAR_POLICY,
     KEYWORD_COLORS,
     LOCK_COLOR,
@@ -218,6 +219,7 @@ class glitch_canvas_settings: public QDialog
   bool tabbedEditWindows(void) const;
   double wireWidth(void) const;
   int adjustedTabPositionIndexFromIndex(const int index) const;
+  int gridSize(void) const;
   int redoUndoStackSize(void) const;
   void prepare(const QString &fileName);
   void setFileName(const QString &fileName);
