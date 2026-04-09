@@ -195,8 +195,16 @@ QPointF glitch_scene::pointToGrid(const QPointF &point) const
   if(!snapToGrid())
     return point;
 
-  return QPointF(m_gridSize * trunc(point.x() / m_gridSize),
-		 m_gridSize * trunc(point.y() / m_gridSize));
+  if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+    return QPointF(m_gridSize * trunc(point.x() / m_gridSize),
+		   m_gridSize * trunc(point.y() / m_gridSize));
+  else
+    {
+      auto const gridSize = m_gridSize / 5.0;
+
+      return QPointF(gridSize * trunc(point.x() / gridSize),
+		     gridSize * trunc(point.y() / gridSize));
+    }
 }
 
 QPointer<QUndoStack> glitch_scene::undoStack(void) const
@@ -1137,7 +1145,8 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto began = false;
 	auto moved = false;
 	auto const pixels = (glitch_variety::keyboardModifiers() &
-			     Qt::ControlModifier) ? 50 : 1;
+			     Qt::ControlModifier) ?
+	  m_gridSize : m_gridSize / 5.0;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
 

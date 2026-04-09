@@ -431,3 +431,4 @@ Remaining Items
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
+- Snap-to-grid with keyboard.
