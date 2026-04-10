@@ -544,7 +544,7 @@ bool glitch_canvas_settings::save(QString &error) const
 	   "dots_grids_color TEXT NOT NULL, "
 	   "generate_periodically INTEGER NOT NULL DEFAULT 0, "
 	   "generate_source_view_periodically INTEGER NOT NULL DEFAULT 0, "
-	   "grid_size INTEGER NOT NULL DEFAULT 20, "
+	   "grid_size INTEGER NOT NULL DEFAULT 100, "
 	   "horizontal_scrollbar_policy TEXT NOT NULL DEFAULT '', "
 	   "keyword_colors TEXT, "
 	   "lock_color TEXT NOT NULL, "
@@ -795,7 +795,7 @@ void glitch_canvas_settings::alterDatabase(void) const
 
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD "
-	   "grid_size INTEGER NOT NULL DEFAULT 20");
+	   "grid_size INTEGER NOT NULL DEFAULT 100");
 	query.exec
 	  ("ALTER TABLE canvas_settings ADD "
 	   "horizontal_scrollbar_policy TEXT DEFAULT ''");
@@ -931,7 +931,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto showStructuresTreeWidget = true;
 	auto snapToGrid = false;
 	auto tabbedEditWindows = true;
-	int gridSize = 20;
+	int gridSize = 100;
 	int tabPositionIndex = -1;
 
 	for(int i = 0; i < record.count(); i++)

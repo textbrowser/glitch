@@ -79,7 +79,7 @@ inline qreal static round(const qreal s, const qreal value)
   auto step = s;
 
   if(!(step < 0.0 || step > 0.0))
-    step = 20.0;
+    step = 100.0;
 
   auto tmp = static_cast<int> (step / 2.0 + value);
 
@@ -92,7 +92,7 @@ glitch_scene::glitch_scene
   QGraphicsScene(parent)
 {
   m_dotsGridsColor = QColor(Qt::white);
-  m_gridSize = 20.0;
+  m_gridSize = 100.0;
   m_loadingFromFile = false;
   m_mainScene = false;
   m_projectType = projectType;
@@ -1144,11 +1144,13 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 
 	auto began = false;
 	auto moved = false;
-	auto const pixels = (glitch_variety::keyboardModifiers() &
-			     Qt::ControlModifier) ?
-	  m_gridSize : m_gridSize / 5.0;
+	auto pixels = (glitch_variety::keyboardModifiers() &
+		       Qt::ControlModifier) ? m_gridSize : m_gridSize / 5.0;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
+
+	if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+	  pixels = m_gridSize;
 
 	if(view)
 	  {
