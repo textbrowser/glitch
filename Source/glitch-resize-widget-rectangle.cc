@@ -183,8 +183,10 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::CenterLeft:
       {
+	auto const delta = -event->lastScenePos().x() + event->scenePos().x();
+
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setX(qMax(0.0, event->scenePos().x() + rect().width()));
+	rectangle.setX(qMax(0.0, delta + rectangle.left()));
 
         if(parent->minimumWidth() > rectangle.width())
 	  rectangle.setX(-parent->minimumWidth() + rectangle.right());
