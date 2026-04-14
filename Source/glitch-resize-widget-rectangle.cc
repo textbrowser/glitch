@@ -211,8 +211,10 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::TopCenter:
       {
+	auto const delta = -event->lastScenePos().y() + event->scenePos().y();
+
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setY(qMax(0.0, event->scenePos().y() + rect().height()));
+	rectangle.setY(qMax(0.0, delta + rectangle.top()));
 
 	if(parent->minimumHeight() > rectangle.height())
 	  rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
