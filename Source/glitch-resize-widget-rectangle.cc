@@ -172,9 +172,12 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::BottomRight:
       {
-	rectangle.setHeight(-diagonal + event->pos().y());
+	auto const delta1 = -event->lastPos().x() + event->pos().x();
+	auto const delta2 = -event->lastPos().y() + event->pos().y();
+
+	rectangle.setHeight(delta2 + rectangle.height());
 	rectangle.setHeight(qMax(parent->minimumHeight(), rectangle.height()));
-	rectangle.setWidth(-diagonal + event->pos().x());
+	rectangle.setWidth(delta1 + rectangle.right());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
 	if(parent->minimumHeight() > rectangle.height())
