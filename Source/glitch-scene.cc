@@ -1149,7 +1149,9 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
 
-	if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+	if(backgroundBrush().color() == m_dotsGridsColor)
+	  pixels = 1.0;
+	else if(m_canvasSettings && m_canvasSettings->showCanvasDots())
 	  pixels = m_gridSize;
 
 	if(view)
