@@ -123,7 +123,6 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       return;
     }
 
-  auto const diagonal = qCeil(SQUARE_SIZE * qPow(2.0, 0.5));
   auto rectangle(parent->boundingRect());
 
   switch(m_location)
@@ -252,13 +251,18 @@ void glitch_resize_widget_rectangle::mouseMoveEvent
       }
     case RectangleLocations::TopRight:
       {
+	auto const delta = -event->lastPos().x() + event->pos().x();
+
 	rectangle = parent->mapToScene(rectangle).boundingRect();
-	rectangle.setWidth(-diagonal + event->pos().x());
+	rectangle.setWidth(delta + rectangle.width());
 	rectangle.setWidth(qMax(parent->minimumWidth(), rectangle.width()));
 
 	if(!m_parentLocked)
 	  {
-	    rectangle.setY(qMax(0.0, diagonal + event->scenePos().y()));
+	    auto const delta = -event->lastScenePos().y() +
+	      event->scenePos().y();
+
+	    rectangle.setY(qMax(0.0, delta + rectangle.top()));
 
 	    if(parent->minimumHeight() > rectangle.height())
 	      rectangle.setY(-parent->minimumHeight() + rectangle.bottom());
