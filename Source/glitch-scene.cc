@@ -1143,16 +1143,24 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	  }
 
 	auto began = false;
+	auto const modifierDepressed = glitch_variety::keyboardModifiers() &
+	  Qt::ControlModifier;
 	auto moved = false;
-	auto pixels = (glitch_variety::keyboardModifiers() &
-		       Qt::ControlModifier) ? m_gridSize : m_gridSize / 5.0;
+	auto pixels = m_gridSize;
 	auto updateMode = QGraphicsView::FullViewportUpdate;
 	auto view = primaryView();
 
-	if(backgroundBrush().color() == m_dotsGridsColor)
-	  pixels = 1.0;
-	else if(m_canvasSettings && m_canvasSettings->showCanvasDots())
-	  pixels = m_gridSize;
+	if(m_canvasSettings)
+	  {
+	    if(m_canvasSettings->showCanvasDots())
+	      pixels = modifierDepressed || snapToGrid() ? m_gridSize : 1.0;
+	    else
+	      pixels = modifierDepressed ?
+		m_gridSize : snapToGrid() ? m_gridSize / 5.0 : 1.0;
+	  }
+	else
+	  pixels = modifierDepressed ?
+	    m_gridSize : snapToGrid() ? m_gridSize / 5.0 : 1.0;
 
 	if(view)
 	  {
@@ -1179,22 +1187,22 @@ void glitch_scene::keyPressEvent(QKeyEvent *event)
 	      {
 	      case Qt::Key_Down:
 		{
-		  point.setY(point.y() + pixels);
+		  point.setY(pixels + point.y());
 		  break;
 		}
 	      case Qt::Key_Left:
 		{
-		  point.setX(point.x() - pixels);
+		  point.setX(-pixels + point.x());
 		  break;
 		}
 	      case Qt::Key_Right:
 		{
-		  point.setX(point.x() + pixels);
+		  point.setX(pixels + point.x());
 		  break;
 		}
 	      case Qt::Key_Up:
 		{
-		  point.setY(point.y() - pixels);
+		  point.setY(-pixels + point.y());
 		  break;
 		}
 	      default:
