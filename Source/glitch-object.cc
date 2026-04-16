@@ -270,7 +270,7 @@ QList<glitch_object *> glitch_object::objects(void) const
 
 QMainWindow *glitch_object::parentMainWindow(void) const
 {
-  QMainWindow *parent = glitch_ui::mainWindow();
+  auto parent = glitch_ui::mainWindow();
 
   if(m_editView && m_editWindow)
     {
@@ -327,7 +327,10 @@ QString glitch_object::name(void) const
 
 QString glitch_object::objectType(void) const
 {
-  return m_type;
+  if(m_type.trimmed().isEmpty())
+    return "glitch-unknown-object-type";
+  else
+    return m_type;
 }
 
 QStringList glitch_object::inputs(void) const
@@ -731,7 +734,7 @@ void glitch_object::addChild
 void glitch_object::addDefaultActions(QMenu &menu)
 {
   createActions();
-  menu.addSection(m_type);
+  menu.addSection(objectType());
 
   QMapIterator<DefaultMenuActions, QAction *> it(m_actions);
 
@@ -1393,7 +1396,7 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
 
   query.addBindValue(QString("(%1,%2)").arg(pos().x()).arg(pos().y()));
   query.addBindValue(styleSheet());
-  query.addBindValue(m_type);
+  query.addBindValue(objectType());
   query.exec();
 
   if(query.lastError().isValid())
