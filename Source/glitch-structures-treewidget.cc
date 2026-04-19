@@ -85,6 +85,7 @@ void glitch_structures_treewidget::mouseReleaseEvent(QMouseEvent *event)
 {
   QApplication::restoreOverrideCursor();
   QTreeWidget::mouseReleaseEvent(event);
+  m_pressAndHoldTimer.stop();
 }
 
 void glitch_structures_treewidget::setProjectType
@@ -171,6 +172,7 @@ void glitch_structures_treewidget::slotPressAndHoldTimeout(void)
 void glitch_structures_treewidget::startDrag(Qt::DropActions supportedActions)
 {
   Q_UNUSED(supportedActions);
+  m_pressAndHoldTimer.stop();
 
   auto const list(selectedItems());
 
