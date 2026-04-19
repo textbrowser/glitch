@@ -792,7 +792,7 @@ void glitch_object_function_arduino::setName(const QString &name)
 {
   glitch_object::setName(name);
 
-  if(m_parentView)
+  if(m_parentView && m_parentView->containsFunctionName(name) == false)
     {
       m_parentView->consumeFunctionName(name);
       m_parentView->removeFunctionName
