@@ -524,23 +524,26 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 
 	  if(view)
 	    {
+	      QApplication::processEvents();
 	      setUpdatesEnabled(false);
 
 	      if((ok = view->open(fileInfo.absoluteFilePath(), error)))
 		saveRecentFile(fileInfo.absoluteFilePath());
 
 	      setUpdatesEnabled(true);
+	      showStatusBarMessage
+		(tr("%1 opened in %2 second(s).").
+		 arg(fileInfo.absoluteFilePath()).arg(timer.elapsed() / 1000.0),
+		 qMax(2 * timer.elapsed(), 5000));
 	    }
-
-	  showStatusBarMessage
-	    (tr("%1 opened in %2 second(s).").
-	     arg(fileInfo.absoluteFilePath()).arg(timer.elapsed() / 1000.0),
-	     5000);
+	  else
+	    ok = false;
 	}
       else
 	ok = false;
     }
-  else
+
+  if(!ok)
     showStatusBarMessage("");
 
   QApplication::restoreOverrideCursor();
