@@ -443,13 +443,17 @@ void glitch_object_device_display::slotReadDevice(void)
 
   QByteArray bytes;
 
-  if(m_device->property("read_size").toInt() > 0)
-    bytes = m_device->read
-      (qBound(1LL,
-	      m_device->property("read_size").toLongLong(),
-	      1048576LL));
-  else
-    bytes = m_device->readAll();
+  do
+    {
+      if(m_device->property("read_size").toInt() > 0)
+	bytes += m_device->read
+	  (qBound(1LL,
+		  m_device->property("read_size").toLongLong(),
+		  1048576LL));
+      else
+	bytes += m_device->readAll();
+    }
+  while(m_device->bytesAvailable() > 0);
 
   if(bytes.isEmpty()) // Error or we do not have data.
     return;
