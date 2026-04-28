@@ -211,6 +211,23 @@ QPointF glitch_scene::gridBottomPoint(const QPointF &point) const
   return QPointF(x, y);
 }
 
+QPointF glitch_scene::gridTopPoint(const QPointF &point) const
+{
+  auto const x = point.x();
+  auto y = point.y();
+
+  if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+    y = m_gridSize * trunc(y / m_gridSize);
+  else
+    {
+      auto const gridSize = m_gridSize / 5.0;
+
+      y = gridSize * trunc(y / gridSize);
+    }
+
+  return QPointF(x, y);
+}
+
 QPointF glitch_scene::pointToGrid(const QPointF &point) const
 {
   if(!snapToGrid())

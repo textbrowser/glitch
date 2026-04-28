@@ -197,6 +197,12 @@ class glitch_alignment: public QWidget
 	    {
 	      x = object->pos().x();
 	      y = qMin(object->pos().y(), y);
+
+	      if(gridAlign)
+		y = qMin
+		  (static_cast<int>
+		  (view->scene()->gridTopPoint(QPointF(x, y)).y()), y);
+
 	      break;
 	    }
 	  default:
