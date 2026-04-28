@@ -207,7 +207,7 @@ QString glitch_object_flow_control_arduino::flowControlType(void) const
 QString glitch_object_flow_control_arduino::simplified(const QString &text)
 {
   QString string("");
-  auto state = 0;
+  int state = 0;
 
   for(int i = 0; i < text.length(); i++)
     if(state == 0)

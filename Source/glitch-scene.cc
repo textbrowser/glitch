@@ -382,6 +382,11 @@ bool glitch_scene::areObjectsWired
   return false;
 }
 
+bool glitch_scene::gridShown(void) const
+{
+  return backgroundBrush().color() != m_dotsGridsColor;
+}
+
 bool glitch_scene::objectToBeWired(glitch_proxy_widget *proxy) const
 {
   QHashIterator<QString, QPointer<glitch_proxy_widget> > it(m_objectsToWire);

@@ -921,7 +921,6 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto generatePeriodically = false;
 	auto generateSourceViewPeriodically = false;
 	auto maximizeEditWindows = false;
-	auto redoUndoStackSize = 0;
 	auto savePeriodically = false;
 	auto showCanvasDots = true;
 	auto showCanvasGrids = true;
@@ -932,6 +931,7 @@ void glitch_canvas_settings::prepare(const QString &fileName)
 	auto snapToGrid = false;
 	auto tabbedEditWindows = true;
 	int gridSize = 100;
+	int redoUndoStackSize = 0;
 	int tabPositionIndex = -1;
 
 	for(int i = 0; i < record.count(); i++)

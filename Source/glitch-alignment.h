@@ -96,8 +96,8 @@ class glitch_alignment: public QWidget
 
     QPair<int, int> maxP;
     QPair<int, int> minP;
-    auto x = 0;
-    auto y = 0;
+    int x = 0;
+    int y = 0;
 
     switch(alignmentType)
       {
@@ -136,6 +136,8 @@ class glitch_alignment: public QWidget
       }
 
     auto began = false;
+    auto const gridAlign = m_actions.value(8) ?
+      m_actions.value(8)->isChecked() && view->scene()->gridShown() : false;
     auto firstIteration = true;
 
   start_label:
@@ -160,6 +162,11 @@ class glitch_alignment: public QWidget
 	    {
 	      x = object->pos().x();
 	      y = qMax(object->height() + object->pos().y(), y);
+
+	      if(gridAlign)
+		{
+		}
+
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
@@ -327,7 +334,7 @@ class glitch_alignment: public QWidget
       std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
 
     auto began = false;
-    auto coordinate = 0;
+    int coordinate = 0;
 
     if(stackType == StackTypes::HORIZONTAL_STACK)
       coordinate = list2.at(0)->pos().x();

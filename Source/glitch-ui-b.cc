@@ -434,7 +434,7 @@ void glitch_ui::slotSaveAsPNG(void)
       fileName.append(".png");
       image.save(fileName, "PNG", 100);
 
-      auto i = 0;
+      int i = 0;
 
       foreach(auto object, m_currentView->scene()->allObjects())
 	if(object)
