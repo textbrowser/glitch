@@ -164,8 +164,9 @@ class glitch_alignment: public QWidget
 	      y = qMax(object->height() + object->pos().y(), y);
 
 	      if(gridAlign)
-		{
-		}
+		y = qMax
+		  (static_cast<int>
+		  (view->scene()->gridBottomPoint(QPointF(x, y)).y()), y);
 
 	      break;
 	    }

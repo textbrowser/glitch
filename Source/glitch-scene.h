@@ -58,6 +58,7 @@ class glitch_scene: public QGraphicsScene
   QList<glitch_object *> objects(void) const;
   QList<glitch_object *> orderedObjects(void) const;
   QList<glitch_object *> selectedObjects(void) const;
+  QPointF gridBottomPoint(const QPointF &point) const;
 
   QPointF lastHoverScenePos(void) const
   {

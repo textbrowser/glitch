@@ -190,6 +190,27 @@ QList<glitch_object *> glitch_scene::selectedObjects(void) const
   return widgets;
 }
 
+QPointF glitch_scene::gridBottomPoint(const QPointF &point) const
+{
+  auto const x = point.x();
+  auto y = point.y();
+
+  if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+    {
+      if(!qFuzzyCompare(m_gridSize * trunc(y / m_gridSize), y))
+	y = m_gridSize + m_gridSize * trunc(y / m_gridSize);
+    }
+  else
+    {
+      auto const gridSize = m_gridSize / 5.0;
+
+      if(!qFuzzyCompare(gridSize * trunc(y / gridSize), y))
+	y = gridSize + gridSize * trunc(y / gridSize);
+    }
+
+  return QPointF(x, y);
+}
+
 QPointF glitch_scene::pointToGrid(const QPointF &point) const
 {
   if(!snapToGrid())
