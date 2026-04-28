@@ -44,7 +44,7 @@ glitch_alignment::~glitch_alignment()
 QList<QAction *> glitch_alignment::actions(void)
 {
   if(m_actions.isEmpty())
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < 9; i++)
       {
 	auto action = new QAction(this);
 
@@ -128,6 +128,12 @@ QList<QAction *> glitch_alignment::actions(void)
 		      &QAction::triggered,
 		      this,
 		      &glitch_alignment::slotStack);
+	      break;
+	    }
+	  case 8:
+	    {
+	      action->setCheckable(true);
+	      action->setText(tr("Grid-Align"));
 	      break;
 	    }
 	  default:
