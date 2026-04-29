@@ -534,7 +534,8 @@ bool glitch_ui::openDiagram(const QString &fileName, QString &error)
 	      showStatusBarMessage
 		(tr("%1 opened in %2 second(s).").
 		 arg(fileInfo.absoluteFilePath()).arg(timer.elapsed() / 1000.0),
-		 qMax(2 * timer.elapsed(), 5000));
+		 qMax(static_cast<qint64> (2 * timer.elapsed()),
+		      static_cast<qint64> (5000)));
 	    }
 	  else
 	    ok = false;
