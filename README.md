@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with device readers and natural language processors!
 
 <b>Version 2025.12.25 is the newest LTS release.</b><br>
-<b>Version 2026.04.04 is the newest source release.</b>
+<b>Version 2026.04.29 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,20 @@ Now with device readers and natural language processors!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2026.04.29</p>
+<ul>
+<li>Grid alignment. Please notice new widget in tool bar.</li>
+<li>Ignore locked widgets during alignment.</li>
+<li>Less jitter during widget resizing.</li>
+<li>New default grid-size of 100 pixels.</li>
+<li>New grid-size option; per canvas.</li>
+<li>New optional snap-to-grid; per canvas.</li>
+<li>Prevent duplicate function names.</li>
+<li>Single QApplication::processEvents() instance shortly before a
+  diagram is opened.</li>
+<li>The papaya release!</li>
+</ul>
 
 <p>2026.04.04</p>
 <ul>
