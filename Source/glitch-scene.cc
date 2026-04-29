@@ -211,6 +211,44 @@ QPointF glitch_scene::gridBottomPoint(const QPointF &point) const
   return QPointF(x, y);
 }
 
+QPointF glitch_scene::gridLeftPoint(const QPointF &point) const
+{
+  auto const y = point.y();
+  auto x = point.x();
+
+  if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+    x = m_gridSize * trunc(x / m_gridSize);
+  else
+    {
+      auto const gridSize = m_gridSize / 5.0;
+
+      x = gridSize * trunc(x / gridSize);
+    }
+
+  return QPointF(x, y);
+}
+
+QPointF glitch_scene::gridRightPoint(const QPointF &point) const
+{
+  auto const y = point.y();
+  auto x = point.x();
+
+  if(m_canvasSettings && m_canvasSettings->showCanvasDots())
+    {
+      if(!qFuzzyCompare(m_gridSize * trunc(x / m_gridSize), x))
+	x = m_gridSize + m_gridSize * trunc(x / m_gridSize);
+    }
+  else
+    {
+      auto const gridSize = m_gridSize / 5.0;
+
+      if(!qFuzzyCompare(gridSize * trunc(x / gridSize), x))
+	x = gridSize + gridSize * trunc(x / gridSize);
+    }
+
+  return QPointF(x, y);
+}
+
 QPointF glitch_scene::gridTopPoint(const QPointF &point) const
 {
   auto const x = point.x();
