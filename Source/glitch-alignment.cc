@@ -134,6 +134,10 @@ QList<QAction *> glitch_alignment::actions(void)
 	    {
 	      action->setCheckable(true);
 	      action->setText(tr("Grid-Align"));
+	      action->setToolTip
+		(tr("<html>Supported by all alignment options except for "
+		    "horizontal-center alignment and vertical-center "
+		    "alignment.</html>"));
 	      break;
 	    }
 	  default:

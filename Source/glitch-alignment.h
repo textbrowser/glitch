@@ -154,8 +154,6 @@ class glitch_alignment: public QWidget
 	if(!object)
 	  continue;
 
-	auto const movable = proxy->isMovable();
-
 	switch(alignmentType)
 	  {
 	  case AlignmentTypes::ALIGN_BOTTOM:
@@ -219,7 +217,7 @@ class glitch_alignment: public QWidget
 	    break;
 	  }
 
-	if(firstIteration || !movable)
+	if(firstIteration || proxy->isMovable() == false)
 	  continue;
 
 	QPoint point;
