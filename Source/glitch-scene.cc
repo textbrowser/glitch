@@ -211,6 +211,11 @@ QPointF glitch_scene::gridBottomPoint(const QPointF &point) const
   return QPointF(x, y);
 }
 
+QPointF glitch_scene::gridHorizontalPoint(const QPointF &point) const
+{
+  return gridBottomPoint(point);
+}
+
 QPointF glitch_scene::gridLeftPoint(const QPointF &point) const
 {
   auto const y = point.y();

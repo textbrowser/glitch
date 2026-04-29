@@ -179,11 +179,6 @@ class glitch_alignment: public QWidget
 		(maxP.second, object->height() + object->pos().y());
 	      minP.first = qMin(minP.first, object->pos().x());
 	      minP.second = qMin(minP.second, object->pos().y());
-
-	      if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
-		{
-		}
-
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_LEFT:
@@ -250,8 +245,21 @@ class glitch_alignment: public QWidget
 	      point = object->pos();
 
 	      if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
-		object->move
-		  (object->pos().x(), rect.center().y() - object->height() / 2);
+		{
+		  if(gridAlign)
+		    {
+		      auto const y = static_cast<int>
+			(view->scene()->gridHorizontalPoint
+			(QPointF(0, rect.center().y() - object->height() / 2)).
+			 y());
+
+		      object->move(object->pos().x(), y);
+		    }
+		  else
+		    object->move
+		      (object->pos().x(),
+		       rect.center().y() - object->height() / 2);
+		}
 	      else
 		object->move
 		  (rect.center().x() - object->width() / 2, object->pos().y());
