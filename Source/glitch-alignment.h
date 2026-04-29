@@ -156,9 +156,6 @@ class glitch_alignment: public QWidget
 
 	auto const movable = proxy->isMovable();
 
-	if(!movable)
-	  continue;
-
 	switch(alignmentType)
 	  {
 	  case AlignmentTypes::ALIGN_BOTTOM:
@@ -176,12 +173,16 @@ class glitch_alignment: public QWidget
 	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
 	  case AlignmentTypes::ALIGN_CENTER_VERTICAL:
 	    {
-	      maxP.first = qMax
-		(maxP.first, object->pos().x() + object->width());
-	      maxP.second = qMax
-		(maxP.second, object->height() + object->pos().y());
-	      minP.first = qMin(minP.first, object->pos().x());
-	      minP.second = qMin(minP.second, object->pos().y());
+	      if(movable)
+		{
+		  maxP.first = qMax
+		    (maxP.first, object->pos().x() + object->width());
+		  maxP.second = qMax
+		    (maxP.second, object->height() + object->pos().y());
+		  minP.first = qMin(minP.first, object->pos().x());
+		  minP.second = qMin(minP.second, object->pos().y());
+		}
+
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_LEFT:
@@ -222,7 +223,7 @@ class glitch_alignment: public QWidget
 	    break;
 	  }
 
-	if(firstIteration)
+	if(firstIteration || !movable)
 	  continue;
 
 	QPoint point;
@@ -248,37 +249,11 @@ class glitch_alignment: public QWidget
 	      point = object->pos();
 
 	      if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
-		{
-		  if(gridAlign)
-		    {
-		      auto const y = static_cast<int>
-			(view->scene()->gridHorizontalPoint
-			(QPointF(0, rect.center().y() - object->height() / 2)).
-			 y());
-
-		      object->move(object->pos().x(), y);
-		    }
-		  else
-		    object->move
-		      (object->pos().x(),
-		       rect.center().y() - object->height() / 2);
-		}
+		object->move
+		  (object->pos().x(), rect.center().y() - object->height() / 2);
 	      else
-		{
-		  if(gridAlign)
-		    {
-		      auto const x = static_cast<int>
-			(view->scene()->gridVerticalPoint
-			(QPointF(rect.center().x() - object->width() / 2, 0)).
-			 x());
-
-		      object->move(x, object->pos().y());
-		    }
-		  else
-		    object->move
-		      (rect.center().x() - object->width() / 2,
-		       object->pos().y());
-		}
+		object->move
+		  (rect.center().x() - object->width() / 2, object->pos().y());
 
 	      break;
 	    }
@@ -365,7 +340,8 @@ class glitch_alignment: public QWidget
 	if(!object)
 	  continue;
 
-	list2 << object;
+	if(proxy->isMovable())
+	  list2 << object;
       }
 
     if(list2.isEmpty())
@@ -380,12 +356,24 @@ class glitch_alignment: public QWidget
       std::sort(list2.begin(), list2.end(), y_coordinate_less_than);
 
     auto began = false;
+    auto const gridAlign = m_actions.value(8) ?
+      m_actions.value(8)->isChecked() && view->scene()->gridShown() : false;
     int coordinate = 0;
 
     if(stackType == StackTypes::HORIZONTAL_STACK)
-      coordinate = list2.at(0)->pos().x();
+      {
+	if(gridAlign)
+	  coordinate = view->scene()->gridLeftPoint(list2.at(0)->pos()).x();
+	else
+	  coordinate = list2.at(0)->pos().x();
+      }
     else
-      coordinate = list2.at(0)->pos().y();
+      {
+	if(gridAlign)
+	  coordinate = view->scene()->gridTopPoint(list2.at(0)->pos()).y();
+	else
+	  coordinate = list2.at(0)->pos().y();
+      }
 
     foreach(auto const widget, list2)
       {
