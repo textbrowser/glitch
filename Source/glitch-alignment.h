@@ -261,8 +261,21 @@ class glitch_alignment: public QWidget
 		       rect.center().y() - object->height() / 2);
 		}
 	      else
-		object->move
-		  (rect.center().x() - object->width() / 2, object->pos().y());
+		{
+		  if(gridAlign)
+		    {
+		      auto const x = static_cast<int>
+			(view->scene()->gridVerticalPoint
+			(QPointF(rect.center().x() - object->width() / 2, 0)).
+			 x());
+
+		      object->move(x, object->pos().y());
+		    }
+		  else
+		    object->move
+		      (rect.center().x() - object->width() / 2,
+		       object->pos().y());
+		}
 
 	      break;
 	    }

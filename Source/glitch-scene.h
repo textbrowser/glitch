@@ -63,6 +63,7 @@ class glitch_scene: public QGraphicsScene
   QPointF gridLeftPoint(const QPointF &point) const;
   QPointF gridRightPoint(const QPointF &point) const;
   QPointF gridTopPoint(const QPointF &point) const;
+  QPointF gridVerticalPoint(const QPointF &point) const;
 
   QPointF lastHoverScenePos(void) const
   {

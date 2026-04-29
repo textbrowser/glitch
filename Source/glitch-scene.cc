@@ -271,6 +271,11 @@ QPointF glitch_scene::gridTopPoint(const QPointF &point) const
   return QPointF(x, y);
 }
 
+QPointF glitch_scene::gridVerticalPoint(const QPointF &point) const
+{
+  return gridRightPoint(point);
+}
+
 QPointF glitch_scene::pointToGrid(const QPointF &point) const
 {
   if(!snapToGrid())
