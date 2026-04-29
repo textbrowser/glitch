@@ -239,8 +239,8 @@ class glitch_alignment: public QWidget
 	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
 	  case AlignmentTypes::ALIGN_CENTER_VERTICAL:
 	    {
-	      QRect rect(QPoint(minP.first, minP.second),
-			 QPoint(maxP.first, maxP.second));
+	      QRect const rect(QPoint(minP.first, minP.second),
+			       QPoint(maxP.first, maxP.second));
 
 	      point = object->pos();
 
