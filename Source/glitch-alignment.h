@@ -173,16 +173,12 @@ class glitch_alignment: public QWidget
 	  case AlignmentTypes::ALIGN_CENTER_HORIZONTAL:
 	  case AlignmentTypes::ALIGN_CENTER_VERTICAL:
 	    {
-	      if(movable)
-		{
-		  maxP.first = qMax
-		    (maxP.first, object->pos().x() + object->width());
-		  maxP.second = qMax
-		    (maxP.second, object->height() + object->pos().y());
-		  minP.first = qMin(minP.first, object->pos().x());
-		  minP.second = qMin(minP.second, object->pos().y());
-		}
-
+	      maxP.first = qMax
+		(maxP.first, object->pos().x() + object->width());
+	      maxP.second = qMax
+		(maxP.second, object->height() + object->pos().y());
+	      minP.first = qMin(minP.first, object->pos().x());
+	      minP.second = qMin(minP.second, object->pos().y());
 	      break;
 	    }
 	  case AlignmentTypes::ALIGN_LEFT:
@@ -340,8 +336,7 @@ class glitch_alignment: public QWidget
 	if(!object)
 	  continue;
 
-	if(proxy->isMovable())
-	  list2 << object;
+	list2 << object;
       }
 
     if(list2.isEmpty())
