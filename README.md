@@ -49,6 +49,7 @@ Now with device readers and natural language processors!
 <li>Single QApplication::processEvents() instance shortly before a
   diagram is opened.</li>
 <li>The papaya release!</li>
+<li>Wayland improvements: docked property editors.</li>
 </ul>
 
 <p>2026.04.04</p>
