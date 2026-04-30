@@ -425,6 +425,7 @@ Remaining Items
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.
 - Insert-between-widgets option.
+- Monitor Glitch preferences in objects.
 - Nested flow-control scenes. Very difficult.
 - New dial object for displaying numeric data.
 - Option to process all output for a complete process (device-reader).
