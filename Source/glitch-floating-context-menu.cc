@@ -40,6 +40,10 @@ glitch_floating_context_menu::glitch_floating_context_menu(QWidget *parent):
   m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut(tr("Ctrl+W"));
   m_ui.height->installEventFilter(new glitch_scroll_filter(this));
   m_ui.width->installEventFilter(new glitch_scroll_filter(this));
+  connect(m_ui.button_box->button(QDialogButtonBox::Close),
+	  &QPushButton::clicked,
+	  this,
+	  &glitch_floating_context_menu::slotClose);
   connect(m_ui.frame,
 	  SIGNAL(destroyed(void)),
 	  this,
@@ -205,8 +209,11 @@ void glitch_floating_context_menu::closeEvent(QCloseEvent *event)
 void glitch_floating_context_menu::dockedFloatingContextMenu(const bool state)
 {
   if(state)
-    m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut
-      (QKeySequence());
+    {
+      hide();
+      m_ui.button_box->button(QDialogButtonBox::Close)->setShortcut
+	(QKeySequence());
+    }
 }
 
 void glitch_floating_context_menu::hideEvent(QHideEvent *event)
@@ -383,6 +390,15 @@ void glitch_floating_context_menu::slotActionChanged(void)
     return;
 
   widget->setEnabled(action->isEnabled());
+}
+
+void glitch_floating_context_menu::slotClose(void)
+{
+#ifdef Q_OS_ANDROID
+  hide();
+#else
+  close();
+#endif
 }
 
 void glitch_floating_context_menu::slotDoubleSpinBoxChanged(qreal value)

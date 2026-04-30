@@ -57,7 +57,7 @@ void glitch_docked_container::add(glitch_floating_context_menu *widget)
       {
 	auto const index(m_model->item(i, 0)->index());
 
-	if(index.isValid() && m_ui.view->indexWidget(index) == widget)
+	if(index.isValid() && m_ui.view->indexWidget(index) == widget->frame())
 	  {
 	    item = m_model->item(i, 0);
 	    break;
@@ -87,7 +87,7 @@ void glitch_docked_container::add(glitch_floating_context_menu *widget)
 	(item->row(), new QStandardItem(QString(5, ' ')));
       m_ui.view->scrollTo(item->index(), QAbstractItemView::PositionAtTop);
       m_ui.view->selectRow(item->row());
-      m_ui.view->setIndexWidget(item->index(), widget);
+      m_ui.view->setIndexWidget(item->index(), widget->frame());
       widget->dockedFloatingContextMenu(true);
     }
 }
@@ -130,6 +130,11 @@ void glitch_docked_container::detach(void)
 
 void glitch_docked_container::slotWidgetClosed(void)
 {
+  auto sender = qobject_cast<glitch_floating_context_menu *> (this->sender());
+
+  if(!sender)
+    return;
+
   for(int i = m_model->rowCount() - 1; i >= 0; i--)
     if(m_model->item(i, 0))
       {
@@ -137,9 +142,7 @@ void glitch_docked_container::slotWidgetClosed(void)
 
 	if(index.isValid())
 	  {
-	    auto widget = m_ui.view->indexWidget(index);
-
-	    if(sender() == widget)
+	    if(m_ui.view->indexWidget(index) == sender->frame())
 	      m_model->removeRow(i);
 	  }
 	else

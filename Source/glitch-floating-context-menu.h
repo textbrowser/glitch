@@ -41,6 +41,11 @@ class glitch_floating_context_menu: public QDialog
   glitch_floating_context_menu(QWidget *parent);
   ~glitch_floating_context_menu();
 
+  QFrame *frame(void) const
+  {
+    return m_ui.main_frame;
+  }
+
   QPointer<glitch_object> object(void) const
   {
     return m_object;
@@ -56,6 +61,7 @@ class glitch_floating_context_menu: public QDialog
 
  public slots:
   void slotActionChanged(void);
+  void slotClose(void);
   void slotDoubleSpinBoxChanged(qreal value);
   void slotObjectChanged(void);
   void slotSizeChanged(int value);
