@@ -28,8 +28,6 @@
 #ifndef _glitch_find_objects_position_item_h_
 #define _glitch_find_objects_position_item_h_
 
-#include <QObject>
-#include <QPointer>
 #include <QTreeWidgetItem>
 
 #include "glitch-find-objects.h"

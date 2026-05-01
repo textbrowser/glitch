@@ -32,7 +32,6 @@
 #include <QPainter>
 
 #include "glitch-object.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-wire.h"
 
 static int s_alpha = 175;

@@ -32,16 +32,12 @@
 #endif
 #include <QGraphicsSceneContextMenuEvent>
 #include <QLineEdit>
-#include <QMenu>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QToolButton>
-#include <QtDebug>
-#include <QtMath>
 
 #include "glitch-floating-context-menu.h"
 #include "glitch-object.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-resize-widget.h"
 #include "glitch-scene.h"
 #include "glitch-tools.h"

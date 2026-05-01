@@ -30,7 +30,6 @@
 
 #include "glitch-object-view.h"
 #include "glitch-object.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
 

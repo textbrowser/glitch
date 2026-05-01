@@ -33,9 +33,7 @@
 #include "glitch-alignment.h"
 #include "glitch-object.h"
 #include "glitch-object-view.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
-#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 
 glitch_object_view::glitch_object_view(QWidget *parent):

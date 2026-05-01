@@ -29,8 +29,6 @@
 #define _glitch_font_filter_h_
 
 #include <QEvent>
-#include <QObject>
-#include <QPointer>
 
 #include "glitch-object.h"
 

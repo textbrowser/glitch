@@ -31,7 +31,6 @@
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QMainWindow>
-#include <QMenu>
 #include <QMessageBox>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
@@ -56,14 +55,12 @@
 #include "glitch-object-edit-window.h"
 #include "glitch-object-view.h"
 #include "glitch-object.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-recent-diagrams-view.h"
 #include "glitch-redo-undo-stack.h"
 #include "glitch-scene.h"
 #include "glitch-separated-diagram-window.h"
 #include "glitch-syntax-highlighter.h"
 #include "glitch-tools.h"
-#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
 #include "glitch-variety.h"

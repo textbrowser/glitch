@@ -29,11 +29,9 @@
 #include "Arduino/glitch-object-flow-control-arduino.h"
 #include "Arduino/glitch-object-function-arduino.h"
 #include "glitch-object.h"
-#include "glitch-proxy-widget.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
 #include "glitch-user-functions.h"
-#include "glitch-view.h"
 #include "glitch-wire.h"
 
 glitch_undo_command::glitch_undo_command
