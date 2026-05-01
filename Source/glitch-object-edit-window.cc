@@ -1002,11 +1002,22 @@ void glitch_object_edit_window::slotPreferencesAccepted(void)
   if(m_editView && m_editView->scene() && state)
     {
       foreach(auto object, m_editView->scene()->objects())
-	if(object && object->menu() && object->menu()->isVisible())
-	  slotDockPropertyEditor(object->menu());
+	if(object)
+	  {
+	    if(object->menu() && object->menu()->isVisible())
+	      slotDockPropertyEditor(object->menu());
+
+	    object->updateFont();
+	  }
     }
   else
-    m_dockedWidgetPropertyEditors->detach();
+    {
+      foreach(auto object, m_editView->scene()->objects())
+	if(object)
+	  object->updateFont();
+
+      m_dockedWidgetPropertyEditors->detach();
+    }
 
   m_dockedWidgetPropertyEditors->setVisible(state);
   m_rightSplitter->setVisible(m_canvasPreview->isVisible() || state);
