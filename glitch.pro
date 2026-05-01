@@ -156,7 +156,7 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -pie \
-                          -std=c++17
+                          -std=c++23
 contains(QMAKE_HOST.arch, ppc) {
 QMAKE_CXXFLAGS_RELEASE -= -Wformat-overflow=2 \
                           -Wstringop-overflow=4 \
@@ -165,7 +165,6 @@ QMAKE_CXXFLAGS_RELEASE -= -Wformat-overflow=2 \
 }
 
 greaterThan(QT_MAJOR_VERSION, 5) {
-QMAKE_CXXFLAGS_RELEASE += -std=c++17
 QMAKE_CXXFLAGS_RELEASE -= -std=c++11
 }
 
