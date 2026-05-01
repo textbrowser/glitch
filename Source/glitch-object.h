@@ -36,6 +36,7 @@
 #include <QtMath>
 
 #include "glitch-proxy-widget.h"
+#include "glitch-ui.h"
 #include "glitch-view.h"
 
 class QMainWindow;
@@ -420,6 +421,8 @@ class glitch_object: public QWidget
       m_actions.value(action)->trigger();
   }
 
+  void updateFont(void);
+
  public slots:
   virtual void slotAdjustSize(void);
   void slotActionTriggered(void);
@@ -437,7 +440,8 @@ class glitch_object: public QWidget
   static int s_maximumHeight;
   static int s_maximumWidth;
   static qint64 s_id;
-  QFont preferredFont(const QFont &font) const;
+  QFont preferredFont
+    (const QFont &font = glitch_ui::defaultApplicationFont()) const;
   QMainWindow *parentMainWindow(void) const;
   QToolButton *contextMenuButton(void) const;
   bool event(QEvent *event);
@@ -518,6 +522,7 @@ class glitch_object: public QWidget
   void createActions(void);
   void prepareContextMenu(void);
   void prepareEditObjects(const glitch_view *parentView);
+  void prepareFont(const QFont &font);
   void prepareFont(void);
   void saveProperties(const QMap<QString, QVariant> &p,
 		      const QSqlDatabase &db,

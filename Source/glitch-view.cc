@@ -2344,11 +2344,22 @@ void glitch_view::slotPreferencesAccepted(void)
   if(state)
     {
       foreach(auto object, m_scene->objects())
-	if(object && object->menu() && object->menu()->isVisible())
-	  slotDockPropertyEditor(object->menu());
+	if(object)
+	  {
+	    if(object->menu() && object->menu()->isVisible())
+	      slotDockPropertyEditor(object->menu());
+
+	    object->updateFont();
+	  }
     }
   else
-    m_dockedWidgetPropertyEditors->detach();
+    {
+      foreach(auto object, m_scene->objects())
+	if(object)
+	  object->updateFont();
+
+      m_dockedWidgetPropertyEditors->detach();
+    }
 
   m_dockedWidgetPropertyEditors->setVisible(state);
   m_rightSplitter->setVisible(m_canvasSettings->showPreview() || state);

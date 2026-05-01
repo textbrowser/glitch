@@ -74,7 +74,6 @@
 #include "glitch-scene.h"
 #include "glitch-source-preview.h"
 #include "glitch-style-sheet.h"
-#include "glitch-ui.h"
 #include "glitch-undo-command.h"
 #include "glitch-variety.h"
 #include "glitch-wire.h"
@@ -1361,6 +1360,16 @@ void glitch_object::prepareEditObjects(const glitch_view *parentView)
 
 void glitch_object::prepareEditWindowHeader(void)
 {
+}
+
+void glitch_object::prepareFont(const QFont &font)
+{
+  foreach(auto widget, findChildren<QWidget *> ())
+    if(widget)
+      widget->setFont(font);
+
+  hideOrShowOccupied();
+  setFont(font);
 }
 
 void glitch_object::prepareFont(void)
@@ -2862,4 +2871,10 @@ void glitch_object::slotWireObjects(void)
 void glitch_object::slotWiredObjectChanged(void)
 {
   prepareEditWindowHeader();
+}
+
+void glitch_object::updateFont(void)
+{
+  prepareFont
+    (preferredFont(m_properties.value(Properties::FONT).value<QFont> ()));
 }
