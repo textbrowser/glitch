@@ -20,14 +20,47 @@ then
     exit 1
 fi
 
+missing=1
+
+if [ ! -z "$(which qmake)" ]
+then
+    missing=0
+fi
+
+if [ ! -z "$(which qmake5)" ]
+then
+    missing=0
+fi
+
+if [ ! -z "$(which qmake6)" ]
+then
+    missing=0
+fi
+
+if [ $missing -eq 1 ]
+then
+    echo "Missing qmake, qmake5, or qmake6."
+    exit 1
+fi
+
 # Prepare ./opt/glitch.
 
 make distclean 2>/dev/null
 mkdir -p ./opt/glitch/Documentation
-qmake -o Makefile glitch.pro
+
+if [ ! -z "$(which qmake6)" ]
+then
+    qmake6 -o Makefile glitch.pro
+elif [ ! -z "$(which qmake5)" ]
+then
+    qmake5 -o Makefile glitch.pro
+else
+    qmake -o Makefile glitch.pro
+fi
+
 lupdate glitch.pro 2>/dev/null
 lrelease glitch.pro 2>/dev/null
-make -j $(nproc)
+make -j 5
 cp -p ./Documentation/*.1 ./opt/glitch/Documentation/.
 cp -p ./Glitch ./opt/glitch/.
 cp -p ./Icons/Logo/glitch-logo.png ./opt/glitch/.
