@@ -40,7 +40,7 @@ Now with device readers and natural language processors!
 <p>2026.05.10</p>
 <ul>
 <li>First LTS release of 2026: Kubuntu 26.04, MacOS 15, PiOS 13,
-  Windows 11. </li>
+  Windows 11.</li>
 </ul>
 
 <p>2026.04.29</p>
