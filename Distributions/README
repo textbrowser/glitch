@@ -1,3 +1,3 @@
 Please execute in the parent directory.
 
-> ./Distributions/build_debian_amd64.bash
+> ./Distributions/build-debian-amd64.bash
