@@ -434,3 +434,4 @@ Remaining Items
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
+- Verify that the recent-diagrams database is created for new instances.
