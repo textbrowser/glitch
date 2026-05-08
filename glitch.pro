@@ -397,6 +397,7 @@ qtlibraries.files    = $$[QT_INSTALL_BINS]\\Qt*Core.dll \
                        $$[QT_INSTALL_BINS]\\Qt*Pdf.dll \
                        $$[QT_INSTALL_BINS]\\Qt*PdfWidgets.dll \
                        $$[QT_INSTALL_BINS]\\Qt*PrintSupport.dll \
+                       $$[QT_INSTALL_BINS]\\Qt*Qml.dll \
                        $$[QT_INSTALL_BINS]\\Qt*SerialPort.dll \
                        $$[QT_INSTALL_BINS]\\Qt*Sql.dll \
                        $$[QT_INSTALL_BINS]\\Qt*Widgets.dll \
