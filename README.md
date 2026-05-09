@@ -2,8 +2,8 @@ Glitch is a graphical lightweight interactive tool and compiler hybrid.
 Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with device readers and natural language processors!
 
-<b>Version 2026.05.10 is the newest LTS release.</b><br>
-<b>Version 2026.05.10 is the newest source release.</b>
+<b>Version 2026.05.12 is the newest LTS release.</b><br>
+<b>Version 2026.05.12 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -39,8 +39,8 @@ Now with device readers and natural language processors!
 
 <p>2026.05.10</p>
 <ul>
-<li>First LTS release of 2026: Kubuntu 26.04, MacOS 15, PiOS 13,
-  Windows 11.</li>
+<li>First LTS release of 2026: Kubuntu 26.04 AMD64, MacOS 15 Universal,
+  PiOS 13 ARM64, Windows 11 AMD64.</li>
 </ul>
 
 <p>2026.04.29</p>
