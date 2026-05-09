@@ -409,12 +409,13 @@ void glitch_ui::slotSaveAsPNG(void)
   if(!m_currentView || !m_currentView->scene())
     return;
 
-  QFileDialog dialog(this, tr("Glitch: Save Current Diagram As PNG"));
+  QFileDialog dialog
+    (this, tr("Glitch: Save Current Diagram As PNG Image File(s)"));
 
   dialog.setAcceptMode(QFileDialog::AcceptSave);
   dialog.setDirectory(QDir::homePath());
   dialog.setFileMode(QFileDialog::Directory);
-  dialog.setNameFilter("PNG Files (*.png)");
+  dialog.setNameFilter("PNG Image Files (*.png)");
   dialog.setOption(QFileDialog::DontConfirmOverwrite, true);
   dialog.setOption(QFileDialog::DontUseNativeDialog);
   dialog.setWindowIcon(windowIcon());

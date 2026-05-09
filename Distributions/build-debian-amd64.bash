@@ -73,7 +73,7 @@ cp -pr ./Examples ./opt/glitch/.
 mkdir -p glitch-debian/opt
 cp -pr ./Distributions/DEBIAN glitch-debian/.
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2026.05.10_amd64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2026.05.12_amd64.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean

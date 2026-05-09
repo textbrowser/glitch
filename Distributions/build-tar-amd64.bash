@@ -28,6 +28,6 @@ cp -pr ./Examples ./usr/local/glitch/.
 
 cp $(ldd ./Glitch | awk '{print $3}' | grep -e '^/') ./glitch/Lib/.
 chmod -x ./glitch/Lib/*.so*
-tar -cv -f Glitch-2026.05.10.tar ./glitch
+tar -cv -f Glitch-2026.05.12.tar ./glitch
 make distclean
 rm -fr ./glitch
