@@ -413,6 +413,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   prepareActionWidgets();
   prepareIcons();
   prepareRecentDiagramsView();
+  prepareRecentFiles();
   prepareTab();
   prepareToolBars();
   slotPreferencesAccepted();
