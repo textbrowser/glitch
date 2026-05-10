@@ -91,6 +91,7 @@ class glitch_object_device_display: public glitch_object
   void destroyDevice(void);
   void paintEvent(QPaintEvent *event);
   void prepareDevice(void);
+  void processData(const QByteArray &bytes);
   void setDevicePropertiesInformation(void);
   void setProperties(const QStringList &list);
   void setProperty(const Properties property, const QVariant &value);
@@ -98,6 +99,7 @@ class glitch_object_device_display: public glitch_object
   void simulateDelete(void);
 
  private slots:
+  void slotProcessFinished(void);
   void slotReadDevice(void);
   void slotSetDeviceInformation(void);
   void slotSetDeviceInformationAccepted(void);

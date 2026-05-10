@@ -246,6 +246,7 @@ Completed Items
 - Numeric sort in Find Widgets and Type Total column.
 - Object border color.
 - Object numbers should be sequenced.
+- Option to process all output for a completed process (device-reader).
 - Option: override diagram fonts.
 - Optional tab bar in separated window.
 - Order items by bubbles and coordinates. Orders describe order in
@@ -429,7 +430,6 @@ Remaining Items
 - Insert-between-widgets option.
 - Nested flow-control scenes. Very difficult.
 - New dial object for displaying numeric data.
-- Option to process all output for a completed process (device-reader).
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
 - Process JavaScript in separate tasks.

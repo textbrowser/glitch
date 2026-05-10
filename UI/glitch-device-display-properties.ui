@@ -32,7 +32,7 @@
        <item>
         <widget class="QComboBox" name="data_type">
          <property name="sizeAdjustPolicy">
-          <enum>QComboBox::AdjustToContents</enum>
+          <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
          </property>
          <item>
           <property name="text">
@@ -44,7 +44,7 @@
        <item>
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -127,13 +127,13 @@
        <item>
         <widget class="QSpinBox" name="read_rate_size">
          <property name="toolTip">
-          <string>Range: [0, 1048576]. Read all available bytes by setting a read-size of zero.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Range: [-1, 1048576].&lt;/p&gt;&lt;p&gt;Negative one: read all available bytes after a process finishes.&lt;/p&gt;&lt;p&gt;Zero: read all available bytes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="suffix">
           <string> bytes</string>
          </property>
          <property name="minimum">
-          <number>0</number>
+          <number>-1</number>
          </property>
          <property name="maximum">
           <number>1048576</number>
@@ -172,7 +172,7 @@
        <item>
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -203,7 +203,7 @@
        <item>
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -222,7 +222,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>

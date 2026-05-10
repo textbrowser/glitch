@@ -267,17 +267,22 @@ void glitch_object_device_display::prepareDevice(void)
   else if(url.scheme().startsWith("process", Qt::CaseInsensitive))
     {
       m_device = new QProcess(this);
-      connect(qobject_cast<QProcess *> (m_device),
-	      &QProcess::readyReadStandardOutput,
-	      this,
-	      &glitch_object_device_display::slotReadDevice);
       m_device->setProperty("javascript", map.value("javascript").toString());
       m_device->setProperty("read_size", map.value("read_size").toLongLong());
       m_device->setProperty("show_errors", map.value("show_errors").toBool());
-      m_timer.start
-	(qBound(MINIMUM_READ_INTERVAL,
-		map.value("read_interval").toInt(),
-		MAXIMUM_READ_INTERVAL));
+      map.value("read_size").toLongLong() > -1 ?
+	(connect(qobject_cast<QProcess *> (m_device),
+		 &QProcess::readyReadStandardOutput,
+		 this,
+		 &glitch_object_device_display::slotReadDevice),
+	 m_timer.start(qBound(MINIMUM_READ_INTERVAL,
+			      map.value("read_interval").toInt(),
+			      MAXIMUM_READ_INTERVAL))) :
+	(connect(qobject_cast<QProcess *> (m_device),
+		 SIGNAL(finished(int)),
+		 this,
+		 SLOT(slotProcessFinished(void))),
+	 m_timer.start(100));
       qobject_cast<QProcess *> (m_device)->setArguments
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
 	(url.query().split('&', Qt::SkipEmptyParts));
@@ -304,6 +309,37 @@ void glitch_object_device_display::prepareDevice(void)
 		map.value("read_interval").toInt(),
 		MAXIMUM_READ_INTERVAL));
     }
+}
+
+void glitch_object_device_display::processData(const QByteArray &bytes)
+{
+  if(bytes.isEmpty() || m_device == nullptr)
+    return;
+
+  auto const javascript(m_device->property("javascript").toString().trimmed());
+
+  if(javascript.isEmpty())
+    m_value = bytes;
+  else
+    {
+      QJSEngine engine;
+      auto const value = engine.evaluate
+	(QString(javascript).replace("%1", glitch_variety::escape(bytes)));
+
+      if(value.isError() == false && value.toVariant().isValid())
+	m_value = value.toVariant();
+      else
+	m_value = bytes.toHex();
+    }
+
+  if(m_device->errorString().trimmed().isEmpty() == false &&
+     m_device->property("show_errors").toBool())
+    m_value = QVariant
+      (m_value.toString().trimmed() +
+       "\n\n" +
+       QString("(%1)").arg(m_device->errorString().toUpper().trimmed()));
+
+  update();
 }
 
 void glitch_object_device_display::save
@@ -407,6 +443,16 @@ void glitch_object_device_display::simulateDelete(void)
   m_timer.stop();
 }
 
+void glitch_object_device_display::slotProcessFinished(void)
+{
+  auto process = qobject_cast<QProcess *> (m_device);
+
+  if(!process)
+    return;
+
+  processData(process->readAllStandardOutput());
+}
+
 void glitch_object_device_display::slotReadDevice(void)
 {
   if(!m_device)
@@ -441,6 +487,9 @@ void glitch_object_device_display::slotReadDevice(void)
       return;
     }
 
+  if(m_device->property("read_size").toLongLong() < 0)
+    return;
+
   QByteArray bytes;
 
   do
@@ -458,30 +507,7 @@ void glitch_object_device_display::slotReadDevice(void)
   if(bytes.isEmpty()) // Error or we do not have data.
     return;
 
-  auto const javascript(m_device->property("javascript").toString().trimmed());
-
-  if(javascript.isEmpty())
-    m_value = bytes;
-  else
-    {
-      QJSEngine engine;
-      auto const value = engine.evaluate
-	(QString(javascript).replace("%1", glitch_variety::escape(bytes)));
-
-      if(value.isError() == false && value.toVariant().isValid())
-	m_value = value.toVariant();
-      else
-	m_value = bytes.toHex();
-    }
-
-  if(m_device->errorString().trimmed().isEmpty() == false &&
-     m_device->property("show_errors").toBool())
-    m_value = QVariant
-      (m_value.toString().trimmed() +
-       "\n\n" +
-       QString("(%1)").arg(m_device->errorString().toUpper().trimmed()));
-
-  update();
+  processData(bytes);
 }
 
 void glitch_object_device_display::slotSetDeviceInformation(void)
