@@ -384,6 +384,7 @@ Completed Items
 - Variable (combination boxes) functions.
 - Variable clones. Not necessary.
 - Verify setProperties() for default values.
+- Verify that the recent-diagrams database is created for new instances.
 - View separation.
 - Virtual method setUndoStack() called in glitch_object::glitch_object().
 - Warn of faulty home directory: read and write permissions.
@@ -434,4 +435,3 @@ Remaining Items
 - Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
-- Verify that the recent-diagrams database is created for new instances.
