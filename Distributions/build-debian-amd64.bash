@@ -71,9 +71,9 @@ cp -pr ./Examples ./opt/glitch/.
 # Prepare Glitch-x.deb.
 
 mkdir -p glitch-debian/opt
-cp -pr ./Distributions/DEBIAN glitch-debian/.
+cp -pr ./Distributions/KUBUNTU glitch-debian/DEBIAN
 cp -r ./opt/glitch glitch-debian/opt/.
-fakeroot dpkg-deb --build glitch-debian Glitch-2026.05.12_amd64.deb
+fakeroot dpkg-deb --build glitch-debian Glitch-2026.05.12_Kubuntu_amd64.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
