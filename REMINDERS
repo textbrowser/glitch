@@ -54,6 +54,7 @@ Completed Items
 - Cancel a wiring operation if the second clicked connection is invalid.
   No, may be an invalid click.
 - Canvas background color redo / undo.
+- Canvas preview and arrow scrolling.
 - Canvas printing! Save as PNG instead.
 - Center child edit windows!
 - Center child window with respect to separated diagram if necessary.
@@ -423,7 +424,6 @@ Remaining Items
 
 - ASH.
 - Android: QDialog::exec(), menus, etc.
-- Canvas preview and arrow scrolling.
 - Context-menu for attaching widgets to input / output ports of other widgets.
 - Custom shortcuts.
 - Display context cursor as mouse hovers over a port.

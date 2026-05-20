@@ -18,17 +18,24 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QGraphicsView" name="view">
+    <widget class="glitch_graphicsview" name="view">
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <property name="viewportUpdateMode">
-      <enum>QGraphicsView::FullViewportUpdate</enum>
+      <enum>QGraphicsView::ViewportUpdateMode::FullViewportUpdate</enum>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>glitch_graphicsview</class>
+   <extends>QGraphicsView</extends>
+   <header>glitch-graphicsview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
