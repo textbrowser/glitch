@@ -175,7 +175,7 @@ void glitch_object_device_display::paintEvent(QPaintEvent *event)
 
   QPainter painter(this);
 
-  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+  painter.setRenderHints(glitch_variety::renderHints());
 
   QPainterPath path;
   QPen pen;

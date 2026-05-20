@@ -38,6 +38,7 @@
 #include <QTimer>
 
 #include "glitch-ui.h"
+#include "glitch-variety.h"
 
 class glitch_recent_diagrams_view_item:
   public QObject, public QGraphicsPixmapItem
@@ -157,13 +158,7 @@ class glitch_recent_diagrams_view_item:
     pen.setWidthF(0.0);
     painter->setBrush(QBrush(pixmap()));
     painter->setPen(pen);
-    painter->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			    QPainter::LosslessImageRendering |
-#endif
-			    QPainter::SmoothPixmapTransform |
-			    QPainter::TextAntialiasing,
-			    true);
+    painter->setRenderHints(glitch_variety::renderHints(), true);
     painter->drawRoundedRect(boundingRect(), radius, radius); // Order.
 
     QIcon const static icon(":/clear.png");

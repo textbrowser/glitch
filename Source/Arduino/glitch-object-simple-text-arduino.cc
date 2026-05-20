@@ -27,6 +27,7 @@
 
 #include "glitch-object-simple-text-arduino.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_simple_text_arduino::glitch_object_simple_text_arduino
 (QWidget *parent):glitch_object_simple_text_arduino(1, parent)
@@ -73,13 +74,7 @@ void glitch_object_simple_text_arduino::paintEvent(QPaintEvent *event)
   painter.setBrush(brush);
   painter.setFont(font);
   painter.setPen(m_properties.value(Properties::FONT_COLOR).value<QColor> ());
-  painter.setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			 QPainter::LosslessImageRendering |
-#endif
-			 QPainter::SmoothPixmapTransform |
-			 QPainter::TextAntialiasing,
-			 true);
+  painter.setRenderHints(glitch_variety::renderHints(), true);
 
   if(m_path.isEmpty())
     m_path.addRoundedRect(rect(), 5.0, 5.0);

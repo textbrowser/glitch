@@ -28,6 +28,7 @@
 #ifndef _glitch_variety_h_
 #define _glitch_variety_h_
 
+#include <QPainter>
 #include <QString>
 #include <QTextEdit>
 #include <QtDebug>
@@ -40,6 +41,7 @@ class QWidget;
 class glitch_variety
 {
  public:
+  static QPainter::RenderHints renderHints(void);
   static QPointF dbPointToPointF(const QString &text);
   static QString homePath(void);
   static QString escape(const QString &text);

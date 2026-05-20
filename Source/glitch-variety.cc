@@ -41,6 +41,16 @@
 #include "glitch-variety.h"
 #include "glitch-view.h"
 
+QPainter::RenderHints glitch_variety::renderHints(void)
+{
+  return QPainter::Antialiasing |
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
+    QPainter::LosslessImageRendering |
+#endif
+    QPainter::SmoothPixmapTransform |
+    QPainter::TextAntialiasing;
+}
+
 QPointF glitch_variety::dbPointToPointF(const QString &text)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))

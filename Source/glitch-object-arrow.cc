@@ -30,6 +30,7 @@
 
 #include "glitch-object-arrow.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_arrow::glitch_object_arrow(const QString &text, QWidget *parent):
   glitch_object_arrow(1, parent)
@@ -131,13 +132,7 @@ void glitch_object_arrow::paintEvent(QPaintEvent *event)
   canvasBrush.setColor(transparentColor);
   painter.setBrush(canvasBrush);
   painter.setPen(Qt::NoPen);
-  painter.setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			 QPainter::LosslessImageRendering |
-#endif
-			 QPainter::SmoothPixmapTransform |
-			 QPainter::TextAntialiasing,
-			 true);
+  painter.setRenderHints(glitch_variety::renderHints(), true);
   painter.save();
   painter.drawConvexPolygon(block, 4);
   painter.restore();

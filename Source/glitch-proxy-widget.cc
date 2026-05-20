@@ -32,7 +32,6 @@
 #endif
 #include <QGraphicsSceneContextMenuEvent>
 #include <QLineEdit>
-#include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QToolButton>
 
@@ -347,13 +346,7 @@ void glitch_proxy_widget::paint
 
   if(painter)
     {
-      painter->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			      QPainter::LosslessImageRendering |
-#endif
-			      QPainter::SmoothPixmapTransform |
-			      QPainter::TextAntialiasing,
-			      true);
+      painter->setRenderHints(glitch_variety::renderHints(), true);
 
       if(m_object && (m_object->objectType() == "arduino-booleanoperator" ||
 		      m_object->objectType() == "decoration-arrow" ||

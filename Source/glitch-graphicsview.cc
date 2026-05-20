@@ -30,18 +30,14 @@
 #include <QSettings>
 
 #include "glitch-graphicsview.h"
+#include "glitch-variety.h"
 #include "glitch-view.h"
 #include "glitch-wire.h"
 
 glitch_graphicsview::glitch_graphicsview(QWidget *parent):QGraphicsView(parent)
 {
   m_view = qobject_cast<glitch_view *> (parent);
-  setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-		 QPainter::LosslessImageRendering |
-#endif
-		 QPainter::SmoothPixmapTransform |
-		 QPainter::TextAntialiasing);
+  setRenderHints(glitch_variety::renderHints());
 #ifdef Q_OS_MACOS
   // qt.pointer.dispatch: skipping QEventPoint()
 

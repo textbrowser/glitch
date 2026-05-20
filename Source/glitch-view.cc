@@ -178,12 +178,7 @@ glitch_view::glitch_view
   m_view->setFrameStyle(QFrame::NoFrame);
   m_view->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
   m_view->setInteractive(true);
-  m_view->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			 QPainter::LosslessImageRendering |
-#endif
-			 QPainter::SmoothPixmapTransform |
-			 QPainter::TextAntialiasing);
+  m_view->setRenderHints(glitch_variety::renderHints());
   m_view->setRubberBandSelectionMode(Qt::IntersectsItemShape);
   m_view->setScene(m_scene);
   m_view->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1746,12 +1741,7 @@ void glitch_view::saveSnap(void)
   buffer.open(QIODevice::WriteOnly);
   image.fill(Qt::white);
   painter.begin(&image);
-  painter.setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			 QPainter::LosslessImageRendering |
-#endif
-			 QPainter::SmoothPixmapTransform |
-			 QPainter::TextAntialiasing);
+  painter.setRenderHints(glitch_variety::renderHints());
   m_scene->render
     (&painter,
      QRectF(),

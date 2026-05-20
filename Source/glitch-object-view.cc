@@ -35,6 +35,7 @@
 #include "glitch-object-view.h"
 #include "glitch-scene.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_view::glitch_object_view(QWidget *parent):
   glitch_object_view(glitch_common::ProjectTypes::ArduinoProject,
@@ -63,12 +64,7 @@ glitch_object_view::glitch_object_view
   setFrameStyle(QFrame::NoFrame);
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   setInteractive(true);
-  setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-		 QPainter::LosslessImageRendering |
-#endif
-		 QPainter::SmoothPixmapTransform |
-		 QPainter::TextAntialiasing);
+  setRenderHints(glitch_variety::renderHints());
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(m_scene);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);

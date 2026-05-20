@@ -29,6 +29,7 @@
 
 #include "glitch-object-block-comment-arduino.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_block_comment_arduino::glitch_object_block_comment_arduino
 (QWidget *parent):glitch_object_block_comment_arduino(1, parent)
@@ -137,7 +138,7 @@ void glitch_object_block_comment_arduino::paintEvent(QPaintEvent *event)
 
   QPainter painter(this);
 
-  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+  painter.setRenderHints(glitch_variety::renderHints());
 
   QPainterPath path;
   QPen pen;

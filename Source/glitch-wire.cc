@@ -32,6 +32,7 @@
 #include <QPainter>
 
 #include "glitch-object.h"
+#include "glitch-variety.h"
 #include "glitch-wire.h"
 
 static int s_alpha = 175;
@@ -100,13 +101,7 @@ void glitch_wire::paint
   if(painter)
     {
       if(painter->isActive())
-	painter->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-				QPainter::LosslessImageRendering |
-#endif
-				QPainter::SmoothPixmapTransform |
-				QPainter::TextAntialiasing,
-				true);
+	painter->setRenderHints(glitch_variety::renderHints(), true);
 
       if(m_wireType == WireTypes::CURVE)
 	{

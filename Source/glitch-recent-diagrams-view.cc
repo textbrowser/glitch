@@ -66,12 +66,7 @@ glitch_recent_diagrams_view::glitch_recent_diagrams_view(QWidget *parent):
   setAlignment(Qt::AlignHCenter | Qt::AlignTop);
   setCacheMode(QGraphicsView::CacheNone);
   setDragMode(QGraphicsView::NoDrag);
-  setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-		 QPainter::LosslessImageRendering |
-#endif
-		 QPainter::SmoothPixmapTransform |
-		 QPainter::TextAntialiasing);
+  setRenderHints(glitch_variety::renderHints());
   setRubberBandSelectionMode(Qt::IntersectsItemShape);
   setScene(new QGraphicsScene(this));
   setStyleSheet("QGraphicsView {border: none;}");

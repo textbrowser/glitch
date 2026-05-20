@@ -30,6 +30,7 @@
 #include "glitch-floating-context-menu.h"
 #include "glitch-object-frame.h"
 #include "glitch-undo-command.h"
+#include "glitch-variety.h"
 
 glitch_object_frame::glitch_object_frame(QWidget *parent):
   glitch_object_frame(1, parent)
@@ -100,7 +101,7 @@ void glitch_object_frame::paintEvent(QPaintEvent *event)
 
   QPainter painter(this);
 
-  painter.setRenderHints(QPainter::Antialiasing);
+  painter.setRenderHints(glitch_variety::renderHints());
 
   QPainterPath path;
   QPen pen;

@@ -26,18 +26,14 @@
 */
 
 #include "glitch-canvas-preview.h"
+#include "glitch-variety.h"
 
 #include <QMouseEvent>
 
 glitch_canvas_preview::glitch_canvas_preview(QWidget *parent):QWidget(parent)
 {
   m_ui.setupUi(this);
-  m_ui.view->setRenderHints(QPainter::Antialiasing |
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 13, 0))
-			    QPainter::LosslessImageRendering |
-#endif
-			    QPainter::SmoothPixmapTransform |
-			    QPainter::TextAntialiasing);
+  m_ui.view->setRenderHints(glitch_variety::renderHints());
 
   QTransform transform;
   const qreal factor = 1.25;
