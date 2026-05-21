@@ -276,6 +276,7 @@ Completed Items
 - Previews within child edit windows.
 - Print preview.
 - Private Arduino constructors (QWidget), (qint64, QWidget).
+- Process JavaScript in separate tasks. Not wise.
 - Promote comment widget (see glitch_object_lineedit).
 - Proper indentation of generated source.
 - QSerialPort for direct communications with Arduino boards.
@@ -432,6 +433,5 @@ Remaining Items
 - New dial object for displaying numeric data.
 - Pasting a function clone in a child of another diagram must result
   in a new main-window function in the other diagram.
-- Process JavaScript in separate tasks.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
