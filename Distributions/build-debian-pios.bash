@@ -63,7 +63,7 @@ fi
 
 cp -r ./opt/glitch glitch-debian/opt/.
 fakeroot dpkg-deb \
-	 --build glitch-debian Glitch-2026.06.06_PiOS_$architecture.deb
+	 --build glitch-debian Glitch-2026.05.22_PiOS_$architecture.deb
 rm -fr ./opt
 rm -fr glitch-debian
 make distclean
