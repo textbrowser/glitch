@@ -403,6 +403,7 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
   m_ui.project_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
   m_ui.project_toolbar->setIconSize(QSize(24, 24));
   m_ui.tab->addTab(m_recentDiagramsView, tr("Recent Diagrams"));
+  m_ui.tab->setContentsMargins(0, 0, 0, 0);
   m_ui.tab->setMovable(true);
   m_ui.tab->setTabsClosable(true);
   m_ui.tools_toolbar->setContextMenuPolicy(Qt::PreventContextMenu);

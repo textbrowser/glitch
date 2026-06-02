@@ -159,6 +159,7 @@ glitch_view::glitch_view
 #endif
   m_tabPullDown->setToolTip(tr("Tab Menu"));
   m_tabPullDown->menu()->setStyleSheet("QMenu {menu-scrollable: 1;}");
+  m_ui.tab->setContentsMargins(0, 0, 0, 0);
   m_ui.tab->setCornerWidget(m_tabPullDown, Qt::TopLeftCorner);
   m_ui.tab->setDocumentMode(false);
   m_ui.tab->setTabPosition(m_canvasSettings->tabPosition());
