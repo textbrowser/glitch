@@ -21,7 +21,7 @@
    <item>
     <widget class="QScrollArea" name="scrollArea">
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="widgetResizable">
       <bool>true</bool>
@@ -32,7 +32,7 @@
         <x>0</x>
         <y>0</y>
         <width>488</width>
-        <height>642</height>
+        <height>646</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -77,7 +77,7 @@
                 <item>
                  <spacer name="horizontalSpacer_2">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -129,7 +129,7 @@
                 <item>
                  <spacer name="horizontalSpacer_22">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -140,6 +140,19 @@
                  </spacer>
                 </item>
                </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="override_widget_fonts">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, a widget's font property will be set to the Application Font.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Override Widget Fonts</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>
@@ -179,7 +192,7 @@
              <item>
               <spacer name="horizontalSpacer">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -227,19 +240,6 @@
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="override_widget_fonts">
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled, a widget's font property will be set to the Application Font.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="text">
-              <string>Override Widget Fonts</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -319,7 +319,7 @@
              <item>
               <spacer name="horizontalSpacer_3">
                <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <enum>Qt::Orientation::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -334,7 +334,7 @@
            <item>
             <spacer name="verticalSpacer">
              <property name="orientation">
-              <enum>Qt::Vertical</enum>
+              <enum>Qt::Orientation::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -357,7 +357,7 @@
      <item>
       <spacer name="horizontalSpacer_15">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -397,16 +397,18 @@
   <tabstop>tab</tabstop>
   <tabstop>display_application_font</tabstop>
   <tabstop>font_hinting</tabstop>
+  <tabstop>override_widget_fonts</tabstop>
   <tabstop>docked_widget_property_editors</tabstop>
   <tabstop>download_version_information</tabstop>
   <tabstop>display_language</tabstop>
   <tabstop>output_directory</tabstop>
   <tabstop>select_output_directory</tabstop>
-  <tabstop>override_widget_fonts</tabstop>
   <tabstop>style_override</tabstop>
   <tabstop>display_tab_bar</tabstop>
   <tabstop>display_tear_off_menus</tabstop>
   <tabstop>zoom_factor</tabstop>
+  <tabstop>apply</tabstop>
+  <tabstop>close</tabstop>
  </tabstops>
  <resources>
   <include location="../Icons/icons.qrc"/>
