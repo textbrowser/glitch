@@ -173,7 +173,7 @@
     </widget>
     <addaction name="action_Full_Screen"/>
     <addaction name="separator"/>
-    <addaction name="action_Status_Bar"/>
+    <addaction name="action_View_Status_Bar"/>
     <addaction name="action_View_Tab_Bar"/>
     <addaction name="action_View_Tool_Bars"/>
     <addaction name="separator"/>
@@ -558,7 +558,7 @@
     <string>Tab Bar</string>
    </property>
   </action>
-  <action name="action_Status_Bar">
+  <action name="action_View_Status_Bar">
    <property name="checkable">
     <bool>true</bool>
    </property>

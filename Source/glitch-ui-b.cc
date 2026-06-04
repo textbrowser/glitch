@@ -584,6 +584,15 @@ void glitch_ui::slotUniteAllDiagrams(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_ui::slotViewStatusBar(void)
+{
+  QSettings().setValue
+    ("preferences/status_bar", m_ui.action_View_Status_Bar->isChecked());
+  statusBar() ? statusBar()->setVisible
+    (QSettings().value("preferences/status_bar", true).toBool()) :
+    (void) 0;
+}
+
 void glitch_ui::slotViewTabBar(void)
 {
   QSettings().setValue

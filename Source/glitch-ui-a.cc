@@ -321,6 +321,10 @@ glitch_ui::glitch_ui(void):QMainWindow(nullptr)
 	  &QAction::triggered,
 	  this,
 	  &glitch_ui::slotIDEVerify);
+  connect(m_ui.action_View_Status_Bar,
+	  &QAction::triggered,
+	  this,
+	  &glitch_ui::slotViewStatusBar);
   connect(m_ui.action_View_Tab_Bar,
 	  &QAction::triggered,
 	  this,
@@ -1461,6 +1465,8 @@ void glitch_ui::restoreSettings(void)
   QSettings settings;
 
   restoreState(settings.value("main_window/state").toByteArray());
+  m_ui.action_View_Status_Bar->setChecked
+    (settings.value("preferences/status_bar", true).toBool());
   m_ui.action_View_Tab_Bar->setChecked
     (settings.value("preferences/tab_bar", true).toBool());
   m_ui.action_View_Tool_Bars->setChecked
