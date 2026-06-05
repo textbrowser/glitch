@@ -1480,6 +1480,9 @@ void glitch_ui::restoreSettings(void)
   m_ui.tools_toolbar->setVisible
     (m_currentView && m_ui.action_View_Tool_Bars->isChecked());
   m_ui.zoom_toolbar->setVisible(m_ui.action_View_Tool_Bars->isChecked());
+  statusBar() ?
+    statusBar()->setVisible(m_ui.action_View_Status_Bar->isChecked()) :
+    (void) 0;
 
   if(!restoreGeometry(settings.value("main_window/geometry").toByteArray()))
     showMaximized();
