@@ -24,7 +24,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>34</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Edit">
@@ -96,9 +96,15 @@
     <addaction name="separator"/>
     <addaction name="menu_Zoom"/>
    </widget>
+   <widget class="QMenu" name="menu_Tabs">
+    <property name="title">
+     <string>&amp;Tabs</string>
+    </property>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
    <addaction name="menu_Generate"/>
+   <addaction name="menu_Tabs"/>
    <addaction name="menu_View"/>
    <addaction name="menu_Windows"/>
   </widget>
