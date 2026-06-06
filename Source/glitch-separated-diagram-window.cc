@@ -621,11 +621,15 @@ void glitch_separated_diagram_window::slotAboutToShowTabsMenu(void)
   if(!group)
     group = new QActionGroup(m_ui.menu_Tabs);
 
-  foreach(auto const &string, m_view->tabText())
+  int i = 0;
+  int index = -1;
+
+  foreach(auto const &string, m_view->tabText(index))
     {
       auto action = new QAction(string, this);
 
       action->setCheckable(true);
+      action->setChecked(i++ == index);
       group->addAction(action);
       m_ui.menu_Tabs->addAction(action);
     }
