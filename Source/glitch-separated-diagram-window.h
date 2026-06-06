@@ -62,6 +62,7 @@ class glitch_separated_diagram_window: public QMainWindow
   void prepareToolBar(void);
 
  private slots:
+  void slotAboutToShowTabsMenu(void);
   void slotCopy(void);
   void slotDelete(void);
   void slotFind(void);

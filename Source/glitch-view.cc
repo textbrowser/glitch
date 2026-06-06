@@ -541,6 +541,16 @@ QString glitch_view::undoText(void) const
   return m_undoStack->undoText();
 }
 
+QStringList glitch_view::tabText(void) const
+{
+  QStringList list;
+
+  for(int i = 0; i < m_ui.tab->count(); i++)
+    list << m_ui.tab->tabText(i);
+
+  return list;
+}
+
 QTabBar *glitch_view::tabBar(void) const
 {
   return m_ui.tab->tabBar();

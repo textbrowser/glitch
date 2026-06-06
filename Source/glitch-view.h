@@ -99,6 +99,7 @@ class glitch_view: public QWidget
   QString name(void) const;
   QString redoText(void) const;
   QString undoText(void) const;
+  QStringList tabText(void) const;
   QTabBar *tabBar(void) const;
   QUndoStack *undoStack(void) const;
   bool canRedo(void) const;

@@ -25,6 +25,7 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QActionGroup>
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QMessageBox>
@@ -172,6 +173,10 @@ glitch_separated_diagram_window(QWidget *parent):QMainWindow(parent)
 	  &QAction::triggered,
 	  this,
 	  &glitch_separated_diagram_window::slotZoom);
+  connect(m_ui.menu_Tabs,
+	  &QMenu::aboutToShow,
+	  this,
+	  &glitch_separated_diagram_window::slotAboutToShowTabsMenu);
   menuBar()->setContextMenuPolicy(Qt::PreventContextMenu);
   prepareIcons();
   slotPreferencesAccepted();
@@ -597,6 +602,41 @@ void glitch_separated_diagram_window::setCentralWidget(QWidget *widget)
 
   prepareToolBar(); // Order is important.
   prepareActionWidgets();
+}
+
+void glitch_separated_diagram_window::slotAboutToShowTabsMenu(void)
+{
+  QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+  m_ui.menu_Tabs->clear();
+
+  if(!m_view)
+    {
+      m_ui.menu_Tabs->addAction(tr("(Empty)"));
+      QApplication::restoreOverrideCursor();
+      return;
+    }
+
+  auto group = m_ui.menu_Tabs->findChild<QActionGroup *> ();
+
+  if(!group)
+    group = new QActionGroup(m_ui.menu_Tabs);
+
+  foreach(auto const &string, m_view->tabText())
+    {
+      auto action = new QAction(string, this);
+
+      action->setCheckable(true);
+      group->addAction(action);
+      m_ui.menu_Tabs->addAction(action);
+    }
+
+  if(group->actions().isEmpty())
+    group->deleteLater();
+
+  if(m_ui.menu_Tabs->actions().isEmpty())
+    m_ui.menu_Tabs->addAction(tr("(Empty)"))->setEnabled(false);
+
+  QApplication::restoreOverrideCursor();
 }
 
 void glitch_separated_diagram_window::slotCopy(void)

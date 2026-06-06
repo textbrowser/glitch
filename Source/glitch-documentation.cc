@@ -167,13 +167,13 @@ void glitch_documentation::setPlainText(const QString &text)
   auto font(m_ui.text->font());
 
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-  foreach(auto const &str, QFontDatabase::families())
+  foreach(auto const &string, QFontDatabase::families())
 #else
-  foreach(auto const &str, QFontDatabase().families())
+  foreach(auto const &string, QFontDatabase().families())
 #endif
-    if(str.contains("courier", Qt::CaseInsensitive))
+    if(string.contains("courier", Qt::CaseInsensitive))
       {
-	font.setFamily(str);
+	font.setFamily(string);
 	break;
       }
 
