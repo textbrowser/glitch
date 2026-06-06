@@ -617,19 +617,19 @@ void glitch_separated_diagram_window::slotAboutToShowTabsMenu(void)
     }
 
   auto group = m_ui.menu_Tabs->findChild<QActionGroup *> ();
+  int index = -1;
 
   if(!group)
     group = new QActionGroup(m_ui.menu_Tabs);
 
-  int i = 0;
-  int index = -1;
+  auto const list(m_view->tabText(index));
 
-  foreach(auto const &string, m_view->tabText(index))
+  for(int i = 0; i < list.size(); i++)
     {
-      auto action = new QAction(string, this);
+      auto action = new QAction(list[i], this);
 
       action->setCheckable(true);
-      action->setChecked(i++ == index);
+      action->setChecked(i == index);
       group->addAction(action);
       m_ui.menu_Tabs->addAction(action);
     }
