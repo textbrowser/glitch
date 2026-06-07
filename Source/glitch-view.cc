@@ -1822,6 +1822,11 @@ void glitch_view::selectAll(void)
   QApplication::restoreOverrideCursor();
 }
 
+void glitch_view::setPage(const int index)
+{
+  m_ui.tab->setCurrentIndex(index);
+}
+
 void glitch_view::setProperty(const Properties property, const QVariant &value)
 {
   switch(property)

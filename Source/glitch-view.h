@@ -150,6 +150,7 @@ class glitch_view: public QWidget
   void redo(void);
   void save(void);
   void selectAll(void);
+  void setPage(const int index);
   void setProperty(const Properties property, const QVariant &value);
   void setViewStatusBar(const bool state);
   void setViewTabBar(const bool state);

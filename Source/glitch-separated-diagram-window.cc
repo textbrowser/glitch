@@ -630,6 +630,11 @@ void glitch_separated_diagram_window::slotAboutToShowTabsMenu(void)
 
       action->setCheckable(true);
       action->setChecked(i == index);
+      action->setProperty("index", i);
+      connect(action,
+	      &QAction::triggered,
+	      this,
+	      &glitch_separated_diagram_window::slotSelectPage);
       group->addAction(action);
       m_ui.menu_Tabs->addAction(action);
     }
@@ -872,6 +877,19 @@ void glitch_separated_diagram_window::slotSelectAll(void)
 {
   if(m_view)
     m_view->selectAll();
+}
+
+void glitch_separated_diagram_window::slotSelectPage(void)
+{
+  if(!m_view)
+    return;
+
+  auto action = qobject_cast<QAction *> (sender());
+
+  if(!action)
+    return;
+
+  m_view->setPage(action->property("index").toInt());
 }
 
 void glitch_separated_diagram_window::slotSelectionChanged(void)
