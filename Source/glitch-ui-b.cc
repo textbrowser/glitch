@@ -282,10 +282,27 @@ void glitch_ui::slotAboutToShowRecentDiagrams(void)
   prepareRecentFiles();
 }
 
+void glitch_ui::slotCloseAllClosablePages(void)
+{
+  slotCloseAllDiagrams();
+}
+
 void glitch_ui::slotCloseAllDiagrams(void)
 {
   for(int i = m_ui.tab->count() - 1; i >= 0; i--)
     if(qobject_cast<glitch_view *> (m_ui.tab->widget(i)))
+      slotCloseDiagram(i);
+}
+
+void glitch_ui::slotCloseCurrentPage(void)
+{
+  slotCloseDiagram(m_ui.tab->currentIndex());
+}
+
+void glitch_ui::slotCloseOtherClosablePages(void)
+{
+  for(int i = m_ui.tab->count() - 1; i >= 0; i--)
+    if(i != m_ui.tab->currentIndex())
       slotCloseDiagram(i);
 }
 

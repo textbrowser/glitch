@@ -2590,6 +2590,19 @@ void glitch_ui::slotTabMoved(int from, int to)
 
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   m_ui.menu_Tabs->clear();
+  m_ui.menu_Tabs->addAction
+    (tr("Close All Closable Pages"),
+     this,
+     SLOT(slotCloseAllClosablePages(void)))->setEnabled
+    (m_ui.tab->count() > 1);
+  m_ui.menu_Tabs->addAction
+    (tr("Close Current Page"), this, SLOT(slotCloseCurrentPage(void)))->
+    setEnabled(m_recentDiagramsView != m_ui.tab->currentWidget());
+  m_ui.menu_Tabs->addAction
+    (tr("Close Other Closable Pages"),
+     this,
+     SLOT(slotCloseOtherClosablePages(void)))->setEnabled
+    (m_ui.tab->count() > 2);
 
   auto group = m_ui.menu_Tabs->findChild<QActionGroup *> ();
 
@@ -2605,6 +2618,7 @@ void glitch_ui::slotTabMoved(int from, int to)
       action->setCheckable(true);
       action->setChecked(i == m_ui.tab->currentIndex());
       group->addAction(action);
+      i == 0 ? (void) m_ui.menu_Tabs->addSeparator() : (void) 0;
       m_ui.menu_Tabs->addAction(action);
     }
 
