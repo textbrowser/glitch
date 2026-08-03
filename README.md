@@ -3,7 +3,7 @@ Generate Arduino software via beautiful graphical diagrams (blueprints).
 Now with device readers and natural language processors!
 
 <b>Version 2026.05.22 is the newest LTS release.</b><br>
-<b>Version 2026.05.22 is the newest source release.</b>
+<b>Version 2026.08.03 is the newest source release.</b>
 
 <h3><b>Summary of Glitch</b></h3>
 
@@ -36,6 +36,12 @@ Now with device readers and natural language processors!
 </ul>
 
 <h3><b>Release Notes</b></h3>
+
+<p>2026.08.03</p>
+<ul>
+<li>New Tabs actions: Close All Closable Pages, Close Current Page,
+ Close Other Closable Pages.</li>
+</ul>
 
 <p>2026.05.22</p>
 <ul>
