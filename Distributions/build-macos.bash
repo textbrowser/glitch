@@ -11,7 +11,6 @@ then
     exit 1
 fi
 
-
 if [ ! -z "${SSH_TTY}" ]
 then
     echo "SSH session detected. " \
