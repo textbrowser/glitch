@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeDialogs, true);
 #endif
   QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar, true);
+  QCoreApplication::setAttribute(Qt::AA_NativeWindows, false);
 #endif
   QCoreApplication::setApplicationName("Glitch");
   QCoreApplication::setApplicationVersion(GLITCH_VERSION_STRING);
