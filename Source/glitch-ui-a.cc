@@ -1226,7 +1226,7 @@ void glitch_ui::prepareRecentFiles(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS)
+#if defined(Q_OS_ANDROID)
       auto action = m_ui.menu_Recent_Diagrams->addAction(list.at(i));
 
       action->setProperty("file-name", list.at(i));
@@ -1246,8 +1246,7 @@ void glitch_ui::prepareRecentFiles(void)
       connect(action,
 	      &QAction::triggered,
 	      this,
-	      &glitch_ui::slotOpenRecentDiagram,
-	      Qt::QueuedConnection); // Prevent MacOS fault.
+	      &glitch_ui::slotOpenRecentDiagram);
       m_ui.menu_Recent_Diagrams->addAction(action);
 
       if(action->label())
