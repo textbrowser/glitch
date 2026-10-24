@@ -25,14 +25,24 @@
 ** GLITCH, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <QCompleter>
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QPushButton>
 #include <QSettings>
+#include <QStyleFactory>
 
 #include "glitch-preferences.h"
 #include "glitch-scroll-filter.h"
 #include "glitch-variety.h"
+
+static QStringList sort(const QStringList &list)
+{
+  auto sorted(list);
+
+  std::sort(sorted.begin(), sorted.end());
+  return sorted;
+}
 
 glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
 {
@@ -68,6 +78,11 @@ glitch_preferences::glitch_preferences(QWidget *parent):QDialog(parent)
   m_ui.output_directory->setCursorPosition(0);
   m_ui.output_directory->selectAll();
   m_ui.select_output_directory->setIcon(QIcon(":/open.png"));
+  m_ui.style_override->setCompleter
+    (new QCompleter(sort(QStyleFactory::keys()), this));
+  m_ui.style_override->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+  m_ui.style_override->completer()->setCompletionMode
+    (QCompleter::UnfilteredPopupCompletion);
   m_ui.zoom_factor->installEventFilter(new glitch_scroll_filter(this));
   m_ui.zoom_factor->setToolTip
     (tr("[%1, %2]").
