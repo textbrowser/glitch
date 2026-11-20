@@ -102,7 +102,8 @@ void glitch_preferences::prepareEnvironmentVariables(void)
     (QSettings().value("preferences/QT_STYLE_OVERRIDE").
      toByteArray().trimmed());
 
-  qputenv("QT_STYLE_OVERRIDE", variable);
+  if(QStyleFactory::keys().contains(variable))
+    qputenv("QT_STYLE_OVERRIDE", variable);
 }
 
 void glitch_preferences::prepareLanguages(void)

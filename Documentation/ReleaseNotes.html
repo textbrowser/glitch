@@ -1,5 +1,20 @@
 <html>
   <body>
+    <h4><u>2026.11.21 Release</u></h4>
+    <p>
+      <b>Corrections</b>
+      <ul>
+	<li>Create CocoaInitializer before QApplication for MacOS.</li>
+	<li>Create the local glitch directory before issuing
+	  QSettings::setPath().</li>
+	<li>Prefer QDir::mkpath() for creating the local glitch
+	  directory.</li>
+	<li>The QJniObject object in main() must be valid before
+	  issuing callMethod().</li>
+	<li>Verify that preferences/QT_STYLE_OVERRIDE exists in
+	  QStyleFactory::keys() before setting QT_STYLE_OVERRIDE.</li>
+      </ul>
+    </p>
     <h4><u>2026.08.03 Release</u></h4>
     <p>
       <b>New</b>

@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
 	return static_cast<int> (EXIT_SUCCESS);
       }
 
+  QDir().mkpath(glitch_variety::homePath());
 #if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling, true);
@@ -94,11 +95,6 @@ int main(int argc, char *argv[])
                      glitch_variety::homePath());
   glitch_preferences::prepareEnvironmentVariables();
 
-  QDir dir;
-  glitch_application qapplication(argc, argv);
-
-  dir.mkdir(glitch_variety::homePath());
-
 #ifdef Q_OS_MACOS
   /*
   ** Eliminate pool errors on MacOS.
@@ -107,6 +103,7 @@ int main(int argc, char *argv[])
   CocoaInitializer ci;
 #endif
 
+  glitch_application qapplication(argc, argv);
   int rc = 0;
 
   {
@@ -121,7 +118,8 @@ int main(int argc, char *argv[])
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 1, 0))
   auto activity = QJniObject(QNativeInterface::QAndroidApplication::context());
 
-  activity.callMethod<void> ("finishAndRemoveTask");
+  if(activity.isValid())
+    activity.callMethod<void> ("finishAndRemoveTask");
 #endif
 #endif
   return rc;
