@@ -626,7 +626,7 @@ void glitch_separated_diagram_window::slotAboutToShowTabsMenu(void)
 
   for(int i = 0; i < list.size(); i++)
     {
-      auto action = new QAction(list[i], this);
+      auto action = new QAction(list[i], m_ui.menu_Tabs);
 
       action->setCheckable(true);
       action->setChecked(i == index);

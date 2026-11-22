@@ -96,7 +96,7 @@ void glitch_object_simple_text_arduino::prepareTransformationMenu(QMenu *menu)
   for(int i = 0; i < m_functionsList.size(); i++)
     {
       auto action = new QAction
-	(QString(m_functionsList.at(i)).replace('&', "&&"), this);
+	(QString(m_functionsList.at(i)).replace('&', "&&"), menu);
 
       action->setEnabled(m_functionsList.at(i) != m_text);
       connect(action,

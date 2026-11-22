@@ -1617,7 +1617,7 @@ void glitch_view::prepareTabCornerMenu(QToolButton *toolButton)
 
   for(int i = 0; i < m_ui.tab->count(); i++)
     {
-      auto action = new QAction(m_ui.tab->tabText(i), this);
+      auto action = new QAction(m_ui.tab->tabText(i), toolButton->menu());
       auto font(action->font());
 
       font.setBold(i == m_ui.tab->currentIndex());
