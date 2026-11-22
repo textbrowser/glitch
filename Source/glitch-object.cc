@@ -1675,8 +1675,8 @@ void glitch_object::setProperties(const QStringList &list)
 #endif
 
 	      m_delayedSize = QSize
-		(qMin(list.value(0).trimmed().toInt(), s_maximumWidth),
-		 qMin(list.value(1).trimmed().toInt(), s_maximumHeight));
+		(qBound(5, list.value(0).trimmed().toInt(), s_maximumWidth),
+		 qBound(5, list.value(1).trimmed().toInt(), s_maximumHeight));
 	      QTimer::singleShot(0, this, &glitch_object::slotDelayedResize);
 	    }
 	}
