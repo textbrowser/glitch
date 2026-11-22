@@ -6,7 +6,7 @@ QMAKE_EXTRA_TARGETS += dmg
 }
 
 unix {
-purge.commands      = find . -name \'*~\' -exec rm {} \;
+purge.commands      = find . -name \'*~\' -exec rm {} \\;
 QMAKE_EXTRA_TARGETS += purge
 }
 
@@ -110,7 +110,11 @@ QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -fwrapv \
                           -pedantic \
                           -std=c++17
+contains(QMAKE_HOST.arch, x86_64) {
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
+} else {
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 14.4
+}
 } else:win32 {
 QMAKE_CXXFLAGS_RELEASE += -Wall \
                           -Wcast-align \
@@ -195,15 +199,6 @@ RC_FILE = Icons/glitch.rc
 }
 
 INCLUDEPATH += Source
-
-macx {
-LIBS              += -framework AppKit -framework Cocoa
-OBJECTIVE_HEADERS += Source/CocoaInitializer.h
-OBJECTIVE_SOURCES += Source/CocoaInitializer.mm
-} else {
-LIBS              +=
-}
-
 MOC_DIR     = Temporary/moc
 OBJECTS_DIR = Temporary/obj
 RCC_DIR     = Temporary/rcc

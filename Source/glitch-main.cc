@@ -35,10 +35,6 @@
 
 #include <iostream>
 
-#ifdef Q_OS_MACOS
-#include "CocoaInitializer.h"
-#endif
-
 #include "glitch-application.h"
 #include "glitch-preferences.h"
 #include "glitch-ui.h"
@@ -94,14 +90,6 @@ int main(int argc, char *argv[])
 		     QSettings::UserScope,
                      glitch_variety::homePath());
   glitch_preferences::prepareEnvironmentVariables();
-
-#ifdef Q_OS_MACOS
-  /*
-  ** Eliminate pool errors on MacOS.
-  */
-
-  CocoaInitializer ci;
-#endif
 
   glitch_application qapplication(argc, argv);
   int rc = 0;

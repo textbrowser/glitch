@@ -98,6 +98,11 @@ glitch_preferences::~glitch_preferences()
 
 void glitch_preferences::prepareEnvironmentVariables(void)
 {
+#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+  if(!QSettings().contains("preferences/QT_STYLE_OVERRIDE"))
+    QSettings().setValue("preferences/QT_STYLE_OVERRIDE", "Fusion");
+#endif
+
   auto const variable
     (QSettings().value("preferences/QT_STYLE_OVERRIDE").
      toByteArray().trimmed());

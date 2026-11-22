@@ -4,11 +4,15 @@
     <p>
       <b>Corrections</b>
       <ul>
-	<li>Create CocoaInitializer before QApplication for MacOS.</li>
 	<li>Create the local glitch directory before issuing
 	  QSettings::setPath().</li>
+	<li>Initialize preferences/QT_STYLE_OVERRIDE to Fusion on
+	  MacOS and Windows if the setting is not defined.</li>
+	<li>MacOS deployment target (QMAKE_MACOSX_DEPLOYMENT_TARGET) is
+	  now 14.4 for Apple Silicon.</li>
 	<li>Prefer QDir::mkpath() for creating the local glitch
 	  directory.</li>
+	<li>Removed CocoaInitializer from MacOS.</li>
 	<li>The QJniObject object in main() must be valid before
 	  issuing callMethod().</li>
 	<li>Verify that preferences/QT_STYLE_OVERRIDE exists in
