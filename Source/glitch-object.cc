@@ -780,8 +780,12 @@ void glitch_object::cloneWires
     {
       it.next();
 
-      if(!it.value() || !it.value()->scene())
+      if(!it.value() ||
+	 !it.value()->leftProxy() ||
+	 !it.value()->rightProxy() ||
+	 !it.value()->scene())
 	/*
+	** Ignore invalid objects.
 	** Ignore wires which do not reside in scenes.
 	*/
 
