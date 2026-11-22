@@ -445,8 +445,7 @@ class glitch_object: public QWidget
   QMainWindow *parentMainWindow(void) const;
   QToolButton *contextMenuButton(void) const;
   bool event(QEvent *event);
-  void allObjectsImplementation
-    (QList<glitch_object *> &list, QSet<glitch_object *> &visited);
+  void allObjectsImplementation(QSet<glitch_object *> &set);
   void disconnectInputs(void);
   void disconnectOutputs(void);
   void setOpacity(void);

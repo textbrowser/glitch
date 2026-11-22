@@ -251,16 +251,15 @@ QImage glitch_object::image(void) const
 
 QList<glitch_object *> glitch_object::allObjects(void)
 {
-  QList<glitch_object *> list;
-
   if(m_editView)
     {
-      QSet<glitch_object *> visited;
+      QSet<glitch_object *> set;
 
-      allObjectsImplementation(list, visited);
+      allObjectsImplementation(set);
+      return set.values();
     }
-
-  return list;
+  else
+    return QList<glitch_object *> ();
 }
 
 QList<glitch_object *> glitch_object::objects(void) const
@@ -756,23 +755,17 @@ void glitch_object::addDefaultActions(QMenu &menu)
     }
 }
 
-void glitch_object::allObjectsImplementation
-(QList<glitch_object *> &list, QSet<glitch_object *> &visited)
+void glitch_object::allObjectsImplementation(QSet<glitch_object *> &set)
 {
-  if(visited.contains(this))
+  if(!m_editView)
     return;
 
-  visited.insert(this);
-
-  if(m_editView)
-    {
-      foreach(auto object, m_editView->objects())
-	if(object && visited.contains(object) == false)
-	  {
-	    list << object;
-	    object->allObjectsImplementation(list, visited);
-	  }
-    }
+  foreach(auto object, m_editView->objects())
+    if(object && set.contains(object) == false)
+      {
+	set.insert(object);
+	object->allObjectsImplementation(set);
+      }
 }
 
 void glitch_object::afterPaste(void)
