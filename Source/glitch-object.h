@@ -233,7 +233,7 @@ class glitch_object: public QWidget
   }
 
   QImage image(void) const;
-  QList<glitch_object *> allObjects(void) const;
+  QList<glitch_object *> allObjects(void);
   QList<glitch_object *> objects(void) const;
 
   QPainterPath path(void) const
@@ -445,7 +445,8 @@ class glitch_object: public QWidget
   QMainWindow *parentMainWindow(void) const;
   QToolButton *contextMenuButton(void) const;
   bool event(QEvent *event);
-  void allObjectsImplementation(QList<glitch_object *> &list) const;
+  void allObjectsImplementation
+    (QList<glitch_object *> &list, QSet<glitch_object *> &visited);
   void disconnectInputs(void);
   void disconnectOutputs(void);
   void setOpacity(void);

@@ -249,12 +249,16 @@ QImage glitch_object::image(void) const
     return QImage();
 }
 
-QList<glitch_object *> glitch_object::allObjects(void) const
+QList<glitch_object *> glitch_object::allObjects(void)
 {
   QList<glitch_object *> list;
 
   if(m_editView)
-    allObjectsImplementation(list);
+    {
+      QSet<glitch_object *> visited;
+
+      allObjectsImplementation(list, visited);
+    }
 
   return list;
 }
@@ -752,15 +756,21 @@ void glitch_object::addDefaultActions(QMenu &menu)
     }
 }
 
-void glitch_object::allObjectsImplementation(QList<glitch_object *> &list) const
+void glitch_object::allObjectsImplementation
+(QList<glitch_object *> &list, QSet<glitch_object *> &visited)
 {
+  if(visited.contains(this))
+    return;
+
+  visited.insert(this);
+
   if(m_editView)
     {
       foreach(auto object, m_editView->objects())
-	if(object)
+	if(object && visited.contains(object) == false)
 	  {
 	    list << object;
-	    object->allObjectsImplementation(list);
+	    object->allObjectsImplementation(list, visited);
 	  }
     }
 }
@@ -1410,10 +1420,10 @@ void glitch_object::save(const QSqlDatabase &db, QString &error)
   query.addBindValue(QString("(%1,%2)").arg(pos().x()).arg(pos().y()));
   query.addBindValue(styleSheet());
   query.addBindValue(objectType());
-  query.exec();
 
-  if(query.lastError().isValid())
-    error = query.lastError().text();
+  if(!query.exec())
+    if(query.lastError().isValid())
+      error = query.lastError().text();
 
   if(error.isEmpty())
     saveProperties(QMap<QString, QVariant> (), db, error);
@@ -1481,10 +1491,10 @@ void glitch_object::saveProperties(const QMap<QString, QVariant> &p,
   query.prepare("UPDATE objects SET properties = ? WHERE myoid = ?");
   query.addBindValue(string);
   query.addBindValue(m_id);
-  query.exec();
 
-  if(query.lastError().isValid())
-    error = query.lastError().text();
+  if(!query.exec())
+    if(query.lastError().isValid())
+      error = query.lastError().text();
 }
 
 void glitch_object::separate(void)
