@@ -436,5 +436,6 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
+- Review glitch_ui::mainWindow().
 - The method glitch_object::slotWireObjects() may fail if objects occupy
   the same positions.
