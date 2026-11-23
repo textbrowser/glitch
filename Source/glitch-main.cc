@@ -43,30 +43,33 @@
 
 int main(int argc, char *argv[])
 {
-  for(int i = 0; i < argc; i++)
-    if(!argv || !argv[i])
-      continue;
-    else if(strcmp(argv[i], "--help") == 0)
-      {
-	std::cout << "Glitch [options]" << std::endl;
-	std::cout << " --full-screen" << std::endl;
-	std::cout << " --generate-source" << std::endl;
-	std::cout << " --help" << std::endl;
-	std::cout << " --new-arduino-diagram diagram-name" << std::endl;
-	std::cout << " --open-arduino-diagrams file-name(s)" << std::endl;
-	std::cout << " --show-serial-port-window" << std::endl;
-	std::cout << " --show-tools" << std::endl;
-	std::cout << " --version" << std::endl;
-	return static_cast<int> (EXIT_SUCCESS);
-      }
-    else if(strcmp(argv[i], "--version") == 0)
-      {
-	std::cout << "Glitch version "
-		  << GLITCH_VERSION_STRING
-		  << "."
-		  << std::endl;
-	return static_cast<int> (EXIT_SUCCESS);
-      }
+  if(argv)
+    {
+      for(int i = 0; i < argc; i++)
+	if(!argv[i])
+	  continue;
+	else if(strcmp(argv[i], "--help") == 0)
+	  {
+	    std::cout << "Glitch [options]" << std::endl;
+	    std::cout << " --full-screen" << std::endl;
+	    std::cout << " --generate-source" << std::endl;
+	    std::cout << " --help" << std::endl;
+	    std::cout << " --new-arduino-diagram diagram-name" << std::endl;
+	    std::cout << " --open-arduino-diagrams file-name(s)" << std::endl;
+	    std::cout << " --show-serial-port-window" << std::endl;
+	    std::cout << " --show-tools" << std::endl;
+	    std::cout << " --version" << std::endl;
+	    return static_cast<int> (EXIT_SUCCESS);
+	  }
+	else if(strcmp(argv[i], "--version") == 0)
+	  {
+	    std::cout << "Glitch version "
+		      << GLITCH_VERSION_STRING
+		      << "."
+		      << std::endl;
+	    return static_cast<int> (EXIT_SUCCESS);
+	  }
+    }
 
   QDir().mkpath(glitch_variety::homePath());
 #if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)

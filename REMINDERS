@@ -438,4 +438,4 @@ Remaining Items
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
 - The method glitch_object::slotWireObjects() may fail if objects occupy
-  the same positions.
+  identical positions.

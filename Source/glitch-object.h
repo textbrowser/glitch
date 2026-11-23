@@ -469,7 +469,7 @@ class glitch_object: public QWidget
 						 ** Must be cloned, if
 						 ** required!
 						 */
-  QList<QPair<QPointF, QPointF> > m_copiedConnectionsPositions; // Cloning.
+  QList<QPair<qint64, qint64> > m_copiedConnectionsIds; // Cloning.
   QList<QPointer<glitch_object> > m_copiedChildren; // Cloning.
   QMap<DefaultMenuActions, QAction *> m_actions;
   QPainterPath m_path;
@@ -518,7 +518,7 @@ class glitch_object: public QWidget
   virtual void resizeEvent(QResizeEvent *event);
   void addDefaultActions(QMenu &menu);
   void cloneWires(const QHash<qint64, QPointer<glitch_wire> > &wires);
-  void cloneWires(const QList<QPair<QPointF, QPointF> > &list);
+  void cloneWires(const QList<QPair<qint64, qint64> > &list);
   void createActions(void);
   void prepareContextMenu(void);
   void prepareEditObjects(const glitch_view *parentView);

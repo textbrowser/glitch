@@ -81,6 +81,7 @@ class glitch_proxy_widget: public QGraphicsProxyWidget
     return Type;
   }
 
+  qint64 id(void) const;
   void geometryChanged(const QRectF &previousRect);
   void prepareHoverSection(const QPointF &point);
   void setObject(QWidget *widget);

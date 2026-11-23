@@ -794,11 +794,21 @@ void glitch_ui::copy(glitch_object *object)
       if(object)
 	{
 	  clone = object->clone(nullptr);
-	  clone->setOriginalPosition(point);
+
+	  if(clone)
+	    {
+	      clone->setOriginalPosition(point);
+	      clone->setProperty("clone-id", object->id());
+	    }
 	}
     }
   else
-    clone = object->clone(nullptr);
+    {
+      clone = object->clone(nullptr);
+
+      if(clone)
+	clone->setProperty("clone-id", object->id());
+    }
 
   if(clone)
     s_copiedObjects.insert
@@ -932,12 +942,15 @@ void glitch_ui::paste(QGraphicsView *view, QUndoStack *undoStack)
       if(!object)
 	continue;
 
+      auto const id = object->property("clone-id");
+
       object->setCanvasSettings(scene->canvasSettings());
 
       if(!(object = object->clone(view)))
 	continue;
       else
 	{
+	  object->setProperty("clone-id", id);
 	  connect(scene,
 		  SIGNAL(wireObjects(void)),
 		  object,

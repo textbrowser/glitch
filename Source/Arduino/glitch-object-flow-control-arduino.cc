@@ -282,7 +282,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_flow_control_arduino(parent);
 
-  clone->cloneWires(m_copiedConnectionsPositions);
+  clone->cloneWires(m_copiedConnectionsIds);
   clone->cloneWires(m_wires);
   clone->m_flowControlType = m_flowControlType;
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
@@ -308,6 +308,7 @@ clone(QWidget *parent) const
 
 	if(child)
 	  {
+	    child->setProperty("clone-id", object->id());
 	    child->setProperty("position", object->scenePos());
 	    clone->m_copiedChildren << child;
 	  }
@@ -333,6 +334,7 @@ clone(QWidget *parent) const
 	      child->compressWidget
 		(child->property(Properties::COMPRESSED_WIDGET).toBool());
 	      child->setCanvasSettings(m_canvasSettings);
+	      child->setProperty("clone-id", object->id());
 	      clone->addChild
 		(object->property("position").toPoint(), child, ok);
 

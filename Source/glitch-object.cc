@@ -792,19 +792,17 @@ void glitch_object::cloneWires
 
 	continue;
 
-      QPair<QPointF, QPointF> pair;
+      QPair<qint64, qint64> pair;
 
-      pair.first = it.value()->leftProxy()->pos();
-      pair.second = it.value()->rightProxy()->pos();
-
-      if(!m_copiedConnectionsPositions.contains(pair))
-	m_copiedConnectionsPositions << pair;
+      pair.first = it.value()->leftProxy()->id();
+      pair.second = it.value()->rightProxy()->id();
+      m_copiedConnectionsIds << pair;
     }
 }
 
-void glitch_object::cloneWires(const QList<QPair<QPointF, QPointF> > &list)
+void glitch_object::cloneWires(const QList<QPair<qint64, qint64> > &list)
 {
-  m_copiedConnectionsPositions = list;
+  m_copiedConnectionsIds = list;
 }
 
 void glitch_object::compressWidget(const bool state)
@@ -2362,7 +2360,7 @@ void glitch_object::slotChanged(void)
 
 void glitch_object::slotClearTemporaryContainers(void)
 {
-  m_copiedConnectionsPositions.clear();
+  m_copiedConnectionsIds.clear();
   m_originalPosition = QPointF();
 }
 
@@ -2822,28 +2820,40 @@ void glitch_object::slotWireObjects(void)
 	     this,
 	     SLOT(slotWireObjects(void)));
 
-  foreach(auto const &pair, m_copiedConnectionsPositions)
+  foreach(auto const &pair, m_copiedConnectionsIds)
     {
-      glitch_object *object1 = nullptr;
-      glitch_object *object2 = nullptr;
+      QList<glitch_object *> objects;
 
       foreach(auto object, scene->objects())
 	if(object)
 	  {
-	    if(object->m_originalPosition == pair.first)
+	    if(!glitch_ui::s_copiedObjectsSet.contains(object))
+	      /*
+	      ** Ignore the original object.
+	      */
+
+	      continue;
+
+	    if(object->property("clone-id").toLongLong() == pair.first)
 	      {
-		if(!object1)
-		  object1 = object;
+		if(!objects.contains(object))
+		  objects << object;
 	      }
-	    else if(object->m_originalPosition == pair.second)
+	    else if(object->property("clone-id").toLongLong() == pair.second)
 	      {
-		if(!object2)
-		  object2 = object;
+		if(!objects.contains(object))
+		  objects << object;
 	      }
 
-	    if(object1 && object2)
+	    if(objects.value(0) && objects.value(1))
 	      break;
 	  }
+
+      auto object1 = objects.value(0);
+      auto object2 = objects.value(1);
+
+      glitch_ui::s_copiedObjectsSet.remove(object1);
+      glitch_ui::s_copiedObjectsSet.remove(object2);
 
       if(!scene->areObjectsWired(object1, object2) && object1 && object2)
 	{

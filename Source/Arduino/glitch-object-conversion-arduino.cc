@@ -134,7 +134,7 @@ glitch_object_conversion_arduino *glitch_object_conversion_arduino::clone
 {
   auto clone = new glitch_object_conversion_arduino(parent);
 
-  clone->cloneWires(m_copiedConnectionsPositions);
+  clone->cloneWires(m_copiedConnectionsIds);
   clone->cloneWires(m_wires);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
   clone->m_properties = m_properties;

@@ -168,6 +168,14 @@ glitch_proxy_widget::Sections glitch_proxy_widget::hoveredSection(void) const
   return m_hoveredSection;
 }
 
+qint64 glitch_proxy_widget::id(void) const
+{
+  if(m_object)
+    return m_object->id();
+  else
+    return 0;
+}
+
 void glitch_proxy_widget::contextMenuEvent
 (QGraphicsSceneContextMenuEvent *event)
 {

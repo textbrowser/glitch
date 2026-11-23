@@ -1797,6 +1797,8 @@ void glitch_scene::paste
       if(!object)
 	continue;
 
+      auto const id = object->property("clone-id");
+
       object->setCanvasSettings(canvasSettings());
 
       if(!(object = object->clone(view)))
@@ -1811,6 +1813,7 @@ void glitch_scene::paste
 		  object,
 		  SLOT(slotWireObjects(void)),
 		  Qt::UniqueConnection);
+	  object->setProperty("clone-id", id);
 	  object->setProperty
 	    (glitch_object::Properties::POSITION_LOCKED, false);
 	  objects.at(i)->deleteLater();

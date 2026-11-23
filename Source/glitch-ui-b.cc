@@ -93,11 +93,21 @@ QList<glitch_object *> glitch_ui::copySelected
 	  if(object)
 	    {
 	      clone = object->clone(nullptr);
-	      clone->setOriginalPosition(point);
+
+	      if(clone)
+		{
+		  clone->setOriginalPosition(point);
+		  clone->setProperty("clone-id", object->id());
+		}
 	    }
 	}
       else
-	clone = object->clone(nullptr);
+	{
+	  clone = object->clone(nullptr);
+
+	  if(clone)
+	    clone->setProperty("clone-id", object->id());
+	}
 
       if(deselectOriginal)
 	proxy->setSelected(false);

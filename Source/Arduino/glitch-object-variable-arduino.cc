@@ -276,7 +276,7 @@ clone(QWidget *parent) const
 {
   auto clone = new glitch_object_variable_arduino(parent);
 
-  clone->cloneWires(m_copiedConnectionsPositions);
+  clone->cloneWires(m_copiedConnectionsIds);
   clone->cloneWires(m_wires);
   clone->connectSignals(false);
   clone->m_originalPosition = scene() ? scenePos() : m_originalPosition;
