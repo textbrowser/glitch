@@ -2827,13 +2827,6 @@ void glitch_object::slotWireObjects(void)
       foreach(auto object, scene->objects())
 	if(object)
 	  {
-	    if(!glitch_ui::s_copiedObjectsSet.contains(object))
-	      /*
-	      ** Ignore the original object.
-	      */
-
-	      continue;
-
 	    if(object->property("clone-id").toLongLong() == pair.first)
 	      {
 		if(!objects.contains(object))
@@ -2851,9 +2844,6 @@ void glitch_object::slotWireObjects(void)
 
       auto object1 = objects.value(0);
       auto object2 = objects.value(1);
-
-      glitch_ui::s_copiedObjectsSet.remove(object1);
-      glitch_ui::s_copiedObjectsSet.remove(object2);
 
       if(!scene->areObjectsWired(object1, object2) && object1 && object2)
 	{
@@ -2881,6 +2871,9 @@ void glitch_object::slotWireObjects(void)
 	  wire->setWireWidth
 	    (m_canvasSettings ? m_canvasSettings->wireWidth(): 2.5);
 	}
+
+      glitch_ui::s_copiedObjectsSet.remove(object1);
+      glitch_ui::s_copiedObjectsSet.remove(object2);
     }
 
   QApplication::restoreOverrideCursor();

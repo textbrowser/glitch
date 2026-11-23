@@ -98,7 +98,7 @@ class swifty: public QNetworkAccessManager
     if(m_reply)
       m_reply->deleteLater();
 
-    const auto index = m_buffer.indexOf(m_search_for_string.toUtf8());
+    auto const index = m_buffer.indexOf(m_search_for_string.toUtf8());
 
     if(index >= 0)
       {

@@ -375,6 +375,8 @@ Completed Items
 - Structures context menu on view object.
 - Style sheets. User input is not validated.
 - Tab menu for tabbed edit windows.
+- The method glitch_object::slotWireObjects() may fail if objects occupy
+  identical positions.
 - The name of the display in settings should be separate from the file name.
 - Tool for object visibility.
 - Tools Bar?
@@ -437,5 +439,3 @@ Remaining Items
   in a new main-window function in the other diagram.
 - Recursive copying of nested function definitions.
 - Resizing after a font is difficult because of redo / undo.
-- The method glitch_object::slotWireObjects() may fail if objects occupy
-  identical positions.
