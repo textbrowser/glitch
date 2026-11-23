@@ -1200,7 +1200,7 @@ void glitch_ui::prepareIcons(void)
 void glitch_ui::prepareRecentFiles(void)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-  QDir().mkdir(glitch_variety::homePath() + QDir::separator() + "Glitch");
+  QDir().mkpath(glitch_variety::homePath() + QDir::separator() + "Glitch");
 
   QString connectionName("");
   QStringList list;
