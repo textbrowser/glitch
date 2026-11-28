@@ -1,6 +1,6 @@
 <html>
   <body>
-    <h4><u>2026.11.23 Release</u></h4>
+    <h4><u>2026.12.25 Release</u></h4>
     <p>
       <b>Corrections</b>
       <ul>
@@ -18,6 +18,9 @@
 	  directories.</li>
 	<li>Prevent negative sizes in glitch_object::setProperties().
 	  Minimum of QSize(5, 5).</li>
+	<li>QPoint::isNull() is true if an object is located at (0, 0).
+	  A redo-undo event in glitch_alignment will not be recorded
+	  correctly for a widget positioned at (0, 0).</li>
 	<li>Removed CocoaInitializer from MacOS.</li>
 	<li>Some QAction objects will be children of the menus in which the
 	  objects reside.</li>

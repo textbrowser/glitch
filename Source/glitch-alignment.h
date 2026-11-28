@@ -220,6 +220,7 @@ class glitch_alignment: public QWidget
 	  continue;
 
 	QPoint point;
+	auto moved = false;
 
 	switch(alignmentType)
 	  {
@@ -227,6 +228,7 @@ class glitch_alignment: public QWidget
 	    {
 	      if(object->height() + object->pos().y() != y)
 		{
+		  moved = true;
 		  point = object->pos();
 		  object->move(x, y - object->height());
 		}
@@ -239,6 +241,7 @@ class glitch_alignment: public QWidget
 	      QRect const rect(QPoint(minP.first, minP.second),
 			       QPoint(maxP.first, maxP.second));
 
+	      moved = true;
 	      point = object->pos();
 
 	      if(alignmentType == AlignmentTypes::ALIGN_CENTER_HORIZONTAL)
@@ -254,6 +257,7 @@ class glitch_alignment: public QWidget
 	    {
 	      if(object->pos().x() + object->width() != x)
 		{
+		  moved = true;
 		  point = object->pos();
 		  object->move(x - object->width(), y);
 		}
@@ -262,29 +266,29 @@ class glitch_alignment: public QWidget
 	    }
 	  default:
 	    {
+	      moved = true;
 	      point = object->pos();
 	      object->move(x, y);
 	      break;
 	    }
 	  }
 
-	if(!point.isNull())
-	  if(object->pos() != point)
-	    {
-	      if(!began)
-		{
-		  began = true;
-		  view->beginMacro(tr("items aligned"));
-		}
+	if(moved && object->pos() != point)
+	  {
+	    if(!began)
+	      {
+		began = true;
+		view->beginMacro(tr("items aligned"));
+	      }
 
-	      auto undoCommand = new glitch_undo_command
-		(QPointF(point),
-		 glitch_undo_command::Types::ITEM_MOVED,
-		 proxy,
-		 view->scene());
+	    auto undoCommand = new glitch_undo_command
+	      (QPointF(point),
+	       glitch_undo_command::Types::ITEM_MOVED,
+	       proxy,
+	       view->scene());
 
-	      view->push(undoCommand);
-	    }
+	    view->push(undoCommand);
+	  }
       }
 
     if(firstIteration)
@@ -373,11 +377,13 @@ class glitch_alignment: public QWidget
 	  continue;
 
 	QPoint point;
+	auto moved = false;
 
 	if(stackType == StackTypes::HORIZONTAL_STACK)
 	  {
 	    if(widget->proxy()->isMovable())
 	      {
+		moved = true;
 		point = widget->pos();
 		widget->move(coordinate, widget->pos().y());
 	      }
@@ -388,6 +394,7 @@ class glitch_alignment: public QWidget
 	  {
 	    if(widget->proxy()->isMovable())
 	      {
+		moved = true;
 		point = widget->pos();
 		widget->move(widget->pos().x(), coordinate);
 	      }
@@ -395,23 +402,22 @@ class glitch_alignment: public QWidget
 	    coordinate += widget->height();
 	  }
 
-	if(!point.isNull())
-	  if(point != widget->pos())
-	    {
-	      if(!began)
-		{
-		  began = true;
-		  view->beginMacro(tr("items stacked"));
-		}
+	if(moved && point != widget->pos())
+	  {
+	    if(!began)
+	      {
+		began = true;
+		view->beginMacro(tr("items stacked"));
+	      }
 
-	      auto undoCommand = new glitch_undo_command
-		(QPointF(point),
-		 glitch_undo_command::Types::ITEM_MOVED,
-		 widget->proxy(),
-		 view->scene());
+	    auto undoCommand = new glitch_undo_command
+	      (QPointF(point),
+	       glitch_undo_command::Types::ITEM_MOVED,
+	       widget->proxy(),
+	       view->scene());
 
-	      view->push(undoCommand);
-	    }
+	    view->push(undoCommand);
+	  }
       }
 
     if(began)
