@@ -54,5 +54,5 @@ then
     exit 1
 fi
 
-mv Glitch.d.dmg Glitch-2026.05.22_Universal.d.dmg
+mv Glitch.d.dmg Glitch-2026.12.25_Universal.d.dmg
 make distclean 2>/dev/null
