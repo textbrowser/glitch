@@ -91,7 +91,7 @@ class glitch_canvas_settings_item_delegate: public QStyledItemDelegate
   }
 
   QPointer<QWidget> m_parent;
-  mutable QModelIndex m_index;
+  mutable QPersistentModelIndex m_index;
 
  private slots:
   void slotSelectColor(void)
